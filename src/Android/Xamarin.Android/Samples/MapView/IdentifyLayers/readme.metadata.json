@@ -1,0 +1,26 @@
+{
+    "category": "MapView",
+    "description": "Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.",
+    "ignore": false,
+    "images": "IdentifyLayers.jpg",
+    "keywords": [
+        "identify",
+        "recursion",
+        "recursive",
+        "sublayers"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/identifylayers.htm"
+    ],
+    "relevant_apis": [
+        "",
+        "IdentifyLayerResult",
+        "IdentifyLayerResult.LayerContent.Name",
+        "IdentifyLayerResult.SublayerResults",
+        "MapView.IdentifyLayersAsync"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Identify layers"
+}

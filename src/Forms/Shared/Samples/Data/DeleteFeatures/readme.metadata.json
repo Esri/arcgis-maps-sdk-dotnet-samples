@@ -1,0 +1,27 @@
+{
+    "category": "Data",
+    "description": "Delete features from an online feature service.",
+    "ignore": false,
+    "images": "DeleteFeatures.jpg",
+    "keywords": [
+        "Service",
+        "deletion",
+        "feature",
+        "online",
+        "table"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/deletefeatures.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "Feature",
+        "FeatureLayer",
+        "MapView",
+        "ServiceFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Delete features (feature service)"
+}

@@ -1,0 +1,24 @@
+{
+    "category": "Layers",
+    "description": "Discover available styles and apply them to WMS sublayers.",
+    "ignore": false,
+    "images": "StyleWmsLayer.jpg",
+    "keywords": [
+        "WMS",
+        "imagery",
+        "styles"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/stylewmslayer.htm"
+    ],
+    "relevant_apis": [
+        "WmsLayer.Sublayers",
+        "WmsSublayer.CurrentStyle",
+        "WmsSublayerInfo",
+        "WmsSublayerInfo.Styles"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Style WMS layers"
+}

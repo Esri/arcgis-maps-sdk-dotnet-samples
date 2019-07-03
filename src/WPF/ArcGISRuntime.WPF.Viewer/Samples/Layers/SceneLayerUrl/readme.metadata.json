@@ -1,0 +1,24 @@
+{
+    "category": "Layers",
+    "description": "Display an ArcGIS scene layer from a URL.",
+    "ignore": false,
+    "images": "SceneLayerUrl.jpg",
+    "keywords": [
+        "3D",
+        "Buildings",
+        "model",
+        "scene"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/scenelayerurl.htm"
+    ],
+    "relevant_apis": [
+        "Scene",
+        "ArcGISSceneLayer",
+        "SceneView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Scene layer (URL)"
+}

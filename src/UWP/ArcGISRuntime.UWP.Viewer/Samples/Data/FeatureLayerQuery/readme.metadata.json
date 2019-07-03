@@ -1,0 +1,22 @@
+{
+    "category": "Data",
+    "description": "Find features in a feature table which match an SQL query.",
+    "ignore": false,
+    "images": "FeatureLayerQuery.jpg",
+    "keywords": [
+        "Search and Query"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurelayerquery.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureQueryResult",
+        "QueryParameters",
+        "ServiceFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Feature layer query"
+}

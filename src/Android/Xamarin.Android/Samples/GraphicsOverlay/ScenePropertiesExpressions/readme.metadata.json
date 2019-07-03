@@ -1,0 +1,30 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Update the orientation of a graphic using scene property rotation expressions.",
+    "ignore": false,
+    "images": "ScenePropertiesExpressions.jpg",
+    "keywords": [
+        "3D",
+        "expression",
+        "heading",
+        "pitch",
+        "rotation",
+        "scene",
+        "symbology"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/scenepropertiesexpressions.htm"
+    ],
+    "relevant_apis": [
+        "Graphic.Attributes",
+        "GraphicsOverlay",
+        "SceneProperties",
+        "SceneProperties.HeadingExpression",
+        "SimpleRenderer",
+        "SimpleRenderer.SceneProperties"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Scene properties expressions"
+}

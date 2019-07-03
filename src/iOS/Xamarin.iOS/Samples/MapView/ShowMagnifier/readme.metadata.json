@@ -1,0 +1,22 @@
+{
+    "category": "MapView",
+    "description": "Tap and hold on a map to show a magnifier.",
+    "ignore": false,
+    "images": "ShowMagnifier.jpg",
+    "keywords": [
+        "magnify",
+        "map",
+        "zoom"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/showmagnifier.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Show magnifier"
+}

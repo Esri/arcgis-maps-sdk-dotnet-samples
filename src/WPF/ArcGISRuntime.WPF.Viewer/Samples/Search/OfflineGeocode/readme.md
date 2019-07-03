@@ -1,32 +1,32 @@
-# Offline Geocode
+# Offline geocode
 
-Geocode addresses to locations and reverse geocode locations to addresses when the device does not have network connectivity.
+Geocode addresses to locations and reverse geocode locations to addresses offline.
 
-![Offline Geocode App](OfflineGeocode.jpg)
+![screenshot](OfflineGeocode.jpg)
 
 ## How to use the sample
 
-Type an address in the search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. The locator used by this sample doesn't support suggestion, so you must use a full address (including city) to get results.
+Type the address in the Search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. Select the pin to highlight the `PictureMarkerSymbol` (i.e. single tap on the pin) and then tap-hold and drag on the map to get real-time geocoding.
 
 ## How it works
 
-1. Use the path of SanFrancisco.loc to create a `LocatorTask` object. 
+1. Use the path of a .loc file to create a `LocatorTask` object.
 2. Set up `GeocodeParameters` and call `GeocodeAsync` to get geocode results.
 
 ## Relevant API
 
-* GeocodeResult
 * GeocodeParameters
+* GeocodeResult
 * LocatorTask
 * ReverseGeocodeParameters
 
 ## Offline data
 
-The sample viewer will download offline data automatically before loading the sample.
-	
-* [San Diego Streets Tile Package](http://www.arcgis.com/home/item.html?id=1330ab96ac9c40a49e59650557f2cd63)
-* [San Diego Offline Locator](http://www.arcgis.com/home/item.html?id=344e3b12368543ef84045ef9aa3c32ba)
-	
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [streetmap_SD.tpk](https://www.arcgis.com/home/item.html?id=1330ab96ac9c40a49e59650557f2cd63) - Streets Tile Package (tpk) for the City of San Diego.
+* [san-diego-locator.zip](https://www.arcgis.com/home/item.html?id=344e3b12368543ef84045ef9aa3c32ba) - Includes San Diego Locator Offline Dataset.
+
 ## Tags
 
-Search and Query, offline, geocode, locator, geocoder, package
+Search and Query, geocode, geocoder, locator, offline, package

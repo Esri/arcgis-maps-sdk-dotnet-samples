@@ -1,0 +1,27 @@
+{
+    "category": "Symbology",
+    "description": "Extrude features based on their attributes.",
+    "ignore": false,
+    "images": "FeatureLayerExtrusion.jpg",
+    "keywords": [
+        "3D",
+        "ExtrusionExpression",
+        "ExtrusionMode",
+        "Scene",
+        "SimpleRenderer",
+        "extrude"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/featurelayerextrusion.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureLayer",
+        "SceneProperties",
+        "ServiceFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Feature layer extrusion"
+}

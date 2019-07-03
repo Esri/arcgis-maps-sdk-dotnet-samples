@@ -1,0 +1,31 @@
+{
+    "category": "Symbology",
+    "description": "Show various kinds of 3D symbols in a scene.",
+    "ignore": false,
+    "images": "SceneSymbols.jpg",
+    "keywords": [
+        "3D",
+        "Scenes",
+        "cone",
+        "cylinder",
+        "diamond",
+        "graphics",
+        "graphics overlay",
+        "sphere",
+        "symbols",
+        "tetrahedron",
+        "tube"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/scenesymbols.htm"
+    ],
+    "relevant_apis": [
+        "SceneSymbol.AnchorPosition",
+        "SimpleMarkerSceneSymbol",
+        "SimpleMarkerSceneSymbol.Style"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Scene symbols"
+}

@@ -1,0 +1,22 @@
+{
+    "category": "Map",
+    "description": "Display a map from a mobile map package.",
+    "ignore": false,
+    "images": "OpenMobileMap.jpg",
+    "keywords": [
+        "mmpk",
+        "mobile map package",
+        "offline"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/openmobilemap.htm"
+    ],
+    "relevant_apis": [
+        "MapView",
+        "MobileMapPackage"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Open mobile map package"
+}

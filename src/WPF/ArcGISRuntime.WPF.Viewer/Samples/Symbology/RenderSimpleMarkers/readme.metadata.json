@@ -1,0 +1,23 @@
+{
+    "category": "Symbology",
+    "description": "Show a simple marker symbol on a map.",
+    "ignore": false,
+    "images": "RenderSimpleMarkers.jpg",
+    "keywords": [
+        "SimpleMarkerSymbol",
+        "symbol"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/rendersimplemarkers.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "Point",
+        "SimpleMarkerSymbol"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Render simple markers"
+}

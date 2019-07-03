@@ -1,0 +1,23 @@
+{
+    "category": "Layers",
+    "description": "Use a hillshade renderer on a raster.",
+    "ignore": false,
+    "images": "RasterHillshade.jpg",
+    "keywords": [
+        "Visualization",
+        "hillshade",
+        "raster",
+        "shadow",
+        "slope"
+    ],
+    "offline_data": [
+        "134d60f50e184e8fa56365f44e5ce3fb"
+    ],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/rasterhillshade.htm"
+    ],
+    "relevant_apis": [],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Raster hillshade renderer"
+}

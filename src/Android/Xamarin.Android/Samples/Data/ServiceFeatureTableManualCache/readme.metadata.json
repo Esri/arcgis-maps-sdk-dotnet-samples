@@ -1,0 +1,25 @@
+{
+    "category": "Data",
+    "description": "Display a feature layer from a service using the **manual cache** feature request mode.",
+    "ignore": false,
+    "images": "ServiceFeatureTableManualCache.jpg",
+    "keywords": [
+        "cache",
+        "feature request mode",
+        "performance"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/servicefeaturetablemanualcache.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureRequestMode.ManualCache",
+        "ServiceFeatureTable",
+        "ServiceFeatureTable.PopulateFromServiceAsync",
+        "ServiceFeatureTable.FeatureRequestMode"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Service feature table (manual cache)"
+}

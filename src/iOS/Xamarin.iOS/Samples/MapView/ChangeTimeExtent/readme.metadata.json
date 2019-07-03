@@ -1,0 +1,15 @@
+{
+    "category": "MapView",
+    "description": "This sample demonstrates how to filter data in layers by applying a time extent to a MapView.",
+    "ignore": false,
+    "images": "ChangeTimeExtent.jpg",
+    "keywords": [],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/changetimeextent.htm"
+    ],
+    "relevant_apis": [],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Change time extent"
+}

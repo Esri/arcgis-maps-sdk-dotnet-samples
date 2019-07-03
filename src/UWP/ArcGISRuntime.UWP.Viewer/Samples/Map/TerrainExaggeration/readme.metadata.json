@@ -1,0 +1,28 @@
+{
+    "category": "Map",
+    "description": "Configure the vertical exaggeration of terrain (the ground surface) in a scene.",
+    "ignore": false,
+    "images": "TerrainExaggeration.jpg",
+    "keywords": [
+        "3D",
+        "DEM",
+        "DTM",
+        "Elevation",
+        "scene",
+        "surface",
+        "terrain"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/terrainexaggeration.htm"
+    ],
+    "relevant_apis": [
+        "Scene",
+        "Scene.BaseSurface",
+        "Surface",
+        "Surface.ElevationExaggeration"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Terrain exaggeration"
+}

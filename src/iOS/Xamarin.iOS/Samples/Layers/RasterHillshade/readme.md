@@ -1,5 +1,23 @@
 # Raster hillshade renderer
 
-This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).
+Use a hillshade renderer on a raster.
 
-<img src="RasterHillshade.jpg" width="350"/>
+![screenshot](RasterHillshade.jpg)
+
+## How to use the sample
+
+Tap on the wrench button in the Action Bar to change the settings for the `HillshadeRenderer`. The sample allows you to change the `Altitude`, `Azimuth` and `Slope type`. You can tap on the `Render` button to update the raster.
+
+## How it works
+
+1. The parameters provided by the user are passed to `HillshadeRender` at instantiation: `new HillshadeRenderer(mAltitude, mAzimuth, mZFactor, mSlopeType, mPixelSizeFactor, mPixelSizePower, mOutputBitDepth);` which returns a `RasterRenderer`. The `RasterRenderer` is then added to the `RasterLayer`.
+
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [srtm-hillshade.zip](https://www.arcgis.com/home/item.html?id=134d60f50e184e8fa56365f44e5ce3fb) - SRTM DEM
+
+## Tags
+
+Visualization, hillshade, raster, shadow, slope

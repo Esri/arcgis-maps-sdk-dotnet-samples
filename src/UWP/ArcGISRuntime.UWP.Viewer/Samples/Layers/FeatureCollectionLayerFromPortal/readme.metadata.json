@@ -1,0 +1,15 @@
+{
+    "category": "Layers",
+    "description": "This sample demonstrates opening a feature collection saved as a portal item.",
+    "ignore": false,
+    "images": "FeatureCollectionLayerFromPortal.jpg",
+    "keywords": [],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurecollectionlayerfromportal.htm"
+    ],
+    "relevant_apis": [],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Create a feature collection layer from a portal item"
+}

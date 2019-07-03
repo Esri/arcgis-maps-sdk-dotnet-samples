@@ -1,0 +1,24 @@
+{
+    "category": "Data",
+    "description": "Add features to a feature layer.",
+    "ignore": false,
+    "images": "## Use case",
+    "keywords": [
+        "edit",
+        "feature",
+        "online service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/addfeatures.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureEditResult",
+        "FeatureLayer",
+        "ServiceFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Add features"
+}

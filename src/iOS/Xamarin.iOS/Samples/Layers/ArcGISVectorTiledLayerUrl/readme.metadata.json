@@ -1,0 +1,23 @@
+{
+    "category": "Layers",
+    "description": "Load an ArcGIS Vector Tiled Layer from a URL.",
+    "ignore": false,
+    "images": "ArcgisVectortiledlayerUrl.jpg",
+    "keywords": [
+        "ArcGISVectorTiledLayer",
+        "vector basemap",
+        "vector tiled layer",
+        "vector tiles"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/arcgisvectortiledlayerurl.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISVectorTiledLayer",
+        "Basemap"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "ArcGIS vector tiled layer URL"
+}

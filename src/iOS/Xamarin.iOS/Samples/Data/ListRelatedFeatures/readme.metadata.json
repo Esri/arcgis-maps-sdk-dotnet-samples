@@ -1,0 +1,27 @@
+{
+    "category": "Data",
+    "description": "List features related to the selected feature.",
+    "ignore": false,
+    "images": "ListRelatedFeatures.jpg",
+    "keywords": [
+        "IdentifyLayerAsync",
+        "QueryRelatedFeaturesAsync",
+        "RelatedFeatureQueryResult",
+        "relationship",
+        "search and query"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/listrelatedfeatures.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISFeature",
+        "ArcGISFeatureTable",
+        "FeatureQueryResult",
+        "FeatureTable.QueryRelatedFeatures",
+        "RelatedFeatureQueryResult"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "List related features"
+}

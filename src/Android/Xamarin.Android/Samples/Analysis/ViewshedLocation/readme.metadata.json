@@ -1,0 +1,29 @@
+{
+    "category": "Analysis",
+    "description": "Perform a viewshed analysis from a defined vantage point. Viewshed analyses have several configuration options that are demonstrated in this sample.",
+    "ignore": false,
+    "images": "ViewshedLocation.jpg",
+    "keywords": [
+        "3D",
+        "AnalysisOverlay",
+        "LocationViewshed",
+        "Scene",
+        "frustum",
+        "viewshed",
+        "visibility analysis"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/viewshedlocation.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "ArcGISSceneLayer",
+        "ArcGISTiledElevationSource",
+        "LocationViewshed",
+        "Viewshed"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Viewshed for location"
+}

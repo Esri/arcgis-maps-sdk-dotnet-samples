@@ -1,0 +1,22 @@
+{
+    "category": "Security",
+    "description": "This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.",
+    "ignore": false,
+    "images": "TokenSecuredChallenge.jpg",
+    "keywords": [
+        "Authentication",
+        "Security",
+        "Token"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/tokensecuredchallenge.htm"
+    ],
+    "relevant_apis": [
+        "AuthenticationManager",
+        "TokenCredential"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "ArcGIS token challenge"
+}

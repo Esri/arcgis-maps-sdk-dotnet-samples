@@ -1,0 +1,32 @@
+{
+    "category": "Map",
+    "description": "Take a map offline using an available preplanned map area.",
+    "ignore": false,
+    "images": "DownloadPreplannedMap.jpg",
+    "keywords": [
+        "Offline",
+        "map area",
+        "pre-planned",
+        "preplanned"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/downloadpreplannedmap.htm"
+    ],
+    "relevant_apis": [
+        "DownloadPreplannedOfflineMapJob",
+        "DownloadPreplannedOfflineMapParameters",
+        "DownloadPreplannedOfflineMapResult",
+        "DownloadPreplannedOfflineMapResult.HasErrors",
+        "DownloadPreplannedOfflineMapResult.LayerErrors",
+        "DownloadPreplannedOfflineMapResult.TableErrors",
+        "OfflineMapTask",
+        "OfflineMapTask.CreateDefaultDownloadPreplannedOfflineMapParametersAsync",
+        "OfflineMapTask.DownloadPreplannedOfflineMap",
+        "OfflineMapTask.GetPreplannedMapAreasAsync",
+        "PreplannedMapArea"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Download a preplanned map area"
+}

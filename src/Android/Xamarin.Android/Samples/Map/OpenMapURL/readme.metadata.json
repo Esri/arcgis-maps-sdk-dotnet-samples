@@ -1,0 +1,23 @@
+{
+    "category": "Map",
+    "description": "Display a web map.",
+    "ignore": false,
+    "images": "OpenMapUrl.jpg",
+    "keywords": [
+        "portal item",
+        "web map"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/openmapurl.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView",
+        "Portal",
+        "PortalItem"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Open map URL"
+}

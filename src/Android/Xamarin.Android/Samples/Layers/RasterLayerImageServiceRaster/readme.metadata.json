@@ -1,0 +1,21 @@
+{
+    "category": "Layers",
+    "description": "Create a raster layer from a raster image service.",
+    "ignore": false,
+    "images": "RasterLayerImageServiceRaster.jpg",
+    "keywords": [
+        "image service",
+        "raster"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/rasterlayerimageserviceraster.htm"
+    ],
+    "relevant_apis": [
+        "ImageServiceRaster",
+        "RasterLayer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Raster layer (service)"
+}

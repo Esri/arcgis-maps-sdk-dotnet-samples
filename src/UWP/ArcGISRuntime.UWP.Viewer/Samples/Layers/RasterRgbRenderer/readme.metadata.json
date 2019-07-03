@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Use an `RGBRenderer` on a `RasterLayer`. An `RGBRenderer` is used to adjust the color bands of a multispectral image.",
+    "ignore": false,
+    "images": "RasterRgbRenderer.jpg",
+    "keywords": [
+        "RGB",
+        "Visualization",
+        "analysis",
+        "bands",
+        "imagery",
+        "multispectral",
+        "raster",
+        "renderer"
+    ],
+    "offline_data": [
+        "7c4c679ab06a4df19dc497f577f111bd"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/rasterrgbrenderer.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "Basemap",
+        "MapView",
+        "RGBRenderer",
+        "Raster",
+        "RasterLayer",
+        "StretchParameters"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "RGB Renderer"
+}

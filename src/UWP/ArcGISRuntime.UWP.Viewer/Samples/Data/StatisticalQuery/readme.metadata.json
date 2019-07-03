@@ -1,0 +1,38 @@
+{
+    "category": "Data",
+    "description": "Query a table to get aggregated statistics back for a specific field.",
+    "ignore": false,
+    "images": "StatisticalQuery.jpg",
+    "keywords": [
+        "analysis",
+        "average",
+        "bounding geometry",
+        "filter",
+        "intersect",
+        "maximum",
+        "mean",
+        "minimum",
+        "query",
+        "spatial query",
+        "standard deviation",
+        "statistics",
+        "sum",
+        "variance"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/statisticalquery.htm"
+    ],
+    "relevant_apis": [
+        "QueryParameters",
+        "ServiceFeatureTable",
+        "StatisticDefinition",
+        "StatisticRecord",
+        "StatisticType",
+        "StatisticsQueryParameters",
+        "StatisticsQueryResult"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Statistical query"
+}

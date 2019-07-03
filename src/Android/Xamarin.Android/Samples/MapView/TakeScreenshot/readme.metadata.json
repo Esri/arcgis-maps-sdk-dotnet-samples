@@ -1,0 +1,30 @@
+{
+    "category": "MapView",
+    "description": "Take a screenshot of the map.",
+    "ignore": false,
+    "images": "TakeScreenshot.jpg",
+    "keywords": [
+        "Screenshot",
+        "capture",
+        "export",
+        "image",
+        "print",
+        "screen capture",
+        "share",
+        "shot"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/takescreenshot.htm"
+    ],
+    "relevant_apis": [
+        "GeoView.DrawStatus",
+        "GeoView.DrawStatusChanged",
+        "GeoView.ExportImageAsync",
+        "RuntimeImage",
+        "RuntimeImage.ToImageSourceAsync"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Take a screenshot"
+}

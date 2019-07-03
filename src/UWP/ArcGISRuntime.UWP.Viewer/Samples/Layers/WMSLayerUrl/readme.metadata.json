@@ -1,0 +1,23 @@
+{
+    "category": "Layers",
+    "description": "Display a WMS layer using a WMS service URL.",
+    "ignore": false,
+    "images": "WMSLayerURL.jpg",
+    "keywords": [
+        "OGC",
+        "WmsLayer",
+        "web map service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/wmslayerurl.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView",
+        "WmsLayer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "WMS Layer URL"
+}

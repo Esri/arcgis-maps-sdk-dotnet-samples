@@ -1,0 +1,24 @@
+{
+    "category": "Search",
+    "description": "Use an online service to find the address for a tapped point.",
+    "ignore": false,
+    "images": "ReverseGeocode.jpg",
+    "keywords": [
+        "address",
+        "geocode",
+        "locate",
+        "search"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/reversegeocode.htm"
+    ],
+    "relevant_apis": [
+        "GeocodeParameters",
+        "LocatorTask",
+        "ReverseGeocodeParameters"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Reverse geocode"
+}

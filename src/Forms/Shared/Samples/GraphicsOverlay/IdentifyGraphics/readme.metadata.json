@@ -1,0 +1,22 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Display an alert message when a graphic is clicked.",
+    "ignore": false,
+    "images": "IdentifyGraphics.jpg",
+    "keywords": [
+        "graphics",
+        "identify"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/identifygraphics.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Identify graphics"
+}

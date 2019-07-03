@@ -1,0 +1,26 @@
+{
+    "category": "Layers",
+    "description": "This sample demonstrates how to load and display KML files.",
+    "ignore": false,
+    "images": "DisplayKml.jpg",
+    "keywords": [
+        "KML",
+        "KMZ",
+        "Keyhole",
+        "OGC"
+    ],
+    "offline_data": [
+        "324e4742820e46cfbe5029ff2c32cb1f"
+    ],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/displaykml.htm"
+    ],
+    "relevant_apis": [
+        "KmlLayer",
+        "KmlLayer(PortalItem)",
+        "KmlLayer(Uri)"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Display KML"
+}

@@ -1,0 +1,23 @@
+{
+    "category": "Geometry",
+    "description": "This sample demonstrates how to use the GeometryEngine.ConvexHull to generate convex hull polygon(s) from multiple input geometries.",
+    "ignore": false,
+    "images": "ConvexHullList.jpg",
+    "keywords": [
+        "Analysis",
+        "ConvexHull",
+        "GeometryEngine"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/convexhulllist.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine.ConvexHull",
+        "Graphic.ZIndex",
+        "GraphicsOverlay"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Convex hull list"
+}

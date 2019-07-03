@@ -1,0 +1,31 @@
+{
+    "category": "Layers",
+    "description": "Browse a WFS service for layers.",
+    "ignore": false,
+    "images": "BrowseWfsLayers.jpg",
+    "keywords": [
+        "OGC",
+        "WFS",
+        "browse",
+        "catalog",
+        "feature",
+        "layers",
+        "service",
+        "web"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/browsewfslayers.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "WfsFeatureTable",
+        "WfsFeatureTable.AxisOrder",
+        "WfsLayerInfo",
+        "WfsService",
+        "WfsServiceInfo"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Browse WFS layers"
+}

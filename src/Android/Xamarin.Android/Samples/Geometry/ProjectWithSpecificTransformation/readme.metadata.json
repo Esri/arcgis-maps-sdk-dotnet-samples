@@ -1,0 +1,15 @@
+{
+    "category": "Geometry",
+    "description": "This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. ",
+    "ignore": false,
+    "images": "ProjectWithSpecificTransformation.jpg",
+    "keywords": [],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/projectwithspecifictransformation.htm"
+    ],
+    "relevant_apis": [],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Project with specific transformation"
+}

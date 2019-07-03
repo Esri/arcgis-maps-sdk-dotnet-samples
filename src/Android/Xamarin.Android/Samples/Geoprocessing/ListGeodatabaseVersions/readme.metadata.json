@@ -1,0 +1,15 @@
+{
+    "category": "Geoprocessing",
+    "description": "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
+    "ignore": false,
+    "images": "ListGeodatabaseVersions.jpg",
+    "keywords": [],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/listgeodatabaseversions.htm"
+    ],
+    "relevant_apis": [],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "List geodatabase versions"
+}

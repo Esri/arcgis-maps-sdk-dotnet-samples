@@ -1,0 +1,25 @@
+{
+    "category": "Map",
+    "description": "Specify a map's spatial reference.",
+    "ignore": false,
+    "images": "SetMapSpatialReference.jpg",
+    "keywords": [
+        "SpatialReference",
+        "WKID",
+        "project"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/setmapspatialreference.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "ArcGISMapImageLayer",
+        "Basemap",
+        "MapView",
+        "SpatialReference"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Set map spatial reference"
+}

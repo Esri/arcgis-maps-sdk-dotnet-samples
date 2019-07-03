@@ -1,0 +1,40 @@
+{
+    "category": "MapView",
+    "description": "Keep the view points of two views (a MapView and a SceneView in this case) synchronized with each other.",
+    "ignore": false,
+    "images": "Geoviewsync.jpg",
+    "keywords": [
+        "3D",
+        "GetCurrentViewpoint",
+        "MapView",
+        "SceneView",
+        "SetViewpoint",
+        "automatic refresh",
+        "event",
+        "event handler",
+        "events",
+        "extent",
+        "interaction",
+        "interactions",
+        "pan",
+        "sync",
+        "synchronize",
+        "zoom"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/geoviewsync.htm"
+    ],
+    "relevant_apis": [
+        "GeoView",
+        "GetCurrentViewPoint",
+        "MapView",
+        "GeoView.NavigationComplete",
+        "GeoView.ViewpointChanged",
+        "SceneView",
+        "SetViewPoint"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "GeoView viewpoint synchronization"
+}

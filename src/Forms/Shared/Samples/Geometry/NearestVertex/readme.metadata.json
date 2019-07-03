@@ -1,0 +1,21 @@
+{
+    "category": "Geometry",
+    "description": "Shows how to find the nearest vertex on a geometry to a given point.",
+    "ignore": false,
+    "images": "NearestVertex.jpg",
+    "keywords": [
+        "Analysis",
+        "Geometry"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/nearestvertex.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine",
+        "ProximityResult"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Nearest vertex"
+}

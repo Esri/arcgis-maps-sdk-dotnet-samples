@@ -1,0 +1,26 @@
+{
+    "category": "Layers",
+    "description": "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",
+    "ignore": false,
+    "images": "FeatureLayerRenderingModeScene.jpg",
+    "keywords": [
+        "3D",
+        "FeatureRenderingMode",
+        "MapViews SceneViews and UI",
+        "dynamic",
+        "static"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/featurelayerrenderingmodescene.htm"
+    ],
+    "relevant_apis": [
+        "Scene",
+        "FeatureLayer",
+        "FeatureLayer.RenderingMode",
+        "SceneView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Feature layer rendering mode (scene)"
+}

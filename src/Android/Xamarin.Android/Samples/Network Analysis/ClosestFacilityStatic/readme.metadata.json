@@ -1,0 +1,29 @@
+{
+    "category": "Network Analysis",
+    "description": "Find routes from several locations to the respective closest facility.",
+    "ignore": false,
+    "images": "ClosestFacilityStatic.jpg",
+    "keywords": [
+        "incident",
+        "network analysis",
+        "route",
+        "search"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/closestfacilitystatic.htm"
+    ],
+    "relevant_apis": [
+        "ClosestFacilityParameters",
+        "ClosestFacilityResult",
+        "ClosestFacilityRoute",
+        "ClosestFacilityTask",
+        "Facility",
+        "Graphic",
+        "GraphicsOverlay",
+        "Incident"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Find closest facility to multiple incidents (service)"
+}

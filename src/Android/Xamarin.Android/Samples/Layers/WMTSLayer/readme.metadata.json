@@ -1,0 +1,30 @@
+{
+    "category": "Layers",
+    "description": "Display a layer from a Web Map Tile Service.",
+    "ignore": false,
+    "images": "WmtsLayer.jpg",
+    "keywords": [
+        "OGC",
+        "WmtsLayer",
+        "WmtsLayerInfo",
+        "WmtsService",
+        "WmtsServiceInfo",
+        "layer",
+        "raster",
+        "tiled",
+        "web map tile service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/wmtslayer.htm"
+    ],
+    "relevant_apis": [
+        "WmtsLayer",
+        "WmtsLayerInfo",
+        "WmtsService",
+        "WmtsServiceInfo"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "WMTS layer"
+}

@@ -1,0 +1,19 @@
+{
+    "category": "Map",
+    "description": "Changes the appearance of the atmosphere in a scene.",
+    "ignore": false,
+    "images": "ChangeAtmosphereEffect.jpg",
+    "keywords": [
+        "3D",
+        "AtmosphereEffect",
+        "Scene"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/changeatmosphereeffect.htm"
+    ],
+    "relevant_apis": [],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Change atmosphere effect"
+}

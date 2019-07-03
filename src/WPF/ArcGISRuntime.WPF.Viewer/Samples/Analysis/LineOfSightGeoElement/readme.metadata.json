@@ -1,0 +1,25 @@
+{
+    "category": "Analysis",
+    "description": "Show a line of sight between two moving objects.",
+    "ignore": false,
+    "images": "LineOfSightGeoelement.jpg",
+    "keywords": [
+        "Analysis",
+        "line of sight",
+        "visibility"
+    ],
+    "offline_data": [
+        "3af5cfec0fd24dac8d88aea679027cb9"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/lineofsightgeoelement.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "GeoElementLineOfSight",
+        "LineOfSight.TargetVisibility"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Line of sight (geoelement)"
+}

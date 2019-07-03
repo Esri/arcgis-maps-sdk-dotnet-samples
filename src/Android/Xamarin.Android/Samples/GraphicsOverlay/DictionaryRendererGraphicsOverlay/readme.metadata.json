@@ -1,0 +1,25 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Render graphics with mil2525d symbols.",
+    "ignore": false,
+    "images": "DictionaryRendererGraphicsOverlay.jpg",
+    "keywords": [
+        "Visualization",
+        "defence",
+        "military",
+        "situational awareness",
+        "tactical"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/dictionaryrenderergraphicsoverlay.htm"
+    ],
+    "relevant_apis": [
+        "DictionaryRenderer",
+        "DictionarySymbolStyle",
+        "GraphicsOverlay"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Dictionary renderer with graphics overlay"
+}

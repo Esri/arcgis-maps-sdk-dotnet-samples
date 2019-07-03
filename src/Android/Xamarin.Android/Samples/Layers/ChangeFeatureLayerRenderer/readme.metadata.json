@@ -1,0 +1,23 @@
+{
+    "category": "Layers",
+    "description": "Change the appearance of a feature layer with a renderer.",
+    "ignore": false,
+    "images": "ChangeFeatureLayerRenderer.jpg",
+    "keywords": [
+        "feature layer",
+        "renderer",
+        "visualization"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/changefeaturelayerrenderer.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer.Renderer",
+        "ServiceFeatureTable",
+        "SimpleRenderer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Change feature layer renderer"
+}

@@ -1,0 +1,23 @@
+{
+    "category": "Symbology",
+    "description": "Use pictures for markers.",
+    "ignore": false,
+    "images": "RenderPictureMarkers.jpg",
+    "keywords": [
+        "graphics",
+        "marker",
+        "picture",
+        "symbol",
+        "visualization"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/renderpicturemarkers.htm"
+    ],
+    "relevant_apis": [
+        "PictureMarkerSymbol"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Render picture markers"
+}

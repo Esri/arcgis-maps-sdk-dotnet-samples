@@ -1,0 +1,28 @@
+{
+    "category": "Layers",
+    "description": "Load a WFS feature table using an XML query.",
+    "ignore": false,
+    "images": "WfsXmlQuery.jpg",
+    "keywords": [
+        "OGC",
+        "WFS",
+        "XML",
+        "feature",
+        "query",
+        "service",
+        "web"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/wfsxmlquery.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "WfsFeatureTable",
+        "WfsFeatureTable.AxisOrder",
+        "WfsFeatureTable.PopulateFromServiceAsync"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Load WFS with XML query"
+}

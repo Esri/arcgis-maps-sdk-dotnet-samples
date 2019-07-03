@@ -1,0 +1,25 @@
+{
+    "category": "Geometry",
+    "description": "Create simple geometry types.",
+    "ignore": false,
+    "images": "CreateGeometries.jpg",
+    "keywords": [
+        "Geometry",
+        "Graphic"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/creategeometries.htm"
+    ],
+    "relevant_apis": [
+        "Envelope",
+        "Multipoint",
+        "Point",
+        "PointCollection",
+        "Polygon",
+        "Polyline"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Create geometries"
+}

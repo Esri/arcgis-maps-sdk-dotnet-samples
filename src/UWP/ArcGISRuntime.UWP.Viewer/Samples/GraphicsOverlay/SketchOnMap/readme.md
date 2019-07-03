@@ -1,15 +1,28 @@
-# Sketch graphics on the map
+# Sketch on map
 
-This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
+Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.
 
-<img src="SketchOnMap.jpg" width="350"/>
+![screenshot](SketchOnMap.jpg)
 
-## Instructions
+## Use case
 
-1. Click the 'Sketch' button.
-2. Choose a sketch type from the drop down list.
-3. Click the 'Draw' button and click in the map view to create the sketch.
-4. While sketching, you can undo/redo operations.
-5. Click 'Done' to finish the sketch.
-6. To edit a graphic, click 'Draw/Edit', then 'Edit'. Select a graphic in the map to start editing.
-7. Make edits then click 'Done' to finish editing.
+A field worker could annotate features of interest on a map (via the GUI) such as location of dwellings (marked as points), geological features (polylines), or areas of glaciation (polygons). 
+
+## How to use the sample
+
+Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, and freehand polygons.
+
+Use the control panel to cancel the sketch, undo or redo changes made to the sketch and to save the sketch to the graphics overlay. There is also the option to select a saved graphic and edit its geometry using the Sketch Editor. The graphics overlay can be cleared using the clear all button.
+
+## Relevant API
+
+* Geometry
+* Graphic
+* GraphicsOverlay
+* MapView
+* SketchCreationMode
+* SketchEditor
+
+## Tags
+
+Geometry, Graphic, GraphicsOverlay, SketchCreationMode, SketchEditor, draw, edit

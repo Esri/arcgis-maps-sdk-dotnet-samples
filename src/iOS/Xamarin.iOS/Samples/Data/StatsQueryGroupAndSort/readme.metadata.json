@@ -1,0 +1,30 @@
+{
+    "category": "Data",
+    "description": "Query a feature table for statistics, grouping and sorting by different fields.",
+    "ignore": false,
+    "images": "StatsQueryGroupAndSort.jpg",
+    "keywords": [
+        "group",
+        "result",
+        "sort",
+        "statistics",
+        "stats"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/statsquerygroupandsort.htm"
+    ],
+    "relevant_apis": [
+        "Field",
+        "QueryParameters",
+        "ServiceFeatureTable",
+        "StatisticDefinition",
+        "StatisticRecord",
+        "StatisticType",
+        "StatisticsQueryParameters",
+        "StatisticsQueryResult"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Statistical query group and sort"
+}

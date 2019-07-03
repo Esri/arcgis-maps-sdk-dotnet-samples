@@ -1,0 +1,26 @@
+{
+    "category": "Geometry",
+    "description": "Create a buffer around a map point and display the results as a `Graphic`",
+    "ignore": false,
+    "images": "Buffer.jpg",
+    "keywords": [
+        "Analysis",
+        "BufferGeodetic",
+        "Euclidean",
+        "Geodesic",
+        "GeometryEngine",
+        "Planar"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/buffer.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine.Buffer",
+        "GeometryEngine.BufferGeodetic",
+        "GraphicsOverlay"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Buffer"
+}

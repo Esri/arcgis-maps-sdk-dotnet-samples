@@ -1,0 +1,23 @@
+{
+    "category": "Analysis",
+    "description": "Perform a line of sight analysis between two points in real time.",
+    "ignore": false,
+    "images": "LineOfSightLocation.jpg",
+    "keywords": [
+        "3D",
+        "line of sight",
+        "visibility analysis"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/lineofsightlocation.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "LocationLineOfSight",
+        "SceneView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Line of sight (location)"
+}

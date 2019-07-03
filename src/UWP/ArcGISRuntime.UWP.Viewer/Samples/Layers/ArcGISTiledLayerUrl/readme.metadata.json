@@ -1,0 +1,23 @@
+{
+    "category": "Layers",
+    "description": "Load an ArcGIS tiled layer from a URL.",
+    "ignore": false,
+    "images": "ArcgisTiledlayerUrl.jpg",
+    "keywords": [
+        "ArcGISTiledLayer",
+        "layers",
+        "tile"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/arcgistiledlayerurl.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "ArcGISTiledLayer",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "ArcGIS tiled layer"
+}

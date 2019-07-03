@@ -1,0 +1,24 @@
+{
+    "category": "Layers",
+    "description": "Display custom labels on a feature layer.",
+    "ignore": false,
+    "images": "ShowLabelsOnLayer.jpg",
+    "keywords": [
+        "Deconfliction",
+        "Labeling",
+        "Labels",
+        "visualization"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/showlabelsonlayer.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "LabelDefinition",
+        "TextSymbol"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Show labels on layers"
+}

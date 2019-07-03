@@ -1,0 +1,20 @@
+{
+    "category": "Layers",
+    "description": "Group a collection of layers together and toggle their visibility as a group.",
+    "ignore": false,
+    "images": "GroupLayers.jpg",
+    "keywords": [
+        "Layers",
+        "group layer"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/grouplayers.htm"
+    ],
+    "relevant_apis": [
+        "GroupLayer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Group layers"
+}

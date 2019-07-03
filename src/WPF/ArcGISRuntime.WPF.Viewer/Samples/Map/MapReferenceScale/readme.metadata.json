@@ -1,0 +1,23 @@
+{
+    "category": "Map",
+    "description": "Set a map's reference scale and control which feature layers should honor that scale.",
+    "ignore": false,
+    "images": "MapReferenceScale.jpg",
+    "keywords": [
+        "Maps & Scenes",
+        "annotation",
+        "reference",
+        "scale"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/mapreferencescale.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "Map"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Map reference scale"
+}

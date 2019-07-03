@@ -1,0 +1,24 @@
+{
+    "category": "Layers",
+    "description": "Display a file with a KML network link",
+    "ignore": false,
+    "images": "DisplayKmlNetworkLinks.jpg",
+    "keywords": [
+        "KML",
+        "KMZ",
+        "Network Link"
+    ],
+    "offline_data": [
+        "600748d4464442288f6db8a4ba27dc95"
+    ],
+    "redirect_from": [
+        "/net/latest/android/sample-code/displaykmlnetworklinks.htm"
+    ],
+    "relevant_apis": [
+        "KmlDataset(Uri)",
+        "KmlLayer(KmlDataset)"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Display KML network links"
+}

@@ -1,0 +1,30 @@
+{
+    "category": "Network Analysis",
+    "description": "Find a route to the closest facility from a location.",
+    "ignore": false,
+    "images": "ClosestFacility.jpg",
+    "keywords": [
+        "incident",
+        "network analysis",
+        "route",
+        "search"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/closestfacility.htm"
+    ],
+    "relevant_apis": [
+        "ClosestFacilityParameters",
+        "ClosestFacilityResult",
+        "ClosestFacilityRoute",
+        "ClosestFacilityTask",
+        "Facility",
+        "Graphic",
+        "GraphicsOverlay",
+        "Incident",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Find closest facility to an incident (interactive)"
+}

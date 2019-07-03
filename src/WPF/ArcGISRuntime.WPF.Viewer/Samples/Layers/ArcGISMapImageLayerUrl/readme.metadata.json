@@ -1,0 +1,23 @@
+{
+    "category": "Layers",
+    "description": "Add an ArcGIS Map Image Layer from a URL to a map.",
+    "ignore": false,
+    "images": "ArcgisMapimagelayerUrl.jpg",
+    "keywords": [
+        "ArcGIS dynamic map service layer",
+        "ArcGISMapImageLayer",
+        "layers"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/arcgismapimagelayerurl.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "ArcGISMapImageLayer",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "ArcGIS map image layer"
+}

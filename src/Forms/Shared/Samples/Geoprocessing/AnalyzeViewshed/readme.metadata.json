@@ -1,0 +1,28 @@
+{
+    "category": "Geoprocessing",
+    "description": "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",
+    "ignore": false,
+    "images": "AnalyzeViewshed.jpg",
+    "keywords": [
+        "Geoprocessing",
+        "GeoprocessingJob",
+        "GeoprocessingParameters",
+        "GeoprocessingResult",
+        "heat map"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/analyzeviewshed.htm"
+    ],
+    "relevant_apis": [
+        "FeatureCollectionTable",
+        "GeoprocessingFeatures",
+        "GeoprocessingJob",
+        "GeoprocessingParameters",
+        "GeoprocessingResult",
+        "GeoprocessingTask"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Analyze viewshed (geoprocessing)"
+}

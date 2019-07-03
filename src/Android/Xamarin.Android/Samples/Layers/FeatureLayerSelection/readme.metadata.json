@@ -1,0 +1,25 @@
+{
+    "category": "Layers",
+    "description": "Select features in a feature layer.",
+    "ignore": false,
+    "images": "FeatureLayerSelection.jpg",
+    "keywords": [
+        "Layers",
+        "SelectFeaturesAsync",
+        "SelectionMode",
+        "select",
+        "tolerance"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/featurelayerselection.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureLayer",
+        "ServiceFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Feature layer selection"
+}

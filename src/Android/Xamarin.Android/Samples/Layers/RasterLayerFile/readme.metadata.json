@@ -1,0 +1,23 @@
+{
+    "category": "Layers",
+    "description": "Create and use a raster layer made from a local raster file.",
+    "ignore": false,
+    "images": "RasterLayerFile.jpg",
+    "keywords": [
+        "Layers",
+        "raster"
+    ],
+    "offline_data": [
+        "7c4c679ab06a4df19dc497f577f111bd"
+    ],
+    "redirect_from": [
+        "/net/latest/android/sample-code/rasterlayerfile.htm"
+    ],
+    "relevant_apis": [
+        "Raster",
+        "RasterLayer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Raster layer (file)"
+}

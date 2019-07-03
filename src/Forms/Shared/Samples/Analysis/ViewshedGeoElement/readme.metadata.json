@@ -1,0 +1,36 @@
+{
+    "category": "Analysis",
+    "description": "Analyze the viewshed for an object (GeoElement) in a scene.",
+    "ignore": false,
+    "images": "ViewshedGeoElement.jpg",
+    "keywords": [
+        "3D",
+        "AnalysisOverlay",
+        "GeoElementViewshed",
+        "ModelSceneSymbol",
+        "OrbitGeoElementCameraController",
+        "SceneProperties",
+        "buildings",
+        "model",
+        "scene",
+        "viewshed",
+        "visibility analysis"
+    ],
+    "offline_data": [
+        "07d62a792ab6496d9b772a24efea45d0"
+    ],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/viewshedgeoelement.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "GeoElementViewshed",
+        "GeodeticDistanceResult",
+        "GeometryEngine.DistanceGeodetic - used to animate the vehicle.",
+        "ModelSceneSymbol",
+        "OrbitGeoElementCameraController"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Viewshed for GeoElement"
+}

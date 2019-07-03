@@ -1,0 +1,24 @@
+{
+    "category": "Location",
+    "description": "Display your current position on the map, as well as switch between different types of auto pan Modes.",
+    "ignore": false,
+    "images": "DisplayDeviceLocation.jpg",
+    "keywords": [
+        "MapViews SceneViews and UI",
+        "gps",
+        "mobile"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/displaydevicelocation.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "LocationDisplay",
+        "LocationDisplay.AutoPanMode",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Display device location"
+}

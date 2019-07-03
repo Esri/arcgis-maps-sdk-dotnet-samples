@@ -1,0 +1,24 @@
+{
+    "category": "Map",
+    "description": "Get the elevation for a given point on a surface in a scene. ",
+    "ignore": false,
+    "images": "GetElevationAtPoint.jpg",
+    "keywords": [
+        "elevation",
+        "point",
+        "surface"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/getelevationatpoint.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISTiledElevationSource",
+        "BaseSurface",
+        "ElevationSourcesList",
+        "SceneView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Get elevation at a point"
+}

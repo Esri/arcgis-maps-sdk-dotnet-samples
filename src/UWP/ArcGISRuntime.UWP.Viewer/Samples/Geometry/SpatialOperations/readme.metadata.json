@@ -1,0 +1,33 @@
+{
+    "category": "Geometry",
+    "description": "Find the union, intersection, or difference of two geometries.",
+    "ignore": false,
+    "images": "SpatialOperations.jpg",
+    "keywords": [
+        "analysis",
+        "combine",
+        "difference",
+        "geometry",
+        "intersection",
+        "merge",
+        "polygon",
+        "union"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/spatialoperations.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "GeometryEngine",
+        "GeometryEngine.Difference",
+        "GeometryEngine.Intersection",
+        "GeometryEngine.SymmetricDifference",
+        "GeometryEngine.Union",
+        "Graphic",
+        "GraphicsOverlay"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Perform spatial operations"
+}

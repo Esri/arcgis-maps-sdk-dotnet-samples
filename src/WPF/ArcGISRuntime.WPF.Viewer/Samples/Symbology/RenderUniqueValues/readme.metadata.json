@@ -1,0 +1,27 @@
+{
+    "category": "Symbology",
+    "description": "Render features in a layer using a distinct symbol for each unique attribute value.",
+    "ignore": false,
+    "images": "RenderUniqueValues.jpg",
+    "keywords": [
+        "Symbology",
+        "UniqueValueRenderer",
+        "draw",
+        "symbol"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/renderuniquevalues.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "ServiceFeatureTable",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "UniqueValue",
+        "UniqueValueRenderer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Unique value renderer"
+}

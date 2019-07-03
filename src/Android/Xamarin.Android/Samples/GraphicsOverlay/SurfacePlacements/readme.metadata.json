@@ -1,0 +1,29 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Position graphics relative to a surface using different surface placement modes.",
+    "ignore": false,
+    "images": "SurfacePlacements.jpg",
+    "keywords": [
+        "3D",
+        "altitude",
+        "draped",
+        "floating",
+        "scenes",
+        "sea level",
+        "surface placement"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/surfaceplacements.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "LayerSceneProperties.SurfacePlacement",
+        "SceneProperties",
+        "Surface"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Surface placement"
+}

@@ -1,0 +1,26 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Use a symbol style to display a graphic on a graphics overlay.",
+    "ignore": false,
+    "images": "AddGraphicsWithSymbols.jpg",
+    "keywords": [
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleMarkerSymbol"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/addgraphicswithsymbols.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "Graphic",
+        "GraphicsOverlay",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleMarkerSymbol"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Add graphics with symbols"
+}

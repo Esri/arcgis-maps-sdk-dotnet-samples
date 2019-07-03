@@ -1,0 +1,30 @@
+{
+    "category": "Analysis",
+    "description": "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
+    "ignore": false,
+    "images": "ViewshedCamera.jpg",
+    "keywords": [
+        "3D",
+        "AnalysisOverlay",
+        "LocationViewshed",
+        "Scene",
+        "viewshed",
+        "visibility analysis"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/viewshedcamera.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "Scene",
+        "ArcGISSceneLayer",
+        "ArcGISTiledElevationSource",
+        "Camera",
+        "LocationViewshed",
+        "SceneView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Viewshed for camera"
+}

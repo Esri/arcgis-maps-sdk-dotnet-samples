@@ -1,0 +1,25 @@
+{
+    "category": "Geometry",
+    "description": "Clip a geometry with another geometry.",
+    "ignore": false,
+    "images": "ClipGeometry.jpg",
+    "keywords": [
+        "analysis",
+        "clip",
+        "geometry"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/clipgeometry.htm"
+    ],
+    "relevant_apis": [
+        "Envelope",
+        "Geometry",
+        "GeometryEngine.Clip",
+        "Graphic",
+        "GraphicsOverlay"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Clip geometry"
+}

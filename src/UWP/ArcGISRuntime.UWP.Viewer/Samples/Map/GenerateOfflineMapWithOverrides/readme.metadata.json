@@ -1,0 +1,27 @@
+{
+    "category": "Map",
+    "description": "Use the `OfflineMapTask` with overrides to take a webmap offline. The overrides workflow allows you to adjust the settings used for taking each layer in the map offline. For a simple example of how you take a map offline, please consult the \"Generate Offline Map\" sample.",
+    "ignore": false,
+    "images": "GenerateOfflineMapWithOverrides.jpg",
+    "keywords": [
+        "generate",
+        "offline",
+        "on-demand"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/generateofflinemapwithoverrides.htm"
+    ],
+    "relevant_apis": [
+        "ExportTileCacheParameters",
+        "GenerateGeodatabaseParameters",
+        "GenerateOfflineMapJob",
+        "GenerateOfflineMapParameterOverrides",
+        "GenerateOfflineMapParameters",
+        "GenerateOfflineMapResult",
+        "OfflineMapTask"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Generate Offline Map (Overrides)"
+}

@@ -1,0 +1,23 @@
+{
+    "category": "Map",
+    "description": "Determine the map's load status which can be: `NOT_LOADED`, `FAILED_TO_LOAD`, `LOADING`, `LOADED`.",
+    "ignore": false,
+    "images": "AccessLoadStatus.jpg",
+    "keywords": [
+        "LoadStatus",
+        "Loadable pattern",
+        "Map"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/accessloadstatus.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "LoadStatusChangedListener/LoadStatusChanged signal",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Access load status"
+}

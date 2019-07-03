@@ -1,0 +1,24 @@
+{
+    "category": "Data",
+    "description": "Display a feature layer from a service using the **on interaction cache** feature request mode.",
+    "ignore": false,
+    "images": "ServiceFeatureTableCache.jpg",
+    "keywords": [
+        "cache",
+        "feature request mode",
+        "performance"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/servicefeaturetablecache.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureRequestMode.OnInteractionCache",
+        "ServiceFeatureTable",
+        "ServiceFeatureTable.FeatureRequestMode"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Service feature table (on interaction cache)"
+}

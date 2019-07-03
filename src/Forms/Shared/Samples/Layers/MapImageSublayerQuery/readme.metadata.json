@@ -1,0 +1,22 @@
+{
+    "category": "Layers",
+    "description": "Find features in a sublayer based on attributes and location.",
+    "ignore": false,
+    "images": "MapImageSublayerQuery.jpg",
+    "keywords": [
+        "search and query"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/mapimagesublayerquery.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "ArcGISMapImageSublayer",
+        "QueryParameters",
+        "ServiceFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Query map image sublayer"
+}

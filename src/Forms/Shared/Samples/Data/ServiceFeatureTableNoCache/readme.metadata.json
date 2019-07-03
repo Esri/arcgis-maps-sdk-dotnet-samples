@@ -1,0 +1,25 @@
+{
+    "category": "Data",
+    "description": "Display a feature layer from a service using the **no cache** feature request mode.",
+    "ignore": false,
+    "images": "ServiceFeatureTableNoCache.jpg",
+    "keywords": [
+        "cache",
+        "feature request mode",
+        "performance"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/servicefeaturetablenocache.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureRequestMode.NoCache",
+        "ServiceFeatureTable",
+        "ServiceFeatureTable.PopulateFromServiceAsync",
+        "ServiceFeatureTable.FeatureRequestMode"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Service feature table (no cache)"
+}

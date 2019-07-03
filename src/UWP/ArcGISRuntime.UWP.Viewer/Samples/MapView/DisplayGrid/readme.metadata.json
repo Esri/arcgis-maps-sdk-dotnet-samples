@@ -1,0 +1,27 @@
+{
+    "category": "MapView",
+    "description": "Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.",
+    "ignore": false,
+    "images": "DisplayGrid.jpg",
+    "keywords": [
+        "MapViews SceneViews and UI",
+        "graticule"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/displaygrid.htm"
+    ],
+    "relevant_apis": [
+        "Grid",
+        "LatitudeLongitudeGrid",
+        "MGRSGrid",
+        "MapView",
+        "SimpleLineSymbol",
+        "TextSymbol",
+        "USNGGrid",
+        "UTMGrid"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Display grid"
+}

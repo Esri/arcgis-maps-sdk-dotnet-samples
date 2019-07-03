@@ -1,0 +1,28 @@
+{
+    "category": "Data",
+    "description": "Update feature attributes in an online feature service.",
+    "ignore": false,
+    "images": "UpdateAttributes.jpg",
+    "keywords": [
+        "Editing",
+        "attribute",
+        "coded value",
+        "coded value domain",
+        "domain",
+        "value"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/updateattributes.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISFeature",
+        "FeatureLayer",
+        "Map",
+        "MapView",
+        "ServiceFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Update attributes (feature service)"
+}

@@ -1,0 +1,27 @@
+{
+    "category": "MapView",
+    "description": "Set the map view to a new viewpoint.",
+    "ignore": false,
+    "images": "ChangeViewpoint.jpg",
+    "keywords": [
+        "SetViewpointAsync",
+        "SetViewpointCenterAsync",
+        "SetViewpointGeometryAsync",
+        "extent",
+        "zoom"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/changeviewpoint.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView",
+        "Point",
+        "SpatialReference",
+        "Viewpoint"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Change viewpoint"
+}

@@ -1,0 +1,29 @@
+{
+    "category": "Geometry",
+    "description": "Format coordinates in a variety of common notations.",
+    "ignore": false,
+    "images": "FormatCoordinates.jpg",
+    "keywords": [
+        "USNG",
+        "UTM",
+        "convert",
+        "coordinate",
+        "decimal degrees",
+        "degree minutes seconds",
+        "format",
+        "latitude",
+        "longitude"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/formatcoordinates.htm"
+    ],
+    "relevant_apis": [
+        "CoordinateFormatter",
+        "CoordinateFormatter.LatitudeLongitudeFormat",
+        "CoordinateFormatter.UtmConversionMode"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Format coordinates"
+}

@@ -1,0 +1,25 @@
+{
+    "category": "Map",
+    "description": "Display a map centered on an initial point with a specified level of detail (zoom level).",
+    "ignore": false,
+    "images": "SetInitialMapLocation.jpg",
+    "keywords": [
+        "center",
+        "envelope",
+        "extent",
+        "initial location",
+        "level of detail"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/setinitialmaplocation.htm"
+    ],
+    "relevant_apis": [
+        "BasemapType",
+        "Map",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Set initial map location"
+}

@@ -1,0 +1,25 @@
+{
+    "category": "Layers",
+    "description": "Display a scene with a terrain surface and some imagery.",
+    "ignore": false,
+    "images": "DisplayScene.jpg",
+    "keywords": [
+        "3D",
+        "basemap",
+        "scene",
+        "sceneview",
+        "surface"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/displayscene.htm"
+    ],
+    "relevant_apis": [
+        "Scene",
+        "ArcGISTiledElevationSource",
+        "SceneView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Display a scene"
+}

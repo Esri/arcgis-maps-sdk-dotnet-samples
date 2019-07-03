@@ -1,0 +1,23 @@
+{
+    "category": "Map",
+    "description": "Display a map with an imagery basemap.",
+    "ignore": false,
+    "images": "DisplayMap.jpg",
+    "keywords": [
+        "MapView",
+        "basemap",
+        "map"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/displaymap.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "Basemap",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Display a map"
+}

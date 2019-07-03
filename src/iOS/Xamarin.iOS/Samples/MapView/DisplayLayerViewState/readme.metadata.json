@@ -1,0 +1,23 @@
+{
+    "category": "MapView",
+    "description": "View the status of the layers on the map.",
+    "ignore": false,
+    "images": "DisplayLayerViewState.jpg",
+    "keywords": [
+        "MapViews",
+        "layer",
+        "status",
+        "view state"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/displaylayerviewstate.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Display layer view state"
+}

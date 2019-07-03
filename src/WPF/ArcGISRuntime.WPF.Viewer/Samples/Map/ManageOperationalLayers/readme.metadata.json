@@ -1,0 +1,27 @@
+{
+    "category": "Map",
+    "description": "Add, remove, and reorder operational layers in a map.",
+    "ignore": false,
+    "images": "ManageOperationalLayers.jpg",
+    "keywords": [
+        "Map",
+        "add",
+        "hide",
+        "operational",
+        "remove",
+        "scene"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/manageoperationallayers.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "Map",
+        "MapView",
+        "MapView.OperationalLayers"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Manage operational layers"
+}

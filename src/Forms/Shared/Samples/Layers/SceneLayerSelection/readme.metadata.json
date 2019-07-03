@@ -1,0 +1,25 @@
+{
+    "category": "Layers",
+    "description": "Identify GeoElements in a scene layer.",
+    "ignore": false,
+    "images": "SceneLayerSelection.jpg",
+    "keywords": [
+        "3D",
+        "Buildings",
+        "Search and Query",
+        "model",
+        "scene"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/scenelayerselection.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISSceneLayer",
+        "Scene",
+        "SceneView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Scene layer selection"
+}

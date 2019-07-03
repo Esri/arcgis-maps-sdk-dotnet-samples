@@ -1,0 +1,15 @@
+{
+    "category": "Layers",
+    "description": "Show a raster layer from an image service with a raster function applied.",
+    "ignore": false,
+    "images": "RasterLayerRasterFunction.jpg",
+    "keywords": [],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/rasterlayerrasterfunction.htm"
+    ],
+    "relevant_apis": [],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "ArcGIS raster function (service)"
+}

@@ -1,0 +1,21 @@
+{
+    "category": "Map",
+    "description": "Open and display a scene from a Mobile Scene Package (.mspk).",
+    "ignore": false,
+    "images": "OpenMobileScenePackage.jpg",
+    "keywords": [
+        "Offline",
+        "Scene"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/openmobilescenepackage.htm"
+    ],
+    "relevant_apis": [
+        "MobileScenePackage",
+        "SceneView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Open Mobile Scene Package"
+}

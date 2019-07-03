@@ -1,0 +1,24 @@
+{
+    "category": "Map",
+    "description": "Take a web map offline.",
+    "ignore": false,
+    "images": "GenerateOfflineMap.jpg",
+    "keywords": [
+        "map",
+        "offline"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/generateofflinemap.htm"
+    ],
+    "relevant_apis": [
+        "GenerateOfflineMapJob",
+        "GenerateOfflineMapParameters",
+        "GenerateOfflineMapResult",
+        "OfflineMapTask",
+        "Portal"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Generate offline map"
+}

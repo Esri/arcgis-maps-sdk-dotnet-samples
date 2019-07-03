@@ -1,0 +1,25 @@
+{
+    "category": "Map",
+    "description": "Find webmap portal items by using a search term.",
+    "ignore": false,
+    "images": "SearchPortalMaps.jpg",
+    "keywords": [
+        "keyword",
+        "query",
+        "search",
+        "webmap"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/searchportalmaps.htm"
+    ],
+    "relevant_apis": [
+        "Portal",
+        "PortalItem",
+        "PortalQueryParameters",
+        "PortalQueryResultSet"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Search for webmap"
+}

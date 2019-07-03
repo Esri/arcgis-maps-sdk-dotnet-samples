@@ -1,0 +1,34 @@
+{
+    "category": "Map",
+    "description": "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
+    "ignore": false,
+    "images": "MobileMapSearchAndRoute.jpg",
+    "keywords": [
+        "Offline",
+        "Routing",
+        "Search",
+        "disconnected",
+        "field mobility",
+        "geocode",
+        "network",
+        "network analysis",
+        "transportation"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/mobilemapsearchandroute.htm"
+    ],
+    "relevant_apis": [
+        "GeocodeResult",
+        "MobileMapPackage",
+        "ReverseGeocodeParameters",
+        "Route",
+        "RouteParameters",
+        "RouteResult",
+        "RouteTask",
+        "TransportationNetworkDataset"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Mobile map (search and route)"
+}

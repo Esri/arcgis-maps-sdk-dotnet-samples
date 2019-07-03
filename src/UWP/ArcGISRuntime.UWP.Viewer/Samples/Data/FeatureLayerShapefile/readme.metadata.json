@@ -1,0 +1,26 @@
+{
+    "category": "Data",
+    "description": "Open a shapefile stored on the device and display it as a feature layer with default symbology.",
+    "ignore": false,
+    "images": "FeatureLayerShapefile.jpg",
+    "keywords": [
+        "Layers",
+        "shapefile",
+        "shp",
+        "vector"
+    ],
+    "offline_data": [
+        "d98b3e5293834c5f852f13c569930caa",
+        "d98b3e5293834c5f852f13c569930caa"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurelayershapefile.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "ShapefileFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Feature layer (shapefile)"
+}

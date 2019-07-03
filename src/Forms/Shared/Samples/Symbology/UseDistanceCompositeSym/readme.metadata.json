@@ -1,0 +1,25 @@
+{
+    "category": "Symbology",
+    "description": "Change a graphic's symbol based on the camera's proximity to it.",
+    "ignore": false,
+    "images": "UseDistanceCompositeSym.jpg",
+    "keywords": [
+        "3D",
+        "DistanceCompositeSceneSymbol",
+        "DistanceSymbolRange",
+        "SimpleMarkerSceneSymbol",
+        "graphic"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/usedistancecompositesym.htm"
+    ],
+    "relevant_apis": [
+        "DistanceCompositeSceneSymbol",
+        "Range",
+        "RangeCollection"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Distance composite scene symbol"
+}

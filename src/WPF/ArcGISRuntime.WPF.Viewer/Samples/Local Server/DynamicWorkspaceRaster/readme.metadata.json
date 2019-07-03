@@ -1,0 +1,30 @@
+{
+    "category": "Local Server",
+    "description": "Dynamically add a local raster file to a map using Local Server.",
+    "ignore": false,
+    "images": "DynamicWorkspaceRaster.jpg",
+    "keywords": [
+        "ArcGISMapImageLayer",
+        "LocalMapService",
+        "local services"
+    ],
+    "offline_data": [
+        "ea619b4f0f8f4d108c5b87e90c1b5be0",
+        "80b43ba48f524a8eb0cb54f0f1ee9a5f"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/dynamicworkspaceraster.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "ArcGISMapImageSublayer",
+        "DynamicWorkspace",
+        "LocalServer",
+        "RasterSublayerSource",
+        "RasterWorkspace",
+        "StatusChangedEvent"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Local server dynamic workspace raster"
+}

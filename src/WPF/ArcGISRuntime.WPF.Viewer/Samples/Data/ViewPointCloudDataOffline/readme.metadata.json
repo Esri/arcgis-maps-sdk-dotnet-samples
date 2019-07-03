@@ -1,0 +1,21 @@
+{
+    "category": "Data",
+    "description": "Display local 3D point cloud data.",
+    "ignore": false,
+    "images": "ViewPointCloudDataOffline.jpg",
+    "keywords": [
+        "3D",
+        "lidar",
+        "point cloud"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/viewpointclouddataoffline.htm"
+    ],
+    "relevant_apis": [
+        "PointCloudLayer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "View point cloud data offline"
+}

@@ -1,0 +1,32 @@
+{
+    "category": "Network Analysis",
+    "description": "Display directions for a route between two points.",
+    "ignore": false,
+    "images": "FindRoute.jpg",
+    "keywords": [
+        "directions",
+        "driving",
+        "navigation",
+        "network",
+        "network analysis",
+        "route",
+        "routing",
+        "shortest path",
+        "turn-by-turn"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/findroute.htm"
+    ],
+    "relevant_apis": [
+        "DirectionManeuver",
+        "Route",
+        "RouteParameters",
+        "RouteResult",
+        "RouteTask",
+        "Stop"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Find route"
+}

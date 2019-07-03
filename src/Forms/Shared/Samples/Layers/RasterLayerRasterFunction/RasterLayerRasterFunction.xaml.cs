@@ -19,7 +19,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "ArcGIS raster function (service)",
         "Layers",
-        "This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.",
+        "Show a raster layer from an image service with a raster function applied.",
         "")]
     public partial class RasterLayerRasterFunction : ContentPage
     {

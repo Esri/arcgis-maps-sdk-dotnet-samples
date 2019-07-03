@@ -1,0 +1,25 @@
+{
+    "category": "Layers",
+    "description": "Display a tiled web layer.",
+    "ignore": false,
+    "images": "LoadWebTiledLayer.jpg",
+    "keywords": [
+        "OGC",
+        "Open Street Map",
+        "OpenStreetMap",
+        "WebTiledLayer",
+        "stamen.com",
+        "tiled"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/loadwebtiledlayer.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "WebTiledLayer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Web tiled layer"
+}

@@ -1,0 +1,22 @@
+{
+    "category": "MapView",
+    "description": "Rotate a map.",
+    "ignore": false,
+    "images": "MapRotation.jpg",
+    "keywords": [
+        "SetViewpointRotationAsync",
+        "rotate"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/maprotation.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "Compass",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Map rotation"
+}

@@ -1,0 +1,23 @@
+{
+    "category": "Map",
+    "description": "Use a terrain surface with elevation described by a raster file.",
+    "ignore": false,
+    "images": "The terrain surface is what the basemap, operational layers, and graphics are draped on.",
+    "keywords": [
+        "3D",
+        "Elevation",
+        "Raster",
+        "Surface"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/createterrainsurfacefromraster.htm"
+    ],
+    "relevant_apis": [
+        "RasterElevationSource",
+        "Surface"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Create terrain surface from a local raster"
+}

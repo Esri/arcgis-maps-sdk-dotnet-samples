@@ -1,9 +1,37 @@
-# Raster RGB renderer
+# RGB Renderer
 
-This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.
+Use an `RGBRenderer` on a `RasterLayer`. An `RGBRenderer` is used to adjust the color bands of a multispectral image.
 
-<img src="RasterRgbRenderer.jpg" width="350"/>
+![screenshot](RasterRgbRenderer.jpg)
 
-## Instructions
+## How to use the sample
 
-Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.
+Tap on the `Edit renderer` button in the toolbar to change the settings for the `RGBRenderer`. The sample allows you to change the stretch type and parameters for each type. You can tap on the Render button to update the raster.
+
+## How it works
+
+1. Create a `Raster` from a from a multispectral raster file.
+2. Create a `RasterLayer` from the `Raster`.
+3. Create a `Basemap` from the `RasterLayer` and set it to the map.
+4. Create a `RGBRenderer`, specifying the stretch parameters and other properties.
+5. Apply the renderer to the raster layer.
+
+## Relevant API
+
+* Map
+* Basemap
+* MapView
+* RGBRenderer
+* Raster
+* RasterLayer
+* StretchParameters
+
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [raster-file.zip](https://www.arcgis.com/home/item.html?id=7c4c679ab06a4df19dc497f577f111bd) - Tif raster file
+
+## Tags
+
+RGB, Visualization, analysis, bands, imagery, multispectral, raster, renderer

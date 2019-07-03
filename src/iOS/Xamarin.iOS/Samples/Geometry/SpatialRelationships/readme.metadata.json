@@ -1,0 +1,34 @@
+{
+    "category": "Geometry",
+    "description": "Determine spatial relationships between two geometries.",
+    "ignore": false,
+    "images": "SpatialRelationships.jpg",
+    "keywords": [
+        "geometries",
+        "relationship",
+        "spatial analysis"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/spatialrelationships.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "GeometryEngine",
+        "GeometryEngine.Contains",
+        "GeometryEngine.Crosses",
+        "GeometryEngine.Disjoint",
+        "GeometryEngine.Intersects",
+        "GeometryEngine.Overlaps",
+        "GeometryEngine.Touches",
+        "GeometryEngine.Within",
+        "GeometryType",
+        "Graphic",
+        "Point",
+        "Polygon",
+        "Polyline"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Spatial relationships"
+}

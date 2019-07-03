@@ -1,0 +1,29 @@
+{
+    "category": "Layers",
+    "description": "Display a layer from a WFS service, requesting only features for the current extent.",
+    "ignore": false,
+    "images": "DisplayWfs.jpg",
+    "keywords": [
+        "OGC",
+        "WFS",
+        "browse",
+        "catalog",
+        "feature",
+        "interaction cache",
+        "layers",
+        "service",
+        "web"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/displaywfs.htm"
+    ],
+    "relevant_apis": [
+        "MapView.NavigationCompleted",
+        "WfsFeatureTable",
+        "WfsFeatureTable.PopulateFromServiceAsync"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Display a WFS layer"
+}

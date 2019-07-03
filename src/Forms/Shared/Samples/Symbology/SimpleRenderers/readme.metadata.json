@@ -1,0 +1,26 @@
+{
+    "category": "Symbology",
+    "description": "Display common symbols for all graphics in a graphics overlay with a renderer.",
+    "ignore": false,
+    "images": "SimpleRenderers.jpg",
+    "keywords": [
+        "SimpleMarkerSymbol",
+        "SimpleRenderer",
+        "symbolize",
+        "symbology"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/simplerenderers.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "Point",
+        "SimpleMarkerSymbol",
+        "SimpleRenderer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Simple renderer"
+}

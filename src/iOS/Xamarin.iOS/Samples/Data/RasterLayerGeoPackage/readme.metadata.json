@@ -1,0 +1,29 @@
+{
+    "category": "Data",
+    "description": "Open a `GeoPackage`, obtain a raster from the package, and display the table as a `RasterLayer`.",
+    "ignore": false,
+    "images": "RasterLayerGeopackage.jpg",
+    "keywords": [
+        "Layers",
+        "OGC",
+        "container",
+        "geopackage",
+        "package",
+        "raster"
+    ],
+    "offline_data": [
+        "68ec42517cdd439e81b036210483e8e7",
+        "68ec42517cdd439e81b036210483e8e7"
+    ],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/rasterlayergeopackage.htm"
+    ],
+    "relevant_apis": [
+        "GeoPackage",
+        "GeoPackageRaster",
+        "RasterLayer"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Raster layer (GeoPackage)"
+}

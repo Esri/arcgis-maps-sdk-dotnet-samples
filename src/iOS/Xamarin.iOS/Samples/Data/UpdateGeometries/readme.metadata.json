@@ -1,0 +1,28 @@
+{
+    "category": "Data",
+    "description": "Update a feature's location in an online feature service.",
+    "ignore": false,
+    "images": "UpdateGeometries.jpg",
+    "keywords": [
+        "FeatureLayer",
+        "Service",
+        "ServiceFeatureTable",
+        "editing",
+        "moving",
+        "updating"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/updategeometries.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureLayer",
+        "Map",
+        "MapView",
+        "ServiceFeatureTable"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Update geometries (feature service)"
+}

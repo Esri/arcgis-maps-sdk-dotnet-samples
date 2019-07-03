@@ -1,0 +1,25 @@
+{
+    "category": "Layers",
+    "description": "Render features statically or dynamically by setting the feature layer rendering mode.",
+    "ignore": false,
+    "images": "FeatureLayerRenderingModeMap.jpg",
+    "keywords": [
+        "FeatureRenderingMode",
+        "MapViews SceneViews and UI",
+        "dynamic",
+        "static"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/featurelayerrenderingmodemap.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "FeatureLayer",
+        "FeatureLayer.RenderingMode",
+        "MapView"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Feature layer rendering mode (map)"
+}

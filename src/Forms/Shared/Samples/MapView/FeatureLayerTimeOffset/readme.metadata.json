@@ -1,0 +1,15 @@
+{
+    "category": "MapView",
+    "description": "Show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.",
+    "ignore": false,
+    "images": "FeatureLayerTimeOffset.jpg",
+    "keywords": [],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/xfu/sample-code/featurelayertimeoffset.htm"
+    ],
+    "relevant_apis": [],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Feature layer time offset"
+}

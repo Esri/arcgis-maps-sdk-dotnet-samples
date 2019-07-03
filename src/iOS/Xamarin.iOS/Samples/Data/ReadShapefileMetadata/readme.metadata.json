@@ -1,0 +1,37 @@
+{
+    "category": "Data",
+    "description": "Read a shapefile and display its metadata.",
+    "ignore": false,
+    "images": "Readshapefilemetadata.jpg",
+    "keywords": [
+        "credits",
+        "description",
+        "metadata",
+        "package",
+        "shape file",
+        "shapefile",
+        "summary",
+        "symbology",
+        "tags",
+        "visualization"
+    ],
+    "offline_data": [
+        "d98b3e5293834c5f852f13c569930caa"
+    ],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/readshapefilemetadata.htm"
+    ],
+    "relevant_apis": [
+        "ShapefileFeatureTable",
+        "ShapefileFeatureTable.Info",
+        "ShapefileFeatureTable.OpenAsync",
+        "ShapefileInfo",
+        "ShapefileInfo.Credits",
+        "ShapefileInfo.Summary",
+        "ShapefileInfo.Tags",
+        "ShapefileInfo.Thumbnail"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Read shapefile metadata"
+}

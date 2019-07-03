@@ -1,0 +1,26 @@
+{
+    "category": "Map",
+    "description": "Display the map at an initial viewpoint representing a bounding geometry.",
+    "ignore": false,
+    "images": "SetInitialMapArea.jpg",
+    "keywords": [
+        "Envelope",
+        "InitialViewpoint",
+        "extent",
+        "zoom"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/setinitialmaparea.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "Envelope",
+        "MapView",
+        "Point",
+        "Viewpoint"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Map initial extent"
+}

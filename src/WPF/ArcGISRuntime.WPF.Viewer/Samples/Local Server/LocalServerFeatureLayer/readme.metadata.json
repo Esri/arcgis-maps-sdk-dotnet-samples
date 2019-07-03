@@ -1,0 +1,27 @@
+{
+    "category": "Local Server",
+    "description": "Start a local feature service and display its features in a map.",
+    "ignore": false,
+    "images": "LocalServerFeatureLayer.jpg",
+    "keywords": [
+        "LocalFeatureService",
+        "LocalServerStatus",
+        "local services"
+    ],
+    "offline_data": [
+        "4e94fec734434d1288e6ebe36c3c461f"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/localserverfeaturelayer.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "LocalFeatureService",
+        "LocalServer",
+        "LocalServerStatus",
+        "StatusChangedEvent"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Local server feature layer"
+}

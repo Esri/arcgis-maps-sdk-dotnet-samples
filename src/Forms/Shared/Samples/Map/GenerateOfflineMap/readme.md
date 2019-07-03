@@ -1,27 +1,42 @@
 # Generate offline map
 
-Demonstrates how to take a web map offline.
+Take a web map offline.
 
-![](GenerateOfflineMap.jpg)
+![screenshot](GenerateOfflineMap.jpg)
+
+## Use case
+
+Taking a web map offline allows users continued productivity when their network connectivity is poor or nonexistent. For example, by taking a map offline, a field worker inspecting utility lines in remote areas could still access a feature's location and attribute information.
 
 ## How to use the sample
 
-When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.
+When the app starts, you will be prompted to sign in using a free ArcGIS Online account. Once the map loads, zoom to the extent you want to take offline. The red border shows the extent that will be downloaded. Click the "Take Map Offline" button to start the offline map job. The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.
 
 ## How it works
 
-To take a web map offline:
-1. Create a `Map` with a portal item for an online map (web map).
-2. Create `GenerateOfflineMapParameters` that specifies the area of interest, min/max scale, and so on.
-3. Create an `OfflineMapTask` that uses the map.
-4. Create the `GenerateOfflineMapJob` with `OfflineMapTask.GenerateOfflineMap(parameters, outputPath)` and execute it with `Job.Start()`.
-5. When the job is done, get the result (`GenerateOfflineMapResult`) using `Job.GetResultAsync()`.
-6. Get the offline map with `GenerateOfflineMapResult.OfflineMap`.
-
+1. Create an `Map` with a `Portal` item pointing to the web map.
+2. Create `GenerateOfflineMapParameters` specifying the download area geometry, minimum scale, and maximum scale.
+3. Create an `OfflineMapTask` with the map.
+4. Create the `OfflineMapJob` with `OfflineMapTask.GenerateOfflineMap(params, downloadDirectoryPath)` and start it with `OfflineMapJob.Start()`.
+5. When the job is done, get the offline map with `OfflineMapJob.Result.OfflineMap`.
 
 ## Relevant API
 
-- GenerateOfflineMapJob
-- GenerateOfflineMapParameters
-- GenerateOfflineMapResult
-- OfflineMapTask
+* GenerateOfflineMapJob
+* GenerateOfflineMapParameters
+* GenerateOfflineMapResult
+* OfflineMapTask
+* Portal
+
+## About the data
+
+The map used in this sample shows the [stormwater network](https://arcgisruntime.maps.arcgis.com/home/item.html?id=acc027394bc84c2fb04d1ed317aac674) within Naperville, IL, USA, with cartography designed for web and mobile devices with offline support.
+
+## Additional information
+
+The creation of the offline map can be fine-tuned using [parameter overrides for feature layers](https://github.com/Esri/arcgis-runtime-samples-java/tree/master/src/main/java/com/esri/samples/map/generate_offline_map_overrides), or by using [local basemaps](https://github.com/Esri/arcgis-runtime-samples-java/tree/master/src/main/java/com/esri/samples/map/generate_offline_map_with_local_basemap)
+ to achieve more customized results.
+
+## Tags
+
+map, offline

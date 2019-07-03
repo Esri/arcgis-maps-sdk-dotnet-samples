@@ -1,14 +1,69 @@
 # Animate 3D graphic
 
-This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
+An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
 
-<img src="Animate3DGraphic.jpg" width="350"/>
+![screenshot](Animate3DGraphic.jpg)
 
-## Instructions
+## Use case
 
-Click-and-drag to pan the SceneView, orbiting the moving plane. Click "Don't follow" to switch to the default camera controller, which does not orbit the plane.
-The plane's route is shown on the inset map in the bottom left corner of the window. The progress through the plane's mission is shown in a slider at the top of the window. Drag the slider to seek through the mission (like you might seek through a song). The play speed can be adjusted to either be slower or faster using the slider in the panel on the right.
-There is a drop-down box on the top left part of the window for selecting a mission (route) for the plane. Changing the settings for: choosing a different mission, adjusting the play speed, or modifying mission progress will automatically re-start the animation if it is currently paused.
+Visualize movement through a 3D landscape.
 
-Note that this is a graphics-intensive sample; performance may be degraded in certain situations (such as viewing over Remote Desktop).
+## How to use the sample
 
+Animation Controls (Top Left Corner):
+
+* Select a mission -- select a flight path
+* Play/Pause -- toggles playing and stopping the animation
+* Fixed/Follow -- toggles the camera's free cam mode and follow
+* Mission progress -- shows how far along the route the plane is. Slide to change keyframe in animation
+
+Camera Controls (Top Right Corner):
+
+* Camera zoom -- distance between camera and plane (NOT implemented on java/android)
+* Camera angle -- viewing angle between camera and plane (NOT implemented on java/android)
+* Flight speed -- controls speed of animation
+
+ 2D Map Controls (Bottom Left Corner):
+
+* Plus and Minus -- controls distance of 2D view from ground level
+
+## How it works
+
+1. Create a `GraphicsOverlay` and add it to the `SceneView`.
+2. Create a `ModelSceneSymbol` object.
+3. Create a `Graphic` object and set its geometry to a `Point`.
+4. Set the `ModelSceneSymbol` object to the graphic.
+5. Add heading, pitch, and roll attributes to the graphic. Get the attributes from the graphic with `graphic.Attributes`.
+6. Create a `SimpleRenderer` object and set its expression properties.
+7. Add graphic and a renderer to the graphics overlay.
+8. Create a `OrbitGeoElementCameraController` which is set to target the graphic.
+9. Assign the camera controller to the `SceneView`.
+10. Update the graphic's location, heading, pitch, and roll.
+
+## Relevant API
+
+* Scene
+* Camera
+* GlobeCameraController
+* Graphic
+* GraphicsOverlay
+* ModelSceneSymbol
+* OrbitGeoElementCameraController
+* Renderer
+* SceneProperties
+* SceneView
+* SurfacePlacement
+
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [Bristol.zip](https://www.arcgis.com/home/item.html?id=681d6f7694644709a7c830ec57a2d72b) - A 3D model for use within an ArcGIS Runtime Model Scene Symbol.
+* [GrandCanyon.csv](https://www.arcgis.com/home/item.html?id=290f0c571c394461a8b58b6775d0bd63) - CSV data for a route through the Grand Canyon
+* [Hawaii.csv](https://www.arcgis.com/home/item.html?id=e87c154fb9c2487f999143df5b08e9b1) - CSV data for a route in Hawaii
+* [Pyrenees.csv](https://www.arcgis.com/home/item.html?id=5a9b60cee9ba41e79640a06bcdf8084d) - CSV data for a route through the Pyrenees
+* [Snowdon.csv](https://www.arcgis.com/home/item.html?id=12509ffdc684437f8f2656b0129d2c13) - CSV data for a route near Mount Snowdon
+
+## Tags
+
+Camera, ModelSceneSymbol, OrbitGeoElementCameraController, RendererSceneProperties, SceneView

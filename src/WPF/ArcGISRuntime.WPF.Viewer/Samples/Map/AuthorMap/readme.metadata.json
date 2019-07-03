@@ -1,0 +1,27 @@
+{
+    "category": "Map",
+    "description": "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
+    "ignore": false,
+    "images": "AuthorMap.jpg",
+    "keywords": [
+        "AuthenticationManager",
+        "ChallengeHandler",
+        "GenerateCredentialAsync",
+        "IOAuthAuthorizeHandler",
+        "OAuth",
+        "portal",
+        "web map"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/authormap.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "Map.SaveAsAsync",
+        "Portal"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Create and save a map"
+}

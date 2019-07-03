@@ -1,0 +1,25 @@
+{
+    "category": "Data",
+    "description": "Add, delete, and download attachments for features from a service.",
+    "ignore": false,
+    "images": "EditFeatureAttachments.jpg",
+    "keywords": [
+        "Edit and Manage Data"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/editfeatureattachments.htm"
+    ],
+    "relevant_apis": [
+        "ApplyEditsAsync",
+        "DeleteAttachmentAsync",
+        "FeatureLayer",
+        "GetAttachmentsAsync",
+        "GetDataAsync",
+        "ServiceFeatureTable",
+        "UpdateFeatureAsync"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Edit feature attachments"
+}

@@ -1,0 +1,26 @@
+{
+    "category": "Security",
+    "description": "Access secured portals using a certificate.",
+    "ignore": false,
+    "images": "CertificateAuthenticationWithPKI.jpg",
+    "keywords": [
+        "PKI",
+        "X509",
+        "authentication",
+        "certificate",
+        "login",
+        "passwordless",
+        "smartcard",
+        "store"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/certificateauthenticationwithpki.htm"
+    ],
+    "relevant_apis": [
+        "CertificateCredential"
+    ],
+    "sample_unique_id": "",
+    "snippets": [],
+    "title": "Certificate authentication with PKI"
+}

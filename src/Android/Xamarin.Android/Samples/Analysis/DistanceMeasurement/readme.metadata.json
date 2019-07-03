@@ -18,7 +18,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "DistanceMeasurement.cs"
+        "DistanceMeasurement.cs",
+        "../../../Resources/layout/DistanceMeasurement.axml"
     ],
     "title": "Distance measurement analysis"
 }

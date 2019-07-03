@@ -36,7 +36,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "GeoViewSync.cs"
+        "GeoViewSync.cs",
+        "../../../Resources/layout/GeoViewSync.axml"
     ],
     "title": "GeoView viewpoint synchronization"
 }

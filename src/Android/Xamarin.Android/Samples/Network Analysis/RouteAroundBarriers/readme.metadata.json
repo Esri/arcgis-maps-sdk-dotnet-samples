@@ -38,7 +38,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "RouteAroundBarriers.cs"
+        "RouteAroundBarriers.cs",
+        "../../../Resources/layout/RouteAroundBarriers.axml"
     ],
     "title": "Route around barriers"
 }

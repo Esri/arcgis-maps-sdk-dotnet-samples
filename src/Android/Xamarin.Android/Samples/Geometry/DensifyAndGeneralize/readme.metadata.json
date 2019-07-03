@@ -24,7 +24,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "DensifyAndGeneralize.cs"
+        "DensifyAndGeneralize.cs",
+        "../../../Resources/layout/DensifyAndGeneralize.axml"
     ],
     "title": "Densify and generalize"
 }

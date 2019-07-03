@@ -20,7 +20,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "ListKmlContents.cs"
+        "ListKmlContents.cs",
+        "../../../Resources/layout/ListKmlContents.axml"
     ],
     "title": "List KML contents"
 }

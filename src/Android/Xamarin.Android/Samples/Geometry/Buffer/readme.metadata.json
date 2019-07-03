@@ -22,7 +22,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "Buffer.cs"
+        "Buffer.cs",
+        "../../../Resources/layout/Buffer.axml"
     ],
     "title": "Buffer"
 }

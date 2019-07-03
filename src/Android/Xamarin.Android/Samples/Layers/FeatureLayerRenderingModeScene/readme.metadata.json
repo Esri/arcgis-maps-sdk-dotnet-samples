@@ -22,7 +22,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "FeatureLayerRenderingModeScene.cs"
+        "FeatureLayerRenderingModeScene.cs",
+        "../../../Resources/layout/FeatureLayerRenderingModeScene.axml"
     ],
     "title": "Feature layer rendering mode (scene)"
 }

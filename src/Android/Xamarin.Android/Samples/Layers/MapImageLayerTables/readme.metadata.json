@@ -25,7 +25,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "MapImageLayerTables.cs"
+        "MapImageLayerTables.cs",
+        "../../../Resources/layout/MapImageLayerTables.axml"
     ],
     "title": "Map image layer tables"
 }

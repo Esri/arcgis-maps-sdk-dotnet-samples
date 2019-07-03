@@ -31,7 +31,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "OfflineRouting.cs"
+        "OfflineRouting.cs",
+        "../../../Resources/layout/OfflineRouting.axml"
     ],
     "title": "Offline routing"
 }

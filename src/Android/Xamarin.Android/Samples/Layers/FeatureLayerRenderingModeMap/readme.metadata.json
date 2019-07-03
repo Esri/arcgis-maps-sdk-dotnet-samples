@@ -21,7 +21,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "FeatureLayerRenderingModeMap.cs"
+        "FeatureLayerRenderingModeMap.cs",
+        "../../../Resources/layout/FeatureLayerRenderingModeMapLayout.axml"
     ],
     "title": "Feature layer rendering mode (map)"
 }

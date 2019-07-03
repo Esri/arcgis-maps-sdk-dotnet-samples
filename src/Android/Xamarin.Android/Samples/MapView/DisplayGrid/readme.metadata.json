@@ -23,7 +23,8 @@
     ],
     "sample_unique_id": "",
     "snippets": [
-        "DisplayGrid.cs"
+        "DisplayGrid.cs",
+        "../../../Resources/layout/DisplayGrid.axml"
     ],
     "title": "Display grid"
 }

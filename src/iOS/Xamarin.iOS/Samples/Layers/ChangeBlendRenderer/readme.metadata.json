@@ -25,6 +25,8 @@
         "RasterLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeBlendRenderer.cs"
+    ],
     "title": "Blend renderer"
 }

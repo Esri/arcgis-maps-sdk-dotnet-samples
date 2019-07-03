@@ -23,6 +23,9 @@
         "GeoprocessingTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AnalyzeViewshed.xaml",
+        "AnalyzeViewshed.xaml.cs"
+    ],
     "title": "Analyze viewshed (geoprocessing)"
 }

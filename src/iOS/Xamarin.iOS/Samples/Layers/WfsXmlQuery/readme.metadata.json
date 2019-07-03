@@ -23,6 +23,8 @@
         "WfsFeatureTable.PopulateFromServiceAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WfsXmlQuery.cs"
+    ],
     "title": "Load WFS with XML query"
 }

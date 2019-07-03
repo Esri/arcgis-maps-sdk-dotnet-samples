@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/scenelayerurl.htm"
+        "/net/latest/forms/sample-code/scenelayerurl.htm"
     ],
     "relevant_apis": [
         "ArcGISSceneLayer",
@@ -19,6 +19,9 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SceneLayerUrl.xaml",
+        "SceneLayerUrl.xaml.cs"
+    ],
     "title": "Scene layer (URL)"
 }

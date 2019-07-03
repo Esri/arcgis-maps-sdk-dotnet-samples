@@ -16,6 +16,8 @@
         "PointCloudLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewPointCloudDataOffline.cs"
+    ],
     "title": "View point cloud data offline"
 }

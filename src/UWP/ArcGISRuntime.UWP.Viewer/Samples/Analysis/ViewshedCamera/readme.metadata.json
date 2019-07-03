@@ -25,6 +25,9 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewshedCamera.xaml",
+        "ViewshedCamera.xaml.cs"
+    ],
     "title": "Viewshed for camera"
 }

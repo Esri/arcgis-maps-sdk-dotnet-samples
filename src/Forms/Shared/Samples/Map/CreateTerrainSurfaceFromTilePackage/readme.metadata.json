@@ -11,13 +11,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/createterrainsurfacefromtilepackage.htm"
+        "/net/latest/forms/sample-code/createterrainsurfacefromtilepackage.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledElevationSource",
         "Surface"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "CreateTerrainSurfaceFromTilePackage.xaml",
+        "CreateTerrainSurfaceFromTilePackage.xaml.cs"
+    ],
     "title": "Create terrain surface from a tile package"
 }

@@ -21,6 +21,9 @@
         "CertificateCredential"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "CertificateAuthenticationWithPKI.xaml",
+        "CertificateAuthenticationWithPKI.xaml.cs"
+    ],
     "title": "Certificate authentication with PKI"
 }

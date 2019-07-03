@@ -19,6 +19,9 @@
         "Portal"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GenerateOfflineMap.xaml",
+        "GenerateOfflineMap.xaml.cs"
+    ],
     "title": "Generate offline map"
 }

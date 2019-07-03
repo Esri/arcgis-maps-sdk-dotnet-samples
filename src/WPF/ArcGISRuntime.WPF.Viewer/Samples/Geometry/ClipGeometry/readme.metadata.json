@@ -20,6 +20,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ClipGeometry.xaml",
+        "ClipGeometry.xaml.cs"
+    ],
     "title": "Clip geometry"
 }

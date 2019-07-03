@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/convexhulllist.htm"
+        "/net/latest/forms/sample-code/convexhulllist.htm"
     ],
     "relevant_apis": [
         "GeometryEngine.ConvexHull",
@@ -18,6 +18,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ConvexHullList.xaml",
+        "ConvexHullList.xaml.cs"
+    ],
     "title": "Convex hull list"
 }

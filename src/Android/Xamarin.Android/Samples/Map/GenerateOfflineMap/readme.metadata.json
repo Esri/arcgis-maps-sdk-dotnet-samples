@@ -19,6 +19,8 @@
         "Portal"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GenerateOfflineMap.cs"
+    ],
     "title": "Generate offline map"
 }

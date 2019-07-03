@@ -20,6 +20,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureCollectionLayerFromQuery.xaml",
+        "FeatureCollectionLayerFromQuery.xaml.cs"
+    ],
     "title": "Feature collection layer (Query)"
 }

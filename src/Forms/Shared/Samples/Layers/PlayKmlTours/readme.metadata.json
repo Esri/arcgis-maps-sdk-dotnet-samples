@@ -17,7 +17,7 @@
         "f10b1d37fdd645c9bc9b189fb546307c"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/playkmltours.htm"
+        "/net/latest/forms/sample-code/playkmltours.htm"
     ],
     "relevant_apis": [
         "KmlTour",
@@ -30,6 +30,9 @@
         "KmlTourController.Tour"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "PlayKmlTours.xaml",
+        "PlayKmlTours.xaml.cs"
+    ],
     "title": "Play a KML tour"
 }

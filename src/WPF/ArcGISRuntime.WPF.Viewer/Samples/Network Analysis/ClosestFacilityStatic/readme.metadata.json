@@ -24,6 +24,9 @@
         "Incident"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ClosestFacilityStatic.xaml",
+        "ClosestFacilityStatic.xaml.cs"
+    ],
     "title": "Find closest facility to multiple incidents (service)"
 }

@@ -21,6 +21,8 @@
         "Viewpoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetInitialMapArea.cs"
+    ],
     "title": "Map initial extent"
 }

@@ -20,6 +20,8 @@
         "Polyline"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "CreateGeometries.cs"
+    ],
     "title": "Create geometries"
 }

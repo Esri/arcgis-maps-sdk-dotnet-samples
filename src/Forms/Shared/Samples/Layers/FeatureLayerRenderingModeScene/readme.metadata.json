@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/featurelayerrenderingmodescene.htm"
+        "/net/latest/forms/sample-code/featurelayerrenderingmodescene.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -21,6 +21,9 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerRenderingModeScene.xaml",
+        "FeatureLayerRenderingModeScene.xaml.cs"
+    ],
     "title": "Feature layer rendering mode (scene)"
 }

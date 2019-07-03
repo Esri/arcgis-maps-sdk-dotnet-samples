@@ -20,7 +20,7 @@
         "567e14f3420d40c5a206e5c0284cf8fc"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/offlinerouting.htm"
+        "/net/latest/forms/sample-code/offlinerouting.htm"
     ],
     "relevant_apis": [
         "RouteParameters",
@@ -30,6 +30,9 @@
         "TravelMode"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OfflineRouting.xaml",
+        "OfflineRouting.xaml.cs"
+    ],
     "title": "Offline routing"
 }

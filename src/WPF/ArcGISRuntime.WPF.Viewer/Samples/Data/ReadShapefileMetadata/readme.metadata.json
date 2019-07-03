@@ -32,6 +32,9 @@
         "ShapefileInfo.Thumbnail"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ReadShapefileMetadata.xaml",
+        "ReadShapefileMetadata.xaml.cs"
+    ],
     "title": "Read shapefile metadata"
 }

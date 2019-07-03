@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/generateofflinemapwithoverrides.htm"
+        "/net/latest/forms/sample-code/generateofflinemapwithoverrides.htm"
     ],
     "relevant_apis": [
         "ExportTileCacheParameters",
@@ -22,6 +22,11 @@
         "OfflineMapTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ConfigureOverridesPage.xaml",
+        "ConfigureOverridesPage.xaml.cs",
+        "GenerateOfflineMapWithOverrides.xaml",
+        "GenerateOfflineMapWithOverrides.xaml.cs"
+    ],
     "title": "Generate Offline Map (Overrides)"
 }

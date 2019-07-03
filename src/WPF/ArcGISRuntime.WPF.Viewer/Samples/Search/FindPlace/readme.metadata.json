@@ -26,6 +26,9 @@
         "SuggestResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindPlace.xaml",
+        "FindPlace.xaml.cs"
+    ],
     "title": "Find place"
 }

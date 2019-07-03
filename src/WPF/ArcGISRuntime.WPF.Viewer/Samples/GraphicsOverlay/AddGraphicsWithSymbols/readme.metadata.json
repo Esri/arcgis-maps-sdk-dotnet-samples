@@ -21,6 +21,9 @@
         "SimpleMarkerSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddGraphicsWithSymbols.xaml",
+        "AddGraphicsWithSymbols.xaml.cs"
+    ],
     "title": "Add graphics with symbols"
 }

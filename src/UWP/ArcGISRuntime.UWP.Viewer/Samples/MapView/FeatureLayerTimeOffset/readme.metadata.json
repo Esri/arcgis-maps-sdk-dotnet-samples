@@ -10,6 +10,9 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerTimeOffset.xaml",
+        "FeatureLayerTimeOffset.xaml.cs"
+    ],
     "title": "Feature layer time offset"
 }

@@ -24,6 +24,8 @@
         "SymbolStyleSearchParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SymbolsFromMobileStyle.cs"
+    ],
     "title": "Read symbols from a mobile style"
 }

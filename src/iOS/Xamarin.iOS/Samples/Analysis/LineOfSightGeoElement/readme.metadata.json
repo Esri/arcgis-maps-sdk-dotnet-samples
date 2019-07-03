@@ -20,6 +20,8 @@
         "LineOfSight.TargetVisibility"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "LineOfSightGeoElement.cs"
+    ],
     "title": "Line of sight (geoelement)"
 }

@@ -23,6 +23,9 @@
         "QueryParameters.WhereClause"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "QueryFeatureCountAndExtent.xaml",
+        "QueryFeatureCountAndExtent.xaml.cs"
+    ],
     "title": "Query feature count and extent"
 }

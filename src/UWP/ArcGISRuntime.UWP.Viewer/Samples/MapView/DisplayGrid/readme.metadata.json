@@ -22,6 +22,9 @@
         "UTMGrid"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayGrid.xaml",
+        "DisplayGrid.xaml.cs"
+    ],
     "title": "Display grid"
 }

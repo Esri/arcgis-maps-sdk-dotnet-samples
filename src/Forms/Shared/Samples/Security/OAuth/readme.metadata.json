@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/oauth.htm"
+        "/net/latest/forms/sample-code/oauth.htm"
     ],
     "relevant_apis": [
         "ArcGISPortal",
@@ -18,6 +18,9 @@
         "Credential"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OAuth.xaml",
+        "OAuth.xaml.cs"
+    ],
     "title": "Authenticate with OAuth"
 }

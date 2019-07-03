@@ -23,6 +23,8 @@
         "Surface.ElevationExaggeration"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "TerrainExaggeration.cs"
+    ],
     "title": "Terrain exaggeration"
 }

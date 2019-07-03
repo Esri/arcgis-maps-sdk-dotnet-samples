@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/setminmaxscale.htm"
+        "/net/latest/forms/sample-code/setminmaxscale.htm"
     ],
     "relevant_apis": [
         "Basemap",
@@ -21,6 +21,9 @@
         "ViewPoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetMinMaxScale.xaml",
+        "SetMinMaxScale.xaml.cs"
+    ],
     "title": "Set min & max scale"
 }

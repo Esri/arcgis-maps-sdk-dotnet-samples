@@ -24,6 +24,8 @@
         "Incident"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ClosestFacilityStatic.cs"
+    ],
     "title": "Find closest facility to multiple incidents (service)"
 }

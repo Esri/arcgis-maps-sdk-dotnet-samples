@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/featurelayerrenderingmodemap.htm"
+        "/net/latest/forms/sample-code/featurelayerrenderingmodemap.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -20,6 +20,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerRenderingModeMap.xaml",
+        "FeatureLayerRenderingModeMap.xaml.cs"
+    ],
     "title": "Feature layer rendering mode (map)"
 }

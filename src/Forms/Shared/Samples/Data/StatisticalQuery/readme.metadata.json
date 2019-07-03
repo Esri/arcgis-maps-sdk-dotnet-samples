@@ -21,7 +21,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/statisticalquery.htm"
+        "/net/latest/forms/sample-code/statisticalquery.htm"
     ],
     "relevant_apis": [
         "QueryParameters",
@@ -33,6 +33,9 @@
         "StatisticsQueryResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "StatisticalQuery.xaml",
+        "StatisticalQuery.xaml.cs"
+    ],
     "title": "Statistical query"
 }

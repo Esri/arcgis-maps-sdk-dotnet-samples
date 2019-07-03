@@ -10,12 +10,15 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/openscene.htm"
+        "/net/latest/forms/sample-code/openscene.htm"
     ],
     "relevant_apis": [
         "Scene.LoadAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenScene.xaml",
+        "OpenScene.xaml.cs"
+    ],
     "title": "Open a scene (Portal item)"
 }

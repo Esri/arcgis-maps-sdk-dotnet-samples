@@ -20,6 +20,9 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SceneLayerSelection.xaml",
+        "SceneLayerSelection.xaml.cs"
+    ],
     "title": "Scene layer selection"
 }

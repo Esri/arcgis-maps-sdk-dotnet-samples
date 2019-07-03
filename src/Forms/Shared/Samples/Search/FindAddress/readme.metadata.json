@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/findaddress.htm"
+        "/net/latest/forms/sample-code/findaddress.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",
@@ -19,6 +19,9 @@
         "LocatorTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindAddress.xaml",
+        "FindAddress.xaml.cs"
+    ],
     "title": "Find address"
 }

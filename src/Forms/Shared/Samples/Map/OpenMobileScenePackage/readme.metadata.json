@@ -11,13 +11,16 @@
         "7dd2f97bb007466ea939160d0de96a9d"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/openmobilescenepackage.htm"
+        "/net/latest/forms/sample-code/openmobilescenepackage.htm"
     ],
     "relevant_apis": [
         "MobileScenePackage",
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenMobileScenePackage.xaml",
+        "OpenMobileScenePackage.xaml.cs"
+    ],
     "title": "Open Mobile Scene Package"
 }

@@ -18,6 +18,8 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenMobileScenePackage.cs"
+    ],
     "title": "Open Mobile Scene Package"
 }

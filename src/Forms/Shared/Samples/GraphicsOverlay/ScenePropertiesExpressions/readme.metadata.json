@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/scenepropertiesexpressions.htm"
+        "/net/latest/forms/sample-code/scenepropertiesexpressions.htm"
     ],
     "relevant_apis": [
         "Graphic.Attributes",
@@ -25,6 +25,9 @@
         "SimpleRenderer.SceneProperties"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ScenePropertiesExpressions.xaml",
+        "ScenePropertiesExpressions.xaml.cs"
+    ],
     "title": "Scene properties expressions"
 }

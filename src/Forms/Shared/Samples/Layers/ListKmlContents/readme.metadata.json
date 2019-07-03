@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/listkmlcontents.htm"
+        "/net/latest/forms/sample-code/listkmlcontents.htm"
     ],
     "relevant_apis": [
         "KmlDataset",
@@ -19,6 +19,9 @@
         "KmlNode.Extent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ListKmlContents.xaml",
+        "ListKmlContents.xaml.cs"
+    ],
     "title": "List KML contents"
 }

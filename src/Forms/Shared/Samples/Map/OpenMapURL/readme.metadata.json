@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/openmapurl.htm"
+        "/net/latest/forms/sample-code/openmapurl.htm"
     ],
     "relevant_apis": [
         "Map",
@@ -18,6 +18,9 @@
         "PortalItem"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenMapURL.xaml",
+        "OpenMapURL.xaml.cs"
+    ],
     "title": "Open map URL"
 }

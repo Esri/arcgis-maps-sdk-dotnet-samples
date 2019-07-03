@@ -24,6 +24,9 @@
         "TableSublayerSource"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DynamicWorkspaceShapefile.xaml",
+        "DynamicWorkspaceShapefile.xaml.cs"
+    ],
     "title": "Local server dynamic workspace shapefile"
 }

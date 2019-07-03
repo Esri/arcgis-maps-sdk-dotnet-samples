@@ -22,6 +22,8 @@
         "WmsServiceInfo"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WmsServiceCatalog.cs"
+    ],
     "title": "WMS service catalog"
 }

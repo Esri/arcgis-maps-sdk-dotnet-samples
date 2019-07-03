@@ -17,6 +17,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerQuery.xaml",
+        "FeatureLayerQuery.xaml.cs"
+    ],
     "title": "Feature layer query"
 }

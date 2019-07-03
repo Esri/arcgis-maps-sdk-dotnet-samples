@@ -21,6 +21,8 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SimpleRenderers.cs"
+    ],
     "title": "Simple renderer"
 }

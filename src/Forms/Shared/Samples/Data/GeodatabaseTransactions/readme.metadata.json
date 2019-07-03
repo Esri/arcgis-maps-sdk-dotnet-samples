@@ -6,10 +6,13 @@
     "keywords": [],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/geodatabasetransactions.htm"
+        "/net/latest/forms/sample-code/geodatabasetransactions.htm"
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GeodatabaseTransactions.xaml",
+        "GeodatabaseTransactions.xaml.cs"
+    ],
     "title": "Geodatabase transactions"
 }

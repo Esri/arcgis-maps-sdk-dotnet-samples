@@ -30,6 +30,8 @@
         "TravelMode"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OfflineRouting.cs"
+    ],
     "title": "Offline routing"
 }

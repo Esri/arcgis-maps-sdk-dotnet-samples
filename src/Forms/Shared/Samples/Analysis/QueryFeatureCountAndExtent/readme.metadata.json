@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/queryfeaturecountandextent.htm"
+        "/net/latest/forms/sample-code/queryfeaturecountandextent.htm"
     ],
     "relevant_apis": [
         "FeatureTable.QueryExtentAsync",
@@ -23,6 +23,9 @@
         "QueryParameters.WhereClause"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "QueryFeatureCountAndExtent.xaml",
+        "QueryFeatureCountAndExtent.xaml.cs"
+    ],
     "title": "Query feature count and extent"
 }

@@ -26,6 +26,8 @@
         "SuggestResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindPlace.cs"
+    ],
     "title": "Find place"
 }

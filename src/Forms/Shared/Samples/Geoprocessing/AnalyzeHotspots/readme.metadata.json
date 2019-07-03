@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/analyzehotspots.htm"
+        "/net/latest/forms/sample-code/analyzehotspots.htm"
     ],
     "relevant_apis": [
         "GeoprocessingJob",
@@ -20,6 +20,9 @@
         "GeoprocessingTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AnalyzeHotspots.xaml",
+        "AnalyzeHotspots.xaml.cs"
+    ],
     "title": "Analyze hotspots"
 }

@@ -19,6 +19,9 @@
         "ReverseGeocodeParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ReverseGeocode.xaml",
+        "ReverseGeocode.xaml.cs"
+    ],
     "title": "Reverse geocode"
 }

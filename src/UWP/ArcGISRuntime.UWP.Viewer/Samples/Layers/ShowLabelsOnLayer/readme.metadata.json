@@ -19,6 +19,9 @@
         "TextSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ShowLabelsOnLayer.xaml",
+        "ShowLabelsOnLayer.xaml.cs"
+    ],
     "title": "Show labels on layers"
 }

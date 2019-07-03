@@ -23,6 +23,8 @@
         "ClassBreaksRenderer.ClassBreak"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeSublayerRenderer.cs"
+    ],
     "title": "Change sublayer renderer"
 }

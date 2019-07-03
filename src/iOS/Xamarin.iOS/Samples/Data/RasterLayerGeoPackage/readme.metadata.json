@@ -23,6 +23,8 @@
         "RasterLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterLayerGeoPackage.cs"
+    ],
     "title": "Raster layer (GeoPackage)"
 }

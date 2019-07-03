@@ -21,6 +21,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerExtrusion.xaml",
+        "FeatureLayerExtrusion.xaml.cs"
+    ],
     "title": "Feature layer extrusion"
 }

@@ -27,6 +27,9 @@
         "GeoPackageRaster"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ReadGeoPackage.xaml",
+        "ReadGeoPackage.xaml.cs"
+    ],
     "title": "Read a GeoPackage"
 }

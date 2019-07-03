@@ -18,6 +18,8 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayLayerViewState.cs"
+    ],
     "title": "Display layer view state"
 }

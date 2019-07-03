@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/sketchonmap.htm"
+        "/net/latest/forms/sample-code/sketchonmap.htm"
     ],
     "relevant_apis": [
         "Geometry",
@@ -25,6 +25,9 @@
         "SketchEditor"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SketchOnMap.xaml",
+        "SketchOnMap.xaml.cs"
+    ],
     "title": "Sketch on map"
 }

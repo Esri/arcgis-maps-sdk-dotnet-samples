@@ -22,6 +22,9 @@
         "UniqueValueRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RenderUniqueValues.xaml",
+        "RenderUniqueValues.xaml.cs"
+    ],
     "title": "Unique value renderer"
 }

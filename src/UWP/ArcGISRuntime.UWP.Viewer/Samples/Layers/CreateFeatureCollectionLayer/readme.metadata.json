@@ -20,6 +20,9 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "CreateFeatureCollectionLayer.xaml",
+        "CreateFeatureCollectionLayer.xaml.cs"
+    ],
     "title": "Feature collection layer"
 }

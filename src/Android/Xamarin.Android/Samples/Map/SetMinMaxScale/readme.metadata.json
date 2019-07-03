@@ -21,6 +21,8 @@
         "ViewPoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetMinMaxScale.cs"
+    ],
     "title": "Set min & max scale"
 }

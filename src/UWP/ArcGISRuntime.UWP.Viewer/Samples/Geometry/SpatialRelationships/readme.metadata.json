@@ -29,6 +29,9 @@
         "Polyline"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SpatialRelationships.xaml",
+        "SpatialRelationships.xaml.cs"
+    ],
     "title": "Spatial relationships"
 }

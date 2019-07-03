@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/displaydrawingstatus.htm"
+        "/net/latest/forms/sample-code/displaydrawingstatus.htm"
     ],
     "relevant_apis": [
         "DrawStatus",
@@ -17,6 +17,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayDrawingStatus.xaml",
+        "DisplayDrawingStatus.xaml.cs"
+    ],
     "title": "Display draw status"
 }

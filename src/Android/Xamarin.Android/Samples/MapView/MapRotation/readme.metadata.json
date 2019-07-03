@@ -17,6 +17,8 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapRotation.cs"
+    ],
     "title": "Map rotation"
 }

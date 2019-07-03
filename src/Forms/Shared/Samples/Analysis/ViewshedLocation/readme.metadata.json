@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/viewshedlocation.htm"
+        "/net/latest/forms/sample-code/viewshedlocation.htm"
     ],
     "relevant_apis": [
         "AnalysisOverlay",
@@ -24,6 +24,9 @@
         "Viewshed"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewshedLocation.xaml",
+        "ViewshedLocation.xaml.cs"
+    ],
     "title": "Viewshed for location"
 }

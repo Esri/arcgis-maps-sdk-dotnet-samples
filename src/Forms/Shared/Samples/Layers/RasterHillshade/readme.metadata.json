@@ -14,10 +14,13 @@
         "134d60f50e184e8fa56365f44e5ce3fb"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/rasterhillshade.htm"
+        "/net/latest/forms/sample-code/rasterhillshade.htm"
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterHillshade.xaml",
+        "RasterHillshade.xaml.cs"
+    ],
     "title": "Raster hillshade renderer"
 }

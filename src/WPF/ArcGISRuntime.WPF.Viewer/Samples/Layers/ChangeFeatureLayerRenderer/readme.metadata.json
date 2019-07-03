@@ -18,6 +18,9 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeFeatureLayerRenderer.xaml",
+        "ChangeFeatureLayerRenderer.xaml.cs"
+    ],
     "title": "Change feature layer renderer"
 }

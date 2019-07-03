@@ -23,6 +23,9 @@
         "TransformationCatalog"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ListTransformations.xaml",
+        "ListTransformations.xaml.cs"
+    ],
     "title": "List transformations by suitability"
 }

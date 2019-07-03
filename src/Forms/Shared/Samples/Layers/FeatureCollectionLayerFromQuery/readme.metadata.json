@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/featurecollectionlayerfromquery.htm"
+        "/net/latest/forms/sample-code/featurecollectionlayerfromquery.htm"
     ],
     "relevant_apis": [
         "FeatureCollection",
@@ -20,6 +20,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureCollectionLayerFromQuery.xaml",
+        "FeatureCollectionLayerFromQuery.xaml.cs"
+    ],
     "title": "Feature collection layer (Query)"
 }

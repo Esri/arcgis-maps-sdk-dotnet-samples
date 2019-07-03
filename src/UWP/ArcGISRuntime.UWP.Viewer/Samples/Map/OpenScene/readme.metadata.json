@@ -16,6 +16,9 @@
         "Scene.LoadAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenScene.xaml",
+        "OpenScene.xaml.cs"
+    ],
     "title": "Open a scene (Portal item)"
 }

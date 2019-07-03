@@ -22,6 +22,8 @@
         "Viewpoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeViewpoint.cs"
+    ],
     "title": "Change viewpoint"
 }

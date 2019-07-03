@@ -20,6 +20,9 @@
         "RangeCollection"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "UseDistanceCompositeSym.xaml",
+        "UseDistanceCompositeSym.xaml.cs"
+    ],
     "title": "Distance composite scene symbol"
 }

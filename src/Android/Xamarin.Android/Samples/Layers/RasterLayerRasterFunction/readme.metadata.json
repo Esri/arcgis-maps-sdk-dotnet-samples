@@ -10,6 +10,8 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterLayerRasterFunction.cs"
+    ],
     "title": "ArcGIS raster function (service)"
 }

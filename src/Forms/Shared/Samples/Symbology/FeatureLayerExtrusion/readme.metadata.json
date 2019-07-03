@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/featurelayerextrusion.htm"
+        "/net/latest/forms/sample-code/featurelayerextrusion.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -21,6 +21,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerExtrusion.xaml",
+        "FeatureLayerExtrusion.xaml.cs"
+    ],
     "title": "Feature layer extrusion"
 }

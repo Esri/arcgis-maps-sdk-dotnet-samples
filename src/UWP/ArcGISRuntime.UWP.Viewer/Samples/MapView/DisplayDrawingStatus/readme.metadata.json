@@ -17,6 +17,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayDrawingStatus.xaml",
+        "DisplayDrawingStatus.xaml.cs"
+    ],
     "title": "Display draw status"
 }

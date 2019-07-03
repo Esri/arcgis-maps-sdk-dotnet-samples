@@ -24,6 +24,9 @@
         "Viewshed"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewshedLocation.xaml",
+        "ViewshedLocation.xaml.cs"
+    ],
     "title": "Viewshed for location"
 }

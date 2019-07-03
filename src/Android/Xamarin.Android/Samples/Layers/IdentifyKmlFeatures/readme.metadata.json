@@ -21,6 +21,8 @@
         "KmlPlacemark.BalloonContent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "IdentifyKmlFeatures.cs"
+    ],
     "title": "Identify KML features"
 }

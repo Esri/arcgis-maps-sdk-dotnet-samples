@@ -23,6 +23,9 @@
         "Map"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerGeoPackage.xaml",
+        "FeatureLayerGeoPackage.xaml.cs"
+    ],
     "title": "Feature layer (GeoPackage)"
 }

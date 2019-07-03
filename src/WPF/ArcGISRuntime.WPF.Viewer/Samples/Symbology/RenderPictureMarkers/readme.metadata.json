@@ -18,6 +18,9 @@
         "PictureMarkerSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RenderPictureMarkers.xaml",
+        "RenderPictureMarkers.xaml.cs"
+    ],
     "title": "Render picture markers"
 }

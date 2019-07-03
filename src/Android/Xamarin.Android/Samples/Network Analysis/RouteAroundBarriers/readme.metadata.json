@@ -37,6 +37,8 @@
         "Stop.Name"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RouteAroundBarriers.cs"
+    ],
     "title": "Route around barriers"
 }

@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/usedistancecompositesym.htm"
+        "/net/latest/forms/sample-code/usedistancecompositesym.htm"
     ],
     "relevant_apis": [
         "DistanceCompositeSceneSymbol",
@@ -20,6 +20,9 @@
         "RangeCollection"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "UseDistanceCompositeSym.xaml",
+        "UseDistanceCompositeSym.xaml.cs"
+    ],
     "title": "Distance composite scene symbol"
 }

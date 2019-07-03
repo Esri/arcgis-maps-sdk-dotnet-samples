@@ -17,6 +17,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "IdentifyGraphics.xaml",
+        "IdentifyGraphics.xaml.cs"
+    ],
     "title": "Identify graphics"
 }

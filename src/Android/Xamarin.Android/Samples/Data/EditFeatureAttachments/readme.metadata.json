@@ -20,6 +20,8 @@
         "UpdateFeatureAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "EditFeatureAttachments.cs"
+    ],
     "title": "Edit feature attachments"
 }

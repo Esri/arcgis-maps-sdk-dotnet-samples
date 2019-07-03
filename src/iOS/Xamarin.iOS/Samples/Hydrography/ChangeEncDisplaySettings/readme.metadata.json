@@ -45,6 +45,8 @@
         "EncViewingGroupSettings.ResetToDefaults"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeEncDisplaySettings.cs"
+    ],
     "title": "Change ENC display settings"
 }

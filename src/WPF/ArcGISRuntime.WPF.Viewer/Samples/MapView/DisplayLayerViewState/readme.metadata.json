@@ -18,6 +18,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayLayerViewState.xaml",
+        "DisplayLayerViewState.xaml.cs"
+    ],
     "title": "Display layer view state"
 }

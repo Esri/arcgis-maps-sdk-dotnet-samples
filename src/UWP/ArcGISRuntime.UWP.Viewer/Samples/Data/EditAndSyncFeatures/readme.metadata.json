@@ -26,6 +26,9 @@
         "SyncLayerOption"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "EditAndSyncFeatures.xaml",
+        "EditAndSyncFeatures.xaml.cs"
+    ],
     "title": "Edit and sync features"
 }

@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/setinitialmaparea.htm"
+        "/net/latest/forms/sample-code/setinitialmaparea.htm"
     ],
     "relevant_apis": [
         "Envelope",
@@ -21,6 +21,9 @@
         "Viewpoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetInitialMapArea.xaml",
+        "SetInitialMapArea.xaml.cs"
+    ],
     "title": "Map initial extent"
 }

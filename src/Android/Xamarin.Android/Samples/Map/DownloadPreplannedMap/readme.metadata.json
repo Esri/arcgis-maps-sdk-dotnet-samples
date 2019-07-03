@@ -27,6 +27,8 @@
         "PreplannedMapArea"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DownloadPreplannedMap.cs"
+    ],
     "title": "Download a preplanned map area"
 }

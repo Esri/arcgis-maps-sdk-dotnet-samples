@@ -22,6 +22,9 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddGraphicsRenderer.xaml",
+        "AddGraphicsRenderer.xaml.cs"
+    ],
     "title": "Add graphics with renderer"
 }

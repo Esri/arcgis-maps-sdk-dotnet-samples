@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/displaymap.htm"
+        "/net/latest/forms/sample-code/displaymap.htm"
     ],
     "relevant_apis": [
         "Basemap",
@@ -18,6 +18,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayMap.xaml",
+        "DisplayMap.xaml.cs"
+    ],
     "title": "Display a map"
 }

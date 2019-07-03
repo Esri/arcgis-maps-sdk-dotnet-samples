@@ -25,6 +25,9 @@
         "StatusChangedEvent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DynamicWorkspaceRaster.xaml",
+        "DynamicWorkspaceRaster.xaml.cs"
+    ],
     "title": "Local server dynamic workspace raster"
 }

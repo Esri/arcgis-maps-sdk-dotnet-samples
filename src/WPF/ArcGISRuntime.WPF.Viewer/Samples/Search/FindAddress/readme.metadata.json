@@ -19,6 +19,9 @@
         "LocatorTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindAddress.xaml",
+        "FindAddress.xaml.cs"
+    ],
     "title": "Find address"
 }

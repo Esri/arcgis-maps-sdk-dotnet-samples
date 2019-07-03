@@ -24,6 +24,8 @@
         "EncLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddEncExchangeSet.cs"
+    ],
     "title": "Add ENC exchange set"
 }

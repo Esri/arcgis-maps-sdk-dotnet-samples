@@ -6,10 +6,13 @@
     "keywords": [],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/featurelayerurl.htm"
+        "/net/latest/forms/sample-code/featurelayerurl.htm"
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerUrl.xaml",
+        "FeatureLayerUrl.xaml.cs"
+    ],
     "title": "Feature layer (feature service)"
 }

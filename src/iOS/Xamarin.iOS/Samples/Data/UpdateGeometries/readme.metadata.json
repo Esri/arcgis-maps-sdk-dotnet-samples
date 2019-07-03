@@ -23,6 +23,8 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "UpdateGeometries.cs"
+    ],
     "title": "Update geometries (feature service)"
 }

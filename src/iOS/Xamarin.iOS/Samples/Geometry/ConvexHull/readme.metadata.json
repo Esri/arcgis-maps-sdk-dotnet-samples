@@ -18,6 +18,8 @@
         "GeometryEngine"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ConvexHull.cs"
+    ],
     "title": "Convex hull"
 }

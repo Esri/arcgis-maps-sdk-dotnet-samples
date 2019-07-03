@@ -18,6 +18,9 @@
         "Basemap"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ArcGISVectorTiledLayerUrl.xaml",
+        "ArcGISVectorTiledLayerUrl.xaml.cs"
+    ],
     "title": "ArcGIS vector tiled layer URL"
 }

@@ -22,6 +22,9 @@
         "Viewpoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeViewpoint.xaml",
+        "ChangeViewpoint.xaml.cs"
+    ],
     "title": "Change viewpoint"
 }

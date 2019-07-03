@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/wmtslayer.htm"
+        "/net/latest/forms/sample-code/wmtslayer.htm"
     ],
     "relevant_apis": [
         "WmtsLayer",
@@ -25,6 +25,9 @@
         "WmtsServiceInfo"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WMTSLayer.xaml",
+        "WMTSLayer.xaml.cs"
+    ],
     "title": "WMTS layer"
 }

@@ -23,6 +23,9 @@
         "ClassBreaksRenderer.ClassBreak"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeSublayerRenderer.xaml",
+        "ChangeSublayerRenderer.xaml.cs"
+    ],
     "title": "Change sublayer renderer"
 }

@@ -22,6 +22,9 @@
         "MapView.OperationalLayers"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ManageOperationalLayers.xaml",
+        "ManageOperationalLayers.xaml.cs"
+    ],
     "title": "Manage operational layers"
 }

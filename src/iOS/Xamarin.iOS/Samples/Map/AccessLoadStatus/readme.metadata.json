@@ -18,6 +18,8 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AccessLoadStatus.cs"
+    ],
     "title": "Access load status"
 }

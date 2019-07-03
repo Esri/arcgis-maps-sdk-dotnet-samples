@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/rasterrenderingrule.htm"
+        "/net/latest/forms/sample-code/rasterrenderingrule.htm"
     ],
     "relevant_apis": [
         "ImageServiceRaster",
@@ -18,6 +18,9 @@
         "RenderingRule"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterRenderingRule.xaml",
+        "RasterRenderingRule.xaml.cs"
+    ],
     "title": "Raster rendering rule"
 }

@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/findservicearea.htm"
+        "/net/latest/forms/sample-code/findservicearea.htm"
     ],
     "relevant_apis": [
         "PolylineBarrier",
@@ -22,6 +22,9 @@
         "ServiceAreaTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindServiceArea.xaml",
+        "FindServiceArea.xaml.cs"
+    ],
     "title": "Find service area"
 }

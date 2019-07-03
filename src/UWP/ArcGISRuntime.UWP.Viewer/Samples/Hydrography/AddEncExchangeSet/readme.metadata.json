@@ -24,6 +24,9 @@
         "EncLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddEncExchangeSet.xaml",
+        "AddEncExchangeSet.xaml.cs"
+    ],
     "title": "Add ENC exchange set"
 }

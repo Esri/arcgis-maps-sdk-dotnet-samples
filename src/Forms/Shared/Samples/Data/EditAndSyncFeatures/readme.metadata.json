@@ -13,7 +13,7 @@
         "3f1bbf0ec70b409a975f5c91f363fe7d"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/editandsyncfeatures.htm"
+        "/net/latest/forms/sample-code/editandsyncfeatures.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -26,6 +26,9 @@
         "SyncLayerOption"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "EditAndSyncFeatures.xaml",
+        "EditAndSyncFeatures.xaml.cs"
+    ],
     "title": "Edit and sync features"
 }

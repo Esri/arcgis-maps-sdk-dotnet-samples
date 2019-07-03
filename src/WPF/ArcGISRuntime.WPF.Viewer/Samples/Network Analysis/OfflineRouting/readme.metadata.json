@@ -30,6 +30,9 @@
         "TravelMode"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OfflineRouting.xaml",
+        "OfflineRouting.xaml.cs"
+    ],
     "title": "Offline routing"
 }

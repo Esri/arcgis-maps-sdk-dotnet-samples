@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/findroute.htm"
+        "/net/latest/forms/sample-code/findroute.htm"
     ],
     "relevant_apis": [
         "DirectionManeuver",
@@ -27,6 +27,9 @@
         "Stop"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindRoute.xaml",
+        "FindRoute.xaml.cs"
+    ],
     "title": "Find route"
 }

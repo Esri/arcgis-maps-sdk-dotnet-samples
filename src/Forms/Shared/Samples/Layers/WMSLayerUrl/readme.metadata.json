@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/wmslayerurl.htm"
+        "/net/latest/forms/sample-code/wmslayerurl.htm"
     ],
     "relevant_apis": [
         "Map",
@@ -18,6 +18,9 @@
         "WmsLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WMSLayerUrl.xaml",
+        "WMSLayerUrl.xaml.cs"
+    ],
     "title": "WMS Layer URL"
 }

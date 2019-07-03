@@ -17,7 +17,7 @@
         "7c4c679ab06a4df19dc497f577f111bd"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/rasterrgbrenderer.htm"
+        "/net/latest/forms/sample-code/rasterrgbrenderer.htm"
     ],
     "relevant_apis": [
         "Basemap",
@@ -29,6 +29,9 @@
         "StretchParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterRgbRenderer.xaml",
+        "RasterRgbRenderer.xaml.cs"
+    ],
     "title": "RGB Renderer"
 }

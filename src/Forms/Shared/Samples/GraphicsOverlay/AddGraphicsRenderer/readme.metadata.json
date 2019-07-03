@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/addgraphicsrenderer.htm"
+        "/net/latest/forms/sample-code/addgraphicsrenderer.htm"
     ],
     "relevant_apis": [
         "Geometry",
@@ -22,6 +22,9 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddGraphicsRenderer.xaml",
+        "AddGraphicsRenderer.xaml.cs"
+    ],
     "title": "Add graphics with renderer"
 }

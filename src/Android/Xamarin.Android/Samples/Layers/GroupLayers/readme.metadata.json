@@ -15,6 +15,8 @@
         "GroupLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GroupLayers.cs"
+    ],
     "title": "Group layers"
 }

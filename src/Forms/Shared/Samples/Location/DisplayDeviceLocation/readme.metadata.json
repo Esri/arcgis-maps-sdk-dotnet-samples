@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/displaydevicelocation.htm"
+        "/net/latest/forms/sample-code/displaydevicelocation.htm"
     ],
     "relevant_apis": [
         "LocationDisplay",
@@ -19,6 +19,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayDeviceLocation.xaml",
+        "DisplayDeviceLocation.xaml.cs"
+    ],
     "title": "Display device location"
 }

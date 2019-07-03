@@ -22,6 +22,8 @@
         "ServiceAreaTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindServiceArea.cs"
+    ],
     "title": "Find service area"
 }

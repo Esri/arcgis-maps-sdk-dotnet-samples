@@ -22,6 +22,8 @@
         "MapView.OperationalLayers"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ManageOperationalLayers.cs"
+    ],
     "title": "Manage operational layers"
 }

@@ -34,6 +34,8 @@
         "SurfacePlacement"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "Animate3DGraphic.cs"
+    ],
     "title": "Animate 3D graphic"
 }

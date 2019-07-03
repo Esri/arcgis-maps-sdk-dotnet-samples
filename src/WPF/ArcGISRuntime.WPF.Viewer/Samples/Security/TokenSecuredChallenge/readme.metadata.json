@@ -17,6 +17,9 @@
         "TokenCredential"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "TokenSecuredChallenge.xaml",
+        "TokenSecuredChallenge.xaml.cs"
+    ],
     "title": "ArcGIS token challenge"
 }

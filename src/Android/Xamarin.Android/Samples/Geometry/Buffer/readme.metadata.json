@@ -21,6 +21,8 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "Buffer.cs"
+    ],
     "title": "Buffer"
 }

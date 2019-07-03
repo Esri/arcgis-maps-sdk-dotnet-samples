@@ -20,6 +20,8 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetInitialMapLocation.cs"
+    ],
     "title": "Set initial map location"
 }

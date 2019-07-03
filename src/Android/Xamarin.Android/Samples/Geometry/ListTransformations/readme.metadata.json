@@ -23,6 +23,8 @@
         "TransformationCatalog"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ListTransformations.cs"
+    ],
     "title": "List transformations by suitability"
 }

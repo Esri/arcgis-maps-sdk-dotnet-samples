@@ -26,6 +26,9 @@
         "WfsServiceInfo"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "BrowseWfsLayers.xaml",
+        "BrowseWfsLayers.xaml.cs"
+    ],
     "title": "Browse WFS layers"
 }

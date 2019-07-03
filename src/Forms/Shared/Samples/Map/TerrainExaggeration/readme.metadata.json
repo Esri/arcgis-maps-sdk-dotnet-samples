@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/terrainexaggeration.htm"
+        "/net/latest/forms/sample-code/terrainexaggeration.htm"
     ],
     "relevant_apis": [
         "Scene",
@@ -23,6 +23,9 @@
         "Surface.ElevationExaggeration"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "TerrainExaggeration.xaml",
+        "TerrainExaggeration.xaml.cs"
+    ],
     "title": "Terrain exaggeration"
 }

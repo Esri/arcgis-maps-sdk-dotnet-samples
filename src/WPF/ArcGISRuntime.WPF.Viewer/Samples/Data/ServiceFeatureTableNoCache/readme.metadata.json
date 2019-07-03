@@ -20,6 +20,9 @@
         "ServiceFeatureTable.PopulateFromServiceAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ServiceFeatureTableNoCache.xaml",
+        "ServiceFeatureTableNoCache.xaml.cs"
+    ],
     "title": "Service feature table (no cache)"
 }

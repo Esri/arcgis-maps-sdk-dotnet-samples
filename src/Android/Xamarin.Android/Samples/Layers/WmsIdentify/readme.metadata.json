@@ -24,6 +24,8 @@
         "WmsFeature.Attributes"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WmsIdentify.cs"
+    ],
     "title": "Identify WMS features"
 }

@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/showlabelsonlayer.htm"
+        "/net/latest/forms/sample-code/showlabelsonlayer.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -19,6 +19,9 @@
         "TextSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ShowLabelsOnLayer.xaml",
+        "ShowLabelsOnLayer.xaml.cs"
+    ],
     "title": "Show labels on layers"
 }

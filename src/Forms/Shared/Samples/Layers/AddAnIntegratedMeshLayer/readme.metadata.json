@@ -10,12 +10,15 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/addanintegratedmeshlayer.htm"
+        "/net/latest/forms/sample-code/addanintegratedmeshlayer.htm"
     ],
     "relevant_apis": [
         "IntegratedMeshLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddAnIntegratedMeshLayer.xaml",
+        "AddAnIntegratedMeshLayer.xaml.cs"
+    ],
     "title": "Add an integrated mesh layer"
 }

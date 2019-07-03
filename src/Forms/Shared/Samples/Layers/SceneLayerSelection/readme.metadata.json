@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/scenelayerselection.htm"
+        "/net/latest/forms/sample-code/scenelayerselection.htm"
     ],
     "relevant_apis": [
         "ArcGISSceneLayer",
@@ -20,6 +20,9 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SceneLayerSelection.xaml",
+        "SceneLayerSelection.xaml.cs"
+    ],
     "title": "Scene layer selection"
 }

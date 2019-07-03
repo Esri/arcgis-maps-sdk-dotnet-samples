@@ -19,6 +19,8 @@
         "ServiceFeatureTable.FeatureRequestMode"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ServiceFeatureTableCache.cs"
+    ],
     "title": "Service feature table (on interaction cache)"
 }

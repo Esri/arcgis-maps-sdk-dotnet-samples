@@ -24,6 +24,8 @@
         "Surface"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SurfacePlacements.cs"
+    ],
     "title": "Surface placement"
 }

@@ -16,6 +16,8 @@
         "ArcGISMapImageLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeSublayerVisibility.cs"
+    ],
     "title": "Map image layer sublayer visibility"
 }

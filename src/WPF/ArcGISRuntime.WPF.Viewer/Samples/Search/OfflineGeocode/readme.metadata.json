@@ -25,6 +25,9 @@
         "ReverseGeocodeParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OfflineGeocode.xaml",
+        "OfflineGeocode.xaml.cs"
+    ],
     "title": "Offline geocode"
 }

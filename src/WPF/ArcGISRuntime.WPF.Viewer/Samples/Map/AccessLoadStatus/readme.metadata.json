@@ -18,6 +18,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AccessLoadStatus.xaml",
+        "AccessLoadStatus.xaml.cs"
+    ],
     "title": "Access load status"
 }

@@ -21,6 +21,9 @@
         "LocalServerStatus"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "LocalServerMapImageLayer.xaml",
+        "LocalServerMapImageLayer.xaml.cs"
+    ],
     "title": "Local Server map image layer"
 }

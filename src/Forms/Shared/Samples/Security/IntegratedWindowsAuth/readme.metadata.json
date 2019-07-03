@@ -6,10 +6,15 @@
     "keywords": [],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/integratedwindowsauth.htm"
+        "/net/latest/forms/sample-code/integratedwindowsauth.htm"
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "IntegratedWindowsAuth.xaml",
+        "IntegratedWindowsAuth.xaml.cs",
+        "LoginPage.xaml",
+        "LoginPage.xaml.cs"
+    ],
     "title": "Integrated Windows Authentication"
 }

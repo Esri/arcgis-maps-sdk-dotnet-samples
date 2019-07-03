@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/distancemeasurement.htm"
+        "/net/latest/forms/sample-code/distancemeasurement.htm"
     ],
     "relevant_apis": [
         "AnalysisOverlay",
@@ -17,6 +17,9 @@
         "LocationDistanceMeasurement.MeasurementChanged"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DistanceMeasurement.xaml",
+        "DistanceMeasurement.xaml.cs"
+    ],
     "title": "Distance measurement analysis"
 }

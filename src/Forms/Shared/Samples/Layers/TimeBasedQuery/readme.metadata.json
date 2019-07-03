@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/timebasedquery.htm"
+        "/net/latest/forms/sample-code/timebasedquery.htm"
     ],
     "relevant_apis": [
         "QueryParameters",
@@ -18,6 +18,9 @@
         "TimeExtent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "TimeBasedQuery.xaml",
+        "TimeBasedQuery.xaml.cs"
+    ],
     "title": "Time-based query"
 }

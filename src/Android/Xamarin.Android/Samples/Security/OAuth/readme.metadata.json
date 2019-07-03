@@ -18,6 +18,8 @@
         "Credential"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OAuth.cs"
+    ],
     "title": "Authenticate with OAuth"
 }

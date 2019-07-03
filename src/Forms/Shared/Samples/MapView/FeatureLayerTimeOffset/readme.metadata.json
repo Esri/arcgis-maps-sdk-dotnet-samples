@@ -6,10 +6,13 @@
     "keywords": [],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/featurelayertimeoffset.htm"
+        "/net/latest/forms/sample-code/featurelayertimeoffset.htm"
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerTimeOffset.xaml",
+        "FeatureLayerTimeOffset.xaml.cs"
+    ],
     "title": "Feature layer time offset"
 }

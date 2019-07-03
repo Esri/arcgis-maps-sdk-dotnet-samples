@@ -20,6 +20,9 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayScene.xaml",
+        "DisplayScene.xaml.cs"
+    ],
     "title": "Display a scene"
 }

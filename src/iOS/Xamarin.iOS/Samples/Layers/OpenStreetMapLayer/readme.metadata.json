@@ -21,6 +21,8 @@
         "OpenStreetMapLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenStreetMapLayer.cs"
+    ],
     "title": "OpenStreetMap layer"
 }

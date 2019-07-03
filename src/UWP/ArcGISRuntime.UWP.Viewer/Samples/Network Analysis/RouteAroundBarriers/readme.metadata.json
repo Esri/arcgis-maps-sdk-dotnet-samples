@@ -37,6 +37,9 @@
         "Stop.Name"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RouteAroundBarriers.xaml",
+        "RouteAroundBarriers.xaml.cs"
+    ],
     "title": "Route around barriers"
 }

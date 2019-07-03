@@ -21,6 +21,9 @@
         "ViewPoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetMinMaxScale.xaml",
+        "SetMinMaxScale.xaml.cs"
+    ],
     "title": "Set min & max scale"
 }

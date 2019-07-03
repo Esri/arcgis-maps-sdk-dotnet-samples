@@ -31,6 +31,9 @@
         "OrbitGeoElementCameraController"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewshedGeoElement.xaml",
+        "ViewshedGeoElement.xaml.cs"
+    ],
     "title": "Viewshed for GeoElement"
 }

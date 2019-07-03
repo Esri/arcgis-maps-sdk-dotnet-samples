@@ -28,6 +28,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SpatialOperations.xaml",
+        "SpatialOperations.xaml.cs"
+    ],
     "title": "Perform spatial operations"
 }

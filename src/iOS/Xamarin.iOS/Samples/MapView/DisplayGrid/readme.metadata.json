@@ -22,6 +22,8 @@
         "UTMGrid"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayGrid.cs"
+    ],
     "title": "Display grid"
 }

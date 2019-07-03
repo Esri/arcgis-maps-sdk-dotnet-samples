@@ -24,6 +24,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapImageLayerTables.xaml",
+        "MapImageLayerTables.xaml.cs"
+    ],
     "title": "Map image layer tables"
 }

@@ -22,6 +22,8 @@
         "RelatedFeatureQueryResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ListRelatedFeatures.cs"
+    ],
     "title": "List related features"
 }

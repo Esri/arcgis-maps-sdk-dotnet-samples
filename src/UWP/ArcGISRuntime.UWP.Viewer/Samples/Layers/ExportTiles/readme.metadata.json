@@ -24,6 +24,9 @@
         "TileCache"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ExportTiles.xaml",
+        "ExportTiles.xaml.cs"
+    ],
     "title": "Export tiles"
 }

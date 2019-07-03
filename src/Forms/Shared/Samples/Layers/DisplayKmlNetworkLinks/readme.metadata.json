@@ -12,13 +12,16 @@
         "600748d4464442288f6db8a4ba27dc95"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/displaykmlnetworklinks.htm"
+        "/net/latest/forms/sample-code/displaykmlnetworklinks.htm"
     ],
     "relevant_apis": [
         "KmlDataset(Uri)",
         "KmlLayer(KmlDataset)"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayKmlNetworkLinks.xaml",
+        "DisplayKmlNetworkLinks.xaml.cs"
+    ],
     "title": "Display KML network links"
 }

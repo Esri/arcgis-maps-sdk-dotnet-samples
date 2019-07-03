@@ -24,6 +24,8 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SymbolizeShapefile.cs"
+    ],
     "title": "Symbolize a shapefile"
 }

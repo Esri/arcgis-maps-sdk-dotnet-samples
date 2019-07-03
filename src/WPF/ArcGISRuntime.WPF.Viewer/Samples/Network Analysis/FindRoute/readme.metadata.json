@@ -27,6 +27,9 @@
         "Stop"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindRoute.xaml",
+        "FindRoute.xaml.cs"
+    ],
     "title": "Find route"
 }

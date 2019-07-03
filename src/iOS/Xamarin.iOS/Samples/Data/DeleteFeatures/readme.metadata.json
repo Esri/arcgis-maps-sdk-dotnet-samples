@@ -22,6 +22,8 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DeleteFeatures.cs"
+    ],
     "title": "Delete features (feature service)"
 }

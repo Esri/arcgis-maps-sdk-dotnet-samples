@@ -16,6 +16,9 @@
         "PointCloudLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewPointCloudDataOffline.xaml",
+        "ViewPointCloudDataOffline.xaml.cs"
+    ],
     "title": "View point cloud data offline"
 }

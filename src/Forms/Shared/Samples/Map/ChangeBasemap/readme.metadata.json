@@ -9,10 +9,13 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/changebasemap.htm"
+        "/net/latest/forms/sample-code/changebasemap.htm"
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeBasemap.xaml",
+        "ChangeBasemap.xaml.cs"
+    ],
     "title": "Change basemap"
 }

@@ -10,6 +10,8 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GeodatabaseTransactions.cs"
+    ],
     "title": "Geodatabase transactions"
 }

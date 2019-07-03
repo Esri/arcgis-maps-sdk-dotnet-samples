@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/simplerenderers.htm"
+        "/net/latest/forms/sample-code/simplerenderers.htm"
     ],
     "relevant_apis": [
         "Graphic",
@@ -21,6 +21,9 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SimpleRenderers.xaml",
+        "SimpleRenderers.xaml.cs"
+    ],
     "title": "Simple renderer"
 }

@@ -21,6 +21,8 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerExtrusion.cs"
+    ],
     "title": "Feature layer extrusion"
 }

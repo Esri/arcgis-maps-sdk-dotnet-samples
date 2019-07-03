@@ -13,6 +13,8 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeBasemap.cs"
+    ],
     "title": "Change basemap"
 }

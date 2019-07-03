@@ -31,6 +31,8 @@
         "IdentifyLayerResult.LayerContent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SelectEncFeatures.cs"
+    ],
     "title": "Select ENC features"
 }

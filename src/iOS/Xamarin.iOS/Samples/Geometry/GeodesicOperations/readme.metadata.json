@@ -19,6 +19,8 @@
         "GeometryEngine.LengthGeodetic"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GeodesicOperations.cs"
+    ],
     "title": "Geodesic operations"
 }

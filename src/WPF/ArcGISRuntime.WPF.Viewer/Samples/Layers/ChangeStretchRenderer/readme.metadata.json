@@ -35,6 +35,9 @@
         "StretchRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeStretchRenderer.xaml",
+        "ChangeStretchRenderer.xaml.cs"
+    ],
     "title": "Stretch renderer"
 }

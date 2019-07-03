@@ -11,13 +11,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/arcgisvectortiledlayerurl.htm"
+        "/net/latest/forms/sample-code/arcgisvectortiledlayerurl.htm"
     ],
     "relevant_apis": [
         "ArcGISVectorTiledLayer",
         "Basemap"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ArcGISVectorTiledLayerUrl.xaml",
+        "ArcGISVectorTiledLayerUrl.xaml.cs"
+    ],
     "title": "ArcGIS vector tiled layer URL"
 }

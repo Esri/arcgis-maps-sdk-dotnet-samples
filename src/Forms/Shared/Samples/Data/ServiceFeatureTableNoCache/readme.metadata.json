@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/servicefeaturetablenocache.htm"
+        "/net/latest/forms/sample-code/servicefeaturetablenocache.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -20,6 +20,9 @@
         "ServiceFeatureTable.PopulateFromServiceAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ServiceFeatureTableNoCache.xaml",
+        "ServiceFeatureTableNoCache.xaml.cs"
+    ],
     "title": "Service feature table (no cache)"
 }

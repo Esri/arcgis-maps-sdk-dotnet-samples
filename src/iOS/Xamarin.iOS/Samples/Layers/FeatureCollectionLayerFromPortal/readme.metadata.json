@@ -10,6 +10,8 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureCollectionLayerFromPortal.cs"
+    ],
     "title": "Feature collection layer from portal item"
 }

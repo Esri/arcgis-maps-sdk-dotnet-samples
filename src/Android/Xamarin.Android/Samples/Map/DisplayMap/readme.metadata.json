@@ -18,6 +18,8 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayMap.cs"
+    ],
     "title": "Display a map"
 }

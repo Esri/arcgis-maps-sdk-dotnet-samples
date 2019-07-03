@@ -26,6 +26,8 @@
         "WfsServiceInfo"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "BrowseWfsLayers.cs"
+    ],
     "title": "Browse WFS layers"
 }

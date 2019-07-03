@@ -24,6 +24,8 @@
         "Viewshed"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewshedLocation.cs"
+    ],
     "title": "Viewshed for location"
 }

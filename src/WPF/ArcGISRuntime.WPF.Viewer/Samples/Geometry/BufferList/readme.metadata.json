@@ -19,6 +19,9 @@
         "SpatialReference"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "BufferList.xaml",
+        "BufferList.xaml.cs"
+    ],
     "title": "Buffer list"
 }

@@ -31,6 +31,8 @@
         "OrbitGeoElementCameraController"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewshedGeoElement.cs"
+    ],
     "title": "Viewshed for GeoElement"
 }

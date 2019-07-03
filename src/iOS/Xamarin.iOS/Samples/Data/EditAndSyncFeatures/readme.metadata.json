@@ -26,6 +26,8 @@
         "SyncLayerOption"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "EditAndSyncFeatures.cs"
+    ],
     "title": "Edit and sync features"
 }

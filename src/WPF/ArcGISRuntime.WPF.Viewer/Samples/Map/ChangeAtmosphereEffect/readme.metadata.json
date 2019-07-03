@@ -14,6 +14,9 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeAtmosphereEffect.xaml",
+        "ChangeAtmosphereEffect.xaml.cs"
+    ],
     "title": "Change atmosphere effect"
 }

@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/addfeatures.htm"
+        "/net/latest/forms/sample-code/addfeatures.htm"
     ],
     "relevant_apis": [
         "Feature",
@@ -19,6 +19,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddFeatures.xaml",
+        "AddFeatures.xaml.cs"
+    ],
     "title": "Add features"
 }

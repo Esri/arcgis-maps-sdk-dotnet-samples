@@ -18,6 +18,8 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "LineOfSightLocation.cs"
+    ],
     "title": "Line of sight (location)"
 }

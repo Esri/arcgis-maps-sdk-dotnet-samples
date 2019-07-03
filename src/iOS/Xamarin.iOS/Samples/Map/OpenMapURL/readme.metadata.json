@@ -18,6 +18,8 @@
         "PortalItem"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenMapURL.cs"
+    ],
     "title": "Open map URL"
 }

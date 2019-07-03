@@ -20,6 +20,9 @@
         "GeoprocessingTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AnalyzeHotspots.xaml",
+        "AnalyzeHotspots.xaml.cs"
+    ],
     "title": "Analyze hotspots"
 }

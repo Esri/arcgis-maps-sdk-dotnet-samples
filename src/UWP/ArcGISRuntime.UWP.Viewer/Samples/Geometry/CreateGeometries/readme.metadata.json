@@ -20,6 +20,9 @@
         "Polyline"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "CreateGeometries.xaml",
+        "CreateGeometries.xaml.cs"
+    ],
     "title": "Create geometries"
 }

@@ -10,6 +10,9 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ProjectWithSpecificTransformation.xaml",
+        "ProjectWithSpecificTransformation.xaml.cs"
+    ],
     "title": "Project with specific transformation"
 }

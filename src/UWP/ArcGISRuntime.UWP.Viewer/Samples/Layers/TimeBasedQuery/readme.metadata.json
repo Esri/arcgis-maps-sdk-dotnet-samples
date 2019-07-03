@@ -18,6 +18,9 @@
         "TimeExtent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "TimeBasedQuery.xaml",
+        "TimeBasedQuery.xaml.cs"
+    ],
     "title": "Time-based query"
 }

@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/findplace.htm"
+        "/net/latest/forms/sample-code/findplace.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",
@@ -26,6 +26,9 @@
         "SuggestResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindPlace.xaml",
+        "FindPlace.xaml.cs"
+    ],
     "title": "Find place"
 }

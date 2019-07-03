@@ -18,6 +18,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayMap.xaml",
+        "DisplayMap.xaml.cs"
+    ],
     "title": "Display a map"
 }

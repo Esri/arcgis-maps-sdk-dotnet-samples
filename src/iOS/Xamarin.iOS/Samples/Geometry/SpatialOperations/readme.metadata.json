@@ -28,6 +28,8 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SpatialOperations.cs"
+    ],
     "title": "Perform spatial operations"
 }

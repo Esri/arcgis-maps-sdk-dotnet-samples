@@ -16,6 +16,8 @@
         "ProximityResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "NearestVertex.cs"
+    ],
     "title": "Nearest vertex"
 }

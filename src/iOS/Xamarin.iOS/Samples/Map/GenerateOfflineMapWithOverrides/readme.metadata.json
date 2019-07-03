@@ -22,6 +22,8 @@
         "OfflineMapTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GenerateOfflineMapWithOverrides.cs"
+    ],
     "title": "Generate Offline Map (Overrides)"
 }

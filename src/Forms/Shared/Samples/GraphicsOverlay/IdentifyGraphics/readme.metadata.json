@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/identifygraphics.htm"
+        "/net/latest/forms/sample-code/identifygraphics.htm"
     ],
     "relevant_apis": [
         "Graphic",
@@ -17,6 +17,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "IdentifyGraphics.xaml",
+        "IdentifyGraphics.xaml.cs"
+    ],
     "title": "Identify graphics"
 }

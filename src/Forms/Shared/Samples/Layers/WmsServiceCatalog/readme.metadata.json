@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/wmsservicecatalog.htm"
+        "/net/latest/forms/sample-code/wmsservicecatalog.htm"
     ],
     "relevant_apis": [
         "WmsLayer(List<WmsLayerInfo>)",
@@ -22,6 +22,9 @@
         "WmsServiceInfo"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WmsServiceCatalog.xaml",
+        "WmsServiceCatalog.xaml.cs"
+    ],
     "title": "WMS service catalog"
 }

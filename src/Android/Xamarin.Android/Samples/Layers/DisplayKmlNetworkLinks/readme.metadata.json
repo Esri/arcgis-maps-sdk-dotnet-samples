@@ -19,6 +19,8 @@
         "KmlLayer(KmlDataset)"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayKmlNetworkLinks.cs"
+    ],
     "title": "Display KML network links"
 }

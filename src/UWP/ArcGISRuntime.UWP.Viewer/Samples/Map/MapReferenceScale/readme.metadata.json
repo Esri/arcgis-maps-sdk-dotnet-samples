@@ -18,6 +18,9 @@
         "Map"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapReferenceScale.xaml",
+        "MapReferenceScale.xaml.cs"
+    ],
     "title": "Map reference scale"
 }

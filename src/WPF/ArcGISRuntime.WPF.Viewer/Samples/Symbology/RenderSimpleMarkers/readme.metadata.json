@@ -18,6 +18,9 @@
         "SimpleMarkerSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RenderSimpleMarkers.xaml",
+        "RenderSimpleMarkers.xaml.cs"
+    ],
     "title": "Render simple markers"
 }

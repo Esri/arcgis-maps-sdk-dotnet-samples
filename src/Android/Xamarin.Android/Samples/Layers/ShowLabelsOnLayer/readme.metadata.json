@@ -19,6 +19,8 @@
         "TextSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ShowLabelsOnLayer.cs"
+    ],
     "title": "Show labels on layers"
 }

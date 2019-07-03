@@ -12,13 +12,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/geodesicoperations.htm"
+        "/net/latest/forms/sample-code/geodesicoperations.htm"
     ],
     "relevant_apis": [
         "GeometryEngine.DensifyGeodetic",
         "GeometryEngine.LengthGeodetic"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GeodesicOperations.xaml",
+        "GeodesicOperations.xaml.cs"
+    ],
     "title": "Geodesic operations"
 }

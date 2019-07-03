@@ -20,6 +20,8 @@
         "PortalQueryResultSet"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SearchPortalMaps.cs"
+    ],
     "title": "Search for webmap"
 }

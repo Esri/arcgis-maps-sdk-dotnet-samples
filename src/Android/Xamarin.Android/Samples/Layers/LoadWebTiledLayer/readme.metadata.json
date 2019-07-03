@@ -20,6 +20,8 @@
         "WebTiledLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "LoadWebTiledLayer.cs"
+    ],
     "title": "Web tiled layer"
 }

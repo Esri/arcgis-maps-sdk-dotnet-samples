@@ -19,6 +19,9 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SceneLayerUrl.xaml",
+        "SceneLayerUrl.xaml.cs"
+    ],
     "title": "Scene layer (URL)"
 }

@@ -8,7 +8,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/featurelayerquery.htm"
+        "/net/latest/forms/sample-code/featurelayerquery.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -17,6 +17,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerQuery.xaml",
+        "FeatureLayerQuery.xaml.cs"
+    ],
     "title": "Feature layer query"
 }

@@ -18,6 +18,9 @@
         "GeometryEngine"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ConvexHull.xaml",
+        "ConvexHull.xaml.cs"
+    ],
     "title": "Convex hull"
 }

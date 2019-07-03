@@ -20,6 +20,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetInitialMapLocation.xaml",
+        "SetInitialMapLocation.xaml.cs"
+    ],
     "title": "Set initial map location"
 }

@@ -17,6 +17,8 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapImageSublayerQuery.cs"
+    ],
     "title": "Query map image sublayer"
 }

@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/mapimagelayertables.htm"
+        "/net/latest/forms/sample-code/mapimagelayertables.htm"
     ],
     "relevant_apis": [
         "ArcGISFeature",
@@ -24,6 +24,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapImageLayerTables.xaml",
+        "MapImageLayerTables.xaml.cs"
+    ],
     "title": "Map image layer tables"
 }

@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/addgraphicswithsymbols.htm"
+        "/net/latest/forms/sample-code/addgraphicswithsymbols.htm"
     ],
     "relevant_apis": [
         "Geometry",
@@ -21,6 +21,9 @@
         "SimpleMarkerSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddGraphicsWithSymbols.xaml",
+        "AddGraphicsWithSymbols.xaml.cs"
+    ],
     "title": "Add graphics with symbols"
 }

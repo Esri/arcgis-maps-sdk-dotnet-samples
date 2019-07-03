@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/scenesymbols.htm"
+        "/net/latest/forms/sample-code/scenesymbols.htm"
     ],
     "relevant_apis": [
         "SceneSymbol.AnchorPosition",
@@ -26,6 +26,9 @@
         "SimpleMarkerSceneSymbol.Style"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SceneSymbols.xaml",
+        "SceneSymbols.xaml.cs"
+    ],
     "title": "Scene symbols"
 }

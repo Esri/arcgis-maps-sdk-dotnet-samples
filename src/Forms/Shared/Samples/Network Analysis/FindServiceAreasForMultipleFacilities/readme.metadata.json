@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/findserviceareasformultiplefacilities.htm"
+        "/net/latest/forms/sample-code/findserviceareasformultiplefacilities.htm"
     ],
     "relevant_apis": [
         "ServiceAreaParameters",
@@ -22,6 +22,9 @@
         "ServiceAreaTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindServiceAreasForMultipleFacilities.xaml",
+        "FindServiceAreasForMultipleFacilities.xaml.cs"
+    ],
     "title": "Find service areas for multiple facilities"
 }

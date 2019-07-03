@@ -19,6 +19,8 @@
         "Viewpoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ManageBookmarks.cs"
+    ],
     "title": "Manage bookmarks"
 }

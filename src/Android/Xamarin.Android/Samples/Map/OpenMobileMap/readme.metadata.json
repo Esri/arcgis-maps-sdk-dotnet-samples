@@ -17,6 +17,8 @@
         "MobileMapPackage"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenMobileMap.cs"
+    ],
     "title": "Open mobile map package"
 }

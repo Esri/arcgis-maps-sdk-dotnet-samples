@@ -16,7 +16,7 @@
         "caeef9aa78534760b07158bb8e068462"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/changeblendrenderer.htm"
+        "/net/latest/forms/sample-code/changeblendrenderer.htm"
     ],
     "relevant_apis": [
         "BlendRenderer",
@@ -25,6 +25,9 @@
         "RasterLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeBlendRenderer.xaml",
+        "ChangeBlendRenderer.xaml.cs"
+    ],
     "title": "Blend renderer"
 }

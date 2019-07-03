@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/showcallout.htm"
+        "/net/latest/forms/sample-code/showcallout.htm"
     ],
     "relevant_apis": [
         "CalloutDefinition",
@@ -25,6 +25,9 @@
         "MapView.ShowCalloutAt"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ShowCallout.xaml",
+        "ShowCallout.xaml.cs"
+    ],
     "title": "Show callout"
 }

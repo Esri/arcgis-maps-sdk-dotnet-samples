@@ -18,6 +18,8 @@
         "TimeExtent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "TimeBasedQuery.cs"
+    ],
     "title": "Time-based query"
 }

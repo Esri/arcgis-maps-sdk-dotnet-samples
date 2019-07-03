@@ -18,6 +18,8 @@
         "RenderingRule"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterRenderingRule.cs"
+    ],
     "title": "Raster rendering rule"
 }

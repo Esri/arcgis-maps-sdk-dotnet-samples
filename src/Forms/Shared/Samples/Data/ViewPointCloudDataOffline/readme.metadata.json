@@ -10,12 +10,15 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/viewpointclouddataoffline.htm"
+        "/net/latest/forms/sample-code/viewpointclouddataoffline.htm"
     ],
     "relevant_apis": [
         "PointCloudLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewPointCloudDataOffline.xaml",
+        "ViewPointCloudDataOffline.xaml.cs"
+    ],
     "title": "View point cloud data offline"
 }

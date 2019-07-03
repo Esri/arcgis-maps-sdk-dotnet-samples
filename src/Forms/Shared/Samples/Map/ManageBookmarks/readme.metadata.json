@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/managebookmarks.htm"
+        "/net/latest/forms/sample-code/managebookmarks.htm"
     ],
     "relevant_apis": [
         "Bookmark",
@@ -19,6 +19,9 @@
         "Viewpoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ManageBookmarks.xaml",
+        "ManageBookmarks.xaml.cs"
+    ],
     "title": "Manage bookmarks"
 }

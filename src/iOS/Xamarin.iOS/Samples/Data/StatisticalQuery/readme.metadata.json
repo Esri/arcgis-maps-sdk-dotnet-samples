@@ -33,6 +33,8 @@
         "StatisticsQueryResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "StatisticalQuery.cs"
+    ],
     "title": "Statistical query"
 }

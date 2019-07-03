@@ -23,6 +23,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "UpdateAttributes.xaml",
+        "UpdateAttributes.xaml.cs"
+    ],
     "title": "Update attributes (feature service)"
 }

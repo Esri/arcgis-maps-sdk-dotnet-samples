@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/closestfacility.htm"
+        "/net/latest/forms/sample-code/closestfacility.htm"
     ],
     "relevant_apis": [
         "ClosestFacilityParameters",
@@ -25,6 +25,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ClosestFacility.xaml",
+        "ClosestFacility.xaml.cs"
+    ],
     "title": "Find closest facility to an incident (interactive)"
 }

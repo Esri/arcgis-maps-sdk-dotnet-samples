@@ -18,6 +18,9 @@
         "RasterLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterLayerFile.xaml",
+        "RasterLayerFile.xaml.cs"
+    ],
     "title": "Raster layer (file)"
 }

@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/reversegeocode.htm"
+        "/net/latest/forms/sample-code/reversegeocode.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",
@@ -19,6 +19,9 @@
         "ReverseGeocodeParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ReverseGeocode.xaml",
+        "ReverseGeocode.xaml.cs"
+    ],
     "title": "Reverse geocode"
 }

@@ -19,6 +19,9 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GetElevationAtPoint.xaml",
+        "GetElevationAtPoint.xaml.cs"
+    ],
     "title": "Get elevation at a point"
 }

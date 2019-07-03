@@ -17,7 +17,7 @@
         "68ec42517cdd439e81b036210483e8e7"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/readgeopackage.htm"
+        "/net/latest/forms/sample-code/readgeopackage.htm"
     ],
     "relevant_apis": [
         "GeoPackage",
@@ -27,6 +27,9 @@
         "GeoPackageRaster"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ReadGeoPackage.xaml",
+        "ReadGeoPackage.xaml.cs"
+    ],
     "title": "Read a GeoPackage"
 }

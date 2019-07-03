@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/wmsidentify.htm"
+        "/net/latest/forms/sample-code/wmsidentify.htm"
     ],
     "relevant_apis": [
         "IdentifyLayerResult",
@@ -24,6 +24,9 @@
         "WmsFeature.Attributes"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WmsIdentify.xaml",
+        "WmsIdentify.xaml.cs"
+    ],
     "title": "Identify WMS features"
 }

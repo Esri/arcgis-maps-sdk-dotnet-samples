@@ -22,6 +22,8 @@
         "ServiceAreaTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindServiceAreasForMultipleFacilities.cs"
+    ],
     "title": "Find service areas for multiple facilities"
 }

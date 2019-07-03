@@ -13,13 +13,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/loadwebtiledlayer.htm"
+        "/net/latest/forms/sample-code/loadwebtiledlayer.htm"
     ],
     "relevant_apis": [
         "Basemap",
         "WebTiledLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "LoadWebTiledLayer.xaml",
+        "LoadWebTiledLayer.xaml.cs"
+    ],
     "title": "Web tiled layer"
 }

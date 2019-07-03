@@ -24,6 +24,9 @@
         "CoordinateFormatter.UtmConversionMode"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FormatCoordinates.xaml",
+        "FormatCoordinates.xaml.cs"
+    ],
     "title": "Format coordinates"
 }

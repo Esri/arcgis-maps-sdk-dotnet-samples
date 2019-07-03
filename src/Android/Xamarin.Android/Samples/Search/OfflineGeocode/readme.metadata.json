@@ -25,6 +25,8 @@
         "ReverseGeocodeParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OfflineGeocode.cs"
+    ],
     "title": "Offline geocode"
 }

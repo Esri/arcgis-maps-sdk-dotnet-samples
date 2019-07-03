@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/takescreenshot.htm"
+        "/net/latest/forms/sample-code/takescreenshot.htm"
     ],
     "relevant_apis": [
         "GeoView.DrawStatus",
@@ -25,6 +25,9 @@
         "RuntimeImage.ToImageSourceAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "TakeScreenshot.xaml",
+        "TakeScreenshot.xaml.cs"
+    ],
     "title": "Take a screenshot"
 }

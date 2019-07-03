@@ -21,6 +21,8 @@
         "GeodatabaseFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerGeodatabase.cs"
+    ],
     "title": "Feature layer (geodatabase)"
 }

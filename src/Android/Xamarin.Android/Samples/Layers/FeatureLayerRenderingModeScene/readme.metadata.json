@@ -21,6 +21,8 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerRenderingModeScene.cs"
+    ],
     "title": "Feature layer rendering mode (scene)"
 }

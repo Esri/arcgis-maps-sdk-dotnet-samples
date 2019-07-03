@@ -10,6 +10,9 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GeodatabaseTransactions.xaml",
+        "GeodatabaseTransactions.xaml.cs"
+    ],
     "title": "Geodatabase transactions"
 }

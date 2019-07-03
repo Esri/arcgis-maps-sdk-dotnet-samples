@@ -20,6 +20,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerSelection.xaml",
+        "FeatureLayerSelection.xaml.cs"
+    ],
     "title": "Feature layer selection"
 }

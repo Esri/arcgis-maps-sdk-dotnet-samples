@@ -16,6 +16,9 @@
         "ProximityResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "NearestVertex.xaml",
+        "NearestVertex.xaml.cs"
+    ],
     "title": "Nearest vertex"
 }

@@ -18,6 +18,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ArcGISMapImageLayerUrl.xaml",
+        "ArcGISMapImageLayerUrl.xaml.cs"
+    ],
     "title": "ArcGIS map image layer"
 }

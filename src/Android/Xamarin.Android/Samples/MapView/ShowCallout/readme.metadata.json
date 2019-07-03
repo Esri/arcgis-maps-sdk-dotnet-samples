@@ -25,6 +25,8 @@
         "MapView.ShowCalloutAt"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ShowCallout.cs"
+    ],
     "title": "Show callout"
 }

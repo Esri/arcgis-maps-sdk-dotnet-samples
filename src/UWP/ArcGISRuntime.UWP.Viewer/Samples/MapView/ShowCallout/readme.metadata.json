@@ -25,6 +25,9 @@
         "MapView.ShowCalloutAt"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ShowCallout.xaml",
+        "ShowCallout.xaml.cs"
+    ],
     "title": "Show callout"
 }

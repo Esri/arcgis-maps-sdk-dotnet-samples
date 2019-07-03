@@ -9,12 +9,15 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/grouplayers.htm"
+        "/net/latest/forms/sample-code/grouplayers.htm"
     ],
     "relevant_apis": [
         "GroupLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GroupLayers.xaml",
+        "GroupLayers.xaml.cs"
+    ],
     "title": "Group layers"
 }

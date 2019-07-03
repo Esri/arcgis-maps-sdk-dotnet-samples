@@ -19,6 +19,8 @@
         "LocatorTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindAddress.cs"
+    ],
     "title": "Find address"
 }

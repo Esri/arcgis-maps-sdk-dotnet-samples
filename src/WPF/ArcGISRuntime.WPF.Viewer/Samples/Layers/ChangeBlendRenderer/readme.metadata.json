@@ -25,6 +25,9 @@
         "RasterLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeBlendRenderer.xaml",
+        "ChangeBlendRenderer.xaml.cs"
+    ],
     "title": "Blend renderer"
 }

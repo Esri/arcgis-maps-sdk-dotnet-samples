@@ -18,6 +18,8 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ArcGISMapImageLayerUrl.cs"
+    ],
     "title": "ArcGIS map image layer"
 }

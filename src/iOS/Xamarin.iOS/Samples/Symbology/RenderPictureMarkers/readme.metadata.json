@@ -18,6 +18,8 @@
         "PictureMarkerSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RenderPictureMarkers.cs"
+    ],
     "title": "Render picture markers"
 }

@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/featurelayerselection.htm"
+        "/net/latest/forms/sample-code/featurelayerselection.htm"
     ],
     "relevant_apis": [
         "Feature",
@@ -20,6 +20,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerSelection.xaml",
+        "FeatureLayerSelection.xaml.cs"
+    ],
     "title": "Feature layer selection"
 }

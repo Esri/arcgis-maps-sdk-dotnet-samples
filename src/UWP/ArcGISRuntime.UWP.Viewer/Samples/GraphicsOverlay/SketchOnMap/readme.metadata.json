@@ -25,6 +25,9 @@
         "SketchEditor"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SketchOnMap.xaml",
+        "SketchOnMap.xaml.cs"
+    ],
     "title": "Sketch on map"
 }

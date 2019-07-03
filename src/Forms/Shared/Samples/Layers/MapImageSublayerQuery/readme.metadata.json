@@ -8,7 +8,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/mapimagesublayerquery.htm"
+        "/net/latest/forms/sample-code/mapimagesublayerquery.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer",
@@ -17,6 +17,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapImageSublayerQuery.xaml",
+        "MapImageSublayerQuery.xaml.cs"
+    ],
     "title": "Query map image sublayer"
 }

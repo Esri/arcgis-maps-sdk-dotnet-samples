@@ -9,13 +9,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/rasterlayerimageserviceraster.htm"
+        "/net/latest/forms/sample-code/rasterlayerimageserviceraster.htm"
     ],
     "relevant_apis": [
         "ImageServiceRaster",
         "RasterLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterLayerImageServiceRaster.xaml",
+        "RasterLayerImageServiceRaster.xaml.cs"
+    ],
     "title": "Raster layer (service)"
 }

@@ -20,6 +20,8 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerRenderingModeMap.cs"
+    ],
     "title": "Feature layer rendering mode (map)"
 }

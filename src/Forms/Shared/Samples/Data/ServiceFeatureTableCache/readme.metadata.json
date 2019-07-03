@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/servicefeaturetablecache.htm"
+        "/net/latest/forms/sample-code/servicefeaturetablecache.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -19,6 +19,9 @@
         "ServiceFeatureTable.FeatureRequestMode"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ServiceFeatureTableCache.xaml",
+        "ServiceFeatureTableCache.xaml.cs"
+    ],
     "title": "Service feature table (on interaction cache)"
 }

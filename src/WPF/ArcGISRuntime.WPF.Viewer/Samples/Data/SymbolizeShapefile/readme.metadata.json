@@ -24,6 +24,9 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SymbolizeShapefile.xaml",
+        "SymbolizeShapefile.xaml.cs"
+    ],
     "title": "Symbolize a shapefile"
 }

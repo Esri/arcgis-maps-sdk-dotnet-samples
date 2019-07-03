@@ -22,6 +22,9 @@
         "ServiceAreaTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FindServiceArea.xaml",
+        "FindServiceArea.xaml.cs"
+    ],
     "title": "Find service area"
 }

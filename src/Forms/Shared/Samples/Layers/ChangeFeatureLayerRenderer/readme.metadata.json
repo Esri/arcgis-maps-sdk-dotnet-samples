@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/changefeaturelayerrenderer.htm"
+        "/net/latest/forms/sample-code/changefeaturelayerrenderer.htm"
     ],
     "relevant_apis": [
         "FeatureLayer.Renderer",
@@ -18,6 +18,9 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeFeatureLayerRenderer.xaml",
+        "ChangeFeatureLayerRenderer.xaml.cs"
+    ],
     "title": "Change feature layer renderer"
 }

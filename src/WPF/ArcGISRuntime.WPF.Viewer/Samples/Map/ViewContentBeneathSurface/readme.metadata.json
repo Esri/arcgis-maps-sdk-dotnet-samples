@@ -18,6 +18,9 @@
         "Surface.NavigationConstraint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewContentBeneathSurface.xaml",
+        "ViewContentBeneathSurface.xaml.cs"
+    ],
     "title": "View content beneath terrain surface"
 }

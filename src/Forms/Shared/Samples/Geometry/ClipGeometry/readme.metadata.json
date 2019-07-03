@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/clipgeometry.htm"
+        "/net/latest/forms/sample-code/clipgeometry.htm"
     ],
     "relevant_apis": [
         "Envelope",
@@ -20,6 +20,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ClipGeometry.xaml",
+        "ClipGeometry.xaml.cs"
+    ],
     "title": "Clip geometry"
 }

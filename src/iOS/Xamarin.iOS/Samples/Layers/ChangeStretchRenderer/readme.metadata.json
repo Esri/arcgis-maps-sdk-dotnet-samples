@@ -35,6 +35,8 @@
         "StretchRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeStretchRenderer.cs"
+    ],
     "title": "Stretch renderer"
 }

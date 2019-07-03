@@ -10,7 +10,7 @@
         "628e8e3521cf45e9a28a12fe10c02c4d"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/offlinebasemapbyreference.htm"
+        "/net/latest/forms/sample-code/offlinebasemapbyreference.htm"
     ],
     "relevant_apis": [
         "GenerateOfflineMapJob",
@@ -19,6 +19,9 @@
         "OfflineMapTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OfflineBasemapByReference.xaml",
+        "OfflineBasemapByReference.xaml.cs"
+    ],
     "title": "Generate offline map with local basemap"
 }

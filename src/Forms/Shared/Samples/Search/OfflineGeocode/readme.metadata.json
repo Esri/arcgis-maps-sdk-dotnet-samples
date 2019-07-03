@@ -16,7 +16,7 @@
         "344e3b12368543ef84045ef9aa3c32ba"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/offlinegeocode.htm"
+        "/net/latest/forms/sample-code/offlinegeocode.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",
@@ -25,6 +25,9 @@
         "ReverseGeocodeParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OfflineGeocode.xaml",
+        "OfflineGeocode.xaml.cs"
+    ],
     "title": "Offline geocode"
 }

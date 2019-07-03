@@ -16,6 +16,8 @@
         "ArcGISSceneLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddPointSceneLayer.cs"
+    ],
     "title": "Add a point scene layer"
 }

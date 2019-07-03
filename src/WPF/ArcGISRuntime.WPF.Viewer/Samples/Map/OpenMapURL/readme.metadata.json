@@ -18,6 +18,9 @@
         "PortalItem"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenMapURL.xaml",
+        "OpenMapURL.xaml.cs"
+    ],
     "title": "Open map URL"
 }

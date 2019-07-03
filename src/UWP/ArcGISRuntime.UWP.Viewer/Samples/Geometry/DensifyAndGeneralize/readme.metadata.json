@@ -23,6 +23,9 @@
         "SpatialReference"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DensifyAndGeneralize.xaml",
+        "DensifyAndGeneralize.xaml.cs"
+    ],
     "title": "Densify and generalize"
 }

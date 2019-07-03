@@ -21,6 +21,9 @@
         "KmlLayer(Uri)"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayKml.xaml",
+        "DisplayKml.xaml.cs"
+    ],
     "title": "Display KML"
 }

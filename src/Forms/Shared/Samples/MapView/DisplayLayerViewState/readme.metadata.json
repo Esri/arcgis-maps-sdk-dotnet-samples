@@ -11,13 +11,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/displaylayerviewstate.htm"
+        "/net/latest/forms/sample-code/displaylayerviewstate.htm"
     ],
     "relevant_apis": [
         "Map",
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayLayerViewState.xaml",
+        "DisplayLayerViewState.xaml.cs"
+    ],
     "title": "Display layer view state"
 }

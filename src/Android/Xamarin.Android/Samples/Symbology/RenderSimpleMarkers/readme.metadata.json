@@ -18,6 +18,8 @@
         "SimpleMarkerSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RenderSimpleMarkers.cs"
+    ],
     "title": "Render simple markers"
 }

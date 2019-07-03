@@ -20,6 +20,8 @@
         "SceneView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayScene.cs"
+    ],
     "title": "Display a scene"
 }

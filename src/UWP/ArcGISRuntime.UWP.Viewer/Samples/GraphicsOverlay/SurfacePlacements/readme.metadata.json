@@ -24,6 +24,9 @@
         "Surface"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SurfacePlacements.xaml",
+        "SurfacePlacements.xaml.cs"
+    ],
     "title": "Surface placement"
 }

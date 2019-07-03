@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/creategeometries.htm"
+        "/net/latest/forms/sample-code/creategeometries.htm"
     ],
     "relevant_apis": [
         "Envelope",
@@ -20,6 +20,9 @@
         "Polyline"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "CreateGeometries.xaml",
+        "CreateGeometries.xaml.cs"
+    ],
     "title": "Create geometries"
 }

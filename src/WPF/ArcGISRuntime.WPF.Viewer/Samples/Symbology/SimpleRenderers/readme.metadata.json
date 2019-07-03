@@ -21,6 +21,9 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SimpleRenderers.xaml",
+        "SimpleRenderers.xaml.cs"
+    ],
     "title": "Simple renderer"
 }

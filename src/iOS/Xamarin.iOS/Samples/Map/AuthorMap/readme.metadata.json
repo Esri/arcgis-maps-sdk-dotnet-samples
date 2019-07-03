@@ -22,6 +22,8 @@
         "Portal"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AuthorMap.cs"
+    ],
     "title": "Create and save a map"
 }

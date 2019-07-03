@@ -21,6 +21,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "Buffer.xaml",
+        "Buffer.xaml.cs"
+    ],
     "title": "Buffer"
 }

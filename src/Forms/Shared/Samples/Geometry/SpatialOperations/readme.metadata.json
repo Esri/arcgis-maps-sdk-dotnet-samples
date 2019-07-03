@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/spatialoperations.htm"
+        "/net/latest/forms/sample-code/spatialoperations.htm"
     ],
     "relevant_apis": [
         "Geometry",
@@ -28,6 +28,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SpatialOperations.xaml",
+        "SpatialOperations.xaml.cs"
+    ],
     "title": "Perform spatial operations"
 }

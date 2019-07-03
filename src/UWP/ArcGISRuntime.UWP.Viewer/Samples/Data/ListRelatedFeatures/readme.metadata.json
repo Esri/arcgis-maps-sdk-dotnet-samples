@@ -22,6 +22,9 @@
         "RelatedFeatureQueryResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ListRelatedFeatures.xaml",
+        "ListRelatedFeatures.xaml.cs"
+    ],
     "title": "List related features"
 }

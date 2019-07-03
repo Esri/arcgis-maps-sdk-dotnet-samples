@@ -18,6 +18,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ArcGISTiledLayerUrl.xaml",
+        "ArcGISTiledLayerUrl.xaml.cs"
+    ],
     "title": "ArcGIS tiled layer"
 }

@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/dictionaryrenderergraphicsoverlay.htm"
+        "/net/latest/forms/sample-code/dictionaryrenderergraphicsoverlay.htm"
     ],
     "relevant_apis": [
         "DictionaryRenderer",
@@ -20,6 +20,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DictionaryRendererGraphicsOverlay.xaml",
+        "DictionaryRendererGraphicsOverlay.xaml.cs"
+    ],
     "title": "Dictionary renderer with graphics overlay"
 }

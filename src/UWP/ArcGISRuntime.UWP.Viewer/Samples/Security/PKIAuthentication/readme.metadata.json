@@ -10,6 +10,11 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "App.xaml",
+        "App.xaml.cs",
+        "PKIAuthentication.xaml",
+        "PKIAuthentication.xaml.cs"
+    ],
     "title": "PKI Authentication - Universal Windows"
 }

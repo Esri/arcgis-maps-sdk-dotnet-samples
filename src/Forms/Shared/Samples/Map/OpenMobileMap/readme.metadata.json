@@ -10,13 +10,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/openmobilemap.htm"
+        "/net/latest/forms/sample-code/openmobilemap.htm"
     ],
     "relevant_apis": [
         "MapView",
         "MobileMapPackage"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OpenMobileMap.xaml",
+        "OpenMobileMap.xaml.cs"
+    ],
     "title": "Open mobile map package"
 }

@@ -20,6 +20,9 @@
         "SpatialReference"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetMapSpatialReference.xaml",
+        "SetMapSpatialReference.xaml.cs"
+    ],
     "title": "Set map spatial reference"
 }

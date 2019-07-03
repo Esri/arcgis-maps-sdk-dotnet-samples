@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/exporttiles.htm"
+        "/net/latest/forms/sample-code/exporttiles.htm"
     ],
     "relevant_apis": [
         "ExportTileCacheJob",
@@ -24,6 +24,9 @@
         "TileCache"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ExportTiles.xaml",
+        "ExportTiles.xaml.cs"
+    ],
     "title": "Export tiles"
 }

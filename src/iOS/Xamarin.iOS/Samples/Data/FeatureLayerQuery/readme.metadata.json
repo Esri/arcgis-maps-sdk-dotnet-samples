@@ -17,6 +17,8 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerQuery.cs"
+    ],
     "title": "Feature layer query"
 }

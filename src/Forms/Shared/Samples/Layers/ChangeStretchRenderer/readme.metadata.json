@@ -22,7 +22,7 @@
         "7c4c679ab06a4df19dc497f577f111bd"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/changestretchrenderer.htm"
+        "/net/latest/forms/sample-code/changestretchrenderer.htm"
     ],
     "relevant_apis": [
         "ColorRamp",
@@ -35,6 +35,9 @@
         "StretchRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeStretchRenderer.xaml",
+        "ChangeStretchRenderer.xaml.cs"
+    ],
     "title": "Stretch renderer"
 }

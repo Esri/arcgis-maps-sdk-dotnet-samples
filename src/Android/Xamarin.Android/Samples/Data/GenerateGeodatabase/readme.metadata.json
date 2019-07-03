@@ -20,6 +20,8 @@
         "GeodatabaseSyncTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GenerateGeodatabase.cs"
+    ],
     "title": "Generate geodatabase"
 }

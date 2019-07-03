@@ -6,10 +6,13 @@
     "keywords": [],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/projectwithspecifictransformation.htm"
+        "/net/latest/forms/sample-code/projectwithspecifictransformation.htm"
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ProjectWithSpecificTransformation.xaml",
+        "ProjectWithSpecificTransformation.xaml.cs"
+    ],
     "title": "Project with specific transformation"
 }

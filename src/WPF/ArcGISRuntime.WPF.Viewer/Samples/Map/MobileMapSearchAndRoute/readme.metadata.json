@@ -29,6 +29,9 @@
         "TransportationNetworkDataset"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MobileMapSearchAndRoute.xaml",
+        "MobileMapSearchAndRoute.xaml.cs"
+    ],
     "title": "Mobile map (search and route)"
 }

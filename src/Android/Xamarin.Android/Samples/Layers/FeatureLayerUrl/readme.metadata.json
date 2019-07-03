@@ -10,6 +10,8 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerUrl.cs"
+    ],
     "title": "Feature layer (feature service)"
 }

@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/accessloadstatus.htm"
+        "/net/latest/forms/sample-code/accessloadstatus.htm"
     ],
     "relevant_apis": [
         "ILoadable",
@@ -18,6 +18,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AccessLoadStatus.xaml",
+        "AccessLoadStatus.xaml.cs"
+    ],
     "title": "Access load status"
 }

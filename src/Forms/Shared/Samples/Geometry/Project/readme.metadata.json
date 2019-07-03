@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/project.htm"
+        "/net/latest/forms/sample-code/project.htm"
     ],
     "relevant_apis": [
         "GeometryEngine",
@@ -24,6 +24,9 @@
         "SpatialReference"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "Project.xaml",
+        "Project.xaml.cs"
+    ],
     "title": "Project"
 }

@@ -29,6 +29,8 @@
         "StretchParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterRgbRenderer.cs"
+    ],
     "title": "RGB Renderer"
 }

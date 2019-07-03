@@ -19,6 +19,9 @@
         "Viewpoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ManageBookmarks.xaml",
+        "ManageBookmarks.xaml.cs"
+    ],
     "title": "Manage bookmarks"
 }

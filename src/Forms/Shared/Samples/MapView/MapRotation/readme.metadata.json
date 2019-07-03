@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/maprotation.htm"
+        "/net/latest/forms/sample-code/maprotation.htm"
     ],
     "relevant_apis": [
         "Compass",
@@ -17,6 +17,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapRotation.xaml",
+        "MapRotation.xaml.cs"
+    ],
     "title": "Map rotation"
 }

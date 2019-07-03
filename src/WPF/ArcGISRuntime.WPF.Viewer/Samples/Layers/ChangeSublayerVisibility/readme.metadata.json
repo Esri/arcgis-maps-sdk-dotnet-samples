@@ -16,6 +16,9 @@
         "ArcGISMapImageLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeSublayerVisibility.xaml",
+        "ChangeSublayerVisibility.xaml.cs"
+    ],
     "title": "Map image layer sublayer visibility"
 }

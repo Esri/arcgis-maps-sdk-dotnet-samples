@@ -20,6 +20,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DictionaryRendererGraphicsOverlay.xaml",
+        "DictionaryRendererGraphicsOverlay.xaml.cs"
+    ],
     "title": "Dictionary renderer with graphics overlay"
 }

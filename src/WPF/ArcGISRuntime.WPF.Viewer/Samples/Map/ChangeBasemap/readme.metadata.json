@@ -13,6 +13,9 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeBasemap.xaml",
+        "ChangeBasemap.xaml.cs"
+    ],
     "title": "Change basemap"
 }

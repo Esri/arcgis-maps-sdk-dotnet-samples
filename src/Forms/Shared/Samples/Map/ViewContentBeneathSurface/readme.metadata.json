@@ -11,13 +11,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/viewcontentbeneathsurface.htm"
+        "/net/latest/forms/sample-code/viewcontentbeneathsurface.htm"
     ],
     "relevant_apis": [
         "Surface",
         "Surface.NavigationConstraint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ViewContentBeneathSurface.xaml",
+        "ViewContentBeneathSurface.xaml.cs"
+    ],
     "title": "View content beneath terrain surface"
 }

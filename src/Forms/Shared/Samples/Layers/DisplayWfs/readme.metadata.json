@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/displaywfs.htm"
+        "/net/latest/forms/sample-code/displaywfs.htm"
     ],
     "relevant_apis": [
         "MapView.NavigationCompleted",
@@ -24,6 +24,9 @@
         "WfsFeatureTable.PopulateFromServiceAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayWfs.xaml",
+        "DisplayWfs.xaml.cs"
+    ],
     "title": "Display a WFS layer"
 }

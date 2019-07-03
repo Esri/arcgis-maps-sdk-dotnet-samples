@@ -30,6 +30,8 @@
         "KmlTourController.Tour"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "PlayKmlTours.cs"
+    ],
     "title": "Play a KML tour"
 }

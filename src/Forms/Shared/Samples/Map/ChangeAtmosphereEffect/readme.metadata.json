@@ -10,10 +10,13 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/changeatmosphereeffect.htm"
+        "/net/latest/forms/sample-code/changeatmosphereeffect.htm"
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeAtmosphereEffect.xaml",
+        "ChangeAtmosphereEffect.xaml.cs"
+    ],
     "title": "Change atmosphere effect"
 }

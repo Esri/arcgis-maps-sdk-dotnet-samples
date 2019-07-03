@@ -10,13 +10,18 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/tokensecuredchallenge.htm"
+        "/net/latest/forms/sample-code/tokensecuredchallenge.htm"
     ],
     "relevant_apis": [
         "AuthenticationManager",
         "TokenCredential"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "LoginPage.xaml",
+        "LoginPage.xaml.cs",
+        "TokenSecuredChallenge.xaml",
+        "TokenSecuredChallenge.xaml.cs"
+    ],
     "title": "ArcGIS token challenge"
 }

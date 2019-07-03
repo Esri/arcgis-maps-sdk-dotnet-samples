@@ -35,6 +35,9 @@
         "SetViewPoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GeoViewSync.xaml",
+        "GeoViewSync.xaml.cs"
+    ],
     "title": "GeoView viewpoint synchronization"
 }

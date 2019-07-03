@@ -24,6 +24,9 @@
         "SymbolStyleSearchParameters"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SymbolsFromMobileStyle.xaml",
+        "SymbolsFromMobileStyle.xaml.cs"
+    ],
     "title": "Read symbols from a mobile style"
 }

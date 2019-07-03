@@ -21,6 +21,8 @@
         "SimpleMarkerSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddGraphicsWithSymbols.cs"
+    ],
     "title": "Add graphics with symbols"
 }

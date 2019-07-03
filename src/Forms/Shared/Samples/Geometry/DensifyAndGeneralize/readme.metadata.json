@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/densifyandgeneralize.htm"
+        "/net/latest/forms/sample-code/densifyandgeneralize.htm"
     ],
     "relevant_apis": [
         "GeometryEngine",
@@ -23,6 +23,9 @@
         "SpatialReference"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DensifyAndGeneralize.xaml",
+        "DensifyAndGeneralize.xaml.cs"
+    ],
     "title": "Densify and generalize"
 }

@@ -18,6 +18,8 @@
         "Map"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapReferenceScale.cs"
+    ],
     "title": "Map reference scale"
 }

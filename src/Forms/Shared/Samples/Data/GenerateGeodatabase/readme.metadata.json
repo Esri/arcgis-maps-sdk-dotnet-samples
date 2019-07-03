@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/generategeodatabase.htm"
+        "/net/latest/forms/sample-code/generategeodatabase.htm"
     ],
     "relevant_apis": [
         "GenerateGeodatabaseJob",
@@ -20,6 +20,9 @@
         "GeodatabaseSyncTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GenerateGeodatabase.xaml",
+        "GenerateGeodatabase.xaml.cs"
+    ],
     "title": "Generate geodatabase"
 }

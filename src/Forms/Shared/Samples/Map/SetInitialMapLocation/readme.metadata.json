@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/setinitialmaplocation.htm"
+        "/net/latest/forms/sample-code/setinitialmaplocation.htm"
     ],
     "relevant_apis": [
         "BasemapType",
@@ -20,6 +20,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SetInitialMapLocation.xaml",
+        "SetInitialMapLocation.xaml.cs"
+    ],
     "title": "Set initial map location"
 }

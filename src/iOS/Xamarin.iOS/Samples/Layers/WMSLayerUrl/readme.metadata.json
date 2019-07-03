@@ -18,6 +18,8 @@
         "WmsLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WMSLayerUrl.cs"
+    ],
     "title": "WMS Layer URL"
 }

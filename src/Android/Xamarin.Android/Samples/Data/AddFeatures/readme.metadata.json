@@ -19,6 +19,8 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddFeatures.cs"
+    ],
     "title": "Add features"
 }

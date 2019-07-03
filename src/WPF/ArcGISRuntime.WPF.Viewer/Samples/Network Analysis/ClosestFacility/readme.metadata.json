@@ -25,6 +25,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ClosestFacility.xaml",
+        "ClosestFacility.xaml.cs"
+    ],
     "title": "Find closest facility to an incident (interactive)"
 }

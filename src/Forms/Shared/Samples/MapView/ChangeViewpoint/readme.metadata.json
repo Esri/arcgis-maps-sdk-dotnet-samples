@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/changeviewpoint.htm"
+        "/net/latest/forms/sample-code/changeviewpoint.htm"
     ],
     "relevant_apis": [
         "Map",
@@ -22,6 +22,9 @@
         "Viewpoint"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeViewpoint.xaml",
+        "ChangeViewpoint.xaml.cs"
+    ],
     "title": "Change viewpoint"
 }

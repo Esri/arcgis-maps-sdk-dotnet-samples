@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/renderuniquevalues.htm"
+        "/net/latest/forms/sample-code/renderuniquevalues.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -22,6 +22,9 @@
         "UniqueValueRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RenderUniqueValues.xaml",
+        "RenderUniqueValues.xaml.cs"
+    ],
     "title": "Unique value renderer"
 }

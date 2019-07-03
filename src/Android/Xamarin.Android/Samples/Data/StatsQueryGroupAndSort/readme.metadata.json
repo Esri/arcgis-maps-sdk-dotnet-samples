@@ -25,6 +25,8 @@
         "StatisticsQueryResult"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "StatsQueryGroupAndSort.cs"
+    ],
     "title": "Statistical query group and sort"
 }

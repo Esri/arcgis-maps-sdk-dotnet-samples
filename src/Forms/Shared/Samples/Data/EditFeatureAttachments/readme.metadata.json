@@ -8,7 +8,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/editfeatureattachments.htm"
+        "/net/latest/forms/sample-code/editfeatureattachments.htm"
     ],
     "relevant_apis": [
         "ApplyEditsAsync",
@@ -20,6 +20,9 @@
         "UpdateFeatureAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "EditFeatureAttachments.xaml",
+        "EditFeatureAttachments.xaml.cs"
+    ],
     "title": "Edit feature attachments"
 }

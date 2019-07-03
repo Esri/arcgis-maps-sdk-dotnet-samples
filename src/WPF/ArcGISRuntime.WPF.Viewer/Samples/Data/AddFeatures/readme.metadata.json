@@ -19,6 +19,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddFeatures.xaml",
+        "AddFeatures.xaml.cs"
+    ],
     "title": "Add features"
 }

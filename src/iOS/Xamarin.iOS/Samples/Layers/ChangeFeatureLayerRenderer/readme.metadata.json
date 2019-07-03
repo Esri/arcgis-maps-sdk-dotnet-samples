@@ -18,6 +18,8 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ChangeFeatureLayerRenderer.cs"
+    ],
     "title": "Change feature layer renderer"
 }

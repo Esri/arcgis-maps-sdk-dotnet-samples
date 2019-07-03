@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/displaygrid.htm"
+        "/net/latest/forms/sample-code/displaygrid.htm"
     ],
     "relevant_apis": [
         "Grid",
@@ -22,6 +22,9 @@
         "UTMGrid"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayGrid.xaml",
+        "DisplayGrid.xaml.cs"
+    ],
     "title": "Display grid"
 }

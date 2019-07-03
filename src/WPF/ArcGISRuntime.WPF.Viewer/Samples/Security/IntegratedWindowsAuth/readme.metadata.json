@@ -10,6 +10,11 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "IntegratedWindowsAuth.xaml",
+        "IntegratedWindowsAuth.xaml.cs",
+        "LoginWindow.xaml",
+        "LoginWindow.xaml.cs"
+    ],
     "title": "Integrated Windows Authentication"
 }

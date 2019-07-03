@@ -18,6 +18,9 @@
         "RenderingRule"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterRenderingRule.xaml",
+        "RasterRenderingRule.xaml.cs"
+    ],
     "title": "Raster rendering rule"
 }

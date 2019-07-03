@@ -24,6 +24,8 @@
         "SpatialReference"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "Project.cs"
+    ],
     "title": "Project"
 }

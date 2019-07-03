@@ -19,6 +19,9 @@
         "MapView"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayDeviceLocation.xaml",
+        "DisplayDeviceLocation.xaml.cs"
+    ],
     "title": "Display device location"
 }

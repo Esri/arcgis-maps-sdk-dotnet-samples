@@ -11,13 +11,16 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/mapreferencescale.htm"
+        "/net/latest/forms/sample-code/mapreferencescale.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
         "Map"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "MapReferenceScale.xaml",
+        "MapReferenceScale.xaml.cs"
+    ],
     "title": "Map reference scale"
 }

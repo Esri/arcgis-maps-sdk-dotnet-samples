@@ -20,6 +20,9 @@
         "GeodatabaseSyncTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "GenerateGeodatabase.xaml",
+        "GenerateGeodatabase.xaml.cs"
+    ],
     "title": "Generate geodatabase"
 }

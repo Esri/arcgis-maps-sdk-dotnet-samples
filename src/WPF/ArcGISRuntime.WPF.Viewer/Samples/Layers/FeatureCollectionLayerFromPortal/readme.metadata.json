@@ -10,6 +10,9 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureCollectionLayerFromPortal.xaml",
+        "FeatureCollectionLayerFromPortal.xaml.cs"
+    ],
     "title": "Create a feature collection layer from a portal item"
 }

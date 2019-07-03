@@ -22,6 +22,9 @@
         "Portal"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AuthorMap.xaml",
+        "AuthorMap.xaml.cs"
+    ],
     "title": "Create and save a map"
 }

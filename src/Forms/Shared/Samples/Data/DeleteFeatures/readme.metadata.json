@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/deletefeatures.htm"
+        "/net/latest/forms/sample-code/deletefeatures.htm"
     ],
     "relevant_apis": [
         "Feature",
@@ -22,6 +22,9 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DeleteFeatures.xaml",
+        "DeleteFeatures.xaml.cs"
+    ],
     "title": "Delete features (feature service)"
 }

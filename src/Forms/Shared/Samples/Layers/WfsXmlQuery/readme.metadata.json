@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/wfsxmlquery.htm"
+        "/net/latest/forms/sample-code/wfsxmlquery.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -23,6 +23,9 @@
         "WfsFeatureTable.PopulateFromServiceAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WfsXmlQuery.xaml",
+        "WfsXmlQuery.xaml.cs"
+    ],
     "title": "Load WFS with XML query"
 }

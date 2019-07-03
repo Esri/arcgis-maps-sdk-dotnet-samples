@@ -21,6 +21,9 @@
         "SymbolDictionary"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerDictionaryRenderer.xaml",
+        "FeatureLayerDictionaryRenderer.xaml.cs"
+    ],
     "title": "Dictionary renderer with feature layer"
 }

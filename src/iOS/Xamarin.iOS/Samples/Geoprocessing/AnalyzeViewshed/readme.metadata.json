@@ -23,6 +23,8 @@
         "GeoprocessingTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AnalyzeViewshed.cs"
+    ],
     "title": "Analyze viewshed (geoprocessing)"
 }

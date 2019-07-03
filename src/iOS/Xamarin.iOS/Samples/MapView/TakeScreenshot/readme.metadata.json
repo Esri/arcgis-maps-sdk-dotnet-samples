@@ -25,6 +25,8 @@
         "RuntimeImage.ToImageSourceAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "TakeScreenshot.cs"
+    ],
     "title": "Take a screenshot"
 }

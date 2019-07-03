@@ -19,6 +19,8 @@
         "OfflineMapTask"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "OfflineBasemapByReference.cs"
+    ],
     "title": "Generate offline map with local basemap"
 }

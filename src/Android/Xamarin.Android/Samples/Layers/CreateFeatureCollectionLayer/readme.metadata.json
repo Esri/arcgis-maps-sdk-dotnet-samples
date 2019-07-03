@@ -20,6 +20,8 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "CreateFeatureCollectionLayer.cs"
+    ],
     "title": "Feature collection layer"
 }

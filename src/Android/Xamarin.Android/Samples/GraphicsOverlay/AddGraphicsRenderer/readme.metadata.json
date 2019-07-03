@@ -22,6 +22,8 @@
         "SimpleRenderer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddGraphicsRenderer.cs"
+    ],
     "title": "Add graphics with renderer"
 }

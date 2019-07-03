@@ -24,6 +24,9 @@
         "WfsFeatureTable.PopulateFromServiceAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayWfs.xaml",
+        "DisplayWfs.xaml.cs"
+    ],
     "title": "Display a WFS layer"
 }

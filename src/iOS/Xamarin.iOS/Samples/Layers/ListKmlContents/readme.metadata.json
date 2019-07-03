@@ -19,6 +19,8 @@
         "KmlNode.Extent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ListKmlContents.cs"
+    ],
     "title": "List KML contents"
 }

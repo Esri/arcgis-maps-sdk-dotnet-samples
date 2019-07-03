@@ -16,6 +16,8 @@
         "RasterLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterLayerImageServiceRaster.cs"
+    ],
     "title": "Raster layer (service)"
 }

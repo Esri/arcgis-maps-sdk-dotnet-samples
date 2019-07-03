@@ -9,7 +9,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/rendersimplemarkers.htm"
+        "/net/latest/forms/sample-code/rendersimplemarkers.htm"
     ],
     "relevant_apis": [
         "Graphic",
@@ -18,6 +18,9 @@
         "SimpleMarkerSymbol"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RenderSimpleMarkers.xaml",
+        "RenderSimpleMarkers.xaml.cs"
+    ],
     "title": "Render simple markers"
 }

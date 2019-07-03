@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/spatialrelationships.htm"
+        "/net/latest/forms/sample-code/spatialrelationships.htm"
     ],
     "relevant_apis": [
         "Geometry",
@@ -29,6 +29,9 @@
         "Polyline"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SpatialRelationships.xaml",
+        "SpatialRelationships.xaml.cs"
+    ],
     "title": "Spatial relationships"
 }

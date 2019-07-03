@@ -20,6 +20,8 @@
         "ServiceFeatureTable"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "FeatureLayerSelection.cs"
+    ],
     "title": "Feature layer selection"
 }

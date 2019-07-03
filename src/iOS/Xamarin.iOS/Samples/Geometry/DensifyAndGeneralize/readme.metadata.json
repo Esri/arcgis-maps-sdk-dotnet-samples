@@ -23,6 +23,8 @@
         "SpatialReference"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DensifyAndGeneralize.cs"
+    ],
     "title": "Densify and generalize"
 }

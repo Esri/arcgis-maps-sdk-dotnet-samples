@@ -10,7 +10,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/showmagnifier.htm"
+        "/net/latest/forms/sample-code/showmagnifier.htm"
     ],
     "relevant_apis": [
         "Map",
@@ -18,6 +18,9 @@
         "MapView.MagnifierEnabled"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ShowMagnifier.xaml",
+        "ShowMagnifier.xaml.cs"
+    ],
     "title": "Show magnifier"
 }

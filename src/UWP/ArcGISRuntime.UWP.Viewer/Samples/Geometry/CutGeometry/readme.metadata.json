@@ -18,6 +18,9 @@
         "Polyline"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "CutGeometry.xaml",
+        "CutGeometry.xaml.cs"
+    ],
     "title": "Cut geometry"
 }

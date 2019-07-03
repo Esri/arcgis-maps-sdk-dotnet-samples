@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/browsewfslayers.htm"
+        "/net/latest/forms/sample-code/browsewfslayers.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -26,6 +26,9 @@
         "WfsServiceInfo"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "BrowseWfsLayers.xaml",
+        "BrowseWfsLayers.xaml.cs"
+    ],
     "title": "Browse WFS layers"
 }

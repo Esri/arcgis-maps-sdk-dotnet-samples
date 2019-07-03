@@ -25,6 +25,8 @@
         "WmtsServiceInfo"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "WMTSLayer.cs"
+    ],
     "title": "WMTS layer"
 }

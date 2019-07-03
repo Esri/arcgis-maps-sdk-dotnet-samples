@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/identifykmlfeatures.htm"
+        "/net/latest/forms/sample-code/identifykmlfeatures.htm"
     ],
     "relevant_apis": [
         "IdentifyLayerResult",
@@ -21,6 +21,9 @@
         "KmlPlacemark.BalloonContent"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "IdentifyKmlFeatures.xaml",
+        "IdentifyKmlFeatures.xaml.cs"
+    ],
     "title": "Identify KML features"
 }

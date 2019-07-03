@@ -18,6 +18,8 @@
     ],
     "relevant_apis": [],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "RasterHillshade.cs"
+    ],
     "title": "Raster hillshade renderer"
 }

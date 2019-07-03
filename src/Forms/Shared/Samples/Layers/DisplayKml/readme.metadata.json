@@ -13,7 +13,7 @@
         "324e4742820e46cfbe5029ff2c32cb1f"
     ],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/displaykml.htm"
+        "/net/latest/forms/sample-code/displaykml.htm"
     ],
     "relevant_apis": [
         "KmlLayer",
@@ -21,6 +21,9 @@
         "KmlLayer(Uri)"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "DisplayKml.xaml",
+        "DisplayKml.xaml.cs"
+    ],
     "title": "Display KML"
 }

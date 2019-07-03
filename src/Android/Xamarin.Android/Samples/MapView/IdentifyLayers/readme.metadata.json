@@ -21,6 +21,8 @@
         "MapView.IdentifyLayersAsync"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "IdentifyLayers.cs"
+    ],
     "title": "Identify layers"
 }

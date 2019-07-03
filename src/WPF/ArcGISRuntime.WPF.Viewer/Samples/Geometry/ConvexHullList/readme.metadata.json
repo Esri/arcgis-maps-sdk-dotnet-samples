@@ -18,6 +18,9 @@
         "GraphicsOverlay"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "ConvexHullList.xaml",
+        "ConvexHullList.xaml.cs"
+    ],
     "title": "Convex hull list"
 }

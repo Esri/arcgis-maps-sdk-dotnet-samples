@@ -16,6 +16,9 @@
         "IntegratedMeshLayer"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "AddAnIntegratedMeshLayer.xaml",
+        "AddAnIntegratedMeshLayer.xaml.cs"
+    ],
     "title": "Add an integrated mesh layer"
 }

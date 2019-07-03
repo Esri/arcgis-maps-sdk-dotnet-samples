@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/xfu/sample-code/searchportalmaps.htm"
+        "/net/latest/forms/sample-code/searchportalmaps.htm"
     ],
     "relevant_apis": [
         "Portal",
@@ -20,6 +20,9 @@
         "PortalQueryResultSet"
     ],
     "sample_unique_id": "",
-    "snippets": [],
+    "snippets": [
+        "SearchPortalMaps.xaml",
+        "SearchPortalMaps.xaml.cs"
+    ],
     "title": "Search for webmap"
 }

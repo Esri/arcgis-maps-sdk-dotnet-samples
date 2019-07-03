@@ -2,12 +2,14 @@
     "category": "Map",
     "description": "Open and display a scene from a Mobile Scene Package (.mspk).",
     "ignore": false,
-    "images": "An .mspk file is an archive containing the data used to display an offline 3D scene. Some mobile scene packages have data that must be unpacked before reading.",
+    "images": "OpenMobileScenePackage.jpg",
     "keywords": [
         "Offline",
         "Scene"
     ],
-    "offline_data": [],
+    "offline_data": [
+        "7dd2f97bb007466ea939160d0de96a9d"
+    ],
     "redirect_from": [
         "/net/latest/ios/sample-code/openmobilescenepackage.htm"
     ],

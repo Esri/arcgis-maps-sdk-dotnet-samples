@@ -7,7 +7,9 @@
         "Offline",
         "Scene"
     ],
-    "offline_data": [],
+    "offline_data": [
+        "7dd2f97bb007466ea939160d0de96a9d"
+    ],
     "redirect_from": [
         "/net/latest/android/sample-code/openmobilescenepackage.htm"
     ],

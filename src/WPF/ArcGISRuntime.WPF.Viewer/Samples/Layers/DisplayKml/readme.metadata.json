@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "This sample demonstrates how to load and display KML files.",
+    "description": "Load and display KML from a URL, a local file, or a portal item.",
     "ignore": false,
     "images": "DisplayKml.jpg",
     "keywords": [

@@ -1,6 +1,6 @@
 {
     "category": "GraphicsOverlay",
-    "description": "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style.",
+    "description": "Change the style of all graphics in a graphics overlay by referencing a single symbol style.",
     "ignore": false,
     "images": "AddGraphicsRenderer.jpg",
     "keywords": [

@@ -1,543 +1,231 @@
-# Table of Contents
+# Table of contents
 
 ## Analysis
 
-* [Distance measurement analysis](ArcGISRuntime.UWP.Viewer/Samples/Analysis/DistanceMeasurement)
-
-This sample demonstrates measuring 3D distances between two points in a scene. The distance measurement analysis allows you to add the same measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript to your app. You can set the unit system of measurement (metric or imperial) and have the units automatically switch to one appropriate for the current scale. The rendering is handled internally so they do not interfere with other analyses like viewsheds.
-
-* [Line of sight (GeoElement)](ArcGISRuntime.UWP.Viewer/Samples/Analysis/LineOfSightGeoElement)
-
-This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.
-
-* [Line of sight from location](ArcGISRuntime.UWP.Viewer/Samples/Analysis/LineOfSightLocation)
-
-This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.
-
-* [Query feature count and extent](ArcGISRuntime.UWP.Viewer/Samples/Analysis/QueryFeatureCountAndExtent)
-
-This sample demonstrates how to query a feature table, in this case returning a count, for features that are within the visible extent or that meet specified criteria.
-
-* [Viewshed (GeoElement)](ArcGISRuntime.UWP.Viewer/Samples/Analysis/ViewshedGeoElement)
-
-This sample demonstrates how to display a live viewshed analysis for a moving GeoElement. The analysis is offset vertically so that the viewpoint is from the top of the GeoElement (in this case, a model of a tank).
-
-* [Viewshed (Location)](ArcGISRuntime.UWP.Viewer/Samples/Analysis/ViewshedLocation)
-
-This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.
-
-* [Viewshed for camera](ArcGISRuntime.UWP.Viewer/Samples/Analysis/ViewshedCamera)
-
-This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.
+* [Distance measurement analysis](../..//Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
+* [Line of sight (geoelement)](../..//Analysis/LineOfSightGeoElement) - Show a line of sight between two moving objects.
+* [Line of sight (location)](../..//Analysis/LineOfSightLocation) - Perform a line of sight analysis between two points in real time.
+* [Query feature count and extent](../..//Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.
+* [Viewshed for camera](../..//Analysis/ViewshedCamera) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. 
+* [Viewshed for GeoElement](../..//Analysis/ViewshedGeoElement) - Analyze the viewshed for an object (GeoElement) in a scene.
+* [Viewshed for location](../..//Analysis/ViewshedLocation) - Perform a viewshed analysis from a defined vantage point. Viewshed analyses have several configuration options that are demonstrated in this sample.
 
 ## Data
 
-* [Edit and sync features](ArcGISRuntime.UWP.Viewer/Samples/Data/EditAndSyncFeatures)
-
-This sample demonstrates how to synchronize offline edits with a feature service.
-
-* [Feature layer (geodatabase)](ArcGISRuntime.UWP.Viewer/Samples/Data/FeatureLayerGeodatabase)
-
-This sample demonstrates how to consume an Esri .geodatabase file (aka. mobile geodatabase) by using a FeatureLayer and a GeodatabaseFeatureTable.
-
-* [Feature layer (GeoPackage)](ArcGISRuntime.UWP.Viewer/Samples/Data/FeatureLayerGeoPackage)
-
-This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.
-
-* [Feature layer (shapefile)](ArcGISRuntime.UWP.Viewer/Samples/Data/FeatureLayerShapefile)
-
-This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.
-
-* [Feature layer query](ArcGISRuntime.UWP.Viewer/Samples/Data/FeatureLayerQuery)
-
-This sample demonstrates how to return features from a feature layer using an attribute query on the underlying feature table.
-
-* [Generate geodatabase](ArcGISRuntime.UWP.Viewer/Samples/Data/GenerateGeodatabase)
-
-This sample demonstrates how to take a feature service offline by generating a geodatabase.
-
-* [Geodatabase transactions](ArcGISRuntime.UWP.Viewer/Samples/Data/GeodatabaseTransactions)
-
-This sample demonstrates how to manage edits to a local geodatabase inside of transactions.
-
-* [List related features](ArcGISRuntime.UWP.Viewer/Samples/Data/ListRelatedFeatures)
-
-This sample demonstrates how to query features related to an identified feature.
-
-* [Raster layer (GeoPackage)](ArcGISRuntime.UWP.Viewer/Samples/Data/RasterLayerGeoPackage)
-
-This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.
-
-* [Read a GeoPackage](ArcGISRuntime.UWP.Viewer/Samples/Data/ReadGeoPackage)
-
-This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.
-
-* [Read shapefile metadata](ArcGISRuntime.UWP.Viewer/Samples/Data/ReadShapefileMetadata)
-
-This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
-
-* [Service feature table (cache)](ArcGISRuntime.UWP.Viewer/Samples/Data/ServiceFeatureTableCache)
-
-This sample demonstrates how to use a feature service in on interaction cache mode.
-
-* [Service feature table (manual cache)](ArcGISRuntime.UWP.Viewer/Samples/Data/ServiceFeatureTableManualCache)
-
-This sample demonstrates how to use a feature service in manual cache mode.
-
-* [Service feature table (no cache)](ArcGISRuntime.UWP.Viewer/Samples/Data/ServiceFeatureTableNoCache)
-
-This sample demonstrates how to use a feature service in on interaction no cache mode.
-
-* [Statistical query](ArcGISRuntime.UWP.Viewer/Samples/Data/StatisticalQuery)
-
-This sample demonstrates how to query a feature table to get statistics for a specified field.
-
-* [Statistical query group and sort results](ArcGISRuntime.UWP.Viewer/Samples/Data/StatsQueryGroupAndSort)
-
-This sample demonstrates how to query a feature table to get statistics for a specified field and to group and sort the results.
-
-* [Symbolize a shapefile](ArcGISRuntime.UWP.Viewer/Samples/Data/SymbolizeShapefile)
-
-This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.
+* [Add features](../..//Data/AddFeatures) - Add features to a feature layer.
+* [Delete features (feature service)](../..//Data/DeleteFeatures) - Delete features from an online feature service.
+* [Edit and sync features](../..//Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
+* [Edit feature attachments](../..//Data/EditFeatureAttachments) - Add, delete, and download attachments for features from a service.
+* [Feature layer (geodatabase)](../..//Data/FeatureLayerGeodatabase) - Display features from a local geodatabase.
+* [Feature layer (GeoPackage)](../..//Data/FeatureLayerGeoPackage) - Display features from a local GeoPackage.
+* [Feature layer query](../..//Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.
+* [Feature layer (shapefile)](../..//Data/FeatureLayerShapefile) - Open a shapefile stored on the device and display it as a feature layer with default symbology.
+* [Generate geodatabase](../..//Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
+* [Geodatabase transactions](../..//Data/GeodatabaseTransactions) - This sample demonstrates how to manage edits to a local geodatabase inside of transactions.
+* [List related features](../..//Data/ListRelatedFeatures) - List features related to the selected feature.
+* [Raster layer (GeoPackage)](../..//Data/RasterLayerGeoPackage) - Open a `GeoPackage`, obtain a raster from the package, and display the table as a `RasterLayer`.
+* [Read a GeoPackage](../..//Data/ReadGeoPackage) - Add rasters and feature tables from GeoPackages to a map.
+* [Read shapefile metadata](../..//Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.
+* [Service feature table (on interaction cache)](../..//Data/ServiceFeatureTableCache) - Display a feature layer from a service using the **on interaction cache** feature request mode.
+* [Service feature table (manual cache)](../..//Data/ServiceFeatureTableManualCache) - Display a feature layer from a service using the **manual cache** feature request mode.
+* [Service feature table (no cache)](../..//Data/ServiceFeatureTableNoCache) - Display a feature layer from a service using the **no cache** feature request mode.
+* [Statistical query](../..//Data/StatisticalQuery) - Query a table to get aggregated statistics back for a specific field.
+* [Statistical query group and sort](../..//Data/StatsQueryGroupAndSort) - Query a feature table for statistics, grouping and sorting by different fields.
+* [Symbolize a shapefile](../..//Data/SymbolizeShapefile) - Display a shapefile with custom symbology.
+* [Update attributes (feature service)](../..//Data/UpdateAttributes) - Update feature attributes in an online feature service.
+* [Update geometries (feature service)](../..//Data/UpdateGeometries) - Update a feature's location in an online feature service.
+* [View point cloud data offline](../..//Data/ViewPointCloudDataOffline) - Display local 3D point cloud data.
 
 ## Geometry
 
-* [Buffer](ArcGISRuntime.UWP.Viewer/Samples/Geometry/Buffer)
-
-This sample demonstrates how to use `GeometryEngine.Buffer` to create polygons from a map location and linear distance (radius). For each input location, the sample creates two buffer polygons (using the same distance) and displays them on the map using different symbols. One polygon is calculated using the `planar` (flat) coordinate space of the map's spatial reference. The other is created using a `geodesic` technique that considers the curved shape of the Earth's surface (which is generally a more accurate representation). Distortion in the map increases as you move away from the standard parallels of the spatial reference's projection. This map is in Web Mercator so areas near the equator are the most accurate. As you move the buffer location north or south from that line, you'll see a greater difference in the polygon size and shape. Planar operations are generally faster, but performance improvement may only be noticeable for large operations (buffering a great number or complex geometry).
-Creating buffers is a core concept in GIS proximity analysis, allowing you to visualize and locate geographic features contained within a polygon. For example, suppose you wanted to visualize areas of your city where alcohol sales are prohibited because they are within 500 meters of a school. The first step in this proximity analysis would be to generate 500 meter buffer polygons around all schools in the city. Any such businesses you find inside one of the resulting polygons are violating the law. If you are using planar buffers, make sure that the input locations and distance are suited to the spatial reference you're using. Remember that you can also create your buffers using geodesic and then project them to the spatial reference you need for display or analysis. For more information about using buffer analysis, see [How buffer analysis works](https://pro.arcgis.com/en/pro-app/tool-reference/analysis/how-buffer-analysis-works.htm) in the ArcGIS Pro documentation.
-
-* [Buffer list](ArcGISRuntime.UWP.Viewer/Samples/Geometry/BufferList)
-
-This sample demonstrates how to use a planar (Euclidean) buffer operation by calling `GeometryEngine.Buffer` to generate one or more polygons from a collection of input geometries and a corresponding collection of buffer distances. The result polygons can be returned as individual geometries or unioned into a single polygon output.
-
-* [Clip geometry](ArcGISRuntime.UWP.Viewer/Samples/Geometry/ClipGeometry)
-
-This sample demonstrates how to clip a geometry with an envelope using the GeometryEngine
-
-* [Convex hull](ArcGISRuntime.UWP.Viewer/Samples/Geometry/ConvexHull)
-
-This sample demonstrates how to use the GeometryEngine.ConvexHull operation to generate a polygon that encloses a series of user-tapped map points.
-
-* [Convex hull list](ArcGISRuntime.UWP.Viewer/Samples/Geometry/ConvexHullList)
-
-This sample demonstrates how to use the GeometryEngine.ConvexHull to generate convex hull polygon(s) from multiple input geometries.
-
-* [Create geometries](ArcGISRuntime.UWP.Viewer/Samples/Geometry/CreateGeometries)
-
-This sample demonstrates simple ways to create different types of Geometry. The geometries are added as Graphics to a GraphicsOverlay and displayed in a MapView. An Envelope is used to set the Viewpoint of the MapView.
-
-* [Cut geometry](ArcGISRuntime.UWP.Viewer/Samples/Geometry/CutGeometry)
-
-This sample demonstrates how to cut a geometry with a polyline using the GeometryEngine.
-
-* [Densify and generalize](ArcGISRuntime.UWP.Viewer/Samples/Geometry/DensifyAndGeneralize)
-
-This sample demonstrates how to densify or generalize a polyline geometry. In this example, points representing a ship's location are shown at irregular intervals. You can densify the polyline to interpolate points along the line at regular intervals. Generalizing the polyline can also simplify the geometry while preserving its general shape.
-
-* [Format coordinates](ArcGISRuntime.UWP.Viewer/Samples/Geometry/FormatCoordinates)
-
-This sample demonstrates how to convert between `MapPoint` and string representations of a point using various coordinate systems.
-
-* [Geodesic operations](ArcGISRuntime.UWP.Viewer/Samples/Geometry/GeodesicOperations)
-
-This sample demonstrates how to use the Geometry engine to calculate a geodesic path between two points and measure its distance.
-
-* [List transformations by suitability](ArcGISRuntime.UWP.Viewer/Samples/Geometry/ListTransformations)
-
-This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.
-
-* [Nearest vertex](ArcGISRuntime.UWP.Viewer/Samples/Geometry/NearestVertex)
-
-This sample demonstrates how to use the Geometry engine find the nearest vertex and nearest coordinate of a polygon to a point. The distance for each is shown.
-
-* [Project with specific transformation](ArcGISRuntime.UWP.Viewer/Samples/Geometry/ProjectWithSpecificTransformation)
-
-This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
-
-* [Spatial relationships](ArcGISRuntime.UWP.Viewer/Samples/Geometry/SpatialRelationships)
-
-This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) between geometries.
+* [Buffer](../..//Geometry/Buffer) - Create a buffer around a map point and display the results as a `Graphic`
+* [Buffer list](../..//Geometry/BufferList) - Generate multiple individual buffers or a single unioned buffer around multiple points.
+* [Clip geometry](../..//Geometry/ClipGeometry) - Clip a geometry with another geometry.
+* [Convex hull](../..//Geometry/ConvexHull) - Create a convex hull for a given set of points. The convex hull is a polygon with shortest perimeter that encloses a set of points. As a visual analogy, consider a set of points as nails in a board. The convex hull of the points would be like a rubber band stretched around the outermost nails.
+* [Convex hull list](../..//Geometry/ConvexHullList) - This sample demonstrates how to use the GeometryEngine.ConvexHull to generate convex hull polygon(s) from multiple input geometries.
+* [Create geometries](../..//Geometry/CreateGeometries) - Create simple geometry types.
+* [Cut geometry](../..//Geometry/CutGeometry) - Cut a geometry along a polyline.
+* [Densify and generalize](../..//Geometry/DensifyAndGeneralize) - A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.
+* [Format coordinates](../..//Geometry/FormatCoordinates) - Format coordinates in a variety of common notations.
+* [Geodesic operations](../..//Geometry/GeodesicOperations) - This sample demonstrates how to perform geodesic operations on geometries using the GeometryEngine. Geodesic calculations take into account the curvature of the Earth, while planar calculations are based on a 2D Cartesian plane.
+* [List transformations by suitability](../..//Geometry/ListTransformations) - Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.
+* [Nearest vertex](../..//Geometry/NearestVertex) - Shows how to find the nearest vertex on a geometry to a given point.
+* [Project](../..//Geometry/Project) - Project a point from one spatial reference to another.
+* [Project with specific transformation](../..//Geometry/ProjectWithSpecificTransformation) - This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. 
+* [Perform spatial operations](../..//Geometry/SpatialOperations) - Find the union, intersection, or difference of two geometries.
+* [Spatial relationships](../..//Geometry/SpatialRelationships) - Determine spatial relationships between two geometries.
 
 ## Geoprocessing
 
-* [Analyze hotspots](ArcGISRuntime.UWP.Viewer/Samples/Geoprocessing/AnalyzeHotspots)
-
-This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.
-
-* [List geodatabase versions](ArcGISRuntime.UWP.Viewer/Samples/Geoprocessing/ListGeodatabaseVersions)
-
-This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.
-
-* [Viewshed (Geoprocessing)](ArcGISRuntime.UWP.Viewer/Samples/Geoprocessing/AnalyzeViewshed)
-
-This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.
+* [Analyze hotspots](../..//Geoprocessing/AnalyzeHotspots) - Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.
+* [Analyze viewshed (geoprocessing)](../..//Geoprocessing/AnalyzeViewshed) - Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.
+* [List geodatabase versions](../..//Geoprocessing/ListGeodatabaseVersions) - This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.
 
 ## GraphicsOverlay
 
-* [Add graphics (SimpleRenderer)](ArcGISRuntime.UWP.Viewer/Samples/GraphicsOverlay/AddGraphicsRenderer)
-
-This sample demonstrates how you add graphics and set a renderer on a graphic overlays.
-
-* [Add graphics with symbols](ArcGISRuntime.UWP.Viewer/Samples/GraphicsOverlay/AddGraphicsWithSymbols)
-
-This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.
-
-* [Animate 3D graphic](ArcGISRuntime.UWP.Viewer/Samples/GraphicsOverlay/Animate3DGraphic)
-
-This sample demonstrates how to animate a graphic's position and follow it using a camera controller.
-
-* [Identify graphics](ArcGISRuntime.UWP.Viewer/Samples/GraphicsOverlay/IdentifyGraphics)
-
-This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.
-
-* [Sketch graphics on the map](ArcGISRuntime.UWP.Viewer/Samples/GraphicsOverlay/SketchOnMap)
-
-This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.
-
-* [Surface placement](ArcGISRuntime.UWP.Viewer/Samples/GraphicsOverlay/SurfacePlacements)
-
-This sample demonstrates how to position graphics using different Surface Placements.
+* [Add graphics with renderer](../..//GraphicsOverlay/AddGraphicsRenderer) - Change the style of all graphics in a graphics overlay by referencing a single symbol style.
+* [Add graphics with symbols](../..//GraphicsOverlay/AddGraphicsWithSymbols) - Use a symbol style to display a graphic on a graphics overlay.
+* [Animate 3D graphic](../..//GraphicsOverlay/Animate3DGraphic) - An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
+* [Dictionary renderer with graphics overlay](../..//GraphicsOverlay/DictionaryRendererGraphicsOverlay) - Render graphics with mil2525d symbols.
+* [Identify graphics](../..//GraphicsOverlay/IdentifyGraphics) - Display an alert message when a graphic is clicked.
+* [Scene properties expressions](../..//GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using scene property rotation expressions.
+* [Sketch on map](../..//GraphicsOverlay/SketchOnMap) - Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.
+* [Surface placement](../..//GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.
 
 ## Hydrography
 
-* [Add ENC Exchange Set](ArcGISRuntime.UWP.Viewer/Samples/Hydrography/AddEncExchangeSet)
-
-This sample demonstrates how to load an ENC Exchange Set, including its component cells.
-
-* [Change ENC display settings](ArcGISRuntime.UWP.Viewer/Samples/Hydrography/ChangeEncDisplaySettings)
-
-This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.
-
-* [Select ENC features](ArcGISRuntime.UWP.Viewer/Samples/Hydrography/SelectEncFeatures)
-
-This sample demonstrates how to select an ENC feature.
+* [Add ENC exchange set](../..//Hydrography/AddEncExchangeSet) - Display nautical charts per the ENC specification.
+* [Change ENC display settings](../..//Hydrography/ChangeEncDisplaySettings) - Configure the display of ENC content.
+* [Select ENC features](../..//Hydrography/SelectEncFeatures) - Select features in an ENC layer.
 
 ## Layers
 
-* [ArcGIS map image layer (URL)](ArcGISRuntime.UWP.Viewer/Samples/Layers/ArcGISMapImageLayerUrl)
-
-This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.
-
-* [ArcGIS raster function (service)](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterLayerRasterFunction)
-
-This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.
-
-* [ArcGIS raster layer (service)](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterLayerImageServiceRaster)
-
-This sample demonstrates how to show a raster layer on a map based on an image service layer.
-
-* [ArcGIS scene layer (URL)](ArcGISRuntime.UWP.Viewer/Samples/Layers/SceneLayerUrl)
-
-This sample demonstrates how to add an ArcGISSceneLayer as a layer in a Scene.
-
-* [ArcGIS tiled layer (URL)](ArcGISRuntime.UWP.Viewer/Samples/Layers/ArcGISTiledLayerUrl)
-
-This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.
-
-* [ArcGIS vector tiled layer (URL)](ArcGISRuntime.UWP.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl)
-
-This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.
-
-* [Blend renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeBlendRenderer)
-
-This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.
-
-* [Change feature layer renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeFeatureLayerRenderer)
-
-This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.
-
-* [Change sublayer renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeSublayerRenderer)
-
-This sample demonstrates how to change the sub-layer renderer of an ArcGIS map image layer. A unique value renderer is applied to see different population ranges in the counties sub-layer data.
-
-* [Change sublayer visibility](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeSublayerVisibility)
-
-This sample demonstrates how to show or hide sublayers of a map image layer.
-
-* [Create a feature collection layer from a portal item](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal)
-
-This sample demonstrates opening a feature collection saved as a portal item.
-
-* [Create a new feature collection layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/CreateFeatureCollectionLayer)
-
-This sample demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.
-
-* [Display scene](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayScene)
-
-Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.
-
-* [Export tiles](ArcGISRuntime.UWP.Viewer/Samples/Layers/ExportTiles)
-
-This sample demonstrates how to export tiles from a map server.
-
-* [Feature collection layer from query result](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureCollectionLayerFromQuery)
-
-This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.
-
-* [Feature layer (feature service)](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureLayerUrl)
-
-This sample demonstrates how to show a feature layer on a map using the URL to the service.
-
-* [Feature layer definition expression](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureLayerDefinitionExpression)
-
-This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.
-
-* [Feature layer dictionary renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureLayerDictionaryRenderer)
-
-Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.
-
-* [Feature layer rendering mode (Map)](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureLayerRenderingModeMap)
-
-This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.
-
-* [Feature layer rendering mode (Scene)](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureLayerRenderingModeScene)
-
-This sample demonstrates how to use load settings to change the preferred rendering mode for a scene. Static rendering mode only redraws features periodically when a sceneview is navigating, while dynamic mode dynamically re-renders as the scene moves.
-
-* [Feature layer selection](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureLayerSelection)
-
-This sample demonstrates how to select features in a feature layer by tapping a MapView.
-
-* [Identify WMS features](ArcGISRuntime.UWP.Viewer/Samples/Layers/WmsIdentify)
-
-This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.
-
-* [Query a map image sublayer](ArcGISRuntime.UWP.Viewer/Samples/Layers/MapImageSublayerQuery)
-
-This sample demonstrates how to execute an attribute and spatial query on the sublayers of an ArcGIS map image layer. Sublayers of an ArcGISMapImageLayer may expose a ServiceFeatureTable through a Table property.This allows you to perform the same queries available when working with a table from a FeatureLayer: attribute query, spatial query, statistics query, query for related features, and so on.
-
-* [Query map image layer tables](ArcGISRuntime.UWP.Viewer/Samples/Layers/MapImageLayerTables)
-
-This sample demonstrates how to get a non-spatial table from an ArcGIS map image layer. It shows how to query such a table, as well as how to find related features in another table. The non-spatial tables contained by a map service may contain additional information about sublayer features. Such information can be accessed by traversing table relationships defined in the service.
-
-* [Raster hillshade renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterHillshade)
-
-This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).
-
-* [Raster layer (file)](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterLayerFile)
-
-This sample demonstrates how to use a raster layer created from a local raster file.
-
-* [Raster rendering rule](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterRenderingRule)
-
-This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.
-
-* [Raster RGB renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterRgbRenderer)
-
-This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.
-
-* [Scene layer selection](ArcGISRuntime.UWP.Viewer/Samples/Layers/SceneLayerSelection)
-
-This sample demonstrates how to identify geoelements in a scene layer.
-
-* [Show labels on layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ShowLabelsOnLayer)
-
-This sample demonstrates how to show labels on a feature layer
-
-* [Stretch renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeStretchRenderer)
-
-This sample demonstrates how to use stretch renderer on a raster layer.
-
-* [Style WMS layers](ArcGISRuntime.UWP.Viewer/Samples/Layers/StyleWmsLayer)
-
-This sample demonstrates how to select from the available styles on WMS sublayers. 
-
-* [Time-based query](ArcGISRuntime.UWP.Viewer/Samples/Layers/TimeBasedQuery)
-
-This sample demonstrates how to apply a time-based parameter to a feature layer query.
-
-* [Web tiled layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/LoadWebTiledLayer)
-
-This sample demonstrates how to load a web tiled layer from a non-ArcGIS service, including how to include proper attribution.
-
-* [WMS layer (URL)](ArcGISRuntime.UWP.Viewer/Samples/Layers/WMSLayerUrl)
-
-This sample demonstrates how to add a layer from a WMS service to a map.
-
-* [WMS service catalog](ArcGISRuntime.UWP.Viewer/Samples/Layers/WmsServiceCatalog)
-
-This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.
-
-* [WMTS layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/WMTSLayer)
-
-This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.
+* [Add an integrated mesh layer](../..//Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add a point scene layer](../..//Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [ArcGIS map image layer](../..//Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
+* [ArcGIS tiled layer](../..//Layers/ArcGISTiledLayerUrl) - Load an ArcGIS tiled layer from a URL.
+* [ArcGIS vector tiled layer URL](../..//Layers/ArcGISVectorTiledLayerUrl) - Load an ArcGIS Vector Tiled Layer from a URL.
+* [Browse WFS layers](../..//Layers/BrowseWfsLayers) - Browse a WFS service for layers.
+* [Blend renderer](../..//Layers/ChangeBlendRenderer) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
+* [Change feature layer renderer](../..//Layers/ChangeFeatureLayerRenderer) - Change the appearance of a feature layer with a renderer.
+* [Stretch renderer](../..//Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
+* [Change sublayer renderer](../..//Layers/ChangeSublayerRenderer) - Apply a renderer to a sublayer.
+* [Map image layer sublayer visibility](../..//Layers/ChangeSublayerVisibility) - Change the visibility of sublayers.
+* [Feature collection layer](../..//Layers/CreateFeatureCollectionLayer) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
+* [Display KML](../..//Layers/DisplayKml) - This sample demonstrates how to load and display KML files from:
+* [Display KML network links](../..//Layers/DisplayKmlNetworkLinks) -  Display a file with a KML network link.
+* [Display a scene](../..//Layers/DisplayScene) - Display a scene with a terrain surface and some imagery.
+* [Display a WFS layer](../..//Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
+* [Export tiles](../..//Layers/ExportTiles) - Download tiles to a local tile cache file stored on the device.
+* [Create a feature collection layer from a portal item](../..//Layers/FeatureCollectionLayerFromPortal) - This sample demonstrates opening a feature collection saved as a portal item.
+* [Feature collection layer (Query)](../..//Layers/FeatureCollectionLayerFromQuery) - Create a feature collection layer to show a query result from a service feature table. The feature collection is then displayed on a map with a feature collection layer.
+* [Feature layer definition expression](../..//Layers/FeatureLayerDefinitionExpression) - Limit the features to display on the map using a definition expression.
+* [Dictionary renderer with feature layer](../..//Layers/FeatureLayerDictionaryRenderer) - Convert features into graphics to show them with mil2525d symbols.
+* [Feature layer rendering mode (map)](../..//Layers/FeatureLayerRenderingModeMap) - Render features statically or dynamically by setting the feature layer rendering mode.
+* [Feature layer rendering mode (scene)](../..//Layers/FeatureLayerRenderingModeScene) - Render features in a scene statically or dynamically by setting the feature layer rendering mode.
+* [Feature layer selection](../..//Layers/FeatureLayerSelection) - Select features in a feature layer.
+* [Feature layer (feature service)](../..//Layers/FeatureLayerUrl) - Show a feature layer on a map using the URL to the service.
+* [Group layers](../..//Layers/GroupLayers) - Group a collection of layers together and toggle their visibility as a group.
+* [Identify KML features](../..//Layers/IdentifyKmlFeatures) - This sample demonstrates how to identify features in a KML layer. Identified feature attributes are displayed in a callout to simulate a popup.
+* [List KML contents](../..//Layers/ListKmlContents) - List the contents of a KML file. KML files can contain a hierarchy of features, including network links to other KML content.
+* [Web tiled layer](../..//Layers/LoadWebTiledLayer) - Display a tiled web layer.
+* [Map image layer tables](../..//Layers/MapImageLayerTables) - Find features in a spatial table related to features in a non-spatial table.
+* [Query map image sublayer](../..//Layers/MapImageSublayerQuery) - Find features in a sublayer based on attributes and location.
+* [OpenStreetMap layer](../..//Layers/OpenStreetMapLayer) - Add OpenStreetMap as a basemap layer.
+* [Play a KML tour](../..//Layers/PlayKmlTours) - Play tours in KML files.
+* [Raster hillshade renderer](../..//Layers/RasterHillshade) - Use a hillshade renderer on a raster.
+* [Raster layer (file)](../..//Layers/RasterLayerFile) - Create and use a raster layer made from a local raster file.
+* [Raster layer (service)](../..//Layers/RasterLayerImageServiceRaster) - Create a raster layer from a raster image service.
+* [ArcGIS raster function (service)](../..//Layers/RasterLayerRasterFunction) - Show a raster layer from an image service with a raster function applied.
+* [Raster rendering rule](../..//Layers/RasterRenderingRule) - Display a raster on a map and apply different rendering rules to that raster.
+* [RGB Renderer](../..//Layers/RasterRgbRenderer) - Use an `RGBRenderer` on a `RasterLayer`. An `RGBRenderer` is used to adjust the color bands of a multispectral image.
+* [Scene layer selection](../..//Layers/SceneLayerSelection) - Identify GeoElements in a scene layer.
+* [Scene layer (URL)](../..//Layers/SceneLayerUrl) - Display an ArcGIS scene layer from a URL.
+* [Show labels on layers](../..//Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
+* [Style WMS layers](../..//Layers/StyleWmsLayer) - Discover available styles and apply them to WMS sublayers.
+* [Time-based query](../..//Layers/TimeBasedQuery) - This sample demonstrates how to query data using a time extent. This workflow can be used to return records that are between a specified start and end date. For example, you could specify to only show records that are before September 16, 2000.
+* [Load WFS with XML query](../..//Layers/WfsXmlQuery) - Load a WFS feature table using an XML query.
+* [Identify WMS features](../..//Layers/WmsIdentify) - Identify features in a WMS layer and display the associated popup content.
+* [WMS Layer URL](../..//Layers/WMSLayerUrl) - Display a WMS layer using a WMS service URL.
+* [WMS service catalog](../..//Layers/WmsServiceCatalog) - Connect to a WMS service and show the available layers and sublayers. Layers are shown in a hierarchy. Selecting a group layer will recursively select all sublayers for display.
+* [WMTS layer](../..//Layers/WMTSLayer) - Display a layer from a Web Map Tile Service.
 
 ## Location
 
-* [Display device location](ArcGISRuntime.UWP.Viewer/Samples/Location/DisplayDeviceLocation)
-
-This sample demonstrates how you can enable location services and switch between different types of auto pan modes.
+* [Display device location](../..//Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan Modes.
 
 ## Map
 
-* [Access load status](ArcGISRuntime.UWP.Viewer/Samples/Map/AccessLoadStatus)
-
-This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
-
-* [Author a map](ArcGISRuntime.UWP.Viewer/Samples/Map/AuthorMap)
-
-This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
-
-* [Change basemap](ArcGISRuntime.UWP.Viewer/Samples/Map/ChangeBasemap)
-
-This sample demonstrates how to dynamically change the basemap displayed in a Map.
-
-* [Display a map](ArcGISRuntime.UWP.Viewer/Samples/Map/DisplayMap)
-
-This sample demonstrates how to display a map with a basemap.
-
-* [Download preplanned map areas](ArcGISRuntime.UWP.Viewer/Samples/Map/DownloadPreplannedMapAreas)
-
-This sample demonstrates how to download preplanned map areas from a webmap. In the preplanned offline workflow, the author of the online map defines map areas for offline use. When these areas are created, their offline packages are created and stored online for clients to download. This is the biggest difference between on-demand and preplanned workflows since on-demand workflow data packages are generated at request time.
-
-* [Manage bookmarks](ArcGISRuntime.UWP.Viewer/Samples/Map/ManageBookmarks)
-
-This sample demonstrates how to access and add bookmarks to a map.
-
-* [Open map (URL)](ArcGISRuntime.UWP.Viewer/Samples/Map/OpenMapURL)
-
-This sample demonstrates loading a webmap in a map from a Uri.
-
-* [Open mobile map (map package)](ArcGISRuntime.UWP.Viewer/Samples/Map/OpenMobileMap)
-
-This sample demonstrates how to open a mobile map from a map package.
-
-* [Open scene (Portal item)](ArcGISRuntime.UWP.Viewer/Samples/Map/OpenScene)
-
-This sample demonstrates how to open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal.
-
-* [Search a portal for maps](ArcGISRuntime.UWP.Viewer/Samples/Map/SearchPortalMaps)
-
-This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
-
-* [Set initial map area](ArcGISRuntime.UWP.Viewer/Samples/Map/SetInitialMapArea)
-
-This sample displays a map at a specific viewpoint. In this sample a viewpoint is constructed from an envelope defined by minimum (x,y) and maximum (x,y) values. The map's initialViewpoint is set to this viewpoint before the map is loaded. Upon loading the map zooms to this initial area.
-
-* [Set initial map location](ArcGISRuntime.UWP.Viewer/Samples/Map/SetInitialMapLocation)
-
-This sample creates a map with a standard ESRI Imagery with Labels basemap that is centered on a latitude and longitude location and zoomed into a specific level of detail.
-
-* [Set map spatial reference](ArcGISRuntime.UWP.Viewer/Samples/Map/SetMapSpatialReference)
-
-This sample demonstrates how you can set the spatial reference on a Map and all the layers would project accordingly.
-
-* [Set min & max scale](ArcGISRuntime.UWP.Viewer/Samples/Map/SetMinMaxScale)
-
-This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
+* [Access load status](../..//Map/AccessLoadStatus) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
+* [Create and save a map](../..//Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
+* [Change atmosphere effect](../..//Map/ChangeAtmosphereEffect) - Changes the appearance of the atmosphere in a scene.
+* [Change basemap](../..//Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on an `Map` and is used to provide visual reference for the operational layers.
+* [Create terrain surface from a local raster](../..//Map/CreateTerrainSurfaceFromRaster) - Use a terrain surface with elevation described by a raster file.
+* [Create terrain surface from a tile package](../..//Map/CreateTerrainSurfaceFromTilePackage) - Set the terrain surface with elevation described by a local tile package.
+* [Display a map](../..//Map/DisplayMap) - Display a map with an imagery basemap.
+* [Download a preplanned map area](../..//Map/DownloadPreplannedMap) - Take a map offline using an available preplanned map area.
+* [Generate offline map](../..//Map/GenerateOfflineMap) - Take a web map offline.
+* [Generate Offline Map (Overrides)](../..//Map/GenerateOfflineMapWithOverrides) - Use the `OfflineMapTask` with overrides to take a webmap offline. The overrides workflow allows you to adjust the settings used for taking each layer in the map offline. For a simple example of how you take a map offline, please consult the "Generate Offline Map" sample.
+* [Get elevation at a point](../..//Map/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene. 
+* [Manage bookmarks](../..//Map/ManageBookmarks) - Access and create bookmarks on a map.
+* [Manage operational layers](../..//Map/ManageOperationalLayers) - Add, remove, and reorder operational layers in a map.
+* [Map reference scale](../..//Map/MapReferenceScale) - Set a map's reference scale and control which feature layers should honor that scale.
+* [Mobile map (search and route)](../..//Map/MobileMapSearchAndRoute) - Display maps and use locators to enable search and routing offline using a Mobile Map Package.
+* [Generate offline map with local basemap](../..//Map/OfflineBasemapByReference) - Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.
+* [Open map URL](../..//Map/OpenMapURL) - Display a web map.
+* [Open mobile map package](../..//Map/OpenMobileMap) - Display a map from a mobile map package.
+* [Open Mobile Scene Package](../..//Map/OpenMobileScenePackage) - Open and display a scene from a Mobile Scene Package (.mspk).
+* [Open a scene (Portal item)](../..//Map/OpenScene) - Open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal. 
+* [Search for webmap](../..//Map/SearchPortalMaps) - Find webmap portal items by using a search term.
+* [Map initial extent](../..//Map/SetInitialMapArea) - Display the map at an initial viewpoint representing a bounding geometry.
+* [Set initial map location](../..//Map/SetInitialMapLocation) - Display a map centered on an initial point with a specified level of detail (zoom level).
+* [Set map spatial reference](../..//Map/SetMapSpatialReference) - Specify a map's spatial reference.
+* [Set min & max scale](../..//Map/SetMinMaxScale) - Restrict zooming between specific scale ranges.
+* [Terrain exaggeration](../..//Map/TerrainExaggeration) - Configure the vertical exaggeration of terrain (the ground surface) in a scene.
+* [View content beneath terrain surface](../..//Map/ViewContentBeneathSurface) - See through terrain in a scene and move the camera underground.
 
 ## MapView
 
-* [Change time extent](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChangeTimeExtent)
-
-This sample demonstrates how to filter data in layers by applying a time extent to a MapView.
-
-* [Change viewpoint](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChangeViewpoint)
-
-This sample demonstrates different ways in which you can change the viewpoint of the MapView.
-
-* [Display a grid](ArcGISRuntime.UWP.Viewer/Samples/MapView/DisplayGrid)
-
-This sample demonstrates how to display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.
-
-* [Display drawing status](ArcGISRuntime.UWP.Viewer/Samples/MapView/DisplayDrawingStatus)
-
-This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.
-
-* [Display layer view state](ArcGISRuntime.UWP.Viewer/Samples/MapView/DisplayLayerViewState)
-
-This sample demonstrates how to get view status for layers in a map.
-
-* [Feature layer time offset](ArcGISRuntime.UWP.Viewer/Samples/MapView/FeatureLayerTimeOffset)
-
-This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
-
-* [GeoView viewpoint synchronization](ArcGISRuntime.UWP.Viewer/Samples/MapView/GeoViewSync)
-
-This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.
-
-* [Map rotation](ArcGISRuntime.UWP.Viewer/Samples/MapView/MapRotation)
-
-This sample demonstrates how to rotate a map.
-
-* [Show callout](ArcGISRuntime.UWP.Viewer/Samples/MapView/ShowCallout)
-
-This sample illustrates how to show callouts on a map in response to user interaction.
-
-* [Show magnifier](ArcGISRuntime.UWP.Viewer/Samples/MapView/ShowMagnifier)
-
-This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.
-
-* [Take screenshot](ArcGISRuntime.UWP.Viewer/Samples/MapView/TakeScreenshot)
-
-This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.
+* [Change time extent](../..//MapView/ChangeTimeExtent) - This sample demonstrates how to filter data in layers by applying a time extent to a MapView.
+* [Change viewpoint](../..//MapView/ChangeViewpoint) - Set the map view to a new viewpoint.
+* [Display draw status](../..//MapView/DisplayDrawingStatus) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
+* [Display grid](../..//MapView/DisplayGrid) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
+* [Display layer view state](../..//MapView/DisplayLayerViewState) - View the status of the layers on the map.
+* [Feature layer time offset](../..//MapView/FeatureLayerTimeOffset) - Show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.
+* [GeoView viewpoint synchronization](../..//MapView/GeoViewSync) - Keep the view points of two views (a MapView and a SceneView in this case) synchronized with each other.
+* [Identify layers](../..//MapView/IdentifyLayers) - Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.
+* [Map rotation](../..//MapView/MapRotation) - Rotate a map.
+* [Show callout](../..//MapView/ShowCallout) - Show a callout with the latitude and longitude of user-tapped points.
+* [Show magnifier](../..//MapView/ShowMagnifier) - Tap and hold on a map to show a magnifier.
+* [Take a screenshot](../..//MapView/TakeScreenshot) - Take a screenshot of the map.
 
 ## Network Analysis
 
-* [Closest facility (interactive)](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/ClosestFacility)
-
-Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).
-
-* [Closest facility (static)](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/ClosestFacilityStatic)
-
-Demonstrates how to solve a Closest Facility Task to find the closest route between facilities and incidents.
-
-* [Find a route](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/FindRoute)
-
-This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.
-
-* [Find service area (interactive)](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/FindServiceArea)
-
-Demonstrates how to find services areas around a point using the ServiceAreaTask. A service area shows locations that can be reached from a facility based off a certain impedance [travel time in this case]. Service areas for a two and five minute travel time are used. Barriers can also be added which can effect the service area by not letting traffic through and adding to the time to get to locations.
+* [Find closest facility to an incident (interactive)](../..//Network Analysis/ClosestFacility) - Find a route to the closest facility from a location.
+* [Find closest facility to multiple incidents (service)](../..//Network Analysis/ClosestFacilityStatic) - Find routes from several locations to the respective closest facility.
+* [Find route](../..//Network Analysis/FindRoute) - Display directions for a route between two points.
+* [Find service area](../..//Network Analysis/FindServiceArea) - Find the service area within a network from a given point.
+* [Find service areas for multiple facilities](../..//Network Analysis/FindServiceAreasForMultipleFacilities) - Find the service areas of several facilities from a feature service.
+* [Offline routing](../..//Network Analysis/OfflineRouting) - Solve a route on-the-fly using offline data.
+* [Route around barriers](../..//Network Analysis/RouteAroundBarriers) - Find a route that reaches all stops without crossing any barriers.
 
 ## Search
 
-* [Find address](ArcGISRuntime.UWP.Viewer/Samples/Search/FindAddress)
-
-This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.
-
-* [Find place](ArcGISRuntime.UWP.Viewer/Samples/Search/FindPlace)
-
-This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.
+* [Find address](../..//Search/FindAddress) - Find the location for an address.
+* [Find place](../..//Search/FindPlace) - Find places of interest near a location or within a specific area.
+* [Offline geocode](../..//Search/OfflineGeocode) - Geocode addresses to locations and reverse geocode locations to addresses offline.
+* [Reverse geocode](../..//Search/ReverseGeocode) - Use an online service to find the address for a tapped point.
 
 ## Security
 
-* [ArcGIS token challenge](ArcGISRuntime.UWP.Viewer/Samples/Security/TokenSecuredChallenge)
+* [Certificate authentication with PKI](../..//Security/CertificateAuthenticationWithPki) - Access secured portals using a certificate.
+* [Integrated Windows Authentication](../..//Security/IntegratedWindowsAuth) - This sample illustrates the use of Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).
+When accessing an item secured with IWA from a WPF app, default credentials (the current user's login) are sent to the portal. 
+Platforms such as Android, iOS, and Universal Windows Platform (UWP) require credentials to be entered explicitly.
+* [Authenticate with OAuth](../..//Security/OAuth) - This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).
+* [PKI Authentication - Universal Windows](../..//Security/PKIAuthentication) - This sample illustrates the use of a client certificate to access services hosted on a portal secured with Public Key Infrastructure (PKI) authentication.
+Credentials are created by prompting the user to select an exported client certificate file (*.pfx). After loading the certificate, requests
+to the portal can be encrypted and decrypted using public key cryptography. The portal can then be searched for web maps to display in the map view.    
+     
+More information about PKI and client certificates can be found at the links below:
+ - [PKI - MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/bb427432(v=vs.85).aspx)
+ - [PKI - Wikipedia](https://en.wikipedia.org/wiki/Public_key_infrastructure)
+ - [Certificates - MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/bb540819(v=vs.85).aspx)
+* [ArcGIS token challenge](../..//Security/TokenSecuredChallenge) - This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 
-This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.
+## PKIAuthentication
 
-* [ArcGIS token with a known user](ArcGISRuntime.UWP.Viewer/Samples/Security/TokenSecuredKnownUser)
-
-This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.
-
-* [Authenticate with OAuth](ArcGISRuntime.UWP.Viewer/Samples/Security/OAuth)
-
-This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).
+* [](../..//PKIAuthentication/Assets) - 
+* [](../..//PKIAuthentication/Properties) - 
 
 ## Symbology
 
-* [Distance composite symbol](ArcGISRuntime.UWP.Viewer/Samples/Symbology/UseDistanceCompositeSym)
-
-This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
-
-* [Feature Layer Extrusion](ArcGISRuntime.UWP.Viewer/Samples/Symbology/FeatureLayerExtrusion)
-
-This sample demonstrates how to apply extrusion to a renderer on a feature layer.
-
-* [Render picture markers](ArcGISRuntime.UWP.Viewer/Samples/Symbology/RenderPictureMarkers)
-
-This sample demonstrates how to create picture marker symbols from a URL and embedded resources.
-
-* [Render simple markers](ArcGISRuntime.UWP.Viewer/Samples/Symbology/RenderSimpleMarkers)
-
-This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.
-
-* [Render unique values](ArcGISRuntime.UWP.Viewer/Samples/Symbology/RenderUniqueValues)
-
-This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
-
-* [Simple renderer](ArcGISRuntime.UWP.Viewer/Samples/Symbology/SimpleRenderers)
-
-This sample demonstrates how to create a simple renderer and add it to a graphics overlay. Renderers define the symbology for all graphics in a graphics overlay (unless they are overridden by setting the symbol directly on the graphic). Simple renderers can also be defined on feature layers using the same code.
+* [Feature layer extrusion](../..//Symbology/FeatureLayerExtrusion) - Extrude features based on their attributes.
+* [Render picture markers](../..//Symbology/RenderPictureMarkers) - Use pictures for markers.
+* [Render simple markers](../..//Symbology/RenderSimpleMarkers) - Show a simple marker symbol on a map.
+* [Unique value renderer](../..//Symbology/RenderUniqueValues) - Render features in a layer using a distinct symbol for each unique attribute value.
+* [Scene symbols](../..//Symbology/SceneSymbols) - Show various kinds of 3D symbols in a scene.
+* [Simple renderer](../..//Symbology/SimpleRenderers) - Display common symbols for all graphics in a graphics overlay with a renderer.
+* [Read symbols from a mobile style](../..//Symbology/SymbolsFromMobileStyle) - Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.
+* [Distance composite scene symbol](../..//Symbology/UseDistanceCompositeSym) - Change a graphic's symbol based on the camera's proximity to it.
 

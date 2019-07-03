@@ -14,9 +14,9 @@
         "/net/latest/xfu/sample-code/featurelayerrenderingmodemap.htm"
     ],
     "relevant_apis": [
-        "Map",
         "FeatureLayer",
         "FeatureLayer.RenderingMode",
+        "Map",
         "MapView"
     ],
     "sample_unique_id": "",

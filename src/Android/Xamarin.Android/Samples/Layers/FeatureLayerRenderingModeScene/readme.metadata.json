@@ -15,9 +15,9 @@
         "/net/latest/android/sample-code/featurelayerrenderingmodescene.htm"
     ],
     "relevant_apis": [
-        "Scene",
         "FeatureLayer",
         "FeatureLayer.RenderingMode",
+        "Scene",
         "SceneView"
     ],
     "sample_unique_id": "",

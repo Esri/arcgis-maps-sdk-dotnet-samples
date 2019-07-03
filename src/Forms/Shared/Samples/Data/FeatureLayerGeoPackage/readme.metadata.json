@@ -17,10 +17,10 @@
         "/net/latest/xfu/sample-code/featurelayergeopackage.htm"
     ],
     "relevant_apis": [
-        "Map",
         "FeatureLayer",
         "GeoPackage",
-        "GeoPackageFeatureTable"
+        "GeoPackageFeatureTable",
+        "Map"
     ],
     "sample_unique_id": "",
     "snippets": [],

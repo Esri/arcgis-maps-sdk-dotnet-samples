@@ -4,14 +4,16 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ProjectGuid>{AE3A06A4-58E5-49A2-B7AC-145C22E5DBC8}</ProjectGuid>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <RootNamespace>ArcGISRuntime</RootNamespace>
     <AssemblyName>ArcGISRuntime</AssemblyName>
     <OutputPath>..\..\..\output\WPFCore\$(Configuration)\</OutputPath>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-  </PropertyGroup>
+    <PublishTrimmed>false</PublishTrimmed>
+    <PublishSingleFile>true</PublishSingleFile>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Resources\hide-header.css">

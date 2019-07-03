@@ -43,42 +43,31 @@ namespace ArcGISRuntime.UWP.Viewer
             _currentView = SystemNavigationManager.GetForCurrentView();
             _currentView.BackRequested += OnFrameNavigationRequested;
 
-            
-
             HideStatusBar();
 
             Initialize();
 
-            InitializeTreeView();
+            LoadTreeView(SampleManager.Current.FullTree);
         }
 
-        private void InitializeTreeView()
+        private void LoadTreeView(SearchableTreeNode fullTree)
         {
-            SearchableTreeNode fullTree = SampleManager.Current.FullTree;
             // This happens when there are no search results.
             if (fullTree == null)
             {
                 return;
             }
+            CategoriesTree.RootNodes.Clear();
 
             muxc.TreeViewNode rootNode; 
-            muxc.TreeViewNode childNode ;
+            muxc.TreeViewNode childNode;
 
             foreach (SearchableTreeNode category in fullTree.Items)
             {
-                rootNode = new muxc.TreeViewNode() { Content = category.Name };
-
-                foreach (SampleInfo sampleInfo in category.Items)
-                {
-                    childNode = new muxc.TreeViewNode() { Content = sampleInfo.SampleName};
-                    rootNode.Children.Add(childNode);
-                }
-
+                rootNode = new muxc.TreeViewNode() { Content = category };
+                category.Items.ForEach(info => rootNode.Children.Add(new muxc.TreeViewNode() { Content = info }));
                 CategoriesTree.RootNodes.Add(rootNode);
-            }
-            //CategoriesTree.DataContext = SampleManager.Current.FullTree;
-
-
+            }           
         }
 
         // Check if the phone contract is available (mobile) and hide status bar if it is there
@@ -158,7 +147,6 @@ namespace ArcGISRuntime.UWP.Viewer
                     await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
                 // Show the sample
-                //Categories.SelectedItem = null;
                 RootSplitView.Content = new SamplePage();  
             }
             catch (Exception exception)
@@ -218,65 +206,46 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 categoriesList = new SearchableTreeNode("Search", new[]{new SearchableTreeNode("No results", new List<object>())});
             }
-            //Categories.ItemsSource = categoriesList.Items;
+
+            LoadTreeView(categoriesList);
 
             if (categoriesList.Items.Any())
             {
-               // Categories.SelectedIndex = 0;
+                SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
             }
         }
-
-
 
         private bool SampleSearchFunc(SampleInfo sample)
         {
             return SampleManager.Current.SampleSearchFunc(sample, SearchBox.Text);
         }
 
-        private void CategoriesTree_ItemInvoked(muxc.TreeView sender, muxc.TreeViewItemInvokedEventArgs e)
+        private async void CategoriesTree_ItemInvoked(muxc.TreeView sender, muxc.TreeViewItemInvokedEventArgs e)
         {
-            RootSplitView.Content = SampleSelectionGrid;
+            
             SearchableTreeNode fullTree = SampleManager.Current.FullTree;
 
-            if (((muxc.TreeViewNode)e.InvokedItem).Children.Count>0)
+            muxc.TreeViewNode selected = (muxc.TreeViewNode)e.InvokedItem;
+            if (selected.HasChildren)
             {
-                List<object> samples = new List<object>();
-                
-                foreach (SearchableTreeNode category in fullTree.Items)
-                {
-                    if (category.Name == ((muxc.TreeViewNode)e.InvokedItem).Content)
-                    {
-                        foreach (SampleInfo sampleInfo in category.Items)
-                        {
-                            samples.Add(sampleInfo);
-                        }
-                        SamplesGridView.ItemsSource = samples;
-                        return;
-                    }
-                }
-                
+                RootSplitView.Content = SampleSelectionGrid;
+                List<SampleInfo> newList = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+                SamplesGridView.ItemsSource = newList;
             }
             else
             {
-                foreach (SearchableTreeNode category in fullTree.Items)
-                {
-                    if (category.Name == ((muxc.TreeViewNode)e.InvokedItem).Parent.Content)
-                    {
-                        foreach (SampleInfo sampleInfo in category.Items)
-                        {
-                            if(((muxc.TreeViewNode)e.InvokedItem).Content == sampleInfo.SampleName)
-                            {
-                                SelectSample(sampleInfo);
-                                return;
-                            }
-                        }
-
-                    }
-                }
-
-
+                await SelectSample((SampleInfo)selected.Content);
             }
-            
+        }
+    }
+    class TreeViewItemTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate CategoryTemplate { get; set; }
+        public DataTemplate SampleTemplate { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item)
+        {
+            return ((muxc.TreeViewNode)item).HasChildren ? CategoryTemplate : SampleTemplate;
         }
     }
 }

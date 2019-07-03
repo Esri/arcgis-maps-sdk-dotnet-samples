@@ -5,6 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:models="using:ArcGISRuntime.Samples.Shared.Models"
+    xmlns:viewer="using:ArcGISRuntime.UWP.Viewer"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="SmallFeaturedListItemTemplate">
@@ -32,11 +34,6 @@
                 </Grid>
             </Border>
         </DataTemplate>
-        <DataTemplate x:Key="TreeViewTemplate">
-            <Grid>
-                <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
-            </Grid>
-        </DataTemplate>
 
         <DataTemplate x:Key="SmallSampleItemTemplate">
             <Border 
@@ -61,6 +58,28 @@
                 </Grid>
             </Border>
         </DataTemplate>
+
+        <DataTemplate x:Key="CategoryTemplate" x:DataType="models:SearchableTreeNode">
+            <muxc:TreeViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Content.Name}"/>
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="SampleTemplate" x:DataType="models:SearchableTreeNode">
+            <muxc:TreeViewItem>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Content.SampleName}"/>
+                </StackPanel>
+            </muxc:TreeViewItem>
+        </DataTemplate>
+
+        <viewer:TreeViewItemTemplateSelector
+            x:Key="ExplorerItemTemplateSelector"
+            CategoryTemplate="{StaticResource CategoryTemplate}"
+            SampleTemplate="{StaticResource SampleTemplate}" />
+
     </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -159,11 +178,11 @@
 
         <Grid x:Name="HeaderArea">
             <Grid.Background>
-                <ImageBrush ImageSource="Assets/banner-background-blue.png" Stretch="UniformToFill"/>
+                <ImageBrush ImageSource="Assets/banner-background-black.png" Stretch="UniformToFill"/>
             </Grid.Background>
-            <TextBlock Margin="12,0,0,0"
+            <TextBlock Margin="12,12,12,12"
                    x:Name="ApplicationTitle"
-                   Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="32"
+                   Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="25"
                    FontWeight="Bold" VerticalAlignment="Top"/>
             <AutoSuggestBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
                             RelativePanel.AlignVerticalCenterWith="CategoryTitle" 
@@ -179,13 +198,19 @@
         Main content region
         ============================
         -->
+        
         <SplitView 
                 Grid.Row="1"
                 x:Name="RootSplitView"
                 IsPaneOpen="False" DisplayMode="Overlay">
             
             <SplitView.Pane>
-                <muxc:TreeView x:Name="CategoriesTree" SelectionMode ="Single" ItemInvoked="CategoriesTree_ItemInvoked"/>
+                <muxc:TreeView x:Name="CategoriesTree" 
+                               SelectionMode ="Single" 
+                               ItemInvoked="CategoriesTree_ItemInvoked"
+                               ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}"
+                               />
+                               <!-- Text="{Binding ElementName=Categories, Path=SelectedItem.Name}" -->
             </SplitView.Pane>
             
             <SplitView.Content>

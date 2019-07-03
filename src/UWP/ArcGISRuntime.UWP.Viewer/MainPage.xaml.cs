@@ -48,6 +48,7 @@ namespace ArcGISRuntime.UWP.Viewer
             Initialize();
 
             LoadTreeView(SampleManager.Current.FullTree);
+            //SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
         }
 
         private void LoadTreeView(SearchableTreeNode fullTree)
@@ -60,14 +61,14 @@ namespace ArcGISRuntime.UWP.Viewer
             CategoriesTree.RootNodes.Clear();
 
             muxc.TreeViewNode rootNode; 
-            muxc.TreeViewNode childNode;
 
             foreach (SearchableTreeNode category in fullTree.Items)
             {
                 rootNode = new muxc.TreeViewNode() { Content = category };
                 category.Items.ForEach(info => rootNode.Children.Add(new muxc.TreeViewNode() { Content = info }));
+
                 CategoriesTree.RootNodes.Add(rootNode);
-            }           
+            }
         }
 
         // Check if the phone contract is available (mobile) and hide status bar if it is there
@@ -222,17 +223,14 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private async void CategoriesTree_ItemInvoked(muxc.TreeView sender, muxc.TreeViewItemInvokedEventArgs e)
         {
-            
-            SearchableTreeNode fullTree = SampleManager.Current.FullTree;
-
             muxc.TreeViewNode selected = (muxc.TreeViewNode)e.InvokedItem;
-            if (selected.HasChildren)
+
+            if (selected.Content.GetType() == typeof(SearchableTreeNode))
             {
                 RootSplitView.Content = SampleSelectionGrid;
-                List<SampleInfo> newList = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
-                SamplesGridView.ItemsSource = newList;
+                SamplesGridView.ItemsSource = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
             }
-            else
+            else if (selected.Content.GetType() == typeof(SampleInfo))
             {
                 await SelectSample((SampleInfo)selected.Content);
             }
@@ -245,7 +243,18 @@ namespace ArcGISRuntime.UWP.Viewer
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
-            return ((muxc.TreeViewNode)item).HasChildren ? CategoryTemplate : SampleTemplate;
+            if(((muxc.TreeViewNode)item).Content.GetType() == typeof(SearchableTreeNode))
+            {
+                return CategoryTemplate;
+            }
+            else if(((muxc.TreeViewNode)item).Content.GetType() == typeof(SampleInfo))
+            {
+                return SampleTemplate;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

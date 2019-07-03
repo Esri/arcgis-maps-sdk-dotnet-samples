@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="SmallFeaturedListItemTemplate">
@@ -31,6 +31,11 @@
 										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"  Style="{StaticResource PrimaryTextBlock}" />
                 </Grid>
             </Border>
+        </DataTemplate>
+        <DataTemplate x:Key="TreeViewTemplate">
+            <Grid>
+                <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
+            </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="SmallSampleItemTemplate">
@@ -78,10 +83,9 @@
                     <VisualState.Setters>
                         <Setter Target="ApplicationTitle.FontSize" Value="16"/>
                         <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
-                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
-                        <Setter Target="samplesListView.Visibility" Value="Visible"/>
-                        <Setter Target="samplesGridView.Visibility" Value="Collapsed"/>
+                        <Setter Target="SamplesListView.Visibility" Value="Visible"/>
+                        <Setter Target="SamplesGridView.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
                 </VisualState>
                 <!--
@@ -96,7 +100,6 @@
                     <VisualState.Setters>
                         <Setter Target="ApplicationTitle.FontSize" Value="16"/>
                         <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
-                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
@@ -112,8 +115,6 @@
                     <VisualState.Setters>
                         <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
-                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
-                        <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
                     </VisualState.Setters>
                 </VisualState>
                 <!-- 
@@ -129,8 +130,6 @@
                         <Setter Target="RootSplitView.IsPaneOpen" Value="true" />
                         <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
-                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
-                        <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
                     </VisualState.Setters>
                 </VisualState>
                 <!-- 
@@ -146,8 +145,6 @@
                         <Setter Target="RootSplitView.IsPaneOpen" Value="true" />
                         <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
-                        <Setter Target="SearchToggleButton.Visibility" Value="Collapsed"/>
-                        <Setter Target="SearchToggleButton.IsChecked" Value="False"/>
                         <!--<Setter Target="samplesGridView.ItemTemplate" Value="{StaticResource WideSampleItemTemplate}"/>-->
                     </VisualState.Setters>
                 </VisualState>
@@ -155,7 +152,6 @@
         </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -169,60 +165,35 @@
                    x:Name="ApplicationTitle"
                    Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="32"
                    FontWeight="Bold" VerticalAlignment="Top"/>
-        </Grid>
-
-        <RelativePanel Height="48" Background="#F7F8F8" Grid.Row="1">
-            <ToggleButton x:Name="TogglePaneButton" 
-                      Foreground="{StaticResource PrimaryColor}"
-                        Style="{StaticResource SplitViewTogglePaneButtonStyle}"
-                      IsChecked="{Binding IsPaneOpen, ElementName=RootSplitView, Mode=TwoWay}"
-                      RelativePanel.AlignLeftWithPanel="True" />
-
-            <TextBlock x:Name="CategoryTitle" 
-                       Margin="0,0,0,0"
-                       RelativePanel.RightOf="TogglePaneButton"
-                       RelativePanel.AlignVerticalCenterWith="TogglePaneButton"
-                       Text="{Binding ElementName=Categories, Path=SelectedItem.Name}"
-                       Foreground="{StaticResource PrimaryColor}"
-                       FontSize="24"></TextBlock>
             <AutoSuggestBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
                             RelativePanel.AlignVerticalCenterWith="CategoryTitle" 
                             Width="240" PlaceholderText="i.e. ArcGISTileLayer" Margin="20,0"
                             TextChanged="OnSearchQuerySubmitted"
                             QueryIcon="Find"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
                             />
-            <ToggleButton Style="{StaticResource SearchToggleButtonStyle}" x:Name="SearchToggleButton"
-                          Visibility="Collapsed"
-                          Width="60"
-                          Foreground="{StaticResource SecondaryColor}"
-                          RelativePanel.AlignRightWithPanel="true" Checked="OnSearchToggleChecked"
-                          RelativePanel.AlignBottomWithPanel="true"></ToggleButton>
-        </RelativePanel>
+        </Grid>
         <!-- 
         ============================
         Main content region
         ============================
         -->
         <SplitView 
-                Grid.Row="2"
+                Grid.Row="1"
                 x:Name="RootSplitView"
                 IsPaneOpen="False" DisplayMode="Overlay">
+            
             <SplitView.Pane>
-                <ListView x:Name="Categories"
-					    ItemsSource="{Binding}" 
-				        SelectionChanged="OnCategoriesSelectionChanged"
-				        Background="Transparent"
-                        ItemTemplate="{StaticResource SmallFeaturedListItemTemplate}"
-				        BorderBrush="Transparent">
-                </ListView>
+                <muxc:TreeView x:Name="CategoriesTree" SelectionMode ="Single" ItemInvoked="CategoriesTree_ItemInvoked"/>
             </SplitView.Pane>
+            
             <SplitView.Content>
                 <Grid x:Name="SampleSelectionGrid"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource SecondaryBackgroundColor}">
                     <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"-->
 
                     <GridView x:Name="SamplesGridView" 
-                              ItemsSource="{Binding ElementName=Categories, Path=SelectedItem.Items}" 
                               ItemTemplate="{StaticResource StandardSampleItemTemplate}" 
                               SelectionMode="None"
                               Background="Transparent" Margin="1,0,0,0">

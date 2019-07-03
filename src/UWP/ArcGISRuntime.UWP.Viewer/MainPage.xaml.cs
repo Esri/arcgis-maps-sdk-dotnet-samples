@@ -24,6 +24,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Navigation = Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -34,7 +35,7 @@ namespace ArcGISRuntime.UWP.Viewer
         public MainPage()
         {
             InitializeComponent();
-
+            
             // Use required cache mode so we create only one page
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
 
@@ -42,9 +43,42 @@ namespace ArcGISRuntime.UWP.Viewer
             _currentView = SystemNavigationManager.GetForCurrentView();
             _currentView.BackRequested += OnFrameNavigationRequested;
 
+            
+
             HideStatusBar();
 
             Initialize();
+
+            InitializeTreeView();
+        }
+
+        private void InitializeTreeView()
+        {
+            SearchableTreeNode fullTree = SampleManager.Current.FullTree;
+            // This happens when there are no search results.
+            if (fullTree == null)
+            {
+                return;
+            }
+
+            muxc.TreeViewNode rootNode; 
+            muxc.TreeViewNode childNode ;
+
+            foreach (SearchableTreeNode category in fullTree.Items)
+            {
+                rootNode = new muxc.TreeViewNode() { Content = category.Name };
+
+                foreach (SampleInfo sampleInfo in category.Items)
+                {
+                    childNode = new muxc.TreeViewNode() { Content = sampleInfo.SampleName};
+                    rootNode.Children.Add(childNode);
+                }
+
+                CategoriesTree.RootNodes.Add(rootNode);
+            }
+            //CategoriesTree.DataContext = SampleManager.Current.FullTree;
+
+
         }
 
         // Check if the phone contract is available (mobile) and hide status bar if it is there
@@ -83,8 +117,8 @@ namespace ArcGISRuntime.UWP.Viewer
             // Create categories list. Also add Featured there as a single category.
             var categoriesList = SampleManager.Current.FullTree;
 
-            Categories.ItemsSource = categoriesList.Items;
-            Categories.SelectedIndex = 0;
+            //Categories.ItemsSource = categoriesList.Items;
+            //Categories.SelectedIndex = 0;
             ((Frame)Window.Current.Content).Navigated += OnFrameNavigated;
         }
 
@@ -124,7 +158,7 @@ namespace ArcGISRuntime.UWP.Viewer
                     await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
                 // Show the sample
-                Categories.SelectedItem = null;
+                //Categories.SelectedItem = null;
                 RootSplitView.Content = new SamplePage();  
             }
             catch (Exception exception)
@@ -179,41 +213,70 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)
         {
-            if (SearchToggleButton.IsChecked == true)
-            {
-                SearchBox.Visibility = Visibility.Collapsed;
-                SearchToggleButton.Visibility = Visibility.Visible;
-                SearchToggleButton.IsChecked = false;
-            }
             var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
             if (categoriesList == null)
             {
                 categoriesList = new SearchableTreeNode("Search", new[]{new SearchableTreeNode("No results", new List<object>())});
             }
-            Categories.ItemsSource = categoriesList.Items;
+            //Categories.ItemsSource = categoriesList.Items;
 
             if (categoriesList.Items.Any())
             {
-                Categories.SelectedIndex = 0;
+               // Categories.SelectedIndex = 0;
             }
         }
 
-        private void OnSearchToggleChecked(object sender, RoutedEventArgs e)
-        {
-            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
-            {
-                SearchBox.Visibility = Visibility.Visible;
-                SearchToggleButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                SearchBox.Visibility = Visibility.Collapsed;
-            }
-        }
+
 
         private bool SampleSearchFunc(SampleInfo sample)
         {
             return SampleManager.Current.SampleSearchFunc(sample, SearchBox.Text);
+        }
+
+        private void CategoriesTree_ItemInvoked(muxc.TreeView sender, muxc.TreeViewItemInvokedEventArgs e)
+        {
+            RootSplitView.Content = SampleSelectionGrid;
+            SearchableTreeNode fullTree = SampleManager.Current.FullTree;
+
+            if (((muxc.TreeViewNode)e.InvokedItem).Children.Count>0)
+            {
+                List<object> samples = new List<object>();
+                
+                foreach (SearchableTreeNode category in fullTree.Items)
+                {
+                    if (category.Name == ((muxc.TreeViewNode)e.InvokedItem).Content)
+                    {
+                        foreach (SampleInfo sampleInfo in category.Items)
+                        {
+                            samples.Add(sampleInfo);
+                        }
+                        SamplesGridView.ItemsSource = samples;
+                        return;
+                    }
+                }
+                
+            }
+            else
+            {
+                foreach (SearchableTreeNode category in fullTree.Items)
+                {
+                    if (category.Name == ((muxc.TreeViewNode)e.InvokedItem).Parent.Content)
+                    {
+                        foreach (SampleInfo sampleInfo in category.Items)
+                        {
+                            if(((muxc.TreeViewNode)e.InvokedItem).Content == sampleInfo.SampleName)
+                            {
+                                SelectSample(sampleInfo);
+                                return;
+                            }
+                        }
+
+                    }
+                }
+
+
+            }
+            
         }
     }
 }

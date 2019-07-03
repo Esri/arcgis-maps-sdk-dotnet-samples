@@ -1,6 +1,6 @@
 {
     "category": "Data",
-    "description": "Open a `GeoPackage`, obtain a raster from the package, and display the table as a `RasterLayer`.",
+    "description": "Open a GeoPackage, obtain a raster from the package, and display the table as a `RasterLayer`.",
     "ignore": false,
     "images": "RasterLayerGeopackage.jpg",
     "keywords": [

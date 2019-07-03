@@ -12,8 +12,8 @@
         "/net/latest/ios/sample-code/displaydrawingstatus.htm"
     ],
     "relevant_apis": [
-        "Map",
         "DrawStatus",
+        "Map",
         "MapView"
     ],
     "sample_unique_id": "",

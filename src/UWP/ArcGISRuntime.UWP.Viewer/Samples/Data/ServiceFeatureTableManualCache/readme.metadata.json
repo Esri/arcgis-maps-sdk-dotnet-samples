@@ -16,8 +16,8 @@
         "FeatureLayer",
         "FeatureRequestMode.ManualCache",
         "ServiceFeatureTable",
-        "ServiceFeatureTable.PopulateFromServiceAsync",
-        "ServiceFeatureTable.FeatureRequestMode"
+        "ServiceFeatureTable.FeatureRequestMode",
+        "ServiceFeatureTable.PopulateFromServiceAsync"
     ],
     "sample_unique_id": "",
     "snippets": [],

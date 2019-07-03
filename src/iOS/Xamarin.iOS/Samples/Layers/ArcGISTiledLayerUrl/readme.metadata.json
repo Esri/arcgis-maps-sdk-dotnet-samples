@@ -13,8 +13,8 @@
         "/net/latest/ios/sample-code/arcgistiledlayerurl.htm"
     ],
     "relevant_apis": [
-        "Map",
         "ArcGISTiledLayer",
+        "Map",
         "MapView"
     ],
     "sample_unique_id": "",

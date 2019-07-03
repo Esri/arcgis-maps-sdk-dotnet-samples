@@ -13,9 +13,9 @@
         "/net/latest/wpf/sample-code/setmapspatialreference.htm"
     ],
     "relevant_apis": [
-        "Map",
         "ArcGISMapImageLayer",
         "Basemap",
+        "Map",
         "MapView",
         "SpatialReference"
     ],

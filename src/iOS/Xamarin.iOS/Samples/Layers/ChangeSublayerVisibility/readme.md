@@ -21,7 +21,6 @@ Each sublayer has a check box which can be used to toggle the visibility of the 
 ## Relevant API
 
 * ArcGISMapImageLayer
-* SubLayerList
 
 ## Tags
 

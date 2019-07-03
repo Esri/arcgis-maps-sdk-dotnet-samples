@@ -13,9 +13,9 @@
         "/net/latest/ios/sample-code/displaydevicelocation.htm"
     ],
     "relevant_apis": [
-        "Map",
         "LocationDisplay",
         "LocationDisplay.AutoPanMode",
+        "Map",
         "MapView"
     ],
     "sample_unique_id": "",

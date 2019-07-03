@@ -14,7 +14,8 @@
     ],
     "relevant_apis": [
         "Map",
-        "MapView"
+        "MapView",
+        "MapView.MagnifierEnabled"
     ],
     "sample_unique_id": "",
     "snippets": [],

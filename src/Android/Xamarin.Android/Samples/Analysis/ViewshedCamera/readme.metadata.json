@@ -17,11 +17,11 @@
     ],
     "relevant_apis": [
         "AnalysisOverlay",
-        "Scene",
         "ArcGISSceneLayer",
         "ArcGISTiledElevationSource",
         "Camera",
         "LocationViewshed",
+        "Scene",
         "SceneView"
     ],
     "sample_unique_id": "",

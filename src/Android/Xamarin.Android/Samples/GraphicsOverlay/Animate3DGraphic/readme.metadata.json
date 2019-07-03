@@ -21,7 +21,6 @@
         "/net/latest/android/sample-code/animate3dgraphic.htm"
     ],
     "relevant_apis": [
-        "Scene",
         "Camera",
         "GlobeCameraController",
         "Graphic",
@@ -29,6 +28,7 @@
         "ModelSceneSymbol",
         "OrbitGeoElementCameraController",
         "Renderer",
+        "Scene",
         "SceneProperties",
         "SceneView",
         "SurfacePlacement"

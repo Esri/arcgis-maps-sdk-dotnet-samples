@@ -15,7 +15,7 @@
     ],
     "relevant_apis": [
         "Scene",
-        "ArcGISSceneLayer",
+        "SceneLayer",
         "SceneView"
     ],
     "sample_unique_id": "",

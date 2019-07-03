@@ -27,10 +27,10 @@
     ],
     "relevant_apis": [
         "GeoView",
+        "GeoView.NavigationCompleted",
+        "GeoView.ViewpointChanged",
         "GetCurrentViewPoint",
         "MapView",
-        "GeoView.NavigationComplete",
-        "GeoView.ViewpointChanged",
         "SceneView",
         "SetViewPoint"
     ],

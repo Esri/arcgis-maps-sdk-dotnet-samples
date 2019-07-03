@@ -15,8 +15,8 @@
         "/net/latest/uwp/sample-code/displayscene.htm"
     ],
     "relevant_apis": [
-        "Scene",
         "ArcGISTiledElevationSource",
+        "Scene",
         "SceneView"
     ],
     "sample_unique_id": "",

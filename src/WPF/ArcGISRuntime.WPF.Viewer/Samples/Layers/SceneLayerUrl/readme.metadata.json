@@ -14,8 +14,8 @@
         "/net/latest/wpf/sample-code/scenelayerurl.htm"
     ],
     "relevant_apis": [
-        "Scene",
         "ArcGISSceneLayer",
+        "Scene",
         "SceneView"
     ],
     "sample_unique_id": "",

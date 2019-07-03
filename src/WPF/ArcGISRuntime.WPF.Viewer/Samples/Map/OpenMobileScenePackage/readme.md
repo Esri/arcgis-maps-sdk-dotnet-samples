@@ -10,7 +10,7 @@ An .mspk file is an archive containing the data used to display an offline 3D sc
 
 When the sample opens, it will automatically display the Scene in the Mobile Map Package. 
 
-# How it works
+## How it works
 
 1. Create a `MobileScenePackage` using the path to the local .mspk file.
 2. Use `MobileScenePackage.IsDirectReadSupportedAsync` to check whether the package can be read in the archived form (.mspk) or whether it needs to be unpacked.

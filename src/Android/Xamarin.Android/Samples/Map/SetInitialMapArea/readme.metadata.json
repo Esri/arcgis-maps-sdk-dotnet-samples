@@ -14,8 +14,8 @@
         "/net/latest/android/sample-code/setinitialmaparea.htm"
     ],
     "relevant_apis": [
-        "Map",
         "Envelope",
+        "Map",
         "MapView",
         "Point",
         "Viewpoint"

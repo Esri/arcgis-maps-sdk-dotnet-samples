@@ -13,8 +13,8 @@
         "/net/latest/ios/sample-code/arcgismapimagelayerurl.htm"
     ],
     "relevant_apis": [
-        "Map",
         "ArcGISMapImageLayer",
+        "Map",
         "MapView"
     ],
     "sample_unique_id": "",

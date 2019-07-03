@@ -15,8 +15,8 @@
         "/net/latest/wpf/sample-code/setminmaxscale.htm"
     ],
     "relevant_apis": [
-        "Map",
         "Basemap",
+        "Map",
         "MapView",
         "ViewPoint"
     ],

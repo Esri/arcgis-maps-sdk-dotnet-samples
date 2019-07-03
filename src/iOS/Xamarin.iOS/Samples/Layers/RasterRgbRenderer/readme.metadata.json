@@ -20,8 +20,8 @@
         "/net/latest/ios/sample-code/rasterrgbrenderer.htm"
     ],
     "relevant_apis": [
-        "Map",
         "Basemap",
+        "Map",
         "MapView",
         "RGBRenderer",
         "Raster",

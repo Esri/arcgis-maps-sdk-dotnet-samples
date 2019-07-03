@@ -13,8 +13,8 @@
         "/net/latest/android/sample-code/arcgismapimagelayerurl.htm"
     ],
     "relevant_apis": [
-        "Map",
         "ArcGISMapImageLayer",
+        "Map",
         "MapView"
     ],
     "sample_unique_id": "",

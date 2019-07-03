@@ -27,4 +27,4 @@ This map shows the current air traffic in parts of Europe with heading, altitude
 
 ## Tags
 
-KML, KMZ, Network Link,
+KML, KMZ, Network Link

@@ -31,4 +31,4 @@ Use the 'Animated Zoom' button to trigger the same zoom animation on both static
 
 ## Tags
 
-3D, FeatureRenderingMode, LoadSettings, MapViews SceneViews and UI, dynamic, static
+3D, FeatureRenderingMode, MapViews SceneViews and UI, dynamic, static

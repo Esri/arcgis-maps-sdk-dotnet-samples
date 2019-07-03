@@ -12,8 +12,8 @@
         "/net/latest/ios/sample-code/maprotation.htm"
     ],
     "relevant_apis": [
-        "Map",
         "Compass",
+        "Map",
         "MapView"
     ],
     "sample_unique_id": "",

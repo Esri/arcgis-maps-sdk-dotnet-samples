@@ -15,9 +15,9 @@
         "/net/latest/xfu/sample-code/deletefeatures.htm"
     ],
     "relevant_apis": [
-        "Map",
         "Feature",
         "FeatureLayer",
+        "Map",
         "MapView",
         "ServiceFeatureTable"
     ],

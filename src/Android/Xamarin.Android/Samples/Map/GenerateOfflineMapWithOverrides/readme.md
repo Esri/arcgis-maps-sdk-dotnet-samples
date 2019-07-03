@@ -25,7 +25,7 @@ Consider using the overrides workflow when you need to:
 6. Use the button to start the job.
 7. Wait for the progress bar to indicate that the task has completed. The offline map will then be displayed.
 
-# How it works
+## How it works
 
 1. Create a portal item for the web map you want to take offline.
 2. Initialize an `OfflineMapTask` object with the portal item. 

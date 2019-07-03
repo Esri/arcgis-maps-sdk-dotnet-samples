@@ -13,8 +13,8 @@
         "/net/latest/uwp/sample-code/displaymap.htm"
     ],
     "relevant_apis": [
-        "Map",
         "Basemap",
+        "Map",
         "MapView"
     ],
     "sample_unique_id": "",

@@ -20,7 +20,6 @@ Simply run the app and grant read permissions.
 3. When it's done loading, get the `GeoPackageFeatureTable` objects from the geopackage with `geoPackage.getGeoPackageFeatureTables()`
 4. Create a `FeatureLayer(featureTable)` for each feature table and add it to the map as an operational layer. Add each to the map as an operational layer with `map.OperationalLayers.Add(featureLayer)`.
 
-
 ## Relevant API
 
 * Map

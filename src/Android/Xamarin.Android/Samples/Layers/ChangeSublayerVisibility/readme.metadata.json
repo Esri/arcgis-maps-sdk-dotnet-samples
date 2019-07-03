@@ -13,7 +13,8 @@
         "/net/latest/android/sample-code/changesublayervisibility.htm"
     ],
     "relevant_apis": [
-        "ArcGISMapImageLayer"
+        "ArcGISMapImageLayer",
+        "SubLayerList"
     ],
     "sample_unique_id": "",
     "snippets": [],

@@ -17,7 +17,6 @@
     ],
     "relevant_apis": [
         "FeatureLayer",
-        "FeatureLayer",
         "SceneProperties",
         "ServiceFeatureTable"
     ],

@@ -41,14 +41,13 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Get current view that provides access to the back button
             _currentView = SystemNavigationManager.GetForCurrentView();
-            _currentView.BackRequested += OnFrameNavigationRequested;
 
             HideStatusBar();
 
             Initialize();
 
             LoadTreeView(SampleManager.Current.FullTree);
-            //SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+            SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
         }
 
         private void LoadTreeView(SearchableTreeNode fullTree)
@@ -81,24 +80,6 @@ namespace ArcGISRuntime.UWP.Viewer
             }
         }
 
-        private void OnFrameNavigationRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (Frame.CanGoBack && e.Handled == false)
-            {
-                e.Handled = true;
-                Frame.GoBack();
-            }
-            _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-        }
-
-        private void OnFrameNavigated(object sender, Navigation.NavigationEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            }
-        }
-
         private void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
@@ -106,10 +87,6 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Create categories list. Also add Featured there as a single category.
             var categoriesList = SampleManager.Current.FullTree;
-
-            //Categories.ItemsSource = categoriesList.Items;
-            //Categories.SelectedIndex = 0;
-            ((Frame)Window.Current.Content).Navigated += OnFrameNavigated;
         }
 
         private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -210,9 +187,9 @@ namespace ArcGISRuntime.UWP.Viewer
 
             LoadTreeView(categoriesList);
 
-            if (categoriesList.Items.Any())
+            if (CategoriesTree.RootNodes.Any())
             {
-                SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+                SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
             }
         }
 
@@ -228,7 +205,9 @@ namespace ArcGISRuntime.UWP.Viewer
             if (selected.Content.GetType() == typeof(SearchableTreeNode))
             {
                 RootSplitView.Content = SampleSelectionGrid;
-                SamplesGridView.ItemsSource = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+                List<SampleInfo> samples = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+                SamplesGridView.ItemsSource = samples;
+                SamplesListView.ItemsSource = samples;
             }
             else if (selected.Content.GetType() == typeof(SampleInfo))
             {

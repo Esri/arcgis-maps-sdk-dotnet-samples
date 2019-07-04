@@ -12,7 +12,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock FontSize="48" Grid.Row="0">Oops!</TextBlock>
+        <TextBlock FontSize="48" Grid.Row="0">Error</TextBlock>
         <TextBlock FontSize="16" Grid.Row="1">There was an unhandled exception, so the error can't be shown. See below for more information:</TextBlock>
         <TextBox Grid.Row="2" x:Name="ErrorText" />
     </Grid>

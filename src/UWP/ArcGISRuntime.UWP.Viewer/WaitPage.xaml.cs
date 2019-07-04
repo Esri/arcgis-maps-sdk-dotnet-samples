@@ -30,9 +30,6 @@ namespace ArcGISRuntime.UWP.Viewer
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-
-            // Prevent user from going back
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
         public WaitPage(CancellationTokenSource cancellation)
         {

@@ -40,7 +40,6 @@ namespace ArcGISRuntime.UWP.Viewer
             // Set file path for the readme.
             string readmePath = System.IO.Path.Combine(SampleManager.Current.SelectedSample.Path, "Readme.md");
 
-            //DescriptionView.NavigateToString(htmlString);
             string markdowntext = System.IO.File.ReadAllText(readmePath);
 
             // Take off first line (the title header)

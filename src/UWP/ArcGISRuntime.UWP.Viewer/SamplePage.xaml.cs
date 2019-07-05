@@ -55,6 +55,8 @@ namespace ArcGISRuntime.UWP.Viewer
             MarkDownBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
             SourceCodeContainer.LoadSourceCode();
+            Console.WriteLine(ContentArea.Background);
+            Console.WriteLine();
         }
 
         private static async void HideStatusBar()
@@ -66,24 +68,28 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void TabChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
+            
             switch (((TabViewItem)Tabs.SelectedItem).Header.ToString())
             {
                 case "Live Sample":
                     SampleContainer.Visibility = Visibility.Visible;
                     DescriptionContainer.Visibility = Visibility.Collapsed;
                     SourceCodeContainer.Visibility = Visibility.Collapsed;
+                    ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
                     break;
 
                 case "Description":
                     SampleContainer.Visibility = Visibility.Collapsed;
                     DescriptionContainer.Visibility = Visibility.Visible;
                     SourceCodeContainer.Visibility = Visibility.Collapsed;
+                    ContentArea.RequestedTheme = DescriptionContainer.RequestedTheme;
                     break;
 
                 case "Source Code":
                     SampleContainer.Visibility = Visibility.Collapsed;
                     DescriptionContainer.Visibility = Visibility.Collapsed;
                     SourceCodeContainer.Visibility = Visibility.Visible;
+                    ContentArea.RequestedTheme = SourceCodeContainer.RequestedTheme;
                     break;
             }
         }

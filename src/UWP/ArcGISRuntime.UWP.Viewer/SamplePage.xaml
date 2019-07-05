@@ -4,8 +4,45 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ArcGISRuntime.UWP.Viewer"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
+
     <Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <!--
+                ============================
+                Handle screen less than 600 effective pixels
+                ============================
+                -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SampleNameText.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="Tabs.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="Tabs.(Grid.Row)" Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+                <!--
+                ============================
+                Handle screen over 600 effective pixels but less than 720 effective pixels
+                ============================
+                -->
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="600" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="SampleNameText.(Grid.ColumnSpan)" Value="1" />
+                        <Setter Target="Tabs.(Grid.Row)" Value="0" />
+                        <Setter Target="Tabs.(Grid.ColumnSpan)" Value="1" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+        
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -15,7 +52,8 @@
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
 
-        <TextBlock Text="{Binding SampleName}"
+        <TextBlock x:Name="SampleNameText"
+                   Text="{Binding SampleName}"
                    Grid.Row="0"
                    Grid.Column="0"
                    HorizontalAlignment="Left"
@@ -38,9 +76,12 @@
                                   FontSize="20" />
         </controls:TabView>
 
-        <Grid Grid.Row="1"
-              Grid.ColumnSpan="2">
-            <ContentControl Margin="5" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light" />
+        <Grid x:Name="ContentArea"
+              Grid.Row="2"
+              Grid.ColumnSpan="2"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+              >
+            <ContentControl Margin="5" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light"/>
             <ScrollViewer Margin="5" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed">
                 <controls:MarkdownTextBlock x:Name="MarkDownBlock"
                                             ImageResolving="MarkDownBlock_ImageResolving"

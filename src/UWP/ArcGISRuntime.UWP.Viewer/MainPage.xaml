@@ -76,7 +76,7 @@
         </DataTemplate>
 
         <viewer:TreeViewItemTemplateSelector
-            x:Key="ExplorerItemTemplateSelector"
+            x:Key="TreeViewItemTemplateSelector"
             CategoryTemplate="{StaticResource CategoryTemplate}"
             SampleTemplate="{StaticResource SampleTemplate}" />
 
@@ -177,14 +177,21 @@
 
 
         <Grid x:Name="HeaderArea">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
             <Grid.Background>
-                <ImageBrush ImageSource="Assets/banner-background-black.png" Stretch="UniformToFill"/>
+                <ImageBrush x:Name="HeaderBrush" ImageSource="Assets/banner-background-blue.png" Stretch="UniformToFill"/>
             </Grid.Background>
-            <TextBlock Margin="12,12,12,12"
+            <TextBlock Grid.Column="0" 
+                   Margin="12,12,12,12"
                    x:Name="ApplicationTitle"
                    Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="25"
                    FontWeight="Bold" VerticalAlignment="Top"/>
-            <AutoSuggestBox x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
+            <AutoSuggestBox Grid.Column="1" 
+                            x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
                             RelativePanel.AlignVerticalCenterWith="CategoryTitle" 
                             Width="240" PlaceholderText="i.e. ArcGISTileLayer" Margin="20,0"
                             TextChanged="OnSearchQuerySubmitted"
@@ -192,6 +199,12 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             />
+            <Button Grid.Column="2"
+                    Height="24" Width="24" Margin="5" 
+                    HorizontalAlignment="Right" HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center" VerticalAlignment="Center" >
+                <ImageBrush ImageSource="Resources/ic_menu_settings_dark.png"/>
+            </Button>
         </Grid>
         <!-- 
         ============================
@@ -202,20 +215,23 @@
         <SplitView 
                 Grid.Row="1"
                 x:Name="RootSplitView"
-                IsPaneOpen="False" DisplayMode="Overlay">
+                IsPaneOpen="False"
+                DisplayMode="Overlay">
             
             <SplitView.Pane>
                 <muxc:TreeView x:Name="CategoriesTree" 
                                SelectionMode ="Single" 
                                ItemInvoked="CategoriesTree_ItemInvoked"
-                               ItemTemplateSelector="{StaticResource ExplorerItemTemplateSelector}"
+                               ItemTemplateSelector="{StaticResource TreeViewItemTemplateSelector}"
                                />
                                <!-- Text="{Binding ElementName=Categories, Path=SelectedItem.Name}" -->
             </SplitView.Pane>
             
             <SplitView.Content>
                 <Grid x:Name="SampleSelectionGrid"
-                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{StaticResource SecondaryBackgroundColor}">
+                      HorizontalAlignment="Stretch" 
+                      VerticalAlignment="Stretch" 
+                      Background="{StaticResource SecondaryBackgroundColor}">
                     <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"-->
 
                     <GridView x:Name="SamplesGridView" 
@@ -230,7 +246,7 @@
                     </GridView>
 
                     <ListView x:Name="SamplesListView" Visibility="Collapsed" 
-                              SelectionMode="None" ItemsSource="{Binding ElementName=Categories, Path=SelectedItem.Items}" 
+                              SelectionMode="None"
                               ItemTemplate="{StaticResource SmallSampleItemTemplate}">
                         <ListView.ItemContainerStyle>
                             <Style TargetType="ListViewItem">

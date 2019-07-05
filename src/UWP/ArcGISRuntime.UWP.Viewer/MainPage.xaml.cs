@@ -25,6 +25,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Navigation = Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -47,10 +48,22 @@ namespace ArcGISRuntime.UWP.Viewer
             Initialize();
 
             LoadTreeView(SampleManager.Current.FullTree);
+
+            SetDarkMode();
+
             SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
         }
 
-        private void LoadTreeView(SearchableTreeNode fullTree)
+        private void SetDarkMode()
+        {
+            if(Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+               //Change background image for header
+            }
+
+        }
+
+            private void LoadTreeView(SearchableTreeNode fullTree)
         {
             // This happens when there are no search results.
             if (fullTree == null)

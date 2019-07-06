@@ -122,7 +122,6 @@
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
-                ============================
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 

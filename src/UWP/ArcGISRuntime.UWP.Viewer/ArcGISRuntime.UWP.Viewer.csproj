@@ -118,6 +118,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Assets\banner-background-black.png" />
+    <Content Include="Assets\ic_menu_settings_dark.png" />
     <Content Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
@@ -1596,6 +1597,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WaitPage.xaml.cs">
       <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>
@@ -1616,6 +1620,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

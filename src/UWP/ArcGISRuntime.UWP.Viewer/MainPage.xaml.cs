@@ -26,6 +26,7 @@ using Windows.UI.Xaml.Input;
 using Navigation = Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.ApplicationModel.Core;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -104,12 +105,8 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            RootSplitView.Content = SampleSelectionGrid;
-            if (e.AddedItems.Count > 0)
-            {
-                if (RootSplitView.DisplayMode != SplitViewDisplayMode.Inline)
-                    RootSplitView.IsPaneOpen = false;
-            }
+            SamplePageContainer.Visibility = Visibility.Collapsed;
+            SampleSelectionGrid.Visibility = Visibility.Visible;
         }
 
         private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
@@ -132,18 +129,23 @@ namespace ArcGISRuntime.UWP.Viewer
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show the waiting page
-                    RootSplitView.Content = new WaitPage(cancellationSource);
+                    SamplePageContainer.Content =  new WaitPage(cancellationSource);
+                    SamplePageContainer.Visibility = Visibility.Visible;
+                    SampleSelectionGrid.Visibility = Visibility.Collapsed;
 
                     // Wait for offline data to complete
                     await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
                 // Show the sample
-                RootSplitView.Content = new SamplePage();  
+                SamplePageContainer.Content = new SamplePage();
+                SamplePageContainer.Visibility = Visibility.Visible;
+                SampleSelectionGrid.Visibility = Visibility.Collapsed;
             }
             catch (Exception exception)
             {
                 // failed to create new instance of the sample
-                RootSplitView.Content = SampleSelectionGrid;
+                SamplePageContainer.Visibility = Visibility.Collapsed;
+                SampleSelectionGrid.Visibility = Visibility.Visible;
                 await new MessageDialog(exception.Message).ShowAsync();
             }
         }
@@ -204,6 +206,8 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
             }
+            SamplePageContainer.Visibility = Visibility.Collapsed;
+            SampleSelectionGrid.Visibility = Visibility.Visible;
         }
 
         private bool SampleSearchFunc(SampleInfo sample)
@@ -217,7 +221,8 @@ namespace ArcGISRuntime.UWP.Viewer
 
             if (selected.Content.GetType() == typeof(SearchableTreeNode))
             {
-                RootSplitView.Content = SampleSelectionGrid;
+                SamplePageContainer.Visibility = Visibility.Collapsed;
+                SampleSelectionGrid.Visibility = Visibility.Visible;
                 List<SampleInfo> samples = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
                 SamplesGridView.ItemsSource = samples;
                 SamplesListView.ItemsSource = samples;
@@ -226,6 +231,32 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 await SelectSample((SampleInfo)selected.Content);
             }
+        }
+
+        // https://stackoverflow.com/questions/32692792/open-a-new-frame-window-from-mainpage-in-windows-10-universal-app
+        private async void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            // Pop open the settings window
+            CoreApplicationView newCoreView = CoreApplication.CreateNewView();
+
+            ApplicationView newAppView = null;
+            int mainViewId = ApplicationView.GetApplicationViewIdForWindow(
+              CoreApplication.MainView.CoreWindow);
+
+            await newCoreView.Dispatcher.RunAsync(
+              CoreDispatcherPriority.Normal,
+              () =>
+              {
+                  newAppView = ApplicationView.GetForCurrentView();
+                  Window.Current.Content = new SettingsWindow();
+                  Window.Current.Activate();
+              });
+
+            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
+              newAppView.Id,
+              ViewSizePreference.UseHalf,
+              mainViewId,
+              ViewSizePreference.UseHalf);
         }
     }
     class TreeViewItemTemplateSelector : DataTemplateSelector

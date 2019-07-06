@@ -114,7 +114,7 @@
                 -->
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600" />
+                        <AdaptiveTrigger MinWindowWidth="920" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="ApplicationTitle.FontSize" Value="16"/>
@@ -122,51 +122,7 @@
                         <Setter Target="SearchBox.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
-                <!-- 
                 ============================
-                Handle screen over 720 effective pixels but less than 1024 effective pixels
-                ============================
-                -->
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
-                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <!-- 
-                ============================
-                Handle screen over 1024 effective pixels but less than 1366 effective pixels
-                ============================
-                -->
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1024" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootSplitView.IsPaneOpen" Value="true" />
-                        <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
-                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <!-- 
-                ============================
-                Handle screen over 1366 effective pixels
-                ============================
-                -->
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="1366" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RootSplitView.IsPaneOpen" Value="true" />
-                        <Setter Target="RootSplitView.DisplayMode" Value="Inline"/>
-                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
-                        <!--<Setter Target="samplesGridView.ItemTemplate" Value="{StaticResource WideSampleItemTemplate}"/>-->
-                    </VisualState.Setters>
-                </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
 
@@ -195,15 +151,20 @@
                             RelativePanel.AlignVerticalCenterWith="CategoryTitle" 
                             Width="240" PlaceholderText="i.e. ArcGISTileLayer" Margin="20,0"
                             TextChanged="OnSearchQuerySubmitted"
+                            
                             QueryIcon="Find"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center"
                             />
-            <Button Grid.Column="2"
-                    Height="24" Width="24" Margin="5" 
+            
+            <Button Grid.Column="2" Margin="5" 
                     HorizontalAlignment="Right" HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center" VerticalAlignment="Center" >
-                <ImageBrush ImageSource="Resources/ic_menu_settings_dark.png"/>
+                    VerticalContentAlignment="Center" VerticalAlignment="Center" 
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Click="Settings_Click"
+                    >
+                <Image Source="Assets/ic_menu_settings_dark.png" Height="32" Width="32"/>
             </Button>
         </Grid>
         <!-- 
@@ -212,51 +173,49 @@
         ============================
         -->
         
-        <SplitView 
-                Grid.Row="1"
-                x:Name="RootSplitView"
-                IsPaneOpen="False"
-                DisplayMode="Overlay">
-            
-            <SplitView.Pane>
-                <muxc:TreeView x:Name="CategoriesTree" 
+        <Grid   Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <muxc:TreeView     Grid.Column="0"
+                               x:Name="CategoriesTree" 
                                SelectionMode ="Single" 
                                ItemInvoked="CategoriesTree_ItemInvoked"
                                ItemTemplateSelector="{StaticResource TreeViewItemTemplateSelector}"
                                />
-                               <!-- Text="{Binding ElementName=Categories, Path=SelectedItem.Name}" -->
-            </SplitView.Pane>
-            
-            <SplitView.Content>
-                <Grid x:Name="SampleSelectionGrid"
+            <ContentControl Grid.Column="1" Margin="5" x:Name="SamplePageContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+            <Grid     Grid.Column="1"
+                      x:Name="SampleSelectionGrid"
                       HorizontalAlignment="Stretch" 
                       VerticalAlignment="Stretch" 
                       Background="{StaticResource SecondaryBackgroundColor}">
-                    <!--HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"-->
-
-                    <GridView x:Name="SamplesGridView" 
+            
+                <GridView x:Name="SamplesGridView" 
                               ItemTemplate="{StaticResource StandardSampleItemTemplate}" 
                               SelectionMode="None"
                               Background="Transparent" Margin="1,0,0,0">
-                        <GridView.ItemContainerStyle>
-                            <Style TargetType="GridViewItem">
-                                <Setter Property="HorizontalAlignment" Value="Center" />
-                            </Style>
-                        </GridView.ItemContainerStyle>
-                    </GridView>
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem">
+                            <Setter Property="HorizontalAlignment" Value="Center" />
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                </GridView>
 
-                    <ListView x:Name="SamplesListView" Visibility="Collapsed" 
+                <ListView x:Name="SamplesListView" Visibility="Collapsed" 
                               SelectionMode="None"
                               ItemTemplate="{StaticResource SmallSampleItemTemplate}">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                    </ListView>
-                </Grid>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                </ListView>
 
-            </SplitView.Content>
-        </SplitView>
+                
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

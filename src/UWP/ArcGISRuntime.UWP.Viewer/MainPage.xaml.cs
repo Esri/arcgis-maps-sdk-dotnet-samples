@@ -254,9 +254,9 @@ namespace ArcGISRuntime.UWP.Viewer
 
             await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
               newAppView.Id,
-              ViewSizePreference.UseHalf,
+              ViewSizePreference.Default,
               mainViewId,
-              ViewSizePreference.UseHalf);
+              ViewSizePreference.Default);
         }
     }
     class TreeViewItemTemplateSelector : DataTemplateSelector

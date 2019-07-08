@@ -76,6 +76,7 @@ namespace ArcGISRuntime.UWP.Viewer
                     DescriptionContainer.Visibility = Visibility.Collapsed;
                     SourceCodeContainer.Visibility = Visibility.Collapsed;
                     ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
+                    ContentArea.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 255, 255));
                     break;
 
                 case "Description":
@@ -83,6 +84,7 @@ namespace ArcGISRuntime.UWP.Viewer
                     DescriptionContainer.Visibility = Visibility.Visible;
                     SourceCodeContainer.Visibility = Visibility.Collapsed;
                     ContentArea.RequestedTheme = DescriptionContainer.RequestedTheme;
+                    ContentArea.Background = Tabs.Background;
                     break;
 
                 case "Source Code":
@@ -90,6 +92,7 @@ namespace ArcGISRuntime.UWP.Viewer
                     DescriptionContainer.Visibility = Visibility.Collapsed;
                     SourceCodeContainer.Visibility = Visibility.Visible;
                     ContentArea.RequestedTheme = SourceCodeContainer.RequestedTheme;
+                    ContentArea.Background = Tabs.Background;
                     break;
             }
         }

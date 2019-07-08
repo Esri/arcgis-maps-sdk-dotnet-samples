@@ -82,11 +82,13 @@
               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               >
             <ContentControl Margin="5" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light"/>
+
             <ScrollViewer Margin="5" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed">
                 <controls:MarkdownTextBlock x:Name="MarkDownBlock"
                                             ImageResolving="MarkDownBlock_ImageResolving"
                                             ImageMaxWidth="350" />
             </ScrollViewer>
+
             <local:SourceCode Margin="5" x:Name="SourceCodeContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed" />
         </Grid>
     </Grid>

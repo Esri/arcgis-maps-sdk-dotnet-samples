@@ -1,8 +1,11 @@
 ﻿using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -23,12 +26,27 @@ namespace ArcGISRuntime
     /// </summary>
     public sealed partial class SettingsWindow : UserControl
     {
+        private static string _runtimeVersion = "";
+
         public SettingsWindow()
         {
             this.InitializeComponent();
 
-            // Set up offline data.
+            // Set up version info.
+            if (String.IsNullOrWhiteSpace(_runtimeVersion))
+            {
+                var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
+                var rtVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location);
+                _runtimeVersion = rtVersion.FileVersion;
+            }
+            VersionTextField.Text = _runtimeVersion;
 
+            // Set up license info.
+            string markdownPath  = "Resources\\licenses.md";
+            MarkDownBlock.Text = System.IO.File.ReadAllText(markdownPath);
+            MarkDownBlock.Background = new ImageBrush() { Opacity=0 };
+
+            // Set up offline data.
             SampleDataListView.ItemsSource =  SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
         }
 

@@ -12,17 +12,24 @@
 
     <controls:TabView x:Name="Tabs">
         <controls:TabViewItem Header="About">
-            <TextBlock Padding="16">e</TextBlock>
+            <Grid Margin="5">
+                <TextBlock Grid.Row="0" FontWeight="SemiBold" FontSize="18">
+                        <Run Text="Built with ArcGIS Runtime SDK for .NET version" />
+                        <Run x:Name="VersionTextField" />
+                </TextBlock>
+            </Grid>
         </controls:TabViewItem>
         <controls:TabViewItem Header="Third party software">
-            <TextBlock Padding="16">e</TextBlock>
+            <ScrollViewer Margin="5">
+                <controls:MarkdownTextBlock x:Name="MarkDownBlock"/>
+            </ScrollViewer>
         </controls:TabViewItem>
         <controls:TabViewItem Header="Offline data">
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
@@ -48,9 +55,9 @@
                           HorizontalAlignment="Stretch">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid>
+                            <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="Auto" />

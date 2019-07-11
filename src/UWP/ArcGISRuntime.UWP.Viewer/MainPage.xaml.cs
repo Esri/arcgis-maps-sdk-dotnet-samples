@@ -34,6 +34,7 @@ namespace ArcGISRuntime.UWP.Viewer
     public sealed partial class MainPage
     {
         private readonly SystemNavigationManager _currentView;
+        private bool _waitFlag;
 
         public MainPage()
         {
@@ -197,20 +198,35 @@ namespace ArcGISRuntime.UWP.Viewer
             e.Handled = true;
         }
 
-        private void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)
+        private async void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)
         {
+            if (_waitFlag) { return; }
+            _waitFlag = true;
+            await Task.Delay(200);
+            _waitFlag = false;
+
+            // Search using the sample manager
             var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
             if (categoriesList == null)
             {
                 categoriesList = new SearchableTreeNode("Search", new[] { new SearchableTreeNode("No results", new List<object>()) });
             }
 
+            // Load the tree of the current categories.
             LoadTreeView(categoriesList);
 
+            // Check if there are search results.
             if (CategoriesTree.RootNodes.Any())
             {
+                // Set the items source of the grid to the first category from the search.
                 SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+                foreach (muxc.TreeViewNode node in CategoriesTree.RootNodes)
+                {
+                    node.IsExpanded = true;
+                }
             }
+
+            // Switch to the sample selection grid.
             SamplePageContainer.Visibility = Visibility.Collapsed;
             SampleSelectionGrid.Visibility = Visibility.Visible;
         }

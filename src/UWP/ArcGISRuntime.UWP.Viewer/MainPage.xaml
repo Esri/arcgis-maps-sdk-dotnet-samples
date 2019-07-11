@@ -82,7 +82,7 @@
 
     </Page.Resources>
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid Background="Transparent">
         <!--
         ============================
         Adaptive triggers
@@ -100,9 +100,6 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ApplicationTitle.FontSize" Value="16"/>
-                        <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
-                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
                         <Setter Target="SamplesListView.Visibility" Value="Visible"/>
                         <Setter Target="SamplesGridView.Visibility" Value="Collapsed"/>
                     </VisualState.Setters>
@@ -117,9 +114,6 @@
                         <AdaptiveTrigger MinWindowWidth="920" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="ApplicationTitle.FontSize" Value="16"/>
-                        <Setter Target="ApplicationTitle.Margin" Value="12,0,0,0"/>
-                        <Setter Target="SearchBox.Visibility" Value="Visible"/>
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
@@ -143,8 +137,8 @@
             <TextBlock Grid.Column="0" 
                    Margin="12,12,12,12"
                    x:Name="ApplicationTitle"
-                   Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White" FontSize="25"
-                   FontWeight="Bold" VerticalAlignment="Top"/>
+                   Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White"
+                   FontWeight="Bold" VerticalAlignment="Center"/>
             <AutoSuggestBox Grid.Column="1" 
                             x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
                             RelativePanel.AlignVerticalCenterWith="CategoryTitle" 
@@ -172,7 +166,7 @@
         ============================
         -->
         
-        <Grid   Grid.Row="1">
+        <Grid   x:Name="MainContentRegion" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="320"/>
                 <ColumnDefinition Width="*"/>
@@ -190,7 +184,7 @@
                       x:Name="SampleSelectionGrid"
                       HorizontalAlignment="Stretch" 
                       VerticalAlignment="Stretch" 
-                      Background="{StaticResource SecondaryBackgroundColor}">
+                      >
             
                 <GridView x:Name="SamplesGridView" 
                               ItemTemplate="{StaticResource StandardSampleItemTemplate}" 

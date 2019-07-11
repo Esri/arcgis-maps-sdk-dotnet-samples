@@ -7,19 +7,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -31,7 +24,7 @@ namespace ArcGISRuntime
     public sealed partial class SettingsWindow : UserControl
     {
         private static string _runtimeVersion = "";
-        CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private List<SampleInfo> OfflineDataSamples;
 
         public SettingsWindow()
@@ -48,13 +41,15 @@ namespace ArcGISRuntime
             VersionTextField.Text = _runtimeVersion;
 
             // Set up license info.
-            string markdownPath  = "Resources\\licenses.md";
+            string markdownPath = "Resources\\licenses.md";
             MarkDownBlock.Text = System.IO.File.ReadAllText(markdownPath);
-            MarkDownBlock.Background = new ImageBrush() { Opacity=0 };
+            MarkDownBlock.Background = new ImageBrush() { Opacity = 0 };
 
             // Set up offline data.
-            SampleDataListView.ItemsSource =  SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
+            SampleDataListView.ItemsSource = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
             _cancellationTokenSource = new CancellationTokenSource();
+
+            Tabs.Background = new AcrylicBrush() { Opacity = 50, BackgroundSource=AcrylicBackgroundSource.HostBackdrop };
         }
 
         private async void Download_All_Click(object sender, RoutedEventArgs e)
@@ -98,7 +93,6 @@ namespace ArcGISRuntime
                 SetStatusMessage("Ready", false);
                 CancelButton.Visibility = Visibility.Collapsed;
             }
-
         }
 
         private async void Delete_All_Click(object sender, RoutedEventArgs e)
@@ -122,13 +116,11 @@ namespace ArcGISRuntime
             {
                 SetStatusMessage("Ready", false);
             }
-
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             _cancellationTokenSource.Cancel(true);
-
         }
 
         private async void Open_AGOL_Click(object sender, RoutedEventArgs e)
@@ -141,7 +133,6 @@ namespace ArcGISRuntime
 
                 await Windows.System.Launcher.LaunchUriAsync(new Uri(onlinePath));
             }
-
         }
 
         private async void Download_Now_Click(object sender, RoutedEventArgs e)
@@ -162,7 +153,6 @@ namespace ArcGISRuntime
             {
                 SetStatusMessage("Ready", false);
             }
-
         }
 
         private async void Delete_Click(object sender, RoutedEventArgs e)
@@ -190,7 +180,6 @@ namespace ArcGISRuntime
             {
                 SetStatusMessage("Ready", false);
             }
-
         }
 
         private void SetStatusMessage(string message, bool isRunning)
@@ -207,7 +196,6 @@ namespace ArcGISRuntime
                 StatusSpinner.Visibility = Visibility.Collapsed;
                 SampleDataListView.IsEnabled = true;
             }
-
         }
     }
 }

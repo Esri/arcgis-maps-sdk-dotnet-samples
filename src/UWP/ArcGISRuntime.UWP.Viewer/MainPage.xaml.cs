@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -23,10 +24,10 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Navigation = Windows.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.ApplicationModel.Core;
+using muxc = Microsoft.UI.Xaml.Controls;
+using Navigation = Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -37,7 +38,7 @@ namespace ArcGISRuntime.UWP.Viewer
         public MainPage()
         {
             InitializeComponent();
-            
+
             // Use required cache mode so we create only one page
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
 
@@ -50,21 +51,32 @@ namespace ArcGISRuntime.UWP.Viewer
 
             LoadTreeView(SampleManager.Current.FullTree);
 
+            // Acrylic backgrounds
+            MainContentRegion.Background = new AcrylicBrush() { TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
+            CategoriesTree.Background = new SolidColorBrush() { Opacity = 0 };
+            SamplePageContainer.Background = new SolidColorBrush() { Opacity = 0 };
+
             SetDarkMode();
 
             SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+
+            
+
         }
 
         private void SetDarkMode()
         {
-            if(Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-               //Change background image for header
-            }
+                //Change background image for header
+                HeaderBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/banner-background-black.png"));
 
+                MainContentRegion.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
+            }
         }
 
-            private void LoadTreeView(SearchableTreeNode fullTree)
+        private void LoadTreeView(SearchableTreeNode fullTree)
         {
             // This happens when there are no search results.
             if (fullTree == null)
@@ -73,7 +85,7 @@ namespace ArcGISRuntime.UWP.Viewer
             }
             CategoriesTree.RootNodes.Clear();
 
-            muxc.TreeViewNode rootNode; 
+            muxc.TreeViewNode rootNode;
 
             foreach (SearchableTreeNode category in fullTree.Items)
             {
@@ -129,7 +141,7 @@ namespace ArcGISRuntime.UWP.Viewer
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show the waiting page
-                    SamplePageContainer.Content =  new WaitPage(cancellationSource);
+                    SamplePageContainer.Content = new WaitPage(cancellationSource);
                     SamplePageContainer.Visibility = Visibility.Visible;
                     SampleSelectionGrid.Visibility = Visibility.Collapsed;
 
@@ -197,7 +209,7 @@ namespace ArcGISRuntime.UWP.Viewer
             var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
             if (categoriesList == null)
             {
-                categoriesList = new SearchableTreeNode("Search", new[]{new SearchableTreeNode("No results", new List<object>())});
+                categoriesList = new SearchableTreeNode("Search", new[] { new SearchableTreeNode("No results", new List<object>()) });
             }
 
             LoadTreeView(categoriesList);
@@ -259,18 +271,19 @@ namespace ArcGISRuntime.UWP.Viewer
               ViewSizePreference.Default);
         }
     }
-    class TreeViewItemTemplateSelector : DataTemplateSelector
+
+    internal class TreeViewItemTemplateSelector : DataTemplateSelector
     {
         public DataTemplate CategoryTemplate { get; set; }
         public DataTemplate SampleTemplate { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
-            if(((muxc.TreeViewNode)item).Content.GetType() == typeof(SearchableTreeNode))
+            if (((muxc.TreeViewNode)item).Content.GetType() == typeof(SearchableTreeNode))
             {
                 return CategoryTemplate;
             }
-            else if(((muxc.TreeViewNode)item).Content.GetType() == typeof(SampleInfo))
+            else if (((muxc.TreeViewNode)item).Content.GetType() == typeof(SampleInfo))
             {
                 return SampleTemplate;
             }

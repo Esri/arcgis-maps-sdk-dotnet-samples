@@ -27,7 +27,7 @@
         <controls:TabViewItem Header="Offline data">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -105,7 +105,7 @@
                     <TextBlock x:Name="StatusLabel"
                                Text="Ready"
                                Margin="5"
-                               VerticalAlignment="Center"/>
+                               VerticalAlignment="Center" />
                     <ProgressBar x:Name="StatusSpinner"
                                  IsIndeterminate="True"
                                  Visibility="Collapsed"

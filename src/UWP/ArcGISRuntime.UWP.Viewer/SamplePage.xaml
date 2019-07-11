@@ -81,8 +81,11 @@
               Grid.ColumnSpan="2"
               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
               >
-            <ContentControl Margin="5" x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light"/>
-
+            <Grid Margin="5"
+                  x:Name="SampleGrid"
+                  Background="White">
+                <ContentControl x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light"/>
+            </Grid>
             <ScrollViewer Margin="5" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed">
                 <controls:MarkdownTextBlock x:Name="MarkDownBlock"
                                             ImageResolving="MarkDownBlock_ImageResolving"

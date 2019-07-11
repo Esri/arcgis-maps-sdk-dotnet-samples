@@ -35,6 +35,7 @@ namespace ArcGISRuntime.UWP.Viewer
             if (App.Current.RequestedTheme == Windows.UI.Xaml.ApplicationTheme.Dark)
             {
                 // Do dark stuff
+                MarkDownBlock.RequestedTheme = Windows.UI.Xaml.ElementTheme.Dark;
             }
 
             // Set file path for the readme.
@@ -54,9 +55,12 @@ namespace ArcGISRuntime.UWP.Viewer
             // Remove the background from the mark down renderer.
             MarkDownBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
+            SampleGrid.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 255, 255));
+
+            ContentArea.Background = Tabs.Background;
+            ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
+
             SourceCodeContainer.LoadSourceCode();
-            Console.WriteLine(ContentArea.Background);
-            Console.WriteLine();
         }
 
         private static async void HideStatusBar()
@@ -72,27 +76,21 @@ namespace ArcGISRuntime.UWP.Viewer
             switch (((TabViewItem)Tabs.SelectedItem).Header.ToString())
             {
                 case "Live Sample":
-                    SampleContainer.Visibility = Visibility.Visible;
+                    SampleGrid.Visibility = Visibility.Visible;
                     DescriptionContainer.Visibility = Visibility.Collapsed;
                     SourceCodeContainer.Visibility = Visibility.Collapsed;
-                    ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
-                    ContentArea.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 255, 255));
                     break;
 
                 case "Description":
-                    SampleContainer.Visibility = Visibility.Collapsed;
+                    SampleGrid.Visibility = Visibility.Collapsed;
                     DescriptionContainer.Visibility = Visibility.Visible;
                     SourceCodeContainer.Visibility = Visibility.Collapsed;
-                    ContentArea.RequestedTheme = DescriptionContainer.RequestedTheme;
-                    ContentArea.Background = Tabs.Background;
                     break;
 
                 case "Source Code":
-                    SampleContainer.Visibility = Visibility.Collapsed;
+                    SampleGrid.Visibility = Visibility.Collapsed;
                     DescriptionContainer.Visibility = Visibility.Collapsed;
                     SourceCodeContainer.Visibility = Visibility.Visible;
-                    ContentArea.RequestedTheme = SourceCodeContainer.RequestedTheme;
-                    ContentArea.Background = Tabs.Background;
                     break;
             }
         }

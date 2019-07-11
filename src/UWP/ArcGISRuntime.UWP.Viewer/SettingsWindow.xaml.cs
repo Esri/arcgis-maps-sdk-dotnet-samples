@@ -19,6 +19,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -43,11 +44,13 @@ namespace ArcGISRuntime
                 var rtVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location);
                 _runtimeVersion = rtVersion.FileVersion;
             }
-            VersionTextField.Text = _runtimeVersion;
+            string aboutPath = "Resources\\about.md";
+            AboutBlock.Text = File.ReadAllText(aboutPath) + _runtimeVersion;
+            AboutBlock.Background = new ImageBrush() { Opacity = 0 };
 
             // Set up license info.
-            string markdownPath = "Resources\\licenses.md";
-            MarkDownBlock.Text = File.ReadAllText(markdownPath);
+            string licensePath = "Resources\\licenses.md";
+            MarkDownBlock.Text = File.ReadAllText(licensePath);
             MarkDownBlock.Background = new ImageBrush() { Opacity = 0 };
 
             // Set up offline data.
@@ -229,6 +232,11 @@ namespace ArcGISRuntime
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(MainPage));
+        }
+
+        private async void MarkdownText_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri(e.Link));
         }
     }
 }

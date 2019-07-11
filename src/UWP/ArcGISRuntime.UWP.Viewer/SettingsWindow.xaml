@@ -14,15 +14,12 @@
         <controls:TabView x:Name="Tabs">
             <controls:TabViewItem Header="About">
                 <Grid Margin="5">
-                    <TextBlock Grid.Row="0" FontWeight="SemiBold" FontSize="18">
-                        <Run Text="Built with ArcGIS Runtime SDK for .NET version" />
-                        <Run x:Name="VersionTextField" />
-                    </TextBlock>
+                    <controls:MarkdownTextBlock x:Name="AboutBlock" LinkClicked="MarkdownText_LinkClicked"/>
                 </Grid>
             </controls:TabViewItem>
             <controls:TabViewItem Header="Third party software">
                 <ScrollViewer Margin="5">
-                    <controls:MarkdownTextBlock x:Name="MarkDownBlock" />
+                    <controls:MarkdownTextBlock x:Name="MarkDownBlock" LinkClicked="MarkdownText_LinkClicked"/>
                 </ScrollViewer>
             </controls:TabViewItem>
             <controls:TabViewItem Header="Offline data">

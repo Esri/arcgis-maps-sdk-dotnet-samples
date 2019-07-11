@@ -16,8 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -255,30 +253,9 @@ namespace ArcGISRuntime.UWP.Viewer
         }
 
         // https://stackoverflow.com/questions/32692792/open-a-new-frame-window-from-mainpage-in-windows-10-universal-app
-        private async void Settings_Click(object sender, RoutedEventArgs e)
+        private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            // Pop open the settings window
-            CoreApplicationView newCoreView = CoreApplication.CreateNewView();
-
-            ApplicationView newAppView = null;
-            int mainViewId = ApplicationView.GetApplicationViewIdForWindow(
-              CoreApplication.MainView.CoreWindow);
-
-            await newCoreView.Dispatcher.RunAsync(
-              CoreDispatcherPriority.Normal,
-              () =>
-              {
-                  newAppView = ApplicationView.GetForCurrentView();
-                  Window.Current.Content = new SettingsWindow();
-                  Window.Current.Activate();
-              });
-
-            await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
-              newAppView.Id,
-              ViewSizePreference.UseMinimum,
-              mainViewId,
-              ViewSizePreference.UseMinimum);
-            newAppView.TryResizeView(new Size(800, 450));
+            Frame.Navigate(typeof(SettingsWindow));
         }
     }
 

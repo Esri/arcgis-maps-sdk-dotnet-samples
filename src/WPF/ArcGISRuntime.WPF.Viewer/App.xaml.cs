@@ -10,6 +10,7 @@
 using System;
 using System.IO;
 using System.Windows;
+using Windows.UI.ViewManagement;
 
 namespace ArcGISRuntime.WPF.Viewer
 {

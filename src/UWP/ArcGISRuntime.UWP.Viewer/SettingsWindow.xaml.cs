@@ -1,5 +1,6 @@
 ﻿using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISRuntime.UWP.Viewer;
 using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace ArcGISRuntime
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class SettingsWindow : UserControl
+    public sealed partial class SettingsWindow
     {
         private static string _runtimeVersion = "";
         private CancellationTokenSource _cancellationTokenSource;
@@ -32,7 +33,7 @@ namespace ArcGISRuntime
             this.InitializeComponent();
 
             // Set up version info.
-            if (String.IsNullOrWhiteSpace(_runtimeVersion))
+            if (string.IsNullOrWhiteSpace(_runtimeVersion))
             {
                 var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
                 var rtVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location);
@@ -56,6 +57,15 @@ namespace ArcGISRuntime
             {
                 Tabs.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
             }
+
+            // Set margin for Back Button
+            BackButton.Margin = new Thickness(Window.Current.Bounds.Width-BackButton.Width, 0, 0,0);
+            this.SizeChanged += MainPage_SizeChanged;
+        }
+
+        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            BackButton.Margin = new Thickness(Window.Current.Bounds.Width - BackButton.Width, 0, 0, 0);
         }
 
         private async void Download_All_Click(object sender, RoutedEventArgs e)
@@ -210,6 +220,11 @@ namespace ArcGISRuntime
                 StatusSpinner.Visibility = Visibility.Collapsed;
                 SampleDataListView.IsEnabled = true;
             }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(MainPage));
         }
     }
 }

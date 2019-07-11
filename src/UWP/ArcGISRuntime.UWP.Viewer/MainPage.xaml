@@ -155,7 +155,7 @@
                 <Image Source="Assets/ic_menu_settings_dark.png" Height="32" Width="32" />
             </Button>
         </Grid>
-        
+
         <!--
         ============================
         Main content region

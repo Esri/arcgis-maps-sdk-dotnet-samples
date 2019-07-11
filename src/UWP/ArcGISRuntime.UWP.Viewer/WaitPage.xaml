@@ -19,9 +19,9 @@
                    FontSize="48" > Downloading sample data
         </TextBlock>
         <ProgressBar Grid.Row="1" Grid.Column="0"
-                         IsIndeterminate="True" 
+                         IsIndeterminate="True"
                          Margin="10" />
-        <Button Content="Cancel" 
+        <Button Content="Cancel"
                     Grid.Row="1" Grid.Column="1"
                     Margin="10"
                     Click="Cancel_Click" />

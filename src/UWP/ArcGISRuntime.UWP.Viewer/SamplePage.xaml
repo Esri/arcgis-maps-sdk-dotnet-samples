@@ -40,7 +40,7 @@
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -79,12 +79,11 @@
         <Grid x:Name="ContentArea"
               Grid.Row="2"
               Grid.ColumnSpan="2"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-              >
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid Margin="5"
                   x:Name="SampleGrid"
                   Background="White">
-                <ContentControl x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light"/>
+                <ContentControl x:Name="SampleContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RequestedTheme="Light" />
             </Grid>
             <ScrollViewer Margin="5" x:Name="DescriptionContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed">
                 <controls:MarkdownTextBlock x:Name="MarkDownBlock"

@@ -124,7 +124,7 @@
                 Width="60"
                 VerticalAlignment="Top"
                 HorizontalContentAlignment="Center">
-            <TextBlock Text="Back"/>
+            <TextBlock Text="Back" />
         </Button>
     </Grid>
 </Page>

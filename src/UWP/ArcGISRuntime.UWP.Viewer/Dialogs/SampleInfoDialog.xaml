@@ -10,13 +10,13 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Image Margin="10" Stretch="Uniform" HorizontalAlignment="Center"
                            Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
         </Image>
-        <TextBlock Text="{Binding Description}" FontSize="18" 
+        <TextBlock Text="{Binding Description}" FontSize="18"
                                 TextWrapping="Wrap" Grid.Row="1"
                                 Margin="20" Style="{StaticResource SecondaryTextBlock}" />
     </Grid>

@@ -11,7 +11,7 @@
     <Page.Resources>
         <DataTemplate x:Key="SmallFeaturedListItemTemplate">
             <Grid>
-                <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5"/>
+                <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="1" Margin="10,5,10,5" />
             </Grid>
         </DataTemplate>
 
@@ -19,39 +19,39 @@
             <Border Background="{StaticResource PrimaryBackgroundColor}" BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="1">
                 <Grid Tapped="OnSampleItemTapped" Width="285" Margin="2" Height="285">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="200"/>
-                        <RowDefinition Height="35"/>
-                        <RowDefinition Height="60"/>
+                        <RowDefinition Height="200" />
+                        <RowDefinition Height="35" />
+                        <RowDefinition Height="60" />
                     </Grid.RowDefinitions>
                     <Image Width="280" Height="200" Stretch="Uniform"
                        HorizontalAlignment="Center"
                        Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}">
                     </Image>
                     <TextBlock Text="{Binding SampleName}" FontSize="18" Grid.Row="1" Margin="10,5,10,5"  Style="{StaticResource HeaderTextBlock}" />
-                    <TextBlock Text="{Binding Description}" FontSize="13" 
-										   TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Top" 
+                    <TextBlock Text="{Binding Description}" FontSize="13"
+										   TextWrapping="Wrap" Grid.Row="2" VerticalAlignment="Top"
 										   Margin="10,-5,10,5" FontWeight="Normal" TextTrimming="CharacterEllipsis"  Style="{StaticResource PrimaryTextBlock}" />
                 </Grid>
             </Border>
         </DataTemplate>
 
         <DataTemplate x:Key="SmallSampleItemTemplate">
-            <Border 
+            <Border
                     Background="{StaticResource PrimaryBackgroundColor}"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="0,2,0,2">
                 <Grid Tapped="OnSampleItemTapped"
                     HorizontalAlignment="Stretch" Height="48">
-                    <TextBlock Text="{Binding SampleName}" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18" Margin="10,0" 
+                    <TextBlock Text="{Binding SampleName}" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18" Margin="10,0"
                                Style="{StaticResource PrimaryTextBlock}" />
-                    <Button  
+                    <Button
                             Tapped="OnInfoTapped"
                             Click="OnInfoClicked"
                             Style="{StaticResource GeneralButtonStyle}"
                             HorizontalAlignment="Right">
                         <Grid>
-                            <Ellipse Height="30" Width="30" Style="{StaticResource EllipseStyle}" StrokeThickness="1" 
-                                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Ellipse Height="30" Width="30" Style="{StaticResource EllipseStyle}" StrokeThickness="1"
+                                     HorizontalAlignment="Center" VerticalAlignment="Center" />
                             <TextBlock Text="i" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Style="{StaticResource HeaderTextBlock}" />
                         </Grid>
                     </Button>
@@ -62,7 +62,7 @@
         <DataTemplate x:Key="CategoryTemplate" x:DataType="models:SearchableTreeNode">
             <muxc:TreeViewItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Content.Name}"/>
+                    <TextBlock Text="{Binding Content.Name}" />
                 </StackPanel>
             </muxc:TreeViewItem>
         </DataTemplate>
@@ -70,7 +70,7 @@
         <DataTemplate x:Key="SampleTemplate" x:DataType="models:SearchableTreeNode">
             <muxc:TreeViewItem>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Content.SampleName}"/>
+                    <TextBlock Text="{Binding Content.SampleName}" />
                 </StackPanel>
             </muxc:TreeViewItem>
         </DataTemplate>
@@ -79,7 +79,6 @@
             x:Key="TreeViewItemTemplateSelector"
             CategoryTemplate="{StaticResource CategoryTemplate}"
             SampleTemplate="{StaticResource SampleTemplate}" />
-
     </Page.Resources>
 
     <Grid Background="Transparent">
@@ -100,8 +99,8 @@
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="SamplesListView.Visibility" Value="Visible"/>
-                        <Setter Target="SamplesGridView.Visibility" Value="Collapsed"/>
+                        <Setter Target="SamplesListView.Visibility" Value="Visible" />
+                        <Setter Target="SamplesGridView.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
                 <!--
@@ -120,75 +119,69 @@
         </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
 
         <Grid x:Name="HeaderArea"
               Background="{StaticResource HeaderBrush}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="auto"/>
-                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" 
+            <TextBlock Grid.Column="0"
                    Margin="12,12,12,12"
                    x:Name="ApplicationTitle"
                    Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White"
-                   FontWeight="Bold" VerticalAlignment="Center"/>
-            <AutoSuggestBox Grid.Column="1" 
-                            x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True" 
-                            RelativePanel.AlignVerticalCenterWith="CategoryTitle" 
+                   FontWeight="Bold" VerticalAlignment="Center" />
+            <AutoSuggestBox Grid.Column="1"
+                            x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True"
+                            RelativePanel.AlignVerticalCenterWith="CategoryTitle"
                             Width="240" PlaceholderText="i.e. ArcGISTileLayer" Margin="20,0"
                             TextChanged="OnSearchQuerySubmitted"
-                            
+
                             QueryIcon="Find"
                             HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            />
-            
-            <Button Grid.Column="2" Margin="5" 
+                            VerticalAlignment="Center" />
+
+            <Button Grid.Column="2" Margin="5"
                     HorizontalAlignment="Right" HorizontalContentAlignment="Center"
-                    VerticalContentAlignment="Center" VerticalAlignment="Center" 
+                    VerticalContentAlignment="Center" VerticalAlignment="Center"
                     Background="Transparent"
                     BorderBrush="Transparent"
-                    Click="Settings_Click"
-                    >
-                <Image Source="Assets/ic_menu_settings_dark.png" Height="32" Width="32"/>
+                    Click="Settings_Click">
+                <Image Source="Assets/ic_menu_settings_dark.png" Height="32" Width="32" />
             </Button>
         </Grid>
-        <!-- 
+        <!--
         ============================
         Main content region
         ============================
         -->
-        
+
         <Grid   x:Name="MainContentRegion" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="320"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="320" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-
             <muxc:TreeView     Grid.Column="0"
-                               x:Name="CategoriesTree" 
-                               SelectionMode ="Single" 
+                               x:Name="CategoriesTree"
+                               SelectionMode ="Single"
                                ItemInvoked="CategoriesTree_ItemInvoked"
                                ItemTemplateSelector="{StaticResource TreeViewItemTemplateSelector}"
                                CanDrag="False"
                                CanDragItems="False"
-                               CanReorderItems="False"
-                               />
-            <ContentControl Grid.Column="1" Margin="5" x:Name="SamplePageContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
+                               CanReorderItems="False" />
+            <ContentControl Grid.Column="1" Margin="5" x:Name="SamplePageContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
             <Grid     Grid.Column="1"
                       x:Name="SampleSelectionGrid"
-                      HorizontalAlignment="Stretch" 
-                      VerticalAlignment="Stretch" 
-                      >
-            
-                <GridView x:Name="SamplesGridView" 
-                              ItemTemplate="{StaticResource StandardSampleItemTemplate}" 
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+
+                <GridView x:Name="SamplesGridView"
+                              ItemTemplate="{StaticResource StandardSampleItemTemplate}"
                               SelectionMode="None"
                               Background="Transparent" Margin="1,0,0,0">
                     <GridView.ItemContainerStyle>
@@ -198,7 +191,7 @@
                     </GridView.ItemContainerStyle>
                 </GridView>
 
-                <ListView x:Name="SamplesListView" Visibility="Collapsed" 
+                <ListView x:Name="SamplesListView" Visibility="Collapsed"
                               SelectionMode="None"
                               ItemTemplate="{StaticResource SmallSampleItemTemplate}">
                     <ListView.ItemContainerStyle>
@@ -207,8 +200,6 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>
-
-                
             </Grid>
         </Grid>
     </Grid>

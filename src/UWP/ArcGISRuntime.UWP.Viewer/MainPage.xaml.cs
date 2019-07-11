@@ -25,7 +25,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 using Navigation = Windows.UI.Xaml.Navigation;
 
@@ -180,7 +179,6 @@ namespace ArcGISRuntime.UWP.Viewer
                 Title = sampleModel.SampleName,
                 PrimaryButtonText = "close",
                 SecondaryButtonText = "show",
-                
             };
 
             dialog.SecondaryButtonClick += (s, args) =>
@@ -188,7 +186,7 @@ namespace ArcGISRuntime.UWP.Viewer
                 OnSampleItemTapped(sender, new TappedRoutedEventArgs());
             };
 
-            dialog.Content = new SampleInfoDialog() { DataContext = sampleModel, Style = Application.Current.Resources["PrimaryTextBlock"] as Style };
+            dialog.Content = new SampleInfoDialog() { DataContext = sampleModel };
 
             // Show dialog as a full screen overlay.
             await dialog.ShowAsync();

@@ -179,7 +179,8 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 Title = sampleModel.SampleName,
                 PrimaryButtonText = "close",
-                SecondaryButtonText = "show"
+                SecondaryButtonText = "show",
+                
             };
 
             dialog.SecondaryButtonClick += (s, args) =>
@@ -187,7 +188,7 @@ namespace ArcGISRuntime.UWP.Viewer
                 OnSampleItemTapped(sender, new TappedRoutedEventArgs());
             };
 
-            dialog.Content = new SampleInfoDialog() { DataContext = sampleModel };
+            dialog.Content = new SampleInfoDialog() { DataContext = sampleModel, Style = Application.Current.Resources["PrimaryTextBlock"] as Style };
 
             // Show dialog as a full screen overlay.
             await dialog.ShowAsync();

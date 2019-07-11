@@ -16,7 +16,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="StandardSampleItemTemplate">
-            <Border Background="{ThemeResource PrimaryBackgroundColor}" BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="1">
+            <Border Background="{StaticResource PrimaryBackgroundColor}" BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="1">
                 <Grid Tapped="OnSampleItemTapped" Width="285" Margin="2" Height="285">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="200"/>
@@ -37,7 +37,7 @@
 
         <DataTemplate x:Key="SmallSampleItemTemplate">
             <Border 
-                    Background="{ThemeResource PrimaryBackgroundColor}"
+                    Background="{StaticResource PrimaryBackgroundColor}"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="0,2,0,2">
                 <Grid Tapped="OnSampleItemTapped"
@@ -50,9 +50,9 @@
                             Style="{StaticResource GeneralButtonStyle}"
                             HorizontalAlignment="Right">
                         <Grid>
-                            <Ellipse Height="30" Width="30" Stroke="{StaticResource PrimaryColor}" StrokeThickness="1" 
+                            <Ellipse Height="30" Width="30" Style="{StaticResource EllipseStyle}" StrokeThickness="1" 
                                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <TextBlock Text="i" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Foreground="{StaticResource PrimaryColor}" />
+                            <TextBlock Text="i" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Style="{StaticResource HeaderTextBlock}" />
                         </Grid>
                     </Button>
                 </Grid>
@@ -126,7 +126,7 @@
 
 
         <Grid x:Name="HeaderArea"
-              Background="{ThemeResource HeaderBrush}">
+              Background="{StaticResource HeaderBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>

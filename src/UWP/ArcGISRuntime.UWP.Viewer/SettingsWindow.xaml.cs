@@ -47,7 +47,7 @@ namespace ArcGISRuntime
 
             // Set up license info.
             string markdownPath = "Resources\\licenses.md";
-            MarkDownBlock.Text = System.IO.File.ReadAllText(markdownPath);
+            MarkDownBlock.Text = File.ReadAllText(markdownPath);
             MarkDownBlock.Background = new ImageBrush() { Opacity = 0 };
 
             // Set up offline data.
@@ -62,13 +62,13 @@ namespace ArcGISRuntime
                 Tabs.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
             }
 
-            // Set margin for Back Button
-            BackButton.Margin = new Thickness(Window.Current.Bounds.Width - BackButton.Width, 0, 0, 0);
-            this.SizeChanged += MainPage_SizeChanged;
+            this.SizeChanged += Window_SizeChanged;
+            Window_SizeChanged(null,null);
         }
 
-        private void MainPage_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
+            // Set margin for Back Button (for placement on the page)
             BackButton.Margin = new Thickness(Window.Current.Bounds.Width - BackButton.Width, 0, 0, 0);
         }
 

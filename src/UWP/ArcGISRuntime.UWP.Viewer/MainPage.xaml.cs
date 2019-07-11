@@ -55,17 +55,13 @@ namespace ArcGISRuntime.UWP.Viewer
             CategoriesTree.Background = new SolidColorBrush() { Opacity = 0 };
             SamplePageContainer.Background = new SolidColorBrush() { Opacity = 0 };
 
-            SetDarkMode();
-
-            SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
-        }
-
-        private void SetDarkMode()
-        {
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
                 MainContentRegion.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
             }
+
+            // Set the ItemsSource for the big and small grids from the first category.
+            SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
         }
 
         private void LoadTreeView(SearchableTreeNode fullTree)
@@ -252,7 +248,6 @@ namespace ArcGISRuntime.UWP.Viewer
             }
         }
 
-        // https://stackoverflow.com/questions/32692792/open-a-new-frame-window-from-mainpage-in-windows-10-universal-app
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SettingsWindow));
@@ -266,6 +261,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
         protected override DataTemplate SelectTemplateCore(object item)
         {
+            // Select the correct template to display the text for the node in the treeview.
             if (((muxc.TreeViewNode)item).Content.GetType() == typeof(SearchableTreeNode))
             {
                 return CategoryTemplate;
@@ -276,6 +272,7 @@ namespace ArcGISRuntime.UWP.Viewer
             }
             else
             {
+                // No text will be displayed if another type of content is in the treeview.
                 return null;
             }
         }

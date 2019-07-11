@@ -90,7 +90,6 @@
                                             ImageResolving="MarkDownBlock_ImageResolving"
                                             ImageMaxWidth="350" />
             </ScrollViewer>
-
             <local:SourceCode Margin="5" x:Name="SourceCodeContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Visibility="Collapsed" />
         </Grid>
     </Grid>

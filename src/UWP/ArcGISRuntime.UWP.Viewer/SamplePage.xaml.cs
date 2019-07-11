@@ -32,10 +32,10 @@ namespace ArcGISRuntime.UWP.Viewer
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
 
-            if (App.Current.RequestedTheme == Windows.UI.Xaml.ApplicationTheme.Dark)
+            if (App.Current.RequestedTheme == ApplicationTheme.Dark)
             {
                 // Do dark stuff
-                MarkDownBlock.RequestedTheme = Windows.UI.Xaml.ElementTheme.Dark;
+                MarkDownBlock.RequestedTheme = ElementTheme.Dark;
             }
 
             // Set file path for the readme.

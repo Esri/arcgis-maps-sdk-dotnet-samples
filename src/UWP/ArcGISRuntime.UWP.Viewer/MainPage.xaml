@@ -16,7 +16,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="StandardSampleItemTemplate">
-            <Border Background="{StaticResource PrimaryBackgroundColor}" BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="1">
+            <Border Background="{ThemeResource PrimaryBackgroundColor}" BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="1">
                 <Grid Tapped="OnSampleItemTapped" Width="285" Margin="2" Height="285">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="200"/>
@@ -37,7 +37,7 @@
 
         <DataTemplate x:Key="SmallSampleItemTemplate">
             <Border 
-                    Background="{StaticResource PrimaryBackgroundColor}"
+                    Background="{ThemeResource PrimaryBackgroundColor}"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                     BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="0,2,0,2">
                 <Grid Tapped="OnSampleItemTapped"
@@ -125,15 +125,13 @@
         </Grid.RowDefinitions>
 
 
-        <Grid x:Name="HeaderArea">
+        <Grid x:Name="HeaderArea"
+              Background="{ThemeResource HeaderBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="auto"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
-            <Grid.Background>
-                <ImageBrush x:Name="HeaderBrush" ImageSource="Assets/banner-background-blue.png" Stretch="UniformToFill"/>
-            </Grid.Background>
             <TextBlock Grid.Column="0" 
                    Margin="12,12,12,12"
                    x:Name="ApplicationTitle"
@@ -178,6 +176,9 @@
                                SelectionMode ="Single" 
                                ItemInvoked="CategoriesTree_ItemInvoked"
                                ItemTemplateSelector="{StaticResource TreeViewItemTemplateSelector}"
+                               CanDrag="False"
+                               CanDragItems="False"
+                               CanReorderItems="False"
                                />
             <ContentControl Grid.Column="1" Margin="5" x:Name="SamplePageContainer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch"/>
             <Grid     Grid.Column="1"

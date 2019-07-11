@@ -14,11 +14,12 @@
 
             <SolidColorBrush x:Name="PrimaryColor" Color="#005e95"></SolidColorBrush>
             <SolidColorBrush x:Name="SecondaryColor" Color="#0079C1"></SolidColorBrush>
-            <SolidColorBrush x:Name="PrimaryBackgroundColor" Color="#f8f8f8"></SolidColorBrush>
+            
             <SolidColorBrush x:Name="SecondaryBackgroundColor" Color="#FFD3CFCF"></SolidColorBrush>
-            <SolidColorBrush x:Name="PrimaryTextColor" Color="#323232"></SolidColorBrush>
+            
             <SolidColorBrush x:Name="SecondaryTextColor" Color="#595959"></SolidColorBrush>
             <SolidColorBrush x:Name="OverlayColor" Color="#8C000000"></SolidColorBrush>
+            <SolidColorBrush x:Name="PrimaryTextColor" Color="#323232"></SolidColorBrush>
 
             <Style x:Name="HeaderTextBlock" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
@@ -29,6 +30,17 @@
             <Style x:Name="SecondaryTextBlock" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}"/>
             </Style>
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <ImageBrush x:Key="HeaderBrush" ImageSource="Assets/banner-background-black.png" Stretch="UniformToFill"/>
+                    <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#FF4B4B4B"></SolidColorBrush>
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Light">
+                    <ImageBrush x:Key="HeaderBrush" ImageSource="Assets/banner-background-blue.png" Stretch="UniformToFill"/>
+                    <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f8f8f8"></SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
 
         </ResourceDictionary>
     </Application.Resources>

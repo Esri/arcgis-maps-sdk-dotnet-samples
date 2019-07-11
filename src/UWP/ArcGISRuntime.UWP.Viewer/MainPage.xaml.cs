@@ -52,26 +52,19 @@ namespace ArcGISRuntime.UWP.Viewer
             LoadTreeView(SampleManager.Current.FullTree);
 
             // Acrylic backgrounds
-            MainContentRegion.Background = new AcrylicBrush() { TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
+            MainContentRegion.Background = new AcrylicBrush() { TintOpacity = 50, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
             CategoriesTree.Background = new SolidColorBrush() { Opacity = 0 };
             SamplePageContainer.Background = new SolidColorBrush() { Opacity = 0 };
 
             SetDarkMode();
 
             SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
-
-            
-
         }
 
         private void SetDarkMode()
         {
-            
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                //Change background image for header
-                HeaderBrush.ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/banner-background-black.png"));
-
                 MainContentRegion.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
             }
         }

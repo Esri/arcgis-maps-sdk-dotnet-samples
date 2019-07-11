@@ -30,7 +30,7 @@
                 -->
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="600" />
+                        <AdaptiveTrigger MinWindowWidth="840" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="SampleNameText.(Grid.ColumnSpan)" Value="1" />

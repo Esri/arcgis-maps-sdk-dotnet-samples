@@ -51,13 +51,11 @@ namespace ArcGISRuntime
             _cancellationTokenSource = new CancellationTokenSource();
 
             // Make the background acrylic.
-            Tabs.Background = new AcrylicBrush() { Opacity = 50, BackgroundSource=AcrylicBackgroundSource.HostBackdrop };
+            Tabs.Background = new AcrylicBrush() { Opacity = 50, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
                 Tabs.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
             }
-
-            
         }
 
         private async void Download_All_Click(object sender, RoutedEventArgs e)
@@ -66,10 +64,10 @@ namespace ArcGISRuntime
             {
                 // Get a token from a new CancellationTokenSource()
                 CancellationToken token = _cancellationTokenSource.Token;
-                
+
                 // Enable the cancel button.
                 CancelButton.Visibility = Visibility.Visible;
-                
+
                 // Adjust the UI
                 SetStatusMessage("Downloading all...", true);
 

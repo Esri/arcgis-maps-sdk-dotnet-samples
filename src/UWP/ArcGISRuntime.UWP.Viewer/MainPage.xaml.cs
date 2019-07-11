@@ -17,6 +17,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
+using Windows.Foundation;
 using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -274,9 +275,10 @@ namespace ArcGISRuntime.UWP.Viewer
 
             await ApplicationViewSwitcher.TryShowAsStandaloneAsync(
               newAppView.Id,
-              ViewSizePreference.Default,
+              ViewSizePreference.UseMinimum,
               mainViewId,
-              ViewSizePreference.Default);
+              ViewSizePreference.UseMinimum);
+            newAppView.TryResizeView(new Size(800, 450));
         }
     }
 

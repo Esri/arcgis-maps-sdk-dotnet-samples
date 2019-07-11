@@ -24,7 +24,7 @@ namespace ArcGISRuntime
     public sealed partial class SettingsWindow : UserControl
     {
         private static string _runtimeVersion = "";
-        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
 
         public SettingsWindow()
@@ -46,21 +46,37 @@ namespace ArcGISRuntime
             MarkDownBlock.Background = new ImageBrush() { Opacity = 0 };
 
             // Set up offline data.
-            SampleDataListView.ItemsSource = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
+            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
+            SampleDataListView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
 
+            // Make the background acrylic.
             Tabs.Background = new AcrylicBrush() { Opacity = 50, BackgroundSource=AcrylicBackgroundSource.HostBackdrop };
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                Tabs.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
+            }
+
+            
         }
 
         private async void Download_All_Click(object sender, RoutedEventArgs e)
         {
             try
             {
+                // Get a token from a new CancellationTokenSource()
                 CancellationToken token = _cancellationTokenSource.Token;
+                
+                // Enable the cancel button.
                 CancelButton.Visibility = Visibility.Visible;
+                
+                // Adjust the UI
                 SetStatusMessage("Downloading all...", true);
+
+                // Make a list of tasks for downloading all of the samples.
                 HashSet<string> itemIds = new HashSet<string>();
                 List<Task> downloadTasks = new List<Task>();
+
                 foreach (SampleInfo sample in OfflineDataSamples)
                 {
                     foreach (string itemId in sample.OfflineDataItems)
@@ -84,7 +100,7 @@ namespace ArcGISRuntime
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception);
+                Debug.WriteLine(exception);
                 await new MessageDialog("Download canceled", "Error").ShowAsync();
             }
             finally

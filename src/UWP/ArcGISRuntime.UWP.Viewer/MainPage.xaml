@@ -60,19 +60,11 @@
         </DataTemplate>
 
         <DataTemplate x:Key="CategoryTemplate" x:DataType="models:SearchableTreeNode">
-            <muxc:TreeViewItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Content.Name}" />
-                </StackPanel>
-            </muxc:TreeViewItem>
+            <TextBlock Text="{Binding Content.Name}" />
         </DataTemplate>
 
         <DataTemplate x:Key="SampleTemplate" x:DataType="models:SearchableTreeNode">
-            <muxc:TreeViewItem>
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding Content.SampleName}" />
-                </StackPanel>
-            </muxc:TreeViewItem>
+            <TextBlock Text="{Binding Content.SampleName}" />
         </DataTemplate>
 
         <viewer:TreeViewItemTemplateSelector

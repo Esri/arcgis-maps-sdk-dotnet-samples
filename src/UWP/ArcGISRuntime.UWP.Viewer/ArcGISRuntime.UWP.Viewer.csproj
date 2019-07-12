@@ -118,7 +118,6 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Assets\banner-background-black.png" />
-    <Content Include="Assets\ic_menu_settings_dark.png" />
     <Content Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />

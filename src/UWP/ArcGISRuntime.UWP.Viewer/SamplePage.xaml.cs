@@ -55,8 +55,6 @@ namespace ArcGISRuntime.UWP.Viewer
             // Remove the background from the mark down renderer.
             MarkDownBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
-            SampleGrid.Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 255, 255));
-
             ContentArea.Background = Tabs.Background;
             ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
 

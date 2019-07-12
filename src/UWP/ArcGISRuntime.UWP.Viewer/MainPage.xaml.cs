@@ -51,13 +51,13 @@ namespace ArcGISRuntime.UWP.Viewer
             LoadTreeView(SampleManager.Current.FullTree);
 
             // Acrylic backgrounds
-            MainContentRegion.Background = new AcrylicBrush() { TintOpacity = 50, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
-            CategoriesTree.Background = new SolidColorBrush() { Opacity = 0 };
-            SamplePageContainer.Background = new SolidColorBrush() { Opacity = 0 };
+            //MainContentRegion.Background = new AcrylicBrush() { TintOpacity = 50, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
+            //CategoriesTree.Background = new SolidColorBrush() { Opacity = 0 };
+            //SamplePageContainer.Background = new SolidColorBrush() { Opacity = 0 };
 
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                MainContentRegion.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
+                //MainContentRegion.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
             }
 
             // Set the ItemsSource for the big and small grids from the first category.

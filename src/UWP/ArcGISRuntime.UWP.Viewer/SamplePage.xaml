@@ -5,7 +5,7 @@
     xmlns:local="using:ArcGISRuntime.UWP.Viewer"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
-    <Grid>
+    <Grid Background="{StaticResource PrimaryBackgroundColor}">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <!--
@@ -78,8 +78,7 @@
 
         <Grid x:Name="ContentArea"
               Grid.Row="2"
-              Grid.ColumnSpan="2"
-              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+              Grid.ColumnSpan="2">
             <Grid Margin="5"
                   x:Name="SampleGrid"
                   Background="White">

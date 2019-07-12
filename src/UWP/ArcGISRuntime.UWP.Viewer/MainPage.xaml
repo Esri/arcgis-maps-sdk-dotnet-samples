@@ -122,12 +122,9 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0"
-                   Margin="12,12,12,12"
-                   x:Name="ApplicationTitle"
-                   Text="ArcGIS Runtime SDK for .NET Samples" Foreground="White"
-                   FontSize="30"
-                   FontWeight="Bold" VerticalAlignment="Center" />
+            <TextBlock Text="ArcGIS Runtime SDK for .NET (UWP)" Foreground="White" FontSize="18"
+                       FontWeight="SemiBold" VerticalAlignment="Center" Margin="10,0,0,0" Grid.Column="0"
+                       />
             <AutoSuggestBox Grid.Column="1"
                             x:Name="SearchBox" RelativePanel.AlignRightWithPanel="True"
                             RelativePanel.AlignVerticalCenterWith="CategoryTitle"

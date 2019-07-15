@@ -24,6 +24,7 @@
                 <ResourceDictionary x:Key="Dark">
                     <ImageBrush x:Key="HeaderBrush" ImageSource="Assets/banner-background-black.png" Stretch="UniformToFill" />
                     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#FF4B4B4B"></SolidColorBrush>
+                    <SolidColorBrush x:Key="InlineCodeColor" Color="White"></SolidColorBrush>
                     <Style x:Key="PrimaryTextBlock" TargetType="TextBlock">
                         <Setter Property="Foreground" Value="{StaticResource DarkModeTextColor}" />
                     </Style>
@@ -40,6 +41,7 @@
                 <ResourceDictionary x:Key="Light">
                     <ImageBrush x:Key="HeaderBrush" ImageSource="Assets/banner-background-blue.png" Stretch="UniformToFill" />
                     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f8f8f8"></SolidColorBrush>
+                    <SolidColorBrush x:Key="InlineCodeColor" Color="Black"></SolidColorBrush>
                     <Style x:Key="PrimaryTextBlock" TargetType="TextBlock">
                         <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
                     </Style>

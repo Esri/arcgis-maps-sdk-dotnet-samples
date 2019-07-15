@@ -3,20 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ArcGISRuntime.UWP.Viewer"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:styling="using:ColorCode.Styling">
-    <Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.ThemeDictionaries>
-                <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="InlineCodeColor" Color="White"></SolidColorBrush>
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="InlineCodeColor" Color="Black"></SolidColorBrush>
-                </ResourceDictionary>
-            </ResourceDictionary.ThemeDictionaries>
-        </ResourceDictionary>
-    </Page.Resources>
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
     <Grid Background="{StaticResource PrimaryBackgroundColor}">
         <VisualStateManager.VisualStateGroups>

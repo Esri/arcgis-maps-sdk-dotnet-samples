@@ -208,12 +208,7 @@
 ## Security
 
 * [Certificate authentication with PKI](ArcGISRuntime.WPF.Viewer/Samples/Security/CertificateAuthenticationWithPki/readme.md) - Access secured portals using a certificate.
-* [Integrated Windows Authentication](ArcGISRuntime.WPF.Viewer/Samples/Security/IntegratedWindowsAuth/readme.md) - This sample illustrates the use of Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).
-When accessing resources secured with IWA from a WPF app, default credentials (the current user's username and password) are sent to the portal. 
-Assuming the user has access, such an app requires no additional authentication code and secure portal resources can be accessed without
-the user being prompted to sign in. For the sake of illustration, this sample shows how to prompt for a username, password, and domain in order to 
-explicitly create an `ArcGISNetworkCredential`.
-Platforms such as Android, iOS, and Universal Windows Platform (UWP) require credentials to be entered explicitly.
+* [Integrated windows authentication](ArcGISRuntime.WPF.Viewer/Samples/Security/IntegratedWindowsAuth/readme.md) - Use Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).
 * [Authenticate with OAuth](ArcGISRuntime.WPF.Viewer/Samples/Security/OAuth/readme.md) - This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).
 * [ArcGIS token challenge](ArcGISRuntime.WPF.Viewer/Samples/Security/TokenSecuredChallenge/readme.md) - This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 

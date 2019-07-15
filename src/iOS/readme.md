@@ -198,9 +198,7 @@
 
 ## Security
 
-* [Integrated Windows Authentication](Xamarin.iOS/Samples/Security/IntegratedWindowsAuth/readme.md) - This sample illustrates the use of Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).
-When accessing an item secured with IWA from a WPF app, default credentials (the current user's login) are sent to the portal. 
-Platforms such as Android, iOS, and Universal Windows Platform (UWP) require credentials to be entered explicitly.
+* [Integrated windows authentication](Xamarin.iOS/Samples/Security/IntegratedWindowsAuth/readme.md) - Use Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).
 * [Authenticate with OAuth](Xamarin.iOS/Samples/Security/OAuth/readme.md) - This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).
 * [ArcGIS token challenge](Xamarin.iOS/Samples/Security/TokenSecuredChallenge/readme.md) - This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 

@@ -1,17 +1,26 @@
 {
     "category": "Security",
-    "description": "This sample illustrates the use of Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).\nWhen accessing an item secured with IWA from a WPF app, default credentials (the current user's login) are sent to the portal. \nPlatforms such as Android, iOS, and Universal Windows Platform (UWP) require credentials to be entered explicitly.",
+    "description": "Use Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).",
     "ignore": false,
-    "images": "See [Use the Authentication Manager](https://developers.arcgis.com/net/latest/android/guide/use-the-authentication-manager.htm) in the developers guide for more information.",
-    "keywords": [],
+    "images": "IntegratedWindowsAuth.jpg",
+    "keywords": [
+        "Authentication",
+        "Portal",
+        "Security",
+        "Windows"
+    ],
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/integratedwindowsauth.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "ArcGISNetworkCredential",
+        "ArcGISPortal",
+        "AuthenticationManager"
+    ],
     "sample_unique_id": "",
     "snippets": [
         "IntegratedWindowsAuth.cs"
     ],
-    "title": "Integrated Windows Authentication"
+    "title": "Integrated windows authentication"
 }

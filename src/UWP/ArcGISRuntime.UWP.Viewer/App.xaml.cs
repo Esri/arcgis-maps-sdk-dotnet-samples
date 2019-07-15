@@ -35,6 +35,8 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Safeguard against the user changing theme midway through using the applicaiton.
             Application.Current.RequestedTheme = Application.Current.RequestedTheme;
+
+            
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)

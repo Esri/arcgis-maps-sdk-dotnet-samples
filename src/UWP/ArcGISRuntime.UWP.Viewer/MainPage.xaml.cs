@@ -38,6 +38,10 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             InitializeComponent();
 
+            // Set the preffered minimum size of the window.
+            Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetPreferredMinSize(
+                new Windows.Foundation.Size(650, 650));
+
             // Use required cache mode so we create only one page
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
 
@@ -50,18 +54,10 @@ namespace ArcGISRuntime.UWP.Viewer
 
             LoadTreeView(SampleManager.Current.FullTree);
 
-            // Acrylic backgrounds
-            //MainContentRegion.Background = new AcrylicBrush() { TintOpacity = 50, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
-            //CategoriesTree.Background = new SolidColorBrush() { Opacity = 0 };
-            //SamplePageContainer.Background = new SolidColorBrush() { Opacity = 0 };
-
-            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
-            {
-                //MainContentRegion.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
-            }
-
             // Set the ItemsSource for the big and small grids from the first category.
-            SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+            SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+
+
         }
 
         private void LoadTreeView(SearchableTreeNode fullTree)
@@ -213,7 +209,7 @@ namespace ArcGISRuntime.UWP.Viewer
             if (CategoriesTree.RootNodes.Any())
             {
                 // Set the items source of the grid to the first category from the search.
-                SamplesGridView.ItemsSource = SamplesListView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+                SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
                 foreach (muxc.TreeViewNode node in CategoriesTree.RootNodes)
                 {
                     node.IsExpanded = true;
@@ -240,7 +236,6 @@ namespace ArcGISRuntime.UWP.Viewer
                 SampleSelectionGrid.Visibility = Visibility.Visible;
                 List<SampleInfo> samples = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
                 SamplesGridView.ItemsSource = samples;
-                SamplesListView.ItemsSource = samples;
             }
             else if (selected.Content.GetType() == typeof(SampleInfo))
             {

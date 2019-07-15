@@ -43,31 +43,6 @@
             </Border>
         </DataTemplate>
 
-
-        <DataTemplate x:Key="SmallSampleItemTemplate">
-            <Border
-                    Background="Transparent"
-                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                    BorderBrush="{StaticResource AppBarBorderThemeBrush}" BorderThickness="1" Margin="0,2,0,2">
-                <Grid Tapped="OnSampleItemTapped"
-                    HorizontalAlignment="Stretch" Height="48">
-                    <TextBlock Text="{Binding SampleName}" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="18" Margin="10,0"
-                               Style="{StaticResource PrimaryTextBlock}" />
-                    <Button
-                            Tapped="OnInfoTapped"
-                            Click="OnInfoClicked"
-                            Style="{StaticResource GeneralButtonStyle}"
-                            HorizontalAlignment="Right">
-                        <Grid>
-                            <Ellipse Height="30" Width="30" Style="{StaticResource EllipseStyle}" StrokeThickness="1"
-                                     HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            <TextBlock Text="i" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Style="{StaticResource HeaderTextBlock}" />
-                        </Grid>
-                    </Button>
-                </Grid>
-            </Border>
-        </DataTemplate>
-
         <DataTemplate x:Key="CategoryTemplate" x:DataType="models:SearchableTreeNode">
             <TextBlock Text="{Binding Content.Name}" />
         </DataTemplate>
@@ -83,41 +58,6 @@
     </Page.Resources>
 
     <Grid >
-        <!--
-        ============================
-        Adaptive triggers
-        ============================
-        -->
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <!--
-                ============================
-                Handle screen less than some number of pixels
-                ============================
-                -->
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="SamplesListView.Visibility" Value="Visible" />
-                        <Setter Target="SamplesGridView.Visibility" Value="Collapsed" />
-                    </VisualState.Setters>
-                </VisualState>
-                <!--
-                ============================
-                Handle screen over some number of mixels
-                ============================
-                -->
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="920" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -163,7 +103,7 @@
 
         <Grid   x:Name="MainContentRegion" Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="240" />
+                <ColumnDefinition Width="320" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
@@ -193,16 +133,6 @@
                         </Style>
                     </GridView.ItemContainerStyle>
                 </GridView>
-
-                <ListView x:Name="SamplesListView" Visibility="Collapsed"
-                              SelectionMode="None"
-                              ItemTemplate="{StaticResource SmallSampleItemTemplate}">
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
             </Grid>
         </Grid>
     </Grid>

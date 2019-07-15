@@ -58,13 +58,6 @@ namespace ArcGISRuntime
             SampleDataListView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
 
-            // Make the background acrylic.
-            Tabs.Background = new AcrylicBrush() { Opacity = 50, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
-            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
-            {
-                Tabs.Background = new AcrylicBrush() { TintColor = Windows.UI.Color.FromArgb(150, 0, 0, 0), TintOpacity = 25, BackgroundSource = AcrylicBackgroundSource.HostBackdrop };
-            }
-
             this.SizeChanged += Window_SizeChanged;
             Window_SizeChanged(null,null);
         }

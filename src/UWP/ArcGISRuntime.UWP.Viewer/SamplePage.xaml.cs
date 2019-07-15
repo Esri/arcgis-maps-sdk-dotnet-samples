@@ -32,28 +32,28 @@ namespace ArcGISRuntime.UWP.Viewer
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
 
+            // Change UI elements to be dark.
             if (App.Current.RequestedTheme == ApplicationTheme.Dark)
             {
-                // Do dark stuff
-                MarkDownBlock.RequestedTheme = ElementTheme.Dark;
+                DescriptionBlock.RequestedTheme = ElementTheme.Dark;
             }
 
             // Set file path for the readme.
             string readmePath = System.IO.Path.Combine(SampleManager.Current.SelectedSample.Path, "Readme.md");
 
-            string markdowntext = System.IO.File.ReadAllText(readmePath);
+            string readmeText = System.IO.File.ReadAllText(readmePath);
 
             // Take off first line (the title header)
-            markdowntext = markdowntext.Substring(markdowntext.IndexOf('\n') + 1);
+            readmeText = readmeText.Substring(readmeText.IndexOf('\n') + 1);
 
             // Fix image links from the old readme format.
-            markdowntext = markdowntext.Replace("<img src=\"", "![](").Replace("\" width=\"350\"/>", ")");
+            readmeText = readmeText.Replace("<img src=\"", "![](").Replace("\" width=\"350\"/>", ")");
 
             // Set readme in the mark down block.
-            MarkDownBlock.Text = markdowntext;
+            DescriptionBlock.Text = readmeText;
 
             // Remove the background from the mark down renderer.
-            MarkDownBlock.Background = new SolidColorBrush() { Opacity = 0 };
+            DescriptionBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
             ContentArea.Background = Tabs.Background;
             ContentArea.RequestedTheme = SampleContainer.RequestedTheme;

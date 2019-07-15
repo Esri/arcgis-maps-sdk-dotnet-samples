@@ -1,21 +1,25 @@
 import json
 import os
 from distutils.dir_util import copy_tree
-from shutil import copyfile
+from shutil import copyfile, rmtree
 import re
 import requests
+from datetime import datetime
+from csproj_utils import *
+from file_utils import *
 
 class sample_metadata:
+    arcgis_runtime_latest = "100.5.0" # store latest Runtime version, for use with packages
     def reset_props(self):
         self.formal_name = ""
         self.friendly_name = ""
         self.sample_unique_id = ""
         self.category = ""
-        self.nuget_packages = []
+        self.nuget_packages = {}
         self.keywords = []
         self.relevant_api = []
         self.since = ""
-        self.images = []
+        self.images = ""
         self.source_files = []
         self.redirect_from = []
         self.offline_data = []
@@ -24,7 +28,7 @@ class sample_metadata:
         self.how_it_works = ""
         self.use_case = ""
         self.data_statement = ""
-        self.additional_info = ""
+        self.Additional_info = ""
         self.ignore = False
 
     def __init__(self):
@@ -59,6 +63,14 @@ class sample_metadata:
             self.description = data["description"]
             self.ignore = data["ignore"]
 
+            # manually correct nuget package if needed
+            packages = self.nuget_packages.keys()
+            self.nuget_packages["Esri.ArcGISRuntime"] = self.arcgis_runtime_latest
+            if self.category == "Hydrography":
+                self.nuget_packages["Esri.ArcGISRuntime.Hydrography"] = self.arcgis_runtime_latest
+            if self.category in ["Local Server", "LocalServer"]:
+                self.nuget_packages["Esri.ArcGISRuntime.LocalServices"] = self.arcgis_runtime_latest              
+
         return
     
     def populate_from_readme(self, platform, path_to_readme):
@@ -67,11 +79,22 @@ class sample_metadata:
         self.formal_name = pathparts[-2]
 
         # populate redirect_from; it is based on a pattern
-        redirect_string = f"/net/latest/{platform.lower()}/sample-code/{self.formal_name.lower()}.htm"
+        real_platform = platform
+        if real_platform in ["XFI", "XFA", "XFU"]:
+            real_platform = "Forms"
+        redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{self.formal_name.lower()}.htm"
         self.redirect_from.append(redirect_string)
 
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
+
+        # if category is 'Hydrography', add the hydrography package
+        if self.category == "Hydrography":
+            self.nuget_packages["Esri.ArcGISRuntime.Hydrography"] = self.arcgis_runtime_latest
+        elif self.category == "LocalServer" or self.category == "Local Server":
+            self.nuget_packages["Esri.ArcGISRuntime.LocalServices"] = self.arcgis_runtime_latest
+        # add the ArcGIS Runtime package always
+        self.nuget_packages["Esri.ArcGISRuntime"] = self.arcgis_runtime_latest
 
         # read the readme content into a string
         readme_contents = ""
@@ -177,7 +200,7 @@ class sample_metadata:
 
         # add the image
         if len(self.images) > 0:
-            template_text += f"![screenshot]({self.images[0]})\n\n"
+            template_text += f"![screenshot]({self.images})\n\n"
 
         # add "Use case" - use_case
         if self.use_case != "":
@@ -228,9 +251,9 @@ class sample_metadata:
             template_text += f"{self.data_statement}\n\n"
 
         # add 'Additional information' - additional_info
-        if self.additional_info != "":
+        if self.Additional_info != "":
             template_text += "## Additional information\n\n"
-            template_text += f"{self.additional_info}\n\n"
+            template_text += f"{self.Additional_info}\n\n"
 
         # add 'Tags' - keywords
         template_text += "## Tags\n\n"
@@ -256,6 +279,7 @@ class sample_metadata:
         data["redirect_from"] = self.redirect_from
         data["description"] = self.description
         data["ignore"] = self.ignore
+        data["offline_data"] = self.offline_data
 
         with open(path_to_json, 'w+') as json_file:
             json.dump(data, json_file, indent=4, sort_keys=True)
@@ -272,14 +296,16 @@ class sample_metadata:
         # create output dir
         output_dir = os.path.join(output_root, platform, self.formal_name)
 
-        if not os.path.exists(output_dir):
-            os.makedirs(output_dir)
+        if os.path.exists(output_dir):
+            rmtree(output_dir)
+        
+        os.makedirs(output_dir)
 
         # copy template files over - find files in template
         script_dir = os.path.split(os.path.realpath(__file__))[0]
         template_dir = os.path.join(script_dir, "templates", "solutions", platform)
         copy_tree(template_dir, output_dir)
-        
+
         # copy sample files over
         copy_tree(sample_dir, output_dir)
 
@@ -291,59 +317,114 @@ class sample_metadata:
                     dest_path = os.path.join(output_dir, os.path.split(file)[1])
                     copyfile(source_path, dest_path)
 
-        # TODO - emit sampleName.sample metadata xml file
+        # Add forms packages if needed
+        if platform in ["XFA", "XFI", "XFU"]:
+            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Forms"] = self.arcgis_runtime_latest
 
         # accumulate list of source, xaml, axml, and resource files
+        all_source_files = self.source_files
 
         # generate list of replacements
         replacements = {}
         replacements["$$project$$"] = self.formal_name
         replacements["$$embedded_resources$$"] = "" # TODO
-        replacements["$$source_files$$"] = "" # TODO
-        replacements["$$xaml_files$$"] = "" # TODO
+        replacements["$$nuget_packages$$"] = get_csproj_xml_for_nuget_packages(self.nuget_packages)
+        replacements["$$code_and_xaml$$"] = get_csproj_xml_for_code_files(all_source_files)
         replacements["$$axml_files$$"] = "" # TODO
+        replacements["$$current_year$$"] = str(datetime.now().year)
+        replacements["$$friendly_name$$"] = self.friendly_name
 
         # rewrite files in output - replace template fields
         sample_metadata.rewrite_files_in_place(output_dir, replacements)
+
+        # write out the sample file
+        self.emit_dot_sample_file(platform, output_dir)
+
         return
     
+    def emit_dot_sample_file(self, platform, output_dir):
+        output_xml = "<ArcGISRuntimeSDKdotNetSample>\n"
+        # basic metadata
+        output_xml += f"\t<SampleName>{self.formal_name}</SampleName>\n"
+        output_xml += f"\t<SampleDescription>{self.description}</SampleDescription>\n"
+        output_xml += f"\t<ScreenShot>{self.images}</ScreenShot>\n"
+        # code files, including XAML
+        output_xml += "\t<CodeFiles>\n"
+        for source_file in self.source_files:
+            output_xml += f"\t\t<CodeFile>{source_file}</CodeFile>\n"
+        output_xml += "\t</CodeFiles>\n"
+        
+        # xaml files
+        output_xml += "\t<XAMLParseFiles>\n"
+        for source_file in self.source_files:
+            if source_file.endswith(".xaml"):
+                output_xml += f"\t\t<XAMLParseFile>{source_file}</XAMLParseFile>\n"
+        output_xml += "\t</XAMLParseFiles>\n"
+
+        # exe
+        if platform == "WPF":
+            output_xml += "\t<DllExeFile>bin\debug\ArcGISRuntime.exe</DllExeFile>\n"
+        elif platform == "UWP" or platform == "XFU":
+            output_xml += "\t<DllExeFile>obj\x86\Debug\intermediatexaml\ArcGISRuntime.exe</DllExeFile>\n"
+        elif platform == "Android" or platform == "XFA":
+            output_xml = "\t<DllExeFile>bin\debug\ArcGISRuntime.dll</DllExeFile>\n"
+        elif platform == "iOS" or platform == "XFI":
+            output_xml = "\t<DllExeFile>bin\iPhone\debug\ArcGISRuntime.exe</DllExeFile>\n"
+        
+        output_xml += "</ArcGISRuntimeSDKdotNetSample>\n"
+
+        filename = os.path.join(output_dir, f"{self.formal_name}.sample")
+
+        safe_write_contents(filename, output_xml)
+    
+    def populate_snippets_from_folder(self, platform, path_to_readme):
+        '''
+        Take a path to a readme file
+        Populate the snippets from: any .xaml, .cs files in the directory; 
+        any .axml files referenced from .cs files on android
+        '''
+        # populate files in the directory
+        sample_dir = os.path.split(path_to_readme)[0]
+        for file in os.listdir(sample_dir):
+            if os.path.splitext(file)[1] in [".axml", ".xaml", ".cs"]:
+                self.source_files.append(file)        
+            # populate AXML layouts for Android
+            if platform == "Android" and os.path.splitext(file)[1] == ".cs":
+                # search for line matching SetContentView(Resource.Layout.
+                referencing_file_path = os.path.join(sample_dir, file)
+                referencing_file_contents = safe_read_contents(referencing_file_path)
+                for line in referencing_file_contents.split("\n"):
+                    if "SetContentView(Resource.Layout." in line:
+                        # extract name of layout
+                        layout_name = line.split("Layout.")[1].strip().strip(";").strip(")")
+                        # add the file path to the snippets list
+                        self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
+
     def rewrite_files_in_place(source_dir, replacements_dict):
         for r, d, f in os.walk(source_dir):
             for sample_dir in d:
                 sample_metadata.rewrite_files_in_place(os.path.join(r, sample_dir), replacements_dict)
             for sample_file_name in f:
-                sample_file = os.path.join(r, sample_file_name)
-                extension = os.path.splitext(sample_file)[1]
+                sample_file_fullpath = os.path.join(r, sample_file_name)
+                extension = os.path.splitext(sample_file_fullpath)[1]
                 if extension in [".cs", ".xaml", ".sln", ".md", ".csproj", ".shproj", ".axml"]:
                     # open file, read into string
-                    original_contents = ""
-                    try:
-                        with open(sample_file, "r") as handle:
-                            original_contents = handle.read()
-                    except UnicodeDecodeError:
-                        try:
-                            with open(sample_file, "r", encoding='utf-8') as handle:
-                                original_contents = handle.read()
-                        except UnicodeDecodeError:
-                            with open(sample_file, "r", encoding='utf-16') as handle:
-                                original_contents = handle.read()
+                    original_contents = safe_read_contents(sample_file_fullpath)
                     # make replacements
                     new_content = original_contents
                     for tag in replacements_dict.keys():
                         new_content = new_content.replace(tag, replacements_dict[tag])
                     # write out new file
                     if new_content != original_contents:
-                        os.remove(sample_file)
-                        try:
-                            with open(sample_file, 'w') as rewrite_handle:
-                                rewrite_handle.write(new_content)
-                        except UnicodeEncodeError:
-                            try:
-                                with open(sample_file, 'w', encoding="utf-8") as rewrite_handle:
-                                    rewrite_handle.write(new_content)
-                            except UnicodeEncodeError:
-                                with open(sample_file, 'w', encoding="utf-16") as rewrite_handle:
-                                    rewrite_handle.write(new_content)
+                        os.remove(sample_file_fullpath)
+                        safe_write_contents(sample_file_fullpath, new_content)
+                # rename any files (e.g. $$project$$.sln becomes AccessLoadStatus.sln)
+                new_name = sample_file_fullpath
+                for tag in replacements_dict.keys():
+                    if tag in sample_file_fullpath:
+                        new_name = new_name.replace(tag, replacements_dict[tag])
+                if new_name != sample_file_fullpath:
+                    os.rename(sample_file_fullpath, new_name)
     
     def splitall(path):
         ## Credits: taken verbatim from https://www.oreilly.com/library/view/python-cookbook/0596001673/ch04s16.html
@@ -447,10 +528,11 @@ class sample_metadata:
             lines = body_parts[0].split("\n")
             cleaned_lines = []
             for line in lines:
-                # removes nonsense formatting and controls for Qt content sneaking in
-                cleaned_lines.append(line.strip("*").strip("-").strip("`").strip().strip("`").replace("::", "."))
-            cleaned_lines.sort()
-            self.relevant_api = cleaned_lines
+                # removes nonsense formatting
+                cleaned_line = line.strip("*").strip("-").split("-")[0].strip("`").strip().strip("`").replace("::", ".")
+                cleaned_lines.append(cleaned_line)
+            self.relevant_api = list(dict.fromkeys(cleaned_lines))
+            self.relevant_api.sort()
             return
 
         # offline data
@@ -459,7 +541,8 @@ class sample_metadata:
             # extract any guids - these are AGOL items
             regex = re.compile('[0-9a-f]{8}[0-9a-f]{4}[1-5][0-9a-f]{3}[89ab][0-9a-f]{3}[0-9a-f]{12}', re.I)
             matches = re.findall(regex, content)
-            self.offline_data = matches
+
+            self.offline_data = list(dict.fromkeys(matches))
             return
 
         # about the data
@@ -471,7 +554,7 @@ class sample_metadata:
         # additional info
         if "additional" in heading_parts:
             content = "\n\n".join(body_parts)
-            self.additional_info = content
+            self.Additional_info = content
             return
 
         # tags

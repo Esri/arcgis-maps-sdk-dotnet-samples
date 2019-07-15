@@ -23,16 +23,17 @@ def get_relative_path_to_samples_from_platform_root(platform):
     Returns the path from the platform's readme.md file to the folder containing the sample categories
     For use in sample TOC generation
     '''
-    if platform == "UWP":
+    if (platform == "UWP"):
         return "ArcGISRuntime.UWP.Viewer/Samples"
-    elif platform == "WPF":
+    if (platform == "WPF"):
         return "ArcGISRuntime.WPF.Viewer/Samples"
-    elif platform == "Forms" or platform in ["XFA", "XFI", "XFU"]:
-        return "Shared/Samples"
-    elif platform == "iOS":
-        return "Xamarin.iOS/Samples"
-    elif platform == "Android":
+    if (platform == "Android"):
         return "Xamarin.Android/Samples"
+    if (platform == "iOS"):
+        return "Xamarin.iOS/Samples"
+    if (platform == "Forms" or platform in ["XFA", "XFI", "XFU"]):
+        return "Shared/Samples"
+    raise AssertionError(None, None)
 
 def plat_to_msbuild_string(platform):
     if platform in ["XFU", "UWP"]:
@@ -49,10 +50,10 @@ def write_build_script(list_of_samples, platform, output_dir):
     '''
     output_string = "@echo on"
     output_string += "\nREM Set up environment variables for Visual Studio."
+    output_string += "\ncall \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsDevCmd.bat\""
     output_string += "\nREM ==================================="
     for sample in list_of_samples:
         output_string += f"\nCALL %ESRI_SAMPLES_TEMP_BUILD_ROOT%\\nuget restore {sample}\\{sample}.sln -PackagesDirectory %ESRI_SAMPLES_TEMP_BUILD_ROOT%\\packages"
-    output_string += "\ncall \"C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Enterprise\\Common7\\Tools\\VsDevCmd.bat\""
     output_string += "\n@echo on"
     
     for sample in list_of_samples:
@@ -74,10 +75,10 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
     for category in samples_in_categories.keys():
         readme_text += f"## {category}\n\n"
         for sample in samples_in_categories[category]:
-            readme_text += f"* [{sample.friendly_name}]({relative_path_to_samples}/{sample.category}/{sample.formal_name}) - {sample.description}\n"
+            readme_text += f"* [{sample.friendly_name}]({relative_path_to_samples}/{sample.category}/{sample.formal_name}/readme.md) - {sample.description}\n"
         readme_text += "\n"
     
-    readme_path = os.path.join(platform_dir, "readme.md")
+    readme_path = os.path.join(platform_dir, "../..", "readme.md")
     with open(readme_path, 'w+') as file:
         file.write(readme_text)
 
@@ -89,7 +90,7 @@ def main():
     # TODO - make readme replace a run option, disable by default, parameterize common-samples path
     common_dir_path = "C:\\Users\\nath9278\\Documents\\Dev\\common-samples\\designs"
 
-    for platform in ["UWP", "WPF", "Android", "XFI", "XFA", "XFU", "iOS"]:
+    for platform in ["UWP", "WPF", "Android", "Forms", "iOS"]:
         # make a list of samples, so that build_all_csproj.bat can be produced
         list_of_sample_dirs = []
         list_of_samples = {}
@@ -103,9 +104,14 @@ def main():
                 sample = sample_metadata()
                 path_to_readme = os.path.join(r, sample_dir, "readme.md")
                 sample.populate_from_readme(platform, path_to_readme)
+                sample.populate_snippets_from_folder(platform, path_to_readme)
                 sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
                 sample.flush_to_json(os.path.join(r, sample_dir, "readme.metadata.json"))
-                sample.emit_standalone_solution(platform, os.path.join(r, sample_dir), output_root, shared_project_path)
+                if platform == "Forms":
+                    for sub_plat in ["XFA", "XFI", "XFU"]:
+                        sample.emit_standalone_solution(sub_plat, os.path.join(r, sample_dir), output_root, shared_project_path)
+                else:
+                    sample.emit_standalone_solution(platform, os.path.join(r, sample_dir), output_root, shared_project_path)
                 list_of_sample_dirs.append(sample_dir)
                 # track samples in each category to enable TOC generation
                 if sample.category in list_of_samples.keys():
@@ -113,7 +119,11 @@ def main():
                 else:
                     list_of_samples[sample.category] = [sample]
         # write out build_all_csproj.bat
-        write_build_script(list_of_sample_dirs, platform, os.path.join(output_root, platform))
+        if platform == "Forms":
+            for sub_plat in ["XFA", "XFI", "XFU"]:
+                write_build_script(list_of_sample_dirs, sub_plat, os.path.join(output_root, sub_plat))
+        else:
+            write_build_script(list_of_sample_dirs, platform, os.path.join(output_root, platform))
         # write out samples TOC
         write_samples_toc(get_platform_samples_root(platform, sample_root), get_relative_path_to_samples_from_platform_root(platform), list_of_samples)
     return

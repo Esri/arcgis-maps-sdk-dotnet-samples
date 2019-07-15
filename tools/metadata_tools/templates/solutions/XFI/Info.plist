@@ -49,6 +49,6 @@
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>CFBundleName</key>
-	<string>XFI</string>
+	<string>$$project$$</string>
 </dict>
 </plist>

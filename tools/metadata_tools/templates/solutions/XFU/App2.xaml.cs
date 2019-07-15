@@ -15,7 +15,7 @@ namespace ArcGISRuntime
 
 		    var navigationPage = new NavigationPage(new ArcGISRuntime.FormsMainPage() 
 		    {
-		        Title = "ArcGIS Runtime SDK for .NET"
+		        Title = "$$friendly_name$$"
 		    });
 
 		    MainPage = navigationPage;

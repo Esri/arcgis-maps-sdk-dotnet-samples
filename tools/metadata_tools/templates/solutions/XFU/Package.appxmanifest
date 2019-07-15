@@ -8,14 +8,14 @@
 
   <Identity
     Name="ec0cc741-fd3e-485c-81be-68815c480690"
-    Publisher="CN=Pierce Boggan"
+    Publisher="CN=Esri"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>ArcGISRuntime.UWP</DisplayName>
-    <PublisherDisplayName>Pierce Boggan</PublisherDisplayName>
+    <DisplayName>Sample: $$friendly_name$$</DisplayName>
+    <PublisherDisplayName>Esri, Inc.</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 

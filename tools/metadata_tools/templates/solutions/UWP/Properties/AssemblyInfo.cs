@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UWP")]
+[assembly: AssemblyTitle("$$friendly_name$$")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UWP")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCompany("Esri, Inc.")]
+[assembly: AssemblyProduct("ArcGIS Runtime SDK Samples for .NET (UWP)")]
+[assembly: AssemblyCopyright("Copyright ©  $$current_year$$")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

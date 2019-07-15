@@ -87,6 +87,9 @@
   </ItemGroup>
   <ItemGroup>
   $$nuget_packages$$
+  <PackageReference Include="Xamarin.Auth">
+      <Version>1.6.0.4</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

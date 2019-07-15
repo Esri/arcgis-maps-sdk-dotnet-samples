@@ -203,20 +203,7 @@
 When accessing an item secured with IWA from a WPF app, default credentials (the current user's login) are sent to the portal. 
 Platforms such as Android, iOS, and Universal Windows Platform (UWP) require credentials to be entered explicitly.
 * [Authenticate with OAuth](ArcGISRuntime.UWP.Viewer/Samples/Security/OAuth/readme.md) - This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).
-* [PKI Authentication - Universal Windows](ArcGISRuntime.UWP.Viewer/Samples/Security/PKIAuthentication/readme.md) - This sample illustrates the use of a client certificate to access services hosted on a portal secured with Public Key Infrastructure (PKI) authentication.
-Credentials are created by prompting the user to select an exported client certificate file (*.pfx). After loading the certificate, requests
-to the portal can be encrypted and decrypted using public key cryptography. The portal can then be searched for web maps to display in the map view.    
-     
-More information about PKI and client certificates can be found at the links below:
- - [PKI - MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/bb427432(v=vs.85).aspx)
- - [PKI - Wikipedia](https://en.wikipedia.org/wiki/Public_key_infrastructure)
- - [Certificates - MSDN](https://msdn.microsoft.com/en-us/library/windows/desktop/bb540819(v=vs.85).aspx)
 * [ArcGIS token challenge](ArcGISRuntime.UWP.Viewer/Samples/Security/TokenSecuredChallenge/readme.md) - This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
-
-## PKIAuthentication
-
-* [](ArcGISRuntime.UWP.Viewer/Samples/PKIAuthentication/Assets/readme.md) - 
-* [](ArcGISRuntime.UWP.Viewer/Samples/PKIAuthentication/Properties/readme.md) - 
 
 ## Symbology
 

@@ -367,7 +367,7 @@ class sample_metadata:
         if platform == "WPF":
             output_xml += "\t<DllExeFile>bin\debug\ArcGISRuntime.exe</DllExeFile>\n"
         elif platform == "UWP" or platform == "XFU":
-            output_xml += "\t<DllExeFile>obj\x86\Debug\intermediatexaml\ArcGISRuntime.exe</DllExeFile>\n"
+            output_xml += "\t<DllExeFile>obj\\x86\Debug\intermediatexaml\ArcGISRuntime.exe</DllExeFile>\n"
         elif platform == "Android" or platform == "XFA":
             output_xml = "\t<DllExeFile>bin\debug\ArcGISRuntime.dll</DllExeFile>\n"
         elif platform == "iOS" or platform == "XFI":

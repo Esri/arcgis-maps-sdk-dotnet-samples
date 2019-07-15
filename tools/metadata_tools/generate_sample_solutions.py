@@ -94,6 +94,9 @@ def main():
             # skip category directories
             sample = sample_metadata()
             path_to_json = os.path.join(r, sample_dir, "readme.metadata.json")
+            if not os.path.exists(path_to_json):
+                print(f"skipping path; does not exist: {path_to_json}")
+                continue
             sample.populate_from_json(path_to_json)
             if platform == "Forms":
                 for sub_plat in ["XFA", "XFI", "XFU"]:

@@ -102,8 +102,7 @@
                                             InlineCodeForeground="{StaticResource InlineCodeColor}"
                                             InlineCodeFontFamily="Consolas"
                                             InlineCodeMargin="0"
-                                            InlineCodePadding="0"
-                                            InlineCodeBorderThickness="0" />
+                                            InlineCodePadding="0" />
             </ScrollViewer>
 
             <local:SourceCode  x:Name="SourceCodeContainer"

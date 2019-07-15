@@ -44,24 +44,26 @@ class sample_metadata:
     
     def populate_from_json(self, path_to_json):
         # formal name is the name of the folder containing the json
-        pathparts = os.path.split(path_to_json)
+        pathparts = sample_metadata.splitall(path_to_json)
         self.formal_name = pathparts[-2]
 
         # open json file
         with open(path_to_json, 'r') as json_file:
             data = json.load(json_file)
-            self.friendly_name = data["title"]
-            self.sample_unique_id = data["sample_unique_id"]
-            # note: category can also be derived from folder structure
-            self.category = data["category"]
-            self.nuget_packages = data["packages"]
-            self.keywords = data["keywords"]
-            self.relevant_api = data["relevant_apis"]
-            self.images = data["images"]
-            self.source_files = data["snippets"]
-            self.redirect_from = data["redirect_from"]
-            self.description = data["description"]
-            self.ignore = data["ignore"]
+            keys = data.keys()
+            for key in ["sample_unique_id", "category", "keywords", "images", "redirect_from", "description", "ignore"]:
+                if key in keys:
+                    setattr(self, key, data[key])
+            if "title" in keys:
+                self.friendly_name = data["title"]
+            if "sample_unique_id" in keys:
+                self.sample_unique_id = data["sample_unique_id"]
+            if "packages" in keys:
+                self.nuget_packages = data["packages"]
+            if "relevant_apis" in keys:
+                self.relevant_api = data["relevant_apis"]
+            if "snippets" in keys:
+                self.source_files = data["snippets"]
 
             # manually correct nuget package if needed
             packages = self.nuget_packages.keys()
@@ -286,7 +288,7 @@ class sample_metadata:
 
         return
     
-    def emit_standalone_solution(self, platform, sample_dir, output_root, shared_project_path):
+    def emit_standalone_solution(self, platform, sample_dir, output_root):
         '''
         Produces a standalone sample solution for the given sample
         platform: one of: Android, iOS, UWP, WPF, XFA, XFI, XFU

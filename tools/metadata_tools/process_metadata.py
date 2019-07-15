@@ -104,7 +104,7 @@ def main():
                 sample = sample_metadata()
                 path_to_readme = os.path.join(r, sample_dir, "readme.md")
                 if not os.path.exists(path_to_readme):
-                    print(f"skipping path; does not exist: {path_to_jreadme}")
+                    print(f"skipping path; does not exist: {path_to_readme}")
                     continue
                 sample.populate_from_readme(platform, path_to_readme)
                 sample.populate_snippets_from_folder(platform, path_to_readme)

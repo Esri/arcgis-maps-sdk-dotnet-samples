@@ -117,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+    <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <Content Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
     <Content Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
     <Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg" />
@@ -130,11 +130,11 @@
     <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-	  <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
-	  <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
-	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
-	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
-	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+    <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+    <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
+    <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
+    <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <Content Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
     <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
@@ -336,9 +336,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-	<Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
-		<DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+      <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\MapReferenceScale\DoubleToScaleStringConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\ItemToImageSourceConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\NullOrEmptyToVisibilityConverter.cs" />
     <Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
       <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
     </Compile>
@@ -387,7 +390,6 @@
     <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
       <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\DoubleToScaleStringConverter.cs" />
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
       <DependentUpon>MapReferenceScale.xaml</DependentUpon>
     </Compile>
@@ -406,7 +408,6 @@
     <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml.cs">
       <DependentUpon>DictionaryRendererGraphicsOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
     <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
       <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
     </Compile>
@@ -857,10 +858,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -30,8 +30,10 @@
     ],
     "sample_unique_id": "",
     "snippets": [
+        "ItemToImageSourceConverter.cs",
         "MobileMapSearchAndRoute.xaml",
-        "MobileMapSearchAndRoute.xaml.cs"
+        "MobileMapSearchAndRoute.xaml.cs",
+        "NullOrEmptyToVisibilityConverter.cs"
     ],
     "title": "Mobile map (search and route)"
 }

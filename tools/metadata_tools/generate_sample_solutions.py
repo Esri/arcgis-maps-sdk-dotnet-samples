@@ -76,6 +76,11 @@ def main():
     sample_root = sys.argv[2] # TODO
     output_root = sys.argv[3]
 
+    if not platform in ["UWP", "WPF", "Android", "iOS", "XFU", "XFA", "XFI"]:
+        print("Platform must be UWP, WPF, Android, iOS, XFA, XFI, or XFU")
+    if not sample_root.endswith("src"):
+        print("sample dir should end in src")
+
     # make a list of samples, so that build_all_csproj.bat can be produced
     list_of_sample_dirs = []
     list_of_samples = {}

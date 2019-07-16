@@ -28,3 +28,12 @@ def get_csproj_xml_for_code_files(snippets_list):
             xml_string += xaml_file_include
     return xml_string
 
+def get_csproj_xml_for_android_layout(snippets_list):
+    xml_string = ""
+    for file in snippets_list:
+        # handle CS
+        if file.endswith(".axml"):
+            stripped_name = file.strip("../../../").replace("/", "\\")
+            cs_file_include = f'<AndroidResource Include="{stripped_name}" />\n'
+            xml_string += cs_file_include
+    return xml_string

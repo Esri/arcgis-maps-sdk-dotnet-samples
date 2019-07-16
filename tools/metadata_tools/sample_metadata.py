@@ -316,7 +316,7 @@ class sample_metadata:
             for file in self.source_files:
                 if ".." in file:
                     source_path = os.path.join(sample_dir, file)
-                    dest_path = os.path.join(output_dir, os.path.split(file)[1])
+                    dest_path = os.path.join(output_dir, "Resources", "layout", os.path.split(file)[1])
                     copyfile(source_path, dest_path)
 
         # Add forms packages if needed
@@ -332,7 +332,7 @@ class sample_metadata:
         replacements["$$embedded_resources$$"] = "" # TODO
         replacements["$$nuget_packages$$"] = get_csproj_xml_for_nuget_packages(self.nuget_packages)
         replacements["$$code_and_xaml$$"] = get_csproj_xml_for_code_files(all_source_files)
-        replacements["$$axml_files$$"] = "" # TODO
+        replacements["$$axml_files$$"] = get_csproj_xml_for_android_layout(all_source_files)
         replacements["$$current_year$$"] = str(datetime.now().year)
         replacements["$$friendly_name$$"] = self.friendly_name
 

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:resources="clr-namespace:Forms.Resources"
-             x:Class="ArcGISRuntime.App">
+             x:Class="ArcGISRuntime.App2">
 	<Application.Resources>
         <ResourceDictionary>
             <resources:InsetConverter x:Key="InsetConverter" />

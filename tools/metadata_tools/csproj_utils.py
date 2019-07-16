@@ -10,7 +10,7 @@ def get_csproj_xml_for_nuget_packages(nuget_version_list):
         output_xml += f'<PackageReference Include="{package}">\n\t<Version>{nuget_version_list[package]}</Version>\n</PackageReference>'
     return output_xml
 
-def get_csproj_xml_for_code_files(snippets_list):
+def get_csproj_xml_for_code_files(snippets_list, platform):
     '''
     snippets_list is a flat list of file names
     Doesn't process Android layouts
@@ -24,8 +24,10 @@ def get_csproj_xml_for_code_files(snippets_list):
             xml_string += cs_file_include
         # handle XAML
         elif file.endswith(".xaml"):
-            xaml_file_include = f'<Page Include="{file}"><Generator>MSBuild:Compile</Generator></Page>\n'
-            xml_string += xaml_file_include
+            if platform == "UWP" or platform == "WPF":
+                xml_string += f'<Page Include="{file}"><Generator>MSBuild:Compile</Generator></Page>\n'
+            elif platform in ["XFA", "XFI", "XFU"]:
+                xml_string += f'<EmbeddedResource Include="$(MSBuildThisFileDirectory){file}"><Generator>MSBuild:UpdateDesignTimeXaml</Generator></EmbeddedResource>\n'
     return xml_string
 
 def get_csproj_xml_for_android_layout(snippets_list):

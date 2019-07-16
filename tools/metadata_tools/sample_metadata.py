@@ -331,7 +331,7 @@ class sample_metadata:
         replacements["$$project$$"] = self.formal_name
         replacements["$$embedded_resources$$"] = "" # TODO
         replacements["$$nuget_packages$$"] = get_csproj_xml_for_nuget_packages(self.nuget_packages)
-        replacements["$$code_and_xaml$$"] = get_csproj_xml_for_code_files(all_source_files)
+        replacements["$$code_and_xaml$$"] = get_csproj_xml_for_code_files(all_source_files, platform)
         replacements["$$axml_files$$"] = get_csproj_xml_for_android_layout(all_source_files)
         replacements["$$current_year$$"] = str(datetime.now().year)
         replacements["$$friendly_name$$"] = self.friendly_name

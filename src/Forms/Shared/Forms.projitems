@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ConnectedTrace\ConnectedTrace.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
@@ -182,6 +183,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ConnectedTrace\ConnectedTrace.xaml.cs">
+		<DependentUpon>ConnectedTrace.xaml</DependentUpon>
+		<SubType>Code</SubType>
+	</Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
       <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -768,6 +773,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ConnectedTrace\ConnectedTrace.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
 	  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>

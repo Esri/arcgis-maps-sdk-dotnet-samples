@@ -9,10 +9,6 @@ Display features from a local geodatabase.
 Useful for applications which consume data maintained by a local source 
 (e.g. a geodatabase) on the device running the application.
 
-## How to use the sample
-
-Run the app.
-
 ## How it works
 
 1. Create a geodatabase using the provided local resource, `new Geodatabase(geodatabaseResourceUrl)`.

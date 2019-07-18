@@ -9,10 +9,6 @@ Display features from a local GeoPackage.
 Useful for applications which consume data maintained by a local source on
 the device running the application.
 
-## How to use the sample
-
-Run the app.
-
 ## How it works
 
 1. Create a `GeoPackage` passing the URI string into the constructor.

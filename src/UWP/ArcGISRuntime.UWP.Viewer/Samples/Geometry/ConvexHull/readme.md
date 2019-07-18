@@ -10,7 +10,7 @@ A convex hull can be useful in collision detection. For example, when charting t
 
 ## How to use the sample
 
-Tap on the map to add points. Click the "Create Convex Hull" button to generate the convex hull of those points. Click the "Reset" button to start over.
+Tap on the map to add points. Click the button to generate the convex hull of those points. Click "Reset" to start over.
 
 ## How it works
 

@@ -9,10 +9,6 @@ Convert features into graphics to show them with mil2525d symbols.
 A dictionary renderer uses a style file along with a rule engine to display advanced symbology. 
 This is useful for displaying features using precise military symbology.
 
-## How to use the sample
-
-Simply run the sample.
-
 ## How it works
 
 1. Create a `Geodatabase` using `Geodatabase(geodatabasePath)`.

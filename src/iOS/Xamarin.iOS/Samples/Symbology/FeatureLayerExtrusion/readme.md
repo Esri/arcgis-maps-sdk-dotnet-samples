@@ -8,11 +8,6 @@ Extrude features based on their attributes.
 
 Extrusion is a method of visualizing data. For example, it can be employed to demonstrate
 the relative population difference between US states.
-
-## How to use the sample
-
-Simply run the sample.
-
 ## How it works
 
 1. Create a `ServiceFeatureTable` from a URL.

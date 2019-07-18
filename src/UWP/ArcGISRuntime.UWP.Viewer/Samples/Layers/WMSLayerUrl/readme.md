@@ -11,7 +11,7 @@ The map will load automatically when the sample starts.
 ## How it works
 
 1. Create a `WmsLayer` specifying the URL of the service and the names of layers you want to display.
-    * Note**: The name comes from the `Name` property, not the `Title` property. On many services, the title is human-readable while the name is a numeric identifier.
+    * **Note**: The name comes from the `Name` property, not the `Title` property. On many services, the title is human-readable while the name is a numeric identifier.
 2. Add the layer to the map as an operational layer.
 
 ## Relevant API

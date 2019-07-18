@@ -10,7 +10,7 @@ When marking geoelements on a map, using custom, unique symbols can be helpful f
 
 ## How to use the sample
 
-When launched, this sample displays a map with three picture marker symbols. Pan and zoom to explore the map.
+When launched, this sample displays a map with some picture marker symbols. Pan and zoom to explore the map.
 
 ## How it works
 

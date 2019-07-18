@@ -10,7 +10,7 @@ Quickly and accurately determining the most efficient route between a location a
 
 ## How to use the sample
 
-Click the 'Solve Routes' button to solve and display the route from each incident (fire) to the nearest facility (fire station).
+Click 'Solve route' to solve and display the route from each incident (fire) to the nearest facility (fire station).
 
 ## How it works
 

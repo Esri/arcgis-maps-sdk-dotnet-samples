@@ -10,7 +10,7 @@ Portals can contain many portal items and at times you may wish to query the por
 
 ## How to use the sample
 
-Enter search terms into the search bar. Once the search is complete, a list is populated with the resultant webmaps. Tap on a webmap to set it to the map view.
+Click 'Search maps' to search public maps. Click 'Get my maps' to connect to a Portal and show your maps.
 
 ## How it works
 

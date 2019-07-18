@@ -12,7 +12,7 @@ Densifying a multipart geometry can be used to more accurately represent curved 
 
 ## How to use the sample
 
-Use the sliders to control the parameters of the densify and generalize methods.
+Use the slider to control the magnitude and the buttons to choose the operation.
 
 ## How it works
 

@@ -10,7 +10,7 @@ Basemaps should be selected contextually. For example, in maritime applications,
 
 ## How to use the sample
 
-Use the drop down menu to select the active basemap from the list of available basemaps.
+Click 'Change basemap' to select a basemap.
 
 ## How it works
 

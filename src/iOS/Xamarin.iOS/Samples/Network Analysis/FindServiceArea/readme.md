@@ -12,11 +12,8 @@ You might calculate the region around a hospital in which ambulances can service
 
 ## How to use the sample
 
-In order to find any service areas at least one facility needs to be added to the map view.
-
-* To add a facility, click the facility button, then click anywhere on the map.
-* To add a barrier, click the barrier button, and click multiple locations on map. Hit the barrier button again to finish drawing barrier. Hitting any other button will also stop the barrier from drawing.
-* To show service areas around facilities that were added, click show service areas button. 
+* To add a facility or barrier, click '+', then choose facility or barrier, and tap the map to place it. When placing a barrier, tap multiple points to draw a line between them, then click 'Done'.
+* To show service areas around facilities that were added, click 'Solve'.
 * The reset button clears all graphics and resets the service area task.
 
 ## How it works

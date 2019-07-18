@@ -10,7 +10,7 @@ The distance measurement analysis allows you to add to your app the same interac
 
 ## How to use the sample
 
-Choose a unit system for the measurement. Click any location in the scene to start measuring. Click another point to complete the measurement.
+Click 'Change units' to choose a unit system for the measurement. Click any location to update the measurement.
 
 ## How it works
 

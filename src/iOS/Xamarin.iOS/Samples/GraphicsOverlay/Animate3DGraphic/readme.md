@@ -10,13 +10,11 @@ Visualize movement through a 3D landscape.
 
 ## How to use the sample
 
-Animation Controls (Top Left Corner):
+Animation controls:
 
-* Select a mission -- select a flight path
+* Mission -- select a flight path
 * Play/Pause -- toggles playing and stopping the animation
-* Follow/Don't follow -- toggles the camera's free cam mode and follow
-* Mission progress -- shows how far along the route the plane is. Slide to change keyframe in animation
-* Flight speed -- controls speed of animation
+* Camera -- toggles the camera's free cam mode and follow
 
 ## How it works
 

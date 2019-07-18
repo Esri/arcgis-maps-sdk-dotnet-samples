@@ -6,12 +6,7 @@ Query a feature table for statistics, grouping and sorting by different fields.
 
 ## How to use the sample
 
-
-You can add statistic definitions to the top-left table using the combo boxes and "Add" button. Select a table row and click "Remove" to remove a definition.
-
-To change the Group-by fields, check the box by the field you want to group by in the bottom-left list view.
-
-To change the Order-by fields, select a Group-by field (it must be checked) and click the ">>" button to add it to the Order-by table. To remove a field from the Order-by table, select it and click the "<<" button. To change the sort order of the Order-by field, the cells of the "Sort Order" column are combo-boxes that may be either ASCENDING or DESCENDING.
+Use the buttons to add statistic definitions, choose group-by fields, and choose order-by fields. When ready, click 'Get statistics'.
 
 ## How it works
 

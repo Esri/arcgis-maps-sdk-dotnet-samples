@@ -6,7 +6,7 @@ Zoom to features matching a query and count the features in the current visible 
 
 ## How to use the sample
 
-Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.
+Use the button to zoom to the extent of a state or use the button to count the features in the current extent.
 
 ## How it works
 

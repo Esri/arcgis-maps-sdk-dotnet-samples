@@ -6,7 +6,7 @@ Geocode addresses to locations and reverse geocode locations to addresses offlin
 
 ## How to use the sample
 
-Type the address in the Search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. Select the pin to highlight the `PictureMarkerSymbol` (i.e. single tap on the pin) and then tap-hold and drag on the map to get real-time geocoding.
+Type the address in the Search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. Tap the pin to see the full address.
 
 ## How it works
 

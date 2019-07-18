@@ -6,7 +6,7 @@ This sample demonstrates how to use the GeometryEngine.ConvexHull to generate co
 
 ## Use case
 
-Creating a convex hull is an important concept in GIS as it allows for proximity analysis to define the smallest polygon possible that encloses a group of geometric shapes. For example, suppose you wanted to know the containment area of a hazardous waste site where multiple barrels of radioactive material were buried in the ground. The first step in this proximity analysis would be to generate the convex hull polygon that encloses the toxic barrels.  A visual analogy would be something like driving numerous nails in a board and then snapping a rubber-band on the outer-most nails (i.e. the convex hull).
+Creating a convex hull is an important concept in GIS as it allows for proximity analysis to define the smallest polygon possible that encloses a group of geometric shapes. For example, suppose you wanted to know the containment area of a hazardous waste site where multiple barrels of radioactive material were buried in the ground. The first step in this proximity analysis would be to generate the convex hull polygon that encloses the toxic barrels. A visual analogy would be something like driving numerous nails in a board and then snapping a rubber-band on the outer-most nails (i.e. the convex hull).
 
 ## How to use the sample
 

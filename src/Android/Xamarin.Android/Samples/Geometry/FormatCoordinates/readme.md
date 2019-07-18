@@ -10,7 +10,7 @@ The coordinate formatter can format a map location in WGS84 in a number of commo
 
 ## How to use the sample
 
-Click on the map to see the clicked location's coordinate formatted in 4 different ways. You can also put a coordinate string in any of these formats in the text field. Hit Enter and the coordinate string will be parsed and the map point and coordinate values will be updated.
+Click on the map to see the clicked location's coordinate formatted in 4 different ways. You can also put a coordinate string in any of these formats in the text field. Click 'Recalculate' and the coordinate string will be parsed and the map point and coordinate values will be updated.
 
 ## How it works
 

@@ -10,7 +10,7 @@ You can display information about the shapefile your user is viewing, like tags,
 
 ## How to use the sample
 
-The shapefile's metadata will be displayed when you open the sample.
+Click the button to show shapefile metadata.
 
 ## How it works
 

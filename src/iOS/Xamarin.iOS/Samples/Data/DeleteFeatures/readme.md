@@ -6,9 +6,7 @@ Delete features from an online feature service.
 
 ## How to use the sample
 
-To delete a feature:
-* click on a feature on the Map
-* click on the delete button
+Select a feature, then use the button to delete it.
 
 ## How it works
 

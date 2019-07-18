@@ -6,7 +6,7 @@ Discover available styles and apply them to WMS sublayers.
 
 ## How to use the sample
 
-Use the buttons to switch between styles. 
+Use the buttons to switch between styles.
 
 ## How it works
 

@@ -6,8 +6,7 @@ Display features from a local geodatabase.
 
 ## Use case
 
-Useful for applications which consume data maintained by a local source 
-(e.g. a geodatabase) on the device running the application.
+Useful for applications which consume data maintained by a local source (e.g. a geodatabase) on the device running the application.
 
 ## How it works
 

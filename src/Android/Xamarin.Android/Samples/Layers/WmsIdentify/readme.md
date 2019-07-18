@@ -6,7 +6,7 @@ Identify features in a WMS layer and display the associated popup content.
 
 ## How to use the sample
 
-Tap a feature to identify it. The HTML content associated with the feature will be displayed in a web view. 
+Tap a feature to identify it. The HTML content associated with the feature will be displayed in a web view.
 
 ## How it works
 

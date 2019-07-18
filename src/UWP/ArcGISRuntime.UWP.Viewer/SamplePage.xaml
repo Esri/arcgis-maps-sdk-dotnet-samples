@@ -35,9 +35,9 @@
             HorizontalAlignment="Right"
             SelectionChanged="TabChanged"
             TabWidthBehavior="Actual">
-            <controls:TabViewItem FontSize="20" Header="Live sample" />
+            <controls:TabViewItem FontSize="20" Header="Live Sample" />
             <controls:TabViewItem FontSize="20" Header="Description" />
-            <controls:TabViewItem FontSize="20" Header="Source code" />
+            <controls:TabViewItem FontSize="20" Header="Source Code" />
         </controls:TabView>
 
         <Grid
@@ -47,7 +47,7 @@
 
             <Grid
                 x:Name="SampleGrid"
-                Margin="0,0,0,0"
+                Margin="0"
                 Background="White">
                 <ContentControl
                     x:Name="SampleContainer"

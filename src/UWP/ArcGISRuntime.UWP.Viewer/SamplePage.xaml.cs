@@ -50,10 +50,12 @@ namespace ArcGISRuntime.UWP.Viewer
             // Remove the background from the mark down renderer.
             DescriptionBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
+            // Set the appropriate backgrounds.
+            ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
             ContentArea.Background = Tabs.Background;
             DescriptionContainer.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
-            ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
 
+            // Load the source code files.
             SourceCodeContainer.LoadSourceCode();
         }
 

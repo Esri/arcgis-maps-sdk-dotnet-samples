@@ -34,10 +34,10 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             InitializeComponent();
 
-            // Use required cache mode so we create only one page
+            // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
 
-            // Get current view that provides access to the back button
+            // Get current view that provides access to the back button.
             _currentView = SystemNavigationManager.GetForCurrentView();
             _currentView.BackRequested += OnFrameNavigationRequested;
 
@@ -45,17 +45,17 @@ namespace ArcGISRuntime.UWP.Viewer
             Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetPreferredMinSize(
                 new Windows.Foundation.Size(650, 650));
 
-            // Use required cache mode so we create only one page
+            // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
 
-            // Get current view that provides access to the back button
+            // Get current view that provides access to the back button.
             _currentView = SystemNavigationManager.GetForCurrentView();
 
             Initialize();
 
             LoadTreeView(SampleManager.Current.FullTree);
 
-            // Set the ItemsSource for the big and small grids from the first category.
+            // Set the ItemsSource for the grid from the first category.
             SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
         }
 
@@ -114,6 +114,7 @@ namespace ArcGISRuntime.UWP.Viewer
                     // Wait for offline data to complete
                     await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
                 }
+
                 // Show the sample
                 SamplePageContainer.Content = new SamplePage();
                 SamplePageContainer.Visibility = Visibility.Visible;
@@ -142,7 +143,9 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private async void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)
         {
+            // Dont search again until wait from previous search expires.
             if (_waitFlag) { return; }
+
             _waitFlag = true;
             await Task.Delay(200);
             _waitFlag = false;

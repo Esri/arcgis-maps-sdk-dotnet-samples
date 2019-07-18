@@ -9,7 +9,6 @@
 
 using System.Threading;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
@@ -23,11 +22,6 @@ namespace ArcGISRuntime.UWP.Viewer
         public WaitPage()
         {
             InitializeComponent();
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
         }
 
         public WaitPage(CancellationTokenSource cancellation)

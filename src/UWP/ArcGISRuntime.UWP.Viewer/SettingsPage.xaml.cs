@@ -9,7 +9,6 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using ArcGISRuntime.UWP.Viewer;
 using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
@@ -20,10 +19,12 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime
 {
@@ -37,7 +38,7 @@ namespace ArcGISRuntime
         {
             this.InitializeComponent();
 
-            // Set up version info.
+            // Set up version info and About section.
             if (string.IsNullOrWhiteSpace(_runtimeVersion))
             {
                 var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
@@ -57,15 +58,6 @@ namespace ArcGISRuntime
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
             SampleDataListView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
-
-            this.SizeChanged += Window_SizeChanged;
-            Window_SizeChanged(null,null);
-        }
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            // Set margin for Back Button (for placement on the page)
-            BackButton.Margin = new Thickness(Window.Current.Bounds.Width - BackButton.Width, 0, 0, 0);
         }
 
         private async void Download_All_Click(object sender, RoutedEventArgs e)
@@ -155,7 +147,7 @@ namespace ArcGISRuntime
             {
                 string onlinePath = $"https://www.arcgis.com/home/item.html?id={offlineItem}";
 
-                await Windows.System.Launcher.LaunchUriAsync(new Uri(onlinePath));
+                await Launcher.LaunchUriAsync(new Uri(onlinePath));
             }
         }
 
@@ -197,7 +189,7 @@ namespace ArcGISRuntime
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception);
+                Debug.WriteLine(exception);
                 await new MessageDialog($"Couldn't delete offline data.", "Error").ShowAsync();
             }
             finally
@@ -222,14 +214,20 @@ namespace ArcGISRuntime
             }
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(typeof(MainPage));
-        }
-
         private async void MarkdownText_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri(e.Link));
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            base.OnNavigatedTo(e);
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+        }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
     }
 }

@@ -9,21 +9,17 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using ArcGISRuntime.UWP.Viewer.Dialogs;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.Foundation.Metadata;
 using Windows.UI.Core;
 using Windows.UI.Popups;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using muxc = Microsoft.UI.Xaml.Controls;
 using Navigation = Windows.UI.Xaml.Navigation;
 
@@ -38,6 +34,13 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             InitializeComponent();
 
+            // Use required cache mode so we create only one page
+            NavigationCacheMode = Navigation.NavigationCacheMode.Required;
+
+            // Get current view that provides access to the back button
+            _currentView = SystemNavigationManager.GetForCurrentView();
+            _currentView.BackRequested += OnFrameNavigationRequested;
+
             // Set the preffered minimum size of the window.
             Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetPreferredMinSize(
                 new Windows.Foundation.Size(650, 650));
@@ -48,16 +51,12 @@ namespace ArcGISRuntime.UWP.Viewer
             // Get current view that provides access to the back button
             _currentView = SystemNavigationManager.GetForCurrentView();
 
-            HideStatusBar();
-
             Initialize();
 
             LoadTreeView(SampleManager.Current.FullTree);
 
             // Set the ItemsSource for the big and small grids from the first category.
             SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
-
-
         }
 
         private void LoadTreeView(SearchableTreeNode fullTree)
@@ -80,34 +79,17 @@ namespace ArcGISRuntime.UWP.Viewer
             }
         }
 
-        // Check if the phone contract is available (mobile) and hide status bar if it is there
-        private static async void HideStatusBar()
-        {
-            // If we have a phone contract, hide the status bar
-            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
-            {
-                await StatusBar.GetForCurrentView().HideAsync();
-            }
-        }
-
         private void Initialize()
         {
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
             SampleManager.Current.Initialize();
 
-            // Create categories list. Also add Featured there as a single category.
-            var categoriesList = SampleManager.Current.FullTree;
-        }
-
-        private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SamplePageContainer.Visibility = Visibility.Collapsed;
-            SampleSelectionGrid.Visibility = Visibility.Visible;
+            SearchBoxBorder.Background = (Windows.UI.Xaml.Media.Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
         }
 
         private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
         {
-            var selectedSample = (sender as FrameworkElement)?.DataContext as SampleInfo;
+            SampleInfo selectedSample = (sender as FrameworkElement)?.DataContext as SampleInfo;
             await SelectSample(selectedSample);
         }
 
@@ -156,36 +138,6 @@ namespace ArcGISRuntime.UWP.Viewer
                     AuthenticationManager.Current.RemoveCredential(cred);
                 }
             }
-        }
-
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            var sampleModel = ((Button)sender)?.DataContext as SampleInfo;
-            if (sampleModel == null)
-                return;
-
-            // Create dialog that is used to show the picture
-            var dialog = new ContentDialog
-            {
-                Title = sampleModel.SampleName,
-                PrimaryButtonText = "close",
-                SecondaryButtonText = "show",
-            };
-
-            dialog.SecondaryButtonClick += (s, args) =>
-            {
-                OnSampleItemTapped(sender, new TappedRoutedEventArgs());
-            };
-
-            dialog.Content = new SampleInfoDialog() { DataContext = sampleModel };
-
-            // Show dialog as a full screen overlay.
-            await dialog.ShowAsync();
-        }
-
-        private void OnInfoTapped(object sender, TappedRoutedEventArgs e)
-        {
-            e.Handled = true;
         }
 
         private async void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)
@@ -246,6 +198,24 @@ namespace ArcGISRuntime.UWP.Viewer
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof(SettingsWindow));
+        }
+
+        private void OnFrameNavigationRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (Frame.CanGoBack && e.Handled == false)
+            {
+                e.Handled = true;
+                Frame.GoBack();
+            }
+            _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        }
+
+        private void OnFrameNavigated(object sender, Navigation.NavigationEventArgs e)
+        {
+            if (Frame.CanGoBack)
+            {
+                _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            }
         }
     }
 

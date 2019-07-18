@@ -9,119 +9,108 @@
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:viewmanagement="using:Windows.UI.ViewManagement"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Grid>
+    <controls:TabView x:Name="Tabs">
+        <controls:TabViewItem Header="About">
+            <Grid Margin="5">
+                <controls:MarkdownTextBlock x:Name="AboutBlock" LinkClicked="MarkdownText_LinkClicked" />
+            </Grid>
+        </controls:TabViewItem>
+        <controls:TabViewItem Header="Third party software">
+            <ScrollViewer Margin="5">
+                <controls:MarkdownTextBlock x:Name="MarkDownBlock" LinkClicked="MarkdownText_LinkClicked" />
+            </ScrollViewer>
+        </controls:TabViewItem>
+        <controls:TabViewItem Header="Offline data">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-        <controls:TabView x:Name="Tabs">
-            <controls:TabViewItem Header="About">
-                <Grid Margin="5">
-                    <controls:MarkdownTextBlock x:Name="AboutBlock" LinkClicked="MarkdownText_LinkClicked"/>
-                </Grid>
-            </controls:TabViewItem>
-            <controls:TabViewItem Header="Third party software">
-                <ScrollViewer Margin="5">
-                    <controls:MarkdownTextBlock x:Name="MarkDownBlock" LinkClicked="MarkdownText_LinkClicked"/>
-                </ScrollViewer>
-            </controls:TabViewItem>
-            <controls:TabViewItem Header="Offline data">
-                <Grid>
+                <TextBlock Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
+                            TextWrapping="Wrap"
+                            Margin="5"
+                            Grid.Row="0" />
+                <StackPanel Orientation="Horizontal"
+                            Grid.Row="1">
+                    <Button Content="Download all"
+                            Margin="5"
+                            Click="Download_All_Click" />
+                    <Button Content="Delete all"
+                            Margin="5"
+                            Click="Delete_All_Click" />
+                    <Button x:Name="CancelButton" Content="Cancel"
+                            Visibility="Collapsed"
+                            Margin="5"
+                            Click="CancelButton_Click" />
+                </StackPanel>
+                <ListView x:Name="SampleDataListView"
+                        Grid.Row="2" HorizontalContentAlignment="Stretch"
+                        HorizontalAlignment="Stretch">
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid x:Name="ListViewGrid"
+                                HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Text="{Binding SampleName}"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center" />
+                                <Button Content="Open in ArcGIS Online"
+                                        Grid.Column="1"
+                                        Margin="5,0,5,0"
+                                        Tag="{Binding}"
+                                        Click="Open_AGOL_Click" />
+                                <Button Content="Download now"
+                                        Grid.Column="2"
+                                        Margin="5,0,5,0"
+                                        Tag="{Binding}"
+                                        Click="Download_Now_Click" />
+                                <Button Content="Delete"
+                                        Grid.Column="3"
+                                        Margin="5,0,5,0"
+                                        Tag="{Binding}"
+                                        Click="Delete_Click" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid Grid.Row="3"
+                    Height="50"
+                        Width="auto">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
 
-                    <TextBlock Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
-                               TextWrapping="Wrap"
-                               Margin="5"
-                               Grid.Row="0" />
-                    <StackPanel Orientation="Horizontal"
-                                Grid.Row="1">
-                        <Button Content="Download all"
-                                Margin="5"
-                                Click="Download_All_Click" />
-                        <Button Content="Delete all"
-                                Margin="5"
-                                Click="Delete_All_Click" />
-                        <Button x:Name="CancelButton" Content="Cancel"
+                    <TextBlock x:Name="StatusLabel"
+                            Text="Ready"
+                            Margin="5"
+                            VerticalAlignment="Center" />
+                    <ProgressBar x:Name="StatusSpinner"
+                                IsIndeterminate="True"
                                 Visibility="Collapsed"
-                                Margin="5"
-                                Click="CancelButton_Click" />
-                    </StackPanel>
-                    <ListView x:Name="SampleDataListView"
-                          Grid.Row="2" HorizontalContentAlignment="Stretch"
-                          HorizontalAlignment="Stretch">
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid x:Name="ListViewGrid"
-                                  HorizontalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <TextBlock Text="{Binding SampleName}"
-                                           Grid.Column="0"
-                                           VerticalAlignment="Center" />
-                                    <Button Content="Open in ArcGIS Online"
-                                            Grid.Column="1"
-                                            Margin="5,0,5,0"
-                                            Tag="{Binding}"
-                                            Click="Open_AGOL_Click" />
-                                    <Button Content="Download now"
-                                            Grid.Column="2"
-                                            Margin="5,0,5,0"
-                                            Tag="{Binding}"
-                                            Click="Download_Now_Click" />
-                                    <Button Content="Delete"
-                                            Grid.Column="3"
-                                            Margin="5,0,5,0"
-                                            Tag="{Binding}"
-                                            Click="Delete_Click" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Grid Grid.Row="3"
-                      Height="50"
-                          Width="auto">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock x:Name="StatusLabel"
-                               Text="Ready"
-                               Margin="5"
-                               VerticalAlignment="Center" />
-                        <ProgressBar x:Name="StatusSpinner"
-                                 IsIndeterminate="True"
-                                 Visibility="Collapsed"
-                                 HorizontalContentAlignment="Right"
-                                 HorizontalAlignment="Right"
-                                 Width="300" />
-                    </Grid>
+                                HorizontalContentAlignment="Right"
+                                HorizontalAlignment="Right"
+                                Width="300" />
                 </Grid>
-            </controls:TabViewItem>
-        </controls:TabView>
-        <Button x:Name="BackButton"
-                Click="BackButton_Click"
-                Height="40"
-                Width="60"
-                VerticalAlignment="Top"
-                HorizontalContentAlignment="Center">
-            <TextBlock Text="Back" />
-        </Button>
-    </Grid>
+            </Grid>
+        </controls:TabViewItem>
+    </controls:TabView>
 </Page>

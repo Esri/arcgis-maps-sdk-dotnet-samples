@@ -5,7 +5,7 @@
     xmlns:local="using:ArcGISRuntime.UWP.Viewer"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls">
 
-    <Grid Background="{StaticResource PrimaryBackgroundColor}">
+    <Grid Name="MainGrid">
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
                 <!--
@@ -80,7 +80,7 @@
               Grid.Row="2"
               Grid.ColumnSpan="2">
 
-            <Grid Margin="5"
+            <Grid Margin="0,0,0,0"
                   x:Name="SampleGrid"
                   Background="White">
                 <ContentControl x:Name="SampleContainer"
@@ -91,13 +91,14 @@
                                 RequestedTheme="Light" />
             </Grid>
 
-            <ScrollViewer Margin="5" x:Name="DescriptionContainer"
+            <ScrollViewer  x:Name="DescriptionContainer"
                           HorizontalAlignment="Stretch"
                           VerticalAlignment="Stretch"
                           HorizontalContentAlignment="Stretch"
                           VerticalContentAlignment="Stretch"
-                          Visibility="Collapsed">
-                <controls:MarkdownTextBlock x:Name="DescriptionBlock"
+                          Visibility="Collapsed"
+                          Background="Transparent">
+                <controls:MarkdownTextBlock Margin="5" x:Name="DescriptionBlock"
                                             ImageResolving="MarkDownBlock_ImageResolving"
                                             InlineCodeForeground="{StaticResource InlineCodeColor}"
                                             InlineCodeFontFamily="Consolas"

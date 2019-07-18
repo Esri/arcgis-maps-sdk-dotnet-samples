@@ -10,8 +10,6 @@
 using ArcGISRuntime.Samples.Managers;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
-using Windows.Foundation.Metadata;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -23,8 +21,6 @@ namespace ArcGISRuntime.UWP.Viewer
         public SamplePage()
         {
             InitializeComponent();
-
-            HideStatusBar();
 
             // Get selected sample and set that as the DataContext.
             DataContext = SampleManager.Current.SelectedSample;
@@ -40,7 +36,6 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Set file path for the readme.
             string readmePath = System.IO.Path.Combine(SampleManager.Current.SelectedSample.Path, "Readme.md");
-
             string readmeText = System.IO.File.ReadAllText(readmePath);
 
             // Take off first line (the title header)
@@ -56,16 +51,10 @@ namespace ArcGISRuntime.UWP.Viewer
             DescriptionBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
             ContentArea.Background = Tabs.Background;
+            DescriptionContainer.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
             ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
 
             SourceCodeContainer.LoadSourceCode();
-        }
-
-        private static async void HideStatusBar()
-        {
-            // Check if the phone contract is available (mobile) and hide status bar if it is there.
-            if (!ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0)) return;
-            await StatusBar.GetForCurrentView().HideAsync();
         }
 
         private void TabChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)

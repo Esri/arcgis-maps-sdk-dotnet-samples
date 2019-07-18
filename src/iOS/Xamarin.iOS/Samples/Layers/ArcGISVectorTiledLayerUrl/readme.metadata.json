@@ -17,7 +17,6 @@
         "ArcGISVectorTiledLayer",
         "Basemap"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ArcGISVectorTiledLayerUrl.cs"
     ],

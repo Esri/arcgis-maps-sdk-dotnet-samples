@@ -20,7 +20,6 @@
         "SimpleMarkerSymbol",
         "SimpleRenderer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SimpleRenderers.xaml",
         "SimpleRenderers.xaml.cs"

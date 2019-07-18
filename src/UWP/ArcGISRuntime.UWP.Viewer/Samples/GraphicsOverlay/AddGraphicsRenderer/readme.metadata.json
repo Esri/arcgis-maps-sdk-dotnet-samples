@@ -21,7 +21,6 @@
         "SimpleMarkerSymbol",
         "SimpleRenderer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "AddGraphicsRenderer.xaml",
         "AddGraphicsRenderer.xaml.cs"

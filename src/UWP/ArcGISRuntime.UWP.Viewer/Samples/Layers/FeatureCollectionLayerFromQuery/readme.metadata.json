@@ -19,7 +19,6 @@
         "QueryParameters",
         "ServiceFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureCollectionLayerFromQuery.xaml",
         "FeatureCollectionLayerFromQuery.xaml.cs"

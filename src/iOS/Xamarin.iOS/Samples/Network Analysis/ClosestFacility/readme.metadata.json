@@ -24,7 +24,6 @@
         "Incident",
         "MapView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ClosestFacility.cs"
     ],

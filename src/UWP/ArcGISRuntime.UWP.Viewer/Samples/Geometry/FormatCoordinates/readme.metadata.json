@@ -23,7 +23,6 @@
         "CoordinateFormatter.LatitudeLongitudeFormat",
         "CoordinateFormatter.UtmConversionMode"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FormatCoordinates.xaml",
         "FormatCoordinates.xaml.cs"

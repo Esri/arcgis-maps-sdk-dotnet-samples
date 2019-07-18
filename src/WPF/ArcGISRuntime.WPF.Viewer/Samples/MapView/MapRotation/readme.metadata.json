@@ -16,7 +16,6 @@
         "Map",
         "MapView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "MapRotation.xaml",
         "MapRotation.xaml.cs"

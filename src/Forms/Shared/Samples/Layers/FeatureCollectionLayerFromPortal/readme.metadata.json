@@ -9,7 +9,6 @@
         "/net/latest/forms/sample-code/featurecollectionlayerfromportal.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureCollectionLayerFromPortal.xaml",
         "FeatureCollectionLayerFromPortal.xaml.cs"

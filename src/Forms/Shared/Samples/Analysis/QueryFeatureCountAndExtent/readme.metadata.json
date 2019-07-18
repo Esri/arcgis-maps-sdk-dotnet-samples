@@ -22,7 +22,6 @@
         "QueryParameters.SpatialRelationship",
         "QueryParameters.WhereClause"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "QueryFeatureCountAndExtent.xaml",
         "QueryFeatureCountAndExtent.xaml.cs"

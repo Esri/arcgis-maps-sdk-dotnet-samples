@@ -25,7 +25,6 @@
         "SuggestParameters",
         "SuggestResult"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FindPlace.xaml",
         "FindPlace.xaml.cs"

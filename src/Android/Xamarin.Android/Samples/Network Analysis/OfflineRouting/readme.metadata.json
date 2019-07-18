@@ -29,7 +29,6 @@
         "Stop",
         "TravelMode"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "OfflineRouting.cs",
         "../../../Resources/layout/OfflineRouting.axml"

@@ -19,7 +19,6 @@
         "Map",
         "MapView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerRenderingModeMap.xaml",
         "FeatureLayerRenderingModeMap.xaml.cs"

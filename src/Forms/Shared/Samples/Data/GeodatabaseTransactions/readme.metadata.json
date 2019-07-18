@@ -9,7 +9,6 @@
         "/net/latest/forms/sample-code/geodatabasetransactions.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "GeodatabaseTransactions.xaml",
         "GeodatabaseTransactions.xaml.cs"

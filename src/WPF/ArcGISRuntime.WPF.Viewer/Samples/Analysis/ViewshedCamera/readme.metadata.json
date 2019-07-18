@@ -24,7 +24,6 @@
         "Scene",
         "SceneView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ViewshedCamera.xaml",
         "ViewshedCamera.xaml.cs"

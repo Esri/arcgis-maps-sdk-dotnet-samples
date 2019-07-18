@@ -22,7 +22,6 @@
         "GeoprocessingResult",
         "GeoprocessingTask"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "AnalyzeViewshed.xaml",
         "AnalyzeViewshed.xaml.cs"

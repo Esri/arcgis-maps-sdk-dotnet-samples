@@ -17,7 +17,6 @@
         "Geometry",
         "GeometryEngine"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ConvexHull.cs"
     ],

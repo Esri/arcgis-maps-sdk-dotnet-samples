@@ -23,7 +23,6 @@
         "RelationshipInfo",
         "ServiceFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "MapImageLayerTables.cs"
     ],

@@ -15,7 +15,6 @@
         "GeometryEngine",
         "ProximityResult"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "NearestVertex.xaml",
         "NearestVertex.xaml.cs"

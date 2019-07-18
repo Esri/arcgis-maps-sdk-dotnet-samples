@@ -24,7 +24,6 @@
         "SimpleRenderer",
         "SimpleRenderer.SceneProperties"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ScenePropertiesExpressions.xaml",
         "ScenePropertiesExpressions.xaml.cs"

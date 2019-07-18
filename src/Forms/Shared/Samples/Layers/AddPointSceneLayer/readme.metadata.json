@@ -15,7 +15,6 @@
     "relevant_apis": [
         "ArcGISSceneLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "AddPointSceneLayer.xaml",
         "AddPointSceneLayer.xaml.cs"

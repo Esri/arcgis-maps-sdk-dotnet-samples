@@ -12,7 +12,6 @@
         "/net/latest/wpf/sample-code/changebasemap.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "ChangeBasemap.xaml",
         "ChangeBasemap.xaml.cs"

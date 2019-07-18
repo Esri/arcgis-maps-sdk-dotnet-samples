@@ -18,7 +18,6 @@
         "ElevationSourcesList",
         "SceneView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "GetElevationAtPoint.cs"
     ],

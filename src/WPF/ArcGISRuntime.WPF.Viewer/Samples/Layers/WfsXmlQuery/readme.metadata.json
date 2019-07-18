@@ -22,7 +22,6 @@
         "WfsFeatureTable.AxisOrder",
         "WfsFeatureTable.PopulateFromServiceAsync"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "WfsXmlQuery.xaml",
         "WfsXmlQuery.xaml.cs"

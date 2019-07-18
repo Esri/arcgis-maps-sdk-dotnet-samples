@@ -16,7 +16,6 @@
         "GraphicsOverlay",
         "MapView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "IdentifyGraphics.cs"
     ],

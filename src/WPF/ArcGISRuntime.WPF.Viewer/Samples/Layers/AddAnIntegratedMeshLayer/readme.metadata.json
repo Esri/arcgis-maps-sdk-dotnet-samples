@@ -15,7 +15,6 @@
     "relevant_apis": [
         "IntegratedMeshLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "AddAnIntegratedMeshLayer.xaml",
         "AddAnIntegratedMeshLayer.xaml.cs"

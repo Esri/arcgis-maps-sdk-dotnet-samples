@@ -9,7 +9,6 @@
         "/net/latest/forms/sample-code/featurelayerurl.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerUrl.xaml",
         "FeatureLayerUrl.xaml.cs"

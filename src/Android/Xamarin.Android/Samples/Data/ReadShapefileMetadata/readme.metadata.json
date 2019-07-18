@@ -31,7 +31,6 @@
         "ShapefileInfo.Tags",
         "ShapefileInfo.Thumbnail"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ReadShapefileMetadata.cs"
     ],

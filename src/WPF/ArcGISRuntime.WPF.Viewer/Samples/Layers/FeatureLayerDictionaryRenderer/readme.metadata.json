@@ -20,7 +20,6 @@
         "DictionaryRenderer",
         "SymbolDictionary"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerDictionaryRenderer.xaml",
         "FeatureLayerDictionaryRenderer.xaml.cs"

@@ -26,7 +26,6 @@
         "GeoPackageFeatureTable",
         "GeoPackageRaster"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ReadGeoPackage.cs"
     ],

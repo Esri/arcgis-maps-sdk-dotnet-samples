@@ -30,7 +30,6 @@
         "IdentifyLayerResult.GeoElements",
         "IdentifyLayerResult.LayerContent"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SelectEncFeatures.cs"
     ],

@@ -18,7 +18,6 @@
         "LabelDefinition",
         "TextSymbol"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ShowLabelsOnLayer.xaml",
         "ShowLabelsOnLayer.xaml.cs"

@@ -24,7 +24,6 @@
         "WmtsService",
         "WmtsServiceInfo"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "WMTSLayer.xaml",
         "WMTSLayer.xaml.cs"

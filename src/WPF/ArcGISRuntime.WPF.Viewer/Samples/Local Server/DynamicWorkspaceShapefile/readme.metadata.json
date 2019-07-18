@@ -23,7 +23,6 @@
         "ShapefileWorkspace",
         "TableSublayerSource"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DynamicWorkspaceShapefile.xaml",
         "DynamicWorkspaceShapefile.xaml.cs"

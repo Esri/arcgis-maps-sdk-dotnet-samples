@@ -19,7 +19,6 @@
         "DictionarySymbolStyle",
         "GraphicsOverlay"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DictionaryRendererGraphicsOverlay.xaml",
         "DictionaryRendererGraphicsOverlay.xaml.cs"

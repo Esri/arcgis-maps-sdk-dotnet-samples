@@ -21,7 +21,6 @@
         "Map.SaveAsAsync",
         "Portal"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "AuthorMap.xaml",
         "AuthorMap.xaml.cs"

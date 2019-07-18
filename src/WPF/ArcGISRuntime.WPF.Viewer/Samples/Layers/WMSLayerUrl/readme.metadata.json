@@ -17,7 +17,6 @@
         "MapView",
         "WmsLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "WmsLayerUrl.xaml",
         "WMSLayerUrl.xaml.cs"

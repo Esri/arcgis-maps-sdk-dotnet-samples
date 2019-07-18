@@ -14,7 +14,6 @@
     "relevant_apis": [
         "GroupLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "GroupLayers.cs"
     ],

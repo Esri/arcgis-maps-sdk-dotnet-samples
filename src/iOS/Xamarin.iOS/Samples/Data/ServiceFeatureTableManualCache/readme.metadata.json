@@ -19,7 +19,6 @@
         "ServiceFeatureTable.FeatureRequestMode",
         "ServiceFeatureTable.PopulateFromServiceAsync"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ServiceFeatureTableManualCache.cs"
     ],

@@ -20,7 +20,6 @@
         "LocalServer",
         "LocalServerStatus"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "LocalServerMapImageLayer.xaml",
         "LocalServerMapImageLayer.xaml.cs"

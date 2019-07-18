@@ -17,7 +17,6 @@
         "RasterElevationSource",
         "Surface"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "CreateTerrainSurfaceFromRaster.xaml",
         "CreateTerrainSurfaceFromRaster.xaml.cs"

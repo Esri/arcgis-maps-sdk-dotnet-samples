@@ -18,7 +18,6 @@
         "ServiceFeatureTable",
         "ServiceFeatureTable.FeatureRequestMode"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ServiceFeatureTableCache.xaml",
         "ServiceFeatureTableCache.xaml.cs"

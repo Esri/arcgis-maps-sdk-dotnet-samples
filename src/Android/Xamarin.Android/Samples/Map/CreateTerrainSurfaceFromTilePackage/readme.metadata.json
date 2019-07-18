@@ -17,7 +17,6 @@
         "ArcGISTiledElevationSource",
         "Surface"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "CreateTerrainSurfaceFromTilePackage.cs"
     ],

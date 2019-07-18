@@ -22,7 +22,6 @@
         "FeatureLayer",
         "ServiceFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerDefinitionExpression.xaml",
         "FeatureLayerDefinitionExpression.xaml.cs"

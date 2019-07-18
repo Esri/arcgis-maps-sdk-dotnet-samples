@@ -12,7 +12,6 @@
         "/net/latest/forms/sample-code/changebasemap.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "ChangeBasemap.xaml",
         "ChangeBasemap.xaml.cs"

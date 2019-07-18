@@ -28,7 +28,6 @@
         "RasterLayer",
         "StretchParameters"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "RasterRgbRenderer.xaml",
         "RasterRgbRenderer.xaml.cs"

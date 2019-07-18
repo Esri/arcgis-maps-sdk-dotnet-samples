@@ -32,7 +32,6 @@
         "StatisticsQueryParameters",
         "StatisticsQueryResult"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "StatisticalQuery.cs"
     ],

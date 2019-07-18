@@ -33,7 +33,6 @@
         "SceneView",
         "SurfacePlacement"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "Animate3DGraphic.xaml",
         "Animate3DGraphic.xaml.cs"

@@ -21,7 +21,6 @@
         "UniqueValue",
         "UniqueValueRenderer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "RenderUniqueValues.cs"
     ],

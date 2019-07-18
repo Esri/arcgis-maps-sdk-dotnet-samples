@@ -18,7 +18,6 @@
         "ArcGISPortal",
         "AuthenticationManager"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "IntegratedWindowsAuth.xaml",
         "IntegratedWindowsAuth.xaml.cs"

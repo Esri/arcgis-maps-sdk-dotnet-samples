@@ -14,13 +14,11 @@
         "/net/latest/android/sample-code/identifylayers.htm"
     ],
     "relevant_apis": [
-        "",
         "IdentifyLayerResult",
         "IdentifyLayerResult.LayerContent.Name",
         "IdentifyLayerResult.SublayerResults",
         "MapView.IdentifyLayersAsync"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "IdentifyLayers.cs"
     ],

@@ -23,7 +23,6 @@
         "GraphicsOverlay",
         "Incident"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ClosestFacilityStatic.xaml",
         "ClosestFacilityStatic.xaml.cs"

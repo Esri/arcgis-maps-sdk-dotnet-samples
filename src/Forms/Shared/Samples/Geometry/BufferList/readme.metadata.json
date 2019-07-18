@@ -18,7 +18,6 @@
         "GeometryEngine.Buffer",
         "SpatialReference"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "BufferList.xaml",
         "BufferList.xaml.cs"

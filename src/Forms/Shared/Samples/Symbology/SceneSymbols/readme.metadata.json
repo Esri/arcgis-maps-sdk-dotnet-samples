@@ -25,7 +25,6 @@
         "SimpleMarkerSceneSymbol",
         "SimpleMarkerSceneSymbol.Style"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SceneSymbols.xaml",
         "SceneSymbols.xaml.cs"

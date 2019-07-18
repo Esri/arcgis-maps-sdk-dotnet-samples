@@ -21,7 +21,6 @@
         "ServiceAreaResult",
         "ServiceAreaTask"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FindServiceArea.cs"
     ],

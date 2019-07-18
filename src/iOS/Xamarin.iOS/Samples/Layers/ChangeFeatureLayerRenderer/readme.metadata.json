@@ -17,7 +17,6 @@
         "ServiceFeatureTable",
         "SimpleRenderer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ChangeFeatureLayerRenderer.cs"
     ],

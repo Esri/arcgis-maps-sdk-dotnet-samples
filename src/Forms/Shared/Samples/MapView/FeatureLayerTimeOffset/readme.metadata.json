@@ -9,7 +9,6 @@
         "/net/latest/forms/sample-code/featurelayertimeoffset.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerTimeOffset.xaml",
         "FeatureLayerTimeOffset.xaml.cs"

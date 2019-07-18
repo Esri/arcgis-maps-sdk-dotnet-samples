@@ -19,7 +19,6 @@
         "ServiceFeatureTable",
         "UpdateFeatureAsync"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "EditFeatureAttachments.xaml",
         "EditFeatureAttachments.xaml.cs"

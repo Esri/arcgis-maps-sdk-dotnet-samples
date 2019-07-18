@@ -22,7 +22,6 @@
         "LocalServerStatus",
         "LocalService"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "LocalServerServices.xaml",
         "LocalServerServices.xaml.cs"

@@ -9,7 +9,6 @@
         "/net/latest/uwp/sample-code/rasterlayerrasterfunction.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "RasterLayerRasterFunction.xaml",
         "RasterLayerRasterFunction.xaml.cs"

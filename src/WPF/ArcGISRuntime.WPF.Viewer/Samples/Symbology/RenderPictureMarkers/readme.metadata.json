@@ -17,7 +17,6 @@
     "relevant_apis": [
         "PictureMarkerSymbol"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "RenderPictureMarkers.xaml",
         "RenderPictureMarkers.xaml.cs"

@@ -20,7 +20,6 @@
         "MapView",
         "OpenStreetMapLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "OpenStreetMapLayer.cs"
     ],

@@ -22,7 +22,6 @@
         "GeoPackageFeatureTable",
         "Map"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerGeoPackage.cs"
     ],

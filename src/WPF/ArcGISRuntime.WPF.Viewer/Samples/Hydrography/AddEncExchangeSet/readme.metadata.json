@@ -23,7 +23,6 @@
         "EncExchangeSet",
         "EncLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "AddEncExchangeSet.xaml",
         "AddEncExchangeSet.xaml.cs"

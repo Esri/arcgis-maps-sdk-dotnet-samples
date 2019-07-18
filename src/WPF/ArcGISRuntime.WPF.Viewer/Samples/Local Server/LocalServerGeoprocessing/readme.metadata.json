@@ -27,7 +27,6 @@
         "LocalServer",
         "LocalServerStatus"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "LocalServerGeoprocessing.xaml",
         "LocalServerGeoprocessing.xaml.cs"

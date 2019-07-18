@@ -22,7 +22,6 @@
         "MapView",
         "ServiceFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "UpdateGeometries.cs"
     ],

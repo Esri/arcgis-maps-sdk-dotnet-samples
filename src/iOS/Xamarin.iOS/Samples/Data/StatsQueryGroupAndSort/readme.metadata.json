@@ -24,7 +24,6 @@
         "StatisticsQueryParameters",
         "StatisticsQueryResult"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "StatsQueryGroupAndSort.cs"
     ],

@@ -18,7 +18,6 @@
         "KmlLayer",
         "KmlNode.Extent"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ListKmlContents.xaml",
         "ListKmlContents.xaml.cs"

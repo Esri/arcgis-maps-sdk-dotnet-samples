@@ -28,7 +28,6 @@
         "RouteTask",
         "TransportationNetworkDataset"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ItemToImageSourceConverter.cs",
         "MobileMapSearchAndRoute.xaml",

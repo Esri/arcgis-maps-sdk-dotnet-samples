@@ -21,7 +21,6 @@
         "SpatialReference",
         "Viewpoint"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ChangeViewpoint.cs"
     ],

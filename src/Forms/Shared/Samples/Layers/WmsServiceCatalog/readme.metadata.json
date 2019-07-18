@@ -21,7 +21,6 @@
         "WmsService",
         "WmsServiceInfo"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "WmsServiceCatalog.xaml",
         "WmsServiceCatalog.xaml.cs"

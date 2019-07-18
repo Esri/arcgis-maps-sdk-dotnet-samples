@@ -17,7 +17,6 @@
         "FeatureLayer",
         "Map"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DoubleToScaleStringConverter.cs",
         "MapReferenceScale.xaml",

@@ -17,7 +17,6 @@
         "Surface",
         "Surface.NavigationConstraint"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ViewContentBeneathSurface.xaml",
         "ViewContentBeneathSurface.xaml.cs"

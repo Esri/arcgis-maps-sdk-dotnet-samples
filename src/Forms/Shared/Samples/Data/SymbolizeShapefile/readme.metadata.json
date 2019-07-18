@@ -23,7 +23,6 @@
         "SimpleLineSymbol",
         "SimpleRenderer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SymbolizeShapefile.xaml",
         "SymbolizeShapefile.xaml.cs"

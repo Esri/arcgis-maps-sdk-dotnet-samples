@@ -17,7 +17,6 @@
         "ServiceFeatureTable.PopulateFromService",
         "TimeExtent"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "TimeBasedQuery.xaml",
         "TimeBasedQuery.xaml.cs"

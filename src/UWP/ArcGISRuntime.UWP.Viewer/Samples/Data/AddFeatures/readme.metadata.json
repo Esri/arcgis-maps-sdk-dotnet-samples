@@ -18,7 +18,6 @@
         "FeatureLayer",
         "ServiceFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "AddFeatures.xaml",
         "AddFeatures.xaml.cs"

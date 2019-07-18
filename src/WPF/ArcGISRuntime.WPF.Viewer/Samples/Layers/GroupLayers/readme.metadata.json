@@ -15,7 +15,6 @@
         "GroupLayer",
         "ILayerContent"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "GroupLayers.xaml",
         "GroupLayers.xaml.cs"

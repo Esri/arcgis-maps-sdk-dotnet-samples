@@ -18,7 +18,6 @@
         "OfflineMapTask",
         "Portal"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "GenerateOfflineMap.cs"
     ],

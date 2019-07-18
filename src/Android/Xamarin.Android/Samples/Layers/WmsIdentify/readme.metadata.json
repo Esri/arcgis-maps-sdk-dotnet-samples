@@ -23,7 +23,6 @@
         "WmsFeature",
         "WmsFeature.Attributes"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "WmsIdentify.cs"
     ],

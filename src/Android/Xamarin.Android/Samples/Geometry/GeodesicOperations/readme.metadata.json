@@ -18,7 +18,6 @@
         "GeometryEngine.DensifyGeodetic",
         "GeometryEngine.LengthGeodetic"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "GeodesicOperations.cs"
     ],

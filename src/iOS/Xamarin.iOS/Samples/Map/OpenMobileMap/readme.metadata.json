@@ -16,7 +16,6 @@
         "MapView",
         "MobileMapPackage"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "OpenMobileMap.cs"
     ],

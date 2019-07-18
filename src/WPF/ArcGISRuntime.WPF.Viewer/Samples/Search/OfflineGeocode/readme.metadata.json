@@ -24,7 +24,6 @@
         "LocatorTask",
         "ReverseGeocodeParameters"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "OfflineGeocode.xaml",
         "OfflineGeocode.xaml.cs"

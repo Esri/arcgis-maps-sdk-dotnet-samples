@@ -17,7 +17,6 @@
         "/net/latest/wpf/sample-code/rasterhillshade.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "RasterHillshade.xaml",
         "RasterHillshade.xaml.cs"

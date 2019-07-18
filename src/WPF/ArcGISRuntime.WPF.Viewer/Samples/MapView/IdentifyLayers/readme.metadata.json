@@ -14,13 +14,11 @@
         "/net/latest/wpf/sample-code/identifylayers.htm"
     ],
     "relevant_apis": [
-        "",
         "IdentifyLayerResult",
         "IdentifyLayerResult.LayerContent.Name",
         "IdentifyLayerResult.SublayerResults",
         "MapView.IdentifyLayersAsync"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "IdentifyLayers.xaml",
         "IdentifyLayers.xaml.cs"

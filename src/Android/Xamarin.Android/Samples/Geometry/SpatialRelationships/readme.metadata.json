@@ -28,7 +28,6 @@
         "Polygon",
         "Polyline"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SpatialRelationships.cs"
     ],

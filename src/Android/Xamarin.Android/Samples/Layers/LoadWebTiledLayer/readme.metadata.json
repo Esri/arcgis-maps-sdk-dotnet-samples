@@ -19,7 +19,6 @@
         "Basemap",
         "WebTiledLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "LoadWebTiledLayer.cs"
     ],

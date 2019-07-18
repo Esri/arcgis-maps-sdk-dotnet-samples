@@ -19,7 +19,6 @@
         "Scene",
         "SceneView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DisplayScene.xaml",
         "DisplayScene.xaml.cs"

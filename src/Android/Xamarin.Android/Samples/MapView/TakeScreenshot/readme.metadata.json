@@ -24,7 +24,6 @@
         "RuntimeImage",
         "RuntimeImage.ToImageSourceAsync"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "TakeScreenshot.cs"
     ],

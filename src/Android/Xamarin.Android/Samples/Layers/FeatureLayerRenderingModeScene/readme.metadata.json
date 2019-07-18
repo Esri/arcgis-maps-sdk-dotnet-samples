@@ -20,7 +20,6 @@
         "Scene",
         "SceneView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerRenderingModeScene.cs",
         "../../../Resources/layout/FeatureLayerRenderingModeScene.axml"

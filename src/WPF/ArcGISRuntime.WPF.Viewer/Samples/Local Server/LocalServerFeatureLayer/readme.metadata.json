@@ -21,7 +21,6 @@
         "LocalServerStatus",
         "StatusChangedEvent"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "LocalServerFeatureLayer.xaml",
         "LocalServerFeatureLayer.xaml.cs"

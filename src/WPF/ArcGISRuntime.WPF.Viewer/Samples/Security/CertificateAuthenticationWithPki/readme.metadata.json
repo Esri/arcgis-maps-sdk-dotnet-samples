@@ -20,7 +20,6 @@
     "relevant_apis": [
         "CertificateCredential"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "CertificateAuthenticationWithPKI.xaml",
         "CertificateAuthenticationWithPKI.xaml.cs"

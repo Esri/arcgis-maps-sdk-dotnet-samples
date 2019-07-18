@@ -19,7 +19,6 @@
         "FeatureLayer",
         "ShapefileFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerShapefile.xaml",
         "FeatureLayerShapefile.xaml.cs"

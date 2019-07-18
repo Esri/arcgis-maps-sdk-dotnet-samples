@@ -15,7 +15,6 @@
     "relevant_apis": [
         "PointCloudLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ViewPointCloudDataOffline.cs"
     ],

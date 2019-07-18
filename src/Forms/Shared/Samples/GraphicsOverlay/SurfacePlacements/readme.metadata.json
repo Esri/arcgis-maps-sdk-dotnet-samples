@@ -23,7 +23,6 @@
         "SceneProperties",
         "Surface"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SurfacePlacements.xaml",
         "SurfacePlacements.xaml.cs"

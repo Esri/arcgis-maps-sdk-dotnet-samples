@@ -17,7 +17,6 @@
         "MapView",
         "MapView.MagnifierEnabled"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ShowMagnifier.cs"
     ],

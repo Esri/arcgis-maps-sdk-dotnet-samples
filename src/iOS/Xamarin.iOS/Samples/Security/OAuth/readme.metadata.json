@@ -17,7 +17,6 @@
         "AuthenticationManager",
         "Credential"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "OAuth.cs"
     ],

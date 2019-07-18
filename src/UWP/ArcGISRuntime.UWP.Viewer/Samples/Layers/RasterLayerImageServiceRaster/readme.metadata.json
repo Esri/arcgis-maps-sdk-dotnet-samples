@@ -15,7 +15,6 @@
         "ImageServiceRaster",
         "RasterLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "RasterLayerImageServiceRaster.xaml",
         "RasterLayerImageServiceRaster.xaml.cs"

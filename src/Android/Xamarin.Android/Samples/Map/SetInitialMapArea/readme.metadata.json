@@ -20,7 +20,6 @@
         "Point",
         "Viewpoint"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SetInitialMapArea.cs"
     ],

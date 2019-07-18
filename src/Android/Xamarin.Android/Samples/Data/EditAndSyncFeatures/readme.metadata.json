@@ -25,7 +25,6 @@
         "SyncGeodatabaseParameters",
         "SyncLayerOption"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "EditAndSyncFeatures.cs"
     ],

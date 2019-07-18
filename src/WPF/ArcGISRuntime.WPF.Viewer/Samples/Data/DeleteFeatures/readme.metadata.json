@@ -21,7 +21,6 @@
         "MapView",
         "ServiceFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DeleteFeatures.xaml",
         "DeleteFeatures.xaml.cs"

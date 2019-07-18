@@ -22,7 +22,6 @@
         "GeoPackageRaster",
         "RasterLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "RasterLayerGeoPackage.xaml",
         "RasterLayerGeoPackage.xaml.cs"

@@ -23,7 +23,6 @@
         "WfsFeatureTable",
         "WfsFeatureTable.PopulateFromServiceAsync"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DisplayWfs.xaml",
         "DisplayWfs.xaml.cs"

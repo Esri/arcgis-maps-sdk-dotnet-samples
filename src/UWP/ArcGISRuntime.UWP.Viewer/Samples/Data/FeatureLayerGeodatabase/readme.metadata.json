@@ -20,7 +20,6 @@
         "Geodatabase",
         "GeodatabaseFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerGeodatabase.xaml",
         "FeatureLayerGeodatabase.xaml.cs"

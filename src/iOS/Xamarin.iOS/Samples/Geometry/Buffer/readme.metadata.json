@@ -20,7 +20,6 @@
         "GeometryEngine.BufferGeodetic",
         "GraphicsOverlay"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "Buffer.cs"
     ],

@@ -16,7 +16,6 @@
         "AuthenticationManager",
         "TokenCredential"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "TokenSecuredChallenge.cs"
     ],

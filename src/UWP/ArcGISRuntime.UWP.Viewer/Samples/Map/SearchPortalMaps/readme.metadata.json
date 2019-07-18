@@ -19,7 +19,6 @@
         "PortalQueryParameters",
         "PortalQueryResultSet"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SearchPortalMaps.xaml",
         "SearchPortalMaps.xaml.cs"

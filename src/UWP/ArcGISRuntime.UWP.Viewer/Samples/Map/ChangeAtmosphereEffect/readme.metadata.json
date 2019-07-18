@@ -13,7 +13,6 @@
         "/net/latest/uwp/sample-code/changeatmosphereeffect.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "ChangeAtmosphereEffect.xaml",
         "ChangeAtmosphereEffect.xaml.cs"

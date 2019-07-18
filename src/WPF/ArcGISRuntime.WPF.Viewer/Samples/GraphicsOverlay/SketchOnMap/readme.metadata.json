@@ -24,7 +24,6 @@
         "SketchCreationMode",
         "SketchEditor"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SketchOnMap.xaml",
         "SketchOnMap.xaml.cs"

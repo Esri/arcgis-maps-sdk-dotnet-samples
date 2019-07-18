@@ -34,7 +34,6 @@
         "StretchParameters",
         "StretchRenderer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ChangeStretchRenderer.cs"
     ],

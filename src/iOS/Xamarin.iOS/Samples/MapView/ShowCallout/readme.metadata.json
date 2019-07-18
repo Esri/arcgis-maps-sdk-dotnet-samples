@@ -24,7 +24,6 @@
         "MapView.GeoViewTapped",
         "MapView.ShowCalloutAt"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ShowCallout.cs"
     ],

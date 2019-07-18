@@ -20,7 +20,6 @@
         "KmlLayer(PortalItem)",
         "KmlLayer(Uri)"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DisplayKml.xaml",
         "DisplayKml.xaml.cs"

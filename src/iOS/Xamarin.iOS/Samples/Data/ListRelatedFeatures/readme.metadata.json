@@ -21,7 +21,6 @@
         "FeatureTable.QueryRelatedFeatures",
         "RelatedFeatureQueryResult"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ListRelatedFeatures.cs"
     ],

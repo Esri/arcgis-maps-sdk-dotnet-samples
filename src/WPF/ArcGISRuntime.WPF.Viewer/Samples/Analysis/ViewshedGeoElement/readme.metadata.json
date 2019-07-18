@@ -30,7 +30,6 @@
         "ModelSceneSymbol",
         "OrbitGeoElementCameraController"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ViewshedGeoElement.xaml",
         "ViewshedGeoElement.xaml.cs"

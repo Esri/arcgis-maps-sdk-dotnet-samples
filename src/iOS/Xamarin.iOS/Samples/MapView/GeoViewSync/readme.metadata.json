@@ -34,7 +34,6 @@
         "SceneView",
         "SetViewPoint"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "GeoViewSync.cs"
     ],

@@ -26,7 +26,6 @@
         "RouteTask",
         "Stop"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FindRoute.xaml",
         "FindRoute.xaml.cs"

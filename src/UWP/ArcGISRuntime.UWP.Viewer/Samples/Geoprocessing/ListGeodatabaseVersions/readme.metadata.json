@@ -9,7 +9,6 @@
         "/net/latest/uwp/sample-code/listgeodatabaseversions.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "ListGeodatabaseVersions.xaml",
         "ListGeodatabaseVersions.xaml.cs"

@@ -17,7 +17,6 @@
         "Raster",
         "RasterLayer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "RasterLayerFile.cs"
     ],

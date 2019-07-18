@@ -21,7 +21,6 @@
         "GenerateOfflineMapResult",
         "OfflineMapTask"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ConfigureOverridesPage.xaml",
         "ConfigureOverridesPage.xaml.cs",

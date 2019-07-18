@@ -19,7 +19,6 @@
         "Field",
         "SimpleRenderer"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "CreateFeatureCollectionLayer.cs"
     ],

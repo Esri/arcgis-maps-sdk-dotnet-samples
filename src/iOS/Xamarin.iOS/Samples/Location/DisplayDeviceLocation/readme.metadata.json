@@ -18,7 +18,6 @@
         "Map",
         "MapView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DisplayDeviceLocation.cs"
     ],

@@ -9,7 +9,6 @@
         "/net/latest/uwp/sample-code/projectwithspecifictransformation.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "ProjectWithSpecificTransformation.xaml",
         "ProjectWithSpecificTransformation.xaml.cs"

@@ -17,7 +17,6 @@
         "Map",
         "MapView"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ArcGISMapImageLayerUrl.cs"
     ],

@@ -19,7 +19,6 @@
         "MapView",
         "SpatialReference"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SetMapSpatialReference.cs"
     ],

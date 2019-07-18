@@ -23,7 +23,6 @@
         "ExportTileCacheTask",
         "TileCache"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ExportTiles.xaml",
         "ExportTiles.xaml.cs"

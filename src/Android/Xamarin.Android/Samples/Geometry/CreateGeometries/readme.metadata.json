@@ -19,7 +19,6 @@
         "Polygon",
         "Polyline"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "CreateGeometries.cs"
     ],

@@ -19,7 +19,6 @@
         "FeatureLayer",
         "ServiceFeatureTable"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FeatureLayerSelection.cs"
     ],

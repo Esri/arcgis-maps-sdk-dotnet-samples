@@ -17,7 +17,6 @@
         "RasterLayer",
         "RenderingRule"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "RasterRenderingRule.xaml",
         "RasterRenderingRule.xaml.cs"

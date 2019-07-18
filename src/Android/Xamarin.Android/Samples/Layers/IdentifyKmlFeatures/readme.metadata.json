@@ -20,7 +20,6 @@
         "KmlPlacemark",
         "KmlPlacemark.BalloonContent"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "IdentifyKmlFeatures.cs"
     ],

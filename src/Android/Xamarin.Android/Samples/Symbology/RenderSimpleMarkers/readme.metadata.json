@@ -17,7 +17,6 @@
         "Point",
         "SimpleMarkerSymbol"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "RenderSimpleMarkers.cs"
     ],

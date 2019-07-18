@@ -18,7 +18,6 @@
         "GeocodeResult",
         "LocatorTask"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "FindAddress.xaml",
         "FindAddress.xaml.cs"

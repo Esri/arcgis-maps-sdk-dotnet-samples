@@ -22,7 +22,6 @@
         "Surface",
         "Surface.ElevationExaggeration"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "TerrainExaggeration.cs"
     ],

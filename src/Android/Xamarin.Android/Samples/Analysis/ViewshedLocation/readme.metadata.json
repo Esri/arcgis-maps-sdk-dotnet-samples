@@ -23,7 +23,6 @@
         "LocationViewshed",
         "Viewshed"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ViewshedLocation.cs"
     ],

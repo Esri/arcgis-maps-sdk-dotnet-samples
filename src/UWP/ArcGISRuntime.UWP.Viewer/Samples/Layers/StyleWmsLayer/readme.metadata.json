@@ -18,7 +18,6 @@
         "WmsSublayerInfo",
         "WmsSublayerInfo.Styles"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "StyleWmsLayer.xaml",
         "StyleWmsLayer.xaml.cs"

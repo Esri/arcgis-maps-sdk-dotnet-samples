@@ -22,7 +22,6 @@
         "SimpleLineSymbol",
         "SpatialReference"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DensifyAndGeneralize.xaml",
         "DensifyAndGeneralize.xaml.cs"

@@ -17,7 +17,6 @@
         "Polygon",
         "Polyline"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "CutGeometry.xaml",
         "CutGeometry.xaml.cs"

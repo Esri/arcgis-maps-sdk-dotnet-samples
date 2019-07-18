@@ -19,7 +19,6 @@
         "GeoElementLineOfSight",
         "LineOfSight.TargetVisibility"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "LineOfSightGeoElement.cs"
     ],

@@ -16,7 +16,6 @@
         "LocationDistanceMeasurement",
         "LocationDistanceMeasurement.MeasurementChanged"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DistanceMeasurement.cs"
     ],

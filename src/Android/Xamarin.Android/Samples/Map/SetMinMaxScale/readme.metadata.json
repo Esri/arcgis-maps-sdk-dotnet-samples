@@ -20,7 +20,6 @@
         "MapView",
         "ViewPoint"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SetMinMaxScale.cs"
     ],

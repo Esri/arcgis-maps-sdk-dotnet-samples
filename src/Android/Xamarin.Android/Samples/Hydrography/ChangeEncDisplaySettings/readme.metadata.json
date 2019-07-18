@@ -44,7 +44,6 @@
         "EncTextGroupVisibilitySettings.ResetToDefaults",
         "EncViewingGroupSettings.ResetToDefaults"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ChangeEncDisplaySettings.cs"
     ],

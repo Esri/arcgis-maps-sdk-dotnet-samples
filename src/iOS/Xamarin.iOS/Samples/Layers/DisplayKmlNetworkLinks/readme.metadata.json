@@ -18,7 +18,6 @@
         "KmlDataset(Uri)",
         "KmlLayer(KmlDataset)"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DisplayKmlNetworkLinks.cs"
     ],

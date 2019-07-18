@@ -9,7 +9,6 @@
         "/net/latest/android/sample-code/listgeodatabaseversions.htm"
     ],
     "relevant_apis": [],
-    "sample_unique_id": "",
     "snippets": [
         "ListGeodatabaseVersions.cs"
     ],

@@ -21,7 +21,6 @@
         "USNGGrid",
         "UTMGrid"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DisplayGrid.cs"
     ],

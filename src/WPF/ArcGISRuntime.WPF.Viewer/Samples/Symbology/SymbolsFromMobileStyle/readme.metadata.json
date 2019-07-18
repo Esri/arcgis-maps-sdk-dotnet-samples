@@ -23,7 +23,6 @@
         "SymbolStyle.GetSymbolAsync",
         "SymbolStyleSearchParameters"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "SymbolsFromMobileStyle.xaml",
         "SymbolsFromMobileStyle.xaml.cs"

@@ -24,7 +24,6 @@
         "RasterWorkspace",
         "StatusChangedEvent"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "DynamicWorkspaceRaster.xaml",
         "DynamicWorkspaceRaster.xaml.cs"

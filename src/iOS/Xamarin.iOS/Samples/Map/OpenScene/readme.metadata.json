@@ -15,7 +15,6 @@
     "relevant_apis": [
         "Scene.LoadAsync"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "OpenScene.cs"
     ],

@@ -22,7 +22,6 @@
         "GeometryEngine.Project",
         "TransformationCatalog"
     ],
-    "sample_unique_id": "",
     "snippets": [
         "ListTransformations.cs"
     ],

@@ -111,9 +111,6 @@
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.17763.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->

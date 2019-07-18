@@ -11,7 +11,7 @@ Useful for applications which consume data maintained by a local source
 
 ## How to use the sample
 
-Simply run the app and grant read permissions.
+Run the app.
 
 ## How it works
 

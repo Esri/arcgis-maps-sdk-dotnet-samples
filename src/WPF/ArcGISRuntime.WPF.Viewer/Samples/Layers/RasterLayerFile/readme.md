@@ -6,7 +6,7 @@ Create and use a raster layer made from a local raster file.
 
 ## How to use the sample
 
-Run the app and allow read permission.
+Run the sample.
 
 ## How it works
 

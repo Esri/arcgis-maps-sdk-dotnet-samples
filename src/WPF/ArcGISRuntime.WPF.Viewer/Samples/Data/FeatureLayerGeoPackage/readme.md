@@ -11,7 +11,7 @@ the device running the application.
 
 ## How to use the sample
 
-Simply run the app and grant read permissions.
+Run the app.
 
 ## How it works
 

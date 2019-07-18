@@ -10,7 +10,7 @@ Blend a hillshade with a raster by specifying the elevation data. The resulting 
 
 ## How to use the sample
 
-Choose and adjust the altitude, azimuth, slope type and color ramp type settings to update the image.
+Choose and adjust the altitude, azimuth, slope type, and color ramp type settings to update the image.
 
 ## How it works
 

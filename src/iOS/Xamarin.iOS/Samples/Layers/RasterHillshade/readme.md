@@ -6,7 +6,7 @@ Use a hillshade renderer on a raster.
 
 ## How to use the sample
 
-Tap on the wrench button in the Action Bar to change the settings for the `HillshadeRenderer`. The sample allows you to change the `Altitude`, `Azimuth` and `Slope type`. You can tap on the `Render` button to update the raster.
+Configure the options for rendering, then click 'Apply hillshade'.
 
 ## How it works
 

@@ -12,11 +12,11 @@ For executing offline geoprocessing tasks in your ArcGIS Runtime apps via an off
 
 Click `Start Local Server` to start the Local Server. Click `Stop Local Server` to stop the Local Server.
 
-The `Map Service` combo box lets you to pick a local service that is available.
+The `Map Service` drop down lets you to pick a local service that is available.
 
 After browsing for the desired file, click `Start Service` to start the selected service.
 
-When the running service's url appears, select it and click `Open Url`. To stop this running service, click `Stop Service`.
+When the running service's url appears, select it and click `Navigate to service`. To stop this running service, click `Stop Service`.
 
 ## Relevant API
 

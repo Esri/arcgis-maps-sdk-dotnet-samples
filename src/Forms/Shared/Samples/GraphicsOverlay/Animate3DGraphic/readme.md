@@ -14,18 +14,9 @@ Animation Controls (Top Left Corner):
 
 * Select a mission -- select a flight path
 * Play/Pause -- toggles playing and stopping the animation
-* Fixed/Follow -- toggles the camera's free cam mode and follow
+* Follow/Don't follow -- toggles the camera's free cam mode and follow
 * Mission progress -- shows how far along the route the plane is. Slide to change keyframe in animation
-
-Camera Controls (Top Right Corner):
-
-* Camera zoom -- distance between camera and plane (NOT implemented on java/android)
-* Camera angle -- viewing angle between camera and plane (NOT implemented on java/android)
 * Flight speed -- controls speed of animation
-
- 2D Map Controls (Bottom Left Corner):
-
-* Plus and Minus -- controls distance of 2D view from ground level
 
 ## How it works
 

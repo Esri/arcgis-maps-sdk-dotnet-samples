@@ -6,7 +6,6 @@ Query a feature table for statistics, grouping and sorting by different fields.
 
 ## How to use the sample
 
-The sample will start with some default options selected. You can immediately click the "Get Statistics" button to see the results for these options.
 
 You can add statistic definitions to the top-left table using the combo boxes and "Add" button. Select a table row and click "Remove" to remove a definition.
 

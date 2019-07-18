@@ -6,12 +6,12 @@ Open a `GeoPackage`, obtain a raster from the package, and display the table as 
 
 ## How to use the sample
 
-Run the sample and allow read permission.
+Run the sample.
 
 ## How it works
 
 1. Create a `GeoPackage` by passing the path to a `.gpkg` file stored locally on the device.
-2. Once READ permissions have been granted, load the `GeoPackage` with `.LoadAsync()`.
+2. Load the `GeoPackage` with `.LoadAsync()`.
 3. Wait for the package to load.
 4. Create a `RasterLayer` by obtaining the first `Raster` in the list of `.GeoPackageRasters`, and passing that `Raster` to the `RasterLayer`.
 5. Finally, add the `RasterLayer` the Map's operational layers.

@@ -10,7 +10,7 @@ A Feature Collection allows easily importing external data (such as CSV files), 
 
 ## How to use the sample
 
-When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry. Pan and zoom to explore the scene.
+When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry.
 
 ## How it works
 

@@ -10,7 +10,7 @@ Knowing the map's load state may be required before subsequent actions can be ex
 
 ## How to use the sample
 
-Click on the button to reload the ArcGISMap. The load status of the ArcGISMap will be displayed on screen.
+Click on the button to reload the map. The load status of the map will be displayed on screen.
 
 ## How it works
 

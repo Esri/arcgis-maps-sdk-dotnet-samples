@@ -10,7 +10,7 @@ Shapefiles store location, shape and attributes of geospatial vector data. Shape
 
 ## How to use the sample
 
-Run the sample and accept read permissions.
+Run the app.
 
 ## How it works
 

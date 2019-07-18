@@ -10,15 +10,13 @@ A line of sight analysis can be used to assess whether a view is obstructed betw
 
 ## How to use the sample
 
-The sample loads with a preset observer and target location, linked by a colored line. A red segment on the line means the view between observer and target is obstructed, whereas green means the view is unobstructed.
-
-Click to turn on the mouse move event listener, then move the mouse to update the target location in real time. Click again to lock the target location.
+Tap to place the starting point for the line. Tap again to place the end point.
 
 ## How it works
 
 1. Create an `AnalysisOverlay` and add it to the scene view.
 2. Create a `LocationLineOfSight` with initial observer and target locations and add it to the analysis overlay.
-3. Make an `EventHandler<MouseEvent>` to capture mouse movement. Turn the screen point into a scene point with `sceneView.screenToLocationAsync(screenPoint)`.
+3. Listen for taps on the scene view..
 4. Update the target location with `lineOfSight.TargetLocation = scenePoint`.
 
 ## Relevant API

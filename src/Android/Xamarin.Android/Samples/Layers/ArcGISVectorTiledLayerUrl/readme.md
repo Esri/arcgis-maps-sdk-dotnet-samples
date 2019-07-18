@@ -8,10 +8,6 @@ Load an ArcGIS Vector Tiled Layer from a URL.
 
 Vector tile basemaps can be created in ArcGIS Pro and published as offline packages or online services. `ArcGISVectorTiledLayer` has many advantages over traditional raster based basemaps (`ArcGISTiledLayer`), including smooth scaling between different screen DPIs, smaller package sizes, and the ability to rotate symbols and labels dynamically.
 
-## How to use the sample
-
-Simply run the app.
-
 ## How it works
 
 1. An `ArcGISVectorTiledLayer` is constructed with an ArcGIS Online service URL

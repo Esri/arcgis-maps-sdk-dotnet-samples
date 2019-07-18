@@ -6,7 +6,7 @@ Use an `RGBRenderer` on a `RasterLayer`. An `RGBRenderer` is used to adjust the 
 
 ## How to use the sample
 
-Tap on the `Edit renderer` button in the toolbar to change the settings for the `RGBRenderer`. The sample allows you to change the stretch type and parameters for each type. You can tap on the Render button to update the raster.
+Configure the options for rendering, then click 'Apply hillshade'.
 
 ## How it works
 

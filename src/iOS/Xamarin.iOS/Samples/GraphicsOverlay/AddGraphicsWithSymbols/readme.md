@@ -8,10 +8,6 @@ Use a symbol style to display a graphic on a graphics overlay.
 
 Allows you to customize a graphic by assigning a unique symbol. For example, you may wish to display individual graphics for different landmarks across a region, and to style each one with a unique symbol.  
 
-## How to use the sample
-
-Simply run the app.
-
 ## How it works
 
 1. Create a `GraphicsOverlay` and add it to the `MapView`.

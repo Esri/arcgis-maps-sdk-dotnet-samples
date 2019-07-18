@@ -4,10 +4,6 @@ Create a feature collection layer to show a query result from a service feature 
 
 ![screenshot](FeatureCollectionLayerFromQuery.jpg)
 
-## How to use the sample
-
-Simply run the app.
-
 ## How it works
 
 1. Call `featureTable.QueryFeaturesAsync(queryParameters)`.

@@ -8,10 +8,6 @@ Specify a map's spatial reference.
 
 Choosing the correct spatial reference is important for ensuring accurate projection of data points to a map.  
 
-## How to use the sample
-
-Simply run the app.
-
 ## How it works
 
 1. Instantiate an `Map` object using a spatial reference e.g. `ArcGISMap(SpatialReference.Create(54024))`.

@@ -10,7 +10,7 @@ A feature layer hosted on ArcGIS Online has a preset renderer and will display i
 
 ## How to use the sample
 
-Use the button in the control panel to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.
+Use the buttons to toggle between the default and the overridden renderer.
 
 ## How it works
 
@@ -24,10 +24,6 @@ Use the button in the control panel to change the renderer on the feature layer.
 * FeatureLayer.Renderer
 * ServiceFeatureTable
 * SimpleRenderer
-
-## About the data
-
-This sample displays a feature layer in Warren Wilson College, North Carolina, showing carbon storage of trees on campus. The size of each circle is proportional to that particular tree's carbon storage total.
 
 ## Tags
 

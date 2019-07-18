@@ -8,10 +8,6 @@ Add an ArcGIS Map Image Layer from a URL to a map.
 
 `ArcGISMapImageLayer` instances are rendered server side as a single raster image, so they always show the latest data at the time of the request. Since the data is rendered as a single image, it can have performance benefits versus a feature layer with complex geometries.
 
-## How to use the sample
-
-Simply run the app.
-
 ## How it works
 
 1. Create a new `Map` and set it to a `MapView`.

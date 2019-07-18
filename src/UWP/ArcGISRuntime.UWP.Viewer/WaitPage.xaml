@@ -5,8 +5,10 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Grid Background="Transparent"
-        HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="Transparent">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="50" />
@@ -15,15 +17,22 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="auto" />
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.ColumnSpan="2"
-                   FontSize="48" > Downloading sample data
+        <TextBlock
+            Grid.Row="0"
+            Grid.ColumnSpan="2"
+            FontSize="48">
+            Downloading sample data
         </TextBlock>
-        <ProgressBar Grid.Row="1" Grid.Column="0"
-                         IsIndeterminate="True"
-                         Margin="10" />
-        <Button Content="Cancel"
-                    Grid.Row="1" Grid.Column="1"
-                    Margin="10"
-                    Click="Cancel_Click" />
+        <ProgressBar
+            Grid.Row="1"
+            Grid.Column="0"
+            Margin="10"
+            IsIndeterminate="True" />
+        <Button
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="10"
+            Click="Cancel_Click"
+            Content="Cancel" />
     </Grid>
 </Page>

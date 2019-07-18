@@ -11,6 +11,9 @@
         "remove",
         "scene"
     ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/manageoperationallayers.htm"

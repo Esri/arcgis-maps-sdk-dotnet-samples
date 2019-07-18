@@ -10,6 +10,9 @@
         "statistics",
         "stats"
     ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/ios/sample-code/statsquerygroupandsort.htm"

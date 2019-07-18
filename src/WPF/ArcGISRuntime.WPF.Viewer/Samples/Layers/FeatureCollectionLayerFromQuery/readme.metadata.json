@@ -7,6 +7,9 @@
         "Search and Query",
         "feature collection layer"
     ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/wpf/sample-code/featurecollectionlayerfromquery.htm"

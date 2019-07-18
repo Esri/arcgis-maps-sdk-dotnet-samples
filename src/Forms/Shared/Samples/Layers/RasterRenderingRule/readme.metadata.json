@@ -8,6 +8,9 @@
         "rendering rules",
         "visualization"
     ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/forms/sample-code/rasterrenderingrule.htm"

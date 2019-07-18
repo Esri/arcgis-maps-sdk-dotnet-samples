@@ -10,6 +10,9 @@
         "area of interest",
         "level of detail"
     ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/ios/sample-code/setminmaxscale.htm"

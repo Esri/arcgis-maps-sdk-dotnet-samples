@@ -24,6 +24,7 @@ using UIKit;
 
 #if __ANDROID__
 using Android.App;
+using Application = Xamarin.Forms.Application;
 using Xamarin.Auth;
 using System.IO;
 #endif
@@ -79,7 +80,7 @@ namespace ArcGISRuntime.Samples.OAuth
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

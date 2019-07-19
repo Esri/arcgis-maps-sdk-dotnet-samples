@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await ((Page) Parent).DisplayAlert("Couldn't start location", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
             }
         }
     }

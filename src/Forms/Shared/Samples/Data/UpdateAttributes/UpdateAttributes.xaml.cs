@@ -116,7 +116,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error selecting feature.", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error selecting feature.", ex.ToString(), "OK");
             }
         }
 
@@ -160,11 +160,11 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
                 ServiceFeatureTable table = (ServiceFeatureTable) _selectedFeature.FeatureTable;
                 await table.ApplyEditsAsync();
 
-                await ((Page)Parent).DisplayAlert("Success!", $"Edited feature {_selectedFeature.Attributes["objectid"]}", "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Edited feature {_selectedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Failed to edit feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Failed to edit feature", ex.ToString(), "OK");
             }
             finally
             {

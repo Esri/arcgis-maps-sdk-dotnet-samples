@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -107,39 +107,36 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
 
             try
             {
-                // Perform the identify operation
-                IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 5, false);
+                // Perform the identify operation.
+                IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 10, false);
 
-                // Return if there are no results
+                // Return if there are no results.
                 if (results.Count < 1) { return; }
 
-                // Get the results that are from ENC layers
+                // Get the results that are from ENC layers.
                 IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
 
-                // Get the ENC results that have features
-                IEnumerable<IdentifyLayerResult> encResultsWithFeatures = encResults.Where(result => result.GeoElements.Count > 0);
+                // Get the first result with ENC features. (Depending on the data, there may be more than one IdentifyLayerResult that contains ENC features.)
+                IdentifyLayerResult firstResult = encResults.First();
 
-                // Get the first result with ENC features
-                IdentifyLayerResult firstResult = encResultsWithFeatures.First();
-
-                // Get the layer associated with this set of results
+                // Get the layer associated with this set of results.
                 EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
 
-                // Select the smallest (area) feature in the layer.
-                EncFeature smallestFeature = (EncFeature)firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
+                // Get the GeoElement identified in this layer.
+                EncFeature encFeature = (EncFeature)firstResult.GeoElements.First();
 
                 // Select the feature.
-                containingLayer.SelectFeature(smallestFeature);
+                containingLayer.SelectFeature(encFeature);
 
                 // Create the callout definition.
-                CalloutDefinition definition = new CalloutDefinition(smallestFeature.Acronym, smallestFeature.Description);
+                CalloutDefinition definition = new CalloutDefinition(encFeature.Acronym, encFeature.Description);
 
-                // Show the callout
+                // Show the callout.
                 MyMapView.ShowCalloutAt(e.Location, definition);
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

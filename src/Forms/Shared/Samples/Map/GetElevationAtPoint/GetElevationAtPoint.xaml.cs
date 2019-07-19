@@ -118,7 +118,7 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                await ((Page)Parent).DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

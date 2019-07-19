@@ -136,7 +136,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                await ((Page)Parent).DisplayAlert("Error", "Couldn't geocode or route.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Couldn't geocode or route.", "OK");
             }
         }
 
@@ -234,7 +234,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

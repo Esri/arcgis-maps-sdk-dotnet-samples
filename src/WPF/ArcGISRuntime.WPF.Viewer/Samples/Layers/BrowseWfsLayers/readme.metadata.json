@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Browse a WFS service for layers.",
+    "formal_name": "BrowseWfsLayers",
     "ignore": false,
-    "images": "BrowseWfsLayers.jpg",
+    "images": [
+        "BrowseWfsLayers.jpg"
+    ],
     "keywords": [
         "OGC",
         "WFS",

@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Find features in a spatial table related to features in a non-spatial table.",
+    "formal_name": "MapImageLayerTables",
     "ignore": false,
-    "images": "MapImageLayerTables.jpg",
+    "images": [
+        "MapImageLayerTables.jpg"
+    ],
     "keywords": [
         "features",
         "related features",

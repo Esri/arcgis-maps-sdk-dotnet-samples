@@ -1,8 +1,11 @@
 {
     "category": "Local Server",
     "description": "Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.",
+    "formal_name": "LocalServerServices",
     "ignore": false,
-    "images": "LocalServerServices.jpg",
+    "images": [
+        "LocalServerServices.jpg"
+    ],
     "keywords": [
         "LocalFeatureService",
         "LocalGeoprocessingService",

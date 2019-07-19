@@ -1,8 +1,11 @@
 {
     "category": "Local Server",
     "description": "Dynamically add a local shapefile to a map using Local Server.",
+    "formal_name": "DynamicWorkspaceShapefile",
     "ignore": false,
-    "images": "DynamicWorkspaceShapefile.jpg",
+    "images": [
+        "DynamicWorkspaceShapefile.jpg"
+    ],
     "keywords": [
         "ArcGISMapImageLayer",
         "LocalMapService",

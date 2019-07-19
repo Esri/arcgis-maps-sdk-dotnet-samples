@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "List features related to the selected feature.",
+    "formal_name": "ListRelatedFeatures",
     "ignore": false,
-    "images": "ListRelatedFeatures.jpg",
+    "images": [
+        "ListRelatedFeatures.jpg"
+    ],
     "keywords": [
         "IdentifyLayerAsync",
         "QueryRelatedFeaturesAsync",

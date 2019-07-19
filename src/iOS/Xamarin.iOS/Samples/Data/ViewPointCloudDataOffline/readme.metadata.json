@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Display local 3D point cloud data.",
+    "formal_name": "ViewPointCloudDataOffline",
     "ignore": false,
-    "images": "ViewPointCloudDataOffline.jpg",
+    "images": [
+        "ViewPointCloudDataOffline.jpg"
+    ],
     "keywords": [
         "3D",
         "lidar",

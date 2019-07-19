@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "This sample demonstrates opening a feature collection saved as a portal item.",
+    "formal_name": "FeatureCollectionLayerFromPortal",
     "ignore": false,
-    "images": "FeatureCollectionLayerFromPortal.jpg",
+    "images": [
+        "FeatureCollectionLayerFromPortal.jpg"
+    ],
     "keywords": [],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.5.0"

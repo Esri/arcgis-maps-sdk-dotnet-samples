@@ -1,8 +1,11 @@
 {
     "category": "MapView",
     "description": "Rotate a map.",
+    "formal_name": "MapRotation",
     "ignore": false,
-    "images": "MapRotation.jpg",
+    "images": [
+        "MapRotation.jpg"
+    ],
     "keywords": [
         "SetViewpointRotationAsync",
         "rotate"

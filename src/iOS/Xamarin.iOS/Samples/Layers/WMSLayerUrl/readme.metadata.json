@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Display a WMS layer using a WMS service URL.",
+    "formal_name": "WMSLayerUrl",
     "ignore": false,
-    "images": "WMSLayerURL.jpg",
+    "images": [
+        "WMSLayerURL.jpg"
+    ],
     "keywords": [
         "OGC",
         "WmsLayer",

@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Update feature attributes in an online feature service.",
+    "formal_name": "UpdateAttributes",
     "ignore": false,
-    "images": "UpdateAttributes.jpg",
+    "images": [
+        "UpdateAttributes.jpg"
+    ],
     "keywords": [
         "Editing",
         "attribute",

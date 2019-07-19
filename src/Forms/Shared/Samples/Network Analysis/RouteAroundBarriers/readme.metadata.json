@@ -1,8 +1,11 @@
 {
     "category": "Network Analysis",
     "description": "Find a route that reaches all stops without crossing any barriers.",
+    "formal_name": "RouteAroundBarriers",
     "ignore": false,
-    "images": "RouteAroundBarriers.jpg",
+    "images": [
+        "RouteAroundBarriers.jpg"
+    ],
     "keywords": [
         "barriers",
         "directions",

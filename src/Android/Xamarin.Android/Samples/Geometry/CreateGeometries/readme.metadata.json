@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Create simple geometry types.",
+    "formal_name": "CreateGeometries",
     "ignore": false,
-    "images": "CreateGeometries.jpg",
+    "images": [
+        "CreateGeometries.jpg"
+    ],
     "keywords": [
         "Geometry",
         "Graphic"

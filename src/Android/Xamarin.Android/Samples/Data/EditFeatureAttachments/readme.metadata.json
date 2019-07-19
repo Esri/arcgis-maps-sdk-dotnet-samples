@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Add, delete, and download attachments for features from a service.",
+    "formal_name": "EditFeatureAttachments",
     "ignore": false,
-    "images": "EditFeatureAttachments.jpg",
+    "images": [
+        "EditFeatureAttachments.jpg"
+    ],
     "keywords": [
         "Edit and Manage Data"
     ],

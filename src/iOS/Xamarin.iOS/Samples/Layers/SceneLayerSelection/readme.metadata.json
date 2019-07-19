@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Identify GeoElements in a scene layer.",
+    "formal_name": "SceneLayerSelection",
     "ignore": false,
-    "images": "SceneLayerSelection.jpg",
+    "images": [
+        "SceneLayerSelection.jpg"
+    ],
     "keywords": [
         "3D",
         "Buildings",

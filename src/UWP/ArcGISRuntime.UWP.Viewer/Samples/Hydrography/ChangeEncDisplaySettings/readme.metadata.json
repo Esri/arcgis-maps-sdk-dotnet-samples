@@ -1,8 +1,11 @@
 {
     "category": "Hydrography",
     "description": "Configure the display of ENC content.",
+    "formal_name": "ChangeEncDisplaySettings",
     "ignore": false,
-    "images": "ChangeEncDisplaySettings.jpg",
+    "images": [
+        "ChangeEncDisplaySettings.jpg"
+    ],
     "keywords": [
         "ENC",
         "IHO",

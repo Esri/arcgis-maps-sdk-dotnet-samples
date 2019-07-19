@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Play tours in KML files.",
+    "formal_name": "PlayKmlTours",
     "ignore": false,
-    "images": "PlayKmlTours.jpg",
+    "images": [
+        "PlayKmlTours.jpg"
+    ],
     "keywords": [
         "KML",
         "animation",

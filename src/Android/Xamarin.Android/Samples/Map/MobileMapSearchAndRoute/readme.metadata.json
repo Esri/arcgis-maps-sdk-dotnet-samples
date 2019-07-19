@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
+    "formal_name": "MobileMapSearchAndRoute",
     "ignore": false,
-    "images": "MobileMapSearchAndRoute.jpg",
+    "images": [
+        "MobileMapSearchAndRoute.jpg"
+    ],
     "keywords": [
         "Offline",
         "Routing",

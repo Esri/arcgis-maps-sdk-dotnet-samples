@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Display a layer from a WFS service, requesting only features for the current extent.",
+    "formal_name": "DisplayWfs",
     "ignore": false,
-    "images": "DisplayWfs.jpg",
+    "images": [
+        "DisplayWfs.jpg"
+    ],
     "keywords": [
         "OGC",
         "WFS",

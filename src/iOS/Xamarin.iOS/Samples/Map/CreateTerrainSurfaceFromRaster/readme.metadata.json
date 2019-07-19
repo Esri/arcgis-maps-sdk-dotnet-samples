@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Use a terrain surface with elevation described by a raster file.",
+    "formal_name": "CreateTerrainSurfaceFromRaster",
     "ignore": false,
-    "images": "The terrain surface is what the basemap, operational layers, and graphics are draped on.",
+    "images": [
+        "The terrain surface is what the basemap, operational layers, and graphics are draped on."
+    ],
     "keywords": [
         "3D",
         "Elevation",

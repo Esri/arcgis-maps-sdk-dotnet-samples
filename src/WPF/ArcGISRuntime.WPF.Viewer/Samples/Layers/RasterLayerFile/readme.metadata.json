@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Create and use a raster layer made from a local raster file.",
+    "formal_name": "RasterLayerFile",
     "ignore": false,
-    "images": "RasterLayerFile.jpg",
+    "images": [
+        "RasterLayerFile.jpg"
+    ],
     "keywords": [
         "Layers",
         "raster"

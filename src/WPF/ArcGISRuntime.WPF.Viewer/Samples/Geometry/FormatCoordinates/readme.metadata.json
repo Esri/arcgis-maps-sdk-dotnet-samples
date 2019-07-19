@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Format coordinates in a variety of common notations.",
+    "formal_name": "FormatCoordinates",
     "ignore": false,
-    "images": "FormatCoordinates.jpg",
+    "images": [
+        "FormatCoordinates.jpg"
+    ],
     "keywords": [
         "USNG",
         "UTM",

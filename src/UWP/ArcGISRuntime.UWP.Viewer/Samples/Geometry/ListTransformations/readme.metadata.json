@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",
+    "formal_name": "ListTransformations",
     "ignore": false,
-    "images": "ListTransformations.jpg",
+    "images": [
+        "ListTransformations.jpg"
+    ],
     "keywords": [
         "datum",
         "geodesy",

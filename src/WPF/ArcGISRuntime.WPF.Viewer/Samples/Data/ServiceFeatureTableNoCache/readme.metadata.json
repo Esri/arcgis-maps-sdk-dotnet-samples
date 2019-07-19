@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Display a feature layer from a service using the **no cache** feature request mode.",
+    "formal_name": "ServiceFeatureTableNoCache",
     "ignore": false,
-    "images": "ServiceFeatureTableNoCache.jpg",
+    "images": [
+        "ServiceFeatureTableNoCache.jpg"
+    ],
     "keywords": [
         "cache",
         "feature request mode",

@@ -1,8 +1,11 @@
 {
     "category": "MapView",
     "description": "View the status of the layers on the map.",
+    "formal_name": "DisplayLayerViewState",
     "ignore": false,
-    "images": "DisplayLayerViewState.jpg",
+    "images": [
+        "DisplayLayerViewState.jpg"
+    ],
     "keywords": [
         "MapViews",
         "layer",

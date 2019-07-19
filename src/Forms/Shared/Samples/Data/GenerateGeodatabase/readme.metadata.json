@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Generate a local geodatabase from an online feature service.",
+    "formal_name": "GenerateGeodatabase",
     "ignore": false,
-    "images": "GenerateGeodatabase.jpg",
+    "images": [
+        "GenerateGeodatabase.jpg"
+    ],
     "keywords": [
         "disconnected",
         "local geodatabase",

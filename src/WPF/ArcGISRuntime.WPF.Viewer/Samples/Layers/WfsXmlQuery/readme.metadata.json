@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Load a WFS feature table using an XML query.",
+    "formal_name": "WfsXmlQuery",
     "ignore": false,
-    "images": "WfsXmlQuery.jpg",
+    "images": [
+        "WfsXmlQuery.jpg"
+    ],
     "keywords": [
         "OGC",
         "WFS",

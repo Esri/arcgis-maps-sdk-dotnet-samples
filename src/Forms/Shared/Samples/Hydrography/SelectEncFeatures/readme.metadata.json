@@ -1,8 +1,11 @@
 {
     "category": "Hydrography",
     "description": "Select features in an ENC layer.",
+    "formal_name": "SelectEncFeatures",
     "ignore": false,
-    "images": "Selectencfeatures.jpg",
+    "images": [
+        "Selectencfeatures.jpg"
+    ],
     "keywords": [
         "IHO",
         "S-57",

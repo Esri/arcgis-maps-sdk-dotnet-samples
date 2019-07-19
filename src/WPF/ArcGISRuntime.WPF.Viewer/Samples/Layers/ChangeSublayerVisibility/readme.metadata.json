@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Change the visibility of sublayers.",
+    "formal_name": "ChangeSublayerVisibility",
     "ignore": false,
-    "images": "ChangeSublayerVisibility.jpg",
+    "images": [
+        "ChangeSublayerVisibility.jpg"
+    ],
     "keywords": [
         "layers",
         "sublayers",

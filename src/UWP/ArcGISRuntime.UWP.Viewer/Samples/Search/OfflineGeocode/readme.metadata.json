@@ -1,8 +1,11 @@
 {
     "category": "Search",
     "description": "Geocode addresses to locations and reverse geocode locations to addresses offline.",
+    "formal_name": "OfflineGeocode",
     "ignore": false,
-    "images": "OfflineGeocode.jpg",
+    "images": [
+        "OfflineGeocode.jpg"
+    ],
     "keywords": [
         "Search and Query",
         "geocode",

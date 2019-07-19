@@ -1,8 +1,11 @@
 {
     "category": "MapView",
     "description": "Take a screenshot of the map.",
+    "formal_name": "TakeScreenshot",
     "ignore": false,
-    "images": "TakeScreenshot.jpg",
+    "images": [
+        "TakeScreenshot.jpg"
+    ],
     "keywords": [
         "Screenshot",
         "capture",

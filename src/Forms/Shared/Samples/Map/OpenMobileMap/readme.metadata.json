@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Display a map from a mobile map package.",
+    "formal_name": "OpenMobileMap",
     "ignore": false,
-    "images": "OpenMobileMap.jpg",
+    "images": [
+        "OpenMobileMap.jpg"
+    ],
     "keywords": [
         "mmpk",
         "mobile map package",

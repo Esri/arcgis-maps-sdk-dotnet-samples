@@ -1,8 +1,11 @@
 {
     "category": "Analysis",
     "description": "Perform a viewshed analysis from a defined vantage point. Viewshed analyses have several configuration options that are demonstrated in this sample.",
+    "formal_name": "ViewshedLocation",
     "ignore": false,
-    "images": "ViewshedLocation.jpg",
+    "images": [
+        "ViewshedLocation.jpg"
+    ],
     "keywords": [
         "3D",
         "AnalysisOverlay",

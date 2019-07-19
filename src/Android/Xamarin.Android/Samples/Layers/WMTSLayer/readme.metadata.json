@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Display a layer from a Web Map Tile Service.",
+    "formal_name": "WMTSLayer",
     "ignore": false,
-    "images": "WmtsLayer.jpg",
+    "images": [
+        "WmtsLayer.jpg"
+    ],
     "keywords": [
         "OGC",
         "WmtsLayer",

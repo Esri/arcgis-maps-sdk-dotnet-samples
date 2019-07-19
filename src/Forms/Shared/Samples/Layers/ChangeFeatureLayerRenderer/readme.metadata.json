@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Change the appearance of a feature layer with a renderer.",
+    "formal_name": "ChangeFeatureLayerRenderer",
     "ignore": false,
-    "images": "ChangeFeatureLayerRenderer.jpg",
+    "images": [
+        "ChangeFeatureLayerRenderer.jpg"
+    ],
     "keywords": [
         "feature layer",
         "renderer",

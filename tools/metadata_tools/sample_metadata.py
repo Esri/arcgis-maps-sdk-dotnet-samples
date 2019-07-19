@@ -27,7 +27,7 @@ class sample_metadata:
         self.keywords = []
         self.relevant_api = []
         self.since = ""
-        self.images = ""
+        self.images = []
         self.source_files = []
         self.redirect_from = []
         self.offline_data = []
@@ -130,11 +130,11 @@ class sample_metadata:
         if len(readme_parts) < 5: # old style readme
             # Take just the first description paragraph
             self.description = readme_parts[1]
-            self.images = sample_metadata.extract_image_from_image_string(readme_parts[2])
+            self.images.append(sample_metadata.extract_image_from_image_string(readme_parts[2]))
             return
         else:
             self.description = readme_parts[1]
-            self.images = sample_metadata.extract_image_from_image_string(readme_parts[2])
+            self.images.append(sample_metadata.extract_image_from_image_string(readme_parts[2]))
 
             # Read through and add the rest of the sections
             examined_readme_part_index = 2
@@ -208,7 +208,7 @@ class sample_metadata:
 
         # add the image
         if len(self.images) > 0:
-            template_text += f"![screenshot]({self.images})\n\n"
+            template_text += f"![screenshot]({self.images[0]})\n\n"
 
         # add "Use case" - use_case
         if self.use_case != "":
@@ -288,6 +288,7 @@ class sample_metadata:
         data["ignore"] = self.ignore
         data["offline_data"] = self.offline_data
         data["nuget_packages"] = self.nuget_packages
+        data["formal_name"] = self.formal_name
 
         with open(path_to_json, 'w+') as json_file:
             json.dump(data, json_file, indent=4, sort_keys=True)
@@ -355,7 +356,7 @@ class sample_metadata:
         # basic metadata
         output_xml += f"\t<SampleName>{self.formal_name}</SampleName>\n"
         output_xml += f"\t<SampleDescription>{self.description}</SampleDescription>\n"
-        output_xml += f"\t<ScreenShot>{self.images}</ScreenShot>\n"
+        output_xml += f"\t<ScreenShot>{self.images[0]}</ScreenShot>\n"
         # code files, including XAML
         output_xml += "\t<CodeFiles>\n"
         for source_file in self.source_files:

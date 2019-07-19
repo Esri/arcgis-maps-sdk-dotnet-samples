@@ -1,8 +1,11 @@
 {
     "category": "Analysis",
     "description": "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
+    "formal_name": "ViewshedCamera",
     "ignore": false,
-    "images": "ViewshedCamera.jpg",
+    "images": [
+        "ViewshedCamera.jpg"
+    ],
     "keywords": [
         "3D",
         "AnalysisOverlay",

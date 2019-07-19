@@ -1,8 +1,11 @@
 {
     "category": "Network Analysis",
     "description": "Find a route to the closest facility from a location.",
+    "formal_name": "ClosestFacility",
     "ignore": false,
-    "images": "ClosestFacility.jpg",
+    "images": [
+        "ClosestFacility.jpg"
+    ],
     "keywords": [
         "incident",
         "network analysis",

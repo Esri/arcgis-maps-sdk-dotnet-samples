@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Add rasters and feature tables from GeoPackages to a map.",
+    "formal_name": "ReadGeoPackage",
     "ignore": false,
-    "images": "ReadGeoPackage.jpg",
+    "images": [
+        "ReadGeoPackage.jpg"
+    ],
     "keywords": [
         "GeoPackage",
         "Layers",

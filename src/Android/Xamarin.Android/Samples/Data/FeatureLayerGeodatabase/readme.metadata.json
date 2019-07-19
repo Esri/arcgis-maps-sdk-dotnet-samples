@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Display features from a local geodatabase.",
+    "formal_name": "FeatureLayerGeodatabase",
     "ignore": false,
-    "images": "FeatureLayerGeodatabase.jpg",
+    "images": [
+        "FeatureLayerGeodatabase.jpg"
+    ],
     "keywords": [
         "geodatabase",
         "mobile",

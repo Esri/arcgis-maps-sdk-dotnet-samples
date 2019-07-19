@@ -1,8 +1,11 @@
 {
     "category": "GraphicsOverlay",
     "description": "Update the orientation of a graphic using scene property rotation expressions.",
+    "formal_name": "ScenePropertiesExpressions",
     "ignore": false,
-    "images": "ScenePropertiesExpressions.jpg",
+    "images": [
+        "ScenePropertiesExpressions.jpg"
+    ],
     "keywords": [
         "3D",
         "expression",

@@ -1,8 +1,11 @@
 {
     "category": "Network Analysis",
     "description": "Display directions for a route between two points.",
+    "formal_name": "FindRoute",
     "ignore": false,
-    "images": "FindRoute.jpg",
+    "images": [
+        "FindRoute.jpg"
+    ],
     "keywords": [
         "directions",
         "driving",

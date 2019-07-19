@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Determine spatial relationships between two geometries.",
+    "formal_name": "SpatialRelationships",
     "ignore": false,
-    "images": "SpatialRelationships.jpg",
+    "images": [
+        "SpatialRelationships.jpg"
+    ],
     "keywords": [
         "geometries",
         "relationship",

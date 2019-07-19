@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Take a web map offline.",
+    "formal_name": "GenerateOfflineMap",
     "ignore": false,
-    "images": "GenerateOfflineMap.jpg",
+    "images": [
+        "GenerateOfflineMap.jpg"
+    ],
     "keywords": [
         "map",
         "offline"

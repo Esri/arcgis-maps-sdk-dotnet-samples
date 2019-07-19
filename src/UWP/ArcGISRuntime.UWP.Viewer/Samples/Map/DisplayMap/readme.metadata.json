@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Display a map with an imagery basemap.",
+    "formal_name": "DisplayMap",
     "ignore": false,
-    "images": "DisplayMap.jpg",
+    "images": [
+        "DisplayMap.jpg"
+    ],
     "keywords": [
         "MapView",
         "basemap",

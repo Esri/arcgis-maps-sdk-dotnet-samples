@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Display a feature layer from a service using the **manual cache** feature request mode.",
+    "formal_name": "ServiceFeatureTableManualCache",
     "ignore": false,
-    "images": "ServiceFeatureTableManualCache.jpg",
+    "images": [
+        "ServiceFeatureTableManualCache.jpg"
+    ],
     "keywords": [
         "cache",
         "feature request mode",

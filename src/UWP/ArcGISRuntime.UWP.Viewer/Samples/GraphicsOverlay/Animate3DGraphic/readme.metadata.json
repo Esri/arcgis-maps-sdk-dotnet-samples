@@ -1,8 +1,11 @@
 {
     "category": "GraphicsOverlay",
     "description": "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
+    "formal_name": "Animate3DGraphic",
     "ignore": false,
-    "images": "Animate3DGraphic.jpg",
+    "images": [
+        "Animate3DGraphic.jpg"
+    ],
     "keywords": [
         "Camera",
         "ModelSceneSymbol",

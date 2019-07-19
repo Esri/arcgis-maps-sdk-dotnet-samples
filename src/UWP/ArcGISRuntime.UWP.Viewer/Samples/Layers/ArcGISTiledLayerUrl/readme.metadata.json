@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Load an ArcGIS tiled layer from a URL.",
+    "formal_name": "ArcGISTiledLayerUrl",
     "ignore": false,
-    "images": "ArcgisTiledlayerUrl.jpg",
+    "images": [
+        "ArcgisTiledlayerUrl.jpg"
+    ],
     "keywords": [
         "ArcGISTiledLayer",
         "layers",

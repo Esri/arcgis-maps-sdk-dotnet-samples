@@ -1,8 +1,11 @@
 {
     "category": "Symbology",
     "description": "Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.",
+    "formal_name": "SymbolsFromMobileStyle",
     "ignore": false,
-    "images": "SymbolsFromMobileStyle.jpg",
+    "images": [
+        "SymbolsFromMobileStyle.jpg"
+    ],
     "keywords": [
         "advanced symbology",
         "mobile style",

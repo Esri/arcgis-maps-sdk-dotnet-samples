@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Group a collection of layers together and toggle their visibility as a group.",
+    "formal_name": "GroupLayers",
     "ignore": false,
-    "images": "GroupLayers.jpg",
+    "images": [
+        "GroupLayers.jpg"
+    ],
     "keywords": [
         "Layers",
         "group layer"

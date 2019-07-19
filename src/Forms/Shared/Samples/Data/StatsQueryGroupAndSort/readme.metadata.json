@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Query a feature table for statistics, grouping and sorting by different fields.",
+    "formal_name": "StatsQueryGroupAndSort",
     "ignore": false,
-    "images": "StatsQueryGroupAndSort.jpg",
+    "images": [
+        "StatsQueryGroupAndSort.jpg"
+    ],
     "keywords": [
         "group",
         "result",

@@ -1,8 +1,11 @@
 {
     "category": "Location",
     "description": "Display your location history on the map.",
+    "formal_name": "ShowLocationHistory",
     "ignore": false,
-    "images": "ShowLocationHistory.jpg",
+    "images": [
+        "ShowLocationHistory.jpg"
+    ],
     "keywords": [
         "GPS",
         "bread crumb",

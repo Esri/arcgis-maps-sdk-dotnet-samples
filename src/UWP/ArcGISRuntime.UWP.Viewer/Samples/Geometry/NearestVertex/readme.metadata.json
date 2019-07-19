@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Shows how to find the nearest vertex on a geometry to a given point.",
+    "formal_name": "NearestVertex",
     "ignore": false,
-    "images": "NearestVertex.jpg",
+    "images": [
+        "NearestVertex.jpg"
+    ],
     "keywords": [
         "Analysis",
         "Geometry"

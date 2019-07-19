@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Display an ArcGIS scene layer from a URL.",
+    "formal_name": "SceneLayerUrl",
     "ignore": false,
-    "images": "SceneLayerUrl.jpg",
+    "images": [
+        "SceneLayerUrl.jpg"
+    ],
     "keywords": [
         "3D",
         "Buildings",

@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Open and display a scene from a Mobile Scene Package (.mspk).",
+    "formal_name": "OpenMobileScenePackage",
     "ignore": false,
-    "images": "OpenMobileScenePackage.jpg",
+    "images": [
+        "OpenMobileScenePackage.jpg"
+    ],
     "keywords": [
         "Offline",
         "Scene"

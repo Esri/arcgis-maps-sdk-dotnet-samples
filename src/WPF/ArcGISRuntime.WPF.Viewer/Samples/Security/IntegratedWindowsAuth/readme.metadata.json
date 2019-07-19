@@ -1,8 +1,11 @@
 {
     "category": "Security",
     "description": "Use Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).",
+    "formal_name": "IntegratedWindowsAuth",
     "ignore": false,
-    "images": "IntegratedWindowsAuth.jpg",
+    "images": [
+        "IntegratedWindowsAuth.jpg"
+    ],
     "keywords": [
         "Authentication",
         "Portal",

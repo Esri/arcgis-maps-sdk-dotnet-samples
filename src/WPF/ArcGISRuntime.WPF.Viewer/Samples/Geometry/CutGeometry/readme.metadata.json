@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Cut a geometry along a polyline.",
+    "formal_name": "CutGeometry",
     "ignore": false,
-    "images": "CutGeometry.jpg",
+    "images": [
+        "CutGeometry.jpg"
+    ],
     "keywords": [
         "cut",
         "geometry",

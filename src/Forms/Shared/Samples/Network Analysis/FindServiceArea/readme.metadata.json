@@ -1,8 +1,11 @@
 {
     "category": "Network Analysis",
     "description": "Find the service area within a network from a given point.",
+    "formal_name": "FindServiceArea",
     "ignore": false,
-    "images": "FindServiceArea.jpg",
+    "images": [
+        "FindServiceArea.jpg"
+    ],
     "keywords": [
         "Routing and Logistics",
         "barriers",

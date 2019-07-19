@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Use a stretch renderer to enhance the visual contrast of raster data for analysis.",
+    "formal_name": "ChangeStretchRenderer",
     "ignore": false,
-    "images": "ChangeStretchRenderer.jpg",
+    "images": [
+        "ChangeStretchRenderer.jpg"
+    ],
     "keywords": [
         "analysis",
         "deviation",

@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Display a tiled web layer.",
+    "formal_name": "LoadWebTiledLayer",
     "ignore": false,
-    "images": "LoadWebTiledLayer.jpg",
+    "images": [
+        "LoadWebTiledLayer.jpg"
+    ],
     "keywords": [
         "OGC",
         "Open Street Map",

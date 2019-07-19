@@ -1,8 +1,11 @@
 {
     "category": "MapView",
     "description": "This sample demonstrates how to filter data in layers by applying a time extent to a MapView.",
+    "formal_name": "ChangeTimeExtent",
     "ignore": false,
-    "images": "ChangeTimeExtent.jpg",
+    "images": [
+        "ChangeTimeExtent.jpg"
+    ],
     "keywords": [],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.5.0"

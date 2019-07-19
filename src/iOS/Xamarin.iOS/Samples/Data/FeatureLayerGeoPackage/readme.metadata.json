@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Display features from a local GeoPackage.",
+    "formal_name": "FeatureLayerGeoPackage",
     "ignore": false,
-    "images": "FeatureLayerGeopackage.jpg",
+    "images": [
+        "FeatureLayerGeopackage.jpg"
+    ],
     "keywords": [
         "GeoPackageFeatureTables",
         "OGC",

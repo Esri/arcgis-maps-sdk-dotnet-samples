@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Show a raster layer from an image service with a raster function applied.",
+    "formal_name": "RasterLayerRasterFunction",
     "ignore": false,
-    "images": "RasterLayerRasterFunction.jpg",
+    "images": [
+        "RasterLayerRasterFunction.jpg"
+    ],
     "keywords": [],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.5.0"

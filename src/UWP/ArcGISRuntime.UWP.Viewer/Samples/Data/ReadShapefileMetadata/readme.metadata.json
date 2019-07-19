@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Read a shapefile and display its metadata.",
+    "formal_name": "ReadShapefileMetadata",
     "ignore": false,
-    "images": "Readshapefilemetadata.jpg",
+    "images": [
+        "Readshapefilemetadata.jpg"
+    ],
     "keywords": [
         "credits",
         "description",

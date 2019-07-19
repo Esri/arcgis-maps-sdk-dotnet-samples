@@ -1,8 +1,11 @@
 {
     "category": "GraphicsOverlay",
     "description": "Use a symbol style to display a graphic on a graphics overlay.",
+    "formal_name": "AddGraphicsWithSymbols",
     "ignore": false,
-    "images": "AddGraphicsWithSymbols.jpg",
+    "images": [
+        "AddGraphicsWithSymbols.jpg"
+    ],
     "keywords": [
         "SimpleFillSymbol",
         "SimpleLineSymbol",

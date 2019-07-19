@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Add features to a feature layer.",
+    "formal_name": "AddFeatures",
     "ignore": false,
-    "images": "## Use case",
+    "images": [
+        "## Use case"
+    ],
     "keywords": [
         "edit",
         "feature",

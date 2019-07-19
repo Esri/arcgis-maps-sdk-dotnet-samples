@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "See through terrain in a scene and move the camera underground.",
+    "formal_name": "ViewContentBeneathSurface",
     "ignore": false,
-    "images": "ViewContentBeneathSurface.jpg",
+    "images": [
+        "ViewContentBeneathSurface.jpg"
+    ],
     "keywords": [
         "3D",
         "subsurface",

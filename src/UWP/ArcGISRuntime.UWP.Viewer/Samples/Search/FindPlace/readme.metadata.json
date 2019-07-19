@@ -1,8 +1,11 @@
 {
     "category": "Search",
     "description": "Find places of interest near a location or within a specific area.",
+    "formal_name": "FindPlace",
     "ignore": false,
-    "images": "FindPlace.jpg",
+    "images": [
+        "FindPlace.jpg"
+    ],
     "keywords": [
         "POI",
         "businesses",

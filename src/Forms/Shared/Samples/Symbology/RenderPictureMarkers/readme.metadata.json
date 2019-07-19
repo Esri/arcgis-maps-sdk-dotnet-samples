@@ -1,8 +1,11 @@
 {
     "category": "Symbology",
     "description": "Use pictures for markers.",
+    "formal_name": "RenderPictureMarkers",
     "ignore": false,
-    "images": "RenderPictureMarkers.jpg",
+    "images": [
+        "RenderPictureMarkers.jpg"
+    ],
     "keywords": [
         "graphics",
         "marker",

@@ -1,8 +1,11 @@
 {
     "category": "Local Server",
     "description": "Start a local feature service and display its features in a map.",
+    "formal_name": "LocalServerFeatureLayer",
     "ignore": false,
-    "images": "LocalServerFeatureLayer.jpg",
+    "images": [
+        "LocalServerFeatureLayer.jpg"
+    ],
     "keywords": [
         "LocalFeatureService",
         "LocalServerStatus",

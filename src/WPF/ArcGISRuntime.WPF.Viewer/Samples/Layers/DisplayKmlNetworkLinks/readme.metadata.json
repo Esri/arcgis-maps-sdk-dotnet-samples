@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": " Display a file with a KML network link.",
+    "formal_name": "DisplayKmlNetworkLinks",
     "ignore": false,
-    "images": "DisplayKmlNetworkLinks.jpg",
+    "images": [
+        "DisplayKmlNetworkLinks.jpg"
+    ],
     "keywords": [
         "KML",
         "KMZ",

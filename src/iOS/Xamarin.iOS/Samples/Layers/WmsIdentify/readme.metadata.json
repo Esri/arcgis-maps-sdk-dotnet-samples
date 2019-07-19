@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Identify features in a WMS layer and display the associated popup content.",
+    "formal_name": "WmsIdentify",
     "ignore": false,
-    "images": "Wmsidentify.jpg",
+    "images": [
+        "Wmsidentify.jpg"
+    ],
     "keywords": [
         "IdentifyLayerAsync",
         "OGC",

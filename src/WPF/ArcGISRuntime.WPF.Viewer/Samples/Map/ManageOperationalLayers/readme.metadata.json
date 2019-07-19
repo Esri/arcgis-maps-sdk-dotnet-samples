@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Add, remove, and reorder operational layers in a map.",
+    "formal_name": "ManageOperationalLayers",
     "ignore": false,
-    "images": "ManageOperationalLayers.jpg",
+    "images": [
+        "ManageOperationalLayers.jpg"
+    ],
     "keywords": [
         "Map",
         "add",

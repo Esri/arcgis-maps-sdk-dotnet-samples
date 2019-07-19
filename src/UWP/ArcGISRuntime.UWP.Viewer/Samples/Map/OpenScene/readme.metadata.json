@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal. ",
+    "formal_name": "OpenScene",
     "ignore": false,
-    "images": "OpenScene.jpg",
+    "images": [
+        "OpenScene.jpg"
+    ],
     "keywords": [
         "Portal",
         "Scenes",

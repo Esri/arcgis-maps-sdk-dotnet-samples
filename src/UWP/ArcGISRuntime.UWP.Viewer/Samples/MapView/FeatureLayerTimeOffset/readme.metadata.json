@@ -1,8 +1,11 @@
 {
     "category": "MapView",
     "description": "Show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.",
+    "formal_name": "FeatureLayerTimeOffset",
     "ignore": false,
-    "images": "FeatureLayerTimeOffset.jpg",
+    "images": [
+        "FeatureLayerTimeOffset.jpg"
+    ],
     "keywords": [],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.5.0"

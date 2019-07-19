@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Specify a map's spatial reference.",
+    "formal_name": "SetMapSpatialReference",
     "ignore": false,
-    "images": "SetMapSpatialReference.jpg",
+    "images": [
+        "SetMapSpatialReference.jpg"
+    ],
     "keywords": [
         "SpatialReference",
         "WKID",

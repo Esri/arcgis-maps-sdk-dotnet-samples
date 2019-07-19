@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. ",
+    "formal_name": "ProjectWithSpecificTransformation",
     "ignore": false,
-    "images": "ProjectWithSpecificTransformation.jpg",
+    "images": [
+        "ProjectWithSpecificTransformation.jpg"
+    ],
     "keywords": [],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.5.0"

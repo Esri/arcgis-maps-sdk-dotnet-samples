@@ -1,8 +1,11 @@
 {
     "category": "Geoprocessing",
     "description": "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",
+    "formal_name": "AnalyzeViewshed",
     "ignore": false,
-    "images": "AnalyzeViewshed.jpg",
+    "images": [
+        "AnalyzeViewshed.jpg"
+    ],
     "keywords": [
         "Geoprocessing",
         "GeoprocessingJob",

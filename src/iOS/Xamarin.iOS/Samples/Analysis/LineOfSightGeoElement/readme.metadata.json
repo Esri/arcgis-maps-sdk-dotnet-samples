@@ -1,8 +1,11 @@
 {
     "category": "Analysis",
     "description": "Show a line of sight between two moving objects.",
+    "formal_name": "LineOfSightGeoElement",
     "ignore": false,
-    "images": "LineOfSightGeoelement.jpg",
+    "images": [
+        "LineOfSightGeoelement.jpg"
+    ],
     "keywords": [
         "Analysis",
         "line of sight",

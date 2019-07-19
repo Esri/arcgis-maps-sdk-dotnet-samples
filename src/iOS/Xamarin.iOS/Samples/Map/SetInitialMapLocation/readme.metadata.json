@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Display a map centered on an initial point with a specified level of detail (zoom level).",
+    "formal_name": "SetInitialMapLocation",
     "ignore": false,
-    "images": "SetInitialMapLocation.jpg",
+    "images": [
+        "SetInitialMapLocation.jpg"
+    ],
     "keywords": [
         "center",
         "envelope",

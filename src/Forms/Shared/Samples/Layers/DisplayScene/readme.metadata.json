@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Display a scene with a terrain surface and some imagery.",
+    "formal_name": "DisplayScene",
     "ignore": false,
-    "images": "DisplayScene.jpg",
+    "images": [
+        "DisplayScene.jpg"
+    ],
     "keywords": [
         "3D",
         "basemap",

@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
+    "formal_name": "CreateFeatureCollectionLayer",
     "ignore": false,
-    "images": "CreateFeatureCollectionLayer.jpg",
+    "images": [
+        "CreateFeatureCollectionLayer.jpg"
+    ],
     "keywords": [
         "Layers",
         "feature collection"

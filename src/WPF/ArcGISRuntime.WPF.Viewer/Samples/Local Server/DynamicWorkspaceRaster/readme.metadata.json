@@ -1,8 +1,11 @@
 {
     "category": "Local Server",
     "description": "Dynamically add a local raster file to a map using Local Server.",
+    "formal_name": "DynamicWorkspaceRaster",
     "ignore": false,
-    "images": "DynamicWorkspaceRaster.jpg",
+    "images": [
+        "DynamicWorkspaceRaster.jpg"
+    ],
     "keywords": [
         "ArcGISMapImageLayer",
         "LocalMapService",

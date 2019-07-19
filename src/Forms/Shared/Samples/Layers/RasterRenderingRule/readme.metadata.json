@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Display a raster on a map and apply different rendering rules to that raster.",
+    "formal_name": "RasterRenderingRule",
     "ignore": false,
-    "images": "RasterRenderingRule.jpg",
+    "images": [
+        "RasterRenderingRule.jpg"
+    ],
     "keywords": [
         "raster",
         "rendering rules",

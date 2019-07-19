@@ -1,8 +1,11 @@
 {
     "category": "Analysis",
     "description": "Measure distances between two points in 3D.",
+    "formal_name": "DistanceMeasurement",
     "ignore": false,
-    "images": "DistanceMeasurement.jpg",
+    "images": [
+        "DistanceMeasurement.jpg"
+    ],
     "keywords": [
         "3D",
         "analysis"

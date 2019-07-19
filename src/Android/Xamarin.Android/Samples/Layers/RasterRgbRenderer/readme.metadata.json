@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Use an `RGBRenderer` on a `RasterLayer`. An `RGBRenderer` is used to adjust the color bands of a multispectral image.",
+    "formal_name": "RasterRgbRenderer",
     "ignore": false,
-    "images": "RasterRgbRenderer.jpg",
+    "images": [
+        "RasterRgbRenderer.jpg"
+    ],
     "keywords": [
         "RGB",
         "Visualization",

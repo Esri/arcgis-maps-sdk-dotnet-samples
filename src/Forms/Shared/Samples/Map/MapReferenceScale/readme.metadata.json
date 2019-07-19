@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Set a map's reference scale and control which feature layers should honor that scale.",
+    "formal_name": "MapReferenceScale",
     "ignore": false,
-    "images": "MapReferenceScale.jpg",
+    "images": [
+        "MapReferenceScale.jpg"
+    ],
     "keywords": [
         "Maps & Scenes",
         "annotation",

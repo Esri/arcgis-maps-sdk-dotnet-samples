@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Delete features from an online feature service.",
+    "formal_name": "DeleteFeatures",
     "ignore": false,
-    "images": "DeleteFeatures.jpg",
+    "images": [
+        "DeleteFeatures.jpg"
+    ],
     "keywords": [
         "Service",
         "deletion",

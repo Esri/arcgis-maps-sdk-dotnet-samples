@@ -1,8 +1,11 @@
 {
     "category": "Symbology",
     "description": "Display common symbols for all graphics in a graphics overlay with a renderer.",
+    "formal_name": "SimpleRenderers",
     "ignore": false,
-    "images": "SimpleRenderers.jpg",
+    "images": [
+        "SimpleRenderers.jpg"
+    ],
     "keywords": [
         "SimpleMarkerSymbol",
         "SimpleRenderer",

@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Query a table to get aggregated statistics back for a specific field.",
+    "formal_name": "StatisticalQuery",
     "ignore": false,
-    "images": "StatisticalQuery.jpg",
+    "images": [
+        "StatisticalQuery.jpg"
+    ],
     "keywords": [
         "analysis",
         "average",

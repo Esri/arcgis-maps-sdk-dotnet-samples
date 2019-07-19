@@ -1,8 +1,11 @@
 {
     "category": "Hydrography",
     "description": "Display nautical charts per the ENC specification.",
+    "formal_name": "AddEncExchangeSet",
     "ignore": false,
-    "images": "AddENCExchangeSet.jpg",
+    "images": [
+        "AddENCExchangeSet.jpg"
+    ],
     "keywords": [
         "Data",
         "ENC",

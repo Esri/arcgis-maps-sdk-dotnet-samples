@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Create a feature collection layer to show a query result from a service feature table. The feature collection is then displayed on a map with a feature collection layer.",
+    "formal_name": "FeatureCollectionLayerFromQuery",
     "ignore": false,
-    "images": "FeatureCollectionLayerFromQuery.jpg",
+    "images": [
+        "FeatureCollectionLayerFromQuery.jpg"
+    ],
     "keywords": [
         "Search and Query",
         "feature collection layer"

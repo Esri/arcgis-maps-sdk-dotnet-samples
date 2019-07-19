@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Open a `GeoPackage`, obtain a raster from the package, and display the table as a `RasterLayer`.",
+    "formal_name": "RasterLayerGeoPackage",
     "ignore": false,
-    "images": "RasterLayerGeopackage.jpg",
+    "images": [
+        "RasterLayerGeopackage.jpg"
+    ],
     "keywords": [
         "Layers",
         "OGC",

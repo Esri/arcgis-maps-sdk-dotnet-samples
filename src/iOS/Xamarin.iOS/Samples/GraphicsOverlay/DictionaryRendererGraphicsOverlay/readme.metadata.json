@@ -1,8 +1,11 @@
 {
     "category": "GraphicsOverlay",
     "description": "Render graphics with mil2525d symbols.",
+    "formal_name": "DictionaryRendererGraphicsOverlay",
     "ignore": false,
-    "images": "DictionaryRendererGraphicsOverlay.jpg",
+    "images": [
+        "DictionaryRendererGraphicsOverlay.jpg"
+    ],
     "keywords": [
         "Visualization",
         "defence",

@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Create a buffer around a map point and display the results as a `Graphic`",
+    "formal_name": "Buffer",
     "ignore": false,
-    "images": "Buffer.jpg",
+    "images": [
+        "Buffer.jpg"
+    ],
     "keywords": [
         "Analysis",
         "BufferGeodetic",

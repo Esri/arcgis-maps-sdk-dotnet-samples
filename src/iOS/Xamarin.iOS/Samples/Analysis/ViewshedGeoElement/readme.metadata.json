@@ -1,8 +1,11 @@
 {
     "category": "Analysis",
     "description": "Analyze the viewshed for an object (GeoElement) in a scene.",
+    "formal_name": "ViewshedGeoElement",
     "ignore": false,
-    "images": "ViewshedGeoElement.jpg",
+    "images": [
+        "ViewshedGeoElement.jpg"
+    ],
     "keywords": [
         "3D",
         "AnalysisOverlay",

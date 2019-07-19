@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Limit the features to display on the map using a definition expression.",
+    "formal_name": "FeatureLayerDefinitionExpression",
     "ignore": false,
-    "images": "FeatureLayerDefinitionExpression.jpg",
+    "images": [
+        "FeatureLayerDefinitionExpression.jpg"
+    ],
     "keywords": [
         "DefinitionExpression",
         "ServiceFeatureTable",

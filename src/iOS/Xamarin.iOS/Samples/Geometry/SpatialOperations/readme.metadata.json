@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Find the union, intersection, or difference of two geometries.",
+    "formal_name": "SpatialOperations",
     "ignore": false,
-    "images": "SpatialOperations.jpg",
+    "images": [
+        "SpatialOperations.jpg"
+    ],
     "keywords": [
         "analysis",
         "combine",

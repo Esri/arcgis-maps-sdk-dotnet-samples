@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Use a hillshade renderer on a raster.",
+    "formal_name": "RasterHillshade",
     "ignore": false,
-    "images": "RasterHillshade.jpg",
+    "images": [
+        "RasterHillshade.jpg"
+    ],
     "keywords": [
         "Visualization",
         "hillshade",

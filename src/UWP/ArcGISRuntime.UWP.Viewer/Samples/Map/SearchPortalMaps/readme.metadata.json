@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Find webmap portal items by using a search term.",
+    "formal_name": "SearchPortalMaps",
     "ignore": false,
-    "images": "SearchPortalMaps.jpg",
+    "images": [
+        "SearchPortalMaps.jpg"
+    ],
     "keywords": [
         "keyword",
         "query",

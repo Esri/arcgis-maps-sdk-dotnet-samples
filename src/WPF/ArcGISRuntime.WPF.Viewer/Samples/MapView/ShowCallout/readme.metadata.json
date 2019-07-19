@@ -1,8 +1,11 @@
 {
     "category": "MapView",
     "description": "Show a callout with the latitude and longitude of user-tapped points.",
+    "formal_name": "ShowCallout",
     "ignore": false,
-    "images": "ShowCallout.jpg",
+    "images": [
+        "ShowCallout.jpg"
+    ],
     "keywords": [
         "balloon",
         "bubble",

@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Clip a geometry with another geometry.",
+    "formal_name": "ClipGeometry",
     "ignore": false,
-    "images": "ClipGeometry.jpg",
+    "images": [
+        "ClipGeometry.jpg"
+    ],
     "keywords": [
         "analysis",
         "clip",

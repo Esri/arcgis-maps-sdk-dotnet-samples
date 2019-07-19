@@ -1,8 +1,11 @@
 {
     "category": "Symbology",
     "description": "Render features in a layer using a distinct symbol for each unique attribute value.",
+    "formal_name": "RenderUniqueValues",
     "ignore": false,
-    "images": "RenderUniqueValues.jpg",
+    "images": [
+        "RenderUniqueValues.jpg"
+    ],
     "keywords": [
         "Symbology",
         "UniqueValueRenderer",

@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "This sample demonstrates how to manage edits to a local geodatabase inside of transactions.",
+    "formal_name": "GeodatabaseTransactions",
     "ignore": false,
-    "images": "GeodatabaseTransactions.jpg",
+    "images": [
+        "GeodatabaseTransactions.jpg"
+    ],
     "keywords": [],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.5.0"

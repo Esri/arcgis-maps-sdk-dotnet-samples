@@ -1,8 +1,11 @@
 {
     "category": "Network Analysis",
     "description": "Solve a route on-the-fly using offline data.",
+    "formal_name": "OfflineRouting",
     "ignore": false,
-    "images": "OfflineRouting.jpg",
+    "images": [
+        "OfflineRouting.jpg"
+    ],
     "keywords": [
         "connectivity",
         "disconnected",

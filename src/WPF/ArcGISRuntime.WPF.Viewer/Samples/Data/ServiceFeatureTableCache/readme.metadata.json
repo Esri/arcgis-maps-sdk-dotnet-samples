@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Display a feature layer from a service using the **on interaction cache** feature request mode.",
+    "formal_name": "ServiceFeatureTableCache",
     "ignore": false,
-    "images": "ServiceFeatureTableCache.jpg",
+    "images": [
+        "ServiceFeatureTableCache.jpg"
+    ],
     "keywords": [
         "cache",
         "feature request mode",

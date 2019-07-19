@@ -1,8 +1,11 @@
 {
     "category": "Network Analysis",
     "description": "Find the service areas of several facilities from a feature service.",
+    "formal_name": "FindServiceAreasForMultipleFacilities",
     "ignore": false,
-    "images": "FindServiceAreasForMultipleFacilities.jpg",
+    "images": [
+        "FindServiceAreasForMultipleFacilities.jpg"
+    ],
     "keywords": [
         "facilities",
         "feature service",

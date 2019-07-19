@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Select features in a feature layer.",
+    "formal_name": "FeatureLayerSelection",
     "ignore": false,
-    "images": "FeatureLayerSelection.jpg",
+    "images": [
+        "FeatureLayerSelection.jpg"
+    ],
     "keywords": [
         "Layers",
         "SelectFeaturesAsync",

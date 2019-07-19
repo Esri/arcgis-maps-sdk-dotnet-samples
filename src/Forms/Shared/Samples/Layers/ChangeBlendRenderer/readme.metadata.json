@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
+    "formal_name": "ChangeBlendRenderer",
     "ignore": false,
-    "images": "ChangeBlendRenderer.jpg",
+    "images": [
+        "ChangeBlendRenderer.jpg"
+    ],
     "keywords": [
         "Elevation",
         "Hillshade",

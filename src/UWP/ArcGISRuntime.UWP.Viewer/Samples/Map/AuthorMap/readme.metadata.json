@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
+    "formal_name": "AuthorMap",
     "ignore": false,
-    "images": "AuthorMap.jpg",
+    "images": [
+        "AuthorMap.jpg"
+    ],
     "keywords": [
         "AuthenticationManager",
         "ChallengeHandler",

@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Access and create bookmarks on a map.",
+    "formal_name": "ManageBookmarks",
     "ignore": false,
-    "images": "ManageBookmarks.jpg",
+    "images": [
+        "ManageBookmarks.jpg"
+    ],
     "keywords": [
         "bookmark",
         "extent",

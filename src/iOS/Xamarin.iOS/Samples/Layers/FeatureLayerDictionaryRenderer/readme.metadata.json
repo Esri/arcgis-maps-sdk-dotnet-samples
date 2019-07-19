@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Convert features into graphics to show them with mil2525d symbols.",
+    "formal_name": "FeatureLayerDictionaryRenderer",
     "ignore": false,
-    "images": "FeatureLayerDictionaryRenderer.jpg",
+    "images": [
+        "FeatureLayerDictionaryRenderer.jpg"
+    ],
     "keywords": [
         "DictionaryRenderer",
         "DictionarySymbolStyle",

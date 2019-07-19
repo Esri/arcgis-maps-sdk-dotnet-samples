@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Take a map offline using an available preplanned map area.",
+    "formal_name": "DownloadPreplannedMap",
     "ignore": false,
-    "images": "DownloadPreplannedMap.jpg",
+    "images": [
+        "DownloadPreplannedMap.jpg"
+    ],
     "keywords": [
         "Offline",
         "map area",

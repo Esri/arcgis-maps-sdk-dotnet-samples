@@ -1,8 +1,11 @@
 {
     "category": "Security",
     "description": "Access secured portals using a certificate.",
+    "formal_name": "CertificateAuthenticationWithPki",
     "ignore": false,
-    "images": "CertificateAuthenticationWithPKI.jpg",
+    "images": [
+        "CertificateAuthenticationWithPKI.jpg"
+    ],
     "keywords": [
         "PKI",
         "X509",

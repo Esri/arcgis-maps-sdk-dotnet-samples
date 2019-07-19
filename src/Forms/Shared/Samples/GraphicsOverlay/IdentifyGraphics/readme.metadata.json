@@ -1,8 +1,11 @@
 {
     "category": "GraphicsOverlay",
     "description": "Display an alert message when a graphic is clicked.",
+    "formal_name": "IdentifyGraphics",
     "ignore": false,
-    "images": "IdentifyGraphics.jpg",
+    "images": [
+        "IdentifyGraphics.jpg"
+    ],
     "keywords": [
         "graphics",
         "identify"

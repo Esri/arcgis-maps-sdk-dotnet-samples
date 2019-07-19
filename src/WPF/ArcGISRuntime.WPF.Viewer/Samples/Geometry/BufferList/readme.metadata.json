@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Generate multiple individual buffers or a single unioned buffer around multiple points.",
+    "formal_name": "BufferList",
     "ignore": false,
-    "images": "BufferList.jpg",
+    "images": [
+        "BufferList.jpg"
+    ],
     "keywords": [
         "analysis",
         "buffer",

@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Discover available styles and apply them to WMS sublayers.",
+    "formal_name": "StyleWmsLayer",
     "ignore": false,
-    "images": "StyleWmsLayer.jpg",
+    "images": [
+        "StyleWmsLayer.jpg"
+    ],
     "keywords": [
         "WMS",
         "imagery",

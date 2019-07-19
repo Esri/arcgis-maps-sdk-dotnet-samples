@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "This sample demonstrates how to use the GeometryEngine.ConvexHull to generate convex hull polygon(s) from multiple input geometries.",
+    "formal_name": "ConvexHullList",
     "ignore": false,
-    "images": "ConvexHullList.jpg",
+    "images": [
+        "ConvexHullList.jpg"
+    ],
     "keywords": [
         "Analysis",
         "ConvexHull",

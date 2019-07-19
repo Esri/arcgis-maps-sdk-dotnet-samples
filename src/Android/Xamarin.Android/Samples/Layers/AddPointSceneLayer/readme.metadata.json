@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "View a point scene layer from a scene service.",
+    "formal_name": "AddPointSceneLayer",
     "ignore": false,
-    "images": "AddPointSceneLayer.jpg",
+    "images": [
+        "AddPointSceneLayer.jpg"
+    ],
     "keywords": [
         "3D",
         "layers",

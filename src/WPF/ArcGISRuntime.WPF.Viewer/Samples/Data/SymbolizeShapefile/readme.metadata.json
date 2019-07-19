@@ -1,8 +1,11 @@
 {
     "category": "Data",
     "description": "Display a shapefile with custom symbology.",
+    "formal_name": "SymbolizeShapefile",
     "ignore": false,
-    "images": "SymbolizeShapefile.jpg",
+    "images": [
+        "SymbolizeShapefile.jpg"
+    ],
     "keywords": [
         "package",
         "shape file",

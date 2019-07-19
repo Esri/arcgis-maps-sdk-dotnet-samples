@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Find features in a sublayer based on attributes and location.",
+    "formal_name": "MapImageSublayerQuery",
     "ignore": false,
-    "images": "MapImageSublayerQuery.jpg",
+    "images": [
+        "MapImageSublayerQuery.jpg"
+    ],
     "keywords": [
         "search and query"
     ],

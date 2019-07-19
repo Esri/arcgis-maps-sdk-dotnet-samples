@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Set the terrain surface with elevation described by a local tile package.",
+    "formal_name": "CreateTerrainSurfaceFromTilePackage",
     "ignore": false,
-    "images": "The terrain surface is what the basemap, operational layers, and graphics are draped on.",
+    "images": [
+        "The terrain surface is what the basemap, operational layers, and graphics are draped on."
+    ],
     "keywords": [
         "3D",
         "Elevation",

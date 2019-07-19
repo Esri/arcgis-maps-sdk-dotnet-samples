@@ -1,8 +1,11 @@
 {
     "category": "Geometry",
     "description": "Project a point from one spatial reference to another.",
+    "formal_name": "Project",
     "ignore": false,
-    "images": "Project.jpg",
+    "images": [
+        "Project.jpg"
+    ],
     "keywords": [
         "GeometryEngine",
         "WGS 84",

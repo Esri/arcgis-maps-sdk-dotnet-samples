@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Load and display KML from a URL, a local file, or a portal item.",
+    "formal_name": "DisplayKml",
     "ignore": false,
-    "images": "DisplayKml.jpg",
+    "images": [
+        "DisplayKml.jpg"
+    ],
     "keywords": [
         "KML",
         "KMZ",

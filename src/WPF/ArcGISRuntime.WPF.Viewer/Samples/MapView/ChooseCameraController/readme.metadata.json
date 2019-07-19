@@ -1,8 +1,11 @@
 {
     "category": "MapView",
     "description": "Control the behavior of the camera in a scene.",
+    "formal_name": "ChooseCameraController",
     "ignore": false,
-    "images": "ChooseCameraController.jpg",
+    "images": [
+        "ChooseCameraController.jpg"
+    ],
     "keywords": [
         "3D",
         "Camera",

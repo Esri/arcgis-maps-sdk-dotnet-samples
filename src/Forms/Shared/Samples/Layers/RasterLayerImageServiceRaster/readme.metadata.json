@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Create a raster layer from a raster image service.",
+    "formal_name": "RasterLayerImageServiceRaster",
     "ignore": false,
-    "images": "RasterLayerImageServiceRaster.jpg",
+    "images": [
+        "RasterLayerImageServiceRaster.jpg"
+    ],
     "keywords": [
         "image service",
         "raster"

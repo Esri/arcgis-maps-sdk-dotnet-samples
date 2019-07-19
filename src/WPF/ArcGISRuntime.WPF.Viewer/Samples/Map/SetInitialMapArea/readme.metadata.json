@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Display the map at an initial viewpoint representing a bounding geometry.",
+    "formal_name": "SetInitialMapArea",
     "ignore": false,
-    "images": "SetInitialMapArea.jpg",
+    "images": [
+        "SetInitialMapArea.jpg"
+    ],
     "keywords": [
         "Envelope",
         "InitialViewpoint",

@@ -1,8 +1,11 @@
 {
     "category": "Symbology",
     "description": "Show a simple marker symbol on a map.",
+    "formal_name": "RenderSimpleMarkers",
     "ignore": false,
-    "images": "RenderSimpleMarkers.jpg",
+    "images": [
+        "RenderSimpleMarkers.jpg"
+    ],
     "keywords": [
         "SimpleMarkerSymbol",
         "symbol"

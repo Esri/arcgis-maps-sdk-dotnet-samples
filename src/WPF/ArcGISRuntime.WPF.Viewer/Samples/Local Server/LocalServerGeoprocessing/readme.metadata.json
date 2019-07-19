@@ -1,8 +1,11 @@
 {
     "category": "Local Server",
     "description": "Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.",
+    "formal_name": "LocalServerGeoprocessing",
     "ignore": false,
-    "images": "LocalServerGeoprocessing.jpg",
+    "images": [
+        "LocalServerGeoprocessing.jpg"
+    ],
     "keywords": [
         "GeoprocessingJob",
         "GeoprocessingParameters",

@@ -1,8 +1,11 @@
 {
     "category": "Search",
     "description": "Find the location for an address.",
+    "formal_name": "FindAddress",
     "ignore": false,
-    "images": "FindAddress.jpg",
+    "images": [
+        "FindAddress.jpg"
+    ],
     "keywords": [
         "address",
         "geocode",

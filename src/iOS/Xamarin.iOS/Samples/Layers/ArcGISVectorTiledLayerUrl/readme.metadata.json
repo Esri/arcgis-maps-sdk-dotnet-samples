@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Load an ArcGIS Vector Tiled Layer from a URL.",
+    "formal_name": "ArcGISVectorTiledLayerUrl",
     "ignore": false,
-    "images": "ArcgisVectortiledlayerUrl.jpg",
+    "images": [
+        "ArcgisVectortiledlayerUrl.jpg"
+    ],
     "keywords": [
         "ArcGISVectorTiledLayer",
         "vector basemap",

@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "This sample demonstrates how to identify features in a KML layer. Identified feature attributes are displayed in a callout to simulate a popup.",
+    "formal_name": "IdentifyKmlFeatures",
     "ignore": false,
-    "images": "IdentifyKmlFeatures.jpg",
+    "images": [
+        "IdentifyKmlFeatures.jpg"
+    ],
     "keywords": [
         "KML",
         "NOAA",

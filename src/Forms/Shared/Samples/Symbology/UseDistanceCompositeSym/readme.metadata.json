@@ -1,8 +1,11 @@
 {
     "category": "Symbology",
     "description": "Change a graphic's symbol based on the camera's proximity to it.",
+    "formal_name": "UseDistanceCompositeSym",
     "ignore": false,
-    "images": "UseDistanceCompositeSym.jpg",
+    "images": [
+        "UseDistanceCompositeSym.jpg"
+    ],
     "keywords": [
         "3D",
         "DistanceCompositeSceneSymbol",

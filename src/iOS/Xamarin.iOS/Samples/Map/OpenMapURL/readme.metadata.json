@@ -1,8 +1,11 @@
 {
     "category": "Map",
     "description": "Display a web map.",
+    "formal_name": "OpenMapURL",
     "ignore": false,
-    "images": "OpenMapUrl.jpg",
+    "images": [
+        "OpenMapUrl.jpg"
+    ],
     "keywords": [
         "portal item",
         "web map"

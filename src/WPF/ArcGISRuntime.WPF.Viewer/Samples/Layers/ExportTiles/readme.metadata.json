@@ -1,8 +1,11 @@
 {
     "category": "Layers",
     "description": "Download tiles to a local tile cache file stored on the device.",
+    "formal_name": "ExportTiles",
     "ignore": false,
-    "images": "ExportTiles.jpg",
+    "images": [
+        "ExportTiles.jpg"
+    ],
     "keywords": [
         "Edit and Manage Data",
         "cache",

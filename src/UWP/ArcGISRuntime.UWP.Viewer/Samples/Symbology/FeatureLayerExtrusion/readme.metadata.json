@@ -1,8 +1,11 @@
 {
     "category": "Symbology",
     "description": "Extrude features based on their attributes.",
+    "formal_name": "FeatureLayerExtrusion",
     "ignore": false,
-    "images": "FeatureLayerExtrusion.jpg",
+    "images": [
+        "FeatureLayerExtrusion.jpg"
+    ],
     "keywords": [
         "3D",
         "ExtrusionExpression",

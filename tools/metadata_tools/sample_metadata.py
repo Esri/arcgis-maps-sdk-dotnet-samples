@@ -9,11 +9,19 @@ from csproj_utils import *
 from file_utils import *
 
 class sample_metadata:
+    '''
+    This class represents a sample.
+    Use populate_from_* to populate from content.
+    Use try_replace_from_common_readme to read external readme content and replace the sample's content if the common content is 'better'.
+    Use flush_to_* to write out the sample to disk.
+    Use emit_standalone_solution to write out the sample as a standalone Visual Studio solution.
+    '''
+    
     arcgis_runtime_latest = "100.5.0" # store latest Runtime version, for use with packages
+
     def reset_props(self):
         self.formal_name = ""
         self.friendly_name = ""
-        self.sample_unique_id = ""
         self.category = ""
         self.nuget_packages = {}
         self.keywords = []
@@ -51,13 +59,11 @@ class sample_metadata:
         with open(path_to_json, 'r') as json_file:
             data = json.load(json_file)
             keys = data.keys()
-            for key in ["sample_unique_id", "category", "keywords", "images", "redirect_from", "description", "ignore"]:
+            for key in ["category", "keywords", "images", "redirect_from", "description", "ignore"]:
                 if key in keys:
                     setattr(self, key, data[key])
             if "title" in keys:
                 self.friendly_name = data["title"]
-            if "sample_unique_id" in keys:
-                self.sample_unique_id = data["sample_unique_id"]
             if "packages" in keys:
                 self.nuget_packages = data["packages"]
             if "relevant_apis" in keys:
@@ -272,7 +278,6 @@ class sample_metadata:
         data = {}
 
         data["title"] = self.friendly_name
-        data["sample_unique_id"] = self.sample_unique_id
         data["category"] = self.category
         data["keywords"] = self.keywords
         data["relevant_apis"] = self.relevant_api
@@ -282,6 +287,7 @@ class sample_metadata:
         data["description"] = self.description
         data["ignore"] = self.ignore
         data["offline_data"] = self.offline_data
+        data["nuget_packages"] = self.nuget_packages
 
         with open(path_to_json, 'w+') as json_file:
             json.dump(data, json_file, indent=4, sort_keys=True)
@@ -403,6 +409,10 @@ class sample_metadata:
                         self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
 
     def rewrite_files_in_place(source_dir, replacements_dict):
+        '''
+        Takes a dictionary of strings and replacements, applies the replacements to all the files in a directory.
+        Used when generating sample solutions.
+        '''
         for r, d, f in os.walk(source_dir):
             for sample_dir in d:
                 sample_metadata.rewrite_files_in_place(os.path.join(r, sample_dir), replacements_dict)

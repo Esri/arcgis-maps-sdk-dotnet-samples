@@ -1,4 +1,5 @@
 from sample_metadata import *
+import sys
 
 import os
 
@@ -83,12 +84,22 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
         file.write(readme_text)
 
 def main():
-    # Take the path to the samples root (ending in src)
-    sample_root = "C:\\SamplesDotNET\\src" # TODO
-    output_root = "C:\\API\\"
-    shared_project_path = "C:\\SamplesDotNET\\src\\ArcGISRuntime.Samples.Shared"
-    # TODO - make readme replace a run option, disable by default, parameterize common-samples path
-    common_dir_path = "C:\\Users\\nath9278\\Documents\\Dev\\common-samples\\designs"
+    '''
+    Usage: python3 process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}
+    Operations: toc; secondary path is empty
+                improve; secondary path is common readme
+                sync; keep metadata in sync with readme
+    '''
+
+    if len(sys.argv) < 3:
+        print("Usage: python3 process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}")
+        print("Operations are toc, improve, and sync; secondary path is path to common readme source for the improve operation.")
+
+    operation = sys.argv[1]        
+    sample_root = sys.argv[2]
+    common_dir_path = ""
+    if operation == "improve":
+        common_dir_path = sys.argv[3]
 
     for platform in ["UWP", "WPF", "Android", "Forms", "iOS"]:
         # make a list of samples, so that build_all_csproj.bat can be produced
@@ -108,8 +119,10 @@ def main():
                     continue
                 sample.populate_from_readme(platform, path_to_readme)
                 sample.populate_snippets_from_folder(platform, path_to_readme)
-                sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
-                sample.flush_to_json(os.path.join(r, sample_dir, "readme.metadata.json"))
+                if operation == "improve":
+                    sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
+                if operation in ["improve", "sync"]:
+                    sample.flush_to_json(os.path.join(r, sample_dir, "readme.metadata.json"))
                 list_of_sample_dirs.append(sample_dir)
                 # track samples in each category to enable TOC generation
                 if sample.category in list_of_samples.keys():
@@ -117,7 +130,8 @@ def main():
                 else:
                     list_of_samples[sample.category] = [sample]
         # write out samples TOC
-        write_samples_toc(get_platform_samples_root(platform, sample_root), get_relative_path_to_samples_from_platform_root(platform), list_of_samples)
+        if operation in ["toc", "improve", "sync"]:
+            write_samples_toc(get_platform_samples_root(platform, sample_root), get_relative_path_to_samples_from_platform_root(platform), list_of_samples)
     return
 
 if __name__ == "__main__":

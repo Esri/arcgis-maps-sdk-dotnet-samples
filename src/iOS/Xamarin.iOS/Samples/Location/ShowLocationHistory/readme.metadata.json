@@ -1,0 +1,41 @@
+{
+    "category": "Location",
+    "description": "Display your location history on the map.",
+    "ignore": false,
+    "images": "ShowLocationHistory.jpg",
+    "keywords": [
+        "GPS",
+        "bread crumb",
+        "breadcrumb",
+        "history",
+        "movement",
+        "navigation",
+        "real-time",
+        "trace",
+        "track",
+        "trail"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/showlocationhistory.htm"
+    ],
+    "relevant_apis": [
+        "Location.Position",
+        "LocationDataSource",
+        "LocationDataSource.LocationChanged",
+        "LocationDataSource.UpdateLocation",
+        "LocationDisplay.AutoPanMode",
+        "LocationDisplay.DataSource",
+        "LocationDisplay.IsEnabled",
+        "MapView.LocationDisplay",
+        "SystemLocationDataSource"
+    ],
+    "snippets": [
+        "FakeLocationDataSource.cs",
+        "ShowLocationHistory.cs"
+    ],
+    "title": "Show location history"
+}

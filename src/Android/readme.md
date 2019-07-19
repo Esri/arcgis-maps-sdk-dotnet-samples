@@ -113,6 +113,7 @@
 * [Query map image sublayer](Xamarin.Android/Samples/Layers/MapImageSublayerQuery/readme.md) - Find features in a sublayer based on attributes and location.
 * [OpenStreetMap layer](Xamarin.Android/Samples/Layers/OpenStreetMapLayer/readme.md) - Add OpenStreetMap as a basemap layer.
 * [Play a KML tour](Xamarin.Android/Samples/Layers/PlayKmlTours/readme.md) - Play tours in KML files.
+* [Colormap renderer](Xamarin.Android/Samples/Layers/RasterColormapRenderer/readme.md) - Apply a colormap renderer to a raster.
 * [Raster hillshade renderer](Xamarin.Android/Samples/Layers/RasterHillshade/readme.md) - Use a hillshade renderer on a raster.
 * [Raster layer (file)](Xamarin.Android/Samples/Layers/RasterLayerFile/readme.md) - Create and use a raster layer made from a local raster file.
 * [Raster layer (service)](Xamarin.Android/Samples/Layers/RasterLayerImageServiceRaster/readme.md) - Create a raster layer from a raster image service.
@@ -133,6 +134,7 @@
 ## Location
 
 * [Display device location](Xamarin.Android/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
+* [Show location history](Xamarin.Android/Samples/Location/ShowLocationHistory/readme.md) - Display your location history on the map.
 
 ## Map
 
@@ -168,6 +170,7 @@
 
 * [Change time extent](Xamarin.Android/Samples/MapView/ChangeTimeExtent/readme.md) - This sample demonstrates how to filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](Xamarin.Android/Samples/MapView/ChangeViewpoint/readme.md) - Set the map view to a new viewpoint.
+* [Choose camera controller](Xamarin.Android/Samples/MapView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
 * [Display draw status](Xamarin.Android/Samples/MapView/DisplayDrawingStatus/readme.md) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
 * [Display grid](Xamarin.Android/Samples/MapView/DisplayGrid/readme.md) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
 * [Display layer view state](Xamarin.Android/Samples/MapView/DisplayLayerViewState/readme.md) - View the status of the layers on the map.

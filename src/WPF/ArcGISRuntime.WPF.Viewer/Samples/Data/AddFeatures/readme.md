@@ -2,11 +2,11 @@
 
 Add features to a feature layer.
 
+![screenshot](AddFeatures.jpg)
+
 ## Use case
 
-An end-user performing a survey may want to add features to the map during the course of their work. 
-
-![](AddFeatures.jpg)
+An end-user performing a survey may want to add features to the map during the course of their work.
 
 ## How to use this sample
 

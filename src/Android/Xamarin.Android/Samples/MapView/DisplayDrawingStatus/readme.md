@@ -8,6 +8,10 @@ Get the draw status of your map view or scene view to know when all layers in th
 
 You may want to display a loading indicator while layers are loading, which could then be removed on `DrawStatus.Completed`.
 
+## How to use the sample
+
+Pan and zoom to see drawing status changes.
+
 ## How it works
 
 1. Create a `MapView` and subscribe to the `DrawStatusChanged` event.

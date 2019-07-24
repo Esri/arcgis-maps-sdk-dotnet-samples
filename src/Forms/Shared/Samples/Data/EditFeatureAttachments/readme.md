@@ -10,8 +10,6 @@ Tap a feature to load its attachments. Use the buttons to preview, delete, or ad
 
 ## How it works
 
-To get a `Feature` from a `ServiceFeatureTable` and add or delete `Attachment`:
-
 1. Create a service feature table from a URL.
 2. Create a `FeatureLayer` from the service feature table.
 3. Select features from the feature layer, `FeatureLayer.SelectFeatures()`.

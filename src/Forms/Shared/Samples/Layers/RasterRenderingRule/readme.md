@@ -10,7 +10,7 @@ Raster images whose individual pixels represent elevation values can be rendered
 
 ## How to use the sample
 
-Run the sample and use the drop-down menu at the top to select a rendering rule.
+Run the sample and use the button to select a rendering rule.
 
 ## How it works
 

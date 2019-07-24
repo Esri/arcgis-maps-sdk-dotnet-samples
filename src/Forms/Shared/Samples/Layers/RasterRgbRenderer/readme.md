@@ -6,7 +6,7 @@ Use an `RGBRenderer` on a `RasterLayer`. An `RGBRenderer` is used to adjust the 
 
 ## How to use the sample
 
-Configure the options for rendering, then click 'Apply hillshade'.
+Configure the options for rendering, then use the button to apply the renderer.
 
 ## How it works
 

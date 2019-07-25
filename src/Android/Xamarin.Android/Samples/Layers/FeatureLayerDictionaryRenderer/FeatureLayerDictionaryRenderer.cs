@@ -21,7 +21,7 @@ using ArcGISRuntime.Samples.Managers;
 namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e34835bf5ec5430da7cf16bb8c0b075c","e0d41b4b409a49a5a7ba11939d8535dc")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("5de1ff8d2aa243558ba057fa922beb84", "e0d41b4b409a49a5a7ba11939d8535dc")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer dictionary renderer",
         "Layers",
@@ -76,8 +76,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             try
             {
                 // Load the symbol dictionary from local storage
-                //     Note that the type of the symbol definition must be explicitly provided along with the file name
-                DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
+                DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.CreateFromFileAsync(symbolFilepath);
 
                 // Add geodatabase features to the map, using the defined symbology
                 foreach (FeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
@@ -116,7 +115,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
         // Get the file path for the style dictionary
         private string GetStyleDictionaryPath()
         {
-            return DataManager.GetDataFolder("e34835bf5ec5430da7cf16bb8c0b075c", "mil2525d.stylx");
+            return DataManager.GetDataFolder("5de1ff8d2aa243558ba057fa922beb84", "mil2525d.stylx");
         }
 
         // Get the file path for the geodatabase

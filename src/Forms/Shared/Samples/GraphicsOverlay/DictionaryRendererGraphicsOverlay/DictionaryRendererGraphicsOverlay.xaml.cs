@@ -25,7 +25,7 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
         "GraphicsOverlay",
         "Render graphics with mil2525d symbols.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("5de1ff8d2aa243558ba057fa922beb84", "1545703b201f4c7cb2001b610f722c49")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "1545703b201f4c7cb2001b610f722c49")]
     public partial class DictionaryRendererGraphicsOverlay : ContentPage
     {
         // Hold a reference to the graphics overlay for easy access.
@@ -51,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
                 _tacticalMessageOverlay.MinScale = 1000000;
 
                 // Create a symbol dictionary style following the mil2525d spec.
-                string symbolFilePath = DataManager.GetDataFolder("5de1ff8d2aa243558ba057fa922beb84", "mil2525d.stylx");
+                string symbolFilePath = DataManager.GetDataFolder("c78b149a1d52414682c86a5feeb13d30", "mil2525d.stylx");
                 DictionarySymbolStyle mil2525DStyle = await DictionarySymbolStyle.CreateFromFileAsync(symbolFilePath);
 
                 // Use the dictionary symbol style to render graphics in the overlay.

@@ -20,7 +20,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
 {
     [Register("FeatureLayerDictionaryRenderer")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("5de1ff8d2aa243558ba057fa922beb84", "e0d41b4b409a49a5a7ba11939d8535dc")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer dictionary renderer",
         "Layers",
@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             Geodatabase baseGeodatabase = await Geodatabase.OpenAsync(geodbFilePath);
 
             // Get the path to the symbol dictionary.
-            string symbolFilepath = DataManager.GetDataFolder("5de1ff8d2aa243558ba057fa922beb84", "mil2525d.stylx");
+            string symbolFilepath = DataManager.GetDataFolder("c78b149a1d52414682c86a5feeb13d30", "mil2525d.stylx");
 
             try
             {

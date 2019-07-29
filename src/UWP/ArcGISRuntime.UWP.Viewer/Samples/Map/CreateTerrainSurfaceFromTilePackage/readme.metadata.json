@@ -4,7 +4,7 @@
     "formal_name": "CreateTerrainSurfaceFromTilePackage",
     "ignore": false,
     "images": [
-        "The terrain surface is what the basemap, operational layers, and graphics are draped on."
+        "CreateTerrainSurfaceFromTilePackage.jpg"
     ],
     "keywords": [
         "3D",

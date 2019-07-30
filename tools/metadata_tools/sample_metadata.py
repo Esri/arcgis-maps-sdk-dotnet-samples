@@ -400,6 +400,11 @@ class sample_metadata:
                         layout_name = line.split("Layout.")[1].strip().strip(";").strip(")")
                         # add the file path to the snippets list
                         self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
+                    elif ".Inflate(Resource.Layout." in line:
+                        # extract name of layout
+                        layout_name = line.split("Layout.")[1].strip().strip(";").strip(", null)")
+                        # add the file path to the snippets list
+                        self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
 
     def rewrite_files_in_place(source_dir, replacements_dict):
         '''

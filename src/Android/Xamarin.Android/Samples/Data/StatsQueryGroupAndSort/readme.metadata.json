@@ -31,7 +31,9 @@
         "StatisticsQueryResult"
     ],
     "snippets": [
-        "StatsQueryGroupAndSort.cs"
+        "StatsQueryGroupAndSort.cs",
+        "../../../Resources/layout/GroupedResultsList_DataItem.axml",
+        "../../../Resources/layout/GroupedResultsList_GroupItem.axml"
     ],
     "title": "Statistical query group and sort"
 }

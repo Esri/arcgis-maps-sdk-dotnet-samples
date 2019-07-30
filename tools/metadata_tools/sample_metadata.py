@@ -42,14 +42,6 @@ class sample_metadata:
     def __init__(self):
         self.reset_props()
     
-    def populate_from_folder(self, folder_path):
-        # check for readme in folder
-
-        # check for json in folder
-
-
-        return
-    
     def populate_from_json(self, path_to_json):
         # formal name is the name of the folder containing the json
         pathparts = sample_metadata.splitall(path_to_json)
@@ -537,7 +529,6 @@ class sample_metadata:
         
         # relevant API
         if "api" in heading_parts or "apis" in heading_parts:
-            api_strings = []
             lines = body_parts[0].split("\n")
             cleaned_lines = []
             for line in lines:

@@ -1,4 +1,7 @@
-
+'''
+Functions for producing csproj-style XML for various kinds of content.
+Used by generate_sample_solutions to update the .csproj files for individual projects.
+'''
 
 def get_csproj_xml_for_nuget_packages(nuget_version_list):
     '''

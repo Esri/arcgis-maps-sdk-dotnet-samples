@@ -85,20 +85,24 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
 
 def main():
     '''
-    Usage: python3 process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}
+    Usage: python process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}
     Operations: toc; secondary path is empty
                 improve; secondary path is common readme
                 sync; keep metadata in sync with readme
     '''
 
     if len(sys.argv) < 3:
-        print("Usage: python3 process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}")
+        print("Usage: python process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}")
         print("Operations are toc, improve, and sync; secondary path is path to common readme source for the improve operation.")
+        return
 
     operation = sys.argv[1]        
     sample_root = sys.argv[2]
     common_dir_path = ""
     if operation == "improve":
+        if len(sys.argv) < 4:
+            print("Usage: python process_metadata.py improve {path_to_samples (ends in src)} {path_to_readme_source}")
+            return
         common_dir_path = sys.argv[3]
 
     for platform in ["UWP", "WPF", "Android", "Forms", "iOS"]:

@@ -2,9 +2,7 @@
 
 Set the terrain surface with elevation described by a local tile package.
 
-The terrain surface is what the basemap, operational layers, and graphics are draped on.
-
-![](CreateTerrainSurfaceFromTilePackage.jpg)
+![screenshot](CreateTerrainSurfaceFromTilePackage.jpg)
 
 ## How it works
 
@@ -20,6 +18,8 @@ The terrain surface is what the basemap, operational layers, and graphics are dr
 ## Additional information
 
 The tile package must be a LERC (limited error raster compression) encoded TPK. Details on creating these are in the [ArcGIS Pro documentation](https://pro.arcgis.com/en/pro-app/help/sharing/overview/tile-package.htm).
+
+The terrain surface is what the basemap, operational layers, and graphics are draped on.
 
 ## Tags
 

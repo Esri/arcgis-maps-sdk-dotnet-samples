@@ -158,6 +158,8 @@
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
       <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\ItemToImageSourceConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\NullToVisibilityConverter.cs" />
     <Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
       <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
     </Compile>

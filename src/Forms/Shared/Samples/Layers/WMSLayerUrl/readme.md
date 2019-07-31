@@ -2,7 +2,7 @@
 
 Display a WMS layer using a WMS service URL.
 
-![screenshot](WMSLayerURL.jpg)
+![screenshot](WMSLayerUrl.jpg)
 
 ## How to use the sample
 

@@ -2,7 +2,7 @@
 
 Show a line of sight between two moving objects.
 
-![screenshot](LineOfSightGeoelement.jpg)
+![screenshot](LineOfSightGeoElement.jpg)
 
 ## Use case
 

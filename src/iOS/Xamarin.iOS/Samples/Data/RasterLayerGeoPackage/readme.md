@@ -2,7 +2,7 @@
 
 Open a `GeoPackage`, obtain a raster from the package, and display the table as a `RasterLayer`.
 
-![screenshot](RasterLayerGeopackage.jpg)
+![screenshot](RasterLayerGeoPackage.jpg)
 
 ## How to use the sample
 

@@ -2,7 +2,7 @@
 
 Identify features in a WMS layer and display the associated popup content.
 
-![screenshot](Wmsidentify.jpg)
+![screenshot](WmsIdentify.jpg)
 
 ## How to use the sample
 

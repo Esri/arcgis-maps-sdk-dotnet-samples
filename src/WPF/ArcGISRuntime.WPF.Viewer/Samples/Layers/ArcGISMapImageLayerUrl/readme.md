@@ -2,7 +2,7 @@
 
 Add an ArcGIS Map Image Layer from a URL to a map.
 
-![screenshot](ArcgisMapimagelayerUrl.jpg)
+![screenshot](ArcGISMapImageLayerUrl.jpg)
 
 ## Use case
 

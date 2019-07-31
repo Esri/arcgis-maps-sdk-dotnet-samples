@@ -29,7 +29,8 @@
     ],
     "snippets": [
         "GenerateOfflineMapWithOverrides.cs",
-        "ParameterOverrideFragment.cs"
+        "ParameterOverrideFragment.cs",
+        "../../../Resources/layout/OverrideParametersDialog.axml"
     ],
     "title": "Generate Offline Map (Overrides)"
 }

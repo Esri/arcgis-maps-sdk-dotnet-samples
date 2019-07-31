@@ -2,7 +2,7 @@
 
 Display a layer from a Web Map Tile Service.
 
-![screenshot](WmtsLayer.jpg)
+![screenshot](WMTSLayer.jpg)
 
 ## Use case
 

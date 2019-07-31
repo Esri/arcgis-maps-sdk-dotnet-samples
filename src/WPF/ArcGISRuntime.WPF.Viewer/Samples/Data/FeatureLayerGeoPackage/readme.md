@@ -2,7 +2,7 @@
 
 Display features from a local GeoPackage.
 
-![screenshot](FeatureLayerGeopackage.jpg)
+![screenshot](FeatureLayerGeoPackage.jpg)
 
 ## Use case
 

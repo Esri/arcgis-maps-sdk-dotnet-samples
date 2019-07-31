@@ -2,7 +2,7 @@
 
 Read a shapefile and display its metadata.
 
-![screenshot](Readshapefilemetadata.jpg)
+![screenshot](ReadShapefileMetadata.jpg)
 
 ## Use case
 

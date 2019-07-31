@@ -1,9 +1,45 @@
 # Read shapefile metadata
 
-This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.
+Read a shapefile and display its metadata.
 
-<img src="ReadShapefileMetadata.jpg" width="350"/>
+![screenshot](Readshapefilemetadata.jpg)
 
-## Instructions
+## Use case
 
-The shapefile will be downloaded from an ArcGIS Online portal automatically.
+You can display information about the shapefile your user is viewing, like tags, credits, and summary.
+
+## How to use the sample
+
+Click the button to show shapefile metadata.
+
+## How it works
+
+1. Call `ShapefileFeatureTable.OpenAsync("path_to_shapefile")` to create the `ShapefileFeatureTable`.
+2. Get the `ShapefileInfo` from the feature table's `Info` property.
+3. Get the image from `fileInfo.Thumbnail` and display it.
+4. Display the `Summary`, `Credits`, and `Tags` properties from the shapefile info.
+
+## Relevant API
+
+* ShapefileFeatureTable
+* ShapefileFeatureTable.Info
+* ShapefileFeatureTable.OpenAsync
+* ShapefileInfo
+* ShapefileInfo.Credits
+* ShapefileInfo.Summary
+* ShapefileInfo.Tags
+* ShapefileInfo.Thumbnail
+
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [Aurora_CO_shp.zip](https://www.arcgis.com/home/item.html?id=d98b3e5293834c5f852f13c569930caa) - Shapefiles that cover Aurora Colorado: Public art (points), Bike trails (lines), and Subdivisions (polygons).
+
+## About the data
+
+This sample uses a shapefile showing trail bike paths in Aurora, CO. The shapefile is available as an item on [ArcGIS Online](https://www.arcgis.com/home/item.html?id=d98b3e5293834c5f852f13c569930caa).
+
+## Tags
+
+credits, description, metadata, package, shape file, shapefile, summary, symbology, tags, visualization

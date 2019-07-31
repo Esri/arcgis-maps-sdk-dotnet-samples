@@ -2,11 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:converters="clr-namespace:ArcGISRuntime.Converters"
-             xmlns:converters1="clr-namespace:ArcGISRuntime.WPF.Viewer.Converters">
+             xmlns:local="clr-namespace:ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute">
     <UserControl.Resources>
-        <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
-        <converters1:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <local:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
+        <local:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />

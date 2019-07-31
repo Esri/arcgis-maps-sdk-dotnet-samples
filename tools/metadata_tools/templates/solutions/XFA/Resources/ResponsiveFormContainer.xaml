@@ -1,0 +1,43 @@
+﻿<Frame xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Forms.Resources.ResponsiveFormContainer"
+             CornerRadius="0" BackgroundColor="White" HasShadow="False" Padding="10">
+    <!-- NOTE: if you want to set an inset on the mapview to account for the form, use the MapWithFormStyle style and set the binding context on the MapView to point to this Frame (whatever you call it in the sample -->
+    <Frame.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+        </ResourceDictionary>
+    </Frame.Resources>
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="CommonStates">
+            <VisualState x:Name="DesktopTablet">
+                <VisualState.Setters>
+                    <!-- Layout -->
+                    <Setter Property="RelativeLayout.WidthConstraint" 
+                            Value="{ConstraintExpression Type=Constant,Constant=375}" />
+                    <Setter Property="RelativeLayout.XConstraint" 
+                            Value="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1,Constant=-405}" />
+                    <Setter Property="RelativeLayout.YConstraint" 
+                            Value="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=0,Constant=30}" />
+                    <!-- Theming -->
+                    <Setter Property="Frame.BorderColor" Value="Black" />
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="Phone">
+                <VisualState.Setters>
+                    <!-- Layout -->
+                    <Setter Property="RelativeLayout.WidthConstraint" 
+                            Value="{ConstraintExpression Type=RelativeToParent,Factor=1,Property=Width}" />
+                    <Setter Property="RelativeLayout.XConstraint" 
+                            Value="{ConstraintExpression Type=Constant,Constant=0}" />
+                    <Setter Property="RelativeLayout.YConstraint" 
+                            Value="{ConstraintExpression Type=Constant,Constant=0}" />
+                    <!-- Theming -->
+                    <Setter Property="Frame.BorderColor" Value="White" />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+</Frame>

@@ -1,9 +1,30 @@
 # Raster layer (file)
 
-This sample demonstrates how to use a raster layer created from a local raster file.
+Create and use a raster layer made from a local raster file.
 
-<img src="RasterLayerFile.jpg" width="350"/>
+![screenshot](RasterLayerFile.jpg)
 
-## Instructions
+## How to use the sample
 
-The raster file is downloaded by the sample viewer automatically. Note that due to a known bug, this sample may crash in emulators running Android 4.4 (API level 19). All other platform versions are unaffected.
+Run the sample.
+
+## How it works
+
+1. Create a `Raster` from a raster file stored locally on the device.
+2. Create a `RasterLayer` from the `Raster`.
+3. Add it as an operational layer with `Map.OperationalLayers.Add(...)`.
+
+## Relevant API
+
+* Raster
+* RasterLayer
+
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [raster-file.zip](https://www.arcgis.com/home/item.html?id=7c4c679ab06a4df19dc497f577f111bd) - Tif raster file
+
+## Tags
+
+Layers, raster

@@ -6,9 +6,7 @@ Update feature attributes in an online feature service.
 
 ## How to use the sample
 
-To change the feature's damage property:
-* Tap the feature to select.
-* Update the damage type using the dropdown.
+Tap a feature to select it, then use the dropdown to update it.
 
 ## How it works
 

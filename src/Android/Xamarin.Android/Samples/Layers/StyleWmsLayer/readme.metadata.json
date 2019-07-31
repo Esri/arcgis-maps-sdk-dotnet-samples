@@ -1,0 +1,31 @@
+{
+    "category": "Layers",
+    "description": "Discover available styles and apply them to WMS sublayers.",
+    "formal_name": "StyleWmsLayer",
+    "ignore": false,
+    "images": [
+        "StyleWmsLayer.jpg"
+    ],
+    "keywords": [
+        "WMS",
+        "imagery",
+        "styles"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/stylewmslayer.htm"
+    ],
+    "relevant_apis": [
+        "WmsLayer.Sublayers",
+        "WmsSublayer.CurrentStyle",
+        "WmsSublayerInfo",
+        "WmsSublayerInfo.Styles"
+    ],
+    "snippets": [
+        "StyleWmsLayer.cs"
+    ],
+    "title": "Style WMS layers"
+}

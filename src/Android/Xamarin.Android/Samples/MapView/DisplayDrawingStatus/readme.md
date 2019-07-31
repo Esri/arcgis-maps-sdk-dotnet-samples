@@ -1,5 +1,28 @@
-# Display drawing status
+# Display draw status
 
-This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.
+Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
 
-<img src="DisplayDrawingStatus.jpg" width="350"/>
+![screenshot](DisplayDrawingStatus.jpg)
+
+## Use case
+
+You may want to display a loading indicator while layers are loading, which could then be removed on `DrawStatus.Completed`.
+
+## How to use the sample
+
+Pan and zoom to see drawing status changes.
+
+## How it works
+
+1. Create a `MapView` and subscribe to the `DrawStatusChanged` event.
+2. Inspect the draw status property in the event handler to determine draw status.
+
+## Relevant API
+
+* Map
+* DrawStatus
+* MapView
+
+## Tags
+
+MapViews, SceneViews and UI

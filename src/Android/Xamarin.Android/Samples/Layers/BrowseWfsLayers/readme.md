@@ -6,11 +6,11 @@ Browse a WFS service for layers.
 
 ## Use case
 
-Many GIS scenarios involve accessing a service and discovering which layers should be displayed. For example, a feature service for a city might have layers representing roads, land masses, building footprints, parks, and facilities. A user may choose to only show the road network and parks for a park accessibility analysis. 
+Many GIS scenarios involve accessing a service and discovering which layers should be displayed. For example, a feature service for a city might have layers representing roads, land masses, building footprints, parks, and facilities. A user may choose to only show the road network and parks for a park accessibility analysis.
 
 ## How to use the sample
 
-A list of layers in the WFS service will be shown. Select a layer to display.
+Click 'Choose a layer' to select a layer to display.
 
 Some WFS services return coordinates in X,Y order, while others return coordinates in lat/long (Y,X) order. If you don't see features rendered or you see features in the wrong location, use the checkbox to change the coordinate order and reload.
 

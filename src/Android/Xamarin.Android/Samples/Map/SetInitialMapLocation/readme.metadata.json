@@ -1,0 +1,32 @@
+{
+    "category": "Map",
+    "description": "Display a map centered on an initial point with a specified level of detail (zoom level).",
+    "formal_name": "SetInitialMapLocation",
+    "ignore": false,
+    "images": [
+        "SetInitialMapLocation.jpg"
+    ],
+    "keywords": [
+        "center",
+        "envelope",
+        "extent",
+        "initial location",
+        "level of detail"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/setinitialmaplocation.htm"
+    ],
+    "relevant_apis": [
+        "BasemapType",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "SetInitialMapLocation.cs"
+    ],
+    "title": "Set initial map location"
+}

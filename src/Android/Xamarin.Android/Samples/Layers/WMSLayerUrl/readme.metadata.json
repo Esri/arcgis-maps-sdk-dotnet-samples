@@ -1,0 +1,30 @@
+{
+    "category": "Layers",
+    "description": "Display a WMS layer using a WMS service URL.",
+    "formal_name": "WMSLayerUrl",
+    "ignore": false,
+    "images": [
+        "WMSLayerURL.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "WmsLayer",
+        "web map service"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/wmslayerurl.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView",
+        "WmsLayer"
+    ],
+    "snippets": [
+        "WMSLayerUrl.cs"
+    ],
+    "title": "WMS Layer URL"
+}

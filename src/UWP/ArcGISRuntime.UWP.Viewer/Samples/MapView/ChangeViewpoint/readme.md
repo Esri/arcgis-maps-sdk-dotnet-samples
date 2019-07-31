@@ -1,9 +1,26 @@
 # Change viewpoint
 
-This sample demonstrates different ways in which you can change the viewpoint of the MapView.
+Set the map view to a new viewpoint.
 
-<img src="ChangeViewpoint.jpg" width="350"/>
+![screenshot](ChangeViewpoint.jpg)
 
-## Instructions
+## Use case
 
-Click any of the available buttons to change the current viewpoint
+Focus on a particular area of interest in a given map or scene.
+
+## How it works
+
+1. Create a new `Map` object and set it to the `MapView` object.
+2. Change the viewpoint with `MapView.SetViewpoint`.
+
+## Relevant API
+
+* Map
+* MapView
+* Point
+* SpatialReference
+* Viewpoint
+
+## Tags
+
+SetViewpointAsync, SetViewpointCenterAsync, SetViewpointGeometryAsync, extent, zoom

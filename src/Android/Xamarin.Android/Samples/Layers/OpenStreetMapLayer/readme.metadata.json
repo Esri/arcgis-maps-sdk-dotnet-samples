@@ -1,0 +1,33 @@
+{
+    "category": "Layers",
+    "description": "Add OpenStreetMap as a basemap layer.",
+    "formal_name": "OpenStreetMapLayer",
+    "ignore": false,
+    "images": [
+        "OpenStreetMapLayer.jpg"
+    ],
+    "keywords": [
+        "Layers",
+        "OSM",
+        "OpenStreetMap",
+        "basemap"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/openstreetmaplayer.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "Basemap.CreateOpenStreetMap",
+        "Map",
+        "MapView",
+        "OpenStreetMapLayer"
+    ],
+    "snippets": [
+        "OpenStreetMapLayer.cs"
+    ],
+    "title": "OpenStreetMap layer"
+}

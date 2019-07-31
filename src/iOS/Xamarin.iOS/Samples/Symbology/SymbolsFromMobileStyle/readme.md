@@ -10,10 +10,10 @@ Multilayer symbols provide the ability to create much more complex and interesti
 
 ## How to use the sample
 
-- Select symbols from each list box to create a face emoji. A preview of the symbol is updated as you make selections.
-- You can optionally select a new color and set the symbol size using the slider.
-- Tap the map to create a point graphic that uses the current face symbol.
-- Tap the `Clear` button to clear all graphics from the display.
+* Click 'Choose symbol', then select symbols to create a face emoji. A preview of the symbol is updated as you make selections.
+* You can optionally select a new color and set the symbol size using the slider.
+* Tap the map to create a point graphic that uses the current face symbol.
+* Tap the `Clear` button to clear all graphics from the display.
 
 ## How it works
 

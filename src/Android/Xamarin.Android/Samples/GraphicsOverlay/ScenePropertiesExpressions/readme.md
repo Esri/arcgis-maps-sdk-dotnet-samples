@@ -10,7 +10,7 @@ Use the sliders to adjust the heading and pitch properties for the graphic.
 
 ## How it works
 
-Simple renderers can dynamically update the positions of graphics using an expression. The expression relates a renderer property to one of the graphic's attribute keys. 
+Simple renderers can dynamically update the positions of graphics using an expression. The expression relates a renderer property to one of the graphic's attribute keys.
 
 1. Create a new graphics overlay.
 2. Create a simple renderer and set its scene properties.

@@ -1,0 +1,35 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Change the style of all graphics in a graphics overlay by referencing a single symbol style.",
+    "formal_name": "AddGraphicsRenderer",
+    "ignore": false,
+    "images": [
+        "AddGraphicsRenderer.jpg"
+    ],
+    "keywords": [
+        "GraphicsOverlay",
+        "SimpleMarkerSymbol",
+        "SimpleRenderer"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/addgraphicsrenderer.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "Graphic",
+        "GraphicsOverlay",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleMarkerSymbol",
+        "SimpleRenderer"
+    ],
+    "snippets": [
+        "AddGraphicsRenderer.xaml",
+        "AddGraphicsRenderer.xaml.cs"
+    ],
+    "title": "Add graphics with renderer"
+}

@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "This sample demonstrates how to identify features in a KML layer. Identified feature attributes are displayed in a callout to simulate a popup.",
+    "formal_name": "IdentifyKmlFeatures",
+    "ignore": false,
+    "images": [
+        "IdentifyKmlFeatures.jpg"
+    ],
+    "keywords": [
+        "KML",
+        "NOAA",
+        "NWS",
+        "OGC",
+        "Weather"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/identifykmlfeatures.htm"
+    ],
+    "relevant_apis": [
+        "IdentifyLayerResult",
+        "KmlLayer",
+        "KmlPlacemark",
+        "KmlPlacemark.BalloonContent"
+    ],
+    "snippets": [
+        "IdentifyKmlFeatures.xaml",
+        "IdentifyKmlFeatures.xaml.cs"
+    ],
+    "title": "Identify KML features"
+}

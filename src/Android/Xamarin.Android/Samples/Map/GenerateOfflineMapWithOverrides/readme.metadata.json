@@ -1,0 +1,35 @@
+{
+    "category": "Map",
+    "description": "Use the `OfflineMapTask` with overrides to take a webmap offline. The overrides workflow allows you to adjust the settings used for taking each layer in the map offline. For a simple example of how you take a map offline, please consult the \"Generate Offline Map\" sample.",
+    "formal_name": "GenerateOfflineMapWithOverrides",
+    "ignore": false,
+    "images": [
+        "GenerateOfflineMapWithOverrides.jpg"
+    ],
+    "keywords": [
+        "generate",
+        "offline",
+        "on-demand"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/generateofflinemapwithoverrides.htm"
+    ],
+    "relevant_apis": [
+        "ExportTileCacheParameters",
+        "GenerateGeodatabaseParameters",
+        "GenerateOfflineMapJob",
+        "GenerateOfflineMapParameterOverrides",
+        "GenerateOfflineMapParameters",
+        "GenerateOfflineMapResult",
+        "OfflineMapTask"
+    ],
+    "snippets": [
+        "GenerateOfflineMapWithOverrides.cs",
+        "ParameterOverrideFragment.cs"
+    ],
+    "title": "Generate Offline Map (Overrides)"
+}

@@ -1,0 +1,33 @@
+{
+    "category": "Geometry",
+    "description": "Create simple geometry types.",
+    "formal_name": "CreateGeometries",
+    "ignore": false,
+    "images": [
+        "CreateGeometries.jpg"
+    ],
+    "keywords": [
+        "Geometry",
+        "Graphic"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/creategeometries.htm"
+    ],
+    "relevant_apis": [
+        "Envelope",
+        "Multipoint",
+        "Point",
+        "PointCollection",
+        "Polygon",
+        "Polyline"
+    ],
+    "snippets": [
+        "CreateGeometries.xaml",
+        "CreateGeometries.xaml.cs"
+    ],
+    "title": "Create geometries"
+}

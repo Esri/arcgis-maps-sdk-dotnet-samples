@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
 
         public LineOfSightLocation()
         {
-            Title = "Line of sight location";
+            Title = "Line of sight (location)";
         }
 
         private void Initialize()

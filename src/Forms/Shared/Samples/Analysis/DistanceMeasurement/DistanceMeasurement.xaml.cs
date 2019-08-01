@@ -68,7 +68,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
-            
 
             // Keep the UI updated.
             _distanceMeasurement.MeasurementChanged += (o, e) =>

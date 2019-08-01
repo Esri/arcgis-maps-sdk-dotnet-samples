@@ -67,7 +67,6 @@ namespace ArcGISRuntime.WPF.Samples.DistanceMeasurement
             MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
-            MySceneView.SetViewpointCamera(new Camera(start, 200, 0, 45, 0));
 
             // Keep the UI updated.
             _distanceMeasurement.MeasurementChanged += (o, e) =>
@@ -98,6 +97,7 @@ namespace ArcGISRuntime.WPF.Samples.DistanceMeasurement
 
             // Show the scene in the view.
             MySceneView.Scene = myScene;
+            MySceneView.SetViewpointCamera(new Camera(start, 200, 0, 45, 0));
 
             // Enable the 'New measurement' button.
             NewMeasureButton.IsEnabled = true;

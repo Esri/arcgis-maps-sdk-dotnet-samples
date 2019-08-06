@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

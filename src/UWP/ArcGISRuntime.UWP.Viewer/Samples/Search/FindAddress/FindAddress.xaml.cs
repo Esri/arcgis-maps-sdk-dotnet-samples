@@ -204,5 +204,11 @@ namespace ArcGISRuntime.UWP.Samples.FindAddress
         {
             UpdateSearch();
         }
+
+        private void AutoSuggestBox_OnSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            AutoSuggestBox.Text = args.SelectedItem.ToString();
+            UpdateSearch();
+        }
     }
 }

@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.GroupLayers
 {
-    [Activity]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Group layers",
         "Layers",

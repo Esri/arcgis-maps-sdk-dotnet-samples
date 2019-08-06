@@ -25,8 +25,9 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         "")]
     public class ChangeBasemap : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _changeBasemapButton;
 
         // Dictionary that associates names with basemaps.
         private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>
@@ -65,7 +66,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             var popoverPresentationController = basemapSelectionAlert.PopoverPresentationController;
             if (popoverPresentationController != null)
             {
-                popoverPresentationController.BarButtonItem = (UIBarButtonItem)sender;
+                popoverPresentationController.BarButtonItem = (UIBarButtonItem) sender;
             }
 
             // Show the alert.
@@ -92,12 +93,15 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _changeBasemapButton = new UIBarButtonItem();
+            _changeBasemapButton.Title = "Change basemap";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Change basemap", UIBarButtonItemStyle.Plain, BasemapSelectionButtonClick),
+                _changeBasemapButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -116,6 +120,22 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _changeBasemapButton.Clicked += BasemapSelectionButtonClick;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _changeBasemapButton.Clicked -= BasemapSelectionButtonClick;
         }
     }
 }

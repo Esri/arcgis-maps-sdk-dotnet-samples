@@ -96,7 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Something unexpected happened, show the error message.
                 Debug.WriteLine(ex);
-                await ((Page) Parent).DisplayAlert("There was an error.", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("There was an error.", ex.Message, "OK");
             }
         }
 
@@ -130,7 +130,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    await ((Page) Parent).DisplayAlert("Couldn't open offline area. Proceeding to take area offline.", e.Message, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Couldn't open offline area. Proceeding to take area offline.", e.Message, "OK");
                 }
             }
 
@@ -165,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                     }
 
                     // Show the message.
-                    await ((Page) Parent).DisplayAlert("Warning!", errors, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Warning!", errors, "OK");
                 }
 
                 // Show the downloaded map.
@@ -178,7 +178,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Report any errors.
                 Debug.WriteLine(ex);
-                await ((Page) Parent).DisplayAlert("Downloading map area failed.", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Downloading map area failed.", ex.Message, "OK");
             }
             finally
             {
@@ -239,7 +239,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             catch (Exception ex)
             {
                 // Report the error.
-                await ((Page) Parent).DisplayAlert("Deleting map areas failed.", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Deleting map areas failed.", ex.Message, "OK");
             }
             finally
             {

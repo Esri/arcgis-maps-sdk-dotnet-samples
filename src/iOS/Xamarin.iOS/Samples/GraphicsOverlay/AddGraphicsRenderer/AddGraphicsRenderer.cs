@@ -26,14 +26,14 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
         "")]
     public class AddGraphicsRenderer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public AddGraphicsRenderer()
         {
             Title = "Add graphics (Renderer)";
         }
-        
+
         private void Initialize()
         {
             // Create a map with 'Imagery with Labels' basemap and an initial location.

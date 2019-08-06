@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
             }
             catch (Exception e)
             {
-                await ((Page) Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -76,12 +76,12 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
 
                 if (!String.IsNullOrEmpty(result))
                 {
-                    await ((Page) Parent).DisplayAlert("Identify result", result, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Identify result", result, "OK");
                 }
             }
             catch (Exception ex)
             {
-                await ((Page) Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

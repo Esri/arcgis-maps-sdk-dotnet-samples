@@ -27,8 +27,9 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         "")]
     public class UpdateAttributes : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIButton _changeValueButton;
 
         // URL to the feature service.
         private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
@@ -73,6 +74,9 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
 
         private void DamageTable_Loaded(object sender, EventArgs e)
         {
+            // Unsubscribe from event.
+            ((ServiceFeatureTable) sender).Loaded -= DamageTable_Loaded;
+
             // This code needs to work with the UI, so it needs to run on the UI thread.
             BeginInvokeOnMainThread(() =>
             {
@@ -82,14 +86,14 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
 
                 // Get the domain for the field.
                 _domain = (CodedValueDomain) typeDamageField.Domain;
-
-                // Listen for user taps on the map - this will select the feature.
-                _myMapView.GeoViewTapped += MapView_Tapped;
             });
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
+            // Skip if the sample isn't ready yet.
+            if (_damageLayer == null) return;
+
             // Clear any existing selection.
             _damageLayer.ClearSelection();
 
@@ -108,7 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
                 }
 
                 // Get the tapped feature.
-                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
+                _selectedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);
@@ -127,14 +131,17 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             // Get the current value.
             string currentAttributeValue = _selectedFeature.Attributes[AttributeFieldName].ToString();
 
+            // Unsubscribe from previous event handler.
+            if (_changeValueButton != null) _changeValueButton.TouchUpInside -= ShowDamageTypeChoices;
+
             // Set up the UI for the callout.
-            UIButton changeValueButton = new UIButton();
-            changeValueButton.SetTitle($"{currentAttributeValue} - Edit", UIControlState.Normal);
-            changeValueButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            changeValueButton.TouchUpInside += ShowDamageTypeChoices;
+            _changeValueButton = new UIButton();
+            _changeValueButton.SetTitle($"{currentAttributeValue} - Edit", UIControlState.Normal);
+            _changeValueButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _changeValueButton.TouchUpInside += ShowDamageTypeChoices;
 
             // Show the callout.
-            _myMapView.ShowCalloutAt((MapPoint) _selectedFeature.Geometry, changeValueButton);
+            _myMapView.ShowCalloutAt((MapPoint) _selectedFeature.Geometry, _changeValueButton);
         }
 
         private void ShowDamageTypeChoices(object sender, EventArgs e)
@@ -246,6 +253,24 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
                 helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MapView_Tapped;
+            if (_changeValueButton != null) _changeValueButton.TouchUpInside += ShowDamageTypeChoices;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MapView_Tapped;
+            if (_changeValueButton != null) _changeValueButton.TouchUpInside -= ShowDamageTypeChoices;
         }
     }
 }

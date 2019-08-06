@@ -18,8 +18,7 @@ namespace ArcGISRuntime.WPF.Samples.GroupLayers
         "Group layers",
         "Layers",
         "Group a collection of layers together and toggle their visibility as a group.",
-        "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+        "", "Featured")]
     public partial class GroupLayers
     {
         public GroupLayers()

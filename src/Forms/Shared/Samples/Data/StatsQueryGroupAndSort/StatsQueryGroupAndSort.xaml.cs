@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -82,7 +82,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Verify that there is at least one statistic definition
             if (!_statDefinitions.Any())
             {
-                await ((Page)Parent).DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
+                await Application.Current.MainPage.DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
                 return;
             }
 
@@ -138,7 +138,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }        
 
@@ -250,7 +250,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             string selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
             if (!_groupByFields.Contains(selectedFieldName))
             {
-                ((Page)Parent).DisplayAlert("Only fields used for grouping can be used to order results.", "Query", "OK");
+                Application.Current.MainPage.DisplayAlert("Only fields used for grouping can be used to order results.", "Query", "OK");
                 return;
             }
 

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         "")]
     public class WMTSLayer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public WMTSLayer()
@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UISegmentedControl constructorChoiceButton = new UISegmentedControl("URI", "Service Info")
+            _constructorChoiceButton = new UISegmentedControl("URI", "Service Info")
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
                 TintColor = UIColor.White,
@@ -136,10 +136,9 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 ClipsToBounds = true,
                 Layer = {CornerRadius = 5}
             };
-            constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
 
             // Add the views.
-            View.AddSubviews(_myMapView, constructorChoiceButton);
+            View.AddSubviews(_myMapView, _constructorChoiceButton);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -149,10 +148,26 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
 
-                constructorChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
-                constructorChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
-                constructorChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+                _constructorChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                _constructorChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                _constructorChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _constructorChoiceButton.ValueChanged += _constructorChoiceButton_ValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _constructorChoiceButton.ValueChanged -= _constructorChoiceButton_ValueChanged;
         }
     }
 }

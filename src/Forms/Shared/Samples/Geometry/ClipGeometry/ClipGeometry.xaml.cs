@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating clip operation.
-                ((Page)Parent).DisplayAlert("Geometry Engine Failed", "Error performing clip: " + ex.Message, "OK");
+                Application.Current.MainPage.DisplayAlert("Geometry Engine Failed", "Error performing clip: " + ex.Message, "OK");
             }
         }
     }

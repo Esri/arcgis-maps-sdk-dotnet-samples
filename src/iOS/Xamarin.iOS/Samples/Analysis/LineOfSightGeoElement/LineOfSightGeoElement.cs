@@ -31,9 +31,10 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         "Featured")]
     public class LineOfSightGeoElement : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private UILabel _statusLabel;
+        private UISlider _heightSlider;
 
         // URL of the elevation service - provides elevation component of the scene.
         private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
@@ -66,6 +67,9 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         private int _pointIndex = 0;
         private int _frameIndex = 0;
         private const int FrameMax = 150;
+
+        // Timer to run the taxi animation.
+        private Timer _animationTimer;
 
         public LineOfSightGeoElement()
         {
@@ -131,16 +135,9 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
                 _mySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
                 // Create a timer; this will enable animating the taxi.
-                Timer timer = new Timer(120);
-                // Move the taxi every time the timer expires.
-                timer.Elapsed += AnimationTimer_Elapsed;
+                _animationTimer = new Timer(120);
                 // Keep the timer running continuously.
-                timer.AutoReset = true;
-                // Start the timer.
-                timer.Start();
-
-                // Subscribe to TargetVisible events; allows for updating the UI and selecting the taxi when it is visible.
-                _geoLine.TargetVisibilityChanged += Geoline_TargetVisibilityChanged;
+                _animationTimer.AutoReset = true;
 
                 // Add the scene to the view.
                 _mySceneView.Scene = myScene;
@@ -181,6 +178,10 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             double progress = _frameIndex / (double) FrameMax;
             // Calculate the position of the taxi when it is {progress}% of the way through.
             _taxiGraphic.Geometry = InterpolatedPoint(starting, ending, progress);
+
+            // Update the taxi rotation.
+            GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(starting, ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
+            ((ModelSceneSymbol)_taxiGraphic.Symbol).Heading = distance.Azimuth1;
         }
 
         private MapPoint InterpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)
@@ -255,12 +256,10 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UISlider heightSlider = new UISlider();
-            heightSlider.TranslatesAutoresizingMaskIntoConstraints = false;
-            // Subscribe to slider events.
-            heightSlider.ValueChanged += MyHeightSlider_ValueChanged;
+            _heightSlider = new UISlider();
+            _heightSlider.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UIBarButtonItem sliderWrapper = new UIBarButtonItem(heightSlider);
+            UIBarButtonItem sliderWrapper = new UIBarButtonItem(_heightSlider);
             sliderWrapper.Width = 300;
 
             UIToolbar sliderToolbar = new UIToolbar();
@@ -284,7 +283,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             View.AddSubviews(_mySceneView, sliderToolbar, _statusLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 sliderToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
                 sliderToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -300,6 +299,28 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
                 _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _statusLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _heightSlider.ValueChanged += MyHeightSlider_ValueChanged;
+            _geoLine.TargetVisibilityChanged += Geoline_TargetVisibilityChanged;
+            _animationTimer.Elapsed += AnimationTimer_Elapsed;
+            _animationTimer.Start();
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _geoLine.TargetVisibilityChanged -= Geoline_TargetVisibilityChanged;
+            _animationTimer.Stop();
+            _animationTimer.Elapsed -= AnimationTimer_Elapsed;
+            _heightSlider.ValueChanged -= MyHeightSlider_ValueChanged;
         }
     }
 }

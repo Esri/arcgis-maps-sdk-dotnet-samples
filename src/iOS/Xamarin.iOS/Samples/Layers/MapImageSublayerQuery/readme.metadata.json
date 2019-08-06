@@ -1,0 +1,29 @@
+{
+    "category": "Layers",
+    "description": "Find features in a sublayer based on attributes and location.",
+    "formal_name": "MapImageSublayerQuery",
+    "ignore": false,
+    "images": [
+        "MapImageSublayerQuery.jpg"
+    ],
+    "keywords": [
+        "search and query"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/mapimagesublayerquery.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "ArcGISMapImageSublayer",
+        "QueryParameters",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "MapImageSublayerQuery.cs"
+    ],
+    "title": "Query map image sublayer"
+}

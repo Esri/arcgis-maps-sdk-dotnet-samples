@@ -16,8 +16,8 @@ To get a Feature from a ServiceFeatureTable and change it's geometry:
 2. Create a feature layer from the service feature table.
 3. Select a feature from the feature layer, `FeatureLayer.SelectFeatures`.
 4. Load the selected feature.
-4. Change the selected feature's location using `Feature.Geometry = geometry`.
-5. After the change, update the table on the server using `ServiceFeatureTable.ApplyEditsAsync()`.
+5. Change the selected feature's location using `Feature.Geometry = geometry`.
+6. After the change, update the table on the server using `ServiceFeatureTable.ApplyEditsAsync()`.
 
 ## Relevant API
 

@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("324e4742820e46cfbe5029ff2c32cb1f")]
     public class DisplayKml : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         private readonly Envelope _usEnvelope = new Envelope(-144.619561355187, 18.0328662832097, -66.0903762761083, 67.6390975806745, SpatialReferences.Wgs84);
@@ -99,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UISegmentedControl dataChoiceButton = new UISegmentedControl(_sources)
+            _dataChoiceButton = new UISegmentedControl(_sources)
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
                 TintColor = UIColor.White,
@@ -107,26 +107,40 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             };
 
             // Clean up borders of segmented control - avoid corner pixels.
-            dataChoiceButton.ClipsToBounds = true;
-            dataChoiceButton.Layer.CornerRadius = 5;
-
-            dataChoiceButton.ValueChanged += DataChoiceButtonOnValueChanged;
+            _dataChoiceButton.ClipsToBounds = true;
+            _dataChoiceButton.Layer.CornerRadius = 5;
 
             // Add the views.
-            View.AddSubviews(_mySceneView, dataChoiceButton);
+            View.AddSubviews(_mySceneView, _dataChoiceButton);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
 
-                dataChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
-                dataChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
-                dataChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+                _dataChoiceButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                _dataChoiceButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                _dataChoiceButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _dataChoiceButton.ValueChanged += DataChoiceButtonOnValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _dataChoiceButton.ValueChanged -= DataChoiceButtonOnValueChanged;
         }
     }
 }

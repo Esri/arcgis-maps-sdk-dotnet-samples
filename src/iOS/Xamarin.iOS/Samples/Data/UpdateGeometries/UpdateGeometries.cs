@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
         "")]
     public class UpdateGeometries : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // URL to the feature service.
@@ -57,15 +57,15 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
             // Add the layer to the map.
             _myMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map - on tap, a feature will be selected.
-            _myMapView.GeoViewTapped += MapView_Tapped;
-
             // Zoom to the United States.
             _myMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
 
         private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
+            // Skip if the sample isn't ready.
+            if (_damageLayer == null) return;
+
             // Select the feature if none selected, move the feature otherwise.
             if (_selectedFeature == null)
             {
@@ -129,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
                 }
 
                 // Get the tapped feature.
-                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
+                _selectedFeature = (ArcGISFeature) identifyResult.GeoElements.First();
 
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);
@@ -179,7 +179,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
             View.AddSubviews(_myMapView, helpLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
@@ -191,6 +191,22 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
                 helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Listen for user taps on the map - on tap, a feature will be selected.
+            _myMapView.GeoViewTapped += MapView_Tapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MapView_Tapped;
         }
     }
 }

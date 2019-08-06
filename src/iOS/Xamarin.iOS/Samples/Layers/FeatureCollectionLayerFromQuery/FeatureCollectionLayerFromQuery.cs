@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
         "")]
     public class FeatureCollectionLayerFromQuery : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // URL for a feature service layer to query.

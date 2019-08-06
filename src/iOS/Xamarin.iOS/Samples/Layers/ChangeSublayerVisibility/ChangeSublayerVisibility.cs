@@ -26,9 +26,10 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         "")]
     public class ChangeSublayerVisibility : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private SublayersTable _sublayersTableView;
+        private UIBarButtonItem _chooseLayersButton;
 
         // Hold a reference to the layer.
         private ArcGISMapImageLayer _mapImageLayer;
@@ -93,12 +94,15 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _chooseLayersButton = new UIBarButtonItem();
+            _chooseLayersButton.Title = "Choose sublayers";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Choose sublayers", UIBarButtonItemStyle.Plain, sublayerButton_Clicked),
+                _chooseLayersButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -117,6 +121,22 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _chooseLayersButton.Clicked += sublayerButton_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _chooseLayersButton.Clicked -= sublayerButton_Clicked;
         }
     }
 
@@ -150,6 +170,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
     public class SublayerDataSource : UITableViewSource
     {
         private readonly List<ArcGISSublayer> _sublayers;
+        private UISwitch _visibilitySwitch;
 
         private const string CellId = "cellid";
 
@@ -167,16 +188,16 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             cell.TextLabel.Text = sublayer.Name;
 
             // Create a UISwitch for controlling the layer visibility.
-            UISwitch visibilitySwitch = new UISwitch
+            _visibilitySwitch = new UISwitch
             {
                 Frame = new CGRect(cell.Bounds.Width - 60, 7, 50, cell.Bounds.Height),
                 Tag = indexPath.Row,
                 On = sublayer.IsVisible
             };
-            visibilitySwitch.ValueChanged += VisibilitySwitch_ValueChanged;
+            _visibilitySwitch.ValueChanged += VisibilitySwitch_ValueChanged;
 
             // Add the UISwitch to the cell's content view.
-            cell.ContentView.AddSubview(visibilitySwitch);
+            cell.ContentView.AddSubview(_visibilitySwitch);
 
             return cell;
         }
@@ -194,6 +215,13 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         public override nint RowsInSection(UITableView tableview, nint section)
         {
             return _sublayers.Count;
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            // Unsubscribe from events, per best practice.
+            BeginInvokeOnMainThread(() => _visibilitySwitch.ValueChanged -= VisibilitySwitch_ValueChanged);
         }
     }
 }

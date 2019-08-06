@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Foundation;
 using UIKit;
@@ -22,7 +21,7 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
         "See [Coordinate Systems and Transformations](https://developers.arcgis.com/net/latest/wpf/guide/coordinate-systems-and-transformations.htm) for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems. ")]
     public class ProjectWithSpecificTransformation : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private UILabel _beforeLabel;
         private UILabel _afterLabel;
         private UILabel _nonSpecificLabel;

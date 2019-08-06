@@ -31,6 +31,7 @@
     <Capability Name="internetClient" />
     <Capability Name="privateNetworkClientServer" />
     <uap:Capability Name="picturesLibrary" />
+    <uap:Capability Name="sharedUserCertificates"/>
     <DeviceCapability Name="location" />
   </Capabilities>
 </Package>

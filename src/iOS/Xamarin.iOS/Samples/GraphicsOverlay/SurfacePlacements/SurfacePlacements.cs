@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         "")]
     public class SurfacePlacements : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         public SurfacePlacements()

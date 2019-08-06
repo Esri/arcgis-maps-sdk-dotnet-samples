@@ -42,6 +42,9 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         private MapView _insetMapView;
         private SceneView _mySceneView;
         private UIBarButtonItem _playButton;
+        private UIBarButtonItem _missionButton;
+        private UIBarButtonItem _cameraButton;
+        private UIBarButtonItem _statsButton;
         private StatsDisplayViewController _statsVC;
 
         // URL to the elevation service - provides terrain elevation.
@@ -187,9 +190,6 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                     AutoReset = true
                 };
 
-                // Call the animation method every time the timer expires (once every 60ms per above).
-                _animationTimer.Elapsed += (sender, args) => AnimatePlane();
-
                 // Set the initial mission for when the sample loads.
                 await ChangeMission(_missionToItemId.Keys.First());
             }
@@ -198,6 +198,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
             }
         }
+
+        private void Timer_Elapsed(object sender, EventArgs e) => AnimatePlane();
 
         private void ShowMissionOptions(object sender, EventArgs eventArgs)
         {
@@ -242,9 +244,6 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             // Create a polyline to symbolize the route from the point collection.
             _routeGraphic.Geometry = new Polyline(points);
-
-            // Update the inset map's scale.
-            await _insetMapView.SetViewpointScaleAsync(100000);
 
             // Update animation parameters.
             _frameCount = _missionData.Length;
@@ -301,8 +300,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _plane2D.Geometry = currentFrame.ToMapPoint();
 
             // Update inset's viewpoint and heading.
-            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), _insetMapView.MapScale,
-                360 + (float) currentFrame.Heading);
+            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), 100000, 360 + (float) currentFrame.Heading);
             _insetMapView.SetViewpoint(vp);
 
             // Update the keyframe. This advances the animation.
@@ -356,7 +354,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             UIPopoverPresentationController pc = _statsVC.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem)sender;
+                pc.BarButtonItem = (UIBarButtonItem) sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new PpDelegate();
             }
@@ -385,18 +383,28 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _insetMapView.TranslatesAutoresizingMaskIntoConstraints = false;
             _insetMapView.IsAttributionTextVisible = false;
 
-            _playButton = new UIBarButtonItem("Pause", UIBarButtonItemStyle.Plain, TogglePlayMission);
+            _playButton = new UIBarButtonItem();
+            _playButton.Title = "Pause";
             _playButton.Width = 100;
+
+            _missionButton = new UIBarButtonItem();
+            _missionButton.Title = "Mission";
+
+            _cameraButton = new UIBarButtonItem();
+            _cameraButton.Title = "Camera";
+
+            _statsButton = new UIBarButtonItem();
+            _statsButton.Title = "Stats";
 
             controlToolbox.Items = new[]
             {
-                new UIBarButtonItem("Mission", UIBarButtonItemStyle.Plain, ShowMissionOptions),
+                _missionButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Camera", UIBarButtonItemStyle.Plain, ToggleFollowPlane),
+                _cameraButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                 _playButton,                
+                _playButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Stats", UIBarButtonItemStyle.Plain, ToggleStatsDisplay)
+                _statsButton
             };
 
             // Add the views.
@@ -429,6 +437,35 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            if (_animationTimer != null) _animationTimer.Elapsed += Timer_Elapsed;
+            _playButton.Clicked += TogglePlayMission;
+            _missionButton.Clicked += ShowMissionOptions;
+            _cameraButton.Clicked += ToggleFollowPlane;
+            _statsButton.Clicked += ToggleStatsDisplay;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            if (_animationTimer != null)
+            {
+                // Explicitly stop the timer before unsubscribing.
+                _animationTimer.Stop();
+                _animationTimer.Elapsed -= Timer_Elapsed;
+            }
+            _playButton.Clicked -= TogglePlayMission;
+            _missionButton.Clicked -= ShowMissionOptions;
+            _cameraButton.Clicked -= ToggleFollowPlane;
+            _statsButton.Clicked -= ToggleStatsDisplay;
         }
     }
 
@@ -516,6 +553,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             {
                 return;
             }
+
             _altitudeLabel.Text = $"{currentFrame.Elevation:F} m";
             _headingLabel.Text = $"{currentFrame.Heading:F}\u00B0"; // \u00b0 is the degree symbol
             _pitchLabel.Text = $"{currentFrame.Pitch:F}\u00B0";

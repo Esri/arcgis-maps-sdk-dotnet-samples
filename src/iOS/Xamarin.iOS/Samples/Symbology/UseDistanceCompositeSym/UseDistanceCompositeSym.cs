@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public class UseDistanceCompositeSym : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         public UseDistanceCompositeSym()

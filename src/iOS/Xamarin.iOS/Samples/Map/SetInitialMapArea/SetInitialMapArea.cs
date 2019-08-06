@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
         "")]
     public class SetInitialMapArea : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public SetInitialMapArea()

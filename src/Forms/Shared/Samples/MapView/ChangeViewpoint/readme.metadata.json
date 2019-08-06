@@ -1,0 +1,35 @@
+{
+    "category": "MapView",
+    "description": "Set the map view to a new viewpoint.",
+    "formal_name": "ChangeViewpoint",
+    "ignore": false,
+    "images": [
+        "ChangeViewpoint.jpg"
+    ],
+    "keywords": [
+        "SetViewpointAsync",
+        "SetViewpointCenterAsync",
+        "SetViewpointGeometryAsync",
+        "extent",
+        "zoom"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/changeviewpoint.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView",
+        "Point",
+        "SpatialReference",
+        "Viewpoint"
+    ],
+    "snippets": [
+        "ChangeViewpoint.xaml",
+        "ChangeViewpoint.xaml.cs"
+    ],
+    "title": "Change viewpoint"
+}

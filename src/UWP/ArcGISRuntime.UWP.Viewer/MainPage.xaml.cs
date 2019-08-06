@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -9,18 +9,18 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using ArcGISRuntime.UWP.Viewer.Dialogs;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
-using Windows.Foundation.Metadata;
 using Windows.UI.Core;
-using Windows.UI.ViewManagement;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using muxc = Microsoft.UI.Xaml.Controls;
 using Navigation = Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime.UWP.Viewer
@@ -28,30 +28,179 @@ namespace ArcGISRuntime.UWP.Viewer
     public sealed partial class MainPage
     {
         private readonly SystemNavigationManager _currentView;
+        private bool _waitFlag;
 
         public MainPage()
         {
             InitializeComponent();
 
-            // Use required cache mode so we create only one page
+            // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
-            // Get current view that provides access to the back button
+
+            // Get current view that provides access to the back button.
             _currentView = SystemNavigationManager.GetForCurrentView();
             _currentView.BackRequested += OnFrameNavigationRequested;
 
-            HideStatusBar();
+            // Set the preffered minimum size of the window.
+            Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetPreferredMinSize(
+                new Windows.Foundation.Size(650, 650));
+
+            // Use required cache mode so we create only one page.
+            NavigationCacheMode = Navigation.NavigationCacheMode.Required;
+
+            // Get current view that provides access to the back button.
+            _currentView = SystemNavigationManager.GetForCurrentView();
 
             Initialize();
+
+            LoadTreeView(SampleManager.Current.FullTree);
+
+            // Set the ItemsSource for the grid from the first category.
+            SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
         }
 
-        // Check if the phone contract is available (mobile) and hide status bar if it is there
-        private static async void HideStatusBar()
+        private void LoadTreeView(SearchableTreeNode fullTree)
         {
-            // If we have a phone contract, hide the status bar
-            if (ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0))
+            // This happens when there are no search results.
+            if (fullTree == null)
             {
-                await StatusBar.GetForCurrentView().HideAsync();
+                return;
             }
+            CategoriesTree.RootNodes.Clear();
+
+            muxc.TreeViewNode rootNode;
+
+            foreach (SearchableTreeNode category in fullTree.Items)
+            {
+                rootNode = new muxc.TreeViewNode() { Content = category };
+                category.Items.ForEach(info => rootNode.Children.Add(new muxc.TreeViewNode() { Content = info }));
+
+                CategoriesTree.RootNodes.Add(rootNode);
+            }
+        }
+
+        private void Initialize()
+        {
+            // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
+            SampleManager.Current.Initialize();
+
+            SearchBoxBorder.Background = (Windows.UI.Xaml.Media.Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
+        }
+
+        private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
+        {
+            SampleInfo selectedSample = (sender as FrameworkElement)?.DataContext as SampleInfo;
+            await SelectSample(selectedSample);
+        }
+
+        private async Task SelectSample(SampleInfo selectedSample)
+        {
+            // Call a function to clear existing credentials
+            ClearCredentials();
+
+            SampleManager.Current.SelectedSample = selectedSample;
+
+            try
+            {
+                if (selectedSample.OfflineDataItems != null)
+                {
+                    CancellationTokenSource cancellationSource = new CancellationTokenSource();
+
+                    // Show the waiting page
+                    SamplePageContainer.Content = new WaitPage(cancellationSource);
+                    SamplePageContainer.Visibility = Visibility.Visible;
+                    SampleSelectionGrid.Visibility = Visibility.Collapsed;
+
+                    // Wait for offline data to complete
+                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
+                }
+
+                // Show the sample
+                SamplePageContainer.Content = new SamplePage();
+                SamplePageContainer.Visibility = Visibility.Visible;
+                SampleSelectionGrid.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception exception)
+            {
+                // failed to create new instance of the sample
+                SamplePageContainer.Visibility = Visibility.Collapsed;
+                SampleSelectionGrid.Visibility = Visibility.Visible;
+                await new MessageDialog(exception.Message).ShowAsync();
+            }
+        }
+
+        private static void ClearCredentials()
+        {
+            // Clear credentials (if any) from previous sample runs
+            foreach (Credential cred in AuthenticationManager.Current.Credentials)
+            {
+                if (cred != null)
+                {
+                    AuthenticationManager.Current.RemoveCredential(cred);
+                }
+            }
+        }
+
+        private async void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)
+        {
+            // Dont search again until wait from previous search expires.
+            if (_waitFlag) { return; }
+
+            _waitFlag = true;
+            await Task.Delay(200);
+            _waitFlag = false;
+
+            // Search using the sample manager
+            var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            if (categoriesList == null)
+            {
+                categoriesList = new SearchableTreeNode("Search", new[] { new SearchableTreeNode("No results", new List<object>()) });
+            }
+
+            // Load the tree of the current categories.
+            LoadTreeView(categoriesList);
+
+            // Check if there are search results.
+            if (CategoriesTree.RootNodes.Any())
+            {
+                // Set the items source of the grid to the first category from the search.
+                SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+                foreach (muxc.TreeViewNode node in CategoriesTree.RootNodes)
+                {
+                    node.IsExpanded = true;
+                }
+            }
+
+            // Switch to the sample selection grid.
+            SamplePageContainer.Visibility = Visibility.Collapsed;
+            SampleSelectionGrid.Visibility = Visibility.Visible;
+        }
+
+        private bool SampleSearchFunc(SampleInfo sample)
+        {
+            return SampleManager.Current.SampleSearchFunc(sample, SearchBox.Text);
+        }
+
+        private async void CategoriesTree_ItemInvoked(muxc.TreeView sender, muxc.TreeViewItemInvokedEventArgs e)
+        {
+            muxc.TreeViewNode selected = (muxc.TreeViewNode)e.InvokedItem;
+
+            if (selected.Content.GetType() == typeof(SearchableTreeNode))
+            {
+                SamplePageContainer.Visibility = Visibility.Collapsed;
+                SampleSelectionGrid.Visibility = Visibility.Visible;
+                List<SampleInfo> samples = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+                SamplesGridView.ItemsSource = samples;
+            }
+            else if (selected.Content.GetType() == typeof(SampleInfo))
+            {
+                await SelectSample((SampleInfo)selected.Content);
+            }
+        }
+
+        private void Settings_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(SettingsWindow));
         }
 
         private void OnFrameNavigationRequested(object sender, BackRequestedEventArgs e)
@@ -71,148 +220,29 @@ namespace ArcGISRuntime.UWP.Viewer
                 _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             }
         }
+    }
 
-        private void Initialize()
+    internal class TreeViewItemTemplateSelector : DataTemplateSelector
+    {
+        public DataTemplate CategoryTemplate { get; set; }
+        public DataTemplate SampleTemplate { get; set; }
+
+        protected override DataTemplate SelectTemplateCore(object item)
         {
-            // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
-            SampleManager.Current.Initialize();
-
-            // Create categories list. Also add Featured there as a single category.
-            var categoriesList = SampleManager.Current.FullTree;
-
-            Categories.ItemsSource = categoriesList.Items;
-            Categories.SelectedIndex = 0;
-            ((Frame)Window.Current.Content).Navigated += OnFrameNavigated;
-        }
-
-        private void OnCategoriesSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (e.AddedItems.Count > 0)
+            // Select the correct template to display the text for the node in the treeview.
+            if (((muxc.TreeViewNode)item).Content.GetType() == typeof(SearchableTreeNode))
             {
-                if (RootSplitView.DisplayMode != SplitViewDisplayMode.Inline)
-                    RootSplitView.IsPaneOpen = false;
+                return CategoryTemplate;
             }
-        }
-
-        private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)
-        {
-            var selectedSample = (sender as FrameworkElement)?.DataContext as SampleInfo;
-            await SelectSample(selectedSample);
-        }
-
-        private async Task SelectSample(SampleInfo selectedSample)
-        {
-            // Call a function to clear existing credentials
-            ClearCredentials();
-
-            SampleManager.Current.SelectedSample = selectedSample;
-
-            try
+            else if (((muxc.TreeViewNode)item).Content.GetType() == typeof(SampleInfo))
             {
-                if (selectedSample.OfflineDataItems != null)
-                {
-                    // Show the waiting page
-                    Frame.Navigate(typeof(WaitPage));
-                    // Wait for offline data to complete
-                    await DataManager.EnsureSampleDataPresent(selectedSample);
-                }
-                // Show the sample
-                Frame.Navigate(typeof(SamplePage));
-
-                // Only remove download page from navigation stack if it was shown
-                if (selectedSample.OfflineDataItems != null)
-                {
-                    // Remove the wait page from the stack
-                    Frame.BackStack.Remove(Frame.BackStack.First(m => m.SourcePageType == typeof(WaitPage)));
-                }
-            }
-            catch (Exception exception)
-            {
-                // failed to create new instance of the sample
-                Frame.Navigate(typeof(ErrorPage), exception);
-            }
-        }
-
-        private static void ClearCredentials()
-        {
-            // Clear credentials (if any) from previous sample runs
-            foreach (Credential cred in AuthenticationManager.Current.Credentials)
-            {
-                if (cred != null)
-                {
-                    AuthenticationManager.Current.RemoveCredential(cred);
-                }
-            }
-        }
-
-        private async void OnInfoClicked(object sender, RoutedEventArgs e)
-        {
-            var sampleModel = ((Button)sender)?.DataContext as SampleInfo;
-            if (sampleModel == null)
-                return;
-
-            // Create dialog that is used to show the picture
-            var dialog = new ContentDialog
-            {
-                Title = sampleModel.SampleName,
-                PrimaryButtonText = "close",
-                SecondaryButtonText = "show"
-            };
-
-            dialog.SecondaryButtonClick += (s, args) =>
-            {
-                OnSampleItemTapped(sender, new TappedRoutedEventArgs());
-            };
-
-            dialog.Content = new SampleInfoDialog() { DataContext = sampleModel };
-
-            // Show dialog as a full screen overlay.
-            await dialog.ShowAsync();
-        }
-
-        private void OnInfoTapped(object sender, TappedRoutedEventArgs e)
-        {
-            e.Handled = true;
-        }
-
-        private void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)
-        {
-            if (SearchToggleButton.IsChecked == true)
-            {
-                SearchBox.Visibility = Visibility.Collapsed;
-                SearchToggleButton.Visibility = Visibility.Visible;
-                SearchToggleButton.IsChecked = false;
-            }
-            var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
-            if (categoriesList == null)
-            {
-                categoriesList = new SearchableTreeNode("Search", new[]{new SearchableTreeNode("No results", new List<object>())});
-            }
-            Categories.ItemsSource = categoriesList.Items;
-
-            if (categoriesList.Items.Any())
-            {
-                Categories.SelectedIndex = 0;
-            }
-        }
-
-        private void OnSearchToggleChecked(object sender, RoutedEventArgs e)
-        {
-            if (SearchToggleButton.IsChecked.HasValue && SearchToggleButton.IsChecked.Value)
-            {
-                SearchBox.Visibility = Visibility.Visible;
-                SearchToggleButton.Visibility = Visibility.Collapsed;
+                return SampleTemplate;
             }
             else
             {
-                SearchBox.Visibility = Visibility.Collapsed;
+                // No text will be displayed if another type of content is in the treeview.
+                return null;
             }
         }
-
-        private bool SampleSearchFunc(SampleInfo sample)
-        {
-            return SampleManager.Current.SampleSearchFunc(sample, SearchBox.Text);
-        }
-
     }
 }

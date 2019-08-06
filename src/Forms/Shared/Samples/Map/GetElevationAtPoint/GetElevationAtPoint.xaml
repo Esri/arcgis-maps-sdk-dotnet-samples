@@ -1,0 +1,14 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             x:Class="ArcGISRuntimeXamarin.Samples.GetElevationAtPoint.GetElevationAtPoint">
+    <StackLayout Orientation="Vertical">
+        <Label Text="Tap to find the elevation for a point."
+               VerticalOptions="Start"
+               VerticalTextAlignment="Center"
+               HorizontalTextAlignment="Center"
+               Margin="5"/>
+        <esriUI:SceneView x:Name="MySceneView"
+                          VerticalOptions="FillAndExpand" />
+    </StackLayout>
+</ContentPage>

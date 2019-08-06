@@ -1,12 +1,12 @@
 # Style WMS layers
 
-This sample demonstrates how to discover available styles and apply them to WMS sublayers.
+Discover available styles and apply them to WMS sublayers.
 
 ![](StyleWmsLayer.jpg)
 
 ## How to use the sample
 
-Use the buttons to switch between styles. 
+Use the buttons to switch between styles.
 
 ## How it works
 
@@ -14,10 +14,10 @@ This sample examines the WMS layer's sublayers and checks the sublayer info for 
 
 ## Relevant API
 
-* `WmsSublayerInfo`
-* `WmsLayer.Sublayers`
-* `WmsSublayerInfo.Styles`
-* `WmsSublayer.CurrentStyle`
+* WmsSublayerInfo
+* WmsLayer.Sublayers
+* WmsSublayerInfo.Styles
+* WmsSublayer.CurrentStyle
 
 ## About the data
 

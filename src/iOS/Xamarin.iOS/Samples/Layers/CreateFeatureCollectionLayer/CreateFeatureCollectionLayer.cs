@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         "")]
     public class CreateFeatureCollectionLayer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public CreateFeatureCollectionLayer()

@@ -69,9 +69,6 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
             graphicsOverlay.Graphics.Add(_startLocationGraphic);
             graphicsOverlay.Graphics.Add(_endLocationGraphic);
             graphicsOverlay.Graphics.Add(_pathGraphic);
-
-            // Update end location when the user taps.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
@@ -130,7 +127,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
             View.AddSubviews(_myMapView, _distanceLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -142,6 +139,22 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
                 _distanceLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _distanceLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 }

@@ -81,11 +81,11 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
                 feature.Refresh();
 
                 // Confirm feature addition.
-                await ((Page) Parent).DisplayAlert("Success!", $"Created feature {feature.Attributes["objectid"]}", "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Created feature {feature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await ((Page) Parent).DisplayAlert("Error adding feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error adding feature", ex.ToString(), "OK");
             }
         }
     }

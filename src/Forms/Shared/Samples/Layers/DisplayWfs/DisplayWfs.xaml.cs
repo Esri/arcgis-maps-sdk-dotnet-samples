@@ -74,7 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "Couldn't load sample.");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "Couldn't load sample.");
                 Debug.WriteLine(e);
             }
         }
@@ -100,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
             }
             catch (Exception exception)
             {
-                await ((Page)Parent).DisplayAlert("Error", exception.ToString(), "Couldn't populate table.");
+                await Application.Current.MainPage.DisplayAlert("Error", exception.ToString(), "Couldn't populate table.");
                 Debug.WriteLine(exception);
             }
             finally

@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public class AddEncExchangeSet : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public AddEncExchangeSet()

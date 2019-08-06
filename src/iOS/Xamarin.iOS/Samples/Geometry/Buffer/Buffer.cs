@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.Buffer
         "Buffer, Geodesic, Planar")]
     public class Buffer : UIViewController
     {
-        // Create and hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _bufferDistanceMilesTextField;
         private UIView _geodesicSwatchSwatch;
@@ -45,9 +45,6 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             // Create a map with a topographic basemap and add it to the map view.
             _myMapView.Map = new Map(Basemap.CreateTopographic());
-
-            // Handle the MapView's GeoViewTapped event to create buffers.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             // Create a fill symbol for geodesic buffer polygons.            
             Colors geodesicBufferColor = Colors.FromArgb(120, 255, 0, 0);
@@ -188,7 +185,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            UIView formArea = new UIView { BackgroundColor = UIColor.White };
+            UIView formArea = new UIView {BackgroundColor = UIColor.White};
             formArea.TranslatesAutoresizingMaskIntoConstraints = false;
 
             UILabel bufferInputLabel = new UILabel
@@ -211,13 +208,6 @@ namespace ArcGISRuntime.Samples.Buffer
             // Add padding within the field.
             _bufferDistanceMilesTextField.RightView = new UIView(new CGRect(0, 0, 5, 20)); // 5 is amount of left padding.
             _bufferDistanceMilesTextField.RightViewMode = UITextFieldViewMode.Always;
-
-            // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceMilesTextField.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
 
             UIStackView legendView = new UIStackView();
             legendView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -244,7 +234,7 @@ namespace ArcGISRuntime.Samples.Buffer
 
             UIView spacer = new UIView();
             spacer.TranslatesAutoresizingMaskIntoConstraints = false;
-            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            spacer.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             legendView.AddArrangedSubview(spacer);
 
             _planarSwatchSwatch = new UIView();
@@ -273,9 +263,6 @@ namespace ArcGISRuntime.Samples.Buffer
             _clearBuffersButton.SetTitleColor(UIColor.White, UIControlState.Normal);
             _clearBuffersButton.Layer.CornerRadius = 5;
             _clearBuffersButton.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Handle the clear buffers button press.
-            _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside;
 
             // Add the views.
             View.AddSubviews(_myMapView,
@@ -328,6 +315,33 @@ namespace ArcGISRuntime.Samples.Buffer
                 _clearBuffersButton.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor, -margin),
                 _clearBuffersButton.HeightAnchor.ConstraintEqualTo(controlHeight)
             });
+        }
+
+        private bool HandleTextField(UITextField textField)
+        {
+            // This method allows pressing 'return' to dismiss the software keyboard.
+            textField.ResignFirstResponder();
+            return true;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            _clearBuffersButton.TouchUpInside += ClearBuffersButton_TouchUpInside;
+            _bufferDistanceMilesTextField.ShouldReturn += HandleTextField;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _bufferDistanceMilesTextField.ShouldReturn -= HandleTextField;
+            _clearBuffersButton.TouchUpInside -= ClearBuffersButton_TouchUpInside;
         }
     }
 }

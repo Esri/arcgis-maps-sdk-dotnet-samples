@@ -92,7 +92,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             catch (Exception ex)
             {
                 // Something went wrong, display the error
-                await ((Page)Parent).DisplayAlert("Error",ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error",ex.ToString(), "OK");
             }
         }
 

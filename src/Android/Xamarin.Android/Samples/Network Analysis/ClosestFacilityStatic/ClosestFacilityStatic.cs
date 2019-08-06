@@ -24,7 +24,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 {
-    [Activity(Label = "ClosestFacilityStatic")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (static)",
         "Network Analysis",

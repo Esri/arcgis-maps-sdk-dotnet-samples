@@ -30,10 +30,10 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         "Featured")]
     public class ViewshedLocation : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
         private ViewshedLocationSettingsController _settingsVC;
-        private UIBarButtonItem _button;
+        private UIBarButtonItem _settingsButton;
 
         // Hold the URL to the elevation source.
         private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
@@ -86,7 +86,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
                 1500);
 
             _settingsVC = new ViewshedLocationSettingsController(_viewshed);
-            _button.Enabled = true;
+            _settingsButton.Enabled = true;
 
             // Create a camera based on the initial location.
             Camera camera = new Camera(initialLocation, 200.0, 20.0, 70.0, 0.0);
@@ -119,13 +119,13 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             // Update the frustum outline color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
             Viewshed.FrustumOutlineColor = Color.Blue;
-
-            // Subscribe to tap events to enable moving the observer.
-            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
 
         private void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs viewInputEventArgs)
         {
+            // Sample isn't ready yet, return.
+            if (_viewshed == null) return;
+
             if (viewInputEventArgs.Location == null)
             {
                 // User clicked on the sky - don't update the location with invalid value.
@@ -173,14 +173,15 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _button = new UIBarButtonItem("Edit settings", UIBarButtonItemStyle.Plain, HandleSettings_Clicked);
+            _settingsButton = new UIBarButtonItem();
+            _settingsButton.Title = "Edit settings";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _button
+                _settingsButton
             };
 
             // Add the views.
@@ -209,6 +210,24 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+            _settingsButton.Clicked += HandleSettings_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
+            _settingsButton.Clicked -= HandleSettings_Clicked;
+        }
     }
 
     public class ViewshedLocationSettingsController : UIViewController
@@ -222,6 +241,11 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private UISlider _maximumDistanceSlider;
         private UISwitch _analysisVisibilitySwitch;
         private UISwitch _frustumVisibilitySwitch;
+
+        ~ViewshedLocationSettingsController()
+        {
+            System.Diagnostics.Debug.WriteLine($"Finalized {nameof(ViewshedLocationSettingsController)}");
+        }
 
         public ViewshedLocationSettingsController(LocationViewshed viewshed)
         {
@@ -330,16 +354,6 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _maximumDistanceSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {maxLabel, _maximumDistanceSlider}));
 
-            // Subscribe to events.
-            _headingSlider.ValueChanged += HandleSettingsChange;
-            _pitchSlider.ValueChanged += HandleSettingsChange;
-            _horizontalAngleSlider.ValueChanged += HandleSettingsChange;
-            _verticalAngleSlider.ValueChanged += HandleSettingsChange;
-            _minimumDistanceSlider.ValueChanged += HandleSettingsChange;
-            _maximumDistanceSlider.ValueChanged += HandleSettingsChange;
-            _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
-            _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
-
             // Lay out container and scroll view.
             scrollView.AddSubview(formContainer);
 
@@ -357,6 +371,35 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             row.Axis = UILayoutConstraintAxis.Horizontal;
             row.Distribution = UIStackViewDistribution.FillEqually;
             return row;
+        }
+
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+
+            // Subscribe to events.
+            _headingSlider.ValueChanged += HandleSettingsChange;
+            _pitchSlider.ValueChanged += HandleSettingsChange;
+            _horizontalAngleSlider.ValueChanged += HandleSettingsChange;
+            _verticalAngleSlider.ValueChanged += HandleSettingsChange;
+            _minimumDistanceSlider.ValueChanged += HandleSettingsChange;
+            _maximumDistanceSlider.ValueChanged += HandleSettingsChange;
+            _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
+            _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _headingSlider.ValueChanged -= HandleSettingsChange;
+            _pitchSlider.ValueChanged -= HandleSettingsChange;
+            _horizontalAngleSlider.ValueChanged -= HandleSettingsChange;
+            _verticalAngleSlider.ValueChanged -= HandleSettingsChange;
+            _minimumDistanceSlider.ValueChanged -= HandleSettingsChange;
+            _maximumDistanceSlider.ValueChanged -= HandleSettingsChange;
+            _analysisVisibilitySwitch.ValueChanged -= HandleSettingsChange;
+            _frustumVisibilitySwitch.ValueChanged -= HandleSettingsChange;
         }
     }
 }

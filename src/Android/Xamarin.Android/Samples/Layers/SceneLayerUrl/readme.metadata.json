@@ -1,0 +1,31 @@
+{
+    "category": "Layers",
+    "description": "Display an ArcGIS scene layer from a URL.",
+    "formal_name": "SceneLayerUrl",
+    "ignore": false,
+    "images": [
+        "SceneLayerUrl.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "Buildings",
+        "model",
+        "scene"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/scenelayerurl.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISSceneLayer",
+        "Scene",
+        "SceneView"
+    ],
+    "snippets": [
+        "SceneLayerUrl.cs"
+    ],
+    "title": "Scene layer (URL)"
+}

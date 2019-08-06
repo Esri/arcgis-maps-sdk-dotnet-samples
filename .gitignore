@@ -222,3 +222,4 @@ output
 Components
 *.[Dd]esigner.cs
 *.bak
+.vscode

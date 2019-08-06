@@ -27,6 +27,7 @@ using UIKit;
 
 #if __ANDROID__
 using Android.App;
+using Application = Xamarin.Forms.Application;
 using Xamarin.Auth;
 #endif
 
@@ -221,7 +222,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save
-                    await ((Page)Parent).DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -236,13 +237,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    await ((Page)Parent).DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message
-                await ((Page)Parent).DisplayAlert("Unable to save map", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Unable to save map", ex.Message, "OK");
             }
             finally
             {
@@ -323,19 +324,22 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void AddLayer(string layerName, string url)
         {
-            // Clear any existing layers
-            MyMapView.Map.OperationalLayers.Clear();
+            // See if the layer already exists, and remove it if it does
+            if (MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) is ArcGISMapImageLayer layer)
+            {
+                MyMapView.Map.OperationalLayers.Remove(layer);
+            }
+            else
+            {
+                // Otherwise, add the layer
+                Uri layerUri = new Uri(url);
 
-            // See if the layer already exists
-            ArcGISMapImageLayer layer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == layerName) as ArcGISMapImageLayer;
-
-            Uri layerUri = new Uri(url);
-
-            // Create and add a new map image layer
-            layer = new ArcGISMapImageLayer(layerUri);
-            layer.Name = layerName;
-            layer.Opacity = 0.5;
-            MyMapView.Map.OperationalLayers.Add(layer);
+                // Create and add a new map image layer
+                layer = new ArcGISMapImageLayer(layerUri);
+                layer.Name = layerName;
+                layer.Opacity = 0.5;
+                MyMapView.Map.OperationalLayers.Add(layer);
+            }
         }
 
         #region OAuth

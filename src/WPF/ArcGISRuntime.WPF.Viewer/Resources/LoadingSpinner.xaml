@@ -5,7 +5,7 @@
     <Color x:Key="UnfilledColor" A="0" B="155" R="155" G="155"/>
 
     <Style x:Key="BusyAnimationStyle" TargetType="Control">
-        <Setter Property="Background" Value="#7F000000"/>
+        <Setter Property="Background" Value="#700000"/>
 
         <Setter Property="Template">
             <Setter.Value>

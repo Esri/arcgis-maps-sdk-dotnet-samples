@@ -1,16 +1,33 @@
-# Author a map
+# Create and save a map
 
-This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.
+Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 
-<img src="AuthorMap.jpg" width="350"/>
+![screenshot](AuthorMap.jpg)
 
-## Instructions
+## Use case
 
-1. Pan and zoom to the extent you would like for your map.
-2. Choose a basemap from the list of available basemaps.
-3. Choose one or more operational layers to include.
-4. Provide a Client ID and Redirect URL for OAuth authentication with ArcGIS Online.
-5. Provide info for the new portal item, such as a Title, Description, and Tags.
-6. Click 'Save Map to Portal'.
-7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. 
-8. You can make additional changes, update the map, and then re-save to store changes in the portal item.
+Maps can be created programmatically in code and then serialized and saved as an ArcGIS web map. A web map can be shared with others and opened in various applications and APIs throughout the platform, such as ArcGIS Pro, ArcGIS Online, the JavaScript API, Collector, and Explorer.
+
+## How to use the sample
+
+1. Select the basemap and layers you'd like to add to your map.
+2. Press the Save button.
+3. Sign into an ArcGIS Online account.
+4. Provide a title, tags, and description.
+5. Save the map.
+
+## How it works
+
+1. A `Map` is created with a `Basemap` and a few operational layers.
+2. A `Portal` object is created and loaded. This will issue an authentication challenge, prompting the user to provide credentials.
+3. Once the user is authenticated, `map.SaveAsAsync` is called and a new `Map` is saved with the specified title, tags, and folder.
+
+## Relevant API
+
+* Map
+* Map.SaveAsAsync
+* Portal
+
+## Tags
+
+AuthenticationManager, ChallengeHandler, GenerateCredentialAsync, IOAuthAuthorizeHandler, OAuth, portal, web map

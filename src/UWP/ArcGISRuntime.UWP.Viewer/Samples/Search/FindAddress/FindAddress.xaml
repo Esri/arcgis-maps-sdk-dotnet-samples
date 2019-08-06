@@ -16,7 +16,8 @@
                                 Margin="0,5,0,0"
                                 IsEnabled="False"
                                 ItemsSource="{x:Bind _addresses}"
-                                QuerySubmitted="Search_Submitted" />
+                                QuerySubmitted="Search_Submitted"
+                                SuggestionChosen="AutoSuggestBox_OnSuggestionChosen"/>
             </StackPanel>
         </Border>
     </Grid>

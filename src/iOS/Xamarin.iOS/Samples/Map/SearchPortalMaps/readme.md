@@ -1,13 +1,30 @@
-# Search a portal for maps
+# Search for webmap
 
-This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.
+Find webmap portal items by using a search term.
 
-<img src="SearchPortalMaps.jpg" width="350"/>
+![screenshot](SearchPortalMaps.jpg)
 
-## Instructions
+## Use case
 
-1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.
-2. Enter values for the following OAuth settings.
-	1. **Client ID**: a unique alphanumeric string identifier for your application
-	2. **Redirect URL**: a URL to which a successful OAuth login response will be sent
-3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.
+Portals can contain many portal items and at times you may wish to query the portal to find what you're looking for. In this example, we search for webmap portal items using a text search.
+
+## How to use the sample
+
+Click 'Search maps' to search public maps. Click 'Get my maps' to connect to a Portal and show your maps.
+
+## How it works
+
+1. Create a new `Portal` and load it.
+2. Create new `PortalItemQueryParameters`. Set the type to `PortalItem.Type.WebMap` and add the text you want to search for.
+3. Use `portal.FindItemsAsync(params)` to find matching items.
+
+## Relevant API
+
+* Portal
+* PortalItem
+* PortalQueryParameters
+* PortalQueryResultSet
+
+## Tags
+
+keyword, query, search, webmap

@@ -1,9 +1,25 @@
 # Map rotation
 
-This sample demonstrates how to rotate a map.
+Rotate a map.
 
-<img src="MapRotation.jpg" width="350"/>
+![screenshot](MapRotation.jpg)
 
-## Instructions
+## Use case
 
-Use the available slider to dictate the number of degrees the map is rotated
+A user may wish to view the map in an orientation other than north-facing.
+
+## How it works
+
+1. Instantiate an `Map` object.
+2. Display the map in a map view.
+3. Use `SetViewpointRotationAsync` to indicate the rotation angle.
+
+## Relevant API
+
+* Map
+* Compass
+* MapView
+
+## Tags
+
+SetViewpointRotationAsync, rotate

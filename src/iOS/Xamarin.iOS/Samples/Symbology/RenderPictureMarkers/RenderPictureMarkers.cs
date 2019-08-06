@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class RenderPictureMarkers : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public RenderPictureMarkers()

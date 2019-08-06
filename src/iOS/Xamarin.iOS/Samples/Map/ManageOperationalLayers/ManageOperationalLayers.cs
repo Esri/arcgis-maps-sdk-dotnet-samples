@@ -28,6 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
         private MapView _myMapView;
         private UITableViewController _tableController;
         private MapViewModel _viewModel;
+        private UIBarButtonItem _manageLayersButton;
 
         // Some URLs of layers to add to the map.
         private readonly string[] _layerUrls = new[]
@@ -107,12 +108,15 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _manageLayersButton = new UIBarButtonItem();
+            _manageLayersButton.Title = "Manage layers";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Manage layers", UIBarButtonItemStyle.Plain, ManageLayers_Clicked)
+                _manageLayersButton
             };
 
             // Add the views.
@@ -129,6 +133,22 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _manageLayersButton.Clicked += ManageLayers_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _manageLayersButton.Clicked -= ManageLayers_Clicked;
         }
     }
 

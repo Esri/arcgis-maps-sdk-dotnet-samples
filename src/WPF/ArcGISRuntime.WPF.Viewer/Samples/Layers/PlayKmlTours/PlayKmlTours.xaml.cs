@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.PlayKmlTours
         "Play a KML tour",
         "Layers",
         "Play tours in KML files.",
-        "")]
+        "", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f10b1d37fdd645c9bc9b189fb546307c")]
     public partial class PlayKmlTours
     {

@@ -28,14 +28,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         "Featured")]
     public class FeatureLayerGeoPackage : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public FeatureLayerGeoPackage()
         {
             Title = "Feature layer (GeoPackage)";
         }
-        
+
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado.

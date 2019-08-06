@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",
+    "formal_name": "FeatureLayerRenderingModeScene",
+    "ignore": false,
+    "images": [
+        "FeatureLayerRenderingModeScene.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "FeatureRenderingMode",
+        "MapViews SceneViews and UI",
+        "dynamic",
+        "static"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/featurelayerrenderingmodescene.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureLayer.RenderingMode",
+        "Scene",
+        "SceneView"
+    ],
+    "snippets": [
+        "FeatureLayerRenderingModeScene.cs",
+        "../../../Resources/layout/FeatureLayerRenderingModeScene.axml"
+    ],
+    "title": "Feature layer rendering mode (scene)"
+}

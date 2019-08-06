@@ -6,7 +6,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 {
     public partial class MetadataDisplayViewController : UIViewController
     {
-// Hold a reference to the shapefile metadata.
+        // Hold a reference to the shapefile metadata.
         private readonly ShapefileInfo _metadata;
 
         public MetadataDisplayViewController(ShapefileInfo metadata) : base("MetadataDisplayViewController", null)

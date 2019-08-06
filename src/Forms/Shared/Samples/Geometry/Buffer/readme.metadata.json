@@ -1,0 +1,34 @@
+{
+    "category": "Geometry",
+    "description": "Create a buffer around a map point and display the results as a `Graphic`",
+    "formal_name": "Buffer",
+    "ignore": false,
+    "images": [
+        "Buffer.jpg"
+    ],
+    "keywords": [
+        "Analysis",
+        "BufferGeodetic",
+        "Euclidean",
+        "Geodesic",
+        "GeometryEngine",
+        "Planar"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/buffer.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine.Buffer",
+        "GeometryEngine.BufferGeodetic",
+        "GraphicsOverlay"
+    ],
+    "snippets": [
+        "Buffer.xaml",
+        "Buffer.xaml.cs"
+    ],
+    "title": "Buffer"
+}

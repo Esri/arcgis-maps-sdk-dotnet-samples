@@ -1,0 +1,22 @@
+{
+    "category": "Layers",
+    "description": "Show a feature layer on a map using the URL to the service.",
+    "formal_name": "FeatureLayerUrl",
+    "ignore": false,
+    "images": [
+        "FeatureLayerUrl.jpg"
+    ],
+    "keywords": [],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/featurelayerurl.htm"
+    ],
+    "relevant_apis": [],
+    "snippets": [
+        "FeatureLayerUrl.cs"
+    ],
+    "title": "Feature layer (feature service)"
+}

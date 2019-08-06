@@ -28,9 +28,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : UIViewController
     {
-        // Hold references to UI controls.
+        // Hold a reference to the SceneView.
         private SceneView _mySceneView;
-        private UISegmentedControl _extrusionFieldButton;
 
         public FeatureLayerExtrusion()
         {

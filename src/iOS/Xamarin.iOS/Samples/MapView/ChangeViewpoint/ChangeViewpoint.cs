@@ -69,9 +69,10 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         private async void ViewpointButton_ValueChanged(object sender, EventArgs e)
         {
+            UISegmentedControl segmentedControl = (UISegmentedControl) sender;
             try
             {
-                switch (_viewpointsButton.SelectedSegment)
+                switch (segmentedControl.SelectedSegment)
                 {
                     case 0:
                         // Set Viewpoint using Redlands envelope defined above and a padding of 20.
@@ -102,7 +103,49 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             }
 
             // Reset the segment button.
-            _viewpointsButton.SelectedSegment = -1;
+            segmentedControl.SelectedSegment = -1;
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UISegmentedControl _viewpointsButton = new UISegmentedControl("Geometry", "Center & Scale", "Animate")
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                TintColor = UIColor.White,
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                // Clean up borders of segmented control - avoid corner pixels.
+                ClipsToBounds = true,
+                Layer = {CornerRadius = 5}
+            };
+            _viewpointsButton.ValueChanged += ViewpointButton_ValueChanged;
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _viewpointsButton);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+
+                _viewpointsButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                _viewpointsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                _viewpointsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+            });
         }
 
         public override void ViewDidLoad()

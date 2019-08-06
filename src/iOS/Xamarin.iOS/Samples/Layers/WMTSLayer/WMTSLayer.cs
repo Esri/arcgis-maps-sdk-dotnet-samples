@@ -28,7 +28,6 @@ namespace ArcGISRuntime.Samples.WMTSLayer
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-        private UISegmentedControl _constructorChoiceButton;
 
         public WMTSLayer()
         {
@@ -43,7 +42,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         private async void _constructorChoiceButton_ValueChanged(object sender, EventArgs e)
         {
             //Load the WMTS layer using service info or URL.
-            switch (_constructorChoiceButton.SelectedSegment)
+            switch (((UISegmentedControl) sender).SelectedSegment)
             {
                 case 0:
                     await LoadWMTSLayerAsync(true);

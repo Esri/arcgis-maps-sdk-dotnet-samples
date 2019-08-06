@@ -1,0 +1,34 @@
+{
+    "category": "Map",
+    "description": "Restrict zooming between specific scale ranges.",
+    "formal_name": "SetMinMaxScale",
+    "ignore": false,
+    "images": [
+        "SetMinMaxScale.jpg"
+    ],
+    "keywords": [
+        "MaxScale",
+        "MinScale",
+        "Viewpoint",
+        "area of interest",
+        "level of detail"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/setminmaxscale.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "Map",
+        "MapView",
+        "ViewPoint"
+    ],
+    "snippets": [
+        "SetMinMaxScale.xaml",
+        "SetMinMaxScale.xaml.cs"
+    ],
+    "title": "Set min & max scale"
+}

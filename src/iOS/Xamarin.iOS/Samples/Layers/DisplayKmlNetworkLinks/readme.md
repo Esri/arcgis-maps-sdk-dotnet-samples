@@ -1,10 +1,12 @@
 # Display KML network links
 
-KML files can reference other KML files on the network as well as refresh intervals. This can be used to create a map that will periodically refresh itself with the latest data. This sample demonstrates how to display a file with a network link.
+ Display a file with a KML network link.
 
 ![](DisplayKmlNetworkLinks.jpg)
 
-Note that although the base KML file is loaded locally, all of the content is being downloaded from a website every few seconds.
+## Use case
+
+KML files can reference other KML files on the network as well as refresh intervals. This can be used to create a map that will periodically refresh itself with the latest data. Note that although the base KML file is loaded locally, all of the content is being downloaded from a website every few seconds.
 
 ## How to use the sample
 
@@ -25,4 +27,4 @@ This map shows the current air traffic in parts of Europe with heading, altitude
 
 ## Tags
 
-KML, KMZ, Network Link,
+KML, KMZ, Network Link

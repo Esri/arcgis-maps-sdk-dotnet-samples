@@ -1,0 +1,27 @@
+{
+    "category": "Layers",
+    "description": "Group a collection of layers together and toggle their visibility as a group.",
+    "formal_name": "GroupLayers",
+    "ignore": false,
+    "images": [
+        "GroupLayers.jpg"
+    ],
+    "keywords": [
+        "Layers",
+        "group layer"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/grouplayers.htm"
+    ],
+    "relevant_apis": [
+        "GroupLayer"
+    ],
+    "snippets": [
+        "GroupLayers.cs"
+    ],
+    "title": "Group layers"
+}

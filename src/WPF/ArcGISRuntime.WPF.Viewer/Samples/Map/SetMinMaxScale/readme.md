@@ -1,5 +1,30 @@
 # Set min & max scale
 
-This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.
+Restrict zooming between specific scale ranges.
 
-<img src="SetMinMaxScale.jpg" width="350"/>
+![screenshot](SetMinMaxScale.jpg)
+
+## Use case
+
+Data may only appear at a certain scale on a map, and may be visually lost if zooming too far in or out. Setting the minimum and maximum scales ensures the zoom extents are appropriately limited for the purposes of the map.
+
+## How to use the sample
+
+Zoom in and out of the map. The zoom extents of the map are limited between the given minimum and maximum scales.
+
+## How it works
+
+1. Instantiate an `Map` object.
+2. Set min and max scales of map with the `MinScale` and `MaxScale` properties.
+3. Display the map in a map view.
+
+## Relevant API
+
+* Map
+* Basemap
+* MapView
+* ViewPoint
+
+## Tags
+
+MaxScale, MinScale, Viewpoint, area of interest, level of detail

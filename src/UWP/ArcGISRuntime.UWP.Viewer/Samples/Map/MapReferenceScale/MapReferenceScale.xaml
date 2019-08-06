@@ -4,9 +4,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
     xmlns:mapping="using:Esri.ArcGISRuntime.Mapping"
-    xmlns:converters="using:ArcGISRuntime.Converters">
+    xmlns:local="using:ArcGISRuntime.UWP.Samples.MapReferenceScale">
     <UserControl.Resources>
-        <converters:DoubleToScaleStringConverter x:Key="DoubleToScaleStringConverter" />
+        <local:DoubleToScaleStringConverter x:Key="DoubleToScaleStringConverter" />
     </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />

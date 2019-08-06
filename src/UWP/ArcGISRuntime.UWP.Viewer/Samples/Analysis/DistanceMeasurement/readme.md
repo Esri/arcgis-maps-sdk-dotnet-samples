@@ -1,9 +1,34 @@
 # Distance measurement analysis
 
-This sample demonstrates measuring 3D distances between two points in a scene. The distance measurement analysis allows you to add the same measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript to your app. You can set the unit system of measurement (metric or imperial) and have the units automatically switch to one appropriate for the current scale. The rendering is handled internally so they do not interfere with other analyses like viewsheds.
+Measure distances between two points in 3D.
 
-<img src="DistanceMeasurement.jpg" width="350"/>
+![screenshot](DistanceMeasurement.jpg)
 
-## Instructions
+## Use case
 
-Choose 'New measurement' to start a new measurement. Move the mouse to change the end location. Tap to finish the measurement. Use the dropdown to select a different unit system.
+The distance measurement analysis allows you to add to your app the same interactive measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript. You can set the unit system of measurement (metric or imperial).
+
+## How to use the sample
+
+Choose a unit system for the measurement. Click any location in the scene to start measuring. Move your mouse to adjust the measurement. Click again to complete the measurement.
+
+## How it works
+
+1. Create an `AnalysisOverlay` object and add it to the analysis overlay collection of the `SceneView` object.
+2. Specify the start location and end location to create a `LocationDistanceMeasurement` object. Initially, the start and end locations can be the same point.
+3. Add the location distance measurement analysis to the analysis overlay.
+4. The `MeasurementChanged` event will be raised if the distances change. You can get the new values for the `DirectDistance`, `HorizontalDistance`, and `VerticalDistance` from the event arguments.
+
+## Relevant API
+
+* AnalysisOverlay
+* LocationDistanceMeasurement
+* LocationDistanceMeasurement.MeasurementChanged
+
+## Additional information
+
+The `LocationDistanceMeasurement` analysis only performs planar distance calculations. This may not be appropriate for large distances where the Earth's curvature must be considered.
+
+## Tags
+
+3D, analysis

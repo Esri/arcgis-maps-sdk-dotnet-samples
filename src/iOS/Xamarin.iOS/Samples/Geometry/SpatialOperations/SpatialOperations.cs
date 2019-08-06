@@ -29,7 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-        private UISegmentedControl _operationChoiceButton;
 
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;

@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         "")]
     public class IdentifyLayers : UIViewController
     {
-        // Hold references to UI controls.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
 
         public IdentifyLayers()

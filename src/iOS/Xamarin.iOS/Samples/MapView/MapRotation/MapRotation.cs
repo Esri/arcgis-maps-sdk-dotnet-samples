@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         "")]
     public class MapRotation : UIViewController
     {
-        // Hold references to UI controls.
+        // Hold references to the UI controls.
         private MapView _myMapView;
         private UILabel _rotationLabel;
         private UISlider _rotationSlider;
@@ -43,6 +43,12 @@ namespace ArcGISRuntime.Samples.MapRotation
         {
             _myMapView.SetViewpointRotationAsync(_rotationSlider.Value);
             _rotationLabel.Text = $"{_rotationSlider.Value:0}°";
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
         }
 
         public override void ViewDidLoad()

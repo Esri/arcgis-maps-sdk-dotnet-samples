@@ -42,6 +42,22 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             });
         }
 
+        private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
+        {
+            // Make sure that the UI changes are done in the UI thread.
+            InvokeOnMainThread(() =>
+            {
+                // Update the load status information.
+                _loadStatusLabel.Text = $"Map's load status: {e.Status}";
+            });
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
         public override void LoadView()
         {
             // Create the views.

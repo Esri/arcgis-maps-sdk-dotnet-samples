@@ -26,7 +26,6 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-        private UISegmentedControl _timeExtentsButton;
 
         private readonly Uri _mapServerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer");
         private readonly Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0");
@@ -55,7 +54,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             DateTime start;
             DateTime end;
 
-            switch (_timeExtentsButton.SelectedSegment)
+            switch (((UISegmentedControl) sender).SelectedSegment)
             {
                 case 0:
                     // Hard-coded values: January 1st, 2000 - December 31st, 2000.

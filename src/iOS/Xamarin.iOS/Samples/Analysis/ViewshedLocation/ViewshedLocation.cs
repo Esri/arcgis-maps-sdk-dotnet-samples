@@ -386,7 +386,6 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _maximumDistanceSlider.ValueChanged += HandleSettingsChange;
             _analysisVisibilitySwitch.ValueChanged += HandleSettingsChange;
             _frustumVisibilitySwitch.ValueChanged += HandleSettingsChange;
-        }
 
         public override void ViewDidDisappear(bool animated)
         {

@@ -82,7 +82,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
-            _mySceneView.SetViewpointCamera(new Camera(start, 200, 45, 45, 0));
 
             // Keep the UI updated.
             _distanceMeasurement.MeasurementChanged += (o, e) =>
@@ -111,6 +110,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
             // Show the scene in the view.
             _mySceneView.Scene = myScene;
+            _mySceneView.SetViewpointCamera(new Camera(start, 200, 45, 45, 0));
 
             // Subscribe to tap events to enable updating the measurement.
             _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;

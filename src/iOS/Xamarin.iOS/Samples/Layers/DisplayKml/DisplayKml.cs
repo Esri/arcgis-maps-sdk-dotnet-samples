@@ -29,7 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
     {
         // Hold references to UI controls.
         private SceneView _mySceneView;
-        private UISegmentedControl _dataChoiceButton;
 
         private readonly Envelope _usEnvelope = new Envelope(-144.619561355187, 18.0328662832097, -66.0903762761083, 67.6390975806745, SpatialReferences.Wgs84);
         private readonly string[] _sources = {"URL", "Local file", "Portal item"};

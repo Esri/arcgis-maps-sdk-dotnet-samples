@@ -1,0 +1,33 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Use a symbol style to display a graphic on a graphics overlay.",
+    "formal_name": "AddGraphicsWithSymbols",
+    "ignore": false,
+    "images": [
+        "AddGraphicsWithSymbols.jpg"
+    ],
+    "keywords": [
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleMarkerSymbol"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/addgraphicswithsymbols.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "Graphic",
+        "GraphicsOverlay",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleMarkerSymbol"
+    ],
+    "snippets": [
+        "AddGraphicsWithSymbols.cs"
+    ],
+    "title": "Add graphics with symbols"
+}

@@ -1,0 +1,38 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Update the orientation of a graphic using scene property rotation expressions.",
+    "formal_name": "ScenePropertiesExpressions",
+    "ignore": false,
+    "images": [
+        "ScenePropertiesExpressions.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "expression",
+        "heading",
+        "pitch",
+        "rotation",
+        "scene",
+        "symbology"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/scenepropertiesexpressions.htm"
+    ],
+    "relevant_apis": [
+        "Graphic.Attributes",
+        "GraphicsOverlay",
+        "SceneProperties",
+        "SceneProperties.HeadingExpression",
+        "SimpleRenderer",
+        "SimpleRenderer.SceneProperties"
+    ],
+    "snippets": [
+        "ScenePropertiesExpressions.xaml",
+        "ScenePropertiesExpressions.xaml.cs"
+    ],
+    "title": "Scene properties expressions"
+}

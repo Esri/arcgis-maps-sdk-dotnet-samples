@@ -30,8 +30,10 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public class SearchPortalMaps : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _searchButton;
+        private UIBarButtonItem _myMapsButton;
 
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -46,6 +48,9 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         // TODO: Add URL for redirecting after a successful authorization.
         //       Note - this must be a URL configured as a valid Redirect URI with your app.
         private const string OAuthRedirectUrl = "https://developers.arcgis.com";
+
+        // Hold a reference to the authenticator.
+        private Xamarin.Auth.OAuth2Authenticator _auth;
 
         public SearchPortalMaps()
         {
@@ -206,10 +211,20 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
+            Map map = (Map) sender;
+
             // Report errors if map failed to load.
-            if (e.Status == LoadStatus.FailedToLoad)
+            if (e.Status == LoadStatus.Loaded)
             {
-                Map map = (Map) sender;
+                // Unsubscribe from event.
+                map.LoadStatusChanged -= WebMapLoadStatusChanged;
+            }
+            else if (e.Status == LoadStatus.FailedToLoad)
+            {
+                // Unsubscribe from event.
+                map.LoadStatusChanged -= WebMapLoadStatusChanged;
+
+                // Show the error
                 Exception err = map.LoadError;
                 if (err != null)
                 {
@@ -234,13 +249,19 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _searchButton = new UIBarButtonItem();
+            _searchButton.Title = "Search maps";
+
+            _myMapsButton = new UIBarButtonItem();
+            _myMapsButton.Title = "Get my maps";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Search maps", UIBarButtonItemStyle.Plain, SearchMaps_Clicked),
+                _searchButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Get my maps", UIBarButtonItemStyle.Plain, GetMyMaps_Clicked)
+                _myMapsButton
             };
 
             // Add the views.
@@ -257,6 +278,24 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _searchButton.Clicked += SearchMaps_Clicked;
+            _myMapsButton.Clicked += GetMyMaps_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _searchButton.Clicked -= SearchMaps_Clicked;
+            _myMapsButton.Clicked -= GetMyMaps_Clicked;
         }
 
         #region OAuth helpers
@@ -365,18 +404,18 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             // If the TaskCompletionSource is not null, authorization may already be in progress and should be canceled.
-            // Try to cancel any existing authentication task.
+            // Try to cancel any existing authentication process.
             _taskCompletionSource?.TrySetCanceled();
 
             // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            Xamarin.Auth.OAuth2Authenticator auth = new OAuth2Authenticator(
+            _auth = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri)
+                redirectUrl: new Uri(OAuthRedirectUrl))
             {
                 ShowErrors = false,
                 // Allow the user to cancel the OAuth attempt.
@@ -384,24 +423,26 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            auth.Completed += (sender, authArgs) =>
+            _auth.Completed += (o, authArgs) =>
             {
                 try
                 {
                     // Dismiss the OAuth UI when complete.
-                    DismissViewController(true, null);
+                    InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.DismissViewController(true, null); });
 
-                    // Throw an exception if the user could not be authenticated.
-                    if (!authArgs.IsAuthenticated)
+                    // Check if the user is authenticated.
+                    if (authArgs.IsAuthenticated)
+                    {
+                        // If authorization was successful, get the user's account.
+                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
+
+                        // Set the result (Credential) for the TaskCompletionSource.
+                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
+                    }
+                    else
                     {
                         throw new Exception("Unable to authenticate user.");
                     }
-
-                    // If authorization was successful, get the user's account.
-                    Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
-
-                    // Set the result (Credential) for the TaskCompletionSource.
-                    _taskCompletionSource.SetResult(authenticatedAccount.Properties);
                 }
                 catch (Exception ex)
                 {
@@ -409,28 +450,31 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                     _taskCompletionSource.TrySetException(ex);
 
                     // Cancel authentication.
-                    auth.OnCancelled();
+                    _auth.OnCancelled();
                 }
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            auth.Error += (sender, errArgs) =>
+            _auth.Error += (o, errArgs) =>
             {
+                // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)
                 {
                     _taskCompletionSource.TrySetException(errArgs.Exception);
                 }
                 else
                 {
-                    _taskCompletionSource.TrySetException(new Exception(errArgs.Message));
+                    // Login canceled: dismiss the OAuth login.
+                    _taskCompletionSource?.TrySetCanceled();
                 }
 
                 // Cancel authentication.
-                auth.OnCancelled();
+                _auth.OnCancelled();
+                _auth = null;
             };
 
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { PresentViewController(auth.GetUI(), true, null); });
+            InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;

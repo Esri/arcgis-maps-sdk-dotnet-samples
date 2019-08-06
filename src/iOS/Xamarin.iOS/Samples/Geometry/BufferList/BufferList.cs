@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.BufferList
         "GeometryEngine, Geometry, Buffer, SpatialReference")]
     public class BufferList : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UITextField _bufferDistanceEntry;
         private UIBarButtonItem _helpButton;
@@ -102,9 +102,6 @@ namespace ArcGISRuntime.Samples.BufferList
             // Add the graphics overlays to the MapView.
             _myMapView.GraphicsOverlays.Add(bufferGraphicsOverlay);
             _myMapView.GraphicsOverlays.Add(spatialReferenceGraphicsOverlay);
-
-            // Wire up the MapView's GeoViewTapped event handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -289,9 +286,14 @@ namespace ArcGISRuntime.Samples.BufferList
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _helpButton = new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, ShowHelpAlert);
-            _resetButton = new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ClearButton_Click);
-            _bufferButton = new UIBarButtonItem("Buffer", UIBarButtonItemStyle.Plain, PromptForUnionChoice);
+            _helpButton = new UIBarButtonItem();
+            _helpButton.Title = "Help";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
+
+            _bufferButton = new UIBarButtonItem();
+            _bufferButton.Title = "Buffer";
 
             UIToolbar controlsToolbar = new UIToolbar();
             controlsToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -315,12 +317,6 @@ namespace ArcGISRuntime.Samples.BufferList
             _bufferDistanceEntry.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _bufferDistanceEntry.LeftViewMode = UITextFieldViewMode.Always;
             _bufferDistanceEntry.KeyboardType = UIKeyboardType.NumberPad;
-            // Allow pressing 'return' to dismiss the keyboard.
-            _bufferDistanceEntry.ShouldReturn += textField =>
-            {
-                textField.ResignFirstResponder();
-                return true;
-            };
 
             UILabel bufferDistanceEntryLabel = new UILabel();
             bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -330,7 +326,7 @@ namespace ArcGISRuntime.Samples.BufferList
             View.AddSubviews(_myMapView, controlsToolbar, entryToolbar, bufferDistanceEntryLabel, _bufferDistanceEntry);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 entryToolbar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 entryToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -352,6 +348,37 @@ namespace ArcGISRuntime.Samples.BufferList
                 controlsToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 controlsToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        private bool HandleTextField(UITextField textField)
+        {
+            // This method allows pressing 'return' to dismiss the software keyboard.
+            textField.ResignFirstResponder();
+            return true;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _bufferDistanceEntry.ShouldReturn += HandleTextField;
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            _helpButton.Clicked += ShowHelpAlert;
+            _resetButton.Clicked += ClearButton_Click;
+            _bufferButton.Clicked += PromptForUnionChoice;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _bufferDistanceEntry.ShouldReturn -= HandleTextField;
+            _helpButton.Clicked -= ShowHelpAlert;
+            _resetButton.Clicked -= ClearButton_Click;
+            _bufferButton.Clicked -= PromptForUnionChoice;
         }
     }
 }

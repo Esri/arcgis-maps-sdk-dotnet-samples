@@ -117,7 +117,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -171,11 +171,11 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             {
                 if (exception.Message.Equals("Unable to complete operation."))
                 {
-                    await ((Page)Parent).DisplayAlert("Error", "Incident not within San Diego area!", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Incident not within San Diego area!", "OK");
                 }
                 else
                 {
-                    await ((Page)Parent).DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
                 }
             }
         }

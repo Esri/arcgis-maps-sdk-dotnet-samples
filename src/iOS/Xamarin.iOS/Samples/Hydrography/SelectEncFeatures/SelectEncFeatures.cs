@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
         "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
     public class SelectEncFeatures : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public SelectEncFeatures()
@@ -80,9 +80,6 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
 
                 // Set the viewpoint
                 _myMapView.SetViewpoint(new Viewpoint(fullExtent));
-
-                // Subscribe to tap events (in order to use them to identify and select features).
-                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
             catch (Exception e)
             {
@@ -111,34 +108,28 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             try
             {
                 // Perform the identify operation.
-                IReadOnlyList<IdentifyLayerResult> results = await _myMapView.IdentifyLayersAsync(e.Position, 5, false);
+                IReadOnlyList<IdentifyLayerResult> results = await _myMapView.IdentifyLayersAsync(e.Position, 10, false);
 
                 // Return if there are no results.
-                if (results.Count < 1)
-                {
-                    return;
-                }
+                if (results.Count < 1) { return; }
 
                 // Get the results that are from ENC layers.
                 IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
 
-                // Get the ENC results that have features.
-                IEnumerable<IdentifyLayerResult> encResultsWithFeatures = encResults.Where(result => result.GeoElements.Count > 0);
-
-                // Get the first result with ENC features.
-                IdentifyLayerResult firstResult = encResultsWithFeatures.First();
+                // Get the first result with ENC features. (Depending on the data, there may be more than one IdentifyLayerResult that contains ENC features.)
+                IdentifyLayerResult firstResult = encResults.First();
 
                 // Get the layer associated with this set of results.
-                EncLayer containingLayer = (EncLayer) firstResult.LayerContent;
+                EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
 
-                // Get the first identified ENC feature.
-                EncFeature smallestFeature = (EncFeature) firstResult.GeoElements.OrderBy(f => GeometryEngine.Area(f.Geometry)).First();
+                // Get the GeoElement identified in this layer.
+                EncFeature encFeature = (EncFeature)firstResult.GeoElements.First();
 
                 // Select the feature.
-                containingLayer.SelectFeature(smallestFeature);
+                containingLayer.SelectFeature(encFeature);
 
                 // Create the callout definition.
-                CalloutDefinition definition = new CalloutDefinition(smallestFeature.Acronym, smallestFeature.Description);
+                CalloutDefinition definition = new CalloutDefinition(encFeature.Acronym, encFeature.Description);
 
                 // Show the callout.
                 _myMapView.ShowCalloutAt(e.Location, definition);
@@ -174,6 +165,22 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 }

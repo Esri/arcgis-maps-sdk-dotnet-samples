@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public class AnalyzeHotspots : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _configureButton;
         private UIBarButtonItem _startButton;
@@ -167,8 +167,11 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _configureButton = new UIBarButtonItem("Configure", UIBarButtonItemStyle.Plain, ShowConfiguration);
-            _startButton = new UIBarButtonItem("Run analysis", UIBarButtonItemStyle.Plain, OnRunAnalysisClicked);
+            _configureButton = new UIBarButtonItem();
+            _configureButton.Title = "Configure";
+
+            _startButton = new UIBarButtonItem();
+            _startButton.Title = "Run analysis";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -191,7 +194,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             View.AddSubviews(_myMapView, toolbar, _progressBar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
@@ -207,6 +210,24 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
                 _progressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _progressBar.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _startButton.Clicked += OnRunAnalysisClicked;
+            _configureButton.Clicked += ShowConfiguration;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _startButton.Clicked -= OnRunAnalysisClicked;
+            _configureButton.Clicked -= ShowConfiguration;
         }
     }
 }

@@ -10,32 +10,40 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\Project\Project.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
-	  <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Geometry\Project\Project.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateAttributes\UpdateAttributes.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
@@ -174,6 +182,35 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
+      <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
+      <DependentUpon>ChooseCameraController.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+      <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
+      <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
+      <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
+      <DependentUpon>OfflineRouting.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
+      <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
       <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -722,12 +759,37 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml.cs">
       <DependentUpon>SimpleRenderers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml.cs">
+      <DependentUpon>SymbolsFromMobileStyle.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
+	  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_blue.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -1195,6 +1257,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">

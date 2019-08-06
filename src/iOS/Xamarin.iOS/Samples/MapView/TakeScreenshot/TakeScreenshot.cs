@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         "")]
     public class TakeScreenshot : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIView _overlayView;
         private UIImageView _overlayImageView;
@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         {
             Title = "Take a screenshot";
         }
-        
+
         private void Initialize()
         {
             // Show an imagery basemap.
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 var ct = new CancellationTokenSource(timeoutMs);
 
                 // Register the callback that sets the task result after 2000 ms.
-                ct.Token.Register(() => 
+                ct.Token.Register(() =>
                     tcs.TrySetResult(null), false);
 
 
@@ -132,9 +132,13 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _screenshotButton = new UIBarButtonItem("Take screenshot", UIBarButtonItemStyle.Plain, OnScreenshotButtonClicked);
-            _closePreviewButton = new UIBarButtonItem("Close preview", UIBarButtonItemStyle.Plain, OnCloseImageViewClicked) { Enabled = false };
-            
+            _screenshotButton = new UIBarButtonItem();
+            _screenshotButton.Title = "Take screenshot";
+
+            _closePreviewButton = new UIBarButtonItem();
+            _closePreviewButton.Title = "Close preview";
+            _closePreviewButton.Enabled = false;
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
@@ -160,7 +164,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             View.AddSubviews(_myMapView, toolbar, _overlayView);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -181,6 +185,24 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 _overlayImageView.TopAnchor.ConstraintEqualTo(_overlayView.TopAnchor),
                 _overlayImageView.BottomAnchor.ConstraintEqualTo(_overlayView.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _screenshotButton.Clicked += OnScreenshotButtonClicked;
+            _closePreviewButton.Clicked += OnCloseImageViewClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _screenshotButton.Clicked -= OnScreenshotButtonClicked;
+            _closePreviewButton.Clicked -= OnCloseImageViewClicked;
         }
     }
 }

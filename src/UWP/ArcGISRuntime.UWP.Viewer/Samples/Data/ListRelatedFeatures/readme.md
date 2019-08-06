@@ -1,9 +1,30 @@
 # List related features
 
-This sample demonstrates how to query features related to an identified feature.
+List features related to the selected feature.
 
-<img src="ListRelatedFeatures.jpg" width="350"/>
+![screenshot](ListRelatedFeatures.jpg)
 
-## Instructions
+## Use case
 
-Click on a feature to identify it. Related features will be listed in the window above the map.
+Related features are useful for managing relational information, like what you would store in a relational database management system (RDBMS). You can define relationship between records as one-to-one, one-to-many, or many-to-one. For example, you could model inspections and facilities as a many-to-one relationship. Then, for any facility feature, you could list related inspection features.
+
+## How to use the sample
+
+Click on a feature to select it. The related features will be displayed in a list.
+
+## How it works
+
+1. With a `Feature`, call `QueryRelatedFeaturesAsync` on the feature's feature table.
+2. Iterate over the result's collection of `RelatedFeatureQueryResult` objects to get the related features and add them to a list.
+
+## Relevant API
+
+* ArcGISFeature
+* ArcGISFeatureTable
+* FeatureQueryResult
+* FeatureTable.QueryRelatedFeatures
+* RelatedFeatureQueryResult
+
+## Tags
+
+IdentifyLayerAsync, QueryRelatedFeaturesAsync, RelatedFeatureQueryResult, relationship, search and query

@@ -22,13 +22,13 @@ using Xamarin.Auth;
 
 namespace ArcGISRuntimeXamarin.Samples.OAuth
 {
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
            "Authenticate with OAuth",
            "Security",
            "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).",
            "1. When you run the sample, the app will load a web map that contains premium content.\n2. You will be challenged for an ArcGIS Online login to view that layer (world traffic).\n3. Enter your ArcGIS Online user name and password.\n4. If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.\n5. You can alter the code to supply OAuth configuration settings specific to your app.",
            "Authentication, Security, OAuth")]
-    [Activity(Label = "OAuth")]
     public class OAuth : Activity, IOAuthAuthorizeHandler
     {
         // MapView control to display a map.

@@ -17,7 +17,7 @@
     </Grid.ColumnDefinitions>
     <Entry x:Name="UsernameEntry"
            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-           Margin="20,5"
+           Margin="20,5" Keyboard="Plain"
            Placeholder="Username"/>
     <Entry x:Name="PasswordEntry"
            Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"

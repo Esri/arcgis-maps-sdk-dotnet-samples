@@ -24,8 +24,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         "Line of sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
-        "Use the slider to adjust the height of the observer.",
-        "Featured")]
+        "Use the slider to adjust the height of the observer.")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class LineOfSightGeoElement
     {
@@ -178,6 +177,10 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             MapPoint intermediatePoint = InterpolatedPoint(starting, ending, progress);
             // Update the taxi geometry
             _taxiGraphic.Geometry = intermediatePoint;
+
+            // Update the taxi rotation.
+            GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(starting, ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
+            ((ModelSceneSymbol)_taxiGraphic.Symbol).Heading = distance.Azimuth1;
         }
 
         private MapPoint InterpolatedPoint(MapPoint firstPoint, MapPoint secondPoint, double progress)

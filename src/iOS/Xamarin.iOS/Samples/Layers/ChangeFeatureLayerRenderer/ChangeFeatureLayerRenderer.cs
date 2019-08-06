@@ -27,8 +27,10 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         "")]
     public class ChangeFeatureLayerRenderer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _resetButton;
+        private UIBarButtonItem _overrideButton;
 
         // Hold reference to the feature layer.
         private FeatureLayer _featureLayer;
@@ -99,13 +101,19 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
+
+            _overrideButton = new UIBarButtonItem();
+            _overrideButton.Title = "Override renderer";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, OnResetButtonClicked),
+                _resetButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Override renderer", UIBarButtonItemStyle.Plain, OnOverrideButtonClicked)
+                _overrideButton
             };
 
             // Add the views.
@@ -123,6 +131,24 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _resetButton.Clicked += OnResetButtonClicked;
+            _overrideButton.Clicked += OnOverrideButtonClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _resetButton.Clicked -= OnResetButtonClicked;
+            _overrideButton.Clicked -= OnOverrideButtonClicked;
         }
     }
 }

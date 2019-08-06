@@ -8,6 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -27,9 +29,11 @@ namespace ArcGISRuntime.Samples.ConvexHull
         "Analysis", "ConvexHull", "GeometryEngine")]
     public class ConvexHull : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIBarButtonItem _createHullButton;
+        private UIBarButtonItem _helpButton;
+        private UIBarButtonItem _resetButton;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -52,9 +56,6 @@ namespace ArcGISRuntime.Samples.ConvexHull
 
             // Add the created graphics overlay to the MapView.
             _myMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
-            // Wire up the MapView's GeoViewTapped event handler.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -76,7 +77,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
                 // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(e.Location, userTappedSimpleMarkerSymbol)
+                Graphic userTappedGraphic = new Graphic(e.Location, new Dictionary<string, object>{{ "Type", "Point" }}, userTappedSimpleMarkerSymbol)
                 {
                     // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
                     ZIndex = 1
@@ -112,11 +113,16 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 SimpleFillSymbol convexHullSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Null, System.Drawing.Color.Red, convexHullSimpleLineSymbol);
 
                 // Create the graphic for the convex hull - comprised of a polygon shape and fill symbol.
-                Graphic convexHullGraphic = new Graphic(convexHullGeometry, convexHullSimpleFillSymbol)
+                Graphic convexHullGraphic = new Graphic(convexHullGeometry, new Dictionary<string, object>() { { "Type", "Hull" } }, convexHullSimpleFillSymbol)
                 {
                     // Set the Z index for the convex hull graphic so that it appears below the initial input user tapped map point graphics added earlier.
                     ZIndex = 0
                 };
+
+                // Remove any existing convex hull graphics from the overlay.
+                foreach (Graphic g in _graphicsOverlay.Graphics.ToList())
+                    if ((string)g.Attributes["Type"] == "Hull")
+                        _graphicsOverlay.Graphics.Remove(g);
 
                 // Add the convex hull graphic to the graphics overlay collection.
                 _graphicsOverlay.Graphics.Add(convexHullGraphic);
@@ -164,15 +170,22 @@ namespace ArcGISRuntime.Samples.ConvexHull
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _createHullButton =
-                new UIBarButtonItem("Create convex hull", UIBarButtonItemStyle.Plain, ConvexHullButton_Click) {Enabled = false};
+            _createHullButton = new UIBarButtonItem();
+            _createHullButton.Title = "Create convex hull";
+            _createHullButton.Enabled = false;
+
+            _helpButton = new UIBarButtonItem();
+            _helpButton.Title = "Help";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Help", UIBarButtonItemStyle.Plain, HelpButton_Click),
-                new UIBarButtonItem("Reset", UIBarButtonItemStyle.Plain, ResetButton_Click),
+                _helpButton,
+                _resetButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _createHullButton
             };
@@ -192,6 +205,28 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            _helpButton.Clicked += HelpButton_Click;
+            _resetButton.Clicked += ResetButton_Click;
+            _createHullButton.Clicked += ConvexHullButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _helpButton.Clicked -= HelpButton_Click;
+            _resetButton.Clicked -= ResetButton_Click;
+            _createHullButton.Clicked -= ConvexHullButton_Click;
         }
     }
 }

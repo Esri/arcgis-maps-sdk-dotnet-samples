@@ -38,12 +38,19 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         "")]
     public class GenerateOfflineMapWithOverrides : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _loadingIndicator;
         private UIBarButtonItem _takeMapOfflineButton;
         private UILabel _statusLabel;
         private ConfigureOverridesViewController _overridesVC;
+        private OAuth2Authenticator _auth;
+
+        // Class-scope variables needed because job continues after configuration by separate class.
+        private OfflineMapTask _takeMapOfflineTask;
+        private GenerateOfflineMapParameters _parameters;
+        private GenerateOfflineMapParameterOverrides _overrides;
+        private string _packagePath;
 
         // The job to generate an offline map.
         private GenerateOfflineMapJob _generateOfflineMapJob;
@@ -56,7 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
         public GenerateOfflineMapWithOverrides()
         {
-            Title = "Generate an offline map";
+            Title = "Generate offline map (overrides)";
         }
 
         private async void Initialize()
@@ -117,6 +124,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             {
                 _overridesVC = new ConfigureOverridesViewController(overrides, _myMapView.Map);
             }
+
             // Show the layer list popover. Note: most behavior is managed by the table view & its source. See MapViewModel.
             var controller = new UINavigationController(_overridesVC);
             controller.Title = "Override parameters";
@@ -174,16 +182,16 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             }
 
             // Create a new folder for the output mobile map.
-            string packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork");
+            _packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork");
             int num = 1;
-            while (Directory.Exists(packagePath))
+            while (Directory.Exists(_packagePath))
             {
-                packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num);
+                _packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num);
                 num++;
             }
 
             // Create the output directory.
-            Directory.CreateDirectory(packagePath);
+            Directory.CreateDirectory(_packagePath);
 
             try
             {
@@ -191,70 +199,19 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                 _statusLabel.Text = "Taking map offline...";
 
                 // Create an offline map task with the current (online) map.
-                OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(_myMapView.Map);
+                _takeMapOfflineTask = await OfflineMapTask.CreateAsync(_myMapView.Map);
 
                 // Create the default parameters for the task, pass in the area of interest.
-                GenerateOfflineMapParameters parameters = await takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
+                _parameters = await _takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
 
                 // Generate parameter overrides for more in-depth control of the job.
-                GenerateOfflineMapParameterOverrides overrides = await takeMapOfflineTask.CreateGenerateOfflineMapParameterOverridesAsync(parameters);
+                _overrides = await _takeMapOfflineTask.CreateGenerateOfflineMapParameterOverridesAsync(_parameters);
 
                 // Show the configuration window.
-                ShowConfigurationWindow(overrides);
+                ShowConfigurationWindow(_overrides);
 
                 // Finish work once the user has configured the override.
-                _overridesVC.FinishedConfiguring += async () =>
-                {
-                    // Hide the configuration UI.
-                    _overridesVC.DismissViewController(true, null);
-
-                    // Create the job with the parameters and output location.
-                    _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath, overrides);
-
-                    // Handle the progress changed event for the job.
-                    _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
-
-                    // Await the job to generate geodatabases, export tile packages, and create the mobile map package.
-                    GenerateOfflineMapResult results = await _generateOfflineMapJob.GetResultAsync();
-
-                    // Check for job failure (writing the output was denied, e.g.).
-                    if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
-                    {
-                        // Report failure to the user.
-                        UIAlertController messageAlert = UIAlertController.Create("Error", "Failed to take the map offline.", UIAlertControllerStyle.Alert);
-                        messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                        PresentViewController(messageAlert, true, null);
-                    }
-
-                    // Check for errors with individual layers.
-                    if (results.LayerErrors.Any())
-                    {
-                        // Build a string to show all layer errors.
-                        System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
-                        foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
-                        {
-                            errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
-                        }
-
-                        // Show layer errors.
-                        UIAlertController messageAlert = UIAlertController.Create("Error", errorBuilder.ToString(), UIAlertControllerStyle.Alert);
-                        messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-                        PresentViewController(messageAlert, true, null);
-                    }
-
-                    // Display the offline map.
-                    _myMapView.Map = results.OfflineMap;
-
-                    // Apply the original viewpoint for the offline map.
-                    _myMapView.SetViewpoint(new Viewpoint(_areaOfInterest));
-
-                    // Enable map interaction so the user can explore the offline data.
-                    _myMapView.InteractionOptions.IsEnabled = true;
-
-                    // Change the title and disable the "Take map offline" button.
-                    _statusLabel.Text = "Map is offline";
-                    _takeMapOfflineButton.Enabled = false;
-                };
+                _overridesVC.FinishedConfiguring += ConfigurationContinuation;
             }
             catch (TaskCanceledException)
             {
@@ -275,6 +232,59 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                 // Hide the loading overlay when the job is done.
                 _loadingIndicator.StopAnimating();
             }
+        }
+
+        private async void ConfigurationContinuation()
+        {
+            // Hide the configuration UI.
+            _overridesVC.DismissViewController(true, null);
+
+            // Create the job with the parameters and output location.
+            _generateOfflineMapJob = _takeMapOfflineTask.GenerateOfflineMap(_parameters, _packagePath, _overrides);
+
+            // Handle the progress changed event for the job.
+            _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
+
+            // Await the job to generate geodatabases, export tile packages, and create the mobile map package.
+            GenerateOfflineMapResult results = await _generateOfflineMapJob.GetResultAsync();
+
+            // Check for job failure (writing the output was denied, e.g.).
+            if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
+            {
+                // Report failure to the user.
+                UIAlertController messageAlert = UIAlertController.Create("Error", "Failed to take the map offline.", UIAlertControllerStyle.Alert);
+                messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(messageAlert, true, null);
+            }
+
+            // Check for errors with individual layers.
+            if (results.LayerErrors.Any())
+            {
+                // Build a string to show all layer errors.
+                System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
+                foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
+                {
+                    errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
+                }
+
+                // Show layer errors.
+                UIAlertController messageAlert = UIAlertController.Create("Error", errorBuilder.ToString(), UIAlertControllerStyle.Alert);
+                messageAlert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+                PresentViewController(messageAlert, true, null);
+            }
+
+            // Display the offline map.
+            _myMapView.Map = results.OfflineMap;
+
+            // Apply the original viewpoint for the offline map.
+            _myMapView.SetViewpoint(new Viewpoint(_areaOfInterest));
+
+            // Enable map interaction so the user can explore the offline data.
+            _myMapView.InteractionOptions.IsEnabled = true;
+
+            // Change the title and disable the "Take map offline" button.
+            _statusLabel.Text = "Map is offline";
+            _takeMapOfflineButton.Enabled = false;
         }
 
         // Show changes in job progress.
@@ -305,7 +315,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _takeMapOfflineButton = new UIBarButtonItem("Generate offline map", UIBarButtonItemStyle.Plain, TakeMapOfflineButton_Click);
+            _takeMapOfflineButton = new UIBarButtonItem();
+            _takeMapOfflineButton.Title = "Generate offline map";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -355,6 +366,27 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                 _loadingIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _loadingIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _takeMapOfflineButton.Clicked += TakeMapOfflineButton_Click;
+
+            if (_overridesVC != null) _overridesVC.FinishedConfiguring += ConfigurationContinuation;
+            if (_generateOfflineMapJob != null) _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            if (_generateOfflineMapJob != null) _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
+            if (_overridesVC != null) _overridesVC.FinishedConfiguring -= ConfigurationContinuation;
+            _takeMapOfflineButton.Clicked -= TakeMapOfflineButton_Click;
         }
 
         #region Authentication
@@ -425,22 +457,18 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             // If the TaskCompletionSource is not null, authorization may already be in progress and should be canceled.
-            // Try to cancel any existing authentication task.
+            // Try to cancel any existing authentication process.
             _taskCompletionSource?.TrySetCanceled();
 
             // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-            // Get the current iOS ViewController.
-            UIViewController viewController = null;
-            InvokeOnMainThread(() => { viewController = UIApplication.SharedApplication.KeyWindow.RootViewController; });
-
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            OAuth2Authenticator authenticator = new OAuth2Authenticator(
+            _auth = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri)
+                redirectUrl: new Uri(OAuthRedirectUrl))
             {
                 ShowErrors = false,
                 // Allow the user to cancel the OAuth attempt.
@@ -448,18 +476,18 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            authenticator.Completed += (sender, authArgs) =>
+            _auth.Completed += (o, authArgs) =>
             {
                 try
                 {
                     // Dismiss the OAuth UI when complete.
-                    viewController.DismissViewController(true, null);
+                    InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.DismissViewController(true, null); });
 
                     // Check if the user is authenticated.
                     if (authArgs.IsAuthenticated)
                     {
                         // If authorization was successful, get the user's account.
-                        Account authenticatedAccount = authArgs.Account;
+                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
 
                         // Set the result (Credential) for the TaskCompletionSource.
                         _taskCompletionSource.SetResult(authenticatedAccount.Properties);
@@ -475,12 +503,12 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                     _taskCompletionSource.TrySetException(ex);
 
                     // Cancel authentication.
-                    authenticator.OnCancelled();
+                    _auth.OnCancelled();
                 }
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            authenticator.Error += (sndr, errArgs) =>
+            _auth.Error += (o, errArgs) =>
             {
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)
@@ -494,58 +522,18 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                 }
 
                 // Cancel authentication.
-                authenticator.OnCancelled();
+                _auth.OnCancelled();
+                _auth = null;
             };
 
-
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { viewController.PresentViewController(authenticator.GetUI(), true, null); });
+            InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
 
         #endregion
-
-        /*
-        private async Task<bool> EnsureLoggedInAsync()
-        {
-            bool loggedIn = false;
-
-            try
-            {
-                // Create a challenge request for portal credentials (OAuth credential request for arcgis.com).
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
-                {
-                    // Use the OAuth implicit grant flow.
-                    GenerateTokenOptions = new GenerateTokenOptions
-                    {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                    },
-
-                    // Indicate the URL (portal) to authenticate with (ArcGIS Online).
-                    ServiceUri = new Uri(ServerUrl)
-                };
-
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler.
-                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
-                loggedIn = cred != null;
-            }
-            catch (OperationCanceledException)
-            {
-                // Login was canceled.
-                // .. ignore, user can still search public maps without logging in.
-            }
-            catch (Exception ex)
-            {
-                // Login failure.
-                UIAlertView alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate) null, "OK", null);
-                alert.Show();
-            }
-
-            return loggedIn;
-        }
-        */
 
         #endregion
 
@@ -565,6 +553,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         // Hold references to the overrides and the map.
         private GenerateOfflineMapParameterOverrides _overrides;
         private Map _map;
+        private UIButton _takeOfflineButton;
         private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
         // Hold state from UI selections.
@@ -770,18 +759,13 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
             innerStackView.AddArrangedSubview(getLabel("Crop layer to extent"));
 
-            innerStackView.AddArrangedSubview(getCheckRow("Water pipes: ", (sender,args)=> _cropWaterPipes = !_cropWaterPipes));
-            
-            UIButton takeOfflineButton = new UIButton();
-            takeOfflineButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            takeOfflineButton.SetTitle("Take map offline", UIControlState.Normal);
-            takeOfflineButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            innerStackView.AddArrangedSubview(takeOfflineButton);
+            innerStackView.AddArrangedSubview(getCheckRow("Water pipes: ", (sender, args) => _cropWaterPipes = !_cropWaterPipes));
 
-            takeOfflineButton.TouchUpInside += (o, e) =>
-            {
-                DismissViewController(true, null);
-            };
+            _takeOfflineButton = new UIButton();
+            _takeOfflineButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            _takeOfflineButton.SetTitle("Take map offline", UIControlState.Normal);
+            _takeOfflineButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            innerStackView.AddArrangedSubview(_takeOfflineButton);
 
             // Add the views.
             View.AddSubview(outerScroller);
@@ -801,6 +785,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
                 outerStackView.WidthAnchor.ConstraintEqualTo(outerScroller.WidthAnchor)
             });
         }
+
+        private void TakeOffline_Click(Object sender, EventArgs e) => DismissViewController(true, null);
 
         private UILabel getLabel(string text)
         {
@@ -858,7 +844,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             rowView.Distribution = UIStackViewDistribution.Fill;
             rowView.Spacing = 5;
             rowView.LayoutMarginsRelativeArrangement = true;
-            rowView.LayoutMargins = new UIEdgeInsets(0,0,0,5);
+            rowView.LayoutMargins = new UIEdgeInsets(0, 0, 0, 5);
 
             UILabel descriptionLabel = new UILabel();
             descriptionLabel.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -871,6 +857,22 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             rowView.AddArrangedSubview(valueSwitch);
 
             return rowView;
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _takeOfflineButton.TouchUpInside += TakeOffline_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _takeOfflineButton.TouchUpInside -= TakeOffline_Click;
         }
 
         public delegate void CompletionEventHandler();

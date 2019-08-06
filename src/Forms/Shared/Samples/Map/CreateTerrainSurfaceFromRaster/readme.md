@@ -2,9 +2,7 @@
 
 Use a terrain surface with elevation described by a raster file.
 
-The terrain surface is what the basemap, operational layers, and graphics are draped on. 
-
-![](CreateTerrainSurfaceFromRaster.jpg)
+![screenshot](CreateTerrainSurfaceFromRaster.jpg)
 
 ## How it works
 
@@ -14,20 +12,23 @@ The terrain surface is what the basemap, operational layers, and graphics are dr
 
 ## Additional information
 
+The terrain surface is what the basemap, operational layers, and graphics are draped on. 
+
 Supported raster formats include:
-- ASRP/USRP
-- CIB1, 5, 10
-- DTED0, 1, 2
-- GeoTIFF
-- HFA
-- HRE
-- IMG
-- JPEG
-- JPEG 2000
-- NITF
-- PNG
-- RPF
-- SRTM1, 2
+
+* ASRP/USRP
+* CIB1, 5, 10
+* DTED0, 1, 2
+* GeoTIFF
+* HFA
+* HRE
+* IMG
+* JPEG
+* JPEG 2000
+* NITF
+* PNG
+* RPF
+* SRTM1, 2
 
 The raster used in this sample is a DTED2 file.
 

@@ -58,9 +58,6 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
             // Add a graphics overlay to the map for showing where the user tapped.
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
-
             // Initialize the LocatorTask with the provided service Uri.
             try
             {
@@ -88,7 +85,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
                 _myMapView.GraphicsOverlays[0].Graphics.Add(pinGraphic);
 
                 // Normalize the geometry - needed if the user crosses the international date line.
-                MapPoint normalizedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
+                MapPoint normalizedPoint = (MapPoint) GeometryEngine.NormalizeCentralMeridian(e.Location);
 
                 // Reverse geocode to get addresses.
                 IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(normalizedPoint);
@@ -179,6 +176,22 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= _myMapView_GeoViewTapped;
         }
     }
 }

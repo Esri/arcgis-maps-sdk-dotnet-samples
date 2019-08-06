@@ -35,11 +35,12 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         "When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent that of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.")]
     public class GenerateOfflineMap : UIViewController, IOAuthAuthorizeHandler
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _loadingIndicator;
         private UIBarButtonItem _takeMapOfflineButton;
         private UILabel _statusLabel;
+        private OAuth2Authenticator _auth;
 
         // The job to generate an offline map.
         private GenerateOfflineMapJob _generateOfflineMapJob;
@@ -249,7 +250,8 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _takeMapOfflineButton = new UIBarButtonItem("Generate offline map", UIBarButtonItemStyle.Plain, TakeMapOfflineButton_Click);
+            _takeMapOfflineButton = new UIBarButtonItem();
+            _takeMapOfflineButton.Title = "Generate offline map";
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -300,6 +302,24 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 _loadingIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _loadingIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            if (_generateOfflineMapJob != null) _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
+            _takeMapOfflineButton.Clicked += TakeMapOfflineButton_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _generateOfflineMapJob.ProgressChanged -= OfflineMapJob_ProgressChanged;
+            _takeMapOfflineButton.Clicked -= TakeMapOfflineButton_Click;
         }
 
         #region Authentication
@@ -370,22 +390,18 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             // If the TaskCompletionSource is not null, authorization may already be in progress and should be canceled.
-            // Try to cancel any existing authentication task.
+            // Try to cancel any existing authentication process.
             _taskCompletionSource?.TrySetCanceled();
 
             // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-            // Get the current iOS ViewController.
-            UIViewController viewController = null;
-            InvokeOnMainThread(() => { viewController = UIApplication.SharedApplication.KeyWindow.RootViewController; });
-
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            OAuth2Authenticator authenticator = new OAuth2Authenticator(
+            _auth = new OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri)
+                redirectUrl: new Uri(OAuthRedirectUrl))
             {
                 ShowErrors = false,
                 // Allow the user to cancel the OAuth attempt.
@@ -393,12 +409,12 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             };
 
             // Define a handler for the OAuth2Authenticator.Completed event.
-            authenticator.Completed += (sender, authArgs) =>
+            _auth.Completed += (o, authArgs) =>
             {
                 try
                 {
                     // Dismiss the OAuth UI when complete.
-                    viewController.DismissViewController(true, null);
+                    InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.DismissViewController(true, null); });
 
                     // Check if the user is authenticated.
                     if (authArgs.IsAuthenticated)
@@ -420,12 +436,12 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                     _taskCompletionSource.TrySetException(ex);
 
                     // Cancel authentication.
-                    authenticator.OnCancelled();
+                    _auth.OnCancelled();
                 }
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            authenticator.Error += (sndr, errArgs) =>
+            _auth.Error += (o, errArgs) =>
             {
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)
@@ -439,12 +455,12 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 }
 
                 // Cancel authentication.
-                authenticator.OnCancelled();
+                _auth.OnCancelled();
+                _auth = null;
             };
 
-
             // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            InvokeOnMainThread(() => { viewController.PresentViewController(authenticator.GetUI(), true, null); });
+            InvokeOnMainThread(() => { UIApplication.SharedApplication.KeyWindow.RootViewController.PresentViewController(_auth.GetUI(), true, null); });
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;

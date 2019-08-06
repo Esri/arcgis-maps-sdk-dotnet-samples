@@ -1,5 +1,30 @@
 # Unique value renderer
 
-This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.
+Render features in a layer using a distinct symbol for each unique attribute value.
 
-<img src="RenderUniqueValues.jpg" width="350"/>
+![screenshot](RenderUniqueValues.jpg)
+
+## How to use the sample
+
+The map with the symbolized feature layer will be shown automatically when the sample loads.
+
+## How it works
+
+1. In this case, the field is subregions of the USA. While multiple fields can be used, this sample only uses one.
+
+## Relevant API
+
+* FeatureLayer
+* ServiceFeatureTable
+* SimpleFillSymbol
+* SimpleLineSymbol
+* UniqueValue
+* UniqueValueRenderer
+
+## About the data
+
+The map shows U.S. states symbolized by subregion. Symbols are defined for *Pacific*, *Mountain*, and *West South Central* states. All other features are symbolized with the default symbol.
+
+## Tags
+
+Symbology, UniqueValueRenderer, draw, symbol

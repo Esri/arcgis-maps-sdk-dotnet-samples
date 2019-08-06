@@ -19,7 +19,7 @@ using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.ChangeStretchRenderer
 {
-    [Activity(Label = "ChangeStretchRenderer")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Stretch renderer",

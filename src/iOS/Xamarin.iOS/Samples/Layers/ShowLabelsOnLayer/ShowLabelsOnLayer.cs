@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         "")]
     public class ShowLabelsOnLayer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:

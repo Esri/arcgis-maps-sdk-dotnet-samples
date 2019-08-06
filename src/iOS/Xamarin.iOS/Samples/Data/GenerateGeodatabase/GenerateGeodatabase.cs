@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.")]
     public class GenerateGeodatabase : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIProgressView _progressBar;
         private UIBarButtonItem _generateButton;
@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         {
             Title = "Generate geodatabase";
         }
-        
+
         private async void Initialize()
         {
             try
@@ -89,9 +89,6 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
 
                 // Add graphics overlay to the map view.
                 _myMapView.GraphicsOverlays.Add(extentOverlay);
-
-                // Set up an event handler for when the viewpoint (extent) changes.
-                _myMapView.ViewpointChanged += MapViewExtentChanged;
 
                 // Create a task for generating a geodatabase (GeodatabaseSyncTask).
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -185,7 +182,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
-            _generateGdbJob.ProgressChanged += (sender, e) => { UpdateProgressBar(); };
+            _generateGdbJob.ProgressChanged += GenerateGdbJob_ProgressChanged;
 
             // Start the job.
             _generateGdbJob.Start();
@@ -196,6 +193,8 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             // Do the rest of the work.
             await HandleGenerationStatusChange(_generateGdbJob, resultGdb);
         }
+
+        private void GenerateGdbJob_ProgressChanged(object sender, EventArgs e) => UpdateProgressBar();
 
         private async Task HandleGenerationStatusChange(GenerateGeodatabaseJob job, Geodatabase resultGdb)
         {
@@ -270,6 +269,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 // Call the geodatabase generation method.
                 await StartGeodatabaseGeneration();
             }
+            catch (TaskCanceledException)
+            {
+                ShowStatusMessage("Geodatabase generation cancelled.");
+            }
             catch (Exception ex)
             {
                 ShowStatusMessage(ex.ToString());
@@ -306,8 +309,8 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _generateButton =
-                new UIBarButtonItem("Generate geodatabase", UIBarButtonItemStyle.Plain, GenerateButton_Clicked);
+            _generateButton = new UIBarButtonItem();
+            _generateButton.Title = "Generate geodatabase";
             _generateButton.Enabled = false;
 
             UIToolbar toolbar = new UIToolbar();
@@ -326,7 +329,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             View.AddSubviews(_myMapView, toolbar, _progressBar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -342,6 +345,30 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 _progressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _progressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.ViewpointChanged += MapViewExtentChanged;
+            _generateButton.Clicked += GenerateButton_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            if (_generateGdbJob != null)
+            {
+                _generateGdbJob.Cancel();
+                _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
+            }
+
+            _myMapView.ViewpointChanged -= MapViewExtentChanged;
+            _generateButton.Clicked -= GenerateButton_Clicked;
         }
     }
 }

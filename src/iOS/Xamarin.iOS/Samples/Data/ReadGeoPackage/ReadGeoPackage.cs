@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         "Select a layer name in the 'Layers Not in the Map' UISegmentedControl to add it to the map. Conversely to remove a layer from the map select a layer name in the 'Layers in the Map' UISegmentedControl. NOTE: The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
     public class ReadGeoPackage : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISegmentedControl _layerSegmentedControl;
 
@@ -283,13 +283,12 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             // Clean up borders of segmented control - avoid corner pixels.
             _layerSegmentedControl.ClipsToBounds = true;
             _layerSegmentedControl.Layer.CornerRadius = 5;
-            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
 
             // Add the views.
             View.AddSubviews(_myMapView, _layerSegmentedControl);
 
             // Lay out the views
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -300,6 +299,22 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                 _layerSegmentedControl.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
                 _layerSegmentedControl.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _layerSegmentedControl.ValueChanged -= LayerSegmentedControl_ValueChanged;
         }
     }
 }

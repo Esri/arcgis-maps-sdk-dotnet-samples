@@ -1,0 +1,32 @@
+{
+    "category": "Map",
+    "description": "Specify a map's spatial reference.",
+    "formal_name": "SetMapSpatialReference",
+    "ignore": false,
+    "images": [
+        "SetMapSpatialReference.jpg"
+    ],
+    "keywords": [
+        "SpatialReference",
+        "WKID",
+        "project"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/setmapspatialreference.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "Basemap",
+        "Map",
+        "MapView",
+        "SpatialReference"
+    ],
+    "snippets": [
+        "SetMapSpatialReference.cs"
+    ],
+    "title": "Set map spatial reference"
+}

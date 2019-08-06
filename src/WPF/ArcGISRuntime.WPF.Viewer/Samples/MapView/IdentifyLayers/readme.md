@@ -6,7 +6,7 @@ Identify features in all layers in a map. MapView supports identifying features 
 
 ## How to use the sample
 
-Tap to identify features. An alert will show all layers with features under the cursor, as well as a layer count.
+Tap to identify features. An alert will show all layers with features under the cursor.
 
 ## How it works
 
@@ -20,7 +20,6 @@ Tap to identify features. An alert will show all layers with features under the 
 * `MapView.IdentifyLayersAsync`
 * `IdentifyLayerResult.LayerContent.Name`
 * `IdentifyLayerResult.SublayerResults`
-* 
 
 ## Tags
 

@@ -30,6 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
         private UILabel _scaleLabel;
         private UITableViewController _layerTableController;
         private UIBarButtonItem _layerSelectionButton;
+        private UIBarButtonItem _referenceScaleButton;
 
         // List of reference scale options.
         private readonly double[] _referenceScales =
@@ -54,9 +55,6 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
             // Create the map from the item.
             Map webMap = new Map(mapItem);
 
-            // Update the UI when the map navigates.
-            _myMapView.ViewpointChanged += (o, e) => _scaleLabel.Text = $"Current map scale: 1:{_myMapView.MapScale:n0}";
-
             // Display the map.
             _myMapView.Map = webMap;
 
@@ -70,6 +68,8 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
             // Enable the button now that the map is ready.
             _layerSelectionButton.Enabled = true;
         }
+
+        private void MapView_ViewpointChanged(object sender, EventArgs e) => _scaleLabel.Text = $"Current map scale: 1:{_myMapView.MapScale:n0}";
 
         private void ShowLayerOptions_Click(object sender, EventArgs e)
         {
@@ -121,12 +121,18 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _layerSelectionButton = new UIBarButtonItem();
+            _layerSelectionButton.Title = "Configure layers";
+            _layerSelectionButton.Enabled = false;
+
+            _referenceScaleButton = new UIBarButtonItem();
+            _referenceScaleButton.Title = "Set reference scale";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            _layerSelectionButton = new UIBarButtonItem("Configure layers", UIBarButtonItemStyle.Plain, ShowLayerOptions_Click) {Enabled = false};
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Set reference scale", UIBarButtonItemStyle.Plain, ShowScaleOptions_Click),
+                _referenceScaleButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _layerSelectionButton
             };
@@ -176,6 +182,26 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.ViewpointChanged += MapView_ViewpointChanged;
+            _referenceScaleButton.Clicked += ShowScaleOptions_Click;
+            _layerSelectionButton.Clicked += ShowLayerOptions_Click;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.ViewpointChanged -= MapView_ViewpointChanged;
+            _referenceScaleButton.Clicked -= ShowScaleOptions_Click;
+            _layerSelectionButton.Clicked -= ShowLayerOptions_Click;
         }
     }
 

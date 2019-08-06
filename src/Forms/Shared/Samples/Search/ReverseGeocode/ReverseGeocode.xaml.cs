@@ -63,7 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
             }
             catch (Exception e)
             {
-                await ((Page) Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
 
             // Set the initial viewpoint.
@@ -108,7 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await ((Page) Parent).DisplayAlert("No results", "No results found", "OK");
+                await Application.Current.MainPage.DisplayAlert("No results", "No results found", "OK");
             }
         }
 

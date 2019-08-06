@@ -29,7 +29,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
         "Military", "Symbology", "Military symbology")]
     public class FeatureLayerDictionaryRenderer : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public FeatureLayerDictionaryRenderer()

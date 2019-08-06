@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -8,24 +8,19 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
-using Windows.Foundation.Metadata;
-using Windows.UI.Core;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace ArcGISRuntime.UWP.Viewer
 {
     public sealed partial class SamplePage
     {
-        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
-
         public SamplePage()
         {
             InitializeComponent();
-
-            HideStatusBar();
 
             // Get selected sample and set that as the DataContext.
             DataContext = SampleManager.Current.SelectedSample;
@@ -33,64 +28,65 @@ namespace ArcGISRuntime.UWP.Viewer
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
 
-            // Default to the live sample view.
-            LiveSample.IsChecked = true;
+            // Change UI elements to be dark.
+            if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+            {
+                DescriptionBlock.RequestedTheme = ElementTheme.Dark;
+            }
 
-            string folderPath = SampleManager.Current.SelectedSample.Path;
-            string cssPath = "ms-appx-web:///Resources\\github-markdown.css";
-            string basePath = $"ms-appx-web:///{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
-            string readmePath = System.IO.Path.Combine(folderPath, "Readme.md");
-            string readmeContent = System.IO.File.ReadAllText(readmePath);
-            readmeContent = _markdownRenderer.Parse(readmeContent);
-            readmeContent = readmeContent.Replace("src='", "src=\"").Replace(".jpg'", ".jpg\"").Replace("src=\"", $"src=\"{basePath}\\");
-            string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";
-            DescriptionView.NavigateToString(htmlString);
+            // Set file path for the readme.
+            string readmePath = System.IO.Path.Combine(SampleManager.Current.SelectedSample.Path, "Readme.md");
+            string readmeText = System.IO.File.ReadAllText(readmePath);
+
+            // Take off first line (the title header)
+            readmeText = readmeText.Substring(readmeText.IndexOf('\n') + 1);
+
+            // Fix image links from the old readme format.
+            readmeText = readmeText.Replace("<img src=\"", "![](").Replace("\" width=\"350\"/>", ")");
+
+            // Set readme in the mark down block.
+            DescriptionBlock.Text = readmeText;
+
+            // Remove the background from the mark down renderer.
+            DescriptionBlock.Background = new SolidColorBrush() { Opacity = 0 };
+
+            // Set the appropriate backgrounds.
+            ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
+            ContentArea.Background = Tabs.Background;
+            DescriptionContainer.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
+
+            // Load the source code files.
             SourceCodeContainer.LoadSourceCode();
         }
 
-        private static async void HideStatusBar()
+        private void TabChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
-            // Check if the phone contract is available (mobile) and hide status bar if it is there.
-            if (!ApiInformation.IsApiContractPresent("Windows.Phone.PhoneContract", 1, 0)) return;
-            await StatusBar.GetForCurrentView().HideAsync();
+            switch (((TabViewItem)Tabs.SelectedItem).Header.ToString())
+            {
+                case "Live Sample":
+                    SampleGrid.Visibility = Visibility.Visible;
+                    DescriptionContainer.Visibility = Visibility.Collapsed;
+                    SourceCodeContainer.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Description":
+                    SampleGrid.Visibility = Visibility.Collapsed;
+                    DescriptionContainer.Visibility = Visibility.Visible;
+                    SourceCodeContainer.Visibility = Visibility.Collapsed;
+                    break;
+
+                case "Source Code":
+                    SampleGrid.Visibility = Visibility.Collapsed;
+                    DescriptionContainer.Visibility = Visibility.Collapsed;
+                    SourceCodeContainer.Visibility = Visibility.Visible;
+                    break;
+            }
         }
 
-        private void LiveSample_Checked(object sender, RoutedEventArgs e)
+        private void MarkDownBlock_ImageResolving(object sender, ImageResolvingEventArgs e)
         {
-            // Make sure that only one is selected.
-            Description.IsChecked = false;
-            SourceButton.IsChecked = false;
-            DescriptionContainer.Visibility = Visibility.Collapsed;
-            SampleContainer.Visibility = Visibility.Visible;
-            SourceCodeContainer.Visibility = Visibility.Collapsed;
-        }
-
-        private void Description_Checked(object sender, RoutedEventArgs e)
-        {
-            // Make sure that only one is selected.
-            LiveSample.IsChecked = false;
-            SourceButton.IsChecked = false;
-            DescriptionContainer.Visibility = Visibility.Visible;
-            SampleContainer.Visibility = Visibility.Collapsed;
-            SourceCodeContainer.Visibility = Visibility.Collapsed;
-        }
-
-        private void SourceCode_Checked(object sender, RoutedEventArgs e)
-        {
-            // Make sure that only one is selected.
-            Description.IsChecked = false;
-            LiveSample.IsChecked = false;
-            DescriptionContainer.Visibility = Visibility.Collapsed;
-            SampleContainer.Visibility = Visibility.Collapsed;
-            SourceCodeContainer.Visibility = Visibility.Visible;
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-
-            // Prevent user from going back
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            e.Image = new BitmapImage(new Uri(System.IO.Path.Combine(SampleManager.Current.SelectedSample.Path, e.Url)));
+            e.Handled = true;
         }
     }
 }

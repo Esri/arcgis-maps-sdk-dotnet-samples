@@ -15,6 +15,7 @@ namespace ArcGISRuntime.WPF.Viewer
 {
     public partial class App
     {
+        public static string ResourcePath => System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try

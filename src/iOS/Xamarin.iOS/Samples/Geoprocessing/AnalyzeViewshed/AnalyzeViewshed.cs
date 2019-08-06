@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         "")]
     public class AnalyzeViewshed : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UIActivityIndicatorView _activityIndicator;
 
@@ -48,14 +48,11 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             Title = "Viewshed (Geoprocessing)";
         }
-        
+
         private void Initialize()
         {
             // Create and show a map with topographic basemap and an initial location.
             _myMapView.Map = new Map(BasemapType.Topographic, 45.3790902612337, 6.84905317262762, 13);
-
-            // Hook into the MapView tapped event.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             // Create empty overlays for the user clicked location and the results of the viewshed analysis.
             CreateOverlays();
@@ -242,6 +239,22 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
                 _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
         }
     }
 }

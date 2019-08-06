@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         "Switch between the available options and observe how the data is filtered.")]
     public class ChangeTimeExtent : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         private readonly Uri _mapServerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer");
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UISegmentedControl timeExtentsButton = new UISegmentedControl("2000", "2005")
+            _timeExtentsButton = new UISegmentedControl("2000", "2005")
             {
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
                 TintColor = UIColor.White,
@@ -94,10 +94,9 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
                 ClipsToBounds = true,
                 Layer = {CornerRadius = 5}
             };
-            timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;
 
             // Add the views.
-            View.AddSubviews(_myMapView, timeExtentsButton);
+            View.AddSubviews(_myMapView, _timeExtentsButton);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -107,10 +106,26 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
 
-                timeExtentsButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
-                timeExtentsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
-                timeExtentsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+                _timeExtentsButton.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
+                _timeExtentsButton.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
+                _timeExtentsButton.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _timeExtentsButton.ValueChanged += _timeExtentsButton_ValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _timeExtentsButton.ValueChanged -= _timeExtentsButton_ValueChanged;
         }
     }
 }

@@ -14,6 +14,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
+using Android.Support.V7.View;
+using Android.Text;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
@@ -21,6 +23,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
+using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
 
 // *****************************************
 // Important: Integrated Windows Authentication does not work with the AndroidClientHandler Http handler. 
@@ -28,13 +31,13 @@ using Esri.ArcGISRuntime.UI.Controls;
 // *****************************************
 namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 {
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
            "Integrated Windows Authentication",
            "Security",
            "This sample demonstrates how to use a Windows login to authenticate with a portal that is secured with IWA.",
            "1. Enter the URL to your IWA-secured portal.\n2. Click the button to search for web maps on the secure portal.\n3. You will be prompted for a user name, password, and domain to authenticate with the portal.\n4. If you authenticate successfully, search results will display.",
            "Authentication, Security, Windows")]
-    [Activity(Label = "IntegratedWindowsAuth")]
     public class IntegratedWindowsAuth : Activity
     {
         // The ArcGIS Online URL for searching public web maps.
@@ -81,6 +84,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 
             // Create the entry for the secure portal URL.
             _securePortalEditText = new EditText(this) { Hint = "IWA-secured portal URL" };
+            _securePortalEditText.InputType = InputTypes.TextVariationUri;
 
             // Hide the keyboard on enter.
             _securePortalEditText.KeyPress += (sender, args) =>
@@ -295,7 +299,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         }
 
         // AuthenticationManager.ChallengeHandler function that prompts the user for login information to create a credential.
-        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
+        private  Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
         {
             // Ignore token or certificate challenges (needs additional code and UI).
             if(info.AuthenticationType != AuthenticationType.NetworkCredential)
@@ -318,7 +322,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             enterLoginDialog.OnLoginClicked += LoginClicked;
             enterLoginDialog.OnLoginCanceled += (s, e) =>
             {
-                _loginTaskCompletionSrc.TrySetCanceled();
+                _loginTaskCompletionSrc?.TrySetCanceled();
                 _loginTaskCompletionSrc = null;
             };
 
@@ -327,7 +331,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             enterLoginDialog.Show(transax, "login");
 
             // Return the login task, the result will be ready when completed (user provides login info and clicks the "Login" button).
-            return await _loginTaskCompletionSrc.Task;
+            return _loginTaskCompletionSrc.Task;
         }
 
         // Handler for the OnLoginClicked event defined in the LoginDialogFragment, OnEnterCredentialsEventArgs contains the username, password, and domain the user entered
@@ -388,19 +392,20 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var ctx = this.Activity.ApplicationContext;
+            ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // The container for the dialog is a vertical linear layout.
-            LinearLayout dialogView = new LinearLayout(ctx) { Orientation = Orientation.Vertical };
+            LinearLayout dialogView = new LinearLayout(ctxWrapper) { Orientation = Orientation.Vertical };
 
             // Add a text box for entering a username.
-            _usernameTextbox = new EditText(ctx)
+            _usernameTextbox = new EditText(ctxWrapper)
             {
                 Hint = "Username"
             };
             dialogView.AddView(_usernameTextbox);
 
             // Add a text box for entering a password.
-            _passwordTextbox = new EditText(ctx)
+            _passwordTextbox = new EditText(ctxWrapper)
             {
                 Hint = "Password",
                 InputType = Android.Text.InputTypes.TextVariationPassword | Android.Text.InputTypes.ClassText
@@ -408,17 +413,17 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             dialogView.AddView(_passwordTextbox);
 
             // Add a text box for entering the domain.
-            _domainTextbox = new EditText(ctx)
+            _domainTextbox = new EditText(ctxWrapper)
             {
                 Hint = "Domain"
             };
             dialogView.AddView(_domainTextbox);
 
             // Use a horizontal layout for the two buttons (login and cancel).
-            LinearLayout buttonsRow = new LinearLayout(ctx) { Orientation = Orientation.Horizontal };
+            LinearLayout buttonsRow = new LinearLayout(ctxWrapper) { Orientation = Orientation.Horizontal };
 
             // Create a button to login with these credentials.
-            Button loginButton = new Button(ctx)
+            Button loginButton = new Button(ctxWrapper)
             {
                 Text = "Login"
             };
@@ -426,7 +431,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             buttonsRow.AddView(loginButton);
 
             // Create a button to cancel.
-            Button cancelButton = new Button(ctx)
+            Button cancelButton = new Button(ctxWrapper)
             {
                 Text = "Cancel"
             };

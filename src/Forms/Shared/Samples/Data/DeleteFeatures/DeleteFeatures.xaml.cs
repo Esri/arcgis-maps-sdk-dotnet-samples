@@ -96,7 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -130,11 +130,11 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
                 await serviceTable.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
-                await ((Page)Parent).DisplayAlert("Success!", $"Deleted feature with ID {_tappedFeature.Attributes["objectid"]}", "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Deleted feature with ID {_tappedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

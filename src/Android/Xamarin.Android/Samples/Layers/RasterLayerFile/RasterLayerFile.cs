@@ -18,7 +18,7 @@ using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.RasterLayerFile
 {
-    [Activity(Label = "RasterLayerFile")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster layer (file)",

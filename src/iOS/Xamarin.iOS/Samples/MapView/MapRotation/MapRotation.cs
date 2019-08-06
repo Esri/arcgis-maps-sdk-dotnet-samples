@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -36,13 +37,18 @@ namespace ArcGISRuntime.Samples.MapRotation
         {
             // Show a streets basemap.
             _myMapView.Map = new Map(Basemap.CreateStreets());
+        }
 
-            // Configure the slider.
-            _rotationSlider.ValueChanged += (s, e) =>
-            {
-                _myMapView.SetViewpointRotationAsync(_rotationSlider.Value);
-                _rotationLabel.Text = $"{_rotationSlider.Value:0}°";
-            };
+        private void RotationSlider_Changed(object sender, EventArgs e)
+        {
+            _myMapView.SetViewpointRotationAsync(_rotationSlider.Value);
+            _rotationLabel.Text = $"{_rotationSlider.Value:0}°";
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
         }
 
         public override void ViewDidLoad()
@@ -99,6 +105,22 @@ namespace ArcGISRuntime.Samples.MapRotation
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _rotationSlider.ValueChanged += RotationSlider_Changed;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _rotationSlider.ValueChanged -= RotationSlider_Changed;
         }
     }
 }

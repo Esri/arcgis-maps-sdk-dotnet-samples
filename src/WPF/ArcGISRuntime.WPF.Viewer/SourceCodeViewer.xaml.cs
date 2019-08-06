@@ -9,134 +9,161 @@
 
 using ArcGISRuntime.Samples.Managers;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
-    public partial class SourceCode
+    public partial class SourceCode : INotifyPropertyChanged
     {
+        private SourceCodeFile _selectedFile;
         // Holds source files (as strings of html).
-        private Dictionary<string, string> _sourceFiles;
+        public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
+
+        public SourceCodeFile SelectedSourceFile
+        {
+            get => _selectedFile;
+            set
+            {
+                if (value != _selectedFile)
+                {
+                    _selectedFile = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedSourceFile)));
+                }
+            }
+        }
 
         public SourceCode()
         {
             InitializeComponent();
+
+            this.DataContext = this;
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         public void LoadSourceCode()
         {
+            SourceFiles.Clear();
+
             string folderPath = SampleManager.Current.SelectedSample.Path;
 
-            // Filepaths for the css and js files used for syntax highlighting.
-            string cssPath = folderPath.Substring(0, folderPath.LastIndexOf("Samples")) + "Resources\\SyntaxHighlighting\\highlight.css";
-            string jsPath = folderPath.Substring(0, folderPath.LastIndexOf("Samples")) + "Resources\\SyntaxHighlighting\\highlight.pack.js";
+            // Add every .cs and .xaml file in the directory of the sample.
+            foreach (string filepath in Directory.GetFiles(folderPath)
+                .Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
+            {
+                SourceFiles.Add(new SourceCodeFile(filepath));
+            }
 
-            // Dictionary holds html strings for source code as values. Keys are strings of filepaths.
-            _sourceFiles = new Dictionary<string, string>();
+            SelectedSourceFile = SourceFiles[0];
+        }
 
-            // Clear out any old items when loading for a new sample.
-            FileSelection.Items.Clear();
-
+        public class SourceCodeFile
+        {
             // Start of each html string.
-            string htmlStart =
+            private const string htmlStart =
                 "<html>" +
                 "<head>" +
                 "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=11\">" +
-                "<link rel=\"stylesheet\" href=\"" + cssPath + "\">" +
-                "<script type=\"text/javascript\" src=\"" + jsPath + "\"></script>" +
+                "<link rel=\"stylesheet\" href=\"{csspath}\">" +
+                "<script type=\"text/javascript\" src=\"{jspath}\"></script>" +
                 "<script>hljs.initHighlightingOnLoad();</script>" +
                 "</head>" +
                 "<body>" +
                 "<pre>";
 
-            // End of each html string.
-            string htmlEnd =
+            private const string htmlEnd =
                 "</pre>" +
                 "</body>" +
                 "</html>";
 
-            // Index of the .cs file. -1 will result in no selection if a .cs file is not found.
-            int csIndex = -1;
+            private string _path;
+            private string _fullContent;
 
-            // Source code of the file.
-            string source;
+            public string Path => _path;
 
-            // Add every .cs and .xaml file in the directory of the sample.
-            foreach (string filepath in Directory.GetFiles(folderPath))
+            public string Name => System.IO.Path.GetFileName(_path);
+
+            public string HtmlContent
             {
+                get
+                {
+                    if (_fullContent == null)
+                    {
+                        LoadContent();
+                    }
+
+                    return _fullContent;
+                }
+            }
+
+            public SourceCodeFile(string sourceFilePath)
+            {
+                _path = sourceFilePath;
+            }
+
+            private void LoadContent()
+            {
+                // Filepaths for the css and js files used for syntax highlighting.
+
+                string cssPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "SyntaxHighlighting", "highlight.css");
+                string jsPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "SyntaxHighlighting", "highlight.pack.js");
+
+                // Source code of the file.
                 try
                 {
-                    if (filepath.EndsWith(".cs"))
+                    string baseContent = File.ReadAllText(_path);
+
+                    if (_path.EndsWith(".xaml"))
                     {
-                        // Get the source text from the file.
-                        source = File.ReadAllText(filepath);
-
-                        // Build the html.
-                        source =
-                            htmlStart +
-                            "<code class=\"csharp\">" +
-                            source +
-                            "</code>" +
-                            htmlEnd;
-
-                        // Set the index of the .cs file.
-                        csIndex = _sourceFiles.Count;
+                        baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
                     }
-                    else if (filepath.EndsWith(".xaml"))
-                    {
-                        // Get the source text from the file.
-                        source = File.ReadAllText(filepath);
 
-                        // Replace the tag characters so that the html renders correctly.
-                        source = source.Replace("<", "&lt;");
-                        source = source.Replace(">", "&gt;");
-
-                        // Build the html.
-                        source =
-                            htmlStart +
-                            "<code class=\"xml\">" +
-                            source +
-                            "</code>" +
-                            htmlEnd;
-                    }
-                    else
-                    {
-                        // Continue looping over other files if file is not .cs or .xaml.
-                        continue;
-                    }
-                    // Add the source html to the _sourceFiles dictionary.
-                    _sourceFiles[filepath] = source;
-
-                    // Add the file as a selectable item in the combobox.
-                    FileSelection.Items.Add(filepath);
+                    // Build the html.
+                    _fullContent =
+                        htmlStart.Replace("{csspath}", cssPath).Replace("{jspath}", jsPath) +
+                        "<code class=\"csharp\">" +
+                        baseContent +
+                        "</code>" +
+                        htmlEnd;
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
-                    // Any files that failed to be read will have error messages printed to the console for debugging.
-                    Console.WriteLine(e.Message);
+                    System.Diagnostics.Debug.WriteLine(ex);
                 }
-            }
-
-            // Default to the index of the last .cs file.
-            FileSelection.SelectedIndex = csIndex;
-
-            // Check if any source files were found.
-            if (FileSelection.Items.IsEmpty)
-            {
-                sourceCodeBrowser.NavigateToString("Source files not found.");
             }
         }
+    }
 
-        private void SelectionChanged(object sender, SelectionChangedEventArgs e)
+    // Taken from StackOverflow: https://stackoverflow.com/a/2586255/4630559
+    public static class BrowserBehavior
+    {
+        public static readonly DependencyProperty HtmlProperty = DependencyProperty.RegisterAttached(
+            "Html",
+            typeof(string),
+            typeof(BrowserBehavior),
+            new FrameworkPropertyMetadata(OnHtmlChanged));
+
+        [AttachedPropertyBrowsableForType(typeof(WebBrowser))]
+        public static string GetHtml(WebBrowser d)
         {
-            // Check that there are Items in the combobox. Prevents error when switching between samples.
-            if (!FileSelection.Items.IsEmpty)
-            {
-                // Set the web browser to display the source code of the selected file.
-                sourceCodeBrowser.NavigateToString(_sourceFiles[FileSelection.SelectedValue.ToString()]);
-            }
+            return (string) d.GetValue(HtmlProperty);
+        }
+
+        public static void SetHtml(WebBrowser d, string value)
+        {
+            d.SetValue(HtmlProperty, value);
+        }
+
+        static void OnHtmlChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            WebBrowser wb = d as WebBrowser;
+            if (wb != null && e.NewValue != null)
+                wb.NavigateToString(e.NewValue as string);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         {
             // Create the scene with a basemap.
             _mySceneView.Scene = new Scene(Basemap.CreateImagery());
-            
+
             // Add an elevation source to the scene.
             Surface elevationSurface = new Surface();
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));
@@ -50,27 +50,29 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             // Set the initial viewpoint.
             Camera initialCamera = new Camera(64.416919, -14.483728, 100, 318, 105, 0);
             _mySceneView.SetViewpointCamera(initialCamera);
+        }
 
-            // Apply the selected atmosphere effect option.
-            _atmosphereEffectPicker.ValueChanged += (o, e) =>
+        private void Picker_ValuedChanged(object sender, EventArgs e)
+        {
+            switch (_atmosphereEffectPicker.SelectedSegment)
             {
-                switch (_atmosphereEffectPicker.SelectedSegment)
-                {
-                    case 0:
-                        _mySceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
-                        break;
-                    case 1:
-                        _mySceneView.AtmosphereEffect = AtmosphereEffect.HorizonOnly;
-                        break;
-                    case 2:
-                        _mySceneView.AtmosphereEffect = AtmosphereEffect.None;
-                        break;
-                }
-            };
+                case 0:
+                    _mySceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
+                    break;
+                case 1:
+                    _mySceneView.AtmosphereEffect = AtmosphereEffect.HorizonOnly;
+                    break;
+                case 2:
+                    _mySceneView.AtmosphereEffect = AtmosphereEffect.None;
+                    break;
+            }
         }
 
         public override void LoadView()
         {
+            // Create the views.
+            View = new UIView();
+
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
@@ -82,9 +84,11 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             _atmosphereEffectPicker.Layer.CornerRadius = 4;
             _atmosphereEffectPicker.ClipsToBounds = true;
 
-            View = new UIView();
+            // Add the views.
             View.AddSubviews(_mySceneView, _atmosphereEffectPicker);
 
+
+            // Lay out the views.
             _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;
             _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor).Active = true;
             _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;
@@ -99,6 +103,22 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         {
             base.ViewDidLoad();
             Initialize();
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _atmosphereEffectPicker.ValueChanged += Picker_ValuedChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _atmosphereEffectPicker.ValueChanged -= Picker_ValuedChanged;
         }
     }
 }

@@ -21,7 +21,7 @@ using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 {
-    [Activity(Label = "ChangeBlendRenderer")]
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
     [Shared.Attributes.Sample(
         "Blend renderer",

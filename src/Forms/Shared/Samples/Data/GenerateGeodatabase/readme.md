@@ -1,13 +1,32 @@
 # Generate geodatabase
 
-This sample demonstrates how to take a feature service offline by generating a geodatabase.
+Generate a local geodatabase from an online feature service.
 
-<img src="GenerateGeodatabase.jpg" width="350"/>
+![screenshot](GenerateGeodatabase.jpg)
 
-## Instructions
+## Use case
 
-1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.
-2. Tap on the button. This will start the process of generating the offline geodatabase.
-3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.
+Generating geodatabases is the first step toward taking a feature service offline. It allows you to save features locally for offline display.
 
-Note that the basemap will be automatically downloaded from an ArcGIS Online portal.
+## How to use the sample
+
+Zoom to any extent. Then click the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.
+
+## How it works
+
+1. Create a `GeodatabaseSyncTask` with the URL of the feature service and load it.
+2. Create `GenerateGeodatabaseParameters` specifying the extent and whether to include attachments.
+3. Create a `GenerateGeodatabaseJob` with `geodatabaseSyncTask.GenerateGeodatabaseAsync(parameters, downloadPath)`. Start the job with `job.Start()`.
+4. When the job is done, `job.GetResultAsync()` will return the geodatabase. Inside the geodatabase are feature tables which can be used to add feature layers to the map.
+5. Call `syncTask.UnregisterGeodatabaseAsync(geodatabase)` after generation when you're not planning on syncing changes to the service.
+
+## Relevant API
+
+* GenerateGeodatabaseJob
+* GenerateGeodatabaseParameters
+* Geodatabase
+* GeodatabaseSyncTask
+
+## Tags
+
+disconnected, local geodatabase, offline, sync

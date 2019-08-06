@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         "")]
     public class FeatureLayerTimeOffset : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UILabel _timeLabel;
         private UISlider _timeSlider;
@@ -82,9 +82,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
                 // Update the time extent set on the map.
                 UpdateTimeExtent();
-
-                // Listen for slider changes.
-                _timeSlider.ValueChanged += TimeSlider_ValueChanged;
             }
             catch (Exception e)
             {
@@ -204,7 +201,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
             UIView spacer = new UIView();
             spacer.TranslatesAutoresizingMaskIntoConstraints = false;
-            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            spacer.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             legendView.AddArrangedSubview(spacer);
 
             UIView blueIcon = new UIView();
@@ -255,6 +252,22 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
                 _timeLabel.WidthAnchor.ConstraintEqualTo(150),
                 _timeSlider.WidthAnchor.ConstraintEqualTo(600),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _timeSlider.ValueChanged += TimeSlider_ValueChanged;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _timeSlider.ValueChanged -= TimeSlider_ValueChanged;
         }
     }
 }

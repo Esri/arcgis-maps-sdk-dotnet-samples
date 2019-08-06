@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
         "Tap on the map to show that point's coordinates.")]
     public class ShowCallout : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
 
         public ShowCallout()
@@ -36,9 +36,6 @@ namespace ArcGISRuntime.Samples.ShowCallout
         {
             // Show a streets basemap.
             _myMapView.Map = new Map(Basemap.CreateStreets());
-
-            // Respond to taps on the map.
-            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
         }
 
         private void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -57,6 +54,65 @@ namespace ArcGISRuntime.Samples.ShowCallout
 
             // Display the callout.
             _myMapView.ShowCalloutAt(mapLocation, myCalloutDefinition);
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
+        }
+
+        public override void LoadView()
+        {
+            // Create the views.
+            View = new UIView();
+
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            UILabel helpLabel = new UILabel
+            {
+                Text = "Tap to show a callout.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, helpLabel);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MapView_GeoViewTapped;
         }
 
         public override void ViewDidLoad()

@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.DisplayScene
         "")]
     public class DisplayScene : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
 
         public DisplayScene()

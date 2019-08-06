@@ -34,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1330ab96ac9c40a49e59650557f2cd63", "344e3b12368543ef84045ef9aa3c32ba")]
     public class OfflineGeocode : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
         private UISearchBar _addressSearchBar;
 
@@ -70,9 +70,6 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
 
             // Add a graphics overlay for showing pins.
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
-
-            // Enable tap-for-info pattern on results.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             try
             {
@@ -247,15 +244,10 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            // Enable tap-for-callout pattern on results.
-            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-
             _addressSearchBar = new UISearchBar();
             _addressSearchBar.TranslatesAutoresizingMaskIntoConstraints = false;
             _addressSearchBar.UserInteractionEnabled = false;
             _addressSearchBar.ShowsSearchResultsButton = true;
-            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
-            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
 
             // Add the views.
             View.AddSubviews(_myMapView, _addressSearchBar);
@@ -272,6 +264,26 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _myMapView.TopAnchor.ConstraintEqualTo(_addressSearchBar.BottomAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            _addressSearchBar.ListButtonClicked += AddressSearch_ListButtonClicked;
+            _addressSearchBar.SearchButtonClicked += AddressSearchBar_Clicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+            _addressSearchBar.ListButtonClicked -= AddressSearch_ListButtonClicked;
+            _addressSearchBar.SearchButtonClicked -= AddressSearchBar_Clicked;
         }
     }
 }

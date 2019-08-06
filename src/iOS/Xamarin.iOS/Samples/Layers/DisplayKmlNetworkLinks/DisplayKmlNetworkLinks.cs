@@ -25,8 +25,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
         "")]
     public class DisplayKmlNetworkLinks : UIViewController
     {
-        // Hold a reference to the SceneView.
+        // Hold references to UI controls.
         private SceneView _mySceneView;
+
+        // Hold a reference to the KML data set.
+        private KmlDataset _dataset;
 
         public DisplayKmlNetworkLinks()
         {
@@ -39,14 +42,14 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
             _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
             // Create the dataset.
-            KmlDataset dataset = new KmlDataset(new Uri("https://www.arcgis.com/sharing/rest/content/items/600748d4464442288f6db8a4ba27dc95/data"));
+            _dataset = new KmlDataset(new Uri("https://www.arcgis.com/sharing/rest/content/items/600748d4464442288f6db8a4ba27dc95/data"));
 
             // Listen for network link control messages.
             // These should be shown to the user.
-            dataset.NetworkLinkControlMessage += Dataset_NetworkLinkControlMessage;
+            _dataset.NetworkLinkControlMessage += Dataset_NetworkLinkControlMessage;
 
             // Create the layer from the dataset.
-            KmlLayer fileLayer = new KmlLayer(dataset);
+            KmlLayer fileLayer = new KmlLayer(_dataset);
 
             // Add the layer to the map.
             _mySceneView.Scene.OperationalLayers.Add(fileLayer);
@@ -93,6 +96,26 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events, removing any existing subscriptions.
+            if (_dataset != null)
+            {
+                _dataset.NetworkLinkControlMessage -= Dataset_NetworkLinkControlMessage;
+                _dataset.NetworkLinkControlMessage += Dataset_NetworkLinkControlMessage;
+            }
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            if (_dataset != null) _dataset.NetworkLinkControlMessage -= Dataset_NetworkLinkControlMessage;
         }
     }
 }

@@ -24,8 +24,10 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         "")]
     public class DisplayDeviceLocation : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _startButton;
+        private UIBarButtonItem _stopButton;
 
         public DisplayDeviceLocation()
         {
@@ -99,13 +101,19 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _startButton = new UIBarButtonItem();
+            _startButton.Title = "Start";
+
+            _stopButton = new UIBarButtonItem();
+            _stopButton.Title = "Stop";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Start", UIBarButtonItemStyle.Plain, OnStartButtonClicked),
+                _startButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Stop", UIBarButtonItemStyle.Plain, OnStopButtonClicked)
+                _stopButton
             };
 
             // Add the views.
@@ -123,6 +131,24 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _startButton.Clicked += OnStartButtonClicked;
+            _stopButton.Clicked += OnStopButtonClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _startButton.Clicked -= OnStartButtonClicked;
+            _stopButton.Clicked -= OnStopButtonClicked;
         }
     }
 }

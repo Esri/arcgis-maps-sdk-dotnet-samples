@@ -69,7 +69,7 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                await ((Page) Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

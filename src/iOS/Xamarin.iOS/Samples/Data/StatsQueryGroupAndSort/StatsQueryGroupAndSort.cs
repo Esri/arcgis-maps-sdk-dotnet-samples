@@ -26,6 +26,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         "")]
     public class StatsQueryGroupAndSort : UIViewController
     {
+        // Hold references to UI controls.
+        UIButton _showStatDefinitionsButton;
+        UIButton _showGroupFieldsButton;
+        UIButton _showOrderByFieldsButton;
+
         // URI for the US states map service.
         private readonly Uri _usStatesServiceUri = new Uri("https://services.arcgis.com/jIL9msH9OI208GCb/arcgis/rest/services/Counties_Obesity_Inactivity_Diabetes_2013/FeatureServer/0");
 
@@ -254,24 +259,21 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
-            UIButton showStatDefinitionsButton = new UIButton();
-            showStatDefinitionsButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            showStatDefinitionsButton.SetTitle("1. Choose statistic definitions", UIControlState.Normal);
-            showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
+            _showStatDefinitionsButton = new UIButton();
+            _showStatDefinitionsButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            _showStatDefinitionsButton.SetTitle("1. Choose statistic definitions", UIControlState.Normal);
+            _showStatDefinitionsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            UIButton showGroupFieldsButton = new UIButton();
-            showGroupFieldsButton.TranslatesAutoresizingMaskIntoConstraints = false;
-            showGroupFieldsButton.SetTitle("2. Choose group fields", UIControlState.Normal);
-            showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            showGroupFieldsButton.TouchUpInside += ShowGroupFields;
+            _showGroupFieldsButton = new UIButton();
+            _showGroupFieldsButton.TranslatesAutoresizingMaskIntoConstraints = false;
+            _showGroupFieldsButton.SetTitle("2. Choose group fields", UIControlState.Normal);
+            _showGroupFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            UIButton showOrderByFieldsButton = new UIButton();
-            showOrderByFieldsButton.SetTitle("3. Choose 'Order by' fields", UIControlState.Normal);
-            showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
+            _showOrderByFieldsButton = new UIButton();
+            _showOrderByFieldsButton.SetTitle("3. Choose 'Order by' fields", UIControlState.Normal);
+            _showOrderByFieldsButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            UIStackView buttonContainer = new UIStackView(new[] {showStatDefinitionsButton, showGroupFieldsButton, showOrderByFieldsButton, new UIView()});
+            UIStackView buttonContainer = new UIStackView(new[] {_showStatDefinitionsButton, _showGroupFieldsButton, _showOrderByFieldsButton, new UIView()});
             buttonContainer.Axis = UILayoutConstraintAxis.Vertical;
             buttonContainer.TranslatesAutoresizingMaskIntoConstraints = false;
             buttonContainer.Distribution = UIStackViewDistribution.Fill;
@@ -281,7 +283,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             View.AddSubviews(buttonContainer, toolbar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []
+            NSLayoutConstraint.ActivateConstraints(new[]
             {
                 buttonContainer.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 buttonContainer.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
@@ -292,6 +294,26 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _showStatDefinitionsButton.TouchUpInside += ShowStatDefinitions;
+            _showGroupFieldsButton.TouchUpInside += ShowGroupFields;
+            _showOrderByFieldsButton.TouchUpInside += ShowOrderByFields;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _showStatDefinitionsButton.TouchUpInside -= ShowStatDefinitions;
+            _showGroupFieldsButton.TouchUpInside -= ShowGroupFields;
+            _showOrderByFieldsButton.TouchUpInside -= ShowOrderByFields;
         }
     }
 

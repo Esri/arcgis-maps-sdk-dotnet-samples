@@ -96,11 +96,11 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
                 // Push the update to the service.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
                 await serviceTable.ApplyEditsAsync();
-                await ((Page) Parent).DisplayAlert("Success!", $"Moved feature {_selectedFeature.Attributes["objectid"]}", "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Moved feature {_selectedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await ((Page) Parent).DisplayAlert("Error when moving feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error when moving feature", ex.ToString(), "OK");
             }
             finally
             {
@@ -131,7 +131,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
             }
             catch (Exception ex)
             {
-                await ((Page) Parent).DisplayAlert("Problem selecting feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Problem selecting feature", ex.ToString(), "OK");
             }
         }
     }

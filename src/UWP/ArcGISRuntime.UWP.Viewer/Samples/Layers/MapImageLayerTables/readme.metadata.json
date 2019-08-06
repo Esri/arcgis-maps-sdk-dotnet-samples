@@ -1,0 +1,37 @@
+{
+    "category": "Layers",
+    "description": "Find features in a spatial table related to features in a non-spatial table.",
+    "formal_name": "MapImageLayerTables",
+    "ignore": false,
+    "images": [
+        "MapImageLayerTables.jpg"
+    ],
+    "keywords": [
+        "features",
+        "related features",
+        "search and query"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/mapimagelayertables.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISFeature",
+        "ArcGISMapImageLayer",
+        "Feature",
+        "FeatureQueryResult",
+        "QueryParameters",
+        "RelatedFeatureQueryResult",
+        "RelatedQueryParameters",
+        "RelationshipInfo",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "MapImageLayerTables.xaml",
+        "MapImageLayerTables.xaml.cs"
+    ],
+    "title": "Map image layer tables"
+}

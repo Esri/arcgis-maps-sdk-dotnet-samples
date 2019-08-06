@@ -30,8 +30,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
     public class FeatureLayerQuery : UIViewController
     {
-        // Hold a reference to the MapView.
+        // Hold references to UI controls.
         private MapView _myMapView;
+        private UIBarButtonItem _queryButton;
 
         // Create reference to service of US States  
         private const string StatesUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/2";
@@ -164,12 +165,15 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _queryButton = new UIBarButtonItem();
+            _queryButton.Title = "Query features";
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Query features", UIBarButtonItemStyle.Plain, OnQueryClicked),
+                _queryButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
@@ -188,6 +192,22 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _queryButton.Clicked += OnQueryClicked;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _queryButton.Clicked -= OnQueryClicked;
         }
     }
 }

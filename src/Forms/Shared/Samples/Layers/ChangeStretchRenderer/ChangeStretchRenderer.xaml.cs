@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             }
             catch (Exception e)
             {
-                await ((Page)Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -146,7 +146,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             }
             catch (Exception ex)
             {
-                ((Page)Parent).DisplayAlert("Alert", ex.Message, "OK");
+                Application.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
                 return;
             }
 

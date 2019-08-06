@@ -59,6 +59,12 @@ namespace ArcGISRuntime.Samples.FindServiceArea
                 {
                     // Set the event as handled.
                     e.Handled = true;
+
+                    // Finish any drawing.
+                    MyMapView.SketchEditor.CompleteCommand.Execute(null);
+
+                    // Reset the UI.
+                    DrawBarrierButton.Text = "Draw barrier";
                 }
             };
         }
@@ -94,14 +100,26 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                await ((Page)Parent).DisplayAlert("Error", "Error drawing facility:\n" + ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Error drawing facility:\n" + ex.Message, "OK");
             }
         }
 
         private async void DrawBarrierButton_Click(object sender, EventArgs e)
         {
+            // Finish drawing barriers if started.
+            if (DrawBarrierButton.Text != "Draw barrier")
+            {
+                if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
+                    MyMapView.SketchEditor.CompleteCommand.Execute(null);
+
+                DrawBarrierButton.Text = "Draw barrier";
+                return;
+            }
             try
             {
+                // Update the UI.
+                DrawBarrierButton.Text = "Finish drawing";
+
                 // Let the user draw on the map view using the polyline sketch mode.
                 SketchCreationMode creationMode = SketchCreationMode.Polyline;
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
@@ -125,12 +143,20 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                await ((Page)Parent).DisplayAlert("Error", "Error drawing barrier:\n" + ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Error drawing barrier:\n" + ex.Message, "OK");
             }
         }
 
         private async void ShowServiceAreasButton_Click(object sender, EventArgs e)
         {
+            // Finish any drawing in progress.
+            if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
+            {
+                MyMapView.SketchEditor.CompleteCommand.Execute(null);
+
+                DrawBarrierButton.Text = "Draw barrier";
+            }
+
             // Use a local variable for the graphics overlay.
             GraphicCollection allGraphics = MyMapView.GraphicsOverlays[0].Graphics;
 
@@ -142,7 +168,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             // Check that there is at least 1 facility to find a service area for.
             if (!serviceAreaFacilities.Any())
             {
-                await ((Page)Parent).DisplayAlert("Error", "Must have at least one Facility!", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", "Must have at least one Facility!", "OK");
                 return;
             }
 
@@ -217,11 +243,11 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             {
                 if (exception.Message.ToString().Equals("Unable to complete operation."))
                 {
-                    await ((Page)Parent).DisplayAlert("Error", "Facility not within San Diego area!", "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", "Facility not within San Diego area!", "OK");
                 }
                 else
                 {
-                    await ((Page)Parent).DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
+                    await Application.Current.MainPage.DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
                 }
             }
         }

@@ -33,6 +33,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         private UILabel _resultLabel;
         private UIBarButtonItem _helpButton;
         private UIBarButtonItem _changeUnitsButton;
+        private UIToolbar _toolbar;
 
         // URLs to various services used to provide an interesting scene for the sample.
         private readonly Uri _buildingService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
@@ -117,15 +118,15 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         {
             // Create the view controller that will present the list of unit systems.
             UIAlertController unitSystemSelectionAlert =
-                UIAlertController.Create("Change unit system", "", UIAlertControllerStyle.ActionSheet);
+                UIAlertController.Create(null, "Change unit system", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController
                 presentationPopover = unitSystemSelectionAlert.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.SourceView = _toolbar;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Show an option for each unit system.
@@ -164,8 +165,8 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _resultLabel = new UILabel
             {
@@ -182,15 +183,15 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _changeUnitsButton = new UIBarButtonItem();
             _changeUnitsButton.Title = "Change units";
 
-            toolbar.Items = new[]
+            _toolbar.Items = new[]
             {
-                _helpButton,
+                _changeUnitsButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _changeUnitsButton
+                _helpButton
             };
 
             // Add the views.
-            View.AddSubviews(_mySceneView, toolbar, _resultLabel);
+            View.AddSubviews(_mySceneView, _toolbar, _resultLabel);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -198,11 +199,11 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
 
-                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
                 _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),

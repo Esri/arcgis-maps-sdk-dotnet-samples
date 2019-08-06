@@ -328,6 +328,7 @@ class sample_metadata:
         # generate list of replacements
         replacements = {}
         replacements["$$project$$"] = self.formal_name
+        replacements[".slntemplate"] = ".sln" # replacement needed to prevent template solutions from appearing in Visual Studio git browser
         replacements["$$embedded_resources$$"] = "" # TODO
         replacements["$$nuget_packages$$"] = get_csproj_xml_for_nuget_packages(self.nuget_packages)
         replacements["$$code_and_xaml$$"] = get_csproj_xml_for_code_files(all_source_files, platform)

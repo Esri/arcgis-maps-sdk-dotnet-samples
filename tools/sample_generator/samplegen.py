@@ -77,20 +77,20 @@ def build_csproj_line(category_list, sample_name, platform, entry_type):
             end_tag = '" />'
         elif (entry_type == "xaml"):
             start_tag = '<Page Include="'
-            end_tag = '">\n\t\t<Generator>MSBuild:Compile</Generator>\n\t\t<SubType>Designer</SubType>\n\t</Page>'
+            end_tag = '">\n      <Generator>MSBuild:Compile</Generator>\n      <SubType>Designer</SubType>\n    </Page>'
         elif (entry_type == "code"):
             start_tag = '<Compile Include="'
-            end_tag = '">\n\t\t<DependentUpon>' + sample_name + '.xaml' + '</DependentUpon>\n\t</Compile>'
+            end_tag = '">\n      <DependentUpon>' + sample_name + '.xaml' + '</DependentUpon>\n    </Compile>'
     elif (platform == "WPF"):
         if (entry_type in ["screenshot"]):
             start_tag = '<Content Include="'
-            end_tag = '">\n\t\t<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>\n\t</Content>'
+            end_tag = '">\n      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>\n    </Content>'
         elif (entry_type == "xaml"):
             start_tag = '<Page Include="'
-            end_tag = '">\n\t\t<Generator>MSBuild:Compile</Generator>\n\t\t<SubType>Designer</SubType>\n\t</Page>'
+            end_tag = '">\n      <Generator>MSBuild:Compile</Generator>\n      <SubType>Designer</SubType>\n    </Page>'
         elif (entry_type == "code"):
             start_tag = '<Compile Include="'
-            end_tag = '">\n\t\t<DependentUpon>' + sample_name + '.xaml' + '</DependentUpon>\n\t</Compile>'
+            end_tag = '">\n      <DependentUpon>' + sample_name + '.xaml' + '</DependentUpon>\n    </Compile>'
     elif (platform in ["iOS", "Android"]):
         if (entry_type == "screenshot"):
             start_tag = '<None Include="'
@@ -104,10 +104,10 @@ def build_csproj_line(category_list, sample_name, platform, entry_type):
             end_tag = '" />'
         elif (entry_type == "code"):
             start_tag = '<Compile Include="$(MSBuildThisFileDirectory)'
-            end_tag = '">\n\t\t<DependentUpon>' + sample_name + '.xaml</DependentUpon>\n\t\t<SubType>Code</SubType>\n\t</Compile>'
+            end_tag = '">\n      <DependentUpon>' + sample_name + '.xaml</DependentUpon>\n      <SubType>Code</SubType>\n    </Compile>'
         elif (entry_type == 'xaml'):
             start_tag = '<EmbeddedResource Include="$(MSBuildThisFileDirectory)'
-            end_tag = '">\n\t\t<Generator>MSBuild:UpdateDesignTimeXaml</Generator>\n\t</EmbeddedResource>'
+            end_tag = '">\n      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>\n    </EmbeddedResource>'
     # Return the full string
     return start_tag + filepath + end_tag
 
@@ -130,7 +130,7 @@ def perform_csproj_replace(platforms, root, category_list, sample_name):
                     continue
                 # insert the entry
                 new_contents.append(line.rstrip())
-                new_contents.append('\t' + newtext)
+                new_contents.append('    ' + newtext)
             # rewrite file
         with open(path, 'w') as fd:
             fd.write('\n'.join(new_contents))
@@ -173,6 +173,10 @@ def orchestrate_file_copy(platforms, root, category_list, sample_name, replaceme
         source = os.path.join(template_root, "readme.md")
         dest = os.path.join(dest_root, "readme.md")
         shutil.copyfile(source, dest)
+        # copy the metadata
+        source = os.path.join(template_root, "readme.metadata.json")
+        dest = os.path.join(dest_root, "readme.metadata.json")
+        perform_copy_rewrite(source, dest, replacements)
 
 def ensure_category_present(platforms, root, category_list):
     '''

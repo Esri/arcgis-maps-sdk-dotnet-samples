@@ -138,14 +138,6 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
                 // Get the user-drawn geometry.
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
 
-                // This block is a workaround for a core issue that should be fixed this week. NOT FOR RELEASE
-                if (creationMode == SketchCreationMode.Polygon)
-                {
-                    PolygonBuilder builder = new PolygonBuilder((Polygon)geometry);
-                    builder.AddPart(((Polygon)geometry).ToPolyline().Parts.FirstOrDefault());
-                    geometry = builder.ToGeometry();
-                }
-
                 // Project the geometry to WGS84 (WGS84 is required by the KML standard).
                 Geometry projectedGeometry = GeometryEngine.Project(geometry, SpatialReferences.Wgs84);
 
@@ -217,6 +209,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
         {
             try
             {
+                // Finish the sketch.
                 MyMapView.SketchEditor.CompleteCommand.Execute(null);
             }
             catch (ArgumentException)

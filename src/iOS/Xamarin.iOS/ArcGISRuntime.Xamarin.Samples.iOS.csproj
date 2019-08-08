@@ -247,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
     <None Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <None Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
@@ -417,6 +418,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.cs" />
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
     <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />

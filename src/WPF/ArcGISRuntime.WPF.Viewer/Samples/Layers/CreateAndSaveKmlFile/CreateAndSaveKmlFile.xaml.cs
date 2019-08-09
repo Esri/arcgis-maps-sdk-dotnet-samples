@@ -32,15 +32,10 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
     {
         // KML objects for use in this sample.
         private KmlDocument _kmlDocument;
+
         private KmlDataset _kmlDataset;
         private KmlLayer _kmlLayer;
         private KmlPlacemark _currentPlacemark;
-
-        // List of colors that can be used for lines and polygons.
-        private List<Color> _colorList;
-
-        // List of URL's for KML icon styles.
-        private List<Uri> _iconList;
 
         public CreateAndSaveKmlFile()
         {
@@ -55,8 +50,11 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
 
             // Set the colors for the color picker.
             var propertylist = typeof(Color).GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-            _colorList = propertylist.Select(x => (Color)x.GetValue(x)).ToList();
-            _colorList.RemoveAt(0);
+            List<Color> colorList = propertylist.Select(x => (Color)x.GetValue(x)).ToList();
+            colorList.RemoveAt(0);
+
+            ColorPicker.ItemsSource = colorList;
+            ColorPicker.SelectedIndex = 0;
 
             // Set the images for the point icon picker.
             List<string> iconLinks = new List<string>()
@@ -68,7 +66,10 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
                 "http://static.arcgis.com/images/Symbols/Shapes/BlueSquareLargeB.png",
                 "http://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
             };
-            _iconList = iconLinks.Select(x => new Uri(x)).ToList();
+            List<Uri> iconList = iconLinks.Select(x => new Uri(x)).ToList();
+
+            IconPicker.ItemsSource = iconList;
+            IconPicker.SelectedIndex = 0;
 
             // Set up a new kml document and kml layer.
             ResetKml();
@@ -113,21 +114,18 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
                     case nameof(PointButton):
                         creationMode = SketchCreationMode.Point;
                         InstructionsText.Text = "Tap to add a point.";
-                        Picker.ItemsSource = _iconList;
                         StyleText.Text = "Select an icon for the placemark.";
                         break;
 
                     case nameof(PolylineButton):
                         creationMode = SketchCreationMode.Polyline;
                         InstructionsText.Text = "Tap to add a vertex.";
-                        Picker.ItemsSource = _colorList;
                         StyleText.Text = "Select a color for the placemark.";
                         break;
 
                     case nameof(PolygonButton):
                         creationMode = SketchCreationMode.Polygon;
                         InstructionsText.Text = "Tap to add a vertex.";
-                        Picker.ItemsSource = _colorList;
                         StyleText.Text = "Select a color for the placemark.";
                         break;
 
@@ -152,8 +150,11 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
 
                 // Enable the style editing UI.
                 StyleBorder.Visibility = Visibility.Visible;
-                Picker.SelectedIndex = 0;
                 MainUI.IsEnabled = false;
+
+                // Choose whether to enable the icon picker or color picker.
+                IconPicker.Visibility = creationMode == SketchCreationMode.Point ? Visibility.Visible : Visibility.Collapsed;
+                ColorPicker.Visibility = creationMode != SketchCreationMode.Point ? Visibility.Visible : Visibility.Collapsed;
             }
             finally
             {
@@ -177,17 +178,17 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
             {
                 // Create a KmlIconStyle using the selected icon.
                 case KmlGeometryType.Point:
-                    _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(Picker.SelectedItem as Uri), 1.0);
+                    _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(IconPicker.SelectedItem as Uri), 1.0);
                     break;
 
                 // Create a KmlLineStyle using the selected color value.
                 case KmlGeometryType.Polyline:
-                    _currentPlacemark.Style.LineStyle = new KmlLineStyle((Color)Picker.SelectedItem, 8);
+                    _currentPlacemark.Style.LineStyle = new KmlLineStyle((Color)ColorPicker.SelectedItem, 8);
                     break;
 
                 // Create a KmlPolygonStyle using the selected color value.
                 case KmlGeometryType.Polygon:
-                    _currentPlacemark.Style.PolygonStyle = new KmlPolygonStyle((Color)Picker.SelectedItem);
+                    _currentPlacemark.Style.PolygonStyle = new KmlPolygonStyle((Color)ColorPicker.SelectedItem);
                     _currentPlacemark.Style.PolygonStyle.IsFilled = true;
                     _currentPlacemark.Style.PolygonStyle.IsOutlined = false;
                     break;
@@ -235,19 +236,6 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
             ResetKml();
-        }
-    }
-
-    internal class StyleTemplateSelector : DataTemplateSelector
-    {
-        public DataTemplate ColorTemplate { get; set; }
-        public DataTemplate IconTemplate { get; set; }
-
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
-        {
-            if (item.GetType() == typeof(Color)) { return ColorTemplate; }
-            if (item.GetType() == typeof(Uri)) { return IconTemplate; }
-            return null;
         }
     }
 }

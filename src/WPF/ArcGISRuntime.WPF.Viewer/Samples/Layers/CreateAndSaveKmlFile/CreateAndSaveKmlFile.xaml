@@ -4,28 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
     xmlns:local="clr-namespace:ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile">
-    <UserControl.Resources>
-        <DataTemplate x:Key="ColorTemplate">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock
-                    Width="20"
-                    Height="20"
-                    Margin="5"
-                    Background="{Binding Name}" />
-                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
-            </StackPanel>
-        </DataTemplate>
-        <DataTemplate x:Key="IconTemplate">
-            <Image
-                Width="300"
-                Height="30"
-                Source="{Binding AbsoluteUri}" />
-        </DataTemplate>
-        <local:StyleTemplateSelector
-            x:Key="StyleTemplateSelector"
-            ColorTemplate="{StaticResource ColorTemplate}"
-            IconTemplate="{StaticResource IconTemplate}" />
-    </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Name="MainUI" Style="{StaticResource BorderStyle}">
@@ -113,11 +91,37 @@
                     Margin="5"
                     Text="" />
                 <ComboBox
-                    x:Name="Picker"
+                    x:Name="ColorPicker"
                     Grid.Row="1"
                     Margin="5"
-                    ItemTemplateSelector="{StaticResource StyleTemplateSelector}"
-                    ItemsSource="{Binding}" />
+                    ItemsSource="{Binding}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock
+                                    Width="20"
+                                    Height="20"
+                                    Margin="5"
+                                    Background="{Binding Name}" />
+                                <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <ComboBox
+                    x:Name="IconPicker"
+                    Grid.Row="1"
+                    Margin="5"
+                    ItemsSource="{Binding}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Image
+                                Width="300"
+                                Height="30"
+                                Source="{Binding AbsoluteUri}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
                 <Button
                     Grid.Row="2"
                     Margin="5"

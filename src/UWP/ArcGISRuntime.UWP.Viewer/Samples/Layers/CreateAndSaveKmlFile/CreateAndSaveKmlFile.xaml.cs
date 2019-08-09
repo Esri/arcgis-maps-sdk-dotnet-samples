@@ -32,18 +32,10 @@ namespace ArcGISRuntime.UWP.Samples.CreateAndSaveKmlFile
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateAndSaveKmlFile
     {
-        // KML objects for use in this sample.
         private KmlDocument _kmlDocument;
-
         private KmlDataset _kmlDataset;
         private KmlLayer _kmlLayer;
         private KmlPlacemark _currentPlacemark;
-
-        // List of colors that can be used for lines and polygons.
-        private List<Color> _colorList;
-
-        // List of URL's for KML icon styles.
-        private List<Uri> _iconList;
 
         public CreateAndSaveKmlFile()
         {
@@ -66,7 +58,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateAndSaveKmlFile
                 "http://static.arcgis.com/images/Symbols/Shapes/BlueSquareLargeB.png",
                 "http://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
             };
-            _iconList = iconLinks.Select(x => new Uri(x)).ToList();
+            List<Uri> _iconList = iconLinks.Select(x => new Uri(x)).ToList();
             IconPicker.ItemsSource = _iconList;
             IconPicker.SelectedIndex = 0;
 
@@ -181,7 +173,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateAndSaveKmlFile
             {
                 // Create a KmlIconStyle using the selected icon.
                 case KmlGeometryType.Point:
-                    _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(IconPicker.SelectedItem as Uri), 1.0);
+                    _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon((Uri)IconPicker.SelectedItem), 1.0);
                     break;
 
                 // Create a KmlLineStyle using the selected color value.
@@ -223,6 +215,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateAndSaveKmlFile
 
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
+            // Open a save dialog for the user.
             FileSavePicker savePicker = new FileSavePicker();
             savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
             savePicker.FileTypeChoices.Add("KMZ file", new List<string>() { ".kmz" });

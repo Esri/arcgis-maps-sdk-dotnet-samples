@@ -30,9 +30,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateAndSaveKmlFile
     {
-        // KML objects for use in this sample.
         private KmlDocument _kmlDocument;
-
         private KmlDataset _kmlDataset;
         private KmlLayer _kmlLayer;
         private KmlPlacemark _currentPlacemark;
@@ -178,7 +176,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
             {
                 // Create a KmlIconStyle using the selected icon.
                 case KmlGeometryType.Point:
-                    _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(IconPicker.SelectedItem as Uri), 1.0);
+                    _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon((Uri)IconPicker.SelectedItem), 1.0);
                     break;
 
                 // Create a KmlLineStyle using the selected color value.

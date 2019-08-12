@@ -11,13 +11,28 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
+using System.Text;
+using ArcGISRuntime.Samples.Managers;
+#if __IOS__
+using UIKit;
+using Foundation;
+#endif
+#if __ANDROID__
+
+#endif
+#if WINDOWS_UWP
+using Windows.Storage.Pickers;
+#endif
 
 namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 {
@@ -170,14 +185,13 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             // Create a new style for the placemark.
             _currentPlacemark.Style = new KmlStyle();
 
-            
-
             // Set the style for that Placemark.
             switch (_currentPlacemark.Geometries.FirstOrDefault().Type)
             {
                 // Create a KmlIconStyle using the selected icon.
                 case KmlGeometryType.Point:
-                    _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(new Uri((string)e.SelectedItem)), 1.0);
+                    Uri iconLink = new Uri((string)e.SelectedItem);
+                    _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(iconLink), 1.0);
                     break;
 
                 // Create a KmlLineStyle using the selected color value.
@@ -220,6 +234,75 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private async void Save_Click(object sender, EventArgs e)
         {
             // oof
+            Stream platformStream = null;
+
+#if __IOS__
+            try
+            {
+                string offlineDataFolder = Path.Combine(DataManager.GetDataFolder(), "CreateAndSaveKmlFile");
+
+                // If temporary data folder doesn't exists, create it.
+                if (!Directory.Exists(offlineDataFolder))
+                {
+                    Directory.CreateDirectory(offlineDataFolder);
+                }
+
+                string path = Path.Combine(offlineDataFolder, "sampledata.kmz");
+                using (Stream stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                {
+                    // Write the KML document to the stream of the file.
+                    await _kmlDocument.WriteToAsync(stream);
+                }
+                await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
+            }
+            catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
+            }
+
+#endif
+#if __ANDROID__
+            try
+            {
+                string offlineDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+
+                // If temporary data folder doesn't exists, create it.
+                if (!Directory.Exists(offlineDataFolder))
+                {
+                    Directory.CreateDirectory(offlineDataFolder);
+                }
+
+                string path = Path.Combine(offlineDataFolder, "sampledata.kmz");
+                using (Stream stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                {
+                    // Write the KML document to the stream of the file.
+                    await _kmlDocument.WriteToAsync(stream);
+                }
+                await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
+            }
+            catch(Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
+            }
+
+
+#endif
+#if WINDOWS_UWP
+            // Open a save dialog for the user.
+            FileSavePicker savePicker = new FileSavePicker();
+            savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+            savePicker.FileTypeChoices.Add("KMZ file", new List<string>() { ".kmz" });
+            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+
+            if (file != null)
+            {
+                using (Stream stream = await file.OpenStreamForWriteAsync())
+                {
+                    // Write the KML document to the stream of the file.
+                    await _kmlDocument.WriteToAsync(stream);
+                }
+            }
+#endif
         }
 
         private void Reset_Click(object sender, EventArgs e)

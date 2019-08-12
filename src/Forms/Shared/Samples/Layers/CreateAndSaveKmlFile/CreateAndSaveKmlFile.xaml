@@ -19,6 +19,10 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+            <esriUI:MapView
+                x:Name="MyMapView"
+                Grid.Row="0"
+                Grid.RowSpan="2" />
             <Grid x:Name="StatusGrid" BackgroundColor="DimGray">
                 <Label
                     x:Name="Status"
@@ -28,10 +32,6 @@
                     Text="Select the type of feature you would like to add."
                     TextColor="White" />
             </Grid>
-            <esriUI:MapView
-                x:Name="MyMapView"
-                Grid.Row="0"
-                Grid.RowSpan="2" />
             <Grid Grid.Row="2">
                 <Grid x:Name="ShapeGrid">
                     <Grid.ColumnDefinitions>

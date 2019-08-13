@@ -20,7 +20,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
 {
     [Register("FeatureLayerDictionaryRenderer")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e34835bf5ec5430da7cf16bb8c0b075c", "e0d41b4b409a49a5a7ba11939d8535dc")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer dictionary renderer",
         "Layers",
@@ -52,13 +52,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
             Geodatabase baseGeodatabase = await Geodatabase.OpenAsync(geodbFilePath);
 
             // Get the path to the symbol dictionary.
-            string symbolFilepath = DataManager.GetDataFolder("e34835bf5ec5430da7cf16bb8c0b075c", "mil2525d.stylx");
+            string symbolFilepath = DataManager.GetDataFolder("c78b149a1d52414682c86a5feeb13d30", "mil2525d.stylx");
 
             try
             {
                 // Load the symbol dictionary from local storage.
-                //     Note that the type of the symbol definition must be explicitly provided along with the file name.
-                DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
+                DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.CreateFromFileAsync(symbolFilepath);
 
                 // Add geodatabase features to the map, using the defined symbology.
                 foreach (GeodatabaseFeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)

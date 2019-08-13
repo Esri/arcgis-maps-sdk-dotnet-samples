@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.DictionaryRendererGraphicsOverlay
         "GraphicsOverlay",
         "Render graphics with mil2525d symbols.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e34835bf5ec5430da7cf16bb8c0b075c", "1545703b201f4c7cb2001b610f722c49")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "1e4ea99af4b440c092e7959cf3957bfa")]
     public partial class DictionaryRendererGraphicsOverlay
     {
         // Hold a reference to the graphics overlay for easy access.
@@ -51,11 +51,11 @@ namespace ArcGISRuntime.WPF.Samples.DictionaryRendererGraphicsOverlay
                 // Prevent graphics from showing up when zoomed too far out.
                 _tacticalMessageOverlay.MinScale = 1000000;
 
-                // Create a symbol dictionary following the mil2525d spec.
-                string symbolFilePath = DataManager.GetDataFolder("e34835bf5ec5430da7cf16bb8c0b075c", "mil2525d.stylx");
-                DictionarySymbolStyle mil2525DStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilePath);
+                // Create a symbol dictionary style following the mil2525d spec.
+                string symbolFilePath = DataManager.GetDataFolder("c78b149a1d52414682c86a5feeb13d30", "mil2525d.stylx");
+                DictionarySymbolStyle mil2525DStyle = await DictionarySymbolStyle.CreateFromFileAsync(symbolFilePath);
 
-                // Use the dictionary symbol to render graphics in the overlay.
+                // Use the dictionary symbol style to render graphics in the overlay.
                 _tacticalMessageOverlay.Renderer = new DictionaryRenderer(mil2525DStyle);
 
                 // Load the military messages and render them.
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.WPF.Samples.DictionaryRendererGraphicsOverlay
         private void LoadMilitaryMessages()
         {
             // Get the path to the messages file.
-            string militaryMessagePath = DataManager.GetDataFolder("1545703b201f4c7cb2001b610f722c49", "Mil2525DMessages.xml");
+            string militaryMessagePath = DataManager.GetDataFolder("1e4ea99af4b440c092e7959cf3957bfa", "Mil2525DMessages.xml");
 
             // Load the XML document.
             XElement xmlRoot = XElement.Load(militaryMessagePath);

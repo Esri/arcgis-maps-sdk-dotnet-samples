@@ -3,18 +3,18 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Diagnostics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
+using System;
+using System.Diagnostics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
@@ -33,7 +33,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         private UILabel _resultLabel;
         private UIBarButtonItem _helpButton;
         private UIBarButtonItem _changeUnitsButton;
-        private UIToolbar _toolbar;
 
         // URLs to various services used to provide an interesting scene for the sample.
         private readonly Uri _buildingService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
@@ -125,7 +124,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 presentationPopover = unitSystemSelectionAlert.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = _toolbar;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
@@ -160,13 +159,13 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         public override void LoadView()
         {
             // Create and configure the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _toolbar = new UIToolbar();
-            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _resultLabel = new UILabel
             {
@@ -183,7 +182,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _changeUnitsButton = new UIBarButtonItem();
             _changeUnitsButton.Title = "Change units";
 
-            _toolbar.Items = new[]
+            toolbar.Items = new[]
             {
                 _changeUnitsButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -191,7 +190,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             };
 
             // Add the views.
-            View.AddSubviews(_mySceneView, _toolbar, _resultLabel);
+            View.AddSubviews(_mySceneView, toolbar, _resultLabel);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -199,11 +198,11 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-                _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
                 _resultLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _resultLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),

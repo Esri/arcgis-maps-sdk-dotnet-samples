@@ -32,7 +32,8 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-        private UISegmentedControl _layerSegmentedControl;
+        private UIBarButtonItem _addLayerButton;
+        private UIBarButtonItem _removeLayerButton;
 
         // Dictionary associates names with layers.
         private readonly Dictionary<string, Layer> _nameToLayerDictionary = new Dictionary<string, Layer>();
@@ -89,8 +90,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                         rasterLayerName = oneGeoPackageRaster.Path.Split('/').Last();
                     }
 
-                    // Append the 'type of layer' to the raster layer name string to display in the 
-                    // ListBox and as the key for the dictionary.
+                    // Append the 'type of layer' to the raster layer name string to display in the ListBox and as the key for the dictionary.
                     rasterLayerName = $"{rasterLayerName} - RasterLayer";
 
                     // Add the name of the RasterLayer and the RasterLayer itself into the dictionary.
@@ -110,61 +110,38 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                     // Load the FeatureLayer - that way we can get to its properties.
                     await featureLayer.LoadAsync();
 
-                    // Create a string variable to hold the human-readable name of the FeatureLayer for 
-                    // display in the UISegmentedControl and the dictionary.
+                    // Create a string variable to hold the human-readable name of the FeatureLayer for display in the UISegmentedControl and the dictionary.
                     string featureLayerName = featureLayer.Name;
 
-                    // Append the 'type of layer' to the feature layer name string to display in the 
-                    // ListBox and as the key for the dictionary.
+                    // Append the 'type of layer' to the feature layer name string to display in the ListBox and as the key for the dictionary.
                     featureLayerName = $"{featureLayerName} - FeatureLayer";
 
                     // Add the name of the FeatureLayer and the FeatureLayer itself into the dictionary.
                     _nameToLayerDictionary[featureLayerName] = featureLayer;
 
-                    // Add the name of the RasterLayer to the collection of layers not in the map.
-                    // which displays the human-readable layer names used by the UISegmentedControl.
+                    // Add the name of the RasterLayer to the collection of layers not in the map which displays the human-readable layer names used by the UISegmentedControl.
                     _layersNotInMap.Add(featureLayerName);
                 }
 
                 // Enable the UI.
-                _layerSegmentedControl.Enabled = true;
+                _addLayerButton.Enabled = true;
+                _removeLayerButton.Enabled = true;
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
-        private void LayerSegmentedControl_ValueChanged(object sender, EventArgs e)
-        {
-            // Get the UISegmentedControl that raised the event.
-            UISegmentedControl segmentedControl = (UISegmentedControl) sender;
-
-            switch (segmentedControl.SelectedSegment)
-            {
-                case 0:
-                    // Show the list of layers to removed from the map.
-                    UISegmentButton_RemoveLayerFromMap();
-                    break;
-                case 1:
-                    // Show a list of layers to add to the map.
-                    UISegmentButton_AddLayerToMap();
-                    break;
-            }
-
-            // Deselect all segments (user might want to click the same control twice).
-            segmentedControl.SelectedSegment = -1;
-        }
-
-        private void UISegmentButton_AddLayerToMap()
+        private void AddLayerToMap_Clicked(object sender, EventArgs e)
         {
             // Create a new Alert Controller - this will show the layer names that can be added to the map.
-            UIAlertController alertController = UIAlertController.Create("Add a layer to the map", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController alertController = UIAlertController.Create(null, "Add a layer to the map", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to add a layer to the map.
             foreach (string oneLayerName in _layersNotInMap)
             {
-                alertController.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => Action_AddLayerToMap(oneLayerName)));
+                alertController.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => AddLayerToMap(oneLayerName)));
             }
 
             // Add a choice to cancel.
@@ -174,20 +151,18 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             UIPopoverPresentationController presentationPopover = alertController.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Display the list of layers to add to the map.
             PresentViewController(alertController, true, null);
         }
 
-        private void Action_AddLayerToMap(string layerName)
+        private void AddLayerToMap(string layerName)
         {
-            // This function executes when the user clicks on the human-readable name of a layer in the UISegmentedControl
-            // It finds the actual layer in the dictionary based upon the user selection and add it to the map
-            // Then the human-readable layer name is removed from the _layersNotInMap and 
-            // added to the _layersInMap.
+            // This function finds the actual layer in the dictionary based upon the user selection and add it to the map
+            // Then the human-readable layer name is removed from the _layersNotInMap and added to the _layersInMap.
 
             // Ensure there is a valid selection.
             if (!String.IsNullOrWhiteSpace(layerName))
@@ -207,15 +182,15 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             }
         }
 
-        private void UISegmentButton_RemoveLayerFromMap()
+        private void RemoveLayerFromMap_Clicked(object sender, EventArgs e)
         {
             // Create a new Alert Controller.
-            UIAlertController layersActionSheet = UIAlertController.Create("Remove a layer from the map", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController layersActionSheet = UIAlertController.Create(null, "Remove a layer from the map", UIAlertControllerStyle.ActionSheet);
 
             // Add actions to remove a layer from the map.
             foreach (string oneLayerName in _layersInMap)
             {
-                layersActionSheet.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => Action_RemoveLayerFromMap(oneLayerName)));
+                layersActionSheet.AddAction(UIAlertAction.Create(oneLayerName, UIAlertActionStyle.Default, action => RemoveLayerFromMap(oneLayerName)));
             }
 
             // Add a choice to cancel.
@@ -225,20 +200,18 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             UIPopoverPresentationController presentationPopover = layersActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Display the list of layers to add/remove.
             PresentViewController(layersActionSheet, true, null);
         }
 
-        private void Action_RemoveLayerFromMap(string layerName)
+        private void RemoveLayerFromMap(string layerName)
         {
-            // This function executes when the user clicks on the human-readable name of a layer in the UISegmentedControl
-            // It finds the actual layer in the dictionary based upon the user selection and add it to the map
-            // Then the human-readable layer name is removed from the _layersInMap and 
-            // added to the _layersNotInMap.
+            // This function finds the actual layer in the dictionary based upon the user selection and add it to the map
+            // Then the human-readable layer name is removed from the _layersInMap andadded to the _layersNotInMap.
 
             // Ensure there is a valid selection.
             if (!String.IsNullOrEmpty(layerName))
@@ -267,37 +240,44 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _layerSegmentedControl = new UISegmentedControl("Remove layers", "Add layers")
+            // Add buttons.
+            _addLayerButton = new UIBarButtonItem();
+            _addLayerButton.Title = "Add layer";
+            _addLayerButton.Enabled = false;
+
+            _removeLayerButton = new UIBarButtonItem();
+            _removeLayerButton.Title = "Remove layer";
+            _removeLayerButton.Enabled = false;
+
+            // Add the buttons to a toolbar.
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
-                TintColor = UIColor.White,
-                Enabled = false,
-                TranslatesAutoresizingMaskIntoConstraints = false
+                _addLayerButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _removeLayerButton
             };
 
-            // Clean up borders of segmented control - avoid corner pixels.
-            _layerSegmentedControl.ClipsToBounds = true;
-            _layerSegmentedControl.Layer.CornerRadius = 5;
-
             // Add the views.
-            View.AddSubviews(_myMapView, _layerSegmentedControl);
+            View.AddSubviews(_myMapView, toolbar);
 
-            // Lay out the views
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                _myMapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-                _layerSegmentedControl.LeadingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.LeadingAnchor),
-                _layerSegmentedControl.TrailingAnchor.ConstraintEqualTo(View.LayoutMarginsGuide.TrailingAnchor),
-                _layerSegmentedControl.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor, 8)
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
         }
 
@@ -306,7 +286,8 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             base.ViewWillAppear(animated);
 
             // Subscribe to events.
-            _layerSegmentedControl.ValueChanged += LayerSegmentedControl_ValueChanged;
+            _addLayerButton.Clicked += AddLayerToMap_Clicked;
+            _removeLayerButton.Clicked += RemoveLayerFromMap_Clicked;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -314,7 +295,8 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, per best practice.
-            _layerSegmentedControl.ValueChanged -= LayerSegmentedControl_ValueChanged;
+            _addLayerButton.Clicked -= AddLayerToMap_Clicked;
+            _removeLayerButton.Clicked -= RemoveLayerFromMap_Clicked;
         }
     }
 }

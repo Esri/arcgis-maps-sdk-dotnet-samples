@@ -1,5 +1,32 @@
 # Set map spatial reference
 
-This sample demonstrates how you can set the spatial reference on a Map and all the layers would project accordingly.
+Specify a map's spatial reference.
 
-<img src="SetMapSpatialReference.jpg" width="350"/>
+![screenshot](SetMapSpatialReference.jpg)
+
+## Use case
+
+Choosing the correct spatial reference is important for ensuring accurate projection of data points to a map.  
+
+## How it works
+
+1. Instantiate an `Map` object using a spatial reference e.g. `ArcGISMap(SpatialReference.Create(54024))`.
+2. Instantiate a `Basemap` object using an `ArcGISMapImageLayer` object.
+3. Set the base map to the map.
+4. Display the map in a map view.
+
+## Relevant API
+
+* Map
+* ArcGISMapImageLayer
+* Basemap
+* MapView
+* SpatialReference
+
+## Additional information
+
+Operational layers will automatically project to this spatial reference when possible.
+
+## Tags
+
+SpatialReference, WKID, project

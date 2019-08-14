@@ -12,7 +12,7 @@
     <AssemblyName>ArcGISRuntime</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.16299.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
@@ -108,16 +108,15 @@
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
-    <SDKReference Include="WindowsMobile, Version=10.0.16299.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
-    </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, version=14.0">
       <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	  <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
+    <Content Include="Assets\banner-background-black.png" />
+    <Content Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
+    <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
     <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <Content Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
@@ -132,11 +131,11 @@
     <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-	  <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
-	  <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
-	  <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
-	  <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
-	  <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
+    <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+    <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+    <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
+    <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
+    <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
     <Content Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
     <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
@@ -338,11 +337,17 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
-      <DependentUpon>ChooseCameraController.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\MapReferenceScale\DoubleToScaleStringConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\ItemToImageSourceConverter.cs" />
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\NullOrEmptyToVisibilityConverter.cs" />
+    <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
+      <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
+      <DependentUpon>ChooseCameraController.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
@@ -396,7 +401,6 @@
     <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
       <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\DoubleToScaleStringConverter.cs" />
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
       <DependentUpon>MapReferenceScale.xaml</DependentUpon>
     </Compile>
@@ -415,7 +419,6 @@
     <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml.cs">
       <DependentUpon>DictionaryRendererGraphicsOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
     <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
       <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
     </Compile>
@@ -866,14 +869,18 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-	<Page Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
-	<Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
-		<Generator>MSBuild:Compile</Generator>
-		<SubType>Designer</SubType>
-	</Page>
+    <Page Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1570,12 +1577,6 @@
     </Compile>
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Converters\SampleToBitmapConverter.cs" />
-    <Compile Include="Dialogs\SampleInfoDialog.xaml.cs">
-      <DependentUpon>SampleInfoDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ErrorPage.xaml.cs">
-      <DependentUpon>ErrorPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -1587,17 +1588,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WaitPage.xaml.cs">
       <DependentUpon>WaitPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Dialogs\SampleInfoDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ErrorPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1607,6 +1603,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SamplePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1624,29 +1624,26 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.5.0</Version>
+      <Version>100.6.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.5.0</Version>
-    </PackageReference>
-    <PackageReference Include="MarkedNet">
-      <Version>2.1.2</Version>
+      <Version>100.6.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.1.9</Version>
+      <Version>6.2.8</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>5.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.1.190606001</Version>
+    </PackageReference>
+    <PackageReference Include="Monaco.Editor">
+      <Version>0.8.1-alpha</Version>
     </PackageReference>
   </ItemGroup>
   <!-- Source Code Viewer -->
   <ItemGroup>
-    <Content Include="Resources\github-markdown.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\SyntaxHighlighting\highlight.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\SyntaxHighlighting\highlight.pack.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Compile Include="SourceCodeViewer.xaml.cs">
       <DependentUpon>SourceCodeViewer.xaml</DependentUpon>
     </Compile>
@@ -1654,6 +1651,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\licenses.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\about.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

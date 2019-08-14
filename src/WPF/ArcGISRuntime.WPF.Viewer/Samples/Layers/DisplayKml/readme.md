@@ -1,10 +1,6 @@
 ﻿# Display KML
 
-This sample demonstrates how to load and display KML files from:
-
-* URL
-* Local file
-* Portal item
+Load and display KML from a URL, a local file, or a portal item.
 
 ![](DisplayKml.jpg)
 
@@ -14,9 +10,9 @@ Use the UI to select a source. A KML file from that source will be loaded and di
 
 ## Relevant API
 
-* `KmlLayer`
-* `KmlLayer(Uri)`
-* `KmlLayer(PortalItem)`
+* KmlLayer
+* KmlLayer(Uri)
+* KmlLayer(PortalItem)
 
 ## Offline data
 

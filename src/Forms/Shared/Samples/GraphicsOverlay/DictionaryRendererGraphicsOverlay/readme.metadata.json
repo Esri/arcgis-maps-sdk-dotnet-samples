@@ -1,0 +1,33 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Render graphics with mil2525d symbols.",
+    "formal_name": "DictionaryRendererGraphicsOverlay",
+    "ignore": false,
+    "images": [
+        "DictionaryRendererGraphicsOverlay.jpg"
+    ],
+    "keywords": [
+        "Visualization",
+        "defence",
+        "military",
+        "situational awareness",
+        "tactical"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/dictionaryrenderergraphicsoverlay.htm"
+    ],
+    "relevant_apis": [
+        "DictionaryRenderer",
+        "DictionarySymbolStyle",
+        "GraphicsOverlay"
+    ],
+    "snippets": [
+        "DictionaryRendererGraphicsOverlay.xaml",
+        "DictionaryRendererGraphicsOverlay.xaml.cs"
+    ],
+    "title": "Dictionary renderer with graphics overlay"
+}

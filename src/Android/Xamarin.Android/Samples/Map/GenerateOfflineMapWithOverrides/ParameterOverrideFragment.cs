@@ -180,7 +180,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
         {
             // Load the layout from the XML file.
             LayoutInflater inflater = (LayoutInflater)Activity.GetSystemService(Context.LayoutInflaterService);
-            View layout = inflater.Inflate(ArcGISRuntime.Resource.Layout.OverrideParametersDialog, null);
+            View layout = inflater.Inflate(Resource.Layout.OverrideParametersDialog, null);
 
             // Update the references to the UI controls.
             _minScaleBar = layout.FindViewById<SeekBar>(Resource.Id.minScaleSeekBar);

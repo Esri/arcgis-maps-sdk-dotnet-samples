@@ -1,5 +1,31 @@
 # Access load status
 
-This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.
+Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 
-<img src="AccessLoadStatus.jpg" width="350"/>
+![screenshot](AccessLoadStatus.jpg)
+
+## Use case
+
+Knowing the map's load state may be required before subsequent actions can be executed.
+
+## How to use the sample
+
+The load status of the map will be displayed as the sample loads.
+
+## How it works
+
+The `LoadStatus` is `Loaded` when any of the following criteria are met:
+
+* The map has a valid spatial reference.
+* The map has an an initial viewpoint.
+* One of the map's predefined layers has been created.
+
+## Relevant API
+
+* Map
+* ILoadable
+* MapView
+
+## Tags
+
+LoadStatus, Loadable pattern, Map

@@ -6,16 +6,14 @@ Update feature attributes in an online feature service.
 
 ## How to use the sample
 
-To change the feature's damage property:
-* Tap the feature to select.
-* Update the damage type using the dropdown.
+Tap a feature to select it, then use the button to update it.
 
 ## How it works
 
 To get a Feature from a `ServiceFeatureTable` and update its attributes:
 
 * Create a service feature table from a URL.
-    * When the table loads, you can get the domain to determine which options to present in your UI.
+  * When the table loads, you can get the domain to determine which options to present in your UI.
 * Create a feature layer from the service feature table.
 * Select features from the feature layer.
 * To update the feature's attribute, first load it, then use the `ArcGISFeature.SetAttributeValue()`.

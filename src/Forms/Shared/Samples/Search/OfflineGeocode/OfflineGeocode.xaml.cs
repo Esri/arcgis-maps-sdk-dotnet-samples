@@ -83,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             }
             catch (Exception e)
             {
-                await ((Page) Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -115,7 +115,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
                 // Stop if there are no suggestions.
                 if (!geocodeResults.Any())
                 {
-                    await ((Page) Parent).DisplayAlert("No results", "No results found.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("No results", "No results found.", "OK");
                     return;
                 }
 
@@ -138,7 +138,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             }
             catch (Exception e)
             {
-                await ((Page) Parent).DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -198,7 +198,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
                 // Skip if there are no results.
                 if (!addresses.Any())
                 {
-                    await ((Page) Parent).DisplayAlert("No results", "No results found.", "OK");
+                    await Application.Current.MainPage.DisplayAlert("No results", "No results found.", "OK");
                     return;
                 }
 
@@ -217,7 +217,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             }
             catch (Exception ex)
             {
-                await ((Page) Parent).DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

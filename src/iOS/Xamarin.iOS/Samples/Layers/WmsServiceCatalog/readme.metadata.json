@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Connect to a WMS service and show the available layers and sublayers. Layers are shown in a hierarchy. Selecting a group layer will recursively select all sublayers for display.",
+    "formal_name": "WmsServiceCatalog",
+    "ignore": false,
+    "images": [
+        "WmsServiceCatalog.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "WmsLayer",
+        "WmsLayerInfo",
+        "WmsService",
+        "WmsServiceInfo",
+        "web map service"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/wmsservicecatalog.htm"
+    ],
+    "relevant_apis": [
+        "WmsLayer(List<WmsLayerInfo>)",
+        "WmsLayerInfo",
+        "WmsService",
+        "WmsServiceInfo"
+    ],
+    "snippets": [
+        "WmsServiceCatalog.cs"
+    ],
+    "title": "WMS service catalog"
+}

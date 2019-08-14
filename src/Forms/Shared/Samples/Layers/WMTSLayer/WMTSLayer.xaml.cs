@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             }
             catch (Exception ex)
             {
-                await ((Page)Parent).DisplayAlert("Sample error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Sample error", ex.ToString(), "OK");
             }
         }
     }

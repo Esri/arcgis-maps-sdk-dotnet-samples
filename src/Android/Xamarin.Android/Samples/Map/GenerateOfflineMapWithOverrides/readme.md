@@ -19,16 +19,16 @@ Consider using the overrides workflow when you need to:
 
 1. Click 'Take map offline'.
 2. Adjust the min/max levelIds to be taken offline for the Streets basemap.
-3. Set the buffer distance for the streets basemap. 
-4. Choose whether to include the System Valves and Service Connections layers. 
+3. Set the buffer distance for the streets basemap.
+4. Choose whether to include the System Valves and Service Connections layers.
 5. Specify the minimum flow rate for the features from the Hydrant layer.
 6. Use the button to start the job.
 7. Wait for the progress bar to indicate that the task has completed. The offline map will then be displayed.
 
-# How it works
+## How it works
 
 1. Create a portal item for the web map you want to take offline.
-2. Initialize an `OfflineMapTask` object with the portal item. 
+2. Initialize an `OfflineMapTask` object with the portal item.
 3. Request the default parameters for the task, with the selected extent, by calling `OfflineMapTask.CreateDefaultGenerateOfflineMapParameters`. 
 4. Create a set of `GenerateOfflineMapParameterOverrides` by calling `OfflineMapTask.CreateGenerateOfflineMapParameterOverrides`.
 5. Adjust the various properties of the parameter overrides.

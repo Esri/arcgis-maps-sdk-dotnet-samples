@@ -7,16 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 using Xamarin.Auth;
 
@@ -34,6 +34,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private MapView _myMapView;
         private UIBarButtonItem _searchButton;
         private UIBarButtonItem _myMapsButton;
+        private bool _myMapsLastClicked;
 
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -70,6 +71,9 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             try
             {
+                // For UI popup.
+                _myMapsLastClicked = true;
+
                 await GetMyMaps();
             }
             catch (Exception ex)
@@ -83,6 +87,9 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void SearchMaps_Clicked(object sender, EventArgs e)
         {
+            // For UI popup.
+            _myMapsLastClicked = false;
+
             // Prompt for the query.
             UIAlertController unionAlert = UIAlertController.Create("Search for maps", "Enter a search term.",
                 UIAlertControllerStyle.Alert);
@@ -181,8 +188,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             UIPopoverPresentationController presentationPopover = mapListActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.BarButtonItem = _myMapsLastClicked ? _myMapsButton : _searchButton;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Display the list of maps.
@@ -199,7 +206,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Esri.ArcGISRuntime.ArcGISRuntimeException e)
             {
                 UIAlertView alert =
-                    new UIAlertView("Map Load Error", e.Message, (IUIAlertViewDelegate) null, "OK", null);
+                    new UIAlertView("Map Load Error", e.Message, (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
             }
 
@@ -211,7 +218,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
         {
-            Map map = (Map) sender;
+            Map map = (Map)sender;
 
             // Report errors if map failed to load.
             if (e.Status == LoadStatus.Loaded)
@@ -228,7 +235,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    UIAlertView alert = new UIAlertView("Map Load Error", err.Message, (IUIAlertViewDelegate) null,
+                    UIAlertView alert = new UIAlertView("Map Load Error", err.Message, (IUIAlertViewDelegate)null,
                         "OK", null);
                     alert.Show();
                 }
@@ -244,7 +251,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -360,7 +367,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             catch (Exception ex)
             {
                 // Login failure.
-                UIAlertView alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate) null, "OK", null);
+                UIAlertView alert = new UIAlertView("Login Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null);
                 alert.Show();
             }
 

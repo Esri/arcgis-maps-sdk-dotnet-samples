@@ -1,0 +1,22 @@
+{
+    "category": "Geoprocessing",
+    "description": "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
+    "formal_name": "ListGeodatabaseVersions",
+    "ignore": false,
+    "images": [
+        "ListGeodatabaseVersions.jpg"
+    ],
+    "keywords": [],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.5.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/listgeodatabaseversions.htm"
+    ],
+    "relevant_apis": [],
+    "snippets": [
+        "ListGeodatabaseVersions.cs"
+    ],
+    "title": "List geodatabase versions"
+}

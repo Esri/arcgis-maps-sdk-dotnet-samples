@@ -1,11 +1,27 @@
-# Distance composite symbol
+# Distance composite scene symbol
 
-This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.
+Change a graphic's symbol based on the camera's proximity to it.
 
-<img src="UseDistanceCompositeSym.jpg" width="350"/>
+![screenshot](UseDistanceCompositeSym.jpg)
 
-## Instructions
+## How to use the sample
 
-1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D model symbol (airplane).
-2. Zoom away slightly from the graphic and the symbol will change to a blue 3D cone symbol (pointing in the direction of flight).
-3. Zoom farther from the graphic and the symbol will change to a blue circle marker symbol.
+The sample starts looking at a plane. Zoom out from the plane to see it turn into a cone. Keeping zooming out and it will turn into a point.
+
+## How it works
+
+1. Create a `GraphicsOverlay` object and add it to a `SceneView` object.
+2. Create a `DistanceCompositeSceneSymbol` object.
+3. Create `DistanceSymbolRange` objects specifying a `Symbol` and the min and max distance within which the symbol should be visible.
+4. Add the ranges to the range collection of the distance composite scene symbol.
+5. Create a `Graphic` object with the distance composite scene symbol at a location and add it to the graphics overlay.
+
+## Relevant API
+
+* DistanceCompositeSceneSymbol
+* Range
+* RangeCollection
+
+## Tags
+
+3D, DistanceCompositeSceneSymbol, DistanceSymbolRange, SimpleMarkerSceneSymbol, graphic

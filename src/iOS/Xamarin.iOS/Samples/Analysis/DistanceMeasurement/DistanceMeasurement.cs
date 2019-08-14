@@ -3,18 +3,18 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Diagnostics;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
+using System;
+using System.Diagnostics;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
@@ -69,7 +69,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
-            _mySceneView.SetViewpointCamera(new Camera(start, 200, 45, 45, 0));
 
             // Keep the UI updated.
             _distanceMeasurement.MeasurementChanged += (o, e) =>
@@ -90,6 +89,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
             // Show the scene in the view.
             _mySceneView.Scene = myScene;
+            _mySceneView.SetViewpointCamera(new Camera(start, 200, 45, 45, 0));
 
             // Subscribe to tap events to enable updating the measurement.
             _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
@@ -117,15 +117,15 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         {
             // Create the view controller that will present the list of unit systems.
             UIAlertController unitSystemSelectionAlert =
-                UIAlertController.Create("Change unit system", "", UIAlertControllerStyle.ActionSheet);
+                UIAlertController.Create(null, "Change unit system", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController
                 presentationPopover = unitSystemSelectionAlert.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Show an option for each unit system.
@@ -159,7 +159,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         public override void LoadView()
         {
             // Create and configure the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -184,9 +184,9 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
             toolbar.Items = new[]
             {
-                _helpButton,
+                _changeUnitsButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _changeUnitsButton
+                _helpButton
             };
 
             // Add the views.

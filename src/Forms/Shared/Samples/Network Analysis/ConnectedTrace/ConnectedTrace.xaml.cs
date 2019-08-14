@@ -22,7 +22,7 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Connected trace",
+        "Find connected features in utility networks",
         "Network Analysis",
         "Find all features connected to a given set of starting point(s) and barrier(s) in your network using the Connected trace type.",
         "")]

@@ -17,7 +17,6 @@ using Esri.ArcGISRuntime.UtilityNetworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -25,7 +24,7 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Connected Trace",
+        "Find connected features in utility networks",
         "Network Analysis",
         "Find all features connected to a given set of starting point(s) and barrier(s) in your network using the Connected trace type.",
         "")]

@@ -15,16 +15,21 @@
         app:layout_constraintBottom_toTopOf="@+id/uiLayout"/>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:background="@android:color/background_dark"
-        android:alpha="0.5"/>
-    <TextView
-        android:id="@+id/statusLabel"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:layout_margin="5dp"
-        android:text="Instructions"
-        android:textColor="@android:color/white"/>
+        android:layout_height="45dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/background_dark"
+            android:alpha="0.5"/>
+        <TextView
+            android:id="@+id/statusLabel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:text="Instructions"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"/>
+    </RelativeLayout>
     <LinearLayout
         android:id="@+id/uiLayout"
         android:layout_width="match_parent"

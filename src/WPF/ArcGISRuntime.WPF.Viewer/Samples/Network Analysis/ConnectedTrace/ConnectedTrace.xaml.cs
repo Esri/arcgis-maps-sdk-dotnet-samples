@@ -29,30 +29,21 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
         "")]
     public partial class ConnectedTrace
     {
-        
-
-        private readonly int[] LayerIds = new int[] { 4, 3, 5, 0 };
-
-        private Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9813547.35557238, 5129980.36635111, -9813185.0602376, 5130215.41254146, SpatialReferences.WebMercator));
-
-        private SimpleMarkerSymbol _startingPointSymbol;
-        private SimpleMarkerSymbol _barrierPointSymbol;
+        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
         private UtilityNetwork _utilityNetwork;
         private UtilityTraceParameters _parameters;
 
         private TaskCompletionSource<UtilityTerminal> _terminalCompletionSource = null;
 
+        private Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9813547.35557238, 5129980.36635111, -9813185.0602376, 5130215.41254146, SpatialReferences.WebMercator));
+
+        private SimpleMarkerSymbol _startingPointSymbol;
+        private SimpleMarkerSymbol _barrierPointSymbol;
+
         public ConnectedTrace()
         {
             InitializeComponent();
-
-            // TODO: Delete once SS6 is used.
-            Esri.ArcGISRuntime.Security.AuthenticationManager.Current.ChallengeHandler = new Esri.ArcGISRuntime.Security.ChallengeHandler(async (info) =>
-            {
-                return await Esri.ArcGISRuntime.Security.AuthenticationManager.Current.GenerateCredentialAsync(new Uri(PortalUrl), Username, Password);
-            });
-
             Initialize();
         }
 
@@ -69,12 +60,16 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
                     InitialViewpoint = _startingViewpoint
                 };
 
-                foreach (int id in LayerIds)
-                {
-                    MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{id}")));
-                }
+                // Add the layer with electric distribution lines.
+                FeatureLayer lineLayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/115"));
+                lineLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3));
+                MyMapView.Map.OperationalLayers.Add(lineLayer);
 
-                // Create and load the UtilityNetwork.
+                // Add the layer with electric devices.
+                FeatureLayer electricDevicelayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/100"));
+                MyMapView.Map.OperationalLayers.Add(electricDevicelayer);
+
+                // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
                 Status.Text = "Click on the network lines or points to add a utility element.";

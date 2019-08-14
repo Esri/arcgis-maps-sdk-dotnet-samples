@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -16,6 +17,7 @@ using Esri.ArcGISRuntime.UtilityNetworks;
 using Foundation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UIKit;
@@ -33,21 +35,21 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-
         private UIToolbar _toolbar;
         private UIBarButtonItem _resetButton;
         private UIBarButtonItem _traceButton;
         private UISegmentedControl _segmentedControl;
         private UILabel _statusLabel;
         private UIActivityIndicatorView _activityIndicator;
-        private string _selectedTerminalName;
 
-        private readonly int[] LayerIds = new int[] { 4, 3, 5, 0 };
+        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
         private UtilityNetwork _utilityNetwork;
         private UtilityTraceParameters _parameters;
 
-        private CancellationTokenSource _selectTerminalTokenSource;
+        private TaskCompletionSource<string> _terminalCompletionSource = null;
+
+        private Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9813547.35557238, 5129980.36635111, -9813185.0602376, 5130215.41254146, SpatialReferences.WebMercator));
 
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
@@ -59,13 +61,6 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
 
         private async void Initialize()
         {
-            
-            // TODO: Delete once SS6 is used.
-            Esri.ArcGISRuntime.Security.AuthenticationManager.Current.ChallengeHandler = new Esri.ArcGISRuntime.Security.ChallengeHandler(async (info) =>
-            {
-                return await Esri.ArcGISRuntime.Security.AuthenticationManager.Current.GenerateCredentialAsync(new Uri(PortalUrl), Username, Password);
-            });
-
             try
             {
                 _activityIndicator.StartAnimating();
@@ -74,16 +69,20 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
                 // Setup Map with Feature Layer(s) that contain Utility Network.
                 _myMapView.Map = new Map(Basemap.CreateStreetsNightVector())
                 {
-                    InitialViewpoint = new Viewpoint(new Envelope(-9813547.35557238, 5129980.36635111, -9813185.0602376, 5130215.41254146, SpatialReferences.WebMercator))
+                    InitialViewpoint = _startingViewpoint
                 };
 
-                foreach (int id in LayerIds)
-                {
-                    _myMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{id}")));
-                }
+                // Add the layer with electric distribution lines.
+                FeatureLayer lineLayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/115"));
+                lineLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3));
+                _myMapView.Map.OperationalLayers.Add(lineLayer);
 
-                // Create and load the UtilityNetwork.
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
+                // Add the layer with electric devices.
+                FeatureLayer electricDevicelayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/100"));
+                _myMapView.Map.OperationalLayers.Add(electricDevicelayer);
+
+                // Create and load the utility network.
+                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), _myMapView.Map);
 
                 _statusLabel.Text = "Click on the network lines or points to add a utility element.";
 
@@ -108,35 +107,28 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
 
         private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            
-            await WaitForTerminal(null);
-            /*
-            MyMapView.GeoViewTapped -= OnGeoViewTapped;
             try
             {
                 e.Handled = true;
 
-                IsBusy.Visibility = Visibility.Visible;
-                Status.Text = "Identifying trace locations...";
-
-                // This exception is used when a feature in the utility network can't be identified.
-                Exception identifyException = new Exception("Could not identify location. Click on the network lines or points to add a utility element.");
+                _activityIndicator.StartAnimating();
+                _statusLabel.Text = "Identifying trace locations...";
 
                 // Set whether the user is adding a starting point or a barrier.
-                bool isAddingStart = IsAddingStartingLocations.IsChecked.Value;
+                bool isAddingStart = _segmentedControl.SelectedSegment == 0;
 
                 // Identify the feature to be used.
-                IEnumerable<IdentifyLayerResult> identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 10.0, false);
+                IEnumerable<IdentifyLayerResult> identifyResult = await _myMapView.IdentifyLayersAsync(e.Position, 10.0, false);
 
                 // Check that a results from a layer were identified from the user input.
-                if (!identifyResult.Any()) { throw identifyException; }
+                if (!identifyResult.Any()) { return; }
 
                 // Identify the selected feature.
                 IdentifyLayerResult layerResult = identifyResult?.FirstOrDefault();
                 ArcGISFeature feature = layerResult?.GeoElements?.FirstOrDefault() as ArcGISFeature;
 
                 // Check that a feature was identified from the layer.
-                if (feature == null) { throw identifyException; }
+                if (feature == null) { return; }
 
                 // Create element with `terminal` for junction feature or with `fractionAlong` for edge feature.
                 UtilityElement element = null;
@@ -167,12 +159,12 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
 
                         // Create a UtilityElement with the terminal.
                         element = _utilityNetwork.CreateElement(feature, terminal);
-                        Status.Text = $"terminal: `{terminal?.Name ?? "default"}`";
+                        _statusLabel.Text = $"terminal: `{terminal?.Name ?? "default"}`";
                     }
                     else
                     {
                         element = _utilityNetwork.CreateElement(feature, terminals.FirstOrDefault());
-                        Status.Text = $"terminal: `{element.Terminal?.Name ?? "default"}`";
+                        _statusLabel.Text = $"terminal: `{element.Terminal?.Name ?? "default"}`";
                     }
                 }
                 else if (networkSource.SourceType == UtilitySourceType.Edge)
@@ -187,21 +179,20 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
                         // Set how far the element is along the edge.
                         element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
 
-                        Status.Text = $"fractionAlongEdge: `{element.FractionAlongEdge}`";
+                        _statusLabel.Text = $"fractionAlongEdge: `{element.FractionAlongEdge}`";
                     }
                 }
 
                 // Check that the element can be added to the parameters.
-                if (element == null) { throw identifyException; }
+                if (element == null) { return; }
 
                 // Build the utility trace parameters.
-                bool createWithStartingLocation = (_parameters == null) && isAddingStart;
                 if (_parameters == null)
                 {
-                    IEnumerable<UtilityElement> startingLocations = createWithStartingLocation ? new[] { element } : Enumerable.Empty<UtilityElement>();
+                    IEnumerable<UtilityElement> startingLocations = Enumerable.Empty<UtilityElement>();
                     _parameters = new UtilityTraceParameters(UtilityTraceType.Connected, startingLocations);
                 }
-                else if (isAddingStart)
+                if (isAddingStart)
                 {
                     _parameters.StartingLocations.Add(element);
                 }
@@ -212,63 +203,124 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
 
                 // Add a graphic for the new utility element.
                 Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, isAddingStart ? _startingPointSymbol : _barrierPointSymbol);
-                MyMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(traceLocationGraphic);
+                _myMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(traceLocationGraphic);
             }
             catch (Exception ex)
             {
-                Status.Text = "Identifying locations failed...";
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _statusLabel.Text = "Identifying locations failed...";
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {
-                MyMapView.GeoViewTapped += OnGeoViewTapped;
-                IsBusy.Visibility = Visibility.Hidden;
+                if (_statusLabel.Text.Equals("Identifying trace locations...")) { _statusLabel.Text = "Could not identify location."; }
+                _activityIndicator.StopAnimating();
             }
-            */
         }
 
         private async Task<UtilityTerminal> WaitForTerminal(IEnumerable<UtilityTerminal> terminals)
         {
             try
             {
+                // Prevent user from tapping map while selecting terminal.
+                _myMapView.GeoViewTapped -= OnGeoViewTapped;
+
                 // Start the UI for the user choosing the junction.
                 UIAlertController prompt = UIAlertController.Create(null, "Choose terminal", UIAlertControllerStyle.ActionSheet);
 
-                //foreach(UtilityTerminal terminal in terminals)
-                var strings = new string[] { "Terminal 1", "Terminal 2" };
-                foreach (string s in strings)
+                foreach (UtilityTerminal terminal in terminals)
                 {
-                    //prompt.AddAction(UIAlertAction.Create(terminal.Name, UIAlertActionStyle.Default, Choose_Click));
-                    prompt.AddAction(UIAlertAction.Create(s, UIAlertActionStyle.Default, Choose_Click));
+                    prompt.AddAction(UIAlertAction.Create(terminal.Name, UIAlertActionStyle.Default, Choose_Click));
                 }
 
                 // Needed to prevent crash on iPad.
                 UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
                 if (ppc != null)
                 {
-                    ppc.SourceView = View;
-                    ppc.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                    ppc.SourceView = _toolbar;
+                    ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                    ppc.DidDismiss += (s, e) => _terminalCompletionSource.TrySetCanceled();
                 }
 
                 PresentViewController(prompt, true, null);
 
-                // Wait for the user to make a selection.
-                _selectTerminalTokenSource = new CancellationTokenSource();
-                await Task.Delay(-1, _selectTerminalTokenSource.Token);
+                // Wait for the user to select a terminal.
+                _terminalCompletionSource = new TaskCompletionSource<string>();
+                string selectedName = await _terminalCompletionSource.Task;
+                return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
             }
-            catch (OperationCanceledException)
+            finally
             {
-                _statusLabel.Text = _selectedTerminalName;
-                return null;
-                //return terminals.Where(x => x.Name.Equals(_selectedTerminalName)).FirstOrDefault();
+                // Enable the main UI again.
+                _myMapView.GeoViewTapped += OnGeoViewTapped;
             }
-            throw new Exception("Terminal not selected.");
         }
 
         private void Choose_Click(UIAlertAction action)
         {
-            _selectedTerminalName = action.Title;
-            _selectTerminalTokenSource.Cancel();
+            _terminalCompletionSource.TrySetResult(action.Title);
+        }
+
+        private async void OnTrace(object sender, EventArgs e)
+        {
+            try
+            {
+                _activityIndicator.StartAnimating();
+                _statusLabel.Text = "Running connected trace...";
+
+                // Verify that the parameters contain a starting location.
+                if (_parameters == null || !_parameters.StartingLocations.Any()) { throw new Exception("No starting locations set."); }
+
+                //  Get the trace result from the utility network.
+                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(_parameters);
+                UtilityElementTraceResult elementTraceResult = traceResult?.FirstOrDefault() as UtilityElementTraceResult;
+
+                if (elementTraceResult?.Elements?.Count > 0)
+                {
+                    // Clear previous selection from the layer.
+                    _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
+
+                    // Group the utility elements by their network source.
+                    IEnumerable<IGrouping<string, UtilityElement>> groupedElementsResult = from element in elementTraceResult.Elements
+                                                                                           group element by element.NetworkSource.Name into groupedElements
+                                                                                           select groupedElements;
+
+                    foreach (IGrouping<string, UtilityElement> elementGroup in groupedElementsResult)
+                    {
+                        // Get the layer for the utility element.
+                        FeatureLayer layer = (FeatureLayer)_myMapView.Map.OperationalLayers.FirstOrDefault(l => l is FeatureLayer && ((FeatureLayer)l).FeatureTable.TableName == elementGroup.Key);
+                        if (layer == null)
+                            continue;
+
+                        // Convert elements to features to highlight result.
+                        IEnumerable<Feature> features = await _utilityNetwork.GetFeaturesForElementsAsync(elementGroup);
+                        layer.SelectFeatures(features);
+                    }
+                }
+                _statusLabel.Text = "Trace completed.";
+            }
+            catch (Exception ex)
+            {
+                _statusLabel.Text = "Trace failed...";
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
+            }
+            finally
+            {
+                _activityIndicator.StopAnimating();
+            }
+        }
+
+        private void OnReset(object sender, EventArgs e)
+        {
+            // Reset the UI.
+            _statusLabel.Text = "Click on the network lines or points to add a utility element.";
+            _activityIndicator.StopAnimating();
+
+            // Clear the utility trace parameters.
+            _parameters = null;
+
+            // Clear the map layers and graphics.
+            _myMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Clear();
+            _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
         }
 
         public override void LoadView()
@@ -348,6 +400,8 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
 
             // Subscribe to events.
             _myMapView.GeoViewTapped += OnGeoViewTapped;
+            _traceButton.Clicked += OnTrace;
+            _resetButton.Clicked += OnReset;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -356,6 +410,8 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
 
             // Unsubscribe from events, per best practice.
             _myMapView.GeoViewTapped -= OnGeoViewTapped;
+            _traceButton.Clicked -= OnTrace;
+            _resetButton.Clicked -= OnReset;
         }
 
         public override void ViewDidLoad()

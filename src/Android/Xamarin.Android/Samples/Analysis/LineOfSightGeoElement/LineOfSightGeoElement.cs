@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             // Create scene
             Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
             {
-                InitialViewpoint = new Viewpoint(_observerPoint, 1000000)
+                InitialViewpoint = new Viewpoint(_observerPoint, 1600)
             };
             // Set initial viewpoint
             // Create the elevation source

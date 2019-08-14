@@ -137,7 +137,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(feature.FeatureTable.TableName);
 
                 // Check if the network source is a junction or an edge.
-                if (networkSource.SourceType == UtilitySourceType.Junction)
+                if (networkSource.SourceType == UtilityNetworkSourceType.Junction)
                 {
                     // Get the UtilityAssetGroup from the feature.
                     string assetGroupFieldName = ((ArcGISFeatureTable)feature.FeatureTable).SubtypeField ?? "ASSETGROUP";
@@ -167,7 +167,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
                         _statusLabel.Text = $"terminal: `{element.Terminal?.Name ?? "default"}`";
                     }
                 }
-                else if (networkSource.SourceType == UtilitySourceType.Edge)
+                else if (networkSource.SourceType == UtilityNetworkSourceType.Edge)
                 {
                     element = _utilityNetwork.CreateElement(feature);
 

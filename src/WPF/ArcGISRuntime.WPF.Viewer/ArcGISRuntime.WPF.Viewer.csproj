@@ -2095,7 +2095,7 @@
       <Version>100.5.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.WPF">
-      <Version>100.6.0-daily2483</Version>
+      <Version>100.6.0-daily2511</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

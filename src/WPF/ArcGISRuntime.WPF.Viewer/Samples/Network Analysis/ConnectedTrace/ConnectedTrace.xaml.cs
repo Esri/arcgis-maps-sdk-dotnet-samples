@@ -143,7 +143,7 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
                     if (terminals.Count() > 1)
                     {
                         // Ask the user to choose the terminal.
-                        UtilityTerminal terminal = await WaitForTerminalAsync(terminals);
+                        UtilityTerminal terminal = await WaitForTerminal(terminals);
 
                         // Create a UtilityElement with the terminal.
                         element = _utilityNetwork.CreateElement(feature, terminal);
@@ -205,7 +205,7 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
             }
         }
 
-        private async Task<UtilityTerminal> WaitForTerminalAsync(IEnumerable<UtilityTerminal> terminals)
+        private async Task<UtilityTerminal> WaitForTerminal(IEnumerable<UtilityTerminal> terminals)
         {
             try
             {

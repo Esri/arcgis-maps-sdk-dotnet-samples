@@ -31,13 +31,14 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
         "")]
     public partial class ConnectedTrace
     {
-
-        private readonly int[] LayerIds = new int[] { 4, 3, 5, 0 };
+        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
         private UtilityNetwork _utilityNetwork;
         private UtilityTraceParameters _parameters;
 
-        private CancellationTokenSource _selectTerminalTokenSource;
+        private TaskCompletionSource<UtilityTerminal> _terminalCompletionSource = null;
+
+        private Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9813547.35557238, 5129980.36635111, -9813185.0602376, 5130215.41254146, SpatialReferences.WebMercator));
 
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
@@ -45,13 +46,6 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
         public ConnectedTrace()
         {
             InitializeComponent();
-
-            // TODO: Delete once SS6 is used.
-            Esri.ArcGISRuntime.Security.AuthenticationManager.Current.ChallengeHandler = new Esri.ArcGISRuntime.Security.ChallengeHandler(async (info) =>
-            {
-                return await Esri.ArcGISRuntime.Security.AuthenticationManager.Current.GenerateCredentialAsync(new Uri(PortalUrl), Username, Password);
-            });
-
             Initialize();
         }
 
@@ -65,15 +59,19 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
                 // Setup Map with Feature Layer(s) that contain Utility Network.
                 MyMapView.Map = new Map(Basemap.CreateStreetsNightVector())
                 {
-                    InitialViewpoint = new Viewpoint(new Envelope(-9813547.35557238, 5129980.36635111, -9813185.0602376, 5130215.41254146, SpatialReferences.WebMercator))
+                    InitialViewpoint = _startingViewpoint
                 };
 
-                foreach (int id in LayerIds)
-                {
-                    MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{id}")));
-                }
+                // Add the layer with electric distribution lines.
+                FeatureLayer lineLayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/115"));
+                lineLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3));
+                MyMapView.Map.OperationalLayers.Add(lineLayer);
 
-                // Create and load the UtilityNetwork.
+                // Add the layer with electric devices.
+                FeatureLayer electricDevicelayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/100"));
+                MyMapView.Map.OperationalLayers.Add(electricDevicelayer);
+
+                // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
                 Status.Text = "Click on the network lines or points to add a utility element.";
@@ -99,16 +97,12 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
 
         private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            MyMapView.GeoViewTapped -= OnGeoViewTapped;
             try
             {
                 e.Handled = true;
 
                 IsBusy.Visibility = Visibility.Visible;
                 Status.Text = "Identifying trace locations...";
-
-                // This exception is used when a feature in the utility network can't be identified.
-                Exception identifyException = new Exception("Could not identify location. Click on the network lines or points to add a utility element.");
 
                 // Set whether the user is adding a starting point or a barrier.
                 bool isAddingStart = IsAddingStartingLocations.IsChecked.Value;
@@ -117,14 +111,14 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
                 IEnumerable<IdentifyLayerResult> identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 10.0, false);
 
                 // Check that a results from a layer were identified from the user input.
-                if (!identifyResult.Any()) { throw identifyException; }
+                if (!identifyResult.Any()) { return; }
 
                 // Identify the selected feature.
                 IdentifyLayerResult layerResult = identifyResult?.FirstOrDefault();
                 ArcGISFeature feature = layerResult?.GeoElements?.FirstOrDefault() as ArcGISFeature;
 
                 // Check that a feature was identified from the layer.
-                if (feature == null) { throw identifyException; }
+                if (feature == null) { return; }
 
                 // Create element with `terminal` for junction feature or with `fractionAlong` for edge feature.
                 UtilityElement element = null;
@@ -180,16 +174,15 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
                 }
 
                 // Check that the element can be added to the parameters.
-                if (element == null) { throw identifyException; }
+                if (element == null) { return; }
 
                 // Build the utility trace parameters.
-                bool createWithStartingLocation = (_parameters == null) && isAddingStart;
                 if (_parameters == null)
                 {
-                    IEnumerable<UtilityElement> startingLocations = createWithStartingLocation ? new[] { element } : Enumerable.Empty<UtilityElement>();
+                    IEnumerable<UtilityElement> startingLocations = Enumerable.Empty<UtilityElement>();
                     _parameters = new UtilityTraceParameters(UtilityTraceType.Connected, startingLocations);
                 }
-                else if (isAddingStart)
+                if (isAddingStart)
                 {
                     _parameters.StartingLocations.Add(element);
                 }
@@ -209,7 +202,7 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
             }
             finally
             {
-                MyMapView.GeoViewTapped += OnGeoViewTapped;
+                if (Status.Text.Equals("Identifying trace locations...")) { Status.Text = "Could not identify location."; }
                 IsBusy.Visibility = Visibility.Collapsed;
             }
         }
@@ -221,29 +214,28 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
                 // Start the UI for the user choosing the junction.
                 TerminalPicker.Visibility = Visibility.Visible;
                 MainUI.Visibility = Visibility.Collapsed;
+                MyMapView.GeoViewTapped -= OnGeoViewTapped;
 
                 // Load the terminals into the UI.
                 Picker.DataContext = terminals;
                 Picker.SelectedIndex = 0;
 
-                // Wait for the user to make a selection.
-                _selectTerminalTokenSource = new CancellationTokenSource();
-                await Task.Delay(-1, _selectTerminalTokenSource.Token);
+                // Wait for the user to select a terminal.
+                _terminalCompletionSource = new TaskCompletionSource<UtilityTerminal>();
+                return await _terminalCompletionSource.Task;
             }
-            catch (OperationCanceledException)
+            finally
             {
                 // Make the main UI visible again.
                 TerminalPicker.Visibility = Visibility.Collapsed;
                 MainUI.Visibility = Visibility.Visible;
-
-                return Picker?.SelectedItem as UtilityTerminal;
+                MyMapView.GeoViewTapped += OnGeoViewTapped;
             }
-            throw new Exception("Terminal not selected.");
         }
 
         private void Choose_Click(object sender, RoutedEventArgs e)
         {
-            _selectTerminalTokenSource.Cancel();
+            _terminalCompletionSource.TrySetResult(Picker.SelectedItem as UtilityTerminal);
         }
 
         private async void OnTrace(object sender, RoutedEventArgs e)

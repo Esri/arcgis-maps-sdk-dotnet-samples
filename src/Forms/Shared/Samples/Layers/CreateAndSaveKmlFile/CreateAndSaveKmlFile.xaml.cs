@@ -7,25 +7,20 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI;
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
-using System.Text;
-using ArcGISRuntime.Samples.Managers;
 #if __IOS__
-using UIKit;
-using Foundation;
 #endif
 #if __ANDROID__
 
@@ -234,8 +229,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private async void Save_Click(object sender, EventArgs e)
         {
             // oof
-            Stream platformStream = null;
-
 #if __IOS__
             try
             {
@@ -255,7 +248,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 }
                 await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
             }
@@ -284,7 +277,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
             }
-
 
 #endif
 #if WINDOWS_UWP

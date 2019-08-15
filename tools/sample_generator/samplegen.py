@@ -282,7 +282,7 @@ def new_sample_main(full_directory):
 
 def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Replacements):
     for platform in platforms:
-        file_list = [old_name + '.jpg', old_name + ".cs", old_name + ".xaml.cs", old_name + ".xaml"]
+        file_list = [old_name + '.jpg', old_name + ".cs", old_name + ".xaml.cs", old_name + ".xaml", "readme.md", "readme.metadata.json"]
         for filename in file_list:
             plat_root = get_platform_root(platform, root)
             old_path = os.path.join(plat_root, "Samples", old_cat, old_name, filename)
@@ -331,18 +331,18 @@ def move_sample_csproj(platforms, root, old_cat, new_cat, old_name, new_name):
                     new_contents.append(line.rstrip())
             # rewrite file
             fd.seek(0)
-            fd.write('\r\n'.join(new_contents))
+            fd.write('\n'.join(new_contents))
     return
 
 def rename_sample_main(full_directory):
     # Ask for the name of the old sample
-    old_name = input("Please enter the name of the old sample, as it appears in groups.json: ")
+    old_name = input("Please enter the name of the old sample, as it appears in the file system: ")
 
     # Ask for the category of the old sample
     old_cat = input("Please enter the category of the old sample, as it appears in the file system: ")
 
     # Ask for the name of the new sample
-    new_name = input("Please enter the name of the new sample, as it will appear in groups.json: ")
+    new_name = input("Please enter the name of the new sample, as it will appear in the file system: ")
 
     # Ask for the category of the new sample
     new_cat = input("Please enter the new category of the sample, as it will appear in the file system: ")

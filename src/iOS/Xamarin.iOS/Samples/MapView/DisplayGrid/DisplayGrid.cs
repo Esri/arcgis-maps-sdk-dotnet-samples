@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
 using UIKit;
 using Colors = System.Drawing.Color;
 
@@ -130,14 +130,14 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         private void LabelPositionButton_Click(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of label positions.
-            UIAlertController labelPositionAlert = UIAlertController.Create("Select a label position", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController labelPositionAlert = UIAlertController.Create(null, "Select a label position", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = labelPositionAlert.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Add an option for each label position option.
@@ -146,7 +146,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 // Record the selection and re-apply all settings.
                 labelPositionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
                 {
-                    _selectedLabelPosition = (GridLabelPosition) Enum.Parse(typeof(GridLabelPosition), item);
+                    _selectedLabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), item);
                     ApplyCurrentSettings();
                 }));
             }
@@ -158,18 +158,18 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         private void GridTypeButton_Click(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of grid types.
-            UIAlertController gridTypeAlert = UIAlertController.Create("Select a grid type", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController gridTypeAlert = UIAlertController.Create(null, "Select a grid type", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = gridTypeAlert.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Add an option for each grid type.
-            foreach (string item in new[] {"LatLong", "UTM", "MGRS", "USNG"})
+            foreach (string item in new[] { "LatLong", "UTM", "MGRS", "USNG" })
             {
                 // Record the selection and re-apply all settings.
                 gridTypeAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
@@ -186,18 +186,18 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         private void LabelColorButton_Click(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of label color options.
-            UIAlertController labelColorAlert = UIAlertController.Create("Select a label color", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController labelColorAlert = UIAlertController.Create(null, "Select a label color", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = labelColorAlert.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Add an option for each color.
-            foreach (Colors item in new[] {Colors.Red, Colors.Green, Colors.Blue, Colors.White})
+            foreach (Colors item in new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White })
             {
                 // Record the selection and re-apply all settings.
                 labelColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action =>
@@ -222,18 +222,18 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         private void GridColorButton_Click(object sender, EventArgs e)
         {
             // Create the view controller that will present the list of grid color options.
-            UIAlertController gridColorAlert = UIAlertController.Create("Select a grid color", "", UIAlertControllerStyle.ActionSheet);
+            UIAlertController gridColorAlert = UIAlertController.Create(null, "Select a grid color", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = gridColorAlert.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
 
             // Add an option for each color.
-            foreach (Colors item in new[] {Colors.Red, Colors.Green, Colors.Blue, Colors.White})
+            foreach (Colors item in new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White })
             {
                 // Record the selection and re-apply all settings.
                 gridColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action =>
@@ -264,7 +264,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
         "Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.",
         "",
         "Military", "Symbology", "Military symbology")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e34835bf5ec5430da7cf16bb8c0b075c", "e0d41b4b409a49a5a7ba11939d8535dc")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
     public partial class FeatureLayerDictionaryRenderer
     {
         public FeatureLayerDictionaryRenderer()
@@ -54,8 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
             try
             {
                 // Load the symbol dictionary from local storage
-                //     Note that the type of the symbol definition must be explicitly provided along with the file name
-                DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.OpenAsync("mil2525d", symbolFilepath);
+                DictionarySymbolStyle symbolStyle = await DictionarySymbolStyle.CreateFromFileAsync(symbolFilepath);
 
                 // Add geodatabase features to the map, using the defined symbology
                 foreach (FeatureTable table in baseGeodatabase.GeodatabaseFeatureTables)
@@ -94,7 +93,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
         // Get the file path for the style dictionary
         private static string GetStyleDictionaryPath()
         {
-            return DataManager.GetDataFolder("e34835bf5ec5430da7cf16bb8c0b075c", "mil2525d.stylx");
+            return DataManager.GetDataFolder("c78b149a1d52414682c86a5feeb13d30", "mil2525d.stylx");
         }
 
         // Get the file path for the geodatabase

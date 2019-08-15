@@ -3,16 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -20,6 +14,12 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.SketchOnMap
@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void CanExecuteChanged(object sender, EventArgs e)
         {
             // Enable or disable the corresponding command for the sketch editor.
-            ICommand command = (ICommand) sender;
+            ICommand command = (ICommand)sender;
             if (command == _myMapView.SketchEditor.UndoCommand)
             {
                 _segmentButton.SetEnabled(command.CanExecute(null), 2);
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async void SegmentButtonClicked(object sender, EventArgs e)
         {
             // Get the segmented button control that raised the event.
-            UISegmentedControl buttonControl = (UISegmentedControl) sender;
+            UISegmentedControl buttonControl = (UISegmentedControl)sender;
 
             // Execute the appropriate action for the control
             switch (buttonControl.SelectedSegment)
@@ -94,30 +94,32 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                     // Show the sketch modes to choose from.
                     ShowSketchModeList();
                     break;
+
                 case 1:
                     await EditGraphicAsync();
                     break;
+
                 case 2: // Undo.
                     if (_myMapView.SketchEditor.UndoCommand.CanExecute(null))
                     {
                         _myMapView.SketchEditor.UndoCommand.Execute(null);
                     }
-
                     break;
+
                 case 3: // Redo.
                     if (_myMapView.SketchEditor.RedoCommand.CanExecute(null))
                     {
                         _myMapView.SketchEditor.RedoCommand.Execute(null);
                     }
-
                     break;
+
                 case 4: // Done.
                     if (_myMapView.SketchEditor.CompleteCommand.CanExecute(null))
                     {
                         _myMapView.SketchEditor.CompleteCommand.Execute(null);
                     }
-
                     break;
+
                 case 5: // Clear.
                     // Remove all graphics from the graphics overlay.
                     _sketchOverlay.Graphics.Clear();
@@ -127,7 +129,6 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                     {
                         _myMapView.SketchEditor.CancelCommand.Execute(null);
                     }
-
                     break;
             }
 
@@ -146,37 +147,37 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                 // Symbolize with a fill symbol.
                 case GeometryType.Envelope:
                 case GeometryType.Polygon:
-                {
-                    symbol = new SimpleFillSymbol
                     {
-                        Color = Color.Red,
-                        Style = SimpleFillSymbolStyle.Solid
-                    };
-                    break;
-                }
+                        symbol = new SimpleFillSymbol
+                        {
+                            Color = Color.Red,
+                            Style = SimpleFillSymbolStyle.Solid
+                        };
+                        break;
+                    }
                 // Symbolize with a line symbol.
                 case GeometryType.Polyline:
-                {
-                    symbol = new SimpleLineSymbol
                     {
-                        Color = Color.Red,
-                        Style = SimpleLineSymbolStyle.Solid,
-                        Width = 5d
-                    };
-                    break;
-                }
+                        symbol = new SimpleLineSymbol
+                        {
+                            Color = Color.Red,
+                            Style = SimpleLineSymbolStyle.Solid,
+                            Width = 5d
+                        };
+                        break;
+                    }
                 // Symbolize with a marker symbol.
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                {
-                    symbol = new SimpleMarkerSymbol
                     {
-                        Color = Color.Red,
-                        Style = SimpleMarkerSymbolStyle.Circle,
-                        Size = 15d
-                    };
-                    break;
-                }
+                        symbol = new SimpleMarkerSymbol
+                        {
+                            Color = Color.Red,
+                            Style = SimpleMarkerSymbolStyle.Circle,
+                            Size = 15d
+                        };
+                        break;
+                    }
             }
 
             // Pass back a new graphic with the appropriate symbol.
@@ -186,7 +187,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private async Task<Graphic> GetGraphicAsync()
         {
             // Wait for the user to click a location on the map.
-            MapPoint mapPoint = (MapPoint) await _myMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
+            MapPoint mapPoint = (MapPoint)await _myMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
 
             // Convert the map point to a screen point.
             var screenCoordinate = _myMapView.LocationToScreen(mapPoint);
@@ -206,7 +207,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             return graphic;
         }
 
-        #endregion
+        #endregion Graphic and symbol helpers
 
         private void ShowSketchModeList()
         {
@@ -229,7 +230,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             if (presentationPopover != null)
             {
                 presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Left;
             }
 
             // Display the list of sketch modes.
@@ -241,7 +242,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             try
             {
                 // Let the user draw on the map view using the chosen sketch mode.
-                SketchCreationMode creationMode = (SketchCreationMode) _sketchModeDictionary[sketchModeName];
+                SketchCreationMode creationMode = (SketchCreationMode)_sketchModeDictionary[sketchModeName];
                 Geometry geometry = await _myMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Create and add a graphic from the geometry the user drew.
@@ -255,7 +256,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions.
-                new UIAlertView("Error", "Error drawing graphic shape: " + ex.Message, (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", "Error drawing graphic shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
@@ -280,7 +281,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions.
-                new UIAlertView("Error", "Error editing shape: " + ex.Message, (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", "Error editing shape: " + ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 

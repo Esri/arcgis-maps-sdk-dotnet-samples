@@ -77,9 +77,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white">
-    <ListView 
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/listView"/>
+
+        <ListView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listView"/>
+        
     </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:id="@+id/styleText"
+            android:text="testing text"
+            android:visibility="invisible"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:id="@+id/noStyleButton"
+            android:text="No Style"
+            android:visibility="invisible"/>
 </android.support.constraint.ConstraintLayout>

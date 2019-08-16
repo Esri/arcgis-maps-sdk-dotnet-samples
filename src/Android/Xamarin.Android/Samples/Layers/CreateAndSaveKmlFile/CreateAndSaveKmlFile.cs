@@ -7,33 +7,25 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Android.App;
-using Android.OS;
-using Android.Widget;
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntime;
-using System;
-using Esri.ArcGISRuntime.Ogc;
-using System.Collections.Generic;
-using System.Linq;
-using Android.Content;
-using Android.Views;
-using Android.Media;
-using Java.Lang;
-using ArcGISRuntime.Samples.Managers;
-using System.IO;
 using Android;
-using Resource = ArcGISRuntime.Resource;
+using Android.App;
+using Android.Content;
+using Android.Graphics;
+using Android.OS;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
+using Android.Views;
+using Android.Widget;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using Resource = ArcGISRuntime.Resource;
 
 namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 {
@@ -53,10 +45,13 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private Button _saveButton;
         private Button _resetButton;
         private Button _completeButton;
+        private Button _noStyleButton;
         private LinearLayout _buttonLayout;
         private LinearLayout _pickerLayout;
         private TextView _status;
+        private TextView _styleText;
         private ListView _listView;
+        private BaseAdapter _iconAdapter;
 
         private KmlDocument _kmlDocument;
         private KmlDataset _kmlDataset;
@@ -93,9 +88,15 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 "https://static.arcgis.com/images/Symbols/Shapes/BlueSquareLargeB.png",
                 "https://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
             };
+            _iconAdapter = new IconAdapter(this, iconLinks);
 
             // Set up a new kml document and kml layer.
             ResetKml();
+
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Android.Content.PM.Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 1);
+            }
         }
 
         private void ResetKml()
@@ -210,19 +211,8 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         }
         private void OpenIconDialog()
         {
-            IList<IDictionary<string, object>> data = new Android.Runtime.JavaList<IDictionary<string, object>>();
-            foreach(var link in iconLinks)
-            {
-                var image = new ImageView(this);
-                image.SetImageURI(Android.Net.Uri.Parse(link));
-                var dict = new Android.Runtime.JavaDictionary<string, object>();
-                dict.Add("image", image);
-                dict.Add("name", link);
-                data.Add(dict);
-            }
-            var adapter = new SimpleAdapter(this, data, Resource.Layout.icon_item, new string[] { "name", "image" }, new int[] { Resource.Id.textView, Resource.Id.imageView});
-            _listView.Adapter = adapter;
-            
+            _listView.Adapter = _iconAdapter;
+            _styleText.Text = "Select an icon.";
             _pickerLayout.Visibility = ViewStates.Visible;
             _listView.ItemClick += IconSelected;
         }
@@ -233,6 +223,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(new Uri(iconLinks[(int)e.Id])), 1.0);
 
             _pickerLayout.Visibility = ViewStates.Invisible;
+            _listView.ItemClick -= IconSelected;
         }
 
         private void OpenColorDialog()
@@ -240,17 +231,22 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         }
 
+        private void No_Style_Click(object sender, EventArgs e)
+        {
+            _pickerLayout.Visibility = ViewStates.Invisible;
+        }
+
         private async void Save_Click(object sender, EventArgs e)
         {
             // Determine where to save your file
-            string filePath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
+            string filePath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Android.Content.PM.Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 1);
             }
             else
             {
-                using (System.IO.Stream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                using (Stream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
                 {
                     // Write the KML document to the stream of the file.
                     await _kmlDocument.WriteToAsync(stream);
@@ -264,7 +260,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             ResetKml();
         }
 
-
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
@@ -276,16 +271,60 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             _saveButton = FindViewById<Button>(Resource.Id.saveButton);
             _resetButton = FindViewById<Button>(Resource.Id.resetButton);
             _completeButton = FindViewById<Button>(Resource.Id.completeButton);
+            _noStyleButton = FindViewById<Button>(Resource.Id.noStyleButton);
             _buttonLayout = FindViewById<LinearLayout>(Resource.Id.linearLayout);
             _pickerLayout = FindViewById<LinearLayout>(Resource.Id.PickerUI);
             _status = FindViewById<TextView>(Resource.Id.statusLabel);
+            _styleText = FindViewById<TextView>(Resource.Id.styleText);
             _listView = FindViewById<ListView>(Resource.Id.listView);
 
             _addButton.Click += Add_Click;
             _saveButton.Click += Save_Click;
             _resetButton.Click += Reset_Click;
             _completeButton.Click += Complete_Click;
+            _noStyleButton.Click += No_Style_Click;
+        }
+    }
+    public class IconAdapter : BaseAdapter<string>
+    {
+        public List<View> iconList;
+        private Context context;
+        public IconAdapter(Context context, List<string> list)
+        {
+            this.context = context;
+            iconList = new List<View>();
+            foreach(string link in list)
+            {
+                var image = new ImageView(this.context);
 
+                Bitmap imageBitmap = null;
+
+                using (var webClient = new WebClient())
+                {
+                    var imageBytes = webClient.DownloadData(link);
+                    if (imageBytes != null && imageBytes.Length > 0)
+                    {
+                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
+                    }
+                }
+                image.SetImageBitmap(imageBitmap);
+                image.SetMinimumHeight(125);
+                iconList.Add(image);
+            }
+        }
+
+        public override string this[int position] => throw new NotImplementedException();
+
+        public override int Count => iconList.Count;
+
+        public override long GetItemId(int position) { return position; }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            LinearLayout layout = new LinearLayout(context) { Orientation = Android.Widget.Orientation.Vertical };
+            layout.SetMinimumHeight(125);
+            layout.AddView(iconList[position]);
+            return layout;
         }
     }
 }

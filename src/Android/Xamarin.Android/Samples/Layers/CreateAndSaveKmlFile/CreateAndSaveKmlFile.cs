@@ -287,29 +287,18 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
     }
     public class IconAdapter : BaseAdapter<string>
     {
-        public List<View> iconList;
+        public List<Bitmap> iconList;
         private Context context;
         public IconAdapter(Context context, List<string> list)
         {
             this.context = context;
-            iconList = new List<View>();
+            iconList = new List<Bitmap>();
+
             foreach(string link in list)
             {
-                var image = new ImageView(this.context);
-
-                Bitmap imageBitmap = null;
-
-                using (var webClient = new WebClient())
-                {
-                    var imageBytes = webClient.DownloadData(link);
-                    if (imageBytes != null && imageBytes.Length > 0)
-                    {
-                        imageBitmap = BitmapFactory.DecodeByteArray(imageBytes, 0, imageBytes.Length);
-                    }
-                }
-                image.SetImageBitmap(imageBitmap);
-                image.SetMinimumHeight(125);
-                iconList.Add(image);
+                Bitmap imageBitmap;
+                imageBitmap = BitmapFactory.DecodeStream(WebRequest.Create(link).GetResponse().GetResponseStream());
+                iconList.Add(imageBitmap);
             }
         }
 
@@ -321,9 +310,14 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            LinearLayout layout = new LinearLayout(context) { Orientation = Android.Widget.Orientation.Vertical };
-            layout.SetMinimumHeight(125);
-            layout.AddView(iconList[position]);
+            var image = new ImageView(this.context);
+            image.SetImageBitmap(iconList[position]);
+            image.SetMinimumHeight(150);
+
+            LinearLayout layout = new LinearLayout(context) { Orientation = Orientation.Horizontal};
+            layout.AddView(image);
+            layout.SetMinimumHeight(150);
+            image.SetMinimumWidth(150);
             return layout;
         }
     }

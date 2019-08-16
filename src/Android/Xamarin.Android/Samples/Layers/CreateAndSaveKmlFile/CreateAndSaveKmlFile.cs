@@ -28,6 +28,8 @@ using Android.Content;
 using Android.Views;
 using Android.Media;
 using Java.Lang;
+using ArcGISRuntime.Samples.Managers;
+using System.IO;
 
 namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 {
@@ -234,8 +236,30 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         }
 
-        private void Save_Click(object sender, EventArgs e)
+        private async void Save_Click(object sender, EventArgs e)
         {
+            // Create folder path where the map package will be downloaded.
+            //string downloadDir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).AbsolutePath;
+            /*string path = Path.Combine(this.GetExternalFilesDirs(), "SampleData", "CreateAndSaveKmzFile");
+
+            // If temporary data folder doesn't exists, create it.
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            */
+            // Determine where to save your file
+            var downloadDirectory = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads);
+            var filePath = Path.Combine(downloadDirectory, "sampledata.kmz");
+
+
+            using (System.IO.Stream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            {
+                // Write the KML document to the stream of the file.
+                await _kmlDocument.WriteToAsync(stream);
+            }
+
+            new AlertDialog.Builder(this).SetMessage("Success!").SetTitle(filePath).Show();
         }
 
         private void Reset_Click(object sender, EventArgs e)

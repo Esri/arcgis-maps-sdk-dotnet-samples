@@ -52,6 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private TextView _styleText;
         private ListView _listView;
         private BaseAdapter _iconAdapter;
+        private BaseAdapter _colorAdapter;
 
         private KmlDocument _kmlDocument;
         private KmlDataset _kmlDataset;
@@ -59,6 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private KmlPlacemark _currentPlacemark;
 
         private List<string> iconLinks;
+        private List<Color> colorList;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -89,6 +91,12 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 "https://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
             };
             _iconAdapter = new IconAdapter(this, iconLinks);
+
+            colorList = new List<Color>()
+            {
+               Color.Blue, Color.Brown, Color.Gray, Color.Green, Color.Yellow, Color.Pink, Color.Purple, Color.Red, Color.Black
+            };
+            _colorAdapter = new ColorAdapter(this, colorList);
 
             // Set up a new kml document and kml layer.
             ResetKml();
@@ -228,7 +236,31 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         private void OpenColorDialog()
         {
+            _listView.Adapter = _colorAdapter;
+            _styleText.Text = "Select a color.";
+            _pickerLayout.Visibility = ViewStates.Visible;
+            _listView.ItemClick += ColorSelected;
+        }
 
+        private void ColorSelected(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            Color androidColor = colorList[e.Position];
+            System.Drawing.Color systemColor = System.Drawing.Color.FromArgb(androidColor.R, androidColor.G, androidColor.B);
+
+            _currentPlacemark.Style = new KmlStyle();
+            if (_currentPlacemark.GraphicType == KmlGraphicType.Polyline)
+            {
+                _currentPlacemark.Style.LineStyle = new KmlLineStyle(systemColor, 8);
+            }
+            else if (_currentPlacemark.GraphicType == KmlGraphicType.Polygon)
+            {
+                _currentPlacemark.Style.PolygonStyle = new KmlPolygonStyle(systemColor);
+                _currentPlacemark.Style.PolygonStyle.IsFilled = true;
+                _currentPlacemark.Style.PolygonStyle.IsOutlined = false;
+            }
+
+            _pickerLayout.Visibility = ViewStates.Invisible;
+            _listView.ItemClick -= ColorSelected;
         }
 
         private void No_Style_Click(object sender, EventArgs e)
@@ -313,11 +345,34 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             var image = new ImageView(this.context);
             image.SetImageBitmap(iconList[position]);
             image.SetMinimumHeight(150);
-
+            image.SetMinimumWidth(150);
             LinearLayout layout = new LinearLayout(context) { Orientation = Orientation.Horizontal};
             layout.AddView(image);
             layout.SetMinimumHeight(150);
-            image.SetMinimumWidth(150);
+            return layout;
+        }
+    }
+    public class ColorAdapter : BaseAdapter<string>
+    {
+        public List<Color> iconList;
+        private Context context;
+        public ColorAdapter(Context context, List<Color> list)
+        {
+            this.context = context;
+            iconList = list;
+        }
+
+        public override string this[int position] => throw new NotImplementedException();
+
+        public override int Count => iconList.Count;
+
+        public override long GetItemId(int position) { return position; }
+
+        public override View GetView(int position, View convertView, ViewGroup parent)
+        {
+            LinearLayout layout = new LinearLayout(context) { Orientation = Orientation.Horizontal };
+            layout.SetMinimumHeight(150);
+            layout.SetBackgroundColor(iconList[position]);
             return layout;
         }
     }

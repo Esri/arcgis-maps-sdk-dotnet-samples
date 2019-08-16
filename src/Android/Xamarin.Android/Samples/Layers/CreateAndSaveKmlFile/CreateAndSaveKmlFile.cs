@@ -30,6 +30,10 @@ using Android.Media;
 using Java.Lang;
 using ArcGISRuntime.Samples.Managers;
 using System.IO;
+using Android;
+using Resource = ArcGISRuntime.Resource;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 
 namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 {
@@ -248,18 +252,24 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 Directory.CreateDirectory(path);
             }
             */
+
             // Determine where to save your file
             var downloadDirectory = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads);
             var filePath = Path.Combine(downloadDirectory, "sampledata.kmz");
-
-
-            using (System.IO.Stream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+            if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Android.Content.PM.Permission.Granted)
             {
-                // Write the KML document to the stream of the file.
-                await _kmlDocument.WriteToAsync(stream);
+                ActivityCompat.RequestPermissions(this, new System.String[] { Manifest.Permission.WriteExternalStorage }, 1);
             }
+            else
+            {
+                using (System.IO.Stream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                {
+                    // Write the KML document to the stream of the file.
+                    await _kmlDocument.WriteToAsync(stream);
+                }
 
-            new AlertDialog.Builder(this).SetMessage("Success!").SetTitle(filePath).Show();
+                new AlertDialog.Builder(this).SetMessage("Success!").SetTitle("File saved to "+filePath).Show();
+            }
         }
 
         private void Reset_Click(object sender, EventArgs e)

@@ -23,7 +23,8 @@ using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 #if __IOS__
 #endif
 #if __ANDROID__
-
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 #endif
 #if WINDOWS_UWP
 using Windows.Storage.Pickers;
@@ -255,28 +256,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
 #endif
 #if __ANDROID__
-            try
-            {
-                string offlineDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
-
-                // If temporary data folder doesn't exists, create it.
-                if (!Directory.Exists(offlineDataFolder))
-                {
-                    Directory.CreateDirectory(offlineDataFolder);
-                }
-
-                string path = Path.Combine(offlineDataFolder, "sampledata.kmz");
-                using (Stream stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
-                {
-                    // Write the KML document to the stream of the file.
-                    await _kmlDocument.WriteToAsync(stream);
-                }
-                await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
-            }
-            catch(Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
-            }
 
 #endif
 #if WINDOWS_UWP

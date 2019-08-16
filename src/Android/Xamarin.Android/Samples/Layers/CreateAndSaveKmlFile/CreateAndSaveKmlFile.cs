@@ -242,23 +242,11 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         private async void Save_Click(object sender, EventArgs e)
         {
-            // Create folder path where the map package will be downloaded.
-            //string downloadDir = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryDownloads).AbsolutePath;
-            /*string path = Path.Combine(this.GetExternalFilesDirs(), "SampleData", "CreateAndSaveKmzFile");
-
-            // If temporary data folder doesn't exists, create it.
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
-            */
-
             // Determine where to save your file
-            var downloadDirectory = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads);
-            var filePath = Path.Combine(downloadDirectory, "sampledata.kmz");
+            string filePath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Android.Content.PM.Permission.Granted)
             {
-                ActivityCompat.RequestPermissions(this, new System.String[] { Manifest.Permission.WriteExternalStorage }, 1);
+                ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 1);
             }
             else
             {
@@ -267,8 +255,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                     // Write the KML document to the stream of the file.
                     await _kmlDocument.WriteToAsync(stream);
                 }
-
-                new AlertDialog.Builder(this).SetMessage("Success!").SetTitle("File saved to "+filePath).Show();
+                new AlertDialog.Builder(this).SetMessage("File saved to " + filePath).SetTitle("Success!").Show();
             }
         }
 

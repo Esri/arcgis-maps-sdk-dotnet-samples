@@ -1,19 +1,17 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="ArcGISRuntime.UWP.Samples.SpatialRelationships.SpatialRelationships"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <TextBox x:Name="ResultTextbox"
-                 Text="Tap a graphic to see its relationship with the others."
-                 Grid.Column="0"
-                 AcceptsReturn="True" TextWrapping="Wrap"  />
-        <esriUI:MapView x:Name="MyMapView" 
-                        Grid.Column="1" />
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock
+                x:Name="ResultTextbox"
+                Grid.Column="0"
+                Text="Tap a graphic to see its relationship with the others."
+                TextWrapping="Wrap" />
+        </Border>
     </Grid>
 </UserControl>
 

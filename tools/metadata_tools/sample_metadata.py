@@ -17,7 +17,7 @@ class sample_metadata:
     Use emit_standalone_solution to write out the sample as a standalone Visual Studio solution.
     '''
     
-    arcgis_runtime_latest = "100.5.0" # store latest Runtime version, for use with packages
+    arcgis_runtime_latest = "100.6.0" # store latest Runtime version, for use with packages
 
     def reset_props(self):
         self.formal_name = ""
@@ -418,7 +418,7 @@ class sample_metadata:
             for sample_file_name in f:
                 sample_file_fullpath = os.path.join(r, sample_file_name)
                 extension = os.path.splitext(sample_file_fullpath)[1]
-                if extension in [".cs", ".xaml", ".sln", ".md", ".csproj", ".shproj", ".axml"]:
+                if extension in [".cs", ".xaml", ".sln", ".slntemplate", ".md", ".csproj", ".shproj", ".axml"]:
                     # open file, read into string
                     original_contents = safe_read_contents(sample_file_fullpath)
                     # make replacements

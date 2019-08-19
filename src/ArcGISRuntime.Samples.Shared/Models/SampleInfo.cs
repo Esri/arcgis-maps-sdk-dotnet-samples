@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Shared.Attributes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -17,14 +18,11 @@ namespace ArcGISRuntime.Samples.Shared.Models
 {
     public partial class SampleInfo
     {
-        static SampleInfo()
-        {
-#if NETFX_CORE
-            PathStub = Windows.ApplicationModel.Package.Current.Installed­Location.Path;
-#else
-            PathStub = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-#endif
-        }
+        #if NETFX_CORE
+        private string _pathStub = Windows.ApplicationModel.Package.Current.Installed­Location.Path;
+        #else
+        private string _pathStub = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        #endif
 
         /// <summary>
         /// Gets the path to the sample on disk.
@@ -33,7 +31,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
         {
             get
             {
-                return System.IO.Path.Combine(PathStub, "Samples", Category, FormalName);
+                return System.IO.Path.Combine(_pathStub, "Samples", Category, FormalName);
             }
         }
 
@@ -97,7 +95,11 @@ namespace ArcGISRuntime.Samples.Shared.Models
         /// <summary>
         /// Base directory for the samples; defaults to executable directory
         /// </summary>
-        public static string PathStub { get; set; }
+        public string PathStub
+        {
+            get { return _pathStub; }
+            set { _pathStub = value; }
+        }
 
         /// <summary>
         /// This constructor is for use when the sample 

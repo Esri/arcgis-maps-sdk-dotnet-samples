@@ -39,12 +39,20 @@ namespace ArcGISRuntime
             this.InitializeComponent();
 
             // Set up version info and About section.
-            if (string.IsNullOrWhiteSpace(_runtimeVersion))
+            try
             {
-                var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
-                var rtVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location);
-                _runtimeVersion = rtVersion.FileVersion;
+                if (string.IsNullOrWhiteSpace(_runtimeVersion))
+                {
+                    var rtVersion = FileVersionInfo.GetVersionInfo(Path.Combine(Windows.ApplicationModel.Package.Current.Installed­Location.Path, "RuntimeCoreNet.dll"));
+                    _runtimeVersion = rtVersion.FileVersion;
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                _runtimeVersion = "Couldn't find ArcGIS Runtime version.";
+            }
+
             string aboutPath = "Resources\\about.md";
             AboutBlock.Text = File.ReadAllText(aboutPath) + _runtimeVersion;
             AboutBlock.Background = new ImageBrush() { Opacity = 0 };

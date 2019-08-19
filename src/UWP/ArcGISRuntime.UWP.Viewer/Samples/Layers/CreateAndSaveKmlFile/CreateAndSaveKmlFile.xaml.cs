@@ -223,12 +223,19 @@ namespace ArcGISRuntime.UWP.Samples.CreateAndSaveKmlFile
 
             if (file != null)
             {
-                using (Stream stream = await file.OpenStreamForWriteAsync())
+                try
                 {
-                    // Write the KML document to the stream of the file.
-                    await _kmlDocument.WriteToAsync(stream);
+                    using (Stream stream = await file.OpenStreamForWriteAsync())
+                    {
+                        // Write the KML document to the stream of the file.
+                        await _kmlDocument.WriteToAsync(stream);
+                    }
+                    await new MessageDialog("Item saved.").ShowAsync();
                 }
-                await new MessageDialog("Item saved.").ShowAsync();
+                catch
+                {
+                    await new MessageDialog("File not saved.").ShowAsync();
+                }
             }
         }
 

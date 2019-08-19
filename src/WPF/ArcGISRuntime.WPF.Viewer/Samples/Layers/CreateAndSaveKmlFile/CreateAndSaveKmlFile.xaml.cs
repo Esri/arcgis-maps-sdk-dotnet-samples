@@ -47,7 +47,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
             // Set the colors for the color picker.
-            var propertylist = typeof(Color).GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+            System.Reflection.PropertyInfo[] propertylist = typeof(Color).GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
             List<Color> colorList = propertylist.Select(x => (Color)x.GetValue(x)).ToList();
             colorList.RemoveAt(0);
 
@@ -225,9 +225,16 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
 
             if (saveFileDialog.ShowDialog() == true)
             {
-                // Write the KML document to the chosen path.
-                await _kmlDocument.SaveAsAsync(saveFileDialog.FileName);
-                MessageBox.Show("Item saved.");
+                try
+                {
+                    // Write the KML document to the chosen path.
+                    await _kmlDocument.SaveAsAsync(saveFileDialog.FileName);
+                    MessageBox.Show("Item saved.");
+                }
+                catch
+                {
+                    MessageBox.Show("File not saved.");
+                }
             }
         }
 

@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using CoreImage;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
@@ -18,8 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
@@ -35,7 +32,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-
         private UIToolbar _toolbar;
         private UIBarButtonItem _addButton;
         private UIBarButtonItem _resetButton;
@@ -44,10 +40,12 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         // KML objects
         private KmlDocument _kmlDocument;
-
         private KmlDataset _kmlDataset;
         private KmlLayer _kmlLayer;
         private KmlPlacemark _currentPlacemark;
+
+        private List<string> _iconLinks;
+        private List<UIColor> _colorList;
 
         public CreateAndSaveKmlFile()
         {
@@ -59,7 +57,25 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             // Create the map.
             _myMapView.Map = new Map(Basemap.CreateImagery());
 
+            // Load the KML document.
             ResetKml();
+
+            // Set the links for icons.
+            _iconLinks = new List<string>()
+            {
+                "https://static.arcgis.com/images/Symbols/Shapes/BlueCircleLargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BlueDiamondLargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BluePin2LargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BlueSquareLargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
+            };
+
+            // Set the colors for the color picker.
+            _colorList = new List<UIColor>
+            {
+                UIColor.Black,UIColor.Blue,UIColor.Brown,UIColor.DarkGray,UIColor.Gray,UIColor.Green,UIColor.Magenta,UIColor.Orange,UIColor.Purple,UIColor.Red,UIColor.Yellow
+            };
         }
 
         private void ResetKml()
@@ -95,22 +111,20 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
             if (ppc != null)
             {
-                ppc.BarButtonItem = (UIBarButtonItem)sender;
-                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+                ppc.BarButtonItem = _doneButton;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
-
-            PresentViewController(prompt, true, null);
 
             // Swap toolbar.
             _toolbar.Items = new[] { _doneButton };
+
+            PresentViewController(prompt, true, null);
         }
 
         private async void AddGeometry(UIAlertAction obj)
         {
             try
             {
-                // Hide the base UI and enable the complete button.
-
                 // Create variables for the sketch creation mode and color.
                 SketchCreationMode creationMode;
 
@@ -150,123 +164,96 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
                 // Enable the style editing UI.
                 ChooseStyle();
-
-                // Choose whether to enable the icon picker or color picker.
             }
             finally
             {
                 // Re-add toolbar.
                 _toolbar.Items = new[]
                 {
-                _addButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _saveButton,
-                _resetButton
+                    _addButton,
+                    new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                    _saveButton,
+                    _resetButton
                 };
-
-                /*
-                // Reset the UI.
-
-                ShapesPanel.Visibility = Visibility.Visible;
-                CompleteButton.Visibility = Visibility.Collapsed;
-                InstructionsText.Text = "Select the type of feature you would like to add.";
-
-                // Enable the save and reset buttons.
-                SaveResetGrid.IsEnabled = true;
-                */
             }
         }
 
         private void ChooseStyle()
         {
-            //action.setValue(image, forKey: "image")
             // Start the UI for the user choosing the junction.
-            if(_currentPlacemark.GraphicType == KmlGraphicType.Point)
+            if (_currentPlacemark.GraphicType == KmlGraphicType.Point)
             {
-                UIAlertController prompt = UIAlertController.Create(null, "Choose icon.", UIAlertControllerStyle.ActionSheet);
-
-                //foreach(UtilityTerminal terminal in terminals)
-                List<string> iconLinks = new List<string>()
-                {
-                    "https://static.arcgis.com/images/Symbols/Shapes/BlueCircleLargeB.png",
-                    "https://static.arcgis.com/images/Symbols/Shapes/BlueDiamondLargeB.png",
-                    "https://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png",
-                    "https://static.arcgis.com/images/Symbols/Shapes/BluePin2LargeB.png",
-                    "https://static.arcgis.com/images/Symbols/Shapes/BlueSquareLargeB.png",
-                    "https://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
-                };
-                foreach (string link in iconLinks)
+                // Build a UI alert controller for picking the icon.
+                UIAlertController prompt = UIAlertController.Create(null, "Choose an icon.", UIAlertControllerStyle.ActionSheet);
+                foreach (string link in _iconLinks)
                 {
                     UIAlertAction action = UIAlertAction.Create(link, UIAlertActionStyle.Default, Icon_Select);
-                    
                     UIImage image = new UIImage(NSData.FromUrl(new NSUrl(link)));
                     action.SetValueForKey(image, new NSString("image"));
                     prompt.AddAction(action);
                 }
+                prompt.AddAction(UIAlertAction.Create("No Style", UIAlertActionStyle.Cancel, null));
 
                 // Needed to prevent crash on iPad.
                 UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
                 if (ppc != null)
                 {
-                    ppc.BarButtonItem = _doneButton;
+                    ppc.BarButtonItem = _addButton;
                     ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 }
 
                 PresentViewController(prompt, true, null);
             }
-            else if(_currentPlacemark.GraphicType == KmlGraphicType.Polyline || _currentPlacemark.GraphicType == KmlGraphicType.Polygon)
+            else if (_currentPlacemark.GraphicType == KmlGraphicType.Polyline || _currentPlacemark.GraphicType == KmlGraphicType.Polygon)
             {
-                UIAlertController prompt = UIAlertController.Create(null, "Choose color.", UIAlertControllerStyle.ActionSheet);
-                List<UIColor> colorList = new List<UIColor> {
-                    UIColor.Black,UIColor.Blue,UIColor.Brown,UIColor.Cyan,UIColor.DarkGray,UIColor.Gray,UIColor.Green,UIColor.LightGray,UIColor.Magenta,UIColor.Orange,UIColor.Purple,UIColor.Red,UIColor.White,UIColor.Yellow
-                };
-
-                foreach (UIColor color in colorList)
+                // Build a UI alert controller for picking the color.
+                UIAlertController prompt = UIAlertController.Create(null, "Choose a color.", UIAlertControllerStyle.ActionSheet);
+                foreach (UIColor color in _colorList)
                 {
                     UIAlertAction action = UIAlertAction.Create(color.ToString(), UIAlertActionStyle.Default, Color_Select);
-
                     action.SetValueForKey(color, new NSString("titleTextColor"));
                     prompt.AddAction(action);
                 }
+                prompt.AddAction(UIAlertAction.Create("No Style", UIAlertActionStyle.Cancel, null));
 
                 // Needed to prevent crash on iPad.
                 UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
                 if (ppc != null)
                 {
-                    ppc.BarButtonItem = _doneButton;
+                    ppc.BarButtonItem = _addButton;
                     ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 }
 
                 PresentViewController(prompt, true, null);
-
             }
-            
-
         }
 
         private void Icon_Select(UIAlertAction obj)
         {
-            _currentPlacemark.Style = new KmlStyle();
-
-            //UIImage image = obj.ValueForKey(new NSString("image")) as UIImage;
-
+            // Get the Uri of the selected action.
             Uri uri = new Uri(obj.Title);
+
+            // Create a style for the placemark.
+            _currentPlacemark.Style = new KmlStyle();
             _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(uri), 1.0);
         }
+
         private void Color_Select(UIAlertAction obj)
         {
+            // Convert the UIColor to a System.Drawing.Color
             UIColor uiColor = obj.ValueForKey(new NSString("titleTextColor")) as UIColor;
             nfloat red, green, blue, alpha;
             uiColor.GetRGBA(out red, out green, out blue, out alpha);
-            Color color = Color.FromArgb((int)(alpha*255), (int)(red * 255), (int)(green * 255), (int)(blue * 255));
+            Color color = Color.FromArgb((int)(alpha * 255), (int)(red * 255), (int)(green * 255), (int)(blue * 255));
 
+            // Create a style for the placemark.
             _currentPlacemark.Style = new KmlStyle();
 
             if (_currentPlacemark.GraphicType == KmlGraphicType.Polyline)
             {
                 _currentPlacemark.Style.LineStyle = new KmlLineStyle(color, 8);
             }
-            else if(_currentPlacemark.GraphicType == KmlGraphicType.Polygon)
+            else if (_currentPlacemark.GraphicType == KmlGraphicType.Polygon)
             {
                 _currentPlacemark.Style.PolygonStyle = new KmlPolygonStyle(color);
                 _currentPlacemark.Style.PolygonStyle.IsFilled = true;
@@ -311,7 +298,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 }
                 ShowMessage("Success", "File saved locally.");
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 ShowMessage("Error", "File not saved.");
             }
@@ -320,9 +307,9 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private void ShowMessage(string title, string message)
         {
             // Create alert for the user.
-            var okAlertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
-            okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-            PresentViewController(okAlertController, true, null);
+            UIAlertController alert = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
+            alert.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
+            PresentViewController(alert, true, null);
         }
 
         public override void LoadView()
@@ -395,65 +382,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             _doneButton.Clicked -= DoneClick;
             _saveButton.Clicked -= Save_Click;
             _resetButton.Clicked -= Reset_Click;
-        }
-    }
-
-    internal class ImageModel : UIPickerViewModel
-    {
-        public string[] names = new string[] {
-            "Amy Burns",
-            "Kevin Mullins",
-            "Craig Dunn",
-            "Joel Martinez",
-            "Charles Petzold",
-            "David Britch",
-            "Mark McLemore",
-            "Tom Opegenorth",
-            "Joseph Hill",
-            "Miguel De Icaza"
-        };
-
-        private UILabel personLabel;
-
-        public ImageModel(UILabel personLabel)
-        {
-            this.personLabel = personLabel;
-        }
-
-        public override nint GetComponentCount(UIPickerView pickerView)
-        {
-            return 2;
-        }
-
-        public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
-        {
-            return names.Length;
-        }
-
-        public override string GetTitle(UIPickerView pickerView, nint row, nint component)
-        {
-            if (component == 0)
-                return names[row];
-            else
-                return row.ToString();
-        }
-
-        public override void Selected(UIPickerView pickerView, nint row, nint component)
-        {
-            personLabel.Text = $"This person is: {names[pickerView.SelectedRowInComponent(0)]},\n they are number {pickerView.SelectedRowInComponent(1)}";
-        }
-
-        public override nfloat GetComponentWidth(UIPickerView picker, nint component)
-        {
-            if (component == 0)
-                return 240f;
-            else
-                return 40f;
-        }
-
-        public override nfloat GetRowHeight(UIPickerView picker, nint component)
-        {
-            return 40f;
         }
     }
 }

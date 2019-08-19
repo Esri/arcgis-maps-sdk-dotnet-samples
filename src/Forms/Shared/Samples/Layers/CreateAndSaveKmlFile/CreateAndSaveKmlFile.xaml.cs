@@ -25,6 +25,7 @@ using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 #if __ANDROID__
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
+using Android.Content.PM;
 #endif
 #if WINDOWS_UWP
 using Windows.Storage.Pickers;
@@ -229,10 +230,9 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         private async void Save_Click(object sender, EventArgs e)
         {
-            // oof
-#if __IOS__
             try
             {
+#if __IOS__
                 string offlineDataFolder = Path.Combine(DataManager.GetDataFolder(), "CreateAndSaveKmlFile");
 
                 // If temporary data folder doesn't exists, create it.
@@ -248,32 +248,47 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                     await _kmlDocument.WriteToAsync(stream);
                 }
                 await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
+#endif
+#if __ANDROID__
+                // Determine where to save your file
+                string filePath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
+
+                // Check if the user can save their file.
+                if (ContextCompat.CheckSelfPermission(Android.App.Application.Context, Android.Manifest.Permission.WriteExternalStorage) != Permission.Granted)
+                {
+                    //ActivityCompat.RequestPermissions( ?????? , new string[] { Android.Manifest.Permission.WriteExternalStorage }, 1);
+                }
+                else
+                {
+                    using (Stream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                    {
+                        // Write the KML document to the stream of the file.
+                        await _kmlDocument.WriteToAsync(stream);
+                    }
+                    await Application.Current.MainPage.DisplayAlert("Success", "File saved to " + filePath, "OK");
+                }
+#endif
+#if WINDOWS_UWP
+                // Open a save dialog for the user.
+                FileSavePicker savePicker = new FileSavePicker();
+                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+                savePicker.FileTypeChoices.Add("KMZ file", new List<string>() { ".kmz" });
+                Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+
+                if (file != null)
+                {
+                    using (Stream stream = await file.OpenStreamForWriteAsync())
+                    {
+                        // Write the KML document to the stream of the file.
+                        await _kmlDocument.WriteToAsync(stream);
+                    }
+                }
+#endif
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
             }
-
-#endif
-#if __ANDROID__
-
-#endif
-#if WINDOWS_UWP
-            // Open a save dialog for the user.
-            FileSavePicker savePicker = new FileSavePicker();
-            savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            savePicker.FileTypeChoices.Add("KMZ file", new List<string>() { ".kmz" });
-            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
-
-            if (file != null)
-            {
-                using (Stream stream = await file.OpenStreamForWriteAsync())
-                {
-                    // Write the KML document to the stream of the file.
-                    await _kmlDocument.WriteToAsync(stream);
-                }
-            }
-#endif
         }
 
         private void Reset_Click(object sender, EventArgs e)

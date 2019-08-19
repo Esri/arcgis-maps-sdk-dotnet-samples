@@ -1,13 +1,12 @@
 ﻿<UserControl
-    x:Class="ArcGISRuntime.WPF.Samples.ConnectedTrace.ConnectedTrace"
+    x:Class="ArcGISRuntime.WPF.Samples.FindFeaturesUtilityNetwork.FindFeaturesUtilityNetwork"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esri="using:Esri.ArcGISRuntime.UI.Controls">
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="OnGeoViewTapped" />
         <Border
             x:Name="MainUI"
-            Width="500"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Style="{StaticResource BorderStyle}">
@@ -27,8 +26,6 @@
                     <RadioButton
                         x:Name="IsAddingStartingLocations"
                         Grid.Column="0"
-                        Margin="0,5,0,5"
-                        HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
                         Content="Add starting location(s)"
@@ -37,8 +34,6 @@
                     <RadioButton
                         x:Name="IsAddingBarriers"
                         Grid.Column="1"
-                        Margin="0,5,0,5"
-                        HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
                         Content="Add barrier(s)"
@@ -53,14 +48,12 @@
                     </Grid.ColumnDefinitions>
                     <Button
                         Grid.Column="0"
-                        Margin="0,5,5,5"
-                        HorizontalAlignment="Stretch"
+                        Margin="5"
                         Click="OnReset"
                         Content="Reset" />
                     <Button
                         Grid.Column="1"
-                        Margin="5,5,0,5"
-                        HorizontalAlignment="Stretch"
+                        Margin="5"
                         Click="OnTrace"
                         Content="Trace" />
                 </Grid>
@@ -80,7 +73,7 @@
                     Height="15"
                     VerticalAlignment="Center"
                     IsIndeterminate="True"
-                    Visibility="Collapsed" />
+                    Visibility="Hidden" />
             </Grid>
         </Border>
         <Border
@@ -97,14 +90,12 @@
                 </Grid.RowDefinitions>
                 <TextBlock
                     Grid.Row="0"
-                    Margin="0,0,0,5"
-                    HorizontalAlignment="Center"
-                    Text="Choose the terminal for this junction." />
+                    Margin="5"
+                    Text="Select the terminal for this junction." />
                 <ComboBox
                     x:Name="Picker"
                     Grid.Row="1"
-                    Margin="0,5,0,5"
-                    HorizontalAlignment="Stretch"
+                    Margin="5"
                     ItemsSource="{Binding}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -114,8 +105,7 @@
                 </ComboBox>
                 <Button
                     Grid.Row="2"
-                    Margin="0,5,0,0"
-                    HorizontalAlignment="Stretch"
+                    Margin="5"
                     Click="Choose_Click"
                     Content="Select" />
             </Grid>

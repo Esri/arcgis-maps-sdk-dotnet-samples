@@ -2,7 +2,7 @@
 
 Find all features connected to a set of starting points in a utility network.
 
-![](ConnectedTrace.JPG)
+![](FindFeaturesUtilityNetwork.JPG)
 
 ## Use case
 

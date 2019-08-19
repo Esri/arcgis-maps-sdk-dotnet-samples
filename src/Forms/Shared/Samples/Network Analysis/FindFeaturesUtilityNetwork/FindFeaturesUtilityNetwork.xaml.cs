@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
+namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find connected features in utility networks",
@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
         "Find all features connected to a given set of starting point(s) and barrier(s) in your network using the Connected trace type.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public partial class ConnectedTrace : ContentPage
+    public partial class FindFeaturesUtilityNetwork : ContentPage
     {
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
@@ -41,7 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
 
-        public ConnectedTrace()
+        public FindFeaturesUtilityNetwork()
         {
             InitializeComponent();
             Initialize();

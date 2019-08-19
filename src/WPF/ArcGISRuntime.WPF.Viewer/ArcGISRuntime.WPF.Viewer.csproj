@@ -145,8 +145,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\Network Analysis\ConnectedTrace\ConnectedTrace.xaml.cs">
-      <DependentUpon>ConnectedTrace.xaml</DependentUpon>
+    <Compile Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.xaml.cs">
+      <DependentUpon>FindFeaturesUtilityNetwork.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
       <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
@@ -701,7 +701,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <Page Include="Samples\Network Analysis\ConnectedTrace\ConnectedTrace.xaml">
+    <Page Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1444,7 +1444,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <Content Include="Samples\Network Analysis\ConnectedTrace\ConnectedTrace.jpg">
+    <Content Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg">

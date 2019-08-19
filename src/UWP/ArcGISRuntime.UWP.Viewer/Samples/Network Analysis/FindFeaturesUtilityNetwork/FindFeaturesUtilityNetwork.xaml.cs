@@ -18,16 +18,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
+namespace ArcGISRuntime.WPF.Samples.FindFeaturesUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find connected features in utility networks",
         "Network Analysis",
         "Find all features connected to a given set of starting point(s) and barrier(s) in your network using the Connected trace type.",
         "")]
-    public partial class ConnectedTrace
+    public partial class FindFeaturesUtilityNetwork
     {
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
@@ -41,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
 
-        public ConnectedTrace()
+        public FindFeaturesUtilityNetwork()
         {
             InitializeComponent();
             Initialize();
@@ -85,11 +86,11 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
             catch (Exception ex)
             {
                 Status.Text = "Loading Utility Network failed...";
-                MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await new MessageDialog(ex.Message, ex.Message.GetType().Name).ShowAsync();
             }
             finally
             {
-                IsBusy.Visibility = Visibility.Hidden;
+                IsBusy.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -196,12 +197,12 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
             catch (Exception ex)
             {
                 Status.Text = "Identifying locations failed...";
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
             }
             finally
             {
                 if (Status.Text.Equals("Identifying trace locations...")) { Status.Text = "Could not identify location."; }
-                IsBusy.Visibility = Visibility.Hidden;
+                IsBusy.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -209,7 +210,7 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
         {
             try
             {
-                // Switch the UI for the user choosing the junction.
+                // Start the UI for the user choosing the junction.
                 TerminalPicker.Visibility = Visibility.Visible;
                 MainUI.Visibility = Visibility.Collapsed;
                 MyMapView.GeoViewTapped -= OnGeoViewTapped;
@@ -224,7 +225,7 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
             }
             finally
             {
-                // Enable the main UI again.
+                // Make the main UI visible again.
                 TerminalPicker.Visibility = Visibility.Collapsed;
                 MainUI.Visibility = Visibility.Visible;
                 MyMapView.GeoViewTapped += OnGeoViewTapped;
@@ -277,11 +278,11 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
             catch (Exception ex)
             {
                 Status.Text = "Trace failed...";
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
             }
             finally
             {
-                IsBusy.Visibility = Visibility.Hidden;
+                IsBusy.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -289,7 +290,7 @@ namespace ArcGISRuntime.WPF.Samples.ConnectedTrace
         {
             // Reset the UI.
             Status.Text = "Click on the network lines or points to add a utility element.";
-            IsBusy.Visibility = Visibility.Hidden;
+            IsBusy.Visibility = Visibility.Collapsed;
 
             // Clear the utility trace parameters.
             _parameters = null;

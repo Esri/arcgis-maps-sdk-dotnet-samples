@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
+namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -32,9 +32,9 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
         "Network Analysis",
         "Find all features connected to a given set of starting point(s) and barrier(s) in your network using the Connected trace type.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("ConnectedTrace.axml")]
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FindFeaturesUtilityNetwork.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public class ConnectedTrace : Activity
+    public class FindFeaturesUtilityNetwork : Activity
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
@@ -314,7 +314,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConnectedTrace
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            SetContentView(Resource.Layout.ConnectedTrace);
+            SetContentView(Resource.Layout.FindFeaturesUtilityNetwork);
 
             _myMapView = FindViewById<MapView>(Resource.Id.MapView);
 

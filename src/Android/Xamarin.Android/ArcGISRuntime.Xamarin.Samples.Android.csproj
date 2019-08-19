@@ -77,7 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <None Include="Samples\Network Analysis\ConnectedTrace\ConnectedTrace.jpg" />
+    <None Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
     <None Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <None Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
@@ -251,7 +251,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\Network Analysis\ConnectedTrace\ConnectedTrace.cs" />
+    <Compile Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.cs" />
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
     <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
@@ -551,7 +551,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\ConnectedTrace.axml">
+    <AndroidResource Include="Resources\layout\FindFeaturesUtilityNetwork.axml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>

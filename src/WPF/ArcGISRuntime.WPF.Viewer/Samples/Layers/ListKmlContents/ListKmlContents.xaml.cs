@@ -286,7 +286,7 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
         // Override ToString to enhance display formatting.
         public override string ToString()
         {
-            return Node.Name + " - " + Node.GetType().Name;
+            return Node.GetType().Name + " - " + Node.Name;
         }
 
         public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)

@@ -38,8 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/MapView"
         app:layout_constraintBottom_toBottomOf="parent"
         android:showDividers="middle"
-        android:divider="@android:drawable/divider_horizontal_dark"
-        >
+        android:divider="@android:drawable/divider_horizontal_dark">
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -80,19 +79,20 @@
         android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="0dp"
             android:id="@+id/styleText"
-            android:text="testing text"/>
+            android:text="testing text"
+            android:layout_weight="0.5"/>
         <ListView 
             android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:id="@+id/listView"/>
+            android:layout_height="0dp"
+            android:id="@+id/listView"
+            android:layout_weight="7"/>
         <Button
             android:layout_width="match_parent"
-            android:layout_height="20dp"
+            android:layout_height="0dp"
             android:id="@+id/noStyleButton"
-            android:text="No Style"/>
+            android:text="No Style"
+        android:layout_weight="0.75"/>
     </LinearLayout>
-        
-        
 </android.support.constraint.ConstraintLayout>

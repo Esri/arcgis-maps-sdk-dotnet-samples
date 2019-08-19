@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android;
@@ -29,7 +29,7 @@ using Resource = ArcGISRuntime.Resource;
 
 namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Create and save KML file",
         "Layers",
@@ -59,8 +59,8 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private KmlLayer _kmlLayer;
         private KmlPlacemark _currentPlacemark;
 
-        private List<string> iconLinks;
-        private List<Color> colorList;
+        private List<string> _iconLinks;
+        private List<Color> _colorList;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -77,11 +77,18 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             // Create the map.
             _myMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Set the colors for the color picker.
+            // Set up a new kml document and kml layer.
+            ResetKml();
 
+            // Set the colors for the color picker.
+            _colorList = new List<Color>()
+            {
+               Color.Blue, Color.Brown, Color.Gray, Color.Green, Color.Yellow, Color.Pink, Color.Purple, Color.Red, Color.Black
+            };
+            _colorAdapter = new ColorAdapter(this, _colorList);
 
             // Set the images for the point icon picker.
-            iconLinks = new List<string>()
+            _iconLinks = new List<string>()
             {
                 "https://static.arcgis.com/images/Symbols/Shapes/BlueCircleLargeB.png",
                 "https://static.arcgis.com/images/Symbols/Shapes/BlueDiamondLargeB.png",
@@ -90,17 +97,8 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 "https://static.arcgis.com/images/Symbols/Shapes/BlueSquareLargeB.png",
                 "https://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
             };
-            _iconAdapter = new IconAdapter(this, iconLinks);
 
-            colorList = new List<Color>()
-            {
-               Color.Blue, Color.Brown, Color.Gray, Color.Green, Color.Yellow, Color.Pink, Color.Purple, Color.Red, Color.Black
-            };
-            _colorAdapter = new ColorAdapter(this, colorList);
-
-            // Set up a new kml document and kml layer.
-            ResetKml();
-
+            // Request permission to save a file.
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Android.Content.PM.Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 1);
@@ -130,7 +128,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         private void Add_Click(object sender, EventArgs e)
         {
-            string[] options = new string[] { "Point", "Polyline", "Polygon"};
+            string[] options = new string[] { "Point", "Polyline", "Polygon" };
 
             // Create UI for terminal selection.
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -190,11 +188,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 // Add the placemark to the KmlDocument.
                 _kmlDocument.ChildNodes.Add(_currentPlacemark);
 
-                // Enable the style editing UI.
-                //StyleBorder.Visibility = Visibility.Visible;
-                //MainUI.IsEnabled = false;
-
-                // Choose whether to enable the icon picker or color picker.
+                // Choose whether to open the icon picker or color picker.
                 if (creationMode == SketchCreationMode.Point) { OpenIconDialog(); }
                 else { OpenColorDialog(); }
             }
@@ -206,6 +200,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 _status.Text = "Select the type of feature you would like to add.";
             }
         }
+
         private void Complete_Click(object sender, EventArgs e)
         {
             try
@@ -217,8 +212,13 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             {
             }
         }
+
         private void OpenIconDialog()
         {
+            // Create the icon adapter if it has not been created yet.
+            if (_iconAdapter == null) { _iconAdapter = new IconAdapter(this, _iconLinks); }
+
+            // Display the picker view.
             _listView.Adapter = _iconAdapter;
             _styleText.Text = "Select an icon.";
             _pickerLayout.Visibility = ViewStates.Visible;
@@ -227,15 +227,18 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         private void IconSelected(object sender, AdapterView.ItemClickEventArgs e)
         {
+            // Set the style of the placemark.
             _currentPlacemark.Style = new KmlStyle();
-            _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(new Uri(iconLinks[(int)e.Id])), 1.0);
+            _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(new Uri(_iconLinks[(int)e.Id])), 1.0);
 
+            // Reset the UI.
             _pickerLayout.Visibility = ViewStates.Invisible;
             _listView.ItemClick -= IconSelected;
         }
 
         private void OpenColorDialog()
         {
+            // Display the picker view.
             _listView.Adapter = _colorAdapter;
             _styleText.Text = "Select a color.";
             _pickerLayout.Visibility = ViewStates.Visible;
@@ -244,34 +247,46 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         private void ColorSelected(object sender, AdapterView.ItemClickEventArgs e)
         {
-            Color androidColor = colorList[e.Position];
+            // Convert the selected Android color into a System.Drawing.Color.
+            Color androidColor = _colorList[e.Position];
             System.Drawing.Color systemColor = System.Drawing.Color.FromArgb(androidColor.R, androidColor.G, androidColor.B);
 
+            // Create a new style for the placemark.
             _currentPlacemark.Style = new KmlStyle();
+
+            // Check the graphic type of the placemark.
             if (_currentPlacemark.GraphicType == KmlGraphicType.Polyline)
             {
+                // Set the line style.
                 _currentPlacemark.Style.LineStyle = new KmlLineStyle(systemColor, 8);
             }
             else if (_currentPlacemark.GraphicType == KmlGraphicType.Polygon)
             {
+                // Set the polygon style.
                 _currentPlacemark.Style.PolygonStyle = new KmlPolygonStyle(systemColor);
                 _currentPlacemark.Style.PolygonStyle.IsFilled = true;
                 _currentPlacemark.Style.PolygonStyle.IsOutlined = false;
             }
 
+            // Reset the UI.
             _pickerLayout.Visibility = ViewStates.Invisible;
             _listView.ItemClick -= ColorSelected;
         }
 
         private void No_Style_Click(object sender, EventArgs e)
         {
+            // Reset the UI.
             _pickerLayout.Visibility = ViewStates.Invisible;
+            _listView.ItemClick -= IconSelected;
+            _listView.ItemClick -= ColorSelected;
         }
 
         private async void Save_Click(object sender, EventArgs e)
         {
             // Determine where to save your file
             string filePath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
+
+            // Check if the user can save their file.
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Android.Content.PM.Permission.Granted)
             {
                 ActivityCompat.RequestPermissions(this, new string[] { Manifest.Permission.WriteExternalStorage }, 1);
@@ -294,11 +309,10 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app.
+            // Load the layout from the axml resource.
             SetContentView(Resource.Layout.CreateAndSaveKmlFile);
 
             _myMapView = FindViewById<MapView>(Resource.Id.MapView);
-
             _addButton = FindViewById<Button>(Resource.Id.addButton);
             _saveButton = FindViewById<Button>(Resource.Id.saveButton);
             _resetButton = FindViewById<Button>(Resource.Id.resetButton);
@@ -310,6 +324,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             _styleText = FindViewById<TextView>(Resource.Id.styleText);
             _listView = FindViewById<ListView>(Resource.Id.listView);
 
+            // Add listeners for all of the buttons.
             _addButton.Click += Add_Click;
             _saveButton.Click += Save_Click;
             _resetButton.Click += Reset_Click;
@@ -317,16 +332,19 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             _noStyleButton.Click += No_Style_Click;
         }
     }
-    public class IconAdapter : BaseAdapter<string>
+
+    // Adapter to display icons in a ListView.
+    public class IconAdapter : BaseAdapter<Bitmap>
     {
         public List<Bitmap> iconList;
         private Context context;
+
         public IconAdapter(Context context, List<string> list)
         {
             this.context = context;
             iconList = new List<Bitmap>();
 
-            foreach(string link in list)
+            foreach (string link in list)
             {
                 Bitmap imageBitmap;
                 imageBitmap = BitmapFactory.DecodeStream(WebRequest.Create(link).GetResponse().GetResponseStream());
@@ -334,45 +352,58 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             }
         }
 
-        public override string this[int position] => throw new NotImplementedException();
+        public override Bitmap this[int position] => iconList[position];
 
         public override int Count => iconList.Count;
 
-        public override long GetItemId(int position) { return position; }
+        public override long GetItemId(int position)
+        {
+            return position;
+        }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
-            var image = new ImageView(this.context);
+            // Create the image.
+            ImageView image = new ImageView(this.context);
             image.SetImageBitmap(iconList[position]);
             image.SetMinimumHeight(150);
             image.SetMinimumWidth(150);
-            LinearLayout layout = new LinearLayout(context) { Orientation = Orientation.Horizontal};
+
+            // Create the layout.
+            LinearLayout layout = new LinearLayout(context) { Orientation = Orientation.Horizontal };
             layout.AddView(image);
             layout.SetMinimumHeight(150);
             return layout;
         }
     }
-    public class ColorAdapter : BaseAdapter<string>
+
+    // Adapter to display color options in a ListView.
+    public class ColorAdapter : BaseAdapter<Color>
     {
-        public List<Color> iconList;
+        public List<Color> colorList;
         private Context context;
+
         public ColorAdapter(Context context, List<Color> list)
         {
             this.context = context;
-            iconList = list;
+            colorList = list;
         }
 
-        public override string this[int position] => throw new NotImplementedException();
+        public override Color this[int position] => throw new NotImplementedException();
 
-        public override int Count => iconList.Count;
+        public override int Count => colorList.Count;
 
-        public override long GetItemId(int position) { return position; }
+        public override long GetItemId(int position)
+        {
+            return position;
+        }
 
         public override View GetView(int position, View convertView, ViewGroup parent)
         {
+            // Create a simple layout for the color.
             LinearLayout layout = new LinearLayout(context) { Orientation = Orientation.Horizontal };
             layout.SetMinimumHeight(150);
-            layout.SetBackgroundColor(iconList[position]);
+            layout.SetBackgroundColor(colorList[position]);
             return layout;
         }
     }

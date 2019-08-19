@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.WPF.Samples.FindFeaturesUtilityNetwork
+namespace ArcGISRuntime.UWP.Samples.FindFeaturesUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find connected features in utility networks",
@@ -168,7 +168,7 @@ namespace ArcGISRuntime.WPF.Samples.FindFeaturesUtilityNetwork
                         // Set how far the element is along the edge.
                         element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
 
-                        Status.Text = $"fractionAlongEdge: `{element.FractionAlongEdge}`";
+                        Status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
 

@@ -105,6 +105,8 @@ namespace ArcGISRuntime.UWP.Viewer
             // Clear the previous sample.
             SamplePageContainer.Content = new Page();
             GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
 
             // Call a function to clear existing credentials
             ClearCredentials();

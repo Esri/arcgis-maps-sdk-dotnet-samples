@@ -29,6 +29,7 @@ namespace ArcGISRuntime.UWP.Viewer
     {
         private readonly SystemNavigationManager _currentView;
         private bool _waitFlag;
+        private bool _loadFlag;
 
         public MainPage()
         {
@@ -95,6 +96,16 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private async Task SelectSample(SampleInfo selectedSample)
         {
+            // Prevent multiple samples from being selected concurrently.
+            if (_loadFlag) { return; }
+            _loadFlag = true;
+
+            CategoriesTree.IsEnabled = false;
+
+            // Clear the previous sample.
+            SamplePageContainer.Content = new Page();
+            GC.Collect();
+
             // Call a function to clear existing credentials
             ClearCredentials();
 
@@ -126,6 +137,12 @@ namespace ArcGISRuntime.UWP.Viewer
                 SamplePageContainer.Visibility = Visibility.Collapsed;
                 SampleSelectionGrid.Visibility = Visibility.Visible;
                 await new MessageDialog(exception.Message).ShowAsync();
+            }
+            finally
+            {
+                await Task.Delay(1500);
+                _loadFlag = false;
+                CategoriesTree.IsEnabled = true;
             }
         }
 

@@ -197,7 +197,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 // Reset the UI.
                 _buttonLayout.Visibility = ViewStates.Visible;
                 _completeButton.Visibility = ViewStates.Invisible;
-                _status.Text = "Select the type of feature you would like to add.";
+                _status.Text = "";
             }
         }
 

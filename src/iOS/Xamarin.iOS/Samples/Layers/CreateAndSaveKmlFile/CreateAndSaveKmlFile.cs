@@ -37,6 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private UIBarButtonItem _resetButton;
         private UIBarButtonItem _saveButton;
         private UIBarButtonItem _doneButton;
+        private UILabel _helpLabel;
 
         // KML objects
         private KmlDocument _kmlDocument;
@@ -101,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
         private void AddClick(object sender, EventArgs e)
         {
-            // Decide what to add.
+            // Decide what type of placemark to add.
             UIAlertController prompt = UIAlertController.Create("Add facilities & barriers", "Tap to add facilities. Tap to build a polyline representing barriers. Press 'Done' to finish.", UIAlertControllerStyle.ActionSheet);
             prompt.AddAction(UIAlertAction.Create("Point", UIAlertActionStyle.Default, AddGeometry));
             prompt.AddAction(UIAlertAction.Create("Polyline", UIAlertActionStyle.Default, AddGeometry));
@@ -133,14 +134,17 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 {
                     case "Point":
                         creationMode = SketchCreationMode.Point;
+                        _helpLabel.Text = "Tap to add a point.";
                         break;
 
                     case "Polyline":
                         creationMode = SketchCreationMode.Polyline;
+                        _helpLabel.Text = "Tap to add a vertex.";
                         break;
 
                     case "Polygon":
                         creationMode = SketchCreationMode.Polygon;
+                        _helpLabel.Text = "Tap to add a vertex.";
                         break;
 
                     default:
@@ -175,6 +179,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                     _saveButton,
                     _resetButton
                 };
+                _helpLabel.Text = "";
             }
         }
 
@@ -339,8 +344,19 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 _resetButton
             };
 
+            _helpLabel = new UILabel
+            {
+                Text = "",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
             // Add the views.
-            View.AddSubviews(_myMapView, _toolbar);
+            View.AddSubviews(_myMapView, _toolbar, _helpLabel);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -353,6 +369,11 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
                 _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _helpLabel.HeightAnchor.ConstraintEqualTo(25)
             });
         }
 

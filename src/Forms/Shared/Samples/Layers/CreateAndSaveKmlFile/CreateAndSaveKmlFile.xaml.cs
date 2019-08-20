@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
@@ -21,11 +20,12 @@ using Xamarin.Forms;
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 #if __IOS__
+using ArcGISRuntime.Samples.Managers;
 #endif
 #if __ANDROID__
-using Android.Support.V4.App;
 using Android.Support.V4.Content;
 using Android.Content.PM;
+using Android;
 #endif
 #if WINDOWS_UWP
 using Windows.Storage.Pickers;
@@ -66,12 +66,12 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             // Set the images for the point icon picker.
             List<string> iconLinks = new List<string>()
             {
-                "http://static.arcgis.com/images/Symbols/Shapes/BlueCircleLargeB.png",
-                "http://static.arcgis.com/images/Symbols/Shapes/BlueDiamondLargeB.png",
-                "http://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png",
-                "http://static.arcgis.com/images/Symbols/Shapes/BluePin2LargeB.png",
-                "http://static.arcgis.com/images/Symbols/Shapes/BlueSquareLargeB.png",
-                "http://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
+                "https://static.arcgis.com/images/Symbols/Shapes/BlueCircleLargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BlueDiamondLargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BluePin1LargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BluePin2LargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BlueSquareLargeB.png",
+                "https://static.arcgis.com/images/Symbols/Shapes/BlueStarLargeB.png"
             };
             List<Uri> iconList = iconLinks.Select(x => new Uri(x)).ToList();
             IconPicker.ItemsSource = iconLinks;
@@ -172,11 +172,11 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private void Apply_Style_Click(object sender, SelectedItemChangedEventArgs e)
         {
             // Get the color value if the selected item is a hexadecimal color.
-            Color color = Color.Transparent;
+            Color systemColor = Color.Transparent;
             if (((string)e.SelectedItem).StartsWith('#'))
             {
-                var platColor = Xamarin.Forms.Color.FromHex((string)e.SelectedItem);
-                color = Color.FromArgb((int)(platColor.A * 255), (int)(platColor.R * 255), (int)(platColor.G * 255), (int)(platColor.B * 255));
+                Xamarin.Forms.Color platColor = Xamarin.Forms.Color.FromHex((string)e.SelectedItem);
+                systemColor = Color.FromArgb((int)(platColor.A * 255), (int)(platColor.R * 255), (int)(platColor.G * 255), (int)(platColor.B * 255));
             }
 
             // Create a new style for the placemark.
@@ -193,12 +193,12 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
                 // Create a KmlLineStyle using the selected color value.
                 case KmlGeometryType.Polyline:
-                    _currentPlacemark.Style.LineStyle = new KmlLineStyle(color, 8);
+                    _currentPlacemark.Style.LineStyle = new KmlLineStyle(systemColor, 8);
                     break;
 
                 // Create a KmlPolygonStyle using the selected color value.
                 case KmlGeometryType.Polygon:
-                    _currentPlacemark.Style.PolygonStyle = new KmlPolygonStyle(color);
+                    _currentPlacemark.Style.PolygonStyle = new KmlPolygonStyle(systemColor);
                     _currentPlacemark.Style.PolygonStyle.IsFilled = true;
                     _currentPlacemark.Style.PolygonStyle.IsOutlined = false;
                     break;
@@ -233,6 +233,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             try
             {
 #if __IOS__
+                // Determine the path for the file.
                 string offlineDataFolder = Path.Combine(DataManager.GetDataFolder(), "CreateAndSaveKmlFile");
 
                 // If temporary data folder doesn't exists, create it.
@@ -250,13 +251,13 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
 #endif
 #if __ANDROID__
-                // Determine where to save your file
+                // Determine the path for the file.
                 string filePath = Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
 
-                // Check if the user can save their file.
-                if (ContextCompat.CheckSelfPermission(Android.App.Application.Context, Android.Manifest.Permission.WriteExternalStorage) != Permission.Granted)
+                // Check if permission has not been granted.
+                if(ContextCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
                 {
-                    //ActivityCompat.RequestPermissions( ?????? , new string[] { Android.Manifest.Permission.WriteExternalStorage }, 1);
+                    ArcGISRuntime.Droid.MainActivity.Instance.RequestPermissions(new[] { Manifest.Permission.WriteExternalStorage }, 1);
                 }
                 else
                 {
@@ -285,7 +286,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 }
 #endif
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
             }

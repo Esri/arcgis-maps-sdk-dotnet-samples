@@ -113,16 +113,16 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             // Reset the most recently placed placemark.
             _currentPlacemark = null;
 
-            // Create a new KmlDocument.
+            // Create a new KML document.
             _kmlDocument = new KmlDocument() { Name = "KML Sample Document" };
 
-            // Create a Kml dataset using the Kml document.
+            // Create a KML dataset using the KML document.
             _kmlDataset = new KmlDataset(_kmlDocument);
 
-            // Create the kmlLayer using the kmlDataset.
+            // Create the KML layer using the KML dataset.
             _kmlLayer = new KmlLayer(_kmlDataset);
 
-            // Add the Kml layer to the map.
+            // Add the KML layer to the map.
             _myMapView.Map.OperationalLayers.Add(_kmlLayer);
         }
 

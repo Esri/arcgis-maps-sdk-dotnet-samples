@@ -87,16 +87,16 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             // Reset the most recently placed placemark.
             _currentPlacemark = null;
 
-            // Create a new KmlDocument.
+            // Create a new KML document.
             _kmlDocument = new KmlDocument() { Name = "KML Sample Document" };
 
-            // Create a Kml dataset using the Kml document.
+            // Create a KML dataset using the KML document.
             _kmlDataset = new KmlDataset(_kmlDocument);
 
-            // Create the kmlLayer using the kmlDataset.
+            // Create the KML layer using the KML dataset.
             _kmlLayer = new KmlLayer(_kmlDataset);
 
-            // Add the Kml layer to the map.
+            // Add the KML layer to the map.
             MyMapView.Map.OperationalLayers.Add(_kmlLayer);
         }
 
@@ -183,21 +183,21 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             _currentPlacemark.Style = new KmlStyle();
 
             // Set the style for that Placemark.
-            switch (_currentPlacemark.Geometries.FirstOrDefault().Type)
+            switch (_currentPlacemark.GraphicType)
             {
                 // Create a KmlIconStyle using the selected icon.
-                case KmlGeometryType.Point:
+                case KmlGraphicType.Point:
                     Uri iconLink = new Uri((string)e.SelectedItem);
                     _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(iconLink), 1.0);
                     break;
 
                 // Create a KmlLineStyle using the selected color value.
-                case KmlGeometryType.Polyline:
+                case KmlGraphicType.Polyline:
                     _currentPlacemark.Style.LineStyle = new KmlLineStyle(systemColor, 8);
                     break;
 
                 // Create a KmlPolygonStyle using the selected color value.
-                case KmlGeometryType.Polygon:
+                case KmlGraphicType.Polygon:
                     _currentPlacemark.Style.PolygonStyle = new KmlPolygonStyle(systemColor);
                     _currentPlacemark.Style.PolygonStyle.IsFilled = true;
                     _currentPlacemark.Style.PolygonStyle.IsOutlined = false;

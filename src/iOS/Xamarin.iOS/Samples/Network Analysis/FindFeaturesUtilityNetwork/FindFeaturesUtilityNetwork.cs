@@ -18,11 +18,10 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
+namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
 {
     [Register("FindFeaturesUtilityNetwork")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -109,8 +108,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
         {
             try
             {
-                e.Handled = true;
-
                 _activityIndicator.StartAnimating();
                 _statusLabel.Text = "Identifying trace locations...";
 
@@ -159,12 +156,12 @@ namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
 
                         // Create a UtilityElement with the terminal.
                         element = _utilityNetwork.CreateElement(feature, terminal);
-                        _statusLabel.Text = $"terminal: `{terminal?.Name ?? "default"}`";
+                        _statusLabel.Text = $"Terminal: {terminal?.Name ?? "default"}";
                     }
                     else
                     {
                         element = _utilityNetwork.CreateElement(feature, terminals.FirstOrDefault());
-                        _statusLabel.Text = $"terminal: `{element.Terminal?.Name ?? "default"}`";
+                        _statusLabel.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                     }
                 }
                 else if (networkSource.SourceType == UtilityNetworkSourceType.Edge)
@@ -179,7 +176,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
                         // Set how far the element is along the edge.
                         element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
 
-                        _statusLabel.Text = $"fractionAlongEdge: `{element.FractionAlongEdge}`";
+                        _statusLabel.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
 

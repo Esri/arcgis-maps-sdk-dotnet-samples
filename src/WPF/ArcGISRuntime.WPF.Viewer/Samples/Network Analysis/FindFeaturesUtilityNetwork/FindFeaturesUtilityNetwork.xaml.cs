@@ -97,8 +97,6 @@ namespace ArcGISRuntime.WPF.Samples.FindFeaturesUtilityNetwork
         {
             try
             {
-                e.Handled = true;
-
                 IsBusy.Visibility = Visibility.Visible;
                 Status.Text = "Identifying trace locations...";
 
@@ -147,12 +145,12 @@ namespace ArcGISRuntime.WPF.Samples.FindFeaturesUtilityNetwork
 
                         // Create a UtilityElement with the terminal.
                         element = _utilityNetwork.CreateElement(feature, terminal);
-                        Status.Text = $"terminal: `{terminal?.Name ?? "default"}`";
+                        Status.Text = $"Terminal: {terminal?.Name ?? "default"}";
                     }
                     else
                     {
                         element = _utilityNetwork.CreateElement(feature, terminals.FirstOrDefault());
-                        Status.Text = $"terminal: `{element.Terminal?.Name ?? "default"}`";
+                        Status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                     }
                 }
                 else if (networkSource.SourceType == UtilityNetworkSourceType.Edge)
@@ -167,7 +165,7 @@ namespace ArcGISRuntime.WPF.Samples.FindFeaturesUtilityNetwork
                         // Set how far the element is along the edge.
                         element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
 
-                        Status.Text = $"fractionAlongEdge: `{element.FractionAlongEdge}`";
+                        Status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
 

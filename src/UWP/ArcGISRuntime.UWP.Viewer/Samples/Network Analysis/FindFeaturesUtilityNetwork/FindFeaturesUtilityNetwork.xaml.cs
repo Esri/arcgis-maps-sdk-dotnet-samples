@@ -98,8 +98,6 @@ namespace ArcGISRuntime.UWP.Samples.FindFeaturesUtilityNetwork
         {
             try
             {
-                e.Handled = true;
-
                 IsBusy.Visibility = Visibility.Visible;
                 Status.Text = "Identifying trace locations...";
 
@@ -148,12 +146,12 @@ namespace ArcGISRuntime.UWP.Samples.FindFeaturesUtilityNetwork
 
                         // Create a UtilityElement with the terminal.
                         element = _utilityNetwork.CreateElement(feature, terminal);
-                        Status.Text = $"terminal: `{terminal?.Name ?? "default"}`";
+                        Status.Text = $"Terminal: {terminal?.Name ?? "default"}";
                     }
                     else
                     {
                         element = _utilityNetwork.CreateElement(feature, terminals.FirstOrDefault());
-                        Status.Text = $"terminal: `{element.Terminal?.Name ?? "default"}`";
+                        Status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                     }
                 }
                 else if (networkSource.SourceType == UtilityNetworkSourceType.Edge)

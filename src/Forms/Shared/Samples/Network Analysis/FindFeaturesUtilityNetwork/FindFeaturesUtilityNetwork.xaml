@@ -76,7 +76,7 @@
                 Clicked="IsAddingStartingLocations_Clicked"
                 HorizontalOptions="FillAndExpand"
                 IsEnabled="False"
-                Text="Start" />
+                Text="Origin" />
             <Button
                 x:Name="IsAddingBarriers"
                 Grid.Column="1"

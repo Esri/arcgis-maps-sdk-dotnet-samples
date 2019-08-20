@@ -11,7 +11,6 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -24,7 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
+namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -120,8 +119,6 @@ namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
         {
             try
             {
-                e.Handled = true;
-
                 _progressBar.Visibility = Android.Views.ViewStates.Visible;
                 _status.Text = "Identifying trace locations...";
 
@@ -167,12 +164,12 @@ namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
 
                         // Create a UtilityElement with the terminal.
                         element = _utilityNetwork.CreateElement(feature, terminal);
-                        _status.Text = $"terminal: `{terminal?.Name ?? "default"}`";
+                        _status.Text = $"Terminal: {terminal?.Name ?? "default"}";
                     }
                     else
                     {
                         element = _utilityNetwork.CreateElement(feature, terminals.FirstOrDefault());
-                        _status.Text = $"terminal: `{element.Terminal?.Name ?? "default"}`";
+                        _status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                     }
                 }
                 else if (networkSource.SourceType == UtilityNetworkSourceType.Edge)
@@ -187,7 +184,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork
                         // Set how far the element is along the edge.
                         element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
 
-                        _status.Text = $"fractionAlongEdge: `{element.FractionAlongEdge}`";
+                        _status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
 

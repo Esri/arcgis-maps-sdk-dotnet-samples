@@ -86,6 +86,8 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                 // Return if there are no results
                 if (results.GeoElements.Count < 1) { return; }
 
+                Status.Text = "Loading...";
+
                 // Get the first result
                 ArcGISFeature myFeature = (ArcGISFeature)results.GeoElements.First();
 
@@ -129,6 +131,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
 
                 // Update the UI with the result list
                 MyResultsView.ItemsSource = queryResultsForUi;
+                Status.Text = "Tap a park (green) to see related features.";
             }
             catch (Exception ex)
             {

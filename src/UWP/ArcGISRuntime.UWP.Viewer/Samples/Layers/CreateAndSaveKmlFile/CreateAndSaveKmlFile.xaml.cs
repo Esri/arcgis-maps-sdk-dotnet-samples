@@ -47,6 +47,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.WrapAroundMode = WrapAroundMode.Disabled; 
 
             // Set the images for the point icon picker.
             List<string> iconLinks = new List<string>()
@@ -146,6 +147,10 @@ namespace ArcGISRuntime.UWP.Samples.CreateAndSaveKmlFile
                 // Display the Icon picker or the color picker based on the creation mode.
                 IconPicker.Visibility = creationMode == SketchCreationMode.Point ? Visibility.Visible : Visibility.Collapsed;
                 ColorSelector.Visibility = creationMode != SketchCreationMode.Point ? Visibility.Visible : Visibility.Collapsed;
+            }
+            catch (ArgumentException)
+            {
+                await new MessageDialog("Unsupported Geometry", "Error").ShowAsync();
             }
             finally
             {

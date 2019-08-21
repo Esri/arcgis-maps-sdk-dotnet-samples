@@ -56,6 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             List<String> colorHexes = new List<string>()
             {
@@ -156,6 +157,10 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 // Enable the style editing UI.
                 StyleUI.IsVisible = true;
                 MainUI.IsVisible = false;
+            }
+            catch (ArgumentException)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Unsupported Geometry", "OK");
             }
             finally
             {

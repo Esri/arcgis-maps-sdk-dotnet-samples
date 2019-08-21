@@ -57,6 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             // Load the KML document.
             ResetKml();
@@ -168,6 +169,10 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
                 // Enable the style editing UI.
                 ChooseStyle();
+            }
+            catch (ArgumentException)
+            {
+                ShowMessage("Error", "Unsupported Geometry");
             }
             finally
             {

@@ -45,6 +45,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             // Set the colors for the color picker.
             System.Reflection.PropertyInfo[] propertylist = typeof(Color).GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
@@ -137,9 +138,6 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
                 // Project the geometry to WGS84 (WGS84 is required by the KML standard).
                 Geometry projectedGeometry = GeometryEngine.Project(geometry, SpatialReferences.Wgs84);
 
-                // Normalize geometry when it is wrapped around the map.
-                projectedGeometry = GeometryEngine.NormalizeCentralMeridian(projectedGeometry);
-
                 // Create a KmlGeometry using the new geometry.
                 KmlGeometry kmlGeometry = new KmlGeometry(projectedGeometry, KmlAltitudeMode.ClampToGround);
 
@@ -156,6 +154,10 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
                 // Choose whether to enable the icon picker or color picker.
                 IconPicker.Visibility = creationMode == SketchCreationMode.Point ? Visibility.Visible : Visibility.Collapsed;
                 ColorPicker.Visibility = creationMode != SketchCreationMode.Point ? Visibility.Visible : Visibility.Collapsed;
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("Unsupported Geometry", "Error");
             }
             finally
             {

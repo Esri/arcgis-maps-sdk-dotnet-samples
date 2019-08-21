@@ -76,6 +76,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             // Set up a new kml document and kml layer.
             ResetKml();
@@ -191,6 +192,10 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 // Choose whether to open the icon picker or color picker.
                 if (creationMode == SketchCreationMode.Point) { OpenIconDialog(); }
                 else { OpenColorDialog(); }
+            }
+            catch (ArgumentException)
+            {
+                new AlertDialog.Builder(this).SetMessage("Unsupported Geometry").SetTitle("Error").Show();
             }
             finally
             {

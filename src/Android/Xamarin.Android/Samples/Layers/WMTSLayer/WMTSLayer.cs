@@ -26,8 +26,8 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         "")]
     public class WMTSLayer : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Button for loading layer using Uri constructor.
         private Button _uriButton;
@@ -152,6 +152,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             layout.AddView(_infoButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

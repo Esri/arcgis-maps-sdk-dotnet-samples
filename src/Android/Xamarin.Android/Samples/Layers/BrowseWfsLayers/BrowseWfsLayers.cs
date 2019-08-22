@@ -201,7 +201,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             layout.AddView(_loadingProgressBar);
 
             // Add the map view to the layout.
-            _myMapView = new MapView();
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

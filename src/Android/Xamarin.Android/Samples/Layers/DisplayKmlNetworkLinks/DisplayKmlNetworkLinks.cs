@@ -26,8 +26,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
         "")]
     public class DisplayKmlNetworkLinks : Activity
     {
-        // Create and hold a reference to the SceneView.
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -80,6 +80,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add the scene view to the layout.
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

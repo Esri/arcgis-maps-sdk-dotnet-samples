@@ -31,7 +31,8 @@ namespace ArcGISRuntime.Samples.FindRoute
         "")]
     public class FindRoute : Activity
     {
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // List of stops on the route ('from' and 'to')
         private List<Stop> _routeStops;
@@ -94,6 +95,7 @@ namespace ArcGISRuntime.Samples.FindRoute
             layout.AddView(toolbar);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

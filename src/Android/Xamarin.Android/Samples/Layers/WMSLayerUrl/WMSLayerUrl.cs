@@ -26,8 +26,8 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         "")]
     public class WMSLayerUrl : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Hold the URL to the WMS service showing U.S. weather radar.
         private readonly Uri _wmsUrl = new Uri(
@@ -52,6 +52,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

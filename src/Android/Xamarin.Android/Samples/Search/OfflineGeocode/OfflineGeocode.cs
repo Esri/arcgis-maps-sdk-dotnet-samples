@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
     public class OfflineGeocode : Activity
     {
         // Hold references to the UI controls.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
         private EditText _addressSearchBar;
         private Button _suggestButton;
         private Button _searchButton;
@@ -270,6 +270,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             layout.AddView(_suggestButton);
 
             // Add the MapView to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Keep the search bar from overflowing into multiple lines.

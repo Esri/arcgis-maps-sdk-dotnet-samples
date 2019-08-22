@@ -25,8 +25,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
         "")]
     public class FeatureLayerUrl : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -69,6 +69,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

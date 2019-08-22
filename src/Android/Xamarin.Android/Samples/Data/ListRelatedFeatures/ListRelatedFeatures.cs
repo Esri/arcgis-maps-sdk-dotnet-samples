@@ -36,8 +36,8 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
         // Reference to the feature layer
         private FeatureLayer _myFeatureLayer;
 
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Hold a reference to the ListView
         private ListView _myDisplayList;
@@ -173,6 +173,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             layout.AddView(myScrollView);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

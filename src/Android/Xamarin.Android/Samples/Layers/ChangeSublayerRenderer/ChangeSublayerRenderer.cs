@@ -28,8 +28,8 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
         "")]
     public class ChangeSublayerRenderer : Activity
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // ArcGIS map image layer that contains four Census sub-layers.
         private ArcGISMapImageLayer _arcGISMapImageLayer;
@@ -136,6 +136,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
             layout.AddView(_changeSublayerRendererButton);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

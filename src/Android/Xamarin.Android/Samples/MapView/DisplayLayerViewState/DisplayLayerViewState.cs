@@ -25,8 +25,8 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         "")]
     public class DisplayLayerViewState : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Controls to show status of each layers' loading
         private TextView _TextViewTiledLayer;
@@ -143,6 +143,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             layout.AddView(_TextViewFeatureLayer);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

@@ -83,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             );
 
             // Create the scene view.
-            _mySceneView = new SceneView();
+            _mySceneView = new SceneView(this);
 
             // Create the buttons and add them to the button container.
             _realisticOption = new Button(this);

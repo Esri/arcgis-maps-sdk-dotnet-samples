@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
     public class IdentifyLayers : Activity
     {
         // Create and hold reference to the used MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -120,6 +120,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
             layout.AddView(helpLabel);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

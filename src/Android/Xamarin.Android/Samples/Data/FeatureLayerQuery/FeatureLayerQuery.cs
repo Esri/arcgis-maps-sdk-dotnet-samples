@@ -35,8 +35,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         // Create reference to service of US States
         private string _statesUrl = "https://services.arcgis.com/jIL9msH9OI208GCb/arcgis/rest/services/USA_Daytime_Population_2016/FeatureServer/0";
 
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Create globally available text box for easy referencing
         private EditText _queryTextBox;
@@ -192,6 +192,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             layout.AddView(queryButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

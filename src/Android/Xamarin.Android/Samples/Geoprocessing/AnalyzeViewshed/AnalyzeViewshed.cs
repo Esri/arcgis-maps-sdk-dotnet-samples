@@ -33,8 +33,8 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         "")]
     public class AnalyzeViewshed : Activity
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Url for the geoprocessing service
         private const string _viewshedUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/ESRI_Elevation_World/GPServer/Viewshed";
@@ -253,6 +253,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             layout.AddView(textview_Label1);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

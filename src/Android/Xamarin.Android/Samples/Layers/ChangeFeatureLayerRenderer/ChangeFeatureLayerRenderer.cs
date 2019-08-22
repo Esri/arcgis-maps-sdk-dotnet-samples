@@ -28,8 +28,8 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         "")]
     public class ChangeFeatureLayerRenderer : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Create and hold reference to the feature layer
         private FeatureLayer _featureLayer;
@@ -135,6 +135,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
             layout.AddView(_resetButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

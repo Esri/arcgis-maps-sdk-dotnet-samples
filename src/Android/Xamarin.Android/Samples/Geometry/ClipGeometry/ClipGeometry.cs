@@ -28,8 +28,8 @@ namespace ArcGISRuntime.Samples.ClipGeometry
         "")]
     public class ClipGeometry : Activity
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Graphics overlay to display input geometries for the clip operation.
         private GraphicsOverlay _inputGeometriesGraphicsOverlay;
@@ -240,6 +240,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             layout.AddView(_clipButton);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

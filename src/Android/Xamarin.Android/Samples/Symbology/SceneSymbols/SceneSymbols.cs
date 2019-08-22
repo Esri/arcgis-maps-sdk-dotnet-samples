@@ -29,8 +29,8 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
         "Scenes", "Symbols", "Graphics", "graphics overlay", "3D", "cone", "cylinder", "tube", "sphere", "diamond", "tetrahedron")]
     public class SceneSymbols : Activity
     {
-        // Create and hold reference to the used MapView.
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
         
         private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
@@ -98,6 +98,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout.
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

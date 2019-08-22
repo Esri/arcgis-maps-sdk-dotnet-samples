@@ -29,8 +29,8 @@ namespace ArcGISRuntime.Samples.Buffer
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayoutAttribute("Buffer.axml")]
     public class Buffer : Activity
     {
-        // Map view control to display the map and buffers.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Create an EditText to enter a buffer value (in miles). 
         private EditText _bufferDistanceMilesEditText;

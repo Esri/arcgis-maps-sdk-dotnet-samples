@@ -25,8 +25,8 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         "")]
     public class ManageBookmarks : Activity
     {
-        // MapView for the app
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Dialog for entering the name of a new bookmark
         private AlertDialog _newBookmarkDialog = null;
@@ -118,6 +118,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
             layout.AddView(_bookmarksButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

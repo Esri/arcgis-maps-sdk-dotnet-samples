@@ -62,7 +62,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewContentBeneathSurface
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add the map view to the layout.
-            _mySceneView = new SceneView();
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

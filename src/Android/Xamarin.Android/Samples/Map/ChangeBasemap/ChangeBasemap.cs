@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
     public class ChangeBasemap : Activity
     {
         // Create and hold reference to the used MapView
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // Dictionary that associates names with basemaps
         private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
@@ -110,6 +110,7 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             layout.AddView(mapsButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

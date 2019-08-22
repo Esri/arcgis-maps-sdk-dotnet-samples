@@ -36,8 +36,8 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         // Hold a reference to the layer to enable re-styling.
         private WmsLayer _mnWmsLayer;
 
-        // Hold references to the UI components.
-        private MapView _myMapView = new MapView();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
         private Button _firstStyleButton;
         private Button _secondStyleButton;
 
@@ -84,6 +84,7 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
             layout.AddView(helpLabel);
             layout.AddView(_firstStyleButton);
             layout.AddView(_secondStyleButton);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

@@ -31,8 +31,8 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         "Featured")]
     public class ViewshedLocation : Activity
     {
-        // Create and hold reference to the used SceneView.
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         // Hold the URL to the elevation source.
         private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
@@ -235,6 +235,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             layout.AddView(_frustumVisibilitySwitch);
 
             // Add the scene view to the layout
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

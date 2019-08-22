@@ -27,8 +27,8 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
         "Featured")]
     public class LineOfSightLocation : Activity
     {
-        // Create and hold reference to the used MapView
-        private SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view
+        private SceneView _mySceneView;
 
         // URL for an image service to use as an elevation source
         private string _elevationSourceUrl = @"https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
@@ -124,6 +124,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Wire up tapped event for the scene view

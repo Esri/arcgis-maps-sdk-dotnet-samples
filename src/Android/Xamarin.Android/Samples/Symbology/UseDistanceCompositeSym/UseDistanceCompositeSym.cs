@@ -30,8 +30,8 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public class UseDistanceCompositeSym : Activity
     {
-        // Create and hold reference to the SceneView.
-        private SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -132,6 +132,7 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

@@ -77,15 +77,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _myMapView.GeoViewTapped += _myMapView_GeoViewTapped;
 
             // Ask for location permissions. Events wired up in OnRequestPermissionsResult.
-            MyMapView.PropertyChanged += (o, e) =>
-            {
-                if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
-                {
-                    // Configure location.
-                    AskForLocationPermission();
-                }
-            };
-            
+            AskForLocationPermission();
 
             // Initialize the LocatorTask with the provided service Uri.
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);

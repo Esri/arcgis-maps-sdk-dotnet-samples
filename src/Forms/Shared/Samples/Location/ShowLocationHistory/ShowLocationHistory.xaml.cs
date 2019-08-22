@@ -76,8 +76,14 @@ namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
             // Create the polyline builder.
             _polylineBuilder = new PolylineBuilder(SpatialReferences.Wgs84);
 
-            // Configure location.
-            HandleLocationReady();
+            MyMapView.PropertyChanged += (o, e) =>
+            {
+                if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                {
+                    // Configure location.
+                    HandleLocationReady();
+                }
+            };
         }
 
         private async void HandleLocationReady()

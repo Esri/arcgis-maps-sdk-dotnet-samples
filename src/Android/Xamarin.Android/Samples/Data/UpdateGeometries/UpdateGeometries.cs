@@ -169,7 +169,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
             layout.AddView(helpLabel);
 
             // Create the map view.
-            _myMapView = new MapView();
+            _myMapView = new MapView(this);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);

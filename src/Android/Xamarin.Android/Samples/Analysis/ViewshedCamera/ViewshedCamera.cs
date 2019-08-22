@@ -26,8 +26,8 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         "", "Featured")]
     public class ViewshedCamera : Activity
     {
-        // Create and hold reference to the used MapView
-        private SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view
+        private SceneView _mySceneView;
 
         // URL for a scene service of buildings in Brest, France
         private string _buildingsServiceUrl = @"https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
@@ -102,6 +102,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
 
             // Add the button and scene view to the layout
             layout.AddView(updateViewshedButton);
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

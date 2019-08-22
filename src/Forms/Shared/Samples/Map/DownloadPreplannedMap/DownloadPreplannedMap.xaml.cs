@@ -173,6 +173,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
                 // Update the UI.
                 MessageLabel.Text = "Downloaded preplanned area.";
+                DownloadButton.Text = "Display";
             }
             catch (Exception ex)
             {
@@ -208,6 +209,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
             // Update the UI.
             MessageLabel.Text = "Deleted offline areas.";
+            DownloadButton.Text = "Download";
         }
 
         private async void OnDownloadMapAreaClicked(object sender, EventArgs e)
@@ -244,6 +246,19 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             finally
             {
                 BusyIndicator.IsVisible = false;
+            }
+        }
+        private void AreaSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            PreplannedMapArea selectedMapArea = e.SelectedItem as PreplannedMapArea;
+            string path = Path.Combine(_offlineDataFolder, selectedMapArea.PortalItem.Title);
+            if (Directory.Exists(path))
+            {
+                DownloadButton.Text = "Display";
+            }
+            else
+            {
+                DownloadButton.Text = "Download";
             }
         }
     }

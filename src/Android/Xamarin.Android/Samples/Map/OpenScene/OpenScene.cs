@@ -28,8 +28,8 @@ namespace ArcGISRuntime.Samples.OpenScene
         // Hold the ID of the portal item, which is a web scene.
         private const string ItemId = "c6f90b19164c4283884361005faea852";
 
-        // Create the scene view.
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -66,6 +66,7 @@ namespace ArcGISRuntime.Samples.OpenScene
             LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add the map view to the layout
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

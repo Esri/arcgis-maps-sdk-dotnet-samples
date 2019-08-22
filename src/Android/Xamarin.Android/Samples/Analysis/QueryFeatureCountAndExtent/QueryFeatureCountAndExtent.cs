@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         private TextView _myResultsLabel;
         private Button _myQueryStateButton;
         private Button _myQueryExtentButton;
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // URL to the feature service.
         private readonly Uri _medicareHospitalSpendLayer =
@@ -186,6 +186,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             layout.AddView(_myQueryStateButton);
             layout.AddView(_myQueryExtentButton);
             layout.AddView(_myResultsLabel);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

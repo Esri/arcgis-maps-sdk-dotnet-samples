@@ -31,8 +31,8 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         "Query", "Sublayer", "MapServer", "Table")]
     public class MapImageSublayerQuery : Activity
     {
-        // MapView control for displaying the map.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Use a private variable to reference the graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;
@@ -193,6 +193,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 
             // Add the query controls and map view to the app layout.
             layout.AddView(populationInputLayout);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

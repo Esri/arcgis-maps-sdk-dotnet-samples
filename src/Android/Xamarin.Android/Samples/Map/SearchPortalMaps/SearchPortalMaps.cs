@@ -33,8 +33,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
     public class SearchPortalMaps : Activity, IOAuthAuthorizeHandler
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Dictionary to hold URIs to web maps
         private Dictionary<string, Uri> _webMapUris;
@@ -248,6 +248,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             mainLayout.AddView(_buttonPanel);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             mainLayout.AddView(_myMapView);
 
             // Show the layout in the app

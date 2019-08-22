@@ -47,7 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         TaskCompletionSource<Credential> _loginTaskCompletionSrc;
 
         // A map view to display a map in the app.
-        MapView _myMapView = new MapView();
+        MapView _myMapView;
 
         // Entry box for the iwa-secured portal.
         private EditText _securePortalEditText;
@@ -139,6 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             layout.AddView(buttonLayout);
             layout.AddView(listScroll);
             layout.AddView(_messagesTextView);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

@@ -28,9 +28,9 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         "")]
     public class SurfacePlacements : Activity
     {
-        // Create and hold reference to the used SceneView
-        private SceneView _mySceneView = new SceneView();
-
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
+        
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -119,6 +119,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

@@ -52,9 +52,8 @@ namespace ArcGISRuntime.Samples.FindAddress
         // Service Uri to be provided to the LocatorTask (geocoder)
         private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
-        // UI Elements
-        private MapView _myMapView = new MapView();
-
+        // Hold references to the UI controls
+        private MapView _myMapView;
         private EditText _addressSearchBar;
         private Button _suggestButton;
         private Button _searchButton;
@@ -122,6 +121,7 @@ namespace ArcGISRuntime.Samples.FindAddress
             _suggestButton = new Button(this) { Text = "Suggest" };
             layout.AddView(_suggestButton);
             // Add the MapView to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
             // Keep the search bar from overflowing into multiple lines
             _addressSearchBar.SetMaxLines(1);

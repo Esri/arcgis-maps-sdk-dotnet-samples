@@ -34,8 +34,8 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayoutAttribute("MapImageLayerTables.axml")]
     public class MapImageLayerTables : Activity
     {
-        // A map view control to show the map.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // A graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;

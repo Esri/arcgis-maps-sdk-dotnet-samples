@@ -27,9 +27,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         "Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes. Static is on top, dynamic on bottom.")]
     public class FeatureLayerRenderingModeScene : Activity
     {
-        // Create the scene views
-        private SceneView _myStaticSceneView = new SceneView();
-        private SceneView _myDynamicSceneView = new SceneView();
+        // Hold references to the scene views.
+        private SceneView _myStaticSceneView;
+        private SceneView _myDynamicSceneView;
 
         // Points for demonstrating zoom
         private readonly MapPoint _zoomedOutPoint = new MapPoint(-118.37, 34.46, SpatialReferences.Wgs84);

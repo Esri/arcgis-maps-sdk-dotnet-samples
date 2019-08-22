@@ -29,8 +29,8 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
     public class AnalyzeHotspots : Activity
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Button to define the start date for the date range.
         private Button _startDateButton;
@@ -305,6 +305,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             _alert.AddContentView(alertLayout, buttonParam);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

@@ -25,8 +25,8 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
         "")]
     public class FeatureCollectionLayerFromQuery : Activity
     {
-        // Store the map view displayed in the app
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Service endpoint to query for features
         private const string FeatureLayerUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Wildfire/FeatureServer/0";
@@ -93,6 +93,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
     public class WfsXmlQuery : Activity
     {
         // Create and hold a reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // To learn more about specifying filters in OGC technologies, see https://www.opengeospatial.org/standards/filter.
         private const string XmlQuery = @"
@@ -105,6 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

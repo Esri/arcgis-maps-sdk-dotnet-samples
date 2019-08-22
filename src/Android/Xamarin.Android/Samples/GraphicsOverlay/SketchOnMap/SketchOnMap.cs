@@ -34,8 +34,8 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         "1. Click the 'Sketch' button.\n2. Choose a sketch type from the drop down list.\n3. While sketching, you can undo/redo operations.\n4. Click 'Done' to finish the sketch.\n5. Click 'Edit', then click a graphic to start editing.\n6. Make edits then click 'Done' or 'Cancel' to finish editing.")]
     public class SketchOnMap : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Dictionary to hold sketch mode enum names and values
         private Dictionary<string, int> _sketchModeDictionary;
@@ -166,6 +166,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             mainLayout.AddView(buttonLayoutTwo);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             mainLayout.AddView(_myMapView);
 
             // Show the layout in the app

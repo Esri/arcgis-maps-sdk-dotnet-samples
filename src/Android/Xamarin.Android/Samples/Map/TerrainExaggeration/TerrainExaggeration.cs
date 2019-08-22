@@ -74,7 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create the views.
-            _mySceneView = new SceneView();
+            _mySceneView = new SceneView(this);
             _terrainSlider = new SeekBar(this);
             _terrainSlider.Max = 20;
 

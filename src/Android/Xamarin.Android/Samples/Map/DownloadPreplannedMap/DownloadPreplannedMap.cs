@@ -7,10 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Android;
 using Android.App;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
+using Android.Support.V4.App;
 using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
@@ -74,6 +76,8 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // The data manager provides a method to get a suitable offline data folder.
                 _offlineDataFolder = Path.Combine(DataManager.GetDataFolder(), "SampleData", "DownloadPreplannedMapAreas");
+
+                
 
                 // If temporary data folder doesn't exists, create it.
                 if (!Directory.Exists(_offlineDataFolder))
@@ -281,7 +285,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             layout.AddView(deleteButton);
 
             // Add the map view to the layout.
-            _myMapView = new MapView();
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

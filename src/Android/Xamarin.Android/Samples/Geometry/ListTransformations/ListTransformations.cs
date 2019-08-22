@@ -33,8 +33,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
         "Featured")]
     public class ListTransformations : Activity
     {
-        // Map view control to display a map in the app.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
         
         // Point whose coordinates will be projected using a selected transform.
         private MapPoint _originalPoint;
@@ -193,6 +193,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             // Add the tools layout and map view to the main layout.
             mainLayout.AddView(toolsLayout);
+            _myMapView = new MapView(this);
             mainLayout.AddView(_myMapView);
 
             // Show the layout in the app.

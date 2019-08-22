@@ -42,8 +42,8 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         // Use a TaskCompletionSource to store the result of a login task.
         private TaskCompletionSource<Credential> _loginTaskCompletionSource;
 
-        // Store the map view displayed in the app.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Labels to show layer load status.
         private TextView _publicLayerLabel;
@@ -86,6 +86,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
             layout.AddView(_secureLayerLabel);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

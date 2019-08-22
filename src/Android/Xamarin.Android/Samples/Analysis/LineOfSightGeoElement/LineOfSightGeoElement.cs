@@ -32,8 +32,8 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         "Featured")]
     public class LineOfSightGeoElement : Activity
     {
-        // Create and hold the SceneView
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the SceneView
+        private SceneView _mySceneView;
 
         // Hold the label that will show the analysis status
         private TextView _myStatusLabel;
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             // Create scene
             Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
             {
-                InitialViewpoint = new Viewpoint(_observerPoint, 1000000)
+                InitialViewpoint = new Viewpoint(_observerPoint, 1600)
             };
             // Set initial viewpoint
             // Create the elevation source
@@ -255,9 +255,10 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
             // Subscribe to height slider changes
             _myHeightSlider.ProgressChanged += MyHeightSlider_ProgressChanged;
 
-            // Add teh views to the layout
+            // Add the views to the layout
             layout.AddView(_myStatusLabel);
             layout.AddView(_myHeightSlider);
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

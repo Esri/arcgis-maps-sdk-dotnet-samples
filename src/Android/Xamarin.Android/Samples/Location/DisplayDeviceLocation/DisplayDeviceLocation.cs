@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private const int LocationPermissionRequestCode = 99;
 
         // Create and hold reference to the used MapView
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // String array to store the different device location options.
         private readonly string[] _navigationTypes =
@@ -225,6 +225,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             layout.AddView(stopButton);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

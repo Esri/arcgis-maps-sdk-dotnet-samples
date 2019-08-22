@@ -26,8 +26,8 @@ namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("34da965ca51d4c68aa9b3a38edb29e00")]
     public class ViewPointCloudDataOffline : Activity
     {
-        // Create and hold reference to the SceneView.
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         // Hold the URL to the elevation service.
         private const string ElevationServiceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
@@ -76,6 +76,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add the map view to the layout.
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

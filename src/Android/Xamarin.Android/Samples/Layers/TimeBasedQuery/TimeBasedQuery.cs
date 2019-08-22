@@ -26,8 +26,8 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
         "")]
     public class TimeBasedQuery : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Hold a URI pointing to the feature service
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");
@@ -111,6 +111,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

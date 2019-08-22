@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
     public class SpatialRelationships : Activity
     {
         private TextView _resultTextView;
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // References to the graphics and graphics overlay
         private GraphicsOverlay _graphicsOverlay;
@@ -229,6 +229,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             //Add the labels to the layout.
             layout.AddView(helpLabel);
             layout.AddView(_resultTextView);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

@@ -25,8 +25,8 @@ namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer
         "")]
     public class AddAnIntegratedMeshLayer : Activity
     {
-        // Create and hold reference to the used MapView.
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         // URLs for the services used by this sample.
         private const string IntegratedMeshLayerUrl =
@@ -70,6 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add the map view to the layout.
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

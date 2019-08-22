@@ -7,6 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,13 +22,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.Animate3DGraphic
@@ -115,7 +115,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             // Create and add the graphics overlay.
             GraphicsOverlay sceneOverlay = new GraphicsOverlay
             {
-                SceneProperties = {SurfacePlacement = SurfacePlacement.Absolute}
+                SceneProperties = { SurfacePlacement = SurfacePlacement.Absolute }
             };
             _mySceneView.GraphicsOverlays.Add(sceneOverlay);
 
@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             // Create placeholder graphic for showing the mission route in the inset map.
             SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
-            _routeGraphic = new Graphic {Symbol = routeSymbol};
+            _routeGraphic = new Graphic { Symbol = routeSymbol };
             insetMapOverlay.Graphics.Add(_routeGraphic);
 
             // Create the plane graphic; this is symbolized as a blue triangle because of renderer implemented above.
@@ -195,7 +195,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
@@ -205,13 +205,13 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         {
             // Create the view controller that will present the list of missions.
             UIAlertController missionSelectionAlert =
-                UIAlertController.Create("Select a mission", "", UIAlertControllerStyle.ActionSheet);
+                UIAlertController.Create(null, "Select a mission", UIAlertControllerStyle.ActionSheet);
 
             // Needed to prevent a crash on iPad.
             UIPopoverPresentationController presentationPopover = missionSelectionAlert.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
                 presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 
@@ -281,7 +281,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             MissionFrame currentFrame = _missionData[_keyframe];
 
             // Update the UI.
-            double missionProgress = _keyframe / (double) _frameCount;
+            double missionProgress = _keyframe / (double)_frameCount;
 
             // This is needed because the event could be running on a non-UI thread.
             InvokeOnMainThread(() =>
@@ -300,7 +300,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _plane2D.Geometry = currentFrame.ToMapPoint();
 
             // Update inset's viewpoint and heading.
-            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), 100000, 360 + (float) currentFrame.Heading);
+            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), 100000, 360 + (float)currentFrame.Heading);
             _insetMapView.SetViewpoint(vp);
 
             // Update the keyframe. This advances the animation.
@@ -354,7 +354,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             UIPopoverPresentationController pc = _statsVC.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem) sender;
+                pc.BarButtonItem = (UIBarButtonItem)sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new PpDelegate();
             }
@@ -371,7 +371,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             UIToolbar controlToolbox = new UIToolbar();
             controlToolbox.TranslatesAutoresizingMaskIntoConstraints = false;

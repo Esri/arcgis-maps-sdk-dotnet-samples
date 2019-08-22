@@ -28,8 +28,8 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         "Tap on the map to see the point in several coordinate systems. Update one of the coordinates and select 'recalculate' to see the point converted into other coordinate systems. ")]
     public class FormatCoordinates : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         private EditText _DecimalDegreesEditText;
         private EditText _DmsEditText;
@@ -227,6 +227,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             layout.AddView(recalculateButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

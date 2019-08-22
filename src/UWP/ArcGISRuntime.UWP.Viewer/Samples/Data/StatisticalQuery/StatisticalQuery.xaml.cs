@@ -114,7 +114,7 @@ namespace ArcGISRuntime.UWP.Samples.StatisticalQuery
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
             }
         }
     }

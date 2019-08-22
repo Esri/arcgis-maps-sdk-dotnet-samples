@@ -30,8 +30,8 @@ namespace ArcGISRuntime.Samples.BufferList
         "GeometryEngine, Geometry, Buffer, SpatialReference")]
     public class BufferList : Activity
     {
-        // Controls needed for the app UI.
-        private MapView _myMapView = new MapView();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
         private EditText _bufferDistanceMilesEditText;
         private Switch _unionBufferSwitch;
 
@@ -127,6 +127,7 @@ namespace ArcGISRuntime.Samples.BufferList
             layout.AddView(subLayout3);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

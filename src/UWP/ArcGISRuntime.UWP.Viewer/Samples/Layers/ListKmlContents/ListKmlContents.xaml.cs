@@ -300,7 +300,7 @@ namespace ArcGISRuntime.UWP.Samples.ListKmlContents
         // Override ToString to enhance display formatting.
         public override string ToString()
         {
-            return new string(' ', NestLevel * 3) + Node.Name + " - " + Node.GetType().Name;
+            return new string(' ', NestLevel * 3) + Node.GetType().Name + " - " + Node.Name;
         }
 
         public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)

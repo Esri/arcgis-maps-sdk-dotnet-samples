@@ -32,7 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
     public class IdentifyKmlFeatures : Activity
     {
         // Hold references to UI controls.
-        private MapView _myMapView = new MapView();
+        private MapView _myMapView;
         private WebView _htmlView;
         private LinearLayout _sampleLayout;
         private LinearLayout.LayoutParams _layoutParams;
@@ -135,6 +135,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
                 LayoutParameters = _layoutParams
             };
 
+            _myMapView = new MapView(this);
             _myMapView.LayoutParameters = _layoutParams;
 
             // Create and add a help label

@@ -47,7 +47,6 @@ namespace ArcGISRuntime.UWP.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
-            MyMapView.WrapAroundMode = WrapAroundMode.Disabled; 
 
             // Set the images for the point icon picker.
             List<string> iconLinks = new List<string>()

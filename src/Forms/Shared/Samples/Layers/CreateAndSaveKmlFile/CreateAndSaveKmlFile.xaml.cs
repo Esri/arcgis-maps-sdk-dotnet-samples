@@ -56,7 +56,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
-            MyMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             List<String> colorHexes = new List<string>()
             {

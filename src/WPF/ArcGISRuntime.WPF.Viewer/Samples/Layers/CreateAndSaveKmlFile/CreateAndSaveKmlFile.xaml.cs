@@ -45,7 +45,6 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
-            MyMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             // Set the colors for the color picker.
             System.Reflection.PropertyInfo[] propertylist = typeof(Color).GetProperties(System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);

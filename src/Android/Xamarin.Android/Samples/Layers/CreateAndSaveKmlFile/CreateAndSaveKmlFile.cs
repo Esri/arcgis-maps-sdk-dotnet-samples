@@ -76,7 +76,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         {
             // Create the map.
             _myMapView.Map = new Map(Basemap.CreateImagery());
-            _myMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             // Set up a new kml document and kml layer.
             ResetKml();

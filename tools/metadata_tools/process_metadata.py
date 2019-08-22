@@ -1,4 +1,5 @@
 from sample_metadata import *
+import urllib.parse
 import sys
 
 import os
@@ -76,7 +77,9 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
     for category in samples_in_categories.keys():
         readme_text += f"## {category}\n\n"
         for sample in samples_in_categories[category]:
-            readme_text += f"* [{sample.friendly_name}]({relative_path_to_samples}/{sample.category}/{sample.formal_name}/readme.md) - {sample.description}\n"
+            entry_url = f"{relative_path_to_samples}/{sample.category}/{sample.formal_name}/readme.md"
+            entry_url = urllib.parse.quote(entry_url)
+            readme_text += f"* [{sample.friendly_name}]({entry_url}) - {sample.description}\n"
         readme_text += "\n"
     
     readme_path = os.path.join(platform_dir, "../..", "readme.md")

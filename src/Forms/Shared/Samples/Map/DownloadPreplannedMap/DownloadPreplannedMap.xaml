@@ -1,17 +1,24 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
-             x:Class="ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap.DownloadPreplannedMap">
+﻿<ContentPage
+    x:Class="ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
+        <esriUI:MapView
+            x:Name="MyMapView"
+            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+            Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
-                <Label x:Name="MessageLabel" 
-                       Text="Select an area, then download it."
-                       HorizontalTextAlignment="Center"/>
-                <ListView x:Name="AreasList" HeightRequest="150">
+                <Label
+                    x:Name="MessageLabel"
+                    HorizontalTextAlignment="Center"
+                    Text="Select an area, then download it." />
+                <ListView
+                    x:Name="AreasList"
+                    HeightRequest="150"
+                    ItemSelected="AreaSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -22,41 +29,66 @@
                                                 <ColumnDefinition Width="auto" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
-                                            <Image Source="{Binding PortalItem.ThumbnailUri}"
-                                                   HeightRequest="70" Margin="-10,2,2,2" Grid.RowSpan="2" />
-                                            <Label Text="{Binding PortalItem.Title}"
-                                                   Margin="10,0" VerticalTextAlignment="Center" Grid.Column="1" />
+                                            <Image
+                                                Grid.RowSpan="2"
+                                                Margin="-10,2,2,2"
+                                                HeightRequest="70"
+                                                Source="{Binding PortalItem.ThumbnailUri}" />
+                                            <Label
+                                                Grid.Column="1"
+                                                Margin="10,0"
+                                                Text="{Binding PortalItem.Title}"
+                                                VerticalTextAlignment="Center" />
                                         </Grid>
                                     </On>
-                                    <!-- Work around nasty Xamarin.Forms bug that affects UWP only - https://github.com/xamarin/Xamarin.Forms/issues/5188 -->
+                                    <!--  Work around nasty Xamarin.Forms bug that affects UWP only - https://github.com/xamarin/Xamarin.Forms/issues/5188  -->
                                     <On Platform="UWP">
-                                        <Label Text="{Binding PortalItem.Title}"
-                                               Margin="10,0" VerticalTextAlignment="Center" />
+                                        <Label
+                                            Margin="10,0"
+                                            Text="{Binding PortalItem.Title}"
+                                            VerticalTextAlignment="Center" />
                                     </On>
                                 </OnPlatform>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Text="Download"
-                        Margin="0,5,0,5"
-                        Clicked="OnDownloadMapAreaClicked" />
-                <Button Text="Delete offline areas"
-                        Clicked="OnDeleteAllMapAreasClicked" />
+                <Button
+                    x:Name="DownloadButton"
+                    Margin="0,5,0,5"
+                    Clicked="OnDownloadMapAreaClicked"
+                    Text="Download" />
+                <Button Clicked="OnDeleteAllMapAreasClicked" Text="Delete offline areas" />
             </StackLayout>
         </resources:ResponsiveFormContainer>
-        <!-- Busy indication -->
-        <Grid x:Name="BusyIndicator" BackgroundColor="#807f7f7f"
-              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,Factor=1,Property=Width}"
-              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,Factor=1,Property=Height}">
+        <!--  Busy indication  -->
+        <Grid
+            x:Name="BusyIndicator"
+            BackgroundColor="#807f7f7f"
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                   Factor=1,
+                                                                   Property=Height}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                  Factor=1,
+                                                                  Property=Width}">
             <Grid HorizontalOptions="Center" VerticalOptions="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <Label x:Name="BusyText" TextColor="White" Margin="10" FontSize="18" />
-                <ProgressBar x:Name="ProgressView" IsEnabled="True" WidthRequest="100" HeightRequest="10"
-                             HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="1" />
+                <Label
+                    x:Name="BusyText"
+                    Margin="10"
+                    FontSize="18"
+                    TextColor="White" />
+                <ProgressBar
+                    x:Name="ProgressView"
+                    Grid.Row="1"
+                    HeightRequest="10"
+                    HorizontalOptions="Center"
+                    IsEnabled="True"
+                    VerticalOptions="Center"
+                    WidthRequest="100" />
             </Grid>
         </Grid>
     </RelativeLayout>

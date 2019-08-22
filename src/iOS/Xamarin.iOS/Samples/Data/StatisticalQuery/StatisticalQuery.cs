@@ -144,7 +144,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             }
             catch (ArcGISWebException exception)
             {
-                ShowMessage("There was a problem running the query.", exception.ToString());
+                ShowMessage("There was a problem running the query.", exception.Message);
             }
         }
 

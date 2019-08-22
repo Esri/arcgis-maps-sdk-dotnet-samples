@@ -78,6 +78,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
+    <None Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
     <None Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <None Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
@@ -252,6 +253,7 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.cs" />
+    <Compile Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.cs" />
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
     <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
@@ -552,6 +554,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\CreateAndSaveKmlFile.axml">
+    <AndroidResource Include="Resources\layout\FindFeaturesUtilityNetwork.axml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>

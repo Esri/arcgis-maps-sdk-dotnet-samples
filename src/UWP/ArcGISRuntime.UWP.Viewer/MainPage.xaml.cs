@@ -165,9 +165,13 @@ namespace ArcGISRuntime.UWP.Viewer
             {
                 // Set the items source of the grid to the first category from the search.
                 SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
-                foreach (muxc.TreeViewNode node in CategoriesTree.RootNodes)
+
+                if (!String.IsNullOrWhiteSpace(searchBox.Text))
                 {
-                    node.IsExpanded = true;
+                    foreach (muxc.TreeViewNode node in CategoriesTree.RootNodes)
+                    {
+                        node.IsExpanded = true;
+                    }
                 }
             }
 

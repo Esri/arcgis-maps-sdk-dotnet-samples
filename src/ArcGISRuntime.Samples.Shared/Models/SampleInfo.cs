@@ -19,7 +19,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
     public partial class SampleInfo
     {
         #if NETFX_CORE
-        private string _pathStub = Directory.GetParent(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)).FullName;
+        private string _pathStub = Windows.ApplicationModel.Package.Current.Installed­Location.Path;
         #else
         private string _pathStub = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
         #endif

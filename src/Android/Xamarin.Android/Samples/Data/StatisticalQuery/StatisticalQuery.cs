@@ -133,7 +133,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             }
             catch (Exception ex)
             {
-                new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
+                new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle("Error").Show();
             }
         }
 

@@ -13,7 +13,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>MinimumOSVersion</key>
-	<string>9.2</string>
+	<string>11.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -48,10 +48,6 @@
 	<false/>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>MainStoryboard</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -171,5 +167,7 @@
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your location information is used to enable location display on maps and to find points of interest nearby.</string>
 </dict>
 </plist>

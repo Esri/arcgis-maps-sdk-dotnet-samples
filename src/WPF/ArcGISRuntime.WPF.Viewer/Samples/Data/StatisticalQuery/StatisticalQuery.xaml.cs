@@ -113,7 +113,7 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
     }

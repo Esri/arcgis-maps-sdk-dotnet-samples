@@ -50,6 +50,7 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
 
             // Populate the reference scale choices.
             ReferenceScaleBox.ItemsSource = _referenceScales;
+            ReferenceScaleBox.SelectedIndex = 0;
 
             // NOTE: this sample uses binding, so explicit control of reference scale isn't seen here.
             // See the iOS or Android samples for an implementation that does not rely on data binding.

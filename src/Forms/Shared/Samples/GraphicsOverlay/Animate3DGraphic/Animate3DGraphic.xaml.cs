@@ -237,8 +237,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
         private bool AnimatePlane()
         {
-            // Skip doing anything if animation is paused
-            if (!_animationTimer) { return true; }
+            // Skip doing anything if animation is paused, or if inset map view is closed
+            if (!_animationTimer || double.IsNaN(InsetMapView.MapScale)) { return true; }
 
             // Get the next position; % prevents going out of bounds even if the keyframe value is
             //     changed unexpectedly (e.g. due to user interaction with the progress slider).

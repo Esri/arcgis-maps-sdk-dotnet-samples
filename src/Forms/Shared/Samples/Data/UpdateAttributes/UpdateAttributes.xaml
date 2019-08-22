@@ -12,7 +12,8 @@
                 <Label Text="Tap to select a feature to edit."
                        HorizontalTextAlignment="Center"/>
                 <Picker x:Name="DamageTypePicker"
-                        IsEnabled="False"/>
+                        IsEnabled="False"
+                        TextColor="Black"/>
             </StackLayout>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

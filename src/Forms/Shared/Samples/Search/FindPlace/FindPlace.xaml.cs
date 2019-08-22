@@ -58,25 +58,32 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
 
-            // Subscribe to location changed event so that map can zoom to location
-            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+            // Wait for the MapView to load.
+            MyMapView.PropertyChanged += async (o, e) =>
+            {
+                if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                {
+                    // Subscribe to location changed event so that map can zoom to location
+                    MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
 
-            try
-            {
-                // Permission request only needed on Android.
+                    try
+                    {
+                        // Permission request only needed on Android.
 #if XAMARIN_ANDROID
-                // See implementation in MainActivity.cs in the Android platform project.
-                MainActivity.Instance.AskForLocationPermission(MyMapView);
+                        // See implementation in MainActivity.cs in the Android platform project.
+                        MainActivity.Instance.AskForLocationPermission(MyMapView);
 #else
-                await MyMapView.LocationDisplay.DataSource.StartAsync();
-                MyMapView.LocationDisplay.IsEnabled = true;
+                        await MyMapView.LocationDisplay.DataSource.StartAsync();
+                        MyMapView.LocationDisplay.IsEnabled = true;
 #endif
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
-            }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                        await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+                    }
+                }
+            };
 
             // Initialize the LocatorTask with the provided service Uri.
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);

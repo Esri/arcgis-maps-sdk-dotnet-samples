@@ -70,8 +70,8 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
             flagSymbol.OffsetY = -flagSymbol.Height / 2;
 
             // Create graphics for the stops
-            Graphic fromGraphic = new Graphic(fromPoint, carSymbol);
-            Graphic toGraphic = new Graphic(toPoint, flagSymbol);
+            Graphic fromGraphic = new Graphic(fromPoint, carSymbol) { ZIndex = 1 };
+            Graphic toGraphic = new Graphic(toPoint, flagSymbol) { ZIndex = 1 };
 
             // Create the graphics overlay and add the stop graphics
             _routeGraphicsOverlay = new GraphicsOverlay();
@@ -122,7 +122,7 @@ namespace ArcGISRuntime.UWP.Samples.FindRoute
                 SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Purple, 8.0);
 
                 // Create a new graphic for the route geometry and add it to the graphics overlay
-                Graphic routeGraphic = new Graphic(routePolyline, routeSymbol);
+                Graphic routeGraphic = new Graphic(routePolyline, routeSymbol) { ZIndex = 0 };
                 _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
                 // Get a list of directions for the route and display it in the list box

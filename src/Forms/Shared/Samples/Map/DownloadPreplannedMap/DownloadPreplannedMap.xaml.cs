@@ -52,8 +52,6 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
         private async void Initialize()
         {
-            AreasList.ItemSelected += AreaSelected;
-
             try
             {
                 // The data manager provides a method to get a suitable offline data folder.

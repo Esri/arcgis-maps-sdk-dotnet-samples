@@ -10,7 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-	<None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
+	  <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
@@ -183,6 +184,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml.cs">
+		<DependentUpon>CreateAndSaveKmlFile.xaml</DependentUpon>
+    <SubType>Code</SubType>
+	</Compile>
 	<Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.xaml.cs">
 		<DependentUpon>FindFeaturesUtilityNetwork.xaml</DependentUpon>
 		<SubType>Code</SubType>
@@ -773,6 +778,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml">
+    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+	</EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.xaml">
 		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>

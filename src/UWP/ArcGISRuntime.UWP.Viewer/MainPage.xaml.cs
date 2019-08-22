@@ -101,9 +101,9 @@ namespace ArcGISRuntime.UWP.Viewer
             _loadFlag = true;
 
             CategoriesTree.IsEnabled = false;
-
+            
             // Clear the previous sample.
-            SamplePageContainer.Content = new Page();
+            SamplePageContainer.Content = null;
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
@@ -135,14 +135,14 @@ namespace ArcGISRuntime.UWP.Viewer
             }
             catch (Exception exception)
             {
-                // failed to create new instance of the sample
+                // Failed to create new instance of the sample.
                 SamplePageContainer.Visibility = Visibility.Collapsed;
                 SampleSelectionGrid.Visibility = Visibility.Visible;
                 await new MessageDialog(exception.Message).ShowAsync();
             }
             finally
             {
-                await Task.Delay(1500);
+                await Task.Delay(5000);
                 _loadFlag = false;
                 CategoriesTree.IsEnabled = true;
             }

@@ -133,12 +133,12 @@
 
 ## Local Server
 
-* [Local server dynamic workspace raster](ArcGISRuntime.WPF.Viewer/Samples/Local Server/DynamicWorkspaceRaster/readme.md) - Dynamically add a local raster file to a map using Local Server.
-* [Local server dynamic workspace shapefile](ArcGISRuntime.WPF.Viewer/Samples/Local Server/DynamicWorkspaceShapefile/readme.md) - Dynamically add a local shapefile to a map using Local Server.
-* [Local server feature layer](ArcGISRuntime.WPF.Viewer/Samples/Local Server/LocalServerFeatureLayer/readme.md) - Start a local feature service and display its features in a map.
-* [Local server geoprocessing](ArcGISRuntime.WPF.Viewer/Samples/Local Server/LocalServerGeoprocessing/readme.md) - Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.
-* [Local Server map image layer](ArcGISRuntime.WPF.Viewer/Samples/Local Server/LocalServerMapImageLayer/readme.md) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
-* [Local server services](ArcGISRuntime.WPF.Viewer/Samples/Local Server/LocalServerServices/readme.md) - Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.
+* [Local server dynamic workspace raster](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/DynamicWorkspaceRaster/readme.md) - Dynamically add a local raster file to a map using Local Server.
+* [Local server dynamic workspace shapefile](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/DynamicWorkspaceShapefile/readme.md) - Dynamically add a local shapefile to a map using Local Server.
+* [Local server feature layer](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerFeatureLayer/readme.md) - Start a local feature service and display its features in a map.
+* [Local server geoprocessing](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerGeoprocessing/readme.md) - Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.
+* [Local Server map image layer](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerMapImageLayer/readme.md) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
+* [Local server services](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerServices/readme.md) - Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.
 
 ## Location
 
@@ -193,13 +193,13 @@
 
 ## Network Analysis
 
-* [Find closest facility to an incident (interactive)](ArcGISRuntime.WPF.Viewer/Samples/Network Analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
-* [Find closest facility to multiple incidents (service)](ArcGISRuntime.WPF.Viewer/Samples/Network Analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Find route](ArcGISRuntime.WPF.Viewer/Samples/Network Analysis/FindRoute/readme.md) - Display directions for a route between two points.
-* [Find service area](ArcGISRuntime.WPF.Viewer/Samples/Network Analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
-* [Find service areas for multiple facilities](ArcGISRuntime.WPF.Viewer/Samples/Network Analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
-* [Offline routing](ArcGISRuntime.WPF.Viewer/Samples/Network Analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
-* [Route around barriers](ArcGISRuntime.WPF.Viewer/Samples/Network Analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Find closest facility to an incident (interactive)](ArcGISRuntime.WPF.Viewer/Samples/Network%20Analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
+* [Find closest facility to multiple incidents (service)](ArcGISRuntime.WPF.Viewer/Samples/Network%20Analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Find route](ArcGISRuntime.WPF.Viewer/Samples/Network%20Analysis/FindRoute/readme.md) - Display directions for a route between two points.
+* [Find service area](ArcGISRuntime.WPF.Viewer/Samples/Network%20Analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
+* [Find service areas for multiple facilities](ArcGISRuntime.WPF.Viewer/Samples/Network%20Analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
+* [Offline routing](ArcGISRuntime.WPF.Viewer/Samples/Network%20Analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
+* [Route around barriers](ArcGISRuntime.WPF.Viewer/Samples/Network%20Analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
 
 ## Search
 

@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="22dp"
             android:layout_marginLeft="5dp"
-            android:text="Instructions"
+            android:text="Press the 'Add Item' button to start"
             android:textStyle="bold"
             android:textColor="@android:color/white"/>
     </RelativeLayout>

@@ -103,7 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private void AddClick(object sender, EventArgs e)
         {
             // Decide what type of placemark to add.
-            UIAlertController prompt = UIAlertController.Create("Add facilities & barriers", "Tap to add facilities. Tap to build a polyline representing barriers. Press 'Done' to finish.", UIAlertControllerStyle.ActionSheet);
+            UIAlertController prompt = UIAlertController.Create("Choose a geometry type", null, UIAlertControllerStyle.ActionSheet);
             prompt.AddAction(UIAlertAction.Create("Point", UIAlertActionStyle.Default, AddGeometry));
             prompt.AddAction(UIAlertAction.Create("Polyline", UIAlertActionStyle.Default, AddGeometry));
             prompt.AddAction(UIAlertAction.Create("Polygon", UIAlertActionStyle.Default, AddGeometry));
@@ -350,7 +350,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
 
             _helpLabel = new UILabel
             {
-                Text = "",
+                Text = "Press the '+' button to start.",
                 AdjustsFontSizeToFitWidth = true,
                 TextAlignment = UITextAlignment.Center,
                 BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),

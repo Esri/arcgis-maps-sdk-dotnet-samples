@@ -83,7 +83,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             layout.LayoutParameters = new ViewGroup.MarginLayoutParams(ViewGroup.MarginLayoutParams.MatchParent, ViewGroup.MarginLayoutParams.MatchParent);
 
             // Create the mapview.
-            _myMapView = new MapView();
+            _myMapView = new MapView(this);
 
             // Create the mapview's container.
             _layoutContainer = new RelativeLayout(this);

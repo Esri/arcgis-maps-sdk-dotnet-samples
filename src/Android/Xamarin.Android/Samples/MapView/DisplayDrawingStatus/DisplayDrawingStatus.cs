@@ -27,8 +27,8 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         "")]
     public class DisplayDrawingStatus : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Waiting popup
         private AlertDialog _progressDialog;
@@ -99,6 +99,7 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 
             // Add the views to the layout
             layout.AddView(_statusLabel);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Create an activity indicator

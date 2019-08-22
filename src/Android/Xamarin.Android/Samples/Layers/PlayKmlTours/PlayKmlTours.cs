@@ -214,7 +214,7 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             layout.AddView(rowLayout);
 
             // Add the scene view to the layout.
-            _mySceneView = new SceneView();
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

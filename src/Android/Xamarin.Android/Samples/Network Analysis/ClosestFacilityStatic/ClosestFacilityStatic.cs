@@ -32,8 +32,8 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
         "Click the solve button to find the closest facility to every incident.")]
     public class ClosestFacilityStatic : Activity
     {
-        // Create a MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Add buttons for the UI.
         private Button _solveRoutesButton;
@@ -109,6 +109,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             layout.AddView(toolbar);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

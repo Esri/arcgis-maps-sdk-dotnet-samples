@@ -31,8 +31,8 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
            "Authentication, Security, OAuth")]
     public class OAuth : Activity, IOAuthAuthorizeHandler
     {
-        // MapView control to display a map.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -122,8 +122,9 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         {
             // Create a new vertical layout for the app.
             LinearLayout mainLayout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-            
+
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             mainLayout.AddView(_myMapView);
 
             // Show the layout in the app.

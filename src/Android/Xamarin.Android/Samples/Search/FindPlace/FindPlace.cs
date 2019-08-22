@@ -47,8 +47,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         // Service Uri to be provided to the LocatorTask (geocoder).
         private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
-        // UI Elements.
-        private MapView _myMapView = new MapView();
+        // Hold references to the UI controls.
+        private MapView _myMapView;
         private AutoCompleteTextView _mySearchBox;
         private AutoCompleteTextView _myLocationBox;
         private Button _mySearchButton;
@@ -141,6 +141,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             layout.AddView(searchButtonLayout);
 
             // Add the mapview to the view.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

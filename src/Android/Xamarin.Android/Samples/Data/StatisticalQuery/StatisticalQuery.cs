@@ -28,8 +28,8 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         "Check the appropriate boxes to filter features by attributes and/or within the current extent. Click the button to see basic statistics displayed for world cities.")]
     public class StatisticalQuery : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // URI for the world cities map service layer
         private Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
@@ -198,6 +198,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
             _controlsLayout.AddView(getStatsButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             _controlsLayout.AddView(_myMapView);
 
             // Show the layout in the app

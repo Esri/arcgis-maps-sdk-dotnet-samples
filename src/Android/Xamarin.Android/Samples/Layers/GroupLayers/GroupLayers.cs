@@ -128,7 +128,7 @@ namespace ArcGISRuntimeXamarin.Samples.GroupLayers
             layout.AddView(_layerListView);
 
             // Add the map view to the layout.
-            _mySceneView = new SceneView();
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

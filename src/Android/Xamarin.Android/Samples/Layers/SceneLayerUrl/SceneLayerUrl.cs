@@ -25,8 +25,8 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         "")]
     public class SceneLayerUrl : Activity
     {
-        // Create a new SceneView control
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         // URL for a service to use as an elevation source.
         private readonly Uri _elevationSourceUrl = new Uri(
@@ -90,6 +90,7 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout.
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

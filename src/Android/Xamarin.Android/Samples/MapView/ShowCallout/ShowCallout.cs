@@ -25,8 +25,8 @@ namespace ArcGISRuntime.Samples.ShowCallout
         "Tap on the map to show that point's coordinates.")]
     public class ShowCallout : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -73,6 +73,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
             layout.AddView(helpLabel);
 
             // Add the MapView to the page
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Apply the layout to the app

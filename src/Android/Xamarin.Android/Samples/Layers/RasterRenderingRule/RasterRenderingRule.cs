@@ -29,8 +29,8 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         "")]
     public class RasterRenderingRule : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Create a empty read-only list for the various rendering rules of the image service raster
         private IReadOnlyList<RenderingRuleInfo> _myReadOnlyListRenderRuleInfos;
@@ -176,6 +176,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             layout.AddView(_renderingRulesButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

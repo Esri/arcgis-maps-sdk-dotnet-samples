@@ -26,8 +26,8 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         "")]
     public class OpenMapURL : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // String array to hold urls to publicly available web maps
         private string[] itemURLs = {
@@ -107,6 +107,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             layout.AddView(mapsButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

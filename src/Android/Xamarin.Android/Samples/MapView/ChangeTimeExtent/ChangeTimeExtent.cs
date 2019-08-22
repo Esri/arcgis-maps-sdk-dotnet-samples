@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         private readonly Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Earthquakes_Since1970/MapServer/0");
 
         // Create and hold reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // Create and hold references to the interval buttons.
         private Button _twoThousandButton;
@@ -113,6 +113,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
             layout.AddView(_twoThousandFiveButton);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

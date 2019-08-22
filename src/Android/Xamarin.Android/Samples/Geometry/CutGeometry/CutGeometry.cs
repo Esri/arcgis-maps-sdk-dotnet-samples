@@ -28,8 +28,8 @@ namespace ArcGISRuntime.Samples.CutGeometry
         "")]
     public class CutGeometry : Activity
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Graphics overlay to display the graphics.
         private GraphicsOverlay _graphicsOverlay;
@@ -227,6 +227,7 @@ namespace ArcGISRuntime.Samples.CutGeometry
             layout.AddView(_cutButton);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

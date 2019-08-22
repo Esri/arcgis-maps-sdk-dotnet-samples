@@ -27,8 +27,8 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         "")]
     public class TakeScreenshot : Activity
     {
-        // Create and hold reference to the used map view.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -143,6 +143,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             layout.AddView(takeScreenshotButton);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

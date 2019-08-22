@@ -220,7 +220,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities
             layout.AddView(_activityIndicator);
 
             // Add the map view to the layout.
-            _myMapView = new MapView();
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

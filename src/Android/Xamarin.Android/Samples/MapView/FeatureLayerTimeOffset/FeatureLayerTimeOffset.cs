@@ -27,8 +27,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         "")]
     public class FeatureLayerTimeOffset : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Hold references to the UI controls
         private TextView _redLabel;
@@ -124,6 +124,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             layout.AddView(_timeSlider);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

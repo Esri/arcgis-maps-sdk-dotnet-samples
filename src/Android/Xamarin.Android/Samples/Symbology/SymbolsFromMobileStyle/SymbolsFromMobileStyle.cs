@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
     public class SymbolsFromMobileStyle : Activity
     {
         // A map view to display a map and graphics.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // A dialog for showing symbols from the stylx file.
         private SymbolDialogFragment _symbolDialog;
@@ -82,6 +82,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
             layout.AddView(toolbar);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

@@ -24,7 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenStreetMapLayer
     public class OpenStreetMapLayer : Activity
     {
         // Create and hold reference to the used MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -54,6 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenStreetMapLayer
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

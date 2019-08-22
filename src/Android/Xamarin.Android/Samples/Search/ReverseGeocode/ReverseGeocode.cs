@@ -35,7 +35,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
     public class ReverseGeocode : Activity
     {
         // Create and hold reference to the MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // Service Uri to be provided to the LocatorTask (geocoder).
         private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
@@ -156,6 +156,7 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
             layout.AddView(helpLabel);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

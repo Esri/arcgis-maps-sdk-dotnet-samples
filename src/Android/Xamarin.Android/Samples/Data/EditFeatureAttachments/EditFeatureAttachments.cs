@@ -301,7 +301,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Create the MapView.
-            _myMapView = new MapView();
+            _myMapView = new MapView(this);
 
             // Create the help label.
             TextView helpLabel = new TextView(this);

@@ -26,8 +26,8 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         "")]
     public class FeatureCollectionLayerFromPortal : Activity
     {
-        // Store the map view displayed in the app.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Store a text box control with a portal item Id.
         private EditText _portalItemIdEditText;
@@ -133,6 +133,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             layout.AddView(_portalItemIdEditText);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

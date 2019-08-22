@@ -30,8 +30,8 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
     public class WmsIdentify : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Create and hold the URL to the WMS service showing EPA water info
         private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
@@ -109,6 +109,8 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             {
                 LayoutParameters = _layoutParams
             };
+
+            _myMapView = new MapView(this);
 
             _myMapView.LayoutParameters = _layoutParams;
 

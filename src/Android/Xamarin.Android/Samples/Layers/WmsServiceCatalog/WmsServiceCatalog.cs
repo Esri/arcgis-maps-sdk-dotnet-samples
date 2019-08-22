@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
     public class WmsServiceCatalog : Activity
     {
         // Create and hold reference to the used MapView
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // Hold a reference to the ListView
         private ListView _myDisplayList;
@@ -66,6 +66,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Add the views to the layout
             layout.AddView(promptLabel);
             layout.AddView(_myDisplayList);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

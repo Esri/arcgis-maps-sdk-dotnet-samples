@@ -33,7 +33,7 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
     public class DictionaryRendererGraphicsOverlay : Activity
     {
         // Create and hold reference to the used MapView.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // Hold a reference to the graphics overlay for easy access.
         private GraphicsOverlay _tacticalMessageOverlay;
@@ -145,6 +145,7 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

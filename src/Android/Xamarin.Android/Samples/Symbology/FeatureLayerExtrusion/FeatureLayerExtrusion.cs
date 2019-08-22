@@ -29,8 +29,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         "")]
     public class FeatureLayerExtrusion : Activity
     {
-        // Create and hold reference to the used MapView
-        private SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view
+        private SceneView _mySceneView;
 
         private Button _button_ToggleExtrusionData;
 
@@ -162,6 +162,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
             layout.AddView(_button_ToggleExtrusionData);
 
             // Add the scene view to the layout
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

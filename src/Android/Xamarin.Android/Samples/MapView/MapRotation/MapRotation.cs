@@ -24,8 +24,8 @@ namespace ArcGISRuntime.Samples.MapRotation
         "")]
     public class MapRotation : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         private TextView _mapRotationLabel;
 
@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.MapRotation
                     _myMapView.SetViewpointRotationAsync(e.Progress);
 
                     // Display the MapView's rotation.
-                    _mapRotationLabel.Text = $"{angleSlider.Progress:0}°";
+                    _mapRotationLabel.Text = $"{angleSlider.Progress:0}ï¿½";
                 }
             };
 
@@ -90,10 +90,11 @@ namespace ArcGISRuntime.Samples.MapRotation
             sliderLayout.AddView(_mapRotationLabel);
 
             // Display the MapView's initial rotation value.
-            _mapRotationLabel.Text = $"{angleSlider.Progress:0}°";
+            _mapRotationLabel.Text = $"{angleSlider.Progress:0}ï¿½";
 
             // Add the controls to the view
             layout.AddView(sliderLayout);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Apply the layout to the app

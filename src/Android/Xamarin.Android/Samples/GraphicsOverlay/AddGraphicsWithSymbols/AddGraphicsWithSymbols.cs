@@ -27,8 +27,8 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         "")]
     public class AddGraphicsWithSymbols : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Create the graphics overlay
         private readonly GraphicsOverlay _overlay = new GraphicsOverlay();
@@ -193,6 +193,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

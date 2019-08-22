@@ -24,8 +24,8 @@ namespace ArcGISRuntime.Samples.DisplayScene
         "")]
     public class DisplayScene : Activity
     {
-        // Create a new SceneView control
-        private SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -88,6 +88,7 @@ namespace ArcGISRuntime.Samples.DisplayScene
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

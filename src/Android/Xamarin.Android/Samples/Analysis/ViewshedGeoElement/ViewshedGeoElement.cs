@@ -35,8 +35,8 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         "Featured")]
     public class ViewshedGeoElement : Activity
     {
-        // Create and hold reference to the used SceneView.
-        private readonly SceneView _mySceneView = new SceneView();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
         // URLs to the scene layer with buildings and the elevation source
         private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
@@ -214,6 +214,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
             layout.SetPadding(0,10,0,0);
 
             // Add the map view to the layout.
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app.

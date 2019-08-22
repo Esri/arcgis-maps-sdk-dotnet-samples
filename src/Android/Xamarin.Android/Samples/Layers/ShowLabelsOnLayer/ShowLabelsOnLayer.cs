@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
     public class ShowLabelsOnLayer : Activity
     {
         // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        private MapView _myMapView;
         
             // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:
             // https://developers.arcgis.com/web-map-specification/objects/labelingInfo/
@@ -154,6 +154,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

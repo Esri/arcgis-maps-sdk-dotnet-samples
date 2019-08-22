@@ -33,7 +33,8 @@ namespace ArcGISRuntime.Samples.FindServiceArea
         "ArcGISMap, GraphicsOverlay, MapView, PolylineBarrier, ServiceAreaFacility, ServiceAreaParameters, ServiceAreaPolygon, ServiceAreaResult, ServiceAreaTask, SketchEditor")]
     public class FindServiceArea : Activity
     {
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Uri for the service area around San Diego.
         private Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
@@ -96,6 +97,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             layout.AddView(bottomRow);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

@@ -29,8 +29,8 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public class ChangeEncDisplaySettings : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Hold a reference to the (static) app-wide mariner settings
         private EncMarinerSettings _encMarinerSettings = EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings;
@@ -134,6 +134,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
             pointSpinner.ItemSelected += PointStyleSelected;
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

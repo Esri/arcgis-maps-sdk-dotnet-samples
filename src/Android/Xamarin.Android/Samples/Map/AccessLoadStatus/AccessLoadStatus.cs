@@ -24,8 +24,8 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         "")]
     public class AccessLoadStatus : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Control to show the Map's load status
         private TextView _loadStatusTextView;
@@ -77,6 +77,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
 
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

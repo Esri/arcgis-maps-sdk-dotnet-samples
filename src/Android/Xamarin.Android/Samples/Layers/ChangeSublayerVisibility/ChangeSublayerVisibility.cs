@@ -26,8 +26,8 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         "")]
     public class ChangeSublayerVisibility : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Hold reference to image layer for easier access to sublayers 
         private ArcGISMapImageLayer _imageLayer;
@@ -132,6 +132,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             layout.AddView(mapsButton);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

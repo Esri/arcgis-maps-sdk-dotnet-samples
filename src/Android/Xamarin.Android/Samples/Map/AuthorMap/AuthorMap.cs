@@ -35,8 +35,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
         "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
     public class AuthorMap : Activity, IOAuthAuthorizeHandler
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Progress bar to show when the app is working
         private ProgressBar _progressBar;
@@ -155,6 +155,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             mainLayout.AddView(buttonLayout);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             mainLayout.AddView(_myMapView);
 
             // Show the layout in the app

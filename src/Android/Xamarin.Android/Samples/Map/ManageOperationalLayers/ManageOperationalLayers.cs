@@ -161,7 +161,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
             layout.AddView(_excludedListView);
 
             // Create the map view.
-            _myMapView = new MapView();
+            _myMapView = new MapView(this);
 
             // Add the map view to the layout.
             layout.AddView(_myMapView);

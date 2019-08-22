@@ -30,9 +30,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
     public class DisplayKml : Activity
     {
         // Hold references to UI controls.
-        private readonly SceneView _mySceneView = new SceneView();
+        private SceneView _mySceneView;
         private Button _dataChoiceButton;
-
         private readonly Envelope _usEnvelope = new Envelope(-144.619561355187, 18.0328662832097, -66.0903762761083, 67.6390975806745, SpatialReferences.Wgs84);
         private readonly string[] _sources = {"URL", "Local file", "Portal item"};
 
@@ -68,6 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             layout.AddView(_dataChoiceButton);
 
             // Add the scene view to the layout
+            _mySceneView = new SceneView(this);
             layout.AddView(_mySceneView);
 
             // Show the layout in the app

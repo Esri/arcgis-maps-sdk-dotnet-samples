@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
     public class NearestVertex : Activity
     {
         // Map view control to display a map in the app.
-        private readonly MapView _myMapView = new MapView();
+        private MapView _myMapView;
 
         // Label to show the geodesic distance
         private TextView _resultTextView;
@@ -147,6 +147,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
 
             // Add the label and map to the view
             layout.AddView(_resultTextView);
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

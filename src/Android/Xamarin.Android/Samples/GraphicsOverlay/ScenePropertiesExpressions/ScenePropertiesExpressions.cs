@@ -85,7 +85,7 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
             // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
-            _mySceneView = new SceneView();
+            _mySceneView = new SceneView(this);
             TextView headingLabel = new TextView(this);
             headingLabel.Text = "Heading:";
             _headingSlider = new SeekBar(this);

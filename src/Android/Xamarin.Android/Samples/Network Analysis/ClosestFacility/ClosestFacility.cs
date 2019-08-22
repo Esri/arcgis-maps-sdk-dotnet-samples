@@ -30,8 +30,8 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         "Tap to find the route to the nearest hospital.")]
     public class ClosestFacility : Activity
     {
-        // Map view that will be used.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Holds locations of hospitals around San Diego.
         private List<Facility> _facilities;
@@ -63,11 +63,11 @@ namespace ArcGISRuntime.Samples.ClosestFacility
 
             Title = "Closest facility";
 
-            // Initialize the app
-            Initialize();
-
             // Create the UI
             CreateLayout();
+
+            // Initialize the app
+            Initialize();            
         }
 
         private void CreateLayout()
@@ -83,6 +83,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             layout.AddView(sampleInstructionsTextView);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

@@ -29,8 +29,8 @@ namespace ArcGISRuntime.Samples.ConvexHull
         "Analysis", "ConvexHull", "GeometryEngine")]
     public class ConvexHull : Activity
     {
-        // Create and hold reference to the used MapView.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // Graphics overlay to display the hull.
         private GraphicsOverlay _graphicsOverlay;
@@ -197,6 +197,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
             layout.AddView(_resetButton);
 
             // Add the map view to the layout.
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

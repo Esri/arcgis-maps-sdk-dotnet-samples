@@ -27,8 +27,8 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
         "")]
     public class ArcGISVectorTiledLayerUrl : Activity
     {
-        // Create and hold reference to the used MapView
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view
+        private MapView _myMapView;
 
         // Dictionary associates layer names with URIs
         private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>()
@@ -111,6 +111,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             layout.AddView(button);
 
             // Add the map view to the layout
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app

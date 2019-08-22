@@ -28,8 +28,8 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
     public class SpatialOperations : Activity
     {
-        // MapView control to display the operation polygons.
-        private MapView _myMapView = new MapView();
+        // Hold a reference to the map view.
+        private MapView _myMapView;
 
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
@@ -114,6 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 
             // Add the tools layout and map view to the main layout.
             mainLayout.AddView(toolsLayout);
+            _myMapView = new MapView(this);
             mainLayout.AddView(_myMapView);
 
             // Show the layout in the app.

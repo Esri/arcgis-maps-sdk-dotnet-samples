@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
@@ -184,6 +185,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml.cs">
+      <DependentUpon>ControlAnnotationSublayerVisibility.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
 	<Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml.cs">
 		<DependentUpon>CreateAndSaveKmlFile.xaml</DependentUpon>
     <SubType>Code</SubType>
@@ -778,6 +783,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
 	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml">
     <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
 	</EmbeddedResource>

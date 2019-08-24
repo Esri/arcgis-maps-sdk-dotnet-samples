@@ -9,7 +9,6 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
-using System;
 using System.Linq;
 using System.Windows.Media;
 
@@ -23,10 +22,12 @@ namespace ArcGISRuntime.WPF.Samples.ControlAnnotationSublayerVisibility
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("b87307dcfb26411eb2e92e1627cb615b")]
     public partial class ControlAnnotationSublayerVisibility
     {
+        // Mobile map package that contains annotation layers.
         private MobileMapPackage _mobileMapPackage;
 
-        private AnnotationSublayer _closedSublayer;
+        // Sub layers of the annotation layer.
         private AnnotationSublayer _openSublayer;
+        private AnnotationSublayer _closedSublayer;
 
         public ControlAnnotationSublayerVisibility()
         {

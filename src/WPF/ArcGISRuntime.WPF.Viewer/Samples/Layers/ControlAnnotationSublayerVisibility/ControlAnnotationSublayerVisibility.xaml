@@ -1,8 +1,50 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.ControlAnnotationSublayerVisibility.ControlAnnotationSublayerVisibility"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+﻿<UserControl
+    x:Class="ArcGISRuntime.WPF.Samples.ControlAnnotationSublayerVisibility.ControlAnnotationSublayerVisibility"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Width="auto" Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    x:Name="OpenLabel"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Content="Open" />
+                <Label
+                    x:Name="ClosedLabel"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Content="Closed" />
+                <CheckBox
+                    x:Name="OpenCheckBox"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Checked="OpenCheckBoxChanged"
+                    IsChecked="True"
+                    IsEnabled="False"
+                    Unchecked="OpenCheckBoxChanged" />
+                <CheckBox
+                    x:Name="ClosedCheckBox"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Checked="ClosedCheckBoxChanged"
+                    IsChecked="True"
+                    IsEnabled="False"
+                    Unchecked="ClosedCheckBoxChanged" />
+
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

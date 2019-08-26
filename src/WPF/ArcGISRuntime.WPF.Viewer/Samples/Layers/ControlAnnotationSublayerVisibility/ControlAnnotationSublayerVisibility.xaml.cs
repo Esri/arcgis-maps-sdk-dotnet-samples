@@ -42,10 +42,10 @@ namespace ArcGISRuntime.WPF.Samples.ControlAnnotationSublayerVisibility
             await _mobileMapPackage.LoadAsync();
 
             // Set the mapview to display the map from the package.
-            MyMapView.Map = _mobileMapPackage.Maps.FirstOrDefault();
+            MyMapView.Map = _mobileMapPackage.Maps.First();
 
             // Get the annotation layer from the MapView operational layers.
-            AnnotationLayer annotationLayer = (AnnotationLayer)MyMapView.Map.OperationalLayers.Where(x => x is AnnotationLayer).FirstOrDefault();
+            AnnotationLayer annotationLayer = (AnnotationLayer)MyMapView.Map.OperationalLayers.Where(layer => layer is AnnotationLayer).First();
 
             // Load the annotation layer.
             await annotationLayer.LoadAsync();
@@ -74,19 +74,22 @@ namespace ArcGISRuntime.WPF.Samples.ControlAnnotationSublayerVisibility
                 {
                     OpenLabel.Foreground = new SolidColorBrush(Colors.Gray);
                 }
+
+                // Set the current map scale text.
+                ScaleLabel.Content = "Current map scale: 1:" + (int)MyMapView.MapScale;
             };
         }
 
         private void OpenCheckBoxChanged(object sender, System.Windows.RoutedEventArgs e)
         {
             // Set the visibility of the sub layer.
-            _openSublayer.IsVisible = OpenCheckBox.IsChecked == true;
+            if (_openSublayer != null) _openSublayer.IsVisible = OpenCheckBox.IsChecked == true;
         }
 
         private void ClosedCheckBoxChanged(object sender, System.Windows.RoutedEventArgs e)
         {
             // Set the visibility of the sub layer.
-            _closedSublayer.IsVisible = ClosedCheckBox.IsChecked == true;
+            if (_closedSublayer != null) _closedSublayer.IsVisible = ClosedCheckBox.IsChecked == true;
         }
     }
 }

@@ -5,44 +5,55 @@
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Width="auto" Style="{StaticResource BorderStyle}">
+        <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox
+                        x:Name="OpenCheckBox"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Checked="OpenCheckBoxChanged"
+                        IsChecked="True"
+                        IsEnabled="False"
+                        Unchecked="OpenCheckBoxChanged" />
+                    <Label
+                        x:Name="OpenLabel"
+                        Grid.Column="1"
+                        Content="Open" />
+                </Grid>
+                <Grid Grid.Row="1" HorizontalAlignment="Left">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <CheckBox
+                        x:Name="ClosedCheckBox"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Checked="ClosedCheckBoxChanged"
+                        IsChecked="True"
+                        IsEnabled="False"
+                        Unchecked="ClosedCheckBoxChanged" />
+                    <Label
+                        x:Name="ClosedLabel"
+                        Grid.Column="1"
+                        Content="Closed" />
+                </Grid>
                 <Label
-                    x:Name="OpenLabel"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Content="Open" />
-                <Label
-                    x:Name="ClosedLabel"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Content="Closed" />
-                <CheckBox
-                    x:Name="OpenCheckBox"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Checked="OpenCheckBoxChanged"
-                    IsChecked="True"
-                    IsEnabled="False"
-                    Unchecked="OpenCheckBoxChanged" />
-                <CheckBox
-                    x:Name="ClosedCheckBox"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    Checked="ClosedCheckBoxChanged"
-                    IsChecked="True"
-                    IsEnabled="False"
-                    Unchecked="ClosedCheckBoxChanged" />
+                    x:Name="ScaleLabel"
+                    Grid.Row="2"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    Content="Current map scale: 1:" />
             </Grid>
         </Border>
     </Grid>

@@ -62,8 +62,8 @@ namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
                 ClosedLabel.Text = _closedSublayer.Name;
 
                 // Enable the check boxes.
-                OpenCheckBox.IsEnabled = true;
-                ClosedCheckBox.IsEnabled = true;
+                OpenSwitch.IsEnabled = true;
+                ClosedSwitch.IsEnabled = true;
 
                 // Add event handler for changing the text to indicate whether the "open" sublayer is visible at the current scale.
                 MyMapView.ViewpointChanged += (s, e) =>
@@ -87,16 +87,16 @@ namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
                 Console.WriteLine(e.Message);
             }
         }
-        private void OpenCheckBoxChanged(object sender, CheckedChangedEventArgs e)
+        private void OpenSwitchChanged(object sender, ToggledEventArgs e)
         {
             // Set the visibility of the sub layer.
-            if (_openSublayer != null) _openSublayer.IsVisible = OpenCheckBox.IsChecked;
+            if (_openSublayer != null) _openSublayer.IsVisible = OpenSwitch.IsToggled;
         }
 
-        private void ClosedCheckBoxChanged(object sender, CheckedChangedEventArgs e)
+        private void ClosedSwitchChanged(object sender, ToggledEventArgs e)
         {
             // Set the visibility of the sub layer.
-            if (_closedSublayer != null) _closedSublayer.IsVisible = ClosedCheckBox.IsChecked;
+            if (_closedSublayer != null) _closedSublayer.IsVisible = ClosedSwitch.IsToggled;
         }
     }
 }

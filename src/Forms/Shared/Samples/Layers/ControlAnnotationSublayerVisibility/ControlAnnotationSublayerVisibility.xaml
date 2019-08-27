@@ -31,14 +31,14 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <CheckBox
-                x:Name="OpenCheckBox"
+            <Switch
+                x:Name="OpenSwitch"
                 Grid.Column="0"
                 Margin="5"
-                CheckedChanged="OpenCheckBoxChanged"
-                IsChecked="True"
                 IsEnabled="False"
-                WidthRequest="20" />
+                IsToggled="True"
+                Toggled="OpenSwitchChanged"
+                WidthRequest="50" />
             <Label
                 x:Name="OpenLabel"
                 Grid.Column="1"
@@ -50,14 +50,14 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <CheckBox
-                x:Name="ClosedCheckBox"
+            <Switch
+                x:Name="ClosedSwitch"
                 Grid.Column="0"
                 Margin="5"
-                CheckedChanged="ClosedCheckBoxChanged"
-                IsChecked="True"
                 IsEnabled="False"
-                WidthRequest="20" />
+                IsToggled="True"
+                Toggled="ClosedSwitchChanged"
+                WidthRequest="50" />
             <Label
                 x:Name="ClosedLabel"
                 Grid.Column="1"

@@ -48,47 +48,54 @@ namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
 
         private async void Initialize()
         {
-            // Load the mobile map package.
-            _mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("b87307dcfb26411eb2e92e1627cb615b", "GasDeviceAnno.mmpk"));
-            await _mobileMapPackage.LoadAsync();
-
-            // Set the mapview to display the map from the package.
-            _myMapView.Map = _mobileMapPackage.Maps.First();
-
-            // Get the annotation layer from the MapView operational layers.
-            AnnotationLayer annotationLayer = (AnnotationLayer)_myMapView.Map.OperationalLayers.Where(layer => layer is AnnotationLayer).First();
-
-            // Load the annotation layer.
-            await annotationLayer.LoadAsync();
-
-            // Get the annotation sub layers.
-            _closedSublayer = (AnnotationSublayer)annotationLayer.SublayerContents[0];
-            _openSublayer = (AnnotationSublayer)annotationLayer.SublayerContents[1];
-
-            // Set the label content.
-            _openLabel.Text = $"{_openSublayer.Name} (1:{_openSublayer.MaxScale} - 1:{_openSublayer.MinScale})";
-            _closedLabel.Text = _closedSublayer.Name;
-
-            // Enable the check boxes.
-            _openSwitch.Enabled = true;
-            _closedSwitch.Enabled = true;
-
-            // Add event handler for changing the text to indicate whether the "open" sublayer is visible at the current scale.
-            _myMapView.ViewpointChanged += (s, e) =>
+            try
             {
-                // Check if the sublayer is visible at the current map scale.
-                if (_openSublayer.IsVisibleAtScale(_myMapView.MapScale))
-                {
-                    _openLabel.TextColor = UIColor.Black;
-                }
-                else
-                {
-                    _openLabel.TextColor = UIColor.Gray;
-                }
+                // Load the mobile map package.
+                _mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("b87307dcfb26411eb2e92e1627cb615b", "GasDeviceAnno.mmpk"));
+                await _mobileMapPackage.LoadAsync();
 
-                // Set the current map scale text.
-                _scaleLabel.Text = "Current map scale: 1:" + (int)_myMapView.MapScale;
-            };
+                // Set the mapview to display the map from the package.
+                _myMapView.Map = _mobileMapPackage.Maps.First();
+
+                // Get the annotation layer from the MapView operational layers.
+                AnnotationLayer annotationLayer = (AnnotationLayer)_myMapView.Map.OperationalLayers.Where(layer => layer is AnnotationLayer).First();
+
+                // Load the annotation layer.
+                await annotationLayer.LoadAsync();
+
+                // Get the annotation sub layers.
+                _closedSublayer = (AnnotationSublayer)annotationLayer.SublayerContents[0];
+                _openSublayer = (AnnotationSublayer)annotationLayer.SublayerContents[1];
+
+                // Set the label content.
+                _openLabel.Text = $"{_openSublayer.Name} (1:{_openSublayer.MaxScale} - 1:{_openSublayer.MinScale})";
+                _closedLabel.Text = _closedSublayer.Name;
+
+                // Enable the check boxes.
+                _openSwitch.Enabled = true;
+                _closedSwitch.Enabled = true;
+
+                // Add event handler for changing the text to indicate whether the "open" sublayer is visible at the current scale.
+                _myMapView.ViewpointChanged += (s, e) =>
+                {
+                    // Check if the sublayer is visible at the current map scale.
+                    if (_openSublayer.IsVisibleAtScale(_myMapView.MapScale))
+                    {
+                        _openLabel.TextColor = UIColor.Black;
+                    }
+                    else
+                    {
+                        _openLabel.TextColor = UIColor.Gray;
+                    }
+
+                    // Set the current map scale text.
+                    _scaleLabel.Text = "Current map scale: 1:" + (int)_myMapView.MapScale;
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private void OpenSwitchChanged(object sender, EventArgs e)

@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
+using System;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -37,47 +38,54 @@ namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
 
         private async void Initialize()
         {
-            // Load the mobile map package.
-            _mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("b87307dcfb26411eb2e92e1627cb615b", "GasDeviceAnno.mmpk"));
-            await _mobileMapPackage.LoadAsync();
-
-            // Set the mapview to display the map from the package.
-            MyMapView.Map = _mobileMapPackage.Maps.First();
-
-            // Get the annotation layer from the MapView operational layers.
-            AnnotationLayer annotationLayer = (AnnotationLayer)MyMapView.Map.OperationalLayers.Where(layer => layer is AnnotationLayer).First();
-
-            // Load the annotation layer.
-            await annotationLayer.LoadAsync();
-
-            // Get the annotation sub layers.
-            _closedSublayer = (AnnotationSublayer)annotationLayer.SublayerContents[0];
-            _openSublayer = (AnnotationSublayer)annotationLayer.SublayerContents[1];
-
-            // Set the label content.
-            OpenLabel.Text = $"{_openSublayer.Name} (1:{_openSublayer.MaxScale} - 1:{_openSublayer.MinScale})";
-            ClosedLabel.Text = _closedSublayer.Name;
-
-            // Enable the check boxes.
-            OpenCheckBox.IsEnabled = true;
-            ClosedCheckBox.IsEnabled = true;
-
-            // Add event handler for changing the text to indicate whether the "open" sublayer is visible at the current scale.
-            MyMapView.ViewpointChanged += (s, e) =>
+            try
             {
+                // Load the mobile map package.
+                _mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("b87307dcfb26411eb2e92e1627cb615b", "GasDeviceAnno.mmpk"));
+                await _mobileMapPackage.LoadAsync();
+
+                // Set the mapview to display the map from the package.
+                MyMapView.Map = _mobileMapPackage.Maps.First();
+
+                // Get the annotation layer from the MapView operational layers.
+                AnnotationLayer annotationLayer = (AnnotationLayer)MyMapView.Map.OperationalLayers.Where(layer => layer is AnnotationLayer).First();
+
+                // Load the annotation layer.
+                await annotationLayer.LoadAsync();
+
+                // Get the annotation sub layers.
+                _closedSublayer = (AnnotationSublayer)annotationLayer.SublayerContents[0];
+                _openSublayer = (AnnotationSublayer)annotationLayer.SublayerContents[1];
+
+                // Set the label content.
+                OpenLabel.Text = $"{_openSublayer.Name} (1:{_openSublayer.MaxScale} - 1:{_openSublayer.MinScale})";
+                ClosedLabel.Text = _closedSublayer.Name;
+
+                // Enable the check boxes.
+                OpenCheckBox.IsEnabled = true;
+                ClosedCheckBox.IsEnabled = true;
+
+                // Add event handler for changing the text to indicate whether the "open" sublayer is visible at the current scale.
+                MyMapView.ViewpointChanged += (s, e) =>
+                {
                 // Check if the sublayer is visible at the current map scale.
                 if (_openSublayer.IsVisibleAtScale(MyMapView.MapScale))
-                {
-                    OpenLabel.TextColor = Color.Black;
-                }
-                else
-                {
-                    OpenLabel.TextColor = Color.Gray;
-                }
+                    {
+                        OpenLabel.TextColor = Color.Black;
+                    }
+                    else
+                    {
+                        OpenLabel.TextColor = Color.Gray;
+                    }
 
                 // Set the current map scale text.
                 ScaleLabel.Text = "Current map scale: 1:" + (int)MyMapView.MapScale;
-            };
+                };
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
         private void OpenCheckBoxChanged(object sender, CheckedChangedEventArgs e)
         {

@@ -91,6 +91,8 @@
 * [Stretch renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeStretchRenderer/readme.md) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
 * [Change sublayer renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeSublayerRenderer/readme.md) - Apply a renderer to a sublayer.
 * [Map image layer sublayer visibility](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeSublayerVisibility/readme.md) - Change the visibility of sublayers.
+* [Control annotation sublayer visibility](ArcGISRuntime.UWP.Viewer/Samples/Layers/ControlAnnotationSublayerVisibility/readme.md) - Use annotation sublayers to gain finer control of annotation layer subtypes.
+* [Create and save KML file](ArcGISRuntime.UWP.Viewer/Samples/Layers/CreateAndSaveKmlFile/readme.md) - Construct a KML document and save it as a KMZ file.
 * [Feature collection layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display KML](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayKml/readme.md) - Load and display KML from a URL, a local file, or a portal item.
 * [Display KML network links](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
@@ -186,6 +188,7 @@
 
 * [Find closest facility to an incident (interactive)](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
 * [Find closest facility to multiple incidents (service)](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Find connected features in a utility network](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/FindFeaturesUtilityNetwork/readme.md) - Find all features connected to a set of starting points in a utility network.
 * [Find route](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/FindRoute/readme.md) - Display directions for a route between two points.
 * [Find service area](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
 * [Find service areas for multiple facilities](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.

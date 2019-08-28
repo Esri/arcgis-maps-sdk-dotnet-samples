@@ -68,21 +68,21 @@ namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
                 // Add event handler for changing the text to indicate whether the "open" sublayer is visible at the current scale.
                 MyMapView.ViewpointChanged += (s, e) =>
                 {
-                // Check if the sublayer is visible at the current map scale.
-                if (_openSublayer.IsVisibleAtScale(MyMapView.MapScale))
+                    // Check if the sublayer is visible at the current map scale.
+                    if (_openSublayer.IsVisibleAtScale(MyMapView.MapScale))
                     {
-                        OpenLabel.TextColor = Color.Black;
+                        OpenLabel.TextColor = ClosedLabel.TextColor;
                     }
                     else
                     {
                         OpenLabel.TextColor = Color.Gray;
                     }
 
-                // Set the current map scale text.
-                ScaleLabel.Text = "Current map scale: 1:" + (int)MyMapView.MapScale;
+                    // Set the current map scale text.
+                    ScaleLabel.Text = "Current map scale: 1:" + (int)MyMapView.MapScale;
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }

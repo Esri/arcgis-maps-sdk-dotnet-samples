@@ -21,14 +21,16 @@
                         x:Name="OpenCheckBox"
                         Grid.Column="0"
                         VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
                         Checked="OpenCheckBoxChanged"
                         IsChecked="True"
                         IsEnabled="False"
-                        Unchecked="OpenCheckBoxChanged" />
-                    <Label
-                        x:Name="OpenLabel"
-                        Grid.Column="1"
-                        Content="Open" />
+                        Unchecked="OpenCheckBoxChanged">
+                        <Label
+                            x:Name="OpenLabel"
+                            Grid.Column="1"
+                            Content="Open" />
+                    </CheckBox>
                 </Grid>
                 <Grid Grid.Row="1" HorizontalAlignment="Left">
                     <Grid.ColumnDefinitions>
@@ -39,14 +41,16 @@
                         x:Name="ClosedCheckBox"
                         Grid.Column="0"
                         VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
                         Checked="ClosedCheckBoxChanged"
                         IsChecked="True"
                         IsEnabled="False"
-                        Unchecked="ClosedCheckBoxChanged" />
-                    <Label
-                        x:Name="ClosedLabel"
-                        Grid.Column="1"
-                        Content="Closed" />
+                        Unchecked="ClosedCheckBoxChanged">
+                        <Label
+                            x:Name="ClosedLabel"
+                            Grid.Column="1"
+                            Content="Closed" />
+                    </CheckBox>
                 </Grid>
                 <Label
                     x:Name="ScaleLabel"

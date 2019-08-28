@@ -178,7 +178,7 @@ namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
                 _scaleLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _scaleLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _scaleLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _scaleLabel.HeightAnchor.ConstraintEqualTo(25)
+                _scaleLabel.HeightAnchor.ConstraintEqualTo(40)
             });
         }
 

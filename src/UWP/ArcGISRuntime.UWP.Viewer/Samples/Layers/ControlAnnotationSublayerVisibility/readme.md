@@ -22,11 +22,11 @@ Use the checkboxes to manually set "Open" and "Closed" annotation sublayers visi
 2. Populate checkbox text with the `AnnotationSublayer` names (including maximum and minimum scales, where relevant).
 3. Wire up the checkboxes to toggle the annotation sublayer's visibility.
 4. Add a listener for changes in map view navigation and add code to:
-  * Update the current scale UI element at the bottom of the screen on navigation.
-  * Set the "Open" annotation sublayer checkbox text to:
-     * Black, when the layer is drawn at the current map scale
-     * Light gray, when the layer is not drawn at the current map scale
- 
+    * Update the current scale UI element at the bottom of the screen on navigation.
+    * Set the "Open" annotation sublayer checkbox text to:
+      * Black, when the layer is drawn at the current map scale
+      * Light gray, when the layer is not drawn at the current map scale
+
 ## Relevant API
 
 * AnnotationLayer
@@ -35,15 +35,7 @@ Use the checkboxes to manually set "Open" and "Closed" annotation sublayers visi
 
 ## Offline Data
 
-1. Download the data from [ArcGIS Online](https://arcgisruntime.maps.arcgis.com/home/item.html?id=b87307dcfb26411eb2e92e1627cb615b).
-2. Extract the contents of the downloaded zip file to disk.
-3. Open your command prompt and navigate to the folder where you extracted the contents of the data from step 1.
-4. Execute the following command:
-`adb push GasDeviceAnno.mmpk /sdcard/ArcGIS/Samples/MapPackage/GasDeviceAnno.mmpk`
-
-Link | Local Location
----------|-------|
-|[Gas Device Anno Mobile Map Package](https://arcgisruntime.maps.arcgis.com/home/item.html?id=b87307dcfb26411eb2e92e1627cb615b)| `<sdcard>`/ArcGIS/Samples/MapPackage/GasDeviceAnno.mmpk|
+This sample uses [Gas Device Anno Mobile Map Package](https://arcgisruntime.maps.arcgis.com/home/item.html?id=b87307dcfb26411eb2e92e1627cb615b). It is downloaded from ArcGIS Online automatically before the sample runs.
 
 ## About the data
 

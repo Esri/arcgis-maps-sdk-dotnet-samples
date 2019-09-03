@@ -210,6 +210,7 @@
 
 ## Symbology
 
+* [Custom dictionary style](Xamarin.iOS/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.
 * [Feature layer extrusion](Xamarin.iOS/Samples/Symbology/FeatureLayerExtrusion/readme.md) - Extrude features based on their attributes.
 * [Render picture markers](Xamarin.iOS/Samples/Symbology/RenderPictureMarkers/readme.md) - Use pictures for markers.
 * [Render simple markers](Xamarin.iOS/Samples/Symbology/RenderSimpleMarkers/readme.md) - Show a simple marker symbol on a map.

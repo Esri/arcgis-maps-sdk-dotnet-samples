@@ -7,16 +7,29 @@
         "CustomDictionaryStyle.jpg"
     ],
     "keywords": [
+        "dictionary",
+        "military",
+        "renderer",
+        "style",
+        "stylx",
+        "unique value",
+        "visualization"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.6.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/CustomDictionaryStyle.htm"
+        "/net/latest/uwp/sample-code/customdictionarystyle.htm"
     ],
     "relevant_apis": [
+        "DictionaryRenderer",
+        "DictionarySymbolStyle",
+        "DictionarySymbolStyleConfiguration"
     ],
     "snippets": [
+        "CustomDictionaryStyle.xaml",
+        "CustomDictionaryStyle.xaml.cs"
     ],
     "title": "Custom dictionary style"
 }

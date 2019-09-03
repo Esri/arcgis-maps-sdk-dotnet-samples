@@ -211,6 +211,7 @@
 
 ## Symbology
 
+* [Custom dictionary style](ArcGISRuntime.UWP.Viewer/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.
 * [Feature layer extrusion](ArcGISRuntime.UWP.Viewer/Samples/Symbology/FeatureLayerExtrusion/readme.md) - Extrude features based on their attributes.
 * [Render picture markers](ArcGISRuntime.UWP.Viewer/Samples/Symbology/RenderPictureMarkers/readme.md) - Use pictures for markers.
 * [Render simple markers](ArcGISRuntime.UWP.Viewer/Samples/Symbology/RenderSimpleMarkers/readme.md) - Show a simple marker symbol on a map.

@@ -15,9 +15,9 @@
                 <Slider
                     x:Name="OpacitySlider"
                     Grid.Row="1"
-                    Maximum="1.0"
+                    Maximum="255"
                     Minimum="0"
-                    Value="1.0" />
+                    Value="255" />
             </Grid>
         </Border>
     </Grid>

@@ -71,12 +71,15 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
 
             // Move the viewpoint to the ground overlay.
             _mySceneView.SetViewpoint(new Viewpoint(_overlay.Geometry, new Camera(_overlay.Geometry.Extent.GetCenter(), 1250, 45, 60, 0)));
+
+            // Set the default value for the slider.
+            _slider.Value = 255;
         }
 
         private void SliderValueChanged(object sender, EventArgs e)
         {
             // Change the color of the KML ground overlay image to edit the alpha-value. (Other color values are left as-is in the original image.)
-            _overlay.Color = System.Drawing.Color.FromArgb((int)(255 * ((UISlider)sender).Value), 0, 0, 0);
+            _overlay.Color = System.Drawing.Color.FromArgb((int)(((UISlider)sender).Value), 0, 0, 0);
         }
 
         public override void LoadView()
@@ -92,7 +95,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
             _slider = new UISlider()
             {
                 MinValue = 0,
-                MaxValue = 1,
+                MaxValue = 255,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 

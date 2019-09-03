@@ -145,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml.cs">
+      <DependentUpon>EditKmlGroundOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml.cs">
       <DependentUpon>ControlAnnotationSublayerVisibility.xaml</DependentUpon>
     </Compile>
@@ -707,6 +710,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1458,6 +1465,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

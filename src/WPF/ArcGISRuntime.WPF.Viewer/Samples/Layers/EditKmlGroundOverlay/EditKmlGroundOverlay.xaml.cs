@@ -7,22 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.EditKmlGroundOverlay
 {
@@ -34,6 +23,8 @@ namespace ArcGISRuntime.WPF.Samples.EditKmlGroundOverlay
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1f3677c24b2c446e96eaf1099292e83e")]
     public partial class EditKmlGroundOverlay
     {
+        private readonly Uri _imageryUri = new Uri(DataManager.GetDataFolder("1f3677c24b2c446e96eaf1099292e83e", "1944.jpg"));
+
         public EditKmlGroundOverlay()
         {
             InitializeComponent();
@@ -42,6 +33,40 @@ namespace ArcGISRuntime.WPF.Samples.EditKmlGroundOverlay
 
         private void Initialize()
         {
+            // Create a scene for the sceneview.
+            Scene myScene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = myScene;
+
+            // Create a geometry for the ground overlay.
+            Envelope overlayGeometry = new Envelope(-123.066227926904, 44.04736963555683, -123.0796942287304, 44.03878298600624, SpatialReferences.Wgs84);
+
+            // Create a KML Icon for the overlay image.
+            KmlIcon overlayImage = new KmlIcon(_imageryUri);
+
+            // Create the KML ground overlay.
+            KmlGroundOverlay overlay = new KmlGroundOverlay(overlayGeometry, overlayImage);
+
+            // Set the rotation of the ground overlay.
+            overlay.Rotation = -3.046024799346924;
+
+            // Create a KML dataset with the ground overlay as the root node.
+            KmlDataset dataset = new KmlDataset(overlay);
+
+            // Create a KML layer for the scene view.
+            KmlLayer layer = new KmlLayer(dataset);
+
+            // Add the layer to the map.
+            MySceneView.Scene.OperationalLayers.Add(layer);
+
+            // Move the viewpoint to the ground overlay.
+            MySceneView.SetViewpoint(new Viewpoint(overlay.Geometry, new Camera(overlay.Geometry.Extent.GetCenter(), 1250, 45, 60, 0)));
+
+            // Add an event handler for the on-screen slider.
+            OpacitySlider.ValueChanged += (s, e) =>
+            {
+                // Change the color of the KML ground overlay image to edit the alpha-value. (Other color values are left as-is in the original image.)
+                overlay.Color = System.Drawing.Color.FromArgb((int)(255 * e.NewValue), 0, 0, 0);
+            };
         }
     }
 }

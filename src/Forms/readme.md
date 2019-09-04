@@ -151,6 +151,7 @@
 * [Generate offline map](Shared/Samples/Map/GenerateOfflineMap/readme.md) - Take a web map offline.
 * [Generate Offline Map (Overrides)](Shared/Samples/Map/GenerateOfflineMapWithOverrides/readme.md) - Use the `OfflineMapTask` with overrides to take a webmap offline. The overrides workflow allows you to adjust the settings used for taking each layer in the map offline. For a simple example of how you take a map offline, please consult the "Generate Offline Map" sample.
 * [Get elevation at a point](Shared/Samples/Map/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene. 
+* [Honor mobile map package expiration date](Shared/Samples/Map/HonorMobileMapPackageExpiration/readme.md) - Access the expiration information of an expired mobile map package.
 * [Manage bookmarks](Shared/Samples/Map/ManageBookmarks/readme.md) - Access and create bookmarks on a map.
 * [Manage operational layers](Shared/Samples/Map/ManageOperationalLayers/readme.md) - Add, remove, and reorder operational layers in a map.
 * [Map reference scale](Shared/Samples/Map/MapReferenceScale/readme.md) - Set a map's reference scale and control which feature layers should honor that scale.

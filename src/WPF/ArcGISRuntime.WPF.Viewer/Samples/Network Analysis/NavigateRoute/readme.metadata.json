@@ -1,0 +1,22 @@
+{
+    "category": "Network Analysis",
+    "description": "Use a routing service to navigate between two points.",
+    "formal_name": "NavigateRoute",
+    "ignore": false,
+    "images": [
+        "NavigateRoute.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/NavigateRoute.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Navigate a route"
+}

@@ -145,6 +145,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
+      <DependentUpon>NavigateRoute.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml.cs">
       <DependentUpon>ControlAnnotationSublayerVisibility.xaml</DependentUpon>
     </Compile>
@@ -707,6 +710,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1458,6 +1465,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

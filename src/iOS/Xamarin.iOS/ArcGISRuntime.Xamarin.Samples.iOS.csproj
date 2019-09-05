@@ -247,6 +247,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
     <None Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
     <None Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
     <None Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
@@ -420,6 +421,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.cs" />
     <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.cs" />
     <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.cs" />
     <Compile Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.cs" />

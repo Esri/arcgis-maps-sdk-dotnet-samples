@@ -231,7 +231,6 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
      * This location data source uses an input data source and a route tracker.
      * The location source that it updates is based on the snapped-to-route location from the route tracker.
      */
-
     public class RouteTrackerLocationDataSource : LocationDataSource
     {
         private LocationDataSource _inputDataSource;

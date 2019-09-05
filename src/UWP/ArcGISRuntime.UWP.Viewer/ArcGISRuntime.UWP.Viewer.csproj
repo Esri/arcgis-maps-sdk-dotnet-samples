@@ -342,6 +342,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
     </Compile>

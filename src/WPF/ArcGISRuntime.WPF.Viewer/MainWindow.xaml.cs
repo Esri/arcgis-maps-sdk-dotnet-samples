@@ -73,6 +73,7 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 CategoriesList.ItemsSource = category.Items;
                 DetailsRegion.Visibility = Visibility.Collapsed;
+                SampleContainer.Content = null;
                 CategoriesRegion.Visibility = Visibility.Visible;
                 CategoriesHeader.Text = category.Name;
             }

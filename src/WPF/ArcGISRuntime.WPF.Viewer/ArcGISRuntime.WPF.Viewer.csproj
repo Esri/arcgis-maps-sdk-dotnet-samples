@@ -97,6 +97,7 @@
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Speech" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -145,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
     </Compile>

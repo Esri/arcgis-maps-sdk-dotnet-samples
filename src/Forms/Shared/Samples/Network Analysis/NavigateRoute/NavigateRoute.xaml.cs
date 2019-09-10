@@ -107,8 +107,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
 
                 // Set the map viewpoint to show the entire route.
                 await MyMapView.SetViewpointGeometryAsync(_route.RouteGeometry, 100);
-
-                //this.MyMapView.LayerViewStateChanged += NewHandler;
             }
             catch (Exception e)
             {

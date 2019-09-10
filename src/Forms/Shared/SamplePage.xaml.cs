@@ -7,9 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Diagnostics;
-using ArcGISRuntime.Samples.Shared.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,6 +19,7 @@ namespace ArcGISRuntime
     public partial class SamplePage
     {
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
+        private ContentPage _sample;
 
         public SamplePage()
         {
@@ -28,6 +29,9 @@ namespace ArcGISRuntime
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
+            // Set the private variable.
+            _sample = sample;
+
             // Update the binding context - this is important for the description tab.
             BindingContext = sampleInfo;
 
@@ -38,7 +42,7 @@ namespace ArcGISRuntime
             //    navigation won't work from within the sample until the parent is manually set.
             sample.Parent = this;
 
-            // Set the title. If the sample control didn't 
+            // Set the title. If the sample control didn't
             // define the title, use the name from the sample metadata.
             if (!String.IsNullOrWhiteSpace(sample.Title))
             {
@@ -106,6 +110,12 @@ namespace ArcGISRuntime
                     Debug.WriteLine(ex);
                 }
             }
+        }
+
+        private void ContentPage_Disappearing(object sender, EventArgs e)
+        {
+            if (_sample is IDisposable) ((IDisposable)_sample).Dispose();
+            SampleContentPage.Content = null;
         }
     }
 }

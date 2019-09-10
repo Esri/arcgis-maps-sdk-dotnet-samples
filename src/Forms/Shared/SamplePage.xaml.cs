@@ -19,7 +19,7 @@ namespace ArcGISRuntime
     public partial class SamplePage
     {
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
-        private ContentPage _sample;
+        public ContentPage Sample;
 
         public SamplePage()
         {
@@ -30,7 +30,7 @@ namespace ArcGISRuntime
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
             // Set the private variable.
-            _sample = sample;
+            Sample = sample;
 
             // Update the binding context - this is important for the description tab.
             BindingContext = sampleInfo;
@@ -44,7 +44,7 @@ namespace ArcGISRuntime
 
             // Set the title. If the sample control didn't
             // define the title, use the name from the sample metadata.
-            if (!String.IsNullOrWhiteSpace(sample.Title))
+            if (!string.IsNullOrWhiteSpace(sample.Title))
             {
                 Title = sample.Title;
             }
@@ -91,7 +91,7 @@ namespace ArcGISRuntime
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
         }
 
@@ -110,12 +110,6 @@ namespace ArcGISRuntime
                     Debug.WriteLine(ex);
                 }
             }
-        }
-
-        private void ContentPage_Disappearing(object sender, EventArgs e)
-        {
-            if (_sample is IDisposable) ((IDisposable)_sample).Dispose();
-            SampleContentPage.Content = null;
         }
     }
 }

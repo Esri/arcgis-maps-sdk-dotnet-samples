@@ -21,6 +21,7 @@ namespace ArcGISRuntime
     {
         private readonly string _categoryName;
         private List<SampleInfo> _listSampleItems;
+        private SamplePage _samplePage;
 
         public SampleListPage(string name)
         {
@@ -75,10 +76,10 @@ namespace ArcGISRuntime
                 var sampleControl = (ContentPage)SampleManager.Current.SampleToControl(item);
 
                 // Create the sample display page to show the sample and the metadata.
-                SamplePage page = new SamplePage(sampleControl, item);
+                _samplePage = new SamplePage(sampleControl, item);
 
                 // Show the sample.
-                await Navigation.PushAsync(page, true);
+                await Navigation.PushAsync(_samplePage, true);
             }
             catch (Exception ex)
             {
@@ -91,6 +92,15 @@ namespace ArcGISRuntime
             foreach (Credential cred in AuthenticationManager.Current.Credentials)
             {
                 AuthenticationManager.Current.RemoveCredential(cred);
+            }
+        }
+
+        private void SampleListAppearing(object sender, EventArgs e)
+        {
+            if (_samplePage != null)
+            {
+                if (_samplePage.Sample is IDisposable) ((IDisposable)_samplePage.Sample).Dispose();
+                _samplePage.Content = null;
             }
         }
     }

@@ -2,8 +2,7 @@
 <ContentPage
     x:Class="ArcGISRuntime.SamplePage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Disappearing="ContentPage_Disappearing">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.ToolbarItems>
         <ToolbarItem
             x:Name="DetailToolbarItem"

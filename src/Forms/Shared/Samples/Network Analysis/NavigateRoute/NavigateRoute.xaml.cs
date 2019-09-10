@@ -7,40 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using Xamarin.Forms;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
-using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Navigation;
-using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
-using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading.Tasks;
-using System.Windows;
 using Color = System.Drawing.Color;
-using Android.Runtime;
-#if __IOS__
-
-#endif
-#if __ANDROID__
-using Android.Speech.Tts;
-#endif
-#if WINDOWS_UWP
-
-#endif
-
+using static Xamarin.Essentials.TextToSpeech;
+//using Map = Esri.ArcGISRuntime.Mapping.Map;
+//using Location = Esri.ArcGISRuntime.Location.Location;
+using System.Threading;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
 {
@@ -50,7 +32,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         "Use a routing service to navigate between two points.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public partial class NavigateRoute : ContentPage
+
+    public partial class NavigateRoute : ContentPage, IDisposable
     {
         private RouteTracker _tracker;
         private RouteResult _routeResult;
@@ -58,20 +41,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
 
         private IReadOnlyList<DirectionManeuver> _directionsList;
 
-#if __IOS__
-
-#endif
-#if __ANDROID__
-        //private TextToSpeech _speechSynthesizer = new TextToSpeech(Android.App.Application.Context, );
-#endif
-#if WINDOWS_UWP
-private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
-#endif
-
-        //
-
         private Graphic _routeAheadGraphic;
         private Graphic _routeTraveledGraphic;
+        
 
         // San Diego Convention Center.
         private readonly MapPoint _startLocation = new MapPoint(-117.160386727, 32.706608, SpatialReferences.Wgs84);
@@ -81,6 +53,8 @@ private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
 
         // Feature service for routing in San Diego.
         private readonly Uri _routingUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+
+        public IntPtr Handle => throw new NotImplementedException();
 
         public NavigateRoute()
         {
@@ -94,6 +68,7 @@ private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
             {
                 // Add event handler for when this sample is unloaded.
                 //Unloaded += SampleUnloaded;
+                
 
                 // Create the map view.
                 MyMapView.Map = new Map(Basemap.CreateNavigationVector());
@@ -143,6 +118,8 @@ private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
 
                 // Set the map viewpoint to show the entire route.
                 await MyMapView.SetViewpointGeometryAsync(_route.RouteGeometry, 100);
+
+                //this.MyMapView.LayerViewStateChanged += NewHandler;
             }
             catch (Exception e)
             {
@@ -220,21 +197,10 @@ private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
             });
         }
 
-        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
             // Say the direction using voice synthesis.
-#if __IOS__
-
-#endif
-#if __ANDROID__
-            //var p = new Dictionary<string, string>();
-            //_speechSynthesizer.Speak(e.VoiceGuidance.Text, QueueMode.Flush, p);
-#endif
-#if WINDOWS_UWP
-private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
-#endif
-            //_speechSynthesizer.SpeakAsyncCancelAll();
-            //_speechSynthesizer.SpeakAsync(e.VoiceGuidance.Text);
+            if (e.VoiceGuidance.Text?.Length > 0) await SpeakAsync(e.VoiceGuidance.Text);
         }
 
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
@@ -249,12 +215,8 @@ private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
             MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
         }
 
-        private void SampleUnloaded(object sender, EventArgs e)
+        public void Dispose()
         {
-            // Stop the speech synthesizer.
-            //_speechSynthesizer.SpeakAsyncCancelAll();
-            //_speechSynthesizer.Dispose();
-
             // Stop the tracker.
             if (_tracker != null)
             {
@@ -266,7 +228,7 @@ private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
             // Stop the location data source.
             MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
-}
+    }
 
     /*
      * This location data source uses an input data source and a route tracker.

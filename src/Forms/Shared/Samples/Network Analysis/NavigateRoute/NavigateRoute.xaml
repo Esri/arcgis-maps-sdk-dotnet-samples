@@ -2,8 +2,7 @@
     x:Class="ArcGISRuntimeXamarin.Samples.NavigateRoute.NavigateRoute"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -18,10 +17,9 @@
             <Label
                 x:Name="MessagesTextBlock"
                 Margin="5"
-                Text="Testing"
+                Text=""
                 TextColor="White" />
         </Grid>
-
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -36,6 +34,7 @@
                 x:Name="RecenterButton"
                 Grid.Column="1"
                 Clicked="RecenterButton_Click"
+                IsEnabled="False"
                 Text="Recenter" />
         </Grid>
     </Grid>

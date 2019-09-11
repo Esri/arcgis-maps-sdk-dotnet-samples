@@ -5,4 +5,3 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <esriUI:MapView x:Name="MyMapView" />
 </UserControl>
-

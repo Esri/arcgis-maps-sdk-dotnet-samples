@@ -7,17 +7,24 @@
         <esri:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Content="Opacity" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Opacity" />
                 <Slider
                     x:Name="OpacitySlider"
-                    Grid.Row="1"
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
                     Maximum="255"
                     Minimum="0"
                     Value="255" />
+                <Label
+                    Grid.Column="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="{Binding ElementName=OpacitySlider, Path=Value}" />
             </Grid>
         </Border>
     </Grid>

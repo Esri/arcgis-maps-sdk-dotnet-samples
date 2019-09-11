@@ -66,6 +66,9 @@ namespace ArcGISRuntime.UWP.Samples.EditKmlGroundOverlay
             {
                 // Change the color of the KML ground overlay image to edit the alpha-value. (Other color values are left as-is in the original image.)
                 overlay.Color = System.Drawing.Color.FromArgb((int)e.NewValue, 0, 0, 0);
+
+                // Make the value an integer (For the UI).
+                OpacitySlider.Value = (int)OpacitySlider.Value;
             };
         }
     }

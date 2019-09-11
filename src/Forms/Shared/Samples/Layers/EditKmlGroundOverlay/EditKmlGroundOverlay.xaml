@@ -5,18 +5,20 @@
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition Height="*" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <esriUI:SceneView x:Name="MySceneView" />
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" />
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <Label
                 Grid.Column="0"
                 Margin="5"
+                HorizontalTextAlignment="Center"
                 Text="Opacity"
                 VerticalTextAlignment="Center" />
             <Slider
@@ -26,6 +28,13 @@
                 Maximum="255"
                 Minimum="0"
                 Value="255" />
+            <Label
+                x:Name="ValueLabel"
+                Grid.Column="2"
+                Margin="5"
+                HorizontalTextAlignment="Center"
+                Text="255"
+                VerticalTextAlignment="Center" />
         </Grid>
     </Grid>
 </ContentPage>

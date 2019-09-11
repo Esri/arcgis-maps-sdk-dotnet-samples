@@ -32,6 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
         // Hold references to the UI controls.
         private SceneView _mySceneView;
         private SeekBar _slider;
+        private TextView _valueLabel;
 
         // Uri of the image for the ground overlay.
         private readonly Uri _imageryUri = new Uri(DataManager.GetDataFolder("1f3677c24b2c446e96eaf1099292e83e", "1944.jpg"));
@@ -81,6 +82,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
             {
                 // Change the color of the KML ground overlay image to edit the alpha-value. (Other color values are left as-is in the original image.)
                 overlay.Color = System.Drawing.Color.FromArgb(e.Progress, 0, 0, 0);
+
+                // Display the value.
+                _valueLabel.Text = e.Progress.ToString();
             };
         }
 
@@ -92,6 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
             // Update control references to point to the controls defined in the layout.
             _mySceneView = FindViewById<SceneView>(Resource.Id.SceneView);
             _slider = FindViewById<SeekBar>(Resource.Id.Slider);
+            _valueLabel = FindViewById<TextView>(Resource.Id.ValueLabel);
         }
     }
 }

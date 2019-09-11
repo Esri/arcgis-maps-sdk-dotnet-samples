@@ -30,6 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
         // Hold references to UI controls.
         private SceneView _mySceneView;
         private UISlider _slider;
+        private UILabel _valueLabel;
 
         // Uri of the image for the ground overlay.
         private readonly Uri _imageryUri = new Uri(DataManager.GetDataFolder("1f3677c24b2c446e96eaf1099292e83e", "1944.jpg"));
@@ -80,6 +81,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
         {
             // Change the color of the KML ground overlay image to edit the alpha-value. (Other color values are left as-is in the original image.)
             _overlay.Color = System.Drawing.Color.FromArgb((int)((UISlider)sender).Value, 0, 0, 0);
+
+            // Display the value.
+            _valueLabel.Text = ((int)((UISlider)sender).Value).ToString();
         }
 
         public override void LoadView()
@@ -90,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UILabel opacityLabel = new UILabel() { Text = "Opacity", TranslatesAutoresizingMaskIntoConstraints = false };
+            UILabel opacityLabel = new UILabel() { Text = "Opacity ", TranslatesAutoresizingMaskIntoConstraints = false };
 
             _slider = new UISlider()
             {
@@ -99,13 +103,16 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
+            _valueLabel = new UILabel() { Text = "255", TranslatesAutoresizingMaskIntoConstraints = false };
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
                 new UIBarButtonItem {CustomView = opacityLabel},
+                new UIBarButtonItem {CustomView = _slider, Width = 200},
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem {CustomView = _slider, Width = 250}
+                new UIBarButtonItem {CustomView = _valueLabel}
             };
 
             // Add the views.

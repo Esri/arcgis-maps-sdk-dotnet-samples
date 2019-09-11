@@ -30,6 +30,13 @@
             android:max="255"
             android:progress="255"
             app:layout_constraintLeft_toRightOf="@+id/Label"
+            app:layout_constraintRight_toLeftOf="@+id/ValueLabel"/>
+        <TextView
+            android:id="@+id/ValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="255"
+            app:layout_constraintLeft_toRightOf="@+id/Slider"
             app:layout_constraintRight_toRightOf="parent"/>
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

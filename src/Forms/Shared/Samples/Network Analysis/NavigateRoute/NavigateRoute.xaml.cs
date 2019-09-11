@@ -202,11 +202,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
         }
 
-        protected override void OnDisappearing()
-        {
-            base.OnDisappearing();
-        }
-
         public void Dispose()
         {
             // Stop the tracker.

@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Recenter"
+            android:enabled="false"
             android:id="@+id/recenterButton" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

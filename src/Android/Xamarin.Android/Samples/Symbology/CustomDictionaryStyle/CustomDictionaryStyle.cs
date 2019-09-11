@@ -30,17 +30,17 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("751138a2e0844e06853522d54103222a")]
     public class CustomDictionaryStyle : Activity
     {
-        // Hold references to the MapView.
+        // Hold a reference to the MapView.
         private MapView _myMapView;
+
+        // Path for the restaurants style file.
+        private readonly string _stylxPath = DataManager.GetDataFolder("751138a2e0844e06853522d54103222a", "Restaurant.stylx");
 
         // The custom dictionary style for symbolizing restaurants.
         private DictionarySymbolStyle _restaurantStyle;
 
         // Uri for the restaurants feature service.
         private readonly Uri _restaurantUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Redlands_Restaurants/FeatureServer/0");
-
-        // Path for the restaurants style file.
-        private readonly string _stylxPath = DataManager.GetDataFolder("751138a2e0844e06853522d54103222a", "Restaurant.stylx");
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -60,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
                 _restaurantStyle = await DictionarySymbolStyle.CreateFromFileAsync(_stylxPath);
 
                 // Create a new map with a streets basemap.
-                Map map = new Map(Basemap.CreateStreetsVector());
+                Map map = new Map(Basemap.CreateStreets());
 
                 // Create the restaurants layer and add it to the map.
                 FeatureLayer restaurantLayer = new FeatureLayer(_restaurantUri);

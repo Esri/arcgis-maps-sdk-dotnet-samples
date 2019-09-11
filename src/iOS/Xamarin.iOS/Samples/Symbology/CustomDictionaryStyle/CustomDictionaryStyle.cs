@@ -32,14 +32,14 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
         // Hold references to UI controls.
         private MapView _myMapView;
 
+        // Path for the restaurants style file.
+        private readonly string _stylxPath = DataManager.GetDataFolder("751138a2e0844e06853522d54103222a", "Restaurant.stylx");
+
         // The custom dictionary style for symbolizing restaurants.
         private DictionarySymbolStyle _restaurantStyle;
 
         // Uri for the restaurants feature service.
         private readonly Uri _restaurantUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Redlands_Restaurants/FeatureServer/0");
-
-        // Path for the restaurants style file.
-        private readonly string _stylxPath = DataManager.GetDataFolder("751138a2e0844e06853522d54103222a", "Restaurant.stylx");
 
         public CustomDictionaryStyle()
         {

@@ -7,9 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Diagnostics;
+using ArcGISRuntime.Samples.Shared.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -19,7 +19,7 @@ namespace ArcGISRuntime
     public partial class SamplePage
     {
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
-        public ContentPage Sample;
+        private ContentPage _sample;
 
         public SamplePage()
         {
@@ -29,8 +29,8 @@ namespace ArcGISRuntime
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
-            // Set the private variable.
-            Sample = sample;
+            // Set the sample variable.
+            _sample = sample;
 
             // Update the binding context - this is important for the description tab.
             BindingContext = sampleInfo;
@@ -42,9 +42,9 @@ namespace ArcGISRuntime
             //    navigation won't work from within the sample until the parent is manually set.
             sample.Parent = this;
 
-            // Set the title. If the sample control didn't
+            // Set the title. If the sample control didn't 
             // define the title, use the name from the sample metadata.
-            if (!string.IsNullOrWhiteSpace(sample.Title))
+            if (!String.IsNullOrWhiteSpace(sample.Title))
             {
                 Title = sample.Title;
             }
@@ -91,8 +91,20 @@ namespace ArcGISRuntime
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                System.Diagnostics.Debug.WriteLine(ex);
             }
+        }
+
+        protected override void OnDisappearing()
+        {
+            if (_sample is IDisposable) ((IDisposable)_sample).Dispose();
+            base.OnDisappearing();
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            if (_sample is IDisposable) ((IDisposable)_sample).Dispose();
+            return base.OnBackButtonPressed();
         }
 
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)

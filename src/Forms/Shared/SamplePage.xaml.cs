@@ -101,12 +101,6 @@ namespace ArcGISRuntime
             base.OnDisappearing();
         }
 
-        protected override bool OnBackButtonPressed()
-        {
-            if (_sample is IDisposable) ((IDisposable)_sample).Dispose();
-            return base.OnBackButtonPressed();
-        }
-
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)
         {
             // Open links in a new window instead of inside the web view.

@@ -43,14 +43,21 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         private Button _recenterButton;
         private TextView _status;
 
+        // Variables for tracking the navigation route.
         private RouteTracker _tracker;
         private RouteResult _routeResult;
         private Route _route;
 
+        // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
+
+        // Speech synthesizer to play voice guidance audio.
         private TextToSpeech _textToSpeech;
+
+        // String to hold route status for the UI.
         private string _statusMessage;
 
+        // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
         private Graphic _routeTraveledGraphic;
 
@@ -61,7 +68,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         private readonly MapPoint _destinationLocation = new MapPoint(-117.147230, 32.730467, SpatialReferences.Wgs84);
 
         // Feature service for routing in San Diego.
-        private readonly Uri _routingUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private readonly Uri _routingUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -78,7 +85,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             try
             {
                 // Create the map view.
-                _myMapView.Map = new Map(Basemap.CreateNavigationVector());
+                _myMapView.Map = new Map(Basemap.CreateStreets());
 
                 // Create the text to speech object.
                 _textToSpeech = new TextToSpeech(this, this, "com.google.android.tts");
@@ -128,10 +135,13 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
 
                 // Set the map viewpoint to show the entire route.
                 await _myMapView.SetViewpointGeometryAsync(_route.RouteGeometry, 100);
+
+                // Enable the navigation button.
+                _navigateButton.Enabled = true;
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                new AlertDialog.Builder(this).SetMessage(e.Message).SetTitle("Error").Show();
             }
         }
 
@@ -155,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             _myMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
 
             // Add a data source for the location display.
-            _myMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new FakeLocationProvider(_route.RouteGeometry), _tracker);
+            _myMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(new FakeLocationProvider(_route.RouteGeometry), _tracker);
             // Use this instead if you want real location:
             // _myMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 
@@ -251,12 +261,12 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
      * This location data source uses an input data source and a route tracker.
      * The location source that it updates is based on the snapped-to-route location from the route tracker.
      */
-    public class RouteTrackerLocationDataSource : LocationDataSource
+    public class RouteTrackerDisplayLocationDataSource : LocationDataSource
     {
         private LocationDataSource _inputDataSource;
         private RouteTracker _routeTracker;
 
-        public RouteTrackerLocationDataSource(LocationDataSource dataSource, RouteTracker routeTracker)
+        public RouteTrackerDisplayLocationDataSource(LocationDataSource dataSource, RouteTracker routeTracker)
         {
             // Set the data source
             _inputDataSource = dataSource ?? throw new ArgumentNullException(nameof(dataSource));

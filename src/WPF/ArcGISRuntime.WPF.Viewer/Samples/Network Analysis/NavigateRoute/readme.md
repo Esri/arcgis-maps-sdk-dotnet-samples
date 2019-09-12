@@ -15,7 +15,7 @@ Click 'Navigate' to simulate travelling and to receive directions from a preset 
 ## How it works
 
 1. Create a `RouteTask` using a URL to an online route service.
-2. Generate default `RouteParameters` using `RouteTask.createDefaultParametersAsync()`.
+2. Generate default `RouteParameters` using `RouteTask.CreateDefaultParametersAsync()`.
 3. Set `ReturnStops` and `ReturnDirections` on the parameters to true.
 4. Add `Stop`s to the parameters for each destination using `SetStops(stops)`.
 5. Solve the route using `RouteTask.SolveRouteAsync(routeParameters)` to get a `RouteResult`.
@@ -39,10 +39,6 @@ Click 'Navigate' to simulate travelling and to receive directions from a preset 
 * RouteTracker
 * Stop
 * VoiceGuidance
-
-## Offline data
-
-None
 
 ## About the data
 

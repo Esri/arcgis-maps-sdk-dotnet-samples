@@ -23,7 +23,8 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         Click="StartNavigation"
-                        Content="Navigate Route" />
+                        Content="Navigate route"
+                        IsEnabled="False" />
                     <Button
                         x:Name="RecenterButton"
                         Grid.Column="1"

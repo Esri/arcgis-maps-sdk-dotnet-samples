@@ -32,13 +32,18 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class NavigateRoute
     {
+        // Variables for tracking the navigation route.
         private RouteTracker _tracker;
         private RouteResult _routeResult;
         private Route _route;
 
+        // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
+
+        // Speech synthesizer to play voice guidance audio.
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
 
+        // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
         private Graphic _routeTraveledGraphic;
 
@@ -49,7 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
         private readonly MapPoint _destinationLocation = new MapPoint(-117.147230, 32.730467, SpatialReferences.Wgs84);
 
         // Feature service for routing in San Diego.
-        private readonly Uri _routingUri = new Uri("http://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private readonly Uri _routingUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         public NavigateRoute()
         {
@@ -112,10 +117,14 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
 
                 // Set the map viewpoint to show the entire route.
                 await MyMapView.SetViewpointGeometryAsync(_route.RouteGeometry, 100);
+
+                // Enable the navigation button.
+                StartNavigationButton.IsEnabled = true;
             }
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
+                MessageBox.Show(e.Message, "Error");
             }
         }
 
@@ -139,7 +148,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
             MyMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
 
             // Add a data source for the location display.
-            MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new FakeLocationProvider(_route.RouteGeometry), _tracker);
+            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(new FakeLocationProvider(_route.RouteGeometry), _tracker);
             // Use this instead if you want real location:
             // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 
@@ -227,16 +236,14 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
         }
     }
 
-    /*
-     * This location data source uses an input data source and a route tracker.
-     * The location source that it updates is based on the snapped-to-route location from the route tracker.
-     */
-    public class RouteTrackerLocationDataSource : LocationDataSource
+    // This location data source uses an input data source and a route tracker.
+    // The location source that it updates is based on the snapped-to-route location from the route tracker.
+    public class RouteTrackerDisplayLocationDataSource : LocationDataSource
     {
         private LocationDataSource _inputDataSource;
         private RouteTracker _routeTracker;
 
-        public RouteTrackerLocationDataSource(LocationDataSource dataSource, RouteTracker routeTracker)
+        public RouteTrackerDisplayLocationDataSource(LocationDataSource dataSource, RouteTracker routeTracker)
         {
             // Set the data source
             _inputDataSource = dataSource ?? throw new ArgumentNullException(nameof(dataSource));

@@ -123,7 +123,6 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
             }
             catch(Exception e)
             {
-                Console.WriteLine(e.Message);
                 MessageBox.Show(e.Message, "Error");
             }
         }

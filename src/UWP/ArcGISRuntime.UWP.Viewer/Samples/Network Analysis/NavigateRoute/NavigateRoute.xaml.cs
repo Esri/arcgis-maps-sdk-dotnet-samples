@@ -126,7 +126,6 @@ namespace ArcGISRuntime.UWP.Samples.NavigateRoute
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
                 await new MessageDialog(e.Message, "Error").ShowAsync();
             }
         }
@@ -245,10 +244,8 @@ namespace ArcGISRuntime.UWP.Samples.NavigateRoute
         }
     }
 
-    /*
-     * This location data source uses an input data source and a route tracker.
-     * The location source that it updates is based on the snapped-to-route location from the route tracker.
-     */
+    // This location data source uses an input data source and a route tracker.
+    // The location source that it updates is based on the snapped-to-route location from the route tracker.
     public class RouteTrackerDisplayLocationDataSource : LocationDataSource
     {
         private LocationDataSource _inputDataSource;

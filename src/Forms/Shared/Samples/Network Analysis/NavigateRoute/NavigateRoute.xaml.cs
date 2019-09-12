@@ -46,9 +46,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         // San Diego Convention Center.
         private readonly MapPoint _startLocation = new MapPoint(-117.160386727, 32.706608, SpatialReferences.Wgs84);
 
-        //
-        private MapPoint
-
         // RH Fleet Aerospace Museum.
         private readonly MapPoint _destinationLocation = new MapPoint(-117.147230, 32.730467, SpatialReferences.Wgs84);
 

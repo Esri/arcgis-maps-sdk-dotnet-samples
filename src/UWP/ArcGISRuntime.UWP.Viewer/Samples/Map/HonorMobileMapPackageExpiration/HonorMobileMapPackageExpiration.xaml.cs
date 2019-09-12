@@ -11,19 +11,18 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using ArcGISRuntime.Samples.Managers;
 using Windows.UI.Popups;
+using System.Linq;
 
 namespace ArcGISRuntime.UWP.Samples.HonorMobileMapPackageExpiration
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Honor mobile map package expiration date",
         "Map",
-        "Determine a mobile map package's expiration date.",
+        "Access the expiration information of an expired mobile map package.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("174150279af74a2ba6f8b87a567f480b")]
     public partial class HonorMobileMapPackageExpiration
     {
-        private readonly string _mobileMapPackagePath = DataManager.GetDataFolder("174150279af74a2ba6f8b87a567f480b", "LothianRiversAnno.mmpk");
-
         public HonorMobileMapPackageExpiration()
         {
             InitializeComponent();
@@ -34,8 +33,11 @@ namespace ArcGISRuntime.UWP.Samples.HonorMobileMapPackageExpiration
         {
             try
             {
+                // Path to the mobile map package.
+                string mobileMapPackagePath = DataManager.GetDataFolder("174150279af74a2ba6f8b87a567f480b", "LothianRiversAnno.mmpk");
+
                 // Create a mobile map package.
-                MobileMapPackage mobileMapPackage = new MobileMapPackage(_mobileMapPackagePath);
+                MobileMapPackage mobileMapPackage = new MobileMapPackage(mobileMapPackagePath);
 
                 // Load the mobile map package.
                 await mobileMapPackage.LoadAsync();
@@ -53,7 +55,7 @@ namespace ArcGISRuntime.UWP.Samples.HonorMobileMapPackageExpiration
                     string expirationDate = expiration.DateTime.ToString("F");
 
                     // Set the expiration message.
-                    ExpirationLabel.Text = expirationMessage + "\nExpiration date: " + expirationDate;
+                    ExpirationLabel.Text = $"{expirationMessage}\nExpiration date: {expirationDate}";
 
                     // Check if the map is accessible after expiration.
                     if (expiration.Type == ExpirationType.AllowExpiredAccess && mobileMapPackage.Maps.Count > 0)
@@ -66,7 +68,7 @@ namespace ArcGISRuntime.UWP.Samples.HonorMobileMapPackageExpiration
                         await new MessageDialog("The author of this mobile map package has disallowed access after the expiration date.", "Error").ShowAsync();
                     }
                 }
-                else if (mobileMapPackage.Maps.Count > 0)
+                else if (mobileMapPackage.Maps.Any())
                 {
                     // Set the mapview to the map from the mobile map package.
                     MyMapView.Map = mobileMapPackage.Maps[0];

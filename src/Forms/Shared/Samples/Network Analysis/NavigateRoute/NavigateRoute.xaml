@@ -24,6 +24,7 @@
                         x:Name="StartNavigationButton"
                         Grid.Column="0"
                         Clicked="StartNavigation"
+                        IsEnabled="False"
                         Text="Navigate" />
                     <Button
                         x:Name="RecenterButton"

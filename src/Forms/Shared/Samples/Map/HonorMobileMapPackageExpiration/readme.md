@@ -19,8 +19,8 @@ Load the sample. The author of the MMPK used in this sample chose to set the MMP
 1. Create a `MobileMapPackage` passing in the path to the mobile map package's location on the device.
 2. Load the mobile map package.
 3. Present `Expiration` information to the user with:
-  * Use `getMessage()` to get the expiration message set by the author of the MMPK.
-  * Use `getDate()` to get the expiration date set by the author of the MMPK.
+  * Use `Expiration.Message` to get the expiration message set by the author of the MMPK.
+  * Use `Expiration.DateTime` to get the expiration date set by the author of the MMPK.
 
 ## Relevant API
 

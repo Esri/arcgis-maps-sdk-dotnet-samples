@@ -25,7 +25,7 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.NavigateRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Navigate a route",
+        "Navigate route",
         "Network Analysis",
         "Use a routing service to navigate between two points.",
         "")]
@@ -48,10 +48,13 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
         private Graphic _routeTraveledGraphic;
 
         // San Diego Convention Center.
-        private readonly MapPoint _startLocation = new MapPoint(-117.160386727, 32.706608, SpatialReferences.Wgs84);
+        private readonly MapPoint _conventionCenter = new MapPoint(-117.160386727, 32.706608, SpatialReferences.Wgs84);
+
+        // USS San Diego Memorial.
+        private readonly MapPoint _memorial = new MapPoint(-117.173034, 32.712327, SpatialReferences.Wgs84);
 
         // RH Fleet Aerospace Museum.
-        private readonly MapPoint _destinationLocation = new MapPoint(-117.147230, 32.730467, SpatialReferences.Wgs84);
+        private readonly MapPoint _aerospaceMuseum = new MapPoint(-117.147230, 32.730467, SpatialReferences.Wgs84);
 
         // Feature service for routing in San Diego.
         private readonly Uri _routingUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
@@ -84,14 +87,13 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
                 routeParams.ReturnRoutes = true;
                 routeParams.OutputSpatialReference = SpatialReferences.Wgs84;
 
-                // Create a Stop for first location.
-                Stop stop1 = new Stop(_startLocation);
-
-                // Create a Stop for the destination (RH Fleet Aerospace Museum).
-                Stop stop2 = new Stop(_destinationLocation);
+                // Create stops for each location.
+                Stop stop1 = new Stop(_conventionCenter) { Name = "San Diego Convention Center" };
+                Stop stop2 = new Stop(_memorial) { Name = "USS San Diego Memorial" };
+                Stop stop3 = new Stop(_aerospaceMuseum) { Name = "RH Fleet Aerospace Museum" };
 
                 // Assign the stops to the route parameters.
-                List<Stop> stopPoints = new List<Stop> { stop1, stop2 };
+                List<Stop> stopPoints = new List<Stop> { stop1, stop2, stop3 };
                 routeParams.SetStops(stopPoints);
 
                 // Get the route results.
@@ -101,9 +103,11 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
                 // Add a graphics overlay for the route graphics.
                 MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-                // Add graphics for the start and end points.
-                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_startLocation, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Color.Green, 25)));
-                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_destinationLocation, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Red, 25)));
+                // Add graphics for the stops.
+                SimpleMarkerSymbol stopSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, Color.OrangeRed, 20);
+                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_conventionCenter, stopSymbol));
+                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_memorial, stopSymbol));
+                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_aerospaceMuseum, stopSymbol));
 
                 // Create a graphic (with a dashed line symbol) to represent the route.
                 _routeAheadGraphic = new Graphic(_route.RouteGeometry) { Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.BlueViolet, 5) };
@@ -121,7 +125,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
                 // Enable the navigation button.
                 StartNavigationButton.IsEnabled = true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Error");
             }
@@ -188,6 +192,12 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
                 // Set the route geometries to reflect the completed route.
                 _routeAheadGraphic.Geometry = null;
                 _routeTraveledGraphic.Geometry = status.RouteResult.Routes[0].RouteGeometry;
+
+                // Navigate to the next stop (if there are stops remaining).
+                if (status.RemainingDestinationCount > 1)
+                {
+                    _tracker.SwitchToNextDestinationAsync();
+                }
             }
 
             Dispatcher.BeginInvoke((Action)delegate ()
@@ -223,7 +233,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
             _speechSynthesizer.Dispose();
 
             // Stop the tracker.
-            if(_tracker != null)
+            if (_tracker != null)
             {
                 _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
                 _tracker.NewVoiceGuidance -= SpeakDirection;

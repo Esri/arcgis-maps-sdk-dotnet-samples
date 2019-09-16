@@ -39,5 +39,5 @@
         "NavigateRoute.cs",
         "../../../Resources/layout/NavigateRoute.axml"
     ],
-    "title": "Navigate a route"
+    "title": "Navigate route"
 }

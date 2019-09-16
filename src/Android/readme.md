@@ -152,6 +152,7 @@
 * [Generate offline map](Xamarin.Android/Samples/Map/GenerateOfflineMap/readme.md) - Take a web map offline.
 * [Generate Offline Map (Overrides)](Xamarin.Android/Samples/Map/GenerateOfflineMapWithOverrides/readme.md) - Use the `OfflineMapTask` with overrides to take a webmap offline. The overrides workflow allows you to adjust the settings used for taking each layer in the map offline. For a simple example of how you take a map offline, please consult the "Generate Offline Map" sample.
 * [Get elevation at a point](Xamarin.Android/Samples/Map/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene. 
+* [Honor mobile map package expiration date](Xamarin.Android/Samples/Map/HonorMobileMapPackageExpiration/readme.md) - Access the expiration information of an expired mobile map package.
 * [Manage bookmarks](Xamarin.Android/Samples/Map/ManageBookmarks/readme.md) - Access and create bookmarks on a map.
 * [Manage operational layers](Xamarin.Android/Samples/Map/ManageOperationalLayers/readme.md) - Add, remove, and reorder operational layers in a map.
 * [Map reference scale](Xamarin.Android/Samples/Map/MapReferenceScale/readme.md) - Set a map's reference scale and control which feature layers should honor that scale.
@@ -211,6 +212,7 @@
 
 ## Symbology
 
+* [Custom dictionary style](Xamarin.Android/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.
 * [Feature layer extrusion](Xamarin.Android/Samples/Symbology/FeatureLayerExtrusion/readme.md) - Extrude features based on their attributes.
 * [Render picture markers](Xamarin.Android/Samples/Symbology/RenderPictureMarkers/readme.md) - Use pictures for markers.
 * [Render simple markers](Xamarin.Android/Samples/Symbology/RenderSimpleMarkers/readme.md) - Show a simple marker symbol on a map.

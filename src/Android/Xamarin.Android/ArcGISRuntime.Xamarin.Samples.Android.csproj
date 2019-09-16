@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
     <None Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <None Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
     <None Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
@@ -256,6 +257,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
+    <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.cs" />
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.cs" />
     <Compile Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.cs" />
     <Compile Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.cs" />
@@ -579,8 +582,15 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\NavigateRoute.axml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\layout\EditKmlGroundOverlay.axml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->

@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
     <Content Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <Content Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
     <Content Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
@@ -344,6 +345,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
+    <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
+      <DependentUpon>NavigateRoute.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml.cs">
       <DependentUpon>EditKmlGroundOverlay.xaml</DependentUpon>
     </Compile>
@@ -894,6 +899,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

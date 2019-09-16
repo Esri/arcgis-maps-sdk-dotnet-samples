@@ -19,6 +19,7 @@ namespace ArcGISRuntime
     public partial class SamplePage
     {
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
+        private ContentPage _sample;
 
         public SamplePage()
         {
@@ -28,6 +29,9 @@ namespace ArcGISRuntime
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
+            // Set the sample variable.
+            _sample = sample;
+
             // Update the binding context - this is important for the description tab.
             BindingContext = sampleInfo;
 
@@ -89,6 +93,12 @@ namespace ArcGISRuntime
             {
                 System.Diagnostics.Debug.WriteLine(ex);
             }
+        }
+
+        protected override void OnDisappearing()
+        {
+            if (_sample is IDisposable) ((IDisposable)_sample).Dispose();
+            base.OnDisappearing();
         }
 
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)

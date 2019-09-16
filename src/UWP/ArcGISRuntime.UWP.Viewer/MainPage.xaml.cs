@@ -177,6 +177,7 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Switch to the sample selection grid.
             SamplePageContainer.Visibility = Visibility.Collapsed;
+            SamplePageContainer.Content = null;
             SampleSelectionGrid.Visibility = Visibility.Visible;
         }
 
@@ -192,6 +193,7 @@ namespace ArcGISRuntime.UWP.Viewer
             if (selected.Content.GetType() == typeof(SearchableTreeNode))
             {
                 SamplePageContainer.Visibility = Visibility.Collapsed;
+                SamplePageContainer.Content = null;
                 SampleSelectionGrid.Visibility = Visibility.Visible;
                 List<SampleInfo> samples = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
                 SamplesGridView.ItemsSource = samples;

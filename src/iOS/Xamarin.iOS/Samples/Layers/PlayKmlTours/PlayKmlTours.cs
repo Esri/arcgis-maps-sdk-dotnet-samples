@@ -257,6 +257,7 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             base.ViewWillDisappear(animated);
 
             // Reset the tour controller when the sample closes - avoids a crash.
+            _tourController?.Pause();
             _tourController?.Reset();
         }
 

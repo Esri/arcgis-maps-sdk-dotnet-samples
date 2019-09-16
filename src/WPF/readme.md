@@ -98,6 +98,7 @@
 * [Display KML network links](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
 * [Display a WFS layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
+* [Edit KML ground overlay](ArcGISRuntime.WPF.Viewer/Samples/Layers/EditKmlGroundOverlay/readme.md) - Edit the values of a KML ground overlay.
 * [Export tiles](ArcGISRuntime.WPF.Viewer/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.
 * [Create a feature collection layer from a portal item](ArcGISRuntime.WPF.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal/readme.md) - This sample demonstrates opening a feature collection saved as a portal item.
 * [Feature collection layer (Query)](ArcGISRuntime.WPF.Viewer/Samples/Layers/FeatureCollectionLayerFromQuery/readme.md) - Create a feature collection layer to show a query result from a service feature table. The feature collection is then displayed on a map with a feature collection layer.

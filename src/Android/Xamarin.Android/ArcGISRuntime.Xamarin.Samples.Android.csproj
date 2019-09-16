@@ -77,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <None Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
     <None Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
     <None Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
@@ -255,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.cs" />
     <Compile Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.cs" />
     <Compile Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.cs" />
     <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.cs" />
@@ -574,6 +576,11 @@
     <AndroidResource Include="Resources\layout\ControlAnnotationSublayerVisibility.axml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EditKmlGroundOverlay.axml">
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->

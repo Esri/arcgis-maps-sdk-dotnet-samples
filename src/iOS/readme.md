@@ -98,6 +98,7 @@
 * [Display KML network links](Xamarin.iOS/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](Xamarin.iOS/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
 * [Display a WFS layer](Xamarin.iOS/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
+* [Edit KML ground overlay](Xamarin.iOS/Samples/Layers/EditKmlGroundOverlay/readme.md) - Edit the values of a KML ground overlay.
 * [Export tiles](Xamarin.iOS/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.
 * [Feature collection layer from portal item](Xamarin.iOS/Samples/Layers/FeatureCollectionLayerFromPortal/readme.md) - This sample demonstrates opening a feature collection saved as a portal item.
 * [Feature collection layer (Query)](Xamarin.iOS/Samples/Layers/FeatureCollectionLayerFromQuery/readme.md) - Create a feature collection layer to show a query result from a service feature table. The feature collection is then displayed on a map with a feature collection layer.

@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <Content Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
     <Content Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
     <Content Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
@@ -343,6 +344,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml.cs">
+      <DependentUpon>EditKmlGroundOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.xaml.cs">
       <DependentUpon>CustomDictionaryStyle.xaml</DependentUpon>
     </Compile>
@@ -890,6 +894,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

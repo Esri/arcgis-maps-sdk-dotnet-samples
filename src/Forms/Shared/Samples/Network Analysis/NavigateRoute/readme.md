@@ -1,12 +1,12 @@
 # Navigate route
 
-Use a routing service to navigate between two points.
+Use a routing service to navigate between points.
 
 ![Navigate route sample](NavigateRoute.jpg)
 
 ## Use case
 
-Navigation is often used by field workers while traveling between two points to get live directions based on their location.
+Navigation is often used by field workers while traveling between points to get live directions based on their location.
 
 ## How to use the sample
 

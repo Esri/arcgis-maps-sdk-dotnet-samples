@@ -1,6 +1,6 @@
 {
     "category": "Network Analysis",
-    "description": "Use a routing service to navigate between two points.",
+    "description": "Use a routing service to navigate between points.",
     "formal_name": "NavigateRoute",
     "ignore": false,
     "images": [

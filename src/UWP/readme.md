@@ -98,6 +98,7 @@
 * [Display KML network links](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
 * [Display a WFS layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
+* [Edit KML ground overlay](ArcGISRuntime.UWP.Viewer/Samples/Layers/EditKmlGroundOverlay/readme.md) - Edit the values of a KML ground overlay.
 * [Export tiles](ArcGISRuntime.UWP.Viewer/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.
 * [Create a feature collection layer from a portal item](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal/readme.md) - This sample demonstrates opening a feature collection saved as a portal item.
 * [Feature collection layer (Query)](ArcGISRuntime.UWP.Viewer/Samples/Layers/FeatureCollectionLayerFromQuery/readme.md) - Create a feature collection layer to show a query result from a service feature table. The feature collection is then displayed on a map with a feature collection layer.
@@ -151,6 +152,7 @@
 * [Generate offline map](ArcGISRuntime.UWP.Viewer/Samples/Map/GenerateOfflineMap/readme.md) - Take a web map offline.
 * [Generate Offline Map (Overrides)](ArcGISRuntime.UWP.Viewer/Samples/Map/GenerateOfflineMapWithOverrides/readme.md) - Use the `OfflineMapTask` with overrides to take a webmap offline. The overrides workflow allows you to adjust the settings used for taking each layer in the map offline. For a simple example of how you take a map offline, please consult the "Generate Offline Map" sample.
 * [Get elevation at a point](ArcGISRuntime.UWP.Viewer/Samples/Map/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene. 
+* [Honor mobile map package expiration date](ArcGISRuntime.UWP.Viewer/Samples/Map/HonorMobileMapPackageExpiration/readme.md) - Access the expiration information of an expired mobile map package.
 * [Manage bookmarks](ArcGISRuntime.UWP.Viewer/Samples/Map/ManageBookmarks/readme.md) - Access and create bookmarks on a map.
 * [Manage operational layers](ArcGISRuntime.UWP.Viewer/Samples/Map/ManageOperationalLayers/readme.md) - Add, remove, and reorder operational layers in a map.
 * [Map reference scale](ArcGISRuntime.UWP.Viewer/Samples/Map/MapReferenceScale/readme.md) - Set a map's reference scale and control which feature layers should honor that scale.
@@ -212,6 +214,7 @@
 
 ## Symbology
 
+* [Custom dictionary style](ArcGISRuntime.UWP.Viewer/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.
 * [Feature layer extrusion](ArcGISRuntime.UWP.Viewer/Samples/Symbology/FeatureLayerExtrusion/readme.md) - Extrude features based on their attributes.
 * [Render picture markers](ArcGISRuntime.UWP.Viewer/Samples/Symbology/RenderPictureMarkers/readme.md) - Use pictures for markers.
 * [Render simple markers](ArcGISRuntime.UWP.Viewer/Samples/Symbology/RenderSimpleMarkers/readme.md) - Show a simple marker symbol on a map.

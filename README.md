@@ -61,7 +61,7 @@ that use the data manager to download their data are differentiated as follows:
 * They have one or more entries under `DataItemIds` in their metadata.json files (these are portal item Ids)
 * They use the data manager to identify the correct path for their offline files at run time
 
-See the [contribution guidelines] (https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing) for more detailed information.
+See the [contribution guidelines](https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing) for more detailed information.
 
 ## Issues
 
@@ -69,7 +69,7 @@ Find a bug or want to request a new feature?  Please let us know by submitting a
 
 ## Contributing
 
-Anyone and everyone is welcome to [contribute] (https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing).
+Anyone and everyone is welcome to [contribute](https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing).
 
 ## Tools
 

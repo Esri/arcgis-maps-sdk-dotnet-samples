@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime
@@ -64,8 +65,16 @@ namespace ArcGISRuntime
                     // Show the wait page.
                     await Navigation.PushModalAsync(new WaitPage { Title = item.SampleName }, false);
 
+#if WINDOWS_UWP
+                    // Workaround for bug with Xamarin Forms UWP.
+                    await Task.WhenAll(
+                        Task.Delay(100),
+                        DataManager.EnsureSampleDataPresent(item)
+                        );
+#else
                     // Wait for the sample data download.
                     await DataManager.EnsureSampleDataPresent(item);
+#endif
 
                     // Remove the waiting page.
                     await Navigation.PopModalAsync(false);

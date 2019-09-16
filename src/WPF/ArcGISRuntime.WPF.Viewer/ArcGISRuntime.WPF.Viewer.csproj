@@ -148,6 +148,9 @@
     <Compile Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.xaml.cs">
       <DependentUpon>CustomDictionaryStyle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.xaml.cs">
+      <DependentUpon>HonorMobileMapPackageExpiration.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml.cs">
       <DependentUpon>ControlAnnotationSublayerVisibility.xaml</DependentUpon>
     </Compile>
@@ -711,6 +714,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1466,6 +1473,9 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg">

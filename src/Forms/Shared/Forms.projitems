@@ -11,6 +11,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
 	  <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
@@ -188,6 +189,10 @@
     <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.xaml.cs">
       <DependentUpon>CustomDictionaryStyle.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.xaml.cs">
+      <DependentUpon>HonorMobileMapPackageExpiration.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml.cs">
@@ -791,21 +796,24 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml">
-    <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
-	<EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
-	  <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
-  <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
-		<Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-	</EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

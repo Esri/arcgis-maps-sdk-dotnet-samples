@@ -175,6 +175,7 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             base.OnStop();
 
             // Reset the tour controller when the sample closes - avoids a crash.
+            _tourController?.Pause();
             _tourController?.Reset();
         }
 

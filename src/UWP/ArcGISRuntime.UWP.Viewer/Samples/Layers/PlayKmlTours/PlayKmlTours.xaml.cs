@@ -163,6 +163,10 @@ namespace ArcGISRuntime.UWP.Samples.PlayKmlTours
         private void Reset_Clicked(object sender, RoutedEventArgs e) => _tourController?.Reset();
 
         // Reset the tour when the user leaves the sample - avoids a crash.
-        private void Sample_Unloaded(object sender, RoutedEventArgs e) => _tourController?.Reset();
+        private void Sample_Unloaded(object sender, RoutedEventArgs e)
+        {
+            _tourController?.Pause();
+            _tourController?.Reset();
+        }
     }
 }

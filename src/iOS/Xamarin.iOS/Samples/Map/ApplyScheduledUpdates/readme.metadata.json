@@ -1,0 +1,22 @@
+{
+    "category": "Map",
+    "description": "Apply scheduled updates to a downloaded preplanned map area.",
+    "formal_name": "ApplyScheduledUpdates",
+    "ignore": false,
+    "images": [
+        "ApplyScheduledUpdates.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/ApplyScheduledUpdates.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Apply scheduled updates to preplanned map area"
+}

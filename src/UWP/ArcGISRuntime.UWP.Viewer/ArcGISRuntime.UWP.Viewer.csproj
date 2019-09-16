@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <Content Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
     <Content Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <Content Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
@@ -345,6 +346,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml.cs">
+      <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
@@ -899,6 +903,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

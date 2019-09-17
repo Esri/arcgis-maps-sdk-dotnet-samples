@@ -151,6 +151,7 @@
 ## Map
 
 * [Access load status](ArcGISRuntime.WPF.Viewer/Samples/Map/AccessLoadStatus/readme.md) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
+* [Apply scheduled updates to preplanned map area](ArcGISRuntime.WPF.Viewer/Samples/Map/ApplyScheduledUpdates/readme.md) - Apply scheduled updates to a downloaded preplanned map area.
 * [Create and save a map](ArcGISRuntime.WPF.Viewer/Samples/Map/AuthorMap/readme.md) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Change atmosphere effect](ArcGISRuntime.WPF.Viewer/Samples/Map/ChangeAtmosphereEffect/readme.md) - Changes the appearance of the atmosphere in a scene.
 * [Change basemap](ArcGISRuntime.WPF.Viewer/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on an `Map` and is used to provide visual reference for the operational layers.

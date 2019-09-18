@@ -190,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
       <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
       <SubType>Code</SubType>

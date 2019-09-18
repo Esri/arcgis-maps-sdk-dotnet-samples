@@ -268,6 +268,8 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
             {
                 _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
                 _tracker.NewVoiceGuidance -= SpeakDirection;
+                _tracker.RerouteStarted -= RerouteStarted;
+                _tracker.RerouteCompleted -= RerouteCompleted;
                 _tracker = null;
             }
 

@@ -19,10 +19,7 @@
                     Click="ApplyButton_Click"
                     Content="Apply scheduled updates"
                     IsEnabled="False" />
-                <TextBlock
-                    x:Name="InfoLabel"
-                    Grid.Row="1"
-                    Text="" />
+                <TextBlock x:Name="InfoLabel" Grid.Row="1" />
             </Grid>
         </Border>
     </Grid>

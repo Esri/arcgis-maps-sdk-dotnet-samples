@@ -24,8 +24,7 @@
                 <Label
                     x:Name="InfoLabel"
                     Grid.Row="1"
-                    Margin="5"
-                    Text="" />
+                    Margin="5" />
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

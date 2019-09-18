@@ -3,28 +3,20 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
-using UIKit;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
 using System.IO;
 using System.Linq;
+using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
 {
@@ -49,6 +41,9 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
         // Task used to sync the mobile map package.
         private OfflineMapSyncTask _offlineMapSyncTask;
 
+        // ArcGIS online item id for the mobile map package.
+        private const string _itemId = "740b663bff5e4198b9b6674af93f638a";
+
         public ApplyScheduledUpdates()
         {
             Title = "Apply scheduled updates to preplanned map area";
@@ -56,13 +51,10 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
 
         private async void Initialize()
         {
-            // ArcGIS online item id for the mobile map package.
-            string itemId = "740b663bff5e4198b9b6674af93f638a";
-
             try
             {
                 // Clear the exiting sample data.
-                Directory.Delete(DataManager.GetDataFolder(itemId, ""), true);
+                Directory.Delete(DataManager.GetDataFolder(_itemId, ""), true);
             }
             catch (IOException)
             {
@@ -72,10 +64,10 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
             try
             {
                 // Download the mobile map package using the sample viewer's data manager.
-                await DataManager.DownloadDataItem(itemId);
+                await DataManager.DownloadDataItem(_itemId);
 
                 // Get the folder path to the mobile map package.
-                string _mapPackagePath = DataManager.GetDataFolder(itemId, "");
+                string _mapPackagePath = DataManager.GetDataFolder(_itemId, "");
 
                 // Load the mobile map package.
                 _mobileMapPackage = new MobileMapPackage(_mapPackagePath);
@@ -108,10 +100,10 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                 if (info.DownloadAvailability == OfflineUpdateAvailability.Available)
                 {
                     // Get the size of the update.
-                    long updateSize = info.ScheduledUpdatesDownloadSize;
+                    double updateSize = info.ScheduledUpdatesDownloadSize / 1024;
 
                     // Update the UI.
-                    _statusLabel.Text = $"Updates: {info.DownloadAvailability}\nUpdate size: {updateSize} bytes.";
+                    _statusLabel.Text = $"Updates: {info.DownloadAvailability}\nUpdate size: {updateSize} kilobytes.";
                     _applyButton.Enabled = true;
                 }
                 else
@@ -173,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                         }
                     }
 
-                    // Perform another check for updates, to make sure that the newest update was applied.
+                    // Verify that the map is up to date and change the UI to reflect the update availability status.
                     CheckForScheduledUpdates();
                 }
                 else

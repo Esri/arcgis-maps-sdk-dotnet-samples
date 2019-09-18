@@ -32,6 +32,9 @@ namespace ArcGISRuntime.WPF.Samples.ApplyScheduledUpdates
         // Task used to sync the mobile map package.
         private OfflineMapSyncTask _offlineMapSyncTask;
 
+        // ArcGIS online item id for the mobile map package.
+        private const string _itemId = "740b663bff5e4198b9b6674af93f638a";
+
         public ApplyScheduledUpdates()
         {
             InitializeComponent();
@@ -40,13 +43,10 @@ namespace ArcGISRuntime.WPF.Samples.ApplyScheduledUpdates
 
         private async void Initialize()
         {
-            // ArcGIS online item id for the mobile map package.
-            string itemId = "740b663bff5e4198b9b6674af93f638a";
-
             try
             {
                 // Clear the exiting sample data.
-                Directory.Delete(DataManager.GetDataFolder(itemId, ""), true);
+                Directory.Delete(DataManager.GetDataFolder(_itemId, ""), true);
             }
             catch (IOException)
             {
@@ -56,13 +56,13 @@ namespace ArcGISRuntime.WPF.Samples.ApplyScheduledUpdates
             try
             {
                 // Download the mobile map package using the sample viewer's data manager.
-                await DataManager.DownloadDataItem(itemId);
+                await DataManager.DownloadDataItem(_itemId);
 
                 // Add an event to close the mobile map package when the sample closes.
                 Unloaded += (s, e) => { _mobileMapPackage?.Close(); };
 
                 // Get the folder path to the mobile map package.
-                string _mapPackagePath = DataManager.GetDataFolder(itemId, "");
+                string _mapPackagePath = DataManager.GetDataFolder(_itemId, "");
 
                 // Load the mobile map package.
                 _mobileMapPackage = new MobileMapPackage(_mapPackagePath);
@@ -95,10 +95,10 @@ namespace ArcGISRuntime.WPF.Samples.ApplyScheduledUpdates
                 if (info.DownloadAvailability == OfflineUpdateAvailability.Available)
                 {
                     // Get the size of the update.
-                    long updateSize = info.ScheduledUpdatesDownloadSize;
+                    double updateSize = info.ScheduledUpdatesDownloadSize / 1024; ;
 
                     // Update the UI.
-                    InfoLabel.Content = $"Updates: {info.DownloadAvailability}\nUpdate size: {updateSize} bytes.";
+                    InfoLabel.Content = $"Updates: {info.DownloadAvailability}\nUpdate size: {updateSize} kilobytes.";
                     ApplyButton.IsEnabled = true;
                 }
                 else
@@ -160,7 +160,7 @@ namespace ArcGISRuntime.WPF.Samples.ApplyScheduledUpdates
                         }
                     }
 
-                    // Perform another check for updates, to make sure that the newest update was applied.
+                    // Verify that the map is up to date and change the UI to reflect the update availability status.
                     CheckForScheduledUpdates();
                 }
                 else

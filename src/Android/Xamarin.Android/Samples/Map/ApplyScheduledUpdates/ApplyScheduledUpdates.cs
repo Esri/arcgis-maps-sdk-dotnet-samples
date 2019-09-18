@@ -42,6 +42,9 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
         // Task used to sync the mobile map package.
         private OfflineMapSyncTask _offlineMapSyncTask;
 
+        // ArcGIS online item id for the mobile map package.
+        private const string _itemId = "740b663bff5e4198b9b6674af93f638a";
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -54,13 +57,10 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
 
         private async void Initialize()
         {
-            // ArcGIS online item id for the mobile map package.
-            string itemId = "740b663bff5e4198b9b6674af93f638a";
-
             try
             {
                 // Clear the exiting sample data.
-                Directory.Delete(DataManager.GetDataFolder(itemId, ""), true);
+                Directory.Delete(DataManager.GetDataFolder(_itemId, ""), true);
             }
             catch (IOException)
             {
@@ -70,10 +70,10 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
             try
             {
                 // Download the mobile map package using the sample viewer's data manager.
-                await DataManager.DownloadDataItem(itemId);
+                await DataManager.DownloadDataItem(_itemId);
 
                 // Get the folder path to the mobile map package.
-                string _mapPackagePath = DataManager.GetDataFolder(itemId, "");
+                string _mapPackagePath = DataManager.GetDataFolder(_itemId, "");
 
                 // Load the mobile map package.
                 _mobileMapPackage = new MobileMapPackage(_mapPackagePath);
@@ -106,10 +106,10 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                 if (info.DownloadAvailability == OfflineUpdateAvailability.Available)
                 {
                     // Get the size of the update.
-                    long updateSize = info.ScheduledUpdatesDownloadSize;
+                    double updateSize = info.ScheduledUpdatesDownloadSize / 1024;
 
                     // Update the UI.
-                    _infoLabel.Text = $"Updates: {info.DownloadAvailability}\nUpdate size: {updateSize} bytes.";
+                    _infoLabel.Text = $"Updates: {info.DownloadAvailability}\nUpdate size: {updateSize} kilobytes.";
                     _applyButton.Enabled = true;
                 }
                 else
@@ -171,7 +171,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                         }
                     }
 
-                    // Perform another check for updates, to make sure that the newest update was applied.
+                    // Verify that the map is up to date and change the UI to reflect the update availability status.
                     CheckForScheduledUpdates();
                 }
                 else

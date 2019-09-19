@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Xml;
 
-namespace ArcGISRuntime.WPF.Topics.NavigateRoute
+namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
 {
     public class GpxProvider : LocationDataSource
     {

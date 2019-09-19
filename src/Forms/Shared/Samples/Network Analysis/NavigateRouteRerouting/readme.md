@@ -10,7 +10,7 @@ While traveling between destinations, field workers use navigation to get live d
 
 ## How to use the sample
 
-Click 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Observe how the route is recalculated when the simulation does not follow the suggested route. Check 'Voice Directions' to activate announcing maneuvers. Click 'Reset' to start the simulation from the beginning.
+Click 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Observe how the route is recalculated when the simulation does not follow the suggested route. Click 'Recenter' to refocus on the location display.
 
 ## How it works
 

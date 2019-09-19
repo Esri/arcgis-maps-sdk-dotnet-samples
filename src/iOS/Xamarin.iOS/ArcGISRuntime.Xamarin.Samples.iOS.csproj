@@ -425,6 +425,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.cs" />

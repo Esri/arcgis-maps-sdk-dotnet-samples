@@ -132,6 +132,9 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
             // Create download parameters.
             DownloadPreplannedOfflineMapParameters parameters = await _offlineMapTask.CreateDefaultDownloadPreplannedOfflineMapParametersAsync(mapArea);
 
+            // Set the update mode to not receive updates.
+            parameters.UpdateMode = PreplannedUpdateMode.NoUpdates;
+
             // Create the job.
             DownloadPreplannedOfflineMapJob job = _offlineMapTask.DownloadPreplannedOfflineMap(parameters, path);
 

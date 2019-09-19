@@ -210,8 +210,11 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
 
         private async void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
         {
-            PreplannedMapArea selectedMapArea = AreasList.SelectedItem as PreplannedMapArea;
-            await DownloadMapAreaAsync(selectedMapArea);
+            if(AreasList.SelectedItem != null)
+            {
+                PreplannedMapArea selectedMapArea = AreasList.SelectedItem as PreplannedMapArea;
+                await DownloadMapAreaAsync(selectedMapArea);
+            }
         }
 
         private void OnDeleteAllMapAreasClicked(object sender, RoutedEventArgs e)

@@ -150,6 +150,9 @@
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
       <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml.cs">
+      <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
@@ -726,6 +729,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1497,6 +1504,9 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg">

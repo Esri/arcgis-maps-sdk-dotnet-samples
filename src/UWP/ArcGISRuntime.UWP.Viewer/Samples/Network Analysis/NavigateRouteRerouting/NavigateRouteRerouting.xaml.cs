@@ -170,7 +170,7 @@ namespace ArcGISRuntime.UWP.Samples.NavigateRouteRerouting
             // Use this instead if you want real location:
             // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 
-            // Enable the location display (this wil start the location data source).
+            // Enable the location display (this will start the location data source).
             MyMapView.LocationDisplay.IsEnabled = true;
         }
 

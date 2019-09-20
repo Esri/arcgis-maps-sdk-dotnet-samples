@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.WPF.Topics.NavigateRoute;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
@@ -167,7 +166,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
             // Use this instead if you want real location:
             // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 
-            // Enable the location display (this wil start the location data source).
+            // Enable the location display (this will start the location data source).
             MyMapView.LocationDisplay.IsEnabled = true;
         }
 

@@ -91,7 +91,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             try
             {
                 // Create the map view.
-                _myMapView.Map = new Map(Basemap.CreateNavigationVector());
+                _myMapView.Map = new Map(Basemap.CreateStreets());
 
                 // Create the text to speech object.
                 _textToSpeech = new TextToSpeech(this, this, "com.google.android.tts");
@@ -185,7 +185,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             // Use this instead if you want real location:
             // _myMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 
-            // Enable the location display (this wil start the location data source).
+            // Enable the location display (this will start the location data source).
             _myMapView.LocationDisplay.IsEnabled = true;
         }
 

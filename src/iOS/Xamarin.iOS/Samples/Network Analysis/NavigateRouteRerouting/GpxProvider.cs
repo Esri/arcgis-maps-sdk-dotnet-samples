@@ -30,6 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
         public GpxProvider(string gpxFilePath)
         {
             _gpsPoints = new List<MapPoint>();
+
             // Read the GPX data.
             ReadLocations(gpxFilePath);
 

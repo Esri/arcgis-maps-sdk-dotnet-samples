@@ -196,6 +196,7 @@
 * [Find service area](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
 * [Find service areas for multiple facilities](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
 * [Navigate route](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
+* [Navigate route with rerouting](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 * [Offline routing](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](ArcGISRuntime.UWP.Viewer/Samples/Network%20Analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
 

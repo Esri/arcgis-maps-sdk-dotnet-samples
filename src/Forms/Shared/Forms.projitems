@@ -10,6 +10,8 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
@@ -189,6 +191,15 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
+      <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml.cs">
+      <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
@@ -804,6 +815,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

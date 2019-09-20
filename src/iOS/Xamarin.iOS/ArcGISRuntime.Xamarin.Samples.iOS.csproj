@@ -247,6 +247,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
+    <None Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <None Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
     <None Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <None Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
@@ -424,6 +426,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
+    <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.cs" />
+    <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.cs" />
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.cs" />

@@ -142,6 +142,7 @@
 ## Map
 
 * [Access load status](Xamarin.iOS/Samples/Map/AccessLoadStatus/readme.md) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
+* [Apply scheduled updates to preplanned map area](Xamarin.iOS/Samples/Map/ApplyScheduledUpdates/readme.md) - Apply scheduled updates to a downloaded preplanned map area.
 * [Create and save a map](Xamarin.iOS/Samples/Map/AuthorMap/readme.md) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Change atmosphere effect](Xamarin.iOS/Samples/Map/ChangeAtmosphereEffect/readme.md) - Changes the appearance of the atmosphere in a scene.
 * [Change basemap](Xamarin.iOS/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on an `Map` and is used to provide visual reference for the operational layers.
@@ -195,6 +196,7 @@
 * [Find service area](Xamarin.iOS/Samples/Network%20Analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
 * [Find service areas for multiple facilities](Xamarin.iOS/Samples/Network%20Analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
 * [Navigate route](Xamarin.iOS/Samples/Network%20Analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
+* [Navigate route with rerouting](Xamarin.iOS/Samples/Network%20Analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 * [Offline routing](Xamarin.iOS/Samples/Network%20Analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](Xamarin.iOS/Samples/Network%20Analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
 

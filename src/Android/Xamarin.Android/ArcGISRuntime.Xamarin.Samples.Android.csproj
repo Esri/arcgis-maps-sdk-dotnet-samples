@@ -549,6 +549,9 @@
     <PackageReference Include="Xamarin.Auth">
       <Version>1.6.0.4</Version>
     </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.ARToolkit">
+      <Version>100.5.0-75.45dcf8f27e</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />

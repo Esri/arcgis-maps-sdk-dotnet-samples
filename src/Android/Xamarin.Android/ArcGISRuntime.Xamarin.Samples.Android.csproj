@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
     <None Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
     <None Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <None Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
@@ -253,6 +254,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.cs" />
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.cs" />
@@ -546,7 +548,7 @@
       <Version>1.6.0.4</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.ARToolkit">
-      <Version>100.5.0-75.45dcf8f27e</Version>
+      <Version>100.6.0.3</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

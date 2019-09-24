@@ -32,5 +32,10 @@ namespace ArcGISRuntime.iOS
 
 			return base.FinishedLaunching (app, options);
 		}
-	}
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return true;
+        }
+    }
 }

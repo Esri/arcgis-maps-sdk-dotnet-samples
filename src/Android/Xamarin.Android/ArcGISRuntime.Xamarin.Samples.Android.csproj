@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Augmented reality\NavigateAR\NavigateAR.jpg" />
     <None Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
     <None Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
     <None Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
@@ -255,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Augmented reality\NavigateAR\RoutePlanner.cs" />
     <Compile Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.cs" />
     <Compile Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
@@ -441,6 +443,9 @@
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
     <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.cs" />
+    <Compile Include="Controls\JoystickSeekBar.cs" />
+    <Compile Include="Samples\Augmented reality\NavigateAR\RouteViewerAR.cs" />
+    <Compile Include="Samples\Augmented reality\NavigateAR\MSLAdjustedARLocationDataSource.cs" />
   </ItemGroup>
   <!-- Sample Manager Code -->
   <ItemGroup>
@@ -467,6 +472,18 @@
     <AndroidResource Include="Resources\layout\DisplayScenesInTabletopAR.axml">
       <SubType></SubType>
       <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\NavigateARRoutePlanner.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\NavigateARNavigator.axml">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
+    <AndroidResource Include="Resources\values\Attrs.xml">
+      <SubType></SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
   <!-- Sample Manager Layout-->
@@ -601,6 +618,9 @@
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

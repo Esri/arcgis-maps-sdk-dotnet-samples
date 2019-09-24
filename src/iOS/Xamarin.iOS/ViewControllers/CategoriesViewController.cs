@@ -7,20 +7,19 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime
 {
     internal partial class CategoriesViewController : UITableViewController
     {
-        public CategoriesViewController(IntPtr handle)
-            : base(handle)
+        public CategoriesViewController(IntPtr handle) : base(handle)
         {
         }
 
@@ -55,7 +54,6 @@ namespace ArcGISRuntime
                 SearchResultsUpdater = searchUpdater
             };
             SearchController.SearchBar.TintColor = UIColor.White;
-
 
             // Show the search bar in the navigation/header area
             NavigationItem.SearchController = SearchController;

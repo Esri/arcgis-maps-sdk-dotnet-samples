@@ -9,14 +9,9 @@
 
 using System;
 using System.Linq;
-using Android;
 using Android.App;
-using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
 using Android.Speech.Tts;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using ArcgisRuntime.Samples.ARToolkit.Controls;
@@ -55,8 +50,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private ArcGISTiledElevationSource _elevationSource;
         private Surface _elevationSurface;
         private Scene _scene;
-
-        private bool _hasPermission = false;
 
         // Calibration state fields.
         private bool _isCalibrating = false;
@@ -102,10 +95,10 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _headingSlider = FindViewById<JoystickSeekBar>(ArcGISRuntime.Resource.Id.headingJoystick);
             _altitudeSlider = FindViewById<JoystickSeekBar>(ArcGISRuntime.Resource.Id.altitudeJoystick);
 
-            //MSLAdjustedARLocationDataSource arLocationDataSource = new MSLAdjustedARLocationDataSource(this);
-            //arLocationDataSource.AltitudeMode = MSLAdjustedARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
-            //_arSceneView.LocationDataSource = arLocationDataSource;
-            //_arSceneView.LocationDataSource = new SystemLocationDataSource();
+            MSLAdjustedARLocationDataSource arLocationDataSource = new MSLAdjustedARLocationDataSource(this);
+            arLocationDataSource.AltitudeMode = MSLAdjustedARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
+            _arSceneView.LocationDataSource = arLocationDataSource;
+            //arSceneView.LocationDataSource = new SystemLocationDataSource();
 
             //_arSceneView.ArSceneView.PlaneRenderer.Enabled = false;
             //_arSceneView.ArSceneView.PlaneRenderer.Visible = false;
@@ -131,7 +124,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 //arLocationDataSource.AltitudeOffset = _altitudeOffset;
             };
 
-            RequestPermissions();
+            SetupArView();
         }
 
         private void SetupArView()
@@ -236,45 +229,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
         }
 
-        private void RequestPermissions()
-        {
-            var requiredPermissions = new[] { Manifest.Permission.Camera };
-            int requestCode = 2;
-
-            // Initialize if permissions are granted, otherwise request them.
-            if (ContextCompat.CheckSelfPermission(this, requiredPermissions[0]) == Permission.Granted)
-            {
-                _hasPermission = true;
-                SetupArView();
-            }
-            else
-            {
-                ActivityCompat.RequestPermissions(this, requiredPermissions, requestCode);
-            }
-        }
-
-        // Called when permissions are granted/denied.
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            if (requestCode != 2)
-            {
-                return;
-            }
-
-            // Only initialize if permissions have been granted.
-            if (grantResults.Length > 0 && grantResults[0] == Permission.Granted)
-            {
-                _hasPermission = true;
-                SetupArView();
-            }
-            else
-            {
-                ShowMessage("You must grant both camera permissions for AR to work.", "Can't start AR.", true);
-            }
-        }
-
         private void ShowMessage(string message, string title, bool closeApp = false)
         {
             var dialog = new AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Create();
@@ -303,13 +257,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         protected override async void OnResume()
         {
             base.OnResume();
-            // StartTrackingAsync has its own permission request logic. Calling start tracking without permissions will show the prompt.
-            // OnResume is called when the permission request finishes, so without this check, the user will be continually re-prompted until they accept.
-            if (_hasPermission)
-            {
-                // Start AR tracking without location updates.
-                await _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
-            }
+
+            // Start AR tracking without location updates.
+            await _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
         }
     }
 }

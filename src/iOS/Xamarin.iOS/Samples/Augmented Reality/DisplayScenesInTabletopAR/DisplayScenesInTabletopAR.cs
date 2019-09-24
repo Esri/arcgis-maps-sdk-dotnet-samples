@@ -76,7 +76,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 _arKitStatusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _arKitStatusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _arKitStatusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _arKitStatusLabel.HeightAnchor.ConstraintLessThanOrEqualTo(40),
+                _arKitStatusLabel.HeightAnchor.ConstraintEqualTo(40),
                 _helpLabel.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
                 _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
@@ -117,6 +117,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             {
                 DisplayScene();
                 _arKitStatusLabel.Hidden = true;
+                _trackingSessionDelegate.ShouldRenderPlanes = false;
             }
         }
 
@@ -226,7 +227,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             public SessionDelegate()
             {
                 _planeRenderingMaterial = new SCNMaterial();
-                _planeRenderingMaterial.DoubleSided = true;
+                _planeRenderingMaterial.DoubleSided = false;
                 _planeRenderingMaterial.Diffuse.ContentColor = UIColor.FromRGBA(0.5f, 0, 0, 0.5f);
             }
 
@@ -264,6 +265,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 {
                     HasFoundPlane = true;
                     FirstPlaneFound?.Invoke(this, EventArgs.Empty);
+                }
+
+                if (!ShouldRenderPlanes)
+                {
+                    return;
                 }
 
                 if (anchor is ARPlaneAnchor planeAnchor)

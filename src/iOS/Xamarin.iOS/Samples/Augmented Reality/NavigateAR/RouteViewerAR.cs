@@ -9,12 +9,15 @@
 
 using System;
 using AVFoundation;
+using CoreGraphics;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Navigation;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Foundation;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateAR
@@ -25,11 +28,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private UILabel _helpLabel;
         private UIBarButtonItem _calibrateButton;
         private UIBarButtonItem _navigateButton;
+        private CalibrationViewController _calibrationVC;
 
         public RouteResult _routeResult;
-        public RouteTask _routeTask;
-        public RouteParameters _routeParameters;
-        private Route _currentRoute;
         private RouteTracker _routeTracker;
         private SystemLocationDataSource _trackingLocationDataSource;
         private AVSpeechSynthesizer _synthesizer;
@@ -47,19 +48,19 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 if (_isCalibrating)
                 {
                     _arView.Scene.BaseSurface.Opacity = 0.5;
+                    ShowCalibrationPopover();
                 }
                 else
                 {
                     _arView.Scene.BaseSurface.Opacity = 0;
+                    _calibrationVC.DismissViewController(true, null);
                 }
                 
             }
         }
 
-        public override void ViewDidLoad()
+        public override void LoadView()
         {
-            base.ViewDidLoad();
-
             View = new UIView { BackgroundColor = UIColor.White };
 
             UIToolbar toolbar = new UIToolbar();
@@ -75,8 +76,12 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _helpLabel.BackgroundColor = UIColor.FromWhiteAlpha(0, 0.6f);
             _helpLabel.Text = "Adjust calibration before starting";
 
-            _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, null);
+            _calibrationVC = new CalibrationViewController(_arView);
+
+            _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, ToggleCalibration);
             _navigateButton = new UIBarButtonItem("Navigate", UIBarButtonItemStyle.Plain, StartTurnByTurn);
+
+            _synthesizer = new AVSpeechSynthesizer();
 
             toolbar.Items = new[]
             {
@@ -84,6 +89,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _navigateButton
             };
+
+            View.AddSubviews(_arView, toolbar, _helpLabel);
 
             NSLayoutConstraint.ActivateConstraints(new[]
             {
@@ -98,55 +105,218 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _helpLabel.HeightAnchor.ConstraintEqualTo(40)
-            }); ;
+            });
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
 
             Initialize();
         }
 
+        private void ToggleCalibration(object sender, EventArgs e) => IsCalibrating = !IsCalibrating;
+
         private void Initialize()
         {
+            _arView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
+            _arView.LocationDataSource = new SystemLocationDataSource();
+
+            _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+            _elevationSurface = new Surface();
+            _elevationSurface.ElevationSources.Add(_elevationSource);
+            _arView.Scene.BaseSurface = _elevationSurface;
+
+            _elevationSurface.NavigationConstraint = NavigationConstraint.None;
+            _elevationSurface.Opacity = 0;
+
+            _routeOverlay = new GraphicsOverlay();
+            _arView.GraphicsOverlays.Add(_routeOverlay);
+
+            SolidStrokeSymbolLayer strokeSymbolLayer = new SolidStrokeSymbolLayer(1, System.Drawing.Color.Yellow, null, StrokeSymbolLayerLineStyle3D.Tube);
+            strokeSymbolLayer.CapStyle = StrokeSymbolLayerCapStyle.Round;
+            MultilayerPolylineSymbol tubeSymbol = new MultilayerPolylineSymbol(new[] { strokeSymbolLayer });
+            _routeOverlay.Renderer = new SimpleRenderer(tubeSymbol);
+
+            SystemLocationDataSource trackingDataSource = new SystemLocationDataSource();
+            trackingDataSource.LocationChanged += TrackingDataSource_LocationChanged;
+            trackingDataSource.StartAsync();
+
+            _arView.SpaceEffect = SpaceEffect.None;
+            _arView.AtmosphereEffect = AtmosphereEffect.None;
+
+            SetRoute(_routeResult.Routes[0]);
+        }
+
+        private void SetRoute(Route inputRoute)
+        {
+            _routeOverlay.Graphics.Clear();
+
+            Graphic routeGraphic = new Graphic(inputRoute.RouteGeometry);
+
+            _routeOverlay.Graphics.Add(routeGraphic);
+
+            _routeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+            _routeOverlay.SceneProperties.AltitudeOffset = 3;
+        }
+
+        private void TrackingDataSource_LocationChanged(object sender, Location e)
+        {
+            if (_routeTracker != null)
+            {
+                _routeTracker.TrackLocationAsync(e);
+            }
         }
 
         private void StartTurnByTurn(object sender, EventArgs e)
         {
             _routeTracker = new RouteTracker(_routeResult, 0);
 
-            if (_routeTracker.IsReroutingEnabled)
-            {
-                _routeTracker.EnableReroutingAsync(_routeTask, _routeParameters, ReroutingStrategy.ToNextStop, true);
-            }
-
             _routeTracker.NewVoiceGuidance += (o,ee) => {
+                var utterance = new AVSpeechUtterance(ee.VoiceGuidance.Text);
+                utterance.Voice = AVSpeechSynthesisVoice.FromLanguage("en-US");
+                _synthesizer.SpeakUtterance(utterance);
 
-            };
-
-            _routeTracker.RerouteCompleted += (o, ee) =>
-            {
-
-            };
-
-            _routeTracker.RerouteStarted += (o, ee) =>
-            {
-
+                _helpLabel.Text = ee.VoiceGuidance.Text;
             };
 
             _routeTracker.TrackingStatusChanged += (o, ee) =>
             {
-
+                _helpLabel.Text = _routeTracker.GenerateVoiceGuidance().Text;
             };
+        }
+
+        private void ShowCalibrationPopover()
+        {
+           
+            // Show the table view in a popover.
+            _calibrationVC.ModalPresentationStyle = UIModalPresentationStyle.Popover;
+            _calibrationVC.PreferredContentSize = new CGSize(280, 60);
+            UIPopoverPresentationController pc = _calibrationVC.PopoverPresentationController;
+            if (pc != null)
+            {
+                pc.BarButtonItem = _calibrateButton;
+                pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                pc.Delegate = new ppDelegate();
+            }
+
+            PresentViewController(_calibrationVC, true, null);
+        }
+
+        // Force popover to display on iPhone.
+        private class ppDelegate : UIPopoverPresentationControllerDelegate
+        {
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(
+                UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
+
+            public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
+                UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
 
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
-            _arView.StartTrackingAsync();
+            _arView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
         }
 
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
             _arView.StopTracking();
+        }
+    }
+
+    public class CalibrationViewController : UIViewController
+    {
+        private UISlider _headingSlider;
+        private ARSceneView _arView;
+
+        private float _lastHeadingValue = 0;
+        private NSTimer _headingTimer;
+
+        public CalibrationViewController(ARSceneView arView)
+        {
+            this._arView = arView;
+        }
+        
+        public override void LoadView()
+        {
+            // Create and add the container views.
+            View = new UIView();
+
+            UIStackView formContainer = new UIStackView();
+            formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.Spacing = 8;
+            formContainer.LayoutMarginsRelativeArrangement = true;
+            formContainer.Alignment = UIStackViewAlignment.Fill;
+            formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+            formContainer.Axis = UILayoutConstraintAxis.Vertical;
+            formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
+
+            UILabel headingLabel = new UILabel();
+            headingLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            headingLabel.Text = "Heading";
+            _headingSlider = new UISlider { MinValue = -10, MaxValue = 10, Value = 0 };
+            _headingSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] { headingLabel, _headingSlider }));
+
+            // Lay out container and scroll view.
+            View.AddSubview(formContainer);
+        }
+
+        private UIStackView getRowStackView(UIView[] views)
+        {
+            UIStackView row = new UIStackView(views);
+            row.TranslatesAutoresizingMaskIntoConstraints = false;
+            row.Spacing = 8;
+            row.Axis = UILayoutConstraintAxis.Horizontal;
+            row.Distribution = UIStackViewDistribution.FillEqually;
+            return row;
+        }
+
+        private void HeadingChanged(object sender, EventArgs e)
+        {
+            if (_headingTimer == null)
+            {
+                _headingTimer = new NSTimer(NSDate.Now, 0.1, true, (timer) =>
+                {
+                    Camera oldCamera = _arView.OriginCamera;
+                    var newHeading = oldCamera.Heading + this.joystickConverter(_headingSlider.Value);
+                    _arView.OriginCamera = oldCamera.RotateTo(newHeading, oldCamera.Pitch, oldCamera.Roll);
+                });
+                NSRunLoop.Main.AddTimer(_headingTimer, NSRunLoopMode.Default);
+            }            
+        }
+
+        private double joystickConverter(double value)
+        {
+            return Math.Pow(value, 2) / 25 * (value < 0 ? -1.0 : 1.0);
+        }
+
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+
+            // Subscribe to events.
+            _headingSlider.ValueChanged += HeadingChanged;
+            _headingSlider.TouchUpInside += TouchUpHeading;
+            _headingSlider.TouchUpOutside += TouchUpHeading;
+        }
+
+        private void TouchUpHeading(object sender, EventArgs e)
+        {
+            _headingTimer.Invalidate();
+            _headingTimer = null;
+            _headingSlider.Value = 0;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _headingSlider.ValueChanged -= HeadingChanged;
         }
     }
 }

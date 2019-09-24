@@ -178,7 +178,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private void _navigateButton_Click(object sender, System.EventArgs e)
         {
-            // TODO - push VC
+            NavigationController.PushViewController(new RouteViewerAR() { _routeResult = _routeResult }, true);
         }
 
         private async void SolveRoute()

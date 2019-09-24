@@ -8,15 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using System.Linq;
-using Android;
 using Android.App;
-using Android.Content;
-using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
@@ -39,9 +33,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         private ARSceneView _arSceneView;
         private TextView _helpLabel;
 
-        // Track whether needed permissions have been granted.
-        private bool _hasPermission = false;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -61,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _helpLabel = FindViewById<TextView>(ArcGISRuntime.Resource.Id.helpLabel);
 
             // Request camera permission. Initialize will be called when permissions are granted.
-            RequestPermissions();
+            Initialize();
         }
 
         private async void Initialize()
@@ -98,90 +89,56 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
         private async void DisplayScene(double planeWidth = 1)
         {
-            // Get the downloaded mobile scene package.
-            MobileScenePackage package = await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
-
-            // Load the package.
-            await package.LoadAsync();
-
-            // Get the first scene.
-            Scene philadelphiaScene = package.Scenes.First();
-
-            // Hide the base surface.
-            philadelphiaScene.BaseSurface.Opacity = 0;
-
-            // Enable subsurface navigation. This allows you to look at the scene from below.
-            philadelphiaScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
-
-            // Display the scene.
-            _arSceneView.Scene = philadelphiaScene;
-
-            // Create a camera at the bottom and center of the scene.
-            //    This camera is the point at which the scene is pinned to the real-world surface.
-            var originCamera = new Esri.ArcGISRuntime.Mapping.Camera(39.95787000283599,
-                                            -75.16996728256345,
-                                            8.813445091247559,
-                                            0, 90, 0);
-
-            // Set the origin camera.
-            _arSceneView.OriginCamera = originCamera;
-
-            // The width of the scene content is about 800 meters.
-            double geographicContentWidth = 800;
-
-            // The desired physical width of the scene is 1 meter.
-            double tableContainerWidth = planeWidth;
-
-            // Set the translation facotr based on the scene content width and desired physical size.
-            _arSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
-        }
-
-        private void RequestPermissions()
-        {
-            var requiredPermissions = new[] { Manifest.Permission.Camera };
-            int requestCode = 2;
-
-            // Initialize if permissions are granted, otherwise request them.
-            if (ContextCompat.CheckSelfPermission(this, requiredPermissions[0]) == Permission.Granted)
+            try
             {
-                _hasPermission = true;
-                Initialize();
+                // Get the downloaded mobile scene package.
+                MobileScenePackage package = await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
+
+                // Load the package.
+                await package.LoadAsync();
+
+                // Get the first scene.
+                Scene philadelphiaScene = package.Scenes.First();
+
+                // Hide the base surface.
+                philadelphiaScene.BaseSurface.Opacity = 0;
+
+                // Enable subsurface navigation. This allows you to look at the scene from below.
+                philadelphiaScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
+
+                // Display the scene.
+                _arSceneView.Scene = philadelphiaScene;
+
+                // Create a camera at the bottom and center of the scene.
+                //    This camera is the point at which the scene is pinned to the real-world surface.
+                var originCamera = new Esri.ArcGISRuntime.Mapping.Camera(39.95787000283599,
+                                                -75.16996728256345,
+                                                8.813445091247559,
+                                                0, 90, 0);
+
+                // Set the origin camera.
+                _arSceneView.OriginCamera = originCamera;
+
+                // The width of the scene content is about 800 meters.
+                double geographicContentWidth = 800;
+
+                // The desired physical width of the scene is 1 meter.
+                double tableContainerWidth = planeWidth;
+
+                // Set the translation facotr based on the scene content width and desired physical size.
+                _arSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
             }
-            else
+            catch (System.Exception ex)
             {
-                ActivityCompat.RequestPermissions(this, requiredPermissions, requestCode);
+                System.Diagnostics.Debug.WriteLine(ex);
+                ShowMessage("Failed to load scene.", "Error");
             }
         }
 
-        // Called when permissions are granted/denied.
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            // Only initialize if permissions have been granted.
-            if (grantResults.Length > 0 && grantResults[0] == Permission.Granted)
-            {
-                _hasPermission = true;
-                Initialize();
-            }
-            else
-            {
-                ShowMessage("You must grant both camera permissions for AR to work.", "Can't start AR.", true);
-            }
-        }
-
-        private void ShowMessage(string message, string title, bool exitApp = false)
+        private void ShowMessage(string message, string title)
         {
             // Display the message to the user.
-            var dialog = new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Create();
-            if (exitApp)
-            {
-                dialog.SetButton((int)DialogButtonType.Positive, "OK", (o, e) =>
-                {
-                    Finish();
-                });
-            }
-            dialog.Show();
+            new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
         protected override void OnPause()
@@ -195,13 +152,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         {
             base.OnResume();
 
-            // StartTrackingAsync has its own permission request logic. Calling start tracking without permissions will show the prompt.
-            // OnResume is called when the permission request finishes, so without this check, the user will be continually re-prompted until they accept.
-            if (_hasPermission)
-            {
-                // Start AR tracking without location updates.
-                _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
-            }
+            // Start AR tracking without location updates.
+            _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
         }
 
         protected override void OnDestroy()

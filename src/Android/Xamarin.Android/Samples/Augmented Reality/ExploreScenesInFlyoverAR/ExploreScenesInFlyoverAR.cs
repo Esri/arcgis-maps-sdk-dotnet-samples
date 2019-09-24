@@ -8,14 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using Android;
 using Android.App;
-using Android.Content;
-using Android.Content.PM;
 using Android.OS;
-using Android.Runtime;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 using Android.Support.V7.App;
 using Android.Widget;
 using Esri.ArcGISRuntime.ARToolkit;
@@ -35,9 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
     {
         // Hold references to the UI controls.
         private ARSceneView _arSceneView;
-
-        // Track whether needed permissions have been granted.
-        private bool _hasPermission = false;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -60,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             SetContentView(layout);
 
             // Request camera permission. Initialize will be called when permissions are granted.
-            RequestPermissions();
+            Initialize();
         }
 
         private async void Initialize()
@@ -100,52 +91,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             }
         }
 
-        private void RequestPermissions()
-        {
-            var requiredPermissions = new[] { Manifest.Permission.Camera };
-            int requestCode = 2;
-
-            // Initialize if permissions are granted, otherwise request them.
-            if (ContextCompat.CheckSelfPermission(this, requiredPermissions[0]) == Permission.Granted)
-            {
-                _hasPermission = true;
-                Initialize();
-            }
-            else
-            {
-                ActivityCompat.RequestPermissions(this, requiredPermissions, requestCode);
-            }
-        }
-
-        // Called when permissions are granted/denied.
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
-        {
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            // Only initialize if permissions have been granted.
-            if (grantResults.Length > 0 && grantResults[0] == Permission.Granted)
-            {
-                _hasPermission = true;
-                Initialize();
-            }
-            else
-            {
-                ShowMessage("You must grant both camera permissions for AR to work.", "Can't start AR.", true);
-            }
-        }
-
-        private void ShowMessage(string message, string title, bool exitApp = false)
+        private void ShowMessage(string message, string title)
         {
             // Display the message to the user.
-            var dialog = new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Create();
-            if (exitApp)
-            {
-                dialog.SetButton((int)DialogButtonType.Positive, "OK", (o, e) =>
-                {
-                    Finish();
-                });
-            }
-            dialog.Show();
+            new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
         protected override void OnPause()
@@ -159,13 +108,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         {
             base.OnResume();
 
-            // StartTrackingAsync has its own permission request logic. Calling start tracking without permissions will show the prompt.
-            // OnResume is called when the permission request finishes, so without this check, the user will be continually re-prompted until they accept.
-            if (_hasPermission)
-            {
-                // Start AR tracking without location updates.
-                _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
-            }
+            // Start AR tracking without location updates.
+            _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
         }
 
         protected override void OnDestroy()

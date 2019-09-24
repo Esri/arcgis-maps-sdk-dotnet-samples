@@ -36,7 +36,6 @@ namespace ArcGISRuntime
             {
                 ForegroundColor = UIColor.White
             };
-            NavigationController.NavigationBar.LargeTitleTextAttributes = NavigationController.NavigationBar.TitleTextAttributes;
 
             SampleManager.Current.Initialize();
             List<SearchableTreeNode> data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
@@ -70,8 +69,6 @@ namespace ArcGISRuntime
                     backgroundView.Layer.CornerRadius = 10;
                     backgroundView.ClipsToBounds = true;
                 }
-
-                entry.TintColor = View.TintColor;
             }
 
             // Show search bar by default

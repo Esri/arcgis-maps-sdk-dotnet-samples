@@ -32,7 +32,7 @@ namespace ArcGISRuntime
             base.ViewDidLoad();
 
             Title = _category.Name;
-            NavigationController.NavigationBar.PrefersLargeTitles = true;
+            NavigationController.NavigationBar.PrefersLargeTitles = false;
 
             List<object> listSampleItems = _category.Items;
 

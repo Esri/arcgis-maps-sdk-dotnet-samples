@@ -29,13 +29,6 @@ namespace ArcGISRuntime
         {
             base.ViewDidLoad();
 
-            NavigationController.NavigationBar.TintColor = UIColor.White;
-            NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(0, 140, 200);
-            NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes
-            {
-                ForegroundColor = UIColor.White
-            };
-
             SampleManager.Current.Initialize();
             List<SearchableTreeNode> data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
             TableView.Source = new CategoryDataSource(this, data);
@@ -53,7 +46,6 @@ namespace ArcGISRuntime
             {
                 SearchResultsUpdater = searchUpdater
             };
-            SearchController.SearchBar.TintColor = UIColor.White;
 
             // Show the search bar in the navigation/header area
             NavigationItem.SearchController = SearchController;
@@ -63,7 +55,6 @@ namespace ArcGISRuntime
                 var backgroundView = entry.Subviews.FirstOrDefault();
                 if (backgroundView != null)
                 {
-                    backgroundView.BackgroundColor = UIColor.White;
                     backgroundView.Layer.CornerRadius = 10;
                     backgroundView.ClipsToBounds = true;
                 }

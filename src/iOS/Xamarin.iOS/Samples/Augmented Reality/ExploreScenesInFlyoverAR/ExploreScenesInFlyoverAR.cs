@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Foundation;
+using SceneKit;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
@@ -69,8 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             // Listen for tracking status changes and provide feedback to the user.
             _trackingSessionDelegate = new SessionDelegate();
             _trackingSessionDelegate.CameraTrackingStateDidChange += _trackingSessionDelegate_CameraTrackingStateDidChange;
-            //_arSceneView.ARSCNViewDelegate = _trackingSessionDelegate; // TODO - currently crashes
-            _arSceneView.ARSCNView.Delegate = _trackingSessionDelegate;
+            _arSceneView.ARSCNViewDelegate = _trackingSessionDelegate;
         }
 
         private async void Initialize()

@@ -90,8 +90,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             {
                 BeginInvokeOnMainThread(EnableTapToPlace);
             };
-            //_arSceneView.ARSCNViewDelegate = _trackingSessionDelegate; // TODO - currently crashes
-            _arSceneView.ARSCNView.Delegate = _trackingSessionDelegate;
+            _arSceneView.ARSCNViewDelegate = _trackingSessionDelegate;
         }
 
         private void Initialize()

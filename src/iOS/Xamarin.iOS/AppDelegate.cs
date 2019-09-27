@@ -44,5 +44,10 @@ namespace ArcGISRuntime
         public override void WillTerminate(UIApplication application)
         {
         }
+
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            return true;
+        }
     }
 }

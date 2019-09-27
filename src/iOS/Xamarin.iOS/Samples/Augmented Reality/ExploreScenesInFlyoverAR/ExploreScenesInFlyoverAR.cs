@@ -3,18 +3,17 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using ARKit;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Foundation;
-using SceneKit;
+using System;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
@@ -30,7 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         // Hold references to UI controls.
         private ARSceneView _arSceneView;
         private UILabel _arKitStatusLabel;
-        private SessionDelegate _trackingSessionDelegate;
 
         public ExploreScenesInFlyoverAR()
         {
@@ -68,9 +66,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             });
 
             // Listen for tracking status changes and provide feedback to the user.
-            _trackingSessionDelegate = new SessionDelegate();
-            _trackingSessionDelegate.CameraTrackingStateDidChange += _trackingSessionDelegate_CameraTrackingStateDidChange;
-            _arSceneView.ARSCNViewDelegate = _trackingSessionDelegate;
+            _arSceneView.ARSCNViewCameraDidChangeTrackingState += CameraTrackingStateChanged;
         }
 
         private async void Initialize()
@@ -110,7 +106,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             }
         }
 
-        private void _trackingSessionDelegate_CameraTrackingStateDidChange(object sender, ARTrackingStateEventArgs e)
+        private void CameraTrackingStateChanged(object sender, ARSCNViewCameraTrackingStateEventArgs e)
         {
             // Provide clear feedback to the user in terms they will understand.
             switch (e.Camera.TrackingState)
@@ -118,10 +114,12 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
                 case ARTrackingState.Normal:
                     _arKitStatusLabel.Hidden = true;
                     break;
+
                 case ARTrackingState.NotAvailable:
                     _arKitStatusLabel.Hidden = false;
                     _arKitStatusLabel.Text = "ARKit location not available";
                     break;
+
                 case ARTrackingState.Limited:
                     _arKitStatusLabel.Hidden = false;
                     switch (e.Camera.TrackingStateReason)
@@ -129,12 +127,15 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
                         case ARTrackingStateReason.ExcessiveMotion:
                             _arKitStatusLabel.Text = "Try moving your device more slowly.";
                             break;
+
                         case ARTrackingStateReason.Initializing:
                             _arKitStatusLabel.Text = "Keep moving your device.";
                             break;
+
                         case ARTrackingStateReason.InsufficientFeatures:
                             _arKitStatusLabel.Text = "Try turning on more lights and moving around.";
                             break;
+
                         case ARTrackingStateReason.Relocalizing:
                             // This won't happen as this sample doesn't use relocalization.
                             break;

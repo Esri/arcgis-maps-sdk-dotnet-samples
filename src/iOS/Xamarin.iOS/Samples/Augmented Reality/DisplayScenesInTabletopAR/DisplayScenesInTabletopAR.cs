@@ -3,18 +3,18 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using ARKit;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Mapping;
 using Foundation;
 using SceneKit;
+using System;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
@@ -32,8 +32,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         private ARSceneView _arSceneView;
         private UILabel _arKitStatusLabel;
         private UILabel _helpLabel;
-
-        private SessionDelegate _trackingSessionDelegate;
 
         public DisplayScenesInTabletopAR()
         {
@@ -63,7 +61,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _helpLabel.Text = "Tap to place scene";
             _helpLabel.Hidden = true;
 
-
             // Add the views.
             View.AddSubviews(_arSceneView, _arKitStatusLabel, _helpLabel);
 
@@ -84,13 +81,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             });
 
             // Listen for tracking status changes and provide feedback to the user.
-            _trackingSessionDelegate = new SessionDelegate();
-            _trackingSessionDelegate.CameraTrackingStateDidChange += _trackingSessionDelegate_CameraTrackingStateDidChange;
-            _trackingSessionDelegate.FirstPlaneFound += (o, e) =>
-            {
-                BeginInvokeOnMainThread(EnableTapToPlace);
-            };
-            _arSceneView.ARSCNViewDelegate = _trackingSessionDelegate;
+            _arSceneView.PlanesDetectedChanged += (o, e) =>
+             {
+                 BeginInvokeOnMainThread(EnableTapToPlace);
+             };
+            _arSceneView.ARSCNViewCameraDidChangeTrackingState += CameraTrackingStateDidChange;
         }
 
         private void Initialize()
@@ -116,7 +111,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             {
                 DisplayScene();
                 _arKitStatusLabel.Hidden = true;
-                _trackingSessionDelegate.ShouldRenderPlanes = false;
             }
         }
 
@@ -145,7 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
             // Create a camera at the bottom and center of the scene.
             //    This camera is the point at which the scene is pinned to the real-world surface.
-            var originCamera = new Esri.ArcGISRuntime.Mapping.Camera(39.95787000283599,
+            Camera originCamera = new Camera(39.95787000283599,
                                             -75.16996728256345,
                                             8.813445091247559,
                                             0, 90, 0);
@@ -163,7 +157,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _arSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
         }
 
-        private void _trackingSessionDelegate_CameraTrackingStateDidChange(object sender, ARTrackingStateEventArgs e)
+        private void CameraTrackingStateDidChange(object sender, ARSCNViewCameraTrackingStateEventArgs e)
         {
             // Provide clear feedback to the user in terms they will understand.
             switch (e.Camera.TrackingState)
@@ -171,10 +165,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 case ARTrackingState.Normal:
                     _arKitStatusLabel.Hidden = true;
                     break;
+
                 case ARTrackingState.NotAvailable:
                     _arKitStatusLabel.Hidden = false;
                     _arKitStatusLabel.Text = "ARKit location not available";
                     break;
+
                 case ARTrackingState.Limited:
                     _arKitStatusLabel.Hidden = false;
                     switch (e.Camera.TrackingStateReason)
@@ -182,12 +178,15 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                         case ARTrackingStateReason.ExcessiveMotion:
                             _arKitStatusLabel.Text = "Try moving your device more slowly.";
                             break;
+
                         case ARTrackingStateReason.Initializing:
                             _arKitStatusLabel.Text = "Keep moving your device.";
                             break;
+
                         case ARTrackingStateReason.InsufficientFeatures:
                             _arKitStatusLabel.Text = "Try turning on more lights and moving around.";
                             break;
+
                         case ARTrackingStateReason.Relocalizing:
                             // This won't happen as this sample doesn't use relocalization.
                             break;
@@ -214,7 +213,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _arSceneView?.StopTracking();
         }
 
-
         // Delegate object to receive notifications from ARKit.
         private class SessionDelegate : ARSCNViewDelegate
         {
@@ -232,6 +230,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
             // Expose an event for listening for camera changes specifically.
             public event EventHandler<ARTrackingStateEventArgs> CameraTrackingStateDidChange;
+
             public event EventHandler FirstPlaneFound;
 
             public override void CameraDidChangeTrackingState(ARSession session, ARCamera camera) => CameraTrackingStateDidChange?.Invoke(this, new ARTrackingStateEventArgs { Camera = camera, Session = session });
@@ -279,7 +278,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
                     scenePlaneGeometry.Update(geometry);
 
-                    var newNode = SCNNode.FromGeometry(scenePlaneGeometry);
+                    SCNNode newNode = SCNNode.FromGeometry(scenePlaneGeometry);
 
                     node.AddChildNode(newNode);
 

@@ -3,11 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using AVFoundation;
 using CoreGraphics;
 using Esri.ArcGISRuntime.ARToolkit;
@@ -18,6 +17,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using Foundation;
+using System;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateAR
@@ -32,7 +32,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         public RouteResult _routeResult;
         private RouteTracker _routeTracker;
-        private SystemLocationDataSource _trackingLocationDataSource;
         private AVSpeechSynthesizer _synthesizer;
 
         private GraphicsOverlay _routeOverlay;
@@ -40,7 +39,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private Surface _elevationSurface;
 
         private bool _isCalibrating = false;
-        private bool IsCalibrating {
+
+        private bool IsCalibrating
+        {
             get => _isCalibrating;
             set
             {
@@ -55,7 +56,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                     _arView.Scene.BaseSurface.Opacity = 0;
                     _calibrationVC.DismissViewController(true, null);
                 }
-                
             }
         }
 
@@ -173,7 +173,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         {
             _routeTracker = new RouteTracker(_routeResult, 0);
 
-            _routeTracker.NewVoiceGuidance += (o,ee) => {
+            _routeTracker.NewVoiceGuidance += (o, ee) =>
+            {
                 var utterance = new AVSpeechUtterance(ee.VoiceGuidance.Text);
                 utterance.Voice = AVSpeechSynthesisVoice.FromLanguage("en-US");
                 _synthesizer.SpeakUtterance(utterance);
@@ -189,10 +190,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private void ShowCalibrationPopover()
         {
-           
             // Show the table view in a popover.
             _calibrationVC.ModalPresentationStyle = UIModalPresentationStyle.Popover;
-            _calibrationVC.PreferredContentSize = new CGSize(280, 60);
+            _calibrationVC.PreferredContentSize = new CGSize(360, 120);
             UIPopoverPresentationController pc = _calibrationVC.PopoverPresentationController;
             if (pc != null)
             {
@@ -230,16 +230,18 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
     public class CalibrationViewController : UIViewController
     {
         private UISlider _headingSlider;
+        private UISlider _elevationSlider;
+        private UILabel elevationLabel;
+        private UILabel headingLabel;
         private ARSceneView _arView;
-
-        private float _lastHeadingValue = 0;
         private NSTimer _headingTimer;
+        private NSTimer _elevationTimer;
 
         public CalibrationViewController(ARSceneView arView)
         {
             this._arView = arView;
         }
-        
+
         public override void LoadView()
         {
             // Create and add the container views.
@@ -254,12 +256,19 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
             formContainer.WidthAnchor.ConstraintEqualTo(300).Active = true;
 
-            UILabel headingLabel = new UILabel();
+            elevationLabel = new UILabel();
+            elevationLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            elevationLabel.Text = "Elevation";
+            _elevationSlider = new UISlider { MinValue = -10, MaxValue = 10, Value = 0 };
+            _elevationSlider.TranslatesAutoresizingMaskIntoConstraints = false;
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] { _elevationSlider, elevationLabel }));
+
+            headingLabel = new UILabel();
             headingLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             headingLabel.Text = "Heading";
             _headingSlider = new UISlider { MinValue = -10, MaxValue = 10, Value = 0 };
             _headingSlider.TranslatesAutoresizingMaskIntoConstraints = false;
-            formContainer.AddArrangedSubview(getRowStackView(new UIView[] { headingLabel, _headingSlider }));
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] { _headingSlider, headingLabel }));
 
             // Lay out container and scroll view.
             View.AddSubview(formContainer);
@@ -282,14 +291,29 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 _headingTimer = new NSTimer(NSDate.Now, 0.1, true, (timer) =>
                 {
                     Camera oldCamera = _arView.OriginCamera;
-                    var newHeading = oldCamera.Heading + this.joystickConverter(_headingSlider.Value);
+                    var newHeading = oldCamera.Heading + this.JoystickConverter(_headingSlider.Value);
                     _arView.OriginCamera = oldCamera.RotateTo(newHeading, oldCamera.Pitch, oldCamera.Roll);
+                    headingLabel.Text = $"Heading: {(int)_arView.OriginCamera.Heading}";
                 });
                 NSRunLoop.Main.AddTimer(_headingTimer, NSRunLoopMode.Default);
-            }            
+            }
         }
 
-        private double joystickConverter(double value)
+        private void ElevationChanged(object sender, EventArgs e)
+        {
+            if (_elevationTimer == null)
+            {
+                _elevationTimer = new NSTimer(NSDate.Now, 0.1, true, (timer) =>
+                {
+                    Camera oldCamera = _arView.OriginCamera;
+                    _arView.OriginCamera = oldCamera.Elevate(JoystickConverter(_elevationSlider.Value * 3.0));
+                    elevationLabel.Text = $"Elevation: {(int)_arView.OriginCamera.Location.Z}m";
+                });
+                NSRunLoop.Main.AddTimer(_elevationTimer, NSRunLoopMode.Default);
+            }
+        }
+
+        private double JoystickConverter(double value)
         {
             return Math.Pow(value, 2) / 25 * (value < 0 ? -1.0 : 1.0);
         }
@@ -302,6 +326,10 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _headingSlider.ValueChanged += HeadingChanged;
             _headingSlider.TouchUpInside += TouchUpHeading;
             _headingSlider.TouchUpOutside += TouchUpHeading;
+
+            _elevationSlider.ValueChanged += ElevationChanged;
+            _elevationSlider.TouchUpInside += TouchUpElevation;
+            _elevationSlider.TouchUpOutside += TouchUpElevation;
         }
 
         private void TouchUpHeading(object sender, EventArgs e)
@@ -309,6 +337,13 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _headingTimer.Invalidate();
             _headingTimer = null;
             _headingSlider.Value = 0;
+        }
+
+        private void TouchUpElevation(object sender, EventArgs e)
+        {
+            _elevationTimer.Invalidate();
+            _elevationTimer = null;
+            _elevationSlider.Value = 0;
         }
 
         public override void ViewDidDisappear(bool animated)

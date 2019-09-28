@@ -3,28 +3,24 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
-using UIKit;
-using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
-using System.Linq;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using UIKit;
 using Xamarin.Auth;
-using Esri.ArcGISRuntime.Security;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 {
@@ -81,7 +77,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _navigateButton = new UIBarButtonItem("Navigate", UIBarButtonItemStyle.Plain, _navigateButton_Click);
             _navigateButton.Enabled = false;
 
-            toolbar.Items = new []
+            toolbar.Items = new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _navigateButton,
@@ -92,7 +88,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             View.AddSubviews(_mapView, _helpLabel, toolbar);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new []{
+            NSLayoutConstraint.ActivateConstraints(new[]{
                 _mapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _mapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _mapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -104,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
-            });            
+            });
         }
 
         public override void ViewDidLoad()
@@ -157,6 +153,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
                 Graphic startGraphic = new Graphic(_startPoint);
                 _stopsOverlay.Graphics.Add(startGraphic);
+
+                _helpLabel.Text = "Tap to set an end point";
             }
             else if (_endPoint == null)
             {
@@ -187,7 +185,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
             try
             {
-
                 _routeParameters = await _routeTask.CreateDefaultParametersAsync();
 
                 _routeParameters.ReturnStops = true;
@@ -209,6 +206,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 Graphic routeGraphic = new Graphic(_route.RouteGeometry);
                 _routeOverlay.Graphics.Add(routeGraphic);
 
+                _helpLabel.Text = "Route calculated.";
+
                 EnableNavigation();
             }
             catch (System.Exception ex)
@@ -221,7 +220,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private void ShowMessage(string message, string title)
         {
             // Create Alert.
-            var okAlertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
+            UIAlertController okAlertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
 
             // Add Action.
             okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));

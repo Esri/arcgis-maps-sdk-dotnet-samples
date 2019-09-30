@@ -151,7 +151,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             {
                 _startPoint = e.Location;
 
-                Graphic startGraphic = new Graphic(_startPoint);
+                Graphic startGraphic = new Graphic(_startPoint, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Green, 25));
                 _stopsOverlay.Graphics.Add(startGraphic);
 
                 _helpLabel.Text = "Tap to set an end point";
@@ -160,7 +160,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             {
                 _endPoint = e.Location;
 
-                Graphic endGraphic = new Graphic(_endPoint);
+                Graphic endGraphic = new Graphic(_endPoint, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Red, 25));
                 _stopsOverlay.Graphics.Add(endGraphic);
 
                 SolveRoute();
@@ -210,7 +210,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
                 EnableNavigation();
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ShowMessage("Failed to calculate route", "Error");
                 System.Diagnostics.Debug.WriteLine(ex);

@@ -171,21 +171,28 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private void StartTurnByTurn(object sender, EventArgs e)
         {
+            _helpLabel.Text = "Tracking started.";
+            _navigateButton.Enabled = false;
+
             _routeTracker = new RouteTracker(_routeResult, 0);
+            _routeTracker.NewVoiceGuidance += PlayVoiceGuidance;
+            _routeTracker.TrackingStatusChanged += TrackingStatusUpdated;
+        }
 
-            _routeTracker.NewVoiceGuidance += (o, ee) =>
-            {
-                var utterance = new AVSpeechUtterance(ee.VoiceGuidance.Text);
-                utterance.Voice = AVSpeechSynthesisVoice.FromLanguage("en-US");
-                _synthesizer.SpeakUtterance(utterance);
+        private void TrackingStatusUpdated(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
+        {
+            _helpLabel.Text = _routeTracker.GenerateVoiceGuidance().Text;
+        }
 
-                _helpLabel.Text = ee.VoiceGuidance.Text;
-            };
+        private void PlayVoiceGuidance(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        {
+            _synthesizer.StopSpeaking(AVSpeechBoundary.Word);
 
-            _routeTracker.TrackingStatusChanged += (o, ee) =>
-            {
-                _helpLabel.Text = _routeTracker.GenerateVoiceGuidance().Text;
-            };
+            AVSpeechUtterance utterance = new AVSpeechUtterance(e.VoiceGuidance.Text);
+            utterance.Voice = AVSpeechSynthesisVoice.FromLanguage("en-US");
+            _synthesizer.SpeakUtterance(utterance);
+
+            _helpLabel.Text = e.VoiceGuidance.Text;
         }
 
         private void ShowCalibrationPopover()
@@ -214,16 +221,18 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
         }
 
-        public override void ViewDidAppear(bool animated)
+        public override async void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
-            _arView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
+            await _arView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
         }
 
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
             _arView.StopTracking();
+            _routeTracker.NewVoiceGuidance -= PlayVoiceGuidance;
+            _routeTracker.TrackingStatusChanged -= TrackingStatusUpdated;
         }
     }
 
@@ -352,6 +361,12 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
             // Unsubscribe from events, per best practice.
             _headingSlider.ValueChanged -= HeadingChanged;
+            _headingSlider.TouchUpInside -= TouchUpHeading;
+            _headingSlider.TouchUpOutside -= TouchUpHeading;
+
+            _elevationSlider.ValueChanged -= ElevationChanged;
+            _elevationSlider.TouchUpInside -= TouchUpElevation;
+            _elevationSlider.TouchUpOutside -= TouchUpElevation;
         }
     }
 }

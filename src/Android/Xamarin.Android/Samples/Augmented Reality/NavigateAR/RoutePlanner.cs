@@ -56,6 +56,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private RouteResult _routeResult;
         private RouteParameters _routeParameters;
 
+        private readonly Uri _routingUri = new System.Uri("https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World");
+
         // Auth
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
@@ -96,8 +98,10 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 _mapView.LocationDisplay.IsEnabled = true;
 
                 SetOAuthInfo();
+                var credential = await AuthenticationManager.Current.GenerateCredentialAsync(_routingUri);
+                AuthenticationManager.Current.AddCredential(credential);
 
-                _routeTask = await RouteTask.CreateAsync(new System.Uri("https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"));
+                _routeTask = await RouteTask.CreateAsync(_routingUri);
 
                 _routeOverlay = new GraphicsOverlay();
                 SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Yellow, 1);

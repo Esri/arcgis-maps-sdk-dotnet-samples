@@ -35,9 +35,18 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
         private Scene _tabletopScene;
 
+        private SCNMaterial _planeRenderingMaterial;
+
+        public bool ShouldRenderPlanes { get; set; } = true;
+        public bool HasFoundPlane { get; set; } = false;
+
         public DisplayScenesInTabletopAR()
         {
             Title = "Display scenes in tabletop AR";
+
+            _planeRenderingMaterial = new SCNMaterial();
+            _planeRenderingMaterial.DoubleSided = false;
+            _planeRenderingMaterial.Diffuse.ContentColor = UIColor.FromRGBA(0.5f, 0, 0, 0.5f);
         }
 
         public override void LoadView()
@@ -87,7 +96,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
              {
                  BeginInvokeOnMainThread(EnableTapToPlace);
              };
+
             _arSceneView.ARSCNViewCameraDidChangeTrackingState += CameraTrackingStateDidChange;
+
+            // Events for plane rendering.
+            _arSceneView.ARSCNViewDidAddNode += _arSceneView_ARSCNViewDidAddNode;
+            _arSceneView.ARSCNViewDidUpdateNode += _arSceneView_ARSCNViewDidUpdateNode;
         }
 
         private void Initialize()
@@ -137,6 +151,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
                 // Enable subsurface navigation. This allows you to look at the scene from below.
                 _tabletopScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
+
+                _arSceneView.Scene = _tabletopScene;
             }
 
             // Create a camera at the bottom and center of the scene.
@@ -197,6 +213,58 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             }
         }
 
+        private void _arSceneView_ARSCNViewDidUpdateNode(object sender, ARSCNViewNodeEventArgs e)
+        {
+            if (!ShouldRenderPlanes)
+            {
+                e.Node.RemoveFromParentNode();
+                return;
+            }
+
+            if (e.Anchor is ARPlaneAnchor planeAnchor)
+            {
+                ARPlaneGeometry geometry = planeAnchor.Geometry;
+
+                ARSCNPlaneGeometry scenePlaneGeometry = ARSCNPlaneGeometry.Create(e.Renderer.GetDevice());
+
+                scenePlaneGeometry.Update(geometry);
+
+                scenePlaneGeometry.Materials = new[] { _planeRenderingMaterial };
+
+                e.Node.ChildNodes.First().Geometry = scenePlaneGeometry;
+            }
+        }
+
+        private void _arSceneView_ARSCNViewDidAddNode(object sender, ARSCNViewNodeEventArgs e)
+        {
+            if (!HasFoundPlane)
+            {
+                HasFoundPlane = true;
+            }
+
+            if (!ShouldRenderPlanes)
+            {
+                return;
+            }
+
+            if (e.Anchor is ARPlaneAnchor planeAnchor)
+            {
+                ARPlaneGeometry geometry = planeAnchor.Geometry;
+
+                ARSCNPlaneGeometry scenePlaneGeometry = ARSCNPlaneGeometry.Create(e.Renderer.GetDevice());
+
+                scenePlaneGeometry.Update(geometry);
+
+                SCNNode newNode = SCNNode.FromGeometry(scenePlaneGeometry);
+
+                e.Node.AddChildNode(newNode);
+
+                scenePlaneGeometry.Materials = new[] { _planeRenderingMaterial };
+
+                e.Node.Geometry = scenePlaneGeometry;
+            }
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -213,88 +281,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         {
             base.ViewDidDisappear(animated);
             _arSceneView?.StopTracking();
-        }
-
-        // Delegate object to receive notifications from ARKit.
-        private class SessionDelegate : ARSCNViewDelegate
-        {
-            private SCNMaterial _planeRenderingMaterial;
-
-            public bool ShouldRenderPlanes { get; set; } = true;
-            public bool HasFoundPlane { get; set; } = false;
-
-            public SessionDelegate()
-            {
-                _planeRenderingMaterial = new SCNMaterial();
-                _planeRenderingMaterial.DoubleSided = false;
-                _planeRenderingMaterial.Diffuse.ContentColor = UIColor.FromRGBA(0.5f, 0, 0, 0.5f);
-            }
-
-            // Expose an event for listening for camera changes specifically.
-            public event EventHandler<ARTrackingStateEventArgs> CameraTrackingStateDidChange;
-
-            public event EventHandler FirstPlaneFound;
-
-            public override void CameraDidChangeTrackingState(ARSession session, ARCamera camera) => CameraTrackingStateDidChange?.Invoke(this, new ARTrackingStateEventArgs { Camera = camera, Session = session });
-
-            public override void DidUpdateNode(ISCNSceneRenderer renderer, SCNNode node, ARAnchor anchor)
-            {
-                if (!ShouldRenderPlanes)
-                {
-                    node.RemoveFromParentNode();
-                    return;
-                }
-
-                if (anchor is ARPlaneAnchor planeAnchor)
-                {
-                    ARPlaneGeometry geometry = planeAnchor.Geometry;
-
-                    ARSCNPlaneGeometry scenePlaneGeometry = ARSCNPlaneGeometry.Create(renderer.GetDevice());
-
-                    scenePlaneGeometry.Update(geometry);
-
-                    scenePlaneGeometry.Materials = new[] { _planeRenderingMaterial };
-
-                    node.ChildNodes.First().Geometry = scenePlaneGeometry;
-                }
-            }
-
-            public override void DidAddNode(ISCNSceneRenderer renderer, SCNNode node, ARAnchor anchor)
-            {
-                if (!HasFoundPlane)
-                {
-                    HasFoundPlane = true;
-                    FirstPlaneFound?.Invoke(this, EventArgs.Empty);
-                }
-
-                if (!ShouldRenderPlanes)
-                {
-                    return;
-                }
-
-                if (anchor is ARPlaneAnchor planeAnchor)
-                {
-                    ARPlaneGeometry geometry = planeAnchor.Geometry;
-
-                    ARSCNPlaneGeometry scenePlaneGeometry = ARSCNPlaneGeometry.Create(renderer.GetDevice());
-
-                    scenePlaneGeometry.Update(geometry);
-
-                    SCNNode newNode = SCNNode.FromGeometry(scenePlaneGeometry);
-
-                    node.AddChildNode(newNode);
-
-                    scenePlaneGeometry.Materials = new[] { _planeRenderingMaterial };
-
-                    node.Geometry = scenePlaneGeometry;
-                }
-            }
-        }
-
-        private class ARTrackingStateEventArgs
-        {
-            public ARSession Session { get; set; }
-            public ARCamera Camera { get; set; }
         }
     }
 }

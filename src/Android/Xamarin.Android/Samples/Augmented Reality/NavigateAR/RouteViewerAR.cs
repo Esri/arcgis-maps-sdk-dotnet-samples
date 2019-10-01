@@ -100,8 +100,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _arSceneView.LocationDataSource = arLocationDataSource;
             //arSceneView.LocationDataSource = new SystemLocationDataSource();
 
-            //_arSceneView.ArSceneView.PlaneRenderer.Enabled = false;
-            //_arSceneView.ArSceneView.PlaneRenderer.Visible = false;
+            _arSceneView.ArSceneView.PlaneRenderer.Enabled = false;
+            _arSceneView.ArSceneView.PlaneRenderer.Visible = false;
 
             _navigateButton.Click += (o, e) => StartTurnByTurn();
 
@@ -121,7 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _altitudeSlider.DeltaProgressChanged += (o, e) =>
             {
                 _altitudeOffset += e.deltaProgress;
-                //arLocationDataSource.AltitudeOffset = _altitudeOffset;
+                arLocationDataSource.AltitudeOffset = _altitudeOffset;
             };
 
             SetupArView();
@@ -133,7 +133,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 "Calibrate your heading before navigating!",
                 ToastLength.Long).Show();
 
-            _arSceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            _scene = new Scene(Basemap.CreateImageryWithLabels());
+            _arSceneView.Scene = _scene;
 
             _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
             _elevationSurface = new Surface();

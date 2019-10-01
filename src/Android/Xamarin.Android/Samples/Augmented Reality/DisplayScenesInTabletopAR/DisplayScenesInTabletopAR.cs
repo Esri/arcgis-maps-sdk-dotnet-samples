@@ -33,6 +33,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         // Hold references to the UI controls.
         private ARSceneView _arSceneView;
         private TextView _helpLabel;
+        private Scene _tabletopScene;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -92,23 +93,26 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         {
             try
             {
-                // Get the downloaded mobile scene package.
-                MobileScenePackage package = await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
+                if (_tabletopScene == null)
+                {
+                    // Get the downloaded mobile scene package.
+                    MobileScenePackage package = await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
 
-                // Load the package.
-                await package.LoadAsync();
+                    // Load the package.
+                    await package.LoadAsync();
 
-                // Get the first scene.
-                Scene philadelphiaScene = package.Scenes.First();
+                    // Get the first scene.
+                    _tabletopScene = package.Scenes.First();
 
-                // Hide the base surface.
-                philadelphiaScene.BaseSurface.Opacity = 0;
+                    // Hide the base surface.
+                    _tabletopScene.BaseSurface.Opacity = 0;
 
-                // Enable subsurface navigation. This allows you to look at the scene from below.
-                philadelphiaScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
+                    // Enable subsurface navigation. This allows you to look at the scene from below.
+                    _tabletopScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
+                }
 
                 // Display the scene.
-                _arSceneView.Scene = philadelphiaScene;
+                _arSceneView.Scene = _tabletopScene;
 
                 // Create a camera at the bottom and center of the scene.
                 //    This camera is the point at which the scene is pinned to the real-world surface.

@@ -33,6 +33,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         private UILabel _arKitStatusLabel;
         private UILabel _helpLabel;
 
+        private Scene _tabletopScene;
+
         public DisplayScenesInTabletopAR()
         {
             Title = "Display scenes in tabletop AR";
@@ -119,23 +121,23 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             // Hide the help label.
             _helpLabel.Hidden = true;
 
-            // Get the downloaded mobile scene package.
-            MobileScenePackage package = await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
+            if (_tabletopScene == null)
+            {
+                // Get the downloaded mobile scene package.
+                MobileScenePackage package = await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
 
-            // Load the package.
-            await package.LoadAsync();
+                // Load the package.
+                await package.LoadAsync();
 
-            // Get the first scene.
-            Scene philadelphiaScene = package.Scenes.First();
+                // Get the first scene.
+                _tabletopScene = package.Scenes.First();
 
-            // Hide the base surface.
-            philadelphiaScene.BaseSurface.Opacity = 0;
+                // Hide the base surface.
+                _tabletopScene.BaseSurface.Opacity = 0;
 
-            // Enable subsurface navigation. This allows you to look at the scene from below.
-            philadelphiaScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
-
-            // Display the scene.
-            _arSceneView.Scene = philadelphiaScene;
+                // Enable subsurface navigation. This allows you to look at the scene from below.
+                _tabletopScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
+            }
 
             // Create a camera at the bottom and center of the scene.
             //    This camera is the point at which the scene is pinned to the real-world surface.

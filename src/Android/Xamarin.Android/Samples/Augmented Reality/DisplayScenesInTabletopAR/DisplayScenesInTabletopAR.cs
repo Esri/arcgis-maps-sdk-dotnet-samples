@@ -3,11 +3,11 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Linq;
+
 using Android.App;
 using Android.Graphics;
 using Android.OS;
@@ -17,10 +17,11 @@ using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Mapping;
+using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display scenes in tabletop AR",
         "Augmented reality",
@@ -55,7 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Display an empty scene to enable tap-to-place.
             _arSceneView.Scene = new Scene(SceneViewTilingScheme.Geographic);
@@ -112,9 +113,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 // Create a camera at the bottom and center of the scene.
                 //    This camera is the point at which the scene is pinned to the real-world surface.
                 var originCamera = new Esri.ArcGISRuntime.Mapping.Camera(39.95787000283599,
-                                                -75.16996728256345,
-                                                8.813445091247559,
-                                                0, 90, 0);
+                                                                        -75.16996728256345,
+                                                                        8.813445091247559,
+                                                                        0, 90, 0);
 
                 // Set the origin camera.
                 _arSceneView.OriginCamera = originCamera;
@@ -138,22 +139,21 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         private void ShowMessage(string message, string title)
         {
             // Display the message to the user.
-            new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
+            new Android.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
         protected override void OnPause()
         {
             base.OnPause();
             _arSceneView.StopTracking();
-
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
             base.OnResume();
 
             // Start AR tracking without location updates.
-            _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
+            await _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
         }
 
         protected override void OnDestroy()

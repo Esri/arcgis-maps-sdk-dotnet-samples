@@ -3,11 +3,10 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Android.App;
 using Android.OS;
 using Android.Support.V7.App;
@@ -16,6 +15,7 @@ using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using System;
 
 namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
 {
@@ -73,7 +73,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
                 Camera originCamera = new Camera(layerExtent.GetCenter().Y, layerExtent.GetCenter().X, 600, 0, 90, 0);
                 _arSceneView.OriginCamera = originCamera;
 
-                // set the translation factor to enable rapid movement through the scene.
+                // Set the translation factor to enable rapid movement through the scene.
                 _arSceneView.TranslationFactor = 1000;
 
                 // Enable atmosphere and space effects for a more immersive experience.
@@ -94,22 +94,21 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         private void ShowMessage(string message, string title)
         {
             // Display the message to the user.
-            new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
+            new Android.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
         protected override void OnPause()
         {
             base.OnPause();
             _arSceneView.StopTracking();
-            
         }
 
-        protected override void OnResume()
+        protected override async void OnResume()
         {
             base.OnResume();
 
             // Start AR tracking without location updates.
-            _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
+            await _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
         }
 
         protected override void OnDestroy()

@@ -130,7 +130,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private void Initialize()
         {
             // Create and add the scene.
-            _arView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            _arView.Scene = new Scene(Basemap.CreateImagery());
 
             // Add the location data source to the AR view.
             _arView.LocationDataSource = _locationSource;
@@ -347,29 +347,44 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             return row;
         }
 
-        private void HeadingChanged(object sender, EventArgs e)
+        private void HeadingSlider_ValueChanged(object sender, EventArgs e)
         {
             if (_headingTimer == null)
             {
+                // Use a timer to continuously update elevation while the user is interacting (joystick effect).
                 _headingTimer = new NSTimer(NSDate.Now, 0.1, true, (timer) =>
                 {
+                    // Get the old camera.
                     Camera oldCamera = _arView.OriginCamera;
+
+                    // Calculate the new heading by applying an offset to the old camera's heading.
                     var newHeading = oldCamera.Heading + this.JoystickConverter(_headingSlider.Value);
+
+                    // Set the origin camera by rotating the existing camera to the new heading.
                     _arView.OriginCamera = oldCamera.RotateTo(newHeading, oldCamera.Pitch, oldCamera.Roll);
+
+
+                    // Update the heading label.
                     headingLabel.Text = $"Heading: {(int)_arView.OriginCamera.Heading}";
                 });
                 NSRunLoop.Main.AddTimer(_headingTimer, NSRunLoopMode.Default);
             }
         }
 
-        private void ElevationChanged(object sender, EventArgs e)
+        private void ElevationSlider_ValueChanged(object sender, EventArgs e)
         {
             if (_elevationTimer == null)
             {
+                // Use a timer to continuously update elevation while the user is interacting (joystick effect).
                 _elevationTimer = new NSTimer(NSDate.Now, 0.1, true, (timer) =>
                 {
+                    // Calculate the altitude offset
                     var newValue = _locationSource.AltitudeOffset += JoystickConverter(_elevationSlider.Value * 3.0);
+
+                    // Set the altitude offset on the location data source.
                     _locationSource.AltitudeOffset = newValue;
+
+                    // Update the label
                     elevationLabel.Text = $"Elevation: {(int)_locationSource.AltitudeOffset}m";
                 });
                 NSRunLoop.Main.AddTimer(_elevationTimer, NSRunLoopMode.Default);
@@ -386,11 +401,11 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             base.ViewDidAppear(animated);
 
             // Subscribe to events.
-            _headingSlider.ValueChanged += HeadingChanged;
+            _headingSlider.ValueChanged += HeadingSlider_ValueChanged;
             _headingSlider.TouchUpInside += TouchUpHeading;
             _headingSlider.TouchUpOutside += TouchUpHeading;
 
-            _elevationSlider.ValueChanged += ElevationChanged;
+            _elevationSlider.ValueChanged += ElevationSlider_ValueChanged;
             _elevationSlider.TouchUpInside += TouchUpElevation;
             _elevationSlider.TouchUpOutside += TouchUpElevation;
         }
@@ -414,11 +429,11 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, per best practice.
-            _headingSlider.ValueChanged -= HeadingChanged;
+            _headingSlider.ValueChanged -= HeadingSlider_ValueChanged;
             _headingSlider.TouchUpInside -= TouchUpHeading;
             _headingSlider.TouchUpOutside -= TouchUpHeading;
 
-            _elevationSlider.ValueChanged -= ElevationChanged;
+            _elevationSlider.ValueChanged -= ElevationSlider_ValueChanged;
             _elevationSlider.TouchUpInside -= TouchUpElevation;
             _elevationSlider.TouchUpOutside -= TouchUpElevation;
         }

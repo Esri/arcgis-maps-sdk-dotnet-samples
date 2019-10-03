@@ -150,15 +150,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             }
             catch (System.Exception ex)
             {
+                new Android.App.AlertDialog.Builder(this).SetMessage("Failed to load scene").SetTitle("Error").Show();
                 System.Diagnostics.Debug.WriteLine(ex);
-                ShowMessage("Failed to load scene.", "Error");
             }
-        }
-
-        private void ShowMessage(string message, string title)
-        {
-            // Display the message to the user.
-            new Android.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
         protected override async void OnPause()

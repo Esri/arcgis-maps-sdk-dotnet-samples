@@ -86,15 +86,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             }
             catch (Exception ex)
             {
-                ShowMessage("Failed to start AR", "Error starting");
+                new Android.App.AlertDialog.Builder(this).SetMessage("Failed to start AR").SetTitle("Erro").Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
-        }
-
-        private void ShowMessage(string message, string title)
-        {
-            // Display the message to the user.
-            new Android.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
         protected override async void OnPause()

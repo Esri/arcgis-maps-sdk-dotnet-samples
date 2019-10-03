@@ -150,7 +150,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             catch (Exception ex)
             {
-                ShowMessage("Failed to start sample", "Error");
+                new UIAlertView("Error", "Failed to start sample", (IUIAlertViewDelegate)null, "OK", null).Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -222,21 +222,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             catch (Exception ex)
             {
                 _helpLabel.Text = "Routing failed, restart sample to retry.";
-                ShowMessage("Failed to calculate route", "Error");
+                new UIAlertView("Error", "Failed to calculate route", (IUIAlertViewDelegate)null, "OK", null).Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
-        }
-
-        private void ShowMessage(string message, string title)
-        {
-            // Create Alert.
-            UIAlertController okAlertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
-
-            // Add Action.
-            okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-
-            // Present Alert.
-            PresentViewController(okAlertController, true, null);
         }
 
         #region OAuth helpers

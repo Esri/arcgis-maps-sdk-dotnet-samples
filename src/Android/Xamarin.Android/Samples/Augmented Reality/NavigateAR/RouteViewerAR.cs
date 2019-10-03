@@ -70,10 +70,13 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 _isCalibrating = value;
                 if (_isCalibrating)
                 {
+                    // Show the surface semitransparent for calibration.
                     _scene.BaseSurface.Opacity = 0.5;
                     _calibrationView.Visibility = ViewStates.Visible;
-                } else
+                }
+                else
                 {
+                    // Hide the scene when not calibrating.
                     _scene.BaseSurface.Opacity = 0;
                     _calibrationView.Visibility = ViewStates.Gone;
                 }
@@ -133,18 +136,25 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private void AltitudeSlider_DeltaProgressChanged(object sender, DeltaChangedEventArgs e)
         {
+            // Add the new value to the existing altitude offset.
             _altitudeOffset += e.deltaProgress;
+
+            // Update the altitude offset on the custom location data source.
             _locationDataSource.AltitudeOffset = _altitudeOffset;
         }
 
         private void HeadingSlider_DeltaProgressChanged(object sender, DeltaChangedEventArgs e)
         {
+            // Get the old camera.
             Camera camera = _arSceneView.OriginCamera;
 
+            // Calculate the new heading by applying the offset to the old camera's heading.
             double heading = camera.Heading + e.deltaProgress;
 
+            // Create a new camera by rotating the old camera to the new heading.
             Camera newCamera = camera.RotateTo(heading, camera.Pitch, camera.Roll);
 
+            // Use the new camera as the origin camera.
             _arSceneView.OriginCamera = newCamera;
         }
 
@@ -237,6 +247,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         {
             RunOnUiThread(() =>
             {
+                // Update the help label with new guidance.
                 _helpLabel.Text = _routeTracker.GenerateVoiceGuidance().Text;
             });
         }
@@ -245,9 +256,13 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         {
             RunOnUiThread(() =>
             {
+                // Update the help label with the new guidance.
                 _helpLabel.Text = e.VoiceGuidance.Text;
 
+                // Stop any currently running speech.
                 _textToSpeech.Stop();
+
+                // Speak the new guidance.
                 _textToSpeech.Speak(e.VoiceGuidance.Text, QueueMode.Flush, null, null);
             });
         }

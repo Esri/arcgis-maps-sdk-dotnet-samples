@@ -134,7 +134,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             catch (Exception ex)
             {
-                ShowMessage("Failed to start sample", "Error");
+                new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage("Failed to start sample").SetTitle("Error").Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -217,7 +217,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             catch (Exception ex)
             {
-                ShowMessage("Failed to calculate route", "Error");
+                new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage("Failed to calculate route.").SetTitle("Error").Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -244,11 +244,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 Toast.MakeText(this, "Location permissions needed for this sample", ToastLength.Short).Show();
             }
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
-
-        private void ShowMessage(string message, string title)
-        {
-            new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
         #region OAuth

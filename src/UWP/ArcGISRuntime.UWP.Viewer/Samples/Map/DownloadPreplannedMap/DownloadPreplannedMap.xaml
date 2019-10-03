@@ -7,45 +7,77 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock x:Name="MessageLabel" 
-                           Text="Select an area, then download it." 
-                           FontWeight="SemiBold" HorizontalAlignment="Center" Margin="5" />
-                <ListView x:Name="AreasList">
+                <Button
+                    x:Name="ShowOnlineButton"
+                    Margin="0,5,0,5"
+                    HorizontalAlignment="Stretch"
+                    Click="ShowOnlineButton_Click"
+                    Content="Show Online Map"
+                    IsEnabled="False" />
+                <TextBlock
+                    x:Name="MessageLabel"
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    FontWeight="SemiBold"
+                    Text="Select an area, then download it." />
+                <ListView x:Name="AreasList" SelectionChanged="AreasList_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="{Binding PortalItem.ThumbnailUri}" 
-                                       Height="70" Margin="-10,2,2,2" Grid.RowSpan="2" Stretch="UniformToFill" />
-                                <TextBlock Text="{Binding PortalItem.Title}" 
-                                           Margin="10,0" VerticalAlignment="Center" Grid.Column="1"/>
+                                <Image
+                                    Grid.RowSpan="2"
+                                    Height="70"
+                                    Margin="-10,2,2,2"
+                                    Source="{Binding PortalItem.ThumbnailUri}"
+                                    Stretch="UniformToFill" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="10,0"
+                                    VerticalAlignment="Center"
+                                    Text="{Binding PortalItem.Title}" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Content="Download" 
-                        HorizontalAlignment="Stretch" Margin="0,5,0,5" 
-                        Click="OnDownloadMapAreaClicked" />
-                <Button Content="Delete offline areas"  
-                        HorizontalAlignment="Stretch"
-                        Click="OnDeleteAllMapAreasClicked" />
+                <Button
+                    x:Name="DownloadButton"
+                    Margin="0,5,0,5"
+                    HorizontalAlignment="Stretch"
+                    Click="OnDownloadMapAreaClicked"
+                    Content="Download preplanned area" />
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Click="OnDeleteAllMapAreasClicked"
+                    Content="Delete offline areas" />
             </StackPanel>
         </Border>
-        <!-- Busy indication -->
+        <!--  Busy indication  -->
         <Grid x:Name="BusyIndicator" Background="#807f7f7f">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Foreground="White" Margin="10" FontSize="18">
-                    <Run x:Name="BusyText" Text="Querying map areas..."/>
-                    <Run x:Name="BusyPercentage" Text=""/>
+                <TextBlock
+                    Margin="10"
+                    FontSize="18"
+                    Foreground="White">
+                    <Run x:Name="BusyText" Text="Querying map areas..." />
+                    <Run x:Name="BusyPercentage" Text="" />
                 </TextBlock>
-                <ProgressBar x:Name="ProgressBar" IsEnabled="True" IsIndeterminate="True" Width="100" Height="10" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+                <ProgressBar
+                    x:Name="ProgressBar"
+                    Grid.Row="1"
+                    Width="100"
+                    Height="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsEnabled="True"
+                    IsIndeterminate="True" />
             </Grid>
         </Grid>
     </Grid>

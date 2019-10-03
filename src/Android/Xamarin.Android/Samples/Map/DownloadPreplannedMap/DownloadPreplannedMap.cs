@@ -3,16 +3,14 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Android;
 using Android.App;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
-using Android.Support.V4.App;
 using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
@@ -44,6 +42,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         private AlertDialog _progressView;
         private ProgressBar _progressBar;
         private TextView _helpLabel;
+        private Button _showOnlineButton;
 
         // ID of a web map with preplanned map areas.
         private const string PortalItemId = "acc027394bc84c2fb04d1ed317aac674";
@@ -59,6 +58,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
         // Hold a list of available map areas.
         private readonly List<PreplannedMapArea> _mapAreas = new List<PreplannedMapArea>();
+
+        // Most recently opened map package.
+        private MobileMapPackage _mobileMapPackage;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -76,8 +78,6 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // The data manager provides a method to get a suitable offline data folder.
                 _offlineDataFolder = Path.Combine(DataManager.GetDataFolder(), "SampleData", "DownloadPreplannedMapAreas");
-
-                
 
                 // If temporary data folder doesn't exists, create it.
                 if (!Directory.Exists(_offlineDataFolder))
@@ -122,8 +122,20 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             }
         }
 
+        private void ShowOnlineClick(object sender, EventArgs e)
+        {
+            // Show the map.
+            _myMapView.Map = _originalMap;
+
+            // Disable the button.
+            _showOnlineButton.Enabled = false;
+        }
+
         private async Task DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
+            // Close the current mobile package.
+            _mobileMapPackage?.Close();
+
             // Set up UI for downloading.
             _progressBar.SetProgress(0, false);
             _progressView.SetMessage("Downloading map area...");
@@ -138,10 +150,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 try
                 {
                     // Open the offline map package.
-                    MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
+                    _mobileMapPackage = await MobileMapPackage.OpenAsync(path);
 
                     // Open the first map in the package.
-                    _myMapView.Map = localMapArea.Maps.First();
+                    _myMapView.Map = _mobileMapPackage.Maps.First();
 
                     // Update the UI.
                     _progressView.SetMessage("");
@@ -159,6 +171,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             // Create download parameters.
             DownloadPreplannedOfflineMapParameters parameters = await _offlineMapTask.CreateDefaultDownloadPreplannedOfflineMapParametersAsync(mapArea);
 
+            // Set the update mode to not receive updates.
+            parameters.UpdateMode = PreplannedUpdateMode.NoUpdates;
+
             // Create the job.
             DownloadPreplannedOfflineMapJob job = _offlineMapTask.DownloadPreplannedOfflineMap(parameters, path);
 
@@ -169,6 +184,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Download the area.
                 DownloadPreplannedOfflineMapResult results = await job.GetResultAsync();
+
+                // Set the update mode to not receive updates.
+                parameters.UpdateMode = PreplannedUpdateMode.NoUpdates;
 
                 // Handle possible errors and show them to the user.
                 if (results.HasErrors)
@@ -195,6 +213,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
                 // Update the UI.
                 _helpLabel.Text = "Downloaded offline area.";
+                _showOnlineButton.Enabled = true;
             }
             catch (Exception ex)
             {
@@ -223,16 +242,6 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             });
         }
 
-        private void DeleteAllAreas()
-        {
-            // Delete all data from the temporary data folder.
-            Directory.Delete(_offlineDataFolder, true);
-            Directory.CreateDirectory(_offlineDataFolder);
-
-            // Update the UI.
-            _helpLabel.Text = "Deleted offline areas.";
-        }
-
         private void DeleteButtonOnClick(object sender, EventArgs e)
         {
             try
@@ -244,14 +253,16 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 // Reset the map.
                 _myMapView.Map = _originalMap;
 
-                // Wait for the garbage collector to get the hint.
-                // Areas can't be deleted until handles to geodatabase tables are released.
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
+                // Close the current mobile package.
+                _mobileMapPackage?.Close();
 
-                // Delete everything.
-                DeleteAllAreas();
+                // Delete all data from the temporary data folder.
+                Directory.Delete(_offlineDataFolder, true);
+                Directory.CreateDirectory(_offlineDataFolder);
+
+                // Update the UI.
+                _helpLabel.Text = "Deleted offline areas.";
+                _showOnlineButton.Enabled = false;
             }
             catch (Exception ex)
             {
@@ -268,7 +279,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add a help label.
             _helpLabel = new TextView(this);
@@ -276,13 +287,24 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             layout.AddView(_helpLabel);
 
             // Add space for adding options for each map.
-            _mapListView = new LinearLayout(this) {Orientation = Orientation.Horizontal};
+            _mapListView = new LinearLayout(this) { Orientation = Orientation.Horizontal };
             layout.AddView(_mapListView);
 
+            // Create a new layout for the buttons.
+            LinearLayout buttonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+
             // Add button for deleting map areas.
-            Button deleteButton = new Button(this) {Text = "Delete offline areas"};
+            Button deleteButton = new Button(this) { Text = "Delete offline areas" };
             deleteButton.Click += DeleteButtonOnClick;
-            layout.AddView(deleteButton);
+            buttonLayout.AddView(deleteButton);
+
+            // Add button for showing the original map.
+            _showOnlineButton = new Button(this) { Text = "Show online map", Enabled = false };
+            _showOnlineButton.Click += ShowOnlineClick;
+            buttonLayout.AddView(_showOnlineButton);
+
+            // Add the buttons to the layout.
+            layout.AddView(buttonLayout);
 
             // Add the map view to the layout.
             _myMapView = new MapView(this);
@@ -311,10 +333,18 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 mapButton.Click += async (o, e) => { await DownloadMapAreaAsync(mapArea); };
                 _mapListView.AddView(mapButton);
 
-                LinearLayout.LayoutParams lparams = (LinearLayout.LayoutParams) mapButton.LayoutParameters;
+                LinearLayout.LayoutParams lparams = (LinearLayout.LayoutParams)mapButton.LayoutParameters;
                 lparams.SetMargins(5, 5, 0, 5);
                 mapButton.LayoutParameters = lparams;
             }
+        }
+
+        protected override void OnStop()
+        {
+            base.OnStop();
+
+            // Close the current mobile package.
+            _mobileMapPackage?.Close();
         }
     }
 }

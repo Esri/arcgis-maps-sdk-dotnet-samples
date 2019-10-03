@@ -11,6 +11,7 @@
             Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
+
                 <Label
                     x:Name="MessageLabel"
                     HorizontalTextAlignment="Center"
@@ -53,12 +54,29 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button
-                    x:Name="DownloadButton"
-                    Margin="0,5,0,5"
-                    Clicked="OnDownloadMapAreaClicked"
-                    Text="Download" />
-                <Button Clicked="OnDeleteAllMapAreasClicked" Text="Delete offline areas" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        x:Name="DownloadButton"
+                        Grid.Column="0"
+                        Clicked="OnDownloadMapAreaClicked"
+                        Text="Download" />
+                    <Button
+                        Grid.Column="1"
+                        Clicked="OnDeleteAllMapAreasClicked"
+                        Text="Delete all" />
+                    <Button
+                        x:Name="ShowOnlineButton"
+                        Grid.Column="2"
+                        Clicked="ShowOnlineButton_Clicked"
+                        IsEnabled="False"
+                        Text="Show Online" />
+                </Grid>
+
             </StackLayout>
         </resources:ResponsiveFormContainer>
         <!--  Busy indication  -->

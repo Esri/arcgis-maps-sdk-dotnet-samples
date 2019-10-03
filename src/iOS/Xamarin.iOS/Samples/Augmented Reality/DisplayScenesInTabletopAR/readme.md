@@ -16,7 +16,7 @@ You'll see a feed from the camera when you open the sample. Tap on any flat, hor
 
 1. Create an `ARSceneView` and add it to the view.
     * Note: this sample uses content in the WGS 84 geographic tiling scheme, rather than the web mercator tiling scheme. Once a scene has been displayed, the scene view cannot display another scene with a non-matching tiling scheme. To avoid that, the sample starts by showing a blank scene with an invisible base surface. Touch events will not be raised for the scene view unless a scene is displayed.
-2. Wait for plane detection before allowing the user to tap to place the scene. Create an `ARSCNViewDelegate` implementation that exposes events for plane detection.
+2. Wait for plane detection using `arView.PlanesDetectedChanged` before allowing the user to tap to place the scene.
 3. Wait for the user to tap the view, then use `arView.SetInitialTransforamtion(tappedPoint)` to set the initial transformation, which allows you to place the scene. This method uses ARKit's built-in plane detection.
 4. If the call to `SetInitialTransformation` returns `true`, proceed to load the scene and display it.
 5. To enable looking at the scene from below, set `scene.BaseSurface.NavigationConstraint` to `0`.
@@ -39,11 +39,9 @@ This sample uses the [Philadelphia Mobile Scene Package](https://www.arcgis.com/
 
 ## Additional information
 
-**Tabletop AR** is one of three main patterns for working with geographic information in augmented reality. See [Augmented reality]() in the guide for more information.
+**Tabletop AR** is one of three main patterns for working with geographic information in augmented reality. See [Display scenes in augmented reality](https://developers.arcgis.com/net/latest/ios/guide/display-scenes-in-augmented-reality.htm) in the guide for more information.
 
-This sample uses the ArcGIS Runtime Toolkit. See [Augmented reality]() in the guide to learn about the toolkit and how to add it to your app.
-
-Note the following steps which must be taken to enable your app for AR:
+This sample uses the ArcGIS Runtime Toolkit. See [Display scenes in augmented reality](https://developers.arcgis.com/net/latest/ios/guide/display-scenes-in-augmented-reality.htm) in the guide to learn about the toolkit and how to add it to your app.
 
 ## Tags
 

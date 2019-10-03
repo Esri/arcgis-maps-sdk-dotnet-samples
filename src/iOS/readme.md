@@ -10,6 +10,12 @@
 * [Viewshed for GeoElement](Xamarin.iOS/Samples/Analysis/ViewshedGeoElement/readme.md) - Analyze the viewshed for an object (GeoElement) in a scene.
 * [Viewshed for location](Xamarin.iOS/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point. Viewshed analyses have several configuration options that are demonstrated in this sample.
 
+## Augmented reality
+
+* [Display scenes in tabletop AR](Xamarin.iOS/Samples/Augmented%20reality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
+* [Explore scenes in flyover AR](Xamarin.iOS/Samples/Augmented%20reality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
+* [Navigate in AR](Xamarin.iOS/Samples/Augmented%20reality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.
+
 ## Data
 
 * [Add features](Xamarin.iOS/Samples/Data/AddFeatures/readme.md) - Add features to a feature layer.

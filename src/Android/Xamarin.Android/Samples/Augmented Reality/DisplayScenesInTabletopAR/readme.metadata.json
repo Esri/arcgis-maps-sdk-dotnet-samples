@@ -1,5 +1,5 @@
 {
-    "category": "Augmented Reality",
+    "category": "Augmented reality",
     "description": "Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.",
     "formal_name": "DisplayScenesInTabletopAR",
     "ignore": false,
@@ -27,7 +27,7 @@
         "/net/latest/android/sample-code/displayscenesintabletopar.htm"
     ],
     "relevant_apis": [
-        "ArcGISARView",
+        "ARSceneView",
         "Surface"
     ],
     "snippets": [

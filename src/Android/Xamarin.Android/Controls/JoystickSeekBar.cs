@@ -1,15 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Timers;
 using Android.Content;
 using Android.Support.V7.Widget;
 using Android.Util;
-using Android.Widget;
 using ArcGISRuntime;
 
 namespace ArcgisRuntime.Samples.ARToolkit.Controls
 {
-    public class JoystickSeekBar : AppCompatSeekBar, AppCompatSeekBar.IOnSeekBarChangeListener
+    public class JoystickSeekBar : AppCompatSeekBar
     {
         private const double DEFAULT_MIN = 0;
         private const double DEFAULT_MAX = 100;
@@ -38,44 +36,39 @@ namespace ArcgisRuntime.Samples.ARToolkit.Controls
             {
                 throw new AndroidRuntimeException("Attribute jsb_min must be less than attribute jsb_max");
             }
-        }
 
-        private float offsetProgress
-        {
-            get
-            {
-                if (_min != DEFAULT_MIN || _max != DEFAULT_MAX)
-                {
-                    return (float)(_min + ((_max - _min) * (Progress * 0.01)));
-                }
-                else
-                {
-                    return (float)(_max * (Progress * 0.01));
-                }
-            }
-        }
+            Min = (int)_min;
+            Max = (int)_max;
+            Progress = (int)(((_max - _min) * 0.5) + _min);
 
-        public void OnProgressChanged(SeekBar seekBar, int progress, bool fromUser)
-        {
-            deltaProgress = (float)(Math.Pow(offsetProgress, 2) / 10 * (offsetProgress < 0 ? -1 : 1));
-        }
-
-        public void OnStartTrackingTouch(SeekBar seekBar)
-        {
-            eventTimer.Elapsed += (o,e) =>
+            eventTimer.Elapsed += (o, e) =>
             {
                 DeltaProgressChanged?.Invoke(this, new DeltaChangedEventArgs() { deltaProgress = deltaProgress });
             };
+
             eventTimer.Interval = DEFAULT_DELTA_INTERVAL_MILLIS;
+
+            ProgressChanged += JoystickSeekBar_ProgressChanged;
+            StartTrackingTouch += JoystickSeekBar_StartTrackingTouch;
+            StopTrackingTouch += JoystickSeekBar_StopTrackingTouch;
+        }
+
+        private void JoystickSeekBar_StopTrackingTouch(object sender, StopTrackingTouchEventArgs e)
+        {
+            deltaProgress = 0;
+            eventTimer.Stop();
+
+            Progress = (int)(((_max - _min) * 0.5) + _min);
+        }
+
+        private void JoystickSeekBar_StartTrackingTouch(object sender, StartTrackingTouchEventArgs e)
+        {
             eventTimer.Start();
         }
 
-        public void OnStopTrackingTouch(SeekBar seekBar)
+        private void JoystickSeekBar_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            eventTimer.Stop();
-            deltaProgress = 0;
-
-            Progress = (int)(_max * 0.5);
+            deltaProgress = (float)(Math.Pow(this.Progress, 2) / 25 * (this.Progress < 0 ? -1.0 : 1.0));
         }
     }
 

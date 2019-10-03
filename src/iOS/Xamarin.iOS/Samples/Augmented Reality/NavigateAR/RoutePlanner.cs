@@ -184,16 +184,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private void NavigateButton_Clicked(object sender, System.EventArgs e)
         {
-            /*
-            _mapView.LocationDisplay.DataSource.StopAsync();
-            _mapView.Map = null;
-            _mapView.LocationDisplay.IsEnabled = false;
-            _mapView.Dispose();
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
-            */
             NavigationController.PopViewController(true);
             NavigationController.PushViewController(new RouteViewerAR() { _routeResult = _routeResult }, true);
         }

@@ -75,7 +75,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             Scene flyoverScene = new Scene(Basemap.CreateImagery());
 
             // Create the integrated mesh layer and add it to the scene.
-            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new System.Uri("https://www.arcgis.com/home/item.html?id=d4fb271d1cb747e696bb80adca8487fa"));
+            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new System.Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
             flyoverScene.OperationalLayers.Add(meshLayer);
 
             try

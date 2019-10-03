@@ -41,8 +41,8 @@ tools:context="com.esri.arcgisruntime.navigateinar.ARNavigateActivity">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:alpha="0.5"
-        android:background="#D81B60"
+        android:alpha="0.6"
+        android:background="#000000"
         android:paddingStart="8dp"
         android:paddingTop="8dp"
         android:paddingEnd="8dp"
@@ -63,7 +63,7 @@ tools:context="com.esri.arcgisruntime.navigateinar.ARNavigateActivity">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Altitude"
-                android:textColor="#4CAF50"
+                android:textColor="#fff"
                 tools:text="Altitude" />
 
             <ArcgisRuntime.Samples.ARToolkit.Controls.JoystickSeekBar
@@ -89,7 +89,7 @@ tools:context="com.esri.arcgisruntime.navigateinar.ARNavigateActivity">
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Heading"
-                android:textColor="#4CAF50"
+                android:textColor="#fff"
                 tools:text="Heading" />
 
             <ArcgisRuntime.Samples.ARToolkit.Controls.JoystickSeekBar

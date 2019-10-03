@@ -60,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             Scene flyoverScene = new Scene(Basemap.CreateImagery());
 
             // Create the integrated mesh layer and add it to the scene.
-            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new System.Uri("https://www.arcgis.com/home/item.html?id=d4fb271d1cb747e696bb80adca8487fa"));
+            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
             flyoverScene.OperationalLayers.Add(meshLayer);
 
             try
@@ -97,10 +97,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             new Android.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
-        protected override void OnPause()
+        protected override async void OnPause()
         {
             base.OnPause();
-            _arSceneView.StopTracking();
+            await _arSceneView.StopTrackingAsync();
         }
 
         protected override async void OnResume()
@@ -109,12 +109,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
 
             // Start AR tracking without location updates.
             await _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
-        }
-
-        protected override void OnDestroy()
-        {
-            _arSceneView.StopTracking();
-            base.OnDestroy();
         }
     }
 }

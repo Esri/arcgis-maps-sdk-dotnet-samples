@@ -54,6 +54,7 @@
     <LangVersion>7</LangVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
+    <AndroidDexTool>d8</AndroidDexTool>
   </PropertyGroup>
   <!-- References -->
   <ItemGroup>

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using Android.Content;
 using Android.Locations;
@@ -17,6 +18,10 @@ using Location = Esri.ArcGISRuntime.Location.Location;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 {
+    /// <summary>
+    /// Custom location data source that allows you to apply an altitude offset in addition to
+    /// returning altitude values relative to mean sea level, rather than the WGS84 ellipsoid.
+    /// </summary>
     public class MSLAdjustedARLocationDataSource : LocationDataSource
     {
         public enum AltitudeAdjustmentMode
@@ -24,11 +29,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             GpsRawEllipsoid,
             NmeaParsedMsl
         }
-
         private AltitudeAdjustmentMode _currentMode = AltitudeAdjustmentMode.GpsRawEllipsoid;
 
-        private NmeaListener _listener = new NmeaListener();
-
+        // Enable configuration of the altitude mode, adding or removing NMEA listener as needed.
         public AltitudeAdjustmentMode AltitudeMode {
             get => _currentMode;
             set
@@ -37,34 +40,72 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
                 if (_currentMode == AltitudeAdjustmentMode.NmeaParsedMsl)
                 {
-                    getLocationManager().AddNmeaListener(_listener);
+                    GetLocationManager().AddNmeaListener(_listener);
+                }
+                else
+                {
+                    GetLocationManager().RemoveNmeaListener(_listener);
                 }
             }
         }
 
-        public double AltitudeOffset { get; set; } = 0;
+        // Object to handle NMEA messages from the onboard GNSS device.
+        private readonly NmeaListener _listener = new NmeaListener();
+
+        // Allow setting an altitude offset.
+        private double _altitudeOffset;
+        public double AltitudeOffset
+        {
+            get => _altitudeOffset;
+            set
+            {
+                _altitudeOffset = value;
+
+                // Raise a location changed event if possible.
+                if (_lastLocation != null)
+                {
+                    BaseSource_LocationChanged(_baseSource, _lastLocation);
+                }
+            }
+        }
+
+        // Track the last location so that a location changed
+        // event can be raised when the altitude offset is changed.
+        private Location _lastLocation;
 
         public IntPtr Handle => throw new NotImplementedException();
 
-        private double _lastNmeaElevation = 0;
+        // Track the last elevation received from the GNSS.
+        private double _lastNmeaElevation;
 
-        private SystemLocationDataSource _baseSource;
-        private Context _context;
+        // Use the underlying system location data source.
+        private readonly SystemLocationDataSource _baseSource;
+
+        private readonly Context _context;
+
         public MSLAdjustedARLocationDataSource(Context context)
         {
             _context = context;
-            _baseSource = new SystemLocationDataSource();
-            _baseSource.HeadingChanged += _baseSource_HeadingChanged;
-            _baseSource.LocationChanged += _baseSource_LocationChanged;
 
+            // Create and listen for updates from a new system location data source.
+            _baseSource = new SystemLocationDataSource();
+            _baseSource.HeadingChanged += BaseSource_HeadingChanged;
+            _baseSource.LocationChanged += BaseSource_LocationChanged;
+
+            // Listen for altitude change events from the onboard GNSS.
             _listener.NmeaAltitudeChanged += (o, e) =>
             {
                 _lastNmeaElevation = e.Altitude;
             };
         }
 
-        private void _baseSource_LocationChanged(object sender, Location e)
+        private void BaseSource_LocationChanged(object sender, Location e)
         {
+            // Store the last location to enable raising change events.
+            _lastLocation = e;
+
+            // Intercept location change events from the base source and either
+            // apply an altitude offset, or return the offset altitude from the latest NMEA message.
             MapPoint newPosition = null;
             switch (AltitudeMode)
             {
@@ -77,27 +118,22 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
 
             Location newLocation = new Location(newPosition, e.HorizontalAccuracy, e.Velocity, e.Course, e.IsLastKnown);
+
             UpdateLocation(newLocation);
         }
 
-        private void _baseSource_HeadingChanged(object sender, double e)
+        private void BaseSource_HeadingChanged(object sender, double e)
         {
             UpdateHeading(e);
         }
 
-        protected override Task OnStartAsync()
-        {
-            return _baseSource.StartAsync();
-        }
+        protected override Task OnStartAsync() => _baseSource.StartAsync();
 
-        protected override Task OnStopAsync()
-        {
-            return _baseSource.StopAsync();
-        }
+        protected override Task OnStopAsync() => _baseSource.StopAsync();
 
         private LocationManager _locationManager;
 
-        private LocationManager getLocationManager()
+        private LocationManager GetLocationManager()
         {
             if (_locationManager == null)
             {
@@ -108,8 +144,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private class NmeaListener : Java.Lang.Object, IOnNmeaMessageListener
         {
-            private long _lastTimestamp = 0;
-            private double _lastElevation = 0;
+            private long _lastTimestamp;
+            private double _lastElevation;
 
             public event EventHandler<AltitudeEventArgs> NmeaAltitudeChanged;
 
@@ -126,11 +162,10 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
                     string mslAltitude = parts[9];
 
-                    if (String.IsNullOrEmpty(mslAltitude)) { return; }
+                    if (string.IsNullOrEmpty(mslAltitude)) { return; }
 
-                    Double altitudeParsed;
 
-                    if (Double.TryParse(mslAltitude, out altitudeParsed))
+                    if (double.TryParse(mslAltitude, NumberStyles.Float, CultureInfo.InvariantCulture, out double altitudeParsed))
                     {
                         if (timestamp > _lastTimestamp)
                         {

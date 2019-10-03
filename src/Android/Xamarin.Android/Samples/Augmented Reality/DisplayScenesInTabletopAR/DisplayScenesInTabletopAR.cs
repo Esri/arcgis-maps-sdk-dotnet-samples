@@ -66,14 +66,29 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _arSceneView.Scene.BaseSurface.Opacity = 0;
 
             // Wait for the user to tap.
-            _arSceneView.GeoViewTapped += _arSceneView_GeoViewTapped;
+            _arSceneView.GeoViewTapped += ArSceneView_GeoViewTapped;
 
             // Enable plane rendering.
             _arSceneView.ArSceneView.PlaneRenderer.Enabled = true;
             _arSceneView.ArSceneView.PlaneRenderer.Visible = true;
+
+            // Wait for planes to be detected.
+            _arSceneView.PlanesDetectedChanged += ARSceneView_PlaneDetectedChanged;
+
+            _helpLabel.Text = "Keep moving your phone to find a surface.";
         }
 
-        private void _arSceneView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private void ARSceneView_PlaneDetectedChanged(object sender, bool e)
+        {
+            if (e)
+            {
+                _arSceneView.PlanesDetectedChanged -= ARSceneView_PlaneDetectedChanged;
+
+                _helpLabel.Text = "Tap the dots to place scene.";
+            }
+        }
+
+        private void ArSceneView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Get the tapped screen point.
             PointF screenPoint = e.Position;
@@ -85,11 +100,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             }
             else
             {
-                Toast.MakeText(this, "ARCore doesn't recognize that pint as a plane.", ToastLength.Short);
+                Toast.MakeText(this, "ARCore doesn't recognize that point as a plane.", ToastLength.Short);
             }
         }
 
-        private async void DisplayScene(double planeWidth = 1)
+        private async void DisplayScene()
         {
             try
             {
@@ -128,7 +143,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 double geographicContentWidth = 800;
 
                 // The desired physical width of the scene is 1 meter.
-                double tableContainerWidth = planeWidth;
+                double tableContainerWidth = 1;
 
                 // Set the translation facotr based on the scene content width and desired physical size.
                 _arSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
@@ -146,10 +161,10 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             new Android.App.AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Show();
         }
 
-        protected override void OnPause()
+        protected override async void OnPause()
         {
             base.OnPause();
-            _arSceneView.StopTracking();
+            await _arSceneView.StopTrackingAsync();
         }
 
         protected override async void OnResume()
@@ -158,12 +173,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
             // Start AR tracking without location updates.
             await _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
-        }
-
-        protected override void OnDestroy()
-        {
-            _arSceneView.StopTracking();
-            base.OnDestroy();
         }
     }
 }

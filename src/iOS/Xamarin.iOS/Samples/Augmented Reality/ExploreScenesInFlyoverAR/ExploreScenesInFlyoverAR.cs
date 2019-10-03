@@ -101,7 +101,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             }
             catch (Exception ex)
             {
-                ShowMessage("Failed to start AR", "Error starting");
+                new UIAlertView("Error", "Failed to start AR", (IUIAlertViewDelegate)null, "OK", null).Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -160,18 +160,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         {
             base.ViewDidDisappear(animated);
             await _arSceneView?.StopTrackingAsync();
-        }
-
-        private void ShowMessage(string message, string title)
-        {
-            // Create Alert.
-            var okAlertController = UIAlertController.Create(title, message, UIAlertControllerStyle.Alert);
-
-            // Add Action.
-            okAlertController.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, null));
-
-            // Present Alert.
-            PresentViewController(okAlertController, true, null);
         }
 
         // Delegate object to receive notifications from ARKit.

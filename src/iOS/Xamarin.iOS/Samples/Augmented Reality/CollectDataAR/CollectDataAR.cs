@@ -1,12 +1,16 @@
 ﻿using CoreGraphics;
+using CoreImage;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.Augmented_reality.CollectDataAR
@@ -114,19 +118,19 @@ namespace ArcGISRuntime.Samples.Augmented_reality.CollectDataAR
 
         private async void RealScaleValueChanged(object sender, EventArgs e)
         {
-            if(_changingScale)
+            if (_changingScale)
             {
                 return;
             }
             _changingScale = true;
             if (((UISegmentedControl)sender).SelectedSegment == 0)
             {
-                _arView.StopTracking();
+                await _arView.StopTrackingAsync();
                 await _arView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
             }
             else
             {
-                _arView.StopTracking();
+                await _arView.StopTrackingAsync();
                 await _arView.StartTrackingAsync(ARLocationTrackingMode.Initial);
             }
             _changingScale = false;
@@ -199,14 +203,51 @@ namespace ArcGISRuntime.Samples.Augmented_reality.CollectDataAR
                 pc.BarButtonItem = _calibrateButton;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new ppDelegate();
+                //pc.DidDismiss += PopoverDismissed;
             }
 
-            PresentViewController(_calibrationVC, true, null);
+            PresentViewController(_calibrationVC, true, CalibrationCompleted);
+        }
+
+        private void PopoverDismissed(object sender, EventArgs e)
+        {
+            _isCalibrating = false;
+        }
+
+        private void CalibrationCompleted()
+        {
+            _isCalibrating = true;
         }
 
         private void AddButtonPressed(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            // Check if the user has already tapped a point.
+            if (_graphicsOverlay.Graphics.Count > 0)
+            {
+                new UIAlertView("Error", "Didn't find anything, try again.", (IUIAlertViewDelegate)null, "OK", null).Show();
+                return;
+            }
+            CoreVideo.CVPixelBuffer coreVideoBuffer = _arView.ARSCNView.Session.CurrentFrame?.CapturedImage;
+            if (coreVideoBuffer != null)
+            {
+                var coreImage = new CIImage(coreVideoBuffer);
+                coreImage = coreImage.CreateByApplyingOrientation(ImageIO.CGImagePropertyOrientation.Right);
+                var imageRef = new CIContext().CreateCGImage(coreImage, new CGRect(0, 0, coreVideoBuffer.Height, coreVideoBuffer.Width));
+                var rotatedImage = new UIImage(imageRef);
+                int healthValue = 0;
+                CreateFeatureWith(rotatedImage, healthValue);
+            }
+            else
+            {
+                new UIAlertView("Error", "Didn't get image for tap.", (IUIAlertViewDelegate)null, "OK", null).Show();
+            }
+        }
+
+        private void CreateFeatureWith(UIImage capturedImage, int healthValue)
+        {
+            MapPoint featurePoint = _graphicsOverlay.Graphics.First().Geometry as MapPoint;
+            _helpLabel.Text = "Adding feature...";
+            IEnumerable<KeyValuePair<string, object>> featureAttributes = new Dictionary<string, object>() { {"Health", healthValue}, { "Height", 3.2 }, { "Diameter", 1.2 } };
         }
 
         // Force popover to display on iPhone.
@@ -217,6 +258,11 @@ namespace ArcGISRuntime.Samples.Augmented_reality.CollectDataAR
 
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
+
+            public override void DidDismissPopover(UIPopoverPresentationController popoverPresentationController)
+            {
+                base.DidDismissPopover(popoverPresentationController);
+            }
         }
 
         public override void ViewDidAppear(bool animated)
@@ -228,7 +274,7 @@ namespace ArcGISRuntime.Samples.Augmented_reality.CollectDataAR
         public override void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            _arView.StopTracking();
+            _arView.StopTrackingAsync();
         }
     }
 
@@ -241,7 +287,6 @@ namespace ArcGISRuntime.Samples.Augmented_reality.CollectDataAR
         private ARSceneView _arView;
         private NSTimer _headingTimer;
         private NSTimer _elevationTimer;
-        private UISegmentedControl _realScalePicker;
 
         public CalibrationViewController(ARSceneView arView)
         {

@@ -24,20 +24,27 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 {
     public class RouteViewerAR : UIViewController
     {
+        // Hold references to UI controls.
         private ARSceneView _arView;
         private UILabel _helpLabel;
         private UIBarButtonItem _calibrateButton;
         private UIBarButtonItem _navigateButton;
         private CalibrationViewController _calibrationVC;
 
+        // Objects for navigation and route tracking.
         public RouteResult _routeResult;
         private RouteTracker _routeTracker;
         private AVSpeechSynthesizer _synthesizer;
 
+        // Graphics and elevation for the scene.
         private GraphicsOverlay _routeOverlay;
         private ArcGISTiledElevationSource _elevationSource;
         private Surface _elevationSurface;
 
+        // Location data source for AR and route tracking.
+        private AdjustableLocationDataSource _locationSource = new AdjustableLocationDataSource();
+
+        // Track whether calibration is in progress and update the UI when that changes.
         private bool _isCalibrating = false;
 
         private bool IsCalibrating
@@ -61,6 +68,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         public override void LoadView()
         {
+            // Create the views.
             View = new UIView { BackgroundColor = UIColor.White };
 
             UIToolbar toolbar = new UIToolbar();
@@ -76,7 +84,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _helpLabel.BackgroundColor = UIColor.FromWhiteAlpha(0, 0.6f);
             _helpLabel.Text = "Adjust calibration before starting";
 
-            _calibrationVC = new CalibrationViewController(_arView);
+            _calibrationVC = new CalibrationViewController(_arView, _locationSource);
 
             _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, ToggleCalibration);
             _navigateButton = new UIBarButtonItem("Navigate", UIBarButtonItemStyle.Plain, StartTurnByTurn);
@@ -90,8 +98,10 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 _navigateButton
             };
 
+            // Add the views to the UI.
             View.AddSubviews(_arView, toolbar, _helpLabel);
 
+            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _arView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -119,50 +129,62 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private void Initialize()
         {
+            // Create and add the scene.
             _arView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
-            _arView.LocationDataSource = new SystemLocationDataSource();
+            // Add the location data source to the AR view.
+            _arView.LocationDataSource = _locationSource;
 
+            // Listen for location changes to update the route tracker.
+            _locationSource.LocationChanged += TrackingDataSource_LocationChanged;
+
+            // Create and add the elevation source.
             _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
             _elevationSurface = new Surface();
             _elevationSurface.ElevationSources.Add(_elevationSource);
             _arView.Scene.BaseSurface = _elevationSurface;
 
+            // Configure the surface for AR: no navigation constraint and hidden by default.
             _elevationSurface.NavigationConstraint = NavigationConstraint.None;
             _elevationSurface.Opacity = 0;
 
+            // Create and add an overlay for showing the route.
             _routeOverlay = new GraphicsOverlay();
             _arView.GraphicsOverlays.Add(_routeOverlay);
 
+            // Display routes as yellow 3D tubes.
             SolidStrokeSymbolLayer strokeSymbolLayer = new SolidStrokeSymbolLayer(1, System.Drawing.Color.Yellow, null, StrokeSymbolLayerLineStyle3D.Tube);
             strokeSymbolLayer.CapStyle = StrokeSymbolLayerCapStyle.Round;
             MultilayerPolylineSymbol tubeSymbol = new MultilayerPolylineSymbol(new[] { strokeSymbolLayer });
             _routeOverlay.Renderer = new SimpleRenderer(tubeSymbol);
 
-            SystemLocationDataSource trackingDataSource = new SystemLocationDataSource();
-            trackingDataSource.LocationChanged += TrackingDataSource_LocationChanged;
-            trackingDataSource.StartAsync();
-
+            // Configure scene view display for real-scale AR: no space effect or atmosphere effect.
             _arView.SpaceEffect = SpaceEffect.None;
             _arView.AtmosphereEffect = AtmosphereEffect.None;
 
+            // Configure route display for the planned route.
             SetRoute(_routeResult.Routes[0]);
         }
 
         private void SetRoute(Route inputRoute)
         {
+            // Clear existing route graphic.
             _routeOverlay.Graphics.Clear();
 
+            // Create a new graphic for the route.
             Graphic routeGraphic = new Graphic(inputRoute.RouteGeometry);
 
+            // Add the route to the scene.
             _routeOverlay.Graphics.Add(routeGraphic);
 
+            // Configure the overlay to place the route 3 meters above the surface.
             _routeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
             _routeOverlay.SceneProperties.AltitudeOffset = 3;
         }
 
         private void TrackingDataSource_LocationChanged(object sender, Location e)
         {
+            // Send location changes to the route tracker if routing is in progress.
             if (_routeTracker != null)
             {
                 _routeTracker.TrackLocationAsync(e);
@@ -171,28 +193,40 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private void StartTurnByTurn(object sender, EventArgs e)
         {
+            // Update the UI.
             _helpLabel.Text = "Tracking started.";
             _navigateButton.Enabled = false;
 
+            // Configure the route tracker.
             _routeTracker = new RouteTracker(_routeResult, 0);
-            _routeTracker.NewVoiceGuidance += PlayVoiceGuidance;
-            _routeTracker.TrackingStatusChanged += TrackingStatusUpdated;
+            _routeTracker.NewVoiceGuidance += TrackingDataSource_VoiceGuidanceChanged;
+            _routeTracker.TrackingStatusChanged += TrackingDataSource_StatusChanged;
         }
 
-        private void TrackingStatusUpdated(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
+        private void TrackingDataSource_StatusChanged(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
         {
-            _helpLabel.Text = _routeTracker.GenerateVoiceGuidance().Text;
+            BeginInvokeOnMainThread(() =>
+            {
+                // Show updated route tracking text in the UI.
+                _helpLabel.Text = _routeTracker.GenerateVoiceGuidance().Text;
+            });
         }
 
-        private void PlayVoiceGuidance(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        private void TrackingDataSource_VoiceGuidanceChanged(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
-            _synthesizer.StopSpeaking(AVSpeechBoundary.Word);
+            BeginInvokeOnMainThread(() =>
+            {
+                // Stop any currently running speech.
+                _synthesizer.StopSpeaking(AVSpeechBoundary.Word);
 
-            AVSpeechUtterance utterance = new AVSpeechUtterance(e.VoiceGuidance.Text);
-            utterance.Voice = AVSpeechSynthesisVoice.FromLanguage("en-US");
-            _synthesizer.SpeakUtterance(utterance);
+                // Speak the updated guidance.
+                AVSpeechUtterance utterance = new AVSpeechUtterance(e.VoiceGuidance.Text);
+                utterance.Voice = AVSpeechSynthesisVoice.FromLanguage("en-US");
+                _synthesizer.SpeakUtterance(utterance);
 
-            _helpLabel.Text = e.VoiceGuidance.Text;
+                // Show the guidance in the UI.
+                _helpLabel.Text = e.VoiceGuidance.Text;
+            });
         }
 
         private void ShowCalibrationPopover()
@@ -205,7 +239,10 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             {
                 pc.BarButtonItem = _calibrateButton;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
-                pc.Delegate = new ppDelegate();
+                ppDelegate popoverDelegate = new ppDelegate();
+                // Stop calibration when the popover closes.
+                popoverDelegate.UserDidDismissPopover += (o, e) => IsCalibrating = false;
+                pc.Delegate = popoverDelegate;
             }
 
             PresentViewController(_calibrationVC, true, null);
@@ -214,25 +251,40 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         // Force popover to display on iPhone.
         private class ppDelegate : UIPopoverPresentationControllerDelegate
         {
+            // Public event enables detection of popover close. When the popover closes, calibration should stop.
+            public EventHandler UserDidDismissPopover;
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(
                 UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
 
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(UIPresentationController controller,
                 UITraitCollection traitCollection) => UIModalPresentationStyle.None;
+
+            public override void DidDismissPopover(UIPopoverPresentationController popoverPresentationController)
+            {
+                UserDidDismissPopover?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         public override async void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
+
+            // Start tracking as soon as the view has been shown.
             await _arView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
         }
 
-        public override void ViewDidDisappear(bool animated)
+        public override async void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            _arView.StopTracking();
-            _routeTracker.NewVoiceGuidance -= PlayVoiceGuidance;
-            _routeTracker.TrackingStatusChanged -= TrackingStatusUpdated;
+
+            // Stop ARKit tracking and unsubscribe from events when the view closes.
+            await _arView?.StopTrackingAsync();
+
+            if (_routeTracker != null)
+            {
+                _routeTracker.NewVoiceGuidance -= TrackingDataSource_VoiceGuidanceChanged;
+                _routeTracker.TrackingStatusChanged -= TrackingDataSource_StatusChanged;
+            }
         }
     }
 
@@ -243,12 +295,14 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private UILabel elevationLabel;
         private UILabel headingLabel;
         private ARSceneView _arView;
+        private AdjustableLocationDataSource _locationSource;
         private NSTimer _headingTimer;
         private NSTimer _elevationTimer;
 
-        public CalibrationViewController(ARSceneView arView)
+        public CalibrationViewController(ARSceneView arView, AdjustableLocationDataSource locationSource)
         {
-            this._arView = arView;
+            _arView = arView;
+            _locationSource = locationSource;
         }
 
         public override void LoadView()
@@ -314,9 +368,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             {
                 _elevationTimer = new NSTimer(NSDate.Now, 0.1, true, (timer) =>
                 {
-                    Camera oldCamera = _arView.OriginCamera;
-                    _arView.OriginCamera = oldCamera.Elevate(JoystickConverter(_elevationSlider.Value * 3.0));
-                    elevationLabel.Text = $"Elevation: {(int)_arView.OriginCamera.Location.Z}m";
+                    var newValue = _locationSource.AltitudeOffset += JoystickConverter(_elevationSlider.Value * 3.0);
+                    _locationSource.AltitudeOffset = newValue;
+                    elevationLabel.Text = $"Elevation: {(int)_locationSource.AltitudeOffset}m";
                 });
                 NSRunLoop.Main.AddTimer(_elevationTimer, NSRunLoopMode.Default);
             }

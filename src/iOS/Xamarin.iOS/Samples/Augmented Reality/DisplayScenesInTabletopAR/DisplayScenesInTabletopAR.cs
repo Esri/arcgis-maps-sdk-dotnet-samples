@@ -12,8 +12,6 @@ using ARKit;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Mapping;
 using Foundation;
-using SceneKit;
-using System;
 using System.Linq;
 using UIKit;
 
@@ -33,20 +31,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         private UILabel _arKitStatusLabel;
         private UILabel _helpLabel;
 
+        // Scene to be displayed on the tabletop.
         private Scene _tabletopScene;
-
-        private SCNMaterial _planeRenderingMaterial;
-
-        public bool ShouldRenderPlanes { get; set; } = true;
-        public bool HasFoundPlane { get; set; } = false;
 
         public DisplayScenesInTabletopAR()
         {
             Title = "Display scenes in tabletop AR";
-
-            _planeRenderingMaterial = new SCNMaterial();
-            _planeRenderingMaterial.DoubleSided = false;
-            _planeRenderingMaterial.Diffuse.ContentColor = UIColor.FromRGBA(0.5f, 0, 0, 0.5f);
         }
 
         public override void LoadView()
@@ -85,23 +75,14 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 _arKitStatusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _arKitStatusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _arKitStatusLabel.HeightAnchor.ConstraintEqualTo(40),
-                _helpLabel.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _helpLabel.BottomAnchor.ConstraintEqualTo(_arSceneView.SafeAreaLayoutGuide.BottomAnchor),
                 _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
 
             // Listen for tracking status changes and provide feedback to the user.
-            _arSceneView.PlanesDetectedChanged += (o, e) =>
-             {
-                 BeginInvokeOnMainThread(EnableTapToPlace);
-             };
-
-            _arSceneView.ARSCNViewCameraDidChangeTrackingState += CameraTrackingStateDidChange;
-
-            // Events for plane rendering.
-            _arSceneView.ARSCNViewDidAddNode += _arSceneView_ARSCNViewDidAddNode;
-            _arSceneView.ARSCNViewDidUpdateNode += _arSceneView_ARSCNViewDidUpdateNode;
+            _arSceneView.ARSCNViewCameraDidChangeTrackingState += ARSceneView_TrackingStateChanged;
         }
 
         private void Initialize()
@@ -111,11 +92,28 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
             // Render the scene invisible to start.
             _arSceneView.Scene.BaseSurface.Opacity = 0;
+
+            // Get notification when planes are detected
+            _arSceneView.PlanesDetectedChanged += ARSceneView_PlanesDetectedChanged;
+
+            // Configure the AR scene view to render detected planes.
+            _arSceneView.RenderPlanes = true;
+        }
+
+        private void ARSceneView_PlanesDetectedChanged(object sender, bool e)
+        {
+            if (e)
+            {
+                BeginInvokeOnMainThread(EnableTapToPlace);
+                _arSceneView.PlanesDetectedChanged -= ARSceneView_PlanesDetectedChanged;
+            }
         }
 
         private void EnableTapToPlace()
         {
+            // Show the help label.
             _helpLabel.Hidden = false;
+            _helpLabel.Text = "Tap to place the scene.";
 
             // Wait for the user to tap.
             _arSceneView.GeoViewTapped += _arSceneView_GeoViewTapped;
@@ -175,7 +173,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _arSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
         }
 
-        private void CameraTrackingStateDidChange(object sender, ARSCNViewCameraTrackingStateEventArgs e)
+        private void ARSceneView_TrackingStateChanged(object sender, ARSCNViewCameraTrackingStateEventArgs e)
         {
             // Provide clear feedback to the user in terms they will understand.
             switch (e.Camera.TrackingState)
@@ -213,58 +211,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             }
         }
 
-        private void _arSceneView_ARSCNViewDidUpdateNode(object sender, ARSCNViewNodeEventArgs e)
-        {
-            if (!ShouldRenderPlanes)
-            {
-                e.Node.RemoveFromParentNode();
-                return;
-            }
-
-            if (e.Anchor is ARPlaneAnchor planeAnchor)
-            {
-                ARPlaneGeometry geometry = planeAnchor.Geometry;
-
-                ARSCNPlaneGeometry scenePlaneGeometry = ARSCNPlaneGeometry.Create(e.Renderer.GetDevice());
-
-                scenePlaneGeometry.Update(geometry);
-
-                scenePlaneGeometry.Materials = new[] { _planeRenderingMaterial };
-
-                e.Node.ChildNodes.First().Geometry = scenePlaneGeometry;
-            }
-        }
-
-        private void _arSceneView_ARSCNViewDidAddNode(object sender, ARSCNViewNodeEventArgs e)
-        {
-            if (!HasFoundPlane)
-            {
-                HasFoundPlane = true;
-            }
-
-            if (!ShouldRenderPlanes)
-            {
-                return;
-            }
-
-            if (e.Anchor is ARPlaneAnchor planeAnchor)
-            {
-                ARPlaneGeometry geometry = planeAnchor.Geometry;
-
-                ARSCNPlaneGeometry scenePlaneGeometry = ARSCNPlaneGeometry.Create(e.Renderer.GetDevice());
-
-                scenePlaneGeometry.Update(geometry);
-
-                SCNNode newNode = SCNNode.FromGeometry(scenePlaneGeometry);
-
-                e.Node.AddChildNode(newNode);
-
-                scenePlaneGeometry.Materials = new[] { _planeRenderingMaterial };
-
-                e.Node.Geometry = scenePlaneGeometry;
-            }
-        }
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -277,10 +223,15 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _arSceneView.StartTrackingAsync();
         }
 
-        public override void ViewDidDisappear(bool animated)
+        public override async void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            _arSceneView?.StopTracking();
+
+            if (_arSceneView != null)
+            {
+                _arSceneView.PlanesDetectedChanged -= ARSceneView_PlanesDetectedChanged;
+                await _arSceneView.StopTrackingAsync();
+            }
         }
     }
 }

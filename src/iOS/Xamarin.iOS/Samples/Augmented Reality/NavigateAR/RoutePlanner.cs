@@ -38,18 +38,21 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private UILabel _helpLabel;
         private UIBarButtonItem _navigateButton;
 
+        // Graphics overlays for showing stops and the calculated route.
         private GraphicsOverlay _routeOverlay;
         private GraphicsOverlay _stopsOverlay;
 
+        // Hold the start and end point.
         private MapPoint _startPoint;
         private MapPoint _endPoint;
 
+        // Routing.
         private RouteTask _routeTask;
         private Route _route;
         private RouteResult _routeResult;
         private RouteParameters _routeParameters;
 
-        // Auth
+        // Auth.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
@@ -74,7 +77,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _navigateButton = new UIBarButtonItem("Navigate", UIBarButtonItemStyle.Plain, _navigateButton_Click);
+            _navigateButton = new UIBarButtonItem("Navigate", UIBarButtonItemStyle.Plain, NavigateButton_Clicked);
             _navigateButton.Enabled = false;
 
             toolbar.Items = new[]
@@ -111,107 +114,124 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private async void Initialize()
         {
+            // Create and add the map.
             _mapView.Map = new Map(Basemap.CreateImagery());
 
             try
             {
+                // Configure location display.
                 _mapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
                 await _mapView.LocationDisplay.DataSource.StartAsync();
                 _mapView.LocationDisplay.IsEnabled = true;
 
+                // Enable authentication.
                 SetOAuthInfo();
 
+                // Create the route task.
                 _routeTask = await RouteTask.CreateAsync(new System.Uri("https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"));
 
+                // Create route display overlay and symbology.
                 _routeOverlay = new GraphicsOverlay();
                 SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Yellow, 1);
                 _routeOverlay.Renderer = new SimpleRenderer(routeSymbol);
 
+                // Create stop display overlay.
                 _stopsOverlay = new GraphicsOverlay();
-                SimpleMarkerSymbol stopSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 5);
-                _stopsOverlay.Renderer = new SimpleRenderer(stopSymbol);
 
+                // Add the overlays to the map.
                 _mapView.GraphicsOverlays.Add(_routeOverlay);
                 _mapView.GraphicsOverlays.Add(_stopsOverlay);
 
-                _mapView.GeoViewTapped += _mapView_GeoViewTapped;
+                // Wait for the user to place stops.
+                _mapView.GeoViewTapped += MapView_GeoViewTapped;
 
+                // Updat the help text.
                 _helpLabel.Text = "Tap to set a start point";
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 ShowMessage("Failed to start sample", "Error");
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
 
-        private void _mapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             if (_startPoint == null)
             {
+                // Place the start point.
                 _startPoint = e.Location;
-
                 Graphic startGraphic = new Graphic(_startPoint, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Green, 25));
                 _stopsOverlay.Graphics.Add(startGraphic);
 
+                // Update help text.
                 _helpLabel.Text = "Tap to set an end point";
             }
             else if (_endPoint == null)
             {
+                // Place the end point.
                 _endPoint = e.Location;
-
                 Graphic endGraphic = new Graphic(_endPoint, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Red, 25));
                 _stopsOverlay.Graphics.Add(endGraphic);
 
+                // Update help text.
+                _helpLabel.Text = "Solving route";
+
+                // Solve the route.
                 SolveRoute();
             }
         }
 
-        private void EnableNavigation()
+        private void NavigateButton_Clicked(object sender, System.EventArgs e)
         {
-            _navigateButton.Enabled = true;
+            /*
+            _mapView.LocationDisplay.DataSource.StopAsync();
+            _mapView.Map = null;
+            _mapView.LocationDisplay.IsEnabled = false;
+            _mapView.Dispose();
 
-            _helpLabel.Text = "You're ready to start navigating!";
-        }
-
-        private void _navigateButton_Click(object sender, System.EventArgs e)
-        {
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+            */
+            NavigationController.PopViewController(true);
             NavigationController.PushViewController(new RouteViewerAR() { _routeResult = _routeResult }, true);
         }
 
         private async void SolveRoute()
         {
-            _helpLabel.Text = "Solving route";
-
             try
             {
+                // Create the route parameters and configure to enable navigation.
                 _routeParameters = await _routeTask.CreateDefaultParametersAsync();
-
                 _routeParameters.ReturnStops = true;
                 _routeParameters.ReturnDirections = true;
                 _routeParameters.ReturnRoutes = true;
 
+                // Prefer walking directions if available.
                 TravelMode walkingMode = _routeTask.RouteTaskInfo.TravelModes.FirstOrDefault(mode => mode.Name.Contains("Walk")) ?? _routeTask.RouteTaskInfo.TravelModes.First();
                 _routeParameters.TravelMode = walkingMode;
 
+                // Set the stops.
                 Stop stop1 = new Stop(_startPoint);
                 Stop stop2 = new Stop(_endPoint);
-
                 _routeParameters.SetStops(new[] { stop1, stop2 });
 
+                // Solve the rotue.
                 _routeResult = await _routeTask.SolveRouteAsync(_routeParameters);
-
                 _route = _routeResult.Routes.First();
 
+                // Show the route on the map.
                 Graphic routeGraphic = new Graphic(_route.RouteGeometry);
                 _routeOverlay.Graphics.Add(routeGraphic);
 
-                _helpLabel.Text = "Route calculated.";
-
-                EnableNavigation();
+                // Update the UI and allow the user to start navigating.
+                _navigateButton.Enabled = true;
+                _helpLabel.Text = "You're ready to start navigating!";
             }
             catch (Exception ex)
             {
+                _helpLabel.Text = "Routing failed, restart sample to retry.";
                 ShowMessage("Failed to calculate route", "Error");
                 System.Diagnostics.Debug.WriteLine(ex);
             }
@@ -228,6 +248,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             // Present Alert.
             PresentViewController(okAlertController, true, null);
         }
+
+        #region OAuth helpers
 
         private void SetOAuthInfo()
         {
@@ -252,8 +274,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             // Set the OAuthAuthorizeHandler component (this class).
             AuthenticationManager.Current.OAuthAuthorizeHandler = this;
         }
-
-        #region OAuth helpers
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
         private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)

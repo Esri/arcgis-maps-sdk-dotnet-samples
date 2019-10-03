@@ -616,6 +616,7 @@
     <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\DateSelectionViewController.cs" />
     <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RouteViewerAR.cs" />
+    <Compile Include="Samples\Augmented reality\NavigateAR\AdjustableLocationDataSource.cs" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>

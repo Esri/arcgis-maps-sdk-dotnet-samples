@@ -156,10 +156,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             _arSceneView.StartTrackingAsync();
         }
 
-        public override void ViewDidDisappear(bool animated)
+        public override async void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            _arSceneView?.StopTracking();
+            await _arSceneView?.StopTrackingAsync();
         }
 
         private void ShowMessage(string message, string title)

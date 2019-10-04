@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -39,6 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         private UILabel _helpLabel;
         private UIActivityIndicatorView _activityIndicator;
         private UINavigationController _tableDisplayController;
+        private UIBarButtonItem _showOnlineButton;
 
         private MapAreaViewModel _mapAreaViewModel;
 
@@ -56,6 +57,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
         // Hold a list of available map areas.
         private readonly List<PreplannedMapArea> _mapAreas = new List<PreplannedMapArea>();
+
+        // Most recently opened map package.
+        private MobileMapPackage _mobileMapPackage;
 
         public DownloadPreplannedMap()
         {
@@ -112,11 +116,20 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Something unexpected happened, show the error message.
                 Debug.WriteLine(ex);
-                new UIAlertView("There was an error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("There was an error", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
-        void _mapAreaViewModel_MapSelected(object sender, PreplannedMapArea area)
+        private void ShowOnline_Click(object sender, EventArgs e)
+        {
+            // Show the online map.
+            _myMapView.Map = _originalMap;
+
+            // Disable the button.
+            _showOnlineButton.Enabled = false;
+        }
+
+        private void _mapAreaViewModel_MapSelected(object sender, PreplannedMapArea area)
         {
             // Dismiss the table view.
             _tableDisplayController.DismissViewController(true, null);
@@ -127,6 +140,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 
         private async void DownloadMapAreaAsync(PreplannedMapArea mapArea)
         {
+            // Close the current mobile package.
+            _mobileMapPackage?.Close();
+
             // Set up UI for downloading.
             _activityIndicator.StartAnimating();
             _helpLabel.Text = "Downloading map area...";
@@ -139,22 +155,26 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 try
                 {
-                    MobileMapPackage localMapArea = await MobileMapPackage.OpenAsync(path);
-                    _myMapView.Map = localMapArea.Maps.First();
+                    _mobileMapPackage = await MobileMapPackage.OpenAsync(path);
+                    _myMapView.Map = _mobileMapPackage.Maps.First();
 
                     _helpLabel.Text = "Opened offline area.";
+                    _showOnlineButton.Enabled = true;
                     _activityIndicator.StopAnimating();
                     return;
                 }
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    new UIAlertView("Couldn't open offline map area. Proceeding to take area offline.", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                    new UIAlertView("Couldn't open offline map area. Proceeding to take area offline.", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
             }
 
             // Create download parameters.
             DownloadPreplannedOfflineMapParameters parameters = await _offlineMapTask.CreateDefaultDownloadPreplannedOfflineMapParametersAsync(mapArea);
+
+            // Set the update mode to not receive updates.
+            parameters.UpdateMode = PreplannedUpdateMode.NoUpdates;
 
             // Create the job.
             DownloadPreplannedOfflineMapJob job = _offlineMapTask.DownloadPreplannedOfflineMap(parameters, path);
@@ -166,6 +186,9 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Download the area.
                 DownloadPreplannedOfflineMapResult results = await job.GetResultAsync();
+
+                // Set the current mobile map package.
+                _mobileMapPackage = results.MobileMapPackage;
 
                 // Handle possible errors and show them to the user.
                 if (results.HasErrors)
@@ -184,7 +207,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                     }
 
                     // Show the message.
-                    new UIAlertView("Warning!", errors, (IUIAlertViewDelegate) null, "OK", null).Show();
+                    new UIAlertView("Warning!", errors, (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
 
                 // Show the downloaded map.
@@ -194,16 +217,17 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             {
                 // Report any errors.
                 Debug.WriteLine(ex);
-                new UIAlertView("Downloading map area failed", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Downloading map area failed", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {
                 _activityIndicator.StopAnimating();
                 _helpLabel.Text = "Map area offline.";
+                _showOnlineButton.Enabled = true;
             }
         }
 
-        void Job_ProgressChanged(object sender, EventArgs e)
+        private void Job_ProgressChanged(object sender, EventArgs e)
         {
             // Because the event is raised on a background thread, the dispatcher must be used to
             // ensure that UI updates happen on the UI thread.
@@ -226,19 +250,12 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             UIPopoverPresentationController pc = _tableDisplayController.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem) sender;
+                pc.BarButtonItem = (UIBarButtonItem)sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new ppDelegate();
             }
 
             PresentViewController(_tableDisplayController, true, null);
-        }
-
-        private void DeleteAllAreas()
-        {
-            // Delete all data from the temporary data folder.
-            Directory.Delete(_offlineDataFolder, true);
-            Directory.CreateDirectory(_offlineDataFolder);
         }
 
         private void DeleteAreas_Click(object sender, EventArgs e)
@@ -252,25 +269,24 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
                 // Reset the map.
                 _myMapView.Map = _originalMap;
 
-                // Wait for the garbage collector to get the hint.
-                // Areas can't be deleted until handles to geodatabase tables are released.
-                GC.Collect();
-                GC.WaitForPendingFinalizers();
-                GC.Collect();
+                // Close the current mobile package.
+                _mobileMapPackage?.Close();
 
-                // Delete everything.
-                DeleteAllAreas();
+                // Delete all data from the temporary data folder.
+                Directory.Delete(_offlineDataFolder, true);
+                Directory.CreateDirectory(_offlineDataFolder);
             }
             catch (Exception ex)
             {
                 // Report the error.
                 Debug.WriteLine(ex);
-                new UIAlertView("Deleting map area failed", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Deleting map area failed", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {
                 _activityIndicator.StopAnimating();
                 _helpLabel.Text = "Deleted offline areas.";
+                _showOnlineButton.Enabled = false;
             }
         }
 
@@ -287,18 +303,22 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _showOnlineButton = new UIBarButtonItem("Show online", UIBarButtonItemStyle.Plain, ShowOnline_Click) { Enabled = false };
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem("Delete offline areas", UIBarButtonItemStyle.Plain, DeleteAreas_Click),
+                new UIBarButtonItem("Download", UIBarButtonItemStyle.Plain, ShowAreas_Click),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem("Download area", UIBarButtonItemStyle.Plain, ShowAreas_Click)
+                new UIBarButtonItem("Delete all", UIBarButtonItemStyle.Plain, DeleteAreas_Click),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _showOnlineButton
             };
 
             _helpLabel = new UILabel
@@ -347,9 +367,17 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             base.ViewDidLoad();
             Initialize();
         }
+
+        public override void ViewWillDisappear(bool animated)
+        {
+            base.ViewWillDisappear(animated);
+
+            // Close the current mobile package.
+            _mobileMapPackage?.Close();
+        }
     }
 
-    class MapAreaViewModel : UITableViewSource
+    internal class MapAreaViewModel : UITableViewSource
     {
         private readonly List<PreplannedMapArea> _maps;
         private const string CellIdentifier = "LayerTableCell";

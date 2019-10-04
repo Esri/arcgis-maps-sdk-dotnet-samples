@@ -7,20 +7,19 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime
 {
     internal partial class CategoriesViewController : UITableViewController
     {
-        public CategoriesViewController(IntPtr handle)
-            : base(handle)
+        public CategoriesViewController(IntPtr handle) : base(handle)
         {
         }
 
@@ -29,14 +28,6 @@ namespace ArcGISRuntime
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-
-            NavigationController.NavigationBar.TintColor = UIColor.White;
-            NavigationController.NavigationBar.BarTintColor = UIColor.FromRGB(0, 140, 200);
-            NavigationController.NavigationBar.TitleTextAttributes = new UIStringAttributes
-            {
-                ForegroundColor = UIColor.White
-            };
-            NavigationController.NavigationBar.LargeTitleTextAttributes = NavigationController.NavigationBar.TitleTextAttributes;
 
             SampleManager.Current.Initialize();
             List<SearchableTreeNode> data = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
@@ -55,8 +46,6 @@ namespace ArcGISRuntime
             {
                 SearchResultsUpdater = searchUpdater
             };
-            SearchController.SearchBar.TintColor = UIColor.White;
-
 
             // Show the search bar in the navigation/header area
             NavigationItem.SearchController = SearchController;
@@ -66,12 +55,9 @@ namespace ArcGISRuntime
                 var backgroundView = entry.Subviews.FirstOrDefault();
                 if (backgroundView != null)
                 {
-                    backgroundView.BackgroundColor = UIColor.White;
                     backgroundView.Layer.CornerRadius = 10;
                     backgroundView.ClipsToBounds = true;
                 }
-
-                entry.TintColor = View.TintColor;
             }
 
             // Show search bar by default

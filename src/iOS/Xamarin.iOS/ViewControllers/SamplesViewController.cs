@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -32,7 +32,7 @@ namespace ArcGISRuntime
             base.ViewDidLoad();
 
             Title = _category.Name;
-            NavigationController.NavigationBar.PrefersLargeTitles = true;
+            NavigationController.NavigationBar.PrefersLargeTitles = false;
 
             List<object> listSampleItems = _category.Items;
 
@@ -99,7 +99,7 @@ namespace ArcGISRuntime
                         _loadPopup.Hide();
                     }
 
-                    var control = (UIViewController) SampleManager.Current.SampleToControl(sample);
+                    var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
                     _controller.NavigationController.PushViewController(control, true);
                 }
                 catch (Exception ex)

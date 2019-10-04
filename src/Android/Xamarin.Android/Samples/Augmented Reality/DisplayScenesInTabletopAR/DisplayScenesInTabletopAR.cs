@@ -79,9 +79,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _helpLabel.Text = "Keep moving your phone to find a surface.";
         }
 
-        private void ARSceneView_PlaneDetectedChanged(object sender, bool e)
+        private void ARSceneView_PlaneDetectedChanged(object sender, bool planeDetected)
         {
-            if (e)
+            if (planeDetected)
             {
                 _arSceneView.PlanesDetectedChanged -= ARSceneView_PlaneDetectedChanged;
 

@@ -101,9 +101,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             _arSceneView.RenderPlanes = true;
         }
 
-        private void ARSceneView_PlanesDetectedChanged(object sender, bool e)
+        private void ARSceneView_PlanesDetectedChanged(object sender, bool planeDetected)
         {
-            if (e)
+            if (planeDetected)
             {
                 BeginInvokeOnMainThread(EnableTapToPlace);
                 _arSceneView.PlanesDetectedChanged -= ARSceneView_PlanesDetectedChanged;

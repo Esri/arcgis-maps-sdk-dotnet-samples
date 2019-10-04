@@ -24,6 +24,7 @@
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
+		<string>arkit</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
@@ -169,7 +170,9 @@
 	<string>LaunchScreen</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location information is used to enable location display on maps and to find points of interest nearby.</string>
-    <key>UIUserInterfaceStyle</key>
-    <string>Light</string>
+	<key>NSCameraUsageDescription</key>
+	<string>For Augmented Reality</string>
+  <key>UIUserInterfaceStyle</key>
+  <string>Light</string>
 </dict>
 </plist>

@@ -446,7 +446,7 @@
     <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.cs" />
     <Compile Include="Controls\JoystickSeekBar.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RouteViewerAR.cs" />
-    <Compile Include="Samples\Augmented reality\NavigateAR\MSLAdjustedARLocationDataSource.cs" />
+    <Compile Include="Samples\Augmented reality\NavigateAR\MslAdjustedARLocationDataSource.cs" />
   </ItemGroup>
   <!-- Sample Manager Code -->
   <ItemGroup>
@@ -471,19 +471,26 @@
     </AndroidAsset>
     <None Include="Properties\AndroidManifest.xml" />
     <AndroidResource Include="Resources\layout\DisplayScenesInTabletopAR.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\NavigateARRoutePlanner.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\NavigateARNavigator.axml">
-      <SubType></SubType>
-      <Generator></Generator>
+      <SubType>
+      </SubType>
+      <Generator>
+      </Generator>
     </AndroidResource>
     <AndroidResource Include="Resources\values\Attrs.xml">
-      <SubType></SubType>
+      <SubType>
+      </SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
@@ -619,9 +626,7 @@
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

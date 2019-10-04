@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Globalization;
-using System.Threading.Tasks;
 using Android.Content;
 using Android.Locations;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
+using System;
+using System.Globalization;
+using System.Threading.Tasks;
 using Location = Esri.ArcGISRuntime.Location.Location;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateAR
@@ -22,17 +22,19 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
     /// Custom location data source that allows you to apply an altitude offset in addition to
     /// returning altitude values relative to mean sea level, rather than the WGS84 ellipsoid.
     /// </summary>
-    public class MSLAdjustedARLocationDataSource : LocationDataSource
+    public class MslAdjustedARLocationDataSource : LocationDataSource
     {
         public enum AltitudeAdjustmentMode
         {
             GpsRawEllipsoid,
             NmeaParsedMsl
         }
+
         private AltitudeAdjustmentMode _currentMode = AltitudeAdjustmentMode.GpsRawEllipsoid;
 
         // Enable configuration of the altitude mode, adding or removing NMEA listener as needed.
-        public AltitudeAdjustmentMode AltitudeMode {
+        public AltitudeAdjustmentMode AltitudeMode
+        {
             get => _currentMode;
             set
             {
@@ -54,6 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         // Allow setting an altitude offset.
         private double _altitudeOffset;
+
         public double AltitudeOffset
         {
             get => _altitudeOffset;
@@ -83,7 +86,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private readonly Context _context;
 
-        public MSLAdjustedARLocationDataSource(Context context)
+        public MslAdjustedARLocationDataSource(Context context)
         {
             _context = context;
 
@@ -93,10 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _baseSource.LocationChanged += BaseSource_LocationChanged;
 
             // Listen for altitude change events from the onboard GNSS.
-            _listener.NmeaAltitudeChanged += (o, e) =>
-            {
-                _lastNmeaElevation = e.Altitude;
-            };
+            _listener.NmeaAltitudeChanged += (o, e) => { _lastNmeaElevation = e.Altitude; };
         }
 
         private void BaseSource_LocationChanged(object sender, Location e)
@@ -110,10 +110,12 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             switch (AltitudeMode)
             {
                 case AltitudeAdjustmentMode.GpsRawEllipsoid:
-                    newPosition = new MapPoint(e.Position.X, e.Position.Y, e.Position.Z + AltitudeOffset, e.Position.SpatialReference);
+                    newPosition = new MapPoint(e.Position.X, e.Position.Y, e.Position.Z + AltitudeOffset,
+                        e.Position.SpatialReference);
                     break;
                 case AltitudeAdjustmentMode.NmeaParsedMsl:
-                    newPosition = new MapPoint(e.Position.X, e.Position.Y, _lastNmeaElevation + AltitudeOffset, e.Position.SpatialReference);
+                    newPosition = new MapPoint(e.Position.X, e.Position.Y, _lastNmeaElevation + AltitudeOffset,
+                        e.Position.SpatialReference);
                     break;
             }
 
@@ -135,11 +137,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private LocationManager GetLocationManager()
         {
-            if (_locationManager == null)
-            {
-                _locationManager = (LocationManager)_context.GetSystemService("location");
-            }
-            return _locationManager;
+            return _locationManager ?? (_locationManager = (LocationManager) _context.GetSystemService("location"));
         }
 
         private class NmeaListener : Java.Lang.Object, IOnNmeaMessageListener
@@ -162,16 +160,20 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
                     string mslAltitude = parts[9];
 
-                    if (string.IsNullOrEmpty(mslAltitude)) { return; }
+                    if (string.IsNullOrEmpty(mslAltitude))
+                    {
+                        return;
+                    }
 
 
-                    if (double.TryParse(mslAltitude, NumberStyles.Float, CultureInfo.InvariantCulture, out double altitudeParsed))
+                    if (double.TryParse(mslAltitude, NumberStyles.Float, CultureInfo.InvariantCulture,
+                        out double altitudeParsed))
                     {
                         if (timestamp > _lastTimestamp)
                         {
                             _lastElevation = altitudeParsed;
                             _lastTimestamp = timestamp;
-                            NmeaAltitudeChanged?.Invoke(this, new AltitudeEventArgs { Altitude = _lastElevation });
+                            NmeaAltitudeChanged?.Invoke(this, new AltitudeEventArgs {Altitude = _lastElevation});
                         }
                     }
                 }

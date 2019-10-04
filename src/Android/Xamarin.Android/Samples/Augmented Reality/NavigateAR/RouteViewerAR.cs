@@ -7,14 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Linq;
 using Android.App;
 using Android.OS;
 using Android.Speech.Tts;
 using Android.Views;
 using Android.Widget;
-using ArcgisRuntime.Samples.ARToolkit.Controls;
+using ArcGISRuntimeXamarin.Samples.ARToolkit.Controls;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
@@ -22,6 +20,7 @@ using Esri.ArcGISRuntime.Navigation;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using System;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateAR
@@ -53,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         // Custom location data source that enables calibration and returns
         // values relative to mean sea level rather than the WGS84 ellipsoid.
-        private MSLAdjustedARLocationDataSource _locationDataSource;
+        private MslAdjustedARLocationDataSource _locationDataSource;
 
         // Calibration state fields.
         private bool _isCalibrating;
@@ -61,10 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private bool IsCalibrating
         {
-            get
-            {
-                return _isCalibrating;
-            }
+            get => _isCalibrating;
             set
             {
                 _isCalibrating = value;
@@ -114,8 +110,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _altitudeSlider = FindViewById<JoystickSeekBar>(ArcGISRuntime.Resource.Id.altitudeJoystick);
 
             // Create the custom location data source and configure the AR scene view to use it.
-            _locationDataSource = new MSLAdjustedARLocationDataSource(this);
-            _locationDataSource.AltitudeMode = MSLAdjustedARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
+            _locationDataSource = new MslAdjustedARLocationDataSource(this);
+            _locationDataSource.AltitudeMode = MslAdjustedARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
             _arSceneView.LocationDataSource = _locationDataSource;
 
             // Listen for location changes to enable route tracking.
@@ -137,7 +133,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private void AltitudeSlider_DeltaProgressChanged(object sender, DeltaChangedEventArgs e)
         {
             // Add the new value to the existing altitude offset.
-            _altitudeOffset += e.deltaProgress;
+            _altitudeOffset += e.DeltaProgress;
 
             // Update the altitude offset on the custom location data source.
             _locationDataSource.AltitudeOffset = _altitudeOffset;
@@ -149,7 +145,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             Camera camera = _arSceneView.OriginCamera;
 
             // Calculate the new heading by applying the offset to the old camera's heading.
-            double heading = camera.Heading + e.deltaProgress;
+            double heading = camera.Heading + e.DeltaProgress;
 
             // Create a new camera by rotating the old camera to the new heading.
             Camera newCamera = camera.RotateTo(heading, camera.Pitch, camera.Roll);
@@ -186,7 +182,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _arSceneView.Scene = _scene;
 
             // Create and add the elevation surface.
-            _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+            _elevationSource = new ArcGISTiledElevationSource(new Uri(
+                "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
             _elevationSurface = new Surface();
             _elevationSurface.ElevationSources.Add(_elevationSource);
             _arSceneView.Scene.BaseSurface = _elevationSurface;
@@ -200,9 +197,10 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _arSceneView.GraphicsOverlays.Add(_routeOverlay);
 
             // Configure the graphics overlay to render graphics as yellow 3D tubes.
-            SolidStrokeSymbolLayer strokeSymbolLayer = new SolidStrokeSymbolLayer(1, System.Drawing.Color.Yellow, null, StrokeSymbolLayerLineStyle3D.Tube);
+            SolidStrokeSymbolLayer strokeSymbolLayer = new SolidStrokeSymbolLayer(1, System.Drawing.Color.Yellow, null,
+                StrokeSymbolLayerLineStyle3D.Tube);
             strokeSymbolLayer.CapStyle = StrokeSymbolLayerCapStyle.Round;
-            MultilayerPolylineSymbol tubeSymbol = new MultilayerPolylineSymbol(new[] { strokeSymbolLayer });
+            MultilayerPolylineSymbol tubeSymbol = new MultilayerPolylineSymbol(new[] {strokeSymbolLayer});
             _routeOverlay.Renderer = new SimpleRenderer(tubeSymbol);
 
             // Configure the space and atmosphere effects for AR.
@@ -273,11 +271,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             var dialog = new AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Create();
             if (closeApp)
             {
-                dialog.SetButton("OK", (o, e) =>
-                {
-                    Finish();
-                });
+                dialog.SetButton("OK", (o, e) => { Finish(); });
             }
+
             dialog.Show();
         }
 

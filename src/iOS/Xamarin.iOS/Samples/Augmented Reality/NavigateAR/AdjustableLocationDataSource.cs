@@ -19,7 +19,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
     public class AdjustableLocationDataSource : LocationDataSource
     {
         // Track the altitude offset and raise location changed event when it is updated.
-        private double _altitudeOffset = 0;
+        private double _altitudeOffset;
+
         public double AltitudeOffset
         {
             get => _altitudeOffset;
@@ -53,7 +54,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _lastLocation = e;
 
             // Create the offset map point.
-            MapPoint newPosition = new MapPoint(e.Position.X, e.Position.Y, e.Position.Z + AltitudeOffset, e.Position.SpatialReference);
+            MapPoint newPosition = new MapPoint(e.Position.X, e.Position.Y, e.Position.Z + AltitudeOffset,
+                e.Position.SpatialReference);
 
             // Create a new location from the map point.
             Location newLocation = new Location(newPosition, e.HorizontalAccuracy, e.Velocity, e.Course, e.IsLastKnown);

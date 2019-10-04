@@ -21,7 +21,8 @@ using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 {
-    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges =
+        Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display scenes in tabletop AR",
         "Augmented reality",
@@ -111,7 +112,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 if (_tabletopScene == null)
                 {
                     // Get the downloaded mobile scene package.
-                    MobileScenePackage package = await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
+                    MobileScenePackage package = await MobileScenePackage.OpenAsync(
+                        DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
 
                     // Load the package.
                     await package.LoadAsync();
@@ -132,9 +134,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 // Create a camera at the bottom and center of the scene.
                 //    This camera is the point at which the scene is pinned to the real-world surface.
                 var originCamera = new Esri.ArcGISRuntime.Mapping.Camera(39.95787000283599,
-                                                                        -75.16996728256345,
-                                                                        8.813445091247559,
-                                                                        0, 90, 0);
+                    -75.16996728256345,
+                    8.813445091247559,
+                    0, 90, 0);
 
                 // Set the origin camera.
                 _arSceneView.OriginCamera = originCamera;
@@ -145,7 +147,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 // The desired physical width of the scene is 1 meter.
                 double tableContainerWidth = 1;
 
-                // Set the translation facotr based on the scene content width and desired physical size.
+                // Set the translation factor based on the scene content width and desired physical size.
                 _arSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
             }
             catch (System.Exception ex)
@@ -166,7 +168,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             base.OnResume();
 
             // Start AR tracking without location updates.
-            await _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
+            await _arSceneView.StartTrackingAsync();
         }
     }
 }

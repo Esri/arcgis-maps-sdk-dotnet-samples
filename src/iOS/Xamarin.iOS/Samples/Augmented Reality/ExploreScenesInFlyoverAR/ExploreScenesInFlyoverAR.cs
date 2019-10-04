@@ -54,7 +54,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             View.AddSubviews(_arSceneView, _arKitStatusLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new[]{
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
                 _arSceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _arSceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _arSceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -75,7 +76,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             Scene flyoverScene = new Scene(Basemap.CreateImagery());
 
             // Create the integrated mesh layer and add it to the scene.
-            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new System.Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
+            IntegratedMeshLayer meshLayer =
+                new IntegratedMeshLayer(
+                    new Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
             flyoverScene.OperationalLayers.Add(meshLayer);
 
             try
@@ -101,7 +104,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", "Failed to start AR", (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView("Error", "Failed to start AR", (IUIAlertViewDelegate) null, "OK", null).Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -140,6 +143,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
                             // This won't happen as this sample doesn't use relocalization.
                             break;
                     }
+
                     break;
             }
         }
@@ -159,22 +163,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         public override async void ViewDidDisappear(bool animated)
         {
             base.ViewDidDisappear(animated);
-            await _arSceneView?.StopTrackingAsync();
-        }
-
-        // Delegate object to receive notifications from ARKit.
-        private class SessionDelegate : ARSCNViewDelegate
-        {
-            // Expose an event for listening for camera changes specifically.
-            public event EventHandler<ARTrackingStateEventArgs> CameraTrackingStateDidChange;
-
-            public override void CameraDidChangeTrackingState(ARSession session, ARCamera camera) => CameraTrackingStateDidChange?.Invoke(this, new ARTrackingStateEventArgs { Camera = camera, Session = session });
-        }
-
-        private class ARTrackingStateEventArgs
-        {
-            public ARSession Session { get; set; }
-            public ARCamera Camera { get; set; }
+            if (_arSceneView != null)
+            {
+                await _arSceneView?.StopTrackingAsync();
+            }
         }
     }
 }

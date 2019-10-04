@@ -66,7 +66,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             View.AddSubviews(_arSceneView, _arKitStatusLabel, _helpLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new[]{
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
                 _arSceneView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                 _arSceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _arSceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -128,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             }
         }
 
-        private async void DisplayScene(double planeWidth = 1)
+        private async void DisplayScene()
         {
             // Hide the help label.
             _helpLabel.Hidden = true;
@@ -136,7 +137,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             if (_tabletopScene == null)
             {
                 // Get the downloaded mobile scene package.
-                MobileScenePackage package = await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk"));
+                MobileScenePackage package =
+                    await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d",
+                        "philadelphia.mspk"));
 
                 // Load the package.
                 await package.LoadAsync();
@@ -156,9 +159,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             // Create a camera at the bottom and center of the scene.
             //    This camera is the point at which the scene is pinned to the real-world surface.
             Camera originCamera = new Camera(39.95787000283599,
-                                            -75.16996728256345,
-                                            8.813445091247559,
-                                            0, 90, 0);
+                -75.16996728256345,
+                8.813445091247559,
+                0, 90, 0);
 
             // Set the origin camera.
             _arSceneView.OriginCamera = originCamera;
@@ -167,9 +170,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             double geographicContentWidth = 800;
 
             // The desired physical width of the scene is 1 meter.
-            double tableContainerWidth = planeWidth;
+            double tableContainerWidth = 1;
 
-            // Set the translation facotr based on the scene content width and desired physical size.
+            // Set the translation factor based on the scene content width and desired physical size.
             _arSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
         }
 
@@ -207,6 +210,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                             // This won't happen as this sample doesn't use relocalization.
                             break;
                     }
+
                     break;
             }
         }

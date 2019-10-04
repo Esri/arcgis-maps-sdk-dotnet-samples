@@ -5,21 +5,21 @@ using Android.Support.V7.Widget;
 using Android.Util;
 using ArcGISRuntime;
 
-namespace ArcgisRuntime.Samples.ARToolkit.Controls
+namespace ArcGISRuntimeXamarin.Samples.ARToolkit.Controls
 {
     public class JoystickSeekBar : AppCompatSeekBar
     {
-        private const double DEFAULT_MIN = 0;
-        private const double DEFAULT_MAX = 100;
-        private const long DEFAULT_DELTA_INTERVAL_MILLIS = 250;
+        private const double DefaultMin = 0;
+        private const double DefaultMax = 100;
+        private const long DefaultDeltaIntervalMillis = 250;
 
-        private double _min = DEFAULT_MIN;
-        private double _max = DEFAULT_MAX;
-        private double deltaProgress = 0;
+        private readonly double _min = DefaultMin;
+        private readonly double _max = DefaultMax;
+        private double _deltaProgress;
 
         public event EventHandler<DeltaChangedEventArgs> DeltaProgressChanged;
 
-        Timer eventTimer = new Timer();
+        private readonly Timer _eventTimer = new Timer();
 
         public JoystickSeekBar(Context context) : base(context)
         {
@@ -29,8 +29,8 @@ namespace ArcgisRuntime.Samples.ARToolkit.Controls
         public JoystickSeekBar(Context context, IAttributeSet attrs): base(context, attrs)
         {
             var attributes = context.Theme.ObtainStyledAttributes(attrs, Resource.Styleable.JoystickSeekBar, 0, 0);
-            _min = attributes.GetFloat(Resource.Styleable.JoystickSeekBar_jsb_min, (float)DEFAULT_MIN);
-            _max = attributes.GetFloat(Resource.Styleable.JoystickSeekBar_jsb_max, (float)DEFAULT_MAX);
+            _min = attributes.GetFloat(Resource.Styleable.JoystickSeekBar_jsb_min, (float)DefaultMin);
+            _max = attributes.GetFloat(Resource.Styleable.JoystickSeekBar_jsb_max, (float)DefaultMax);
 
             if (_min > _max)
             {
@@ -41,12 +41,12 @@ namespace ArcgisRuntime.Samples.ARToolkit.Controls
             Max = (int)_max;
             Progress = (int)(((_max - _min) * 0.5) + _min);
 
-            eventTimer.Elapsed += (o, e) =>
+            _eventTimer.Elapsed += (o, e) =>
             {
-                DeltaProgressChanged?.Invoke(this, new DeltaChangedEventArgs() { deltaProgress = deltaProgress });
+                DeltaProgressChanged?.Invoke(this, new DeltaChangedEventArgs() { DeltaProgress = _deltaProgress });
             };
 
-            eventTimer.Interval = DEFAULT_DELTA_INTERVAL_MILLIS;
+            _eventTimer.Interval = DefaultDeltaIntervalMillis;
 
             ProgressChanged += JoystickSeekBar_ProgressChanged;
             StartTrackingTouch += JoystickSeekBar_StartTrackingTouch;
@@ -55,25 +55,25 @@ namespace ArcgisRuntime.Samples.ARToolkit.Controls
 
         private void JoystickSeekBar_StopTrackingTouch(object sender, StopTrackingTouchEventArgs e)
         {
-            deltaProgress = 0;
-            eventTimer.Stop();
+            _deltaProgress = 0;
+            _eventTimer.Stop();
 
             Progress = (int)(((_max - _min) * 0.5) + _min);
         }
 
         private void JoystickSeekBar_StartTrackingTouch(object sender, StartTrackingTouchEventArgs e)
         {
-            eventTimer.Start();
+            _eventTimer.Start();
         }
 
         private void JoystickSeekBar_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            deltaProgress = (float)(Math.Pow(this.Progress, 2) / 25 * (this.Progress < 0 ? -1.0 : 1.0));
+            _deltaProgress = (float)(Math.Pow(this.Progress, 2) / 25 * (this.Progress < 0 ? -1.0 : 1.0));
         }
     }
 
     public class DeltaChangedEventArgs : EventArgs
     {
-        public double deltaProgress;
+        public double DeltaProgress;
     }
 }

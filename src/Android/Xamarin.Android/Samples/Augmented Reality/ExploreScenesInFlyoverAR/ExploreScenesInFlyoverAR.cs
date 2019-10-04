@@ -19,7 +19,8 @@ using System;
 
 namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
 {
-    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges =
+        Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Explore scenes in flyover AR",
         "Augmented reality",
@@ -42,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         private void CreateLayout()
         {
             // Create the layout.
-            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
 
             // Add the AR scene view.
             _arSceneView = new ARSceneView(this);
@@ -60,7 +61,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             Scene flyoverScene = new Scene(Basemap.CreateImagery());
 
             // Create the integrated mesh layer and add it to the scene.
-            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
+            IntegratedMeshLayer meshLayer =
+                new IntegratedMeshLayer(
+                    new Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
             flyoverScene.OperationalLayers.Add(meshLayer);
 
             try
@@ -86,7 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             }
             catch (Exception ex)
             {
-                new Android.App.AlertDialog.Builder(this).SetMessage("Failed to start AR").SetTitle("Erro").Show();
+                new Android.App.AlertDialog.Builder(this).SetMessage("Failed to start AR").SetTitle("Error").Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -102,7 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
             base.OnResume();
 
             // Start AR tracking without location updates.
-            await _arSceneView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
+            await _arSceneView.StartTrackingAsync();
         }
     }
 }

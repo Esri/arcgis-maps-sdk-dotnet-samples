@@ -7,10 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Android;
 using Android.App;
 using Android.Content;
@@ -28,17 +24,21 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using Xamarin.Auth;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges =
+        ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Navigate in AR",
         "Augmented reality",
         "Use a route displayed in the real world to navigate.",
         "")]
-    public class NavigateAR_RoutePlanner : AppCompatActivity, IOAuthAuthorizeHandler
+    public class NavigateARRoutePlanner : AppCompatActivity, IOAuthAuthorizeHandler
     {
         // Hold references to the UI controls.
         private MapView _mapView;
@@ -60,7 +60,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private RouteParameters _routeParameters;
 
         // URL to the routing service; requires login.
-        private readonly Uri _routingUri = new System.Uri("https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World");
+        private readonly Uri _routingUri =
+            new Uri("https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World");
 
         // Auth.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
@@ -69,8 +70,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
 
         // Permissions and permission request.
-        private readonly string[] _requestedPermissions = { Manifest.Permission.AccessFineLocation };
-        private const int requestCode = 35;
+        private readonly string[] _requestedPermissions = {Manifest.Permission.AccessFineLocation};
+        private const int RequestCode = 35;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -116,7 +117,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
                 // Create route display overlay and symbology.
                 _routeOverlay = new GraphicsOverlay();
-                SimpleLineSymbol routeSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Yellow, 1);
+                SimpleLineSymbol routeSymbol =
+                    new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Yellow, 1);
                 _routeOverlay.Renderer = new SimpleRenderer(routeSymbol);
 
                 // Create stop display overlay.
@@ -134,7 +136,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             catch (Exception ex)
             {
-                new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage("Failed to start sample").SetTitle("Error").Show();
+                new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage("Failed to start sample")
+                    .SetTitle("Error").Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -145,7 +148,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             {
                 // Place the start point.
                 _startPoint = e.Location;
-                Graphic startGraphic = new Graphic(_startPoint, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Green, 25));
+                Graphic startGraphic = new Graphic(_startPoint,
+                    new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Green, 25));
                 _stopsOverlay.Graphics.Add(startGraphic);
 
                 // Update help text.
@@ -155,7 +159,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             {
                 // Place the end point.
                 _endPoint = e.Location;
-                Graphic endGraphic = new Graphic(_endPoint, new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Red, 25));
+                Graphic endGraphic = new Graphic(_endPoint,
+                    new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Red, 25));
                 _stopsOverlay.Graphics.Add(endGraphic);
 
                 // Update help text.
@@ -177,7 +182,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _helpLabel.Text = "You're ready to start navigating!";
         }
 
-        private void NavigateButton_Click(object sender, System.EventArgs e)
+        private void NavigateButton_Click(object sender, EventArgs e)
         {
             // Start the AR navigation activity.
             Intent myIntent = new Intent(this, typeof(RouteViewerAR));
@@ -186,7 +191,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private async void SolveRoute()
         {
-            try {
+            try
+            {
                 // Create route parameters and configure them to enable navigation.
                 _routeParameters = await _routeTask.CreateDefaultParametersAsync();
                 _routeParameters.ReturnStops = true;
@@ -194,13 +200,15 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 _routeParameters.ReturnRoutes = true;
 
                 // Prefer walking directions if available.
-                TravelMode walkingMode = _routeTask.RouteTaskInfo.TravelModes.FirstOrDefault(mode => mode.Name.Contains("Walk")) ?? _routeTask.RouteTaskInfo.TravelModes.First();
+                TravelMode walkingMode =
+                    _routeTask.RouteTaskInfo.TravelModes.FirstOrDefault(mode => mode.Name.Contains("Walk")) ??
+                    _routeTask.RouteTaskInfo.TravelModes.First();
                 _routeParameters.TravelMode = walkingMode;
 
-                // Set the stops for the routel
+                // Set the stops for the route.
                 Stop stop1 = new Stop(_startPoint);
                 Stop stop2 = new Stop(_endPoint);
-                _routeParameters.SetStops(new[] { stop1, stop2 });
+                _routeParameters.SetStops(new[] {stop1, stop2});
 
                 // Calculate the route.
                 _routeResult = await _routeTask.SolveRouteAsync(_routeParameters);
@@ -217,7 +225,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             catch (Exception ex)
             {
-                new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage("Failed to calculate route.").SetTitle("Error").Show();
+                new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage("Failed to calculate route.")
+                    .SetTitle("Error").Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -230,19 +239,22 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             else
             {
-                ActivityCompat.RequestPermissions(this, _requestedPermissions, NavigateAR_RoutePlanner.requestCode);
+                ActivityCompat.RequestPermissions(this, _requestedPermissions, NavigateARRoutePlanner.RequestCode);
             }
         }
 
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Permission[] grantResults)
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions,
+            [GeneratedEnum] Permission[] grantResults)
         {
-            if (requestCode == NavigateAR_RoutePlanner.requestCode && grantResults[0] == Permission.Granted)
+            if (requestCode == NavigateARRoutePlanner.RequestCode && grantResults[0] == Permission.Granted)
             {
                 Initialize();
-            } else
+            }
+            else
             {
                 Toast.MakeText(this, "Location permissions needed for this sample", ToastLength.Short).Show();
             }
+
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
@@ -282,11 +294,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials.
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (TaskCanceledException) { return credential; }
-            catch (Exception)
+            catch (TaskCanceledException)
             {
-                // Exception will be reported in calling function.
-                throw;
+                return credential;
             }
 
             return credential;
@@ -307,7 +317,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            Xamarin.Auth.OAuth2Authenticator authenticator = new OAuth2Authenticator(
+            Xamarin.Auth.OAuth2Authenticator authenticator = new Xamarin.Auth.OAuth2Authenticator(
                 clientId: AppClientId,
                 scope: "",
                 authorizeUrl: authorizeUri,
@@ -345,7 +355,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             };
 
             // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            authenticator.Error += (sndr, errArgs) =>
+            authenticator.Error += (sender, errArgs) =>
             {
                 // If the user cancels, the Error event is raised but there is no exception ... best to check first.
                 if (errArgs.Exception != null)
@@ -370,6 +380,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
+
         #endregion OAuth
     }
 }

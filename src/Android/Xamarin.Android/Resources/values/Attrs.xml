@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <declare-styleable name="JoystickSeekBar">
+        <attr name="jsb_min" format="float" />
+        <attr name="jsb_max" format="float" />
+    </declare-styleable>
+</resources>

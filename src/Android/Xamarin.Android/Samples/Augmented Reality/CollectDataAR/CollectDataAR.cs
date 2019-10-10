@@ -2,7 +2,6 @@
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.Graphics;
 using Android.Media;
 using Android.OS;
 using Android.Runtime;
@@ -22,6 +21,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Java.Nio;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         private bool _changingScale;
 
         // Create a new copmletion source for the prompt.
-        private TaskCompletionSource<int> _healthCompletionSource = new TaskCompletionSource<int>();
+        private TaskCompletionSource<int> _healthCompletionSource;
 
         // Feature table for collected data about trees.
         private ServiceFeatureTable _featureTable = new ServiceFeatureTable(new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/AR_Tree_Survey/FeatureServer/0"));
@@ -136,6 +136,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             // Create the layout.
             CreateLayout();
 
+            // Request permissions for location.
             RequestPermissions();
         }
 
@@ -182,13 +183,13 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         private void HeadingSlider_DeltaProgressChanged(object sender, DeltaChangedEventArgs e)
         {
             // Get the old camera.
-            Esri.ArcGISRuntime.Mapping.Camera camera = _arView.OriginCamera;
+            Camera camera = _arView.OriginCamera;
 
             // Calculate the new heading by applying the offset to the old camera's heading.
             double heading = camera.Heading + e.DeltaProgress;
 
             // Create a new camera by rotating the old camera to the new heading.
-            Esri.ArcGISRuntime.Mapping.Camera newCamera = camera.RotateTo(heading, camera.Pitch, camera.Roll);
+            Camera newCamera = camera.RotateTo(heading, camera.Pitch, camera.Roll);
 
             // Use the new camera as the origin camera.
             _arView.OriginCamera = newCamera;
@@ -214,6 +215,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
                 // Start AR tracking using a continuous GPS signal.
                 await _arView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
+                _altitudeSlider.Enabled = true;
                 _localButton.Enabled = true;
             }
             else
@@ -222,6 +224,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
                 // Start AR tracking without using a GPS signal.
                 await _arView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
+                _altitudeSlider.Enabled = false;
                 _roamingButton.Enabled = true;
             }
             _changingScale = false;
@@ -298,13 +301,11 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         private async void AddButtonPressed(object sender, EventArgs e)
         {
             // Check if the user has already tapped a point.
-            /*
             if (!_graphicsOverlay.Graphics.Any())
             {
                 ShowMessage("Didn't find anything, try again.", "Error");
                 return;
             }
-            */
             try
             {
                 // Prevent the user from changing the tapped feature.
@@ -348,6 +349,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             builder.Show();
 
             // Get the selected terminal.
+            _healthCompletionSource = new TaskCompletionSource<int>();
             int selectedIndex = await _healthCompletionSource.Task;
 
             // Return a tree health value based on the users selection.
@@ -384,8 +386,8 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             try
             {
                 // Get the geometry of the feature.
-                //MapPoint featurePoint = _graphicsOverlay.Graphics.First().Geometry as MapPoint;
-                MapPoint featurePoint = new MapPoint(0, 0);
+                MapPoint featurePoint = _graphicsOverlay.Graphics.First().Geometry as MapPoint;
+
                 // Create attributes for the feature using the user selected health value.
                 IEnumerable<KeyValuePair<string, object>> featureAttributes = new Dictionary<string, object>() { { "Health", (short)healthValue }, { "Height", 3.2 }, { "Diameter", 1.2 } };
 
@@ -394,20 +396,12 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 {
                     await _featureTable.LoadAsync();
                 }
+
                 // Create the new feature
                 ArcGISFeature newFeature = _featureTable.CreateFeature(featureAttributes, featurePoint) as ArcGISFeature;
 
-
-                var x = await _arView.ExportImageAsync();
-                var s = await x.GetEncodedBufferAsync();
-
-                    // Store the jpeg data in a byte array.
-                byte[] jpegArray = new byte[s.Length];
-                s.Read(jpegArray, 0, jpegArray.Length);
-
                 // Convert the Image from ARCore into a JPEG byte array.
-                //byte[] attachmentData = await ConvertToJPEG(capturedImage);
-                byte[] attachmentData = await BitmapConvert(_arView.ArSceneView);
+                byte[] attachmentData = await ConvertImageToJPEG(capturedImage);
 
                 // Add the attachment.
                 // The contentType string is the MIME type for JPEG files, image/jpeg.
@@ -431,27 +425,9 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             }
         }
 
-        private async Task<byte[]> BitmapConvert(View v)
+        // This method uses code from this StackOverflow thread. https://stackoverflow.com/a/51521388
+        private async Task<byte[]> ConvertImageToJPEG(Image capturedImage)
         {
-            v.DrawingCacheEnabled = true;
-            v.BuildDrawingCache(true);
-            Bitmap bitmap = Bitmap.CreateBitmap(v.DrawingCache);
-            v.DrawingCacheEnabled = false;
-
-            System.IO.Stream jpegStream = new System.IO.MemoryStream();
-            await bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, jpegStream);
-
-            // Store the jpeg data in a byte array.
-            jpegStream.Position = 0;
-            byte[] jpegArray = new byte[jpegStream.Length];
-            jpegStream.Read(jpegArray, 0, jpegArray.Length);
-
-            return jpegArray;
-        }
-
-        private async Task<byte[]> ConvertToJPEG(Image capturedImage)
-        {
-            // https://stackoverflow.com/questions/51507549/android-media-image-to-byte
             // Convert the image into a byte array.
             ByteBuffer yBuffer = capturedImage.GetPlanes()[0].Buffer;
             ByteBuffer uBuffer = capturedImage.GetPlanes()[1].Buffer;
@@ -469,10 +445,10 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             vBuffer.Get(nv21ByteArray, ySize, vSize);
             uBuffer.Get(nv21ByteArray, ySize + vSize, uSize);
 
-            // Rotate the nv21 byte array 90 degrees to the right.
+            // Rotate the NV21 byte array 90 degrees to the right.
             byte[] rotatedNV21 = RotateNV21ImageRight(nv21ByteArray, capturedImage.Width, capturedImage.Height);
 
-            // Create a YuvImage using the nv21 image
+            // Create a YuvImage using the NV21 image
             Android.Graphics.YuvImage yuv = new Android.Graphics.YuvImage(rotatedNV21, Android.Graphics.ImageFormatType.Nv21, capturedImage.Height, capturedImage.Width, null);
 
             // Convert the YuvImage into a jpeg.
@@ -483,14 +459,13 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             jpegStream.Position = 0;
             byte[] jpegArray = new byte[jpegStream.Length];
             jpegStream.Read(jpegArray, 0, jpegArray.Length);
-
             return jpegArray;
         }
 
-        //https://stackoverflow.com/questions/6853401/camera-pixels-rotated/31425229#31425229
-        private byte[] RotateNV21ImageRight(byte[] nv21ByteArray, int width, int height)
+        // This method uses code modified from this Stack Overflow thread. https://stackoverflow.com/a/31425229
+        private byte[] RotateNV21ImageRight(byte[] input, int width, int height)
         {
-            byte[] output = new byte[nv21ByteArray.Length];
+            byte[] output = new byte[input.Length];
             int frameSize = width * height;
 
             for (int j = 0; j < height; j++)
@@ -502,18 +477,16 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                     int vIn = uIn + 1;
 
                     int iOut = height - j - 1;
-                    int jOut = width - i - 1;
 
-                    int yOut = jOut * height + iOut;
-                    int uOut = frameSize + (jOut >> 1) * height + (iOut & ~1);
+                    int yOut = i * height + iOut;
+                    int uOut = frameSize + (i >> 1) * height + (iOut & ~1);
                     int vOut = uOut + 1;
 
-                    output[yOut] = (byte)(0xff & nv21ByteArray[yIn]);
-                    output[uOut] = (byte)(0xff & nv21ByteArray[uIn]);
-                    output[vOut] = (byte)(0xff & nv21ByteArray[vIn]);
+                    output[yOut] = (byte)(0xff & input[yIn]);
+                    output[uOut] = (byte)(0xff & input[uIn]);
+                    output[vOut] = (byte)(0xff & input[vIn]);
                 }
             }
-
             return output;
         }
 
@@ -534,7 +507,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         private void ShowMessage(string message, string title, bool closeApp = false)
         {
             // Show a message and then exit after if needed.
-            var dialog = new AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Create();
+            AlertDialog dialog = new AlertDialog.Builder(this).SetMessage(message).SetTitle(title).Create();
             if (closeApp)
             {
                 dialog.SetButton("OK", (o, e) =>

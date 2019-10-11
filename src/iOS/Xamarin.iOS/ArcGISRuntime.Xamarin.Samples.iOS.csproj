@@ -430,6 +430,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Augmented reality\CollectDataAR\AdjustableLocationDataSource.cs" />
+    <Compile Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RoutePlanner.cs" />
     <Compile Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.cs" />
     <Compile Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.cs" />
@@ -681,6 +683,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

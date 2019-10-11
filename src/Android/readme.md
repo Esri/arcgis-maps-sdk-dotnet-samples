@@ -10,8 +10,9 @@
 * [Viewshed for GeoElement](Xamarin.Android/Samples/Analysis/ViewshedGeoElement/readme.md) - Analyze the viewshed for an object (GeoElement) in a scene.
 * [Viewshed for location](Xamarin.Android/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point. Viewshed analyses have several configuration options that are demonstrated in this sample.
 
-## Augmented reality
+## Augmented Reality
 
+* [Collect data in AR](Xamarin.Android/Samples/Augmented%20Reality/CollectDataAR/readme.md) - Tap on real-world objects to collect data.
 * [Display scenes in tabletop AR](Xamarin.Android/Samples/Augmented%20Reality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
 * [Explore scenes in flyover AR](Xamarin.Android/Samples/Augmented%20Reality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
 * [Navigate in AR](Xamarin.Android/Samples/Augmented%20Reality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.

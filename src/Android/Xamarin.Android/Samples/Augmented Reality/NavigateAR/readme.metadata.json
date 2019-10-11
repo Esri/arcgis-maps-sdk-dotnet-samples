@@ -1,5 +1,5 @@
 {
-    "category": "Augmented reality",
+    "category": "Augmented Reality",
     "description": "Use a route displayed in the real world to navigate.",
     "formal_name": "NavigateAR",
     "ignore": false,
@@ -20,8 +20,7 @@
         "world-scale"
     ],
     "nuget_packages": {
-      "Esri.ArcGISRuntime": "100.6.0",
-      "Esri.ArcGISRuntime.ARToolkit":  "100.6.0"
+        "Esri.ArcGISRuntime": "100.6.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -39,11 +38,7 @@
     "snippets": [
         "MSLAdjustedARLocationDataSource.cs",
         "RoutePlanner.cs",
-        "RouteViewerAR.cs",
-        "../../../Resources/layout/NavigateARNavigator.axml",
-        "../../../Resources/layout/NavigateARRoutePlanner.axml",
-        "../../../Resources/values/Attrs.xml",
-        "../../../Controls/JoystickSeekBar.cs"
+        "RouteViewerAR.cs"
     ],
     "title": "Navigate in AR"
 }

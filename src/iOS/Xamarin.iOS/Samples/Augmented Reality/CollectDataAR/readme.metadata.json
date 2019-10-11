@@ -25,7 +25,7 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/android/sample-code/collectdataar.htm"
+        "/net/latest/ios/sample-code/collectdataar.htm"
     ],
     "relevant_apis": [
         "ARSceneView",
@@ -34,8 +34,8 @@
         "Surface"
     ],
     "snippets": [
-        "CollectDataAR.cs",
-        "MSLAdjustedARLocationDataSource.cs"
+        "AdjustableLocationDataSource.cs",
+        "CollectDataAR.cs"
     ],
     "title": "Collect data in AR"
 }

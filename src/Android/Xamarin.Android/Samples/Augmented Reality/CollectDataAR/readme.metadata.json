@@ -1,41 +1,38 @@
 {
-    "category": "Augmented Reality",
-    "description": "Tap on real-world objects to collect data.",
-    "formal_name": "CollectDataAR",
+    "category": "Augmented reality",
+    "description": "Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.",
+    "formal_name": "DisplayScenesInTabletopAR",
     "ignore": false,
     "images": [
-        "CollectDataAR.png"
+        "DisplayScenesInTabletopAR.jpg"
     ],
     "keywords": [
-        "attachment",
         "augmented reality",
-        "capture",
-        "collection",
-        "collector",
-        "data",
-        "field",
-        "field worker",
-        "full-scale",
+        "drop",
         "mixed reality",
-        "survey",
-        "world-scale"
+        "model",
+        "pin",
+        "place",
+        "table-top",
+        "tabletop"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.6.0",
+        "Esri.ArcGISRuntime.ARToolkit": "100.6.0"
     },
-    "offline_data": [],
+    "offline_data": [
+        "7dd2f97bb007466ea939160d0de96a9d"
+    ],
     "redirect_from": [
-        "/net/latest/android/sample-code/collectdataar.htm"
+        "/net/latest/android/sample-code/displayscenesintabletopar.htm"
     ],
     "relevant_apis": [
         "ARSceneView",
-        "GraphicsOverlay",
-        "SceneView",
         "Surface"
     ],
     "snippets": [
-        "CollectDataAR.cs",
-        "MSLAdjustedARLocationDataSource.cs"
+        "DisplayScenesInTabletopAR.cs",
+        "../../../Resources/layout/DisplayScenesInTabletopAR.axml"
     ],
-    "title": "Collect data in AR"
+    "title": "Display scenes in tabletop AR"
 }

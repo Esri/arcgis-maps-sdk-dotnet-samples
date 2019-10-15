@@ -1,5 +1,5 @@
 {
-    "category": "Augmented Reality",
+    "category": "Augmented reality",
     "description": "Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.",
     "formal_name": "ExploreScenesInFlyoverAR",
     "ignore": false,
@@ -16,7 +16,8 @@
         "translation factor"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+      "Esri.ArcGISRuntime": "100.6.0",
+      "Esri.ArcGISRuntime.ARToolkit": "100.6.0"
     },
     "offline_data": [],
     "redirect_from": [

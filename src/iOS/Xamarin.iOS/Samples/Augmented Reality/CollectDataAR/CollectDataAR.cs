@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-
 using CoreGraphics;
 using CoreImage;
 using Esri.ArcGISRuntime.ARToolkit;
@@ -74,12 +73,18 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 {
                     // Show the base surface so that the user can calibrate using the base surface on top of the real world.
                     _arView.Scene.BaseSurface.Opacity = 0.5;
+
+                    // Enable scene interaction.
+                    _arView.InteractionOptions.IsEnabled = true;
                     ShowCalibrationPopover();
                 }
                 else
                 {
                     // Hide the base surface.
                     _arView.Scene.BaseSurface.Opacity = 0;
+
+                    // Disable scene interaction.
+                    _arView.InteractionOptions.IsEnabled = false;
                     _calibrationVC.DismissViewController(true, null);
                 }
             }
@@ -104,7 +109,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
             _calibrationVC = new CalibrationViewController(_arView, _locationSource);
 
-            _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, ToggleCalibration);
+            _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, ToggleCalibration) { Enabled = false };
             _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddButtonPressed) { Enabled = false };
 
             _realScalePicker = new UISegmentedControl("Roaming", "Local");
@@ -210,14 +215,25 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             _graphicsOverlay.Renderer = new SimpleRenderer(_tappedPointSymbol);
             _arView.GraphicsOverlays.Add(_graphicsOverlay);
 
+            // Add the exisiting features to the scene.
+            FeatureLayer treeLayer = new FeatureLayer(_featureTable);
+            treeLayer.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
+            _arView.Scene.OperationalLayers.Add(treeLayer);
+
             // Add the event for the user tapping the screen.
             _arView.GeoViewTapped += arViewTapped;
+
+            // Disable scene interaction.
+            _arView.InteractionOptions = new SceneViewInteractionOptions() { IsEnabled = false };
+
+            // Enable the calibrate button.
+            _calibrateButton.Enabled = true;
         }
 
         private void arViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Don't add features when calibrating the AR view.
-            if(_isCalibrating)
+            if (_isCalibrating)
             {
                 return;
             }
@@ -227,7 +243,6 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
             // Remove any existing graphics.
             _graphicsOverlay.Graphics.Clear();
-
 
             // Check if a Map Point was identified.
             if (planeLocation != null)
@@ -259,7 +274,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 // Stop calibration when the popover closes.
                 popoverDelegate.UserDidDismissPopover += (o, e) => IsCalibrating = false;
                 pc.Delegate = popoverDelegate;
-                pc.PassthroughViews = new UIView[]{ View };
+                pc.PassthroughViews = new UIView[] { View };
             }
             PresentViewController(_calibrationVC, true, null);
         }
@@ -269,6 +284,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         {
             // Public event enables detection of popover close. When the popover closes, calibration should stop.
             public EventHandler UserDidDismissPopover;
+
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(
                 UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
 
@@ -372,7 +388,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 IEnumerable<KeyValuePair<string, object>> featureAttributes = new Dictionary<string, object>() { { "Health", (short)healthValue }, { "Height", 3.2 }, { "Diameter", 1.2 } };
 
                 // Ensure that the feature table is loaded.
-                if(_featureTable.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded )
+                if (_featureTable.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded)
                 {
                     await _featureTable.LoadAsync();
                 }
@@ -403,6 +419,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                _helpLabel.Text = "Could not create feature";
                 new UIAlertView("Error", "Could not create feature", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
@@ -487,7 +504,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         public void SetIsUsingContinuousPositioning(bool continuous)
         {
             _isContinuous = continuous;
-            if(_isContinuous)
+            if (_isContinuous)
             {
                 _elevationSlider.Enabled = true;
             }
@@ -513,7 +530,6 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                     // Set the origin camera by rotating the existing camera to the new heading.
                     _arView.OriginCamera = oldCamera.RotateTo(newHeading, oldCamera.Pitch, oldCamera.Roll);
 
-
                     // Update the heading label.
                     headingLabel.Text = $"Heading: {(int)_arView.OriginCamera.Heading}";
                 });
@@ -529,7 +545,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 _elevationTimer = new NSTimer(NSDate.Now, 0.1, true, (timer) =>
                 {
                     // Calculate the altitude offset
-                    var newValue = _locationSource.AltitudeOffset += JoystickConverter(_elevationSlider.Value * 3.0);
+                    var newValue = _locationSource.AltitudeOffset += JoystickConverter(_elevationSlider.Value);
 
                     // Set the altitude offset on the location data source.
                     _locationSource.AltitudeOffset = newValue;

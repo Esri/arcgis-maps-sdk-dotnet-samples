@@ -15,7 +15,7 @@
         "Planar"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.7.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -27,8 +27,8 @@
         "GraphicsOverlay"
     ],
     "snippets": [
-        "Buffer.cs",
-        "../../../Resources/layout/Buffer.axml"
+        "../../../Resources/layout/Buffer.axml",
+        "Buffer.cs"
     ],
     "title": "Buffer"
 }

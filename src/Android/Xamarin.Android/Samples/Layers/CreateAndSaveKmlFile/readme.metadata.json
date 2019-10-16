@@ -13,7 +13,7 @@
         "OGC"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.7.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -31,8 +31,8 @@
         "SketchEditor"
     ],
     "snippets": [
-        "CreateAndSaveKmlFile.cs",
-        "../../../Resources/layout/CreateAndSaveKmlFile.axml"
+        "../../../Resources/layout/CreateAndSaveKmlFile.axml",
+        "CreateAndSaveKmlFile.cs"
     ],
     "title": "Create and save KML file"
 }

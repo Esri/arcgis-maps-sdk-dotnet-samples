@@ -17,7 +17,7 @@
         "tabletop"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0",
+        "Esri.ArcGISRuntime": "100.7.0",
         "Esri.ArcGISRuntime.ARToolkit": "100.6.0"
     },
     "offline_data": [
@@ -31,8 +31,8 @@
         "Surface"
     ],
     "snippets": [
-        "DisplayScenesInTabletopAR.cs",
-        "../../../Resources/layout/DisplayScenesInTabletopAR.axml"
+        "../../../Resources/layout/DisplayScenesInTabletopAR.axml",
+        "DisplayScenesInTabletopAR.cs"
     ],
     "title": "Display scenes in tabletop AR"
 }

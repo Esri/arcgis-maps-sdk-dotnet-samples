@@ -20,8 +20,8 @@
         "world-scale"
     ],
     "nuget_packages": {
-      "Esri.ArcGISRuntime": "100.6.0",
-      "Esri.ArcGISRuntime.ARToolkit":  "100.6.0"
+        "Esri.ArcGISRuntime": "100.7.0",
+        "Esri.ArcGISRuntime.ARToolkit": "100.6.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -37,13 +37,13 @@
         "Surface"
     ],
     "snippets": [
-        "MSLAdjustedARLocationDataSource.cs",
-        "RoutePlanner.cs",
-        "RouteViewerAR.cs",
+        "../../../Controls/JoystickSeekBar.cs",
         "../../../Resources/layout/NavigateARNavigator.axml",
         "../../../Resources/layout/NavigateARRoutePlanner.axml",
         "../../../Resources/values/Attrs.xml",
-        "../../../Controls/JoystickSeekBar.cs"
+        "MSLAdjustedARLocationDataSource.cs",
+        "RoutePlanner.cs",
+        "RouteViewerAR.cs"
     ],
     "title": "Navigate in AR"
 }

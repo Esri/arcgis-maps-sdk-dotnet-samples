@@ -315,7 +315,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 // Add a graphic at the tapped location.
                 _graphicsOverlay.Graphics.Add(new Graphic(planeLocation));
                 _addButton.Enabled = true;
-                _helpLabel.Text = "Placed relative to ARKit plane";
+                _helpLabel.Text = "Placed relative to ARCore plane";
             }
             else
             {

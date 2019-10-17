@@ -36,7 +36,10 @@
     ],
     "snippets": [
         "CollectDataAR.cs",
-        "MSLAdjustedARLocationDataSource.cs"
+        "MSLAdjustedARLocationDataSource.cs",
+        "../../../Resources/layout/CollectDataAR.axml",
+        "../../../Resources/values/Attrs.xml",
+        "../../../Controls/JoystickSeekBar.cs"
     ],
     "title": "Collect data in AR"
 }

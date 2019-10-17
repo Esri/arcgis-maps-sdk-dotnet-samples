@@ -125,12 +125,18 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 {
                     // Show the surface semitransparent for calibration.
                     _scene.BaseSurface.Opacity = 0.5;
+
+                    // Enable scene interaction.
+                    _arView.InteractionOptions.IsEnabled = true;
                     _calibrationView.Visibility = ViewStates.Visible;
                 }
                 else
                 {
                     // Hide the scene when not calibrating.
                     _scene.BaseSurface.Opacity = 0;
+
+                    // Disable scene interaction.
+                    _arView.InteractionOptions.IsEnabled = false;
                     _calibrationView.Visibility = ViewStates.Gone;
                 }
             }
@@ -274,8 +280,19 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             _graphicsOverlay.Renderer = new SimpleRenderer(_tappedPointSymbol);
             _arView.GraphicsOverlays.Add(_graphicsOverlay);
 
+            // Add the exisiting features to the scene.
+            FeatureLayer treeLayer = new FeatureLayer(_featureTable);
+            treeLayer.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
+            _arView.Scene.OperationalLayers.Add(treeLayer);
+
             // Add the event for the user tapping the screen.
             _arView.GeoViewTapped += arViewTapped;
+
+            // Disable scene interaction.
+            _arView.InteractionOptions = new SceneViewInteractionOptions() { IsEnabled = false };
+
+            // Enable the calibrate button.
+            _calibrateButton.Enabled = true;
         }
 
         private void arViewTapped(object sender, GeoViewInputEventArgs e)

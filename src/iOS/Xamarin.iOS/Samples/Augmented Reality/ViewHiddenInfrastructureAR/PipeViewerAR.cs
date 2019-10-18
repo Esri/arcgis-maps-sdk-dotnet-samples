@@ -21,6 +21,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 {
     internal class PipeViewerAR : UIViewController
     {
+        // Pipe graphics that have been passed in by the PipePlacer class.
         public IEnumerable<Graphic> _pipeGraphics;
 
         // Hold references to UI controls.
@@ -184,14 +185,15 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
             // Create a graphics overlay for the pipes.
             GraphicsOverlay pipesOverlay = new GraphicsOverlay();
+
+            // Use absolute surface placement to see the graphics at the correct altitude.
             pipesOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
 
             // Add graphics for the pipes.
             pipesOverlay.Graphics.AddRange(_pipeGraphics);
 
-            // Display routes as yellow 3D tubes.
-            SolidStrokeSymbolLayer strokeSymbolLayer = new SolidStrokeSymbolLayer(0.3, System.Drawing.Color.Red, null, StrokeSymbolLayerLineStyle3D.Tube);
-            strokeSymbolLayer.CapStyle = StrokeSymbolLayerCapStyle.Round;
+            // Display routes as red 3D tubes.
+            SolidStrokeSymbolLayer strokeSymbolLayer = new SolidStrokeSymbolLayer(0.3, System.Drawing.Color.Red, null, StrokeSymbolLayerLineStyle3D.Tube) { CapStyle = StrokeSymbolLayerCapStyle.Round };
             MultilayerPolylineSymbol tubeSymbol = new MultilayerPolylineSymbol(new[] { strokeSymbolLayer });
             pipesOverlay.Renderer = new SimpleRenderer(tubeSymbol);
 

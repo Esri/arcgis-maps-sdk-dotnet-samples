@@ -636,7 +636,16 @@
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ViewHiddenARPipePlacer.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ViewHiddenARPipeViewer.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

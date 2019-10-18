@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using System.Collections.Generic;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
@@ -35,6 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         private UIBarButtonItem _undoButton;
         private UIBarButtonItem _redoButton;
         private UIBarButtonItem _viewButton;
+        private UIBarButtonItem _doneButton;
         private UIBarButtonItem _elevationSliderButton;
         private UISlider _elevationSlider;
 
@@ -61,18 +61,33 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _helpLabel.BackgroundColor = UIColor.FromWhiteAlpha(0f, 0.6f);
             _helpLabel.Text = "Preparing services...";
 
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            UIToolbar elevToolbar = new UIToolbar();
+            elevToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, StartSketch) { Enabled = false };
-            _undoButton = new UIBarButtonItem(UIBarButtonSystemItem.Undo, UndoButton_Clicked) { Enabled = false };
-            _redoButton = new UIBarButtonItem(UIBarButtonSystemItem.Redo, RedoButton_Clicked) { Enabled = false };
-            _viewButton = new UIBarButtonItem(UIBarButtonSystemItem.Camera, ViewButton_Clicked) { Enabled = false };
+            UIBarButtonItem elevLabel = new UIBarButtonItem() { CustomView = new UILabel() { Text = "Elevation:"} };
 
             _elevationSlider = new UISlider() { MinValue = -10, MaxValue = 10, Value = 0 };
             _elevationSliderButton = new UIBarButtonItem() { CustomView = _elevationSlider };
 
-            toolbar.Items = new[]
+            elevToolbar.Items = new[]
+            {
+                 elevLabel,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _elevationSliderButton
+            };
+
+            UIToolbar buttonToolbar = new UIToolbar();
+            buttonToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _addButton = new UIBarButtonItem(UIBarButtonSystemItem.Add, AddSketch) { Enabled = false };
+            _undoButton = new UIBarButtonItem(UIBarButtonSystemItem.Undo, UndoButton_Clicked) { Enabled = false };
+            _redoButton = new UIBarButtonItem(UIBarButtonSystemItem.Redo, RedoButton_Clicked) { Enabled = false };
+            _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneButton_Clicked) { Enabled = false };
+            _viewButton = new UIBarButtonItem(UIBarButtonSystemItem.Camera, ViewButton_Clicked) { Enabled = false };
+
+            
+
+            buttonToolbar.Items = new[]
             {
                  _addButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -80,28 +95,31 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _redoButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _elevationSliderButton,
+                _doneButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _viewButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
             };
 
             // Add the views.
-            View.AddSubviews(_mapView, _helpLabel, toolbar);
+            View.AddSubviews(_mapView, _helpLabel, elevToolbar, buttonToolbar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]{
                 _mapView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
-                _mapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _mapView.BottomAnchor.ConstraintEqualTo(elevToolbar.TopAnchor),
                 _mapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _helpLabel.HeightAnchor.ConstraintEqualTo(40),
-                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
+                elevToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                elevToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                elevToolbar.BottomAnchor.ConstraintEqualTo(buttonToolbar.TopAnchor),
+                buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                buttonToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor)
             });
         }
 
@@ -127,71 +145,74 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _mapView.SketchEditor = _sketchEditor;
 
             _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+            
             await _elevationSource.LoadAsync();
+            _elevationSurface = new Surface();
+            _elevationSurface.ElevationSources.Add(_elevationSource);
+            await _elevationSurface.LoadAsync();
             _addButton.Enabled = true;
+            
         }
 
-        private void MapViewTapped(object sender, GeoViewInputEventArgs e)
+        private void DoneButton_Clicked(object sender, EventArgs e)
         {
-            
+            if (_sketchEditor.CompleteCommand.CanExecute(null)) _sketchEditor.CompleteCommand.Execute(null);
+            _doneButton.Enabled = _undoButton.Enabled = _redoButton.Enabled = false;
         }
 
         private void ViewButton_Clicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            NavigationController.PopViewController(true);
+            NavigationController.PushViewController(new PipeViewerAR() { _pipesOverlay = _pipesOverlay }, true);
         }
 
         private void RedoButton_Clicked(object sender, EventArgs e)
         {
-            _sketchEditor.RedoCommand.Execute(null);
+            if (_sketchEditor.RedoCommand.CanExecute(null)) _sketchEditor.RedoCommand.Execute(null);
         }
 
         private void UndoButton_Clicked(object sender, EventArgs e)
         {
-            _sketchEditor.UndoCommand.Execute(null);
+            if (_sketchEditor.UndoCommand.CanExecute(null)) _sketchEditor.UndoCommand.Execute(null);
         }
 
-        private async void StartSketch(object sender, EventArgs e)
+        private async void AddSketch(object sender, EventArgs e)
         {
             // Get the users selected elevation offset.
             double elevationOffset = _elevationSlider.Value;
+            _doneButton.Enabled = _undoButton.Enabled = _redoButton.Enabled = true;
+            Geometry geometry = await _sketchEditor.StartAsync(SketchCreationMode.Polyline);
 
-            if (_sketchEditor.Geometry is Polyline)
+            if (!(geometry is Polyline))
             {
-                MapPoint firstPoint = ((Polyline)_sketchEditor.Geometry).Parts[0].StartPoint;
-                try
-                { 
-                    double elevation = await _elevationSurface.GetElevationAsync(firstPoint);
-                    Polyline elevatedLine = GeometryEngine.SetZ(_sketchEditor.Geometry, elevation + elevationOffset) as Polyline;
-                    Graphic linegraphic = new Graphic(elevatedLine);
-                    _pipesOverlay.Graphics.Add(linegraphic);
-                    _viewButton.Enabled = true;
-                    if (elevationOffset < 0) 
-                    {
-                        _helpLabel.Text = $"Pipe added {elevationOffset*-1}m below surface";
-                    }
-                    else if (elevationOffset == 0) 
-                    {
-                        _helpLabel.Text = "Pipe added at ground level";
-                    }
-                    else
-                    {
-                        _helpLabel.Text = $"Pipe added {elevationOffset}m above surface";
-                    }
-                }
-                catch(Exception)
+                return;
+            }
+           
+            MapPoint firstPoint = ((Polyline)geometry).Parts[0].StartPoint;
+            try
+            {
+                double elevation = await _elevationSurface.GetElevationAsync(firstPoint);
+                Polyline elevatedLine = GeometryEngine.SetZ(geometry, elevation + elevationOffset) as Polyline;
+                Graphic linegraphic = new Graphic(elevatedLine);
+                _pipesOverlay.Graphics.Add(linegraphic);
+                _viewButton.Enabled = true;
+
+                if (elevationOffset < 0)
                 {
-
+                    _helpLabel.Text = string.Format("Pipe added {0:0.0}m below surface", elevationOffset * -1);
                 }
-
+                else if (elevationOffset == 0)
+                {
+                    _helpLabel.Text = "Pipe added at ground level";
+                }
+                else
+                {
+                    _helpLabel.Text = string.Format("Pipe added {0:0.0}m above the surface", elevationOffset);
+                }
             }
-            else
+            catch (Exception)
             {
-                if(_sketchEditor.CancelCommand.CanExecute(null)) _sketchEditor.CancelCommand.Execute(null);
             }
-
-            // Start a new sketch
-            await _sketchEditor.StartAsync(SketchCreationMode.Polyline);
         }
     }
 }

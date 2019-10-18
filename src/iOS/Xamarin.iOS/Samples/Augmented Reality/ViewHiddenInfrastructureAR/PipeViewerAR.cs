@@ -31,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         private CalibrationViewController _calibrationVC;
         private UISegmentedControl _realScalePicker;
 
-        // Elevation and elevation for the scene.
+        // Elevation for the scene.
         private ArcGISTiledElevationSource _elevationSource;
         private Surface _elevationSurface;
 
@@ -57,6 +57,8 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
                     // Enable scene interaction.
                     _arView.InteractionOptions.IsEnabled = true;
+
+                    // Show the calibration controls.
                     ShowCalibrationPopover();
                 }
                 else
@@ -66,59 +68,11 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
                     // Disable scene interaction.
                     _arView.InteractionOptions.IsEnabled = false;
+
+                    // Hide the calibration controls.
                     _calibrationVC.DismissViewController(true, null);
                 }
             }
-        }
-
-        public override void LoadView()
-        {
-            View = new UIView { BackgroundColor = UIColor.White };
-
-            UIToolbar toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _arView = new ARSceneView();
-            _arView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            _helpLabel = new UILabel();
-            _helpLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            _helpLabel.TextAlignment = UITextAlignment.Center;
-            _helpLabel.TextColor = UIColor.White;
-            _helpLabel.BackgroundColor = UIColor.FromWhiteAlpha(0, 0.6f);
-            _helpLabel.Text = "Adjust calibration before starting";
-
-            _calibrationVC = new CalibrationViewController(_arView, _locationSource);
-
-            _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, ToggleCalibration) { Enabled = false };
-
-            _realScalePicker = new UISegmentedControl("Roaming", "Local");
-            _realScalePicker.SelectedSegment = 0;
-            _realScalePicker.ValueChanged += RealScaleValueChanged;
-
-            toolbar.Items = new[]
-            {
-                _calibrateButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem(){CustomView = _realScalePicker},
-            };
-
-            View.AddSubviews(_arView, toolbar, _helpLabel);
-
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _arView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _arView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _arView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
-                _arView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
-                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _helpLabel.HeightAnchor.ConstraintEqualTo(40)
-            });
         }
 
         private async void RealScaleValueChanged(object sender, EventArgs e)
@@ -154,14 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             // Re-enable the UI control.
             ((UISegmentedControl)sender).Enabled = true;
             _changingScale = false;
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-
-            Initialize();
-        }
+        }      
 
         private void ToggleCalibration(object sender, EventArgs e) => IsCalibrating = !IsCalibrating;
 
@@ -248,6 +195,63 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             {
                 UserDidDismissPopover?.Invoke(this, EventArgs.Empty);
             }
+        }
+
+        public override void LoadView()
+        {
+            View = new UIView { BackgroundColor = UIColor.White };
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _arView = new ARSceneView();
+            _arView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _helpLabel = new UILabel();
+            _helpLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+            _helpLabel.TextAlignment = UITextAlignment.Center;
+            _helpLabel.TextColor = UIColor.White;
+            _helpLabel.BackgroundColor = UIColor.FromWhiteAlpha(0, 0.6f);
+            _helpLabel.Text = "Adjust calibration before starting";
+
+            _calibrationVC = new CalibrationViewController(_arView, _locationSource);
+
+            _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, ToggleCalibration) { Enabled = false };
+
+            _realScalePicker = new UISegmentedControl("Roaming", "Local");
+            _realScalePicker.SelectedSegment = 0;
+            _realScalePicker.ValueChanged += RealScaleValueChanged;
+
+            toolbar.Items = new[]
+            {
+                _calibrateButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem(){CustomView = _realScalePicker},
+            };
+
+            View.AddSubviews(_arView, toolbar, _helpLabel);
+
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _arView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _arView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _arView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                _arView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _helpLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _helpLabel.HeightAnchor.ConstraintEqualTo(40)
+            });
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            Initialize();
         }
 
         public override async void ViewDidAppear(bool animated)

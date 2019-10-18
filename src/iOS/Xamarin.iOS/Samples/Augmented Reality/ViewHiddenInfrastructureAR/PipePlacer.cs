@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
@@ -64,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             UIToolbar elevToolbar = new UIToolbar();
             elevToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UIBarButtonItem elevLabel = new UIBarButtonItem() { CustomView = new UILabel() { Text = "Elevation:"} };
+            UIBarButtonItem elevLabel = new UIBarButtonItem() { CustomView = new UILabel() { Text = "Elevation:" } };
 
             _elevationSlider = new UISlider() { MinValue = -10, MaxValue = 10, Value = 0 };
             _elevationSliderButton = new UIBarButtonItem() { CustomView = _elevationSlider };
@@ -84,8 +85,6 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _redoButton = new UIBarButtonItem(UIBarButtonSystemItem.Redo, RedoButton_Clicked) { Enabled = false };
             _doneButton = new UIBarButtonItem(UIBarButtonSystemItem.Done, DoneButton_Clicked) { Enabled = false };
             _viewButton = new UIBarButtonItem(UIBarButtonSystemItem.Camera, ViewButton_Clicked) { Enabled = false };
-
-            
 
             buttonToolbar.Items = new[]
             {
@@ -145,13 +144,12 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _mapView.SketchEditor = _sketchEditor;
 
             _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
-            
+
             await _elevationSource.LoadAsync();
             _elevationSurface = new Surface();
             _elevationSurface.ElevationSources.Add(_elevationSource);
             await _elevationSurface.LoadAsync();
             _addButton.Enabled = true;
-            
         }
 
         private void DoneButton_Clicked(object sender, EventArgs e)
@@ -163,7 +161,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         private void ViewButton_Clicked(object sender, EventArgs e)
         {
             NavigationController.PopViewController(true);
-            NavigationController.PushViewController(new PipeViewerAR() { _pipesOverlay = _pipesOverlay }, true);
+            NavigationController.PushViewController(new PipeViewerAR() { _pipeGraphics = _pipesOverlay.Graphics.Select(x => new Graphic(x.Geometry)) }, true);
         }
 
         private void RedoButton_Clicked(object sender, EventArgs e)
@@ -178,25 +176,34 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
         private async void AddSketch(object sender, EventArgs e)
         {
-            // Get the users selected elevation offset.
-            double elevationOffset = _elevationSlider.Value;
             _doneButton.Enabled = _undoButton.Enabled = _redoButton.Enabled = true;
+
+            _addButton.Enabled = false;
             Geometry geometry = await _sketchEditor.StartAsync(SketchCreationMode.Polyline);
+            _addButton.Enabled = true;
 
             if (!(geometry is Polyline))
             {
                 return;
             }
-           
+
             MapPoint firstPoint = ((Polyline)geometry).Parts[0].StartPoint;
             try
             {
+                // Get the users selected elevation offset.
+                double elevationOffset = _elevationSlider.Value;
+
+                // Get the elevation of the geometry.
                 double elevation = await _elevationSurface.GetElevationAsync(firstPoint);
+
+                // Create a polyline for the pipe.
                 Polyline elevatedLine = GeometryEngine.SetZ(geometry, elevation + elevationOffset) as Polyline;
+
+                // Create a graphic for the pipe.
                 Graphic linegraphic = new Graphic(elevatedLine);
                 _pipesOverlay.Graphics.Add(linegraphic);
-                _viewButton.Enabled = true;
 
+                // Display a message with the pipes offset from the surface.
                 if (elevationOffset < 0)
                 {
                     _helpLabel.Text = string.Format("Pipe added {0:0.0}m below surface", elevationOffset * -1);
@@ -212,6 +219,10 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             }
             catch (Exception)
             {
+            }
+            finally
+            {
+                _viewButton.Enabled = true;
             }
         }
     }

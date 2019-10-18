@@ -3,39 +3,39 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using Esri.ArcGISRuntime.UI;
-using Foundation;
-using UIKit;
-using AVFoundation;
 using CoreGraphics;
 using Esri.ArcGISRuntime.ARToolkit;
-using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Navigation;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
+using Esri.ArcGISRuntime.UI;
+using Foundation;
+using System;
+using System.Collections.Generic;
+using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 {
-    class PipeViewerAR : UIViewController
+    internal class PipeViewerAR : UIViewController
     {
-        public GraphicsOverlay _pipesOverlay;
+        public IEnumerable<Graphic> _pipeGraphics;
 
         // Hold references to UI controls.
         private ARSceneView _arView;
         private UILabel _helpLabel;
         private UIBarButtonItem _calibrateButton;
-        private UIBarButtonItem _navigateButton;
         private CalibrationViewController _calibrationVC;
+        private UISegmentedControl _realScalePicker;
 
         // Elevation and elevation for the scene.
         private ArcGISTiledElevationSource _elevationSource;
         private Surface _elevationSurface;
+
+        // Track when user is changing between AR and GPS localization.
+        private bool _changingScale;
 
         // Location data source for AR and route tracking.
         private AdjustableLocationDataSource _locationSource = new AdjustableLocationDataSource();
@@ -51,12 +51,20 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                 _isCalibrating = value;
                 if (_isCalibrating)
                 {
+                    // Show the base surface so that the user can calibrate using the base surface on top of the real world.
                     _arView.Scene.BaseSurface.Opacity = 0.5;
+
+                    // Enable scene interaction.
+                    _arView.InteractionOptions.IsEnabled = true;
                     ShowCalibrationPopover();
                 }
                 else
                 {
+                    // Hide the base surface.
                     _arView.Scene.BaseSurface.Opacity = 0;
+
+                    // Disable scene interaction.
+                    _arView.InteractionOptions.IsEnabled = false;
                     _calibrationVC.DismissViewController(true, null);
                 }
             }
@@ -64,7 +72,6 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
         public override void LoadView()
         {
-            // Create the views.
             View = new UIView { BackgroundColor = UIColor.White };
 
             UIToolbar toolbar = new UIToolbar();
@@ -82,18 +89,21 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
             _calibrationVC = new CalibrationViewController(_arView, _locationSource);
 
-            _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, ToggleCalibration);
+            _calibrateButton = new UIBarButtonItem("Calibrate", UIBarButtonItemStyle.Plain, ToggleCalibration) { Enabled = false };
+
+            _realScalePicker = new UISegmentedControl("Roaming", "Local");
+            _realScalePicker.SelectedSegment = 0;
+            _realScalePicker.ValueChanged += RealScaleValueChanged;
 
             toolbar.Items = new[]
             {
                 _calibrateButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace)
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem(){CustomView = _realScalePicker},
             };
 
-            // Add the views to the UI.
             View.AddSubviews(_arView, toolbar, _helpLabel);
 
-            // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _arView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
@@ -108,6 +118,41 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                 _helpLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _helpLabel.HeightAnchor.ConstraintEqualTo(40)
             });
+        }
+
+        private async void RealScaleValueChanged(object sender, EventArgs e)
+        {
+            // Prevent this from being called concurrently
+            if (_changingScale)
+            {
+                return;
+            }
+            _changingScale = true;
+
+            // Disable the associated UI control while switching.
+            ((UISegmentedControl)sender).Enabled = false;
+
+            // Check if using roaming for AR location mode.
+            if (((UISegmentedControl)sender).SelectedSegment == 0)
+            {
+                await _arView.StopTrackingAsync();
+
+                // Start AR tracking using a continuous GPS signal.
+                await _arView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
+                _calibrationVC.SetIsUsingContinuousPositioning(true);
+            }
+            else
+            {
+                await _arView.StopTrackingAsync();
+
+                // Start AR tracking without using a GPS signal.
+                await _arView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
+                _calibrationVC.SetIsUsingContinuousPositioning(false);
+            }
+
+            // Re-enable the UI control.
+            ((UISegmentedControl)sender).Enabled = true;
+            _changingScale = false;
         }
 
         public override void ViewDidLoad()
@@ -137,17 +182,31 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _elevationSurface.NavigationConstraint = NavigationConstraint.None;
             _elevationSurface.Opacity = 0;
 
+            // Create a graphics overlay for the pipes.
+            GraphicsOverlay pipesOverlay = new GraphicsOverlay();
+            pipesOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
+
+            // Add graphics for the pipes.
+            pipesOverlay.Graphics.AddRange(_pipeGraphics);
+
             // Display routes as yellow 3D tubes.
-            SolidStrokeSymbolLayer strokeSymbolLayer = new SolidStrokeSymbolLayer(1, System.Drawing.Color.Yellow, null, StrokeSymbolLayerLineStyle3D.Tube);
+            SolidStrokeSymbolLayer strokeSymbolLayer = new SolidStrokeSymbolLayer(0.3, System.Drawing.Color.Red, null, StrokeSymbolLayerLineStyle3D.Tube);
             strokeSymbolLayer.CapStyle = StrokeSymbolLayerCapStyle.Round;
             MultilayerPolylineSymbol tubeSymbol = new MultilayerPolylineSymbol(new[] { strokeSymbolLayer });
-            _pipesOverlay.Renderer = new SimpleRenderer(tubeSymbol);
+            pipesOverlay.Renderer = new SimpleRenderer(tubeSymbol);
 
             // Configure scene view display for real-scale AR: no space effect or atmosphere effect.
             _arView.SpaceEffect = SpaceEffect.None;
             _arView.AtmosphereEffect = AtmosphereEffect.None;
 
+            // Add the graphics overlay to the scene.
+            _arView.GraphicsOverlays.Add(pipesOverlay);
 
+            // Disable scene interaction.
+            _arView.InteractionOptions = new SceneViewInteractionOptions() { IsEnabled = false };
+
+            // Enable the calibration button.
+            _calibrateButton.Enabled = true;
         }
 
         private void ShowCalibrationPopover()
@@ -161,9 +220,11 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                 pc.BarButtonItem = _calibrateButton;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 ppDelegate popoverDelegate = new ppDelegate();
+
                 // Stop calibration when the popover closes.
                 popoverDelegate.UserDidDismissPopover += (o, e) => IsCalibrating = false;
                 pc.Delegate = popoverDelegate;
+                pc.PassthroughViews = new UIView[] { View };
             }
 
             PresentViewController(_calibrationVC, true, null);
@@ -174,6 +235,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         {
             // Public event enables detection of popover close. When the popover closes, calibration should stop.
             public EventHandler UserDidDismissPopover;
+
             public override UIModalPresentationStyle GetAdaptivePresentationStyle(
                 UIPresentationController forPresentationController) => UIModalPresentationStyle.None;
 
@@ -213,6 +275,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         private AdjustableLocationDataSource _locationSource;
         private NSTimer _headingTimer;
         private NSTimer _elevationTimer;
+        private bool _isContinuous = true;
 
         public CalibrationViewController(ARSceneView arView, AdjustableLocationDataSource locationSource)
         {
@@ -262,6 +325,19 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             return row;
         }
 
+        public void SetIsUsingContinuousPositioning(bool continuous)
+        {
+            _isContinuous = continuous;
+            if (_isContinuous)
+            {
+                _elevationSlider.Enabled = true;
+            }
+            else
+            {
+                _elevationSlider.Enabled = false;
+            }
+        }
+
         private void HeadingSlider_ValueChanged(object sender, EventArgs e)
         {
             if (_headingTimer == null)
@@ -278,7 +354,6 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                     // Set the origin camera by rotating the existing camera to the new heading.
                     _arView.OriginCamera = oldCamera.RotateTo(newHeading, oldCamera.Pitch, oldCamera.Roll);
 
-
                     // Update the heading label.
                     headingLabel.Text = $"Heading: {(int)_arView.OriginCamera.Heading}";
                 });
@@ -288,13 +363,13 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
         private void ElevationSlider_ValueChanged(object sender, EventArgs e)
         {
-            if (_elevationTimer == null)
+            if (_elevationTimer == null && _isContinuous)
             {
                 // Use a timer to continuously update elevation while the user is interacting (joystick effect).
                 _elevationTimer = new NSTimer(NSDate.Now, 0.1, true, (timer) =>
                 {
                     // Calculate the altitude offset
-                    var newValue = _locationSource.AltitudeOffset += JoystickConverter(_elevationSlider.Value * 3.0);
+                    var newValue = _locationSource.AltitudeOffset += JoystickConverter(_elevationSlider.Value);
 
                     // Set the altitude offset on the location data source.
                     _locationSource.AltitudeOffset = newValue;
@@ -327,14 +402,14 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
         private void TouchUpHeading(object sender, EventArgs e)
         {
-            _headingTimer.Invalidate();
+            _headingTimer?.Invalidate();
             _headingTimer = null;
             _headingSlider.Value = 0;
         }
 
         private void TouchUpElevation(object sender, EventArgs e)
         {
-            _elevationTimer.Invalidate();
+            _elevationTimer?.Invalidate();
             _elevationTimer = null;
             _elevationSlider.Value = 0;
         }

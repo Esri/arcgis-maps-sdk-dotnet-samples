@@ -8,9 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntimeXamarin.Samples.NavigateRoute;
 using AVFoundation;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Navigation;
 using Esri.ArcGISRuntime.Symbology;
@@ -21,6 +21,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
@@ -357,5 +358,46 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             _navigateButton.Clicked -= StartNavigation;
             _recenterButton.Clicked -= RecenterButton_Click;
         }
+    }
+
+    public class RouteTrackerDisplayLocationDataSource : LocationDataSource
+    {
+        private LocationDataSource _inputDataSource;
+        private RouteTracker _routeTracker;
+
+        public RouteTrackerDisplayLocationDataSource(LocationDataSource dataSource, RouteTracker routeTracker)
+        {
+            // Set the data source
+            _inputDataSource = dataSource ?? throw new ArgumentNullException(nameof(dataSource));
+
+            // Set the route tracker.
+            _routeTracker = routeTracker ?? throw new ArgumentNullException(nameof(routeTracker));
+
+            // Change the tracker location when the source location changes.
+            _inputDataSource.LocationChanged += InputLocationChanged;
+
+            // Update the location output when the tracker location updates.
+            _routeTracker.TrackingStatusChanged += TrackingStatusChanged;
+        }
+
+        private void InputLocationChanged(object sender, Location e)
+        {
+            // Update the tracker location with the new location from the source (simulation or GPS).
+            _routeTracker.TrackLocationAsync(e);
+        }
+
+        private void TrackingStatusChanged(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
+        {
+            // Check if the tracking status has a location.
+            if (e.TrackingStatus.DisplayLocation != null)
+            {
+                // Call the base method for LocationDataSource to update the location with the tracked (snapped to route) location.
+                UpdateLocation(e.TrackingStatus.DisplayLocation);
+            }
+        }
+
+        protected override Task OnStartAsync() => _inputDataSource.StartAsync();
+
+        protected override Task OnStopAsync() => _inputDataSource.StartAsync();
     }
 }

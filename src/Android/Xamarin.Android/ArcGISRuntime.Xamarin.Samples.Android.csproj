@@ -262,6 +262,8 @@
     <Compile Include="Samples\Augmented reality\NavigateAR\RoutePlanner.cs" />
     <Compile Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.cs" />
     <Compile Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.cs" />
+    <Compile Include="Samples\Augmented reality\ViewHiddenInfrastructureAR\PipePlacer.cs" />
+    <Compile Include="Samples\Augmented reality\ViewHiddenInfrastructureAR\PipeViewer.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.cs" />
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.cs" />

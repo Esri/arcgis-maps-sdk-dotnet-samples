@@ -42,10 +42,122 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         // Graphics overlays for showing pipes.
         private GraphicsOverlay _pipesOverlay = new GraphicsOverlay();
 
+        // Sketch editor for drawing pipes onto the MapView.
         private SketchEditor _sketchEditor = new SketchEditor();
 
+        // Elevation source for getting altitude value for points.
         private ArcGISTiledElevationSource _elevationSource;
         private Surface _elevationSurface;
+
+        private async void Initialize()
+        {
+            // Create and add the map.
+            _mapView.Map = new Map(Basemap.CreateImagery());
+
+            // Configure location display.
+            _mapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+            await _mapView.LocationDisplay.DataSource.StartAsync();
+            _mapView.LocationDisplay.IsEnabled = true;
+
+            _mapView.GraphicsOverlays.Add(_pipesOverlay);
+            _pipesOverlay.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2));
+
+            _mapView.SketchEditor = _sketchEditor;
+
+            _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+
+            await _elevationSource.LoadAsync();
+            _elevationSurface = new Surface();
+            _elevationSurface.ElevationSources.Add(_elevationSource);
+            await _elevationSurface.LoadAsync();
+            _addButton.Enabled = true;
+        }
+
+        private void DoneButton_Clicked(object sender, EventArgs e)
+        {
+            // Check if sketch can be completed.
+            if (_mapView.SketchEditor.CompleteCommand.CanExecute(null))
+            {
+                // Complete the sketch.
+                _mapView.SketchEditor.CompleteCommand.Execute(null);
+
+                // Disable the editing buttons.
+                _doneButton.Enabled = _undoButton.Enabled = _redoButton.Enabled = false;
+            }
+        }
+
+        private void ViewButton_Clicked(object sender, EventArgs e)
+        {
+            NavigationController.PopViewController(true);
+            NavigationController.PushViewController(new PipeViewerAR() { _pipeGraphics = _pipesOverlay.Graphics.Select(x => new Graphic(x.Geometry)) }, true);
+        }
+
+        private void RedoButton_Clicked(object sender, EventArgs e)
+        {
+            if (_sketchEditor.RedoCommand.CanExecute(null)) _sketchEditor.RedoCommand.Execute(null);
+        }
+
+        private void UndoButton_Clicked(object sender, EventArgs e)
+        {
+            if (_sketchEditor.UndoCommand.CanExecute(null)) _sketchEditor.UndoCommand.Execute(null);
+        }
+
+        private async void AddSketch(object sender, EventArgs e)
+        {
+            // Enable the editing buttons.
+            _doneButton.Enabled = _undoButton.Enabled = _redoButton.Enabled = true;
+
+            // Prevent the user from adding pipes concurrently.
+            _addButton.Enabled = false;
+
+            // Get the geometry of the user drawn line.
+            Geometry geometry = await _sketchEditor.StartAsync(SketchCreationMode.Polyline);
+            _addButton.Enabled = true;
+
+            // Verify that the user has drawn a polyline.
+            if (!(geometry is Polyline))
+            {
+                return;
+            }
+
+            // Get the first point of the pipe.
+            MapPoint firstPoint = ((Polyline)geometry).Parts[0].StartPoint;
+            try
+            {
+                // Get the users selected elevation offset.
+                double elevationOffset = _elevationSlider.Value;
+
+                // Get the elevation of the geometry from the first point of the pipe.
+                double elevation = await _elevationSurface.GetElevationAsync(firstPoint);
+
+                // Create a polyline for the pipe at the selected altitude.
+                Polyline elevatedLine = GeometryEngine.SetZ(geometry, elevation + elevationOffset) as Polyline;
+
+                // Create a graphic for the pipe.
+                Graphic linegraphic = new Graphic(elevatedLine);
+                _pipesOverlay.Graphics.Add(linegraphic);
+
+                // Display a message with the pipes offset from the surface.
+                if (elevationOffset < 0)
+                {
+                    _helpLabel.Text = string.Format("Pipe added {0:0.0}m below surface", elevationOffset * -1);
+                }
+                else if (elevationOffset == 0)
+                {
+                    _helpLabel.Text = "Pipe added at ground level";
+                }
+                else
+                {
+                    _helpLabel.Text = string.Format("Pipe added {0:0.0}m above the surface", elevationOffset);
+                }
+
+                // Enable the view button once a pipe has been added to the graphics overlay.
+                _viewButton.Enabled = true;
+            }
+            catch (Exception)
+            {
+            }
+        }
 
         public override void LoadView()
         {
@@ -126,104 +238,6 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         {
             base.ViewDidLoad();
             Initialize();
-        }
-
-        private async void Initialize()
-        {
-            // Create and add the map.
-            _mapView.Map = new Map(Basemap.CreateImagery());
-
-            // Configure location display.
-            _mapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-            await _mapView.LocationDisplay.DataSource.StartAsync();
-            _mapView.LocationDisplay.IsEnabled = true;
-
-            _mapView.GraphicsOverlays.Add(_pipesOverlay);
-            _pipesOverlay.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2));
-
-            _mapView.SketchEditor = _sketchEditor;
-
-            _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
-
-            await _elevationSource.LoadAsync();
-            _elevationSurface = new Surface();
-            _elevationSurface.ElevationSources.Add(_elevationSource);
-            await _elevationSurface.LoadAsync();
-            _addButton.Enabled = true;
-        }
-
-        private void DoneButton_Clicked(object sender, EventArgs e)
-        {
-            if (_sketchEditor.CompleteCommand.CanExecute(null)) _sketchEditor.CompleteCommand.Execute(null);
-            _doneButton.Enabled = _undoButton.Enabled = _redoButton.Enabled = false;
-        }
-
-        private void ViewButton_Clicked(object sender, EventArgs e)
-        {
-            NavigationController.PopViewController(true);
-            NavigationController.PushViewController(new PipeViewerAR() { _pipeGraphics = _pipesOverlay.Graphics.Select(x => new Graphic(x.Geometry)) }, true);
-        }
-
-        private void RedoButton_Clicked(object sender, EventArgs e)
-        {
-            if (_sketchEditor.RedoCommand.CanExecute(null)) _sketchEditor.RedoCommand.Execute(null);
-        }
-
-        private void UndoButton_Clicked(object sender, EventArgs e)
-        {
-            if (_sketchEditor.UndoCommand.CanExecute(null)) _sketchEditor.UndoCommand.Execute(null);
-        }
-
-        private async void AddSketch(object sender, EventArgs e)
-        {
-            _doneButton.Enabled = _undoButton.Enabled = _redoButton.Enabled = true;
-
-            _addButton.Enabled = false;
-            Geometry geometry = await _sketchEditor.StartAsync(SketchCreationMode.Polyline);
-            _addButton.Enabled = true;
-
-            if (!(geometry is Polyline))
-            {
-                return;
-            }
-
-            MapPoint firstPoint = ((Polyline)geometry).Parts[0].StartPoint;
-            try
-            {
-                // Get the users selected elevation offset.
-                double elevationOffset = _elevationSlider.Value;
-
-                // Get the elevation of the geometry.
-                double elevation = await _elevationSurface.GetElevationAsync(firstPoint);
-
-                // Create a polyline for the pipe.
-                Polyline elevatedLine = GeometryEngine.SetZ(geometry, elevation + elevationOffset) as Polyline;
-
-                // Create a graphic for the pipe.
-                Graphic linegraphic = new Graphic(elevatedLine);
-                _pipesOverlay.Graphics.Add(linegraphic);
-
-                // Display a message with the pipes offset from the surface.
-                if (elevationOffset < 0)
-                {
-                    _helpLabel.Text = string.Format("Pipe added {0:0.0}m below surface", elevationOffset * -1);
-                }
-                else if (elevationOffset == 0)
-                {
-                    _helpLabel.Text = "Pipe added at ground level";
-                }
-                else
-                {
-                    _helpLabel.Text = string.Format("Pipe added {0:0.0}m above the surface", elevationOffset);
-                }
-            }
-            catch (Exception)
-            {
-            }
-            finally
-            {
-                _viewButton.Enabled = true;
-            }
         }
     }
 }

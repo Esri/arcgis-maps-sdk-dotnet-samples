@@ -256,9 +256,12 @@
     <None Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <None Include="Samples\Security\IntegratedWindowsAuth\readme.md" />
+    <None Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.cs" />
+    <Compile Include="Samples\Augmented reality\CollectDataAR\MSLAdjustedARLocationDataSource.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RoutePlanner.cs" />
     <Compile Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.cs" />
     <Compile Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.cs" />
@@ -638,9 +641,13 @@
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
-  <!-- Imports -->
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ViewHiddenARPipePlacer.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CollectDataAR.axml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
@@ -649,6 +656,7 @@
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
+  <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

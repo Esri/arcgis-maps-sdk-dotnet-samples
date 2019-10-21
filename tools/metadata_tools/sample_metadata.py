@@ -322,6 +322,10 @@ class sample_metadata:
                 if ".." in file:
                     source_path = os.path.join(sample_dir, file)
                     dest_path = os.path.join(output_dir, "Resources", "layout", os.path.split(file)[1])
+                    if 'Attrs.xml' in file: # todo: improve this
+                        dest_path = os.path.join(output_dir, "Resources", "values", os.path.split(file)[1])
+                    elif file.endswith('.cs'):
+                        dest_path = os.path.join(output_dir, "Controls", os.path.split(file)[1])
                     copyfile(source_path, dest_path)
 
         # Add forms packages if needed

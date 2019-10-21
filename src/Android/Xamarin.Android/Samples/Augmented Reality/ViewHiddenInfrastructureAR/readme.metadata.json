@@ -24,7 +24,7 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/ios/sample-code/viewhiddeninfrastructurear.htm"
+        "/net/latest/android/sample-code/viewhiddeninfrastructurear.htm"
     ],
     "relevant_apis": [
         "ARSceneView",
@@ -35,9 +35,13 @@
         "Surface"
     ],
     "snippets": [
-        "AdjustableLocationDataSource.cs",
+        "MSLAdjustedARLocationDataSource.cs",
         "PipePlacer.cs",
-        "PipeViewerAR.cs"
+        "PipeViewer.cs",
+        "../../../Resources/layout/ViewHiddenARPipePlacer.axml",
+        "../../../Resources/layout/ViewHiddenARPipeViewer.axml",
+        "../../../Resources/values/Attrs.xml",
+        "../../../Controls/JoystickSeekBar.cs"
     ],
     "title": "View hidden infrastructure in AR"
 }

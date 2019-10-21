@@ -8,16 +8,33 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_main"
         tools:context=".MainActivity">
-<Esri.ArcGISRuntime.ARToolkit.ARSceneView
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:id="@+id/arView"
-    app:layout_constraintBottom_toTopOf="@id/linearLayout"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
 
-</Esri.ArcGISRuntime.ARToolkit.ARSceneView>
+    <Esri.ArcGISRuntime.ARToolkit.ARSceneView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/arView"
+        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/helpLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="#99000000"
+        android:paddingStart="0dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="0dp"
+        android:paddingBottom="5dp"
+        android:text="Calibrate before starting"
+        android:textAlignment="center"
+        android:gravity="center_horizontal"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

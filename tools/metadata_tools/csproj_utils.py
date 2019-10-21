@@ -22,7 +22,11 @@ def get_csproj_xml_for_code_files(snippets_list, platform):
     xml_string = ""
     for file in snippets_list:
         # handle CS
-        if file.endswith(".cs"):
+        if file.startswith('../../../Controls'):
+            stripped_name = file.strip("../../../").replace("/", "\\")
+            cs_file_include = f'<Compile Include="{stripped_name}" />\n'
+            xml_string += cs_file_include
+        elif file.endswith(".cs"):
             cs_file_include = f'<Compile Include="{file}" />\n'
             xml_string += cs_file_include
         # handle XAML

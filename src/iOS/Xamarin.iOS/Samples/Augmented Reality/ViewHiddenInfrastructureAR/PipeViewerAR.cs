@@ -95,14 +95,16 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                 // Start AR tracking using a continuous GPS signal.
                 await _arView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
                 _calibrationVC.SetIsUsingContinuousPositioning(true);
+                _helpLabel.Text = "Using GPS signal";
             }
             else
             {
                 await _arView.StopTrackingAsync();
-
+                
                 // Start AR tracking without using a GPS signal.
                 await _arView.StartTrackingAsync(ARLocationTrackingMode.Ignore);
                 _calibrationVC.SetIsUsingContinuousPositioning(false);
+                _helpLabel.Text = "Using ARKit only";
             }
 
             // Re-enable the UI control.

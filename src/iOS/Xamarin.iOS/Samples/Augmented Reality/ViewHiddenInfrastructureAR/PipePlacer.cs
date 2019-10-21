@@ -23,7 +23,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "View hidden infrastructure in AR",
         "Augmented reality",
-        "",
+        "Visualize hidden infrastructure in its real-world location using augmented reality.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class PipePlacer : UIViewController
@@ -58,18 +58,22 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _mapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
             await _mapView.LocationDisplay.DataSource.StartAsync();
             _mapView.LocationDisplay.IsEnabled = true;
-
+            
+            // Add a graphics overlay for the drawn pipes.
             _mapView.GraphicsOverlays.Add(_pipesOverlay);
             _pipesOverlay.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2));
 
+            // Set the SketchEditor for the map.
             _mapView.SketchEditor = _sketchEditor;
 
+            // Create an elevation source and Surface.
             _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
-
             await _elevationSource.LoadAsync();
             _elevationSurface = new Surface();
             _elevationSurface.ElevationSources.Add(_elevationSource);
             await _elevationSurface.LoadAsync();
+
+            // Enable the add button.
             _addButton.Enabled = true;
         }
 
@@ -88,17 +92,20 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
         private void ViewButton_Clicked(object sender, EventArgs e)
         {
+            // Transition to the view the pipes in augmented reality.
             NavigationController.PopViewController(true);
             NavigationController.PushViewController(new PipeViewerAR() { _pipeGraphics = _pipesOverlay.Graphics.Select(x => new Graphic(x.Geometry)) }, true);
         }
 
         private void RedoButton_Clicked(object sender, EventArgs e)
         {
+            // Redo if possible.
             if (_sketchEditor.RedoCommand.CanExecute(null)) _sketchEditor.RedoCommand.Execute(null);
         }
 
         private void UndoButton_Clicked(object sender, EventArgs e)
         {
+            // Undo if possible.
             if (_sketchEditor.UndoCommand.CanExecute(null)) _sketchEditor.UndoCommand.Execute(null);
         }
 

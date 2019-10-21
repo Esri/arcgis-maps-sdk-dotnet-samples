@@ -41,4 +41,8 @@ def get_csproj_xml_for_android_layout(snippets_list):
             stripped_name = file.strip("../../../").replace("/", "\\")
             cs_file_include = f'<AndroidResource Include="{stripped_name}" />\n'
             xml_string += cs_file_include
+        elif "Attrs.xml" in file:
+            stripped_name = file.strip("../../../").replace("/", "\\")
+            cs_file_include = f'<AndroidResource Include="{stripped_name}"><Generator>MSBuild:UpdateGeneratedFiles</Generator></AndroidResource>\n'
+            xml_string += cs_file_include
     return xml_string

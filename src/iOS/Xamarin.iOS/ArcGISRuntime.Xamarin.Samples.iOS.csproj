@@ -687,7 +687,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BundleResource Include="Samples\Augmented reality\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
   </ItemGroup>

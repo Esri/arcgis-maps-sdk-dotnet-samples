@@ -77,6 +77,8 @@
     <None Include="Samples\Augmented reality\NavigateAR\NavigateAR.jpg" />
     <None Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
     <None Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
+    <None Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
+    <None Include="Samples\Augmented reality\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.jpg" />
     <None Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <None Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <None Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
@@ -256,7 +258,6 @@
     <None Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
     <None Include="Samples\Security\IntegratedWindowsAuth\readme.md" />
-    <None Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->

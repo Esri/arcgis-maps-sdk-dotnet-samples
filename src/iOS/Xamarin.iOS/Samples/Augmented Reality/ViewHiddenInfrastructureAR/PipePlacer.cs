@@ -161,8 +161,9 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                 // Enable the view button once a pipe has been added to the graphics overlay.
                 _viewButton.Enabled = true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
             }
         }
 

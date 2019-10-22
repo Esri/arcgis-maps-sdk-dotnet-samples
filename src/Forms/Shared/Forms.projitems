@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
@@ -191,6 +192,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.xaml.cs">
+      <DependentUpon>DisplayScenesInTabletopAR.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
       <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
@@ -815,6 +820,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

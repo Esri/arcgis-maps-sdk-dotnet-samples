@@ -14,7 +14,7 @@
         "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.7.0"
     },
     "offline_data": [
         "b87307dcfb26411eb2e92e1627cb615b"
@@ -28,8 +28,8 @@
         "LayerContent"
     ],
     "snippets": [
-        "ControlAnnotationSublayerVisibility.cs",
-        "../../../Resources/layout/ControlAnnotationSublayerVisibility.axml"
+        "../../../Resources/layout/ControlAnnotationSublayerVisibility.axml",
+        "ControlAnnotationSublayerVisibility.cs"
     ],
     "title": "Control annotation sublayer visibility"
 }

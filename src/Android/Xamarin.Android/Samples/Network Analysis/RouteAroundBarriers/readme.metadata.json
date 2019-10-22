@@ -17,7 +17,7 @@
         "stops"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.7.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -43,8 +43,8 @@
         "Stop.Name"
     ],
     "snippets": [
-        "RouteAroundBarriers.cs",
-        "../../../Resources/layout/RouteAroundBarriers.axml"
+        "../../../Resources/layout/RouteAroundBarriers.axml",
+        "RouteAroundBarriers.cs"
     ],
     "title": "Route around barriers"
 }

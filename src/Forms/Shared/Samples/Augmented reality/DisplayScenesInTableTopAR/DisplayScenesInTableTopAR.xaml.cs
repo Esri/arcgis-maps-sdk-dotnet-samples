@@ -11,6 +11,8 @@ using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 using System.Linq;
 using ArcGISRuntime.Samples.Managers;
+using System;
+using System.ComponentModel;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 {
@@ -20,7 +22,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         "Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
-    public partial class DisplayScenesInTabletopAR : ContentPage
+    public partial class DisplayScenesInTabletopAR : ContentPage, IARSample
     {
         // Scene to be displayed on the tabletop.
         private Scene _tabletopScene;
@@ -29,18 +31,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         {
             InitializeComponent();
             Initialize();
+            
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            await MyARSceneView.StartTrackingAsync();
-        }
-
-        protected override async void OnDisappearing()
-        {
-            base.OnDisappearing();
-            await MyARSceneView.StopTrackingAsync();
+            MyARSceneView.StartTrackingAsync();
         }
 
         private void Initialize()
@@ -54,6 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             // Get notification when planes are detected
             MyARSceneView.PlanesDetectedChanged += ARSceneView_PlanesDetectedChanged;
         }
+
 
         private void ARSceneView_PlanesDetectedChanged(object sender, bool planeDetected)
         {
@@ -107,8 +105,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 // Enable subsurface navigation. This allows you to look at the scene from below.
                 _tabletopScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;
 
+                // Set the AR scene to the tabletop scene.
                 MyARSceneView.Scene = _tabletopScene;
-
             }
 
             // Create a camera at the bottom and center of the scene.
@@ -131,5 +129,21 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             MyARSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
         }
 
+        async void IARSample.StartAugmentedReality()
+        {
+            try
+            {
+                await MyARSceneView.StartTrackingAsync();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        void IARSample.StopAugmentedReality()
+        {
+            MyARSceneView.StopTrackingAsync();
+        }
     }
 }

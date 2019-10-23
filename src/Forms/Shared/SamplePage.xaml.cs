@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,6 +10,7 @@
 using System;
 using System.Diagnostics;
 using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISRuntimeXamarin;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -91,13 +92,20 @@ namespace ArcGISRuntime
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
+        }
+
+        protected override void OnAppearing()
+        {
+            if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
+            base.OnAppearing();
         }
 
         protected override void OnDisappearing()
         {
-            if (_sample is IDisposable) ((IDisposable)_sample).Dispose();
+            if (_sample is IDisposable disposableSample) disposableSample.Dispose();
+            if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
             base.OnDisappearing();
         }
 

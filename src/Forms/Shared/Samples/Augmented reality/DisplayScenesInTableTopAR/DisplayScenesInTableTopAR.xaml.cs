@@ -33,14 +33,14 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
         protected override async void OnAppearing()
         {
-            await MyARSceneView.StartTrackingAsync();
             base.OnAppearing();
+            await MyARSceneView.StartTrackingAsync();
         }
 
         protected override async void OnDisappearing()
         {
-            await MyARSceneView.StopTrackingAsync();
             base.OnDisappearing();
+            await MyARSceneView.StopTrackingAsync();
         }
 
         private void Initialize()

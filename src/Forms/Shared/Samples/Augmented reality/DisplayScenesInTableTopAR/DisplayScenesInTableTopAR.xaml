@@ -18,8 +18,7 @@
             Grid.Row="0"
             BackgroundColor="#88000000"
             HorizontalOptions="FillAndExpand"
-            IsVisible="False"
-            Text="Select the type of feature you would like to add."
+            Text="Keep moving your device until a plane is found."
             TextColor="White" />
     </Grid>
 </ContentPage>

@@ -76,7 +76,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             // Show the help label.
             Device.BeginInvokeOnMainThread(() =>
             {
-                HelpLabel.IsVisible = true;
                 HelpLabel.Text = "Tap to place the scene.";
             });
 

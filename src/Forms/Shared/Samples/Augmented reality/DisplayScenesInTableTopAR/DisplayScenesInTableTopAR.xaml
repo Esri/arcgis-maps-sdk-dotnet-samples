@@ -19,7 +19,7 @@
             BackgroundColor="#88000000"
             HorizontalOptions="FillAndExpand"
             IsVisible="False"
-            Text="Select the type of feature you would like to add."
+            Text="Tap to place scene"
             TextColor="White" />
     </Grid>
 </ContentPage>

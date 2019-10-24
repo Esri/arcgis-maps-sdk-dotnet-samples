@@ -162,7 +162,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         {
             base.OnCreate(bundle);
 
-            Title = "Sketch on map";
+            Title = "View hidden infrastructure in AR";
 
             // Create the UI
             CreateLayout();

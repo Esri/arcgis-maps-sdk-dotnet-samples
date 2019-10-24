@@ -54,11 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             // Start device tracking.
             try
             {
-#if XAMARIN_ANDROID
-                MainActivity.Instance.AskForCameraPermission(MyARSceneView);
-#else
                 await MyARSceneView.StartTrackingAsync();
-#endif
             }
             catch (Exception ex)
             {

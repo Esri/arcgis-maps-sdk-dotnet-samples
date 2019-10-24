@@ -3,16 +3,19 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Mapping;
-using Xamarin.Forms;
-using System.Linq;
 using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.ComponentModel;
+using System.Linq;
+using Xamarin.Forms;
+
+#if XAMARIN_ANDROID
+using ArcGISRuntime.Droid;
+#endif
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 {
@@ -31,13 +34,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         {
             InitializeComponent();
             Initialize();
-            
-        }
-
-        protected override void OnAppearing()
-        {
-            base.OnAppearing();
-            MyARSceneView.StartTrackingAsync();
         }
 
         private void Initialize()
@@ -52,6 +48,19 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             MyARSceneView.PlanesDetectedChanged += ARSceneView_PlanesDetectedChanged;
         }
 
+        // This method is called by the sample viewer when the AR sample has appeared.
+        async void IARSample.StartAugmentedReality()
+        {
+            // Start device tracking.
+            try
+            {
+                await MyARSceneView.StartTrackingAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
 
         private void ARSceneView_PlanesDetectedChanged(object sender, bool planeDetected)
         {
@@ -65,8 +74,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         private void EnableTapToPlace()
         {
             // Show the help label.
-            //_helpLabel.Hidden = false;
-            //_helpLabel.Text = "Tap to place the scene.";
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                HelpLabel.IsVisible = true;
+                HelpLabel.Text = "Tap to place the scene.";
+            });
 
             // Wait for the user to tap.
             MyARSceneView.GeoViewTapped += ARGeoViewTapped;
@@ -74,17 +86,17 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
         private void ARGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
-            if (MyARSceneView.SetInitialTransformation(e.Position))
-            {
-                DisplayScene();
-                //_arKitStatusLabel.Hidden = true;
-            }
+            // If the tapped position is valid, display the scene.
+            if (MyARSceneView.SetInitialTransformation(e.Position)) DisplayScene();
         }
 
         private async void DisplayScene()
         {
             // Hide the help label.
-            //_helpLabel.Hidden = true;
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                HelpLabel.IsVisible = false;
+            });
 
             if (_tabletopScene == null)
             {
@@ -127,18 +139,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
             // Set the translation factor based on the scene content width and desired physical size.
             MyARSceneView.TranslationFactor = geographicContentWidth / tableContainerWidth;
-        }
-
-        async void IARSample.StartAugmentedReality()
-        {
-            try
-            {
-                await MyARSceneView.StartTrackingAsync();
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
         }
 
         void IARSample.StopAugmentedReality()

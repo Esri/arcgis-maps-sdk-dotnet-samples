@@ -4,6 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esriARToolkit="clr-namespace:Esri.ArcGISRuntime.ARToolkit.Forms;assembly=Esri.ArcGISRuntime.ARToolkit.Forms">
     <Grid>
-        <esriARToolkit:ARSceneView x:Name="MyARSceneView" RenderPlanes="True" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <esriARToolkit:ARSceneView
+            x:Name="MyARSceneView"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            RenderPlanes="True" />
+        <Label
+            x:Name="HelpLabel"
+            Grid.Row="0"
+            BackgroundColor="#88000000"
+            HorizontalOptions="FillAndExpand"
+            IsVisible="False"
+            Text="Select the type of feature you would like to add."
+            TextColor="White" />
     </Grid>
 </ContentPage>

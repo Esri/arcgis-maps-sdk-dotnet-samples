@@ -16,6 +16,7 @@
 * [Display scenes in tabletop AR](Xamarin.Android/Samples/Augmented%20Reality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
 * [Explore scenes in flyover AR](Xamarin.Android/Samples/Augmented%20Reality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
 * [Navigate in AR](Xamarin.Android/Samples/Augmented%20Reality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.
+* [View hidden infrastructure in AR](Xamarin.Android/Samples/Augmented%20Reality/ViewHiddenInfrastructureAR/readme.md) - Visualize hidden infrastructure in its real-world location using augmented reality.
 
 ## Data
 

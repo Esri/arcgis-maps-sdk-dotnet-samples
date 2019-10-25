@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 

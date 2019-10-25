@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\NavigateAR\NavigateAR.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
@@ -195,6 +196,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.xaml.cs">
+      <DependentUpon>ViewHiddenInfrastructureAR.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\NavigateAR\NavigateAR.xaml.cs">
       <DependentUpon>NavigateAR.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -836,6 +841,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Augmented reality\NavigateAR\NavigateAR.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

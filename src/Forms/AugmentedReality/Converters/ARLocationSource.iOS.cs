@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 
 
-namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
+namespace ArcGISRuntimeXamarin.Converters
 {
     /// <summary>
     /// Wraps the built-in location data source to enable altitude adjustment.

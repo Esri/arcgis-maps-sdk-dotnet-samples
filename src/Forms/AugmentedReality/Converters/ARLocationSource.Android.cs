@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Location = Esri.ArcGISRuntime.Location.Location;
 
-namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
+namespace ArcGISRuntimeXamarin.Converters
 {
     /// <summary>
     /// Custom location data source that allows you to apply an altitude offset in addition to

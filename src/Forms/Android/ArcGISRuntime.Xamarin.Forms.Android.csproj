@@ -161,6 +161,7 @@
     <AndroidAsset Include="Assets\github-markdown.css" />
   </ItemGroup>
   <Import Project="..\Shared\Forms.projitems" Label="Shared" Condition="Exists('..\Shared\Forms.projitems')" />
+  <Import Project="..\AugmentedReality\AugmentedReality.projitems" Label="Shared" Condition="Exists('..\AugmentedReality\AugmentedReality.projitems')" />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="readme.targets" />

@@ -33,8 +33,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\CollectDataAR\ARLocationSource.Android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\CollectDataAR\ARLocationSource.iOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ARLocationSource.Android.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ARLocationSource.iOS.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\CollectDataAR\CollectDataAR.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>CollectDataAR.xaml</DependentUpon>
@@ -55,5 +55,8 @@
       <SubType>Code</SubType>
       <DependentUpon>ViewHiddenInfrastructureAR.xaml</DependentUpon>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
   </ItemGroup>
 </Project>

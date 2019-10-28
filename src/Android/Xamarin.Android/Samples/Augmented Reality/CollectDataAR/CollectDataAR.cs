@@ -24,7 +24,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Java.Nio;
@@ -54,9 +53,6 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         private View _calibrationView;
         private JoystickSeekBar _headingSlider;
         private JoystickSeekBar _altitudeSlider;
-
-        // Static field for sharing route between views.
-        public static RouteResult PassedRouteResult;
 
         // Scene content.
         private ArcGISTiledElevationSource _elevationSource;

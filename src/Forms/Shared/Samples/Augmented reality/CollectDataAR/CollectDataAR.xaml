@@ -1,9 +1,84 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.CollectDataAR.CollectDataAR">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+﻿<ContentPage
+    x:Class="ArcGISRuntimeXamarin.Samples.CollectDataAR.CollectDataAR"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriARToolkit="clr-namespace:Esri.ArcGISRuntime.ARToolkit.Forms;assembly=Esri.ArcGISRuntime.ARToolkit.Forms"
+    xmlns:resources="clr-namespace:Forms.Resources">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <esriARToolkit:ARSceneView
+            x:Name="MyARSceneView"
+            Grid.Row="0"
+            Grid.RowSpan="3"
+            RenderPlanes="True" />
+        <Label
+            x:Name="HelpLabel"
+            Grid.Row="0"
+            BackgroundColor="#AA000000"
+            HorizontalOptions="FillAndExpand"
+            Text="Keep moving your device until a plane is found."
+            TextColor="White" />
+        <Grid
+            x:Name="CalibrationGrid"
+            Grid.Row="2"
+            Margin="10"
+            BackgroundColor="Black"
+            IsVisible="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Row="0"
+                Grid.Column="0"
+                Text="Elevation:"
+                TextColor="White" />
+            <resources:JoystickSlider
+                x:Name="ElevationSlider"
+                Grid.Row="0"
+                Grid.Column="1" />
+            <Label
+                Grid.Row="1"
+                Grid.Column="0"
+                Text="Heading:"
+                TextColor="White" />
+            <resources:JoystickSlider
+                x:Name="HeadingSlider"
+                Grid.Row="1"
+                Grid.Column="1" />
+        </Grid>
+        <StackLayout
+            Grid.Row="3"
+            HorizontalOptions="FillAndExpand"
+            Orientation="Horizontal">
+            <Button
+                x:Name="CalibrateButton"
+                Clicked="CalibrateButtonPressed"
+                Text="Calibrate"
+                TextColor="Red" />
+            <Button
+                x:Name="RoamingButton"
+                Clicked="RealScaleValueChanged"
+                IsEnabled="False"
+                Text="GPS" />
+            <Button
+                x:Name="LocalButton"
+                Clicked="RealScaleValueChanged"
+                Text="Local" />
+            <Button
+                x:Name="AddButton"
+                BackgroundColor="Green"
+                Clicked="AddButtonPressed"
+                Text="+" />
+        </StackLayout>
+    </Grid>
 </ContentPage>

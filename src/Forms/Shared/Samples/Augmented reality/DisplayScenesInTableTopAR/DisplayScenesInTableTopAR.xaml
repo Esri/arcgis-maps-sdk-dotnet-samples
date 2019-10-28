@@ -8,11 +8,9 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <esriARToolkit:ARSceneView
-            x:Name="MyARSceneView"
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            RenderPlanes="True" />
+        <ContentView Grid.Row="0" Grid.RowSpan="2">
+            <esriARToolkit:ARSceneView x:Name="MyARSceneView" RenderPlanes="True" />
+        </ContentView>
         <Label
             x:Name="HelpLabel"
             Grid.Row="0"

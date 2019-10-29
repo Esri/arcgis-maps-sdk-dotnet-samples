@@ -26,59 +26,77 @@
         <Grid
             x:Name="CalibrationGrid"
             Grid.Row="2"
-            Margin="10"
             BackgroundColor="Black"
             IsVisible="False">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Text="Elevation:"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+                <resources:JoystickSlider
+                    x:Name="ElevationSlider"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="5"
+                    DeltaProgressChanged="AltitudeSlider_DeltaProgressChanged"
+                    Maximum="10"
+                    Minimum="-10" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Text="Heading:"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+                <resources:JoystickSlider
+                    x:Name="HeadingSlider"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5"
+                    DeltaProgressChanged="HeadingSlider_DeltaProgressChanged"
+                    Maximum="10"
+                    Minimum="-10" />
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label
-                Grid.Row="0"
-                Grid.Column="0"
-                Text="Elevation:"
-                TextColor="White" />
-            <resources:JoystickSlider
-                x:Name="ElevationSlider"
-                Grid.Row="0"
-                Grid.Column="1" />
-            <Label
-                Grid.Row="1"
-                Grid.Column="0"
-                Text="Heading:"
-                TextColor="White" />
-            <resources:JoystickSlider
-                x:Name="HeadingSlider"
-                Grid.Row="1"
-                Grid.Column="1" />
-        </Grid>
-        <StackLayout
-            Grid.Row="3"
-            HorizontalOptions="FillAndExpand"
-            Orientation="Horizontal">
             <Button
                 x:Name="CalibrateButton"
+                Grid.Column="0"
                 Clicked="CalibrateButtonPressed"
                 Text="Calibrate"
                 TextColor="Red" />
             <Button
                 x:Name="RoamingButton"
+                Grid.Column="1"
                 Clicked="RealScaleValueChanged"
                 IsEnabled="False"
                 Text="GPS" />
             <Button
                 x:Name="LocalButton"
+                Grid.Column="2"
                 Clicked="RealScaleValueChanged"
                 Text="Local" />
             <Button
                 x:Name="AddButton"
+                Grid.Column="3"
                 BackgroundColor="Green"
                 Clicked="AddButtonPressed"
                 Text="+" />
-        </StackLayout>
+        </Grid>
     </Grid>
 </ContentPage>

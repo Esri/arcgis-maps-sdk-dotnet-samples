@@ -6,12 +6,7 @@ namespace Forms.Resources
 {
     class JoystickSlider : Slider
     {
-        private const double DefaultMin = 0;
-        private const double DefaultMax = 100;
         private const long DefaultDeltaIntervalMillis = 250;
-
-        private readonly double _min = DefaultMin;
-        private readonly double _max = DefaultMax;
         private double _deltaProgress;
 
         public event EventHandler<DeltaChangedEventArgs> DeltaProgressChanged;
@@ -25,9 +20,7 @@ namespace Forms.Resources
                 throw new Exception("Minimum must be less than Maximum!");
             }
 
-            Minimum = (int)_min;
-            Maximum = (int)_max;
-            Value = (int)(((_max - _min) * 0.5) + _min);
+            Value = (((Maximum - Minimum) * 0.5) + Minimum);
 
             _eventTimer.Elapsed += (o, e) =>
             {
@@ -50,7 +43,7 @@ namespace Forms.Resources
             _deltaProgress = 0;
             _eventTimer.Stop();
 
-            Value = (int)(((_max - _min) * 0.5) + _min);
+            Value = (((Maximum - Minimum) * 0.5) + Minimum);
         }
 
         private void JoystickDragStarted(object sender, EventArgs e)

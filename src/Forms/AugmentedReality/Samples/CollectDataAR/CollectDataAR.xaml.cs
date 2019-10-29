@@ -23,10 +23,6 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
-#if XAMARIN_ANDROID
-using Java.Nio;
-#endif
-
 namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -44,9 +40,6 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
         // Track when user is changing between AR and GPS localization.
         private bool _changingScale;
-
-        // Create a new copmletion source for the prompt.
-        private TaskCompletionSource<int> _healthCompletionSource;
 
         // Feature table for collected data about trees.
         private ServiceFeatureTable _featureTable = new ServiceFeatureTable(new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/AR_Tree_Survey/FeatureServer/0"));
@@ -98,7 +91,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the custom location data source and configure the AR scene view to use it.
 #if XAMARIN_ANDROID
@@ -338,7 +331,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             // Start device tracking.
             try
             {
-                await MyARSceneView.StartTrackingAsync();
+                await MyARSceneView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
             }
             catch (Exception ex)
             {

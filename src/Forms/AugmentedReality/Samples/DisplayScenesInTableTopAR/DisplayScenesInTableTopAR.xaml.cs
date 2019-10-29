@@ -13,10 +13,6 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 
-#if XAMARIN_ANDROID
-using ArcGISRuntime.Droid;
-#endif
-
 namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -239,6 +239,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 await Application.Current.MainPage.DisplayAlert("Error", "Didn't find anything, try again.", "OK");
                 return;
             }
+
             try
             {
                 // Prevent the user from changing the tapped feature.
@@ -303,10 +304,6 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
                 // Create the new feature
                 ArcGISFeature newFeature = _featureTable.CreateFeature(featureAttributes, featurePoint) as ArcGISFeature;
-
-                // Add the attachment.
-                // The contentType string is the MIME type for JPEG files, image/jpeg.
-                await newFeature.AddAttachmentAsync("tree.jpg", "image/jpeg", null);
 
                 // Add the newly created feature to the feature table.
                 await _featureTable.AddFeatureAsync(newFeature);

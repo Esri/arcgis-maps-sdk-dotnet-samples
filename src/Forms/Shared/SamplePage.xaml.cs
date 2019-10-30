@@ -7,10 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Diagnostics;
 using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntimeXamarin;
+using System;
+using System.Diagnostics;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -43,9 +44,8 @@ namespace ArcGISRuntime
             //    navigation won't work from within the sample until the parent is manually set.
             sample.Parent = this;
 
-            // Set the title. If the sample control didn't 
-            // define the title, use the name from the sample metadata.
-            if (!String.IsNullOrWhiteSpace(sample.Title))
+            // Set the title. If the sample control didn't define the title, use the name from the sample metadata.
+            if (!string.IsNullOrWhiteSpace(sample.Title))
             {
                 Title = sample.Title;
             }
@@ -116,7 +116,7 @@ namespace ArcGISRuntime
             {
                 try
                 {
-                    Device.OpenUri(new Uri(e.Url));
+                    Launcher.TryOpenAsync(new Uri(e.Url));
                     e.Cancel = true;
                 }
                 catch (Exception ex)

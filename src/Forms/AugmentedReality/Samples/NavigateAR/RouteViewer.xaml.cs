@@ -32,8 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private Surface _elevationSurface;
         private Scene _scene;
 
-        // Custom location data source that enables calibration and returns
-        // values relative to mean sea level rather than the WGS84 ellipsoid.
+        // Custom location data source that enables calibration and returns values relative to mean sea level rather than the WGS84 ellipsoid.
         private ARLocationDataSource _locationDataSource;
 
         // Calibration state fields.
@@ -56,6 +55,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
                     // Enable scene interaction.
                     MyARSceneView.InteractionOptions.IsEnabled = true;
+
+                    // Show the calibration controls.
                     CalibrationGrid.IsVisible = true;
                 }
                 else
@@ -65,6 +66,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
                     // Disable scene interaction.
                     MyARSceneView.InteractionOptions.IsEnabled = false;
+
+                    // Hide the calibration controls.
                     CalibrationGrid.IsVisible = false;
                 }
             }
@@ -236,6 +239,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
             // Start device tracking.
             try
             {

@@ -25,7 +25,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\NavigateAR.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RoutePlanner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.xaml">
@@ -47,9 +47,12 @@
       <SubType>Code</SubType>
       <DependentUpon>ExploreScenesInFlyoverAR.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\NavigateAR.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RoutePlanner.xaml.cs">
       <SubType>Code</SubType>
-      <DependentUpon>NavigateAR.xaml</DependentUpon>
+      <DependentUpon>RoutePlanner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RouteViewer.xaml.cs">
+      <DependentUpon>RouteViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.xaml.cs">
       <SubType>Code</SubType>
@@ -58,5 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Converters\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RouteViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

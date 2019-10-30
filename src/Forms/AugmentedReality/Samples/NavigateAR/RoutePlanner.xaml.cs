@@ -26,9 +26,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         "Use a route displayed in the real world to navigate.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public partial class NavigateAR : ContentPage
+    public partial class RoutePlanner : ContentPage
     {
-        public NavigateAR()
+        public RoutePlanner()
         {
             InitializeComponent();
             Initialize();
@@ -36,6 +36,13 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
         private void Initialize()
         {
+            StartARButton.IsEnabled = true;
+        }
+
+        private async void StartARClicked(object sender, System.EventArgs e)
+        {
+            RouteViewer.PassedRouteResult = null;
+            await Navigation.PushAsync(new RouteViewer() { }, true);
         }
     }
 }

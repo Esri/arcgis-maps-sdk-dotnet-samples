@@ -91,7 +91,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create the custom location data source and configure the AR scene view to use it.
 #if XAMARIN_ANDROID

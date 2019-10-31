@@ -1,4 +1,13 @@
-﻿using ArcGISRuntimeXamarin.Converters;
+﻿// Copyright 2019 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using ArcGISRuntimeXamarin.Converters;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
@@ -53,9 +62,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                     // Show the surface semitransparent for calibration.
                     _scene.BaseSurface.Opacity = 0.5;
 
-                    // Enable scene interaction.
-                    MyARSceneView.InteractionOptions.IsEnabled = true;
-
                     // Show the calibration controls.
                     CalibrationGrid.IsVisible = true;
                 }
@@ -63,9 +69,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 {
                     // Hide the scene when not calibrating.
                     _scene.BaseSurface.Opacity = 0;
-
-                    // Disable scene interaction.
-                    MyARSceneView.InteractionOptions.IsEnabled = false;
 
                     // Hide the calibration controls.
                     CalibrationGrid.IsVisible = false;
@@ -109,6 +112,12 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         {
             if (_routeTracker != null)
             {
+                // Correct any invalid velocity value.
+                if (e.Velocity < 0)
+                {
+                    e = new Location(e.Position, e.HorizontalAccuracy, 0.0, e.Course, e.IsLastKnown);
+                }
+
                 try
                 {
                     // Pass location change to the route tracker.
@@ -189,28 +198,25 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
             // Listen for updated guidance.
             _routeTracker.NewVoiceGuidance += RouteTracker_VoiceGuidanceChanged;
-            _routeTracker.TrackingStatusChanged += RouteTracker_TrackingStatusChanged;
 
-            // Prevent re-navigating.
-            NavigateButton.IsEnabled = false;
-        }
+            // Disable rerouting
+            _routeTracker.DisableRerouting();
 
-        private void RouteTracker_TrackingStatusChanged(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
-        {
             Device.BeginInvokeOnMainThread(() =>
             {
-                // Update the help label with new guidance.
-                HelpLabel.Text = _routeTracker.GenerateVoiceGuidance().Text;
+                // Prevent re-navigating.
+                NavigateButton.IsEnabled = false;
             });
         }
 
-        private async void RouteTracker_VoiceGuidanceChanged(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        private void RouteTracker_VoiceGuidanceChanged(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
                 // Update the help label with the new guidance.
                 HelpLabel.Text = e.VoiceGuidance.Text;
             });
+
             try
             {
                 // Say the direction using voice synthesis.
@@ -218,7 +224,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 {
                     _speechToken.Cancel();
                     _speechToken = new CancellationTokenSource();
-                    await SpeakAsync(e.VoiceGuidance.Text, _speechToken.Token);
+                    SpeakAsync(e.VoiceGuidance.Text, _speechToken.Token);
                 }
             }
             catch (Exception ex)
@@ -232,7 +238,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             if (_routeTracker != null)
             {
                 _routeTracker.NewVoiceGuidance -= RouteTracker_VoiceGuidanceChanged;
-                _routeTracker.TrackingStatusChanged -= RouteTracker_TrackingStatusChanged;
             }
         }
 
@@ -255,7 +260,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         {
             base.OnDisappearing();
             MyARSceneView.StopTrackingAsync();
-            this.Dispose();
+            Dispose();
         }
     }
 }

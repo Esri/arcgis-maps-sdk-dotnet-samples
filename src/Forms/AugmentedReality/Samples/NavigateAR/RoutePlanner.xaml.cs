@@ -3,32 +3,22 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using Xamarin.Forms;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
-using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Security;
+using System.Diagnostics;
 
 #if __IOS__
 using Xamarin.Auth;
@@ -42,7 +32,6 @@ using Application = Xamarin.Forms.Application;
 using Xamarin.Auth;
 using System.IO;
 using Esri.ArcGISRuntime.Xamarin.Forms;
-using System.Diagnostics;
 #endif
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateAR
@@ -68,6 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private Route _route;
         private RouteResult _routeResult;
         private RouteParameters _routeParameters;
+        private Uri _routingUri = new Uri("https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World");
 
         public RoutePlanner()
         {
@@ -93,11 +83,13 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
             // Enable authentication.
             SetOAuthInfo();
+            var credential = await AuthenticationManager.Current.GenerateCredentialAsync(_routingUri);
+            AuthenticationManager.Current.AddCredential(credential);
 
             try
             {
                 // Create the route task.
-                _routeTask = await RouteTask.CreateAsync(new Uri("https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World"));
+                _routeTask = await RouteTask.CreateAsync(_routingUri);
             }
             catch (Exception ex)
             {
@@ -204,13 +196,24 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             HelpLabel.Text = "You're ready to start navigating!";
         }
 
-        private async void StartARClicked(object sender, System.EventArgs e)
+        private void StartARClicked(object sender, EventArgs e)
         {
-            RouteViewer.PassedRouteResult = null;
-            await Navigation.PushAsync(new RouteViewer() { }, true);
+            // Stop the current location source.
+            MyMapView.LocationDisplay.DataSource.StopAsync();
+
+            // Set the route for the route viewer.
+            RouteViewer.PassedRouteResult = _routeResult;
+
+            //var previousPage = Navigation.NavigationStack.LastOrDefault();
+            //await Navigation.PushAsync(new RouteViewer() { }, true);
+            //Navigation.RemovePage(previousPage);
+
+            Navigation.PopAsync();
+            Navigation.PushAsync(new RouteViewer() { }, true);
         }
 
         #region Authentication
+
         // Constants for OAuth-related values.
         // - The URL of the portal to authenticate with (ArcGIS Online).
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
@@ -266,6 +269,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         }
 
         #region IOAuthAuthorizationHandler implementation
+
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
@@ -342,7 +346,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 finally
                 {
                     // Dismiss the OAuth login.
-#if __ANDROID__ 
+#if __ANDROID__
                     activity.FinishActivity(99);
 #endif
                 }
@@ -362,7 +366,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-#if __ANDROID__ 
+#if __ANDROID__
                         activity.FinishActivity(99);
 #endif
                     }
@@ -389,8 +393,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
-        #endregion
 
-        #endregion
+        #endregion IOAuthAuthorizationHandler implementation
+
+        #endregion Authentication
     }
 }

@@ -49,8 +49,8 @@
                     Grid.Column="1"
                     Margin="5"
                     DeltaProgressChanged="ElevationSlider_DeltaProgressChanged"
-                    Maximum="10"
-                    Minimum="-10" />
+                    Maximum="15"
+                    Minimum="-15" />
                 <Label
                     Grid.Row="1"
                     Grid.Column="0"

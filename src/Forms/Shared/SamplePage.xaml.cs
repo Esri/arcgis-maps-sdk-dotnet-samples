@@ -11,9 +11,14 @@ using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntimeXamarin;
 using System;
 using System.Diagnostics;
+
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
+#if __IOS__
+using UIKit;
+#endif
 
 namespace ArcGISRuntime
 {
@@ -39,6 +44,14 @@ namespace ArcGISRuntime
 
             // Update the content - this displays the sample.
             SampleContentPage.Content = sample.Content;
+
+#if __IOS__
+            // Move the bottom of the sample up on iOS devices without home buttons.
+            if (UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top > 20 || UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top == 0)
+            {
+                SampleContentPage.Padding = new Thickness() { Bottom = 34};
+            }
+#endif
 
             // Because the sample control isn't navigated to (its content is displayed directly),
             //    navigation won't work from within the sample until the parent is manually set.
@@ -100,6 +113,8 @@ namespace ArcGISRuntime
         {
             if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
             base.OnAppearing();
+
+
         }
 
         protected override void OnDisappearing()

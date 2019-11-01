@@ -204,10 +204,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             // Set the route for the route viewer.
             RouteViewer.PassedRouteResult = _routeResult;
 
-            //var previousPage = Navigation.NavigationStack.LastOrDefault();
-            //await Navigation.PushAsync(new RouteViewer() { }, true);
-            //Navigation.RemovePage(previousPage);
-
+            // Load the routeviewer as a new page on the navigation stack.
             Navigation.PopAsync();
             Navigation.PushAsync(new RouteViewer() { }, true);
         }

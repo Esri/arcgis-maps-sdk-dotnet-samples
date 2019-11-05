@@ -682,18 +682,10 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
-    <BundleResource Include="Resources\SyntaxHighLighting\*">
+    <BundleResource Include="Resources\SyntaxHighlighting\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
-  </ItemGroup>
-  <Target Name="BeforeBuild">
-    <ItemGroup>
-      <SampleFiles Include="Samples\**\*.*"/>
-    </ItemGroup>
-    <Microsoft.Build.Tasks.Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(OutputPath)\ArcGISRuntime.app\Samples\%(RecursiveDir)"/>
-  </Target>
-  <ItemGroup>
-    <BundleResource Include="$(OutputPath)\ArcGISRuntime.app\Samples\**\*.*">
+    <BundleResource Include="Samples\**\*.*">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </BundleResource>
   </ItemGroup>

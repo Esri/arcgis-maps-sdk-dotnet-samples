@@ -685,7 +685,15 @@
     <BundleResource Include="Resources\SyntaxHighlighting\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
-    <BundleResource Include="Samples\**\*.*">
+  </ItemGroup>
+  <Target Name="BeforeBuild">
+    <ItemGroup>
+      <SampleFiles Include="Samples\**\*.*"/>
+    </ItemGroup>
+    <Microsoft.Build.Tasks.Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(OutputPath)\ArcGISRuntime.app\Samples\%(RecursiveDir)" SkipUnchangedFiles="true"/>
+  </Target>
+  <ItemGroup>
+    <BundleResource Include="$(OutputPath)\ArcGISRuntime.app\Samples\**\*.*">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </BundleResource>
   </ItemGroup>

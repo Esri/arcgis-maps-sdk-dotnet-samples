@@ -1,6 +1,7 @@
 ﻿using ArcGISRuntime.Samples.Shared.Models;
 using Foundation;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using UIKit;
 
@@ -9,7 +10,12 @@ namespace ArcGISRuntime
     public class SampleInfoViewController : UIViewController
     {
         private UISegmentedControl _switcherControl;
-        private UIWebView _sourceCodeView;
+        private UIWebView _readmeView;
+
+        private UIView _codeView;
+        private UIWebView _codeWebView;
+        private UIToolbar _codePickerButtonToolbar;
+        private UIBarButtonItem _codeButton;
 
         private SampleInfo _info;
 
@@ -17,6 +23,8 @@ namespace ArcGISRuntime
 
         private string _readmeHTML = "readme";
         private string _sourceCodeHTML = "sourcecode";
+
+        private Dictionary<string, string> _sourceCodeFiles = new Dictionary<string, string>();
 
         // Start of each html string.
         private const string htmlStart =
@@ -58,8 +66,6 @@ namespace ArcGISRuntime
             var sourceCodePath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName, _info.FormalName + ".cs");
             string baseContent = File.ReadAllText(sourceCodePath);
 
-            //string baseContent = "private async Task<byte[]> BitmapConvert(View v)\n{\nv.DrawingCacheEnabled = true;\nBitmap bitmap = Bitmap.CreateBitmap(v.DrawingCache);\nv.DrawingCacheEnabled = false;\nSystem.IO.Stream jpegStream = new System.IO.MemoryStream();\nawait bitmap.CompressAsync(Bitmap.CompressFormat.Jpeg, 100, jpegStream);\n// Store the jpeg data in a byte array.\njpegStream.Position = 0;\nbyte[] jpegArray = new byte[jpegStream.Length];\njpegStream.Read(jpegArray, 0, jpegArray.Length);\nreturn jpegArray;\n} ";
-
             // Build the html.
             _sourceCodeHTML =
                 htmlStart.Replace("{csspath}", syntaxHighlightCSS).Replace("{jspath}", jsPath) +
@@ -67,6 +73,8 @@ namespace ArcGISRuntime
                 baseContent +
                 "</code>" +
                 htmlEnd;
+
+            _sourceCodeFiles.Add(sourceCodePath, _sourceCodeHTML);
 
             // Build out readme html
             string readmeCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/github-markdown.css");
@@ -77,35 +85,80 @@ namespace ArcGISRuntime
 
             _readmeHTML = "<!doctype html><head><base href=\"" + readmePath + "\"><link rel=\"stylesheet\" href=\"" + readmeCSSPath + "\" /><link rel=\"stylesheet\" href=\"" + overrideCssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";
 
-            _sourceCodeView.LoadHtmlString(_readmeHTML, new NSUrl(_contentDirectoryPath, true));
+            _readmeView.LoadHtmlString(_readmeHTML, new NSUrl(_contentDirectoryPath, true));
+
+            _codeWebView.LoadHtmlString(_sourceCodeHTML, new NSUrl(_contentDirectoryPath, true));
         }
 
         private void SegmentChanged(object sender, EventArgs e)
         {
             if (_switcherControl.SelectedSegment == 0)
             {
-                _sourceCodeView.LoadHtmlString(_readmeHTML, new NSUrl(_contentDirectoryPath, true));
+                _codeView.Hidden = true;
+                _readmeView.Hidden = false;
             }
             else
             {
-                _sourceCodeView.LoadHtmlString(_sourceCodeHTML, new NSUrl(_contentDirectoryPath, true));
+                _readmeView.Hidden = true;
+                _codeView.Hidden = false;
             }
+        }
+
+        private void SourceCodeButtonPressed(object sender, EventArgs e)
+        {
+            // Build a UI alert controller for picking the color.
+            UIAlertController prompt = UIAlertController.Create(null, null, UIAlertControllerStyle.ActionSheet);
+            foreach (string fileTitle in _sourceCodeFiles.Keys)
+            {
+                UIAlertAction action = UIAlertAction.Create(fileTitle, UIAlertActionStyle.Default, FileSelect);
+                prompt.AddAction(action);
+            }
+            prompt.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                ppc.BarButtonItem = _codeButton;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            PresentViewController(prompt, true, null);
+        }
+
+        private void FileSelect(UIAlertAction obj)
+        {
+
         }
 
         public override void LoadView()
         {
             // Create and configure the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = UIColor.SystemBackgroundColor };
 
             _switcherControl = new UISegmentedControl(new string[] { "About", "Source Code" }) { SelectedSegment = 0 };
             _switcherControl.TranslatesAutoresizingMaskIntoConstraints = false;
             _switcherControl.ValueChanged += SegmentChanged;
 
-            _sourceCodeView = new UIWebView();
-            _sourceCodeView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _readmeView = new UIWebView();
+            _readmeView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _codeView = new UIView { BackgroundColor = UIColor.SystemBackgroundColor, Hidden = true };
+            _codeView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _codeWebView = new UIWebView();
+            _codeWebView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _codePickerButtonToolbar = new UIToolbar();
+            _codePickerButtonToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            _codeButton = new UIBarButtonItem("SourceCode.cs", UIBarButtonItemStyle.Plain, SourceCodeButtonPressed);
+            _codePickerButtonToolbar.Items = new UIBarButtonItem[]{ _codeButton };
+
+            _codeView.AddSubviews(_codeWebView, _codePickerButtonToolbar);
 
             // Add the views.
-            View.AddSubviews(_switcherControl, _sourceCodeView);
+            View.AddSubviews(_switcherControl, _readmeView, _codeView);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -113,19 +166,36 @@ namespace ArcGISRuntime
                 _switcherControl.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _switcherControl.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _switcherControl.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _switcherControl.BottomAnchor.ConstraintEqualTo(_sourceCodeView.TopAnchor),
+                _switcherControl.BottomAnchor.ConstraintEqualTo(_readmeView.TopAnchor),
 
-                 _sourceCodeView.TopAnchor.ConstraintEqualTo(_switcherControl.BottomAnchor),
-                 _sourceCodeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                 _sourceCodeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                 _sourceCodeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                 _readmeView.TopAnchor.ConstraintEqualTo(_switcherControl.BottomAnchor),
+                 _readmeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                 _readmeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                 _readmeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                 _codeView.TopAnchor.ConstraintEqualTo(_switcherControl.BottomAnchor),
+                 _codeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                 _codeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                 _codeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                 _codeWebView.TopAnchor.ConstraintEqualTo(_codeView.TopAnchor),
+                 _codeWebView.LeadingAnchor.ConstraintEqualTo(_codeView.LeadingAnchor),
+                 _codeWebView.TrailingAnchor.ConstraintEqualTo(_codeView.TrailingAnchor),
+                 _codeWebView.BottomAnchor.ConstraintEqualTo(_codePickerButtonToolbar.TopAnchor),
+
+                 _codePickerButtonToolbar.TopAnchor.ConstraintEqualTo(_codeWebView.BottomAnchor),
+                 _codePickerButtonToolbar.LeadingAnchor.ConstraintEqualTo(_codeView.LeadingAnchor),
+                 _codePickerButtonToolbar.TrailingAnchor.ConstraintEqualTo(_codeView.TrailingAnchor),
+                 _codePickerButtonToolbar.BottomAnchor.ConstraintEqualTo(_codeView.BottomAnchor),
+
             });
         }
+
+        
 
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-
             // Subscribe to events.
         }
 

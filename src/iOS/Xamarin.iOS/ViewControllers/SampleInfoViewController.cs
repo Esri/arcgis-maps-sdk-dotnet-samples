@@ -178,7 +178,7 @@ namespace ArcGISRuntime
         public override void LoadView()
         {
             // Create and configure the views.
-            View = new UIView { BackgroundColor = UIColor.SystemBackgroundColor };
+            View = new UIView { BackgroundColor = UIColor.White };
 
             // Segmented control at the top of the page.
             _switcherControl = new UISegmentedControl(new string[] { "About", "Source Code" }) { SelectedSegment = 0 };
@@ -189,7 +189,7 @@ namespace ArcGISRuntime
             _readmeView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // View for source code files.
-            _codeView = new UIView { BackgroundColor = UIColor.SystemBackgroundColor, Hidden = true };
+            _codeView = new UIView { BackgroundColor = UIColor.White, Hidden = true };
             _codeView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Web view of the source code html.

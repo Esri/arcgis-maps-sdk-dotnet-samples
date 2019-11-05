@@ -682,25 +682,21 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\*\*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </BundleResource>
-    <BundleResource Include="Samples\**\*.*">
+    <BundleResource Include="Resources\SyntaxHighLighting\*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
   </ItemGroup>
+  <Target Name="BeforeBuild">
+    <ItemGroup>
+      <SampleFiles Include="Samples\**\*.*"/>
+    </ItemGroup>
+    <Microsoft.Build.Tasks.Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(OutputPath)\ArcGISRuntime.app\Samples\%(RecursiveDir)"/>
+  </Target>
   <ItemGroup>
-    <BundleResource Include="Resources\SyntaxHighlighting\github-markdown.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </BundleResource>
-    <BundleResource Include="Resources\SyntaxHighlighting\hide-header.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </BundleResource>
+    <BundleResource Include="$(OutputPath)\ArcGISRuntime.app\Samples\**\*.*">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </BundleResource>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <Target Name="BeforeBuild">
-  </Target>
 </Project>

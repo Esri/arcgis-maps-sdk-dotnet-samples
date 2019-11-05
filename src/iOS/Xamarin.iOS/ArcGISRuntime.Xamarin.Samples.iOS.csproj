@@ -635,6 +635,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="LoadingOverlay.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="ViewControllers\SampleInfoViewController.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
     <Compile Include="ViewControllers\SearchResultsViewController.cs" />
@@ -658,10 +659,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.7.0</Version>
+      <Version>100.7.0-daily2592</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
-      <Version>100.7.0</Version>
+      <Version>100.7.0-daily2592</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>
@@ -682,6 +683,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\*\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Samples\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\SyntaxHighlighting\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\SyntaxHighlighting\hide-header.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+  </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Target Name="BeforeBuild">
+  </Target>
 </Project>

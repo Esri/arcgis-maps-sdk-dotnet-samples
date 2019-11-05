@@ -21,6 +21,7 @@ namespace ArcGISRuntime
     public class SamplesViewController : UITableViewController
     {
         private readonly SearchableTreeNode _category;
+       
 
         public SamplesViewController(SearchableTreeNode category)
         {
@@ -52,6 +53,7 @@ namespace ArcGISRuntime
             private readonly UITableViewController _controller;
             private LoadingOverlay _loadPopup;
             private readonly List<SampleInfo> _data;
+            private SampleInfo _sample;
 
             public SamplesDataSource(UITableViewController controller, IEnumerable<object> data)
             {
@@ -82,9 +84,9 @@ namespace ArcGISRuntime
                     // Call a function to clear existing credentials
                     ClearCredentials();
 
-                    var sample = _data[indexPath.Row];
+                    _sample = _data[indexPath.Row];
 
-                    if (sample.OfflineDataItems != null)
+                    if (_sample.OfflineDataItems != null)
                     {
                         // Show progress overlay
                         var bounds = UIScreen.MainScreen.Bounds;
@@ -93,19 +95,25 @@ namespace ArcGISRuntime
                         _controller.ParentViewController.View.Add(_loadPopup);
 
                         // Ensure data present
-                        await DataManager.EnsureSampleDataPresent(sample);
+                        await DataManager.EnsureSampleDataPresent(_sample);
 
                         // Hide progress overlay
                         _loadPopup.Hide();
                     }
 
-                    var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+                    var control = (UIViewController)SampleManager.Current.SampleToControl(_sample);
+                    control.NavigationItem.RightBarButtonItem = new UIBarButtonItem("\uD83D\uDEC8",  UIBarButtonItemStyle.Plain, ViewSampleReadme);
                     _controller.NavigationController.PushViewController(control, true);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+
+            private void ViewSampleReadme(object sender, EventArgs e)
+            {
+                _controller.NavigationController.PushViewController(new SampleInfoViewController(_sample), true);
             }
 
             private static void ClearCredentials()

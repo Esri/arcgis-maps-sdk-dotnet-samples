@@ -18,6 +18,10 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
+#if __IOS__
+using UIKit;
+#endif
+
 namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 {
     public partial class PipeViewer : ContentPage
@@ -47,6 +51,14 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
         private void Initialize()
         {
+#if __IOS__
+            // Move the bottom of the sample up on iOS devices without home buttons.
+            if (UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top > 20 || UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top == 0)
+            {
+                Padding = new Thickness() { Bottom = 34};
+            }
+#endif
+
             // Create and add the scene.
             MyARSceneView.Scene = new Scene(Basemap.CreateImagery());
 
@@ -55,7 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _locationSource = new ARLocationDataSource(Android.App.Application.Context);
             _locationSource.AltitudeMode = ARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
 #elif __IOS__
-            _locationDataSource = new ARLocationDataSource();
+            _locationSource = new ARLocationDataSource();
 #endif
             MyARSceneView.LocationDataSource = _locationSource;
 

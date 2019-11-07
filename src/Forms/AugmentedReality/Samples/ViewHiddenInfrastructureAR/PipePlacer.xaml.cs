@@ -155,8 +155,8 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                 Console.WriteLine(ex.Message);
             }
         }
-        private void UndoButton_Clicked(object sender, EventArgs e) { if (MyMapView.SketchEditor.UndoCommand.CanExecute(null)) MyMapView.SketchEditor.UndoCommand.Execute(null); }
-        private void RedoButton_Clicked(object sender, EventArgs e) { if (MyMapView.SketchEditor.RedoCommand.CanExecute(null)) MyMapView.SketchEditor.RedoCommand.Execute(null); }
+        private void UndoClicked(object sender, EventArgs e) { if (MyMapView.SketchEditor.UndoCommand.CanExecute(null)) MyMapView.SketchEditor.UndoCommand.Execute(null); }
+        private void RedoClicked(object sender, EventArgs e) { if (MyMapView.SketchEditor.RedoCommand.CanExecute(null)) MyMapView.SketchEditor.RedoCommand.Execute(null); }
 
         private void ViewClicked(object sender, EventArgs e)
         {

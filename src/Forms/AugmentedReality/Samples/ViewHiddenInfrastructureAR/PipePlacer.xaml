@@ -52,13 +52,13 @@
                 <Button
                     x:Name="UndoButton"
                     Grid.Column="1"
-                    Clicked="UndoButton_Clicked"
+                    Clicked="UndoClicked"
                     IsEnabled="False"
                     Text="&#x21B6;" />
                 <Button
                     x:Name="RedoButton"
                     Grid.Column="2"
-                    Clicked="RedoButton_Clicked"
+                    Clicked="RedoClicked"
                     IsEnabled="False"
                     Text="&#x21B7;" />
                 <Button

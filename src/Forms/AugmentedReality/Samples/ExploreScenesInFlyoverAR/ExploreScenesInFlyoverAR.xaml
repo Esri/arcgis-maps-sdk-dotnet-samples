@@ -6,7 +6,7 @@
     <Grid>
         <esriARToolkit:ARSceneView
             x:Name="MyARSceneView"
-            RenderPlanes="True"
+            RenderPlanes="False"
             RenderVideoFeed="False" />
     </Grid>
 </ContentPage>

@@ -15,7 +15,7 @@
             x:Name="MyARSceneView"
             Grid.Row="0"
             Grid.RowSpan="3"
-            RenderPlanes="True" />
+            RenderPlanes="False" />
         <Label
             x:Name="HelpLabel"
             Grid.Row="0"

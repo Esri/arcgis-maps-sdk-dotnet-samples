@@ -28,9 +28,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RoutePlanner.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Converters\ARLocationSource.Android.cs" />
@@ -54,9 +51,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RouteViewer.xaml.cs">
       <DependentUpon>RouteViewer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\PipePlacer.xaml.cs">
+      <DependentUpon>PipePlacer.xaml</DependentUpon>
       <SubType>Code</SubType>
-      <DependentUpon>ViewHiddenInfrastructureAR.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\PipeViewer.xaml.cs">
+      <DependentUpon>PipeViewer.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +67,18 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RouteViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\PipePlacer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\PipeViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
 </Project>

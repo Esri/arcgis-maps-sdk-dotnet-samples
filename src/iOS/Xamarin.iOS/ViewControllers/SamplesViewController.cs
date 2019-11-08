@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -86,14 +87,17 @@ namespace ArcGISRuntime
 
                     if (sample.OfflineDataItems != null)
                     {
+                        // Create a cancellation token source.
+                        var cancellationTokenSource = new CancellationTokenSource();
+
                         // Show progress overlay
                         var bounds = UIScreen.MainScreen.Bounds;
 
-                        _loadPopup = new LoadingOverlay(bounds);
+                        _loadPopup = new LoadingOverlay(bounds, cancellationTokenSource);
                         _controller.ParentViewController.View.Add(_loadPopup);
 
                         // Ensure data present
-                        await DataManager.EnsureSampleDataPresent(sample);
+                        await DataManager.EnsureSampleDataPresent(sample, cancellationTokenSource.Token);
 
                         // Hide progress overlay
                         _loadPopup.Hide();
@@ -101,6 +105,10 @@ namespace ArcGISRuntime
 
                     var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
                     _controller.NavigationController.PushViewController(control, true);
+                }
+                catch (OperationCanceledException)
+                {
+                    _loadPopup.Hide();
                 }
                 catch (Exception ex)
                 {

@@ -685,17 +685,10 @@
     <BundleResource Include="Resources\SyntaxHighlighting\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
-  </ItemGroup>
-  <Target Name="BeforeBuild">
-    <ItemGroup>
-      <SampleFiles Include="Samples\**\*.*"/>
-    </ItemGroup>
-    <Microsoft.Build.Tasks.Copy SourceFiles="@(SampleFiles)" DestinationFolder="$(OutputPath)\ArcGISRuntime.app\Samples\%(RecursiveDir)" SkipUnchangedFiles="true"/>
-  </Target>
-  <ItemGroup>
-    <BundleResource Include="$(OutputPath)\ArcGISRuntime.app\Samples\**\*.*">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </BundleResource>
+    <BundleResource Include="Samples\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </BundleResource>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

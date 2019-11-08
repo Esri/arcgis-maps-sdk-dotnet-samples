@@ -21,7 +21,6 @@ namespace ArcGISRuntime
     public class SamplesViewController : UITableViewController
     {
         private readonly SearchableTreeNode _category;
-       
 
         public SamplesViewController(SearchableTreeNode category)
         {
@@ -102,7 +101,7 @@ namespace ArcGISRuntime
                     }
 
                     var control = (UIViewController)SampleManager.Current.SampleToControl(_sample);
-                    control.NavigationItem.RightBarButtonItem = new UIBarButtonItem("\uD83D\uDEC8",  UIBarButtonItemStyle.Plain, ViewSampleReadme);
+                    control.NavigationItem.RightBarButtonItem = new UIBarButtonItem("\uD83D\uDEC8", UIBarButtonItemStyle.Plain, ViewSampleReadme);
                     _controller.NavigationController.PushViewController(control, true);
                 }
                 catch (Exception ex)

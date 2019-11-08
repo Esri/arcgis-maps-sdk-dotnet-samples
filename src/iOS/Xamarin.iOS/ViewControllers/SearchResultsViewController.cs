@@ -100,6 +100,7 @@ namespace ArcGISRuntime
             catch (OperationCanceledException)
             {
                 _loadPopup.Hide();
+                TableView.DeselectRow(indexPath, true);
             }
             catch (Exception ex)
             {

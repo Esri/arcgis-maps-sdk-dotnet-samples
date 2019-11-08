@@ -113,7 +113,10 @@ namespace ArcGISRuntime
 
             private void ViewSampleReadme(object sender, EventArgs e)
             {
-                _controller.NavigationController.PushViewController(new SampleInfoViewController(_sample), true);
+                var switcher = new UISegmentedControl(new string[] { "About", "Source Code" }) { SelectedSegment = 0 };
+                var control = new SampleInfoViewController(_sample, switcher);
+                control.NavigationItem.RightBarButtonItem = new UIBarButtonItem() { CustomView = switcher };
+                _controller.NavigationController.PushViewController(control, true);
             }
 
             private static void ClearCredentials()

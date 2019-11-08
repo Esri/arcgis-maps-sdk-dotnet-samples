@@ -31,10 +31,10 @@ namespace ArcGISRuntime
         // Directory for loading HTML locally.
         private string _contentDirectoryPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Content/");
 
-        public SampleInfoViewController(SampleInfo info)
+        public SampleInfoViewController(SampleInfo info, UISegmentedControl switcher)
         {
-            Title = info.SampleName;
             _info = info;
+            _switcherControl = switcher;
         }
 
         public override void ViewDidLoad()
@@ -50,15 +50,12 @@ namespace ArcGISRuntime
             {
                 string readmePath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName, "readme.md");
                 string readmeCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/github-markdown.css");
-                string overrideCssPath = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/hide-header.css");
                 string readmeContent = new MarkedNet.Marked().Parse(File.ReadAllText(readmePath));
 
                 string readmeHTML = "<!doctype html><head><base href=\"" +
                     readmePath +
                     "\"><link rel=\"stylesheet\" href=\"" +
                     readmeCSSPath +
-                    "\" /><link rel=\"stylesheet\" href=\"" +
-                    overrideCssPath +
                     "\" /></head><body class=\"markdown-body\">" +
                     readmeContent +
                     "</body>";
@@ -180,10 +177,6 @@ namespace ArcGISRuntime
             // Create and configure the views.
             View = new UIView { BackgroundColor = UIColor.White };
 
-            // Segmented control at the top of the page.
-            _switcherControl = new UISegmentedControl(new string[] { "About", "Source Code" }) { SelectedSegment = 0 };
-            _switcherControl.TranslatesAutoresizingMaskIntoConstraints = false;
-
             // Web view for the readme.
             _readmeView = new UIWebView();
             _readmeView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -199,29 +192,24 @@ namespace ArcGISRuntime
             // Button for bringing up alertcontroller to switch between source code files.
             var toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            _codeButton = new UIBarButtonItem("SourceCode.cs", UIBarButtonItemStyle.Plain, SourceCodeButtonPressed);
+            _codeButton = new UIBarButtonItem("", UIBarButtonItemStyle.Plain, SourceCodeButtonPressed);
             toolbar.Items = new UIBarButtonItem[] { _codeButton };
 
             // Add sub views to code view.
             _codeView.AddSubviews(_codeWebView, toolbar);
 
             // Add sub views to main view.
-            View.AddSubviews(_switcherControl, _readmeView, _codeView);
+            View.AddSubviews(_readmeView, _codeView);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                _switcherControl.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _switcherControl.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _switcherControl.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _switcherControl.BottomAnchor.ConstraintEqualTo(_readmeView.TopAnchor),
-
-                 _readmeView.TopAnchor.ConstraintEqualTo(_switcherControl.BottomAnchor),
+                 _readmeView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                  _readmeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                  _readmeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                  _readmeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
-                 _codeView.TopAnchor.ConstraintEqualTo(_switcherControl.BottomAnchor),
+                 _codeView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                  _codeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                  _codeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                  _codeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),

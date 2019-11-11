@@ -101,7 +101,7 @@ namespace ArcGISRuntime
                     }
 
                     var control = (UIViewController)SampleManager.Current.SampleToControl(_sample);
-                    control.NavigationItem.RightBarButtonItem = new UIBarButtonItem("\uD83D\uDEC8", UIBarButtonItemStyle.Plain, ViewSampleReadme);
+                    control.NavigationItem.RightBarButtonItem = new UIBarButtonItem(UIImage.FromBundle("InfoIcon"), UIBarButtonItemStyle.Plain, ViewSampleReadme);
                     _controller.NavigationController.PushViewController(control, true);
                 }
                 catch (Exception ex)
@@ -112,7 +112,7 @@ namespace ArcGISRuntime
 
             private void ViewSampleReadme(object sender, EventArgs e)
             {
-                var switcher = new UISegmentedControl(new string[] { "About", "Source Code" }) { SelectedSegment = 0 };
+                var switcher = new UISegmentedControl(new string[] { "About", "Source code" }) { SelectedSegment = 0 };
                 var control = new SampleInfoViewController(_sample, switcher);
                 control.NavigationItem.RightBarButtonItem = new UIBarButtonItem() { CustomView = switcher };
                 _controller.NavigationController.PushViewController(control, true);

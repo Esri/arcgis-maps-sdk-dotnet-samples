@@ -623,6 +623,7 @@
     <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RouteViewerAR.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\AdjustableLocationDataSource.cs" />
+    <Compile Include="ViewControllers\SettingsViewController.cs" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>
@@ -658,10 +659,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.7.0</Version>
+      <Version>100.7.0-daily2600</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
-      <Version>100.7.0</Version>
+      <Version>100.7.0-daily2600</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

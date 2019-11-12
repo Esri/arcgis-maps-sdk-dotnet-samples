@@ -63,7 +63,15 @@ namespace ArcGISRuntime
             // Show search bar by default
             NavigationItem.HidesSearchBarWhenScrolling = false;
 
+            NavigationItem.RightBarButtonItem = new UIBarButtonItem(UIImage.FromBundle("Settings"), UIBarButtonItemStyle.Plain, ViewSettingsPage);
+
             DefinesPresentationContext = true;
+        }
+
+        private void ViewSettingsPage(object sender, EventArgs e)
+        {
+            var control = new SettingsViewController();
+            NavigationController.PushViewController(control, true);
         }
 
         private class CategoryDataSource : UITableViewSource

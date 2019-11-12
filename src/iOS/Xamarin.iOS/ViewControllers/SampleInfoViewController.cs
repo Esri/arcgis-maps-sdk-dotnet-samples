@@ -1,4 +1,13 @@
-﻿using ArcGISRuntime.Samples.Shared.Models;
+﻿// Copyright 2019 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using ArcGISRuntime.Samples.Shared.Models;
 using Foundation;
 using System;
 using System.Collections.Generic;
@@ -6,6 +15,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using UIKit;
+using WebKit;
 
 namespace ArcGISRuntime
 {
@@ -18,11 +28,11 @@ namespace ArcGISRuntime
         private UISegmentedControl _switcherControl;
 
         // Web view for viewing readme markdown.
-        private UIWebView _readmeView;
+        private WKWebView _readmeView;
 
         // Controls for the source code viewer.
         private UIView _codeView;
-        private UIWebView _codeWebView;
+        private WKWebView _codeWebView;
         private UIBarButtonItem _codeButton;
 
         // Dictionary where keys are filenames and values are HTML of source code.
@@ -56,7 +66,12 @@ namespace ArcGISRuntime
                     readmePath +
                     "\"><link rel=\"stylesheet\" href=\"" +
                     readmeCSSPath +
-                    "\" /></head><body class=\"markdown-body\">" +
+                    "\" />" +
+                    "<meta name=\"viewport\" content=\"width=" +
+                    UIScreen.MainScreen.Bounds.Width.ToString() +
+                    ", shrink-to-fit=YES\">" +
+                    "</head>" +
+                    "<body class=\"markdown-body\">" +
                     readmeContent +
                     "</body>";
 
@@ -178,15 +193,18 @@ namespace ArcGISRuntime
             View = new UIView { BackgroundColor = UIColor.White };
 
             // Web view for the readme.
-            _readmeView = new UIWebView();
+            _readmeView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration());
             _readmeView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Add navigation delegat for opening readme links in browser.
+            _readmeView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
             // View for source code files.
             _codeView = new UIView { BackgroundColor = UIColor.White, Hidden = true };
             _codeView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Web view of the source code html.
-            _codeWebView = new UIWebView();
+            _codeWebView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration());
             _codeWebView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Button for bringing up alertcontroller to switch between source code files.
@@ -240,6 +258,26 @@ namespace ArcGISRuntime
 
             // Unsubscribe from events, per best practice.
             _switcherControl.ValueChanged -= SegmentChanged;
+        }
+    }
+
+    public class BrowserLinksNavigationDelegate : WKNavigationDelegate
+    {
+        public override void DecidePolicy(WKWebView webView, WKNavigationAction navigationAction, Action<WKNavigationActionPolicy> decisionHandler)
+        {
+            if (navigationAction.NavigationType == WKNavigationType.LinkActivated)
+            {
+                // Open links in browser.
+                if (UIApplication.SharedApplication.CanOpenUrl(navigationAction.Request.Url))
+                {
+                    UIApplication.SharedApplication.OpenUrl(navigationAction.Request.Url);
+                }
+                decisionHandler(WKNavigationActionPolicy.Cancel);
+            }
+            else
+            {
+                decisionHandler(WKNavigationActionPolicy.Allow);
+            }
         }
     }
 }

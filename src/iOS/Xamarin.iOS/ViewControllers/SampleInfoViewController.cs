@@ -55,7 +55,7 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
-            // Build out readme html
+            // Build out readme html.
             try
             {
                 string readmePath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName, "readme.md");

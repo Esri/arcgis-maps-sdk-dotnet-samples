@@ -2,20 +2,23 @@
   "images": [
     {
       "appearances": [],
+      "scale": "1x",
+      "idiom": "universal"
+    },
+    {
+      "appearances": [],
+      "scale": "2x",
+      "idiom": "universal"
+    },
+    {
+      "appearances": [],
       "scale": "3x",
       "idiom": "universal"
     },
     {
       "appearances": [],
-      "scale": "1x",
       "idiom": "universal",
-      "filename": "iOS7_Toolbar_OpenDirectionsTool22.png"
-    },
-    {
-      "appearances": [],
-      "scale": "2x",
-      "idiom": "universal",
-      "filename": "iOS7_Toolbar_OpenDirectionsTool44.png"
+      "filename": "download.pdf"
     }
   ],
   "properties": {},

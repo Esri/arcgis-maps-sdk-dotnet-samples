@@ -213,8 +213,8 @@ namespace ArcGISRuntime
             private CancellationTokenSource _cancellationTokenSource;
             private List<SampleInfo> _samples;
 
-            private UIImage _downloadImage = UIImage.FromBundle("InfoIcon");
-            private UIImage _globeImage = UIImage.FromBundle("InfoIcon");
+            private UIImage _globeImage = UIImage.FromBundle("GlobeIcon");
+            private UIImage _downloadImage = UIImage.FromBundle("DownloadIcon");
 
             public SamplesTableSource()
             {

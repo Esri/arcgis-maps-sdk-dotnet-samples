@@ -160,6 +160,18 @@
   </ItemGroup>
   <!-- Image Assets -->
   <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\DownloadIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\DownloadIcon.imageset\download.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\GlobeIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\GlobeIcon.imageset\globe.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\InfoIcon.imageset\iOS7_Toolbar_About44.png">
       <Visible>false</Visible>
     </ImageAsset>

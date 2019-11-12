@@ -160,6 +160,15 @@
   </ItemGroup>
   <!-- Image Assets -->
   <ItemGroup>
+  <ImageAsset Include="Resources\Images.xcassets\InfoIcon.imageset\iOS7_Toolbar_About44.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\InfoIcon.imageset\iOS7_Toolbar_About22.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\InfoIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\DirectionsList.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -639,6 +648,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="LoadingOverlay.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="ViewControllers\SampleInfoViewController.cs" />
     <Compile Include="ViewControllers\SamplesViewController.cs" />
     <Compile Include="ViewControllers\SearchResultsUpdater.cs" />
     <Compile Include="ViewControllers\SearchResultsViewController.cs" />
@@ -685,6 +695,27 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
+    <BundleResource Include="Resources\SyntaxHighlighting\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\SyntaxHighlighting\highlight.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\SyntaxHighlighting\highlight.pack.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Samples\**\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </BundleResource>
+    <BundleResource Include="Samples\**\*.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </BundleResource>
+    <BundleResource Include="Samples\**\*.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Visible>false</Visible>
+    </BundleResource>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -240,7 +240,7 @@ namespace ArcGISRuntime
                  toolbar.TopAnchor.ConstraintEqualTo(_codeWebView.BottomAnchor),
                  toolbar.LeadingAnchor.ConstraintEqualTo(_codeView.LeadingAnchor),
                  toolbar.TrailingAnchor.ConstraintEqualTo(_codeView.TrailingAnchor),
-                 toolbar.BottomAnchor.ConstraintEqualTo(_codeView.BottomAnchor),
+                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
             });
         }
 

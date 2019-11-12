@@ -98,7 +98,7 @@ namespace ArcGISRuntime
                         _controller.ParentViewController.View.Add(_loadPopup);
 
                         // Ensure data present
-                        await DataManager.EnsureSampleDataPresent(sample, cancellationTokenSource.Token);
+                        await DataManager.EnsureSampleDataPresent(_sample, cancellationTokenSource.Token);
 
                         // Hide progress overlay
                         _loadPopup.Hide();

@@ -237,6 +237,9 @@
     <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <Content Include="Resources\about.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <None Include="Samples\Security\IntegratedWindowsAuth\readme.md" />

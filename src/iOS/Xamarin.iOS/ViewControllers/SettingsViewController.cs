@@ -22,7 +22,7 @@ namespace ArcGISRuntime
 
         private WKWebView _licensesView;
 
-        private UIView _downloadView;
+        private UIStackView _downloadView;
         private UILabel _downloadLabel;
         private UIBarButtonItem _downloadAllButton;
         private UIBarButtonItem _deleteAllButton;
@@ -90,11 +90,7 @@ namespace ArcGISRuntime
             try
             {
                 // Get a token from a new CancellationTokenSource()
-                CancellationToken token = _cancellationTokenSource.Token;
-
-                // Adjust the UI
-                //SetStatusMessage("Downloading all...", true);
-                
+                CancellationToken token = _cancellationTokenSource.Token;              
 
                 // Make a list of tasks for downloading all of the samples.
                 HashSet<string> itemIds = new HashSet<string>();
@@ -112,14 +108,12 @@ namespace ArcGISRuntime
                 // Enable the cancel button.
                 _buttonToolbar.Items = new[] { _cancelButton };
 
+                // Download every item.
                 foreach (var item in itemIds)
                 {
-                    _downloadLabel.Text = "Downloading data item: " + item;
+                    _downloadLabel.Text = "Downloading item: " + item;
                     await DataManager.DownloadDataItem(item, token);
-                    //downloadTasks.Add();
                 }
-
-                //await Task.WhenAll(downloadTasks);
 
                 new UIAlertView(null, "All data downloaded", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
@@ -135,7 +129,6 @@ namespace ArcGISRuntime
             finally
             {
                 _cancellationTokenSource = new CancellationTokenSource();
-                //SetStatusMessage("Ready", false);
                 _buttonToolbar.Items = new[]
                 {
                     _downloadAllButton,
@@ -211,31 +204,41 @@ namespace ArcGISRuntime
             _licensesView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
             // View for managing offline data for samples.
-            _downloadView = new UIView { BackgroundColor = UIColor.White, Hidden = true };
+            _downloadView = new UIStackView { BackgroundColor = UIColor.White, Hidden = true };
+            _downloadView.Axis = UILayoutConstraintAxis.Vertical;
+            _downloadView.Spacing = 5;
+            _downloadView.LayoutMarginsRelativeArrangement = true;
+            _downloadView.Alignment = UIStackViewAlignment.Fill;
+            _downloadView.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             _downloadView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _downloadLabel = new UILabel() { Text = "Download" };
+            // Label for download status.
+            _downloadLabel = new UILabel() { Text = "Download label" };
             _downloadLabel.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            // Buttons for downloading or deleting all items.
+            _buttonToolbar = new UIToolbar();
+            _buttonToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _downloadAllButton = new UIBarButtonItem() { Title = "Download all" };
             _deleteAllButton = new UIBarButtonItem() { Title = "Delete all" };
-
             _cancelButton = new UIBarButtonItem() { Title = "Cancel" };
-            _buttonToolbar = new UIToolbar();
-            _buttonToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
             _buttonToolbar.Items = new[]
             {
                 _downloadAllButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _deleteAllButton,
             };
-
+            
+            // Table of samples with downloadable items.
             _downloadTable = new UITableView();
             _downloadTable.Source = new SamplesTableSource(_samples, _downloadLabel);
             _downloadTable.TranslatesAutoresizingMaskIntoConstraints = false;
             _downloadTable.RowHeight = 50;
             _downloadTable.AllowsSelection = false;
 
+            // Add the views to the download view.
             _downloadView.AddSubviews(_downloadLabel, _buttonToolbar, _downloadTable);
 
             // Add sub views to main view.
@@ -259,21 +262,21 @@ namespace ArcGISRuntime
                  _downloadView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
                  _downloadLabel.TopAnchor.ConstraintEqualTo(_downloadView.TopAnchor),
-                 _downloadLabel.LeadingAnchor.ConstraintEqualTo(_downloadView.LeadingAnchor),
-                 _downloadLabel.TrailingAnchor.ConstraintEqualTo(_downloadView.TrailingAnchor),
+                 _downloadLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                 _downloadLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                  _downloadLabel.BottomAnchor.ConstraintEqualTo(_buttonToolbar.TopAnchor),
 
                  _buttonToolbar.TopAnchor.ConstraintEqualTo(_downloadLabel.BottomAnchor),
-                 _buttonToolbar.LeadingAnchor.ConstraintEqualTo(_downloadView.LeadingAnchor),
-                 _buttonToolbar.TrailingAnchor.ConstraintEqualTo(_downloadView.TrailingAnchor),
+                 _buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                 _buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                  _buttonToolbar.BottomAnchor.ConstraintEqualTo(_downloadTable.TopAnchor),
 
                  _downloadTable.TopAnchor.ConstraintEqualTo(_buttonToolbar.BottomAnchor),
-                 _downloadTable.LeadingAnchor.ConstraintEqualTo(_downloadView.LeadingAnchor),
-                 _downloadTable.TrailingAnchor.ConstraintEqualTo(_downloadView.TrailingAnchor),
+                 _downloadTable.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                 _downloadTable.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                  _downloadTable.HeightAnchor.ConstraintEqualTo(_downloadTable.RowHeight*10),
                  _downloadTable.BottomAnchor.ConstraintEqualTo(_downloadView.SafeAreaLayoutGuide.BottomAnchor),
-            });
+            }) ;
         }
 
         public override void ViewWillAppear(bool animated)
@@ -285,8 +288,6 @@ namespace ArcGISRuntime
             _deleteAllButton.Clicked += DeleteAll;
             _cancelButton.Clicked += CancelDownload;
         }
-
-        
 
         public override void ViewDidDisappear(bool animated)
         {
@@ -390,7 +391,6 @@ namespace ArcGISRuntime
             {
                 try
                 {
-                    //SetStatusMessage("Downloading sample data", true);
                     _statusLabel.Text = "Downloading sample data";
                     SampleInfo sample = _samples[indexPath.Row];
 
@@ -399,13 +399,11 @@ namespace ArcGISRuntime
                 catch (Exception exception)
                 {
                     Debug.WriteLine(exception);
-                    //await new MessageDialog("Couldn't download data for that sample", "Error").ShowAsync();
                     new UIAlertView("Error", "Download canceled", (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
                 finally
                 {
                     _statusLabel.Text = "Ready";
-                    //SetStatusMessage("Ready", false);
                 }
 
             }
@@ -429,14 +427,12 @@ namespace ArcGISRuntime
 
                         Directory.Delete(offlineDataPath, true);
                     }
-                    //await new MessageDialog($"Offline data deleted for {sample.SampleName}").ShowAsync();
                     new UIAlertView(null, $"Offline data deleted for {sample.SampleName}", (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
                 catch (Exception exception)
                 {
                     Debug.WriteLine(exception);
                     new UIAlertView("Error", "Couldn't delete offline data.", (IUIAlertViewDelegate)null, "OK", null).Show();
-                    //await new MessageDialog($"Couldn't delete offline data.", "Error").ShowAsync();
                 }
             }
 

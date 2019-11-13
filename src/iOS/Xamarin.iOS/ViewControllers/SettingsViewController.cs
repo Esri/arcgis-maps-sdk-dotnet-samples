@@ -94,6 +94,7 @@ namespace ArcGISRuntime
 
                 // Adjust the UI
                 //SetStatusMessage("Downloading all...", true);
+                
 
                 // Make a list of tasks for downloading all of the samples.
                 HashSet<string> itemIds = new HashSet<string>();
@@ -101,6 +102,7 @@ namespace ArcGISRuntime
 
                 foreach (SampleInfo sample in _samples)
                 {
+                    
                     foreach (string itemId in sample.OfflineDataItems)
                     {
                         itemIds.Add(itemId);
@@ -112,6 +114,7 @@ namespace ArcGISRuntime
 
                 foreach (var item in itemIds)
                 {
+                    _downloadLabel.Text = "Downloading data item: " + item;
                     await DataManager.DownloadDataItem(item, token);
                     //downloadTasks.Add();
                 }
@@ -150,22 +153,21 @@ namespace ArcGISRuntime
         {
             try
             {
-                //SetStatusMessage("Deleting all...", true);
-
+                _downloadLabel.Text = "Deleting all...";
                 string offlineDataPath = DataManager.GetDataFolder();
 
                 Directory.Delete(offlineDataPath, true);
 
-                //await new MessageDialog("All data deleted").ShowAsync();
+                new UIAlertView(null, "All data deleted", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                //await new MessageDialog("Couldn't delete the offline data folder", "Error").ShowAsync();
+                new UIAlertView("Error", "Couldn't delete the offline data folder", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {
-                //SetStatusMessage("Ready", false);
+                _downloadLabel.Text = "Ready";
             }
         }
 
@@ -229,7 +231,7 @@ namespace ArcGISRuntime
             };
 
             _downloadTable = new UITableView();
-            _downloadTable.Source = new SamplesTableSource(_samples);
+            _downloadTable.Source = new SamplesTableSource(_samples, _downloadLabel);
             _downloadTable.TranslatesAutoresizingMaskIntoConstraints = false;
             _downloadTable.RowHeight = 50;
             _downloadTable.AllowsSelection = false;
@@ -303,10 +305,13 @@ namespace ArcGISRuntime
             private UIImage _globeImage = UIImage.FromBundle("GlobeIcon");
             private UIImage _downloadImage = UIImage.FromBundle("DownloadIcon");
 
-            public SamplesTableSource(List<SampleInfo> samples)
+            private UILabel _statusLabel;
+
+            public SamplesTableSource(List<SampleInfo> samples, UILabel label)
             {
                 // Set up offline data.
                 _samples = samples;
+                _statusLabel = label;
             }
 
             public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
@@ -386,17 +391,20 @@ namespace ArcGISRuntime
                 try
                 {
                     //SetStatusMessage("Downloading sample data", true);
+                    _statusLabel.Text = "Downloading sample data";
                     SampleInfo sample = _samples[indexPath.Row];
 
                     await DataManager.EnsureSampleDataPresent(sample);
                 }
                 catch (Exception exception)
                 {
-                    System.Diagnostics.Debug.WriteLine(exception);
+                    Debug.WriteLine(exception);
                     //await new MessageDialog("Couldn't download data for that sample", "Error").ShowAsync();
+                    new UIAlertView("Error", "Download canceled", (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
                 finally
                 {
+                    _statusLabel.Text = "Ready";
                     //SetStatusMessage("Ready", false);
                 }
 
@@ -422,10 +430,12 @@ namespace ArcGISRuntime
                         Directory.Delete(offlineDataPath, true);
                     }
                     //await new MessageDialog($"Offline data deleted for {sample.SampleName}").ShowAsync();
+                    new UIAlertView(null, $"Offline data deleted for {sample.SampleName}", (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
                 catch (Exception exception)
                 {
                     Debug.WriteLine(exception);
+                    new UIAlertView("Error", "Couldn't delete offline data.", (IUIAlertViewDelegate)null, "OK", null).Show();
                     //await new MessageDialog($"Couldn't delete offline data.", "Error").ShowAsync();
                 }
             }

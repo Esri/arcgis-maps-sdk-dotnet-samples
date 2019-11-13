@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 using UIKit;
 using WebKit;
 
@@ -28,6 +29,10 @@ namespace ArcGISRuntime
         private UITableView _downloadTable;
 
         private UISegmentedControl _switcher;
+
+        private CancellationTokenSource _cancellationTokenSource;
+
+        private List<SampleInfo> _samples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
 
         // Directory for loading HTML locally.
         private string _contentDirectoryPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Content/");
@@ -78,13 +83,78 @@ namespace ArcGISRuntime
 
             return markdowntHTML;
         }
+        private async void DownloadAll(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get a token from a new CancellationTokenSource()
+                CancellationToken token = _cancellationTokenSource.Token;
+
+                // Enable the cancel button.
+                //CancelButton.Visibility = Visibility.Visible;
+
+                // Adjust the UI
+                //SetStatusMessage("Downloading all...", true);
+
+                // Make a list of tasks for downloading all of the samples.
+                HashSet<string> itemIds = new HashSet<string>();
+                List<Task> downloadTasks = new List<Task>();
+
+                foreach (SampleInfo sample in _samples)
+                {
+                    foreach (string itemId in sample.OfflineDataItems)
+                    {
+                        itemIds.Add(itemId);
+                    }
+                }
+
+                foreach (var item in itemIds)
+                {
+                    downloadTasks.Add(DataManager.DownloadDataItem(item, token));
+                }
+
+                await Task.WhenAll(downloadTasks);
+
+                //await new MessageDialog("All data downloaded").ShowAsync();
+            }
+            catch (OperationCanceledException)
+            {
+                //await new MessageDialog("Download canceled").ShowAsync();
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+                //await new MessageDialog("Download canceled", "Error").ShowAsync();
+            }
+            finally
+            {
+                _cancellationTokenSource = new CancellationTokenSource();
+                //SetStatusMessage("Ready", false);
+                //CancelButton.Visibility = Visibility.Collapsed;
+            }
+        }
 
         private void DeleteAll(object sender, EventArgs e)
         {
-        }
+            try
+            {
+                //SetStatusMessage("Deleting all...", true);
 
-        private void DownloadAll(object sender, EventArgs e)
-        {
+                string offlineDataPath = DataManager.GetDataFolder();
+
+                Directory.Delete(offlineDataPath, true);
+
+                //await new MessageDialog("All data deleted").ShowAsync();
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+                //await new MessageDialog("Couldn't delete the offline data folder", "Error").ShowAsync();
+            }
+            finally
+            {
+                //SetStatusMessage("Ready", false);
+            }
         }
 
         private void TabChanged(object sender, EventArgs e)
@@ -145,7 +215,7 @@ namespace ArcGISRuntime
             };
 
             _downloadTable = new UITableView();
-            _downloadTable.Source = new SamplesTableSource();
+            _downloadTable.Source = new SamplesTableSource(_samples);
             _downloadTable.TranslatesAutoresizingMaskIntoConstraints = false;
             _downloadTable.RowHeight = 50;
             _downloadTable.AllowsSelection = false;
@@ -210,17 +280,15 @@ namespace ArcGISRuntime
 
         private class SamplesTableSource : UITableViewSource
         {
-            private CancellationTokenSource _cancellationTokenSource;
             private List<SampleInfo> _samples;
 
             private UIImage _globeImage = UIImage.FromBundle("GlobeIcon");
             private UIImage _downloadImage = UIImage.FromBundle("DownloadIcon");
 
-            public SamplesTableSource()
+            public SamplesTableSource(List<SampleInfo> samples)
             {
                 // Set up offline data.
-                _samples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
-                _cancellationTokenSource = new CancellationTokenSource();
+                _samples = samples;
             }
 
             public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
@@ -257,7 +325,7 @@ namespace ArcGISRuntime
 
                     accessoryView.AddSubviews(agolButton, dlButton);
                     
-                    accessoryView.Frame = new CGRect(0, 0, _downloadImage.Size.Width + _globeImage.Size.Width + 20, Math.Max(_downloadImage.Size.Height , _globeImage.Size.Height));
+                    accessoryView.Frame = new CGRect(0, 0, _downloadImage.Size.Width*2 + 20, _downloadImage.Size.Height);
 
                     NSLayoutConstraint.ActivateConstraints(new[]
                     {
@@ -282,10 +350,38 @@ namespace ArcGISRuntime
 
             private void OpenInAGOL(NSIndexPath indexPath)
             {
+                SampleInfo sample = _samples[indexPath.Row];
+
+                foreach (var offlineItem in sample.OfflineDataItems)
+                {
+                    string onlinePath = $"https://www.arcgis.com/home/item.html?id={offlineItem}";
+
+                    if (UIApplication.SharedApplication.CanOpenUrl(new NSUrl(onlinePath)))
+                    {
+                        UIApplication.SharedApplication.OpenUrl(new NSUrl(onlinePath));
+                    }
+                }
             }
 
-            private void Download(NSIndexPath indexPath)
+            private async void Download(NSIndexPath indexPath)
             {
+                try
+                {
+                    //SetStatusMessage("Downloading sample data", true);
+                    SampleInfo sample = _samples[indexPath.Row];
+
+                    await DataManager.EnsureSampleDataPresent(sample);
+                }
+                catch (Exception exception)
+                {
+                    System.Diagnostics.Debug.WriteLine(exception);
+                    //await new MessageDialog("Couldn't download data for that sample", "Error").ShowAsync();
+                }
+                finally
+                {
+                    //SetStatusMessage("Ready", false);
+                }
+
             }
 
             public override UITableViewRowAction[] EditActionsForRow(UITableView tableView, NSIndexPath indexPath)

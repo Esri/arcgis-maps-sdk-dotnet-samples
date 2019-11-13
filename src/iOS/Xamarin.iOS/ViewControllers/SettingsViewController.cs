@@ -26,11 +26,13 @@ namespace ArcGISRuntime
         private UILabel _downloadLabel;
         private UIBarButtonItem _downloadAllButton;
         private UIBarButtonItem _deleteAllButton;
+        private UIBarButtonItem _cancelButton;
         private UITableView _downloadTable;
+        private UIToolbar _buttonToolbar;
 
         private UISegmentedControl _switcher;
 
-        private CancellationTokenSource _cancellationTokenSource;
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private List<SampleInfo> _samples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
 
@@ -90,9 +92,6 @@ namespace ArcGISRuntime
                 // Get a token from a new CancellationTokenSource()
                 CancellationToken token = _cancellationTokenSource.Token;
 
-                // Enable the cancel button.
-                //CancelButton.Visibility = Visibility.Visible;
-
                 // Adjust the UI
                 //SetStatusMessage("Downloading all...", true);
 
@@ -108,30 +107,43 @@ namespace ArcGISRuntime
                     }
                 }
 
+                // Enable the cancel button.
+                _buttonToolbar.Items = new[] { _cancelButton };
+
                 foreach (var item in itemIds)
                 {
-                    downloadTasks.Add(DataManager.DownloadDataItem(item, token));
+                    await DataManager.DownloadDataItem(item, token);
+                    //downloadTasks.Add();
                 }
 
-                await Task.WhenAll(downloadTasks);
+                //await Task.WhenAll(downloadTasks);
 
-                //await new MessageDialog("All data downloaded").ShowAsync();
+                new UIAlertView(null, "All data downloaded", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             catch (OperationCanceledException)
             {
-                //await new MessageDialog("Download canceled").ShowAsync();
+                new UIAlertView(null, "Download canceled", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                //await new MessageDialog("Download canceled", "Error").ShowAsync();
+                new UIAlertView("Error", "Download canceled", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {
                 _cancellationTokenSource = new CancellationTokenSource();
                 //SetStatusMessage("Ready", false);
-                //CancelButton.Visibility = Visibility.Collapsed;
+                _buttonToolbar.Items = new[]
+                {
+                    _downloadAllButton,
+                    new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                    _deleteAllButton,
+                };
             }
+        }
+        private void CancelDownload(object sender, EventArgs e)
+        {
+            _cancellationTokenSource?.Cancel();
         }
 
         private void DeleteAll(object sender, EventArgs e)
@@ -205,9 +217,11 @@ namespace ArcGISRuntime
 
             _downloadAllButton = new UIBarButtonItem() { Title = "Download all" };
             _deleteAllButton = new UIBarButtonItem() { Title = "Delete all" };
-            var toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
-            toolbar.Items = new[]
+
+            _cancelButton = new UIBarButtonItem() { Title = "Cancel" };
+            _buttonToolbar = new UIToolbar();
+            _buttonToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _buttonToolbar.Items = new[]
             {
                 _downloadAllButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -220,7 +234,7 @@ namespace ArcGISRuntime
             _downloadTable.RowHeight = 50;
             _downloadTable.AllowsSelection = false;
 
-            _downloadView.AddSubviews(_downloadLabel, toolbar, _downloadTable);
+            _downloadView.AddSubviews(_downloadLabel, _buttonToolbar, _downloadTable);
 
             // Add sub views to main view.
             View.AddSubviews(_aboutView, _licensesView, _downloadView);
@@ -245,14 +259,14 @@ namespace ArcGISRuntime
                  _downloadLabel.TopAnchor.ConstraintEqualTo(_downloadView.TopAnchor),
                  _downloadLabel.LeadingAnchor.ConstraintEqualTo(_downloadView.LeadingAnchor),
                  _downloadLabel.TrailingAnchor.ConstraintEqualTo(_downloadView.TrailingAnchor),
-                 _downloadLabel.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                 _downloadLabel.BottomAnchor.ConstraintEqualTo(_buttonToolbar.TopAnchor),
 
-                 toolbar.TopAnchor.ConstraintEqualTo(_downloadLabel.BottomAnchor),
-                 toolbar.LeadingAnchor.ConstraintEqualTo(_downloadView.LeadingAnchor),
-                 toolbar.TrailingAnchor.ConstraintEqualTo(_downloadView.TrailingAnchor),
-                 toolbar.BottomAnchor.ConstraintEqualTo(_downloadTable.TopAnchor),
+                 _buttonToolbar.TopAnchor.ConstraintEqualTo(_downloadLabel.BottomAnchor),
+                 _buttonToolbar.LeadingAnchor.ConstraintEqualTo(_downloadView.LeadingAnchor),
+                 _buttonToolbar.TrailingAnchor.ConstraintEqualTo(_downloadView.TrailingAnchor),
+                 _buttonToolbar.BottomAnchor.ConstraintEqualTo(_downloadTable.TopAnchor),
 
-                 _downloadTable.TopAnchor.ConstraintEqualTo(toolbar.BottomAnchor),
+                 _downloadTable.TopAnchor.ConstraintEqualTo(_buttonToolbar.BottomAnchor),
                  _downloadTable.LeadingAnchor.ConstraintEqualTo(_downloadView.LeadingAnchor),
                  _downloadTable.TrailingAnchor.ConstraintEqualTo(_downloadView.TrailingAnchor),
                  _downloadTable.HeightAnchor.ConstraintEqualTo(_downloadTable.RowHeight*10),
@@ -267,7 +281,10 @@ namespace ArcGISRuntime
             // Subscribe to events.
             _downloadAllButton.Clicked += DownloadAll;
             _deleteAllButton.Clicked += DeleteAll;
+            _cancelButton.Clicked += CancelDownload;
         }
+
+        
 
         public override void ViewDidDisappear(bool animated)
         {
@@ -276,6 +293,7 @@ namespace ArcGISRuntime
             // Unsubscribe from events, per best practice.
             _downloadAllButton.Clicked -= DownloadAll;
             _deleteAllButton.Clicked -= DeleteAll;
+            _cancelButton.Clicked -= CancelDownload;
         }
 
         private class SamplesTableSource : UITableViewSource

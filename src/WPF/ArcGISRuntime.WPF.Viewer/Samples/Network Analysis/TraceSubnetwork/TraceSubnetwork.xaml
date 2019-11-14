@@ -3,6 +3,134 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView"
+                      GeoViewTapped="OnGeoViewTapped" />
+        <Border x:Name="MainUI"
+                IsEnabled="False"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="IsAddingStartingLocations"
+                             Content="Add starting locations"
+                             GroupName="AddState"
+                             IsChecked="True" />
+                <RadioButton Content="Add barriers"
+                             GroupName="AddState"
+                             Grid.Column="1" />
+                <Button Margin="5"
+                        Content="Reset"
+                        Click="OnReset"
+                        Grid.Row="1" />
+                <Button Margin="5"
+                        Click="OnConfigureTrace"
+                        Content="Configure"
+                        Grid.Row="1"
+                        Grid.Column="1" />
+                <TextBlock x:Name="Status"
+                           Margin="0,5,0,5"
+                           Text="Loading sample..."
+                           Grid.Row="2"
+                           Grid.ColumnSpan="2" />
+                <ProgressBar x:Name="IsBusy"
+                             Height="15"
+                             IsIndeterminate="True"
+                             Visibility="Collapsed"
+                             Grid.Row="3"
+                             Grid.ColumnSpan="2" />
+            </Grid>
+        </Border>
+
+        <Border x:Name="Configuration"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.25*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Trace Type"
+                           HorizontalAlignment="Right"
+                           Margin="0,5,0,5" />
+                <ComboBox x:Name="TraceTypes"
+                          Margin="5"
+                          Grid.Column="1" />
+                <TextBlock Text="Source Tier"
+                           HorizontalAlignment="Right"
+                           Margin="0,5,0,5"
+                           Grid.Row="1" />
+                <ComboBox x:Name="SourceTiers"
+                          Margin="5"
+                          Grid.Row="1"
+                          Grid.Column="1">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Grid Grid.Row="3"
+                      Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Content="Trace"
+                            Click="OnTrace"
+                            Margin="5" />
+                    <Button Content="Close"
+                            Click="OnConfigureClosed"
+                            Margin="5"
+                            Grid.Column="1" />
+                </Grid>
+            </Grid>
+        </Border>
+
+        <Border Name="TerminalPicker"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Margin="5"
+                           Text="Select the terminal for this junction." />
+                <ComboBox x:Name="Picker"
+                          Grid.Row="1"
+                          Margin="5">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Grid.Row="2"
+                        Margin="5"
+                        Click="OnTerminalSelected"
+                        Content="Select" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

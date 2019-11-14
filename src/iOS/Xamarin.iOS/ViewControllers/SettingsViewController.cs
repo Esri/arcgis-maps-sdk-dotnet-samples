@@ -36,7 +36,7 @@ namespace ArcGISRuntime
 
         // UI items for download page.
         private UIStackView _downloadView;
-        private UILabel _downloadLabel;
+        private UILabel _statusLabel;
         private UIToolbar _buttonToolbar;
         private UIBarButtonItem _downloadAllButton;
         private UIBarButtonItem _deleteAllButton;
@@ -127,7 +127,7 @@ namespace ArcGISRuntime
                 // Download every item.
                 foreach (var item in itemIds)
                 {
-                    _downloadLabel.Text = "Downloading item: " + item;
+                    _statusLabel.Text = "Downloading item: " + item;
                     await DataManager.DownloadDataItem(item, token);
                 }
 
@@ -154,7 +154,7 @@ namespace ArcGISRuntime
                     new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                     _deleteAllButton,
                 };
-                _downloadLabel.Text = "Ready";
+                _statusLabel.Text = "Ready";
             }
         }
 
@@ -167,7 +167,7 @@ namespace ArcGISRuntime
         {
             try
             {
-                _downloadLabel.Text = "Deleting all...";
+                _statusLabel.Text = "Deleting all...";
                 string offlineDataPath = DataManager.GetDataFolder();
 
                 // Delete the entire directory of offline data.
@@ -182,7 +182,7 @@ namespace ArcGISRuntime
             }
             finally
             {
-                _downloadLabel.Text = "Ready";
+                _statusLabel.Text = "Ready";
             }
         }
 
@@ -233,7 +233,7 @@ namespace ArcGISRuntime
             _downloadView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Label for download status.
-            _downloadLabel = new UILabel() { Text = "Ready" };
+            _statusLabel = new UILabel() { Text = "Ready" };
 
             // Buttons for downloading or deleting all items.
             _buttonToolbar = new UIToolbar();
@@ -251,12 +251,12 @@ namespace ArcGISRuntime
 
             // Table of samples with downloadable items.
             _downloadTable = new UITableView();
-            _downloadTable.Source = new SamplesTableSource(_samples, _downloadLabel);
+            _downloadTable.Source = new SamplesTableSource(_samples, _statusLabel);
             _downloadTable.RowHeight = 50;
             _downloadTable.AllowsSelection = false;
 
             // Add the views to the download view.
-            _downloadView.AddArrangedSubview(_downloadLabel);
+            _downloadView.AddArrangedSubview(_statusLabel);
             _downloadView.AddArrangedSubview(_downloadTable);
             _downloadView.AddArrangedSubview(_buttonToolbar);
 
@@ -279,6 +279,8 @@ namespace ArcGISRuntime
                  _downloadView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                  _downloadView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                  _downloadView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                 _statusLabel.HeightAnchor.ConstraintEqualTo(40),
             });
         }
 

@@ -233,7 +233,7 @@ namespace ArcGISRuntime
             _downloadView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Label for download status.
-            _statusLabel = new UILabel() { Text = "Ready" };
+            _statusLabel = new UILabel() { Text = "Ready", TextAlignment = UITextAlignment.Center};
 
             // Buttons for downloading or deleting all items.
             _buttonToolbar = new UIToolbar();
@@ -281,6 +281,9 @@ namespace ArcGISRuntime
                  _downloadView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
                  _statusLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                 _buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                 _buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
         }
 

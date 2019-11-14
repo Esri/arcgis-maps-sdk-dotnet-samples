@@ -1,4 +1,13 @@
-﻿using ArcGISRuntime.Samples.Managers;
+﻿// Copyright 2019 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using CoreGraphics;
 using Esri.ArcGISRuntime;
@@ -18,22 +27,26 @@ namespace ArcGISRuntime
 {
     public class SettingsViewController : UIViewController
     {
+        // WebViews for about and license pages.
         private WKWebView _aboutView;
-
         private WKWebView _licensesView;
 
+        // UI control to switch between pages.
+        private UISegmentedControl _switcher;
+
+        // UI items for download page.
         private UIStackView _downloadView;
         private UILabel _downloadLabel;
+        private UIToolbar _buttonToolbar;
         private UIBarButtonItem _downloadAllButton;
         private UIBarButtonItem _deleteAllButton;
         private UIBarButtonItem _cancelButton;
         private UITableView _downloadTable;
-        private UIToolbar _buttonToolbar;
 
-        private UISegmentedControl _switcher;
-
+        // Cancellation token for downloading items.
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
+        // List of samples that contain offline data.
         private List<SampleInfo> _samples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
 
         // Directory for loading HTML locally.
@@ -47,9 +60,11 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
+            // Setup the switcher.
             NavigationItem.TitleView = _switcher;
             _switcher.ValueChanged += TabChanged;
 
+            // Create the about page.
             var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
             var rtVersionString = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
             string aboutPath = Path.Combine(NSBundle.MainBundle.BundlePath, "about.md");
@@ -58,6 +73,7 @@ namespace ArcGISRuntime
 
             _aboutView.LoadHtmlString(aboutHTML, new NSUrl(_contentDirectoryPath, true));
 
+            // Create the licesnes page.
             string licensePath = Path.Combine(NSBundle.MainBundle.BundlePath, "licenses.md");
             string licenseContent = File.ReadAllText(licensePath);
             string licenseHTML = MarkdownToHTML(licenseContent);
@@ -85,12 +101,13 @@ namespace ArcGISRuntime
 
             return markdowntHTML;
         }
+
         private async void DownloadAll(object sender, EventArgs e)
         {
             try
             {
                 // Get a token from a new CancellationTokenSource()
-                CancellationToken token = _cancellationTokenSource.Token;              
+                CancellationToken token = _cancellationTokenSource.Token;
 
                 // Make a list of tasks for downloading all of the samples.
                 HashSet<string> itemIds = new HashSet<string>();
@@ -98,7 +115,6 @@ namespace ArcGISRuntime
 
                 foreach (SampleInfo sample in _samples)
                 {
-                    
                     foreach (string itemId in sample.OfflineDataItems)
                     {
                         itemIds.Add(itemId);
@@ -113,25 +129,25 @@ namespace ArcGISRuntime
                 {
                     _downloadLabel.Text = "Downloading item: " + item;
                     await DataManager.DownloadDataItem(item, token);
-                    //downloadTasks.Add(DataManager.DownloadDataItem(item, token));
                 }
-
-                //await Task.WhenAll(downloadTasks);
 
                 new UIAlertView(null, "All data downloaded", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             catch (OperationCanceledException)
             {
-                new UIAlertView(null, "Download canceled", (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView(null, "Download all canceled", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                new UIAlertView("Error", "Download canceled", (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView("Error", "Download  all canceled", (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {
+                // Reset the token source.
                 _cancellationTokenSource = new CancellationTokenSource();
+
+                // Reset the UI.
                 _buttonToolbar.Items = new[]
                 {
                     _downloadAllButton,
@@ -141,7 +157,8 @@ namespace ArcGISRuntime
                 _downloadLabel.Text = "Ready";
             }
         }
-        private void CancelDownload(object sender, EventArgs e)
+
+        private void CancelDownloadAll(object sender, EventArgs e)
         {
             _cancellationTokenSource?.Cancel();
         }
@@ -153,6 +170,7 @@ namespace ArcGISRuntime
                 _downloadLabel.Text = "Deleting all...";
                 string offlineDataPath = DataManager.GetDataFolder();
 
+                // Delete the entire directory of offline data.
                 Directory.Delete(offlineDataPath, true);
 
                 new UIAlertView(null, "All data deleted", (IUIAlertViewDelegate)null, "OK", null).Show();
@@ -198,19 +216,18 @@ namespace ArcGISRuntime
             _switcher = new UISegmentedControl(new string[] { "About", "Licenses", "Offline Data" }) { SelectedSegment = 0 };
 
             // Displays the about.md in a web view.
-            _aboutView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration());
+            _aboutView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
             _aboutView.TranslatesAutoresizingMaskIntoConstraints = false;
             _aboutView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
             // Displays the licenses.md in a web view.
-            _licensesView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration()) { Hidden = true };
+            _licensesView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { Hidden = true };
             _licensesView.TranslatesAutoresizingMaskIntoConstraints = false;
             _licensesView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
             // View for managing offline data for samples.
             _downloadView = new UIStackView { BackgroundColor = UIColor.White, Hidden = true };
             _downloadView.Axis = UILayoutConstraintAxis.Vertical;
-            _downloadView.Spacing = 5;
             _downloadView.LayoutMarginsRelativeArrangement = true;
             _downloadView.Alignment = UIStackViewAlignment.Fill;
             _downloadView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -231,7 +248,7 @@ namespace ArcGISRuntime
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _deleteAllButton,
             };
-            
+
             // Table of samples with downloadable items.
             _downloadTable = new UITableView();
             _downloadTable.Source = new SamplesTableSource(_samples, _downloadLabel);
@@ -262,7 +279,7 @@ namespace ArcGISRuntime
                  _downloadView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                  _downloadView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                  _downloadView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-            }) ;
+            });
         }
 
         public override void ViewWillAppear(bool animated)
@@ -272,7 +289,7 @@ namespace ArcGISRuntime
             // Subscribe to events.
             _downloadAllButton.Clicked += DownloadAll;
             _deleteAllButton.Clicked += DeleteAll;
-            _cancelButton.Clicked += CancelDownload;
+            _cancelButton.Clicked += CancelDownloadAll;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -282,16 +299,18 @@ namespace ArcGISRuntime
             // Unsubscribe from events, per best practice.
             _downloadAllButton.Clicked -= DownloadAll;
             _deleteAllButton.Clicked -= DeleteAll;
-            _cancelButton.Clicked -= CancelDownload;
+            _cancelButton.Clicked -= CancelDownloadAll;
         }
 
         private class SamplesTableSource : UITableViewSource
         {
             private List<SampleInfo> _samples;
 
+            // Images for button icons.
             private UIImage _globeImage = UIImage.FromBundle("GlobeIcon");
             private UIImage _downloadImage = UIImage.FromBundle("DownloadIcon");
 
+            // Label for changing status text on downloads.
             private UILabel _statusLabel;
 
             public SamplesTableSource(List<SampleInfo> samples, UILabel label)
@@ -314,28 +333,23 @@ namespace ArcGISRuntime
                     cell.TextLabel.Text = _samples[indexPath.Row].SampleName;
 
                     // Make the accessory view
-                    UIStackView accessoryView = new UIStackView();
-                    accessoryView.Spacing = 5;
-                    accessoryView.Axis = UILayoutConstraintAxis.Horizontal;
-                    accessoryView.LayoutMarginsRelativeArrangement = true;
-                    accessoryView.Alignment = UIStackViewAlignment.Fill;
-                    accessoryView.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
+                    UIView accessoryView = new UIView();
 
                     UIButton agolButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
                     agolButton.SetImage(_globeImage, UIControlState.Normal);
-                    agolButton.TouchUpInside += (s, e) => OpenInAGOL(indexPath);
-                    CGRect agolFrame = new CGRect(0, 0, _downloadImage.Size.Width, _downloadImage.Size.Height);
+                    agolButton.TouchUpInside += (s, e) => OpenSampleInAGOL(indexPath);
+                    CGRect agolFrame = new CGRect(0, 0, _globeImage.Size.Width, _globeImage.Size.Height);
                     agolButton.Frame = agolFrame;
 
                     UIButton dlButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
                     dlButton.SetImage(_downloadImage, UIControlState.Normal);
-                    dlButton.TouchUpInside += (s, e) => Download(indexPath);
+                    dlButton.TouchUpInside += (s, e) => DownloadSample(indexPath);
                     CGRect frame = new CGRect(0, 0, _downloadImage.Size.Width, _downloadImage.Size.Height);
                     dlButton.Frame = frame;
 
                     accessoryView.AddSubviews(agolButton, dlButton);
-                    
-                    accessoryView.Frame = new CGRect(0, 0, _downloadImage.Size.Width*2 + 20, _downloadImage.Size.Height);
+
+                    accessoryView.Frame = new CGRect(0, 0, _downloadImage.Size.Width * 2 + 20, _downloadImage.Size.Height);
 
                     NSLayoutConstraint.ActivateConstraints(new[]
                     {
@@ -358,7 +372,7 @@ namespace ArcGISRuntime
                 return null;
             }
 
-            private void OpenInAGOL(NSIndexPath indexPath)
+            private void OpenSampleInAGOL(NSIndexPath indexPath)
             {
                 SampleInfo sample = _samples[indexPath.Row];
 
@@ -373,13 +387,13 @@ namespace ArcGISRuntime
                 }
             }
 
-            private async void Download(NSIndexPath indexPath)
+            private async void DownloadSample(NSIndexPath indexPath)
             {
+                _statusLabel.Text = "Downloading sample data...";
+                SampleInfo sample = _samples[indexPath.Row];
+
                 try
                 {
-                    _statusLabel.Text = "Downloading sample data...";
-                    SampleInfo sample = _samples[indexPath.Row];
-
                     await DataManager.EnsureSampleDataPresent(sample);
                 }
                 catch (Exception exception)
@@ -389,19 +403,18 @@ namespace ArcGISRuntime
                 }
                 finally
                 {
-                    _statusLabel.Text = "Ready";
+                    _statusLabel.Text = "Data downloaded: " + sample.SampleName;
                 }
-
             }
 
             public override UITableViewRowAction[] EditActionsForRow(UITableView tableView, NSIndexPath indexPath)
             {
                 var actions = new UITableViewRowAction[1];
-                actions[0] = UITableViewRowAction.Create(UITableViewRowActionStyle.Destructive, "Delete", DeleteHandler);
+                actions[0] = UITableViewRowAction.Create(UITableViewRowActionStyle.Destructive, "Delete", DeleteSample);
                 return actions;
             }
 
-            private void DeleteHandler(UITableViewRowAction action, NSIndexPath indexPath)
+            private void DeleteSample(UITableViewRowAction action, NSIndexPath indexPath)
             {
                 try
                 {
@@ -415,7 +428,7 @@ namespace ArcGISRuntime
                     }
                     new UIAlertView(null, $"Offline data deleted for {sample.SampleName}", (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
-                catch(DirectoryNotFoundException)
+                catch (DirectoryNotFoundException)
                 {
                     new UIAlertView(null, "Data is not present.", (IUIAlertViewDelegate)null, "OK", null).Show();
                 }

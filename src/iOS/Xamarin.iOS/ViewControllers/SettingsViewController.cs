@@ -192,16 +192,16 @@ namespace ArcGISRuntime
             {
                 case 0:
                     _aboutView.Hidden = false;
-                    _licensesView.Hidden = _downloadView.Hidden = true;
+                    _licensesView.Hidden = _downloadView.Hidden = _buttonToolbar.Hidden = true;
                     break;
 
                 case 1:
                     _licensesView.Hidden = false;
-                    _aboutView.Hidden = _downloadView.Hidden = true;
+                    _aboutView.Hidden = _downloadView.Hidden = _buttonToolbar.Hidden = true;
                     break;
 
                 case 2:
-                    _downloadView.Hidden = false;
+                    _downloadView.Hidden = _buttonToolbar.Hidden = false;
                     _aboutView.Hidden = _licensesView.Hidden = true;
                     break;
             }
@@ -233,10 +233,10 @@ namespace ArcGISRuntime
             _downloadView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Label for download status.
-            _statusLabel = new UILabel() { Text = "Ready", TextAlignment = UITextAlignment.Center};
+            _statusLabel = new UILabel() { Text = "Ready", TextAlignment = UITextAlignment.Center };
 
             // Buttons for downloading or deleting all items.
-            _buttonToolbar = new UIToolbar();
+            _buttonToolbar = new UIToolbar() { TranslatesAutoresizingMaskIntoConstraints = false, Hidden = true };
 
             _downloadAllButton = new UIBarButtonItem() { Title = "Download all" };
             _deleteAllButton = new UIBarButtonItem() { Title = "Delete all" };
@@ -258,10 +258,9 @@ namespace ArcGISRuntime
             // Add the views to the download view.
             _downloadView.AddArrangedSubview(_statusLabel);
             _downloadView.AddArrangedSubview(_downloadTable);
-            _downloadView.AddArrangedSubview(_buttonToolbar);
 
             // Add sub views to main view.
-            View.AddSubviews(_aboutView, _licensesView, _downloadView);
+            View.AddSubviews(_aboutView, _licensesView, _downloadView, _buttonToolbar);
 
             NSLayoutConstraint.ActivateConstraints(new[]
             {
@@ -278,12 +277,14 @@ namespace ArcGISRuntime
                  _downloadView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
                  _downloadView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                  _downloadView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                 _downloadView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                 _downloadView.BottomAnchor.ConstraintEqualTo(_buttonToolbar.TopAnchor),
 
                  _statusLabel.HeightAnchor.ConstraintEqualTo(40),
 
+                 _buttonToolbar.TopAnchor.ConstraintEqualTo(_downloadView.BottomAnchor),
                  _buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                  _buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                 _buttonToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
             });
         }
 

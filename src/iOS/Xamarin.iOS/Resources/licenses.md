@@ -1,4 +1,4 @@
-﻿# Licenses for 3rd-party software packages
+# Licenses for 3rd-party software packages
 
 The ArcGIS Runtime SDK for .NET sample viewer (iOS version) was built using several free and open source software libraries and resources. 
 

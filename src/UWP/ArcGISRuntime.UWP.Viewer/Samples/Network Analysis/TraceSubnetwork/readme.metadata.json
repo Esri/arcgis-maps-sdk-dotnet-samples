@@ -1,0 +1,22 @@
+{
+    "category": "Network Analysis",
+    "description": "Discover all the features participating in a subnetwork with subnetwork, upstream, and downstream trace types.",
+    "formal_name": "TraceSubnetwork",
+    "ignore": false,
+    "images": [
+        "TraceSubnetwork.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/TraceSubnetwork.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Trace a subnetwork"
+}

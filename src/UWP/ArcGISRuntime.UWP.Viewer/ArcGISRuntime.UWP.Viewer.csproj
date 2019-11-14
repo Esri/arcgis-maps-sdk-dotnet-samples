@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Network Analysis\TraceSubnetwork\TraceSubnetwork.jpg" />
     <Content Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <Content Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <Content Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
@@ -347,6 +348,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\TraceSubnetwork\TraceSubnetwork.xaml.cs">
+      <DependentUpon>TraceSubnetwork.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
       <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
@@ -908,6 +912,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Network Analysis\TraceSubnetwork\TraceSubnetwork.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

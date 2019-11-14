@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Network Analysis\TraceSubnetwork\TraceSubnetwork.jpg" />
     <None Include="Samples\Augmented reality\NavigateAR\NavigateAR.jpg" />
     <None Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
     <None Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
@@ -259,6 +260,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\TraceSubnetwork\TraceSubnetwork.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RoutePlanner.cs" />
     <Compile Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.cs" />
     <Compile Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.cs" />

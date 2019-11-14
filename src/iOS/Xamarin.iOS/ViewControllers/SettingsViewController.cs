@@ -213,7 +213,7 @@ namespace ArcGISRuntime
             View = new UIView { BackgroundColor = UIColor.White };
 
             // Used to switch between the different views.
-            _switcher = new UISegmentedControl(new string[] { "About", "Licenses", "Offline Data" }) { SelectedSegment = 0 };
+            _switcher = new UISegmentedControl(new string[] { "About", "Licenses", "Offline data" }) { SelectedSegment = 0 };
 
             // Displays the about.md in a web view.
             _aboutView = new WKWebView(new CGRect(), new WKWebViewConfiguration());

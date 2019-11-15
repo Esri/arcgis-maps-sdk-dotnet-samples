@@ -32,16 +32,23 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class TraceSubnetwork
     {
+        // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
+
+        // Viewpoint in the utility network area.
         private Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9812980.8041217551, 5128523.87694709, -9812798.4363710005, 5128627.6261982173, SpatialReferences.WebMercator));
 
+        // Utility network objects.
         private UtilityNetwork _utilityNetwork;
-        private SimpleMarkerSymbol _startingPointSymbol;
-        private SimpleMarkerSymbol _barrierPointSymbol;
-
         private List<UtilityElement> _startingLocations = new List<UtilityElement>();
         private List<UtilityElement> _barriers = new List<UtilityElement>();
+
+        // Task completion source for the user selected terminal.
         private TaskCompletionSource<UtilityTerminal> _terminalCompletionSource = null;
+
+        // Markers for the utility elements.
+        private SimpleMarkerSymbol _startingPointSymbol;
+        private SimpleMarkerSymbol _barrierPointSymbol;
 
         public TraceSubnetwork()
         {
@@ -61,29 +68,34 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 {
                     InitialViewpoint = _startingViewpoint
                 };
+
+                // Add the layer with electric distribution lines.
                 FeatureLayer lineLayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/115"));
-                lineLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3));
+                UniqueValue mediumVoltageValue = new UniqueValue("N/A", "Medium Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3), 5);
+                UniqueValue lowVoltageValue = new UniqueValue("N/A", "Low Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.DarkCyan, 3), 3);
+                lineLayer.Renderer = new UniqueValueRenderer(new List<string>() { "ASSETGROUP" }, new List<UniqueValue>() { mediumVoltageValue, lowVoltageValue }, "", new SimpleLineSymbol());
                 MyMapView.Map.OperationalLayers.Add(lineLayer);
+
+                // Add the layer with electric devices.
                 FeatureLayer electricDevicelayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/100"));
                 MyMapView.Map.OperationalLayers.Add(electricDevicelayer);
 
+                // Set the selection color for features in the map view.
                 MyMapView.SelectionProperties = new SelectionProperties(System.Drawing.Color.Yellow);
 
                 // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
-                // Update Configuration UI.
+                // Update the trace configuration UI.
                 TraceTypes.ItemsSource = new[] { UtilityTraceType.Subnetwork, UtilityTraceType.Upstream, UtilityTraceType.Downstream };
                 TraceTypes.SelectedIndex = 0;
-                IEnumerable<UtilityTier> tiers = (from d in _utilityNetwork.Definition.DomainNetworks
-                                                  select d.Tiers).SelectMany(t => t);
-                SourceTiers.ItemsSource = tiers;
-                if (tiers.Any())
-                {
-                    SourceTiers.SelectedIndex = 0;
-                }
 
-                Status.Text = "Click on the network lines or points to add a utility element.";
+                // Get a list of all utility tiers in the utility network.
+                IEnumerable<UtilityTier> tiers = _utilityNetwork.Definition.DomainNetworks.Select(domain => domain.Tiers).SelectMany(tier => tier);
+
+                // Set the UI for selecting tier.
+                SourceTiers.ItemsSource = tiers;
+                if (tiers.Any()) SourceTiers.SelectedIndex = 0;
 
                 // Create symbols for starting locations and barriers.
                 _startingPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Green, 20d);
@@ -92,6 +104,9 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 // Create a graphics overlay.
                 GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
                 MyMapView.GraphicsOverlays.Add(graphicsOverlay);
+
+                // Set the instruction text.
+                Status.Text = "Click on the network lines or points to add a utility element.";
             }
             catch (Exception ex)
             {
@@ -250,9 +265,12 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
         {
             try
             {
+                // Get the selected trace type.
+                UtilityTraceType traceType = (UtilityTraceType)TraceTypes.SelectedItem;
+
+                // Update the UI.
                 MainUI.IsEnabled = false;
                 UpdateBorderVisibility(MainUI);
-                var traceType = (UtilityTraceType)TraceTypes.SelectedItem;
                 IsBusy.Visibility = Visibility.Visible;
                 Status.Text = $"Running `{traceType}` trace...";
 
@@ -260,7 +278,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
                 // Build trace parameters.
-                var parameters = new UtilityTraceParameters(traceType, _startingLocations);
+                UtilityTraceParameters parameters = new UtilityTraceParameters(traceType, _startingLocations);
                 foreach (UtilityElement barrier in _barriers)
                 {
                     parameters.Barriers.Add(barrier);
@@ -275,15 +293,20 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(parameters);
                 UtilityElementTraceResult elementTraceResult = traceResult?.FirstOrDefault() as UtilityElementTraceResult;
 
+                // Check if there are any elements in the result.
                 if (elementTraceResult?.Elements?.Count > 0)
                 {
                     foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers.OfType<FeatureLayer>())
                     {
+                        // Add every trace result element to a query.
                         QueryParameters query = new QueryParameters();
-                        foreach (long id in from element in elementTraceResult.Elements
-                                            where element.NetworkSource.Name == layer.FeatureTable.TableName
-                                            select element.ObjectId)
-                            query.ObjectIds.Add(id);
+                        IEnumerable<UtilityElement> elements = elementTraceResult.Elements.Where(x => x.NetworkSource.Name == layer.FeatureTable.TableName);
+                        foreach (UtilityElement element in elements)
+                        {
+                            query.ObjectIds.Add(element.ObjectId);
+                        }
+
+                        // Select every trace result element from the layer.
                         await layer.SelectFeaturesAsync(query, SelectionMode.New);
                     }
                 }

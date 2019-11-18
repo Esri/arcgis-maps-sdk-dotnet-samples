@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
@@ -19,7 +20,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
 
 namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
@@ -42,6 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
         private UtilityNetwork _utilityNetwork;
         private List<UtilityElement> _startingLocations = new List<UtilityElement>();
         private List<UtilityElement> _barriers = new List<UtilityElement>();
+        private UtilityTier _mediumVoltageTier;
 
         // Task completion source for the user selected terminal.
         private TaskCompletionSource<UtilityTerminal> _terminalCompletionSource = null;
@@ -87,19 +88,19 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
                 // Update the trace configuration UI.
-                TraceTypes.ItemsSource = new[] { UtilityTraceType.Subnetwork, UtilityTraceType.Upstream, UtilityTraceType.Downstream };
+                TraceTypes.ItemsSource = new[] { UtilityTraceType.Connected, UtilityTraceType.Subnetwork, UtilityTraceType.Upstream, UtilityTraceType.Downstream };
                 TraceTypes.SelectedIndex = 0;
 
-                // Get a list of all utility tiers in the utility network.
-                IEnumerable<UtilityTier> tiers = _utilityNetwork.Definition.DomainNetworks.Select(domain => domain.Tiers).SelectMany(tier => tier);
+                // Get the utility tier used for traces in this network. For this data set, the "Medium Voltage Radial" tier from the "ElectricDistribution" domain network is used.
+                UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork("ElectricDistribution");
+                _mediumVoltageTier = domainNetwork.GetTier("Medium Voltage Radial");
 
-                // Set the UI for selecting tier.
-                SourceTiers.ItemsSource = tiers;
-                if (tiers.Any()) SourceTiers.SelectedIndex = 0;
+                // More complex datasets may require using utility trace configurations from different tiers. The following LINQ expression gets all tiers present in the utility network.
+                //IEnumerable<UtilityTier> tiers = _utilityNetwork.Definition.DomainNetworks.Select(domain => domain.Tiers).SelectMany(tier => tier);
 
                 // Create symbols for starting locations and barriers.
-                _startingPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Green, 20d);
-                _barrierPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Red, 20d);
+                _startingPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.LightGreen, 25d);
+                _barrierPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.OrangeRed, 25d);
 
                 // Create a graphics overlay.
                 GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
@@ -188,7 +189,9 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
         {
             try
             {
-                UpdateBorderVisibility(TerminalPicker);
+                MyMapView.GeoViewTapped -= OnGeoViewTapped;
+                TerminalPicker.Visibility = Visibility.Visible;
+                MainUI.Visibility = Visibility.Collapsed;
                 Picker.ItemsSource = terminals;
                 Picker.SelectedIndex = 1;
 
@@ -198,31 +201,9 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
             }
             finally
             {
-                UpdateBorderVisibility(MainUI);
-            }
-        }
-
-        private void UpdateBorderVisibility(Border borderToShow)
-        {
-            if (borderToShow == MainUI)
-            {
+                TerminalPicker.Visibility = Visibility.Collapsed;
+                MainUI.Visibility = Visibility.Visible;
                 MyMapView.GeoViewTapped += OnGeoViewTapped;
-            }
-            else
-            {
-                MyMapView.GeoViewTapped -= OnGeoViewTapped;
-            }
-            IEnumerable<Border> borders = new[] { MainUI, Configuration, TerminalPicker };
-            foreach (Border border in borders)
-            {
-                if (border == borderToShow)
-                {
-                    border.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    border.Visibility = Visibility.Collapsed;
-                }
             }
         }
 
@@ -236,12 +217,8 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
             // Reset the UI.
             Status.Text = "Click on the network lines or points to add a utility element.";
             IsBusy.Visibility = Visibility.Hidden;
-            UpdateBorderVisibility(MainUI);
             TraceTypes.SelectedIndex = 0;
-            if (SourceTiers.ItemsSource is IEnumerable<UtilityTier> tiers && tiers.Any())
-            {
-                SourceTiers.SelectedIndex = 0;
-            }
+
             // Clear collections of starting locations and barriers.
             _startingLocations.Clear();
             _barriers.Clear();
@@ -249,16 +226,6 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
             // Clear the map of any locations, barriers and trace result.
             MyMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Clear();
             MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
-        }
-
-        private void OnConfigureTrace(object sender, RoutedEventArgs e)
-        {
-            UpdateBorderVisibility(Configuration);
-        }
-
-        private void OnConfigureClosed(object sender, RoutedEventArgs e)
-        {
-            UpdateBorderVisibility(MainUI);
         }
 
         private async void OnTrace(object sender, RoutedEventArgs e)
@@ -270,7 +237,6 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
 
                 // Update the UI.
                 MainUI.IsEnabled = false;
-                UpdateBorderVisibility(MainUI);
                 IsBusy.Visibility = Visibility.Visible;
                 Status.Text = $"Running `{traceType}` trace...";
 
@@ -283,11 +249,9 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 {
                     parameters.Barriers.Add(barrier);
                 }
-                if (SourceTiers.SelectedItem is UtilityTier tier)
-                {
-                    // Domain Network, Source/Target Tier, and Traversability will all be set as configured on server.
-                    parameters.TraceConfiguration = tier.TraceConfiguration;
-                }
+
+                // Set the trace configuration using the tier from the utility domain network.
+                parameters.TraceConfiguration = _mediumVoltageTier.TraceConfiguration;
 
                 //  Get the trace result from the utility network.
                 IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(parameters);
@@ -300,7 +264,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                     {
                         // Add every trace result element to a query.
                         QueryParameters query = new QueryParameters();
-                        IEnumerable<UtilityElement> elements = elementTraceResult.Elements.Where(x => x.NetworkSource.Name == layer.FeatureTable.TableName);
+                        IEnumerable<UtilityElement> elements = elementTraceResult.Elements.Where(element => element.NetworkSource.Name == layer.FeatureTable.TableName);
                         foreach (UtilityElement element in elements)
                         {
                             query.ObjectIds.Add(element.ObjectId);
@@ -315,7 +279,14 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
             catch (Exception ex)
             {
                 Status.Text = "Trace failed...";
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                if (ex is ArcGISWebException && ex.Message == null)
+                {
+                    MessageBox.Show($"HResult: {ex.HResult}", ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             finally
             {

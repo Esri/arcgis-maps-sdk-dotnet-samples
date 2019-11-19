@@ -238,7 +238,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 // Update the UI.
                 MainUI.IsEnabled = false;
                 IsBusy.Visibility = Visibility.Visible;
-                Status.Text = $"Running `{traceType}` trace...";
+                Status.Text = $"Running `{traceType.ToString().ToLower()}` trace...";
 
                 // Clear previous selection from the layers.
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());

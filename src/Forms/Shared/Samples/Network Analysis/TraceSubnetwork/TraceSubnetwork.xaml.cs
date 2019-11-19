@@ -279,16 +279,9 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
                 {
                     foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers.OfType<FeatureLayer>())
                     {
-                        // Add every trace result element to a query.
-                        QueryParameters query = new QueryParameters();
                         IEnumerable<UtilityElement> elements = elementTraceResult.Elements.Where(element => element.NetworkSource.Name == layer.FeatureTable.TableName);
-                        foreach (UtilityElement element in elements)
-                        {
-                            query.ObjectIds.Add(element.ObjectId);
-                        }
-
-                        // Select every trace result element from the layer.
-                        await layer.SelectFeaturesAsync(query, SelectionMode.New);
+                        IEnumerable<Feature> features = await _utilityNetwork.GetFeaturesForElementsAsync(elements);
+                        layer.SelectFeatures(features);
                     }
                 }
                 Status.Text = "Trace completed.";

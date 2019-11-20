@@ -25,7 +25,7 @@ using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
 namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Trace a subnetwork",
+        "Trace a utility network",
         "Network Analysis",
         "Discover all the features participating in a subnetwork with subnetwork, upstream, and downstream trace types.",
         "")]

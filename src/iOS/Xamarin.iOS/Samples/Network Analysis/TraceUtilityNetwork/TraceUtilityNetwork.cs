@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
 {
     [Register("TraceUtilityNetwork")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Trace a subnetwork",
+        "Trace a utility network",
         "Network Analysis",
         "Discover all the features participating in a subnetwork with subnetwork, upstream, and downstream trace types.",
         "")]
@@ -65,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
 
         public TraceUtilityNetwork()
         {
-            Title = "Trace a subnetwork";
+            Title = "Trace a utility network";
         }
 
         private async void Initialize()

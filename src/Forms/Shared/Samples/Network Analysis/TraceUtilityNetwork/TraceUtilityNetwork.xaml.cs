@@ -13,18 +13,16 @@ using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
+using Xamarin.Forms;
 using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
-using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
+namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Trace a subnetwork",
@@ -32,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
         "Discover all the features participating in a subnetwork with subnetwork, upstream, and downstream trace types.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public partial class TraceSubnetwork
+    public partial class TraceUtilityNetwork : ContentPage
     {
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
@@ -45,15 +43,16 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
         private List<UtilityElement> _startingLocations = new List<UtilityElement>();
         private List<UtilityElement> _barriers = new List<UtilityElement>();
         private UtilityTier _mediumVoltageTier;
+        private UtilityTraceType _selectedTraceType = UtilityTraceType.Connected;
 
         // Task completion source for the user selected terminal.
-        private TaskCompletionSource<UtilityTerminal> _terminalCompletionSource = null;
+        private TaskCompletionSource<string> _terminalCompletionSource = null;
 
         // Markers for the utility elements.
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
 
-        public TraceSubnetwork()
+        public TraceUtilityNetwork()
         {
             InitializeComponent();
             Initialize();
@@ -63,7 +62,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
         {
             try
             {
-                IsBusy.Visibility = Visibility.Visible;
+                BusyIndicator.IsVisible = true;
                 Status.Text = "Loading Utility Network...";
 
                 // Setup Map with Feature Layer(s) that contain Utility Network.
@@ -89,10 +88,6 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
                 // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
-                // Update the trace configuration UI.
-                TraceTypes.ItemsSource = Enum.GetValues(typeof(UtilityTraceType));
-                TraceTypes.SelectedIndex = 0;
-
                 // Get the utility tier used for traces in this network. For this data set, the "Medium Voltage Radial" tier from the "ElectricDistribution" domain network is used.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork("ElectricDistribution");
                 _mediumVoltageTier = domainNetwork.GetTier("Medium Voltage Radial");
@@ -114,20 +109,32 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
             catch (Exception ex)
             {
                 Status.Text = "Loading Utility Network failed...";
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {
-                MainUI.Visibility = Visibility.Visible;
-                IsBusy.Visibility = Visibility.Collapsed;
+                MainUI.IsEnabled = true;
+                BusyIndicator.IsVisible = false;
             }
         }
 
-        private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void IsAddingStartingLocations_Clicked(object sender, EventArgs e)
+        {
+            IsAddingStartingLocations.IsEnabled = false;
+            IsAddingBarriers.IsEnabled = true;
+        }
+
+        private void IsAddingBarriers_Clicked(object sender, EventArgs e)
+        {
+            IsAddingStartingLocations.IsEnabled = true;
+            IsAddingBarriers.IsEnabled = false;
+        }
+
+        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {
-                IsBusy.Visibility = Visibility.Visible;
+                BusyIndicator.IsVisible = true;
                 Status.Text = "Identifying trace locations...";
 
                 // Identify the feature to be used.
@@ -144,7 +151,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
                     IEnumerable<UtilityTerminal> terminals = element.AssetType.TerminalConfiguration?.Terminals;
                     if (terminals?.Count() > 1)
                     {
-                        element.Terminal = await GetTerminalAsync(terminals);
+                        element.Terminal = await WaitForTerminal(terminals);
                     }
                     Status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                 }
@@ -161,7 +168,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
 
                 // Check whether starting location or barrier is added to update the right collection and symbology.
                 Symbol symbol = null;
-                if (IsAddingStartingLocations.IsChecked.Value == true)
+                if (IsAddingStartingLocations.IsEnabled != true)
                 {
                     _startingLocations.Add(element);
                     symbol = _startingPointSymbol;
@@ -179,47 +186,55 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
             catch (Exception ex)
             {
                 Status.Text = "Could not identify location.";
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {
-                IsBusy.Visibility = Visibility.Collapsed;
+                BusyIndicator.IsVisible = false;
             }
         }
 
-        private async Task<UtilityTerminal> GetTerminalAsync(IEnumerable<UtilityTerminal> terminals)
+        private async Task<UtilityTerminal> WaitForTerminal(IEnumerable<UtilityTerminal> terminals)
         {
             try
             {
+                // Switch the UI for the user choosing the junction.
+                MainUI.IsVisible = false;
+                MyMapView.IsVisible = false;
+                StatusGrid.IsVisible = false;
+                PickerUI.IsVisible = true;
                 MyMapView.GeoViewTapped -= OnGeoViewTapped;
-                TerminalPicker.Visibility = Visibility.Visible;
-                MainUI.Visibility = Visibility.Collapsed;
-                Picker.ItemsSource = terminals;
-                Picker.SelectedIndex = 1;
 
-                // Waits for user to select a terminal.
-                _terminalCompletionSource = new TaskCompletionSource<UtilityTerminal>();
-                return await _terminalCompletionSource.Task;
+                // Load the terminals into the UI.
+                TerminalPicker.ItemsSource = terminals.Select(x => x.Name).ToList();
+                TerminalPicker.SelectedItem = null;
+
+                // Wait for the user to select a terminal.
+                _terminalCompletionSource = new TaskCompletionSource<string>();
+                string selectedName = await _terminalCompletionSource.Task;
+                return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
             }
             finally
             {
-                TerminalPicker.Visibility = Visibility.Collapsed;
-                MainUI.Visibility = Visibility.Visible;
+                // Make the main UI visible again.
+                MainUI.IsVisible = true;
+                MyMapView.IsVisible = true;
+                StatusGrid.IsVisible = true;
+                PickerUI.IsVisible = false;
                 MyMapView.GeoViewTapped += OnGeoViewTapped;
             }
         }
 
-        private void OnTerminalSelected(object sender, RoutedEventArgs e)
+        private void Terminal_Selected(object sender, EventArgs e)
         {
-            _terminalCompletionSource.TrySetResult(Picker.SelectedItem as UtilityTerminal);
+            _terminalCompletionSource.TrySetResult(TerminalPicker.SelectedItem as string);
         }
 
-        private void OnReset(object sender, RoutedEventArgs e)
+        private void OnReset(object sender, EventArgs e)
         {
             // Reset the UI.
             Status.Text = "Click on the network lines or points to add a utility element.";
-            IsBusy.Visibility = Visibility.Collapsed;
-            TraceTypes.SelectedIndex = 0;
+            BusyIndicator.IsVisible = false;
 
             // Clear collections of starting locations and barriers.
             _startingLocations.Clear();
@@ -230,16 +245,16 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
             MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
         }
 
-        private async void OnTrace(object sender, RoutedEventArgs e)
+        private async void OnTrace(object sender, EventArgs e)
         {
             try
             {
                 // Get the selected trace type.
-                UtilityTraceType traceType = (UtilityTraceType)TraceTypes.SelectedItem;
+                UtilityTraceType traceType = _selectedTraceType;
 
                 // Update the UI.
-                MainUI.Visibility = Visibility.Collapsed;
-                IsBusy.Visibility = Visibility.Visible;
+                MainUI.IsEnabled = false;
+                BusyIndicator.IsVisible = true;
                 Status.Text = $"Running `{traceType}` trace...";
 
                 // Clear previous selection from the layers.
@@ -276,17 +291,34 @@ namespace ArcGISRuntime.UWP.Samples.TraceSubnetwork
                 Status.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    await new MessageDialog($"HResult: {ex.HResult}", ex.GetType().Name).ShowAsync();
+                    await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, $"HResult: {ex.HResult}", "OK");
                 }
                 else
                 {
-                    await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                    await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
                 }
             }
             finally
             {
-                MainUI.Visibility = Visibility.Visible;
-                IsBusy.Visibility = Visibility.Collapsed;
+                MainUI.IsEnabled = true;
+                BusyIndicator.IsVisible = false;
+            }
+        }
+
+        private async void TraceTypeButtonPressed(object sender, EventArgs e)
+        {
+            try
+            {
+                // Prompt the user to select a type of trace.
+                string choice = await ((Page)Parent).DisplayActionSheet("Choose type of trace", "Cancel", null, Enum.GetNames(typeof(UtilityTraceType)));
+
+                // Set the selected trace type.
+                _selectedTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), choice);
+                TracePickerButton.Text = $"Trace type: {_selectedTraceType}";
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
             }
         }
     }

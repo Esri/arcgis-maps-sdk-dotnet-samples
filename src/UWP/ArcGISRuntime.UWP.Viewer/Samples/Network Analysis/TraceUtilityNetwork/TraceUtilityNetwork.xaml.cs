@@ -19,9 +19,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
+using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
+using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
+namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Trace a subnetwork",
@@ -29,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
         "Discover all the features participating in a subnetwork with subnetwork, upstream, and downstream trace types.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public partial class TraceSubnetwork
+    public partial class TraceUtilityNetwork
     {
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
@@ -50,7 +53,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
 
-        public TraceSubnetwork()
+        public TraceUtilityNetwork()
         {
             InitializeComponent();
             Initialize();
@@ -111,12 +114,12 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
             catch (Exception ex)
             {
                 Status.Text = "Loading Utility Network failed...";
-                MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
-                MainUI.IsEnabled = true;
-                IsBusy.Visibility = Visibility.Hidden;
+                MainUI.Visibility = Visibility.Visible;
+                IsBusy.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -176,11 +179,11 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
             catch (Exception ex)
             {
                 Status.Text = "Could not identify location.";
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
-                IsBusy.Visibility = Visibility.Hidden;
+                IsBusy.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -215,7 +218,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
         {
             // Reset the UI.
             Status.Text = "Click on the network lines or points to add a utility element.";
-            IsBusy.Visibility = Visibility.Hidden;
+            IsBusy.Visibility = Visibility.Collapsed;
             TraceTypes.SelectedIndex = 0;
 
             // Clear collections of starting locations and barriers.
@@ -235,9 +238,9 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 UtilityTraceType traceType = (UtilityTraceType)TraceTypes.SelectedItem;
 
                 // Update the UI.
-                MainUI.IsEnabled = false;
+                MainUI.Visibility = Visibility.Collapsed;
                 IsBusy.Visibility = Visibility.Visible;
-                Status.Text = $"Running `{traceType.ToString().ToLower()}` trace...";
+                Status.Text = $"Running `{traceType}` trace...";
 
                 // Clear previous selection from the layers.
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
@@ -273,17 +276,17 @@ namespace ArcGISRuntime.WPF.Samples.TraceSubnetwork
                 Status.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    MessageBox.Show($"HResult: {ex.HResult}", ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    await new MessageDialog($"HResult: {ex.HResult}", ex.GetType().Name).ShowAsync();
                 }
                 else
                 {
-                    MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
                 }
             }
             finally
             {
-                MainUI.IsEnabled = true;
-                IsBusy.Visibility = Visibility.Hidden;
+                MainUI.Visibility = Visibility.Visible;
+                IsBusy.Visibility = Visibility.Collapsed;
             }
         }
     }

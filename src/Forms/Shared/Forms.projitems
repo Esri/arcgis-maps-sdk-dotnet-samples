@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceSubnetwork\TraceSubnetwork.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
@@ -192,8 +192,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceSubnetwork\TraceSubnetwork.xaml.cs">
-      <DependentUpon>TraceSubnetwork.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+      <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
@@ -820,7 +820,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceSubnetwork\TraceSubnetwork.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">

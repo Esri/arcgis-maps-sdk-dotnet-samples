@@ -1,4 +1,4 @@
-// Copyright 2019 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,11 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Widget;
-using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
@@ -24,31 +19,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
-namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
+namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
 {
-    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Trace a subnetwork",
         "Network Analysis",
         "Discover all the features participating in a subnetwork with subnetwork, upstream, and downstream trace types.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("TraceUtilityNetwork.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public class TraceSubnetwork : Activity
+    public partial class TraceUtilityNetwork
     {
-        // Hold references to the UI controls.
-        private MapView _myMapView;
-        private RadioButton _addStartButton;
-        private RadioButton _addBarrierButton;
-        private Button _traceButton;
-        private Button _resetButton;
-        private Button _traceTypeButton;
-        private TextView _status;
-        private ProgressBar _progressBar;
-
-        private bool isAddingStart = true;
-
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
@@ -60,22 +42,17 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
         private List<UtilityElement> _startingLocations = new List<UtilityElement>();
         private List<UtilityElement> _barriers = new List<UtilityElement>();
         private UtilityTier _mediumVoltageTier;
-        private UtilityTraceType _utilityTraceType = UtilityTraceType.Connected;
 
         // Task completion source for the user selected terminal.
-        private TaskCompletionSource<int> _terminalCompletionSource = null;
+        private TaskCompletionSource<UtilityTerminal> _terminalCompletionSource = null;
 
         // Markers for the utility elements.
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
 
-        protected override void OnCreate(Bundle bundle)
+        public TraceUtilityNetwork()
         {
-            base.OnCreate(bundle);
-
-            Title = "Trace a subnetwork";
-
-            CreateLayout();
+            InitializeComponent();
             Initialize();
         }
 
@@ -83,11 +60,11 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
         {
             try
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Visible;
-                _status.Text = "Loading Utility Network...";
+                IsBusy.Visibility = Visibility.Visible;
+                Status.Text = "Loading Utility Network...";
 
                 // Setup Map with Feature Layer(s) that contain Utility Network.
-                _myMapView.Map = new Map(Basemap.CreateStreetsNightVector())
+                MyMapView.Map = new Map(Basemap.CreateStreetsNightVector())
                 {
                     InitialViewpoint = _startingViewpoint
                 };
@@ -97,22 +74,25 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
                 UniqueValue mediumVoltageValue = new UniqueValue("N/A", "Medium Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3), 5);
                 UniqueValue lowVoltageValue = new UniqueValue("N/A", "Low Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.DarkCyan, 3), 3);
                 lineLayer.Renderer = new UniqueValueRenderer(new List<string>() { "ASSETGROUP" }, new List<UniqueValue>() { mediumVoltageValue, lowVoltageValue }, "", new SimpleLineSymbol());
-                _myMapView.Map.OperationalLayers.Add(lineLayer);
+                MyMapView.Map.OperationalLayers.Add(lineLayer);
 
                 // Add the layer with electric devices.
                 FeatureLayer electricDevicelayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/100"));
-                _myMapView.Map.OperationalLayers.Add(electricDevicelayer);
+                MyMapView.Map.OperationalLayers.Add(electricDevicelayer);
 
                 // Set the selection color for features in the map view.
-                _myMapView.SelectionProperties = new SelectionProperties(System.Drawing.Color.Yellow);
+                MyMapView.SelectionProperties = new SelectionProperties(System.Drawing.Color.Yellow);
 
                 // Create and load the utility network.
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), _myMapView.Map);
+                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
+
+                // Update the trace configuration UI.
+                TraceTypes.ItemsSource = Enum.GetValues(typeof(UtilityTraceType));
+                TraceTypes.SelectedIndex = 0;
 
                 // Get the utility tier used for traces in this network. For this data set, the "Medium Voltage Radial" tier from the "ElectricDistribution" domain network is used.
-                //UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork("ElectricDistribution");
-                //_mediumVoltageTier = domainNetwork.GetTier("Medium Voltage Radial");
-                
+                UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork("ElectricDistribution");
+                _mediumVoltageTier = domainNetwork.GetTier("Medium Voltage Radial");
 
                 // More complex datasets may require using utility trace configurations from different tiers. The following LINQ expression gets all tiers present in the utility network.
                 //IEnumerable<UtilityTier> tiers = _utilityNetwork.Definition.DomainNetworks.Select(domain => domain.Tiers).SelectMany(tier => tier);
@@ -123,31 +103,32 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
 
                 // Create a graphics overlay.
                 GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-                _myMapView.GraphicsOverlays.Add(graphicsOverlay);
+                MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
                 // Set the instruction text.
-                _status.Text = "Tap on the network lines or points to add a utility element.";
+                Status.Text = "Click on the network lines or points to add a utility element.";
             }
             catch (Exception ex)
             {
-                _status.Text = "Loading Utility Network failed...";
-                CreateDialog(ex.Message, title: ex.GetType().Name);
+                Status.Text = "Loading Utility Network failed...";
+                MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Invisible;
+                MainUI.IsEnabled = true;
+                IsBusy.Visibility = Visibility.Hidden;
             }
         }
 
-        private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Visible;
-                _status.Text = "Identifying trace locations...";
+                IsBusy.Visibility = Visibility.Visible;
+                Status.Text = "Identifying trace locations...";
 
                 // Identify the feature to be used.
-                IEnumerable<IdentifyLayerResult> identifyResult = await _myMapView.IdentifyLayersAsync(e.Position, 10.0, false);
+                IEnumerable<IdentifyLayerResult> identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 10.0, false);
                 ArcGISFeature feature = identifyResult?.FirstOrDefault()?.GeoElements?.FirstOrDefault() as ArcGISFeature;
                 if (feature == null) { return; }
 
@@ -160,9 +141,9 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
                     IEnumerable<UtilityTerminal> terminals = element.AssetType.TerminalConfiguration?.Terminals;
                     if (terminals?.Count() > 1)
                     {
-                        element.Terminal = await WaitForTerminal(terminals);
+                        element.Terminal = await GetTerminalAsync(terminals);
                     }
-                    _status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
+                    Status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                 }
                 else if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Edge)
                 {
@@ -171,13 +152,13 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
                     {
                         line = GeometryEngine.RemoveZ(line) as Polyline;
                         element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
-                        _status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
+                        Status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
 
                 // Check whether starting location or barrier is added to update the right collection and symbology.
                 Symbol symbol = null;
-                if (isAddingStart)
+                if (IsAddingStartingLocations.IsChecked.Value == true)
                 {
                     _startingLocations.Add(element);
                     symbol = _startingPointSymbol;
@@ -190,71 +171,79 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
 
                 // Add a graphic for the new utility element.
                 Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, symbol);
-                _myMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(traceLocationGraphic);
+                MyMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(traceLocationGraphic);
             }
             catch (Exception ex)
             {
-                _status.Text = "Could not identify location.";
-                CreateDialog(ex.Message, ex.GetType().Name);
+                Status.Text = "Could not identify location.";
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Invisible;
+                IsBusy.Visibility = Visibility.Hidden;
             }
         }
 
-        private async Task<UtilityTerminal> WaitForTerminal(IEnumerable<UtilityTerminal> terminals)
-        {
-            // Create an array of the terminal names for the UI.
-            string[] terminalNames = terminals.ToList().Select(t => t.Name).ToArray();
-
-            // Create UI for terminal selection.
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Select terminal for junction");
-            builder.SetItems(terminalNames, Choose_Click);
-            builder.SetCancelable(false);
-            builder.Show();
-
-            // Return the selected terminal.
-            _terminalCompletionSource = new TaskCompletionSource<int>();
-            string selectedName = terminalNames[await _terminalCompletionSource.Task];
-            return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
-        }
-
-        private void Choose_Click(object sender, DialogClickEventArgs e)
-        {
-            _terminalCompletionSource.TrySetResult(e.Which);
-        }
-
-        private void ChooseTraceType(object sender, EventArgs e)
-        {
-            // Create UI for trace type selection.
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Select trace type");
-            builder.SetItems(Enum.GetNames(typeof(UtilityTraceType)), ChangeTraceType);
-            builder.SetCancelable(true);
-            builder.Show();
-        }
-
-        private void ChangeTraceType(object sender, DialogClickEventArgs e)
-        {
-            _utilityTraceType = (UtilityTraceType)Enum.GetValues(typeof(UtilityTraceType)).GetValue(e.Which);
-            _traceTypeButton.Text = $"Trace type: {_utilityTraceType}";
-        }
-
-        private async void Trace_Click(object sender, EventArgs e)
+        private async Task<UtilityTerminal> GetTerminalAsync(IEnumerable<UtilityTerminal> terminals)
         {
             try
             {
+                MyMapView.GeoViewTapped -= OnGeoViewTapped;
+                TerminalPicker.Visibility = Visibility.Visible;
+                MainUI.Visibility = Visibility.Collapsed;
+                Picker.ItemsSource = terminals;
+                Picker.SelectedIndex = 1;
+
+                // Waits for user to select a terminal.
+                _terminalCompletionSource = new TaskCompletionSource<UtilityTerminal>();
+                return await _terminalCompletionSource.Task;
+            }
+            finally
+            {
+                TerminalPicker.Visibility = Visibility.Collapsed;
+                MainUI.Visibility = Visibility.Visible;
+                MyMapView.GeoViewTapped += OnGeoViewTapped;
+            }
+        }
+
+        private void OnTerminalSelected(object sender, RoutedEventArgs e)
+        {
+            _terminalCompletionSource.TrySetResult(Picker.SelectedItem as UtilityTerminal);
+        }
+
+        private void OnReset(object sender, RoutedEventArgs e)
+        {
+            // Reset the UI.
+            Status.Text = "Click on the network lines or points to add a utility element.";
+            IsBusy.Visibility = Visibility.Hidden;
+            TraceTypes.SelectedIndex = 0;
+
+            // Clear collections of starting locations and barriers.
+            _startingLocations.Clear();
+            _barriers.Clear();
+
+            // Clear the map of any locations, barriers and trace result.
+            MyMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Clear();
+            MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
+        }
+
+        private async void OnTrace(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Get the selected trace type.
+                UtilityTraceType traceType = (UtilityTraceType)TraceTypes.SelectedItem;
+
                 // Update the UI.
-                _progressBar.Visibility = Android.Views.ViewStates.Visible;
-                _status.Text = $"Running `{_utilityTraceType.ToString().ToLower()}` trace...";
+                MainUI.IsEnabled = false;
+                IsBusy.Visibility = Visibility.Visible;
+                Status.Text = $"Running `{traceType.ToString().ToLower()}` trace...";
 
                 // Clear previous selection from the layers.
-                _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
+                MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
                 // Build trace parameters.
-                UtilityTraceParameters parameters = new UtilityTraceParameters(_utilityTraceType, _startingLocations);
+                UtilityTraceParameters parameters = new UtilityTraceParameters(traceType, _startingLocations);
                 foreach (UtilityElement barrier in _barriers)
                 {
                     parameters.Barriers.Add(barrier);
@@ -270,80 +259,32 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
                 // Check if there are any elements in the result.
                 if (elementTraceResult?.Elements?.Count > 0)
                 {
-                    foreach (FeatureLayer layer in _myMapView.Map.OperationalLayers.OfType<FeatureLayer>())
+                    foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers.OfType<FeatureLayer>())
                     {
                         IEnumerable<UtilityElement> elements = elementTraceResult.Elements.Where(element => element.NetworkSource.Name == layer.FeatureTable.TableName);
                         IEnumerable<Feature> features = await _utilityNetwork.GetFeaturesForElementsAsync(elements);
                         layer.SelectFeatures(features);
                     }
                 }
-                _status.Text = "Trace completed.";
+                Status.Text = "Trace completed.";
             }
             catch (Exception ex)
             {
-                _status.Text = "Trace failed...";
+                Status.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    CreateDialog($"HResult: {ex.HResult}", ex.GetType().Name);
+                    MessageBox.Show($"HResult: {ex.HResult}", ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    CreateDialog(ex.Message, ex.GetType().Name);
+                    MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             finally
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Invisible;
+                MainUI.IsEnabled = true;
+                IsBusy.Visibility = Visibility.Hidden;
             }
-        }
-
-        private void Reset_Click(object sender, EventArgs e)
-        {
-            // Reset the UI.
-            _status.Text = "Tap on the network lines or points to add a utility element.";
-            _progressBar.Visibility = Android.Views.ViewStates.Invisible;
-
-            // Clear the utility trace parameters.
-            _startingLocations.Clear();
-            _barriers.Clear();
-
-            // Clear the map layers and graphics.
-            _myMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Clear();
-            _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
-        }
-
-        private void CreateLayout()
-        {
-            // Create a new vertical layout for the app.
-            SetContentView(Resource.Layout.TraceUtilityNetwork);
-
-            _myMapView = FindViewById<MapView>(Resource.Id.MapView);
-
-            _addStartButton = FindViewById<RadioButton>(Resource.Id.addStart);
-            _addBarrierButton = FindViewById<RadioButton>(Resource.Id.addBarrier);
-            _traceButton = FindViewById<Button>(Resource.Id.traceButton);
-            _resetButton = FindViewById<Button>(Resource.Id.resetButton);
-            _traceTypeButton = FindViewById<Button>(Resource.Id.traceTypeButton);
-            _status = FindViewById<TextView>(Resource.Id.statusLabel);
-            _progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
-
-            _myMapView.GeoViewTapped += GeoViewTapped;
-            _traceButton.Click += Trace_Click;
-            _resetButton.Click += Reset_Click;
-
-            _traceTypeButton.Click += ChooseTraceType;
-
-            _addStartButton.Click += (s, e) => { isAddingStart = true; };
-            _addBarrierButton.Click += (s, e) => { isAddingStart = false; };
-        }
-
-        private void CreateDialog(string message, string title = null)
-        {
-            // Create a dialog to show message to user.
-            AlertDialog alert = new AlertDialog.Builder(this).Create();
-            if (title != null) alert.SetTitle(title);
-            alert.SetMessage(message);
-            alert.Show();
         }
     }
 }

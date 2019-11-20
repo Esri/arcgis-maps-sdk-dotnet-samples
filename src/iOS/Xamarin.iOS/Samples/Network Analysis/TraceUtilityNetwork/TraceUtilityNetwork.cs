@@ -22,16 +22,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
+namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
 {
-    [Register("TraceSubnetwork")]
+    [Register("TraceUtilityNetwork")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Trace a subnetwork",
         "Network Analysis",
         "Discover all the features participating in a subnetwork with subnetwork, upstream, and downstream trace types.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public class TraceSubnetwork : UIViewController
+    public class TraceUtilityNetwork : UIViewController
     {
         // Hold references to UI controls.
         // Hold references to UI controls.
@@ -63,7 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceSubnetwork
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
 
-        public TraceSubnetwork()
+        public TraceUtilityNetwork()
         {
             Title = "Trace a subnetwork";
         }

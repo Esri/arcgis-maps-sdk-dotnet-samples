@@ -258,7 +258,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 // Update the UI.
                 MainUI.IsEnabled = false;
                 BusyIndicator.IsVisible = true;
-                Status.Text = $"Running `{traceType}` trace...";
+                Status.Text = $"Running {traceType} trace...";
 
                 // Clear previous selection from the layers.
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());

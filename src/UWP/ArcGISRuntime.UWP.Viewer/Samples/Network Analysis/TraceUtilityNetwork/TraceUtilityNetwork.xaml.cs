@@ -242,7 +242,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
                 // Update the UI.
                 MainUI.Visibility = Visibility.Collapsed;
                 IsBusy.Visibility = Visibility.Visible;
-                Status.Text = $"Running `{traceType}` trace...";
+                Status.Text = $"Running {traceType} trace...";
 
                 // Clear previous selection from the layers.
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());

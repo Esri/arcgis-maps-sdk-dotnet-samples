@@ -117,7 +117,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             }
             finally
             {
-                MainUI.Visibility = Visibility.Visible;
+                EnableControls();
                 IsBusy.Visibility = Visibility.Collapsed;
             }
         }
@@ -195,7 +195,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             {
                 MyMapView.GeoViewTapped -= OnGeoViewTapped;
                 TerminalPicker.Visibility = Visibility.Visible;
-                MainUI.Visibility = Visibility.Collapsed;
+                DisableControls();
                 Picker.ItemsSource = terminals;
                 Picker.SelectedIndex = 1;
 
@@ -206,7 +206,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             finally
             {
                 TerminalPicker.Visibility = Visibility.Collapsed;
-                MainUI.Visibility = Visibility.Visible;
+                EnableControls();
                 MyMapView.GeoViewTapped += OnGeoViewTapped;
             }
         }
@@ -240,7 +240,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
                 UtilityTraceType traceType = (UtilityTraceType)TraceTypes.SelectedItem;
 
                 // Update the UI.
-                MainUI.Visibility = Visibility.Collapsed;
+                DisableControls();
                 IsBusy.Visibility = Visibility.Visible;
                 Status.Text = $"Running {traceType} trace...";
 
@@ -287,9 +287,19 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             }
             finally
             {
-                MainUI.Visibility = Visibility.Visible;
+                EnableControls();
                 IsBusy.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void DisableControls()
+        {
+            IsAddingStartingLocations.IsEnabled = BarriersButton.IsEnabled = TraceTypes.IsEnabled = TraceButton.IsEnabled = ResetButton.IsEnabled = false;
+        }
+
+        private void EnableControls()
+        {
+            IsAddingStartingLocations.IsEnabled = BarriersButton.IsEnabled = TraceTypes.IsEnabled = TraceButton.IsEnabled = ResetButton.IsEnabled = true;
         }
     }
 }

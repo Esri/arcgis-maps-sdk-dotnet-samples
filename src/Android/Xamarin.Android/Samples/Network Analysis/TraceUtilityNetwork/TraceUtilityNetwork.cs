@@ -110,9 +110,8 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), _myMapView.Map);
 
                 // Get the utility tier used for traces in this network. For this data set, the "Medium Voltage Radial" tier from the "ElectricDistribution" domain network is used.
-                //UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork("ElectricDistribution");
-                //_mediumVoltageTier = domainNetwork.GetTier("Medium Voltage Radial");
-                
+                UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork("ElectricDistribution");
+                _mediumVoltageTier = domainNetwork.GetTier("Medium Voltage Radial");
 
                 // More complex datasets may require using utility trace configurations from different tiers. The following LINQ expression gets all tiers present in the utility network.
                 //IEnumerable<UtilityTier> tiers = _utilityNetwork.Definition.DomainNetworks.Select(domain => domain.Tiers).SelectMany(tier => tier);
@@ -172,7 +171,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                         line = GeometryEngine.RemoveZ(line) as Polyline;
                         double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
                         if (double.IsNaN(fraction)) { return; }
-                        element.FractionAlongEdge = fraction; 
+                        element.FractionAlongEdge = fraction;
                         _status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
@@ -251,7 +250,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             {
                 // Update the UI.
                 _progressBar.Visibility = Android.Views.ViewStates.Visible;
-                _status.Text = $"Running `{_utilityTraceType.ToString().ToLower()}` trace...";
+                _status.Text = $"Running {_utilityTraceType.ToString().ToLower()} trace...";
 
                 // Clear previous selection from the layers.
                 _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());

@@ -7,13 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -70,35 +71,49 @@ namespace ArcGISRuntime
         {
             try
             {
-                // Clear credentials (if any) from previous sample runs
-                foreach (Credential cred in AuthenticationManager.Current.Credentials)
-                {
-                    AuthenticationManager.Current.RemoveCredential(cred);
-                }
+                // Call a function to clear existing credentials
+                ClearCredentials();
 
                 var sample = _visibleSamples[indexPath.Row];
 
                 if (sample.OfflineDataItems != null)
                 {
+                    // Create a cancellation token source.
+                    var cancellationTokenSource = new CancellationTokenSource();
+
                     // Show progress overlay
                     var bounds = UIScreen.MainScreen.Bounds;
 
-                    _loadPopup = new LoadingOverlay(bounds);
+                    _loadPopup = new LoadingOverlay(bounds, cancellationTokenSource);
                     _parentViewController.ParentViewController.View.Add(_loadPopup);
 
                     // Ensure data present
-                    await DataManager.EnsureSampleDataPresent(sample);
+                    await DataManager.EnsureSampleDataPresent(sample, cancellationTokenSource.Token);
 
                     // Hide progress overlay
                     _loadPopup.Hide();
                 }
 
-                var control = (UIViewController) SampleManager.Current.SampleToControl(sample);
+                var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
                 _parentViewController.NavigationController.PushViewController(control, true);
+            }
+            catch (OperationCanceledException)
+            {
+                _loadPopup.Hide();
+                TableView.DeselectRow(indexPath, true);
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+        }
+
+        private static void ClearCredentials()
+        {
+            // Clear credentials (if any) from previous sample runs
+            foreach (Credential cred in AuthenticationManager.Current.Credentials)
+            {
+                AuthenticationManager.Current.RemoveCredential(cred);
             }
         }
     }

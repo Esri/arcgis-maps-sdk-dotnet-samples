@@ -17,7 +17,9 @@ class sample_metadata:
     Use emit_standalone_solution to write out the sample as a standalone Visual Studio solution.
     '''
     
-    arcgis_runtime_latest = "100.6.0" # store latest Runtime version, for use with packages
+    arcgis_runtime_latest = "100.7.0" # store latest Runtime version, for use with packages
+    local_server_latest = "100.6.0"
+    ar_toolkit_latest = "100.6.0"
 
     def reset_props(self):
         self.formal_name = ""
@@ -69,7 +71,9 @@ class sample_metadata:
             if self.category == "Hydrography":
                 self.nuget_packages["Esri.ArcGISRuntime.Hydrography"] = self.arcgis_runtime_latest
             if self.category in ["Local Server", "LocalServer"]:
-                self.nuget_packages["Esri.ArcGISRuntime.LocalServices"] = self.arcgis_runtime_latest              
+                self.nuget_packages["Esri.ArcGISRuntime.LocalServices"] = self.local_server_latest
+            if self.category in ["Augmented reality", "Augmented Reality"]:
+                self.nuget_packages["Esri.ArcGISRuntime.ARToolkit"] = self.ar_toolkit_latest
 
         return
     
@@ -92,7 +96,9 @@ class sample_metadata:
         if self.category == "Hydrography":
             self.nuget_packages["Esri.ArcGISRuntime.Hydrography"] = self.arcgis_runtime_latest
         elif self.category == "LocalServer" or self.category == "Local Server":
-            self.nuget_packages["Esri.ArcGISRuntime.LocalServices"] = self.arcgis_runtime_latest
+            self.nuget_packages["Esri.ArcGISRuntime.LocalServices"] = self.local_server_latest
+        elif self.category in ["Augmented reality", "Augmented Reality"]:
+            self.nuget_packages["Esri.ArcGISRuntime.ARToolkit"] = self.ar_toolkit_latest
         # add the ArcGIS Runtime package always
         self.nuget_packages["Esri.ArcGISRuntime"] = self.arcgis_runtime_latest
 
@@ -316,6 +322,10 @@ class sample_metadata:
                 if ".." in file:
                     source_path = os.path.join(sample_dir, file)
                     dest_path = os.path.join(output_dir, "Resources", "layout", os.path.split(file)[1])
+                    if 'Attrs.xml' in file: # todo: improve this
+                        dest_path = os.path.join(output_dir, "Resources", "values", os.path.split(file)[1])
+                    elif file.endswith('.cs'):
+                        dest_path = os.path.join(output_dir, "Controls", os.path.split(file)[1])
                     copyfile(source_path, dest_path)
 
         # Add forms packages if needed
@@ -401,11 +411,21 @@ class sample_metadata:
                         layout_name = line.split("Layout.")[1].strip().strip(";").strip(")")
                         # add the file path to the snippets list
                         self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
+                    elif "SetContentView(ArcGISRuntime.Resource.Layout." in line:
+                        # extract name of layout
+                        layout_name = line.split("Layout.")[1].strip().strip(";").strip(")")
+                        # add the file path to the snippets list
+                        self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
                     elif ".Inflate(Resource.Layout." in line:
                         # extract name of layout
                         layout_name = line.split("Layout.")[1].strip().strip(";").strip(", null)")
                         # add the file path to the snippets list
                         self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
+        # Manually add JoystickSeekBar control on Android for AR only
+        if platform == "Android" and self.formal_name in ["NavigateAR", "CollectDataAR", "ViewHiddenInfrastructureAR"]:
+            self.source_files.append("../../../Resources/values/Attrs.xml")
+            self.source_files.append("../../../Controls/JoystickSeekBar.cs")
+        self.source_files.sort()
 
     def rewrite_files_in_place(source_dir, replacements_dict):
         '''

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading;
 using CoreGraphics;
 using UIKit;
 
@@ -18,8 +19,12 @@ namespace ArcGISRuntime
     /// </summary>
     public sealed class LoadingOverlay : UIView
     {
-        public LoadingOverlay(CGRect frame) : base(frame)
+        private CancellationTokenSource _cancellationTokenSource;
+
+        public LoadingOverlay(CGRect frame, CancellationTokenSource cancellationTokenSource) : base(frame)
         {
+            _cancellationTokenSource = cancellationTokenSource;
+
             BackgroundColor = UIColor.Black;
             Alpha = 0.8f;
             AutoresizingMask = UIViewAutoresizing.All;
@@ -51,6 +56,19 @@ namespace ArcGISRuntime
                 AutoresizingMask = UIViewAutoresizing.All
             };
             AddSubview(loadingLabel);
+
+            var cancelButton = new UIButton() { AutoresizingMask = UIViewAutoresizing.All };
+            cancelButton.SetTitle("Cancel", UIControlState.Normal);
+            cancelButton.Frame = new CGRect(
+                centerX - 50,
+                centerY + 50,
+                100,
+                100);
+            cancelButton.TouchUpInside += (s, e) =>
+            {
+                _cancellationTokenSource?.Cancel();
+            };
+            AddSubview(cancelButton);
         }
 
         public void Hide()

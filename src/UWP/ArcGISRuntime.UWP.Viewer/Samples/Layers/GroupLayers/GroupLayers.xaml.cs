@@ -30,10 +30,10 @@ namespace ArcGISRuntime.UWP.Samples.GroupLayers
         private async void Initialize()
         {
             // Create the layers.
-            ArcGISSceneLayer devOne = new ArcGISSceneLayer(new Uri("https://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/DevA_Trees/SceneServer/layers/0"));
-            ArcGISSceneLayer devTwo = new ArcGISSceneLayer(new Uri("https://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/DevA_Pathways/SceneServer/layers/0"));
-            ArcGISSceneLayer devThree = new ArcGISSceneLayer(new Uri("https://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/DevA_BuildingShell_Textured/SceneServer/layers/0"));
-            ArcGISSceneLayer nonDevOne = new ArcGISSceneLayer(new Uri("https://scenesampleserverdev.arcgis.com/arcgis/rest/services/Hosted/PlannedDemo_BuildingShell/SceneServer/layers/0"));
+            ArcGISSceneLayer devOne = new ArcGISSceneLayer(new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/DevA_Trees/SceneServer"));
+            FeatureLayer devTwo = new FeatureLayer(new Uri("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/DevA_Pathways/FeatureServer/1"));
+            ArcGISSceneLayer devThree = new ArcGISSceneLayer(new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/DevB_BuildingShells/SceneServer"));
+            ArcGISSceneLayer nonDevOne = new ArcGISSceneLayer(new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/DevA_BuildingShells/SceneServer"));
             FeatureLayer nonDevTwo = new FeatureLayer(new Uri("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/DevelopmentProjectArea/FeatureServer/0"));
 
             // Create the group layer and add sublayers.

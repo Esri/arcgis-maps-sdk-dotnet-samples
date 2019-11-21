@@ -8,14 +8,11 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
@@ -35,9 +32,6 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
         // Path for the restaurants style file.
         private readonly string _stylxPath = DataManager.GetDataFolder("751138a2e0844e06853522d54103222a", "Restaurant.stylx");
 
-        // The custom dictionary style for symbolizing restaurants.
-        private DictionarySymbolStyle _restaurantStyle;
-
         // Uri for the restaurants feature service.
         private readonly Uri _restaurantUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Redlands_Restaurants/FeatureServer/0");
 
@@ -50,9 +44,6 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
         {
             try
             {
-                // Open the custom style file.
-                _restaurantStyle = await DictionarySymbolStyle.CreateFromFileAsync(_stylxPath);
-
                 // Create a new map with a streets basemap.
                 Map map = new Map(Basemap.CreateStreetsVector());
 
@@ -61,46 +52,27 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
                 map.OperationalLayers.Add(restaurantLayer);
 
                 // Load the feature table for the restaurants layer.
-                FeatureTable restaurantTable = restaurantLayer.FeatureTable;
-                await restaurantTable.LoadAsync();
+                await restaurantLayer.FeatureTable.LoadAsync();
+
+                // Open the custom style file.
+                DictionarySymbolStyle restaurantStyle = await DictionarySymbolStyle.CreateFromFileAsync(_stylxPath);
+
+                // Create the dictionary renderer with the style file and the field overrides.
+                DictionaryRenderer dictRenderer = new DictionaryRenderer(restaurantStyle);
+
+                // Set the restaurant layer renderer to the dictionary renderer.
+                restaurantLayer.Renderer = dictRenderer;
 
                 // Set the map's initial extent to that of the restaurants.
                 map.InitialViewpoint = new Viewpoint(restaurantLayer.FullExtent);
 
                 // Set the map to the map view.
                 _myMapView.Map = map;
-
-                // Apply the custom dictionary to the restaurant feature layer.
-                ApplyCustomDictionary();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-        }
-
-        public void ApplyCustomDictionary()
-        {
-            // Create overrides for expected field names that are different in this dataset.
-            Dictionary<string, string> styleToFieldMappingOverrides = new Dictionary<string, string>();
-            styleToFieldMappingOverrides.Add("style", "Style");
-            styleToFieldMappingOverrides.Add("price", "Price");
-            styleToFieldMappingOverrides.Add("healthgrade", "Inspection");
-            styleToFieldMappingOverrides.Add("rating", "Rating");
-
-            // Create overrides for expected text field names (if any).
-            Dictionary<string, string> textFieldOverrides = new Dictionary<string, string>();
-            textFieldOverrides.Add("name", "Name");
-
-            // Set the text visibility configuration setting.
-            _restaurantStyle.Configurations.ToList().Find(c => c.Name == "text").Value = "ON";
-
-            // Create the dictionary renderer with the style file and the field overrides.
-            DictionaryRenderer dictRenderer = new DictionaryRenderer(_restaurantStyle, styleToFieldMappingOverrides, textFieldOverrides);
-
-            // Apply the dictionary renderer to the layer.
-            FeatureLayer restaurantLayer = _myMapView.Map.OperationalLayers.First() as FeatureLayer;
-            restaurantLayer.Renderer = dictRenderer;
         }
 
         public override void LoadView()

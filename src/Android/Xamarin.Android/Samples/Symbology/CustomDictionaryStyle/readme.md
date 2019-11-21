@@ -15,11 +15,8 @@ Pan and zoom the map to see the symbology from the custom dictionary style.
 ## How it works
 
 1. Create a new `DictionarySymbolStyle` by passing in the path to the custom style (.stylx).
-2. Define symbol attribute overrides (if any) using a collection of key-value pairs: configured attribute name , override attribute name.
-3. Define text attribute overrides (if any) using a collection of key-value pairs: configured attribute name , override attribute name.
-4. If necessary, provide new values for configuration settings defined in `DictionarySymbolStyle.Configurations`.
-5. Create a new `DictionaryRenderer`, providing the DictionarySymbolStyle and (optionally) the collection of symbol and text attribute overrides.
-6. Apply the dictionary renderer to a feature layer or graphics overlay with the expected attributes.
+2. Create a new `DictionaryRenderer`, providing the DictionarySymbolStyle.
+3. Apply the dictionary renderer to a feature layer or graphics overlay with the expected attributes.
 
 ## Relevant API
 

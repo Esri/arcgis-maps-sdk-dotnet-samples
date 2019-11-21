@@ -44,6 +44,9 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
         // ArcGIS online item id for the mobile map package.
         private const string _itemId = "740b663bff5e4198b9b6674af93f638a";
 
+        // Path to the mobile map package.
+        private string _mapPackagePath;
+
         public ApplyScheduledUpdates()
         {
             Title = "Apply scheduled updates to preplanned map area";
@@ -67,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                 await DataManager.DownloadDataItem(_itemId);
 
                 // Get the folder path to the mobile map package.
-                string _mapPackagePath = DataManager.GetDataFolder(_itemId, "");
+                _mapPackagePath = DataManager.GetDataFolder(_itemId, "");
 
                 // Load the mobile map package.
                 _mobileMapPackage = new MobileMapPackage(_mapPackagePath);
@@ -129,9 +132,6 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                 // Set the parameters to download all updates for the mobile map packages.
                 parameters.PreplannedScheduledUpdatesOption = PreplannedScheduledUpdatesOption.DownloadAllUpdates;
 
-                // Set the map package to rollback to the old state should the sync job fail.
-                parameters.RollbackOnFailure = true;
-
                 // Create a sync job using the parameters.
                 OfflineMapSyncJob offlineMapSyncJob = _offlineMapSyncTask.SyncOfflineMap(parameters);
 
@@ -147,6 +147,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                     {
                         // Re-open the mobile map package.
                         _mobileMapPackage.Close();
+                        _mobileMapPackage = new MobileMapPackage(_mapPackagePath);
                         await _mobileMapPackage.LoadAsync();
 
                         // Check that the mobile map package was loaded.

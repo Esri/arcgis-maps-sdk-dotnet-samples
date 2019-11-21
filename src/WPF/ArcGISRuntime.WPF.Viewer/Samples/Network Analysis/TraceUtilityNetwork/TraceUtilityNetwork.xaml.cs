@@ -151,7 +151,9 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
                     if (feature.Geometry is Polyline line)
                     {
                         line = GeometryEngine.RemoveZ(line) as Polyline;
-                        element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        if (double.IsNaN(fraction)) { return; }
+                        element.FractionAlongEdge = fraction;
                         Status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
@@ -175,11 +177,12 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
             }
             catch (Exception ex)
             {
-                Status.Text = "Could not identify location.";
+                Status.Text = "Identifying locations failed.";
                 MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
+                if (Status.Text.Equals("Identifying trace locations...")) { Status.Text = "Could not identify location."; }
                 IsBusy.Visibility = Visibility.Hidden;
             }
         }

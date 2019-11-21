@@ -21,7 +21,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
-using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
 namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
@@ -154,7 +153,9 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
                     if (feature.Geometry is Polyline line)
                     {
                         line = GeometryEngine.RemoveZ(line) as Polyline;
-                        element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        if (double.IsNaN(fraction)) { return; }
+                        element.FractionAlongEdge = fraction;
                         Status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
@@ -178,11 +179,12 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             }
             catch (Exception ex)
             {
-                Status.Text = "Could not identify location.";
+                Status.Text = "Identifying locations failed.";
                 await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
+                if (Status.Text.Equals("Identifying trace locations...")) { Status.Text = "Could not identify location."; }
                 IsBusy.Visibility = Visibility.Collapsed;
             }
         }

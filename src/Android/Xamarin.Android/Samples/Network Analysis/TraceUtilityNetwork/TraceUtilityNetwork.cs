@@ -170,7 +170,9 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                     if (feature.Geometry is Polyline line)
                     {
                         line = GeometryEngine.RemoveZ(line) as Polyline;
-                        element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        if (double.IsNaN(fraction)) { return; }
+                        element.FractionAlongEdge = fraction; 
                         _status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
@@ -194,11 +196,12 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             }
             catch (Exception ex)
             {
-                _status.Text = "Could not identify location.";
+                _status.Text = "Identifying locations failed.";
                 CreateDialog(ex.Message, ex.GetType().Name);
             }
             finally
             {
+                if (_status.Text.Equals("Identifying trace locations...")) { _status.Text = "Could not identify location."; }
                 _progressBar.Visibility = Android.Views.ViewStates.Invisible;
             }
         }

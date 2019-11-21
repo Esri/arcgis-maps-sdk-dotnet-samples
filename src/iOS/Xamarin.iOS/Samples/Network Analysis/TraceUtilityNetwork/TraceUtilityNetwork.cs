@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Trace a utility network",
         "Network Analysis",
-        "Discover all the features participating in a subnetwork with subnetwork, upstream, and downstream trace types.",
+        "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class TraceUtilityNetwork : UIViewController

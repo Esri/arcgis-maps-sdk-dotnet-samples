@@ -160,6 +160,18 @@
   </ItemGroup>
   <!-- Image Assets -->
   <ItemGroup>
+    <ImageAsset Include="Resources\Images.xcassets\DownloadIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\DownloadIcon.imageset\download.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\GlobeIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Images.xcassets\GlobeIcon.imageset\globe.pdf">
+      <Visible>false</Visible>
+    </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\InfoIcon.imageset\iOS7_Toolbar_About44.png">
       <Visible>false</Visible>
     </ImageAsset>
@@ -246,6 +258,12 @@
     <ImageAsset Include="Resources\Images.xcassets\LaunchImages.launchimage\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
+    <BundleResource Include="Resources\about.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\licenses.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
     <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <None Include="Samples\Security\IntegratedWindowsAuth\readme.md" />
@@ -632,6 +650,7 @@
     <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RouteViewerAR.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\AdjustableLocationDataSource.cs" />
+    <Compile Include="ViewControllers\SettingsViewController.cs" />
   </ItemGroup>
   <!-- Miscellaneous Configuration -->
   <ItemGroup>

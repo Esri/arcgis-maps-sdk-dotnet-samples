@@ -11,8 +11,10 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Widget;
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
@@ -23,39 +25,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
+namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find connected features in utility networks",
+        "Trace a utility network",
         "Network Analysis",
-        "Find all features connected to a given set of starting point(s) and barrier(s) in your network using the Connected trace type.",
+        "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FindFeaturesUtilityNetwork.axml")]
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("TraceUtilityNetwork.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public class FindFeaturesUtilityNetwork : Activity
+    public class TraceUtilityNetwork : Activity
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
-
         private RadioButton _addStartButton;
         private RadioButton _addBarrierButton;
         private Button _traceButton;
         private Button _resetButton;
+        private Button _traceTypeButton;
         private TextView _status;
         private ProgressBar _progressBar;
 
         private bool isAddingStart = true;
 
+        // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
-        private UtilityNetwork _utilityNetwork;
-        private UtilityTraceParameters _parameters;
+        // Viewpoint in the utility network area.
+        private Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9812980.8041217551, 5128523.87694709, -9812798.4363710005, 5128627.6261982173, SpatialReferences.WebMercator));
 
+        // Utility network objects.
+        private UtilityNetwork _utilityNetwork;
+        private List<UtilityElement> _startingLocations = new List<UtilityElement>();
+        private List<UtilityElement> _barriers = new List<UtilityElement>();
+        private UtilityTier _mediumVoltageTier;
+        private UtilityTraceType _utilityTraceType = UtilityTraceType.Connected;
+
+        // Task completion source for the user selected terminal.
         private TaskCompletionSource<int> _terminalCompletionSource = null;
 
-        private Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9813547.35557238, 5129980.36635111, -9813185.0602376, 5130215.41254146, SpatialReferences.WebMercator));
-
+        // Markers for the utility elements.
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
 
@@ -63,7 +73,7 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
         {
             base.OnCreate(bundle);
 
-            Title = "Find connected features in utility networks";
+            Title = "Trace a utility network";
 
             CreateLayout();
             Initialize();
@@ -84,30 +94,43 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
 
                 // Add the layer with electric distribution lines.
                 FeatureLayer lineLayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/115"));
-                lineLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3));
+                UniqueValue mediumVoltageValue = new UniqueValue("N/A", "Medium Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3), 5);
+                UniqueValue lowVoltageValue = new UniqueValue("N/A", "Low Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.DarkCyan, 3), 3);
+                lineLayer.Renderer = new UniqueValueRenderer(new List<string>() { "ASSETGROUP" }, new List<UniqueValue>() { mediumVoltageValue, lowVoltageValue }, "", new SimpleLineSymbol());
                 _myMapView.Map.OperationalLayers.Add(lineLayer);
 
                 // Add the layer with electric devices.
                 FeatureLayer electricDevicelayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/100"));
                 _myMapView.Map.OperationalLayers.Add(electricDevicelayer);
 
+                // Set the selection color for features in the map view.
+                _myMapView.SelectionProperties = new SelectionProperties(System.Drawing.Color.Yellow);
+
                 // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), _myMapView.Map);
 
-                _status.Text = "Click on the network lines or points to add a utility element.";
+                // Get the utility tier used for traces in this network. For this data set, the "Medium Voltage Radial" tier from the "ElectricDistribution" domain network is used.
+                UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork("ElectricDistribution");
+                _mediumVoltageTier = domainNetwork.GetTier("Medium Voltage Radial");
 
-                // Create symbols for starting points and barriers.
-                _startingPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Green, 20d);
-                _barrierPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Red, 20d);
+                // More complex datasets may require using utility trace configurations from different tiers. The following LINQ expression gets all tiers present in the utility network.
+                //IEnumerable<UtilityTier> tiers = _utilityNetwork.Definition.DomainNetworks.Select(domain => domain.Tiers).SelectMany(tier => tier);
+
+                // Create symbols for starting locations and barriers.
+                _startingPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.LightGreen, 25d);
+                _barrierPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.OrangeRed, 25d);
 
                 // Create a graphics overlay.
                 GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
                 _myMapView.GraphicsOverlays.Add(graphicsOverlay);
+
+                // Set the instruction text.
+                _status.Text = "Tap on the network lines or points to add a utility element.";
             }
             catch (Exception ex)
             {
                 _status.Text = "Loading Utility Network failed...";
-                CreateDialog(ex.Message);
+                CreateDialog(ex.Message, title: ex.GetType().Name);
             }
             finally
             {
@@ -124,96 +147,56 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
 
                 // Identify the feature to be used.
                 IEnumerable<IdentifyLayerResult> identifyResult = await _myMapView.IdentifyLayersAsync(e.Position, 10.0, false);
-
-                // Check that a results from a layer were identified from the user input.
-                if (!identifyResult.Any()) { return; }
-
-                // Identify the selected feature.
-                IdentifyLayerResult layerResult = identifyResult?.FirstOrDefault();
-                ArcGISFeature feature = layerResult?.GeoElements?.FirstOrDefault() as ArcGISFeature;
-
-                // Check that a feature was identified from the layer.
+                ArcGISFeature feature = identifyResult?.FirstOrDefault()?.GeoElements?.FirstOrDefault() as ArcGISFeature;
                 if (feature == null) { return; }
 
-                // Create element with `terminal` for junction feature or with `fractionAlong` for edge feature.
-                UtilityElement element = null;
+                // Create element from the identified feature.
+                UtilityElement element = _utilityNetwork.CreateElement(feature);
 
-                // Select default terminal or display possible terminals for the junction feature.
-                UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(feature.FeatureTable.TableName);
-
-                // Check if the network source is a junction or an edge.
-                if (networkSource.SourceType == UtilityNetworkSourceType.Junction)
+                if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Junction)
                 {
-                    // Get the UtilityAssetGroup from the feature.
-                    string assetGroupFieldName = ((ArcGISFeatureTable)feature.FeatureTable).SubtypeField ?? "ASSETGROUP";
-                    int assetGroupCode = Convert.ToInt32(feature.Attributes[assetGroupFieldName]);
-                    UtilityAssetGroup assetGroup = networkSource?.AssetGroups?.FirstOrDefault(g => g.Code == assetGroupCode);
-
-                    // Get the UtilityAssetType from the feature.
-                    int assetTypeCode = Convert.ToInt32(feature.Attributes["ASSETTYPE"]);
-                    UtilityAssetType assetType = assetGroup?.AssetTypes?.FirstOrDefault(t => t.Code == assetTypeCode);
-
-                    // Get the list of terminals for the feature.
-                    IEnumerable<UtilityTerminal> terminals = assetType?.TerminalConfiguration?.Terminals;
-
-                    // If there is more than one terminal, prompt the user to select a terminal.
-                    if (terminals.Count() > 1)
+                    // Select terminal for junction feature.
+                    IEnumerable<UtilityTerminal> terminals = element.AssetType.TerminalConfiguration?.Terminals;
+                    if (terminals?.Count() > 1)
                     {
-                        // Ask the user to choose the terminal.
-                        UtilityTerminal terminal = await WaitForTerminal(terminals);
-
-                        // Create a UtilityElement with the terminal.
-                        element = _utilityNetwork.CreateElement(feature, terminal);
-                        _status.Text = $"Terminal: {terminal?.Name ?? "default"}";
+                        element.Terminal = await WaitForTerminal(terminals);
                     }
-                    else
-                    {
-                        element = _utilityNetwork.CreateElement(feature, terminals.FirstOrDefault());
-                        _status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
-                    }
+                    _status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                 }
-                else if (networkSource.SourceType == UtilityNetworkSourceType.Edge)
+                else if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Edge)
                 {
-                    element = _utilityNetwork.CreateElement(feature);
-
                     // Compute how far tapped location is along the edge feature.
                     if (feature.Geometry is Polyline line)
                     {
                         line = GeometryEngine.RemoveZ(line) as Polyline;
-
-                        // Set how far the element is along the edge.
-                        element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
-
+                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        if (double.IsNaN(fraction)) { return; }
+                        element.FractionAlongEdge = fraction;
                         _status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
 
-                // Check that the element can be added to the parameters.
-                if (element == null) { return; }
-
-                // Build the utility trace parameters.
-                if (_parameters == null)
-                {
-                    IEnumerable<UtilityElement> startingLocations = Enumerable.Empty<UtilityElement>();
-                    _parameters = new UtilityTraceParameters(UtilityTraceType.Connected, startingLocations);
-                }
+                // Check whether starting location or barrier is added to update the right collection and symbology.
+                Symbol symbol = null;
                 if (isAddingStart)
                 {
-                    _parameters.StartingLocations.Add(element);
+                    _startingLocations.Add(element);
+                    symbol = _startingPointSymbol;
                 }
                 else
                 {
-                    _parameters.Barriers.Add(element);
+                    _barriers.Add(element);
+                    symbol = _barrierPointSymbol;
                 }
 
                 // Add a graphic for the new utility element.
-                Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, isAddingStart ? _startingPointSymbol : _barrierPointSymbol);
+                Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, symbol);
                 _myMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(traceLocationGraphic);
             }
             catch (Exception ex)
             {
-                _status.Text = "Identifying locations failed...";
-                CreateDialog(ex.Message);
+                _status.Text = "Identifying locations failed.";
+                CreateDialog(ex.Message, ex.GetType().Name);
             }
             finally
             {
@@ -245,39 +228,54 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
             _terminalCompletionSource.TrySetResult(e.Which);
         }
 
+        private void ChooseTraceType(object sender, EventArgs e)
+        {
+            // Create UI for trace type selection.
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.SetTitle("Select trace type");
+            builder.SetItems(Enum.GetNames(typeof(UtilityTraceType)), ChangeTraceType);
+            builder.SetCancelable(true);
+            builder.Show();
+        }
+
+        private void ChangeTraceType(object sender, DialogClickEventArgs e)
+        {
+            _utilityTraceType = (UtilityTraceType)Enum.GetValues(typeof(UtilityTraceType)).GetValue(e.Which);
+            _traceTypeButton.Text = $"Trace type: {_utilityTraceType}";
+        }
+
         private async void Trace_Click(object sender, EventArgs e)
         {
             try
             {
+                // Update the UI.
                 _progressBar.Visibility = Android.Views.ViewStates.Visible;
-                _status.Text = "Running connected trace...";
+                _status.Text = $"Running {_utilityTraceType.ToString().ToLower()} trace...";
 
-                // Verify that the parameters contain a starting location.
-                if (_parameters == null || !_parameters.StartingLocations.Any()) { throw new Exception("No starting locations set."); }
+                // Clear previous selection from the layers.
+                _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
+
+                // Build trace parameters.
+                UtilityTraceParameters parameters = new UtilityTraceParameters(_utilityTraceType, _startingLocations);
+                foreach (UtilityElement barrier in _barriers)
+                {
+                    parameters.Barriers.Add(barrier);
+                }
+
+                // Set the trace configuration using the tier from the utility domain network.
+                parameters.TraceConfiguration = _mediumVoltageTier.TraceConfiguration;
 
                 //  Get the trace result from the utility network.
-                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(_parameters);
+                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(parameters);
                 UtilityElementTraceResult elementTraceResult = traceResult?.FirstOrDefault() as UtilityElementTraceResult;
 
+                // Check if there are any elements in the result.
                 if (elementTraceResult?.Elements?.Count > 0)
                 {
-                    // Clear previous selection from the layer.
-                    _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
-
-                    // Group the utility elements by their network source.
-                    IEnumerable<IGrouping<string, UtilityElement>> groupedElementsResult = from element in elementTraceResult.Elements
-                                                                                           group element by element.NetworkSource.Name into groupedElements
-                                                                                           select groupedElements;
-
-                    foreach (IGrouping<string, UtilityElement> elementGroup in groupedElementsResult)
+                    foreach (FeatureLayer layer in _myMapView.Map.OperationalLayers.OfType<FeatureLayer>())
                     {
-                        // Get the layer for the utility element.
-                        FeatureLayer layer = (FeatureLayer)_myMapView.Map.OperationalLayers.FirstOrDefault(l => l is FeatureLayer && ((FeatureLayer)l).FeatureTable.TableName == elementGroup.Key);
-                        if (layer == null)
-                            continue;
-
-                        // Convert elements to features to highlight result.
-                        IEnumerable<Feature> features = await _utilityNetwork.GetFeaturesForElementsAsync(elementGroup);
+                        IEnumerable<UtilityElement> elements = elementTraceResult.Elements.Where(element => element.NetworkSource.Name == layer.FeatureTable.TableName);
+                        IEnumerable<Feature> features = await _utilityNetwork.GetFeaturesForElementsAsync(elements);
                         layer.SelectFeatures(features);
                     }
                 }
@@ -286,7 +284,14 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
             catch (Exception ex)
             {
                 _status.Text = "Trace failed...";
-                CreateDialog(ex.Message);
+                if (ex is ArcGISWebException && ex.Message == null)
+                {
+                    CreateDialog("Trace failed.", ex.GetType().Name);
+                }
+                else
+                {
+                    CreateDialog(ex.Message, ex.GetType().Name);
+                }
             }
             finally
             {
@@ -297,11 +302,12 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
         private void Reset_Click(object sender, EventArgs e)
         {
             // Reset the UI.
-            _status.Text = "Click on the network lines or points to add a utility element.";
+            _status.Text = "Tap on the network lines or points to add a utility element.";
             _progressBar.Visibility = Android.Views.ViewStates.Invisible;
 
             // Clear the utility trace parameters.
-            _parameters = null;
+            _startingLocations.Clear();
+            _barriers.Clear();
 
             // Clear the map layers and graphics.
             _myMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Clear();
@@ -311,7 +317,7 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            SetContentView(Resource.Layout.FindFeaturesUtilityNetwork);
+            SetContentView(Resource.Layout.TraceUtilityNetwork);
 
             _myMapView = FindViewById<MapView>(Resource.Id.MapView);
 
@@ -319,6 +325,7 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
             _addBarrierButton = FindViewById<RadioButton>(Resource.Id.addBarrier);
             _traceButton = FindViewById<Button>(Resource.Id.traceButton);
             _resetButton = FindViewById<Button>(Resource.Id.resetButton);
+            _traceTypeButton = FindViewById<Button>(Resource.Id.traceTypeButton);
             _status = FindViewById<TextView>(Resource.Id.statusLabel);
             _progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
 
@@ -326,14 +333,17 @@ namespace ArcGISRuntime.Samples.FindFeaturesUtilityNetwork
             _traceButton.Click += Trace_Click;
             _resetButton.Click += Reset_Click;
 
+            _traceTypeButton.Click += ChooseTraceType;
+
             _addStartButton.Click += (s, e) => { isAddingStart = true; };
             _addBarrierButton.Click += (s, e) => { isAddingStart = false; };
         }
 
-        private void CreateDialog(string message)
+        private void CreateDialog(string message, string title = null)
         {
             // Create a dialog to show message to user.
             AlertDialog alert = new AlertDialog.Builder(this).Create();
+            if (title != null) alert.SetTitle(title);
             alert.SetMessage(message);
             alert.Show();
         }

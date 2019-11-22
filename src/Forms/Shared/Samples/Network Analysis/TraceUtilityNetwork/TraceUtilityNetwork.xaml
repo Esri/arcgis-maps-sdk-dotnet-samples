@@ -1,10 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.FindFeaturesUtilityNetwork.FindFeaturesUtilityNetwork"
+﻿<ContentPage
+    x:Class="ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork.TraceUtilityNetwork"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -41,7 +39,6 @@
                     <OnPlatform x:TypeArguments="Color" iOS="#2499CE" />
                 </ActivityIndicator.Color>
             </ActivityIndicator>
-
         </StackLayout>
         <Grid
             x:Name="PickerUI"
@@ -61,39 +58,47 @@
                 Grid.Row="1"
                 ItemSelected="Terminal_Selected" />
         </Grid>
-
-        <Grid x:Name="MainUI" Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.23*" />
-                <ColumnDefinition Width="0.23*" />
-                <ColumnDefinition Width="0.08*" />
-                <ColumnDefinition Width="0.23*" />
-                <ColumnDefinition Width="0.23*" />
-            </Grid.ColumnDefinitions>
+        <StackLayout
+            x:Name="MainUI"
+            Grid.Row="2"
+            Orientation="Vertical">
             <Button
-                x:Name="IsAddingStartingLocations"
-                Grid.Column="0"
-                Clicked="IsAddingStartingLocations_Clicked"
-                HorizontalOptions="FillAndExpand"
-                IsEnabled="False"
-                Text="Origin" />
-            <Button
-                x:Name="IsAddingBarriers"
-                Grid.Column="1"
-                Clicked="IsAddingBarriers_Clicked"
-                HorizontalOptions="FillAndExpand"
-                Text="Barrier" />
-            <Grid Grid.Column="2" />
-            <Button
-                Grid.Column="3"
-                Clicked="OnReset"
-                HorizontalOptions="FillAndExpand"
-                Text="Reset" />
-            <Button
-                Grid.Column="4"
-                Clicked="OnTrace"
-                HorizontalOptions="FillAndExpand"
-                Text="Trace" />
-        </Grid>
+                x:Name="TracePickerButton"
+                Clicked="TraceTypeButtonPressed"
+                Text="Trace type: Connected" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.23*" />
+                    <ColumnDefinition Width="0.23*" />
+                    <ColumnDefinition Width="0.08*" />
+                    <ColumnDefinition Width="0.23*" />
+                    <ColumnDefinition Width="0.23*" />
+                </Grid.ColumnDefinitions>
+                <Button
+                    x:Name="IsAddingStartingLocations"
+                    Grid.Column="0"
+                    Clicked="IsAddingStartingLocations_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    IsEnabled="False"
+                    Text="Origin" />
+                <Button
+                    x:Name="IsAddingBarriers"
+                    Grid.Column="1"
+                    Clicked="IsAddingBarriers_Clicked"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Barrier" />
+                <Grid Grid.Column="2" />
+                <Button
+                    Grid.Column="3"
+                    Clicked="OnReset"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Reset" />
+                <Button
+                    Grid.Column="4"
+                    Clicked="OnTrace"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Trace" />
+            </Grid>
+        </StackLayout>
     </Grid>
 </ContentPage>

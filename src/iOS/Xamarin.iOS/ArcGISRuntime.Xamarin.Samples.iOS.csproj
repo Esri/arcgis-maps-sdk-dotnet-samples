@@ -275,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
     <None Include="Samples\Augmented reality\NavigateAR\NavigateAR.jpg" />
     <None Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
     <None Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
@@ -287,7 +288,6 @@
     <None Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
     <None Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
     <None Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
-    <None Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
     <None Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <None Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
@@ -458,6 +458,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.cs" />
     <Compile Include="Samples\Augmented reality\CollectDataAR\AdjustableLocationDataSource.cs" />
     <Compile Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RoutePlanner.cs" />
@@ -476,7 +477,6 @@
     <Compile Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.cs" />
     <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.cs" />
     <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.cs" />
-    <Compile Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.cs" />
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
     <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />

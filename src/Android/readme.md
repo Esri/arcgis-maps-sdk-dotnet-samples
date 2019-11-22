@@ -199,7 +199,6 @@
 
 * [Find closest facility to an incident (interactive)](Xamarin.Android/Samples/Network%20Analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
 * [Find closest facility to multiple incidents (service)](Xamarin.Android/Samples/Network%20Analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Find connected features in a utility network](Xamarin.Android/Samples/Network%20Analysis/FindFeaturesUtilityNetwork/readme.md) - Find all features connected to a set of starting points in a utility network.
 * [Find route](Xamarin.Android/Samples/Network%20Analysis/FindRoute/readme.md) - Display directions for a route between two points.
 * [Find service area](Xamarin.Android/Samples/Network%20Analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
 * [Find service areas for multiple facilities](Xamarin.Android/Samples/Network%20Analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
@@ -207,6 +206,7 @@
 * [Navigate route with rerouting](Xamarin.Android/Samples/Network%20Analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 * [Offline routing](Xamarin.Android/Samples/Network%20Analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](Xamarin.Android/Samples/Network%20Analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Trace a utility network](Xamarin.Android/Samples/Network%20Analysis/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 
 ## Search
 

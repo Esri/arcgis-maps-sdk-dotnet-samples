@@ -42,7 +42,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
         private UISegmentedControl _startBarrierPicker;
         private UILabel _statusLabel;
         private UIActivityIndicatorView _activityIndicator;
-        private UISegmentedControl _tracePicker;
+        private UIButton _tracePickerButton;
 
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
@@ -55,6 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
         private List<UtilityElement> _startingLocations = new List<UtilityElement>();
         private List<UtilityElement> _barriers = new List<UtilityElement>();
         private UtilityTier _mediumVoltageTier;
+        private UtilityTraceType _utilityTraceType;
 
         // Task completion source for the user selected terminal.
         private TaskCompletionSource<string> _terminalCompletionSource = null;
@@ -235,22 +236,53 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             _terminalCompletionSource.TrySetResult(action.Title);
         }
 
+        private void ChangeTraceType(object sender, EventArgs e)
+        {
+            // Prevent user from tapping map while selecting a trace type.
+            _myMapView.GeoViewTapped -= OnGeoViewTapped;
+
+            // Start the UI for the user choosing the trace type.
+            UIAlertController prompt = UIAlertController.Create(null, "Choose trace type", UIAlertControllerStyle.ActionSheet);
+
+            // Add a selection action for every trace type.
+            foreach (string name in Enum.GetNames(typeof(UtilityTraceType)))
+            {
+                prompt.AddAction(UIAlertAction.Create(name, UIAlertActionStyle.Default, TraceTypeClick));
+            }
+
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                ppc.SourceView = _tracePickerButton;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            PresentViewController(prompt, true, null);
+
+            // Enable the main UI again.
+            _myMapView.GeoViewTapped += OnGeoViewTapped;
+        }
+
+        private void TraceTypeClick(UIAlertAction action)
+        {
+            _utilityTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), action.Title);
+            _tracePickerButton.SetTitle($"Trace type: {_utilityTraceType}", UIControlState.Normal);
+        }
+
         private async void OnTrace(object sender, EventArgs e)
         {
             try
             {
-                // Get the selected trace type.
-                UtilityTraceType traceType = (UtilityTraceType)Enum.GetValues(typeof(UtilityTraceType)).GetValue(_tracePicker.SelectedSegment);
-
                 // Update the UI.
                 _activityIndicator.StartAnimating();
-                _statusLabel.Text = $"Running {traceType.ToString().ToLower()} trace...";
+                _statusLabel.Text = $"Running {_utilityTraceType.ToString().ToLower()} trace...";
 
                 // Clear previous selection from the layers.
                 _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
                 // Build trace parameters.
-                UtilityTraceParameters parameters = new UtilityTraceParameters(traceType, _startingLocations);
+                UtilityTraceParameters parameters = new UtilityTraceParameters(_utilityTraceType, _startingLocations);
                 foreach (UtilityElement barrier in _barriers)
                 {
                     parameters.Barriers.Add(barrier);
@@ -266,7 +298,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 // Check if there are any elements in the result.
                 if (elementTraceResult?.Elements?.Count > 0)
                 {
-                    foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers.OfType<FeatureLayer>())
+                    foreach (FeatureLayer layer in _myMapView.Map.OperationalLayers.OfType<FeatureLayer>())
                     {
                         IEnumerable<UtilityElement> elements = elementTraceResult.Elements.Where(element => element.NetworkSource.Name == layer.FeatureTable.TableName);
                         IEnumerable<Feature> features = await _utilityNetwork.GetFeaturesForElementsAsync(elements);
@@ -328,9 +360,9 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            _tracePicker = new UISegmentedControl(Enum.GetNames(typeof(UtilityTraceType)));
-            _tracePicker.SelectedSegment = 0;
-            _tracePicker.TranslatesAutoresizingMaskIntoConstraints = false;
+            _tracePickerButton = new UIButton(UIButtonType.System);
+            _tracePickerButton.SetTitle("Trace type: Connected", UIControlState.Normal);
+            _tracePickerButton.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _startBarrierPicker = new UISegmentedControl(new string[] { "Start", "Barrier" });
             _startBarrierPicker.SelectedSegment = 0;
@@ -359,7 +391,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             };
 
             // Add the views.
-            View.AddSubviews(_myMapView, _statusLabel, _tracePicker, _toolbar, _activityIndicator);
+            View.AddSubviews(_myMapView, _statusLabel, _tracePickerButton, _toolbar, _activityIndicator);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -367,11 +399,12 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                     _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                     _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                     _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                    _myMapView.BottomAnchor.ConstraintEqualTo(_tracePicker.TopAnchor),
+                    _myMapView.BottomAnchor.ConstraintEqualTo(_tracePickerButton.TopAnchor),
 
-                    _tracePicker.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                    _tracePicker.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                    _tracePicker.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
+                    _tracePickerButton.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                    _tracePickerButton.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                    _tracePickerButton.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
+                    _tracePickerButton.HeightAnchor.ConstraintEqualTo(40),
 
                     _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                     _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
@@ -398,6 +431,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             _myMapView.GeoViewTapped += OnGeoViewTapped;
             _traceButton.Clicked += OnTrace;
             _resetButton.Clicked += OnReset;
+            _tracePickerButton.TouchUpInside += ChangeTraceType;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -408,6 +442,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             _myMapView.GeoViewTapped -= OnGeoViewTapped;
             _traceButton.Clicked -= OnTrace;
             _resetButton.Clicked -= OnReset;
+            _tracePickerButton.TouchUpInside -= ChangeTraceType;
         }
 
         public override void ViewDidLoad()

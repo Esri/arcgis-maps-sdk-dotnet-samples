@@ -7,12 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using System;
-using System.IO;
 using System.Linq;
 using Windows.UI.Popups;
-using Esri.ArcGISRuntime.Mapping;
-using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.UWP.Samples.OpenMobileMap
 {
@@ -21,7 +19,7 @@ namespace ArcGISRuntime.UWP.Samples.OpenMobileMap
         "Map",
         "This sample demonstrates how to open a mobile map from a map package.",
         "The map package will be downloaded from an ArcGIS Online portal automatically.")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
     public partial class OpenMobileMap
     {
         public OpenMobileMap()
@@ -37,32 +35,14 @@ namespace ArcGISRuntime.UWP.Samples.OpenMobileMap
 
             try
             {
-                // Load directly or unpack then load as needed by the map package.
-                if (await MobileMapPackage.IsDirectReadSupportedAsync(filepath))
-                {
-                    // Open the map package.
-                    MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+                // Open the map package.
+                MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
 
-                    // Display the first map in the package.
-                    MyMapView.Map = myMapPackage.Maps.First();
-                }
-                else
-                {
-                    // Create a path for the unpacked package.
-                    string unpackedPath = filepath + "unpacked";
+                // Load the package.
+                await myMapPackage.LoadAsync();
 
-                    // Unpack the package.
-                    await MobileMapPackage.UnpackAsync(filepath, unpackedPath);
-
-                    // Open the package.
-                    MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
-
-                    // Load the package.
-                    await package.LoadAsync();
-
-                    // Show the first map.
-                    MyMapView.Map = package.Maps.First();
-                }
+                // Display the first map in the package.
+                MyMapView.Map = myMapPackage.Maps.First();
             }
             catch (Exception e)
             {

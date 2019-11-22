@@ -19,7 +19,7 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Surface placement",
         "GraphicsOverlay",
-        "This sample demonstrates how to position graphics using different Surface Placements.",
+        "Position graphics relative to a surface using different surface placement modes.",
         "")]
     public partial class SurfacePlacements
     {

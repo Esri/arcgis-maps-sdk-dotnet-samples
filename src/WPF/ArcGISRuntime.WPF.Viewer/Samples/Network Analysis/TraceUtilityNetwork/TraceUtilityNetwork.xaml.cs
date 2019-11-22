@@ -276,7 +276,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
                 Status.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    MessageBox.Show($"HResult: {ex.HResult}", ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Trace failed.", ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {

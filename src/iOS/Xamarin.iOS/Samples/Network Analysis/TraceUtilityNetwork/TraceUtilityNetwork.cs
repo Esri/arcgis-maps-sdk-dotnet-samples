@@ -312,7 +312,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 _statusLabel.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    new UIAlertView(ex.GetType().Name, $"HResult: {ex.HResult}", (IUIAlertViewDelegate)null, "OK", null).Show();
+                    new UIAlertView(ex.GetType().Name, "Trace failed.", (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
                 else
                 {

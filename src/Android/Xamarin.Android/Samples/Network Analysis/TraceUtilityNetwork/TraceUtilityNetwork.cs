@@ -286,7 +286,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 _status.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    CreateDialog($"HResult: {ex.HResult}", ex.GetType().Name);
+                    CreateDialog("Trace failed.", ex.GetType().Name);
                 }
                 else
                 {

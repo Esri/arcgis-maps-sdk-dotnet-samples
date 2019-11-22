@@ -78,6 +78,8 @@
     <None Include="Samples\Augmented reality\NavigateAR\NavigateAR.jpg" />
     <None Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
     <None Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
+    <None Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
+    <None Include="Samples\Augmented reality\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.jpg" />
     <None Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <None Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <None Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
@@ -260,9 +262,14 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.cs" />
+    <Compile Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.cs" />
+    <Compile Include="Samples\Augmented reality\CollectDataAR\MSLAdjustedARLocationDataSource.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RoutePlanner.cs" />
     <Compile Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.cs" />
     <Compile Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.cs" />
+    <Compile Include="Samples\Augmented reality\ViewHiddenInfrastructureAR\MSLAdjustedARLocationDataSource.cs" />
+    <Compile Include="Samples\Augmented reality\ViewHiddenInfrastructureAR\PipePlacer.cs" />
+    <Compile Include="Samples\Augmented reality\ViewHiddenInfrastructureAR\PipeViewer.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.cs" />
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.cs" />
@@ -635,12 +642,27 @@
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
-  <!-- Imports -->
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ViewHiddenARPipePlacer.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\CollectDataAR.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ViewHiddenARPipeViewer.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\TraceUtilityNetwork.axml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
+  <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

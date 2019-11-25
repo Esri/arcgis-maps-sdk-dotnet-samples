@@ -102,35 +102,14 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
 
         private async Task<MobileMapPackage> OpenMobileMapPackage(string path)
         {
-            // Load directly or unpack then load as needed by the map package.
-            if (await MobileMapPackage.IsDirectReadSupportedAsync(path))
-            {
-                // Open the map package.
-                MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
+            // Open the map package.
+            MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
 
-                // Load the package.
-                await package.LoadAsync();
+            // Load the package.
+            await package.LoadAsync();
 
-                // Return the opened package.
-                return package;
-            }
-            else
-            {
-                // Create a path for the unpacked package.
-                string unpackedPath = path + "unpacked";
-
-                // Unpack the package.
-                await MobileMapPackage.UnpackAsync(path, unpackedPath);
-
-                // Open the package.
-                MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
-
-                // Load the package.
-                await package.LoadAsync();
-
-                // Return the opened package.
-                return package;
-            }
+            // Return the opened package.
+            return package;
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)

@@ -38,6 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.
         public ObservableCollection<Map> Maps { get; set; }
+
         private LocatorTask _packageLocator;
         private TransportationNetworkDataset _networkDataset;
 
@@ -93,35 +94,14 @@ namespace ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute
 
         private async Task<MobileMapPackage> OpenMobileMapPackage(string path)
         {
-            // Load directly or unpack then load as needed by the map package.
-            if (await MobileMapPackage.IsDirectReadSupportedAsync(path))
-            {
-                // Open the map package.
-                MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
+            // Open the package.
+            MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
 
-                // Load the package.
-                await package.LoadAsync();
+            // Load the package.
+            await package.LoadAsync();
 
-                // Return the opened package.
-                return package;
-            }
-            else
-            {
-                // Create a path for the unpacked package.
-                string unpackedPath = path + "unpacked";
-
-                // Unpack the package.
-                await MobileMapPackage.UnpackAsync(path, unpackedPath);
-
-                // Open the package.
-                MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
-
-                // Load the package.
-                await package.LoadAsync();
-
-                // Return the opened package.
-                return package;
-            }
+            // Return the opened package.
+            return package;
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
@@ -189,7 +169,7 @@ namespace ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute
 
                 // Configure route parameters for the route between the two tapped points.
                 RouteParameters routingParameters = await routingTask.CreateDefaultParametersAsync();
-                List<Stop> stops = new List<Stop> {new Stop(_startPoint), new Stop(_endPoint)};
+                List<Stop> stops = new List<Stop> { new Stop(_startPoint), new Stop(_endPoint) };
                 routingParameters.SetStops(stops);
 
                 // Get the first route result.

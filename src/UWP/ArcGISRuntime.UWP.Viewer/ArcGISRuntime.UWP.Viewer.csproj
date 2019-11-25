@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
     <Content Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <Content Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <Content Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
@@ -123,7 +124,6 @@
     <Content Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
     <Content Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
     <Content Include="Assets\banner-background-black.png" />
-    <Content Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.jpg" />
     <Content Include="Default.rd.xml" />
     <Content Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
@@ -347,6 +347,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+      <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
       <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
@@ -379,9 +382,6 @@
     <Compile Include="Samples\Map\MapReferenceScale\DoubleToScaleStringConverter.cs" />
     <Compile Include="Samples\Map\MobileMapSearchAndRoute\ItemToImageSourceConverter.cs" />
     <Compile Include="Samples\Map\MobileMapSearchAndRoute\NullOrEmptyToVisibilityConverter.cs" />
-    <Compile Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.xaml.cs">
-      <DependentUpon>FindFeaturesUtilityNetwork.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
       <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
     </Compile>
@@ -908,6 +908,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -937,10 +941,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Network Analysis\FindFeaturesUtilityNetwork\FindFeaturesUtilityNetwork.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

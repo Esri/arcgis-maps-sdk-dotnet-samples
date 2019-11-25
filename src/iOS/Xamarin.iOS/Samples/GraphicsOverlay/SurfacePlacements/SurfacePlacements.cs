@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,14 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Drawing;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.SurfacePlacements
@@ -23,12 +23,17 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Surface placement",
         "GraphicsOverlay",
-        "This sample demonstrates how to position graphics using different Surface Placements.",
+        "Position graphics relative to a surface using different surface placement modes.",
         "")]
     public class SurfacePlacements : UIViewController
     {
         // Hold references to UI controls.
         private SceneView _mySceneView;
+        private UISegmentedControl _picker;
+
+        // Draped overlays.
+        private GraphicsOverlay _drapedBillboardedOverlay;
+        private GraphicsOverlay _drapedFlatOverlay;
 
         public SurfacePlacements()
         {
@@ -57,49 +62,77 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             _mySceneView.SetViewpointCameraAsync(camera);
 
             // Create overlays with elevation modes.
-            GraphicsOverlay drapedOverlay = new GraphicsOverlay
-            {
-                SceneProperties = {SurfacePlacement = SurfacePlacement.Draped}
-            };
-            _mySceneView.GraphicsOverlays.Add(drapedOverlay);
+            _drapedBillboardedOverlay = new GraphicsOverlay();
+            _drapedBillboardedOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedBillboarded;
+            _mySceneView.GraphicsOverlays.Add(_drapedBillboardedOverlay);
 
-            GraphicsOverlay relativeOverlay = new GraphicsOverlay
-            {
-                SceneProperties = {SurfacePlacement = SurfacePlacement.Relative}
-            };
+            _drapedFlatOverlay = new GraphicsOverlay();
+            _drapedFlatOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedFlat;
+
+            GraphicsOverlay relativeOverlay = new GraphicsOverlay();
+            relativeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
             _mySceneView.GraphicsOverlays.Add(relativeOverlay);
 
-            GraphicsOverlay absoluteOverlay = new GraphicsOverlay
-            {
-                SceneProperties = {SurfacePlacement = SurfacePlacement.Absolute}
-            };
+            GraphicsOverlay absoluteOverlay = new GraphicsOverlay();
+            absoluteOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
             _mySceneView.GraphicsOverlays.Add(absoluteOverlay);
 
             // Create point for graphic location.
             MapPoint point = new MapPoint(-4.04, 53.06, 1000, camera.Location.SpatialReference);
 
-            // Create a red circle symbol.
-            SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
+            // Create a red triangle symbol
+            SimpleMarkerSymbol triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);
 
             // Create a text symbol for each elevation mode
-            TextSymbol drapedText = new TextSymbol("DRAPED", Color.FromArgb(255, 255, 255, 255), 10, HorizontalAlignment.Center, VerticalAlignment.Middle);
-            drapedText.OffsetY += 20;
+            TextSymbol drapedBillboardedText = new TextSymbol("DRAPED BILLBOARDED", Color.FromArgb(255, 255, 255, 255), 10,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle);
+            drapedBillboardedText.OffsetY += 20;
 
-            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10, HorizontalAlignment.Center, VerticalAlignment.Middle);
+            TextSymbol drapedFlatText = new TextSymbol("DRAPED FLAT", Color.FromArgb(255, 255, 255, 255), 10,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle);
+            drapedFlatText.OffsetY += 20;
+
+            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle);
             relativeText.OffsetY += 20;
 
-            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10, HorizontalAlignment.Center, VerticalAlignment.Middle);
+            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle);
             absoluteText.OffsetY += 20;
 
-            // Add the point graphic and text graphic to the corresponding graphics overlay.
-            drapedOverlay.Graphics.Add(new Graphic(point, circleSymbol));
-            drapedOverlay.Graphics.Add(new Graphic(point, drapedText));
+            // Add the point graphic and text graphic to the corresponding graphics overlay
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, drapedBillboardedText));
 
-            relativeOverlay.Graphics.Add(new Graphic(point, circleSymbol));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(point, drapedFlatText));
+
+            relativeOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
             relativeOverlay.Graphics.Add(new Graphic(point, relativeText));
 
-            absoluteOverlay.Graphics.Add(new Graphic(point, circleSymbol));
+            absoluteOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
             absoluteOverlay.Graphics.Add(new Graphic(point, absoluteText));
+        }
+
+        private void ChangeDraped(object sender, EventArgs e)
+        {
+            // Remove the current overlay.
+            _mySceneView.GraphicsOverlays.Remove(_drapedFlatOverlay);
+            _mySceneView.GraphicsOverlays.Remove(_drapedBillboardedOverlay);
+
+            // Add the selected overlay.
+            if (_picker.SelectedSegment == 0)
+            {
+                _mySceneView.GraphicsOverlays.Add(_drapedBillboardedOverlay);
+            }
+            else
+            {
+                _mySceneView.GraphicsOverlays.Add(_drapedFlatOverlay);
+            }
         }
 
         public override void ViewDidLoad()
@@ -111,22 +144,47 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _picker = new UISegmentedControl("Draped Billboarded", "Draped Flat");
+            _picker.SelectedSegment = 0;
+            _picker.TranslatesAutoresizingMaskIntoConstraints = false;
+
             // Add the views.
-            View.AddSubviews(_mySceneView);
+            View.AddSubviews(_mySceneView, _picker);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(_picker.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _picker.TopAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor),
+                _picker.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _picker.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _picker.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
+        }
+
+        public override void ViewWillAppear(bool animated)
+        {
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _picker.ValueChanged += ChangeDraped;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _picker.ValueChanged += ChangeDraped;
         }
     }
 }

@@ -118,12 +118,18 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         {
             MySceneView.GraphicsOverlays.Remove(_drapedFlatOverlay);
             MySceneView.GraphicsOverlays.Add(_drapedBillboardedOverlay);
+
+            BillboardedButton.IsEnabled = false;
+            FlatButton.IsEnabled = true;
         }
 
         private void FlatClicked(object sender, EventArgs e)
         {
             MySceneView.GraphicsOverlays.Remove(_drapedBillboardedOverlay);
             MySceneView.GraphicsOverlays.Add(_drapedFlatOverlay);
+
+            BillboardedButton.IsEnabled = true;
+            FlatButton.IsEnabled = false;
         }
     }
 }

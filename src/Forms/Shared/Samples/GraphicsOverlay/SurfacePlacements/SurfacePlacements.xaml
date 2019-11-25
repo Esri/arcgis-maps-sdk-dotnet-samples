@@ -13,15 +13,16 @@
             </Grid.RowDefinitions>
             <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" />
             <Button
+                x:Name="BillboardedButton"
                 Grid.Row="1"
                 Clicked="BillboardedClicked"
                 IsEnabled="False"
                 Text="Draped Billboarded" />
             <Button
+                x:Name="FlatButton"
                 Grid.Row="2"
                 Clicked="FlatClicked"
                 Text="Draped Flat" />
         </Grid>
-
     </Grid>
 </ContentPage>

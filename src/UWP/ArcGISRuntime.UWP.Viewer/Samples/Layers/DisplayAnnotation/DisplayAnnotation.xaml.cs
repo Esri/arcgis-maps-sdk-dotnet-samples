@@ -38,6 +38,27 @@ namespace ArcGISRuntime.UWP.Samples.DisplayAnnotation
 
         private void Initialize()
         {
+            // Uris for the river data.
+            Uri riverFeatureServiceUri = new Uri("https://services1.arcgis.com/6677msI40mnLuuLr/arcgis/rest/services/East_Lothian_Rivers/FeatureServer/0");
+            Uri riverFeatureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/RiversAnnotation/FeatureServer/0");
+
+            // Create a map.
+            Map map = new Map(BasemapType.LightGrayCanvasVector, 55.882436, -2.725610, 13);
+
+            // Create a feature layer from a feature service.
+            FeatureLayer riverFeatureLayer = new FeatureLayer(new ServiceFeatureTable(riverFeatureServiceUri));
+
+            // Add the feature layer to the map.
+            map.OperationalLayers.Add(riverFeatureLayer);
+
+            // Create an annotation layer from a feature service.
+            AnnotationLayer annotationLayer = new AnnotationLayer(riverFeatureLayerUri);
+
+            // Add the annotation layer to the map.
+            map.OperationalLayers.Add(annotationLayer);
+
+            // Set the map to the map view.
+            MyMapView.Map = map;
         }
     }
 }

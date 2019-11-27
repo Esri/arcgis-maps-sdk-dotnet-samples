@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Diagnostics;
 using System.Linq;

@@ -660,6 +660,11 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\layout\SurfacePlacements.axml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
     <AndroidResource Include="Resources\layout\TraceUtilityNetwork.axml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>

@@ -8,9 +8,12 @@
     ],
     "keywords": [
         "3D",
+        "absolute",
         "altitude",
         "draped",
+        "elevation",
         "floating",
+        "relative",
         "scenes",
         "sea level",
         "surface placement"
@@ -30,6 +33,7 @@
         "Surface"
     ],
     "snippets": [
+        "../../../Resources/layout/SurfacePlacements.axml",
         "SurfacePlacements.cs"
     ],
     "title": "Surface placement"

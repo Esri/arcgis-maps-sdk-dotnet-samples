@@ -102,6 +102,7 @@
 * [Control annotation sublayer visibility](Xamarin.iOS/Samples/Layers/ControlAnnotationSublayerVisibility/readme.md) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](Xamarin.iOS/Samples/Layers/CreateAndSaveKmlFile/readme.md) - Construct a KML document and save it as a KMZ file.
 * [Feature collection layer](Xamarin.iOS/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
+* [Display annotation](Xamarin.iOS/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display KML](Xamarin.iOS/Samples/Layers/DisplayKml/readme.md) - Load and display KML from a URL, a local file, or a portal item.
 * [Display KML network links](Xamarin.iOS/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](Xamarin.iOS/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
@@ -207,7 +208,7 @@
 * [Offline routing](Xamarin.iOS/Samples/Network%20Analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](Xamarin.iOS/Samples/Network%20Analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
 * [Trace a utility network](Xamarin.iOS/Samples/Network%20Analysis/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
-  
+
 ## Search
 
 * [Find address](Xamarin.iOS/Samples/Search/FindAddress/readme.md) - Find the location for an address.

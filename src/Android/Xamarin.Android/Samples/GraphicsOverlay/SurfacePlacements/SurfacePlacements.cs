@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,16 +21,23 @@ using System.Drawing;
 namespace ArcGISRuntime.Samples.SurfacePlacements
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [Shared.Attributes.Sample(
         "Surface placement",
         "GraphicsOverlay",
-        "This sample demonstrates how to position graphics using different Surface Placements.",
+        "Position graphics relative to a surface using different surface placement modes.",
         "")]
+    [Shared.Attributes.AndroidLayout("FindFeaturesUtilityNetwork.axml")]
     public class SurfacePlacements : Activity
     {
-        // Hold a reference to the scene view.
+        // Hold references to UI elements.
         private SceneView _mySceneView;
-        
+        private RadioButton _billboardedButton;
+        private RadioButton _flatButton;
+
+        // Draped overlays.
+        private GraphicsOverlay _drapedBillboardedOverlay;
+        private GraphicsOverlay _drapedFlatOverlay;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -68,9 +75,12 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             _mySceneView.SetViewpointCameraAsync(camera);
 
             // Create overlays with elevation modes
-            GraphicsOverlay drapedOverlay = new GraphicsOverlay();
-            drapedOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Draped;
-            _mySceneView.GraphicsOverlays.Add(drapedOverlay);
+            _drapedBillboardedOverlay = new GraphicsOverlay();
+            _drapedBillboardedOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedBillboarded;
+            _mySceneView.GraphicsOverlays.Add(_drapedBillboardedOverlay);
+
+            _drapedFlatOverlay = new GraphicsOverlay();
+            _drapedFlatOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedFlat;
 
             GraphicsOverlay relativeOverlay = new GraphicsOverlay();
             relativeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
@@ -83,47 +93,68 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             // Create point for graphic location
             MapPoint point = new MapPoint(-4.04, 53.06, 1000, camera.Location.SpatialReference);
 
-            // Create a red circle symbol
-            SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
+            // Create a red triangle symbol
+            SimpleMarkerSymbol triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);
 
             // Create a text symbol for each elevation mode
-            TextSymbol drapedText = new TextSymbol("DRAPED", Color.FromArgb(255, 255, 255, 255), 10,
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
-                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
-            drapedText.OffsetY += 20;
+            TextSymbol drapedBillboardedText = new TextSymbol("DRAPED BILLBOARDED", Color.FromArgb(255, 255, 255, 255), 10,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle);
+            drapedBillboardedText.OffsetY += 20;
+
+            TextSymbol drapedFlatText = new TextSymbol("DRAPED FLAT", Color.FromArgb(255, 255, 255, 255), 10,
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle);
+            drapedFlatText.OffsetY += 20;
 
             TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10,
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
-                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle);
             relativeText.OffsetY += 20;
 
             TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10,
-                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
-                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+                HorizontalAlignment.Center,
+                VerticalAlignment.Middle);
             absoluteText.OffsetY += 20;
 
             // Add the point graphic and text graphic to the corresponding graphics overlay
-            drapedOverlay.Graphics.Add(new Graphic(point, circleSymbol));
-            drapedOverlay.Graphics.Add(new Graphic(point, drapedText));
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, drapedBillboardedText));
 
-            relativeOverlay.Graphics.Add(new Graphic(point, circleSymbol));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(point, drapedFlatText));
+
+            relativeOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
             relativeOverlay.Graphics.Add(new Graphic(point, relativeText));
 
-            absoluteOverlay.Graphics.Add(new Graphic(point, circleSymbol));
+            absoluteOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
             absoluteOverlay.Graphics.Add(new Graphic(point, absoluteText));
+        }
+
+        private void SetBillboarded(object sender, EventArgs e)
+        {
+            _mySceneView.GraphicsOverlays.Remove(_drapedFlatOverlay);
+            _mySceneView.GraphicsOverlays.Add(_drapedBillboardedOverlay);
+        }
+
+        private void SetFlat(object sender, EventArgs e)
+        {
+            _mySceneView.GraphicsOverlays.Remove(_drapedBillboardedOverlay);
+            _mySceneView.GraphicsOverlays.Add(_drapedFlatOverlay);
         }
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
-            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            // Create a new layout for the app.
+            SetContentView(Resource.Layout.SurfacePlacements);
 
-            // Add the scene view to the layout
-            _mySceneView = new SceneView(this);
-            layout.AddView(_mySceneView);
+            _mySceneView = FindViewById<SceneView>(Resource.Id.SceneView);
 
-            // Show the layout in the app
-            SetContentView(layout);
+            _billboardedButton = FindViewById<RadioButton>(Resource.Id.billboardedButton);
+            _flatButton = FindViewById<RadioButton>(Resource.Id.flatButton);
+
+            _billboardedButton.Click += SetBillboarded;
+            _flatButton.Click += SetFlat;
         }
     }
 }

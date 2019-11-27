@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,10 +19,13 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Surface placement",
         "GraphicsOverlay",
-        "This sample demonstrates how to position graphics using different Surface Placements.",
+        "Position graphics relative to a surface using different surface placement modes.",
         "")]
     public partial class SurfacePlacements
     {
+        private GraphicsOverlay _drapedBillboardedOverlay;
+        private GraphicsOverlay _drapedFlatOverlay;
+
         public SurfacePlacements()
         {
             InitializeComponent();
@@ -36,7 +39,6 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             // Create new Scene
             Scene myScene = new Scene
             {
-
                 // Set Scene's base map property
                 Basemap = Basemap.CreateImagery()
             };
@@ -58,9 +60,12 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             MySceneView.SetViewpointCameraAsync(camera);
 
             // Create overlays with elevation modes
-            GraphicsOverlay drapedOverlay = new GraphicsOverlay();
-            drapedOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Draped;
-            MySceneView.GraphicsOverlays.Add(drapedOverlay);
+            _drapedBillboardedOverlay = new GraphicsOverlay();
+            _drapedBillboardedOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedBillboarded;
+            MySceneView.GraphicsOverlays.Add(_drapedBillboardedOverlay);
+
+            _drapedFlatOverlay = new GraphicsOverlay();
+            _drapedFlatOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedFlat;
 
             GraphicsOverlay relativeOverlay = new GraphicsOverlay();
             relativeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
@@ -73,14 +78,19 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             // Create point for graphic location
             MapPoint point = new MapPoint(-4.04, 53.06, 1000, camera.Location.SpatialReference);
 
-            // Create a red circle symbol
-            SimpleMarkerSymbol circleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.FromArgb(255, 255, 0, 0), 10);
+            // Create a red triangle symbol
+            SimpleMarkerSymbol triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);
 
             // Create a text symbol for each elevation mode
-            TextSymbol drapedText = new TextSymbol("DRAPED", Color.FromArgb(255, 255, 255, 255), 10,
+            TextSymbol drapedBillboardedText = new TextSymbol("DRAPED BILLBOARDED", Color.FromArgb(255, 255, 255, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
-            drapedText.OffsetY += 20;
+            drapedBillboardedText.OffsetY += 20;
+
+            TextSymbol drapedFlatText = new TextSymbol("DRAPED FLAT", Color.FromArgb(255, 255, 255, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
+                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            drapedFlatText.OffsetY += 20;
 
             TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
@@ -93,14 +103,32 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             absoluteText.OffsetY += 20;
 
             // Add the point graphic and text graphic to the corresponding graphics overlay
-            drapedOverlay.Graphics.Add(new Graphic(point, circleSymbol));
-            drapedOverlay.Graphics.Add(new Graphic(point, drapedText));
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, drapedBillboardedText));
 
-            relativeOverlay.Graphics.Add(new Graphic(point, circleSymbol));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(point, drapedFlatText));
+
+            relativeOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
             relativeOverlay.Graphics.Add(new Graphic(point, relativeText));
 
-            absoluteOverlay.Graphics.Add(new Graphic(point, circleSymbol));
+            absoluteOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
             absoluteOverlay.Graphics.Add(new Graphic(point, absoluteText));
+
+            BillboardButton.Checked += BillboardedClick;
+            FlatButton.Checked += FlatClick;
+        }
+
+        private void BillboardedClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MySceneView.GraphicsOverlays.Remove(_drapedFlatOverlay);
+            MySceneView.GraphicsOverlays.Add(_drapedBillboardedOverlay);
+        }
+
+        private void FlatClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MySceneView.GraphicsOverlays.Remove(_drapedBillboardedOverlay);
+            MySceneView.GraphicsOverlays.Add(_drapedFlatOverlay);
         }
     }
 }

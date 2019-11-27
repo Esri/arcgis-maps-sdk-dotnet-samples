@@ -153,21 +153,30 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             _picker.SelectedSegment = 0;
             _picker.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem(){ CustomView = _picker},
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+            };
+
             // Add the views.
-            View.AddSubviews(_mySceneView, _picker);
+            View.AddSubviews(_mySceneView, toolbar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(_picker.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-                _picker.TopAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor),
-                _picker.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                _picker.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _picker.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+                toolbar.TopAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });
         }
 

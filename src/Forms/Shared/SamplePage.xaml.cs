@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,6 +12,10 @@ using System.Diagnostics;
 using ArcGISRuntime.Samples.Shared.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
+#if __IOS__
+using UIKit;
+#endif
 
 namespace ArcGISRuntime
 {
@@ -38,11 +42,19 @@ namespace ArcGISRuntime
             // Update the content - this displays the sample.
             SampleContentPage.Content = sample.Content;
 
+#if __IOS__
+            // Move the bottom of the sample up on iOS devices without home buttons.
+            if (UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top > 20 || UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top == 0)
+            {
+                SampleContentPage.Padding = new Thickness() { Bottom = 34 };
+            }
+#endif
+
             // Because the sample control isn't navigated to (its content is displayed directly),
             //    navigation won't work from within the sample until the parent is manually set.
             sample.Parent = this;
 
-            // Set the title. If the sample control didn't 
+            // Set the title. If the sample control didn't
             // define the title, use the name from the sample metadata.
             if (!String.IsNullOrWhiteSpace(sample.Title))
             {

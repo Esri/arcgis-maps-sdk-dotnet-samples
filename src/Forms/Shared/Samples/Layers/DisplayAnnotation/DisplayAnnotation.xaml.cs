@@ -19,7 +19,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayAnnotation
         "Layers",
         "Display annotation from a feature service URL.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayAnnotation : ContentPage
     {
         public DisplayAnnotation()

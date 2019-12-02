@@ -7,15 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Diagnostics;
-using ArcGISRuntime.Samples.Shared.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-#if __IOS__
-using UIKit;
-#endif
 
 namespace ArcGISRuntime
 {
@@ -41,14 +37,6 @@ namespace ArcGISRuntime
 
             // Update the content - this displays the sample.
             SampleContentPage.Content = sample.Content;
-
-#if __IOS__
-            // Move the bottom of the sample up on iOS devices without home buttons.
-            if (UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top > 20 || UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top == 0)
-            {
-                SampleContentPage.Padding = new Thickness() { Bottom = 34 };
-            }
-#endif
 
             // Because the sample control isn't navigated to (its content is displayed directly),
             //    navigation won't work from within the sample until the parent is manually set.

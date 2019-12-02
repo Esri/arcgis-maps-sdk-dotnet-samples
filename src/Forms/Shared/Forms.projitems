@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
@@ -191,6 +192,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml.cs">
+      <DependentUpon>DisplayAnnotation.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
       <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -815,6 +820,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

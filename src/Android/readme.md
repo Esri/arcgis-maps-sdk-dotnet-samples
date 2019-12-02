@@ -102,6 +102,7 @@
 * [Control annotation sublayer visibility](Xamarin.Android/Samples/Layers/ControlAnnotationSublayerVisibility/readme.md) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](Xamarin.Android/Samples/Layers/CreateAndSaveKmlFile/readme.md) - Construct a KML document and save it as a KMZ file.
 * [Feature collection layer](Xamarin.Android/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
+* [Display annotation](Xamarin.Android/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display KML](Xamarin.Android/Samples/Layers/DisplayKml/readme.md) - Load and display KML from a URL, a local file, or a portal item.
 * [Display KML network links](Xamarin.Android/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](Xamarin.Android/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.

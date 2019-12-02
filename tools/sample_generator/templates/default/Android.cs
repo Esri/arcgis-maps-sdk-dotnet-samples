@@ -54,7 +54,7 @@ namespace ArcGISRuntimeXamarin.Samples.sample_name
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the map view to the layout.
-            _myGeo_View = new Geo_View();
+            _myGeo_View = new Geo_View(this);
             layout.AddView(_myGeo_View);
 
             // Show the layout in the app.

@@ -94,6 +94,7 @@
 * [Control annotation sublayer visibility](ArcGISRuntime.WPF.Viewer/Samples/Layers/ControlAnnotationSublayerVisibility/readme.md) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](ArcGISRuntime.WPF.Viewer/Samples/Layers/CreateAndSaveKmlFile/readme.md) - Construct a KML document and save it as a KMZ file.
 * [Feature collection layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
+* [Display annotation](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display KML](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayKml/readme.md) - Load and display KML from a URL, a local file, or a portal item.
 * [Display KML network links](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.

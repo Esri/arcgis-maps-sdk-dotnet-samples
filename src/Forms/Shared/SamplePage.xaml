@@ -16,6 +16,7 @@
             x:Name="SampleContentPage"
             Padding="0"
             CornerRadius="0"
+            HasShadow="False"
             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
                                                                    Factor=1,
                                                                    Property=Height}"

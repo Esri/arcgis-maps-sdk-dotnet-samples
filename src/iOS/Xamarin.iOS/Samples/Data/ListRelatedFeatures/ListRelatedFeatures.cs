@@ -200,7 +200,14 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             };
 
             // Activate default constraints.
-            NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
+            }
+            else
+            {
+                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
+            }
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

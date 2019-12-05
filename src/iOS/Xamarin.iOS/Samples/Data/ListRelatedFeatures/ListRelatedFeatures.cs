@@ -198,6 +198,9 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             };
+
+            // Activate default constraints.
+            NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

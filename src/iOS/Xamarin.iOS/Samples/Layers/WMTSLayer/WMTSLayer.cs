@@ -129,7 +129,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
             _constructorChoiceButton = new UISegmentedControl("URI", "Service Info")
             {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                BackgroundColor = UIColor.White,
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 SelectedSegment = 0,

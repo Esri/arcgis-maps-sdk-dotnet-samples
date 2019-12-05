@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
 
             _timeExtentsButton = new UISegmentedControl("2000", "2005")
             {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                BackgroundColor = UIColor.White,
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 // Clean up borders of segmented control - avoid corner pixels.

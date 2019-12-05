@@ -301,7 +301,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
             _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear")
             {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                BackgroundColor = UIColor.White,
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };

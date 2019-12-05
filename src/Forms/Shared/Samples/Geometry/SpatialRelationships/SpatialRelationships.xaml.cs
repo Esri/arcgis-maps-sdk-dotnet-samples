@@ -115,7 +115,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
 
             try
             {
-                result = await MyMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
+                result = await MyMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 5, false);
             }
             catch (Exception ex)
             {

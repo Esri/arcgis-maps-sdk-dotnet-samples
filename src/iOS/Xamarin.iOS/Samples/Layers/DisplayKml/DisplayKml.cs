@@ -102,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
 
             _dataChoiceButton = new UISegmentedControl(_sources)
             {
-                BackgroundColor = White,
+                BackgroundColor = UIColor.White,
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };

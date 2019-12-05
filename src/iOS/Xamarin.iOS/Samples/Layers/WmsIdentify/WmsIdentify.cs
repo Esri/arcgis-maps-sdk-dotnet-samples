@@ -112,7 +112,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
 

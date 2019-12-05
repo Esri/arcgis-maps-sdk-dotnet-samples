@@ -136,11 +136,18 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+
+            SetLayoutOrientation();
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
+            SetLayoutOrientation();
+        }
+
+        private void SetLayoutOrientation()
+        {
             if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
                 // Landscape

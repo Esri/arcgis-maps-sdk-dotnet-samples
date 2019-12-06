@@ -1,8 +1,52 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.DisplaySubtypeFeatureLayer.DisplaySubtypeFeatureLayer"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+﻿<UserControl
+    x:Class="ArcGISRuntime.WPF.Samples.DisplaySubtypeFeatureLayer.DisplaySubtypeFeatureLayer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
+        <Border
+            x:Name="SublayerInfo"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.ColumnSpan="2" Margin="5">
+                    <Run Text="Current Map Scale: " />
+                    <Run Text="1:" />
+                    <Run Text="{Binding ElementName=MyMapView, Path=MapScale, Mode=OneWay, StringFormat=n0}" /></TextBlock>
+                <CheckBox
+                    Grid.Row="2"
+                    Margin="5"
+                    Content="Sublayer Visible"
+                    IsChecked="{Binding IsVisible, Mode=TwoWay}" />
+                <Button
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="5"
+                    Click="OnChangeRenderer"
+                    Content="Change Renderer" />
+                <TextBlock Grid.Row="3" Margin="5">
+                    <Run Text="Sublayer minimum scale: " />
+                    <Run Text="1:" />
+                    <Run Text="{Binding MinScale, Mode=OneWay, StringFormat=n0}" /></TextBlock>
+                <Button
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Margin="5"
+                    Click="OnSetMinimumScale"
+                    Content="Set minimum scale" />
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

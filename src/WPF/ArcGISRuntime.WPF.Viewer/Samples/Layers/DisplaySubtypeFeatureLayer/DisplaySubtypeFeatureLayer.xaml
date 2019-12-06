@@ -28,16 +28,16 @@
                 <CheckBox
                     Grid.Row="2"
                     Margin="5"
-                    Content="Sublayer Visible"
+                    Content="Sublayer visible"
                     IsChecked="{Binding IsVisible, Mode=TwoWay}" />
                 <Button
                     Grid.Row="2"
                     Grid.Column="1"
                     Margin="5"
                     Click="OnChangeRenderer"
-                    Content="Change Renderer" />
+                    Content="Change renderer" />
                 <TextBlock Grid.Row="3" Margin="5">
-                    <Run Text="Sublayer minimum scale: " />
+                    <Run Text="Sublayer min scale: " />
                     <Run Text="1:" />
                     <Run Text="{Binding MinScale, Mode=OneWay, StringFormat=n0}" /></TextBlock>
                 <Button
@@ -45,7 +45,7 @@
                     Grid.Column="1"
                     Margin="5"
                     Click="OnSetMinimumScale"
-                    Content="Set minimum scale" />
+                    Content="Set min scale" />
             </Grid>
         </Border>
     </Grid>

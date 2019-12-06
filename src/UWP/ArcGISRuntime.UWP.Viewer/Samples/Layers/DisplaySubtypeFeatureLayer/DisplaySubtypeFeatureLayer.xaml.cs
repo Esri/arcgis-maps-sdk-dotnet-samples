@@ -23,7 +23,6 @@ namespace ArcGISRuntime.UWP.Samples.DisplaySubtypeFeatureLayer
         "Layers",
         "Displays a composite layer of all the subtype values in a feature class.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplaySubtypeFeatureLayer
     {
         // Reference to a sublayer.

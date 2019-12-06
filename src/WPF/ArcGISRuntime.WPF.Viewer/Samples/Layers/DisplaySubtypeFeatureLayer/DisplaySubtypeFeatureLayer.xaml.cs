@@ -83,6 +83,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplaySubtypeFeatureLayer
                         Size = 20,
                     }
                 };
+
+                // Set a default minimum scale.
+                _sublayer.MinScale = 3000;
             }
             catch (Exception ex)
             {

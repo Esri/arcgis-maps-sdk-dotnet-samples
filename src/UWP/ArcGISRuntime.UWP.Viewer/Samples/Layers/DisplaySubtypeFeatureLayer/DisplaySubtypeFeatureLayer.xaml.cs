@@ -19,25 +19,106 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
+using System.Drawing;
+using Windows.UI.Xaml;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.DisplaySubtypeFeatureLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display a subtype feature layer",
+        "Display subtype feature layer",
         "Layers",
         "Displays a composite layer of all the subtype values in a feature class.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplaySubtypeFeatureLayer
     {
+        // Reference to a sublayer.
+        private SubtypeSublayer _sublayer;
+
+        // JSON for labeling features from the sublayer.
+        private const string _labelJSON = "{ \"labelExpression\":\"[nominalvoltage]\",\"labelPlacement\":\"esriServerPointLabelPlacementAboveRight\",\"useCodedValues\":true,\"symbol\":{\"angle\":0,\"backgroundColor\":[0,0,0,0],\"borderLineColor\":[0,0,0,0],\"borderLineSize\":0,\"color\":[0,0,255,255],\"font\":{\"decoration\":\"none\",\"size\":10.5,\"style\":\"normal\",\"weight\":\"normal\"},\"haloColor\":[255,255,255,255],\"haloSize\":2,\"horizontalAlignment\":\"center\",\"kerning\":false,\"type\":\"esriTS\",\"verticalAlignment\":\"middle\",\"xoffset\":0,\"yoffset\":0}}";
+
+        // Renderers for the sublayer.
+        private Renderer _defaultRenderer;
+        private Renderer _customRenderer;
+
         public DisplaySubtypeFeatureLayer()
         {
             InitializeComponent();
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
+            try
+            {
+                // Starting viewpoint for the map view.
+                Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9812691.11079696, 5128687.20710657, -9812377.9447607, 5128865.36767282, SpatialReferences.WebMercator));
+
+                // Create the map.
+                MyMapView.Map = new Map(Basemap.CreateStreetsNightVector()) { InitialViewpoint = _startingViewpoint };
+
+                // NOTE: This layer supports any ArcGIS Feature Table that define subtypes.
+                SubtypeFeatureLayer subtypeFeatureLayer = new SubtypeFeatureLayer(new ServiceFeatureTable(new Uri("https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer/100")));
+                MyMapView.Map.OperationalLayers.Add(subtypeFeatureLayer);
+
+                // Select sublayer to control.
+                await subtypeFeatureLayer.LoadAsync();
+
+                // Select the sublayer of street lights by name.
+                _sublayer = subtypeFeatureLayer.GetSublayerBySubtypeName("Street Light");
+
+                // Set the label definitions using the JSON.
+                _sublayer.LabelDefinitions.Add(LabelDefinition.FromJson(_labelJSON));
+
+                // Enable labels for the sub layer.
+                _sublayer.LabelsEnabled = true;
+
+                // Set the data context for data-binding in XAML.
+                SublayerInfo.DataContext = _sublayer;
+
+                // Get the default renderer for the sublayer.
+                _defaultRenderer = _sublayer.Renderer.Clone();
+
+                // Create a custom renderer for the sublayer.
+                _customRenderer = new SimpleRenderer()
+                {
+                    Symbol = new SimpleMarkerSymbol()
+                    {
+                        Color = Color.Salmon,
+                        Style = SimpleMarkerSymbolStyle.Diamond,
+                        Size = 20,
+                    }
+                };
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog(ex.Message, ex.Message.GetType().Name).ShowAsync();
+            }
+        }
+
+        private void OnChangeRenderer(object sender, RoutedEventArgs e)
+        {
+            // Check if the current renderer is the custom renderer.
+            if (_sublayer.Renderer == _customRenderer)
+            {
+                _sublayer.Renderer = _defaultRenderer;
+            }
+            else
+            {
+                _sublayer.Renderer = _customRenderer;
+            }
+        }
+
+        private void OnSetMinimumScale(object sender, RoutedEventArgs e)
+        {
+            // Get the current map viewpoint.
+            Viewpoint viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale);
+
+            // Set the minimum scale of the sublayer.
+            // NOTE: You may also update Sublayer.MaxScale
+            _sublayer.MinScale = viewpoint.TargetScale;
         }
     }
 }

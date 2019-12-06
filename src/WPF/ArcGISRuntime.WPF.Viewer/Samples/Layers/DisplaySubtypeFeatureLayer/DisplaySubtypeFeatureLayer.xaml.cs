@@ -108,12 +108,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplaySubtypeFeatureLayer
 
         private void OnSetMinimumScale(object sender, RoutedEventArgs e)
         {
-            // Get the current map viewpoint.
-            Viewpoint viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale);
-
             // Set the minimum scale of the sublayer.
             // NOTE: You may also update Sublayer.MaxScale
-            _sublayer.MinScale = viewpoint.TargetScale;
+            _sublayer.MinScale = MyMapView.MapScale;
         }
     }
 }

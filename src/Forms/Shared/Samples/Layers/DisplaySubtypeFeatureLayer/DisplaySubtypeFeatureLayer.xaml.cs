@@ -122,13 +122,20 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
             MinScaleLabel.Text = $"Current min scale: 1:{(int)_sublayer.MinScale}";
         }
 
-        private void CheckBoxChanged(object sender, CheckedChangedEventArgs e)
+        private void VisibilityChanged(object sender, EventArgs e)
         {
-            if (_sublayer != null)
+            // Update button text.
+            if (_sublayer.IsVisible)
             {
-                // Update sublayer visibility to match the checkbox.
-                _sublayer.IsVisible = e.Value;
+                VisibilityButton.Text = "Make sublayer visible";
             }
+            else
+            {
+                VisibilityButton.Text = "Make sublayer invisible";
+            }
+
+            // Update sublayer visibility.
+            _sublayer.IsVisible = !_sublayer.IsVisible;
         }
     }
 }

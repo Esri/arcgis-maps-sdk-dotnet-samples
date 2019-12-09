@@ -25,19 +25,14 @@
                 HorizontalTextAlignment="Center"
                 Text="Current map scale"
                 VerticalTextAlignment="Center" />
-            <Label
+            <Button
+                x:Name="VisibilityButton"
                 Grid.Row="1"
                 Grid.Column="0"
-                HorizontalTextAlignment="Center"
-                Text="Sublayer visible"
-                VerticalTextAlignment="Center" />
-            <CheckBox
-                Grid.Row="1"
-                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 Margin="5"
-                CheckedChanged="CheckBoxChanged"
-                HorizontalOptions="Center"
-                IsChecked="True" />
+                Clicked="VisibilityChanged"
+                Text="Make sublayer invisible" />
             <Button
                 Grid.Row="2"
                 Grid.Column="0"

@@ -98,6 +98,7 @@
 * [Display KML](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayKml/readme.md) - Load and display KML from a URL, a local file, or a portal item.
 * [Display KML network links](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
+* [Display subtype feature layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer/readme.md) - Displays a composite layer of all the subtype values in a feature class.
 * [Display a WFS layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Edit KML ground overlay](ArcGISRuntime.UWP.Viewer/Samples/Layers/EditKmlGroundOverlay/readme.md) - Edit the values of a KML ground overlay.
 * [Export tiles](ArcGISRuntime.UWP.Viewer/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.

@@ -7,16 +7,26 @@
         "DisplaySubtypeFeatureLayer.jpg"
     ],
     "keywords": [
+        "asset group",
+        "feature layer",
+        "labeling",
+        "sublayer",
+        "subtype",
+        "symbology",
+        "utility network",
+        "visible scale range"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.7.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/DisplaySubtypeFeatureLayer.htm"
+        "/net/latest/android/sample-code/displaysubtypefeaturelayer.htm"
     ],
-    "relevant_apis": [
-    ],
+    "relevant_apis": [],
     "snippets": [
+        "../../../Resources/layout/DisplaySubtypeFeatureLayer.axml",
+        "DisplaySubtypeFeatureLayer.cs"
     ],
-    "title": "Display a subtype feature layer"
+    "title": "Display subtype feature layer"
 }

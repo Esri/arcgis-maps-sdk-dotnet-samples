@@ -3,33 +3,24 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.ComponentModel;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display subtype feature layer",
         "Layers",
@@ -60,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
         {
             base.OnCreate(bundle);
 
-            Title = "Display a subtype feature layer";
+            Title = "Display subtype feature layer";
 
             CreateLayout();
             Initialize();
@@ -122,6 +113,29 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
             _mapScaleLabel.Text = $"Current map scale: 1:{(int)_myMapView.MapScale}";
         }
 
+        private void ChangeMinScale(object sender, EventArgs e)
+        {
+            // Set the minimum scale of the sublayer.
+            // NOTE: You may also update Sublayer.MaxScale
+            _sublayer.MinScale = _myMapView.MapScale;
+
+            // Update the UI to show the current minimum.
+            _sublayerScaleLabel.Text = $"Current min scale: 1:{(int)_sublayer.MinScale}";
+        }
+
+        private void ChangeRenderer(object sender, EventArgs e)
+        {
+            // Check if the current renderer is the custom renderer.
+            if (_sublayer.Renderer == _customRenderer)
+            {
+                _sublayer.Renderer = _defaultRenderer;
+            }
+            else
+            {
+                _sublayer.Renderer = _customRenderer;
+            }
+        }
+
         private void CreateLayout()
         {
             // Load the layout from the axml resource.
@@ -133,13 +147,16 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
             _changeRendererButton = FindViewById<Button>(Resource.Id.rendererButton);
 
             _visibleButton = FindViewById<RadioButton>(Resource.Id.visibleButton);
-           _notVisibleButton = FindViewById<RadioButton>(Resource.Id.notVisibleButton);
+            _notVisibleButton = FindViewById<RadioButton>(Resource.Id.notVisibleButton);
 
             _mapScaleLabel = FindViewById<TextView>(Resource.Id.mapScaleLabel);
             _sublayerScaleLabel = FindViewById<TextView>(Resource.Id.sublayerScaleLabel);
 
             // Add listeners for all of the buttons.
-            
+            _minScaleButton.Click += ChangeMinScale;
+            _changeRendererButton.Click += ChangeRenderer;
+            _visibleButton.Click += (s, e) => { if (_sublayer != null) _sublayer.IsVisible = true; };
+            _notVisibleButton.Click += (s, e) => { if (_sublayer != null) _sublayer.IsVisible = false; };
         }
     }
 }

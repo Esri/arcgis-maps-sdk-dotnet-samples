@@ -1,4 +1,4 @@
-# Display subtype feature layerx
+# Display subtype feature layer
 
 Displays a composite layer of all the subtype values in a feature class.
 
@@ -20,7 +20,7 @@ The sample loads with the sublayer visible on the map. Change the sublayer's vis
 4. Set the visibility status using this sublayer's `IsVisible` property.
 5. Change the sublayer's symbology using this sublayer's `Renderer` property.
 6. Update the sublayer's minimum scale value using the using the mapview's current scale.
- 
+
 ## Relevant API
 
 * LabelDefinition

@@ -23,7 +23,12 @@
     "redirect_from": [
         "/net/latest/ios/sample-code/displaysubtypefeaturelayer.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "LabelDefinition",
+        "ServiceFeatureTable",
+        "SubtypeFeatureLayer",
+        "SubtypeSublayer"
+    ],
     "snippets": [
         "DisplaySubtypeFeatureLayer.cs"
     ],

@@ -62,7 +62,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _mapView = new MapView();
             _mapView.TranslatesAutoresizingMaskIntoConstraints = false;

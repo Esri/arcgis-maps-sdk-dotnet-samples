@@ -92,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

@@ -114,14 +114,14 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _viewpointsButton = new UISegmentedControl("Geometry", "Center & Scale", "Animate")
             {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                BackgroundColor = UIColor.White,
                 TintColor = UIColor.White,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 // Clean up borders of segmented control - avoid corner pixels.

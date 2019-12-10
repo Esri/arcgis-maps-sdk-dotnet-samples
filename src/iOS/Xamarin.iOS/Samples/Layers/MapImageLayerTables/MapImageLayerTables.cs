@@ -188,7 +188,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _stackView = new UIStackView
             {

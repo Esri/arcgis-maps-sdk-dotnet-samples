@@ -170,8 +170,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
-            View.BackgroundColor = UIColor.SystemBackgroundColor;
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _mapView = new MapView();
             _mapView.TranslatesAutoresizingMaskIntoConstraints = false;

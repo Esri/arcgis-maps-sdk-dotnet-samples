@@ -167,7 +167,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
             _tableView.RowHeight = 30;
 
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             // Add the views.
             View.AddSubviews(_myMapView, _tableView);
@@ -198,6 +198,16 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             };
+
+            // Activate default constraints.
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);
+            }
+            else
+            {
+                NSLayoutConstraint.ActivateConstraints(_portraitConstraints);
+            }
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

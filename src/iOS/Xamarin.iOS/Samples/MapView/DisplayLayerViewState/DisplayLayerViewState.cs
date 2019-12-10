@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -138,7 +138,15 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             // Add the views.
             View.AddSubviews(_myMapView, _tableView);
 
-            // Layout happens in TraitCollectionDidChange.
+            // Set a default layout.
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                applyLandscapeLayout();
+            }
+            else
+            {
+                applyPortraitLayout();
+            }
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

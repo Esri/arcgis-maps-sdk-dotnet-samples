@@ -290,7 +290,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
                 Text = "",
                 AdjustsFontSizeToFitWidth = true,
                 TextAlignment = UITextAlignment.Left,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                BackgroundColor = UIColor.White,
                 TextColor = UIColor.White,
                 LineBreakMode = UILineBreakMode.WordWrap,
                 Lines = 0,

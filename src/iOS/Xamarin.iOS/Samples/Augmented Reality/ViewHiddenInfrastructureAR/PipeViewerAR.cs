@@ -294,7 +294,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         public override void LoadView()
         {
             // Create and add the container views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             UIStackView formContainer = new UIStackView();
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;

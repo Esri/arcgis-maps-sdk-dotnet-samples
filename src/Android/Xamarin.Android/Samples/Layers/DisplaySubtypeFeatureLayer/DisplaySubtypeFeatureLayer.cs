@@ -32,8 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
         private MapView _myMapView;
         private Button _minScaleButton;
         private Button _changeRendererButton;
-        private RadioButton _visibleButton;
-        private RadioButton _notVisibleButton;
+        private CheckBox _visibilityCheckbox;
         private TextView _mapScaleLabel;
         private TextView _sublayerScaleLabel;
 
@@ -145,18 +144,14 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 
             _minScaleButton = FindViewById<Button>(Resource.Id.minScaleButton);
             _changeRendererButton = FindViewById<Button>(Resource.Id.rendererButton);
-
-            _visibleButton = FindViewById<RadioButton>(Resource.Id.visibleButton);
-            _notVisibleButton = FindViewById<RadioButton>(Resource.Id.notVisibleButton);
-
+            _visibilityCheckbox = FindViewById<CheckBox>(Resource.Id.visibilityCheckbox);
             _mapScaleLabel = FindViewById<TextView>(Resource.Id.mapScaleLabel);
             _sublayerScaleLabel = FindViewById<TextView>(Resource.Id.sublayerScaleLabel);
 
             // Add listeners for all of the buttons.
             _minScaleButton.Click += ChangeMinScale;
             _changeRendererButton.Click += ChangeRenderer;
-            _visibleButton.Click += (s, e) => { if (_sublayer != null) _sublayer.IsVisible = true; };
-            _notVisibleButton.Click += (s, e) => { if (_sublayer != null) _sublayer.IsVisible = false; };
+            _visibilityCheckbox.CheckedChange += (s, e) => { if (_sublayer != null) _sublayer.IsVisible = _visibilityCheckbox.Checked; };
         }
     }
 }

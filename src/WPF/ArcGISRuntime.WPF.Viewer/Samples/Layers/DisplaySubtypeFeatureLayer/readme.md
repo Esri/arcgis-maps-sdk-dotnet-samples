@@ -6,11 +6,11 @@ Displays a composite layer of all the subtype values in a feature class.
 
 ## Use case
 
-This is useful for controlling labeling, visibility and symbology of a given subtype as though they are distinct layers on the map.
+This is useful for controlling labeling, visibility, and symbology of a given subtype as though they are distinct layers on the map.
 
 ## How to use the sample
 
-The sample loads with the sublayer visible on the map. Toggle its visibility with the "Sublayer Visible" checkbox. Change the sublayer's renderer with the "Toggle Renderer" button, and set its minimum scale using the "Set Minimum Scale" button. This will set its minimum scale to that of the current map scale. Zoom in and out to see the sublayer become visible based on its new scale range.
+The sample loads with the sublayer visible on the map. Change the sublayer's visibiliy, renderer, and minimum scale using the on screen controls. Setting the minimum scale will change its value to that of the current map scale. Zoom in and out to see the sublayer become visible based on its new scale range.
 
 ## How it works
 

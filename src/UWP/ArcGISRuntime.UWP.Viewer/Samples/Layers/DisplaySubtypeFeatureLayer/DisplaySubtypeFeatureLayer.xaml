@@ -12,14 +12,14 @@
             Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <TextBlock
                     Grid.ColumnSpan="2"
@@ -31,22 +31,27 @@
                 <CheckBox
                     Grid.Row="2"
                     Margin="5"
+                    VerticalContentAlignment="Center"
                     Content="Sublayer visible"
                     IsChecked="{Binding IsVisible, Mode=TwoWay}" />
                 <Button
                     Grid.Row="2"
                     Grid.Column="1"
                     Margin="5"
+                    HorizontalAlignment="Stretch"
                     Click="OnChangeRenderer"
                     Content="Change renderer" />
-                <TextBlock Grid.Row="3" Margin="5">
-                    <Run Text="Sublayer min scale: " />
-                    <Run Text="1:" />
+                <TextBlock
+                    Grid.Row="3"
+                    Margin="5"
+                    VerticalAlignment="Center">
+                    <Run Text="Sublayer min scale: 1:" />
                     <Run Text="{Binding MinScale, Mode=OneWay}" /></TextBlock>
                 <Button
                     Grid.Row="3"
                     Grid.Column="1"
                     Margin="5"
+                    HorizontalAlignment="Stretch"
                     Click="OnSetMinimumScale"
                     Content="Set min scale" />
             </Grid>

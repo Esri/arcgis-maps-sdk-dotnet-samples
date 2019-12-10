@@ -92,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 
         private void MapViewPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "MapScale")
+            if (e.PropertyName == nameof(MyMapView.MapScale))
             {
                 // Update the label showing the current map scale.
                 MapScaleLabel.Text = $"Current map scale: 1:{(int)MyMapView.MapScale}";

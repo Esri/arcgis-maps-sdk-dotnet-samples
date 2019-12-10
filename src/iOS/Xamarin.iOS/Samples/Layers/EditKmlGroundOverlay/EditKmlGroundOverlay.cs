@@ -110,6 +110,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
             toolbar.Items = new[]
             {
                 new UIBarButtonItem {CustomView = opacityLabel},
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem {CustomView = _slider, Width = 200},
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem {CustomView = _valueLabel}

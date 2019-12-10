@@ -100,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
             _myMapView = new MapView();
@@ -123,11 +123,18 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
                 _stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 _stackView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
             });
+
+            SetLayoutOrientation();
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
             base.TraitCollectionDidChange(previousTraitCollection);
+            SetLayoutOrientation();
+        }
+
+        private void SetLayoutOrientation()
+        {
             if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
                 // Landscape

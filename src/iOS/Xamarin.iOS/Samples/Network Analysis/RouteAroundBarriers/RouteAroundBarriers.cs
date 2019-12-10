@@ -448,7 +448,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
             View.BackgroundColor = UIColor.White;
 
             _myMapView = new MapView();
@@ -616,7 +616,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 
         public override void LoadView()
         {
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;

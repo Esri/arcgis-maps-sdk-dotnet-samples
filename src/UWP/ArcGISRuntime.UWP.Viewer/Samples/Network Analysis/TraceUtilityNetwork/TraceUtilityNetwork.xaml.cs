@@ -27,7 +27,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Trace a utility network",
-        "Network Analysis",
+        "Network analysis",
         "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]

@@ -31,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Route around barriers",
-        "Network Analysis",
+        "Network analysis",
         "Find a route that reaches all stops without crossing any barriers.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("RouteAroundBarriers.axml")]

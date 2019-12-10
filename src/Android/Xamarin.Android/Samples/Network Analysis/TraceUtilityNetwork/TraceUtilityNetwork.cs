@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Trace a utility network",
-        "Network Analysis",
+        "Network analysis",
         "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("TraceUtilityNetwork.axml")]

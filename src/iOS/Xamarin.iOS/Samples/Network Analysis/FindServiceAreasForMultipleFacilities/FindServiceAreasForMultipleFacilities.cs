@@ -27,7 +27,7 @@ namespace ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities
     [Register("FindServiceAreasForMultipleFacilities")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find service areas for multiple facilities",
-        "Network Analysis",
+        "Network analysis",
         "Find the service areas of several facilities from a feature service.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]

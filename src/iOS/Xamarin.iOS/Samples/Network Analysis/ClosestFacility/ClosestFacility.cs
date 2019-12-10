@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
     [Register("ClosestFacility")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (interactive)",
-        "Network Analysis",
+        "Network analysis",
         "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).",
         "Tap to find the route to the nearest hospital.")]
     public class ClosestFacility : UIViewController

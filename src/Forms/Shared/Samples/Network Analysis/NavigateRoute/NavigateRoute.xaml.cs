@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Navigate route",
-        "Network Analysis",
+        "Network analysis",
         "Use a routing service to navigate between points.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]

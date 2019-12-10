@@ -31,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Navigate route",
-        "Network Analysis",
+        "Network analysis",
         "Use a routing service to navigate between points.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]

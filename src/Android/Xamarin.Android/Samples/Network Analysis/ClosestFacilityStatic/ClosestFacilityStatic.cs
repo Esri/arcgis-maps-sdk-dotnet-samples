@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Closest facility (static)",
-        "Network Analysis",
+        "Network analysis",
         "Demonstrates how to solve a Closest Facility Task to find the closest route between facilities and incidents.",
         "Click the solve button to find the closest facility to every incident.")]
     public class ClosestFacilityStatic : Activity

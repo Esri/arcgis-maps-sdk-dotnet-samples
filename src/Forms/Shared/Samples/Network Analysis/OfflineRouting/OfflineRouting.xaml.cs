@@ -25,7 +25,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Offline routing",
-        "Network Analysis",
+        "Network analysis",
         "Solve a route on-the-fly using offline data.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]

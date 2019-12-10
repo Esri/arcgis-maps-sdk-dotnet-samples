@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.FindRoute
     [Register("FindRoute")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find route",
-        "Network Analysis",
+        "Network analysis",
         "This sample illustrates how to solve a simple route between two locations.",
         "")]
     public class FindRoute : UIViewController

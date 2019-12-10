@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.FindRoute
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find a route",
-        "Network Analysis",
+        "Network analysis",
         "This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.",
         "")]
     public class FindRoute : Activity

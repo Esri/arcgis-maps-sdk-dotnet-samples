@@ -14,7 +14,7 @@ Before you start, go through the on-screen calibration process to ensure accurat
 
 When you tap, an orange diamond will appear at the tapped location. You can move around to visually verify that the tapped point is in the correct physical location. When you're satisfied, tap the '+' button to record the feature. An image from the camera feed will automatically be attached to the recorded feature.
 
-> ⚠️ **WARNING**: collection of photos is completely automatic; consider your surroundings when adding features.
+> &#9888; **WARNING**: collection of photos is completely automatic; consider your surroundings when adding features.
 
 ## How it works
 

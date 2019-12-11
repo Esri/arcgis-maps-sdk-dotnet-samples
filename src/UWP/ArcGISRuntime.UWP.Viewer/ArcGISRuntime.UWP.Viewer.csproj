@@ -115,10 +115,10 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
-    <Content Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
-    <Content Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
+    <Content Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
+    <Content Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <Content Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
-    <Content Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
+    <Content Include="Samples\Network analysis\NavigateRoute\NavigateRoute.jpg" />
     <Content Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <Content Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
     <Content Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
@@ -130,12 +130,12 @@
     <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
     <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
-    <Content Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
-    <Content Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
+    <Content Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
+    <Content Include="Samples\Network analysis\OfflineRouting\OfflineRouting.jpg" />
     <Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg" />
     <Content Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
-    <Content Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
+    <Content Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <Content Include="Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
@@ -288,10 +288,10 @@
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <Content Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
-    <Content Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
-    <Content Include="Samples\Network Analysis\FindRoute\FindRoute.jpg" />
-    <Content Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
+    <Content Include="Samples\Network analysis\ClosestFacility\ClosestFacility.jpg" />
+    <Content Include="Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
+    <Content Include="Samples\Network analysis\FindRoute\FindRoute.jpg" />
+    <Content Include="Samples\Network analysis\FindServiceArea\FindServiceArea.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <Content Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.jpg" />
@@ -351,18 +351,18 @@
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml.cs">
       <DependentUpon>DisplayAnnotation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+    <Compile Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
       <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
-    <Compile Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
+    <Compile Include="Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
+    <Compile Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
       <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml.cs">
       <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
-    <Compile Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
+    <Compile Include="Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
+    <Compile Include="Samples\Network analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml.cs">
@@ -396,10 +396,10 @@
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
       <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
+    <Compile Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
       <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
+    <Compile Include="Samples\Network analysis\OfflineRouting\OfflineRouting.xaml.cs">
       <DependentUpon>OfflineRouting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml.cs">
@@ -408,7 +408,7 @@
     <Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml.cs">
       <DependentUpon>SymbolsFromMobileStyle.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
+    <Compile Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
       <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
@@ -864,16 +864,16 @@
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
+    <Compile Include="Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
       <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
+    <Compile Include="Samples\Network analysis\ClosestFacility\ClosestFacility.xaml.cs">
       <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
+    <Compile Include="Samples\Network analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
+    <Compile Include="Samples\Network analysis\FindServiceArea\FindServiceArea.xaml.cs">
       <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
@@ -916,11 +916,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
+    <Page Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
+    <Page Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -928,7 +928,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml">
+    <Page Include="Samples\Network analysis\NavigateRoute\NavigateRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -968,11 +968,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
+    <Page Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
+    <Page Include="Samples\Network analysis\OfflineRouting\OfflineRouting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -984,7 +984,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
+    <Page Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1592,19 +1592,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
+    <Page Include="Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
+    <Page Include="Samples\Network analysis\ClosestFacility\ClosestFacility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\FindRoute\FindRoute.xaml">
+    <Page Include="Samples\Network analysis\FindRoute\FindRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
+    <Page Include="Samples\Network analysis\FindServiceArea\FindServiceArea.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

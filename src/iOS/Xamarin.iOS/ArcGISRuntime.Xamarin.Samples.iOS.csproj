@@ -275,6 +275,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
     <None Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
     <None Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
     <None Include="Samples\Augmented reality\NavigateAR\NavigateAR.jpg" />
@@ -459,6 +460,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.cs" />
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.cs" />
     <Compile Include="Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.cs" />
     <Compile Include="Samples\Augmented reality\CollectDataAR\AdjustableLocationDataSource.cs" />

@@ -1,5 +1,5 @@
 {
-    "category": "Network Analysis",
+    "category": "Network analysis",
     "description": "Find a route that reaches all stops without crossing any barriers.",
     "formal_name": "RouteAroundBarriers",
     "ignore": false,

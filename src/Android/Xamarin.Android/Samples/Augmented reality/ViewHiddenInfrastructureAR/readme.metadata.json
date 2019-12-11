@@ -20,7 +20,8 @@
         "world-scale"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.7.0",
+        "Esri.ArcGISRuntime.ARToolkit": "100.6.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -35,13 +36,13 @@
         "Surface"
     ],
     "snippets": [
-        "MSLAdjustedARLocationDataSource.cs",
-        "PipePlacer.cs",
-        "PipeViewer.cs",
+        "../../../Controls/JoystickSeekBar.cs",
         "../../../Resources/layout/ViewHiddenARPipePlacer.axml",
         "../../../Resources/layout/ViewHiddenARPipeViewer.axml",
         "../../../Resources/values/Attrs.xml",
-        "../../../Controls/JoystickSeekBar.cs"
+        "MSLAdjustedARLocationDataSource.cs",
+        "PipePlacer.cs",
+        "PipeViewer.cs"
     ],
     "title": "View hidden infrastructure in AR"
 }

@@ -1,5 +1,5 @@
 {
-    "category": "Network Analysis",
+    "category": "Network analysis",
     "description": "Solve a route on-the-fly using offline data.",
     "formal_name": "OfflineRouting",
     "ignore": false,

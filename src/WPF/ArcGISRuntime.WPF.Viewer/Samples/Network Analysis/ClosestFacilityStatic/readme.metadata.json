@@ -1,5 +1,5 @@
 {
-    "category": "Network Analysis",
+    "category": "Network analysis",
     "description": "Find routes from several locations to the respective closest facility.",
     "formal_name": "ClosestFacilityStatic",
     "ignore": false,

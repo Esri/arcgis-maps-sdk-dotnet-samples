@@ -1,5 +1,5 @@
 {
-    "category": "Network Analysis",
+    "category": "Network analysis",
     "description": "Display directions for a route between two points.",
     "formal_name": "FindRoute",
     "ignore": false,

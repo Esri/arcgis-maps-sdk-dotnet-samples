@@ -90,16 +90,6 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
                 // In this mode, you must manually populate the table - panning and zooming won't request features automatically.
                 table.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
-                // Set the axis order based on the UI.
-                if (AxisOrderSwapCheckbox.IsChecked == true)
-                {
-                    table.AxisOrder = OgcAxisOrder.Swap;
-                }
-                else
-                {
-                    table.AxisOrder = OgcAxisOrder.NoSwap;
-                }
-
                 // Populate the WFS table.
                 await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
 
@@ -107,7 +97,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
                 FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
 
                 // Choose a renderer for the layer based on the table.
-                wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
+                wfsFeatureLayer.Renderer = GetRendererForTable(table) ?? wfsFeatureLayer.Renderer;
 
                 // Add the layer to the map.
                 MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
@@ -128,31 +118,21 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             }
         }
 
-        #region Random symbology
-        // Random number generator used to generate random symbology.
-        private static readonly Random _rand = new Random();
-
-        private Renderer GetRandomRendererForTable(FeatureTable table)
+        private Renderer GetRendererForTable(FeatureTable table)
         {
             switch (table.GeometryType)
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 4));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 4));
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
-                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
+                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, null));
                 case GeometryType.Polyline:
-                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, GetRandomColor(), 1));
+                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 1));
             }
 
             return null;
         }
-
-        private Color GetRandomColor(int alpha = 255)
-        {
-            return Color.FromArgb(alpha, _rand.Next(0, 255), _rand.Next(0, 255), _rand.Next(0, 255));
-        }
-        #endregion Random symbology
     }
 }

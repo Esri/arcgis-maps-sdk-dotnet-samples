@@ -5,7 +5,7 @@
 
   <!-- Readmes -->
   <ItemGroup>
-    <AndroidAsset Include="..\Shared\Samples\**\**\*.*">
+    <AndroidAsset Include="..\Shared\Samples\**\*.*">
       <Link>Samples\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </AndroidAsset>
   </ItemGroup>

@@ -4,21 +4,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:ArcGISRuntime"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:viewmanagement="using:Windows.UI.ViewManagement"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
     <controls:TabView x:Name="Tabs">
         <controls:TabViewItem Header="About">
-            <Grid Margin="5">
-                <controls:MarkdownTextBlock x:Name="AboutBlock" LinkClicked="MarkdownText_LinkClicked" />
-            </Grid>
+            <WebView
+                x:Name="AboutBlock"
+                Margin="5"
+                DefaultBackgroundColor="Transparent" />
         </controls:TabViewItem>
         <controls:TabViewItem Header="Third party software">
-            <ScrollViewer Margin="5">
-                <controls:MarkdownTextBlock x:Name="MarkDownBlock" LinkClicked="MarkdownText_LinkClicked" />
-            </ScrollViewer>
+            <WebView
+                x:Name="LicensesBlock"
+                Margin="5"
+                DefaultBackgroundColor="Transparent" />
         </controls:TabViewItem>
         <controls:TabViewItem Header="Offline data">
             <Grid>

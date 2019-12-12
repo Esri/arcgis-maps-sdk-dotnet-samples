@@ -9,13 +9,11 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.System;
@@ -23,7 +21,6 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime
@@ -33,6 +30,7 @@ namespace ArcGISRuntime
         private static string _runtimeVersion = "";
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
+        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
 
         public SettingsWindow()
         {
@@ -54,13 +52,11 @@ namespace ArcGISRuntime
             }
 
             string aboutPath = "Resources\\about.md";
-            AboutBlock.Text = File.ReadAllText(aboutPath) + _runtimeVersion;
-            AboutBlock.Background = new ImageBrush() { Opacity = 0 };
+            AboutBlock.NavigateToString(_markdownRenderer.Parse(File.ReadAllText(aboutPath) + _runtimeVersion));
 
             // Set up license info.
             string licensePath = "Resources\\licenses.md";
-            MarkDownBlock.Text = File.ReadAllText(licensePath);
-            MarkDownBlock.Background = new ImageBrush() { Opacity = 0 };
+            LicensesBlock.NavigateToString(_markdownRenderer.Parse(File.ReadAllText(licensePath)));
 
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();

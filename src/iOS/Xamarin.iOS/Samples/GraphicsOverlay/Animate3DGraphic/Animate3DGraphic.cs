@@ -589,7 +589,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             floatContainer.AddArrangedSubview(statsContainer);
 
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
             View.AddSubview(floatContainer);
 
             floatContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

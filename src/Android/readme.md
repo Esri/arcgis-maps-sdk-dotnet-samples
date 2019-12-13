@@ -12,11 +12,11 @@
 
 ## Augmented reality
 
-* [Collect data in AR](Xamarin.Android/Samples/Augmented%20Reality/CollectDataAR/readme.md) - Tap on real-world objects to collect data.
-* [Display scenes in tabletop AR](Xamarin.Android/Samples/Augmented%20Reality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
-* [Explore scenes in flyover AR](Xamarin.Android/Samples/Augmented%20Reality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
-* [Navigate in AR](Xamarin.Android/Samples/Augmented%20Reality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.
-* [View hidden infrastructure in AR](Xamarin.Android/Samples/Augmented%20Reality/ViewHiddenInfrastructureAR/readme.md) - Visualize hidden infrastructure in its real-world location using augmented reality.
+* [Collect data in AR](Xamarin.Android/Samples/Augmented%20reality/CollectDataAR/readme.md) - Tap on real-world objects to collect data.
+* [Display scenes in tabletop AR](Xamarin.Android/Samples/Augmented%20reality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
+* [Explore scenes in flyover AR](Xamarin.Android/Samples/Augmented%20reality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
+* [Navigate in AR](Xamarin.Android/Samples/Augmented%20reality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.
+* [View hidden infrastructure in AR](Xamarin.Android/Samples/Augmented%20reality/ViewHiddenInfrastructureAR/readme.md) - Visualize hidden infrastructure in its real-world location using augmented reality.
 
 ## Data
 
@@ -106,6 +106,7 @@
 * [Display KML](Xamarin.Android/Samples/Layers/DisplayKml/readme.md) - Load and display KML from a URL, a local file, or a portal item.
 * [Display KML network links](Xamarin.Android/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](Xamarin.Android/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
+* [Display subtype feature layer](Xamarin.Android/Samples/Layers/DisplaySubtypeFeatureLayer/readme.md) - Displays a composite layer of all the subtype values in a feature class.
 * [Display a WFS layer](Xamarin.Android/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Edit KML ground overlay](Xamarin.Android/Samples/Layers/EditKmlGroundOverlay/readme.md) - Edit the values of a KML ground overlay.
 * [Export tiles](Xamarin.Android/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.
@@ -196,18 +197,18 @@
 * [Show magnifier](Xamarin.Android/Samples/MapView/ShowMagnifier/readme.md) - Tap and hold on a map to show a magnifier.
 * [Take a screenshot](Xamarin.Android/Samples/MapView/TakeScreenshot/readme.md) - Take a screenshot of the map.
 
-## Network Analysis
+## Network analysis
 
-* [Find closest facility to an incident (interactive)](Xamarin.Android/Samples/Network%20Analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
-* [Find closest facility to multiple incidents (service)](Xamarin.Android/Samples/Network%20Analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Find route](Xamarin.Android/Samples/Network%20Analysis/FindRoute/readme.md) - Display directions for a route between two points.
-* [Find service area](Xamarin.Android/Samples/Network%20Analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
-* [Find service areas for multiple facilities](Xamarin.Android/Samples/Network%20Analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
-* [Navigate route](Xamarin.Android/Samples/Network%20Analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
-* [Navigate route with rerouting](Xamarin.Android/Samples/Network%20Analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
-* [Offline routing](Xamarin.Android/Samples/Network%20Analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
-* [Route around barriers](Xamarin.Android/Samples/Network%20Analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
-* [Trace a utility network](Xamarin.Android/Samples/Network%20Analysis/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
+* [Find closest facility to an incident (interactive)](Xamarin.Android/Samples/Network%20analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
+* [Find closest facility to multiple incidents (service)](Xamarin.Android/Samples/Network%20analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Find route](Xamarin.Android/Samples/Network%20analysis/FindRoute/readme.md) - Display directions for a route between two points.
+* [Find service area](Xamarin.Android/Samples/Network%20analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
+* [Find service areas for multiple facilities](Xamarin.Android/Samples/Network%20analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
+* [Navigate route](Xamarin.Android/Samples/Network%20analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
+* [Navigate route with rerouting](Xamarin.Android/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
+* [Offline routing](Xamarin.Android/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
+* [Route around barriers](Xamarin.Android/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Trace a utility network](Xamarin.Android/Samples/Network%20analysis/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 
 ## Search
 

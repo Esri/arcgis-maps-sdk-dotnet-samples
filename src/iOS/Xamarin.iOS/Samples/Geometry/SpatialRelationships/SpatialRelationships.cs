@@ -7,10 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -18,6 +14,10 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ListTransformations
@@ -114,7 +114,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
@@ -125,11 +125,11 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             try
             {
-                result = await _myMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 1, false);
+                result = await _myMapView.IdentifyGraphicsOverlayAsync(_graphicsOverlay, e.Position, 5, false);
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
 
             // Return if there are no results.
@@ -250,7 +250,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -260,12 +260,13 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 TextColor = UIColor.Black,
                 Text = "Tap a shape to see its relationship with the others.",
                 Editable = false,
-                ScrollEnabled = false
+                ScrollEnabled = false,
             };
 
-            _stackView = new UIStackView(new UIView[] {_myMapView, _resultTextView});
+            _stackView = new UIStackView(new UIView[] { _myMapView, _resultTextView });
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _stackView.Axis = UILayoutConstraintAxis.Vertical;
 
             // Add the views.
             View.AddSubview(_stackView);

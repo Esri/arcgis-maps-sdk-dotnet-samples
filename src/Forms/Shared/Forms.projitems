@@ -10,11 +10,12 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\NavigateRoute.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRoute\NavigateRoute.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
@@ -24,9 +25,9 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\OfflineRouting\OfflineRouting.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\GroupLayers\GroupLayers.jpg" />
@@ -177,10 +178,10 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindRoute\FindRoute.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\ClosestFacility\ClosestFacility.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindRoute\FindRoute.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceArea\FindServiceArea.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Search\FindPlace\FindPlace.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg" />
@@ -192,16 +193,20 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml.cs">
+      <DependentUpon>DisplaySubtypeFeatureLayer.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml.cs">
       <DependentUpon>DisplayAnnotation.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
       <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\GpxProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
       <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -209,8 +214,8 @@
       <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\FakeLocationProvider.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -251,15 +256,15 @@
       <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
       <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\OfflineRouting\OfflineRouting.xaml.cs">
       <DependentUpon>OfflineRouting.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
       <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -514,13 +519,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml.cs">
       <DependentUpon>OpenScene.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
       <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\ClosestFacility\ClosestFacility.xaml.cs">
       <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceArea\FindServiceArea.xaml.cs">
       <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\LoginPage.xaml.cs">
@@ -790,7 +795,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.xaml.cs">
       <DependentUpon>TakeScreenshot.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindRoute\FindRoute.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml.cs">
@@ -820,19 +825,22 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\NavigateRoute\NavigateRoute.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRoute\NavigateRoute.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml">
@@ -862,14 +870,14 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\OfflineRouting\OfflineRouting.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\OfflineRouting\OfflineRouting.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\PictureMarkerSymbols\pin_blue.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
@@ -1061,7 +1069,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindServiceArea\FindServiceArea.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceArea\FindServiceArea.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml">
@@ -1320,7 +1328,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\TakeScreenshot\TakeScreenshot.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\FindRoute\FindRoute.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindRoute\FindRoute.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Search\FindAddress\FindAddress.xaml">
@@ -1362,13 +1370,13 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\ConvexHullList\ConvexHullList.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacility\ClosestFacility.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\ClosestFacility\ClosestFacility.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Geometry\SpatialOperations\SpatialOperations.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network Analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

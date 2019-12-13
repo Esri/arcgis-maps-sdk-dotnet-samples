@@ -195,6 +195,8 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             };
+
+            SetLayoutOrientation();
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
@@ -204,7 +206,11 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Reset constraints.
             NSLayoutConstraint.DeactivateConstraints(_portraitConstraints);
             NSLayoutConstraint.DeactivateConstraints(_landscapeConstraints);
+            SetLayoutOrientation();
+        }
 
+        private void SetLayoutOrientation()
+        {
             if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
             {
                 NSLayoutConstraint.ActivateConstraints(_landscapeConstraints);

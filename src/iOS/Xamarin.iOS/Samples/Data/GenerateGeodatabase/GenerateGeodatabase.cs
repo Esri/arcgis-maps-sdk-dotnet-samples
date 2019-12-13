@@ -252,7 +252,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            UIAlertView alertView = new UIAlertView("alert", message, (IUIAlertViewDelegate) null, "OK", null);
+            UIAlertView alertView = new UIAlertView("Alert", message, (IUIAlertViewDelegate) null, "OK", null);
             alertView.Show();
         }
 

@@ -51,12 +51,24 @@ namespace ArcGISRuntime
                 _runtimeVersion = "Couldn't find ArcGIS Runtime version.";
             }
 
-            string aboutPath = "Resources\\about.md";
-            AboutBlock.NavigateToString(_markdownRenderer.Parse(File.ReadAllText(aboutPath) + _runtimeVersion));
+            // Set up markdown tabs.
+            string cssPath = "";
+            if (Application.Current.RequestedTheme != ApplicationTheme.Dark)
+            {
+                cssPath = "Resources/github-markdown.css";
+            }
+            else
+            {
+                cssPath = "Resources/github-markdown-dark.css";
+            }
 
-            // Set up license info.
+            string aboutPath = "Resources\\about.md";
+            string aboutHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(aboutPath)) + _runtimeVersion + "</body>";
+            AboutBlock.NavigateToString(aboutHTML);
+
             string licensePath = "Resources\\licenses.md";
-            LicensesBlock.NavigateToString(_markdownRenderer.Parse(File.ReadAllText(licensePath)));
+            string licenseHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(licensePath)) + "</body>";
+            LicensesBlock.NavigateToString(licenseHTML);
 
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();

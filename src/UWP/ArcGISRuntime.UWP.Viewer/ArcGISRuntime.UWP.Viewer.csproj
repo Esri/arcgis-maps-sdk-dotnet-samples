@@ -114,6 +114,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Resources\github-markdown-dark.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
     <Content Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
     <Content Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />

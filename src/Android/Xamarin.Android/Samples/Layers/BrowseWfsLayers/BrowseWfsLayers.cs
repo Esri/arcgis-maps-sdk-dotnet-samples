@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -32,7 +32,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
-        private Switch _axisOrderSwitch;
         private ProgressBar _loadingProgressBar;
         private Button _loadLayerButton;
 
@@ -90,16 +89,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 // In this mode, you must manually populate the table - panning and zooming won't request features automatically.
                 table.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
-                // Set the axis order based on the UI.
-                if (_axisOrderSwitch.Checked)
-                {
-                    table.AxisOrder = OgcAxisOrder.Swap;
-                }
-                else
-                {
-                    table.AxisOrder = OgcAxisOrder.NoSwap;
-                }
-
                 // Populate the WFS table.
                 await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
 
@@ -148,44 +137,29 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             layerMenu.Show();
         }
 
-        #region Random symbology
-
-        // Random number generator used to generate random symbology.
-        private static readonly Random _rand = new Random();
-
         private Renderer GetRandomRendererForTable(FeatureTable table)
         {
             switch (table.GeometryType)
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 4));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 4));
+
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
-                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
+                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, null));
+
                 case GeometryType.Polyline:
-                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, GetRandomColor(), 1));
+                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 1));
             }
 
             return null;
         }
 
-        private Color GetRandomColor(int alpha = 255)
-        {
-            return Color.FromArgb(alpha, _rand.Next(0, 255), _rand.Next(0, 255), _rand.Next(0, 255));
-        }
-
-        #endregion Random symbology
-
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Add the axis order switch.
-            _axisOrderSwitch = new Switch(this);
-            _axisOrderSwitch.Text = "Swap coordinates";
-            layout.AddView(_axisOrderSwitch);
 
             // Add the button.
             _loadLayerButton = new Button(this);

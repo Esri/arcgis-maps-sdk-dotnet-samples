@@ -119,7 +119,7 @@ namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
             }
             catch (Exception ex)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog(ex.Message, "Error").ShowAsync();
             }
         }
         

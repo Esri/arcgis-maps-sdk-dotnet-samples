@@ -122,10 +122,12 @@ namespace ArcGISRuntime.UWP.Viewer
             }
             catch (Exception exception)
             {
-                // failed to create new instance of the sample
+                // Failed to create new instance of the sample.
                 SamplePageContainer.Visibility = Visibility.Collapsed;
                 SampleSelectionGrid.Visibility = Visibility.Visible;
+                CategoriesTree.SelectionMode = muxc.TreeViewSelectionMode.None;
                 await new MessageDialog(exception.Message).ShowAsync();
+                CategoriesTree.SelectionMode = muxc.TreeViewSelectionMode.Single;
             }
         }
 

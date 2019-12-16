@@ -9,13 +9,11 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.System;
@@ -23,7 +21,6 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime
@@ -33,6 +30,7 @@ namespace ArcGISRuntime
         private static string _runtimeVersion = "";
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
+        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
 
         public SettingsWindow()
         {
@@ -53,14 +51,24 @@ namespace ArcGISRuntime
                 _runtimeVersion = "Couldn't find ArcGIS Runtime version.";
             }
 
-            string aboutPath = "Resources\\about.md";
-            AboutBlock.Text = File.ReadAllText(aboutPath) + _runtimeVersion;
-            AboutBlock.Background = new ImageBrush() { Opacity = 0 };
+            // Set up markdown tabs.
+            string cssPath = "";
+            if (Application.Current.RequestedTheme != ApplicationTheme.Dark)
+            {
+                cssPath = "Resources/github-markdown.css";
+            }
+            else
+            {
+                cssPath = "Resources/github-markdown-dark.css";
+            }
 
-            // Set up license info.
+            string aboutPath = "Resources\\about.md";
+            string aboutHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(aboutPath)) + _runtimeVersion + "</body>";
+            AboutBlock.NavigateToString(aboutHTML);
+
             string licensePath = "Resources\\licenses.md";
-            MarkDownBlock.Text = File.ReadAllText(licensePath);
-            MarkDownBlock.Background = new ImageBrush() { Opacity = 0 };
+            string licenseHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(licensePath)) + "</body>";
+            LicensesBlock.NavigateToString(licenseHTML);
 
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();

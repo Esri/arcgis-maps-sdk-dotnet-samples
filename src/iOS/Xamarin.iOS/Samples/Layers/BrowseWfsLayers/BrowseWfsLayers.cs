@@ -31,7 +31,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-        private UISwitch _toggleAxisOrderSwitch;
         private UIActivityIndicatorView _loadingProgressBar;
         private UIBarButtonItem _chooseLayersButton;
 
@@ -81,16 +80,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 // In this mode, you must manually populate the table - panning and zooming won't request features automatically.
                 table.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
-                // Set the axis order based on the UI.
-                if (_toggleAxisOrderSwitch.On)
-                {
-                    table.AxisOrder = OgcAxisOrder.Swap;
-                }
-                else
-                {
-                    table.AxisOrder = OgcAxisOrder.NoSwap;
-                }
-
                 // Populate the WFS table.
                 await table.PopulateFromServiceAsync(new QueryParameters(), false, null);
 
@@ -98,7 +87,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
 
                 // Choose a renderer for the layer based on the table.
-                wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
+                wfsFeatureLayer.Renderer = GetRendererForTable(table) ?? wfsFeatureLayer.Renderer;
 
                 // Add the layer to the map.
                 _myMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
@@ -141,34 +130,22 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             PresentViewController(layerSelectionAlert, true, null);
         }
 
-        #region Random symbology
-
-        // Random number generator used to generate random symbology.
-        private static readonly Random _rand = new Random();
-
-        private Renderer GetRandomRendererForTable(FeatureTable table)
+        private Renderer GetRendererForTable(FeatureTable table)
         {
             switch (table.GeometryType)
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 4));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 4));
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
-                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
+                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, null));
                 case GeometryType.Polyline:
-                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, GetRandomColor(), 1));
+                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 1));
             }
 
             return null;
         }
-
-        private Color GetRandomColor(int alpha = 255)
-        {
-            return Color.FromArgb(alpha, _rand.Next(0, 255), _rand.Next(0, 255), _rand.Next(0, 255));
-        }
-
-        #endregion Random symbology
 
         public override void LoadView()
         {
@@ -178,11 +155,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _toggleAxisOrderSwitch = new UISwitch();
-
-            UILabel axisOrderLabel = new UILabel();
-            axisOrderLabel.Text = "Swap coordinates";
-
             _chooseLayersButton = new UIBarButtonItem();
             _chooseLayersButton.Title = "Choose layer";
             _chooseLayersButton.Enabled = false;
@@ -191,11 +163,9 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
-                new UIBarButtonItem(_toggleAxisOrderSwitch),
-                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 8},
-                new UIBarButtonItem(axisOrderLabel),
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _chooseLayersButton
+                _chooseLayersButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
             };
 
             _loadingProgressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);

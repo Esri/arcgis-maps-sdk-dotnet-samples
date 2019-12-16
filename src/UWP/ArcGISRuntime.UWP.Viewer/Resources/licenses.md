@@ -4,6 +4,14 @@ The ArcGIS Runtime SDK for .NET sample viewer (UWP version) was built using seve
 
 ----
 
+## Github Markdown CSS
+
+This app uses github-markdown-css under the MIT license.
+
+[Project on GitHub](https://github.com/sindresorhus/github-markdown-css) | [License](https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/license)
+
+----
+
 ## MarkedNET
 
 This app uses MarkedNET under the MIT license. It is used to render the content on the sample description page.
@@ -32,8 +40,6 @@ All rights reserved. MIT License.
 ## MIT license reproduced in full:
 
 The MIT License (MIT)
-
-Copyright (c) 2015 Alex Titarenko, Christopher Jeffrey
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

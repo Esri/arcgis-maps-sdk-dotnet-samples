@@ -12,14 +12,11 @@ Many GIS scenarios involve accessing a service and discovering which layers shou
 
 A list of layers in the WFS service will be shown. Select a layer to display.
 
-Some WFS services return coordinates in X,Y order, while others return coordinates in lat/long (Y,X) order. If you don't see features rendered or you see features in the wrong location, use the checkbox to change the coordinate order and reload.
-
 ## How it works
 
 1. Create a `WfsService` object with a URL to a WFS feature service.
 2. Obtain a list of `WfsLayerInfo` from `WfsService.ServiceInfo`.
 3. When a layer is selected, create a `WfsFeatureTable` from the `WfsLayerInfo`.
-    * Set the axis order if necessary.
 4. Create a feature layer from the feature table.
 5. Add the feature layer to the map.
     * The sample uses randomly generated symbology, similar to the behavior in ArcGIS Pro.

@@ -32,7 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
         // Hold a reference to the scene view.
         private SceneView _mySceneView;
         
-        private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private readonly string _elevationServiceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         protected override void OnCreate(Bundle bundle)
         {

@@ -115,6 +115,7 @@
   <ItemGroup>
     <None Include="ArcGISLocalServer_100.6.AGSDeployment" />
     <None Include="Readme.md" />
+    <Resource Include="Assets\banner-background-purple.png" />
     <Content Include="Resources\hide-header.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -127,7 +128,6 @@
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-32.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-48.png" />
-    <Resource Include="Assets\banner-background-blue.png" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

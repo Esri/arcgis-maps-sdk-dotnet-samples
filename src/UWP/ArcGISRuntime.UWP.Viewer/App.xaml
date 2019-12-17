@@ -44,7 +44,7 @@
                 <ResourceDictionary x:Key="Light">
                     <ImageBrush
                         x:Key="HeaderBrush"
-                        ImageSource="Assets/banner-background-blue.png"
+                        ImageSource="Assets/banner-background-purple.png"
                         Stretch="UniformToFill" />
                     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f8f8f8" />
                     <SolidColorBrush x:Key="InlineCodeColor" Color="Black" />

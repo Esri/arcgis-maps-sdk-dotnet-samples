@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Assets\banner-background-purple.png" />
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg" />
@@ -305,7 +306,6 @@
   <ItemGroup>
     <!-- Misc Resources -->
     <Content Include="Assets\BadgeLogo.scale-200.png" />
-    <Content Include="Assets\banner-background-blue.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-125.png" />
     <Content Include="Assets\SplashScreen.scale-150.png" />

@@ -41,7 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
     public class IntegratedWindowsAuth : Activity
     {
         // The ArcGIS Online URL for searching public web maps.
-        private string _publicPortalUrl = "http://www.arcgis.com";
+        private string _publicPortalUrl = "https://www.arcgis.com";
 
         // A TaskCompletionSource to store the result of a login task.
         TaskCompletionSource<Credential> _loginTaskCompletionSrc;

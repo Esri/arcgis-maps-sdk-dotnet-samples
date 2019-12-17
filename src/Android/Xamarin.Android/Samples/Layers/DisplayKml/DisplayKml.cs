@@ -106,7 +106,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
                 {
                     case "URL":
                     default:
-                        layer = new KmlLayer(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
+                        layer = new KmlLayer(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx_latest.kml"));
                         break;
                     case "Local file":
                         string filePath = DataManager.GetDataFolder("324e4742820e46cfbe5029ff2c32cb1f", "US_State_Capitals.kml");

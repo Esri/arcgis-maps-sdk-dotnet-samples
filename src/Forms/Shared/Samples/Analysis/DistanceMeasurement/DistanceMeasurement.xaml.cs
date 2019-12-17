@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         "Distance measurement analysis",
         "Analysis",
         "This sample demonstrates measuring 3D distances between two points in a scene. The distance measurement analysis allows you to add the same measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript to your app. You can set the unit system of measurement (metric or imperial) and have the units automatically switch to one appropriate for the current scale. The rendering is handled internally so they do not interfere with other analyses like viewsheds.",
-        "Tap to set a new end point for the measurement.",
+        "Tap to set a new end point for the measurement."
         )]
     public partial class DistanceMeasurement : ContentPage
     {

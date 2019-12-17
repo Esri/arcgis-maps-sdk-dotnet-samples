@@ -7,16 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xamarin.Forms;
-using Colors = System.Drawing.Color;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.SpatialRelationships
 {
@@ -68,8 +68,8 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             Polygon polygonGeometry = new Polygon(polygonPoints);
 
             // Define the symbology of the polygon
-            SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Green, 2);
-            SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, Colors.Green, polygonOutlineSymbol);
+            SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Green, 2);
+            SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, Color.Green, polygonOutlineSymbol);
 
             // Create the polygon graphic and add it to the graphics overlay
             _polygonGraphic = new Graphic(polygonGeometry, polygonFillSymbol);
@@ -88,14 +88,14 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             Polyline polylineGeometry = new Polyline(polylinePoints);
 
             // Create the polyline graphic and add it to the graphics overlay
-            _polylineGraphic = new Graphic(polylineGeometry, new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Colors.Red, 4));
+            _polylineGraphic = new Graphic(polylineGeometry, new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Red, 4));
             _graphicsOverlay.Graphics.Add(_polylineGraphic);
 
             // Create the point geometry that defines the point graphic
             MapPoint pointGeometry = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
 
             // Define the symbology for the point
-            SimpleMarkerSymbol locationMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Blue, 10);
+            SimpleMarkerSymbol locationMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 10);
 
             // Create the point graphic and add it to the graphics overlay
             _pointGraphic = new Graphic(pointGeometry, locationMarker);

@@ -18,6 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 using RuntimeImageExtensions = Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions;
 
 namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle

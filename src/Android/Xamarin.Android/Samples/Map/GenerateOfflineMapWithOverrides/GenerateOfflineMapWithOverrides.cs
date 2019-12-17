@@ -3,13 +3,14 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -24,13 +25,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides;
 using Xamarin.Auth;
 using AlertDialog = Android.App.AlertDialog;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Generate offline map (overrides)",
         "Map",
@@ -104,14 +104,16 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         {
             try
             {
-                // Call a function to set up the AuthenticationManager for OAuth.
-                SetOAuthInfo();
-
                 // Create the ArcGIS Online portal.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
                 // Get the Naperville water web map item using its ID.
                 PortalItem webmapItem = await PortalItem.CreateAsync(portal, WebMapId);
+
+                // Call a function to set up the AuthenticationManager for OAuth.
+                SetOAuthInfo();
+                var credential = await AuthenticationManager.Current.GenerateCredentialAsync(webmapItem.Url);
+                AuthenticationManager.Current.AddCredential(credential);
 
                 // Create a map from the web map item.
                 Map onlineMap = new Map(webmapItem);
@@ -445,8 +447,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             return _taskCompletionSource.Task;
         }
 
-        #endregion
+        #endregion IOAuthAuthorizationHandler implementation
 
-        #endregion
+        #endregion Authentication
     }
 }

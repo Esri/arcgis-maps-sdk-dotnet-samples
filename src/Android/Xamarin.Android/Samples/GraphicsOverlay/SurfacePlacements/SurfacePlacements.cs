@@ -25,7 +25,8 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         "Surface placement",
         "GraphicsOverlay",
         "Position graphics relative to a surface using different surface placement modes.",
-        "")]
+        "",
+        "Featured")]
     [Shared.Attributes.AndroidLayout("FindFeaturesUtilityNetwork.axml")]
     public class SurfacePlacements : Activity
     {

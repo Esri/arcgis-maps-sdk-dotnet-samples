@@ -23,7 +23,8 @@ namespace ArcGISRuntimeXamarin.Samples.RasterColormapRenderer
         "Raster colormap renderer",
         "Layers",
         "Apply a colormap renderer to a raster.",
-        "Pan and zoom to explore the effect of the colormap applied to the raster.")]
+        "Pan and zoom to explore the effect of the colormap applied to the raster.",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public partial class RasterColormapRenderer : ContentPage
     {

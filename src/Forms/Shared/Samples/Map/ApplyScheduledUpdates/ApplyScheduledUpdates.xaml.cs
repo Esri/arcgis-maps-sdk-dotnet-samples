@@ -22,7 +22,8 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
         "Apply scheduled updates to preplanned map area",
         "Map",
         "Apply scheduled updates to a downloaded preplanned map area.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ApplyScheduledUpdates : ContentPage, IDisposable
     {

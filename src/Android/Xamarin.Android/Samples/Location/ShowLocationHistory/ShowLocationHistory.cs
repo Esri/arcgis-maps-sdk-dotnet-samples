@@ -31,7 +31,8 @@ namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
         "Show location history",
         "Location",
         "Display your location history on the map.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("FakeLocationDataSource.cs")]
     public class ShowLocationHistory : Activity, ActivityCompat.IOnRequestPermissionsResultCallback
     {

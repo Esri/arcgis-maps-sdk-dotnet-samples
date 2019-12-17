@@ -30,7 +30,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         "Navigate route",
         "Network analysis",
         "Use a routing service to navigate between points.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class NavigateRoute : UIViewController
     {

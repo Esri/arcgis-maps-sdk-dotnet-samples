@@ -34,7 +34,8 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         "Create and save KML file",
         "Layers",
         "Construct a KML document and save it as a KMZ file.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("CreateAndSaveKmlFile.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class CreateAndSaveKmlFile : Activity

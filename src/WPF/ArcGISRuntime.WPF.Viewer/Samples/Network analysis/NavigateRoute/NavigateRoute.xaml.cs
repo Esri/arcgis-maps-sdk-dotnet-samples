@@ -31,7 +31,8 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
         "Navigate route",
         "Network Analysis",
         "Use a routing service to navigate between points.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class NavigateRoute
     {

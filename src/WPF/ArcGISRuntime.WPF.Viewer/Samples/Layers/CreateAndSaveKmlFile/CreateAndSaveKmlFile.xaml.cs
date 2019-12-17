@@ -26,7 +26,8 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
         "Create and save KML file",
         "Layers",
         "Construct a KML document and save it as a KMZ file.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateAndSaveKmlFile
     {

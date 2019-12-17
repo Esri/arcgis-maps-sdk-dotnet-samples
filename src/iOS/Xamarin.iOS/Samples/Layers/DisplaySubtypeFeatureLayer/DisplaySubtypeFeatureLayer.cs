@@ -24,7 +24,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
         "Display subtype feature layer",
         "Layers",
         "Displays a composite layer of all the subtype values in a feature class.",
-        "")]
+        "",
+        "Featured")]
     public class DisplaySubtypeFeatureLayer : UIViewController
     {
         // Hold references to UI controls.

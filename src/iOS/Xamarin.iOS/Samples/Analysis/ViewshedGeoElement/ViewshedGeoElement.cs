@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         "Analysis",
         "Display a live viewshed analysis for a moving GeoElement.",
         "Tap on the scene to see the tank move to that point.",
-        "Featured")]
+        )]
     public class ViewshedGeoElement : UIViewController
     {
         // Hold references to UI controls.

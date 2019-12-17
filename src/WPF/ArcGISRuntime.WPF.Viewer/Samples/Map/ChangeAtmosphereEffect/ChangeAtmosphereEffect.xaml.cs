@@ -18,7 +18,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeAtmosphereEffect
         "Map",
         "Change the appearance of the atmosphere in a scene.",
         "",
-        "3D", "AtmosphereEffect", "Scene", "Featured")]
+        "3D", "AtmosphereEffect", "Scene")]
     public partial class ChangeAtmosphereEffect
     {
         private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";

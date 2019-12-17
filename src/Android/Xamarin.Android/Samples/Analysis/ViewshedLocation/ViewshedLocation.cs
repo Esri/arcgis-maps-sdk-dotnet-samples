@@ -28,7 +28,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         "Analysis",
         "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
         "Tap anywhere in the scene to change the viewshed observer location.",
-        "Featured")]
+        )]
     public class ViewshedLocation : Activity
     {
         // Hold a reference to the scene view.

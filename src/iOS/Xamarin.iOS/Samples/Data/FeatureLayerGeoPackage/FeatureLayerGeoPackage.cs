@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         "Data",
         "This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.",
         "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.",
-        "Featured")]
+        )]
     public class FeatureLayerGeoPackage : UIViewController
     {
         // Hold references to UI controls.

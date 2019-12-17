@@ -17,7 +17,7 @@ namespace ArcGISRuntime.WPF.Samples.AddAnIntegratedMeshLayer
         "Add an integrated mesh layer",
         "Layers",
         "View an integrated mesh layer from a scene service.",
-        "", "Featured")]
+        "")]
     public partial class AddAnIntegratedMeshLayer
     {
         // URLs for the services used by this sample.

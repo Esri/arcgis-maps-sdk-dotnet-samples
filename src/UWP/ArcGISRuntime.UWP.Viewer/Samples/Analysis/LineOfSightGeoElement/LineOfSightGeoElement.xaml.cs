@@ -25,7 +25,7 @@ namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
         "Use the slider to adjust the height of the observer.",
-        "Featured")]
+        )]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class LineOfSightGeoElement
     {

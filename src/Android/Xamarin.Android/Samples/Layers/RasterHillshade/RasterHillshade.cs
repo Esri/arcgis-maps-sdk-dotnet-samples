@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         "Raster hillshade renderer",
         "Layers",
         "This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).",
-        "", "Featured")]
+        "")]
     public class RasterHillshade : Activity
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.

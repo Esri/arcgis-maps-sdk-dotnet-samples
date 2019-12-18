@@ -136,7 +136,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell Height="20">
-                            <Label BackgroundColor="{Binding}" />
+                            <Label BackgroundColor="{Binding}" Text="{Binding}" />
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

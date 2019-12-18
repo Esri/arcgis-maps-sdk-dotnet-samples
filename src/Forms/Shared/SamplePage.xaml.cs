@@ -11,8 +11,9 @@ using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntimeXamarin;
 using System;
 using System.Diagnostics;
-
 using Xamarin.Essentials;
+using System;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -80,8 +81,8 @@ namespace ArcGISRuntime
                 readmePath = System.IO.Path.Combine(folderPath, "readme.md");
 #elif XAMARIN_ANDROID
                 baseUrl = "file:///android_asset";
-                basePath = baseUrl + folderPath;
-                readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + folderPath, "readme.md");
+                basePath = System.IO.Path.Combine(baseUrl, folderPath);
+                readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), folderPath, "readme.md");
 #elif __IOS__
                 baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
                 basePath = folderPath;

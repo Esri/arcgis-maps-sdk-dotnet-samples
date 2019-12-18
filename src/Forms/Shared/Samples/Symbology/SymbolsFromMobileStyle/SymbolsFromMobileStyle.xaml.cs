@@ -14,9 +14,11 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 using RuntimeImageExtensions = Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions;
 
 namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
@@ -90,7 +92,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
 
                 // Search the style with the default parameters to return all symbol results.
                 IList<SymbolStyleSearchResult> styleResults = await _emojiStyle.SearchSymbolsAsync(searchParams);
-                
+
                 // Create lists to contain the available symbol layers for each category of symbol and add an empty entry as default.
                 List<SymbolLayerInfo> eyeSymbolInfos = new List<SymbolLayerInfo> { new SymbolLayerInfo("", null, "") };
                 List<SymbolLayerInfo> mouthSymbolInfos = new List<SymbolLayerInfo> { new SymbolLayerInfo("", null, "") };
@@ -104,7 +106,12 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
 
                     // Create a swatch image from the symbol.
                     RuntimeImage swatch = await multiLayerSym.CreateSwatchAsync(30, 30, 96, Color.White);
-                    ImageSource symbolImage = await RuntimeImageExtensions.ToImageSourceAsync(swatch);
+
+                    // Create an image source from the swatch.
+                    Stream imageBuffer = await swatch.GetEncodedBufferAsync();
+                    byte[] imageData = new byte[imageBuffer.Length];
+                    imageBuffer.Read(imageData, 0, imageData.Length);
+                    ImageSource symbolImage = ImageSource.FromStream(() => new MemoryStream(imageData));
 
                     // Create a symbol layer info object to represent the symbol in the list.
                     // The symbol key will be used to retrieve the symbol from the style.
@@ -165,7 +172,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
         {
             // Call a function that will construct the current symbol.
             Symbol faceSymbol = await GetCurrentSymbol();
-            
+
             // Call a function to update the symbol preview.
             await UpdateSymbolPreview(faceSymbol);
         }

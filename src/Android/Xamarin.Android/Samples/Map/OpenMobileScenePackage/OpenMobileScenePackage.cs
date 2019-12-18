@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -19,7 +19,7 @@ using Debug = System.Diagnostics.Debug;
 
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileScenePackage
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Open mobile scene package",
         "Map",
@@ -48,35 +48,14 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileScenePackage
 
             try
             {
-                // Determine if the package can be read directly or needs to be unpacked.
-                if (await MobileScenePackage.IsDirectReadSupportedAsync(scenePath))
-                {
-                    // Open the package.
-                    MobileScenePackage package = await MobileScenePackage.OpenAsync(scenePath);
+                // Open the package.
+                MobileScenePackage package = await MobileScenePackage.OpenAsync(scenePath);
 
-                    // Load the package.
-                    await package.LoadAsync();
+                // Load the package.
+                await package.LoadAsync();
 
-                    // Show the first scene.
-                    _mySceneView.Scene = package.Scenes.First();
-                }
-                else
-                {
-                    // Create a path for the unpacked package.
-                    string unpackedPath = scenePath + "unpacked";
-
-                    // Unpack the package.
-                    await MobileScenePackage.UnpackAsync(scenePath, unpackedPath);
-
-                    // Open the package.
-                    MobileScenePackage package = await MobileScenePackage.OpenAsync(unpackedPath);
-
-                    // Load the package.
-                    await package.LoadAsync();
-
-                    // Show the first scene.
-                    _mySceneView.Scene = package.Scenes.First();
-                }
+                // Show the first scene.
+                _mySceneView.Scene = package.Scenes.First();
             }
             catch (Exception e)
             {
@@ -88,7 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileScenePackage
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the scene view to the layout.
             _mySceneView = new SceneView(this);

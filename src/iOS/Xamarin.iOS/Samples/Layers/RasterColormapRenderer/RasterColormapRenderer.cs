@@ -26,7 +26,8 @@ namespace ArcGISRuntimeXamarin.Samples.RasterColormapRenderer
         "Raster colormap renderer",
         "Layers",
         "Apply a colormap renderer to a raster.",
-        "Pan and zoom to explore the effect of the colormap applied to the raster.")]
+        "Pan and zoom to explore the effect of the colormap applied to the raster.",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public class RasterColormapRenderer : UIViewController
     {
@@ -86,7 +87,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterColormapRenderer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

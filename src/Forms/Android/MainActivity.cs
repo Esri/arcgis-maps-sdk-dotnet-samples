@@ -123,9 +123,6 @@ namespace ArcGISRuntime.Droid
                 }
                 else
                 {
-                    // Only readmes need to be copied for now.
-                    if (!combinedPath.EndsWith(".md")) { continue; }
-
                     // Copy the file.
                     using (var source = Application.Context.Assets.Open(combinedPath))
                     {

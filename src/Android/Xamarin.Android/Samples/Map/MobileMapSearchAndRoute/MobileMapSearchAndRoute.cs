@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -26,11 +26,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Path = System.IO.Path;
 
 namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Mobile map (search and route)",
         "Map",
@@ -108,35 +107,14 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
 
         private async Task<MobileMapPackage> OpenMobileMapPackage(string path)
         {
-            // Load directly or unpack then load as needed by the map package.
-            if (await MobileMapPackage.IsDirectReadSupportedAsync(path))
-            {
-                // Open the map package.
-                MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
+            // Open the map package.
+            MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
 
-                // Load the package.
-                await package.LoadAsync();
+            // Load the package.
+            await package.LoadAsync();
 
-                // Return the opened package.
-                return package;
-            }
-            else
-            {
-                // Create a path for the unpacked package.
-                string unpackedPath = path + "unpacked";
-
-                // Unpack the package.
-                await MobileMapPackage.UnpackAsync(path, unpackedPath);
-
-                // Open the package.
-                MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
-
-                // Load the package.
-                await package.LoadAsync();
-
-                // Return the opened package.
-                return package;
-            }
+            // Return the opened package.
+            return package;
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
@@ -204,7 +182,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
 
                 // Configure route parameters for the route between the two tapped points.
                 RouteParameters routingParameters = await routingTask.CreateDefaultParametersAsync();
-                List<Stop> stops = new List<Stop> {new Stop(_startPoint), new Stop(_endPoint)};
+                List<Stop> stops = new List<Stop> { new Stop(_startPoint), new Stop(_endPoint) };
                 routingParameters.SetStops(stops);
 
                 // Get the first route result.
@@ -287,7 +265,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
                 mapButton.Click += (o, e) => { Map_Selected(map); };
                 _mapListView.AddView(mapButton);
 
-                LinearLayout.LayoutParams lparams = (LinearLayout.LayoutParams) mapButton.LayoutParameters;
+                LinearLayout.LayoutParams lparams = (LinearLayout.LayoutParams)mapButton.LayoutParameters;
                 lparams.SetMargins(5, 5, 0, 5);
                 mapButton.LayoutParameters = lparams;
             }
@@ -296,7 +274,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add a help label.
             TextView helpLabel = new TextView(this);
@@ -304,7 +282,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             layout.AddView(helpLabel);
 
             // Add space for adding options for each map.
-            _mapListView = new LinearLayout(this) {Orientation = Orientation.Horizontal};
+            _mapListView = new LinearLayout(this) { Orientation = Orientation.Horizontal };
             layout.AddView(_mapListView);
 
             // Add the map view to the layout.

@@ -12,11 +12,11 @@
 
 ## Augmented reality
 
-* [Collect data in AR](Xamarin.iOS/Samples/Augmented%20Reality/CollectDataAR/readme.md) - Tap on real-world objects to collect data.
-* [Display scenes in tabletop AR](Xamarin.iOS/Samples/Augmented%20Reality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
-* [Explore scenes in flyover AR](Xamarin.iOS/Samples/Augmented%20Reality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
-* [Navigate in AR](Xamarin.iOS/Samples/Augmented%20Reality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.
-* [View hidden infrastructure in AR](Xamarin.iOS/Samples/Augmented%20Reality/ViewHiddenInfrastructureAR/readme.md) - Visualize hidden infrastructure in its real-world location using augmented reality.
+* [Collect data in AR](Xamarin.iOS/Samples/Augmented%20reality/CollectDataAR/readme.md) - Tap on real-world objects to collect data.
+* [Display scenes in tabletop AR](Xamarin.iOS/Samples/Augmented%20reality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
+* [Explore scenes in flyover AR](Xamarin.iOS/Samples/Augmented%20reality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
+* [Navigate in AR](Xamarin.iOS/Samples/Augmented%20reality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.
+* [View hidden infrastructure in AR](Xamarin.iOS/Samples/Augmented%20reality/ViewHiddenInfrastructureAR/readme.md) - Visualize hidden infrastructure in its real-world location using augmented reality.
 
 ## Data
 
@@ -102,9 +102,11 @@
 * [Control annotation sublayer visibility](Xamarin.iOS/Samples/Layers/ControlAnnotationSublayerVisibility/readme.md) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](Xamarin.iOS/Samples/Layers/CreateAndSaveKmlFile/readme.md) - Construct a KML document and save it as a KMZ file.
 * [Feature collection layer](Xamarin.iOS/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
+* [Display annotation](Xamarin.iOS/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display KML](Xamarin.iOS/Samples/Layers/DisplayKml/readme.md) - Load and display KML from a URL, a local file, or a portal item.
 * [Display KML network links](Xamarin.iOS/Samples/Layers/DisplayKmlNetworkLinks/readme.md) -  Display a file with a KML network link.
 * [Display a scene](Xamarin.iOS/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
+* [Display subtype feature layer](Xamarin.iOS/Samples/Layers/DisplaySubtypeFeatureLayer/readme.md) - Displays a composite layer of all the subtype values in a feature class.
 * [Display a WFS layer](Xamarin.iOS/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Edit KML ground overlay](Xamarin.iOS/Samples/Layers/EditKmlGroundOverlay/readme.md) - Edit the values of a KML ground overlay.
 * [Export tiles](Xamarin.iOS/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.
@@ -195,18 +197,18 @@
 * [Show magnifier](Xamarin.iOS/Samples/MapView/ShowMagnifier/readme.md) - Tap and hold on a map to show a magnifier.
 * [Take a screenshot](Xamarin.iOS/Samples/MapView/TakeScreenshot/readme.md) - Take a screenshot of the map.
 
-## Network Analysis
+## Network analysis
 
-* [Find closest facility to an incident (interactive)](Xamarin.iOS/Samples/Network%20Analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
-* [Find closest facility to multiple incidents (service)](Xamarin.iOS/Samples/Network%20Analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Find connected features in a utility network](Xamarin.iOS/Samples/Network%20Analysis/FindFeaturesUtilityNetwork/readme.md) - Find all features connected to a set of starting points in a utility network.
-* [Find route](Xamarin.iOS/Samples/Network%20Analysis/FindRoute/readme.md) - Display directions for a route between two points.
-* [Find service area](Xamarin.iOS/Samples/Network%20Analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
-* [Find service areas for multiple facilities](Xamarin.iOS/Samples/Network%20Analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
-* [Navigate route](Xamarin.iOS/Samples/Network%20Analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
-* [Navigate route with rerouting](Xamarin.iOS/Samples/Network%20Analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
-* [Offline routing](Xamarin.iOS/Samples/Network%20Analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
-* [Route around barriers](Xamarin.iOS/Samples/Network%20Analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Find closest facility to an incident (interactive)](Xamarin.iOS/Samples/Network%20analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
+* [Find closest facility to multiple incidents (service)](Xamarin.iOS/Samples/Network%20analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Find route](Xamarin.iOS/Samples/Network%20analysis/FindRoute/readme.md) - Display directions for a route between two points.
+* [Find service area](Xamarin.iOS/Samples/Network%20analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
+* [Find service areas for multiple facilities](Xamarin.iOS/Samples/Network%20analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
+* [Navigate route](Xamarin.iOS/Samples/Network%20analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
+* [Navigate route with rerouting](Xamarin.iOS/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
+* [Offline routing](Xamarin.iOS/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
+* [Route around barriers](Xamarin.iOS/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Trace a utility network](Xamarin.iOS/Samples/Network%20analysis/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 
 ## Search
 

@@ -40,6 +40,8 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         {
             try
             {
+                ScreenshotButton.IsEnabled = false;
+
                 // Wait for rendering to finish before taking the screenshot.
                 await WaitForRenderCompleteAsync(MyMapView);
 
@@ -85,6 +87,10 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+            }
+            finally
+            {
+                ScreenshotButton.IsEnabled = true;
             }
         }
 

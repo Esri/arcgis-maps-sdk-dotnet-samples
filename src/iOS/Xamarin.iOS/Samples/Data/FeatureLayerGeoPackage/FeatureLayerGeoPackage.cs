@@ -24,8 +24,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         "Feature layer (GeoPackage)",
         "Data",
         "This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.",
-        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.",
-        "Featured")]
+        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically."
+        )]
     public class FeatureLayerGeoPackage : UIViewController
     {
         // Hold references to UI controls.
@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             // Add the views.
             View.AddSubviews(_myMapView);

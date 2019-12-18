@@ -104,14 +104,14 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _styleChoiceButton = new UISegmentedControl("Default", "Contrast stretch")
             {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                BackgroundColor = UIColor.White,
                 TintColor = UIColor.White,
                 Enabled = false,
                 TranslatesAutoresizingMaskIntoConstraints = false,

@@ -53,7 +53,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewContentBeneathSurface
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;

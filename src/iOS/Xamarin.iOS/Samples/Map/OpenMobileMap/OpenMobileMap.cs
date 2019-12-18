@@ -42,32 +42,14 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
 
             try
             {
-                // Load directly or unpack then load as needed by the map package.
-                if (await MobileMapPackage.IsDirectReadSupportedAsync(filepath))
-                {
-                    // Open the map package.
-                    MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
+                // Open the map package.
+                MobileMapPackage myMapPackage = await MobileMapPackage.OpenAsync(filepath);
 
-                    // Display the first map in the package.
-                    _myMapView.Map = myMapPackage.Maps.First();
-                }
-                else
-                {
-                    // Create a path for the unpacked package.
-                    string unpackedPath = filepath + "unpacked";
+                // Load the package.
+                await myMapPackage.LoadAsync();
 
-                    // Unpack the package.
-                    await MobileMapPackage.UnpackAsync(filepath, unpackedPath);
-
-                    // Open the package.
-                    MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
-
-                    // Load the package.
-                    await package.LoadAsync();
-
-                    // Show the first map.
-                    _myMapView.Map = package.Maps.First();
-                }
+                // Display the first map in the package.
+                _myMapView.Map = myMapPackage.Maps.First();
             }
             catch (Exception e)
             {
@@ -84,7 +66,7 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

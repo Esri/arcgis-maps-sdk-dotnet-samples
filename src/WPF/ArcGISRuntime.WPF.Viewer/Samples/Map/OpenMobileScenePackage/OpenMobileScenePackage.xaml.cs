@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenMobileScenePackage
         "Open mobile scene package",
         "Map",
         "Display a scene from an offline mobile scene package (.mspk).",
-        "", "Featured")]
+        "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
     public partial class OpenMobileScenePackage
     {
@@ -37,35 +37,14 @@ namespace ArcGISRuntime.WPF.Samples.OpenMobileScenePackage
 
             try
             {
-                // Determine if the package can be read directly or needs to be unpacked.
-                if (await MobileScenePackage.IsDirectReadSupportedAsync(scenePath))
-                {
-                    // Open the package.
-                    MobileScenePackage package = await MobileScenePackage.OpenAsync(scenePath);
+                // Open the package.
+                MobileScenePackage package = await MobileScenePackage.OpenAsync(scenePath);
 
-                    // Load the package.
-                    await package.LoadAsync();
+                // Load the package.
+                await package.LoadAsync();
 
-                    // Show the first scene.
-                    MySceneView.Scene = package.Scenes.First();
-                }
-                else
-                {
-                    // Create a path for the unpacked package.
-                    string unpackedPath = scenePath + "unpacked";
-
-                    // Unpack the package.
-                    await MobileScenePackage.UnpackAsync(scenePath, unpackedPath);
-
-                    // Open the package.
-                    MobileScenePackage package = await MobileScenePackage.OpenAsync(unpackedPath);
-
-                    // Load the package.
-                    await package.LoadAsync();
-
-                    // Show the first scene.
-                    MySceneView.Scene = package.Scenes.First();
-                }
+                // Show the first scene.
+                MySceneView.Scene = package.Scenes.First();
             }
             catch (Exception e)
             {

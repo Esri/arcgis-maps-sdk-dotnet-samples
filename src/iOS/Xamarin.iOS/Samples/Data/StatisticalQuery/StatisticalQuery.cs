@@ -7,15 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.StatisticalQuery
@@ -150,8 +150,8 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
         private void ShowStatsList(IReadOnlyDictionary<string, object> stats)
         {
-            // Create a new Alert Controller.
-            UIAlertController statsAlert = UIAlertController.Create("Statistics", "", UIAlertControllerStyle.Alert);
+            // Create a string for statistics in plain text.
+            string statsList = "";
 
             // Loop through all key/value pairs in the results.
             foreach (KeyValuePair<string, object> kvp in stats)
@@ -164,9 +164,12 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                     displayString = kvp.Value.ToString();
                 }
 
-                // Add the statistics info as an alert action.
-                statsAlert.AddAction(UIAlertAction.Create(kvp.Key + " : " + displayString, UIAlertActionStyle.Default, null));
+                // Add the statistics info to the output string.
+                statsList = $"{statsList}\n{kvp.Key} : {displayString}";
             }
+
+            // Create a new Alert Controller.
+            UIAlertController statsAlert = UIAlertController.Create("Statistics", statsList, UIAlertControllerStyle.Alert);
 
             // Add an Action to dismiss the alert.
             statsAlert.AddAction(UIAlertAction.Create("Dismiss", UIAlertActionStyle.Cancel, null));
@@ -177,7 +180,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
         private void ShowMessage(string title, string message)
         {
-            new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
+            new UIAlertView(title, message, (IUIAlertViewDelegate)null, "OK", null).Show();
         }
 
         public override void ViewDidLoad()
@@ -189,7 +192,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

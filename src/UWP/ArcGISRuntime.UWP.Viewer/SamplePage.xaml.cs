@@ -22,6 +22,9 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             InitializeComponent();
 
+            // Add event for cleaning up sample page when closed.
+            Unloaded += SamplePage_Unloaded;
+
             // Get selected sample and set that as the DataContext.
             DataContext = SampleManager.Current.SelectedSample;
 
@@ -87,6 +90,17 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             e.Image = new BitmapImage(new Uri(System.IO.Path.Combine(SampleManager.Current.SelectedSample.Path, e.Url)));
             e.Handled = true;
+        }
+
+        private static void SamplePage_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ((SamplePage)sender).RemoveSamplePageHandlers();
+        }
+
+        private void RemoveSamplePageHandlers()
+        {
+            Tabs.SelectionChanged -= TabChanged;
+            DescriptionBlock.ImageResolving -= MarkDownBlock_ImageResolving;
         }
     }
 }

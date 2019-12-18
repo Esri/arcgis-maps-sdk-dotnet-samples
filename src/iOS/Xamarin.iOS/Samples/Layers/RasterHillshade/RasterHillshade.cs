@@ -24,8 +24,8 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         "Raster hillshade renderer",
         "Layers",
         "This sample demonstrates how to use a hillshade renderer on a raster layer. Hillshade renderers can adjust a grayscale raster (usually of terrain) according to a hypothetical sun position (azimuth and altitude).",
-        "",
-        "Featured")]
+        ""
+        )]
     public class RasterHillshade : UIViewController
     {
         // Hold references to UI controls.
@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
 
         public override void LoadView()
         {
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;

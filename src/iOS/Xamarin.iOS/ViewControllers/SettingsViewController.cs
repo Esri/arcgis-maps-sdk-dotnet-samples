@@ -339,7 +339,7 @@ namespace ArcGISRuntime
                     cell.TextLabel.Text = _samples[indexPath.Row].SampleName;
 
                     // Make the accessory view
-                    UIView accessoryView = new UIView();
+                    UIView accessoryView = new UIView() { BackgroundColor = UIColor.White };
 
                     UIButton agolButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
                     agolButton.SetImage(_globeImage, UIControlState.Normal);

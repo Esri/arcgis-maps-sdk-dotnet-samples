@@ -19,7 +19,8 @@ namespace ArcGISRuntime.UWP.Samples.HonorMobileMapPackageExpiration
         "Honor mobile map package expiration date",
         "Map",
         "Access the expiration information of an expired mobile map package.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("174150279af74a2ba6f8b87a567f480b")]
     public partial class HonorMobileMapPackageExpiration
     {

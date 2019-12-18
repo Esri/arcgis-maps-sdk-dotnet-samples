@@ -20,7 +20,8 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
         "Surface placement",
         "GraphicsOverlay",
         "Position graphics relative to a surface using different surface placement modes.",
-        "")]
+        "",
+        "Featured")]
     public partial class SurfacePlacements
     {
         private GraphicsOverlay _drapedBillboardedOverlay;

@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenMobileScenePackage
         "Open mobile scene package",
         "Map",
         "Display a scene from an offline mobile scene package (.mspk).",
-        "", "Featured")]
+        "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
     public partial class OpenMobileScenePackage
     {

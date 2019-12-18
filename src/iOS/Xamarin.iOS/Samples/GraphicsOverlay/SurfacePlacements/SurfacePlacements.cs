@@ -24,7 +24,8 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         "Surface placement",
         "GraphicsOverlay",
         "Position graphics relative to a surface using different surface placement modes.",
-        "")]
+        "",
+        "Featured")]
     public class SurfacePlacements : UIViewController
     {
         // Hold references to UI controls.

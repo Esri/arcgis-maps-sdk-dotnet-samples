@@ -20,7 +20,8 @@ namespace ArcGISRuntime.UWP.Samples.ControlAnnotationSublayerVisibility
         "Control annotation sublayer visibility",
         "Layers",
         "Use annotation sublayers to gain finer control of annotation layer subtypes.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("b87307dcfb26411eb2e92e1627cb615b")]
     public partial class ControlAnnotationSublayerVisibility
     {

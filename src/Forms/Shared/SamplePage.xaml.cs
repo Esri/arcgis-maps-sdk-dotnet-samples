@@ -12,8 +12,6 @@ using ArcGISRuntimeXamarin;
 using System;
 using System.Diagnostics;
 using Xamarin.Essentials;
-using System;
-using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -106,8 +104,6 @@ namespace ArcGISRuntime
         {
             if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
             base.OnAppearing();
-
-
         }
 
         protected override void OnDisappearing()

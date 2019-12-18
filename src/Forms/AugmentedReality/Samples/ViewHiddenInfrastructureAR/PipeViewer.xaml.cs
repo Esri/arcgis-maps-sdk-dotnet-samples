@@ -51,14 +51,6 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
         private void Initialize()
         {
-#if __IOS__
-            // Move the bottom of the sample up on iOS devices without home buttons.
-            if (UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top > 20 || UIApplication.SharedApplication.Delegate.GetWindow()?.SafeAreaInsets.Top == 0)
-            {
-                Padding = new Thickness() { Bottom = 34};
-            }
-#endif
-
             // Create and add the scene.
             MyARSceneView.Scene = new Scene(Basemap.CreateImagery());
 

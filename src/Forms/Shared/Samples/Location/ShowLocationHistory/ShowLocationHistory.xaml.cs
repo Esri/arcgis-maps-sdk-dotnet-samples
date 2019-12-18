@@ -24,7 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
         "Display your location history on the map.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("FakeLocationDataSource.cs")]
-    public partial class ShowLocationHistory : ContentPage
+    public partial class ShowLocationHistory : ContentPage, IDisposable
     {
         // URL to the raster dark gray canvas basemap.
         private const string BasemapUrl = "https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45";
@@ -172,6 +172,12 @@ namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
         private async void ShowMessage(string title, string detail)
         {
             await Application.Current.MainPage.DisplayAlert(title, detail, "OK");
+        }
+
+        public void Dispose()
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         "This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.",
         "1. Enter a point of interest you'd like to search for (e.g. 'Starbucks')\n2. Enter a search location or accept the default 'Current Location'\n3. Select 'search all' to get all results, or press 'search view' to only get results within the current extent.")]
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
-    public partial class FindPlace : ContentPage
+    public partial class FindPlace : ContentPage, IDisposable
     {
         // The LocatorTask provides geocoding services
         private LocatorTask _geocoder;
@@ -440,6 +440,12 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             // Hide the callout.
             MyMapView.DismissCallout();
+        }
+
+        public void Dispose()
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

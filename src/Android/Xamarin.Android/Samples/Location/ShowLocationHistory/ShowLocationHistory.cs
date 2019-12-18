@@ -263,5 +263,13 @@ namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
         private void TrackingToggleButtonOnClick(object sender, EventArgs e) => ToggleLocationTracking();
 
         private void ShowMessage(string message, string title) => new AlertDialog.Builder(this).SetTitle(title).SetMessage(message).Show();
+
+        protected override void OnDestroy()
+        {
+            // Stop the location data source.
+            _myMapView?.LocationDisplay?.DataSource?.StopAsync();
+
+            base.OnDestroy();
+        }
     }
 }

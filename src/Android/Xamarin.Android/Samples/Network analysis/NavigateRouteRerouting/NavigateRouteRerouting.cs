@@ -298,6 +298,14 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
         {
             Console.WriteLine(status.ToString());
         }
+
+        protected override void OnDestroy()
+        {
+            // Stop the location data source.
+            _myMapView?.LocationDisplay?.DataSource?.StopAsync();
+
+            base.OnDestroy();
+        }
     }
 
     // This location data source uses an input data source and a route tracker.

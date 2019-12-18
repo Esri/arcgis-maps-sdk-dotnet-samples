@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-using Colors = System.Drawing.Color;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.BufferList
 {
@@ -127,10 +127,10 @@ namespace ArcGISRuntime.Samples.BufferList
                 // Use a helper method to get the buffer distance in feet (unit that's used by the spatial reference).
                 double bufferDistanceFeet = LinearUnits.Miles.ConvertTo(LinearUnits.Feet, bufferDistanceMiles);
 
-                // Create a simple marker symbol (red circle) to display where the user tapped/clicked on the map. 
+                // Create a simple marker symbol (red circle) to display where the user tapped/clicked on the map.
                 SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
 
-                // Create a new graphic to show the tap location. 
+                // Create a new graphic to show the tap location.
                 Graphic tapGraphic = new Graphic(tapMapPoint, tapSymbol)
                 {
                     // Specify a z-index value on the point graphic to make sure it draws on top of the buffer polygons.
@@ -203,7 +203,7 @@ namespace ArcGISRuntime.Samples.BufferList
                         ZIndex = 0
                     };
 
-                    // Add the buffered polygon graphic to the graphics overlay.                    
+                    // Add the buffered polygon graphic to the graphics overlay.
                     MyMapView.GraphicsOverlays[0].Graphics.Add(bufferPolygonGraphic);
                 }
             }
@@ -221,7 +221,7 @@ namespace ArcGISRuntime.Samples.BufferList
             _random.NextBytes(colorBytes);
 
             // Use the random bytes to define red, green, and blue values for a new color.
-            return Colors.FromArgb(155, colorBytes[0], colorBytes[1], colorBytes[2]);
+            return Color.FromArgb(155, colorBytes[0], colorBytes[1], colorBytes[2]);
         }
 
         private void ClearButton_Click(object sender, EventArgs e)

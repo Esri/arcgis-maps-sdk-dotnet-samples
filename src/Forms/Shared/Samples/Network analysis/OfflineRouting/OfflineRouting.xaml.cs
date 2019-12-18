@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -20,6 +20,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
 {
@@ -143,7 +144,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
                 // Add a stop to the list for each graphic in the stops overlay.
                 foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
                 {
-                    Stop stop = new Stop((MapPoint) stopGraphic.Geometry);
+                    Stop stop = new Stop((MapPoint)stopGraphic.Geometry);
                     stops.Add(stop);
                 }
 
@@ -200,7 +201,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
                 stopSymbol.OffsetY = 15;
 
                 // Create a combined symbol with the pushpin and the label.
-                CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] {pushpinMarker, stopSymbol});
+                CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
                 // Create the graphic from the geometry and the symbology.
                 Graphic newStopGraphic = new Graphic(tappedLocation, combinedSymbol);
@@ -257,7 +258,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
             AddStop(e.Position);
 
             // Update the route with the final list of stops.
-            UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
+            UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
         }
 
         private void TravelMode_SelectionChanged(object sender, EventArgs e)
@@ -271,7 +272,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
                 }
 
                 // Update the route.
-                UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
+                UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
             }
             catch (Exception ex)
             {

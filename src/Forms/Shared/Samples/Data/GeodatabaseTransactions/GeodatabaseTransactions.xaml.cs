@@ -194,6 +194,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 // These buttons should be enabled when there is NOT a transaction
                 StartEditingButton.IsEnabled = !e.IsInTransaction;
                 SyncEditsButton.IsEnabled = !e.IsInTransaction;
+                RequireTransactionCheckBox.IsEnabled = !e.IsInTransaction;
             });
         }
         

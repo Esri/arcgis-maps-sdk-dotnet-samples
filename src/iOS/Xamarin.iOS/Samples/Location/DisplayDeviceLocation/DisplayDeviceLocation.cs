@@ -149,6 +149,9 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             // Unsubscribe from events, per best practice.
             _startButton.Clicked -= OnStartButtonClicked;
             _stopButton.Clicked -= OnStopButtonClicked;
+
+            // Stop the location data source.
+            _myMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

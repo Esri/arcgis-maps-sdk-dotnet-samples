@@ -29,9 +29,6 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private List<Geometry> _inputPointsList = new List<Geometry>();
-
-        // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
         private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
 
         public ConvexHull()

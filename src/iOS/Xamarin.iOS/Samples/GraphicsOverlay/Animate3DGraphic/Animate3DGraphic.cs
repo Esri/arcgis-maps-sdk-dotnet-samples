@@ -85,9 +85,6 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         //    A MissionFrame contains the position of the plane for a single moment in the animation.
         private MissionFrame[] _missionData;
 
-        // Flags for the toggle-able states (controls when stats are shown and when the orbit camera is used).
-        private bool _showStats;
-
         // Flag to control which camera will be used.
         private bool _shouldFollowPlane = true;
 

@@ -53,6 +53,9 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
 
         private async void Initialize()
         {
+            // Add event handler for when this sample is unloaded.
+            Unloaded += SampleUnloaded;
+
             // Show a map with a streets basemap.
             MyMapView.Map = new Map(Basemap.CreateStreetsVector());
 
@@ -426,6 +429,12 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
 
             // Run the search.
             UpdateSearch(searchText, locationText);
+        }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

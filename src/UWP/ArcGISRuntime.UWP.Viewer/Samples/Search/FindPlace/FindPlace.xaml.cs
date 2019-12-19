@@ -50,6 +50,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
 
         private async void Initialize()
         {
+            // Add event handler for when this sample is unloaded.
+            Unloaded += SampleUnloaded;
+
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateStreets());
 
@@ -409,6 +412,12 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
         {
             // Hide the callout
             MyMapView.DismissCallout();
+        }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

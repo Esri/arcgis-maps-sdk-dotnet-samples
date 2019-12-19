@@ -626,6 +626,9 @@ namespace ArcGISRuntime.Samples.FindPlace
             _locationBox.AllEditingEvents -= LocationBox_TextChanged;
             _searchBox.ShouldReturn -= HandleTextField;
             _locationBox.ShouldReturn -= HandleTextField;
+
+            // Stop the location data source.
+            _myMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 

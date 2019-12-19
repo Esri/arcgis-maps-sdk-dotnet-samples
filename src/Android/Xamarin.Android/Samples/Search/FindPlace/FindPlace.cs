@@ -452,6 +452,14 @@ namespace ArcGISRuntime.Samples.FindPlace
         }
         
         private void ShowMessage(string message, string title = "Error") => new AlertDialog.Builder(this).SetTitle(title).SetMessage(message).Show();
+
+        protected override void OnDestroy()
+        {
+            // Stop the location data source.
+            _myMapView?.LocationDisplay?.DataSource?.StopAsync();
+
+            base.OnDestroy();
+        }
     }
 
     #region Location Display Permissions

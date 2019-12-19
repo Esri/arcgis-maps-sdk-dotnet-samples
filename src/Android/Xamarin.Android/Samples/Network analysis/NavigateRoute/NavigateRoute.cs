@@ -267,6 +267,14 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         {
             Console.WriteLine(status.ToString());
         }
+
+        protected override void OnDestroy()
+        {
+            // Stop the location data source.
+            _myMapView?.LocationDisplay?.DataSource?.StopAsync();
+
+            base.OnDestroy();
+        }
     }
 
     /*

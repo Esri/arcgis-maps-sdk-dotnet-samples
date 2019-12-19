@@ -34,6 +34,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
 
         private void Initialize()
         {
+            // Add event handler for when this sample is unloaded.
+            Unloaded += SampleUnloaded;
+
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateImagery());
 
@@ -105,6 +108,12 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
                     MyMapView.LocationDisplay.IsEnabled = true;
                     break;
             }
+        }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

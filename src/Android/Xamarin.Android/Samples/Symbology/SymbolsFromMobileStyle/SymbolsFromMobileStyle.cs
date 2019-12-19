@@ -399,7 +399,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
             return dialogView;
         }
 
-        private async Task ReadMobileStyle(string mobileStyleFilePath)
+        private async void ReadMobileStyle(string mobileStyleFilePath)
         {
             try
             {

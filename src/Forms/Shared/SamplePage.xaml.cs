@@ -120,7 +120,7 @@ namespace ArcGISRuntime
             {
                 try
                 {
-                    Launcher.TryOpenAsync(new Uri(e.Url));
+                    Launcher.OpenAsync(new Uri(e.Url));
                     e.Cancel = true;
                 }
                 catch (Exception ex)

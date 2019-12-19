@@ -52,6 +52,9 @@ namespace ArcGISRuntime.WPF.Samples.ShowLocationHistory
 
         private void Initialize()
         {
+            // Add event handler for when this sample is unloaded.
+            Unloaded += SampleUnloaded;
+
             // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
 
@@ -157,5 +160,11 @@ namespace ArcGISRuntime.WPF.Samples.ShowLocationHistory
         private void LocationTrackingButton_OnClick(object sender, RoutedEventArgs e) => ToggleLocationTracking();
 
         private void ShowMessage(string title, string detail) => MessageBox.Show(detail, title);
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
+        }
     }
 }

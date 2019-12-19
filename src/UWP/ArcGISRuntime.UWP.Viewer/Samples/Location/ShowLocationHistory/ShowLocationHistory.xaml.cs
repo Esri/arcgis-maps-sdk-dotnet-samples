@@ -53,6 +53,9 @@ namespace ArcGISRuntime.UWP.Samples.ShowLocationHistory
 
         private void Initialize()
         {
+            // Add event handler for when this sample is unloaded.
+            Unloaded += SampleUnloaded;
+
             // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
 
@@ -160,6 +163,12 @@ namespace ArcGISRuntime.UWP.Samples.ShowLocationHistory
         private async void ShowMessage(string title, string detail)
         {
             await new MessageDialog(detail, title).ShowAsync();
+        }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

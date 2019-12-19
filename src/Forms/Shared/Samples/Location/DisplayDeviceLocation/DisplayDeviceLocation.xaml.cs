@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         "Location",
         "This sample demonstrates how you can enable location services and switch between different types of auto pan modes.",
         "")]
-    public partial class DisplayDeviceLocation : ContentPage
+    public partial class DisplayDeviceLocation : ContentPage, IDisposable
     {
         // String array to store the different device location options.
         private string[] _navigationTypes =
@@ -107,6 +107,12 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                 Debug.WriteLine(ex);
                 await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
             }
+        }
+
+        public void Dispose()
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Diagnostics;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -91,7 +92,7 @@ namespace ArcGISRuntime
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
         }
 
@@ -108,7 +109,7 @@ namespace ArcGISRuntime
             {
                 try
                 {
-                    Device.OpenUri(new Uri(e.Url));
+                    Launcher.OpenAsync(new Uri(e.Url));
                     e.Cancel = true;
                 }
                 catch (Exception ex)

@@ -45,7 +45,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolsFromMobileStyle
             Initialize();
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
             // Create a new topographic basemap and assign it to the map view.
             Map map = new Map(Basemap.CreateTopographic());

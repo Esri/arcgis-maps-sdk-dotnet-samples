@@ -378,7 +378,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 }
 
                 // Show the message.
-                Application.Current.MainPage.DisplayAlert("Error", message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", message, "OK");
             }
         }
 

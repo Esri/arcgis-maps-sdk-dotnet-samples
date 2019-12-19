@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
             Initialize();
         }
 
-        private async Task Initialize()
+        private async void Initialize()
         {
             SelectSymbolGrid.IsVisible = false;
 

@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.AddGraphicsRenderer
 {

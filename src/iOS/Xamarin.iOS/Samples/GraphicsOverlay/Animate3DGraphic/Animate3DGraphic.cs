@@ -20,7 +20,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Timers;
 using UIKit;
 
@@ -188,7 +187,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 };
 
                 // Set the initial mission for when the sample loads.
-                await ChangeMission(_missionToItemId.Keys.First());
+                ChangeMission(_missionToItemId.Keys.First());
             }
             catch (Exception e)
             {
@@ -216,15 +215,14 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             foreach (string item in _missionToItemId.Keys)
             {
                 // Selecting the mission will call the ChangeMission method.
-                missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default,
-                    async action => await ChangeMission(item)));
+                missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => ChangeMission(item)));
             }
 
             // Show the alert.
             PresentViewController(missionSelectionAlert, true, null);
         }
 
-        private async Task ChangeMission(string mission)
+        private void ChangeMission(string mission)
         {
             // Stop animating the current mission.
             _animationTimer.Stop();

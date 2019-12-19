@@ -1,0 +1,33 @@
+{
+    "category": "Layers",
+    "description": "Display annotation from a feature service URL.",
+    "formal_name": "DisplayAnnotation",
+    "ignore": false,
+    "images": [
+        "DisplayAnnotation.jpg"
+    ],
+    "keywords": [
+        "annotation",
+        "cartography",
+        "labels",
+        "placement",
+        "reference scale",
+        "text",
+        "utility"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.7.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/displayannotation.htm"
+    ],
+    "relevant_apis": [
+        "AnnotationLayer",
+        "FeatureLayer"
+    ],
+    "snippets": [
+        "DisplayAnnotation.cs"
+    ],
+    "title": "Display annotation"
+}

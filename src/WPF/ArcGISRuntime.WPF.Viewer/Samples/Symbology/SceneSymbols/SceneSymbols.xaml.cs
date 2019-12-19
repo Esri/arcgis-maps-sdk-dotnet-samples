@@ -21,7 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneSymbols
         "Symbology",
         "Show various kinds of 3D symbols in a scene.",
         "",
-        "Scenes", "Symbols", "Graphics", "graphics overlay", "3D", "cone", "cylinder", "tube", "sphere", "diamond", "tetrahedron", "Featured")]
+        "Scenes", "Symbols", "Graphics", "graphics overlay", "3D", "cone", "cylinder", "tube", "sphere", "diamond", "tetrahedron")]
     public partial class SceneSymbols
     {
         private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";

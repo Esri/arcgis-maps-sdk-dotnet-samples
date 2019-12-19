@@ -1,25 +1,25 @@
-// Copyright 2016 Esri.
+// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.AddGraphicsRenderer
 {
     [Register("AddGraphicsRenderer")]
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [Shared.Attributes.Sample(
         "Add graphics (SimpleRenderer)",
         "GraphicsOverlay",
         "This sample demonstrates how you add graphics and set a renderer on a graphic overlays.",
@@ -36,43 +36,28 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
 
         private void Initialize()
         {
-            // Create a map with 'Imagery with Labels' basemap and an initial location.
-            Map map = new Map(BasemapType.ImageryWithLabels, 34.056295, -117.195800, 14);
-
-            // Create graphics when MapView's viewpoint is initialized.
-            _myMapView.ViewpointChanged += OnViewpointChanged;
+            // Create a map with 'Imagery with Labels' basemap.
+            Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
             // Assign the map to the MapView.
-            _myMapView.Map = map;
-        }
+            _myMapView.Map = myMap;
 
-        private void OnViewpointChanged(object sender, EventArgs e)
-        {
-            // Unhook the event.
-            _myMapView.ViewpointChanged -= OnViewpointChanged;
+            // Create a center point for the graphics.
+            MapPoint centerPoint = new MapPoint(-117.195800, 34.056295, SpatialReferences.Wgs84);
 
-            // Get area that is shown in a MapView.
-            Polygon visibleArea = _myMapView.VisibleArea;
+            // Create an envelope from that center point.
+            Envelope pointExtent = new Envelope(centerPoint, .07, .035);
 
-            // Get extent of that area.
-            Envelope extent = visibleArea.Extent;
-
-            // Get central point of the extent.
-            MapPoint centerPoint = extent.GetCenter();
-
-            // Create values inside the visible extent for creating graphic.
-            double extentWidth = extent.Width / 5;
-            double extentHeight = extent.Height / 10;
-
-            // Create point collection.
-            PointCollection points = new PointCollection(SpatialReferences.WebMercator)
+            // Create a collection of points on the corners of the envelope.
+            PointCollection points = new PointCollection(SpatialReferences.Wgs84)
             {
-                new MapPoint(centerPoint.X - extentWidth * 2, centerPoint.Y - extentHeight * 2),
-                new MapPoint(centerPoint.X - extentWidth * 2, centerPoint.Y + extentHeight * 2),
-                new MapPoint(centerPoint.X + extentWidth * 2, centerPoint.Y + extentHeight * 2),
-                new MapPoint(centerPoint.X + extentWidth * 2, centerPoint.Y - extentHeight * 2)
+                new MapPoint(pointExtent.XMax, pointExtent.YMax),
+                new MapPoint(pointExtent.XMax, pointExtent.YMin),
+                new MapPoint(pointExtent.XMin, pointExtent.YMax),
+                new MapPoint(pointExtent.XMin, pointExtent.YMin),
             };
 
+            // Create overlay to where graphics are shown.
             GraphicsOverlay overlay = new GraphicsOverlay();
 
             // Add points to the graphics overlay.
@@ -83,22 +68,24 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
             }
 
             // Create symbol for points.
-            SimpleMarkerSymbol pointSymbol = new SimpleMarkerSymbol
+            SimpleMarkerSymbol pointSymbol = new SimpleMarkerSymbol()
             {
-                Color = System.Drawing.Color.Yellow,
+                Color = Color.Yellow,
                 Size = 30,
                 Style = SimpleMarkerSymbolStyle.Square
             };
 
-            // Create and used simple renderer with symbol.
-            overlay.Renderer = new SimpleRenderer(pointSymbol);
+            // Create simple renderer with symbol.
+            SimpleRenderer renderer = new SimpleRenderer(pointSymbol);
 
-            // Make sure that the UI changes are done in the UI thread.
-            InvokeOnMainThread(() =>
-            {
-                // Add created overlay to the MapView.
-                _myMapView.GraphicsOverlays.Add(overlay);
-            });
+            // Set renderer to graphics overlay.
+            overlay.Renderer = renderer;
+
+            // Add created overlay to the MapView.
+            _myMapView.GraphicsOverlays.Add(overlay);
+
+            // Center the MapView on the points.
+            _myMapView.SetViewpointGeometryAsync(pointExtent, 50);
         }
 
         public override void ViewDidLoad()
@@ -110,7 +97,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

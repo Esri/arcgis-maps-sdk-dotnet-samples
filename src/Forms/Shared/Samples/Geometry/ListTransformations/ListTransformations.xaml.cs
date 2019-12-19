@@ -7,14 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
@@ -24,9 +24,9 @@ namespace ArcGISRuntime.Samples.ListTransformations
         "List transformations by suitability",
         "Geometry",
         "This sample demonstrates how to use the TransformationCatalog to get a list of available DatumTransformations that can be used to project a Geometry between two different SpatialReferences, and how to use one of the transformations to perform the GeometryEngine.project operation. The TransformationCatalog is also used to set the location of files upon which grid-based transformations depend, and to find the default transformation used for the two SpatialReferences.",
-        "Tap on a listed transformation to re-project the point geometry (shown with a blue square) using the selected transformation. The reprojected geometry will be shown in red. If there are grid-based transformations for which projection engine files are not available locally, these will be shown in gray in the list. The default transformation is shown in bold. To download the additional transformation data, log on to your developers account (http://developers.arcgis.com), click the 'Download APIs' button on the dashboard page, and download the 'Coordinate System Data' archive from the 'Supplemental ArcGIS Runtime Data' tab. Unzip the archive to the 'SampleData' sub-folder of the ApplicationData directory, which can be found for each platform at run time with System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData).",
-        "Featured")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+        "Tap on a listed transformation to re-project the point geometry (shown with a blue square) using the selected transformation. The reprojected geometry will be shown in red. If there are grid-based transformations for which projection engine files are not available locally, these will be shown in gray in the list. The default transformation is shown in bold. To download the additional transformation data, log on to your developers account (http://developers.arcgis.com), click the 'Download APIs' button on the dashboard page, and download the 'Coordinate System Data' archive from the 'Supplemental ArcGIS Runtime Data' tab. Unzip the archive to the 'SampleData' sub-folder of the ApplicationData directory, which can be found for each platform at run time with System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)."
+        )]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ListTransformations : ContentPage
     {
         // Point whose coordinates will be projected using a selected transform.
@@ -38,8 +38,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
         // GraphicsOverlay to hold the point graphics.
         private GraphicsOverlay _pointsOverlay;
 
-        // Property to expose the list of datum transformations for binding to the list box.
-        private IReadOnlyList<DatumTransformationListBoxItem> _datumTransformations;
         public ObservableCollection<DatumTransformationListBoxItem> SuitableTransformationsList { get; } = new ObservableCollection<DatumTransformationListBoxItem>();
 
         public ListTransformations()
@@ -54,7 +52,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Create the map.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
-            // Create a point in the Greenwich observatory courtyard in London, UK, the location of the prime meridian. 
+            // Create a point in the Greenwich observatory courtyard in London, UK, the location of the prime meridian.
             _originalPoint = new MapPoint(538985.355, 177329.516, SpatialReference.Create(27700));
 
             // Set the initial extent to an extent centered on the point.
@@ -191,8 +189,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
         private string GetProjectionDataPath()
         {
-            // Return the projection data path; note that this is not valid by default. 
-            //You must manually download the projection engine data and update the path returned here. 
+            // Return the projection data path; note that this is not valid by default.
+            //You must manually download the projection engine data and update the path returned here.
             return "";
         }
     }
@@ -213,7 +211,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         }
     }
 
-    // Class to select the appropriate data template for datum transformation list items. 
+    // Class to select the appropriate data template for datum transformation list items.
     public class TransformRowTemplateSelector : DataTemplateSelector
     {
         // Data templates for three types of datum transformations.

@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -52,6 +53,7 @@ namespace ArcGISRuntime
             private readonly UITableViewController _controller;
             private LoadingOverlay _loadPopup;
             private readonly List<SampleInfo> _data;
+            private SampleInfo _sample;
 
             public SamplesDataSource(UITableViewController controller, IEnumerable<object> data)
             {
@@ -82,30 +84,47 @@ namespace ArcGISRuntime
                     // Call a function to clear existing credentials
                     ClearCredentials();
 
-                    var sample = _data[indexPath.Row];
+                    _sample = _data[indexPath.Row];
 
-                    if (sample.OfflineDataItems != null)
+                    if (_sample.OfflineDataItems != null)
                     {
+                        // Create a cancellation token source.
+                        var cancellationTokenSource = new CancellationTokenSource();
+
                         // Show progress overlay
                         var bounds = UIScreen.MainScreen.Bounds;
 
-                        _loadPopup = new LoadingOverlay(bounds);
+                        _loadPopup = new LoadingOverlay(bounds, cancellationTokenSource);
                         _controller.ParentViewController.View.Add(_loadPopup);
 
                         // Ensure data present
-                        await DataManager.EnsureSampleDataPresent(sample);
+                        await DataManager.EnsureSampleDataPresent(_sample, cancellationTokenSource.Token);
 
                         // Hide progress overlay
                         _loadPopup.Hide();
                     }
 
-                    var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+                    var control = (UIViewController)SampleManager.Current.SampleToControl(_sample);
+                    control.NavigationItem.RightBarButtonItem = new UIBarButtonItem(UIImage.FromBundle("InfoIcon"), UIBarButtonItemStyle.Plain, ViewSampleReadme);
                     _controller.NavigationController.PushViewController(control, true);
+                }
+                catch (OperationCanceledException)
+                {
+                    _loadPopup.Hide();
+                    _controller.TableView.DeselectRow(indexPath, true);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
+            }
+
+            private void ViewSampleReadme(object sender, EventArgs e)
+            {
+                var switcher = new UISegmentedControl(new string[] { "About", "Source code" }) { SelectedSegment = 0 };
+                var control = new SampleInfoViewController(_sample, switcher);
+                control.NavigationItem.RightBarButtonItem = new UIBarButtonItem() { CustomView = switcher };
+                _controller.NavigationController.PushViewController(control, true);
             }
 
             private static void ClearCredentials()

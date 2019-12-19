@@ -3,13 +3,14 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
 using Android.OS;
 using Android.Widget;
+using ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -24,13 +25,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides;
 using Xamarin.Auth;
 using AlertDialog = Android.App.AlertDialog;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Generate offline map (overrides)",
         "Map",
@@ -57,10 +57,16 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         // The ID for a web map item hosted on the server (water network map of Naperville IL).
         private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
 
+        // Values for taking things the map offline.
+        private string _packagePath;
+        private OfflineMapTask _takeMapOfflineTask;
+        private GenerateOfflineMapParameters _parameters;
+        private GenerateOfflineMapParameterOverrides _overrides;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            Title = "Generate an offline map";
+            Title = "Generate offline map (overrides)";
 
             // Create the UI, setup the control references and execute initialization.
             CreateLayout();
@@ -104,14 +110,16 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         {
             try
             {
-                // Call a function to set up the AuthenticationManager for OAuth.
-                SetOAuthInfo();
-
                 // Create the ArcGIS Online portal.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
                 // Get the Naperville water web map item using its ID.
                 PortalItem webmapItem = await PortalItem.CreateAsync(portal, WebMapId);
+
+                // Call a function to set up the AuthenticationManager for OAuth.
+                SetOAuthInfo();
+                var credential = await AuthenticationManager.Current.GenerateCredentialAsync(webmapItem.Url);
+                AuthenticationManager.Current.AddCredential(credential);
 
                 // Create a map from the web map item.
                 Map onlineMap = new Map(webmapItem);
@@ -165,82 +173,93 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             }
 
             // Create a new folder for the output mobile map.
-            string packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork");
+            _packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork");
             int num = 1;
-            while (Directory.Exists(packagePath))
+            while (Directory.Exists(_packagePath))
             {
-                packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num.ToString());
+                _packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num.ToString());
                 num++;
             }
 
             // Create the output directory.
-            Directory.CreateDirectory(packagePath);
+            Directory.CreateDirectory(_packagePath);
 
             try
             {
                 // Create an offline map task with the current (online) map.
-                OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(_mapView.Map);
+                _takeMapOfflineTask = await OfflineMapTask.CreateAsync(_mapView.Map);
 
                 // Create the default parameters for the task, pass in the area of interest.
-                GenerateOfflineMapParameters parameters = await takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
+                _parameters = await _takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
 
                 // Get the overrides.
-                GenerateOfflineMapParameterOverrides overrides = await takeMapOfflineTask.CreateGenerateOfflineMapParameterOverridesAsync(parameters);
+                _overrides = await _takeMapOfflineTask.CreateGenerateOfflineMapParameterOverridesAsync(_parameters);
 
                 // Create the overrides UI.
-                ParameterOverrideFragment overlayFragment = new ParameterOverrideFragment(overrides, _mapView.Map);
+                ParameterOverrideFragment overlayFragment = new ParameterOverrideFragment(_overrides, _mapView.Map);
 
-                // Resume work when the dialog is closed.
-                overlayFragment.FinishedConfiguring += async (o, args) =>
-                {
-                    // Show the progress dialog while the job is running.
-                    _alertDialog.Show();
+                // Complete configuration when the dialog is closed.
+                overlayFragment.FinishedConfiguring += ConfigurationContinuation;
 
-                    // Create the job with the parameters and output location.
-                    _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath, overrides);
-
-                    // Handle the progress changed event for the job.
-                    _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
-
-                    // Await the job to generate geodatabases, export tile packages, and create the mobile map package.
-                    GenerateOfflineMapResult results = await _generateOfflineMapJob.GetResultAsync();
-
-                    // Check for job failure (writing the output was denied, e.g.).
-                    if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
-                    {
-                        // Report failure to the user.
-                        ShowStatusMessage("Failed to take the map offline.");
-                    }
-
-                    // Check for errors with individual layers.
-                    if (results.LayerErrors.Any())
-                    {
-                        // Build a string to show all layer errors.
-                        System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
-                        foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
-                        {
-                            errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
-                        }
-
-                        // Show layer errors.
-                        ShowStatusMessage(errorBuilder.ToString());
-                    }
-
-                    // Display the offline map.
-                    _mapView.Map = results.OfflineMap;
-
-                    // Apply the original viewpoint for the offline map.
-                    _mapView.SetViewpoint(new Viewpoint(_areaOfInterest));
-
-                    // Enable map interaction so the user can explore the offline data.
-                    _mapView.InteractionOptions.IsEnabled = true;
-
-                    // Change the title and disable the "Take map offline" button.
-                    _takeMapOfflineButton.Text = "Map is offline";
-                    _takeMapOfflineButton.Enabled = false;
-                };
-
+                // Display the configuration window.
                 overlayFragment.Show(FragmentManager, "");
+            }
+            catch (Exception ex)
+            {
+                // Exception while taking the map offline.
+                ShowStatusMessage(ex.Message);
+            }
+        }
+
+        private async void ConfigurationContinuation(object sender, EventArgs e)
+        {
+            try
+            {
+                // Show the progress dialog while the job is running.
+                _alertDialog.Show();
+
+                // Create the job with the parameters and output location.
+                _generateOfflineMapJob = _takeMapOfflineTask.GenerateOfflineMap(_parameters, _packagePath, _overrides);
+
+                // Handle the progress changed event for the job.
+                _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
+
+                // Await the job to generate geodatabases, export tile packages, and create the mobile map package.
+                GenerateOfflineMapResult results = await _generateOfflineMapJob.GetResultAsync();
+
+                // Check for job failure (writing the output was denied, e.g.).
+                if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
+                {
+                    // Report failure to the user.
+                    ShowStatusMessage("Failed to take the map offline.");
+                }
+
+                // Check for errors with individual layers.
+                if (results.LayerErrors.Any())
+                {
+                    // Build a string to show all layer errors.
+                    System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
+                    foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
+                    {
+                        errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
+                    }
+
+                    // Show layer errors.
+                    ShowStatusMessage(errorBuilder.ToString());
+                }
+
+                // Display the offline map.
+                _mapView.Map = results.OfflineMap;
+
+                // Apply the original viewpoint for the offline map.
+                _mapView.SetViewpoint(new Viewpoint(_areaOfInterest));
+
+                // Enable map interaction so the user can explore the offline data.
+                _mapView.InteractionOptions.IsEnabled = true;
+
+                // Change the title and disable the "Take map offline" button.
+                _takeMapOfflineButton.Text = "Map is offline";
+                _takeMapOfflineButton.Enabled = false;
             }
             catch (TaskCanceledException)
             {
@@ -254,7 +273,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             }
             finally
             {
-                // Hide the loading overlay when the job is done.
                 _alertDialog.Dismiss();
             }
         }
@@ -445,8 +463,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             return _taskCompletionSource.Task;
         }
 
-        #endregion
+        #endregion IOAuthAuthorizationHandler implementation
 
-        #endregion
+        #endregion Authentication
     }
 }

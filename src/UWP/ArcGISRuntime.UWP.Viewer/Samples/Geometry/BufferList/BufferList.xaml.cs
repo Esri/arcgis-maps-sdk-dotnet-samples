@@ -144,12 +144,11 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message.
-                MessageDialog dialog = new MessageDialog(ex.Message, "Error creating buffer point");
-                await dialog.ShowAsync();
+                await new MessageDialog(ex.Message, "Error creating buffer point").ShowAsync();
             }
         }
 
-        private void BufferButton_Click(object sender, RoutedEventArgs e)
+        private async void BufferButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -209,8 +208,7 @@ namespace ArcGISRuntime.UWP.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffers.
-                MessageDialog dialog = new MessageDialog(ex.Message, "Unable to create buffer polygons");
-                dialog.ShowAsync();
+                await new MessageDialog(ex.Message, "Unable to create buffer polygons").ShowAsync();
             }
         }
 

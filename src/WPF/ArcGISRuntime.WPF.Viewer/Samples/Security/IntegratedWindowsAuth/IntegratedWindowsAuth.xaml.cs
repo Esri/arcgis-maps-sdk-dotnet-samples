@@ -62,7 +62,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
             try
             {
                 // Dispatch to the UI thread to show the login UI.
-                credential = this.Dispatcher.Invoke(new Func<Credential>(() =>
+                credential = Dispatcher.Invoke(new Func<Credential>(() =>
                 {
                     Credential cred = null;
 

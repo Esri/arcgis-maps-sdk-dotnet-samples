@@ -25,7 +25,8 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
         "Apply scheduled updates to preplanned map area",
         "Map",
         "Apply scheduled updates to a downloaded preplanned map area.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class ApplyScheduledUpdates : UIViewController
     {
@@ -192,7 +193,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                 Text = " \n ",
                 AdjustsFontSizeToFitWidth = true,
                 TextAlignment = UITextAlignment.Left,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .7f),
+                BackgroundColor = UIColor.White,
                 TextColor = UIColor.White,
                 LineBreakMode = UILineBreakMode.WordWrap,
                 Lines = 2,

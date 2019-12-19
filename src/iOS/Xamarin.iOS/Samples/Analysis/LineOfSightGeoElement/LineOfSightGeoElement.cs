@@ -27,8 +27,8 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         "Line of sight (GeoElement)",
         "Analysis",
         "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
-        "Use the slider to adjust the height of the observer.",
-        "Featured")]
+        "Use the slider to adjust the height of the observer."
+        )]
     public class LineOfSightGeoElement : UIViewController
     {
         // Hold references to UI controls.
@@ -250,7 +250,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
             View.BackgroundColor = UIColor.White;
 
             _mySceneView = new SceneView();

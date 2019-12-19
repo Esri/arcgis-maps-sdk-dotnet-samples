@@ -32,7 +32,6 @@ using UIKit;
 using Android.App;
 using Application = Xamarin.Forms.Application;
 using Xamarin.Auth;
-using System.IO;
 #endif
 
 namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference

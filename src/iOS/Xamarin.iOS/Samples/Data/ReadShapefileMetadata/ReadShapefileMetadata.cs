@@ -23,8 +23,8 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         "Read shapefile metadata",
         "Data",
         "This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.",
-        "The shapefile will be downloaded from an ArcGIS Online portal automatically.",
-        "Featured")]
+        "The shapefile will be downloaded from an ArcGIS Online portal automatically."
+        )]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("MetadataDisplayViewController.cs")]
     public class ReadShapefileMetadata : UIViewController
     {
@@ -101,7 +101,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
             View.BackgroundColor = UIColor.White;
 
             _myMapView = new MapView();

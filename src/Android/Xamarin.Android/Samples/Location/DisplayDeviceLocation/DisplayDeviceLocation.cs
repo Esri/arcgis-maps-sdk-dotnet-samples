@@ -231,5 +231,13 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             // Show the layout in the app.
             SetContentView(layout);
         }
+
+        protected override void OnDestroy()
+        {
+            // Stop the location data source.
+            _myMapView?.LocationDisplay?.DataSource?.StopAsync();
+
+            base.OnDestroy();
+        }
     }
 }

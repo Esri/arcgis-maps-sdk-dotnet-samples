@@ -182,8 +182,11 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _playButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _pauseButton,
-                _resetButton
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _resetButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
             };
 
             UILabel helpLabel = new UILabel

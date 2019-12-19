@@ -1,103 +1,194 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntime.Samples.SearchPortalMaps.SearchPortalMaps">
-  <Grid x:Name="LayoutRoot">
-    <Grid.RowDefinitions>
-      <RowDefinition/>
-      <RowDefinition Height="70"/>
-    </Grid.RowDefinitions>
+<ContentPage
+    x:Class="ArcGISRuntime.Samples.SearchPortalMaps.SearchPortalMaps"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
 
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="0"/>
-        <TableView x:Name="SearchMapsUI"
-                   Grid.Row="0"
-                   IsVisible="False"
-                   Intent="Form">
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+        <TableView
+            x:Name="SearchMapsUI"
+            Grid.Row="0"
+            BackgroundColor="WhiteSmoke"
+            Intent="Form"
+            IsVisible="False">
             <TableRoot>
-                <TableSection Title="Search Public Maps">
-                    <EntryCell x:Name="SearchTextEntry"
-                               Label="Search Text:"
-                               Text=""/>
+                <TableSection Title="Search public maps">
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal"
-                                     HorizontalOptions="CenterAndExpand">
-                            <Button Text="Cancel"
-                                    Clicked="CancelSearchClicked"
-                                    Margin="20,0"/>
-                            <Button Text="Search"
-                                    Clicked="SearchMapsClicked"/>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Search text:">
+                                <Label.TextColor>
+                                    <OnPlatform x:TypeArguments="Color">
+                                        <On Platform="Android" Value="DarkGray" />
+                                    </OnPlatform>
+                                </Label.TextColor>
+                            </Label>
+                            <Entry
+                                x:Name="SearchTextEntry"
+                                HorizontalOptions="Start"
+                                Placeholder=""
+                                VerticalOptions="Center"
+                                WidthRequest="240">
+                                <Entry.TextColor>
+                                    <OnPlatform x:TypeArguments="Color">
+                                        <On Platform="Android" Value="DarkGray" />
+                                    </OnPlatform>
+                                </Entry.TextColor>
+                            </Entry>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Button
+                                Margin="20,0"
+                                Clicked="CancelSearchClicked"
+                                HorizontalOptions="FillAndExpand"
+                                Text="Cancel" />
+                            <Button
+                                Clicked="SearchMapsClicked"
+                                HorizontalOptions="FillAndExpand"
+                                Text="Search" />
                         </StackLayout>
                     </ViewCell>
                 </TableSection>
             </TableRoot>
         </TableView>
-        <ListView x:Name="MapsListView" 
-                  IsVisible="False"
-                  SelectionMode="Single"
-                  ItemSelected="MapItemSelected">
+        <ListView
+            x:Name="MapsListView"
+            BackgroundColor="WhiteSmoke"
+            IsVisible="False"
+            ItemSelected="MapItemSelected"
+            SelectionMode="Single">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <ViewCell.View>
                             <StackLayout>
-                                <Label Text="{Binding Title}"/>
+                                <Label Text="{Binding Title}">
+                                    <Label.TextColor>
+                                        <OnPlatform x:TypeArguments="Color">
+                                            <On Platform="Android" Value="DarkGray" />
+                                        </OnPlatform>
+                                    </Label.TextColor>
+                                </Label>
                             </StackLayout>
                         </ViewCell.View>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Grid x:Name="OAuthSettingsGrid" 
-          Grid.Row="0"
-          HorizontalOptions="Center" VerticalOptions="Center"
-          WidthRequest="300">
+        <Grid
+            x:Name="OAuthSettingsGrid"
+            Grid.Row="0"
+            BackgroundColor="WhiteSmoke"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            WidthRequest="300">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition/>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.ColumnSpan="2" 
-             HorizontalOptions="Center" VerticalOptions="Start"
-             Text="OAuth Settings"/>
-            <Label Grid.Row="1"
-             HorizontalOptions="End" VerticalOptions="Center"
-             Text="Client ID:"/>
-            <Entry x:Name="ClientIDEntry" 
-             Grid.Row="1" Grid.Column="1" 
-             Placeholder="mYCl1enTiD"
-             HorizontalOptions="Start" VerticalOptions="Center"
-             WidthRequest="240"/>
-            <Label Grid.Row="2"
-             HorizontalOptions="End" VerticalOptions="Center"
-             Text="Redirect URL:"/>
-            <Entry x:Name="RedirectUrlEntry" 
-             Grid.Row="2" Grid.Column="1" 
-             Placeholder="http://my.redirect/url"
-             HorizontalOptions="Start" VerticalOptions="Center"
-             WidthRequest="240"/>
-            <Button Grid.Row="3" Grid.Column="0"
-              HorizontalOptions="End" VerticalOptions="End"
-              Text="Cancel"
-              Clicked="OAuthSettingsCancel"/>
-            <Button Grid.Row="3" Grid.Column="1"
-              HorizontalOptions="CenterAndExpand" VerticalOptions="End"
-              Text="Use Settings"
-              Clicked="SaveOAuthSettings"/>
+            <Label
+                Grid.Row="0"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="Center"
+                Text="OAuth Settings"
+                VerticalOptions="Start">
+                <Label.TextColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="Android" Value="DarkGray" />
+                    </OnPlatform>
+                </Label.TextColor>
+            </Label>
+            <Label
+                Grid.Row="1"
+                HorizontalOptions="End"
+                Text="Client ID:"
+                VerticalOptions="Center">
+                <Label.TextColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="Android" Value="DarkGray" />
+                    </OnPlatform>
+                </Label.TextColor>
+            </Label>
+            <Entry
+                x:Name="ClientIDEntry"
+                Grid.Row="1"
+                Grid.Column="1"
+                HorizontalOptions="Start"
+                Placeholder="mYCl1enTiD"
+                VerticalOptions="Center"
+                WidthRequest="240">
+                <Entry.TextColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="Android" Value="DarkGray" />
+                    </OnPlatform>
+                </Entry.TextColor>
+            </Entry>
+            <Label
+                Grid.Row="2"
+                HorizontalOptions="End"
+                Text="Redirect URL:"
+                VerticalOptions="Center">
+                <Label.TextColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="Android" Value="DarkGray" />
+                    </OnPlatform>
+                </Label.TextColor>
+            </Label>
+            <Entry
+                x:Name="RedirectUrlEntry"
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalOptions="Start"
+                Placeholder="http://my.redirect/url"
+                VerticalOptions="Center"
+                WidthRequest="240">
+                <Entry.TextColor>
+                    <OnPlatform x:TypeArguments="Color">
+                        <On Platform="Android" Value="DarkGray" />
+                    </OnPlatform>
+                </Entry.TextColor>
+            </Entry>
+            <Button
+                Grid.Row="3"
+                Grid.Column="0"
+                Clicked="OAuthSettingsCancel"
+                HorizontalOptions="FillAndExpand"
+                Text="Cancel"
+                VerticalOptions="End" />
+            <Button
+                Grid.Row="3"
+                Grid.Column="1"
+                Clicked="SaveOAuthSettings"
+                HorizontalOptions="FillAndExpand"
+                Text="Use Settings"
+                VerticalOptions="End" />
         </Grid>
-        <StackLayout Grid.Row="1"
-                     Orientation="Horizontal"
-                     HorizontalOptions="Center">
-            <Button Text="Search Maps"
-              Clicked="ShowSearchUI"/>
-            <Button Text="My Maps"
-              Clicked="GetMyMaps"/>
+        <StackLayout
+            Grid.Row="1"
+            HorizontalOptions="FillAndExpand"
+            Orientation="Horizontal">
+            <Button
+                Clicked="ShowSearchUI"
+                HorizontalOptions="FillAndExpand"
+                Text="Search Maps" />
+            <Button
+                Clicked="GetMyMaps"
+                HorizontalOptions="FillAndExpand"
+                Text="My Maps" />
         </StackLayout>
-  </Grid>
+    </Grid>
 </ContentPage>

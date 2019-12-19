@@ -212,7 +212,7 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
         }
 
         // A function to set up the symbol controls with choices for the user: lists of symbol layers, colors, size slider.
-        private async Task FillSymbolControls()
+        private async void FillSymbolControls()
         {
             // Call a function to read the style file and build lists of symbols for each category.
             await ReadMobileStyle();

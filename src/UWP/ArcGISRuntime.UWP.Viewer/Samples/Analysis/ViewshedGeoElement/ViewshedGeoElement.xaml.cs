@@ -25,8 +25,8 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedGeoElement
         "Viewshed (GeoElement)",
         "Analysis",
         "Display a live viewshed analysis for a moving GeoElement.",
-        "Tap on the scene to see the tank move to that point.",
-        "Featured")]
+        "Tap on the scene to see the tank move to that point."
+        )]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     public partial class ViewshedGeoElement
     {

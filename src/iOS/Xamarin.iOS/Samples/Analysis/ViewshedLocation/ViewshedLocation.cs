@@ -26,8 +26,8 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         "Viewshed (Location)",
         "Analysis",
         "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
-        "Tap anywhere in the scene to change the viewshed observer location.",
-        "Featured")]
+        "Tap anywhere in the scene to change the viewshed observer location."
+        )]
     public class ViewshedLocation : UIViewController
     {
         // Hold references to UI controls.
@@ -274,7 +274,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         public override void LoadView()
         {
             // Create and add the container views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -321,35 +321,35 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 
             UILabel pitchLabel = new UILabel();
             pitchLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            pitchLabel.Text = "pitch";
+            pitchLabel.Text = "Pitch";
             _pitchSlider = new UISlider {MinValue = 0, MaxValue = 180, Value = (float) _viewshed.Pitch};
             _pitchSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {pitchLabel, _pitchSlider}));
 
             UILabel horizontalLabel = new UILabel();
             horizontalLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            horizontalLabel.Text = "horizontal";
+            horizontalLabel.Text = "Horizontal";
             _horizontalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = (float) _viewshed.HorizontalAngle};
             _horizontalAngleSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {horizontalLabel, _horizontalAngleSlider}));
 
             UILabel verticalLabel = new UILabel();
             verticalLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            verticalLabel.Text = "vertical";
+            verticalLabel.Text = "Vertical";
             _verticalAngleSlider = new UISlider {MinValue = 1, MaxValue = 120, Value = (float) _viewshed.VerticalAngle};
             _verticalAngleSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {verticalLabel, _verticalAngleSlider}));
 
             UILabel minLabel = new UILabel();
             minLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            minLabel.Text = "min";
+            minLabel.Text = "Min";
             _minimumDistanceSlider = new UISlider {MinValue = 11, MaxValue = 8999, Value = (float) _viewshed.MinDistance};
             _minimumDistanceSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {minLabel, _minimumDistanceSlider}));
 
             UILabel maxLabel = new UILabel();
             maxLabel.TranslatesAutoresizingMaskIntoConstraints = false;
-            maxLabel.Text = "max";
+            maxLabel.Text = "Max";
             _maximumDistanceSlider = new UISlider {MinValue = 0, MaxValue = 9999, Value = (float) _viewshed.MaxDistance};
             _maximumDistanceSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.AddArrangedSubview(getRowStackView(new UIView[] {maxLabel, _maximumDistanceSlider}));

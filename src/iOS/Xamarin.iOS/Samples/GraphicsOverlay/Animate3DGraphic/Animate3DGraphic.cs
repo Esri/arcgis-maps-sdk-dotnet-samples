@@ -20,7 +20,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Timers;
 using UIKit;
 
@@ -34,8 +33,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         "Animate 3D graphic",
         "GraphicsOverlay",
         "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
-        "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. Click 'Stats' to toggle stats display. Tap 'Mission' to choose from a list of alternative routes. Changing the settings for choosing a different mission will automatically re-start the animation if it is currently paused.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator).",
-        "Featured")]
+        "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. Click 'Stats' to toggle stats display. Tap 'Mission' to choose from a list of alternative routes. Changing the settings for choosing a different mission will automatically re-start the animation if it is currently paused.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator)."
+        )]
     public class Animate3DGraphic : UIViewController
     {
         // Hold references to UI controls.
@@ -84,9 +83,6 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         // Array of frames for the current mission.
         //    A MissionFrame contains the position of the plane for a single moment in the animation.
         private MissionFrame[] _missionData;
-
-        // Flags for the toggle-able states (controls when stats are shown and when the orbit camera is used).
-        private bool _showStats;
 
         // Flag to control which camera will be used.
         private bool _shouldFollowPlane = true;
@@ -191,7 +187,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 };
 
                 // Set the initial mission for when the sample loads.
-                await ChangeMission(_missionToItemId.Keys.First());
+                ChangeMission(_missionToItemId.Keys.First());
             }
             catch (Exception e)
             {
@@ -219,15 +215,14 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             foreach (string item in _missionToItemId.Keys)
             {
                 // Selecting the mission will call the ChangeMission method.
-                missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default,
-                    async action => await ChangeMission(item)));
+                missionSelectionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action => ChangeMission(item)));
             }
 
             // Show the alert.
             PresentViewController(missionSelectionAlert, true, null);
         }
 
-        private async Task ChangeMission(string mission)
+        private void ChangeMission(string mission)
         {
             // Stop animating the current mission.
             _animationTimer.Stop();
@@ -589,7 +584,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             floatContainer.AddArrangedSubview(statsContainer);
 
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
             View.AddSubview(floatContainer);
 
             floatContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

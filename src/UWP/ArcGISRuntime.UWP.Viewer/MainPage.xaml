@@ -36,7 +36,8 @@
                             Margin="10"
                             FontSize="18"
                             Foreground="White"
-                            Text="{Binding SampleName}" />
+                            Text="{Binding SampleName}"
+                            TextWrapping="Wrap" />
                     </Border>
                     <TextBlock
                         Grid.Row="1"

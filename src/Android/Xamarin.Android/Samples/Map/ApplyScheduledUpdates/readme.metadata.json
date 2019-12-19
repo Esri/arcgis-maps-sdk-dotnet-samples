@@ -14,7 +14,7 @@
         "update"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.7.0"
     },
     "offline_data": [
         "740b663bff5e4198b9b6674af93f638a"
@@ -31,8 +31,8 @@
         "OfflineMapUpdatesInfo"
     ],
     "snippets": [
-        "ApplyScheduledUpdates.cs",
-        "../../../Resources/layout/ApplyScheduledUpdates.axml"
+        "../../../Resources/layout/ApplyScheduledUpdates.axml",
+        "ApplyScheduledUpdates.cs"
     ],
     "title": "Apply scheduled updates to preplanned map area"
 }

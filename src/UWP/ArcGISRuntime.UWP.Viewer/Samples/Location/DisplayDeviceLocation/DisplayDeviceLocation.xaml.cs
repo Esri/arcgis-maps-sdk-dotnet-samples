@@ -40,6 +40,9 @@ namespace ArcGISRuntime.UWP.Samples.DisplayDeviceLocation
 
         private void Initialize()
         {
+            // Add event handler for when this sample is unloaded.
+            Unloaded += SampleUnloaded;
+
             // Assign the map to the MapView.
             MyMapView.Map = new Map(Basemap.CreateTopographic());
 
@@ -79,6 +82,12 @@ namespace ArcGISRuntime.UWP.Samples.DisplayDeviceLocation
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
                     break;
             }
+        }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

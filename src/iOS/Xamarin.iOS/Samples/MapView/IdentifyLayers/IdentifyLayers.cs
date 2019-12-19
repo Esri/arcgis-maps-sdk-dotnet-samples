@@ -107,7 +107,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         public override void LoadView()
         {
             // Create the view.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

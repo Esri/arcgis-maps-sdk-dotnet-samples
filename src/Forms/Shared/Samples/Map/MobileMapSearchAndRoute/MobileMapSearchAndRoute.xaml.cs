@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -95,35 +96,14 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
 
         private async Task<MobileMapPackage> OpenMobileMapPackage(string path)
         {
-            // Load directly or unpack then load as needed by the map package.
-            if (await MobileMapPackage.IsDirectReadSupportedAsync(path))
-            {
-                // Open the map package.
-                MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
+            // Open the map package.
+            MobileMapPackage package = await MobileMapPackage.OpenAsync(path);
 
-                // Load the package.
-                await package.LoadAsync();
+            // Load the package.
+            await package.LoadAsync();
 
-                // Return the opened package.
-                return package;
-            }
-            else
-            {
-                // Create a path for the unpacked package.
-                string unpackedPath = path + "unpacked";
-
-                // Unpack the package.
-                await MobileMapPackage.UnpackAsync(path, unpackedPath);
-
-                // Open the package.
-                MobileMapPackage package = await MobileMapPackage.OpenAsync(unpackedPath);
-
-                // Load the package.
-                await package.LoadAsync();
-
-                // Return the opened package.
-                return package;
-            }
+            // Return the opened package.
+            return package;
         }
 
         private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
@@ -191,7 +171,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
 
                 // Configure route parameters for the route between the two tapped points.
                 RouteParameters routingParameters = await routingTask.CreateDefaultParametersAsync();
-                List<Stop> stops = new List<Stop> {new Stop(_startPoint), new Stop(_endPoint)};
+                List<Stop> stops = new List<Stop> { new Stop(_startPoint), new Stop(_endPoint) };
                 routingParameters.SetStops(stops);
 
                 // Get the first route result.
@@ -221,7 +201,7 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
 
             try
             {
-                ListView sendingList = (ListView) sender;
+                ListView sendingList = (ListView)sender;
                 // Get the selected map.
                 Map selectedMap = sendingList.SelectedItem as Map;
 

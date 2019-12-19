@@ -22,7 +22,8 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
         "Custom dictionary style",
         "Symbology",
         "Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("751138a2e0844e06853522d54103222a")]
     public class CustomDictionaryStyle : UIViewController
     {
@@ -78,7 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView();
+            View = new UIView() { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

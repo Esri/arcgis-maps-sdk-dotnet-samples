@@ -5,40 +5,44 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}"  Width="400">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock x:Name="BufferInstructionsLabel"
-                           TextWrapping="Wrap"
-                           Margin="0,0,0,10">
+                <TextBlock
+                    x:Name="BufferInstructionsLabel"
+                    Margin="0,0,0,10"
+                    TextWrapping="Wrap">
                     Tap on the map to add points. Each point will use the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.
                 </TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Distance (miles):"
-                               FontWeight="SemiBold"
-                               VerticalAlignment="Center"
-                               Margin="0,0,5,0" />
-                    <TextBox x:Name="BufferDistanceMilesTextBox"
-                             Text="10"
-                             Width="30"
-                             VerticalAlignment="Center" />
-                    <CheckBox x:Name="UnionCheckBox"
-                              Content="Union the buffer(s)"
-                              IsChecked="True"
-                              FontWeight="SemiBold"
-                              VerticalAlignment="Center"
-                              Margin="10,0,0,0" />
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"
+                        Text="Distance (miles):" />
+                    <TextBox
+                        x:Name="BufferDistanceMilesTextBox"
+                        VerticalAlignment="Center"
+                        Text="10" />
+                    <CheckBox
+                        x:Name="UnionCheckBox"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Content="Union the buffer(s)"
+                        FontWeight="SemiBold"
+                        IsChecked="True" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            Margin="0,10,0,0">
-                    <Button x:Name="BufferButton"
-                            Width="174"
-                            Content="Create buffer(s)"
-                            Click="BufferButton_Click" />
-                    <Button x:Name="ClearButton"
-                            Width="174"
-                            Content="Clear"
-                            Margin="10,0,0,0"
-                            Click="ClearButton_Click" />
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Button
+                        x:Name="BufferButton"
+                        Width="174"
+                        Click="BufferButton_Click"
+                        Content="Create buffer(s)" />
+                    <Button
+                        x:Name="ClearButton"
+                        Width="174"
+                        Margin="10,0,0,0"
+                        Click="ClearButton_Click"
+                        Content="Clear" />
                 </StackPanel>
             </StackPanel>
         </Border>

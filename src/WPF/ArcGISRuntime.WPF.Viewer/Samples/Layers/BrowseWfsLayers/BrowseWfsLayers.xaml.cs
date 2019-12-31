@@ -13,11 +13,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
         "Browse a WFS service for layers",
         "Layers",
         "Browse for layers in a WFS service.",
-        "")]
+        "", "Featured")]
     public partial class BrowseWfsLayers
     {
         // URL to the WFS service.
@@ -40,8 +40,28 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
 
         private async void Initialize()
         {
+            // Update the UI.
+            ServiceTextBox.Text = ServiceUrl;
+
             // Create the map with imagery basemap.
             MyMapView.Map = new Map(Basemap.CreateImagery());
+
+            try
+            {
+                await LoadServiceAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                MessageBox.Show(ex.Message, "Error loading service");
+            }
+        }
+
+        private async Task LoadServiceAsync()
+        {
+            LoadingProgressBar.Visibility = Visibility.Visible;
+            LoadLayersButton.IsEnabled = false;
+            LoadServiceButton.IsEnabled = false;
 
             // Create the WFS service.
             WfsService service = new WfsService(new Uri(ServiceUrl));
@@ -61,6 +81,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             // Update the UI.
             LoadingProgressBar.Visibility = Visibility.Collapsed;
             LoadLayersButton.IsEnabled = true;
+            LoadServiceButton.IsEnabled = true;
         }
 
         private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)
@@ -85,7 +106,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
 
                 // Create the WFS feature table.
                 WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
-                
+
                 // Set the feature request mode to manual - only manual is supported at v100.5.
                 // In this mode, you must manually populate the table - panning and zooming won't request features automatically.
                 table.FeatureRequestMode = FeatureRequestMode.ManualCache;
@@ -107,7 +128,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
                 FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
 
                 // Choose a renderer for the layer based on the table.
-                wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
+                wfsFeatureLayer.Renderer = GetRendererForTable(table) ?? wfsFeatureLayer.Renderer;
 
                 // Add the layer to the map.
                 MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
@@ -128,31 +149,36 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             }
         }
 
-        #region Random symbology
-        // Random number generator used to generate random symbology.
-        private static readonly Random _rand = new Random();
-
-        private Renderer GetRandomRendererForTable(FeatureTable table)
+        private Renderer GetRendererForTable(FeatureTable table)
         {
             switch (table.GeometryType)
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 4));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 4));
+
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
-                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
+                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, null));
+
                 case GeometryType.Polyline:
-                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, GetRandomColor(), 1));
+                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 1));
             }
 
             return null;
         }
 
-        private Color GetRandomColor(int alpha = 255)
+        private async void LoadServiceButton_Click(object sender, RoutedEventArgs e)
         {
-            return Color.FromArgb(alpha, _rand.Next(0, 255), _rand.Next(0, 255), _rand.Next(0, 255));
+            try
+            {
+                await LoadServiceAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                MessageBox.Show(ex.Message, "Error loading service");
+            }
         }
-        #endregion Random symbology
     }
 }

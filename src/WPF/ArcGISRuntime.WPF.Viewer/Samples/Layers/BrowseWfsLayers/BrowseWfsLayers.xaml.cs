@@ -38,7 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Update the UI.
             ServiceTextBox.Text = ServiceUrl;
@@ -46,55 +46,56 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             // Create the map with imagery basemap.
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
+            LoadService();
+        }
+
+        private async void LoadService()
+        {
             try
             {
-                await LoadServiceAsync();
+                LoadingProgressBar.Visibility = Visibility.Visible;
+                LoadLayersButton.IsEnabled = false;
+                LoadServiceButton.IsEnabled = false;
+
+                // Create the WFS service.
+                WfsService service = new WfsService(new Uri(ServiceTextBox.Text));
+
+                // Load the WFS service.
+                await service.LoadAsync();
+
+                // Get the service metadata.
+                WfsServiceInfo serviceInfo = service.ServiceInfo;
+
+                // Get a reversed list of available layers.
+                IEnumerable<WfsLayerInfo> layerListReversed = serviceInfo.LayerInfos.Reverse();
+
+                // Show the layers in the UI.
+                WfsLayerList.ItemsSource = layerListReversed;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
                 MessageBox.Show(ex.Message, "Error loading service");
             }
-        }
-
-        private async Task LoadServiceAsync()
-        {
-            LoadingProgressBar.Visibility = Visibility.Visible;
-            LoadLayersButton.IsEnabled = false;
-            LoadServiceButton.IsEnabled = false;
-
-            // Create the WFS service.
-            WfsService service = new WfsService(new Uri(ServiceUrl));
-
-            // Load the WFS service.
-            await service.LoadAsync();
-
-            // Get the service metadata.
-            WfsServiceInfo serviceInfo = service.ServiceInfo;
-
-            // Get a reversed list of available layers.
-            IEnumerable<WfsLayerInfo> layerListReversed = serviceInfo.LayerInfos.Reverse();
-
-            // Show the layers in the UI.
-            WfsLayerList.ItemsSource = layerListReversed;
-
-            // Update the UI.
-            LoadingProgressBar.Visibility = Visibility.Collapsed;
-            LoadLayersButton.IsEnabled = true;
-            LoadServiceButton.IsEnabled = true;
+            finally
+            {
+                // Update the UI.
+                LoadingProgressBar.Visibility = Visibility.Collapsed;
+                LoadLayersButton.IsEnabled = true;
+                LoadServiceButton.IsEnabled = true;
+            }
         }
 
         private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)
         {
-            // Skip if nothing to add.
-            if (WfsLayerList.SelectedIndex == -1)
+            // Skip if nothing selected.
+            if (WfsLayerList.SelectedItems.Count < 1)
             {
                 return;
             }
 
-            // Show the progress bar and hide the button.
+            // Show the progress bar.
             LoadingProgressBar.Visibility = Visibility.Visible;
-            LoadLayersButton.IsEnabled = false;
 
             // Clear the existing layers.
             MyMapView.Map.OperationalLayers.Clear();
@@ -136,16 +137,15 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
                 // Zoom to the extent of the selected layer.
                 await MyMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent, 50);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                MessageBox.Show(exception.ToString(), "Failed to load layer.");
-                Debug.WriteLine(exception);
+                Debug.WriteLine(ex);
+                MessageBox.Show(ex.Message, "Error loading service");
             }
             finally
             {
-                // Hide the progress bar and enable button.
+                // Hide the progress bar.
                 LoadingProgressBar.Visibility = Visibility.Collapsed;
-                LoadLayersButton.IsEnabled = true;
             }
         }
 
@@ -168,17 +168,9 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             return null;
         }
 
-        private async void LoadServiceButton_Click(object sender, RoutedEventArgs e)
+        private void LoadServiceButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                await LoadServiceAsync();
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                MessageBox.Show(ex.Message, "Error loading service");
-            }
+            LoadService();
         }
     }
 }

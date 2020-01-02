@@ -23,9 +23,9 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Browse a WFS service for layers",
+        "Browse WFS service for layers",
         "Layers",
-        "Browse for layers in a WFS service.",
+        "Browse a WFS service for layers and add them to the map.",
         "")]
     public partial class BrowseWfsLayers
     {

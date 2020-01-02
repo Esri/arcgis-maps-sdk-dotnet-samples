@@ -23,10 +23,10 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Browse a WFS service for layers",
+        "Browse WFS service for layers",
         "Layers",
-        "Browse for layers in a WFS service.",
-        "", "Featured")]
+        "Browse a WFS service for layers and add them to the map.",
+        "")]
     public partial class BrowseWfsLayers
     {
         // URL to the WFS service.

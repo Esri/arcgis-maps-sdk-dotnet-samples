@@ -90,7 +90,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             finally
             {
                 // Update the UI.
-                _loadingProgressBar.Visibility = ViewStates.Invisible;
+                _loadingProgressBar.Visibility = ViewStates.Gone;
                 _loadLayerButton.Enabled = true;
                 _loadServiceButton.Enabled = true;
             }

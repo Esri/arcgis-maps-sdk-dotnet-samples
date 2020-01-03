@@ -87,12 +87,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 
         private async void LoadLayers_Clicked(object sender, EventArgs e)
         {
-            // Skip if nothing selected.
-            //if (WfsLayerList.SelectedItems.Count < 1)
-            //{
-            //    return;
-            //}
-
             // Show the progress bar.
             LoadingProgressBar.IsVisible = true;
 

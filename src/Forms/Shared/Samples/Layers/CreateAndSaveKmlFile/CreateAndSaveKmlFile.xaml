@@ -91,9 +91,7 @@
                 ItemSelected="Apply_Style_Click">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Image Source="{Binding Path=., Converter={StaticResource imageConverter}}" />
-                        </ViewCell>
+                        <ImageCell ImageSource="{Binding Path=., Converter={StaticResource imageConverter}}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

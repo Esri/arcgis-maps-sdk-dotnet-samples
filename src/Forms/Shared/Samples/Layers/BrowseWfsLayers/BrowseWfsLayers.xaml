@@ -39,9 +39,7 @@
                     SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <Label Text="{Binding Title}" />
-                            </ViewCell>
+                            <TextCell Text="{Binding Title}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

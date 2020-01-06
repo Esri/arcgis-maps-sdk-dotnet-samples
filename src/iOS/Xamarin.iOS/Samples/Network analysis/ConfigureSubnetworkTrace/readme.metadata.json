@@ -1,0 +1,22 @@
+{
+    "category": "Network analysis",
+    "description": "Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.",
+    "formal_name": "ConfigureSubnetworkTrace",
+    "ignore": false,
+    "images": [
+        "ConfigureSubnetworkTrace.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/ConfigureSubnetworkTrace.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Configure subnetwork trace"
+}

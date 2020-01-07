@@ -101,10 +101,10 @@ namespace ArcGISRuntime
             }
             catch (OperationCanceledException)
             {
-                await Application.Current.MainPage.DisplayAlert("", "Download cancelled", "OK");
-
                 // Remove the waiting page.
                 await Navigation.PopModalAsync(false);
+
+                await Application.Current.MainPage.DisplayAlert("", "Download cancelled", "OK");
             }
             catch (Exception ex)
             {

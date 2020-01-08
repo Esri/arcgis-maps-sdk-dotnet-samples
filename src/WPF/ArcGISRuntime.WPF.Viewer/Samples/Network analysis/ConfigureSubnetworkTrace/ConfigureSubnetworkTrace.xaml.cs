@@ -30,9 +30,9 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
 
         // For creating the default starting location.
         private const string DeviceTableName = "Electric Distribution Device";
-        private const string AssetGroupName = "Service Point";
-        private const string AssetTypeName = "Three Phase Low Voltage Meter";
-        private const string GlobalId = "{3AEC2649-D867-4EA7-965F-DBFE1F64B090}";
+        private const string AssetGroupName = "Circuit Breaker";
+        private const string AssetTypeName = "Three Phase";
+        private const string GlobalId = "{1CAF7740-0BF4-4113-8DB2-654E18800028}";
         private UtilityElement _startingLocation;
 
         // For creating the default trace configuration.
@@ -41,6 +41,9 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
 
         // Holding the initial conditional expression.
         private UtilityTraceConditionalExpression _initialExpression;
+
+        // The trace configuration.
+        private UtilityTraceConfiguration _configuration;
 
         public ConfigureSubnetworkTrace()
         {
@@ -68,17 +71,25 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
                 Guid globalId = Guid.Parse(GlobalId);
                 _startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
 
+                // Set the terminal for this location. (For our case, we use the 'Load' terminal.)
+                _startingLocation.Terminal = _startingLocation.AssetType.TerminalConfiguration?.Terminals.Where(t => t.Name == "Load").FirstOrDefault();
+
                 // Get a default trace configuration from a tier to update the UI.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);
-                var sourceTier = domainNetwork.GetTier(TierName);
+                UtilityTier sourceTier = domainNetwork.GetTier(TierName);
 
-                // Setting DataContext will resolve the data-binding in XAML.
-                Configuration.DataContext = sourceTier.TraceConfiguration;
+                // Set the trace configuration.
+                _configuration = sourceTier.TraceConfiguration;
+
+                // Set the default expression (if provided).
                 if (sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
-                    ConditionBarrierExpression.Text = GetExpression(expression);
+                    ConditionBarrierExpression.Text = ExpressionToString(expression);
                     _initialExpression = expression;
                 }
+
+                // Setting DataContext will resolve the data-binding in XAML.
+                Configuration.DataContext = _configuration;
 
                 // Set the traversability scope.
                 sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
@@ -97,7 +108,7 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
         {
             try
             {
-                UtilityTraceConfiguration traceConfiguration = Configuration.DataContext as UtilityTraceConfiguration;
+                UtilityTraceConfiguration traceConfiguration = _configuration;
                 if (traceConfiguration == null)
                 {
                     traceConfiguration = new UtilityTraceConfiguration();
@@ -128,7 +139,7 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
                         expression = new UtilityTraceOrCondition(otherExpression, expression);
                     }
                     traceConfiguration.Traversability.Barriers = expression;
-                    ConditionBarrierExpression.Text = GetExpression(expression);
+                    ConditionBarrierExpression.Text = ExpressionToString(expression);
                 }
             }
             catch (Exception ex)
@@ -137,11 +148,13 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
             }
         }
 
-        private string GetExpression(UtilityTraceConditionalExpression expression)
+        private string ExpressionToString(UtilityTraceConditionalExpression expression)
         {
             if (expression is UtilityCategoryComparison categoryComparison)
+            {
                 return $"`{categoryComparison.Category.Name}` {categoryComparison.ComparisonOperator}";
-            if (expression is UtilityNetworkAttributeComparison attributeComparison)
+            }
+            else if (expression is UtilityNetworkAttributeComparison attributeComparison)
             {
                 if (attributeComparison.NetworkAttribute.Domain is CodedValueDomain cvd)
                 {
@@ -149,13 +162,22 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
                     return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{cvdName}`";
                 }
                 else
+                {
                     return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{attributeComparison.OtherNetworkAttribute?.Name ?? attributeComparison.Value}`";
+                }
             }
-            if (expression is UtilityTraceAndCondition andCondition)
-                return $"({GetExpression(andCondition.LeftExpression)}) AND\n ({GetExpression(andCondition.RightExpression)})";
-            if (expression is UtilityTraceOrCondition orCondition)
-                return $"({GetExpression(orCondition.LeftExpression)}) OR\n ({GetExpression(orCondition.RightExpression)})";
-            return null;
+            else if (expression is UtilityTraceAndCondition andCondition)
+            {
+                return $"({ExpressionToString(andCondition.LeftExpression)}) AND\n ({ExpressionToString(andCondition.RightExpression)})";
+            }
+            else if (expression is UtilityTraceOrCondition orCondition)
+            {
+                return $"({ExpressionToString(orCondition.LeftExpression)}) OR\n ({ExpressionToString(orCondition.RightExpression)})";
+            }
+            else
+            {
+                return null;
+            }           
         }
 
         private object ConvertToDataType(object otherValue, UtilityNetworkAttributeDataType dataType)
@@ -186,7 +208,7 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
             try
             {
                 UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Subnetwork, new[] { _startingLocation });
-                if (Configuration.DataContext is UtilityTraceConfiguration traceConfiguration)
+                if (_configuration is UtilityTraceConfiguration traceConfiguration)
                 {
                     parameters.TraceConfiguration = traceConfiguration;
                 }
@@ -224,9 +246,9 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
 
         private void OnReset(object sender, RoutedEventArgs e)
         {
-            UtilityTraceConfiguration traceConfiguration = Configuration.DataContext as UtilityTraceConfiguration;
+            UtilityTraceConfiguration traceConfiguration = _configuration;
             traceConfiguration.Traversability.Barriers = _initialExpression;
-            ConditionBarrierExpression.Text = GetExpression(_initialExpression);
+            ConditionBarrierExpression.Text = ExpressionToString(_initialExpression);
         }
     }
 }

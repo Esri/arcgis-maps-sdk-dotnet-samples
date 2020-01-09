@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -62,18 +63,20 @@ namespace ArcGISRuntime
                 // Load offline data before showing the sample.
                 if (item.OfflineDataItems != null)
                 {
+                    CancellationTokenSource cancellationSource = new CancellationTokenSource();
+
                     // Show the wait page.
-                    await Navigation.PushModalAsync(new WaitPage { Title = item.SampleName }, false);
+                    await Navigation.PushModalAsync(new WaitPage(cancellationSource) { Title = item.SampleName }, false);
 
 #if WINDOWS_UWP
                     // Workaround for bug with Xamarin Forms UWP.
                     await Task.WhenAll(
                         Task.Delay(100),
-                        DataManager.EnsureSampleDataPresent(item)
+                        DataManager.EnsureSampleDataPresent(item, cancellationSource.Token)
                         );
 #else
                     // Wait for the sample data download.
-                    await DataManager.EnsureSampleDataPresent(item);
+                    await DataManager.EnsureSampleDataPresent(item, cancellationSource.Token);
 #endif
 
                     // Remove the waiting page.
@@ -81,13 +84,20 @@ namespace ArcGISRuntime
                 }
 
                 // Get the sample control from the selected sample.
-                var sampleControl = (ContentPage)SampleManager.Current.SampleToControl(item);
+                ContentPage sampleControl = (ContentPage)SampleManager.Current.SampleToControl(item);
 
                 // Create the sample display page to show the sample and the metadata.
                 SamplePage page = new SamplePage(sampleControl, item);
 
                 // Show the sample.
                 await Navigation.PushAsync(page, true);
+            }
+            catch (OperationCanceledException)
+            {
+                // Remove the waiting page.
+                await Navigation.PopModalAsync(false);
+
+                await Application.Current.MainPage.DisplayAlert("", "Download cancelled", "OK");
             }
             catch (Exception ex)
             {

@@ -19,6 +19,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <!--  Row 1  -->
@@ -47,10 +48,17 @@
             FontSize="15"
             IsChecked="{Binding IncludeContainers}" />
 
-
         <!--  Row 2  -->
-        <TextBlock
+        <Label
             Grid.Row="1"
+            Grid.ColumnSpan="4"
+            HorizontalAlignment="Center"
+            Content="Example barrier condition for this data: 'Transformer Load' Equal '15'"
+            FontSize="15" />
+
+        <!--  Row 3  -->
+        <TextBlock
+            Grid.Row="2"
             Grid.Column="0"
             Margin="5"
             HorizontalAlignment="Right"
@@ -60,7 +68,7 @@
 
         <ComboBox
             x:Name="ComparisonSources"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="1"
             Width="175"
             Margin="5"
@@ -74,14 +82,14 @@
 
         <ComboBox
             x:Name="ComparisonOperators"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="2"
             Width="150"
             Margin="5" />
 
         <ComboBox
             x:Name="ComparisonValueChoices"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="3"
             Width="125"
             Margin="5"
@@ -95,14 +103,14 @@
 
         <TextBox
             x:Name="ComparisonValue"
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="3"
             Width="125"
             Margin="5"
             Visibility="Visible" />
 
         <Button
-            Grid.Row="1"
+            Grid.Row="2"
             Grid.Column="4"
             Margin="5"
             Click="OnAddCondition"
@@ -110,7 +118,7 @@
             FontSize="15" />
 
 
-        <!--  Row 3  -->
+        <!--  Row 4  -->
         <TextBlock
             Grid.Row="3"
             Grid.Column="0"

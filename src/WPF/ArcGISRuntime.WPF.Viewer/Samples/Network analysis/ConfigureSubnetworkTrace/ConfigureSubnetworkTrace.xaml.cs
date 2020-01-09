@@ -33,11 +33,13 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
         private const string AssetGroupName = "Circuit Breaker";
         private const string AssetTypeName = "Three Phase";
         private const string GlobalId = "{1CAF7740-0BF4-4113-8DB2-654E18800028}";
-        private UtilityElement _startingLocation;
 
         // For creating the default trace configuration.
         private const string DomainNetworkName = "ElectricDistribution";
         private const string TierName = "Medium Voltage Radial";
+
+        // Utility element to start the trace from.
+        private UtilityElement _startingLocation;
 
         // Holding the initial conditional expression.
         private UtilityTraceConditionalExpression _initialExpression;
@@ -108,14 +110,13 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
         {
             try
             {
-                UtilityTraceConfiguration traceConfiguration = _configuration;
-                if (traceConfiguration == null)
+                if (_configuration == null)
                 {
-                    traceConfiguration = new UtilityTraceConfiguration();
+                    _configuration = new UtilityTraceConfiguration();
                 }
-                if (traceConfiguration.Traversability == null)
+                if (_configuration.Traversability == null)
                 {
-                    traceConfiguration.Traversability = new UtilityTraversability();
+                    _configuration.Traversability = new UtilityTraversability();
                 }
 
                 // NOTE: You may also create a UtilityCategoryComparison with UtilityNetworkDefinition.Categories and UtilityCategoryComparisonOperator.
@@ -133,12 +134,12 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
                     }
                     // NOTE: You may also create a UtilityNetworkAttributeComparison with another NetworkAttribute.
                     UtilityTraceConditionalExpression expression = new UtilityNetworkAttributeComparison(attribute, attributeOperator, otherValue);
-                    if (traceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression otherExpression)
+                    if (_configuration.Traversability.Barriers is UtilityTraceConditionalExpression otherExpression)
                     {
                         // NOTE: You may also combine expressions with UtilityTraceAndCondition
                         expression = new UtilityTraceOrCondition(otherExpression, expression);
                     }
-                    traceConfiguration.Traversability.Barriers = expression;
+                    _configuration.Traversability.Barriers = expression;
                     ConditionBarrierExpression.Text = ExpressionToString(expression);
                 }
             }

@@ -214,7 +214,7 @@
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_58.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_76.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_60.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_80.png">
@@ -233,6 +233,9 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+        <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_400.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_1024.png">

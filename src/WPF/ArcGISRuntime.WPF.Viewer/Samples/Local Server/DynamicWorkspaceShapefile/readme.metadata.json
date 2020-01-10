@@ -12,8 +12,8 @@
         "local services"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0",
-        "Esri.ArcGISRuntime.LocalServices": "100.6.0"
+        "Esri.ArcGISRuntime": "100.8.0",
+        "Esri.ArcGISRuntime.LocalServices": "100.8.0"
     },
     "offline_data": [
         "ea619b4f0f8f4d108c5b87e90c1b5be0",

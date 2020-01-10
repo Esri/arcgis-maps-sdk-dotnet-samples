@@ -22,7 +22,7 @@
         "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [
         "7c4c679ab06a4df19dc497f577f111bd"

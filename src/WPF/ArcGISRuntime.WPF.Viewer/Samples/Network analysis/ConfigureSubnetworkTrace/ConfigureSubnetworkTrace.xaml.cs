@@ -123,17 +123,20 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
                 if (ComparisonSources.SelectedItem is UtilityNetworkAttribute attribute
                     && ComparisonOperators.SelectedItem is UtilityAttributeComparisonOperator attributeOperator)
                 {
-                    object otherValue;
+                    object selectedValue;
+
+                    // If the value is a coded value.
                     if (attribute.Domain is CodedValueDomain && ComparisonValueChoices.SelectedItem is CodedValue codedValue)
                     {
-                        otherValue = ConvertToDataType(codedValue.Code, attribute.DataType);
+                        selectedValue = ConvertToDataType(codedValue.Code, attribute.DataType);
                     }
+                    // If the value is free entry.
                     else
                     {
-                        otherValue = ConvertToDataType(ComparisonValue.Text.Trim(), attribute.DataType);
+                        selectedValue = ConvertToDataType(ComparisonValue.Text.Trim(), attribute.DataType);
                     }
                     // NOTE: You may also create a UtilityNetworkAttributeComparison with another NetworkAttribute.
-                    UtilityTraceConditionalExpression expression = new UtilityNetworkAttributeComparison(attribute, attributeOperator, otherValue);
+                    UtilityTraceConditionalExpression expression = new UtilityNetworkAttributeComparison(attribute, attributeOperator, selectedValue);
                     if (_configuration.Traversability.Barriers is UtilityTraceConditionalExpression otherExpression)
                     {
                         // NOTE: You may also combine expressions with UtilityTraceAndCondition
@@ -229,6 +232,7 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
         {
             ComparisonValue.Text = string.Empty;
 
+            // Update the UI to show the correct value entry for the attribute.
             if (ComparisonSources.SelectedItem is UtilityNetworkAttribute attribute)
             {
                 if (attribute.Domain is CodedValueDomain domain)
@@ -247,6 +251,7 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
 
         private void OnReset(object sender, RoutedEventArgs e)
         {
+            // Reset the barrier condition to the initial value.
             UtilityTraceConfiguration traceConfiguration = _configuration;
             traceConfiguration.Traversability.Barriers = _initialExpression;
             ConditionBarrierExpression.Text = ExpressionToString(_initialExpression);

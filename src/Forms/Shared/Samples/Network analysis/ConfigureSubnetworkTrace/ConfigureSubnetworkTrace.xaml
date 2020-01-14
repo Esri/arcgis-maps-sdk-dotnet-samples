@@ -56,18 +56,21 @@
                 </TableSection>
                 <TableSection Title="Barrier conditions">
                     <ViewCell>
-                        <Label
-                            x:Name="ConditionBarrierExpression"
-                            FontSize="Large"
-                            Text="" />
+                        <ScrollView HeightRequest="150">
+                            <Label
+                                x:Name="ConditionBarrierExpression"
+                                Grid.Row="0"
+                                FontSize="Medium"
+                                Text="" />
+                        </ScrollView>
                     </ViewCell>
                 </TableSection>
                 <TableSection>
                     <ViewCell>
-                        <StackLayout Orientation="Vertical">
-                            <Button Clicked="OnTrace" Text="Trace" />
-                            <Button Clicked="OnReset" Text="Reset" />
-                        </StackLayout>
+                        <Button Clicked="OnTrace" Text="Trace" />
+                    </ViewCell>
+                    <ViewCell>
+                        <Button Clicked="OnReset" Text="Reset" />
                     </ViewCell>
                 </TableSection>
             </TableRoot>

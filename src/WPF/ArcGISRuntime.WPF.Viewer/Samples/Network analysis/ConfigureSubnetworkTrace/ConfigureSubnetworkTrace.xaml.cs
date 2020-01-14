@@ -181,7 +181,7 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
             else
             {
                 return null;
-            }           
+            }
         }
 
         private object ConvertToDataType(object otherValue, UtilityNetworkAttributeDataType dataType)

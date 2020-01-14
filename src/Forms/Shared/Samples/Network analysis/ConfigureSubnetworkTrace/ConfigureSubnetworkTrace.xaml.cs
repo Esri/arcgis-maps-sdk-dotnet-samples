@@ -74,7 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
                 if (_sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
-                    ConditionBarrierExpression.Text = GetExpression(expression);
+                    ConditionBarrierExpression.Text = ExpressionToString(expression);
                     _initialExpression = expression;
                 }
 
@@ -90,11 +90,13 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 ConfigureTable.IsEnabled = true;
             }
         }
-        private string GetExpression(UtilityTraceConditionalExpression expression)
+        private string ExpressionToString(UtilityTraceConditionalExpression expression)
         {
             if (expression is UtilityCategoryComparison categoryComparison)
+            {
                 return $"`{categoryComparison.Category.Name}` {categoryComparison.ComparisonOperator}";
-            if (expression is UtilityNetworkAttributeComparison attributeComparison)
+            }
+            else if (expression is UtilityNetworkAttributeComparison attributeComparison)
             {
                 if (attributeComparison.NetworkAttribute.Domain is CodedValueDomain cvd)
                 {
@@ -102,13 +104,22 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                     return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{cvdName}`";
                 }
                 else
+                {
                     return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{attributeComparison.OtherNetworkAttribute?.Name ?? attributeComparison.Value}`";
+                }
             }
-            if (expression is UtilityTraceAndCondition andCondition)
-                return $"({GetExpression(andCondition.LeftExpression)}) AND\n ({GetExpression(andCondition.RightExpression)})";
-            if (expression is UtilityTraceOrCondition orCondition)
-                return $"({GetExpression(orCondition.LeftExpression)}) OR\n ({GetExpression(orCondition.RightExpression)})";
-            return null;
+            else if (expression is UtilityTraceAndCondition andCondition)
+            {
+                return $"({ExpressionToString(andCondition.LeftExpression)}) AND\n ({ExpressionToString(andCondition.RightExpression)})";
+            }
+            else if (expression is UtilityTraceOrCondition orCondition)
+            {
+                return $"({ExpressionToString(orCondition.LeftExpression)}) OR\n ({ExpressionToString(orCondition.RightExpression)})";
+            }
+            else
+            {
+                return null;
+            }
         }
 
         private object ConvertToDataType(object otherValue, UtilityNetworkAttributeDataType dataType)
@@ -132,6 +143,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
         private void OnComparisonSourceChanged(object sender, System.EventArgs e)
         {
+            // Update the UI to show the correct value entry for the attribute.
             ComparisonValue.Text = string.Empty;
 
             if (ComparisonSources.SelectedItem is UtilityNetworkAttribute attribute)
@@ -174,9 +186,10 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
         private void OnReset(object sender, System.EventArgs e)
         {
+            // Reset the barrier condition to the initial value.
             UtilityTraceConfiguration traceConfiguration = _sourceTier.TraceConfiguration;
             traceConfiguration.Traversability.Barriers = _initialExpression;
-            ConditionBarrierExpression.Text = GetExpression(_initialExpression);
+            ConditionBarrierExpression.Text = ExpressionToString(_initialExpression);
         }
 
         private async void OnAddCondition(object sender, EventArgs e)
@@ -198,10 +211,12 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                     && ComparisonOperators.SelectedItem is UtilityAttributeComparisonOperator attributeOperator)
                 {
                     object otherValue;
+                    // If the value is a coded value.
                     if (attribute.Domain is CodedValueDomain && ComparisonValueChoices.SelectedItem is CodedValue codedValue)
                     {
                         otherValue = ConvertToDataType(codedValue.Code, attribute.DataType);
                     }
+                    // If the value is free entry.
                     else
                     {
                         otherValue = ConvertToDataType(ComparisonValue.Text.Trim(), attribute.DataType);
@@ -214,7 +229,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                         expression = new UtilityTraceOrCondition(otherExpression, expression);
                     }
                     traceConfiguration.Traversability.Barriers = expression;
-                    ConditionBarrierExpression.Text = GetExpression(expression);
+                    ConditionBarrierExpression.Text = ExpressionToString(expression);
                 }
             }
             catch (Exception ex)

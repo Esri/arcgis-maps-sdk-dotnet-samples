@@ -128,8 +128,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
-            SampleContainer.Width = 800;
-            SampleContainer.Height = 600;
         }
 
         private static void ClearCredentials()

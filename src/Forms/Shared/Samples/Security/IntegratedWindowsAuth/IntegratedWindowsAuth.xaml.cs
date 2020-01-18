@@ -85,7 +85,10 @@ namespace ArcGISRuntime.Samples.IntegratedWindowsAuth
             {
                 // Get the value entered for the secure portal URL.
                 string securedPortalUrl = PortalUrlEntry.Text.Trim();
-
+#if WINDOWS_UWP
+                // Create an instance of the IWA-secured portal, the user may be challenged for access.
+                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl), true);
+#else
                 // Make sure a portal URL has been entered in the text box.
                 if (string.IsNullOrEmpty(securedPortalUrl))
                 {
@@ -104,7 +107,7 @@ namespace ArcGISRuntime.Samples.IntegratedWindowsAuth
 
                 // Create an instance of the IWA-secured portal, the user may be challenged for access.
                 _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl), true);
-
+#endif
                 // Call a function to search the portal.
                 SearchPortal(_iwaSecuredPortal);
 

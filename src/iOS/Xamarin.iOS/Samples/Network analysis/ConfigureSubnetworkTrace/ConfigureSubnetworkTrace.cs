@@ -7,7 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.UtilityNetworks;
 using Foundation;
+using System;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
@@ -32,6 +34,28 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         private UIButton _traceButton;
         private UIButton _resetButton;
 
+        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
+        private UtilityNetwork _utilityNetwork;
+
+        // For creating the default starting location.
+        private const string DeviceTableName = "Electric Distribution Device";
+        private const string AssetGroupName = "Circuit Breaker";
+        private const string AssetTypeName = "Three Phase";
+        private const string GlobalId = "{1CAF7740-0BF4-4113-8DB2-654E18800028}";
+
+        // For creating the default trace configuration.
+        private const string DomainNetworkName = "ElectricDistribution";
+        private const string TierName = "Medium Voltage Radial";
+
+        // Utility element to start the trace from.
+        private UtilityElement _startingLocation;
+
+        // Holding the initial conditional expression.
+        private UtilityTraceConditionalExpression _initialExpression;
+
+        // The trace configuration.
+        private UtilityTraceConfiguration _configuration;
+
         public ConfigureSubnetworkTrace()
         {
             Title = "Configure subnetwork trace";
@@ -44,63 +68,89 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         public override void LoadView()
         {
             // Create the views.
-            View = new UIScrollView() { BackgroundColor = UIColor.White, ScrollEnabled = true, DirectionalLayoutMargins = new NSDirectionalEdgeInsets(5,5,5,5) };
+            View = new UIView() { BackgroundColor = UIColor.White };
 
-            UILabel barrierLabel = new UILabel() { Text = "Include barriers" };
-            _barrierSwitch = new UISwitch();
-            UILabel containerLabel = new UILabel() { Text = "Include containers" };
-            _containerSwitch = new UISwitch() ;
+            UIScrollView scrollView = new UIScrollView();
+            scrollView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UILabel helpLabel = new UILabel() { Text = "Example barrier condition for this data: 'Transformer Load' Equal '15'" };
-
-            _attributePicker = new UIPickerView();
-            _comparisonPicker = new UIPickerView();
-            _codedValuePicker = new UIPickerView();
-            _valueTextEntry = new UITextField() { Enabled = false, KeyboardType = UIKeyboardType.NumbersAndPunctuation };
-
-            _addButton = new UIButton();
-            _addButton.SetTitle("Add barrier condition", UIControlState.Normal);
-
-            _expressionLabel = new UILabel();
-
-            _traceButton = new UIButton();
-            _traceButton.SetTitle("Trace", UIControlState.Normal);
-            _resetButton = new UIButton();
-            _resetButton.SetTitle("Reset", UIControlState.Normal);
-
-            View.AddSubviews(barrierLabel, _barrierSwitch, containerLabel, _containerSwitch, helpLabel, _attributePicker, _comparisonPicker, _codedValuePicker, _valueTextEntry, _expressionLabel, _traceButton, _resetButton);
-
-            //Set the autoresizing constraints to false;
-            foreach (UIView sub in View.Subviews) { sub.TranslatesAutoresizingMaskIntoConstraints = false; }
+            View.AddSubviews(scrollView);
 
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                barrierLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                barrierLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                barrierLabel.TrailingAnchor.ConstraintEqualTo(_barrierSwitch.LeadingAnchor),
-                barrierLabel.BottomAnchor.ConstraintEqualTo(containerLabel.TopAnchor),
-
-                _barrierSwitch.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _barrierSwitch.LeadingAnchor.ConstraintEqualTo(barrierLabel.TrailingAnchor),
-                _barrierSwitch.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
-                _barrierSwitch.BottomAnchor.ConstraintEqualTo(_containerSwitch.TopAnchor),
-
-                containerLabel.TopAnchor.ConstraintEqualTo(barrierLabel.BottomAnchor),
-                containerLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                containerLabel.TrailingAnchor.ConstraintEqualTo(_containerSwitch.LeadingAnchor),
-                containerLabel.BottomAnchor.ConstraintEqualTo(helpLabel.TopAnchor),
-
-                _containerSwitch.TopAnchor.ConstraintEqualTo(_barrierSwitch.BottomAnchor),
-                _containerSwitch.LeadingAnchor.ConstraintEqualTo(containerLabel.TrailingAnchor),
-                _containerSwitch.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
-                _containerSwitch.BottomAnchor.ConstraintEqualTo(helpLabel.TopAnchor),
-
-                helpLabel.TopAnchor.ConstraintEqualTo(containerLabel.BottomAnchor),
-                helpLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                helpLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
-                //helpLabel.BottomAnchor.ConstraintEqualTo(_containerSwitch.TopAnchor),
-
+                scrollView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                scrollView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                scrollView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                scrollView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
             });
+
+            UIStackView buttonContainer = new UIStackView();
+            buttonContainer.Axis = UILayoutConstraintAxis.Vertical;
+            buttonContainer.TranslatesAutoresizingMaskIntoConstraints = false;
+            buttonContainer.Distribution = UIStackViewDistribution.Fill;
+            buttonContainer.Alignment = UIStackViewAlignment.Top;
+            buttonContainer.Spacing = 5;
+            buttonContainer.LayoutMarginsRelativeArrangement = true;
+            buttonContainer.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 10);
+
+            UILabel barrierLabel = new UILabel() { Text = "Include barriers", TranslatesAutoresizingMaskIntoConstraints = false };
+            _barrierSwitch = new UISwitch() { TranslatesAutoresizingMaskIntoConstraints = false };
+            buttonContainer.AddArrangedSubview(GetRowStackView(new UIView[] { barrierLabel, _barrierSwitch }));
+
+            UILabel containerLabel = new UILabel() { Text = "Include containers", TranslatesAutoresizingMaskIntoConstraints = false };
+            _containerSwitch = new UISwitch() { TranslatesAutoresizingMaskIntoConstraints = false };
+            buttonContainer.AddArrangedSubview(GetRowStackView(new UIView[] { containerLabel, _containerSwitch }));
+
+            UILabel helpLabel = new UILabel() { Text = "Example barrier condition for this data: 'Transformer Load' Equal '15'", TranslatesAutoresizingMaskIntoConstraints = false, Lines = 0 };
+            buttonContainer.AddArrangedSubview(helpLabel);
+
+            UILabel conditionTitleLabel = new UILabel() { Text = "Barrier Condition:", TranslatesAutoresizingMaskIntoConstraints = false, Lines = 0, MinimumFontSize = (nfloat)(helpLabel.MinimumFontSize * 1.5) };
+            buttonContainer.AddArrangedSubview(conditionTitleLabel);
+
+            _attributePicker = new UIPickerView() { TranslatesAutoresizingMaskIntoConstraints = false };
+            buttonContainer.AddArrangedSubview(_attributePicker);
+            _comparisonPicker = new UIPickerView() { TranslatesAutoresizingMaskIntoConstraints = false };
+            buttonContainer.AddArrangedSubview(_comparisonPicker);
+            _codedValuePicker = new UIPickerView() { TranslatesAutoresizingMaskIntoConstraints = false };
+            buttonContainer.AddArrangedSubview(_codedValuePicker);
+            _valueTextEntry = new UITextField() { Enabled = false, KeyboardType = UIKeyboardType.NumbersAndPunctuation, TranslatesAutoresizingMaskIntoConstraints = false };
+            buttonContainer.AddArrangedSubview(_valueTextEntry);
+
+            _addButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _addButton.SetTitle("Add barrier condition", UIControlState.Normal);
+            _addButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            buttonContainer.AddArrangedSubview(_addButton);
+
+            _expressionLabel = new UILabel() { TranslatesAutoresizingMaskIntoConstraints = false, Text = "Test" };
+            buttonContainer.AddArrangedSubview(_expressionLabel);
+
+            _traceButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _traceButton.SetTitle("Trace", UIControlState.Normal);
+            _traceButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+
+            _resetButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _resetButton.SetTitle("Reset", UIControlState.Normal);
+            _resetButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            buttonContainer.AddArrangedSubview(GetRowStackView(new UIView[] { _traceButton, _resetButton }));
+
+            scrollView.AddSubview(buttonContainer);
+
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                buttonContainer.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor),
+                buttonContainer.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor),
+                buttonContainer.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor),
+                buttonContainer.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor),
+                buttonContainer.WidthAnchor.ConstraintEqualTo(scrollView.WidthAnchor),
+            });
+        }
+        private UIStackView GetRowStackView(UIView[] views)
+        {
+            UIStackView row = new UIStackView(views);
+            row.TranslatesAutoresizingMaskIntoConstraints = false;
+            row.Spacing = 8;
+            row.Axis = UILayoutConstraintAxis.Horizontal;
+            row.Distribution = UIStackViewDistribution.FillProportionally;
+            return row;
         }
 
         public override void ViewDidLoad()

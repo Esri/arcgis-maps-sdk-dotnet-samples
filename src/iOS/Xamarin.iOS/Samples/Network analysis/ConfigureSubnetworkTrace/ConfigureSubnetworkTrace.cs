@@ -26,6 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class ConfigureSubnetworkTrace : UIViewController
     {
+        // References to controls and labels in the UI.
         private UISwitch _barrierSwitch;
         private UISwitch _containerSwitch;
         private UILabel _expressionLabel;
@@ -37,6 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         private UIButton _traceButton;
         private UIButton _resetButton;
 
+        // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
         private UtilityNetwork _utilityNetwork;
 
@@ -59,8 +61,10 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         // The trace configuration.
         private UtilityTraceConfiguration _configuration;
 
-        private UtilityTier sourceTier;
+        // The source tier of the utility network.
+        private UtilityTier _sourceTier;
 
+        // The currently selected values for the barrier expression.
         private UtilityNetworkAttribute _selectedAttribute;
         private UtilityAttributeComparisonOperator _selectedComparison;
         private object _selectedValue;
@@ -91,20 +95,20 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
                 // Get a default trace configuration from a tier to update the UI.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);
-                sourceTier = domainNetwork.GetTier(TierName);
+                _sourceTier = domainNetwork.GetTier(TierName);
 
                 // Set the trace configuration.
-                _configuration = sourceTier.TraceConfiguration;
+                _configuration = _sourceTier.TraceConfiguration;
 
                 // Set the default expression (if provided).
-                if (sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
+                if (_sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
                     _expressionLabel.Text = ExpressionToString(expression);
                     _initialExpression = expression;
                 }
 
                 // Set the traversability scope.
-                sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
+                _sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
             }
             catch (Exception ex)
             {
@@ -118,63 +122,51 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
         private void BarrierChanged(object sender, EventArgs e)
         {
-            sourceTier.TraceConfiguration.IncludeBarriers = _barrierSwitch.On;
+            _sourceTier.TraceConfiguration.IncludeBarriers = _barrierSwitch.On;
         }
 
         private void ContainerChanged(object sender, EventArgs e)
         {
-            sourceTier.TraceConfiguration.IncludeContainers = _containerSwitch.On;
+            _sourceTier.TraceConfiguration.IncludeContainers = _containerSwitch.On;
         }
 
         private void AttributeClick(object sender, EventArgs e)
         {
-            // Build a UI alert controller for picking the color.
-            UIAlertController prompt = UIAlertController.Create(null, "Choose the attribute.", UIAlertControllerStyle.ActionSheet);
+            // Create a prompt for selecting the attribute of the barrier expression.
+            UIAlertController prompt = UIAlertController.Create(null, "Choose the attribute.", UIAlertControllerStyle.Alert);
             foreach (UtilityNetworkAttribute attribute in _utilityNetwork.Definition.NetworkAttributes.Where(i => i.IsSystemDefined == false))
             {
-                UIAlertAction action = UIAlertAction.Create(attribute.Name, UIAlertActionStyle.Default, (s) => AttributeSelect(attribute));
+                UIAlertAction action = UIAlertAction.Create(attribute.Name, UIAlertActionStyle.Default, (s) => AttributeSelected(attribute));
                 prompt.AddAction(action);
             }
-
-            // Needed to prevent crash on iPad.
-            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
-            if (ppc != null)
-            {
-                //ppc.;
-                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
-            }
-
+            prompt.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
             PresentViewController(prompt, true, null);
         }
 
-        private void AttributeSelect(UtilityNetworkAttribute attribute)
+        private void AttributeSelected(UtilityNetworkAttribute attribute)
         {
             _attributeButton.SetTitle(attribute.Name, UIControlState.Normal);
             _selectedAttribute = attribute;
+
+            // Reset the value, this prevents invalid values being used to create expressions.
+            _valueButton.SetTitle("Value", UIControlState.Normal);
+            _selectedValue = null;
         }
 
         private void ComparisonClick(object sender, EventArgs e)
         {
-            /// Build a UI alert controller for picking the color.
-            UIAlertController prompt = UIAlertController.Create(null, "Choose the comparison.", UIAlertControllerStyle.ActionSheet);
+            // Create a prompt for selecting the comparison operator.
+            UIAlertController prompt = UIAlertController.Create(null, "Choose the comparison.", UIAlertControllerStyle.Alert);
             foreach (UtilityAttributeComparisonOperator op in Enum.GetValues(typeof(UtilityAttributeComparisonOperator)))
             {
-                UIAlertAction action = UIAlertAction.Create(op.ToString(), UIAlertActionStyle.Default, (s) => ComparisonSelect(op));
+                UIAlertAction action = UIAlertAction.Create(op.ToString(), UIAlertActionStyle.Default, (s) => ComparisonSelected(op));
                 prompt.AddAction(action);
             }
-
-            // Needed to prevent crash on iPad.
-            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
-            if (ppc != null)
-            {
-                //ppc.;
-                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
-            }
-
+            prompt.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
             PresentViewController(prompt, true, null);
         }
 
-        private void ComparisonSelect(UtilityAttributeComparisonOperator op)
+        private void ComparisonSelected(UtilityAttributeComparisonOperator op)
         {
             _comparisonButton.SetTitle(op.ToString(), UIControlState.Normal);
             _selectedComparison = op;
@@ -188,15 +180,17 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 UIAlertController prompt = null;
                 if (_selectedAttribute.Domain is CodedValueDomain domain)
                 {
-                    prompt = UIAlertController.Create(null, "Choose the value.", UIAlertControllerStyle.ActionSheet);
+                    // Add every coded value as an action on the prompt.
+                    prompt = UIAlertController.Create(null, "Choose the value.", UIAlertControllerStyle.Alert);
                     foreach (CodedValue value in domain.CodedValues)
                     {
-                        UIAlertAction action = UIAlertAction.Create(value.Name, UIAlertActionStyle.Default, (s) => ValueSelect(value));
+                        UIAlertAction action = UIAlertAction.Create(value.Name, UIAlertActionStyle.Default, (s) => ValueSelected(value));
                         prompt.AddAction(action);
                     }
                 }
                 else
                 {
+                    // Create an alert for the user to enter the value using the keyboard.
                     prompt = UIAlertController.Create(null, "Enter the value", UIAlertControllerStyle.Alert);
                     prompt.AddTextField(obj =>
                     {
@@ -206,26 +200,18 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                     });
                     prompt.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, ValueEntered));
                 }
-
-                // Needed to prevent crash on iPad.
-                UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
-                if (ppc != null)
-                {
-                    //ppc.;
-                    ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
-                }
-
+                prompt.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
                 PresentViewController(prompt, true, null);
             }
         }
 
-        private void ValueEntered(UIAlertAction val)
+        private void ValueEntered(UIAlertAction action)
         {
             _valueButton.SetTitle(_valueTextEntry.Text, UIControlState.Normal);
             _selectedValue = _valueTextEntry.Text;
         }
 
-        private void ValueSelect(CodedValue val)
+        private void ValueSelected(CodedValue val)
         {
             _valueButton.SetTitle(val.Name, UIControlState.Normal);
             _selectedValue = val;
@@ -385,7 +371,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             buttonContainer.LayoutMarginsRelativeArrangement = true;
             buttonContainer.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 0);
 
-            UILabel barrierLabel = new UILabel() { Text = "Include barriers", TranslatesAutoresizingMaskIntoConstraints = false };
+            UILabel barrierLabel = new UILabel() { Text = "Include barriers   ", TranslatesAutoresizingMaskIntoConstraints = false };
             _barrierSwitch = new UISwitch() { TranslatesAutoresizingMaskIntoConstraints = false, On = true };
             buttonContainer.AddArrangedSubview(GetRowStackView(new UIView[] { barrierLabel, _barrierSwitch }));
 
@@ -445,7 +431,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             row.TranslatesAutoresizingMaskIntoConstraints = false;
             row.Spacing = 8;
             row.Axis = UILayoutConstraintAxis.Horizontal;
-            row.Distribution = UIStackViewDistribution.FillProportionally;
+            row.Distribution = UIStackViewDistribution.EqualCentering;
             row.WidthAnchor.ConstraintEqualTo(350).Active = true;
             return row;
         }

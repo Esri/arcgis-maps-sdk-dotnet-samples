@@ -78,6 +78,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         {
             try
             {
+                // Disable interaction until the data is loaded.
                 View.UserInteractionEnabled = false;
 
                 // Create and load the utility network.

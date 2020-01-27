@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using Foundation;
 using System;
@@ -28,9 +29,9 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         private UISwitch _barrierSwitch;
         private UISwitch _containerSwitch;
         private UILabel _expressionLabel;
-        private UIPickerView _attributePicker;
-        private UIPickerView _comparisonPicker;
-        private UIPickerView _codedValuePicker;
+        private UIButton _attributeButton;
+        private UIButton _comparisonButton;
+        private UIButton _valueButton;
         private UITextField _valueTextEntry;
         private UIButton _addButton;
         private UIButton _traceButton;
@@ -58,6 +59,12 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         // The trace configuration.
         private UtilityTraceConfiguration _configuration;
 
+        private UtilityTier sourceTier;
+
+        private UtilityNetworkAttribute _selectedAttribute;
+        private UtilityAttributeComparisonOperator _selectedComparison;
+        private object _selectedValue;
+
         public ConfigureSubnetworkTrace()
         {
             Title = "Configure subnetwork trace";
@@ -67,52 +74,287 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         {
             try
             {
-                //Configuration.IsEnabled = false;
+                View.UserInteractionEnabled = false;
 
                 // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
-                // Build the choice lists for network attribute comparison.
-                _attributePicker.Model = new AttributeComparisonPickerModel(_utilityNetwork.Definition.NetworkAttributes.Where(i => i.IsSystemDefined == false));
-                //ComparisonOperators.ItemsSource = Enum.GetValues(typeof(UtilityAttributeComparisonOperator));
+                // Create a default starting location.
+                UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
+                UtilityAssetGroup assetGroup = networkSource.GetAssetGroup(AssetGroupName);
+                UtilityAssetType assetType = assetGroup.GetAssetType(AssetTypeName);
+                Guid globalId = Guid.Parse(GlobalId);
+                _startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
 
-                //// Create a default starting location.
-                //UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
-                //UtilityAssetGroup assetGroup = networkSource.GetAssetGroup(AssetGroupName);
-                //UtilityAssetType assetType = assetGroup.GetAssetType(AssetTypeName);
-                //Guid globalId = Guid.Parse(GlobalId);
-                //_startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
+                // Set the terminal for this location. (For our case, we use the 'Load' terminal.)
+                _startingLocation.Terminal = _startingLocation.AssetType.TerminalConfiguration?.Terminals.Where(t => t.Name == "Load").FirstOrDefault();
 
-                //// Set the terminal for this location. (For our case, we use the 'Load' terminal.)
-                //_startingLocation.Terminal = _startingLocation.AssetType.TerminalConfiguration?.Terminals.Where(t => t.Name == "Load").FirstOrDefault();
+                // Get a default trace configuration from a tier to update the UI.
+                UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);
+                sourceTier = domainNetwork.GetTier(TierName);
 
-                //// Get a default trace configuration from a tier to update the UI.
-                //UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);
-                //UtilityTier sourceTier = domainNetwork.GetTier(TierName);
+                // Set the trace configuration.
+                _configuration = sourceTier.TraceConfiguration;
 
-                //// Set the trace configuration.
-                //_configuration = sourceTier.TraceConfiguration;
+                // Set the default expression (if provided).
+                if (sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
+                {
+                    _expressionLabel.Text = ExpressionToString(expression);
+                    _initialExpression = expression;
+                }
 
-                //// Set the default expression (if provided).
-                //if (sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
-                //{
-                //    ConditionBarrierExpression.Text = ExpressionToString(expression);
-                //    _initialExpression = expression;
-                //}
-
-                //// Setting DataContext will resolve the data-binding in XAML.
-                //Configuration.DataContext = _configuration;
-
-                //// Set the traversability scope.
-                //sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
+                // Set the traversability scope.
+                sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "Error loading network", null).Show();
             }
             finally
             {
-                //Configuration.IsEnabled = true;
+                View.UserInteractionEnabled = true;
+            }
+        }
+
+        private void BarrierChanged(object sender, EventArgs e)
+        {
+            sourceTier.TraceConfiguration.IncludeBarriers = _barrierSwitch.On;
+        }
+
+        private void ContainerChanged(object sender, EventArgs e)
+        {
+            sourceTier.TraceConfiguration.IncludeContainers = _containerSwitch.On;
+        }
+
+        private void AttributeClick(object sender, EventArgs e)
+        {
+            // Build a UI alert controller for picking the color.
+            UIAlertController prompt = UIAlertController.Create(null, "Choose the attribute.", UIAlertControllerStyle.ActionSheet);
+            foreach (UtilityNetworkAttribute attribute in _utilityNetwork.Definition.NetworkAttributes.Where(i => i.IsSystemDefined == false))
+            {
+                UIAlertAction action = UIAlertAction.Create(attribute.Name, UIAlertActionStyle.Default, (s) => AttributeSelect(attribute));
+                prompt.AddAction(action);
+            }
+
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                //ppc.;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            PresentViewController(prompt, true, null);
+        }
+
+        private void AttributeSelect(UtilityNetworkAttribute attribute)
+        {
+            _attributeButton.SetTitle(attribute.Name, UIControlState.Normal);
+            _selectedAttribute = attribute;
+        }
+
+        private void ComparisonClick(object sender, EventArgs e)
+        {
+            /// Build a UI alert controller for picking the color.
+            UIAlertController prompt = UIAlertController.Create(null, "Choose the comparison.", UIAlertControllerStyle.ActionSheet);
+            foreach (UtilityAttributeComparisonOperator op in Enum.GetValues(typeof(UtilityAttributeComparisonOperator)))
+            {
+                UIAlertAction action = UIAlertAction.Create(op.ToString(), UIAlertActionStyle.Default, (s) => ComparisonSelect(op));
+                prompt.AddAction(action);
+            }
+
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                //ppc.;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            PresentViewController(prompt, true, null);
+        }
+
+        private void ComparisonSelect(UtilityAttributeComparisonOperator op)
+        {
+            _comparisonButton.SetTitle(op.ToString(), UIControlState.Normal);
+            _selectedComparison = op;
+        }
+
+        private void ValueClick(object sender, EventArgs e)
+        {
+            // Verify that an attribute has been selected.
+            if (_selectedAttribute != null)
+            {
+                UIAlertController prompt = null;
+                if (_selectedAttribute.Domain is CodedValueDomain domain)
+                {
+                    prompt = UIAlertController.Create(null, "Choose the value.", UIAlertControllerStyle.ActionSheet);
+                    foreach (CodedValue value in domain.CodedValues)
+                    {
+                        UIAlertAction action = UIAlertAction.Create(value.Name, UIAlertActionStyle.Default, (s) => ValueSelect(value));
+                        prompt.AddAction(action);
+                    }
+                }
+                else
+                {
+                    prompt = UIAlertController.Create(null, "Enter the value", UIAlertControllerStyle.Alert);
+                    prompt.AddTextField(obj =>
+                    {
+                        _valueTextEntry = obj;
+                        obj.Text = "";
+                        obj.KeyboardType = UIKeyboardType.NumberPad;
+                    });
+                    prompt.AddAction(UIAlertAction.Create("OK", UIAlertActionStyle.Default, ValueEntered));
+                }
+
+                // Needed to prevent crash on iPad.
+                UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+                if (ppc != null)
+                {
+                    //ppc.;
+                    ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                }
+
+                PresentViewController(prompt, true, null);
+            }
+        }
+
+        private void ValueEntered(UIAlertAction val)
+        {
+            _valueButton.SetTitle(_valueTextEntry.Text, UIControlState.Normal);
+            _selectedValue = _valueTextEntry.Text;
+        }
+
+        private void ValueSelect(CodedValue val)
+        {
+            _valueButton.SetTitle(val.Name, UIControlState.Normal);
+            _selectedValue = val;
+        }
+
+        private void AddClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_configuration == null)
+                {
+                    _configuration = new UtilityTraceConfiguration();
+                }
+                if (_configuration.Traversability == null)
+                {
+                    _configuration.Traversability = new UtilityTraversability();
+                }
+
+                // NOTE: You may also create a UtilityCategoryComparison with UtilityNetworkDefinition.Categories and UtilityCategoryComparisonOperator.
+                if (_selectedAttribute != null)
+                {
+                    object selectedValue;
+
+                    // If the value is a coded value.
+                    if (_selectedAttribute.Domain is CodedValueDomain && _selectedValue is CodedValue codedValue)
+                    {
+                        selectedValue = ConvertToDataType(codedValue.Code, _selectedAttribute.DataType);
+                    }
+                    // If the value is free entry.
+                    else
+                    {
+                        selectedValue = ConvertToDataType(_selectedValue.ToString().Trim(), _selectedAttribute.DataType);
+                    }
+                    // NOTE: You may also create a UtilityNetworkAttributeComparison with another NetworkAttribute.
+                    UtilityTraceConditionalExpression expression = new UtilityNetworkAttributeComparison(_selectedAttribute, _selectedComparison, selectedValue);
+                    if (_configuration.Traversability.Barriers is UtilityTraceConditionalExpression otherExpression)
+                    {
+                        // NOTE: You may also combine expressions with UtilityTraceAndCondition
+                        expression = new UtilityTraceOrCondition(otherExpression, expression);
+                    }
+                    _configuration.Traversability.Barriers = expression;
+                    _expressionLabel.Text = ExpressionToString(expression);
+                }
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "Error adding barrier", null).Show();
+            }
+        }
+
+        private async void TraceClick(object sender, EventArgs e)
+        {
+            if (_utilityNetwork == null || _startingLocation == null)
+            {
+                return;
+            }
+            try
+            {
+                UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Subnetwork, new[] { _startingLocation });
+                if (_configuration is UtilityTraceConfiguration traceConfiguration)
+                {
+                    parameters.TraceConfiguration = traceConfiguration;
+                }
+                IEnumerable<UtilityTraceResult> results = await _utilityNetwork.TraceAsync(parameters);
+                UtilityElementTraceResult elementResult = results?.FirstOrDefault() as UtilityElementTraceResult;
+                new UIAlertView("Trace Result", $"`{elementResult?.Elements?.Count ?? 0}` elements found.", (IUIAlertViewDelegate)null, "OK", null).Show();
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
+            }
+        }
+
+        private void ResetClick(object sender, EventArgs e)
+        {
+            // Reset the barrier condition to the initial value.
+            UtilityTraceConfiguration traceConfiguration = _configuration;
+            traceConfiguration.Traversability.Barriers = _initialExpression;
+            _expressionLabel.Text = ExpressionToString(_initialExpression);
+        }
+
+        private object ConvertToDataType(object otherValue, UtilityNetworkAttributeDataType dataType)
+        {
+            switch (dataType)
+            {
+                case UtilityNetworkAttributeDataType.Boolean:
+                    return Convert.ToBoolean(otherValue);
+
+                case UtilityNetworkAttributeDataType.Double:
+                    return Convert.ToDouble(otherValue);
+
+                case UtilityNetworkAttributeDataType.Float:
+                    return Convert.ToSingle(otherValue);
+
+                case UtilityNetworkAttributeDataType.Integer:
+                    return Convert.ToInt32(otherValue);
+            }
+            throw new NotSupportedException();
+        }
+
+        private string ExpressionToString(UtilityTraceConditionalExpression expression)
+        {
+            if (expression is UtilityCategoryComparison categoryComparison)
+            {
+                return $"`{categoryComparison.Category.Name}` {categoryComparison.ComparisonOperator}";
+            }
+            else if (expression is UtilityNetworkAttributeComparison attributeComparison)
+            {
+                if (attributeComparison.NetworkAttribute.Domain is CodedValueDomain cvd)
+                {
+                    string cvdName = cvd.CodedValues.FirstOrDefault(c => ConvertToDataType(c.Code, attributeComparison.NetworkAttribute.DataType).Equals(ConvertToDataType(attributeComparison.Value, attributeComparison.NetworkAttribute.DataType)))?.Name;
+                    return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{cvdName}`";
+                }
+                else
+                {
+                    return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{attributeComparison.OtherNetworkAttribute?.Name ?? attributeComparison.Value}`";
+                }
+            }
+            else if (expression is UtilityTraceAndCondition andCondition)
+            {
+                return $"({ExpressionToString(andCondition.LeftExpression)}) AND\n ({ExpressionToString(andCondition.RightExpression)})";
+            }
+            else if (expression is UtilityTraceOrCondition orCondition)
+            {
+                return $"({ExpressionToString(orCondition.LeftExpression)}) OR\n ({ExpressionToString(orCondition.RightExpression)})";
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -141,14 +383,14 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             buttonContainer.Alignment = UIStackViewAlignment.Top;
             buttonContainer.Spacing = 5;
             buttonContainer.LayoutMarginsRelativeArrangement = true;
-            buttonContainer.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 10);
+            buttonContainer.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 0);
 
             UILabel barrierLabel = new UILabel() { Text = "Include barriers", TranslatesAutoresizingMaskIntoConstraints = false };
-            _barrierSwitch = new UISwitch() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _barrierSwitch = new UISwitch() { TranslatesAutoresizingMaskIntoConstraints = false, On = true };
             buttonContainer.AddArrangedSubview(GetRowStackView(new UIView[] { barrierLabel, _barrierSwitch }));
 
             UILabel containerLabel = new UILabel() { Text = "Include containers", TranslatesAutoresizingMaskIntoConstraints = false };
-            _containerSwitch = new UISwitch() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _containerSwitch = new UISwitch() { TranslatesAutoresizingMaskIntoConstraints = false, On = true };
             buttonContainer.AddArrangedSubview(GetRowStackView(new UIView[] { containerLabel, _containerSwitch }));
 
             UILabel helpLabel = new UILabel() { Text = "Example barrier condition for this data: 'Transformer Load' Equal '15'", TranslatesAutoresizingMaskIntoConstraints = false, Lines = 0 };
@@ -157,21 +399,23 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             UILabel conditionTitleLabel = new UILabel() { Text = "Barrier Condition:", TranslatesAutoresizingMaskIntoConstraints = false, Lines = 0, MinimumFontSize = (nfloat)(helpLabel.MinimumFontSize * 1.5) };
             buttonContainer.AddArrangedSubview(conditionTitleLabel);
 
-            _attributePicker = new UIPickerView() { TranslatesAutoresizingMaskIntoConstraints = false };
-            buttonContainer.AddArrangedSubview(_attributePicker);
-            _comparisonPicker = new UIPickerView() { TranslatesAutoresizingMaskIntoConstraints = false };
-            buttonContainer.AddArrangedSubview(_comparisonPicker);
-            _codedValuePicker = new UIPickerView() { TranslatesAutoresizingMaskIntoConstraints = false };
-            buttonContainer.AddArrangedSubview(_codedValuePicker);
-            _valueTextEntry = new UITextField() { Enabled = false, KeyboardType = UIKeyboardType.NumbersAndPunctuation, TranslatesAutoresizingMaskIntoConstraints = false };
-            buttonContainer.AddArrangedSubview(_valueTextEntry);
+            _attributeButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _attributeButton.SetTitle("Attribute", UIControlState.Normal);
+            _attributeButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _comparisonButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _comparisonButton.SetTitle("Comparison", UIControlState.Normal);
+            _comparisonButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _valueButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _valueButton.SetTitle("Value", UIControlState.Normal);
+            _valueButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            buttonContainer.AddArrangedSubview(GetRowStackView(new UIView[] { _attributeButton, _comparisonButton, _valueButton }));
 
             _addButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
             _addButton.SetTitle("Add barrier condition", UIControlState.Normal);
             _addButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-            buttonContainer.AddArrangedSubview(_addButton);
+            buttonContainer.AddArrangedSubview(GetRowStackView(new UIView[] { _addButton }));
 
-            _expressionLabel = new UILabel() { TranslatesAutoresizingMaskIntoConstraints = false, Text = "Test" };
+            _expressionLabel = new UILabel() { TranslatesAutoresizingMaskIntoConstraints = false, Text = "", Lines = 0 };
             buttonContainer.AddArrangedSubview(_expressionLabel);
 
             _traceButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
@@ -202,6 +446,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             row.Spacing = 8;
             row.Axis = UILayoutConstraintAxis.Horizontal;
             row.Distribution = UIStackViewDistribution.FillProportionally;
+            row.WidthAnchor.ConstraintEqualTo(350).Active = true;
             return row;
         }
 
@@ -211,71 +456,34 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             Initialize();
         }
 
-        private class AttributeComparisonPickerModel : UIPickerViewModel
+        public override void ViewWillAppear(bool animated)
         {
-            private UtilityNetworkAttribute[] _attributes;
-            private Array _comparisons;
-            public UtilityNetworkAttribute SelectedAttribute;
-            public int SelectedComparison;
+            base.ViewWillAppear(animated);
 
-            // Constructor takes the default values for RGB.
-            public AttributeComparisonPickerModel(IEnumerable<UtilityNetworkAttribute> attributes)
-            {
-                _attributes = attributes.ToArray();
-                _comparisons = Enum.GetValues(typeof(UtilityAttributeComparisonOperator));
-            }
+            // Subscribe to events.
+            _attributeButton.TouchUpInside += AttributeClick;
+            _comparisonButton.TouchUpInside += ComparisonClick;
+            _valueButton.TouchUpInside += ValueClick;
+            _addButton.TouchUpInside += AddClick;
+            _traceButton.TouchUpInside += TraceClick;
+            _resetButton.TouchUpInside += ResetClick;
+            _barrierSwitch.ValueChanged += BarrierChanged;
+            _containerSwitch.ValueChanged += ContainerChanged;
+        }
 
-            // Return the number of picker components.
-            public override nint GetComponentCount(UIPickerView pickerView)
-            {
-                return 2;
-            }
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
 
-            // Return the number of attributes.
-            public override nint GetRowsInComponent(UIPickerView pickerView, nint component)
-            {
-                return component == 0 ? _attributes.Count() : _comparisons.Length;
-            }
-
-            // Get the title to display in each picker component.
-            public override string GetTitle(UIPickerView pickerView, nint row, nint component)
-            {
-                if (component == 0)
-                {
-                    return _attributes[row].Name;
-                }
-                else
-                {
-                    return Enum.GetName(typeof(UtilityAttributeComparisonOperator), (int)row);
-                }
-            }
-
-            // Handle the selection event for the picker.
-            public override void Selected(UIPickerView pickerView, nint row, nint component)
-            {
-                // Get the selected RGB values.
-                if(component == 0)
-                {
-                    SelectedAttribute = _attributes[row];
-                }
-                else
-                {
-                    SelectedComparison = (int)row;
-                }
-            }
-
-            //// Return the desired width for each component in the picker.
-            //public override nfloat GetComponentWidth(UIPickerView pickerView, nint component)
-            //{
-            //    // All components display the same range of values (largest is 3 digits).
-            //    return 60f;
-            //}
-
-            //// Return the desired height for rows in the picker.
-            //public override nfloat GetRowHeight(UIPickerView pickerView, nint component)
-            //{
-            //    return 30f;
-            //}
+            // Unsubscribe from events, per best practice.
+            _attributeButton.TouchUpInside -= AttributeClick;
+            _comparisonButton.TouchUpInside -= ComparisonClick;
+            _valueButton.TouchUpInside -= ValueClick;
+            _addButton.TouchUpInside -= AddClick;
+            _traceButton.TouchUpInside -= TraceClick;
+            _resetButton.TouchUpInside -= ResetClick;
+            _barrierSwitch.ValueChanged -= BarrierChanged;
+            _containerSwitch.ValueChanged -= ContainerChanged;
         }
     }
 }

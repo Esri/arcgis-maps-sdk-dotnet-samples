@@ -25,6 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ConfigureSubnetworkTrace
     {
+        // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
         private UtilityNetwork _utilityNetwork;
 

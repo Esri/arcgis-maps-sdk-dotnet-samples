@@ -3,8 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/ConfigureSubnetworkTraceView">
     <TableLayout
+        
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:paddingLeft="0dp"
@@ -17,12 +19,14 @@
         <TableRow>
             <Switch
                 android:id="@+id/barrierSwitch"
-                android:text="Include barriers:" />
+                android:text="Include barriers:"
+                android:checked="true"/>
         </TableRow>
         <TableRow>
             <Switch
                 android:id="@+id/containerSwitch"
-                android:text="Include containers:"/>
+                android:text="Include containers:"
+                android:checked="true"/>
         </TableRow>
         <TableRow>
             <TextView
@@ -34,29 +38,19 @@
                 android:text="New barrier condition:"/>
         </TableRow>
         <TableRow>
-            <LinearLayout 
-                android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <Button
-                    android:id="@+id/attributeButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Attribute"/>
-                <Button
-                    android:id="@+id/comparisonButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Comparison"
-                    android:layout_weight="1"/>
-                <Button
-                    android:id="@+id/valueButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Value"
-                    android:layout_weight="1"/>
-            </LinearLayout>
+            <Button
+                android:id="@+id/attributeButton"
+                android:text="Attribute"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/comparisonButton"
+                android:text="Comparison"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/valueButton"
+                android:text="Value"/>
         </TableRow>
         <TableRow>
             <Button

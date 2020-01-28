@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingLeft="0dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:stretchColumns="0">
         <TableRow>
             <Switch
@@ -19,25 +24,71 @@
                 android:id="@+id/containerSwitch"
                 android:text="Include containers:"/>
         </TableRow>
-        <TableRow >
+        <TableRow>
             <TextView
-                android:maxWidth="@+id/tableLayout"
+                android:layout_width="0dp"
                 android:text="Example barrier condition for this data: 'Transformer Load' Equal '15'"/>
         </TableRow>
         <TableRow>
             <TextView
-                android:maxWidth="@+id/tableLayout"
-                android:text="Barrier Condition:" android:textSize="20"/>
+                android:text="New barrier condition:"/>
         </TableRow>
         <TableRow>
             <LinearLayout 
-                android:orientation="horizontal" 
-                android:maxWidth="@+id/tableLayout"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
                 android:layout_height="wrap_content">
-                <Button android:text="dwwdwd"/>
-                <Button android:text="dwwdwd"/>
-                <Button android:text="dwwdwd"/>
+                <Button
+                    android:id="@+id/attributeButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Attribute"/>
+                <Button
+                    android:id="@+id/comparisonButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Comparison"
+                    android:layout_weight="1"/>
+                <Button
+                    android:id="@+id/valueButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Value"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/addButton"
+                android:text="Add barrier condition"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Barrier condition:"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:id="@+id/barrierText"
+                android:layout_width="0dp"
+                android:text="Placeholder text"/>
+        </TableRow>
+        <TableRow>
+            <LinearLayout 
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/traceButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Trace"/>
+                <Button
+                    android:id="@+id/resetButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset"
+                    android:layout_weight="1"/>
             </LinearLayout>
         </TableRow>
     </TableLayout>
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

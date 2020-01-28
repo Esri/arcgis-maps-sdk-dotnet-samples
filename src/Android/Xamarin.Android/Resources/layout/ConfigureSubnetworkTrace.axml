@@ -1,7 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="0">
+        <TableRow>
+            <Switch
+                android:id="@+id/barrierSwitch"
+                android:text="Include barriers:" />
+        </TableRow>
+        <TableRow>
+            <Switch
+                android:id="@+id/containerSwitch"
+                android:text="Include containers:"/>
+        </TableRow>
+        <TableRow >
+            <TextView
+                android:maxWidth="@+id/tableLayout"
+                android:text="Example barrier condition for this data: 'Transformer Load' Equal '15'"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:maxWidth="@+id/tableLayout"
+                android:text="Barrier Condition:" android:textSize="20"/>
+        </TableRow>
+        <TableRow>
+            <LinearLayout 
+                android:orientation="horizontal" 
+                android:maxWidth="@+id/tableLayout"
+                android:layout_height="wrap_content">
+                <Button android:text="dwwdwd"/>
+                <Button android:text="dwwdwd"/>
+                <Button android:text="dwwdwd"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
 </LinearLayout>

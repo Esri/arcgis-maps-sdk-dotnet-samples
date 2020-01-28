@@ -9,6 +9,11 @@
 
 using Android.App;
 using Android.OS;
+using Android.App;
+using Android.OS;
+using Android.Runtime;
+using Android.Speech.Tts;
+using Android.Widget;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -19,6 +24,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 {
@@ -50,15 +56,8 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
-
-            // Add the map view to the layout.
-            _myMapView = new MapView(this);
-            layout.AddView(_myMapView);
-
-            // Show the layout in the app.
-            SetContentView(layout);
+            // Load the layout from the axml resource. (This sample has the same interface as the navigation sample without rerouting)
+            SetContentView(Resource.Layout.ConfigureSubnetworkTrace);
         }
     }
 }

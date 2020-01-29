@@ -109,7 +109,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 _startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
 
                 // Set the terminal for this location. (For our case, we use the 'Load' terminal.)
-                _startingLocation.Terminal = _startingLocation.AssetType.TerminalConfiguration?.Terminals.Where(t => t.Name == "Load").FirstOrDefault();
+                _startingLocation.Terminal = _startingLocation.AssetType.TerminalConfiguration?.Terminals.FirstOrDefault(t => t.Name == "Load");
 
                 // Get a default trace configuration from a tier to update the UI.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);

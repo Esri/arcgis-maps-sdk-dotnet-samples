@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:id="@+id/ConfigureSubnetworkTraceView">
     <TableLayout
-        
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingLeft="0dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:paddingTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

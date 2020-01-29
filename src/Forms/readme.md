@@ -85,7 +85,7 @@
 * [ArcGIS map image layer](Shared/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](Shared/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](Shared/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.
-* [Browse WFS layers](Shared/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers.
+* [Browse WFS layers](Shared/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers and add them to the map.
 * [Blend renderer](Shared/Samples/Layers/ChangeBlendRenderer/readme.md) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Change feature layer renderer](Shared/Samples/Layers/ChangeFeatureLayerRenderer/readme.md) - Change the appearance of a feature layer with a renderer.
 * [Stretch renderer](Shared/Samples/Layers/ChangeStretchRenderer/readme.md) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
@@ -193,6 +193,7 @@
 
 * [Find closest facility to an incident (interactive)](Shared/Samples/Network%20analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
 * [Find closest facility to multiple incidents (service)](Shared/Samples/Network%20analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Configure subnetwork trace](Shared/Samples/Network%20analysis/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
 * [Find route](Shared/Samples/Network%20analysis/FindRoute/readme.md) - Display directions for a route between two points.
 * [Find service area](Shared/Samples/Network%20analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
 * [Find service areas for multiple facilities](Shared/Samples/Network%20analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.

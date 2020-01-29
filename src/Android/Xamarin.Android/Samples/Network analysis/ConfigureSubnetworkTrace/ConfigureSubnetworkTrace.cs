@@ -10,6 +10,7 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Text.Method;
 using Android.Views;
 using Android.Widget;
 using ArcGISRuntime;
@@ -91,6 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         {
             try
             {
+                // Disable interaction until the data is loaded.
                 _mainView.Visibility = ViewStates.Gone;
 
                 // Create and load the utility network.
@@ -119,8 +121,8 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 // Set the default expression (if provided).
                 if (_sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
-                    //ConditionBarrierExpression.Text = ExpressionToString(expression);
                     _initialExpression = expression;
+                    _expressionLabel.Text = ExpressionToString(_initialExpression);
                 }
 
                 // Set the traversability scope.
@@ -128,7 +130,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
             }
             finally
             {
@@ -138,6 +140,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
         private void AttributeClicked(object sender, EventArgs e)
         {
+            // Get the names of every attribute.
             string[] options = _attributes.Select(x => x.Name).ToArray();
 
             // Create UI for attribute selection.
@@ -159,6 +162,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
         private void ComparisonClicked(object sender, EventArgs e)
         {
+            // Get the names of every comparison operator.
             string[] options = Enum.GetNames(typeof(UtilityAttributeComparisonOperator));
 
             // Create UI for attribute selection.
@@ -182,17 +186,18 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 if (_selectedAttribute.Domain is CodedValueDomain domain)
                 {
-                    // Create UI for attribute selection.
+                    // Create a dialog for selecting from the coded values.
                     builder.SetTitle("Select a value");
                     string[] options = domain.CodedValues.Select(x => x.Name).ToArray();
                     builder.SetItems(options, ValueSelected);
                 }
                 else
                 {
+                    // Create a dialog for entering a value.
                     _valueEntry = new EditText(this) { InputType = Android.Text.InputTypes.ClassNumber };
                     builder.SetTitle("Enter a value");
                     builder.SetView(_valueEntry);
-                    builder.SetPositiveButton("OK", ValueTyped);
+                    builder.SetPositiveButton("OK", ValueEntered);
                 }
                 builder.Show();
             }
@@ -204,7 +209,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             _valueButton.Text = ((CodedValue)_selectedValue).Name;
         }
 
-        private void ValueTyped(object sender, DialogClickEventArgs e)
+        private void ValueEntered(object sender, DialogClickEventArgs e)
         {
             _selectedValue = _valueEntry.Text;
             _valueButton.Text = _selectedValue.ToString();
@@ -251,8 +256,41 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             }
             catch (Exception ex)
             {
-                //new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "Error adding barrier", null).Show();
+                new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
             }
+        }
+
+        private async void TraceClicked(object sender, EventArgs e)
+        {
+            if (_utilityNetwork == null || _startingLocation == null)
+            {
+                return;
+            }
+            try
+            {
+                UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Subnetwork, new[] { _startingLocation });
+                if (_configuration is UtilityTraceConfiguration traceConfiguration)
+                {
+                    parameters.TraceConfiguration = traceConfiguration;
+                }
+                IEnumerable<UtilityTraceResult> results = await _utilityNetwork.TraceAsync(parameters);
+                UtilityElementTraceResult elementResult = results?.FirstOrDefault() as UtilityElementTraceResult;
+
+                // Display the number of elements found by the trace.
+                new AlertDialog.Builder(this).SetMessage($"`{elementResult?.Elements?.Count ?? 0}` elements found.").SetTitle("Trace Result").Show();
+            }
+            catch (Exception ex)
+            {
+                new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
+            }
+        }
+
+        private void ResetClicked(object sender, EventArgs e)
+        {
+            // Reset the barrier condition to the initial value.
+            UtilityTraceConfiguration traceConfiguration = _configuration;
+            traceConfiguration.Traversability.Barriers = _initialExpression;
+            _expressionLabel.Text = ExpressionToString(_initialExpression);
         }
 
         private object ConvertToDataType(object otherValue, UtilityNetworkAttributeDataType dataType)
@@ -322,6 +360,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             _expressionLabel = FindViewById<TextView>(Resource.Id.barrierText);
             _mainView = FindViewById<View>(Resource.Id.ConfigureSubnetworkTraceView);
 
+            // Add event handlers for all of the controls.
             _barrierSwitch.CheckedChange += (s, e) => _sourceTier.TraceConfiguration.IncludeBarriers = e.IsChecked;
             _containerSwitch.CheckedChange += (s, e) => _sourceTier.TraceConfiguration.IncludeContainers = e.IsChecked;
             _attributeButton.Click += AttributeClicked;
@@ -330,33 +369,9 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             _addButton.Click += AddClicked;
             _traceButton.Click += TraceClicked;
             _resetButton.Click += ResetClicked;
-        }
 
-        private void ResetClicked(object sender, EventArgs e)
-        {
-        }
-
-        private async void TraceClicked(object sender, EventArgs e)
-        {
-            if (_utilityNetwork == null || _startingLocation == null)
-            {
-                return;
-            }
-            try
-            {
-                UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Subnetwork, new[] { _startingLocation });
-                if (_configuration is UtilityTraceConfiguration traceConfiguration)
-                {
-                    parameters.TraceConfiguration = traceConfiguration;
-                }
-                IEnumerable<UtilityTraceResult> results = await _utilityNetwork.TraceAsync(parameters);
-                UtilityElementTraceResult elementResult = results?.FirstOrDefault() as UtilityElementTraceResult;
-                //new UIAlertView("Trace Result", $"`{elementResult?.Elements?.Count ?? 0}` elements found.", (IUIAlertViewDelegate)null, "OK", null).Show();
-            }
-            catch (Exception ex)
-            {
-                //new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
-            }
+            // Make the label for barrier expression scrollable.
+            _expressionLabel.MovementMethod = new ScrollingMovementMethod();
         }
     }
 }

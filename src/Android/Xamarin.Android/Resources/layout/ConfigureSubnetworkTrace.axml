@@ -61,11 +61,13 @@
             <TextView
                 android:text="Barrier condition:"/>
         </TableRow>
-        <TableRow>
+        <TableRow android:isScrollContainer="true">
             <TextView
                 android:id="@+id/barrierText"
+                android:text="Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder"
+                android:scrollbars="vertical"
                 android:layout_width="0dp"
-                android:text="Placeholder text"/>
+                android:layout_height="100dp"/>
         </TableRow>
         <TableRow>
             <LinearLayout 

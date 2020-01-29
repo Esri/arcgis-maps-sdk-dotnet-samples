@@ -63,8 +63,8 @@ namespace ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Build the choice lists for network attribute comparison.
-                ComparisonSources.ItemsSource = _utilityNetwork.Definition.NetworkAttributes.Where((i => i.IsSystemDefined == false));
-                ComparisonOperators.ItemsSource = Enum.GetValues(typeof(UtilityAttributeComparisonOperator));
+                Attributes.ItemsSource = _utilityNetwork.Definition.NetworkAttributes.Where((i => i.IsSystemDefined == false));
+                Operators.ItemsSource = Enum.GetValues(typeof(UtilityAttributeComparisonOperator));
 
                 // Create a default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
@@ -116,20 +116,20 @@ namespace ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace
                 }
 
                 // NOTE: You may also create a UtilityCategoryComparison with UtilityNetworkDefinition.Categories and UtilityCategoryComparisonOperator.
-                if (ComparisonSources.SelectedItem is UtilityNetworkAttribute attribute
-                    && ComparisonOperators.SelectedItem is UtilityAttributeComparisonOperator attributeOperator)
+                if (Attributes.SelectedItem is UtilityNetworkAttribute attribute
+                    && Operators.SelectedItem is UtilityAttributeComparisonOperator attributeOperator)
                 {
                     object selectedValue;
 
                     // If the value is a coded value.
-                    if (attribute.Domain is CodedValueDomain && ComparisonValueChoices.SelectedItem is CodedValue codedValue)
+                    if (attribute.Domain is CodedValueDomain && ValueSelection.SelectedItem is CodedValue codedValue)
                     {
                         selectedValue = ConvertToDataType(codedValue.Code, attribute.DataType);
                     }
                     // If the value is free entry.
                     else
                     {
-                        selectedValue = ConvertToDataType(ComparisonValue.Text.Trim(), attribute.DataType);
+                        selectedValue = ConvertToDataType(ValueEntry.Text.Trim(), attribute.DataType);
                     }
                     // NOTE: You may also create a UtilityNetworkAttributeComparison with another NetworkAttribute.
                     UtilityTraceConditionalExpression expression = new UtilityNetworkAttributeComparison(attribute, attributeOperator, selectedValue);
@@ -230,23 +230,23 @@ namespace ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace
             }
         }
 
-        private void OnComparisonSourceChanged(object sender, SelectionChangedEventArgs e)
+        private void OnAttributeChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComparisonValue.Text = string.Empty;
+            ValueEntry.Text = string.Empty;
 
             // Update the UI to show the correct value entry for the attribute.
-            if (ComparisonSources.SelectedItem is UtilityNetworkAttribute attribute)
+            if (Attributes.SelectedItem is UtilityNetworkAttribute attribute)
             {
                 if (attribute.Domain is CodedValueDomain domain)
                 {
-                    ComparisonValueChoices.ItemsSource = domain.CodedValues;
-                    ComparisonValueChoices.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    ComparisonValue.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    ValueSelection.ItemsSource = domain.CodedValues;
+                    ValueSelection.Visibility = Visibility.Visible;
+                    ValueEntry.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
-                    ComparisonValue.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    ComparisonValueChoices.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    ValueEntry.Visibility = Visibility.Visible;
+                    ValueSelection.Visibility = Visibility.Collapsed;
                 }
             }
         }

@@ -59,8 +59,8 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Build the choice lists for network attribute comparison.
-                ComparisonSources.ItemsSource = _utilityNetwork.Definition.NetworkAttributes.Where(i => i.IsSystemDefined == false).ToList();
-                ComparisonOperators.ItemsSource = Enum.GetValues(typeof(UtilityAttributeComparisonOperator));
+                Attributes.ItemsSource = _utilityNetwork.Definition.NetworkAttributes.Where(i => i.IsSystemDefined == false).ToList();
+                Operators.ItemsSource = Enum.GetValues(typeof(UtilityAttributeComparisonOperator));
 
                 // Create a default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
@@ -149,23 +149,23 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             throw new NotSupportedException();
         }
 
-        private void OnComparisonSourceChanged(object sender, System.EventArgs e)
+        private void OnAttributeChanged(object sender, System.EventArgs e)
         {
             // Update the UI to show the correct value entry for the attribute.
-            ComparisonValue.Text = string.Empty;
+            ValueEntry.Text = string.Empty;
 
-            if (ComparisonSources.SelectedItem is UtilityNetworkAttribute attribute)
+            if (Attributes.SelectedItem is UtilityNetworkAttribute attribute)
             {
                 if (attribute.Domain is CodedValueDomain domain)
                 {
-                    ComparisonValueChoices.ItemsSource = domain.CodedValues.ToList();
-                    ComparisonValueChoices.IsVisible = true;
-                    ComparisonValue.IsVisible = false;
+                    ValueSelection.ItemsSource = domain.CodedValues.ToList();
+                    ValueSelection.IsVisible = true;
+                    ValueEntry.IsVisible = false;
                 }
                 else
                 {
-                    ComparisonValueChoices.IsVisible = false;
-                    ComparisonValue.IsVisible = true;
+                    ValueSelection.IsVisible = false;
+                    ValueEntry.IsVisible = true;
                 }
             }
         }
@@ -220,19 +220,19 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 }
 
                 // NOTE: You may also create a UtilityCategoryComparison with UtilityNetworkDefinition.Categories and UtilityCategoryComparisonOperator.
-                if (ComparisonSources.SelectedItem is UtilityNetworkAttribute attribute
-                    && ComparisonOperators.SelectedItem is UtilityAttributeComparisonOperator attributeOperator)
+                if (Attributes.SelectedItem is UtilityNetworkAttribute attribute
+                    && Operators.SelectedItem is UtilityAttributeComparisonOperator attributeOperator)
                 {
                     object otherValue;
                     // If the value is a coded value.
-                    if (attribute.Domain is CodedValueDomain && ComparisonValueChoices.SelectedItem is CodedValue codedValue)
+                    if (attribute.Domain is CodedValueDomain && ValueSelection.SelectedItem is CodedValue codedValue)
                     {
                         otherValue = ConvertToDataType(codedValue.Code, attribute.DataType);
                     }
                     // If the value is free entry.
                     else
                     {
-                        otherValue = ConvertToDataType(ComparisonValue.Text.Trim(), attribute.DataType);
+                        otherValue = ConvertToDataType(ValueEntry.Text.Trim(), attribute.DataType);
                     }
                     // NOTE: You may also create a UtilityNetworkAttributeComparison with another NetworkAttribute.
                     UtilityTraceConditionalExpression expression = new UtilityNetworkAttributeComparison(attribute, attributeOperator, otherValue);

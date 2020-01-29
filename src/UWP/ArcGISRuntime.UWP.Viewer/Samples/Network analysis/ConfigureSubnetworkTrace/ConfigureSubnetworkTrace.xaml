@@ -65,12 +65,12 @@
             FontWeight="SemiBold"
             Text="Define new condition:" />
         <ComboBox
-            x:Name="ComparisonSources"
+            x:Name="Attributes"
             Grid.Row="2"
             Grid.Column="1"
             Width="175"
             Margin="5"
-            SelectionChanged="OnComparisonSourceChanged">
+            SelectionChanged="OnAttributeChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Name}" />
@@ -78,13 +78,13 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <ComboBox
-            x:Name="ComparisonOperators"
+            x:Name="Operators"
             Grid.Row="2"
             Grid.Column="2"
             Width="150"
             Margin="5" />
         <ComboBox
-            x:Name="ComparisonValueChoices"
+            x:Name="ValueSelection"
             Grid.Row="2"
             Grid.Column="3"
             Width="125"
@@ -97,7 +97,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
         <TextBox
-            x:Name="ComparisonValue"
+            x:Name="ValueEntry"
             Grid.Row="2"
             Grid.Column="3"
             Width="125"

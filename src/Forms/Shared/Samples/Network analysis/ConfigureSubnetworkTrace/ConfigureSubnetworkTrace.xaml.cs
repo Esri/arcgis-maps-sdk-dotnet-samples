@@ -178,12 +178,17 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             }
             try
             {
+                // Create utility trace parameters for the starting location.
                 UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Subnetwork, new[] { _startingLocation });
-
                 parameters.TraceConfiguration = _sourceTier.TraceConfiguration;
 
+                // Trace the utility network.
                 IEnumerable<UtilityTraceResult> results = await _utilityNetwork.TraceAsync(parameters);
+
+                // Get the first result.
                 UtilityElementTraceResult elementResult = results?.FirstOrDefault() as UtilityElementTraceResult;
+
+                // Display the number of elements found by the trace.
                 await Application.Current.MainPage.DisplayAlert("Trace Result", $"`{elementResult?.Elements?.Count ?? 0}` elements found.", "OK");
             }
             catch (Exception ex)

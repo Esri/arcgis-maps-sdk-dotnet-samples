@@ -12,6 +12,7 @@ While some traces are built from an ad-hoc group of parameters, many are based o
 
 Sample loads with a server-defined trace configuration from a tier. Check or uncheck which options to include in the trace - such as containers or barriers. Use the selection boxes to define a new condition network attribute comparison. Click 'Trace' to run a subnetwork trace with this modified configuration from a default starting location.
 Example barrier conditions for the default dataset:
+
 * 'Transformer Load' Equal '15'
 * 'Phases Current' DoesNotIncludeTheValues 'A'
 * 'Generation KW' LessThan '50'

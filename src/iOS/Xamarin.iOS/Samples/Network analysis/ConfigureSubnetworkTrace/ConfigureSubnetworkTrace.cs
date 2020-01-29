@@ -321,10 +321,14 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             }
             else if (expression is UtilityNetworkAttributeComparison attributeComparison)
             {
-                if (attributeComparison.NetworkAttribute.Domain is CodedValueDomain cvd)
+                // Check if attribute domain is a coded value domain.
+                if (attributeComparison.NetworkAttribute.Domain is CodedValueDomain domain)
                 {
-                    string cvdName = cvd.CodedValues.FirstOrDefault(c => ConvertToDataType(c.Code, attributeComparison.NetworkAttribute.DataType).Equals(ConvertToDataType(attributeComparison.Value, attributeComparison.NetworkAttribute.DataType)))?.Name;
-                    return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{cvdName}`";
+                    // Get the coded value using the the attribute comparison value and attribute data type.
+                    UtilityNetworkAttributeDataType dataType = attributeComparison.NetworkAttribute.DataType;
+                    object attributeValue = ConvertToDataType(attributeComparison.Value, attributeComparison.NetworkAttribute.DataType);
+                    CodedValue codedValue = domain.CodedValues.FirstOrDefault(cv => ConvertToDataType(cv.Code, dataType).Equals(attributeValue));
+                    return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{codedValue?.Name}`";
                 }
                 else
                 {

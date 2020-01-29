@@ -60,7 +60,7 @@
                             <Label
                                 x:Name="ConditionBarrierExpression"
                                 Grid.Row="0"
-                                FontSize="Medium"
+                                FontAttributes="Bold"
                                 Text="" />
                         </ScrollView>
                     </ViewCell>

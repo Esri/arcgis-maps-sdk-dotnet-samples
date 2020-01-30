@@ -28,7 +28,6 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         "Network analysis",
         "Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class ConfigureSubnetworkTrace : Activity
     {
         // Hold references to the UI controls.

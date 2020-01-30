@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Browse a WFS service for layers.",
+    "description": "Browse a WFS service for layers and add them to the map.",
     "formal_name": "BrowseWfsLayers",
     "ignore": false,
     "images": [

@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <None Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
     <None Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
     <None Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
@@ -263,6 +264,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.cs" />
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.cs" />
     <Compile Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.cs" />
@@ -680,6 +682,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\DisplaySubtypeFeatureLayer.axml">
       <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ConfigureSubnetworkTrace.axml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->

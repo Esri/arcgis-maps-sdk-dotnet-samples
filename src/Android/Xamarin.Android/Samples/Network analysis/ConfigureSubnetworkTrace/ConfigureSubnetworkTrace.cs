@@ -99,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Getthe attributes in the utility network.
-                _attributes = _utilityNetwork.Definition.NetworkAttributes.Where((i => i.IsSystemDefined == false));
+                _attributes = _utilityNetwork.Definition.NetworkAttributes.Where(netattr => !netattr.IsSystemDefined);
 
                 // Create a default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
@@ -109,7 +109,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 _startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
 
                 // Set the terminal for this location. (For our case, we use the 'Load' terminal.)
-                _startingLocation.Terminal = _startingLocation.AssetType.TerminalConfiguration?.Terminals.FirstOrDefault(t => t.Name == "Load");
+                _startingLocation.Terminal = _startingLocation.AssetType.TerminalConfiguration?.Terminals.FirstOrDefault(term => term.Name == "Load");
 
                 // Get a default trace configuration from a tier to update the UI.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);
@@ -328,7 +328,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                     // Get the coded value using the the attribute comparison value and attribute data type.
                     UtilityNetworkAttributeDataType dataType = attributeComparison.NetworkAttribute.DataType;
                     object attributeValue = ConvertToDataType(attributeComparison.Value, attributeComparison.NetworkAttribute.DataType);
-                    CodedValue codedValue = domain.CodedValues.FirstOrDefault(cv => ConvertToDataType(cv.Code, dataType).Equals(attributeValue));
+                    CodedValue codedValue = domain.CodedValues.FirstOrDefault(value => ConvertToDataType(value.Code, dataType).Equals(attributeValue));
                     return $"`{attributeComparison.NetworkAttribute.Name}` {attributeComparison.ComparisonOperator} `{codedValue?.Name}`";
                 }
                 else

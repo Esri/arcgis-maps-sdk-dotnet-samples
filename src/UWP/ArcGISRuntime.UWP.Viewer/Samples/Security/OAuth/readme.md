@@ -35,4 +35,4 @@ For additional information on using Oauth in your app, see the [Mobile and Nativ
 
 ## Tags
 
-Cloud & Portal, authentication, security, OAuth, credential
+authentication, cloud, credential, OAuth, OAuth2, portal, security

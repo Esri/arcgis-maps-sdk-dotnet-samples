@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-
 using Android.App;
 using Android.Graphics;
 using Android.OS;
@@ -121,8 +120,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                     // Get the first scene.
                     _tabletopScene = package.Scenes.First();
 
-                    // Hide the base surface.
-                    _tabletopScene.BaseSurface.Opacity = 0;
+                    // Set the clipping distance for the scene.
+                    _arSceneView.ClippingDistance = 400;
 
                     // Enable subsurface navigation. This allows you to look at the scene from below.
                     _tabletopScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;

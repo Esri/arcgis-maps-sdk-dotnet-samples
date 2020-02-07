@@ -112,6 +112,12 @@ namespace ArcGISRuntime
             }
         }
         public SamplesSearchViewModel ViewModel { get; set; }
+
+        private async void SettingsClicked(object sender, EventArgs e)
+        {
+            // Show the sample.
+            await Navigation.PushAsync(new SampleSettingsPage(), true);
+        }
     }
 
     public class SamplesSearchViewModel : INotifyPropertyChanged

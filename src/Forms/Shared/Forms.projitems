@@ -1484,8 +1484,16 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\agol.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\delete.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\download.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\agol.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\delete.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\about.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\licenses.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

@@ -50,21 +50,21 @@
                                             CommandParameter="{Binding .}"
                                             MinimumHeightRequest="25"
                                             MinimumWidthRequest="25"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.download.png}" />
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}" />
                                         <ImageButton
                                             Grid.Column="2"
                                             Clicked="AGOLClicked"
                                             CommandParameter="{Binding .}"
                                             MinimumHeightRequest="25"
                                             MinimumWidthRequest="25"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.agol.png}" />
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png}" />
                                         <ImageButton
                                             Grid.Column="3"
                                             Clicked="DeleteClicked"
                                             CommandParameter="{Binding .}"
                                             MinimumHeightRequest="25"
                                             MinimumWidthRequest="25"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.delete.png}" />
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}" />
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

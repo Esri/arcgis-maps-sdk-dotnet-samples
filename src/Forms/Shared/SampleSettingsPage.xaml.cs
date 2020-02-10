@@ -9,11 +9,13 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
+using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -22,7 +24,7 @@ namespace ArcGISRuntime
 {
     public partial class SampleSettingsPage : TabbedPage
     {
-        private static string _runtimeVersion = "";
+        private static string _runtimeVersion = string.Empty;
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
@@ -35,12 +37,37 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
-            //LicensePage.Source = "https://www.google.com";
-
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
             OfflineDataView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
+
+            // Get the current runtime version.
+            var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
+            _runtimeVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
+
+            // Get the contents of the markdown files for the "About" and "Licenses" pages.
+            var assembly = Assembly.GetExecutingAssembly();
+            string aboutString = new StreamReader(assembly.GetManifestResourceStream("ArcGISRuntime.Resources.SettingsPage.about.md")).ReadToEnd();
+            string licenseString = new StreamReader(assembly.GetManifestResourceStream("ArcGISRuntime.Resources.SettingsPage.licenses.md")).ReadToEnd();
+
+            // The location of the github markdown css is platform dependent.
+            string baseUrl = string.Empty;
+#if WINDOWS_UWP
+            baseUrl = "ms-appx-web:///";
+#elif XAMARIN_ANDROID
+            baseUrl = "file:///android_asset";
+#elif __IOS__
+            baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
+#endif
+            string cssPath = $"{baseUrl}/github-markdown.css";
+
+            string licenseHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(licenseString)}</body>";
+            LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
+
+            // Load the HTML for the about page.
+            string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}{_runtimeVersion}</body>";
+            AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
         }
 
         private async void DownloadClicked(object sender, EventArgs e)
@@ -54,7 +81,7 @@ namespace ArcGISRuntime
                 }
                 catch (Exception exception)
                 {
-                    System.Diagnostics.Debug.WriteLine(exception);
+                    Debug.WriteLine(exception);
                     await Application.Current.MainPage.DisplayAlert("Error", "Couldn't download data for that sample", "OK");
                 }
                 finally

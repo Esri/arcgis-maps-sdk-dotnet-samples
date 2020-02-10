@@ -1483,4 +1483,9 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\agol.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\delete.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\download.png" />
+  </ItemGroup>
 </Project>

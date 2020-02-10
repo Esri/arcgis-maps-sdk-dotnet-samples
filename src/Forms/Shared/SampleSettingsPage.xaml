@@ -3,8 +3,11 @@
     x:Class="ArcGISRuntime.SampleSettingsPage "
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ArcGISRuntimeXamarin.Converters;assembly=ArcGISRuntime"
+    xmlns:converters1="clr-namespace:Forms.Converters"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
     mc:Ignorable="d">
     <TabbedPage.Children>
         <ContentPage Title="About">
@@ -19,30 +22,51 @@
         </ContentPage>
         <ContentPage Title="Offline data">
             <ContentPage.Content>
-                <ListView x:Name="OfflineDataView">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <Grid x:Name="ListViewGrid">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label Grid.Column="0" Text="{Binding SampleName}" />
-                                    <Button
-                                        Grid.Column="1"
-                                        Clicked="DownloadClicked"
-                                        CommandParameter="{Binding .}"
-                                        Text="Download" />
-                                    <Button Grid.Column="2" Text="AGOL" />
-                                    <Button Grid.Column="3" Text="Delete" />
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <StackLayout Orientation="Vertical">
+                    <StackLayout Orientation="Horizontal">
+                        <Button Clicked="DownloadAllClicked" Text="Download all" />
+                        <Button Clicked="DeleteAllClicked" Text="Delete all" />
+                    </StackLayout>
+                    <ListView x:Name="OfflineDataView">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid x:Name="ListViewGrid">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" Text="{Binding SampleName}" />
+                                        <ImageButton
+                                            Grid.Column="1"
+                                            Clicked="DownloadClicked"
+                                            CommandParameter="{Binding .}"
+                                            MinimumHeightRequest="25"
+                                            MinimumWidthRequest="25"
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.download.png}" />
+                                        <ImageButton
+                                            Grid.Column="2"
+                                            Clicked="AGOLClicked"
+                                            CommandParameter="{Binding .}"
+                                            MinimumHeightRequest="25"
+                                            MinimumWidthRequest="25"
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.agol.png}" />
+                                        <ImageButton
+                                            Grid.Column="3"
+                                            Clicked="DeleteClicked"
+                                            CommandParameter="{Binding .}"
+                                            MinimumHeightRequest="25"
+                                            MinimumWidthRequest="25"
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.delete.png}" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Label x:Name="StatusLabel" />
+                </StackLayout>
             </ContentPage.Content>
         </ContentPage>
     </TabbedPage.Children>

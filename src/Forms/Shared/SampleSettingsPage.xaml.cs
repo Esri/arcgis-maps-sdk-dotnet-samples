@@ -1,4 +1,13 @@
-﻿using ArcGISRuntime.Samples.Managers;
+﻿// Copyright 2020 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -23,7 +32,7 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
-            LicensePage.Source = "https://www.google.com";
+            //LicensePage.Source = "https://www.google.com";
 
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
@@ -31,17 +40,31 @@ namespace ArcGISRuntime
             _cancellationTokenSource = new CancellationTokenSource();
         }
 
-        private void DownloadClicked(object sender, EventArgs e)
+        private async void DownloadClicked(object sender, EventArgs e)
         {
-            if(((Button)sender).CommandParameter is SampleInfo sampleInfo)
+            // Verify that the download
+            if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
             {
-                // Download data for that sample.
+                try
+                {
+                    //SetStatusMessage("Downloading sample data", true);
+                    await DataManager.EnsureSampleDataPresent(sampleInfo);
+                }
+                catch (Exception exception)
+                {
+                    System.Diagnostics.Debug.WriteLine(exception);
+                    //await new MessageDialog("Couldn't download data for that sample", "Error").ShowAsync();
+                }
+                finally
+                {
+                    //SetStatusMessage("Ready", false);
+                }
             }
         }
 
         private void AGOLClicked(object sender, EventArgs e)
         {
-            if (((Button)sender).CommandParameter is SampleInfo sampleInfo)
+            if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
             {
                 // Open data for that sample in AGOL.
             }
@@ -49,10 +72,16 @@ namespace ArcGISRuntime
 
         private void DeleteClicked(object sender, EventArgs e)
         {
-            if (((Button)sender).CommandParameter is SampleInfo sampleInfo)
+            if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
             {
                 // Delete data for that sample.
             }
+        }
+        private void DownloadAllClicked(object sender, EventArgs e)
+        {
+        }
+        private void DeleteAllClicked(object sender, EventArgs e)
+        {
         }
     }
 }

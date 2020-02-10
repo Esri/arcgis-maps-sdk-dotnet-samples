@@ -19,7 +19,30 @@
         </ContentPage>
         <ContentPage Title="Offline data">
             <ContentPage.Content>
-                <Grid />
+                <ListView x:Name="OfflineDataView">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid x:Name="ListViewGrid">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding SampleName}" />
+                                    <Button
+                                        Grid.Column="1"
+                                        Clicked="DownloadClicked"
+                                        CommandParameter="{Binding .}"
+                                        Text="Download" />
+                                    <Button Grid.Column="2" Text="AGOL" />
+                                    <Button Grid.Column="3" Text="Delete" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </ContentPage.Content>
         </ContentPage>
     </TabbedPage.Children>

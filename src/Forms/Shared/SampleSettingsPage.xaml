@@ -26,6 +26,11 @@
                     <StackLayout Orientation="Horizontal">
                         <Button Clicked="DownloadAllClicked" Text="Download all" />
                         <Button Clicked="DeleteAllClicked" Text="Delete all" />
+                        <Button
+                            x:Name="CancelButton"
+                            Clicked="CancelClicked"
+                            IsVisible="False"
+                            Text="Cancel" />
                     </StackLayout>
                     <ListView x:Name="OfflineDataView">
                         <ListView.ItemTemplate>
@@ -65,7 +70,10 @@
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <Label x:Name="StatusLabel" />
+                    <StackLayout Orientation="Horizontal">
+                        <Label x:Name="StatusLabel" />
+                        <ProgressBar x:Name="StatusSpinner" />
+                    </StackLayout>
                 </StackLayout>
             </ContentPage.Content>
         </ContentPage>

@@ -11,8 +11,11 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime
@@ -42,46 +45,151 @@ namespace ArcGISRuntime
 
         private async void DownloadClicked(object sender, EventArgs e)
         {
-            // Verify that the download
             if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
             {
                 try
                 {
-                    //SetStatusMessage("Downloading sample data", true);
+                    SetStatusMessage($"Downloading data for {sampleInfo.SampleName}", true);
                     await DataManager.EnsureSampleDataPresent(sampleInfo);
                 }
                 catch (Exception exception)
                 {
                     System.Diagnostics.Debug.WriteLine(exception);
-                    //await new MessageDialog("Couldn't download data for that sample", "Error").ShowAsync();
+                    await Application.Current.MainPage.DisplayAlert("Error", "Couldn't download data for that sample", "OK");
                 }
                 finally
                 {
-                    //SetStatusMessage("Ready", false);
+                    SetStatusMessage("Ready", false);
                 }
             }
         }
 
-        private void AGOLClicked(object sender, EventArgs e)
+        private async void AGOLClicked(object sender, EventArgs e)
         {
             if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
             {
-                // Open data for that sample in AGOL.
+                foreach (var offlineItem in sampleInfo.OfflineDataItems)
+                {
+                    try
+                    {
+                        string onlinePath = $"https://www.arcgis.com/home/item.html?id={offlineItem}";
+                        await Launcher.OpenAsync(new Uri(onlinePath));
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                }
             }
         }
 
-        private void DeleteClicked(object sender, EventArgs e)
+        private async void DeleteClicked(object sender, EventArgs e)
         {
             if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
             {
-                // Delete data for that sample.
+                try
+                {
+                    SetStatusMessage("Deleting sample data", true);
+
+                    foreach (string offlineItemId in sampleInfo.OfflineDataItems)
+                    {
+                        string offlineDataPath = DataManager.GetDataFolder(offlineItemId);
+                        Directory.Delete(offlineDataPath, true);
+                    }
+                    await Application.Current.MainPage.DisplayAlert("Success", $"Offline data deleted for {sampleInfo.SampleName}", "OK");
+                }
+                catch (Exception exception)
+                {
+                    Debug.WriteLine(exception);
+                    await Application.Current.MainPage.DisplayAlert("Error", $"Couldn't delete offline data.", "OK");
+                }
+                finally
+                {
+                    SetStatusMessage("Ready", false);
+                }
             }
         }
-        private void DownloadAllClicked(object sender, EventArgs e)
+        private async void DownloadAllClicked(object sender, EventArgs e)
         {
+            try
+            {
+                // Get a token from a new CancellationTokenSource()
+                CancellationToken token = _cancellationTokenSource.Token;
+
+                // Enable the cancel button.
+                CancelButton.IsVisible = true;
+
+                // Adjust the UI
+                SetStatusMessage("Downloading all...", true);
+
+                // Make a list of tasks for downloading all of the samples.
+                HashSet<string> itemIds = new HashSet<string>();
+
+                foreach (SampleInfo sample in OfflineDataSamples)
+                {
+                    foreach (string itemId in sample.OfflineDataItems)
+                    {
+                        itemIds.Add(itemId);
+                    }
+                }
+
+                // Download every item.
+                foreach (var item in itemIds)
+                {
+                    StatusLabel.Text = $"Downloading item: {item}";
+                    await DataManager.DownloadDataItem(item, token);
+                }
+
+                await Application.Current.MainPage.DisplayAlert(string.Empty, "All data downloaded", "OK");
+            }
+            catch (OperationCanceledException)
+            {
+                await Application.Current.MainPage.DisplayAlert(string.Empty, "Download canceled", "OK");
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+                await Application.Current.MainPage.DisplayAlert("Error", exception.Message, "OK");
+            }
+            finally
+            {
+                _cancellationTokenSource = new CancellationTokenSource();
+                SetStatusMessage("Ready", false);
+                CancelButton.IsVisible = false; ;
+            }
         }
-        private void DeleteAllClicked(object sender, EventArgs e)
+        private async void DeleteAllClicked(object sender, EventArgs e)
         {
+            try
+            {
+                SetStatusMessage("Deleting all...", true);
+
+                string offlineDataPath = DataManager.GetDataFolder();
+                Directory.Delete(offlineDataPath, true);
+
+                await Application.Current.MainPage.DisplayAlert("Success", "All data deleted", "OK");
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine(exception);
+                await Application.Current.MainPage.DisplayAlert("Error", exception.Message, "OK");
+            }
+            finally
+            {
+                SetStatusMessage("Ready", false);
+            }
+        }
+
+        private void CancelClicked(object sender, EventArgs e)
+        {
+            _cancellationTokenSource.Cancel(true);
+        }
+
+        private void SetStatusMessage(string message, bool isRunning)
+        {
+            StatusLabel.Text = message;
+            StatusSpinner.IsVisible = isRunning;
+            OfflineDataView.IsEnabled = !isRunning;
         }
     }
 }

@@ -66,13 +66,14 @@ namespace ArcGISRuntime
 #endif
             string cssPath = $"{baseUrl}/github-markdown.css";
 
+            // Load the HTML for the about and license pages.
             string licenseHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(licenseString)}</body>";
             LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
-            // Load the HTML for the about page.
             string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}{versionNumber}</body>";
             AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
 
+            // Add an event handler for hyperlinks in the web views.
             AboutPage.Navigating += HyperlinkClicked;
             LicensePage.Navigating += HyperlinkClicked;
         }

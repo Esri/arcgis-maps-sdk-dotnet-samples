@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
+using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -35,6 +36,15 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
+            // Get the ArcGIS Runtime version number.
+            string versionNumber = string.Empty;
+#if XAMARIN_ANDROID
+            versionNumber = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly.GetName().Version.ToString();
+#else
+            var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
+            versionNumber = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
+#endif
+
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
             OfflineDataView.ItemsSource = OfflineDataSamples;
@@ -60,8 +70,30 @@ namespace ArcGISRuntime
             LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
             // Load the HTML for the about page.
-            string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}</body>";
+            string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}{versionNumber}</body>";
             AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
+
+            AboutPage.Navigating += HyperlinkClicked;
+            LicensePage.Navigating += HyperlinkClicked;
+        }
+
+        private async void HyperlinkClicked(object sender, WebNavigatingEventArgs e)
+        {
+            // Check that user clicked a hyperlink from the readmes.
+            if (e.Url.Contains("http"))
+            {
+                // Cancel that navigation.
+                e.Cancel = true;
+                try
+                {
+                    // Open the link in an external browser.
+                    await Launcher.OpenAsync(e.Url);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            }
         }
 
         private async void DownloadClicked(object sender, EventArgs e)

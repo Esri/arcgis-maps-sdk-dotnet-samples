@@ -10,4 +10,4 @@ This sample viewer shows how different features of the ArcGIS runtime can be imp
 
 ----
 
-## ArcGIS Runtime SDK Version: 100.7.0.2632
+## ArcGIS Runtime SDK Version: 

@@ -70,6 +70,7 @@
                                             CommandParameter="{Binding .}"
                                             HeightRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}"
+                                            VerticalOptions="CenterAndExpand"
                                             WidthRequest="25" />
                                         <ImageButton
                                             Grid.Column="2"
@@ -78,6 +79,7 @@
                                             CommandParameter="{Binding .}"
                                             HeightRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png}"
+                                            VerticalOptions="CenterAndExpand"
                                             WidthRequest="25" />
                                         <ImageButton
                                             Grid.Column="3"
@@ -86,6 +88,7 @@
                                             CommandParameter="{Binding .}"
                                             HeightRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}"
+                                            VerticalOptions="CenterAndExpand"
                                             WidthRequest="25" />
                                     </Grid>
                                 </ViewCell>

@@ -827,8 +827,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)SampleSettingsPage.xaml.cs">
-      <DependentUpon>SampleSettingsPage.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -1478,7 +1478,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SampleSettingsPage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>

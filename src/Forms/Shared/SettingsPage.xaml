@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage
-    x:Class="ArcGISRuntime.SampleSettingsPage "
+    x:Class="ArcGISRuntime.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -58,22 +58,35 @@
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0" Text="{Binding SampleName}" />
+                                        <Label
+                                            Grid.Column="0"
+                                            Margin="5"
+                                            Text="{Binding SampleName}"
+                                            VerticalOptions="Center" />
                                         <ImageButton
                                             Grid.Column="1"
+                                            Margin="5"
                                             Clicked="DownloadClicked"
                                             CommandParameter="{Binding .}"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}" />
+                                            MinimumWidthRequest="25"
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}"
+                                            WidthRequest="25" />
                                         <ImageButton
                                             Grid.Column="2"
+                                            Margin="5"
                                             Clicked="AGOLClicked"
                                             CommandParameter="{Binding .}"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png}" />
+                                            MinimumWidthRequest="25"
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png}"
+                                            WidthRequest="25" />
                                         <ImageButton
                                             Grid.Column="3"
+                                            Margin="5"
                                             Clicked="DeleteClicked"
                                             CommandParameter="{Binding .}"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}" />
+                                            MinimumWidthRequest="25"
+                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}"
+                                            WidthRequest="25" />
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

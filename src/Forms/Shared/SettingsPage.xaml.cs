@@ -9,7 +9,6 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,14 +21,14 @@ using Xamarin.Forms;
 
 namespace ArcGISRuntime
 {
-    public partial class SampleSettingsPage : TabbedPage
+    public partial class SettingsPage : TabbedPage
     {
         private static string _runtimeVersion = string.Empty;
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
 
-        public SampleSettingsPage()
+        public SettingsPage()
         {
             InitializeComponent();
             Initialize();

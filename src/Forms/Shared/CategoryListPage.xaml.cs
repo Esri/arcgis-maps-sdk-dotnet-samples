@@ -116,7 +116,7 @@ namespace ArcGISRuntime
         private async void SettingsClicked(object sender, EventArgs e)
         {
             // Show the sample.
-            await Navigation.PushAsync(new SampleSettingsPage(), true);
+            await Navigation.PushAsync(new SettingsPage(), true);
         }
     }
 

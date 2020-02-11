@@ -1,6 +1,6 @@
 ﻿# Licenses for 3rd-party software packages
 
-The ArcGIS Runtime SDK for .NET sample viewer (UWP version) was built using several free and open source software libraries and resources. 
+The ArcGIS Runtime SDK for .NET sample viewer (Xamarin Forms version) was built using several free and open source software libraries and resources. 
 
 ----
 
@@ -20,20 +20,11 @@ This app uses MarkedNET under the MIT license. It is used to render the content 
 
 ----
 
-## Monaco Editor UWP
+## FilePicker Plugin for Xamarin.Forms
 
-This app uses Monaco Editor UWP under the MIT license to provide syntax highlighting on the sample source code pages.
+This app uses the FilePicker Plugin for Xamarin.Forms under the MIT license. It is used to show file pickers in different platforms.
 
-[Project on GitHub](https://github.com/hawkerm/monaco-editor-uwp) | [License](https://licenses.nuget.org/MIT)
-
-----
-
-## Windows Community Toolkit
-
-Copyright (c) .NET Foundation and Contributors
-All rights reserved. MIT License.
-
-[Project on GitHub](https://github.com/windows-toolkit/WindowsCommunityToolkit) | [License](https://github.com/windows-toolkit/WindowsCommunityToolkit/blob/master/license.md)
+[Project on GitHub](https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows) | [License](https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows/blob/master/LICENSE)
 
 ----
 

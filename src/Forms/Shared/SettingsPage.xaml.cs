@@ -23,7 +23,6 @@ namespace ArcGISRuntime
 {
     public partial class SettingsPage : TabbedPage
     {
-        private static string _runtimeVersion = string.Empty;
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
@@ -40,10 +39,6 @@ namespace ArcGISRuntime
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
             OfflineDataView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
-
-            // Get the current runtime version.
-            //var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
-            //_runtimeVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
 
             // Get the contents of the markdown files for the "About" and "Licenses" pages.
             var assembly = Assembly.GetExecutingAssembly();
@@ -65,7 +60,7 @@ namespace ArcGISRuntime
             LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
             // Load the HTML for the about page.
-            string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}{_runtimeVersion}</body>";
+            string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}</body>";
             AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
         }
 

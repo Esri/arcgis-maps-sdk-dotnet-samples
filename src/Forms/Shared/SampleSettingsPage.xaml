@@ -3,8 +3,6 @@
     x:Class="ArcGISRuntime.SampleSettingsPage "
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:ArcGISRuntimeXamarin.Converters;assembly=ArcGISRuntime"
-    xmlns:converters1="clr-namespace:Forms.Converters"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
@@ -22,20 +20,37 @@
         </ContentPage>
         <ContentPage Title="Offline data">
             <ContentPage.Content>
-                <StackLayout Orientation="Vertical">
-                    <StackLayout Orientation="Horizontal">
-                        <Button Clicked="DownloadAllClicked" Text="Download all" />
-                        <Button Clicked="DeleteAllClicked" Text="Delete all" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
+                            Grid.Column="0"
+                            Clicked="DownloadAllClicked"
+                            Text="Download all" />
+                        <Button
+                            Grid.Column="1"
+                            Clicked="DeleteAllClicked"
+                            Text="Delete all" />
                         <Button
                             x:Name="CancelButton"
+                            Grid.Column="2"
                             Clicked="CancelClicked"
                             IsVisible="False"
                             Text="Cancel" />
-                    </StackLayout>
-                    <ListView x:Name="OfflineDataView">
+                    </Grid>
+                    <ListView x:Name="OfflineDataView" Grid.Row="1">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell>
+                                <ViewCell Height="25">
                                     <Grid x:Name="ListViewGrid">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -48,33 +63,34 @@
                                             Grid.Column="1"
                                             Clicked="DownloadClicked"
                                             CommandParameter="{Binding .}"
-                                            MinimumHeightRequest="25"
-                                            MinimumWidthRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}" />
                                         <ImageButton
                                             Grid.Column="2"
                                             Clicked="AGOLClicked"
                                             CommandParameter="{Binding .}"
-                                            MinimumHeightRequest="25"
-                                            MinimumWidthRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png}" />
                                         <ImageButton
                                             Grid.Column="3"
                                             Clicked="DeleteClicked"
                                             CommandParameter="{Binding .}"
-                                            MinimumHeightRequest="25"
-                                            MinimumWidthRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}" />
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
-                    <StackLayout Orientation="Horizontal">
-                        <Label x:Name="StatusLabel" />
-                        <ProgressBar x:Name="StatusSpinner" />
-                    </StackLayout>
-                </StackLayout>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label x:Name="StatusLabel" Grid.Column="0" />
+                        <ProgressBar
+                            x:Name="StatusSpinner"
+                            Grid.Column="1"
+                            IsVisible="False" />
+                    </Grid>
+                </Grid>
             </ContentPage.Content>
         </ContentPage>
     </TabbedPage.Children>

@@ -43,8 +43,8 @@ namespace ArcGISRuntime
             _cancellationTokenSource = new CancellationTokenSource();
 
             // Get the current runtime version.
-            var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
-            _runtimeVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
+            //var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
+            //_runtimeVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
 
             // Get the contents of the markdown files for the "About" and "Licenses" pages.
             var assembly = Assembly.GetExecutingAssembly();

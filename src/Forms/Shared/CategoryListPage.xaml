@@ -2,9 +2,13 @@
 <ContentPage
     x:Class="ArcGISRuntime.CategoryListPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="SettingsClicked" Text="Settings" />
+        <ToolbarItem
+            Clicked="SettingsClicked"
+            IconImageSource="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settings.png}"
+            Text="Settings" />
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid.RowDefinitions>

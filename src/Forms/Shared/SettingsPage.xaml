@@ -50,7 +50,7 @@
                     <ListView x:Name="OfflineDataView" Grid.Row="1">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <ViewCell Height="25">
+                                <ViewCell>
                                     <Grid x:Name="ListViewGrid">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -68,7 +68,7 @@
                                             Margin="5"
                                             Clicked="DownloadClicked"
                                             CommandParameter="{Binding .}"
-                                            MinimumWidthRequest="25"
+                                            HeightRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}"
                                             WidthRequest="25" />
                                         <ImageButton
@@ -76,7 +76,7 @@
                                             Margin="5"
                                             Clicked="AGOLClicked"
                                             CommandParameter="{Binding .}"
-                                            MinimumWidthRequest="25"
+                                            HeightRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png}"
                                             WidthRequest="25" />
                                         <ImageButton
@@ -84,7 +84,7 @@
                                             Margin="5"
                                             Clicked="DeleteClicked"
                                             CommandParameter="{Binding .}"
-                                            MinimumWidthRequest="25"
+                                            HeightRequest="25"
                                             Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}"
                                             WidthRequest="25" />
                                     </Grid>
@@ -100,13 +100,22 @@
                         <Label
                             x:Name="StatusLabel"
                             Grid.Column="0"
-                            Margin="10" />
-                        <ActivityIndicator
-                            x:Name="StatusSpinner"
+                            Margin="10"
+                            VerticalOptions="Center" />
+                        <Grid
                             Grid.Column="1"
-                            Margin="5"
-                            IsRunning="True"
-                            IsVisible="False" />
+                            HeightRequest="{x:OnPlatform Android=40,
+                                                         iOS=60,
+                                                         UWP=40}"
+                            WidthRequest="{x:OnPlatform Android=40,
+                                                        iOS=60,
+                                                        UWP=120}">
+                            <ActivityIndicator
+                                x:Name="StatusSpinner"
+                                Margin="5"
+                                IsRunning="True"
+                                IsVisible="False" />
+                        </Grid>
                     </Grid>
                 </Grid>
             </ContentPage.Content>

@@ -39,7 +39,7 @@ namespace ArcGISRuntime
             // Get the ArcGIS Runtime version number.
             string versionNumber = string.Empty;
 #if XAMARIN_ANDROID
-            versionNumber = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly.GetName().Version.ToString();
+            versionNumber = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly.GetName().Version.ToString(2);
 #else
             var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
             versionNumber = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;

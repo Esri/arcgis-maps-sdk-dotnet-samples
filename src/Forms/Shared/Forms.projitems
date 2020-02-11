@@ -1499,4 +1499,8 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\settings.png" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\document.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\info.png" />
+  </ItemGroup>
 </Project>

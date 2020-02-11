@@ -8,17 +8,17 @@
     xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
     mc:Ignorable="d">
     <TabbedPage.Children>
-        <ContentPage Title="About">
+        <ContentPage Title="About" IconImageSource="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.info.png}">
             <ContentPage.Content>
                 <WebView x:Name="AboutPage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Licenses">
+        <ContentPage Title="Licenses" IconImageSource="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.document.png}">
             <ContentPage.Content>
                 <WebView x:Name="LicensePage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Offline data">
+        <ContentPage Title="Offline data" IconImageSource="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}">
             <ContentPage.Content>
                 <Grid>
                     <Grid.RowDefinitions>

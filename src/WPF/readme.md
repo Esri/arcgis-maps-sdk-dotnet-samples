@@ -138,8 +138,6 @@
 
 ## Local Server
 
-* [Local server dynamic workspace raster](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/DynamicWorkspaceRaster/readme.md) - Dynamically add a local raster file to a map using Local Server.
-* [Local server dynamic workspace shapefile](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/DynamicWorkspaceShapefile/readme.md) - Dynamically add a local shapefile to a map using Local Server.
 * [Local server feature layer](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerFeatureLayer/readme.md) - Start a local feature service and display its features in a map.
 * [Local server geoprocessing](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerGeoprocessing/readme.md) - Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.
 * [Local Server map image layer](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerMapImageLayer/readme.md) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.

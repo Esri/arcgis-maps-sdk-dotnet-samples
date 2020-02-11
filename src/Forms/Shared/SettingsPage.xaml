@@ -97,10 +97,15 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="auto" />
                         </Grid.ColumnDefinitions>
-                        <Label x:Name="StatusLabel" Grid.Column="0" />
-                        <ProgressBar
+                        <Label
+                            x:Name="StatusLabel"
+                            Grid.Column="0"
+                            Margin="10" />
+                        <ActivityIndicator
                             x:Name="StatusSpinner"
                             Grid.Column="1"
+                            Margin="5"
+                            IsRunning="True"
                             IsVisible="False" />
                     </Grid>
                 </Grid>

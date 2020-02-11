@@ -24,7 +24,7 @@ This app uses MarkedNET under the MIT license. It is used to render the content 
 
 This app uses the FilePicker Plugin for Xamarin.Forms under the MIT license. It is used to show file pickers in different platforms.
 
-[Project on GitHub](https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows) | [License](https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows/blob/master/LICENSE)
+[Project on GitHub](https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows) | [Project on NuGet](https://www.nuget.org/packages/Xamarin.Plugin.FilePicker/2.1.34) |[License](https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows/blob/master/LICENSE)
 
 ----
 

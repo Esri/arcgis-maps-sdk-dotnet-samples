@@ -31,7 +31,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
         <ListView
             x:Name="SampleSearchResultList"
             Grid.Row="1"
@@ -46,5 +45,4 @@
             </ListView.ItemTemplate>
         </ListView>
     </Grid>
-
 </ContentPage>

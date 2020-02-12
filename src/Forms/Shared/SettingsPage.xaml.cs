@@ -63,21 +63,27 @@ namespace ArcGISRuntime
             baseUrl = "file:///android_asset";
 #elif __IOS__
             baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
+
+            // Need to set the viewport on iOS to scale page correctly.
+            string viewportHTML = "<meta name=\"viewport\" content=\"width=" +
+                Application.Current.MainPage.Width +
+                ", shrink-to-fit=YES\">";
 #endif
             string cssPath = $"{baseUrl}/github-markdown.css";
+            string htmlStart = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" />";
 
             // Load the HTML for the about and license pages.
-            string licenseHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" />" +
-                "<meta name=\"viewport\" content=\"width=" +
-                Application.Current.MainPage.Width +
-                ", shrink-to-fit=YES\">" +
+            string licenseHTML = htmlStart +
+#if __IOS__
+                viewportHTML +
+#endif
                 $"</head><body class=\"markdown-body\">{_markdownRenderer.Parse(licenseString)}</body>";
             LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
-            string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" />" +
-                "<meta name=\"viewport\" content=\"width=" +
-                Application.Current.MainPage.Width +
-                ", shrink-to-fit=YES\">" +
+            string aboutHTML = htmlStart +
+#if __IOS__
+                viewportHTML +
+#endif
                 $"</head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}{versionNumber}</body>";
             AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
 

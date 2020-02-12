@@ -67,10 +67,18 @@ namespace ArcGISRuntime
             string cssPath = $"{baseUrl}/github-markdown.css";
 
             // Load the HTML for the about and license pages.
-            string licenseHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(licenseString)}</body>";
+            string licenseHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" />" +
+                "<meta name=\"viewport\" content=\"width=" +
+                Application.Current.MainPage.Width +
+                ", shrink-to-fit=YES\">" +
+                $"</head><body class=\"markdown-body\">{_markdownRenderer.Parse(licenseString)}</body>";
             LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
-            string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}{versionNumber}</body>";
+            string aboutHTML = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" />" +
+                "<meta name=\"viewport\" content=\"width=" +
+                Application.Current.MainPage.Width +
+                ", shrink-to-fit=YES\">" +
+                $"</head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}{versionNumber}</body>";
             AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
 
             // Add an event handler for hyperlinks in the web views.

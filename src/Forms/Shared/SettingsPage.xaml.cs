@@ -111,8 +111,15 @@ namespace ArcGISRuntime
             {
                 try
                 {
+                    // Enable the cancel button.
+                    CancelButton.IsVisible = true;
+
                     SetStatusMessage($"Downloading data for {sampleInfo.SampleName}", true);
-                    await DataManager.EnsureSampleDataPresent(sampleInfo);
+                    await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token);
+                }
+                catch (OperationCanceledException)
+                {
+                    await Application.Current.MainPage.DisplayAlert(string.Empty, "Download canceled", "OK");
                 }
                 catch (Exception exception)
                 {
@@ -121,7 +128,9 @@ namespace ArcGISRuntime
                 }
                 finally
                 {
+                    _cancellationTokenSource = new CancellationTokenSource();
                     SetStatusMessage("Ready", false);
+                    CancelButton.IsVisible = false; ;
                 }
             }
         }
@@ -175,9 +184,6 @@ namespace ArcGISRuntime
         {
             try
             {
-                // Get a token from a new CancellationTokenSource()
-                CancellationToken token = _cancellationTokenSource.Token;
-
                 // Enable the cancel button.
                 CancelButton.IsVisible = true;
 
@@ -199,7 +205,7 @@ namespace ArcGISRuntime
                 foreach (var item in itemIds)
                 {
                     StatusLabel.Text = $"Downloading item: {item}";
-                    await DataManager.DownloadDataItem(item, token);
+                    await DataManager.DownloadDataItem(item, _cancellationTokenSource.Token);
                 }
 
                 await Application.Current.MainPage.DisplayAlert(string.Empty, "All data downloaded", "OK");

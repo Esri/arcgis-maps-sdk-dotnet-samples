@@ -7,7 +7,9 @@
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Clicked="SettingsClicked"
-            IconImageSource="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settings.png}"
+            IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settingsgrey.png},
+                                           iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settings.png},
+                                           UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settings.png}}"
             Text="Settings" />
     </ContentPage.ToolbarItems>
     <Grid>

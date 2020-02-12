@@ -8,17 +8,17 @@
     xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
     mc:Ignorable="d">
     <TabbedPage.Children>
-        <ContentPage Title="About" IconImageSource="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.info.png}">
+        <ContentPage Title="About" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.infogrey.png}, iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.info.png}, UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.info.png}}">
             <ContentPage.Content>
                 <WebView x:Name="AboutPage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Licenses" IconImageSource="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.document.png}">
+        <ContentPage Title="Licenses" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.documentgrey.png}, iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.document.png}, UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.document.png}}">
             <ContentPage.Content>
                 <WebView x:Name="LicensePage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Offline data" IconImageSource="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}">
+        <ContentPage Title="Offline data" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.downloadgrey.png}, iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}, UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}}">
             <ContentPage.Content>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -69,7 +69,9 @@
                                             Clicked="DownloadClicked"
                                             CommandParameter="{Binding .}"
                                             HeightRequest="25"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}"
+                                            Source="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.downloadgrey.png},
+                                                                  iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png},
+                                                                  UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.download.png}}"
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="25" />
                                         <ImageButton
@@ -78,7 +80,9 @@
                                             Clicked="AGOLClicked"
                                             CommandParameter="{Binding .}"
                                             HeightRequest="25"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png}"
+                                            Source="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agolgrey.png},
+                                                                  iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png},
+                                                                  UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.agol.png}}"
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="25" />
                                         <ImageButton
@@ -87,7 +91,9 @@
                                             Clicked="DeleteClicked"
                                             CommandParameter="{Binding .}"
                                             HeightRequest="25"
-                                            Source="{resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}"
+                                            Source="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.deletegrey.png},
+                                                                  iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png},
+                                                                  UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}}"
                                             VerticalOptions="CenterAndExpand"
                                             WidthRequest="25" />
                                     </Grid>

@@ -1,6 +1,6 @@
 # Local server services
 
-Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.
+Demonstrates how to start and stop the Local Server and start and stop a feature and geoprocessing service running on the Local Server.
 
 ![screenshot](LocalServerServices.jpg)
 
@@ -12,7 +12,7 @@ For executing offline geoprocessing tasks in your ArcGIS Runtime apps via an off
 
 Click `Start Local Server` to start the Local Server. Click `Stop Local Server` to stop the Local Server.
 
-The `Map Service` drop down lets you to pick a local service that is available.
+The drop down lets you to pick a local service that is available.
 
 After browsing for the desired file, click `Start Service` to start the selected service.
 
@@ -22,7 +22,6 @@ When the running service's url appears, select it and click `Navigate to service
 
 * LocalFeatureService
 * LocalGeoprocessingService
-* LocalMapService
 * LocalServer
 * LocalServerStatus
 * LocalService
@@ -33,4 +32,4 @@ Local Server can be downloaded for Windows and Linux platforms. Local Server is 
 
 ## Tags
 
-LocalFeatureService, LocalGeoprocessingService, LocalMapService, LocalServer.Instance.StatusChanged, local services
+LocalFeatureService, LocalGeoprocessingService, LocalServer.Instance.StatusChanged, local services

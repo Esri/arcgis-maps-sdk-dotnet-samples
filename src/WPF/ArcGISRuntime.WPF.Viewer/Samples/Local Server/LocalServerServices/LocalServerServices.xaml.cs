@@ -22,10 +22,11 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         "Local Server",
         "This sample demonstrates how to control local server and manage running services.",
         "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions. \n Sample data is downloaded automatically once local server is started. It may take some time for sample data to load. The list of services will be enabled once the download has finished.")]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("4e94fec734434d1288e6ebe36c3c461f", "da9e565a52ca41c1937cff1a01017068")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b", "4e94fec734434d1288e6ebe36c3c461f", "da9e565a52ca41c1937cff1a01017068")]
     public partial class LocalServerServices
     {
         // Hold references to the individual services
+        private LocalMapService _localMapService;
         private LocalFeatureService _localFeatureService;
         private LocalGeoprocessingService _localGeoprocessingService;
 
@@ -74,14 +75,17 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             try
             {
                 // Arrange the data before starting the services
+                string mapServicePath = GetMpkPath();
                 string featureServicePath = GetFeatureLayerPath();
                 string geoprocessingPath = GetGpPath();
 
                 // Create each service but don't start any
+                _localMapService = new LocalMapService(mapServicePath);
                 _localFeatureService = new LocalFeatureService(featureServicePath);
                 _localGeoprocessingService = new LocalGeoprocessingService(geoprocessingPath);
 
                 // Subscribe to status updates for each service
+                _localMapService.StatusChanged += (o, e) => { UpdateUiWithServiceUpdate("Map Service", e.Status); };
                 _localFeatureService.StatusChanged += (o, e) => { UpdateUiWithServiceUpdate("Feature Service", e.Status); };
                 _localGeoprocessingService.StatusChanged += (o, e) => { UpdateUiWithServiceUpdate("Geoprocessing Service", e.Status); };
 
@@ -102,6 +106,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             // Update the selection
             switch (selection)
             {
+                case "Map Service":
+                    _selectedService = _localMapService;
+                    break;
+
                 case "Feature Service":
                     _selectedService = _localFeatureService;
                     break;
@@ -173,6 +181,11 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             }
         }
 
+        private static string GetMpkPath()
+        {
+            return DataManager.GetDataFolder("dee5d8060a6048a4b063484199a9546b", "RelationshipID.mpk");
+        }
+
         private static string GetFeatureLayerPath()
         {
             return DataManager.GetDataFolder("4e94fec734434d1288e6ebe36c3c461f", "PointsOfInterest.mpk");
@@ -229,6 +242,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
 
             // Clear references to the services
             _localFeatureService = null;
+            _localMapService = null;
             _localGeoprocessingService = null;
         }
 

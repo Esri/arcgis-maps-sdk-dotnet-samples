@@ -47,7 +47,10 @@
                             IsVisible="False"
                             Text="Cancel" />
                     </Grid>
-                    <ListView x:Name="OfflineDataView" Grid.Row="1">
+                    <ListView
+                        x:Name="OfflineDataView"
+                        Grid.Row="1"
+                        SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>

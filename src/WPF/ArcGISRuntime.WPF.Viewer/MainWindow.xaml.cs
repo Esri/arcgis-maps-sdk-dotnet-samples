@@ -113,6 +113,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 SourceCodeContainer.LoadSourceCode();
+                
             }
             catch (OperationCanceledException)
             {
@@ -128,6 +129,8 @@ namespace ArcGISRuntime.Samples.Desktop
 
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
+            SampleContainer.Height = 600;
+            SampleContainer.Width = 800;
         }
 
         private static void ClearCredentials()

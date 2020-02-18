@@ -1,0 +1,22 @@
+{
+    "category": "Utility network",
+    "description": "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",
+    "formal_name": "PerformValveIsolationTrace",
+    "ignore": false,
+    "images": [
+        "PerformValveIsolationTrace.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/PerformValveIsolationTrace.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Perform valve isolation trace"
+}

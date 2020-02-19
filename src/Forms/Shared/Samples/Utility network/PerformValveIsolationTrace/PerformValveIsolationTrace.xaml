@@ -1,9 +1,54 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace.PerformValveIsolationTrace">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+﻿<ContentPage
+    x:Class="ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace.PerformValveIsolationTrace"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+    <RelativeLayout>
+        <esriUI:MapView
+            x:Name="MyMapView"
+            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+            Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid x:Name="FilterOptions">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    FontAttributes="Bold"
+                    Text="Choose Category for Filter Barrier:" />
+                <Picker
+                    x:Name="CategoryPicker"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="5"
+                    ItemDisplayBinding="{Binding Name}"
+                    VerticalOptions="Center" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="5"
+                    Clicked="OnTrace"
+                    Text="Trace" />
+                <StackLayout
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Orientation="Horizontal">
+                    <CheckBox x:Name="IncludeIsolatedFeatures" Margin="5" />
+                    <Label Text="Include Isolated Features" VerticalOptions="Center" />
+                </StackLayout>
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
 </ContentPage>

@@ -25,7 +25,6 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
         "Utility network",
         "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class PerformValveIsolationTrace
     {
         // Feature service for an electric utility network in Naperville, Illinois.

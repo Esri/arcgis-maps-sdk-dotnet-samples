@@ -235,3 +235,7 @@
 * [Read symbols from a mobile style](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SymbolsFromMobileStyle/readme.md) - Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.
 * [Distance composite scene symbol](ArcGISRuntime.WPF.Viewer/Samples/Symbology/UseDistanceCompositeSym/readme.md) - Change a graphic's symbol based on the camera's proximity to it.
 
+## Utility network
+
+* [Perform valve isolation trace](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+

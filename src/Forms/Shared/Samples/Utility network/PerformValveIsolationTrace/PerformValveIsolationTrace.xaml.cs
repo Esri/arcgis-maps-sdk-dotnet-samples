@@ -56,7 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             try
             {
                 // Disable the UI.
-                //FilterOptions.IsEnabled = false;
+                FilterOptions.IsVisible = false;
 
                 // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
@@ -99,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 CategoryPicker.ItemsSource = _utilityNetwork.Definition.Categories.ToList();
 
                 // Enable the UI.
-                //FilterOptions.IsEnabled = true;
+                FilterOptions.IsVisible = true;
             }
             catch (Exception ex)
             {

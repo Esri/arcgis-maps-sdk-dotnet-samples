@@ -103,7 +103,7 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

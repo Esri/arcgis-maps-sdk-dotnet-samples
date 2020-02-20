@@ -125,7 +125,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 }
 
                 // Set the include isolated features property.
-                _configuration.IncludeIsolatedFeatures = IncludeIsolatedFeatures.IsChecked;
+                _configuration.IncludeIsolatedFeatures = IncludeIsolatedFeatures.IsToggled;
 
                 // Build parameters for isolation trace.
                 UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Isolation, new[] { _startingLocation });

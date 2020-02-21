@@ -1,4 +1,4 @@
-# Trace a utility network
+# Trace utility network
 
 Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

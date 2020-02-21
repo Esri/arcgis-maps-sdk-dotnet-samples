@@ -1473,4 +1473,4 @@
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
   </ItemGroup>
-</Project>ct>
+</Project>

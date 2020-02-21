@@ -285,7 +285,7 @@
     <Content Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <Content Include="Samples\Network analysis\OfflineRouting\OfflineRouting.jpg" />
     <Content Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
-    <Content Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
+    <Content Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
@@ -377,7 +377,7 @@
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml.cs">
       <DependentUpon>DisplayAnnotation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+    <Compile Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
       <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
@@ -950,7 +950,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
+    <Page Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1790,4 +1790,4 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
-</Project>
+</Project>ct>

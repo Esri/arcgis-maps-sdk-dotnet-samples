@@ -19,15 +19,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
+using System.Windows;
 
-namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
+namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Trace a utility network",
-        "Network analysis",
+        "Trace utility network",
+        "Utility network",
         "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
         "",
         "Featured")]
@@ -114,12 +112,12 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             catch (Exception ex)
             {
                 Status.Text = "Loading Utility Network failed...";
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
-                EnableControls();
-                IsBusy.Visibility = Visibility.Collapsed;
+                MainUI.IsEnabled = true;
+                IsBusy.Visibility = Visibility.Hidden;
             }
         }
 
@@ -181,12 +179,12 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             catch (Exception ex)
             {
                 Status.Text = "Identifying locations failed.";
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
                 if (Status.Text.Equals("Identifying trace locations...")) { Status.Text = "Could not identify location."; }
-                IsBusy.Visibility = Visibility.Collapsed;
+                IsBusy.Visibility = Visibility.Hidden;
             }
         }
 
@@ -196,7 +194,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             {
                 MyMapView.GeoViewTapped -= OnGeoViewTapped;
                 TerminalPicker.Visibility = Visibility.Visible;
-                DisableControls();
+                MainUI.Visibility = Visibility.Collapsed;
                 Picker.ItemsSource = terminals;
                 Picker.SelectedIndex = 1;
 
@@ -207,7 +205,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
             finally
             {
                 TerminalPicker.Visibility = Visibility.Collapsed;
-                EnableControls();
+                MainUI.Visibility = Visibility.Visible;
                 MyMapView.GeoViewTapped += OnGeoViewTapped;
             }
         }
@@ -221,7 +219,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
         {
             // Reset the UI.
             Status.Text = "Click on the network lines or points to add a utility element.";
-            IsBusy.Visibility = Visibility.Collapsed;
+            IsBusy.Visibility = Visibility.Hidden;
             TraceTypes.SelectedIndex = 0;
 
             // Clear collections of starting locations and barriers.
@@ -241,9 +239,9 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
                 UtilityTraceType traceType = (UtilityTraceType)TraceTypes.SelectedItem;
 
                 // Update the UI.
-                DisableControls();
+                MainUI.IsEnabled = false;
                 IsBusy.Visibility = Visibility.Visible;
-                Status.Text = $"Running {traceType} trace...";
+                Status.Text = $"Running {traceType.ToString().ToLower()} trace...";
 
                 // Clear previous selection from the layers.
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
@@ -279,28 +277,18 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
                 Status.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    await new MessageDialog("Trace failed.", ex.GetType().Name).ShowAsync();
+                    MessageBox.Show("Trace failed.", ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
-                    await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                    MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
             finally
             {
-                EnableControls();
-                IsBusy.Visibility = Visibility.Collapsed;
+                MainUI.IsEnabled = true;
+                IsBusy.Visibility = Visibility.Hidden;
             }
-        }
-
-        private void DisableControls()
-        {
-            IsAddingStartingLocations.IsEnabled = BarriersButton.IsEnabled = TraceTypes.IsEnabled = TraceButton.IsEnabled = ResetButton.IsEnabled = false;
-        }
-
-        private void EnableControls()
-        {
-            IsAddingStartingLocations.IsEnabled = BarriersButton.IsEnabled = TraceTypes.IsEnabled = TraceButton.IsEnabled = ResetButton.IsEnabled = true;
         }
     }
 }

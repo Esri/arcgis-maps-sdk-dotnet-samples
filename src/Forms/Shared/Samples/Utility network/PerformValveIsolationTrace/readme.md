@@ -48,7 +48,6 @@ Create and set the configuration's filter barriers by selecting a category. Chec
 
 The [Naperville gas network feature service](https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleGas/FeatureServer), hosted on ArcGIS Online, contains a utility network used to run the isolation trace shown in this sample.
 
-
 ## Tags
 
 category comparison, condition barriers, isolated features, network analysis, subnetwork trace, trace configuration, trace filter, utility network

@@ -6,7 +6,16 @@
     "images": [
         "PerformValveIsolationTrace.jpg"
     ],
-    "keywords": [],
+    "keywords": [
+        "category comparison",
+        "condition barriers",
+        "isolated features",
+        "network analysis",
+        "subnetwork trace",
+        "trace configuration",
+        "trace filter",
+        "utility network"
+    ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
     },

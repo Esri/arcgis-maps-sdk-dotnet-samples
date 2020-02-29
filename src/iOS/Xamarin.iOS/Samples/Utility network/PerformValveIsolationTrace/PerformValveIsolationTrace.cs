@@ -94,11 +94,11 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 // Create a graphics overlay.
                 GraphicsOverlay overlay = new GraphicsOverlay();
                 _myMapView.GraphicsOverlays.Add(overlay);
-                Symbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.LimeGreen, 25d);
 
                 // Display starting location.
                 IEnumerable<ArcGISFeature> elementFeatures = await _utilityNetwork.GetFeaturesForElementsAsync(new List<UtilityElement> { _startingLocation });
                 MapPoint startingLocationGeometry = elementFeatures.FirstOrDefault().Geometry as MapPoint;
+                Symbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.LimeGreen, 25d);
                 Graphic graphic = new Graphic(startingLocationGeometry, symbol);
                 overlay.Graphics.Add(graphic);
 

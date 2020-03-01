@@ -106,12 +106,18 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             {
                 await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
+            finally
+            {
+                LoadingIndicator.IsVisible = false;
+            }
         }
 
         private async void OnTrace(object sender, EventArgs e)
         {
             try
             {
+                LoadingIndicator.IsVisible = true;
+
                 // Clear previous selection from the layers.
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
@@ -150,6 +156,10 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+            }
+            finally
+            {
+                LoadingIndicator.IsVisible = false;
             }
         }
     }

@@ -106,12 +106,18 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
             {
                 MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void OnTrace(object sender, RoutedEventArgs e)
         {
             try
             {
+                LoadingBar.Visibility = Visibility.Visible;
+
                 // Clear previous selection from the layers.
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
@@ -150,6 +156,10 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
             }
         }
     }

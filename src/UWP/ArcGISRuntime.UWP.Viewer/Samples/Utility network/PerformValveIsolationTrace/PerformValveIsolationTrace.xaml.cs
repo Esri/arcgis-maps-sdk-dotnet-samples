@@ -107,12 +107,18 @@ namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
             {
                 await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
             }
+            finally
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async void OnTrace(object sender, RoutedEventArgs e)
         {
             try
             {
+                LoadingBar.Visibility = Visibility.Visible;
+
                 // Clear previous selection from the layers.
                 MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
@@ -151,6 +157,10 @@ namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
             catch (Exception ex)
             {
                 await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+            }
+            finally
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
             }
         }
     }

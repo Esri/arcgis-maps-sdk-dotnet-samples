@@ -97,6 +97,7 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
 
                 // Build the choice list for categories populated with the `Name` property of each `UtilityCategory` in the `UtilityNetworkDefinition`.
                 Categories.ItemsSource = _utilityNetwork.Definition.Categories;
+                Categories.SelectedItem = _utilityNetwork.Definition.Categories.First();
 
                 // Enable the UI.
                 FilterOptions.IsEnabled = true;

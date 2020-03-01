@@ -116,6 +116,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 // Build the choice list for categories populated with the `Name` property of each `UtilityCategory` in the `UtilityNetworkDefinition`.
                 _utilityNetwork.Definition.Categories.ToList().ForEach(cat => _categoryDictionary.Add(cat.Name, cat));
                 _categorySpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, _categoryDictionary.Keys.ToList());
+                _categorySpinner.SetSelection(0);
 
                 // Enable the UI.
                 _traceButton.Enabled = true;

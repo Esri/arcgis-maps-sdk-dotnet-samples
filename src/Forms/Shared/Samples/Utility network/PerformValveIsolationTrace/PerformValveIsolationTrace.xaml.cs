@@ -97,6 +97,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
 
                 // Build the choice list for categories populated with the `Name` property of each `UtilityCategory` in the `UtilityNetworkDefinition`.
                 CategoryPicker.ItemsSource = _utilityNetwork.Definition.Categories.ToList();
+                CategoryPicker.SelectedItem = _utilityNetwork.Definition.Categories.First();
 
                 // Enable the UI.
                 FilterOptions.IsVisible = true;

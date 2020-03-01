@@ -106,7 +106,8 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 await _myMapView.SetViewpointAsync(new Viewpoint(startingLocationGeometry, 3000));
 
                 // Build the choice list for categories populated with the `Name` property of each `UtilityCategory` in the `UtilityNetworkDefinition`.
-                //CategoryPicker.ItemsSource = _utilityNetwork.Definition.Categories.ToList();
+                _selectedCategory = _utilityNetwork.Definition.Categories.First();
+                _categoryButton.Title = _selectedCategory.Name;
 
                 // Enable the UI.
                 _categoryButton.Enabled = _traceButton.Enabled = true;

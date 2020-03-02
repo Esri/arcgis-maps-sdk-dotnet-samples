@@ -38,6 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         private Button _traceButton;
         private CheckBox _isolatedCheckBox;
         private Spinner _categorySpinner;
+        private ProgressBar _loadingBar;
 
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
@@ -125,12 +126,18 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             {
                 new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
             }
+            finally
+            {
+                _loadingBar.Visibility = Android.Views.ViewStates.Gone;
+            }
         }
 
         private async void OnTrace(object sender, EventArgs e)
         {
             try
             {
+                _loadingBar.Visibility = Android.Views.ViewStates.Visible;
+
                 // Clear previous selection from the layers.
                 _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
@@ -170,6 +177,10 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             {
                 new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
             }
+            finally
+            {
+                _loadingBar.Visibility = Android.Views.ViewStates.Gone;
+            }
         }
 
         private void CreateLayout()
@@ -181,6 +192,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             _traceButton = FindViewById<Button>(Resource.Id.traceButton);
             _isolatedCheckBox = FindViewById<CheckBox>(Resource.Id.isolatedCheckBox);
             _categorySpinner = FindViewById<Spinner>(Resource.Id.categorySpinner);
+            _loadingBar = FindViewById<ProgressBar>(Resource.Id.loadingBar);
 
             _traceButton.Click += OnTrace;
         }

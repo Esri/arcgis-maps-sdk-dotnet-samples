@@ -2,7 +2,7 @@
 
 An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
 
-![screenshot](Animate3DGraphic.jpg)
+![Image of animate 3D graphic](Animate3DGraphic.jpg)
 
 ## Use case
 
@@ -10,11 +10,11 @@ Visualize movement through a 3D landscape.
 
 ## How to use the sample
 
-Animation Controls (Top Left Corner):
+Animation Controls:
 
 * Select a mission -- select a flight path
 * Play/Pause -- toggles playing and stopping the animation
-* Follow/Don't follow -- toggles the camera's free cam mode and follow
+* Fixed/Follow -- toggles the camera's free cam mode and follow
 * Mission progress -- shows how far along the route the plane is. Slide to change keyframe in animation
 * Flight speed -- controls speed of animation
 
@@ -24,7 +24,7 @@ Animation Controls (Top Left Corner):
 2. Create a `ModelSceneSymbol` object.
 3. Create a `Graphic` object and set its geometry to a `Point`.
 4. Set the `ModelSceneSymbol` object to the graphic.
-5. Add heading, pitch, and roll attributes to the graphic. Get the attributes from the graphic with `graphic.Attributes`.
+5. Add heading, pitch, and roll attributes to the graphic. Get the attributes from the graphic with `Graphic.attributes`.
 6. Create a `SimpleRenderer` object and set its expression properties.
 7. Add graphic and a renderer to the graphics overlay.
 8. Create a `OrbitGeoElementCameraController` which is set to target the graphic.

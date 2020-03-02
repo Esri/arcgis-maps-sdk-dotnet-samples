@@ -2,7 +2,7 @@
 
 Change the appearance of a feature layer with a renderer.
 
-![screenshot](ChangeFeatureLayerRenderer.jpg)
+![Image of change feature layer renderer](ChangeFeatureLayerRenderer.jpg)
 
 ## Use case
 
@@ -10,20 +10,24 @@ A feature layer hosted on ArcGIS Online has a preset renderer and will display i
 
 ## How to use the sample
 
-Use the buttons to toggle between the default and the overridden renderer.
+Use the buttons to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.
 
 ## How it works
 
 1. Create a `ServiceFeatureTable` from a URL.
 2. Create a `FeatureLayer` from the service feature table.
 3. Create a new renderer (in this case, a `SimpleRenderer`).
-4. Set the feature layer's renderer.
+4. Change the feature layer's renderer using  the `FeatureLayer.Renderer` property.
 
 ## Relevant API
 
 * FeatureLayer.Renderer
 * ServiceFeatureTable
 * SimpleRenderer
+
+## About the data
+
+This sample displays a feature layer in Warren Wilson College, North Carolina, showing carbon storage of trees on campus. The size of each circle is proportional to that particular tree's carbon storage total.
 
 ## Tags
 

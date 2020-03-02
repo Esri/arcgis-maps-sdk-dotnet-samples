@@ -35,6 +35,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         private UIBarButtonItem _categoryButton;
         private UISwitch _featuresSwitch;
         private UIBarButtonItem _traceButton;
+        private UIActivityIndicatorView _loadingView;
 
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
@@ -65,6 +66,8 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         {
             try
             {
+                _loadingView.StartAnimating();
+
                 // Disable the UI.
                 _categoryButton.Enabled = _traceButton.Enabled = false;
 
@@ -116,6 +119,10 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             {
                 new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
+            finally
+            {
+                _loadingView.StopAnimating();
+            }
         }
 
         private void CategoryClicked(object sender, EventArgs e)
@@ -140,6 +147,8 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         {
             try
             {
+                _loadingView.StartAnimating();
+
                 // Clear previous selection from the layers.
                 _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
@@ -179,6 +188,10 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             {
                 new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
+            finally
+            {
+                _loadingView.StopAnimating();
+            }
         }
 
         public override void LoadView()
@@ -208,8 +221,15 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 _traceButton
             };
 
+            _loadingView = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .5f),
+                HidesWhenStopped = true,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
             // Add the views.
-            View.AddSubviews(_myMapView, switchToolbar, buttonToolbar);
+            View.AddSubviews(_myMapView, switchToolbar, buttonToolbar, _loadingView);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]{
@@ -226,7 +246,12 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 buttonToolbar.TopAnchor.ConstraintEqualTo(switchToolbar.BottomAnchor),
                 buttonToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
                 buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+                buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                _loadingView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _loadingView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _loadingView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _loadingView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
         }
 

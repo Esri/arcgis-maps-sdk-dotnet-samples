@@ -12,15 +12,14 @@ using Esri.ArcGISRuntime.UtilityNetworks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace
+namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Configure subnetwork trace",
-        "Network analysis",
+        "Utility network",
         "Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.",
         "")]
     public partial class ConfigureSubnetworkTrace
@@ -58,6 +57,8 @@ namespace ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace
         {
             try
             {
+                Configuration.IsEnabled = false;
+
                 // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
@@ -97,11 +98,15 @@ namespace ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.Message.GetType().Name).ShowAsync();
+                MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                Configuration.IsEnabled = true;
             }
         }
 
-        private async void OnAddCondition(object sender, RoutedEventArgs e)
+        private void OnAddCondition(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -143,7 +148,7 @@ namespace ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.Message.GetType().Name).ShowAsync();
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -221,11 +226,13 @@ namespace ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace
                 UtilityElementTraceResult elementResult = results?.FirstOrDefault() as UtilityElementTraceResult;
 
                 // Display the number of elements found by the trace.
-                await new MessageDialog($"`{elementResult?.Elements?.Count ?? 0}` elements found.", "Trace Result").ShowAsync();
+                MessageBox.Show($"`{elementResult?.Elements?.Count ?? 0}` elements found.", "Trace Result", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
-                await new MessageDialog($"{ex.Message}\nFor a working barrier condition, try \"Transformer Load\" Equal \"15\".", ex.GetType().Name).ShowAsync();
+                MessageBox.Show(
+                    $"{ex.Message}\nFor a working barrier condition, try \"Transformer Load\" Equal \"15\".",
+                    ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

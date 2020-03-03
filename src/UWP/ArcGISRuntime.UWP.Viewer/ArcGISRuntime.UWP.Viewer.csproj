@@ -115,7 +115,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
-    <Content Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
+    <Content Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <Content Include="Assets\banner-background-purple.png" />
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
@@ -372,7 +372,7 @@
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
       <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
+    <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
       <DependentUpon>ConfigureSubnetworkTrace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml.cs">
@@ -946,7 +946,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
+    <Page Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1798,4 +1798,4 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
-</Project>
+</Project>ct>

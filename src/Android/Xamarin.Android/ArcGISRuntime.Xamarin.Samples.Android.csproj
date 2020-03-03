@@ -75,7 +75,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
-    <None Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
+    <None Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <None Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
     <None Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
     <None Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
@@ -266,7 +266,7 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.cs" />
-    <Compile Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />
+    <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.cs" />
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.cs" />
     <Compile Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.cs" />
@@ -701,4 +701,4 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
-</Project>
+</Project>t>

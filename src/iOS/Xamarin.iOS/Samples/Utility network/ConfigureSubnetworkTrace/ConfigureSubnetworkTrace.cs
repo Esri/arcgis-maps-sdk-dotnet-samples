@@ -20,7 +20,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
     [Register("ConfigureSubnetworkTrace")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Configure subnetwork trace",
-        "Network analysis",
+        "Utility network",
         "Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.",
         "")]
     public class ConfigureSubnetworkTrace : UIViewController

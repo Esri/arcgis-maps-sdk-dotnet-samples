@@ -200,7 +200,6 @@
 
 * [Find closest facility to an incident (interactive)](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
 * [Find closest facility to multiple incidents (service)](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Configure subnetwork trace](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
 * [Find route](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/FindRoute/readme.md) - Display directions for a route between two points.
 * [Find service area](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
 * [Find service areas for multiple facilities](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
@@ -237,6 +236,7 @@
 
 ## Utility network
 
+* [Configure subnetwork trace](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
 * [Perform valve isolation trace](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
 * [Trace utility network](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

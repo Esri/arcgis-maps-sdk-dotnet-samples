@@ -149,7 +149,7 @@
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
       <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
+    <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
       <DependentUpon>ConfigureSubnetworkTrace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml.cs">
@@ -738,7 +738,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
+    <Page Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1520,7 +1520,7 @@
     <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg">
+    <Content Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg">
@@ -2209,4 +2209,4 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
-</Project>
+</Project>ct>

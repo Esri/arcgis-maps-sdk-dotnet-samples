@@ -147,8 +147,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
                 // Get the first scene.
                 _tabletopScene = package.Scenes.First();
 
-                // Hide the base surface.
-                _tabletopScene.BaseSurface.Opacity = 0;
+                // Set the clipping distance for the scene.
+                _arSceneView.ClippingDistance = 400;
 
                 // Enable subsurface navigation. This allows you to look at the scene from below.
                 _tabletopScene.BaseSurface.NavigationConstraint = NavigationConstraint.None;

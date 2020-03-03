@@ -29,7 +29,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Navigate route with rerouting",
-        "Network Analysis",
+        "Network analysis",
         "Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc", "91e7e6be79cc4d2f8416eff867674c1e")]

@@ -115,6 +115,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
+    <Content Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <Content Include="Assets\banner-background-purple.png" />
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
@@ -370,6 +371,9 @@
     <!-- Sample Code -->
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
       <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
+      <DependentUpon>ConfigureSubnetworkTrace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml.cs">
       <DependentUpon>DisplaySubtypeFeatureLayer.xaml</DependentUpon>
@@ -939,6 +943,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Network analysis\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

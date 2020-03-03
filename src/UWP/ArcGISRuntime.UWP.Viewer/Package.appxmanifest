@@ -33,6 +33,7 @@
     <Capability Name="privateNetworkClientServer" />
     <uap:Capability Name="picturesLibrary" />
     <uap:Capability Name="sharedUserCertificates"/>
+    <uap:Capability Name="enterpriseAuthentication"/>
     <DeviceCapability Name="location" />
   </Capabilities>
 </Package>

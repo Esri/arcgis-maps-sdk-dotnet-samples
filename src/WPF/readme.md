@@ -207,7 +207,6 @@
 * [Navigate route with rerouting](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 * [Offline routing](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
-* [Trace a utility network](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 
 ## Search
 
@@ -234,4 +233,9 @@
 * [Simple renderer](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SimpleRenderers/readme.md) - Display common symbols for all graphics in a graphics overlay with a renderer.
 * [Read symbols from a mobile style](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SymbolsFromMobileStyle/readme.md) - Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.
 * [Distance composite scene symbol](ArcGISRuntime.WPF.Viewer/Samples/Symbology/UseDistanceCompositeSym/readme.md) - Change a graphic's symbol based on the camera's proximity to it.
+
+## Utility network
+
+* [Perform valve isolation trace](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+* [Trace utility network](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

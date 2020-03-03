@@ -81,7 +81,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Create a map with layers in this utility network.
-                _myMapView.Map = new Map(Basemap.CreateStreetsNightVector());
+                _myMapView.Map = new Map(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")));
                 _myMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{LineLayerId}")));
                 _myMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{DeviceLayerId}")));
 

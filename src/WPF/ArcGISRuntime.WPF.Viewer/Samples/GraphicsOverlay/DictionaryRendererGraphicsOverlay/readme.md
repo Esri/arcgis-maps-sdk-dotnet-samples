@@ -1,8 +1,8 @@
 ﻿# Dictionary renderer with graphics overlay
 
-Render graphics with mil2525d symbols.
+Create graphics using a local mil2525d style file and an XML file with key/value pairs for each graphic.
 
-![](DictionaryRendererGraphicsOverlay.jpg)
+![Image of dictionary renderer graphics overlay](DictionaryRendererGraphicsOverlay.jpg)
 
 ## Use case
 
@@ -28,4 +28,4 @@ Use a dictionary renderer on a graphics overlay to display more transient data, 
 
 ## Tags
 
-Visualization, military, defence, situational awareness, tactical
+defense, military, situational awareness, tactical, visualization

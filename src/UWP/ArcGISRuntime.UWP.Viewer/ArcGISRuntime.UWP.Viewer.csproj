@@ -1798,4 +1798,4 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
-</Project>ct>
+</Project>

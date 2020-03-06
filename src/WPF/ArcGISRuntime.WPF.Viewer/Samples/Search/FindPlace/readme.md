@@ -2,7 +2,7 @@
 
 Find places of interest near a location or within a specific area.
 
-![screenshot](FindPlace.jpg)
+![Image of find place](FindPlace.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ When getting directions or looking for nearby places, users may only know what t
 
 ## How to use the sample
 
-Choose a type of place in the first field and an area to search within in the second field. Click the Search button to show the results of the query on the map. Click on a result pin to show its name and address.
+Choose a type of place in the first field and an area to search within in the second field. Click the Search button to show the results of the query on the map. Click on a result pin to show its name and address. If you pan away from the result area, a "Redo search in this area" button will appear. Click it to query again for the currently viewed area on the map.
 
 ## How it works
 
@@ -31,6 +31,10 @@ Choose a type of place in the first field and an area to search within in the se
     * Call `locatorTask.GeocodeAsync(suggestionLabelOrPlaceQueryString, geocodeParameters)` to get a list of `GeocodeResult`s.
     * Display the places of interest using the results' `DisplayLocation`s.
 
+## About the data  
+
+This sample uses the world locator service "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer".
+
 ## Relevant API
 
 * GeocodeParameters
@@ -39,10 +43,6 @@ Choose a type of place in the first field and an area to search within in the se
 * SuggestParameters
 * SuggestResult
 
-## About the data
-
-This sample uses the world locator service "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer".
-
 ## Tags
 
-POI, businesses, geocode, locations, locator, places of interest, point of interest, search, suggestions
+businesses, geocode, locations, locator, places of interest, POI, point of interest, search, suggestions

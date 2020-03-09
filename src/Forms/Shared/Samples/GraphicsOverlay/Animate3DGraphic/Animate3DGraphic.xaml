@@ -50,7 +50,10 @@
                 <Slider
                     x:Name="MissionProgressBar"
                     Maximum="100"
-                    ValueChanged="MissionProgressOnSeek" />
+                    ValueChanged="MissionProgressOnSeek" 
+                    MaximumTrackColor="CadetBlue"
+                    MinimumTrackColor="CadetBlue"
+                    />
                 <Label TextColor="Black">Altitude:</Label>
                 <Label x:Name="AltitudeLabel" TextColor="Black" />
                 <Label TextColor="Black">Heading:</Label>

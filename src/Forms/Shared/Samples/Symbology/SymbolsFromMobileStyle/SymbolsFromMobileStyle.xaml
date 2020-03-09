@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntime.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+<ContentPage 
+    x:Class="ArcGISRuntime.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle" 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,14 +15,8 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button
-                Grid.Column="0"
-                Clicked="ChooseSymbolButtonClicked"
-                Text="Choose symbol" />
-            <Button
-                Grid.Column="1"
-                Clicked="ClearGraphicsButtonClicked"
-                Text="Clear" />
+            <Button Grid.Column="0" Clicked="ChooseSymbolButtonClicked" Text="Choose symbol" />
+            <Button Grid.Column="1" Clicked="ClearGraphicsButtonClicked" Text="Clear" />
         </Grid>
         <Grid
             x:Name="SelectSymbolGrid"
@@ -148,7 +142,9 @@
                 Grid.ColumnSpan="2"
                 Margin="10,0"
                 Maximum="60"
+                MaximumTrackColor="CadetBlue"
                 Minimum="8"
+                MinimumTrackColor="CadetBlue"
                 Value="20" />
             <Label
                 Grid.Row="3"

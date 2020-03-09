@@ -1,17 +1,16 @@
 # Geodesic operations
 
-This sample demonstrates how to perform geodesic operations on geometries using the GeometryEngine. Geodesic calculations take into account the curvature of the Earth, while planar calculations are based on a 2D Cartesian plane.
+Calculate a geodesic path between two points and measure its distance.
 
-![screenshot](GeodesicOperations.jpg)
+![Image of geodesic operations](GeodesicOperations.jpg)
 
 ## Use case
 
-Visualizing flight paths between cities is a common example of a geodesic operation--notice the lines are not straight, but curved. A geodesic distance must be calculated to get an accurate real world distance between two points on a 2D map.
+A geodesic distance provides an accurate, real-world distance between two points. Visualizing flight paths between cities is a common example of a geodesic operation since the flight path between two airports takes into account the curvature of the earth, rather than following the planar path between those points, which appears as a straight line on a projected map.
 
 ## How to use the sample
 
-1. Click anywhere on the map. A line graphic will display the geodesic line between the two points. In addition, text that indicates the geodesic distance between the two points will be updated.
-2. Click elsewhere and a new line will be created.
+Click anywhere on the map. A line graphic will display the geodesic line between the two points. In addition, text that indicates the geodesic distance between the two points will be updated. Click elsewhere and a new line will be created.
 
 ## How it works
 
@@ -26,6 +25,10 @@ Visualizing flight paths between cities is a common example of a geodesic operat
 * GeometryEngine.DensifyGeodetic
 * GeometryEngine.LengthGeodetic
 
+## About the data
+
+The Imagery basemap provides the global context for the displayed geodesic line.
+
 ## Tags
 
-GeometryEngine, densify, distance, geodesic, geodetic
+densify, distance, geodesic, geodetic

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ConfigureSubnetworkTraceView">
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:stretchColumns="0">
+        <TableRow>
+            <Switch
+                android:id="@+id/barrierSwitch"
+                android:text="Include barriers:"
+                android:checked="true"/>
+        </TableRow>
+        <TableRow>
+            <Switch
+                android:id="@+id/containerSwitch"
+                android:text="Include containers:"
+                android:checked="true"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:layout_width="0dp"
+                android:text="Example barrier condition for this data: 'Transformer Load' Equal '15'"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="New barrier condition:"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/attributeButton"
+                android:text="Attribute"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/comparisonButton"
+                android:text="Comparison"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/valueButton"
+                android:text="Value"/>
+        </TableRow>
+        <TableRow>
+            <Button
+                android:id="@+id/addButton"
+                android:text="Add barrier condition"/>
+        </TableRow>
+        <TableRow>
+            <TextView
+                android:text="Barrier condition:"/>
+        </TableRow>
+        <TableRow android:isScrollContainer="true">
+            <TextView
+                android:id="@+id/barrierText"
+                android:text="Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder Placeholder"
+                android:scrollbars="vertical"
+                android:layout_width="0dp"
+                android:layout_height="100dp"/>
+        </TableRow>
+        <TableRow>
+            <LinearLayout 
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/traceButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Trace"/>
+                <Button
+                    android:id="@+id/resetButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reset"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+        </TableRow>
+    </TableLayout>
+</android.support.constraint.ConstraintLayout>

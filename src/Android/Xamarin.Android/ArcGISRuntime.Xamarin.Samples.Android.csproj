@@ -75,6 +75,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
+    <None Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <None Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
     <None Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
     <None Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
@@ -265,6 +266,7 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.cs" />
+    <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.cs" />
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.cs" />
     <Compile Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.cs" />
@@ -686,6 +688,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\PerformValveIsolationTrace.axml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ConfigureSubnetworkTrace.axml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>

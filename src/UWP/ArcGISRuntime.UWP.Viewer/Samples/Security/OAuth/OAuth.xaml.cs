@@ -100,6 +100,8 @@ namespace ArcGISRuntime.UWP.Samples.OAuth
             // Note: In a WPF app, you need to associate a custom IOAuthAuthorizeHandler component with the AuthenticationManager to 
             //     handle showing OAuth login controls (AuthenticationManager.Current.OAuthAuthorizeHandler = new MyOAuthAuthorize();).
             //     The UWP AuthenticationManager, however, uses a built-in IOAuthAuthorizeHandler (based on WebAuthenticationBroker).
+            //     Not all authentication workflows are supported by WebAuthenticationBroker, you still may need to implement a custom
+            //     IOAuthAuthorizeHandler for your application.
         }
 
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)

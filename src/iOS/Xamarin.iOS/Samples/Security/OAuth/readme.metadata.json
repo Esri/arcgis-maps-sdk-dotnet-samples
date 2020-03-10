@@ -23,8 +23,6 @@
         "/net/latest/ios/sample-code/oauth.htm"
     ],
     "relevant_apis": [
-        "",
-        "## Additional information",
         "* AuthenticationManager",
         "* OAuthConfiguration",
         "* PortalItem",

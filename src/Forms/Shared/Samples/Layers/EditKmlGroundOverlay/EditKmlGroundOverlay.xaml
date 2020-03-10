@@ -1,7 +1,7 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay.EditKmlGroundOverlay"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+﻿<ContentPage 
+    x:Class="ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay.EditKmlGroundOverlay" 
+    xmlns="http://xamarin.com/schemas/2014/forms" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
@@ -26,7 +26,9 @@
                 Grid.Column="1"
                 Margin="5"
                 Maximum="255"
+                MaximumTrackColor="CadetBlue"
                 Minimum="0"
+                MinimumTrackColor="CadetBlue"
                 Value="255" />
             <Label
                 x:Name="ValueLabel"
@@ -34,7 +36,8 @@
                 Margin="5"
                 HorizontalTextAlignment="Center"
                 Text="255"
-                VerticalTextAlignment="Center" />
+                VerticalTextAlignment="Center"
+                WidthRequest="50" />
         </Grid>
     </Grid>
 </ContentPage>

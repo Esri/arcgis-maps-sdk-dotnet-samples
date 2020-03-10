@@ -23,10 +23,10 @@
         "/net/latest/uwp/sample-code/oauth.htm"
     ],
     "relevant_apis": [
-        "* AuthenticationManager",
-        "* OAuthConfiguration",
-        "* PortalItem",
-        "* ServerInfo"
+        "AuthenticationManager",
+        "OAuthConfiguration",
+        "PortalItem",
+        "ServerInfo"
     ],
     "snippets": [
         "OAuth.xaml",

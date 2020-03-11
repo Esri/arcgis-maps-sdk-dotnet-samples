@@ -2,7 +2,7 @@
 
 Display the map at an initial viewpoint representing a bounding geometry.
 
-![screenshot](SetInitialMapArea.jpg)
+![Image of map initial extent](MapInitialExtent.jpg)
 
 ## Use case
 
@@ -14,19 +14,19 @@ As application is loading, initial view point is set and map view opens at the g
 
 ## How it works
 
-1. Instantiate an `Map` object.
+1. Instantiate a `Map` object.
 2. Instantiate a `Viewpoint` object using an `Envelope` object.
 3. Set the starting location of the map with `map.InitialViewpoint`.
-4. Display the map in a map view.
+4. Set the map in the `MapView`.
 
 ## Relevant API
 
-* Map
 * Envelope
+* Map
 * MapView
 * Point
 * Viewpoint
 
 ## Tags
 
-Envelope, InitialViewpoint, extent, zoom
+extent, envelope, initial, viewpoint, zoom

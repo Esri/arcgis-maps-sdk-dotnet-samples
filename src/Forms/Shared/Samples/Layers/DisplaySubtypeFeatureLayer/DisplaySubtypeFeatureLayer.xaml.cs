@@ -87,7 +87,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.Message.GetType().Name, ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

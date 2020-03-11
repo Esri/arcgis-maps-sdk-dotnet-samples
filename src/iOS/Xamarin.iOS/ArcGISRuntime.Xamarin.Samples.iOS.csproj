@@ -269,9 +269,11 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
+    <None Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <None Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
     <None Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg" />
-    <None Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
+    <None Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
     <None Include="Samples\Augmented reality\NavigateAR\NavigateAR.jpg" />
     <None Include="Samples\Augmented reality\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
     <None Include="Samples\Augmented reality\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
@@ -454,9 +456,11 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.cs" />
+    <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.cs" />
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.cs" />
-    <Compile Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.cs" />
+    <Compile Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.cs" />
     <Compile Include="Samples\Augmented reality\CollectDataAR\AdjustableLocationDataSource.cs" />
     <Compile Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RoutePlanner.cs" />

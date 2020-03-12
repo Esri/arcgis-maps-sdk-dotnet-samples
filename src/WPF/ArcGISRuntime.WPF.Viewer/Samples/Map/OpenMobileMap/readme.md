@@ -2,25 +2,30 @@
 
 Display a map from a mobile map package.
 
-![screenshot](OpenMobileMap.jpg)
+![Image of open mobile map package](OpenMobileMap.jpg)
 
 ## Use case
 
 An .mmpk file is an archive containing the data (specifically, basemaps and features) used to display an offline map.
-A mobile map package may need to be unpacked to a directory to allow read support for certain data types.
+
+## How to use the sample
+
+When the sample opens, it will automatically display the map in the mobile map package. Pan and zoom to observe the data from the mobile map package.
 
 ## How it works
 
 1. Create a `MobileMapPackage` specifying the path to the .mmpk file.
-2. Use `MobileMapPackage.IsDirectReadSupportedAsync()` to check whether the package can be read in the archived form (.mmpk) or whether it needs to be unpacked.
-3. If the mobile map package requires unpacking, call `MobileMapPackage.UnpackAsync()` and wait for this to complete.
-4. Load the mobile map package with `mmpk.LoadAsync()`.
-5. After it successfully loads, get the map from the .mmpk and add it to the map view.
+2. Load the mobile map package with `mmpk.LoadAsync()`.
+3. After it successfully loads, get the map from the .mmpk and add it to the map view: `mapView.Map = package.Maps.First();`.
 
 ## Relevant API
 
 * MapView
 * MobileMapPackage
+
+## About the data
+
+This sample shows points of interest within a [Yellowstone Mobile Map Package](https://arcgisruntime.maps.arcgis.com/home/item.html?id=e1f3a7254cb845b09450f54937c16061) hosted on ArcGIS Online.
 
 ## Tags
 

@@ -2,7 +2,7 @@
 
 Use a stretch renderer to enhance the visual contrast of raster data for analysis.
 
-![screenshot](ChangeStretchRenderer.jpg)
+![Image of stretch renderer](ChangeStretchRenderer.jpg)
 
 ## Use case
 
@@ -24,7 +24,7 @@ Then configure the parameters and click 'Update renderer'.
 2. Create a `RasterLayer` from the `Raster`.
 3. Add the layer to the map.
 4. Create a `StretchRenderer`, specifying the stretch parameters and other properties.
-5. Apply the renderer to the raster layer.
+5. Apply the `Renderer` to the raster layer.
 
 ## Relevant API
 
@@ -49,8 +49,8 @@ This sample uses a raster imagery tile of an area of forested mountainous terrai
 
 ## Additional information
 
-See [Stretch functions](http://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/stretch-function.htm) for more information about the types of stretches that can be performed.
+See [Stretch function](http://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/stretch-function.htm) in the *ArcMap* documentation for more information about the types of stretches that can be performed.
 
 ## Tags
 
-analysis, deviation, histogram, imagery, interpretation, min-max, percent clip, pixel, raster, raster, stretch, symbology, visualization
+analysis, deviation, histogram, imagery, interpretation, min-max, percent clip, pixel, raster, stretch, symbology, visualization

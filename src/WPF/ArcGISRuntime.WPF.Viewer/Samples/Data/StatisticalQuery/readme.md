@@ -2,7 +2,7 @@
 
 Query a table to get aggregated statistics back for a specific field.
 
-![screenshot](StatisticalQuery.jpg)
+![Image of statistical query](StatisticalQuery.jpg)
 
 ## Use case
 
@@ -25,9 +25,9 @@ Pan and zoom to define the extent for the query. Use the 'Cities in current exte
 * ServiceFeatureTable
 * StatisticDefinition
 * StatisticRecord
-* StatisticType
 * StatisticsQueryParameters
 * StatisticsQueryResult
+* StatisticType
 
 ## Tags
 

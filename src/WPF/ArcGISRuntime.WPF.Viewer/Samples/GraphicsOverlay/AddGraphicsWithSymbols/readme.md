@@ -10,7 +10,7 @@ Allows you to customize a graphic by assigning a unique symbol. For example, you
 
 ## How to use the sample
 
-Pan and zoom around the map. Observe the graphics on the map.
+Observe the graphics on the map.
 
 ## How it works
 

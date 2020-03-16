@@ -27,7 +27,7 @@ Use the buttons to change the renderer on the feature layer. The original render
 
 ## About the data
 
-This sample displays a feature layer in Warren Wilson College, North Carolina, showing carbon storage of trees on campus. The size of each circle is proportional to that particular tree's carbon storage total.
+This sample displays a feature layer in Riverside County, California, showing parcels of land and whether they have pool permits. Red polygons indicate parcels that do have permits.
 
 ## Tags
 

@@ -10,9 +10,7 @@ A line of sight analysis can be used to assess whether a view is obstructed betw
 
 ## How to use the sample
 
-The sample loads with a preset observer and target location, linked by a colored line. A red segment on the line means the view between observer and target is obstructed, whereas green means the view is unobstructed. 
-
-Click to turn on the mouse move event listener, then move the mouse to update the target location in real time. Click again to lock the target location.
+Tap to place the starting point for the line. Tap again to place the end point.
 
 ## How it works
 

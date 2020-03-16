@@ -10,11 +10,11 @@ Display a feature layer from a service using the **manual cache** feature reques
 
 ## How to use the sample
 
-Run the sample and pan and zoom around the map. No features will be requested and displayed automatically. Press the Populate button, and features will display.
+Run the sample and pan and zoom around the map. Observe the features loaded from the table.
 
 ## How it works
 
-1. Set the `ServiceFeatureTable.FeatureRequestMode` property of the service feature table to `MANUAL_CACHE` before the table is loaded.
+1. Set the `ServiceFeatureTable.FeatureRequestMode` property of the service feature table to `ManualCache` before the table is loaded.
 2. Load the table.
 3. Call `PopulateFromServiceAsync` on the table to request features.
 

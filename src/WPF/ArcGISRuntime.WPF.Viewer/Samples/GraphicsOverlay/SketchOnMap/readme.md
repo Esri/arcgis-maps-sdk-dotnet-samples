@@ -16,10 +16,10 @@ Use the control panel to cancel the sketch, undo or redo changes made to the ske
 
 ## How it works
 
-1.  Use `SketchEditor.StartAsync()` to start sketching. If editing an existing graphic's geometry, use `SketchEditor.StartAsync(graphic.Geometry)`.
-2.  Use the `UndoCommand` and `RedoCommand` to undo and redo edits in the sketch.
-3.  Use a `CompleteCommand` to finish the sketch and get the `Geometry` result. Use the `CancelCommand` to cancel the sketch.
-4.  Create a `Graphic` for the geometry and add it to the `GraphicsOverlay` in the map view.
+1. Use `SketchEditor.StartAsync()` to start sketching. If editing an existing graphic's geometry, use `SketchEditor.StartAsync(graphic.Geometry)`.
+2. Use the `UndoCommand` and `RedoCommand` to undo and redo edits in the sketch.
+3. Use a `CompleteCommand` to finish the sketch and get the `Geometry` result. Use the `CancelCommand` to cancel the sketch.
+4. Create a `Graphic` for the geometry and add it to the `GraphicsOverlay` in the map view.
 
 ## Relevant API
 

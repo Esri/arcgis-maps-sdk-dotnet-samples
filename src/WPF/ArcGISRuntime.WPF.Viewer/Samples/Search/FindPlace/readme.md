@@ -33,7 +33,7 @@ Choose a type of place in the first field and an area to search within in the se
 
 ## About the data  
 
-This sample uses the world locator service "https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer".
+This sample uses the [world locator service](https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer).
 
 ## Relevant API
 

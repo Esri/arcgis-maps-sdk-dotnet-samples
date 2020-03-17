@@ -50,6 +50,7 @@ def main():
         sample_root = sys.argv[3]
         replace_readmes(category, formal_name, sample_root)
     elif len(sys.argv) is 2:
+        sample_root = sys.argv[1]
         for category in os.listdir(get_platform_samples_root("WPF", sample_root)):
             for sample in os.listdir( os.path.join(get_platform_samples_root("WPF", sample_root), category) ):
                 replace_readmes(category, sample, sample_root)

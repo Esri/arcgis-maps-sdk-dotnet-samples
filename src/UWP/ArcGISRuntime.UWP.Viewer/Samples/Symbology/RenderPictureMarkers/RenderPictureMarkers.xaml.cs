@@ -20,7 +20,7 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Render picture markers",
+        "Picture marker symbol",
         "Symbology",
         "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
         "")]

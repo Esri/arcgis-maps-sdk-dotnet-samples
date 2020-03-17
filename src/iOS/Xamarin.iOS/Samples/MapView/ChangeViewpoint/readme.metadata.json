@@ -7,10 +7,12 @@
         "ChangeViewpoint.jpg"
     ],
     "keywords": [
-        "SetViewpointAsync",
-        "SetViewpointCenterAsync",
-        "SetViewpointGeometryAsync",
+        "animate",
         "extent",
+        "pan",
+        "rotate",
+        "scale",
+        "view",
         "zoom"
     ],
     "nuget_packages": {
@@ -21,10 +23,10 @@
         "/net/latest/ios/sample-code/changeviewpoint.htm"
     ],
     "relevant_apis": [
+        "Geometry",
         "Map",
         "MapView",
         "Point",
-        "SpatialReference",
         "Viewpoint"
     ],
     "snippets": [

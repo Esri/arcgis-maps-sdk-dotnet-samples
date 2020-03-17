@@ -1,6 +1,6 @@
 {
     "category": "MapView",
-    "description": "Keep the view points of two views (a MapView and a SceneView in this case) synchronized with each other.",
+    "description": "Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.",
     "formal_name": "GeoViewSync",
     "ignore": false,
     "images": [
@@ -8,10 +8,6 @@
     ],
     "keywords": [
         "3D",
-        "GetCurrentViewpoint",
-        "MapView",
-        "SceneView",
-        "SetViewpoint",
         "automatic refresh",
         "event",
         "event handler",

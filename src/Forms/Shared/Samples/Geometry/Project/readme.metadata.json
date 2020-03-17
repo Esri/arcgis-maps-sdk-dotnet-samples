@@ -7,13 +7,13 @@
         "Project.jpg"
     ],
     "keywords": [
-        "GeometryEngine",
         "WGS 84",
         "Web Mercator",
-        "geographic coordinate system",
+        "coordinate system",
+        "coordinates",
         "latitude",
         "longitude",
-        "projected coordinate system",
+        "projected",
         "projection",
         "spatial reference"
     ],

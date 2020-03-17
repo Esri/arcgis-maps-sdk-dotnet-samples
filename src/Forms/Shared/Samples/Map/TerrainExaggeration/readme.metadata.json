@@ -1,6 +1,6 @@
 {
     "category": "Map",
-    "description": "Configure the vertical exaggeration of terrain (the ground surface) in a scene.",
+    "description": "Vertically exaggerate terrain in a scene.",
     "formal_name": "TerrainExaggeration",
     "ignore": false,
     "images": [
@@ -10,7 +10,7 @@
         "3D",
         "DEM",
         "DTM",
-        "Elevation",
+        "elevation",
         "scene",
         "surface",
         "terrain"

@@ -18,15 +18,9 @@
     "redirect_from": [
         "/net/latest/android/sample-code/setmapspatialreference.htm"
     ],
-    "relevant_apis": [
-        "ArcGISMapImageLayer",
-        "Basemap",
-        "Map",
-        "MapView",
-        "SpatialReference"
-    ],
+    "relevant_apis": [],
     "snippets": [
         "SetMapSpatialReference.cs"
     ],
-    "title": "Set map spatial reference"
+    "title": "Map spatial reference"
 }

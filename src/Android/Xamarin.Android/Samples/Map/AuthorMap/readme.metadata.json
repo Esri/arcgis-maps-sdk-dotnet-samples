@@ -7,12 +7,11 @@
         "AuthorMap.jpg"
     ],
     "keywords": [
-        "AuthenticationManager",
-        "ChallengeHandler",
-        "GenerateCredentialAsync",
-        "IOAuthAuthorizeHandler",
+        "ArcGIS Online",
         "OAuth",
         "portal",
+        "publish",
+        "share",
         "web map"
     ],
     "nuget_packages": {
@@ -23,6 +22,10 @@
         "/net/latest/android/sample-code/authormap.htm"
     ],
     "relevant_apis": [
+        "AuthenticationManager",
+        "ChallengeHandler",
+        "GenerateCredentialAsync",
+        "IOAuthAuthorizeHandler",
         "Map",
         "Map.SaveAsAsync",
         "Portal"
@@ -30,5 +33,5 @@
     "snippets": [
         "AuthorMap.cs"
     ],
-    "title": "Create and save a map"
+    "title": "Create and save map"
 }

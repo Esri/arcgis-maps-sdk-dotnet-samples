@@ -7,9 +7,10 @@
         "LineOfSightGeoElement.jpg"
     ],
     "keywords": [
-        "Analysis",
+        "3D",
         "line of sight",
-        "visibility"
+        "visibility",
+        "visibility analysis"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

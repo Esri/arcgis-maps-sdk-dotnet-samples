@@ -1,15 +1,15 @@
 {
     "category": "Map",
-    "description": "Open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal. ",
+    "description": "Open a web scene from a portal item.",
     "formal_name": "OpenScene",
     "ignore": false,
     "images": [
         "OpenScene.jpg"
     ],
     "keywords": [
-        "Portal",
-        "Scenes",
-        "Web Scene"
+        "portal",
+        "scene",
+        "web scene"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -19,10 +19,12 @@
         "/net/latest/ios/sample-code/openscene.htm"
     ],
     "relevant_apis": [
-        "Scene.LoadAsync"
+        "PortalItem",
+        "Scene",
+        "SceneView"
     ],
     "snippets": [
         "OpenScene.cs"
     ],
-    "title": "Open a scene (Portal item)"
+    "title": "Open a scene (portal item)"
 }

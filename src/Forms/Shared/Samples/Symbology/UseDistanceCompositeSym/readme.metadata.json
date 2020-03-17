@@ -8,10 +8,10 @@
     ],
     "keywords": [
         "3D",
-        "DistanceCompositeSceneSymbol",
-        "DistanceSymbolRange",
-        "SimpleMarkerSceneSymbol",
-        "graphic"
+        "data",
+        "graphic",
+        "range",
+        "symbol"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

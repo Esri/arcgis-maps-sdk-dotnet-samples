@@ -18,16 +18,10 @@
     "redirect_from": [
         "/net/latest/uwp/sample-code/setmapspatialreference.htm"
     ],
-    "relevant_apis": [
-        "ArcGISMapImageLayer",
-        "Basemap",
-        "Map",
-        "MapView",
-        "SpatialReference"
-    ],
+    "relevant_apis": [],
     "snippets": [
         "SetMapSpatialReference.xaml",
         "SetMapSpatialReference.xaml.cs"
     ],
-    "title": "Set map spatial reference"
+    "title": "Map spatial reference"
 }

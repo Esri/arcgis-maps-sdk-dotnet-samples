@@ -18,9 +18,7 @@
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
     },
-    "offline_data": [
-        "751138a2e0844e06853522d54103222a"
-    ],
+    "offline_data": [],
     "redirect_from": [
         "/net/latest/wpf/sample-code/customdictionarystyle.htm"
     ],

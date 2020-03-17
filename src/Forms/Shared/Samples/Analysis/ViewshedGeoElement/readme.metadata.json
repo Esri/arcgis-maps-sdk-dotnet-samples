@@ -8,11 +8,7 @@
     ],
     "keywords": [
         "3D",
-        "AnalysisOverlay",
-        "GeoElementViewshed",
-        "ModelSceneSymbol",
-        "OrbitGeoElementCameraController",
-        "SceneProperties",
+        "analysis",
         "buildings",
         "model",
         "scene",
@@ -32,7 +28,7 @@
         "AnalysisOverlay",
         "GeoElementViewshed",
         "GeodeticDistanceResult",
-        "GeometryEngine.DistanceGeodetic",
+        "GeometryEngine.DistanceGeodetic (used to animate the vehicle)",
         "ModelSceneSymbol",
         "OrbitGeoElementCameraController"
     ],

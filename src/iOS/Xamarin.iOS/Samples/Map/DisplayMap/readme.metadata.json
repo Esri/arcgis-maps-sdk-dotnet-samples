@@ -7,7 +7,6 @@
         "DisplayMap.jpg"
     ],
     "keywords": [
-        "MapView",
         "basemap",
         "map"
     ],
@@ -26,5 +25,5 @@
     "snippets": [
         "DisplayMap.cs"
     ],
-    "title": "Display a map"
+    "title": "Display map"
 }

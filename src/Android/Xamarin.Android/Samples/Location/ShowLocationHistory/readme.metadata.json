@@ -25,7 +25,17 @@
     "redirect_from": [
         "/net/latest/android/sample-code/showlocationhistory.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "Location.Position",
+        "LocationDataSource",
+        "LocationDataSource.LocationChanged",
+        "LocationDataSource.UpdateLocation",
+        "LocationDisplay.AutoPanMode",
+        "LocationDisplay.DataSource",
+        "LocationDisplay.IsEnabled",
+        "MapView.LocationDisplay",
+        "SystemLocationDataSource"
+    ],
     "snippets": [
         "FakeLocationDataSource.cs",
         "ShowLocationHistory.cs"

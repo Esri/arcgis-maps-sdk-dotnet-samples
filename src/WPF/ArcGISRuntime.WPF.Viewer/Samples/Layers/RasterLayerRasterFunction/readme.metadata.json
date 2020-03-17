@@ -1,12 +1,18 @@
 {
     "category": "Layers",
-    "description": "Show a raster layer from an image service with a raster function applied.",
+    "description": "Load a raster from a service, then apply a function to it.",
     "formal_name": "RasterLayerRasterFunction",
     "ignore": false,
     "images": [
         "RasterLayerRasterFunction.jpg"
     ],
-    "keywords": [],
+    "keywords": [
+        "function",
+        "layer",
+        "raster",
+        "raster function",
+        "service"
+    ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
     },
@@ -14,10 +20,16 @@
     "redirect_from": [
         "/net/latest/wpf/sample-code/rasterlayerrasterfunction.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "ImageServiceRaster",
+        "Raster",
+        "RasterFunction",
+        "RasterFunctionArguments",
+        "RasterLayer"
+    ],
     "snippets": [
         "RasterLayerRasterFunction.xaml",
         "RasterLayerRasterFunction.xaml.cs"
     ],
-    "title": "ArcGIS raster function (service)"
+    "title": "Apply raster function to raster from service"
 }

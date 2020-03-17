@@ -7,8 +7,10 @@
         "SimpleRenderers.jpg"
     ],
     "keywords": [
-        "SimpleMarkerSymbol",
-        "SimpleRenderer",
+        "graphics",
+        "marker",
+        "renderer",
+        "symbol",
         "symbolize",
         "symbology"
     ],

@@ -4,7 +4,7 @@
     "formal_name": "WMSLayerUrl",
     "ignore": false,
     "images": [
-        "WMSLayerUrl.jpg"
+        "WmsLayerUrl.png"
     ],
     "keywords": [
         "OGC",
@@ -27,5 +27,5 @@
         "WMSLayerUrl.xaml",
         "WMSLayerUrl.xaml.cs"
     ],
-    "title": "WMS Layer URL"
+    "title": "WMS layer URL"
 }

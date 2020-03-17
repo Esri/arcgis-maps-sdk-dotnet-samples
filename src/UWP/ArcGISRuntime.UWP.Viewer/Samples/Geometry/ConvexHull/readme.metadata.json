@@ -7,9 +7,8 @@
         "ConvexHull.jpg"
     ],
     "keywords": [
-        "ConvexHull",
-        "Geometry",
-        "GeometryEngine",
+        "convex hull",
+        "geometry",
         "spatial analysis"
     ],
     "nuget_packages": {

@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "List the contents of a KML file. KML files can contain a hierarchy of features, including network links to other KML content.",
+    "description": "List the contents of a KML file.",
     "formal_name": "ListKmlContents",
     "ignore": false,
     "images": [
@@ -10,7 +10,8 @@
         "KML",
         "KMZ",
         "Keyhole",
-        "OGC"
+        "OGC",
+        "layers"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -20,9 +21,16 @@
         "/net/latest/forms/sample-code/listkmlcontents.htm"
     ],
     "relevant_apis": [
+        "KmlContainer",
         "KmlDataset",
+        "KmlDocument",
+        "KmlFolder",
+        "KmlGroundOverlay",
         "KmlLayer",
-        "KmlNode.Extent"
+        "KmlNetworkLink",
+        "KmlNode",
+        "KmlPlacemark",
+        "KmlScreenOverlay"
     ],
     "snippets": [
         "ListKmlContents.xaml",

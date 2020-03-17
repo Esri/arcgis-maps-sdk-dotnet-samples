@@ -9,6 +9,7 @@
     "keywords": [
         "3D",
         "line of sight",
+        "visibility",
         "visibility analysis"
     ],
     "nuget_packages": {

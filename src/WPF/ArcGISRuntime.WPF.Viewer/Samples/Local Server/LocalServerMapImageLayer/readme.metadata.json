@@ -7,9 +7,11 @@
         "LocalServerMapImageLayer.jpg"
     ],
     "keywords": [
-        "ArcGISMapImageLayer",
-        "LocalMapService",
-        "local services"
+        "image",
+        "layer",
+        "local",
+        "offline",
+        "server"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0",

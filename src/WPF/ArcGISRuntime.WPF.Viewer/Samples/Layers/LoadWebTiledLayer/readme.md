@@ -14,12 +14,10 @@ Run the sample and a map will appear. As you navigate the map, map tiles will be
 
 ## How it works
 
-To display the web tiled layer, this sample:
-
-1. Creates a `WebTiledLayer` from a URL and a list of subdomains.
-2. Creates a new `Basemap` from the layer.
-3. Updates the attribution on the layer. Note: this is a necessary step because web tiled services don't have associated service metadata.
-4. Displays the basemap.
+1. Create a `WebTiledLayer` from a URL and a list of subdomains.
+2. Create a new `Basemap` from the layer.
+3. Update the attribution on the layer. Note: this is a necessary step because web tiled services don't have associated service metadata.
+4. Display the basemap.
 
 ## Relevant API
 

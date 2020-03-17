@@ -34,8 +34,8 @@ def replace_readmes(category, formal_name, sample_root):
 
             # Change `click` to `tap` for mobile platforms
             if  not platform == "UWP":
-                wpfcontent = wpfcontent.replace("click", "tap")
-                wpfcontent = wpfcontent.replace("Click", "Tap")
+                wpfcontent = wpfcontent.replace("click ", "tap ")
+                wpfcontent = wpfcontent.replace("Click ", "Tap ")
 
             # Write the WPF readme to other platform
             platform_path = os.path.join(get_platform_samples_root(platform, sample_root), category, formal_name, ("readme.md"))

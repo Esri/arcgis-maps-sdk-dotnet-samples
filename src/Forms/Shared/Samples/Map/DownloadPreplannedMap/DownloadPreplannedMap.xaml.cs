@@ -23,7 +23,7 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Download a preplanned map area",
+        "Download preplanned map area",
         "Map",
         "Take a map offline using a preplanned map area",
         "Select a map area to take offline, then use the button to take it offline. Click 'Delete offline areas' to remove any downloaded map areas.")]

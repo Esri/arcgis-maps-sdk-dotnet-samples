@@ -22,22 +22,26 @@ def replace_readmes(category, formal_name, sample_root):
         # Read the readme from the WPF version.
         wpf_path = os.path.join(get_platform_samples_root("WPF", sample_root), category, formal_name, ("readme.md"))
         wpf_file = open(wpf_path, "r")
-        wpflines = wpf_file.readlines()
+        wpfcontent = wpf_file.read()
         wpf_file.close()
         print(f"{formal_name} read from WPF")
 
         # Loop through the other platforms.
         plats = ["UWP", "Android", "iOS", "Forms"]
         for platform in plats:
-            platform_path = os.path.join(get_platform_samples_root(platform, sample_root), category, formal_name, ("readme.md"))
-            
             # Fix the guide doc url for the platform
-            platform_lines = [line.replace("wpf/guide", str.lower(platform)+"/guide") for line in wpflines]
+            wpfcontent = wpfcontent.replace("wpf/guide", str.lower(platform)+"/guide")
+
+            # Change `click` to `tap` for mobile platforms
+            if  not platform == "UWP":
+                wpfcontent = wpfcontent.replace("click", "tap")
+                wpfcontent = wpfcontent.replace("Click", "Tap")
 
             # Write the WPF readme to other platform
+            platform_path = os.path.join(get_platform_samples_root(platform, sample_root), category, formal_name, ("readme.md"))
             with open(platform_path, "r+") as file:
                 file.seek(0)
-                file.writelines(platform_lines)
+                file.write(wpfcontent)
                 file.truncate()
                 print(f"{formal_name} written to {platform}")
     except OSError as e:

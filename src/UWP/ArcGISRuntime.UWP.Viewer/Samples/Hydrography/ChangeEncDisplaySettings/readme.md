@@ -2,7 +2,7 @@
 
 Configure the display of ENC content.
 
-![screenshot](ChangeEncDisplaySettings.jpg)
+![Image of change ENC display settings app](ChangeEncDisplaySettings.jpg)
 
 ## Use case
 
@@ -42,14 +42,12 @@ The sample displays an electronic navigational chart when it opens. Use the opti
 
 ## Offline data
 
-This sample downloads the following items from ArcGIS Online automatically:
-
-* [ExchangeSetwithoutUpdates.zip](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d) - Fake ENC content for use in ArcGIS Runtime samples.
+This sample downloads the [ENC Exchange Set without updates](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d) item from ArcGIS Online.
 
 ## About the data
 
-This sample uses an ENC exchange set designed for testing. It is available on [ArcGIS Online](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d).
+This sample uses a fictitious ENC exchange set designed for testing.
 
 ## Tags
 
-ENC, IHO, S-52, S-57, display, hydrographic, hydrography, layers, maritime, nautical chart, settings, symbology
+display, ENC, hydrographic, hydrography, IHO, layers, maritime, nautical chart, S-52, S-57, settings, symbology

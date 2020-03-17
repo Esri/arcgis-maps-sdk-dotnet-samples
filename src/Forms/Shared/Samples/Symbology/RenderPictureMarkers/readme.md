@@ -1,8 +1,8 @@
-# Render picture markers
+# Picture marker symbol
 
 Use pictures for markers.
 
-![screenshot](RenderPictureMarkers.jpg)
+![Image of picture marker symbol](RenderPictureMarkers.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ When marking geoelements on a map, using custom, unique symbols can be helpful f
 
 ## How to use the sample
 
-When launched, this sample displays a map with some picture marker symbols. Pan and zoom to explore the map.
+When launched, this sample displays a map with picture marker symbols. Pan and zoom to explore the map.
 
 ## How it works
 
@@ -24,10 +24,8 @@ When launched, this sample displays a map with some picture marker symbols. Pan 
 ## About the data
 
 The picture marker symbols in this sample are all constructed from different types of resources:
-
-* Campsite: constructed from a URL: http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae
-* Blue pin with a star: stored in the resource folder that comes with the application
- *Orange pin: created from a file path on disk (which is written to disk when the app starts and cleaned up when the app closes).
+* [Campsite symbol constructed from a URL](http://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae)
+* Blue pin with a star stored in the resource folder that comes with the application
 
 ## Tags
 

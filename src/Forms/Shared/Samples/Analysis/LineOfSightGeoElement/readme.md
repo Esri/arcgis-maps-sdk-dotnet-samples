@@ -2,7 +2,7 @@
 
 Show a line of sight between two moving objects.
 
-![screenshot](LineOfSightGeoElement.jpg)
+![Image of line of sight geoelement](LineOfSightGeoElement.jpg)
 
 ## Use case
 
@@ -33,8 +33,8 @@ The taxi will be highlighted when it is visible. You can change the observer hei
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [Dolmus3ds.zip](https://www.arcgis.com/home/item.html?id=3af5cfec0fd24dac8d88aea679027cb9) - 3D model of a yellow taxi
+* [3D model of a yellow taxi](https://www.arcgis.com/home/item.html?id=3af5cfec0fd24dac8d88aea679027cb9)
 
 ## Tags
 
-Analysis, line of sight, visibility
+3D, line of sight, visibility, visibility analysis

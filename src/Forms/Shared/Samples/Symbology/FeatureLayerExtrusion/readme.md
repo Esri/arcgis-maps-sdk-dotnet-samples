@@ -2,12 +2,16 @@
 
 Extrude features based on their attributes.
 
-![screenshot](FeatureLayerExtrusion.jpg)
+![Image of feature layer extrusion](FeatureLayerExtrusion.jpg)
 
 ## Use case
 
-Extrusion is a method of visualizing data. For example, it can be employed to demonstrate
-the relative population difference between US states.
+Extrusion is the process of stretching a flat, 2D shape vertically to create a 3D object in a scene. For example, you can extrude building polygons by a height value to create three-dimensional building shapes.
+
+## How to use the sample
+
+Press the button to switch between using population density and total population for extrusion. Higher extrusion directly corresponds to higher attribute values.
+
 ## How it works
 
 1. Create a `ServiceFeatureTable` from a URL.
@@ -19,11 +23,14 @@ the relative population difference between US states.
 
 ## Relevant API
 
+* ExtrusionExpression
+* ExtrusionMode
 * FeatureLayer
 * FeatureLayer
 * SceneProperties
 * ServiceFeatureTable
+* SimpleRenderer
 
 ## Tags
 
-3D, ExtrusionExpression, ExtrusionMode, Scene, SimpleRenderer, extrude
+3D, extrude, extrusion, extrusion expression, height, renderer, scene

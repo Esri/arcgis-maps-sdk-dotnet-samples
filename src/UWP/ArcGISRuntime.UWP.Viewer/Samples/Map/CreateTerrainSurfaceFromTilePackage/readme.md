@@ -1,8 +1,16 @@
-# Create terrain surface from a tile package
+# Create terrain from local tile package
 
 Set the terrain surface with elevation described by a local tile package.
 
-![screenshot](CreateTerrainSurfaceFromTilePackage.jpg)
+![Image of create terrain from local tile package](CreateTerrainSurfaceFromTilePackage.jpg)
+
+## Use case
+
+In a scene view, the terrain surface is what the basemap, operational layers, and graphics are draped onto. For example, when viewing a scene in a mountainous region, applying a terrain surface to the scene will help in recognizing the slopes, valleys, and elevated areas.
+
+## How to use the sample
+
+When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.
 
 ## How it works
 
@@ -17,10 +25,8 @@ Set the terrain surface with elevation described by a local tile package.
 
 ## Additional information
 
-The tile package must be a LERC (limited error raster compression) encoded TPK. Details on creating these are in the [ArcGIS Pro documentation](https://pro.arcgis.com/en/pro-app/help/sharing/overview/tile-package.htm).
-
-The terrain surface is what the basemap, operational layers, and graphics are draped on.
+The tile package must be a LERC (limited error raster compression) encoded TPK. Details on can be found in the topic [Share a tile package](https://pro.arcgis.com/en/pro-app/help/sharing/overview/tile-package.htm) in the *ArcGIS Pro* documentation.
 
 ## Tags
 
-3D, Tile Cache, Elevation, Surface
+3D, elevation, LERC, surface, terrain, tile cache

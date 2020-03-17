@@ -2,7 +2,15 @@
 
 Create simple geometry types.
 
-![screenshot](CreateGeometries.jpg)
+![Image of create geometries](CreateGeometries.jpg)
+
+## Use case
+
+Geometries are used to represent real world features as vector GIS data. Points are used to mark specific XY locations, such as landmarks and other points of interest. Polylines are made up of 2 or more XY vertices and can be used to mark roads, flight paths, or boundaries. Polygons are made up of 3 or more XY vertices and can be used to represent a lake, country, or a park. Geometries can be stored as features in a database, displayed as Graphics in a map, or used for performing spatial analysis with `GeometryEngine` or a `GeoprocessingTask`.
+
+## How to use the sample
+
+Pan and zoom freely to see the different types of geometries placed onto the map.
 
 ## How it works
 
@@ -25,4 +33,4 @@ A geometry made of multiple points usually takes a `PointCollection` as an argum
 
 ## Tags
 
-Geometry, Graphic
+area, boundary, line, marker, path, shape

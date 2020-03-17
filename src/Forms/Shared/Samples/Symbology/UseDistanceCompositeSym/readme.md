@@ -2,7 +2,11 @@
 
 Change a graphic's symbol based on the camera's proximity to it.
 
-![screenshot](UseDistanceCompositeSym.jpg)
+![Image of distance composite scene symbol](UseDistanceCompositeSym.jpg)
+
+## Use case
+
+When showing dense datasets, it is beneficial to reduce the detail of individual points when zooming out to avoid visual clutter and to avoid data points overlapping and obscuring each other.
 
 ## How to use the sample
 
@@ -24,4 +28,4 @@ The sample starts looking at a plane. Zoom out from the plane to see it turn int
 
 ## Tags
 
-3D, DistanceCompositeSceneSymbol, DistanceSymbolRange, SimpleMarkerSceneSymbol, graphic
+3D, data, graphic, range, symbol

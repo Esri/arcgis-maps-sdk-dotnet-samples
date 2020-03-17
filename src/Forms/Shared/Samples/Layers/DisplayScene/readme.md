@@ -2,7 +2,15 @@
 
 Display a scene with a terrain surface and some imagery.
 
-![screenshot](DisplayScene.jpg)
+![Image of display scene](DisplayScene.jpg)
+
+## Use case
+
+Scene views are 3D representations of real-world areas and objects. Scene views are helpful for visualizing complex datasets where 3D relationships, topography, and elevation of elements are important factors.
+
+## How to use the sample
+
+When loaded, the sample will display a scene. Pan and zoom to explore the scene.
 
 ## How it works
 
@@ -19,4 +27,4 @@ Display a scene with a terrain surface and some imagery.
 
 ## Tags
 
-3D, basemap, scene, sceneview, surface
+3D, basemap, elevation, scene, surface

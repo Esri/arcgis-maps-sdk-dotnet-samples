@@ -1,8 +1,12 @@
 # Time-based query
 
-This sample demonstrates how to query data using a time extent. This workflow can be used to return records that are between a specified start and end date. For example, you could specify to only show records that are before September 16, 2000.
+Query data using a time extent. 
 
-![screenshot](TimeBasedQuery.jpg)
+![Image of time-based query](screenshot.png)
+
+## Use case
+
+This workflow can be used to return records that are between a specified start and end date. For example, records of Canada goose sightings over time could be queried to only show sightings during the winter migration time period.
 
 ## How to use the sample
 
@@ -24,6 +28,10 @@ Run the sample, and a subset of records will be displayed on the map.
 * ServiceFeatureTable.PopulateFromService
 * TimeExtent
 
+## About the data
+
+This sample uses Atlantic hurricane data from the year 2000. The data is from the National Hurricane Center (NOAA / National Weather Service).
+
 ## Tags
 
-Query, Time, Time Extent
+query, time, time extent

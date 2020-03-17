@@ -2,7 +2,7 @@
 
 Use a routing service to navigate between points.
 
-![Navigate route sample](NavigateRoute.jpg)
+![Image of navigate route](NavigateRoute.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Navigation is often used by field workers while traveling between points to get 
 
 ## How to use the sample
 
-Click 'Navigate' to simulate travelling and to receive directions from a preset starting point to a preset destination. Check 'Voice Directions' to activate announcing maneuvers. Click 'Reset' to start the simulation from the beginning.
+Click 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Click 'Recenter' to refocus on the location display.
 
 ## How it works
 

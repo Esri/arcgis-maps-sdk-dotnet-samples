@@ -1,8 +1,8 @@
-# Take a screenshot
+# Take screenshot
 
 Take a screenshot of the map.
 
-![Sample screenshot](TakeScreenshot.jpg)
+![Image of take screenshot](TakeScreenshot.jpg)
 
 ## Use case
 
@@ -15,17 +15,17 @@ Pan and zoom to find an interesting location, then use the button to take a scre
 ## How it works
 
 1. Wait for the MapView to finish rendering the Map.
-2. Call `mapView.ExportImageAsync()` to get the `RuntimeImage`.
+2. Call `mapView.ExportImageAsync()` to get the `RuntimeImage`, which is a bitmap image.
 3. Use the `RuntimeImage.ToImageSourceAsync` extension method to get a copy of the image that is compatible with native image display controls.
 
 ## Relevant API
 
+* GeoView.DrawStatus
+* GeoView.DrawStatusChanged
 * GeoView.ExportImageAsync
 * RuntimeImage
 * RuntimeImage.ToImageSourceAsync
-* GeoView.DrawStatus
-* GeoView.DrawStatusChanged
 
 ## Tags
 
-Screenshot, print, share, image, export, capture, screen capture, shot
+capture, export, image, print, screen capture, screenshot, share, shot

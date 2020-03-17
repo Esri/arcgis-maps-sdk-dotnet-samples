@@ -2,7 +2,7 @@
 
 Construct a KML document and save it as a KMZ file.
 
-![Create and save KML file](CreateAndSaveKmlFile.jpg)
+![Image of create and save KML file](CreateAndSaveKmlFile.png)
 
 ## Use case
 
@@ -10,7 +10,7 @@ If you need to create and save data on the fly, you can use KML to create points
 
 ## How to use the sample
 
-Click on one of the buttons in the middle row to start adding a geometry. Click on the map view to place vertices. Click the "Complete Sketch" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, click the "Don't Apply Style" button. When you are finished adding KML nodes, click on the "Save KMZ file" button to save the active KML document as a .kmz file on your system. Use the "Reset" button to clear the current KML document and start a new one.
+Tap on one of the buttons in the middle row to start adding a geometry. Tap on the map view to place vertices. Tap the "Complete Sketch" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, tap the "Don't Apply Style" button. When you are finished adding KML nodes, tap on the "Save KMZ file" button to save the active KML document as a .kmz file on your system. Use the "Reset" button to clear the current KML document and start a new one.
 
 ## How it works
 

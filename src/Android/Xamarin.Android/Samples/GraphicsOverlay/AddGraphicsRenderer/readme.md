@@ -1,12 +1,16 @@
 # Add graphics with renderer
 
-Change the style of all graphics in a graphics overlay by referencing a single symbol style.
+A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. 
 
-![screenshot](AddGraphicsRenderer.jpg)
+![Image of adding graphics with renderer](AddGraphicsRenderer.jpg)
 
 ## Use case
 
-A renderer allows you to change the style of all graphics in an overlay by only changing one copy of the symbol. For example, a user may wish to display a number of graphics on a map of parkland which represent trees, all sharing a common symbol.
+A renderer allows you to change the style of all graphics in an overlay by only changing one copy of the symbol. For example, a user may wish to display a number of graphics on a map of parkland which represent trees, all sharing a common symbol. A renderer will only effect graphics that do not specify their own symbol style.
+
+## How to use the sample
+
+Run the sample and view graphics for points, lines, and polygons, which are stylized using renderers.
 
 ## How it works
 
@@ -27,8 +31,6 @@ A renderer allows you to change the style of all graphics in an overlay by only 
 * SimpleRenderer
 
 ## Additional information
-
-A renderer will only effect graphics that do not specify their own symbol style.
 
 To set unique symbols across a number of graphics (e.g. showing graphics of individual landmarks) see "Add graphics with symbols" sample.
 

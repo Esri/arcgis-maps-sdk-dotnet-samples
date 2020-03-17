@@ -2,11 +2,15 @@
 
 This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 
-![screenshot](TokenSecuredChallenge.jpg)
+![Image of ArcGIS token challenge](TokenSecuredChallenge.jpg)
 
 ## Use case
 
 Your app may need to access services that are restricted to authorized users. For example, your organization may host ArcGIS services that are only accessible by verified users.
+
+## How to use the sample
+
+When you run the sample, the app will load a map that contains a layer from a secured service. Then, you will be challenged for a user name and password to view that layer. Enter the correct user name (user1) and password (user1). If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.
 
 ## How it works
 
@@ -21,4 +25,4 @@ Your app may need to access services that are restricted to authorized users. Fo
 
 ## Tags
 
-Authentication, Security, Token
+authentication, security, token

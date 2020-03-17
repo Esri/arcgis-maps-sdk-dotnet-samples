@@ -2,7 +2,7 @@
 
 Show a callout with the latitude and longitude of user-tapped points.
 
-![screenshot](ShowCallout.jpg)
+![Image of show callout](ShowCallout.jpg)
 
 ## Use case
 
@@ -24,8 +24,8 @@ Tap anywhere on the map. A callout showing the WGS84 coordinates for the tapped 
 ## Relevant API
 
 * CalloutDefinition
-* GeoViewTappedEventArgs
 * GeometryEngine.Project
+* GeoViewTappedEventArgs
 * MapView.GeoViewTapped
 * MapView.ShowCalloutAt
 

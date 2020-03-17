@@ -24,7 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
 {
     [Register("SymbolsFromMobileStyle")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Read symbols from a mobile style",
+        "Read symbols from mobile style",
         "Symbology",
         "Open a local mobile style file (.stylx) and read its contents.",
         "")]

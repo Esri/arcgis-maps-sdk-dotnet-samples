@@ -24,7 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display a WFS layer",
+        "Display WFS layer",
         "Layers",
         "Display a layer from a WFS service, requesting only features for the current extent.",
         "")]

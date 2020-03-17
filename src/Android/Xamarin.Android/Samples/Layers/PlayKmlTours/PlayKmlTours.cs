@@ -25,7 +25,7 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Play a KML tour",
+        "Play KML tour",
         "Layers",
         "Play tours in KML files.",
         "")]

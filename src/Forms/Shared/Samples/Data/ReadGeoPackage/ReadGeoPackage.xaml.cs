@@ -18,7 +18,7 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Read a GeoPackage",
+        "Read GeoPackage",
         "Data",
         "Add rasters and feature tables from GeoPackages to a map.",
         "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.")]

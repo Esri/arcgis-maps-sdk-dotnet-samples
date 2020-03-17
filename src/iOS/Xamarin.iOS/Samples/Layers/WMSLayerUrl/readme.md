@@ -1,4 +1,4 @@
-# WMS layer URL
+# WMS layer (URL)
 
 Display a WMS layer using a WMS service URL.
 

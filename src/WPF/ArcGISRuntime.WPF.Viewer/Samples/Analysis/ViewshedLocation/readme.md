@@ -1,4 +1,4 @@
-# Viewshed location
+# Viewshed (location)
 
 Perform a viewshed analysis from a defined vantage point. 
 

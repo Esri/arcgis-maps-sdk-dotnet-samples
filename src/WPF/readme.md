@@ -8,7 +8,7 @@
 * [Query feature count and extent](ArcGISRuntime.WPF.Viewer/Samples/Analysis/QueryFeatureCountAndExtent/readme.md) - Zoom to features matching a query and count the features in the current visible extent.
 * [Viewshed for camera](ArcGISRuntime.WPF.Viewer/Samples/Analysis/ViewshedCamera/readme.md) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. 
 * [Viewshed for GeoElement](ArcGISRuntime.WPF.Viewer/Samples/Analysis/ViewshedGeoElement/readme.md) - Analyze the viewshed for an object (GeoElement) in a scene.
-* [Viewshed location](ArcGISRuntime.WPF.Viewer/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point. 
+* [Viewshed (location)](ArcGISRuntime.WPF.Viewer/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point. 
 
 ## Data
 
@@ -132,7 +132,7 @@
 * [Time-based query](ArcGISRuntime.WPF.Viewer/Samples/Layers/TimeBasedQuery/readme.md) - Query data using a time extent. 
 * [Load WFS with XML query](ArcGISRuntime.WPF.Viewer/Samples/Layers/WfsXmlQuery/readme.md) - Load a WFS feature table using an XML query.
 * [Identify WMS features](ArcGISRuntime.WPF.Viewer/Samples/Layers/WmsIdentify/readme.md) - Identify features in a WMS layer and display the associated popup content.
-* [WMS layer URL](ArcGISRuntime.WPF.Viewer/Samples/Layers/WMSLayerUrl/readme.md) - Display a WMS layer using a WMS service URL.
+* [WMS layer (URL)](ArcGISRuntime.WPF.Viewer/Samples/Layers/WMSLayerUrl/readme.md) - Display a WMS layer using a WMS service URL.
 * [WMS service catalog](ArcGISRuntime.WPF.Viewer/Samples/Layers/WmsServiceCatalog/readme.md) - Connect to a WMS service and show the available layers and sublayers. 
 * [WMTS layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/WMTSLayer/readme.md) - Display a layer from a Web Map Tile Service.
 

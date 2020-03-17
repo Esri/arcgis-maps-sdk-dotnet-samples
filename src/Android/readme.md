@@ -8,7 +8,7 @@
 * [Query feature count and extent](Xamarin.Android/Samples/Analysis/QueryFeatureCountAndExtent/readme.md) - Zoom to features matching a query and count the features in the current visible extent.
 * [Viewshed for camera](Xamarin.Android/Samples/Analysis/ViewshedCamera/readme.md) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. 
 * [Viewshed for GeoElement](Xamarin.Android/Samples/Analysis/ViewshedGeoElement/readme.md) - Analyze the viewshed for an object (GeoElement) in a scene.
-* [Viewshed location](Xamarin.Android/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point. 
+* [Viewshed (location)](Xamarin.Android/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point. 
 
 ## Augmented reality
 
@@ -140,7 +140,7 @@
 * [Time-based query](Xamarin.Android/Samples/Layers/TimeBasedQuery/readme.md) - Query data using a time extent. 
 * [Load WFS with XML query](Xamarin.Android/Samples/Layers/WfsXmlQuery/readme.md) - Load a WFS feature table using an XML query.
 * [Identify WMS features](Xamarin.Android/Samples/Layers/WmsIdentify/readme.md) - Identify features in a WMS layer and display the associated popup content.
-* [WMS layer URL](Xamarin.Android/Samples/Layers/WMSLayerUrl/readme.md) - Display a WMS layer using a WMS service URL.
+* [WMS layer (URL)](Xamarin.Android/Samples/Layers/WMSLayerUrl/readme.md) - Display a WMS layer using a WMS service URL.
 * [WMS service catalog](Xamarin.Android/Samples/Layers/WmsServiceCatalog/readme.md) - Connect to a WMS service and show the available layers and sublayers. 
 * [WMTS layer](Xamarin.Android/Samples/Layers/WMTSLayer/readme.md) - Display a layer from a Web Map Tile Service.
 

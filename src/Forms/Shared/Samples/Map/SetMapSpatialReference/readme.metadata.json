@@ -18,7 +18,13 @@
     "redirect_from": [
         "/net/latest/forms/sample-code/setmapspatialreference.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "Basemap",
+        "Map",
+        "MapView",
+        "SpatialReference"
+    ],
     "snippets": [
         "SetMapSpatialReference.xaml",
         "SetMapSpatialReference.xaml.cs"

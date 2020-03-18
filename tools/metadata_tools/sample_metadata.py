@@ -155,7 +155,7 @@ class sample_metadata:
             # do the last segment
             if current_heading != "" and len(para_part_accumulator) > 0:
                 self.populate_heading(current_heading, para_part_accumulator)
-            self.description = self.description.replace("`", "")
+
         return
     
     def try_replace_with_common_readme(self, platform, path_to_common_dir, path_to_net_readme):

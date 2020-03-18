@@ -20,7 +20,9 @@
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
     },
-    "offline_data": [],
+    "offline_data": [
+        "68ec42517cdd439e81b036210483e8e7"
+    ],
     "redirect_from": [
         "/net/latest/forms/sample-code/rasterlayergeopackage.htm"
     ],

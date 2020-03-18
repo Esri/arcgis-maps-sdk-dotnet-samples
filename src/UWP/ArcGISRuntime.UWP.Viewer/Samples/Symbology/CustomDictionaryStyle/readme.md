@@ -24,13 +24,19 @@ Pan and zoom the map to see the symbology from the custom dictionary style.
 * DictionarySymbolStyle
 * DictionarySymbolStyleConfiguration
 
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [Restaurant dictionary style](https://www.arcgis.com/home/item.html?id=751138a2e0844e06853522d54103222a)
+
 ## About the data
 
-The data used in this sample is from a feature layer showing a subset of [restaurants in Redlands, CA](https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Redlands_Restaurants/FeatureServer) hosted as a feature service with attributes for rating, style, health score, and open hours. The feature layer is symbolized using a dictionary renderer that displays a single symbol for all of these variables. The renderer uses symbols from a custom [restaurant dictionary style](https://arcgisruntime.maps.arcgis.com/home/item.html?id=751138a2e0844e06853522d54103222a), available as an item from ArcGIS Online, to show unique symbols based on several feature attributes. The symbols it contains were created using ArcGIS Pro. The logic used to apply the symbols comes from an Arcade script embedded in the stylx file (which is a SQLite database), along with a JSON string that defines expected attribute names and configuration properties.
+The data used in this sample is from a feature layer showing a subset of [restaurants in Redlands, CA](https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Redlands_Restaurants/FeatureServer) hosted as a feature service with attributes for rating, style, health score, and open hours. The feature layer is symbolized using a dictionary renderer that displays a single symbol for all of these variables. The renderer uses symbols from a custom [restaurant dictionary style](https://www.arcgis.com/home/item.html?id=751138a2e0844e06853522d54103222a), available as an item from ArcGIS Online, to show unique symbols based on several feature attributes. The symbols it contains were created using ArcGIS Pro. The logic used to apply the symbols comes from an Arcade script embedded in the stylx file (which is a SQLite database), along with a JSON string that defines expected attribute names and configuration properties.
 
 ## Additional information
 
-To learn more about how styles in dictionary renderers work, see the topic [Display symbols from a style with a dictionary renderer](https://developers.arcgis.com/java/latest/guide/display-military-symbols-with-a-dictionary-renderer.htm) in the *ArcGIS Runtime SDK for Java* guide. For information about creating your own custom dictionary style, see the open source [dictionary renderer toolkit](https://esriurl.com/DictionaryToolkit) on *GitHub*.
+To learn more about how styles in dictionary renderers work, see the topic [Display symbols from a style with a dictionary renderer](https://developers.arcgis.com/net/latest/uwp/guide/display-military-symbols-with-a-dictionary-renderer.htm) in the *ArcGIS Runtime SDK for Java* guide. For information about creating your own custom dictionary style, see the open source [dictionary renderer toolkit](https://esriurl.com/DictionaryToolkit) on *GitHub*.
 
 ## Tags
 

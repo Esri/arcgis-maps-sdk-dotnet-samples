@@ -23,11 +23,11 @@ The ArcGIS map image layer will now use the spatial reference set to the ArcGIS 
  
 ## Relevant API
 
-- ArcGISMapImageLayer
-- Basemap
-- Map
-- MapView
-- SpatialReference
+* ArcGISMapImageLayer
+* Basemap
+* Map
+* MapView
+* SpatialReference
 
 ## Additional information
 

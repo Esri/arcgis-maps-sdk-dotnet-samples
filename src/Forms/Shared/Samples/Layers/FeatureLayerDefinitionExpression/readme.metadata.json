@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Limit the features displayed on a map with a definition expression. ",
+    "description": "Limit the features displayed on a map with a definition expression.",
     "formal_name": "FeatureLayerDefinitionExpression",
     "ignore": false,
     "images": [

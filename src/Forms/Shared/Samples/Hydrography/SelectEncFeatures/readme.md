@@ -33,6 +33,12 @@ Tap to select ENC features. Feature properties will be displayed in a callout.
 * IdentifyLayerResult.GeoElements
 * IdentifyLayerResult.LayerContent
 
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [ENC Exchange Set without updates](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d)
+
 ## About the data
 
 The sample uses [ENC Exchange Set without updates](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d) a mock ENC data set, available on ArcGIS Online.

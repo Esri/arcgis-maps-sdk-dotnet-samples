@@ -112,7 +112,7 @@
 * [Export tiles](Xamarin.iOS/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.
 * [Create feature collection layer (Portal item)](Xamarin.iOS/Samples/Layers/FeatureCollectionLayerFromPortal/readme.md) - Create a feature collection layer from a portal item.
 * [Feature collection layer (query)](Xamarin.iOS/Samples/Layers/FeatureCollectionLayerFromQuery/readme.md) - Create a feature collection layer to show a query result from a service feature table.
-* [Feature layer definition expression](Xamarin.iOS/Samples/Layers/FeatureLayerDefinitionExpression/readme.md) - Limit the features displayed on a map with a definition expression. 
+* [Feature layer definition expression](Xamarin.iOS/Samples/Layers/FeatureLayerDefinitionExpression/readme.md) - Limit the features displayed on a map with a definition expression.
 * [Dictionary renderer with feature layer](Xamarin.iOS/Samples/Layers/FeatureLayerDictionaryRenderer/readme.md) - Convert features into graphics to show them with mil2525d symbols.
 * [Feature layer rendering mode (map)](Xamarin.iOS/Samples/Layers/FeatureLayerRenderingModeMap/readme.md) - Render features statically or dynamically by setting the feature layer rendering mode.
 * [Feature layer rendering mode (scene)](Xamarin.iOS/Samples/Layers/FeatureLayerRenderingModeScene/readme.md) - Render features in a scene statically or dynamically by setting the feature layer rendering mode.

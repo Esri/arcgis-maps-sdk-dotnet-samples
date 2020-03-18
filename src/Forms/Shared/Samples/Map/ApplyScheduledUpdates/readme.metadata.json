@@ -16,7 +16,9 @@
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
     },
-    "offline_data": [],
+    "offline_data": [
+        "740b663bff5e4198b9b6674af93f638a"
+    ],
     "redirect_from": [
         "/net/latest/forms/sample-code/applyscheduledupdates.htm"
     ],

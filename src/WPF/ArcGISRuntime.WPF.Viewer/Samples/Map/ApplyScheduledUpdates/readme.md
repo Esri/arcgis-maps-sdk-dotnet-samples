@@ -36,6 +36,8 @@ Start the app. It will display an offline map, check for available updates, and 
 
 ## Offline data
 
+This sample uses a [mobile map package](https://arcgisruntime.maps.arcgis.com/home/item.html?id=740b663bff5e4198b9b6674af93f638a), which can be found on ArcGIS Online.
+
 The `DataManager` class is used download data from an ArcGIS Online portal item to the local application data folder. Most samples use a call from the sample viewer code to download the data before starting the sample. The data is not re-downloaded if the sample is opened again. This sample uses `DataManager` to delete the mobile map package data (if present) and download it again. Applying updates to the map package changes the offline data, so that data must be refreshed every time this sample is opened.
 
 ## About the data

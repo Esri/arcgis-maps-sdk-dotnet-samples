@@ -25,6 +25,12 @@ When the sample starts, a raster will be loaded from a GeoPackage and displayed 
 * GeoPackageRaster
 * RasterLayer
 
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [Aurora Colorado GeoPackage](https://www.arcgis.com/home/item.html?id=68ec42517cdd439e81b036210483e8e7)
+
 ## About the data
 
 The [Aurora Colorado GeoPackage](https://www.arcgis.com/home/item.html?id=68ec42517cdd439e81b036210483e8e7) holds datasets that cover Aurora, Colorado. The raster that is opened and displayed shows airport noise levels.

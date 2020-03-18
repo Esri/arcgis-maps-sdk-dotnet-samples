@@ -28,7 +28,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Route around barriers",
-        "Network Analysis",
+        "Network analysis",
         "Find a route that reaches all stops without crossing any barriers.",
         "")]
     public partial class RouteAroundBarriers

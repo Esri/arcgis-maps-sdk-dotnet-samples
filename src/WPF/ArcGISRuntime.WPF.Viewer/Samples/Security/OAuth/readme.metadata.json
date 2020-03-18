@@ -7,21 +7,26 @@
         "OAuth.jpg"
     ],
     "keywords": [
-        "Authentication",
         "OAuth",
-        "Security"
+        "OAuth2",
+        "authentication",
+        "cloud",
+        "credential",
+        "portal",
+        "security"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/wpf/sample-code/oauth.htm"
     ],
     "relevant_apis": [
-        "ArcGISPortal",
         "AuthenticationManager",
-        "Credential"
+        "OAuthConfiguration",
+        "PortalItem",
+        "ServerInfo"
     ],
     "snippets": [
         "OAuth.xaml",

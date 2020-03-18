@@ -85,7 +85,7 @@
 * [ArcGIS map image layer](Shared/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](Shared/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](Shared/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.
-* [Browse WFS layers](Shared/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers.
+* [Browse WFS layers](Shared/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers and add them to the map.
 * [Blend renderer](Shared/Samples/Layers/ChangeBlendRenderer/readme.md) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Change feature layer renderer](Shared/Samples/Layers/ChangeFeatureLayerRenderer/readme.md) - Change the appearance of a feature layer with a renderer.
 * [Stretch renderer](Shared/Samples/Layers/ChangeStretchRenderer/readme.md) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
@@ -200,7 +200,6 @@
 * [Navigate route with rerouting](Shared/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 * [Offline routing](Shared/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](Shared/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
-* [Trace a utility network](Shared/Samples/Network%20analysis/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 
 ## Search
 
@@ -226,4 +225,10 @@
 * [Simple renderer](Shared/Samples/Symbology/SimpleRenderers/readme.md) - Display common symbols for all graphics in a graphics overlay with a renderer.
 * [Read symbols from a mobile style](Shared/Samples/Symbology/SymbolsFromMobileStyle/readme.md) - Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.
 * [Distance composite scene symbol](Shared/Samples/Symbology/UseDistanceCompositeSym/readme.md) - Change a graphic's symbol based on the camera's proximity to it.
+
+## Utility network
+
+* [Configure subnetwork trace](Shared/Samples/Utility%20network/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
+* [Perform valve isolation trace](Shared/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+* [Trace utility network](Shared/Samples/Utility%20network/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

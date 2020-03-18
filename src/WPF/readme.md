@@ -85,7 +85,7 @@
 * [ArcGIS map image layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](ArcGISRuntime.WPF.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.
-* [Browse WFS layers](ArcGISRuntime.WPF.Viewer/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers.
+* [Browse WFS layers](ArcGISRuntime.WPF.Viewer/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers and add them to the map.
 * [Blend renderer](ArcGISRuntime.WPF.Viewer/Samples/Layers/ChangeBlendRenderer/readme.md) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Change feature layer renderer](ArcGISRuntime.WPF.Viewer/Samples/Layers/ChangeFeatureLayerRenderer/readme.md) - Change the appearance of a feature layer with a renderer.
 * [Stretch renderer](ArcGISRuntime.WPF.Viewer/Samples/Layers/ChangeStretchRenderer/readme.md) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
@@ -138,8 +138,6 @@
 
 ## Local Server
 
-* [Local server dynamic workspace raster](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/DynamicWorkspaceRaster/readme.md) - Dynamically add a local raster file to a map using Local Server.
-* [Local server dynamic workspace shapefile](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/DynamicWorkspaceShapefile/readme.md) - Dynamically add a local shapefile to a map using Local Server.
 * [Local server feature layer](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerFeatureLayer/readme.md) - Start a local feature service and display its features in a map.
 * [Local server geoprocessing](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerGeoprocessing/readme.md) - Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.
 * [Local Server map image layer](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerMapImageLayer/readme.md) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
@@ -209,7 +207,6 @@
 * [Navigate route with rerouting](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 * [Offline routing](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
-* [Trace a utility network](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 
 ## Search
 
@@ -236,4 +233,10 @@
 * [Simple renderer](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SimpleRenderers/readme.md) - Display common symbols for all graphics in a graphics overlay with a renderer.
 * [Read symbols from a mobile style](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SymbolsFromMobileStyle/readme.md) - Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.
 * [Distance composite scene symbol](ArcGISRuntime.WPF.Viewer/Samples/Symbology/UseDistanceCompositeSym/readme.md) - Change a graphic's symbol based on the camera's proximity to it.
+
+## Utility network
+
+* [Configure subnetwork trace](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
+* [Perform valve isolation trace](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+* [Trace utility network](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             };
 
             // Create a camera with coordinates showing layer data
-            Camera camera = new Camera(53.04, -4.04, 1300, 0, 90.0, 0);
+            Camera camera = new Camera(53.05, -4.01, 1115, 299, 88, 0);
 
             // Assign the Scene to the SceneView
             _mySceneView.Scene = myScene;

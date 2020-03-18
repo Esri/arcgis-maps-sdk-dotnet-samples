@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -23,9 +23,9 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 {
     [Register("BrowseWfsLayers")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Browse a WFS service for layers",
+        "Browse WFS service for layers",
         "Layers",
-        "Browse for layers in a WFS service.",
+        "Browse a WFS service for layers and add them to the map.",
         "")]
     public class BrowseWfsLayers : UIViewController
     {
@@ -34,6 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
         private UISwitch _toggleAxisOrderSwitch;
         private UIActivityIndicatorView _loadingProgressBar;
         private UIBarButtonItem _chooseLayersButton;
+        private UIBarButtonItem _loadServiceButton;
 
         // Hold a reference to the WFS service info - used to get list of available layers.
         private WfsServiceInfo _serviceInfo;
@@ -43,25 +44,49 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 
         public BrowseWfsLayers()
         {
-            Title = "Browse a WFS service for layers";
+            Title = "Browse WFS service for layers";
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
+            // Update the UI.
+            _loadServiceButton.Title = ServiceUrl;
+
             // Create the map with imagery basemap.
             _myMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Create the WFS service.
-            WfsService service = new WfsService(new Uri(ServiceUrl));
+            LoadService();
+        }
 
-            // Load the WFS service.
-            await service.LoadAsync();
+        private async void LoadService()
+        {
+            try
+            {
+                _loadingProgressBar.StartAnimating();
+                _loadServiceButton.Enabled = false;
+                _chooseLayersButton.Enabled = false;
 
-            // Store information about the WFS service for later.
-            _serviceInfo = service.ServiceInfo;
+                // Create the WFS service.
+                WfsService service = new WfsService(new Uri(_loadServiceButton.Title));
 
-            // Update the UI.
-            _chooseLayersButton.Enabled = true;
+                // Load the WFS service.
+                await service.LoadAsync();
+
+                // Get the service metadata.
+                _serviceInfo = service.ServiceInfo;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "Error loading service", null).Show();
+            }
+            finally
+            {
+                // Update the UI.
+                _loadingProgressBar.StopAnimating();
+                _loadServiceButton.Enabled = true;
+                _chooseLayersButton.Enabled = true;
+            }
         }
 
         private async void LoadSelectedLayer(WfsLayerInfo selectedLayerInfo)
@@ -98,18 +123,18 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
 
                 // Choose a renderer for the layer based on the table.
-                wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
+                wfsFeatureLayer.Renderer = GetRendererForTable(table) ?? wfsFeatureLayer.Renderer;
 
                 // Add the layer to the map.
                 _myMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
 
-                // Zoom to the extent of the layer.
+                // Zoom to the extent of the selected layer.
                 await _myMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent, 50);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine(exception);
-                new UIAlertView("Error", exception.ToString(), (IUIAlertViewDelegate) null, "Couldn't load layer.", null).Show();
+                Debug.WriteLine(ex);
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "Couldn't load layer.", null).Show();
             }
             finally
             {
@@ -141,39 +166,29 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             PresentViewController(layerSelectionAlert, true, null);
         }
 
-        #region Random symbology
-
-        // Random number generator used to generate random symbology.
-        private static readonly Random _rand = new Random();
-
-        private Renderer GetRandomRendererForTable(FeatureTable table)
+        private Renderer GetRendererForTable(FeatureTable table)
         {
             switch (table.GeometryType)
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 4));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 4));
+
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
-                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
+                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, null));
+
                 case GeometryType.Polyline:
-                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, GetRandomColor(), 1));
+                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 1));
             }
 
             return null;
         }
 
-        private Color GetRandomColor(int alpha = 255)
-        {
-            return Color.FromArgb(alpha, _rand.Next(0, 255), _rand.Next(0, 255), _rand.Next(0, 255));
-        }
-
-        #endregion Random symbology
-
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -186,6 +201,15 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             _chooseLayersButton = new UIBarButtonItem();
             _chooseLayersButton.Title = "Choose layer";
             _chooseLayersButton.Enabled = false;
+
+            _loadServiceButton = new UIBarButtonItem();
+
+            UIToolbar loadBar = new UIToolbar();
+            loadBar.TranslatesAutoresizingMaskIntoConstraints = false;
+            loadBar.Items = new[]
+            {
+                _loadServiceButton
+            };
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -204,18 +228,26 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             _loadingProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .6f);
 
             // Add the views.
-            View.AddSubviews(_myMapView, toolbar, _loadingProgressBar);
+            View.AddSubviews(_myMapView, loadBar, toolbar, _loadingProgressBar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(loadBar.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                loadBar.TopAnchor.ConstraintEqualTo(_myMapView.BottomAnchor),
+                loadBar.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                loadBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                loadBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                toolbar.TopAnchor.ConstraintEqualTo(loadBar.BottomAnchor),
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
                 _loadingProgressBar.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _loadingProgressBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _loadingProgressBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
@@ -235,6 +267,30 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 
             // Subscribe to events.
             _chooseLayersButton.Clicked += ShowLayerOptions;
+            _loadServiceButton.Clicked += ServiceLinkClick;
+        }
+
+        private void ServiceLinkClick(object sender, EventArgs e)
+        {
+            UIAlertView alert = new UIAlertView()
+            {
+                Message = "Enter WFS URL.",
+                AlertViewStyle = UIAlertViewStyle.PlainTextInput,
+                CancelButtonIndex = 1
+            };
+            alert.GetTextField(0).Text = _loadServiceButton.Title;
+            alert.AddButton("Load");
+            alert.AddButton("Cancel");
+
+            alert.Clicked += (object s, UIButtonEventArgs a) =>
+            {
+                if (a.ButtonIndex != alert.CancelButtonIndex)
+                {
+                    _loadServiceButton.Title = alert.GetTextField(0).Text;
+                    LoadService();
+                }
+            };
+            alert.Show();
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -243,6 +299,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 
             // Unsubscribe from events, per best practice.
             _chooseLayersButton.Clicked -= ShowLayerOptions;
+            _loadServiceButton.Clicked -= ServiceLinkClick;
         }
     }
 }

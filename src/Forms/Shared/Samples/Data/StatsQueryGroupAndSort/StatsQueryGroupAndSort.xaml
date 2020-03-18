@@ -200,9 +200,7 @@
             <ListView x:Name="StatResultsList" IsGroupingEnabled="true">
                 <ListView.GroupHeaderTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <Label HeightRequest="30" Text="{Binding GroupName}" />
-                        </ViewCell>
+                        <TextCell Height="30" Text="{Binding GroupName}" />
                     </DataTemplate>
                 </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>

@@ -113,7 +113,7 @@
   </ItemGroup>
   <!-- Resources -->
   <ItemGroup>
-    <None Include="ArcGISLocalServer_100.6.AGSDeployment" />
+    <None Include="ArcGISLocalServer_100.8.AGSDeployment" />
     <None Include="Readme.md" />
     <Resource Include="Assets\banner-background-purple.png" />
     <Content Include="Resources\hide-header.css">
@@ -146,13 +146,19 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
+      <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
+      <DependentUpon>ConfigureSubnetworkTrace.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml.cs">
       <DependentUpon>DisplaySubtypeFeatureLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml.cs">
       <DependentUpon>DisplayAnnotation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+    <Compile Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
       <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
@@ -587,12 +593,6 @@
     <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
       <DependentUpon>WMTSLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Local Server\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml.cs">
-      <DependentUpon>DynamicWorkspaceRaster.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Local Server\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml.cs">
-      <DependentUpon>DynamicWorkspaceShapefile.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Local Server\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml.cs">
       <DependentUpon>LocalServerFeatureLayer.xaml</DependentUpon>
     </Compile>
@@ -734,6 +734,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -742,7 +750,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
+    <Page Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1326,14 +1334,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Local Server\DynamicWorkspaceRaster\DynamicWorkspaceRaster.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Local Server\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Local Server\LocalServerFeatureLayer\LocalServerFeatureLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1517,13 +1517,19 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg">
+    <Content Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg">
@@ -1957,12 +1963,6 @@
     <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Local Server\DynamicWorkspaceRaster\DynamicWorkspaceRaster.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Local Server\DynamicWorkspaceShapefile\DynamicWorkspaceShapefile.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\Local Server\LocalServerFeatureLayer\LocalServerFeatureLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2192,13 +2192,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.7.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices">
-      <Version>100.6.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.WPF">
-      <Version>100.7.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

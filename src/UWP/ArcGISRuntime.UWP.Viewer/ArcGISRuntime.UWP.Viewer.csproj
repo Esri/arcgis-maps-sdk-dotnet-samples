@@ -12,8 +12,8 @@
     <AssemblyName>ArcGISRuntime</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.17763.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.17763.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
     <FileAlignment>512</FileAlignment>
@@ -114,6 +114,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
+    <Content Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <Content Include="Assets\banner-background-purple.png" />
     <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
     <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg" />
@@ -284,7 +286,7 @@
     <Content Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg" />
     <Content Include="Samples\Network analysis\OfflineRouting\OfflineRouting.jpg" />
     <Content Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
-    <Content Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
+    <Content Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.jpg" />
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg" />
     <Content Include="Samples\Search\FindPlace\FindPlace.jpg" />
     <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
@@ -367,13 +369,19 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
+      <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
+      <DependentUpon>ConfigureSubnetworkTrace.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml.cs">
       <DependentUpon>DisplaySubtypeFeatureLayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml.cs">
       <DependentUpon>DisplayAnnotation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+    <Compile Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
       <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
@@ -934,6 +942,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -942,7 +958,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
+    <Page Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1733,10 +1749,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.7.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.7.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

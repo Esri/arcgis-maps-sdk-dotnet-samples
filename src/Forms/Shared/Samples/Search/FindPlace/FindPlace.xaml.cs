@@ -213,7 +213,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
 
-		private async Task<Graphic> GraphicForPoint(MapPoint point)
+        private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
 #if WINDOWS_UWP
             // Get current assembly that contains the image.
@@ -252,7 +252,7 @@ namespace ArcGISRuntime.Samples.FindPlace
 
             // Get the title; manually added to the point's attributes in UpdateSearch.
             string title = matchingGraphic.Attributes["Match_Title"] as String;
-                
+
             // Get the address; manually added to the point's attributes in UpdateSearch.
             string address = matchingGraphic.Attributes["Match_Address"] as String;
 
@@ -413,6 +413,9 @@ namespace ArcGISRuntime.Samples.FindPlace
 
         private void lstViewSuggestions_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
+            // Verify selected item has a value.
+            if (e.SelectedItem == null) return;
+
             // Dismiss callout, if any.
             UserInteracted();
 

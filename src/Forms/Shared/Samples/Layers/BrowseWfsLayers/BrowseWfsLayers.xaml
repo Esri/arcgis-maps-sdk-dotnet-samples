@@ -4,49 +4,60 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
     xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
+
         <esriUI:MapView
             x:Name="MyMapView"
             BindingContext="{x:Reference Name=ResponsiveFormContainer}"
             Style="{StaticResource MapWithFormStyle}" />
+
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Entry
+                    x:Name="ServiceTextBox"
                     Grid.Row="0"
-                    Margin="5"
-                    HorizontalTextAlignment="Center"
-                    Text="Select a WFS layer for display." />
-                <ActivityIndicator
-                    x:Name="LoadingProgressBar"
-                    Grid.Row="1"
-                    Margin="0,5,0,5"
-                    IsEnabled="True"
-                    IsRunning="True"
-                    IsVisible="True" />
+                    Grid.Column="0"
+                    Margin="0,0,5,5">
+                    <Entry.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="Black" />
+                        </OnPlatform>
+                    </Entry.TextColor>
+                </Entry>
+                <Button
+                    x:Name="LoadServiceButton"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,0,0,5"
+                    Padding="5,0,5,0"
+                    Clicked="LoadServiceButton_Click"
+                    Text="Load service" />
                 <ListView
                     x:Name="WfsLayerList"
-                    Grid.Row="2"
-                    HeightRequest="200"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    HeightRequest="150"
                     SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <ViewCell>
-                                <Label Text="{Binding Title}" />
-                            </ViewCell>
+                            <TextCell Text="{Binding Title}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <StackLayout
-                    Grid.Row="3"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
                     Margin="0,5,0,5"
                     Orientation="Horizontal">
                     <Switch x:Name="AxisOrderSwapCheckbox" VerticalOptions="Center" />
@@ -57,10 +68,18 @@
                 </StackLayout>
                 <Button
                     x:Name="LoadLayersButton"
-                    Grid.Row="4"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2"
                     Clicked="LoadLayers_Clicked"
                     IsEnabled="False"
                     Text="Load selected layer" />
+                <ActivityIndicator
+                    x:Name="LoadingProgressBar"
+                    Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    IsEnabled="True"
+                    IsRunning="True"
+                    IsVisible="True" />
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

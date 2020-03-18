@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -22,9 +22,9 @@ using Color = System.Drawing.Color;
 namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Browse a WFS service for layers",
+        "Browse WFS service for layers",
         "Layers",
-        "Browse for layers in a WFS service.",
+        "Browse a WFS service for layers and add them to the map.",
         "")]
     public partial class BrowseWfsLayers : ContentPage
     {
@@ -37,29 +37,52 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
+            // Update the UI.
+            ServiceTextBox.Text = ServiceUrl;
+
             // Create the map with imagery basemap.
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Create the WFS service.
-            WfsService service = new WfsService(new Uri(ServiceUrl));
+            LoadService();
+        }
 
-            // Load the WFS service.
-            await service.LoadAsync();
+        private async void LoadService()
+        {
+            try
+            {
+                LoadingProgressBar.IsVisible = true;
+                LoadLayersButton.IsEnabled = false;
+                LoadServiceButton.IsEnabled = false;
 
-            // Get the service metadata.
-            WfsServiceInfo serviceInfo = service.ServiceInfo;
+                // Create the WFS service.
+                WfsService service = new WfsService(new Uri(ServiceTextBox.Text));
 
-            // Get a reversed list of available layers.
-            IEnumerable<WfsLayerInfo> layerListReversed = serviceInfo.LayerInfos.Reverse();
+                // Load the WFS service.
+                await service.LoadAsync();
 
-            // Show the layers in the UI.
-            WfsLayerList.ItemsSource = layerListReversed;
+                // Get the service metadata.
+                WfsServiceInfo serviceInfo = service.ServiceInfo;
 
-            // Update the UI.
-            LoadingProgressBar.IsVisible = false;
-            LoadLayersButton.IsEnabled = true;
+                // Get a reversed list of available layers.
+                IEnumerable<WfsLayerInfo> layerListReversed = serviceInfo.LayerInfos.Reverse();
+
+                // Show the layers in the UI.
+                WfsLayerList.ItemsSource = layerListReversed;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Application.Current.MainPage.DisplayAlert(ex.Message, "Error loading service", "OK");
+            }
+            finally
+            {
+                // Update the UI.
+                LoadingProgressBar.IsVisible = false;
+                LoadLayersButton.IsEnabled = true;
+                LoadServiceButton.IsEnabled = true;
+            }
         }
 
         private async void LoadLayers_Clicked(object sender, EventArgs e)
@@ -72,8 +95,8 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 
             try
             {
-                // Add the layer to the map.
-                WfsLayerInfo selectedLayerInfo = (WfsLayerInfo) WfsLayerList.SelectedItem;
+                // Get the selected WFS layer.
+                WfsLayerInfo selectedLayerInfo = (WfsLayerInfo)WfsLayerList.SelectedItem;
 
                 // Create the WFS feature table.
                 WfsFeatureTable table = new WfsFeatureTable(selectedLayerInfo);
@@ -99,18 +122,18 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 FeatureLayer wfsFeatureLayer = new FeatureLayer(table);
 
                 // Choose a renderer for the layer based on the table.
-                wfsFeatureLayer.Renderer = GetRandomRendererForTable(table) ?? wfsFeatureLayer.Renderer;
+                wfsFeatureLayer.Renderer = GetRendererForTable(table) ?? wfsFeatureLayer.Renderer;
 
                 // Add the layer to the map.
                 MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
 
-                // Zoom to the extent of the layer.
+                // Zoom to the extent of the selected layer.
                 await MyMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent, 50);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                Debug.WriteLine(exception);
-                await Application.Current.MainPage.DisplayAlert("Failed to load layer", exception.ToString(), "OK");
+                Debug.WriteLine(ex);
+                await Application.Current.MainPage.DisplayAlert(ex.Message, "Error loading service", "OK");
             }
             finally
             {
@@ -119,33 +142,28 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             }
         }
 
-        #region Random symbology
-
-        // Random number generator used to generate random symbology.
-        private static readonly Random _rand = new Random();
-
-        private Renderer GetRandomRendererForTable(FeatureTable table)
+        private Renderer GetRendererForTable(FeatureTable table)
         {
             switch (table.GeometryType)
             {
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, GetRandomColor(), 4));
+                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 4));
+
                 case GeometryType.Polygon:
                 case GeometryType.Envelope:
-                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, GetRandomColor(180), null));
+                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Blue, null));
+
                 case GeometryType.Polyline:
-                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, GetRandomColor(), 1));
+                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 1));
             }
 
             return null;
         }
 
-        private Color GetRandomColor(int alpha = 255)
+        private void LoadServiceButton_Click(object sender, EventArgs e)
         {
-            return Color.FromArgb(alpha, _rand.Next(0, 255), _rand.Next(0, 255), _rand.Next(0, 255));
+            LoadService();
         }
-
-        #endregion Random symbology
     }
 }

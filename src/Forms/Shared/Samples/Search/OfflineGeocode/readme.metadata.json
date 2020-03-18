@@ -15,7 +15,7 @@
         "package"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [
         "1330ab96ac9c40a49e59650557f2cd63",

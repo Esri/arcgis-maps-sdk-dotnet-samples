@@ -1,0 +1,73 @@
+<android.support.constraint.ConstraintLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <Esri.ArcGISRuntime.UI.Controls.MapView
+                android:id="@+id/MapView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Include isolated features"
+                android:gravity="center"/>
+            <CheckBox
+                android:id="@+id/isolatedCheckBox"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Category for Filter Barrier"
+                android:gravity="center"
+                android:layout_margin="5dp"/>
+            <Spinner
+                android:id="@+id/categorySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Clear" />
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal">
+            <Button
+                android:id="@+id/traceButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Trace" />
+        </TableRow>
+    </TableLayout>
+    <ProgressBar
+            android:id="@+id/loadingBar"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+</android.support.constraint.ConstraintLayout>

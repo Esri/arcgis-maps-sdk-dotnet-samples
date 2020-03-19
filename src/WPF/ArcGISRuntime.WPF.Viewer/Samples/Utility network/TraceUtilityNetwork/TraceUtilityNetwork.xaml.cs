@@ -64,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
                 IsBusy.Visibility = Visibility.Visible;
                 Status.Text = "Loading Utility Network...";
 
-                // Setup Map with Feature Layer(s) that contain Utility Network.
+                // Create a map.
                 MyMapView.Map = new Map(Basemap.CreateStreetsNightVector())
                 {
                     InitialViewpoint = _startingViewpoint

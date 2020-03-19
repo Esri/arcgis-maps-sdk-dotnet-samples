@@ -77,7 +77,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 _activityIndicator.StartAnimating();
                 _statusLabel.Text = "Loading Utility Network...";
 
-                // Create a map.
+                // Setup Map with Feature Layer(s) that contain Utility Network.
                 _myMapView.Map = new Map(Basemap.CreateStreetsNightVector())
                 {
                     InitialViewpoint = _startingViewpoint

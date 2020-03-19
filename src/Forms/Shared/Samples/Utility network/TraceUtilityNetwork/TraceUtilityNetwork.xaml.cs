@@ -66,7 +66,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 BusyIndicator.IsVisible = true;
                 Status.Text = "Loading Utility Network...";
 
-                // Setup Map with Feature Layer(s) that contain Utility Network.
+                // Create a map.
                 MyMapView.Map = new Map(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")))
                 {
                     InitialViewpoint = _startingViewpoint

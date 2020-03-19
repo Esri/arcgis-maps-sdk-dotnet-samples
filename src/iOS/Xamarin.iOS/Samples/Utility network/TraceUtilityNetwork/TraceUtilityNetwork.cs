@@ -245,8 +245,8 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             // Start the UI for the user choosing the trace type.
             UIAlertController prompt = UIAlertController.Create(null, "Choose trace type", UIAlertControllerStyle.ActionSheet);
 
-            // Add a selection action for every trace type.
-            foreach (string name in Enum.GetNames(typeof(UtilityTraceType)))
+            // Add a selection action for every valid trace type.
+            foreach (string name in new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" })
             {
                 prompt.AddAction(UIAlertAction.Create(name, UIAlertActionStyle.Default, TraceTypeClick));
             }

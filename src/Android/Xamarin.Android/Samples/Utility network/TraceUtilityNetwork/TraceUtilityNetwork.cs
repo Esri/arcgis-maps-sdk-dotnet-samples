@@ -234,7 +234,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             // Create UI for trace type selection.
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.SetTitle("Select trace type");
-            builder.SetItems(Enum.GetNames(typeof(UtilityTraceType)), ChangeTraceType);
+            builder.SetItems(new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" }, ChangeTraceType);
             builder.SetCancelable(true);
             builder.Show();
         }

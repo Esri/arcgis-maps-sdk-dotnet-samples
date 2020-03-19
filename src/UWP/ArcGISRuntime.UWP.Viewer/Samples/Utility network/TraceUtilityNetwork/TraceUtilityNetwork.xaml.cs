@@ -90,7 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.TraceUtilityNetwork
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
                 // Update the trace configuration UI.
-                TraceTypes.ItemsSource = Enum.GetValues(typeof(UtilityTraceType));
+                TraceTypes.ItemsSource = new List<UtilityTraceType>() { UtilityTraceType.Connected, UtilityTraceType.Subnetwork, UtilityTraceType.Upstream, UtilityTraceType.Downstream };
                 TraceTypes.SelectedIndex = 0;
 
                 // Get the utility tier used for traces in this network. For this data set, the "Medium Voltage Radial" tier from the "ElectricDistribution" domain network is used.

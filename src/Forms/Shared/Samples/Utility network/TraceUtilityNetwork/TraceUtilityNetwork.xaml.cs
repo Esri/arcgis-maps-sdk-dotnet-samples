@@ -314,7 +314,8 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             try
             {
                 // Prompt the user to select a type of trace.
-                string choice = await ((Page)Parent).DisplayActionSheet("Choose type of trace", "Cancel", null, Enum.GetNames(typeof(UtilityTraceType)));
+                var traceTypes = new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" };
+                string choice = await ((Page)Parent).DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
 
                 // Set the selected trace type.
                 _selectedTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), choice);

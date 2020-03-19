@@ -10,7 +10,7 @@ Map symbols generally showcase only one or two data points via color or size, bu
 
 ## How to use the sample
 
-Tap a feature to identify it. The HTML content associated with the feature will be displayed in a web view. 
+Tap a feature to identify it. The HTML content associated with the feature will be displayed in a web view.
 
 ## How it works
 

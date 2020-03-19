@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -30,7 +30,6 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         "Augmented reality",
         "Tap on real-world objects to collect data.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CollectDataAR : ContentPage, IARSample
     {
         // Scene content.
@@ -159,7 +158,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             if (planeLocation != null)
             {
                 // Add a graphic at the tapped location.
-                _graphicsOverlay.Graphics.Add(new Graphic(planeLocation));
+                _graphicsOverlay.Graphics.Add(new Graphic(planeLocation, _tappedPointSymbol));
                 AddButton.IsEnabled = true;
                 HelpLabel.Text = "Placed relative to ARCore plane";
             }
@@ -231,7 +230,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             _changingScale = false;
         }
 
-        private async void AddButtonPressed(object sender, System.EventArgs e)
+        private async void AddButtonPressed(object sender, EventArgs e)
         {
             // Check if the user has already tapped a point.
             if (!_graphicsOverlay.Graphics.Any())
@@ -252,7 +251,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 await CreateFeature(healthValue);
             }
             // This exception is thrown when the user cancels out of the prompt.
-            catch (TaskCanceledException)
+            catch (OperationCanceledException)
             {
                 return;
             }
@@ -265,7 +264,8 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
         private async Task<int> GetTreeHealthValue()
         {
-            string health = await DisplayActionSheet("Tree health?", "Cancel", null, "Dead", "Distressed", "Healthy");
+            // Prompt the user for the health of the tree.
+            string health = await ((Page)Parent).DisplayActionSheet("Tree health?", "Cancel", null, "Dead", "Distressed", "Healthy");
 
             // Return a tree health value based on the users selection.
             switch (health)
@@ -280,7 +280,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                     return 10;
 
                 default:
-                    return 0;
+                    throw new OperationCanceledException();
             }
         }
 

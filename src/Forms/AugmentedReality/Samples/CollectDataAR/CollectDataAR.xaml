@@ -95,6 +95,7 @@
                 x:Name="AddButton"
                 Grid.Column="3"
                 BackgroundColor="Green"
+                TextColor="White"
                 Clicked="AddButtonPressed"
                 Text="+" />
         </Grid>

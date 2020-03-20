@@ -7,11 +7,11 @@
         "UpdateGeometries.jpg"
     ],
     "keywords": [
-        "FeatureLayer",
-        "Service",
-        "ServiceFeatureTable",
         "editing",
+        "feature layer",
+        "feature table",
         "moving",
+        "service",
         "updating"
     ],
     "nuget_packages": {
@@ -24,8 +24,6 @@
     "relevant_apis": [
         "Feature",
         "FeatureLayer",
-        "Map",
-        "MapView",
         "ServiceFeatureTable"
     ],
     "snippets": [

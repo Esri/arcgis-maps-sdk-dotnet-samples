@@ -7,14 +7,14 @@
         "MobileMapSearchAndRoute.jpg"
     ],
     "keywords": [
-        "Offline",
-        "Routing",
-        "Search",
         "disconnected",
         "field mobility",
         "geocode",
         "network",
         "network analysis",
+        "offline",
+        "routing",
+        "search",
         "transportation"
     ],
     "nuget_packages": {

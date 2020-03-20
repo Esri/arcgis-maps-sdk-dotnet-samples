@@ -7,11 +7,12 @@
         "LocalServerGeoprocessing.jpg"
     ],
     "keywords": [
-        "GeoprocessingJob",
-        "GeoprocessingParameters",
-        "GeoprocessingTask",
-        "LocalGeoprocessingService",
-        "local services"
+        "geoprocessing",
+        "local",
+        "offline",
+        "parameters",
+        "processing",
+        "service"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0",

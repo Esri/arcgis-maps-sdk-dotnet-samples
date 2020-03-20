@@ -2,7 +2,7 @@
 
 Find webmap portal items by using a search term.
 
-![screenshot](SearchPortalMaps.jpg)
+![Image of search for webmap](SearchPortalMaps.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Portals can contain many portal items and at times you may wish to query the por
 
 ## How to use the sample
 
-Click 'Search maps' to search public maps. Click 'Get my maps' to connect to a Portal and show your maps.
+Enter search terms into the search bar. Once the search is complete, a list is populated with the resultant webmaps. Tap on a webmap to set it to the map view. Scrolling to the bottom of the webmap recycler view will get more results.
 
 ## How it works
 

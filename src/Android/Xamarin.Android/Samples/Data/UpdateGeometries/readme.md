@@ -2,7 +2,11 @@
 
 Update a feature's location in an online feature service.
 
-![](UpdateGeometries.jpg)
+![Image of update geometries feature service](UpdateGeometries.jpg)
+
+## Use case
+
+Sometimes users may want to edit features in an online feature service by moving them.
 
 ## How to use the sample
 
@@ -10,23 +14,19 @@ Tap a feature to select it. Tap again to set the updated location for that featu
 
 ## How it works
 
-To get a Feature from a ServiceFeatureTable and change it's geometry:
-
-1. Create a service feature table from a URL.
-2. Create a feature layer from the service feature table.
-3. Select a feature from the feature layer, `FeatureLayer.SelectFeatures`.
+1. Create a `ServiceFeatureTable` object from a URL.
+2. Create a `FeatureLayer` object from the `ServiceFeatureTable`.
+3. Select a feature from the feature layer, using `FeatureLayer.SelectFeatures`.
 4. Load the selected feature.
 5. Change the selected feature's location using `Feature.Geometry = geometry`.
-6. After the change, update the table on the server using `ServiceFeatureTable.ApplyEditsAsync()`.
+6. After the change, update the table on the server using `ApplyEditsAsync`.
 
 ## Relevant API
 
-* Map
 * Feature
 * FeatureLayer
-* MapView
 * ServiceFeatureTable
 
 ## Tags
 
-Service, editing, updating, moving, ServiceFeatureTable, FeatureLayer
+editing, feature layer, feature table, moving, service, updating

@@ -2,7 +2,7 @@
 
 Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.
 
-![screenshot](LocalServerServices.jpg)
+![Image of local server services](LocalServerServices.jpg)
 
 ## Use case
 
@@ -12,11 +12,22 @@ For executing offline geoprocessing tasks in your ArcGIS Runtime apps via an off
 
 Click `Start Local Server` to start the Local Server. Click `Stop Local Server` to stop the Local Server.
 
-The `Map Service` drop down lets you to pick a local service that is available.
+The `Map Service` control lets you to pick a local service that is available.
 
 After browsing for the desired file, click `Start Service` to start the selected service.
 
 When the running service's url appears, select it and click `Navigate to service`. To stop this running service, click `Stop Service`.
+
+## How it works
+
+To start a `LocalServer` and attach a `LocalService`:
+
+1. Create and run a local server with `LocalServer.Instance`.
+2. Start the server asynchronously with `server.StartAsync()`.
+3. Create and run a local service. Here is an example of running a `LocalMapService`:
+    1. Instantiate `LocalMapService(Url)` to create a local map service with the given URL path to map package (`mpk` or `mpkx` file).
+    2. Start the job with `LocalMapService.StartAsync()`. The service is added to the `LocalServer` automatically.
+4.  Stop the local server with `LocalServer.Instance.StopAsync()`.
 
 ## Relevant API
 
@@ -27,10 +38,15 @@ When the running service's url appears, select it and click `Navigate to service
 * LocalServerStatus
 * LocalService
 
+## Offline data
+
+* [PointsOfInterest map package](https://www.arcgis.com/home/item.html?id=4e94fec734434d1288e6ebe36c3c461f)
+* [MessageInABottle geoprocessing package](https://www.arcgis.com/home/item.html?id=a0ef1f20344f43ad8837f0e0d8406d03)
+
 ## Additional information
 
 Local Server can be downloaded for Windows and Linux platforms. Local Server is not supported on macOS.
 
 ## Tags
 
-LocalFeatureService, LocalGeoprocessingService, LocalMapService, LocalServer.Instance.StatusChanged, local services
+feature, geoprocessing, local services, map, server, service

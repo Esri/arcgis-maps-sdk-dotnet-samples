@@ -8,8 +8,7 @@
     ],
     "keywords": [
         "3D",
-        "Camera",
-        "SceneView",
+        "camera",
         "camera controller"
     ],
     "nuget_packages": {
@@ -20,11 +19,11 @@
         "/net/latest/uwp/sample-code/choosecameracontroller.htm"
     ],
     "relevant_apis": [
-        "ArcGISScene",
         "Camera",
         "GlobeCameraController",
         "OrbitGeoElementCameraController",
         "OrbitLocationCameraController",
+        "Scene",
         "SceneView"
     ],
     "snippets": [

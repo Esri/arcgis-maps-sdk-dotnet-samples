@@ -8,9 +8,10 @@
     ],
     "keywords": [
         "3D",
-        "FeatureRenderingMode",
-        "MapViews SceneViews and UI",
         "dynamic",
+        "feature layer",
+        "features",
+        "rendering",
         "static"
     ],
     "nuget_packages": {

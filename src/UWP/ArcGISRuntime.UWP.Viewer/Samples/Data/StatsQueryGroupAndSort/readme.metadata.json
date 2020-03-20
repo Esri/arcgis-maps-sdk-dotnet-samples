@@ -7,11 +7,14 @@
         "StatsQueryGroupAndSort.jpg"
     ],
     "keywords": [
+        "correlation",
+        "data",
+        "fields",
+        "filter",
         "group",
-        "result",
         "sort",
         "statistics",
-        "stats"
+        "table"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -22,6 +25,7 @@
     ],
     "relevant_apis": [
         "Field",
+        "OrderBy",
         "QueryParameters",
         "ServiceFeatureTable",
         "StatisticDefinition",

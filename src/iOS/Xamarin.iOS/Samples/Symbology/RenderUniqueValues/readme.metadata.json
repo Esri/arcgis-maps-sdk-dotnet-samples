@@ -7,10 +7,11 @@
         "RenderUniqueValues.jpg"
     ],
     "keywords": [
-        "Symbology",
-        "UniqueValueRenderer",
         "draw",
-        "symbol"
+        "renderer",
+        "symbol",
+        "symbology",
+        "values"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

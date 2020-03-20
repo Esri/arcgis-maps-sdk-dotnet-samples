@@ -38,8 +38,8 @@ Create and set the configuration's filter barriers by selecting a category. Chec
 * UtilityElementTraceResult
 * UtilityNetwork
 * UtilityNetworkDefinition
-* UtilityTraceFilter
 * UtilityTier
+* UtilityTraceFilter
 * UtilityTraceParameters
 * UtilityTraceResult
 * UtilityTraceType

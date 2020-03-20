@@ -19,7 +19,7 @@ using System.Windows.Controls;
 namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster RGB renderer",
+        "RGB renderer",
         "Layers",
         "This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.",
         "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]

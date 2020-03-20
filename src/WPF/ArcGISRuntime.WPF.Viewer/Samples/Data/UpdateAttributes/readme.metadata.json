@@ -7,11 +7,11 @@
         "UpdateAttributes.jpg"
     ],
     "keywords": [
-        "Editing",
         "attribute",
         "coded value",
         "coded value domain",
         "domain",
+        "editing",
         "value"
     ],
     "nuget_packages": {
@@ -24,8 +24,6 @@
     "relevant_apis": [
         "ArcGISFeature",
         "FeatureLayer",
-        "Map",
-        "MapView",
         "ServiceFeatureTable"
     ],
     "snippets": [

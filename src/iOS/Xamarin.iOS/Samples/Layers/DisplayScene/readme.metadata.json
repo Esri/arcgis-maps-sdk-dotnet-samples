@@ -9,8 +9,8 @@
     "keywords": [
         "3D",
         "basemap",
+        "elevation",
         "scene",
-        "sceneview",
         "surface"
     ],
     "nuget_packages": {

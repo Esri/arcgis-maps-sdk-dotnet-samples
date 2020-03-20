@@ -2,7 +2,7 @@
 
 Find features in a feature table which match an SQL query.
 
-![screenshot](FeatureLayerQuery.jpg)
+![Image of feature layer query](FeatureLayerQuery.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Query expressions can be used in ArcGIS to select a subset of features from a fe
 
 ## How to use the sample
 
-Click 'Query features', then input the name of a U.S. state into the text field. When you click "Submit query", a query is performed and the matching features are highlighted or an error is returned.
+Input the name of a U.S. state into the text field. When you tap the button, a query is performed and the matching features are highlighted or an error is returned.
 
 ## How it works
 
@@ -32,4 +32,4 @@ This sample uses U.S. State polygon features from the [USA 2016 Daytime Populati
 
 ## Tags
 
-Search and Query
+search, query

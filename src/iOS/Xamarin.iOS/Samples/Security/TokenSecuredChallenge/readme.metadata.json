@@ -7,9 +7,9 @@
         "TokenSecuredChallenge.jpg"
     ],
     "keywords": [
-        "Authentication",
-        "Security",
-        "Token"
+        "authentication",
+        "security",
+        "token"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

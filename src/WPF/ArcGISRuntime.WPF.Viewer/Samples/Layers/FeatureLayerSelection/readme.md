@@ -2,7 +2,7 @@
 
 Select features in a feature layer.
 
-![screenshot](FeatureLayerSelection.jpg)
+![Image of feature layer selection](FeatureLayerSelection.jpg)
 
 ## Use case
 
@@ -31,4 +31,4 @@ This sample uses the [Gross Domestic Product, 1960-2016](https://www.arcgis.com/
 
 ## Tags
 
-Layers, SelectFeaturesAsync, SelectionMode, select, tolerance
+features, layers, select, selection, tolerance

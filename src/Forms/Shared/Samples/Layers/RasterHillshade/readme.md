@@ -6,7 +6,7 @@ Use a hillshade renderer on a raster.
 
 ## How to use the sample
 
-Configure the options for rendering, then click 'Apply hillshade'.
+Configure the options for rendering, then tap 'Apply hillshade'.
 
 ## How it works
 

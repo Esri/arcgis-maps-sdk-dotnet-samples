@@ -2,15 +2,15 @@
 
 Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.
 
-![screenshot](AnalyzeViewshed.jpg)
+![Image of viewshed geoprocessing](AnalyzeViewshed.jpg)
 
 ## Use case
 
-A viewshed is used to highlight what is visible from a given point. A viewshed could be created to show what a hiker might be able to see from a given point at the top of a mountain. Equally, a viewshed could also be created from a point representing the maximum height of a proposed wind turbine to see from what areas the turbine would be visible.
+A viewshed is used to highlight what is visible from a given point. A viewshed could be created to show what a hiker might be able to see from a given point at the top of a mountain. Equally, a viewshed could also be created from a point representing the maximum height of a proposed wind turbine to see from what areas the turbine would be visible. 
 
 ## How to use the sample
 
-Click the map to see all areas visible from that point within a 15km radius. Clicking on an elevated area will highlight a larger part of the surrounding landscape. It may take a few seconds for the task to run and send back the results.
+Tap the map to see all areas visible from that point within a 15km radius. Clicking on an elevated area will highlight a larger part of the surrounding landscape. It may take a few seconds for the task to run and send back the results.
 
 ## How it works
 
@@ -33,4 +33,4 @@ Click the map to see all areas visible from that point within a 15km radius. Cli
 
 ## Tags
 
-Geoprocessing, GeoprocessingJob, GeoprocessingParameters, GeoprocessingResult, heat map
+geoprocessing, heat map, heatmap, viewshed

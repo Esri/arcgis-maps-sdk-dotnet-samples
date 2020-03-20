@@ -2,7 +2,11 @@
 
 Display an ArcGIS scene layer from a URL.
 
-![screenshot](SceneLayerUrl.jpg)
+![Image of scene layer URL](SceneLayerUrl.jpg)
+
+## Use case
+
+Adding a scene layer from a URL allows you to author the scene layer elsewhere in the platform, say with ArcGIS Pro or CityEngine, and then add that scene layer to a scene in Runtime. Loading a scene layer from a URL also permits the layer source to change dynamically without updating the code.
 
 ## How to use the sample
 
@@ -18,14 +22,14 @@ Pan and zoom to explore the scene.
 
 ## Relevant API
 
-* Scene
-* SceneLayer
+* ArcGISScene
+* ArcGISSceneLayer
 * SceneView
 
 ## About the data
 
-This sample shows a [Portland building layer](https://www.arcgis.com/home/item.html?id=2b721b9e7bef45e2b7ff78a398a33acc) from ArcGIS Online.
+This sample shows a [Portland, Oregon USA Scene](https://www.arcgis.com/home/item.html?id=2b721b9e7bef45e2b7ff78a398a33acc) hosted on ArcGIS Online.
 
 ## Tags
 
-3D, Buildings, model, scene
+3D, buildings, model, Portland, scene, service, URL

@@ -1,8 +1,8 @@
 # Change basemap
 
-Change a map's basemap. A basemap is beneath all layers on an `Map` and is used to provide visual reference for the operational layers.
+Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 
-![screenshot](ChangeBasemap.jpg)
+![Image of change basemap](ChangeBasemap.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Basemaps should be selected contextually. For example, in maritime applications,
 
 ## How to use the sample
 
-Click 'Change basemap' to select a basemap.
+Use the drop down menu to select the active basemap from the list of available basemaps.
 
 ## How it works
 
@@ -18,6 +18,12 @@ Click 'Change basemap' to select a basemap.
 2. Set the map to the `MapView` object.
 3. Choose a new basemap type and set it on the map.
 
+## Relevant API
+
+* Basemap
+* Map
+* MapView
+
 ## Tags
 
-Basemap, map
+basemap, map

@@ -2,7 +2,7 @@
 
 Find the service areas of several facilities from a feature service.
 
-![](FindServiceAreasForMultipleFacilities.jpg)
+![Image of find service areas for multiple facilities](FindServiceAreasForMultipleFacilities.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Restrict zooming between specific scale ranges.
 
-![screenshot](SetMinMaxScale.jpg)
+![Image of min max scale](SetMinMaxScale.jpg)
 
 ## Use case
 
@@ -27,4 +27,4 @@ Zoom in and out of the map. The zoom extents of the map are limited between the 
 
 ## Tags
 
-MaxScale, MinScale, Viewpoint, area of interest, level of detail
+area of interest, level of detail, maximum, minimum, scale, viewpoint

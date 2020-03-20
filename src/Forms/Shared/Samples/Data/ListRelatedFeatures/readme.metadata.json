@@ -7,11 +7,12 @@
         "ListRelatedFeatures.jpg"
     ],
     "keywords": [
-        "IdentifyLayerAsync",
-        "QueryRelatedFeaturesAsync",
-        "RelatedFeatureQueryResult",
+        "features",
+        "identify",
+        "query",
+        "related",
         "relationship",
-        "search and query"
+        "search"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

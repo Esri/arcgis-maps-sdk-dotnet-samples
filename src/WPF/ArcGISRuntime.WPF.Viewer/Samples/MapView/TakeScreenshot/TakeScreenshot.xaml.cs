@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Take a screenshot",
+        "Take screenshot",
         "MapView",
         "This sample demonstrates how you can take screenshot of a map. Click 'take screenshot' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
         "")]

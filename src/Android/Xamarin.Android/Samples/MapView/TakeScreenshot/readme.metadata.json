@@ -7,12 +7,12 @@
         "TakeScreenshot.jpg"
     ],
     "keywords": [
-        "Screenshot",
         "capture",
         "export",
         "image",
         "print",
         "screen capture",
+        "screenshot",
         "share",
         "shot"
     ],
@@ -33,5 +33,5 @@
     "snippets": [
         "TakeScreenshot.cs"
     ],
-    "title": "Take a screenshot"
+    "title": "Take screenshot"
 }

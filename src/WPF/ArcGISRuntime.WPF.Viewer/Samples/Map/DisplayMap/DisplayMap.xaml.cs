@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 namespace ArcGISRuntime.WPF.Samples.DisplayMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display a map",
+        "Display map",
         "Map",
         "This sample demonstrates how to display a map with a basemap.",
         "")]

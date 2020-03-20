@@ -16,7 +16,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
 {
     [Register("DisplayMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display a map",
+        "Display map",
         "Map",
         "This sample demonstrates how to display a map with a basemap.",
         "")]

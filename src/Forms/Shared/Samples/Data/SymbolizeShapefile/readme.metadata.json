@@ -33,5 +33,5 @@
         "SymbolizeShapefile.xaml",
         "SymbolizeShapefile.xaml.cs"
     ],
-    "title": "Symbolize a shapefile"
+    "title": "Symbolize shapefile"
 }

@@ -28,7 +28,7 @@ When you run the sample, the app will load a web map which contains premium cont
 
 ## Additional information
 
-The workflow presented in this sample works for most SAML based enterprise (IWA, PKI, Okta, etc.) & social (facebook, google, etc.) identity providers for ArcGIS Online or Portal. For more information click [here](https://doc.arcgis.com/en/arcgis-online/administer/enterprise-logins.htm).
+The workflow presented in this sample works for most SAML based enterprise (IWA, PKI, Okta, etc.) & social (facebook, google, etc.) identity providers for ArcGIS Online or Portal. For more information tap [here](https://doc.arcgis.com/en/arcgis-online/administer/enterprise-logins.htm).
 On UWP, some authentication workflows that don't support `WebAuthenticationBroker` may require a custom `IOAuthAuthorizeHandler`.
 
 For additional information on using Oauth in your app, see the [Mobile and Native Named User Login](https://developers.arcgis.com/documentation/core-concepts/security-and-authentication/mobile-and-native-user-logins/) topic in our guide.

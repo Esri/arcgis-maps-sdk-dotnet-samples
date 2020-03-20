@@ -25,6 +25,7 @@
         "/net/latest/forms/sample-code/displaywfs.htm"
     ],
     "relevant_apis": [
+        "FeatureLayer",
         "MapView.NavigationCompleted",
         "WfsFeatureTable",
         "WfsFeatureTable.PopulateFromServiceAsync"
@@ -33,5 +34,5 @@
         "DisplayWfs.xaml",
         "DisplayWfs.xaml.cs"
     ],
-    "title": "Display a WFS layer"
+    "title": "Display WFS layer"
 }

@@ -27,5 +27,5 @@
         "WMSLayerUrl.xaml.cs",
         "WmsLayerUrl.xaml"
     ],
-    "title": "WMS Layer URL"
+    "title": "WMS layer (URL)"
 }

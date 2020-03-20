@@ -2,7 +2,7 @@
 
 List features related to the selected feature.
 
-![screenshot](ListRelatedFeatures.jpg)
+![Image of list related features](ListRelatedFeatures.jpg)
 
 ## Use case
 
@@ -27,4 +27,4 @@ Click on a feature to select it. The related features will be displayed in a lis
 
 ## Tags
 
-IdentifyLayerAsync, QueryRelatedFeaturesAsync, RelatedFeatureQueryResult, relationship, search and query
+features, identify, query, related, relationship, search

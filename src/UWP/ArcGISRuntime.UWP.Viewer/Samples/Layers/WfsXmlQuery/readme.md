@@ -2,17 +2,21 @@
 
 Load a WFS feature table using an XML query.
 
-![](WfsXmlQuery.jpg)
+![Image of load WFS with XML query](WfsXmlQuery.jpg)
 
 ## Use case
 
 Runtime `QueryParameters` objects can't represent all possible queries that can be made against a WFS feature service. For example, Runtime query parameters don't support wildcard searches. You can provide queries as raw XML strings, allowing you to access query functionality not available with `QueryParameters`.
 
+## How to use the sample
+
+Run the sample and view the data loaded from the the WFS feature table.
+
 ## How it works
 
 1. Create a `WfsFeatureTable` and a `FeatureLayer` to visualize the table.
-2. Set the feature request mode to `ManualCache`. 
-3. Call `PopulateFromService` to populate the table with only those features returned by the XML query.
+2. Set the feature request mode to `ManualCache`.
+3. Call `PopulateFromServiceAsync` to populate the table with only those features returned by the XML query.
 
 ## Relevant API
 
@@ -29,4 +33,4 @@ For additional information, see the underlying service on [ArcGIS Online](https:
 
 ## Tags
 
-OGC, WFS, feature, web, service, XML, query
+feature, OGC, query, service, web, WFS, XML

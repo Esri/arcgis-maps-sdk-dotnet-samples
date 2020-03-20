@@ -7,14 +7,13 @@
         "ExportTiles.jpg"
     ],
     "keywords": [
-        "Edit and Manage Data",
         "cache",
+        "download",
         "export",
         "local",
         "offline",
         "package",
-        "tiles",
-        "tpk"
+        "tiles"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -24,6 +23,7 @@
         "/net/latest/uwp/sample-code/exporttiles.htm"
     ],
     "relevant_apis": [
+        "ArcGISTiledLayer",
         "ExportTileCacheJob",
         "ExportTileCacheParameters",
         "ExportTileCacheTask",

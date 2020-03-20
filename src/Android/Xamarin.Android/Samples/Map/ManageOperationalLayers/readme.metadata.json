@@ -7,12 +7,11 @@
         "ManageOperationalLayers.jpg"
     ],
     "keywords": [
-        "Map",
         "add",
-        "hide",
-        "operational",
-        "remove",
-        "scene"
+        "delete",
+        "layer",
+        "map",
+        "remove"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

@@ -7,9 +7,11 @@
         "LocalServerFeatureLayer.jpg"
     ],
     "keywords": [
-        "LocalFeatureService",
-        "LocalServerStatus",
-        "local services"
+        "feature service",
+        "local",
+        "offline",
+        "server",
+        "service"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0",

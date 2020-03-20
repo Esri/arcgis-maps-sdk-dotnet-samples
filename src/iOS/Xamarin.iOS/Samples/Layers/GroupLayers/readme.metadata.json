@@ -7,8 +7,8 @@
         "GroupLayers.jpg"
     ],
     "keywords": [
-        "Layers",
-        "group layer"
+        "group layer",
+        "layers"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -18,7 +18,8 @@
         "/net/latest/ios/sample-code/grouplayers.htm"
     ],
     "relevant_apis": [
-        "GroupLayer"
+        "GroupLayer",
+        "ILayerContent"
     ],
     "snippets": [
         "GroupLayers.cs"

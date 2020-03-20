@@ -1,14 +1,14 @@
 {
     "category": "Map",
-    "description": "Take a map offline using an available preplanned map area.",
+    "description": "Take a map offline using a preplanned map area.",
     "formal_name": "DownloadPreplannedMap",
     "ignore": false,
     "images": [
         "DownloadPreplannedMap.jpg"
     ],
     "keywords": [
-        "Offline",
         "map area",
+        "offline",
         "pre-planned",
         "preplanned"
     ],
@@ -23,18 +23,12 @@
         "DownloadPreplannedOfflineMapJob",
         "DownloadPreplannedOfflineMapParameters",
         "DownloadPreplannedOfflineMapResult",
-        "DownloadPreplannedOfflineMapResult.HasErrors",
-        "DownloadPreplannedOfflineMapResult.LayerErrors",
-        "DownloadPreplannedOfflineMapResult.TableErrors",
         "OfflineMapTask",
-        "OfflineMapTask.CreateDefaultDownloadPreplannedOfflineMapParametersAsync",
-        "OfflineMapTask.DownloadPreplannedOfflineMap",
-        "OfflineMapTask.GetPreplannedMapAreasAsync",
         "PreplannedMapArea"
     ],
     "snippets": [
         "DownloadPreplannedMap.xaml",
         "DownloadPreplannedMap.xaml.cs"
     ],
-    "title": "Download a preplanned map area"
+    "title": "Download preplanned map area"
 }

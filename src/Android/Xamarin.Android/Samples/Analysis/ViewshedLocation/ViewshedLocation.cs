@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Viewshed (Location)",
+        "Viewshed (location)",
         "Analysis",
         "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
         "Tap anywhere in the scene to change the viewshed observer location."

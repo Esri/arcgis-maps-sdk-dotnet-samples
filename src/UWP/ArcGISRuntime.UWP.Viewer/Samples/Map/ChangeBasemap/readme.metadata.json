@@ -1,13 +1,13 @@
 {
     "category": "Map",
-    "description": "Change a map's basemap. A basemap is beneath all layers on an `Map` and is used to provide visual reference for the operational layers.",
+    "description": "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
     "formal_name": "ChangeBasemap",
     "ignore": false,
     "images": [
         "ChangeBasemap.jpg"
     ],
     "keywords": [
-        "Basemap",
+        "basemap",
         "map"
     ],
     "nuget_packages": {
@@ -17,7 +17,11 @@
     "redirect_from": [
         "/net/latest/uwp/sample-code/changebasemap.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "Basemap",
+        "Map",
+        "MapView"
+    ],
     "snippets": [
         "ChangeBasemap.xaml",
         "ChangeBasemap.xaml.cs"

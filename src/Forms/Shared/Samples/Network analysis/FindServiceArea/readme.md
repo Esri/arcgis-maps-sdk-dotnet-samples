@@ -2,7 +2,7 @@
 
 Find the service area within a network from a given point.
 
-![screenshot](FindServiceArea.jpg)
+![Image of find service area](FindServiceArea.jpg)
 
 ## Use case
 
@@ -14,9 +14,9 @@ You might calculate the region around a hospital in which ambulances can service
 
 In order to find any service areas at least one facility needs to be added to the map view.
 
-* To add a facility, click the facility button, then click anywhere on the map.
-* To add a barrier, click the barrier button, and click multiple locations on map. Hit the barrier button again to finish drawing barrier. Hitting any other button will also stop the barrier from drawing.
-* To show service areas around facilities that were added, click show service areas button. 
+* To add a facility, tap the facility button, then tap anywhere on the map.
+* To add a barrier, tap the barrier button, and tap multiple locations on map. Hit the barrier button again to finish drawing barrier. Hitting any other button will also stop the barrier from drawing.
+* To show service areas around facilities that were added, tap show service areas button. 
 * The reset button clears all graphics and resets the service area task.
 
 ## How it works

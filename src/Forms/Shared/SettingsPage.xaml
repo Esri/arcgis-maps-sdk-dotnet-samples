@@ -39,7 +39,9 @@
                         <Button
                             Grid.Column="1"
                             Clicked="DeleteAllClicked"
-                            Text="Delete all" />
+                            Text="Delete all"
+                            IsEnabled="{x:OnPlatform Android=True, iOS=True, UWP=False}"
+                            IsVisible="{x:OnPlatform Android=True, iOS=True, UWP=False}"/>
                         <Button
                             x:Name="CancelButton"
                             Grid.Column="2"
@@ -98,7 +100,9 @@
                                                                   iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png},
                                                                   UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}}"
                                             VerticalOptions="CenterAndExpand"
-                                            WidthRequest="25" />
+                                            WidthRequest="25"
+                                            IsEnabled="{x:OnPlatform Android=True, iOS=True, UWP=False}"
+                                            IsVisible="{x:OnPlatform Android=True, iOS=True, UWP=False}"/>
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>

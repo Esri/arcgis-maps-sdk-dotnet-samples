@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
 {
     [Register("RenderSimpleMarkers")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Render simple markers",
+        "Simple marker symbol",
         "Symbology",
         "This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.",
         "")]

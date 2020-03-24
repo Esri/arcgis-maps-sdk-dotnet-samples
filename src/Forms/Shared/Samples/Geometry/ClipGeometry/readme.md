@@ -2,7 +2,7 @@
 
 Clip a geometry with another geometry.
 
-![screenshot](ClipGeometry.jpg)
+![Image of clip geometry](ClipGeometry.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Create a new set of geometries for analysis (e.g. displaying buffer zones around
 
 ## How to use the sample
 
-Click the "Clip" button to clip the blue graphic with the red dashed envelopes.
+Tap the "Clip" button to clip the blue graphic with the red dashed envelopes.
 
 ## How it works
 

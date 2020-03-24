@@ -7,13 +7,16 @@
         "OpenStreetMapLayer.jpg"
     ],
     "keywords": [
-        "Layers",
         "OSM",
         "OpenStreetMap",
-        "basemap"
+        "basemap",
+        "layers",
+        "map",
+        "open",
+        "street"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

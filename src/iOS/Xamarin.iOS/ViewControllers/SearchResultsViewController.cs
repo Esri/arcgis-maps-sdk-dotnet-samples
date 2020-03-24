@@ -95,6 +95,7 @@ namespace ArcGISRuntime
                 }
 
                 var control = (UIViewController)SampleManager.Current.SampleToControl(sample);
+                control.NavigationItem.RightBarButtonItem = new UIBarButtonItem(UIImage.FromBundle("InfoIcon"), UIBarButtonItemStyle.Plain, (s,e) => ViewSampleReadme(sample, control));
                 _parentViewController.NavigationController.PushViewController(control, true);
             }
             catch (OperationCanceledException)
@@ -106,6 +107,14 @@ namespace ArcGISRuntime
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void ViewSampleReadme(SampleInfo sample, UIViewController parentController)
+        {
+            var switcher = new UISegmentedControl(new string[] { "About", "Source code" }) { SelectedSegment = 0 };
+            var control = new SampleInfoViewController(sample, switcher);
+            control.NavigationItem.RightBarButtonItem = new UIBarButtonItem() { CustomView = switcher };
+            parentController.NavigationController.PushViewController(control, true);
         }
 
         private static void ClearCredentials()

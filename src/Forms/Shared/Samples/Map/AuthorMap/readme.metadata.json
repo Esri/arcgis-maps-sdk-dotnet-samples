@@ -7,22 +7,25 @@
         "AuthorMap.jpg"
     ],
     "keywords": [
-        "AuthenticationManager",
-        "ChallengeHandler",
-        "GenerateCredentialAsync",
-        "IOAuthAuthorizeHandler",
+        "ArcGIS Online",
         "OAuth",
         "portal",
+        "publish",
+        "share",
         "web map"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/forms/sample-code/authormap.htm"
     ],
     "relevant_apis": [
+        "AuthenticationManager",
+        "ChallengeHandler",
+        "GenerateCredentialAsync",
+        "IOAuthAuthorizeHandler",
         "Map",
         "Map.SaveAsAsync",
         "Portal"
@@ -33,5 +36,5 @@
         "SaveMapPage.xaml",
         "SaveMapPage.xaml.cs"
     ],
-    "title": "Create and save a map"
+    "title": "Create and save map"
 }

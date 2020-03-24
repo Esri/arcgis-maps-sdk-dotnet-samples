@@ -1,19 +1,19 @@
 {
     "category": "Security",
-    "description": "Use Windows credentials to access services hosted on a portal secured with Integrated Windows Authentication (IWA).",
+    "description": "Connect to an IWA secured Portal and search for maps.",
     "formal_name": "IntegratedWindowsAuth",
     "ignore": false,
     "images": [
         "IntegratedWindowsAuth.jpg"
     ],
     "keywords": [
-        "Authentication",
         "Portal",
-        "Security",
-        "Windows"
+        "Windows",
+        "authentication",
+        "security"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -28,5 +28,5 @@
         "IntegratedWindowsAuth.xaml",
         "IntegratedWindowsAuth.xaml.cs"
     ],
-    "title": "Integrated windows authentication"
+    "title": "Integrated Windows Authentication"
 }

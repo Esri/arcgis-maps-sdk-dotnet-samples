@@ -1,12 +1,16 @@
 # Scene layer selection
 
-Identify GeoElements in a scene layer.
+Identify features in a scene to select.
 
-![screenshot](SceneLayerSelection.jpg)
+![Image of scene layer selection](SceneLayerSelection.jpg)
+
+## Use case
+
+You can select features to visually distinguish them with a selection color or highlighting. This can be useful to demonstrate the physical extent or associated attributes of a feature, or to initiate another action such as centering that feature in the scene view.
 
 ## How to use the sample
 
-Click on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.
+Tap on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.
 
 ## How it works
 
@@ -24,8 +28,8 @@ Click on a building in the scene layer to select it. Deselect buildings by click
 
 ## About the data
 
-This sample shows a [Berlin building layer](https://www.arcgis.com/home/item.html?id=31874da8a16d45bfbc1273422f772270) from ArcGIS Online.
+This sample shows a [Berlin, Germany Scene](https://www.arcgis.com/home/item.html?id=31874da8a16d45bfbc1273422f772270) hosted on ArcGIS Online.
 
 ## Tags
 
-3D, Buildings, Search and Query, model, scene
+3D, Berlin, buildings, identify, model, query, search, select

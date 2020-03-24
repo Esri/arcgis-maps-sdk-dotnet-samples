@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster RGB renderer",
+        "RGB renderer",
         "Layers",
         "This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.",
         "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]

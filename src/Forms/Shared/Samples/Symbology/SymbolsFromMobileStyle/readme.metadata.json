@@ -1,6 +1,6 @@
 {
     "category": "Symbology",
-    "description": "Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.",
+    "description": "Combine multiple symbols from a mobile style file into a single symbol.",
     "formal_name": "SymbolsFromMobileStyle",
     "ignore": false,
     "images": [
@@ -13,7 +13,7 @@
         "stylx"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [
         "1bd036f221f54a99abc9e46ff3511cbf"
@@ -33,5 +33,5 @@
         "SymbolsFromMobileStyle.xaml",
         "SymbolsFromMobileStyle.xaml.cs"
     ],
-    "title": "Read symbols from a mobile style"
+    "title": "Read symbols from mobile style"
 }

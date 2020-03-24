@@ -2,7 +2,7 @@
 
 Apply a renderer to a sublayer.
 
-![screenshot](ChangeSublayerRenderer.jpg)
+![Image of change sublayer renderer](ChangeSublayerRenderer.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ A layer showing animal populations contains sublayers for different species. A r
 
 ## How to use the sample
 
-Wait for the map image layer to load. Click the button to apply a unique value renderer to see different population ranges in the counties sub-layer data.
+Wait for the map image layer to load. Tap the button to apply a unique value renderer to see different population ranges in the counties sub-layer data.
 
 ## How it works
 

@@ -1,22 +1,25 @@
 {
     "category": "GraphicsOverlay",
-    "description": "Render graphics with mil2525d symbols.",
+    "description": "This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.",
     "formal_name": "DictionaryRendererGraphicsOverlay",
     "ignore": false,
     "images": [
         "DictionaryRendererGraphicsOverlay.jpg"
     ],
     "keywords": [
-        "Visualization",
-        "defence",
+        "defense",
         "military",
         "situational awareness",
-        "tactical"
+        "tactical",
+        "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
-    "offline_data": [],
+    "offline_data": [
+        "e34835bf5ec5430da7cf16bb8c0b075c",
+        "3db12175479147ea9c89ebaaf3b89996"
+    ],
     "redirect_from": [
         "/net/latest/uwp/sample-code/dictionaryrenderergraphicsoverlay.htm"
     ],
@@ -29,5 +32,5 @@
         "DictionaryRendererGraphicsOverlay.xaml",
         "DictionaryRendererGraphicsOverlay.xaml.cs"
     ],
-    "title": "Dictionary renderer with graphics overlay"
+    "title": "Graphics overlay (dictionary renderer)"
 }

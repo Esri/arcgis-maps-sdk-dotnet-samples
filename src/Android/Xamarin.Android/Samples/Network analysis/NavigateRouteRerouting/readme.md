@@ -2,7 +2,7 @@
 
 Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 
-![Navigate route with rerouting sample](NavigateRouteRerouting.jpg)
+![Image of navigate route with rerouting](NavigateRouteRerouting.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ While traveling between destinations, field workers use navigation to get live d
 
 ## How to use the sample
 
-Click 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Observe how the route is recalculated when the simulation does not follow the suggested route. Click 'Recenter' to refocus on the location display.
+Tap 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Observe how the route is recalculated when the simulation does not follow the suggested route. Tap 'Recenter' to refocus on the location display.
 
 ## How it works
 

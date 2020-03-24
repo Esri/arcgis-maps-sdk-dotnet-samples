@@ -1,0 +1,49 @@
+{
+    "category": "Utility network",
+    "description": "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
+    "formal_name": "TraceUtilityNetwork",
+    "ignore": false,
+    "images": [
+        "TraceUtilityNetwork.jpg"
+    ],
+    "keywords": [
+        "condition barriers",
+        "downstream trace",
+        "network analysis",
+        "subnetwork trace",
+        "trace configuration",
+        "traversability",
+        "upstream trace",
+        "utility network",
+        "validate consistency"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.8.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/traceutilitynetwork.htm"
+    ],
+    "relevant_apis": [
+        "FractionAlong",
+        "UtilityAssetType",
+        "UtilityDomainNetwork",
+        "UtilityElement",
+        "UtilityElementTraceResult",
+        "UtilityNetwork",
+        "UtilityNetworkDefinition",
+        "UtilityNetworkSource",
+        "UtilityTerminal",
+        "UtilityTier",
+        "UtilityTraceConfiguration",
+        "UtilityTraceParameters",
+        "UtilityTraceResult",
+        "UtilityTraceType",
+        "UtilityTraversability"
+    ],
+    "snippets": [
+        "../../../Resources/layout/TraceUtilityNetwork.axml",
+        "TraceUtilityNetwork.cs"
+    ],
+    "title": "Trace utility network"
+}

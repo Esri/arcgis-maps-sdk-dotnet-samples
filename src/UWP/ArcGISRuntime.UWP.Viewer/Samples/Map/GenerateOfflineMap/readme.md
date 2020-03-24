@@ -2,7 +2,7 @@
 
 Take a web map offline.
 
-![screenshot](GenerateOfflineMap.jpg)
+![Image of generate offline map](GenerateOfflineMap.jpg)
 
 ## Use case
 
@@ -39,4 +39,4 @@ The creation of the offline map can be fine-tuned using [parameter overrides for
 
 ## Tags
 
-map, offline
+download, offline, save, web map

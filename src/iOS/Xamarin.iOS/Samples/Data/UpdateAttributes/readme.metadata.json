@@ -7,15 +7,15 @@
         "UpdateAttributes.jpg"
     ],
     "keywords": [
-        "Editing",
         "attribute",
         "coded value",
         "coded value domain",
         "domain",
+        "editing",
         "value"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -24,8 +24,6 @@
     "relevant_apis": [
         "ArcGISFeature",
         "FeatureLayer",
-        "Map",
-        "MapView",
         "ServiceFeatureTable"
     ],
     "snippets": [

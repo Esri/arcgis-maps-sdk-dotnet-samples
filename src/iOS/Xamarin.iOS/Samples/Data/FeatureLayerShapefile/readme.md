@@ -2,11 +2,15 @@
 
 Open a shapefile stored on the device and display it as a feature layer with default symbology.
 
-![screenshot](FeatureLayerShapefile.jpg)
+![Image of feature layer shapefile](FeatureLayerShapefile.jpg)
 
 ## Use case
 
 Shapefiles store location, shape and attributes of geospatial vector data. Shapefiles can be loaded directly into ArcGIS Runtime.
+
+## How to use the sample
+
+Pan and zoom around the map to observe the data from the shapefile.
 
 ## How it works
 
@@ -23,8 +27,8 @@ Shapefiles store location, shape and attributes of geospatial vector data. Shape
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [Aurora_CO_shp.zip](https://www.arcgis.com/home/item.html?id=d98b3e5293834c5f852f13c569930caa) - Shapefiles that cover Aurora Colorado: Public art (points), Bike trails (lines), and Subdivisions (polygons).
+* [Public Art Shapefile](https://www.arcgis.com/home/item.html?id=d98b3e5293834c5f852f13c569930caa) - Shapefiles that cover Aurora Colorado: Public art (points), Bike trails (lines), and Subdivisions (polygons).
 
 ## Tags
 
-Layers, shapefile, shp, vector
+layers, shapefile, shp, vector

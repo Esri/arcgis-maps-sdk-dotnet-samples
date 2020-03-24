@@ -2,11 +2,15 @@
 
 Solve a route on-the-fly using offline data.
 
-![](OfflineRouting.jpg)
+![Image of offline routing](OfflineRouting.jpg)
+
+## Use case
+
+You can use an offline network to enable routing in disconnected scenarios. For example, you could provide offline location capabilities to field workers repairing critical infrastructure in a disaster when network availability is limited.
 
 ## How to use the sample
 
-Click near a road to start adding a stop to the route, click again to place it on the map. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose "Fastest" or "Shortest" to control how the route is optimized.The route will update on-the-fly while moving stops. The green box marks the boundary of the routable area provided by the offline data. This sample limits routes to 5 stops for performance reasons.
+Click near a road to start adding a stop to the route, click again to place it on the map. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose "Fastest" or "Shortest" to control how the route is optimized. The route will update on-the-fly while moving stops. The green box marks the boundary of the routable area provided by the offline data. This sample limits routes to 5 stops for performance reasons.
 
 ## How it works
 
@@ -35,4 +39,4 @@ This sample uses a pre-packaged sample dataset consisting of a geodatabase with 
 
 ## Tags
 
-offline, disconnected, network analysis, routing, fastest, shortest, routing, locator, navigation, connectivity, turn-by-turn
+connectivity, disconnected, fastest, locator, navigation, network analysis, offline, routing, routing, shortest, turn-by-turn

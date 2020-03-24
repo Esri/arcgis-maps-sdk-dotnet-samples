@@ -14,7 +14,7 @@ using System;
 namespace ArcGISRuntime.UWP.Samples.SetMapSpatialReference
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set map spatial reference",
+        "Map spatial reference",
         "Map",
         "This sample demonstrates how you can set the spatial reference on a Map and all the layers would project accordingly.",
         "")]

@@ -2,7 +2,7 @@
 
 Generate a local geodatabase from an online feature service.
 
-![screenshot](GenerateGeodatabase.jpg)
+![Image of generate geodatabase](GenerateGeodatabase.jpg)
 
 ## Use case
 

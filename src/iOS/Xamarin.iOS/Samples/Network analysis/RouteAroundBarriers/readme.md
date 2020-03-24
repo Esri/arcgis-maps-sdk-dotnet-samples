@@ -2,7 +2,7 @@
 
 Find a route that reaches all stops without crossing any barriers.
 
-![Screenshot](RouteAroundBarriers.jpg)
+![Image of route around barriers](RouteAroundBarriers.jpg)
 
 ## Use case
 
@@ -12,7 +12,7 @@ In some situations, it is further beneficial to find the most efficient route th
 
 ## How to use the sample
 
-Tap 'Stop' to add stops to the route. Tap 'Barrier' to add areas that can't be crossed by the route. Tap 'Route' to find the route. Tap the road sign to show the list of directions. Tap the settings cog to configure route parameters.
+Tap 'Add stop' to add stops to the route. Tap 'Add barrier' to add areas that can't be crossed by the route. Tap 'Route' to find the route and display it. Select 'Allow stops to be re-ordered' to find the best sequence. Select 'Preserve first stop' if there is a known start point, and 'Preserve last stop' if there is a known final destination.
 
 ## How it works
 
@@ -69,4 +69,4 @@ This sample uses an Esri-hosted sample street network for San Diego.
 
 ## Tags
 
-network analysis, routing, barriers, directions, sequence, stops, stop order, maneuver
+barriers, best sequence, directions, maneuver, network analysis, routing, sequence, stop order, stops

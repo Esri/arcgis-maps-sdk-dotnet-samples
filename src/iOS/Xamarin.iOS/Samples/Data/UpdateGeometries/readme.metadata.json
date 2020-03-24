@@ -7,15 +7,15 @@
         "UpdateGeometries.jpg"
     ],
     "keywords": [
-        "FeatureLayer",
-        "Service",
-        "ServiceFeatureTable",
         "editing",
+        "feature layer",
+        "feature table",
         "moving",
+        "service",
         "updating"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -24,8 +24,6 @@
     "relevant_apis": [
         "Feature",
         "FeatureLayer",
-        "Map",
-        "MapView",
         "ServiceFeatureTable"
     ],
     "snippets": [

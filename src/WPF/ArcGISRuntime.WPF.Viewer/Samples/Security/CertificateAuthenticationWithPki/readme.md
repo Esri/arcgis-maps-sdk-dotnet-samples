@@ -2,7 +2,7 @@
 
 Access secured portals using a certificate.
 
-![](CertificateAuthenticationWithPKI.jpg)
+![Image of certificate authentication with PKI](CertificateAuthenticationWithPKI.jpg)
 
 ## Use case
 
@@ -29,8 +29,8 @@ Provide a URL to a PKI-enabled server, then use the certificate selection UI to 
 
 ## Additional information
 
-ArcGIS Enterprise requires special configuration to enable support for PKI. PKI authentication can be set up to work with accounts managed by [Windows Active Directory](https://enterprise.arcgis.com/en/portal/latest/administer/windows/using-windows-active-directory-and-pki-to-secure-access-to-your-portal.htm) or [LDAP](https://enterprise.arcgis.com/en/portal/latest/administer/windows/use-ldap-and-pki-to-secure-access-to-your-portal.htm).
+ArcGIS Enterprise requires special configuration to enable support for PKI. See [Using Windows Active Directory and PKI to secure access to your portal](https://enterprise.arcgis.com/en/portal/latest/administer/windows/using-windows-active-directory-and-pki-to-secure-access-to-your-portal.htm) and [Use LDAP and PKI to secure access to your portal](https://enterprise.arcgis.com/en/portal/latest/administer/windows/use-ldap-and-pki-to-secure-access-to-your-portal.htm) in *Portal for ArcGIS*.
 
 ## Tags
 
-smartcard, PKI, certificate, store, X509, authentication, login, passwordless
+authentication, certificate, login, passwordless, PKI, smartcard, store, X509

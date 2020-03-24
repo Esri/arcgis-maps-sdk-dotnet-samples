@@ -8,23 +8,22 @@
     ],
     "keywords": [
         "3D",
-        "Camera",
-        "SceneView",
+        "camera",
         "camera controller"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/choosecameracontroller.htm"
     ],
     "relevant_apis": [
-        "ArcGISScene",
         "Camera",
         "GlobeCameraController",
         "OrbitGeoElementCameraController",
         "OrbitLocationCameraController",
+        "Scene",
         "SceneView"
     ],
     "snippets": [

@@ -1,20 +1,38 @@
 {
     "category": "Geoprocessing",
-    "description": "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
+    "description": "Connect to a service and list versions of the geodatabase.",
     "formal_name": "ListGeodatabaseVersions",
     "ignore": false,
     "images": [
         "ListGeodatabaseVersions.jpg"
     ],
-    "keywords": [],
+    "keywords": [
+        "conflict resolution",
+        "data management",
+        "database",
+        "multi-user",
+        "sync",
+        "version"
+    ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/listgeodatabaseversions.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "GeoprocessingFeatures",
+        "GeoprocessingFeatures.Features",
+        "GeoprocessingJob",
+        "GeoprocessingJob.GetResultAsync",
+        "GeoprocessingParameters",
+        "GeoprocessingResult",
+        "GeoprocessingResult.Outputs",
+        "GeoprocessingTask",
+        "GeoprocessingTask.CreateDefaultParametersAsync",
+        "GeoprocessingTask.CreateJob"
+    ],
     "snippets": [
         "ListGeodatabaseVersions.cs"
     ],

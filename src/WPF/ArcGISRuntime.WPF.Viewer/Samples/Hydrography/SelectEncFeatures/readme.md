@@ -2,7 +2,7 @@
 
 Select features in an ENC layer.
 
-![screenshot](SelectEncFeatures.jpg)
+![Image of select ENC features](SelectEncFeatures.jpg)
 
 ## Use case
 
@@ -37,12 +37,12 @@ Tap to select ENC features. Feature properties will be displayed in a callout.
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [ExchangeSetwithoutUpdates.zip](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d) - Fake ENC content for use in ArcGIS Runtime samples.
+* [ENC Exchange Set without updates](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d)
 
 ## About the data
 
-The sample uses a fake ENC data set, available on [ArcGIS Online](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d).
+The sample uses [ENC Exchange Set without updates](https://www.arcgis.com/home/item.html?id=9d2987a825c646468b3ce7512fb76e2d) a mock ENC data set, available on ArcGIS Online.
 
 ## Tags
 
-IHO, S-57, S57, chart, hydrography, identify, maritime, select, selection
+chart, hydrography, identify, IHO, maritime, S-57, S57, select, selection

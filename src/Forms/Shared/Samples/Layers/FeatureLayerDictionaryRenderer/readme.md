@@ -2,12 +2,16 @@
 
 Convert features into graphics to show them with mil2525d symbols.
 
-![screenshot](FeatureLayerDictionaryRenderer.jpg)
+![Image of dictionary renderer with feature layer](FeatureLayerDictionaryRenderer.jpg)
 
 ## Use case
 
 A dictionary renderer uses a style file along with a rule engine to display advanced symbology. 
 This is useful for displaying features using precise military symbology.
+
+## How to use the sample
+
+Pan and zoom around the map. Observe the displayed military symbology on the map.
 
 ## How it works
 
@@ -40,4 +44,4 @@ This sample downloads the following items from ArcGIS Online automatically:
 
 ## Tags
 
-DictionaryRenderer, DictionarySymbolStyle, military, symbol
+military, symbol

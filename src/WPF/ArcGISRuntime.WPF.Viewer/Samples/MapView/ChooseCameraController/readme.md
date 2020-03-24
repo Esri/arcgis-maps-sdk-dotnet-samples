@@ -2,7 +2,7 @@
 
 Control the behavior of the camera in a scene.
 
-![](ChooseCameraController.jpg)
+![Image of choose camera controller](ChooseCameraController.jpg)
 
 ## Use case
 
@@ -19,13 +19,13 @@ The application loads with the "Orbit camera around plane" option (i.e. camera w
 
 ## Relevant API
 
-*   ArcGISScene
 *   Camera
 *   GlobeCameraController
 *   OrbitGeoElementCameraController
 *   OrbitLocationCameraController
+*   Scene
 *   SceneView
 
 ## Tags
 
-camera controller, Camera, SceneView, 3D
+3D, camera, camera controller

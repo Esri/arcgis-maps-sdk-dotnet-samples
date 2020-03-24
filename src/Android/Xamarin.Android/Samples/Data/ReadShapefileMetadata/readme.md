@@ -2,7 +2,7 @@
 
 Read a shapefile and display its metadata.
 
-![screenshot](ReadShapefileMetadata.jpg)
+![Image of read shapefile metadata](ReadShapefileMetadata.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ You can display information about the shapefile your user is viewing, like tags,
 
 ## How to use the sample
 
-Click the button to show shapefile metadata.
+The shapefile's metadata will be displayed when you open the sample.
 
 ## How it works
 
@@ -32,13 +32,11 @@ Click the button to show shapefile metadata.
 
 ## Offline data
 
-This sample downloads the following items from ArcGIS Online automatically:
-
-* [Aurora_CO_shp.zip](https://www.arcgis.com/home/item.html?id=d98b3e5293834c5f852f13c569930caa) - Shapefiles that cover Aurora Colorado: Public art (points), Bike trails (lines), and Subdivisions (polygons).
+[Aurora Colorado Shapefiles](https://www.arcgis.com/home/item.html?id=d98b3e5293834c5f852f13c569930caa) is available as an item hosted on ArcGIS Online].
 
 ## About the data
 
-This sample uses a shapefile showing trail bike paths in Aurora, CO. The shapefile is available as an item on [ArcGIS Online](https://www.arcgis.com/home/item.html?id=d98b3e5293834c5f852f13c569930caa).
+This sample uses a shapefile showing bike trails in Aurora, CO. The [Aurora Colorado Shapefiles](https://www.arcgis.com/home/item.html?id=d98b3e5293834c5f852f13c569930caa) are available as an item on ArcGIS Online.
 
 ## Tags
 

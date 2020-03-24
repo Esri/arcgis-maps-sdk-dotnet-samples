@@ -2,7 +2,7 @@
 
 Display a raster on a map and apply different rendering rules to that raster.
 
-![screenshot](RasterRenderingRule.jpg)
+![Image of raster rendering rule](RasterRenderingRule.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Raster images whose individual pixels represent elevation values can be rendered
 
 ## How to use the sample
 
-Run the sample and click the button to choose a rendering rule.
+Run the sample and use the drop-down menu at the top to select a rendering rule.
 
 ## How it works
 
@@ -33,7 +33,7 @@ This raster image service contains 9 LAS files covering Charlotte, North Carolin
 
 ## Additional information
 
-Image service rasters of any type can have rendering rules applied to them; they need not necessarily be elevation rasters. For a list of raster functions and the syntax for rendering rules, see the ArcGIS REST API documentation: https://developers.arcgis.com/documentation/common-data-types/raster-function-objects.htm.
+Image service rasters of any type can have rendering rules applied to them; they need not necessarily be elevation rasters. See the list of [raster function objects](https://developers.arcgis.com/documentation/common-data-types/raster-function-objects.htm) and syntax for rendering rules in the *ArcGIS REST API* documentation.
 
 ## Tags
 

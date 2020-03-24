@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "This sample demonstrates how to identify features in a KML layer. Identified feature attributes are displayed in a callout to simulate a popup.",
+    "description": "Show a callout with formatted content for a KML feature.",
     "formal_name": "IdentifyKmlFeatures",
     "ignore": false,
     "images": [
@@ -8,19 +8,22 @@
     ],
     "keywords": [
         "KML",
+        "KMZ",
+        "Keyhole",
         "NOAA",
         "NWS",
         "OGC",
-        "Weather"
+        "weather"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/identifykmlfeatures.htm"
     ],
     "relevant_apis": [
+        "GeoView.IdentifyLayerAsync",
         "IdentifyLayerResult",
         "KmlLayer",
         "KmlPlacemark",

@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Render simple markers",
+        "Simple marker symbol",
         "Symbology",
         "This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.",
         "")]

@@ -2,7 +2,7 @@
 
 Render features statically or dynamically by setting the feature layer rendering mode.
 
-![screenshot](FeatureLayerRenderingModeMap.jpg)
+![Image of feature layer rendering mode map](FeatureLayerRenderingModeMap.jpg)
 
 ## Use case
 
@@ -24,11 +24,11 @@ Click the button to trigger the same zoom animation on both static and dynamic m
 
 ## Relevant API
 
-* Map
 * FeatureLayer
 * FeatureLayer.RenderingMode
+* Map
 * MapView
 
 ## Tags
 
-FeatureRenderingMode, MapViews SceneViews and UI, dynamic, static
+dynamic, feature layer, features, rendering, static

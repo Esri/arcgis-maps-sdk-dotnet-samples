@@ -2,7 +2,7 @@
 
 Find a route to the closest facility from a location.
 
-![screenshot](ClosestFacility.jpg)
+![Image of find closest facility to an incident interactive](ClosestFacility.jpg)
 
 ## Use case
 

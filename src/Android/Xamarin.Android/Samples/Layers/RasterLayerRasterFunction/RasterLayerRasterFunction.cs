@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS raster function (service)",
+        "Apply raster function to raster from service",
         "Layers",
         "This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.",
         "")]

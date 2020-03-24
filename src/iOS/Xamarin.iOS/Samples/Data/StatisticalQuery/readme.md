@@ -2,7 +2,7 @@
 
 Query a table to get aggregated statistics back for a specific field.
 
-![screenshot](StatisticalQuery.jpg)
+![Image of statistical query](StatisticalQuery.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ For example, a county boundaries table with population information can be querie
 
 ## How to use the sample
 
-Pan and zoom to define the extent for the query. Click 'Get statistics' and choose one of the options.
+Pan and zoom to define the extent for the query. Use the 'Cities in current extent' checkbox to control whether the query only includes features in the visible extent. Use the 'Cities grater than 5M' checkbox to filter the results to only those cities with a population greater than 5 million people. Tap 'Get statistics' to perform the query. The query will return population-based statistics from the combined results of all features matching the query criteria.
 
 ## How it works
 
@@ -25,9 +25,9 @@ Pan and zoom to define the extent for the query. Click 'Get statistics' and choo
 * ServiceFeatureTable
 * StatisticDefinition
 * StatisticRecord
-* StatisticType
 * StatisticsQueryParameters
 * StatisticsQueryResult
+* StatisticType
 
 ## Tags
 

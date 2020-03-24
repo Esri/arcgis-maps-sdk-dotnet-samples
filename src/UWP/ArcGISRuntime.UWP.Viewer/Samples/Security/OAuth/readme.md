@@ -21,11 +21,11 @@ When you run the sample, the app will load a web map which contains premium cont
 
 ## Relevant API
 
- * AuthenticationManager
- * OAuthConfiguration
- * PortalItem
- * ServerInfo
- 
+* AuthenticationManager
+* OAuthConfiguration
+* PortalItem
+* ServerInfo
+
 ## Additional information
 
 The workflow presented in this sample works for most SAML based enterprise (IWA, PKI, Okta, etc.) & social (facebook, google, etc.) identity providers for ArcGIS Online or Portal. For more information click [here](https://doc.arcgis.com/en/arcgis-online/administer/enterprise-logins.htm).

@@ -7,13 +7,16 @@
         "QueryFeatureCountAndExtent.jpg"
     ],
     "keywords": [
-        "Feature layer",
-        "Feature table",
-        "Medicare",
-        "Query"
+        "count",
+        "feature layer",
+        "feature table",
+        "features",
+        "filter",
+        "number",
+        "query"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

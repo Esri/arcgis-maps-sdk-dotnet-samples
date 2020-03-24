@@ -1,18 +1,18 @@
 {
     "category": "Layers",
-    "description": "This sample demonstrates how to query data using a time extent. This workflow can be used to return records that are between a specified start and end date. For example, you could specify to only show records that are before September 16, 2000.",
+    "description": "Query data using a time extent. ",
     "formal_name": "TimeBasedQuery",
     "ignore": false,
     "images": [
         "TimeBasedQuery.jpg"
     ],
     "keywords": [
-        "Query",
-        "Time",
-        "Time Extent"
+        "query",
+        "time",
+        "time extent"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

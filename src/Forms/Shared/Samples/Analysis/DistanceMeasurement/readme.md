@@ -2,15 +2,15 @@
 
 Measure distances between two points in 3D.
 
-![screenshot](DistanceMeasurement.jpg)
+![Image of distance measurement analysis](DistanceMeasurement.jpg)
 
 ## Use case
 
-The distance measurement analysis allows you to add to your app the same interactive measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript. You can set the unit system of measurement (metric or imperial).
+The distance measurement analysis allows you to add to your app the same interactive measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript. You can set the unit system of measurement (metric or imperial). The units automatically switch to one appropriate for the current scale.
 
 ## How to use the sample
 
-Choose a unit system for the measurement. Click any point in the scene to see the distance to that point.
+Choose a unit system for the measurement. Tap any location in the scene to start measuring. Move the mouse to an end location, and tap to complete the measurement. Tap a new location to clear and start a new measurement.
 
 ## How it works
 
@@ -31,4 +31,4 @@ The `LocationDistanceMeasurement` analysis only performs planar distance calcula
 
 ## Tags
 
-3D, analysis
+3D, analysis, distance, measure

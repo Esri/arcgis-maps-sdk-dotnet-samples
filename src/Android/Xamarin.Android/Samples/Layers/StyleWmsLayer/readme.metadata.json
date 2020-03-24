@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Discover available styles and apply them to WMS sublayers.",
+    "description": "Change the style of a Web Map Service (WMS) layer.",
     "formal_name": "StyleWmsLayer",
     "ignore": false,
     "images": [
@@ -9,20 +9,20 @@
     "keywords": [
         "WMS",
         "imagery",
-        "styles"
+        "styles",
+        "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/stylewmslayer.htm"
     ],
     "relevant_apis": [
-        "WmsLayer.Sublayers",
-        "WmsSublayer.CurrentStyle",
-        "WmsSublayerInfo",
-        "WmsSublayerInfo.Styles"
+        "WmsLayer",
+        "WmsSublayer",
+        "WmsSublayerInfo"
     ],
     "snippets": [
         "StyleWmsLayer.cs"

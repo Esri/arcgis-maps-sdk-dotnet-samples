@@ -2,7 +2,7 @@
 
 Use annotation sublayers to gain finer control of annotation layer subtypes.
 
-![Control annotation sublayer visibility App](ControlAnnotationSublayerVisibility.jpg)
+![Image of control annotation sublayer visibility](ControlAnnotationSublayerVisibility.jpg)
 
 ## Use case
 
@@ -33,13 +33,13 @@ Use the checkboxes to manually set "Open" and "Closed" annotation sublayers visi
 * AnnotationSublayer
 * LayerContent
 
-## Offline Data
+## Offline data
 
 This sample uses [Gas Device Anno Mobile Map Package](https://arcgisruntime.maps.arcgis.com/home/item.html?id=b87307dcfb26411eb2e92e1627cb615b). It is downloaded from ArcGIS Online automatically before the sample runs.
 
 ## About the data
 
- The scale ranges were set by the map's author using ArcGIS Pro:
+The scale ranges were set by the map's author using ArcGIS Pro:
 * The "Open" annotation sublayer has its maximum scale set to 1:500 and its minimum scale set to 1:2000.
 * The "Closed" annotation sublayer has no minimum or maximum scales set, so will be drawn at all scales.
 

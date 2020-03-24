@@ -14,7 +14,7 @@
         "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [
         "d98b3e5293834c5f852f13c569930caa"
@@ -33,5 +33,5 @@
         "SymbolizeShapefile.xaml",
         "SymbolizeShapefile.xaml.cs"
     ],
-    "title": "Symbolize a shapefile"
+    "title": "Symbolize shapefile"
 }

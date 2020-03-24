@@ -2,7 +2,7 @@
 
 Display your location history on the map.
 
-![](ShowLocationHistory.jpg)
+![Image of show location history](ShowLocationHistory.jpg)
 
 ## Use case
 
@@ -38,4 +38,4 @@ The sample uses a dark gray basemap with lime and red graphics. A custom locatio
 
 ## Tags
 
-GPS, bread crumb, breadcrumb, history, movement, navigation, real-time, trace, track, trail
+bread crumb, breadcrumb, GPS, history, movement, navigation, real-time, trace, track, trail

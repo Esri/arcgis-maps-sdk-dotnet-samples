@@ -1,18 +1,20 @@
 {
     "category": "Geometry",
-    "description": "This sample demonstrates how to use the GeometryEngine.ConvexHull to generate convex hull polygon(s) from multiple input geometries.",
+    "description": "Generate convex hull polygon(s) from multiple input geometries.",
     "formal_name": "ConvexHullList",
     "ignore": false,
     "images": [
         "ConvexHullList.jpg"
     ],
     "keywords": [
-        "Analysis",
-        "ConvexHull",
-        "GeometryEngine"
+        "analysis",
+        "geometry",
+        "outline",
+        "perimeter",
+        "union"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

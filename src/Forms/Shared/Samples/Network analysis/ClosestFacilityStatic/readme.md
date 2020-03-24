@@ -2,7 +2,7 @@
 
 Find routes from several locations to the respective closest facility.
 
-![screenshot](ClosestFacilityStatic.jpg)
+![Image of find closest facility to multiple incidents service](ClosestFacilityStatic.jpg)
 
 ## Use case
 
@@ -10,16 +10,16 @@ Quickly and accurately determining the most efficient route between a location a
 
 ## How to use the sample
 
-Click 'Solve route' to solve and display the route from each incident (fire) to the nearest facility (fire station).
+Tap the button to solve and display the route from each incident (fire) to the nearest facility (fire station).
 
 ## How it works
 
 1. Create a `ClosestFacilityTask` using a URL from an online service.
 2. Get the default set of `ClosestFacilityParameters` from the task: `closestFacilityTask.CreateDefaultParametersAsync()`.
 3. Build a list of all `Facilities` and `Incidents`:
-    * Create a `FeatureTable` using `ServiceFeatureTable(Uri)`.
-    * Query the `FeatureTable` for all `Features` using `QueryFeaturesAsync(queryParameters)`.
-    * Iterate over the result and add each `Feature` to the `List`, instantiating the feature as a `Facility` or `Incident`.
+   * Create a `FeatureTable` using `ServiceFeatureTable(Uri)`.
+   * Query the `FeatureTable` for all `Features` using `QueryFeaturesAsync(queryParameters)`.
+   * Iterate over the result and add each `Feature` to the `List`, instantiating the feature as a `Facility` or `Incident`.
 4. Add a list of all facilities to the task parameters.
 5. Add a list of all incidents to the task parameters.
 6. Get `ClosestFacilityResult` by solving the task with the provided parameters.

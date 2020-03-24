@@ -1,23 +1,27 @@
 {
     "category": "Layers",
-    "description": "Use an `RGBRenderer` on a `RasterLayer`. An `RGBRenderer` is used to adjust the color bands of a multispectral image.",
+    "description": "Apply an RGB renderer to a raster layer to enhance feature visibility.",
     "formal_name": "RasterRgbRenderer",
     "ignore": false,
     "images": [
         "RasterRgbRenderer.jpg"
     ],
     "keywords": [
-        "RGB",
-        "Visualization",
         "analysis",
-        "bands",
+        "color",
+        "composite",
         "imagery",
+        "multiband",
         "multispectral",
+        "pan-sharpen",
+        "photograph",
         "raster",
-        "renderer"
+        "spectrum",
+        "stretch",
+        "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [
         "7c4c679ab06a4df19dc497f577f111bd"
@@ -27,8 +31,6 @@
     ],
     "relevant_apis": [
         "Basemap",
-        "Map",
-        "MapView",
         "RGBRenderer",
         "Raster",
         "RasterLayer",
@@ -38,5 +40,5 @@
         "RasterRgbRenderer.xaml",
         "RasterRgbRenderer.xaml.cs"
     ],
-    "title": "RGB Renderer"
+    "title": "RGB renderer"
 }

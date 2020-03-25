@@ -21,7 +21,7 @@
             Grid.Row="0"
             BackgroundColor="#AA000000"
             HorizontalOptions="FillAndExpand"
-            Text="Keep moving your device until a plane is found."
+            Text="Calibrate before starting navigation."
             TextColor="White" />
         <Grid
             x:Name="CalibrationGrid"

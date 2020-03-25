@@ -37,8 +37,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             // Display an empty scene to enable tap-to-place.
             MyARSceneView.Scene = new Scene(SceneViewTilingScheme.Geographic);
 
-            // Set the clipping distance for the scene.
-            MyARSceneView.ClippingDistance = 400;
+            // Render the scene invisible to start.
+            MyARSceneView.Scene.BaseSurface.Opacity = 0;
 
             // Get notification when planes are detected
             MyARSceneView.PlanesDetectedChanged += ARSceneView_PlanesDetectedChanged;

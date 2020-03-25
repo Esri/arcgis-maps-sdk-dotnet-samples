@@ -217,17 +217,8 @@ namespace ArcGISRuntime
         private void SetStatusMessage(string message, bool isRunning)
         {
             StatusLabel.Text = message;
-
-            if (isRunning)
-            {
-                StatusSpinner.Visibility = Visibility.Visible;
-                SampleDataListView.IsEnabled = false;
-            }
-            else
-            {
-                StatusSpinner.Visibility = Visibility.Collapsed;
-                SampleDataListView.IsEnabled = true;
-            }
+            SampleDataListView.IsEnabled = !isRunning;
+            StatusSpinner.Visibility = isRunning ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private async void MarkdownText_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)

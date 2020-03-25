@@ -1,8 +1,8 @@
 ﻿# Map reference scale
 
-Set a map's reference scale and control which feature layers should honor that scale.
+Set the map's reference scale and which feature layers should honor the reference scale.
 
-![Map Reference Scale App](MapReferenceScale.jpg)
+![Image of map reference scale](MapReferenceScale.jpg)
 
 ## Use case
 
@@ -12,23 +12,22 @@ Map annotations are typically only relevant at certain scales. For instance, ann
 
 ## How to use the sample
 
-* Use the selection box to set the map's reference scale (1:500,000 1:250,000 1:100,000 1:50,000).
-* Use the list to choose which layers participate in symbol scaling.
+Use the control at the top to set the map's reference scale (1:500,000 1:250,000 1:100,000 1:50,000). Use the menu checkboxes in the layer menu to set which feature layers should honor the reference scale.
 
 ## How it works
 
 1. Get and set the reference scale property on the `Map` object.
-1. Get and set the scale symbols property on each individual `FeatureLayer` object.
+2. Get and set the scale symbols property on each individual `FeatureLayer` object.
 
 ## Relevant API
 
 * Map
 * FeatureLayer
 
-## Additional Information
+## Additional information
 
 The map reference scale should normally be set by the map's author and not exposed to the end user like it is in this sample. 
 
 ## Tags
 
-Maps & Scenes, reference, annotation, scale
+map, reference scale, scene

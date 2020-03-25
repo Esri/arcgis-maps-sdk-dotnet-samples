@@ -7,9 +7,11 @@
         "ArcGISTiledLayerUrl.jpg"
     ],
     "keywords": [
-        "ArcGISTiledLayer",
+        "basemap",
         "layers",
-        "tile"
+        "raster tiles",
+        "tiled layer",
+        "visualization"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -20,6 +22,7 @@
     ],
     "relevant_apis": [
         "ArcGISTiledLayer",
+        "Basemap",
         "Map",
         "MapView"
     ],

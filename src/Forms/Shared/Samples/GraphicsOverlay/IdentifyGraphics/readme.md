@@ -2,7 +2,7 @@
 
 Display an alert message when a graphic is clicked.
 
-![screenshot](IdentifyGraphics.jpg)
+![Image of identify graphics](IdentifyGraphics.jpg)
 
 ## Use case
 

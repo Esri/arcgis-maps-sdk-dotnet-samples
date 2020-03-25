@@ -13,7 +13,7 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.DisplayMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display a map",
+        "Display map",
         "Map",
         "This sample demonstrates how to display a map with a basemap.",
         "")]

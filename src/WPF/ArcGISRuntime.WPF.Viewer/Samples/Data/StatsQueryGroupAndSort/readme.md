@@ -2,16 +2,19 @@
 
 Query a feature table for statistics, grouping and sorting by different fields.
 
-![screenshot](StatsQueryGroupAndSort.jpg)
+![Image of statistical query group and sort](StatsQueryGroupAndSort.jpg)
+
+## Use case
+
+You can use statistical queries, grouping and sorting to process large amounts of data saved in feature tables. This is helpful for identifying trends and relationships within the data, which can be used to support further interpretations and decisions. For example, a health agency can use information on medical conditions occurring throughout a country to identify at-risk areas or demographics, and decide on further action and preventive measures.
 
 ## How to use the sample
 
+The sample will start with some default options selected. You can immediately click the "Get Statistics" button to see the results for these options. There are several ways to customize your queries:
 
-You can add statistic definitions to the top-left table using the combo boxes and "Add" button. Select a table row and click "Remove" to remove a definition.
-
-To change the Group-by fields, check the box by the field you want to group by in the bottom-left list view.
-
-To change the Order-by fields, select a Group-by field (it must be checked) and click the ">>" button to add it to the Order-by table. To remove a field from the Order-by table, select it and click the "<<" button. To change the sort order of the Order-by field, the cells of the "Sort Order" column are combo-boxes that may be either ASCENDING or DESCENDING.
+* You can add statistic definitions to the top-left table using the combo boxes and "Add" button. Select a table row and click "Remove" to remove a definition.
+* To change the Group-by fields, check the box by the field you want to group by in the bottom-left list view.
+* To change the Order-by fields, select a Group-by field (it must be checked) and click the ">>" button to add it to the Order-by table. To remove a field from the Order-by table, select it and click the "<<" button. To change the sort order of the Order-by field, the cells of the "Sort Order" column are combo-boxes that may be either ASCENDING or DESCENDING.
 
 ## How it works
 
@@ -27,18 +30,19 @@ To change the Order-by fields, select a Group-by field (it must be checked) and 
 ## Relevant API
 
 * Field
+* OrderBy
 * QueryParameters
 * ServiceFeatureTable
 * StatisticDefinition
 * StatisticRecord
-* StatisticType
 * StatisticsQueryParameters
 * StatisticsQueryResult
+* StatisticType
 
 ## About the data
 
-This sample uses a [Diabetes, Obesity, and Inactivity by US County](https://www.arcgis.com/home/item.html?id=392420848e634079bc7d0648586e818f) feature layer.
+This sample uses a [Diabetes, Obesity, and Inactivity by US County](https://www.arcgis.com/home/item.html?id=392420848e634079bc7d0648586e818f) feature layer hosted on ArcGIS Online.
 
 ## Tags
 
-group, result, sort, statistics, stats
+correlation, data, fields, filter, group, sort, statistics, table

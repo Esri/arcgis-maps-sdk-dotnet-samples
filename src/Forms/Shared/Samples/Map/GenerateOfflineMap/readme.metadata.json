@@ -7,8 +7,10 @@
         "GenerateOfflineMap.jpg"
     ],
     "keywords": [
-        "map",
-        "offline"
+        "download",
+        "offline",
+        "save",
+        "web map"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

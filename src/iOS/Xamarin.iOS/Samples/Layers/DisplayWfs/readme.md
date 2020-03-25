@@ -1,8 +1,8 @@
-﻿# Display a WFS layer
+﻿# Display WFS layer
 
 Display a layer from a WFS service, requesting only features for the current extent.
 
-![](DisplayWfs.jpg)
+![Image of display WFS layer](DisplayWfs.jpg)
 
 ## Use case
 
@@ -10,20 +10,21 @@ WFS is an open standard with functionality similar to ArcGIS feature services. R
 
 ## How to use the sample
 
-Pan and zoom to see features relevant to the current map extent.
+Pan and zoom to see features within the current map extent.
 
 ## How it works
 
 1. Create a `WfsFeatureTable` with a URL.
-2. Create a feature layer from the feature table and add it to the map.
+2. Create a `FeatureLayer` from the feature table and add it to the map.
 3. Listen for the `MapView.NavigationCompleted` event to detect when the user has stopped navigating the map.
 4. When the user is finished navigating, use `PopulateFromServiceAsync` to load the table with data for the current visible extent.
 
 ## Relevant API
 
+* FeatureLayer
+* MapView.NavigationCompleted
 * WfsFeatureTable
 * WfsFeatureTable.PopulateFromServiceAsync
-* MapView.NavigationCompleted
 
 ## About the data
 
@@ -31,4 +32,4 @@ This service shows building footprints for downtown Seattle. For additional info
 
 ## Tags
 
-OGC, WFS, feature, web, service, layers, browse, catalog, interaction cache
+browse, catalog, feature, interaction cache, layers, OGC, service, web, WFS

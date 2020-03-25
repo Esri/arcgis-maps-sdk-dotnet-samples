@@ -8,9 +8,12 @@
     ],
     "keywords": [
         "3D",
-        "Buildings",
+        "Portland",
+        "URL",
+        "buildings",
         "model",
-        "scene"
+        "scene",
+        "service"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -20,8 +23,8 @@
         "/net/latest/uwp/sample-code/scenelayerurl.htm"
     ],
     "relevant_apis": [
+        "ArcGISScene",
         "ArcGISSceneLayer",
-        "Scene",
         "SceneView"
     ],
     "snippets": [

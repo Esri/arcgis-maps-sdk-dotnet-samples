@@ -19,7 +19,7 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set map spatial reference",
+        "Map spatial reference",
         "Map",
         "This sample demonstrates how you can set the spatial reference on a Map and all the operational layers would project accordingly.",
         "")]

@@ -7,10 +7,10 @@
         "FeatureLayerSelection.jpg"
     ],
     "keywords": [
-        "Layers",
-        "SelectFeaturesAsync",
-        "SelectionMode",
+        "features",
+        "layers",
         "select",
+        "selection",
         "tolerance"
     ],
     "nuget_packages": {

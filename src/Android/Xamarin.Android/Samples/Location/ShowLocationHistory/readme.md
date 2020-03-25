@@ -2,7 +2,7 @@
 
 Display your location history on the map.
 
-![](ShowLocationHistory.jpg)
+![Image of show location history](ShowLocationHistory.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ You can track device location history and display it as lines and points on the 
 
 ## How to use the sample
 
-Click, 'Start tracking' to start tracking your location, which will appear as points on the map. A line will connect the points for easier visualization. Click 'Stop tracking' to stop updating the location history.
+Click, 'Start tracking' to start tracking your location, which will appear as points on the map. A line will connect the points for easier visualization. Tap 'Stop tracking' to stop updating the location history.
 
 ## How it works
 
@@ -19,7 +19,6 @@ Click, 'Start tracking' to start tracking your location, which will appear as po
 3. Create a `SystemLocationDataSource` and start it to begin receiving location updates.
 4. Subscribe to the `LocationChanged` event to handle location updates.
 5. Every time the location updates, store that location, display a point on the map, and re-create the route line.
-
 
 ## Relevant API
 
@@ -39,4 +38,4 @@ The sample uses a dark gray basemap with lime and red graphics. A custom locatio
 
 ## Tags
 
-GPS, bread crumb, breadcrumb, history, movement, navigation, real-time, trace, track, trail
+bread crumb, breadcrumb, GPS, history, movement, navigation, real-time, trace, track, trail

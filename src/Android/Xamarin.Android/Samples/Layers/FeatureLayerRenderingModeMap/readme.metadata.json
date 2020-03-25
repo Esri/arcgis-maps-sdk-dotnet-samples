@@ -7,9 +7,10 @@
         "FeatureLayerRenderingModeMap.jpg"
     ],
     "keywords": [
-        "FeatureRenderingMode",
-        "MapViews SceneViews and UI",
         "dynamic",
+        "feature layer",
+        "features",
+        "rendering",
         "static"
     ],
     "nuget_packages": {

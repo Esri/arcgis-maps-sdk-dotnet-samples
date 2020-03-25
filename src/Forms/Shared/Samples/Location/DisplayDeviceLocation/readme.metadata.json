@@ -7,9 +7,12 @@
         "DisplayDeviceLocation.jpg"
     ],
     "keywords": [
-        "MapViews SceneViews and UI",
-        "gps",
-        "mobile"
+        "GPS",
+        "compass",
+        "location",
+        "map",
+        "mobile",
+        "navigation"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

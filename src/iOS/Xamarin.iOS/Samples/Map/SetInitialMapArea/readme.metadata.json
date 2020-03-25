@@ -7,9 +7,10 @@
         "SetInitialMapArea.jpg"
     ],
     "keywords": [
-        "Envelope",
-        "InitialViewpoint",
+        "envelope",
         "extent",
+        "initial",
+        "viewpoint",
         "zoom"
     ],
     "nuget_packages": {

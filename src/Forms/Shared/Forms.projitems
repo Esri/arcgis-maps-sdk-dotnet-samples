@@ -834,6 +834,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
       <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
@@ -1482,5 +1486,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\agol.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\delete.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\download.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\about.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\licenses.md">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\settings.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\document.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\info.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\agolgrey.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\deletegrey.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\documentgrey.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\downloadgrey.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\infogrey.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\settingsgrey.png" />
   </ItemGroup>
 </Project>

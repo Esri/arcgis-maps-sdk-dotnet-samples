@@ -7,8 +7,9 @@
         "FeatureLayerGeoPackage.jpg"
     ],
     "keywords": [
-        "GeoPackageFeatureTables",
         "OGC",
+        "feature table",
+        "geopackage",
         "gpkg",
         "package",
         "standards"

@@ -2,7 +2,7 @@
 
 Apply a colormap renderer to a raster.
 
-![](RasterColormapRenderer.jpg)
+![Image of colormap renderer](RasterColormapRenderer.jpg)
 
 ## Use case
 

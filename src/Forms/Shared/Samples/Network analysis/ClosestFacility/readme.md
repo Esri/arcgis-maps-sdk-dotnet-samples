@@ -2,7 +2,7 @@
 
 Find a route to the closest facility from a location.
 
-![screenshot](ClosestFacility.jpg)
+![Image of find closest facility to an incident interactive](ClosestFacility.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Quickly and accurately determining the most efficient route between a location a
 
 ## How to use the sample
 
-Click near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.
+Tap near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.
 
 ## How it works
 

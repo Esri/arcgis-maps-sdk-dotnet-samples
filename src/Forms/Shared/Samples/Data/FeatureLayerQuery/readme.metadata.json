@@ -7,7 +7,8 @@
         "FeatureLayerQuery.jpg"
     ],
     "keywords": [
-        "Search and Query"
+        "query",
+        "search"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

@@ -2,7 +2,7 @@
 
 Display a layer from a Web Map Tile Service.
 
-![screenshot](WMTSLayer.jpg)
+![Image of WMTS layer](WMTSLayer.jpg)
 
 ## Use case
 
@@ -39,4 +39,4 @@ The map visualizes world time zones.
 
 ## Tags
 
-OGC, WmtsLayer, WmtsLayerInfo, WmtsService, WmtsServiceInfo, layer, raster, tiled, web map tile service
+layer, OGC, raster, tiled, web map tile service

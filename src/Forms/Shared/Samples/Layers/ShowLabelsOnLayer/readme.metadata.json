@@ -7,9 +7,13 @@
         "ShowLabelsOnLayer.jpg"
     ],
     "keywords": [
-        "Deconfliction",
-        "Labeling",
-        "Labels",
+        "attribute",
+        "deconfliction",
+        "label",
+        "labeling",
+        "string",
+        "symbol",
+        "text",
         "visualization"
     ],
     "nuget_packages": {

@@ -8,7 +8,9 @@
     ],
     "keywords": [
         "3D",
-        "analysis"
+        "analysis",
+        "distance",
+        "measure"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

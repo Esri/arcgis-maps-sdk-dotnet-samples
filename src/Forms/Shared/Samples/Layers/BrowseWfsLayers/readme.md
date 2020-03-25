@@ -2,7 +2,7 @@
 
 Browse a WFS service for layers and add them to the map.
 
-![](BrowseWfsLayers.jpg)
+![Image of browse WFS layers](BrowseWfsLayers.jpg)
 
 ## Use case
 
@@ -34,8 +34,8 @@ Some WFS services return coordinates in X,Y order, while others return coordinat
 
 ## About the data
 
-The sample is configured with a sample WFS service, but you can load other WFS services if desired. The default service shows features for downtown Seattle. For additional information, see the underlying service on [ArcGIS Online](https://arcgisruntime.maps.arcgis.com/home/item.html?id=1b81d35c5b0942678140efc29bc25391).
+The sample is configured with a sample WFS service, but you can load other WFS services if desired. The default service shows [Seattle downtown features](https://arcgisruntime.maps.arcgis.com/home/item.html?id=1b81d35c5b0942678140efc29bc25391) hosted on ArcGIS Online.
 
 ## Tags
 
-OGC, WFS, browse, catalog, feature, layers, service, web
+browse, catalog, feature, layers, OGC, service, web, WFS

@@ -7,9 +7,9 @@
         "ChangeAtmosphereEffect.jpg"
     ],
     "keywords": [
-        "3D",
-        "AtmosphereEffect",
-        "Scene"
+        "atmosphere",
+        "horizon",
+        "sky"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

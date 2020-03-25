@@ -7,11 +7,12 @@
         "SetMinMaxScale.jpg"
     ],
     "keywords": [
-        "MaxScale",
-        "MinScale",
-        "Viewpoint",
         "area of interest",
-        "level of detail"
+        "level of detail",
+        "maximum",
+        "minimum",
+        "scale",
+        "viewpoint"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

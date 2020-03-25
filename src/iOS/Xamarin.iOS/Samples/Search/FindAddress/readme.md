@@ -2,7 +2,7 @@
 
 Find the location for an address.
 
-![screenshot](FindAddress.jpg)
+![Image of find address](FindAddress.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ A user can input a raw address into your app's search bar and zoom to the addres
 
 ## How to use the sample
 
-For simplicity, the sample comes loaded with a set of suggested addresses. Click the arrow and select an address or submit your own address to show its location on the map.
+For simplicity, the sample comes loaded with a set of suggested addresses. Choose an address from the suggestions or submit your own address to show its location on the map in a callout.
 
 ## How it works
 

@@ -1,8 +1,12 @@
-# WMS Layer URL
+# WMS layer (URL)
 
 Display a WMS layer using a WMS service URL.
 
-![screenshot](WMSLayerUrl.jpg)
+![Image of WMS layer URL](WMSLayerUrl.jpg)
+
+## Use case
+
+WMS is an OGC standard for displaying maps from images that are dynamically-generated on a web server. WMS is particularly useful for data that changes frequently, contains cartographically complex detail, or requires an open source data standard.
 
 ## How to use the sample
 
@@ -26,4 +30,4 @@ This sample uses a [U.S. National Weather Service radar map](https://nowcoast.no
 
 ## Tags
 
-OGC, WmsLayer, web map service
+OGC, web map service, WmsLayer

@@ -21,7 +21,7 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.PlayKmlTours
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Play a KML tour",
+        "Play KML tour",
         "Layers",
         "Play tours in KML files.",
         "")]

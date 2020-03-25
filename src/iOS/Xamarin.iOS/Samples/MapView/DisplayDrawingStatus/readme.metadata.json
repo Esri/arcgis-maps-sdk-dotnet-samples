@@ -7,8 +7,10 @@
         "DisplayDrawingStatus.jpg"
     ],
     "keywords": [
-        "MapViews",
-        "SceneViews and UI"
+        "draw",
+        "loading",
+        "map",
+        "render"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -19,6 +21,8 @@
     ],
     "relevant_apis": [
         "DrawStatus",
+        "DrawStatusChangedEvent",
+        "DrawStatusChangedListener",
         "Map",
         "MapView"
     ],

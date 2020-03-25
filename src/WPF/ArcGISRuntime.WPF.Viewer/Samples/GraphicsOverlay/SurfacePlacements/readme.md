@@ -2,7 +2,7 @@
 
 Position graphics relative to a surface using different surface placement modes.
 
-![Surface placement sample](SurfacePlacements.jpg)
+![Image of surface placement](SurfacePlacements.jpg)
 
 ## Use case
 

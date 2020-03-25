@@ -2,11 +2,11 @@
 
 Analyze the viewshed for an object (GeoElement) in a scene.
 
-![screenshot](ViewshedGeoElement.jpg)
+![Image of viewshed for geoelement](ViewshedGeoElement.jpg)
 
 ## Use case
 
-A Viewshed analysis is a type of visual analysis you can perform on a scene. The viewshed aims to answer the question 'What can I see from a given location?'. The output is an overlay with two different colors - one representing the visible areas (green) and the other representing the obstructed areas (red).
+A viewshed analysis is a type of visual analysis you can perform on a scene. The viewshed aims to answer the question 'What can I see from a given location?'. The output is an overlay with two different colors - one representing the visible areas (green) and the other representing the obstructed areas (red).
 
 ## How to use the sample
 
@@ -24,9 +24,9 @@ Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive
 ## Relevant API
 
 * AnalysisOverlay
-* GeoElementViewshed
 * GeodeticDistanceResult
-* GeometryEngine.DistanceGeodetic - used to animate the vehicle.
+* GeoElementViewshed
+* GeometryEngine.DistanceGeodetic
 * ModelSceneSymbol
 * OrbitGeoElementCameraController
 
@@ -38,8 +38,8 @@ This sample downloads the following items from ArcGIS Online automatically:
 
 ## About the data
 
-This sample shows a [Johannesburg building layer](https://www.arcgis.com/home/item.html?id=eb4dab9e61b24fe2919a0e6f7905321e) from ArcGIS Online. The vehicle is a [tank](http://www.arcgis.com/home/item.html?id=07d62a792ab6496d9b772a24efea45d0).
+This sample shows a [Johannesburg, South Africa Scene](https://www.arcgis.com/home/item.html?id=eb4dab9e61b24fe2919a0e6f7905321e) from ArcGIS Online. The sample uses a [Tank model scene symbol](http://www.arcgis.com/home/item.html?id=07d62a792ab6496d9b772a24efea45d0) hosted as an item on ArcGIS Online.
 
 ## Tags
 
-3D, AnalysisOverlay, GeoElementViewshed, ModelSceneSymbol, OrbitGeoElementCameraController, SceneProperties, buildings, model, scene, viewshed, visibility analysis
+3D, analysis, buildings, model, scene, viewshed, visibility analysis

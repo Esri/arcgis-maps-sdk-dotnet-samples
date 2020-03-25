@@ -7,8 +7,12 @@
         "CreateGeometries.jpg"
     ],
     "keywords": [
-        "Geometry",
-        "Graphic"
+        "area",
+        "boundary",
+        "line",
+        "marker",
+        "path",
+        "shape"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

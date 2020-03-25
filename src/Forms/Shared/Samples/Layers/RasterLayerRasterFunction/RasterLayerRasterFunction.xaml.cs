@@ -17,7 +17,7 @@ using System.Collections.Generic;
 namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS raster function (service)",
+        "Apply raster function to raster from service",
         "Layers",
         "Show a raster layer from an image service with a raster function applied.",
         "")]

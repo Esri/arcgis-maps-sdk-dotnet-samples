@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Identify GeoElements in a scene layer.",
+    "description": "Identify features in a scene to select.",
     "formal_name": "SceneLayerSelection",
     "ignore": false,
     "images": [
@@ -8,10 +8,13 @@
     ],
     "keywords": [
         "3D",
-        "Buildings",
-        "Search and Query",
+        "Berlin",
+        "buildings",
+        "identify",
         "model",
-        "scene"
+        "query",
+        "search",
+        "select"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

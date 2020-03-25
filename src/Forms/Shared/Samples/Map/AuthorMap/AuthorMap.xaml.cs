@@ -34,7 +34,7 @@ using Xamarin.Auth;
 namespace ArcGISRuntime.Samples.AuthorMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Author and save a map",
+        "Create and save map",
         "Map",
         "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.",
         "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]

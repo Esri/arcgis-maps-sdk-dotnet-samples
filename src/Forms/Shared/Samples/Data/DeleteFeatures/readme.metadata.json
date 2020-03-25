@@ -23,8 +23,6 @@
     "relevant_apis": [
         "Feature",
         "FeatureLayer",
-        "Map",
-        "MapView",
         "ServiceFeatureTable"
     ],
     "snippets": [

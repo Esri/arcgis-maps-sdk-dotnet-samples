@@ -7,12 +7,12 @@
         "Buffer.jpg"
     ],
     "keywords": [
-        "Analysis",
-        "BufferGeodetic",
-        "Euclidean",
-        "Geodesic",
-        "GeometryEngine",
-        "Planar"
+        "analysis",
+        "buffer",
+        "euclidean",
+        "geodesic",
+        "geometry",
+        "planar"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

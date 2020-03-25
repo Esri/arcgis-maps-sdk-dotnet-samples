@@ -66,8 +66,8 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 BusyIndicator.IsVisible = true;
                 Status.Text = "Loading Utility Network...";
 
-                // Setup Map with Feature Layer(s) that contain Utility Network.
-                MyMapView.Map = new Map(Basemap.CreateStreetsNightVector())
+                // Create a map.
+                MyMapView.Map = new Map(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")))
                 {
                     InitialViewpoint = _startingViewpoint
                 };
@@ -314,7 +314,8 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             try
             {
                 // Prompt the user to select a type of trace.
-                string choice = await ((Page)Parent).DisplayActionSheet("Choose type of trace", "Cancel", null, Enum.GetNames(typeof(UtilityTraceType)));
+                var traceTypes = new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" };
+                string choice = await ((Page)Parent).DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
 
                 // Set the selected trace type.
                 _selectedTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), choice);

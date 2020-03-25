@@ -25,6 +25,7 @@
         "/net/latest/android/sample-code/displaywfs.htm"
     ],
     "relevant_apis": [
+        "FeatureLayer",
         "MapView.NavigationCompleted",
         "WfsFeatureTable",
         "WfsFeatureTable.PopulateFromServiceAsync"
@@ -32,5 +33,5 @@
     "snippets": [
         "DisplayWfs.cs"
     ],
-    "title": "Display a WFS layer"
+    "title": "Display WFS layer"
 }

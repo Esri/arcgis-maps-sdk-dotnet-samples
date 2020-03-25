@@ -2,7 +2,7 @@
 
 Generate a local geodatabase from an online feature service.
 
-![screenshot](GenerateGeodatabase.jpg)
+![Image of generate geodatabase](GenerateGeodatabase.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Generating geodatabases is the first step toward taking a feature service offlin
 
 ## How to use the sample
 
-Zoom to any extent. Then click the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.
+Zoom to any extent. Then tap the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.
 
 ## How it works
 

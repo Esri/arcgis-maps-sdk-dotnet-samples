@@ -2,7 +2,7 @@
 
 Synchronize offline edits with a feature service.
 
-![screenshot](EditAndSyncFeatures.jpg)
+![Image of edit and sync features](EditAndSyncFeatures.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ A survey worker who works in an area without an internet connection could take a
 
 ## How to use the sample
 
-Pan and zoom to position the red rectangle around the area you want to take offline. Click "Generate" to take the area offline. When complete, the offline area will be shown in the red rectangle. To edit features, click to select a feature, and click again anywhere else within the red rectangle to move the selected feature. To sync the edits with the feature service, click "Synchronize".
+Pan and zoom to position the red rectangle around the area you want to take offline. Tap "Generate geodatabase" to take the area offline. When complete, the map will update to only show the offline area. To edit features, tap to select a feature, and tap again anywhere else on the map to move the selected feature to the clicked location. To sync the edits with the feature service, tap the "Sync geodatabase" button.
 
 ## How it works
 
@@ -36,9 +36,7 @@ Pan and zoom to position the red rectangle around the area you want to take offl
 
 ## Offline data
 
-This sample downloads the following items from ArcGIS Online automatically:
-
-* [SanFrancisco.tpk](https://www.arcgis.com/home/item.html?id=3f1bbf0ec70b409a975f5c91f363fe7d) - Streets Tile Package (tpk) for the City of San Francisco.
+This sample uses a [San Francisco offline basemap tile package](https://www.arcgis.com/home/item.html?id=3f1bbf0ec70b409a975f5c91f363fe7d).
 
 ## About the data
 

@@ -1,12 +1,20 @@
 {
     "category": "Layers",
-    "description": "This sample demonstrates opening a feature collection saved as a portal item.",
+    "description": "Create a feature collection layer from a portal item.",
     "formal_name": "FeatureCollectionLayerFromPortal",
     "ignore": false,
     "images": [
         "FeatureCollectionLayerFromPortal.jpg"
     ],
-    "keywords": [],
+    "keywords": [
+        "collection",
+        "feature collection",
+        "feature collection layer",
+        "id",
+        "item",
+        "map notes",
+        "portal"
+    ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
     },
@@ -14,9 +22,14 @@
     "redirect_from": [
         "/net/latest/android/sample-code/featurecollectionlayerfromportal.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "FeatureCollection",
+        "FeatureCollectionLayer",
+        "Portal",
+        "PortalItem"
+    ],
     "snippets": [
         "FeatureCollectionLayerFromPortal.cs"
     ],
-    "title": "Create a feature collection layer from a portal item"
+    "title": "Create feature collection layer (Portal item)"
 }

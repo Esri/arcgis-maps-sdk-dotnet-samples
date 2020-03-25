@@ -2,7 +2,7 @@
 
 Determine spatial relationships between two geometries.
 
-![screenshot](SpatialRelationships.jpg)
+![Image of spatial relationships](SpatialRelationships.jpg)
 
 ## Use case
 

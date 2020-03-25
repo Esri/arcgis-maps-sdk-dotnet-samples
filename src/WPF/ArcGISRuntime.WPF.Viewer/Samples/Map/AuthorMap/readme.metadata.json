@@ -7,12 +7,11 @@
         "AuthorMap.jpg"
     ],
     "keywords": [
-        "AuthenticationManager",
-        "ChallengeHandler",
-        "GenerateCredentialAsync",
-        "IOAuthAuthorizeHandler",
+        "ArcGIS Online",
         "OAuth",
         "portal",
+        "publish",
+        "share",
         "web map"
     ],
     "nuget_packages": {
@@ -23,6 +22,10 @@
         "/net/latest/wpf/sample-code/authormap.htm"
     ],
     "relevant_apis": [
+        "AuthenticationManager",
+        "ChallengeHandler",
+        "GenerateCredentialAsync",
+        "IOAuthAuthorizeHandler",
         "Map",
         "Map.SaveAsAsync",
         "Portal"
@@ -31,5 +34,5 @@
         "AuthorMap.xaml",
         "AuthorMap.xaml.cs"
     ],
-    "title": "Create and save a map"
+    "title": "Create and save map"
 }

@@ -1,19 +1,16 @@
-# Read symbols from a mobile style
+# Read symbols from mobile style
 
-Open a mobile style (.stylx) and read its contents. Combine several symbols from the style into a single multilayer point symbol, then use it to display graphics in the map view.
+Combine multiple symbols from a mobile style file into a single symbol.
 
-![image](SymbolsFromMobileStyle.jpg)
+![Image of read symbols from mobile style](SymbolsFromMobileStyle.jpg)
 
 ## Use case
 
-Multilayer symbols provide the ability to create much more complex and interesting symbology for geoelements. While these symbols can be created from scratch, a more convenient workflow is to author them using ArcGIS Pro and store them in a mobile style file (.stylx). ArcGIS Runtime can read symbols from a mobile style, and you can modify and combine them as needed in your app.
+You may choose to display individual elements of a dataset like a water infrastructure network (such as valves, nodes, or endpoints) with the same basic shape, but wish to modify characteristics of elements according to some technical specifications. Multilayer symbols lets you add or remove components or modify the colors to create advanced symbol styles.
 
 ## How to use the sample
 
-* Click 'Choose symbol', then select symbols to create a face emoji. A preview of the symbol is updated as you make selections.
-* You can optionally select a new color and set the symbol size using the slider.
-* Tap the map to create a point graphic that uses the current face symbol.
-* Tap the `Clear` button to clear all graphics from the display.
+Select a symbol and a color from each of the category lists to create an emoji. A preview of the symbol is updated as selections are made. The size of the symbol can be set using the slider. Tap the map to create a point graphic using the customized emoji symbol, and tap "Reset" to clear all graphics from the display.
 
 ## How it works
 
@@ -34,10 +31,16 @@ Multilayer symbols provide the ability to create much more complex and interesti
 
 ## Offline Data
 
-A mobile style file (created using ArcGIS Pro) provides the symbols used by the sample.
-
 [Emoji mobile style](https://www.arcgis.com/home/item.html?id=1bd036f221f54a99abc9e46ff3511cbf)
+
+## About the data
+
+The mobile style file used in this sample was created using ArcGIS Pro, and is hosted on [ArcGIS Online](https://www.arcgis.com/home/item.html?id=1bd036f221f54a99abc9e46ff3511cbf). It contains symbol layers that can be combined to create emojis.
+
+## Additional information
+
+While each of these symbols can be created from scratch, a more convenient workflow is to author them using ArcGIS Pro and store them in a mobile style file (.stylx). ArcGIS Runtime can read symbols from a mobile style, and you can modify and combine them as needed in your app.
 
 ## Tags
 
-advanced symbology, multilayer, mobile style, stylx
+advanced symbology, mobile style, multilayer, stylx

@@ -2,15 +2,17 @@
 
 Display maps and use locators to enable search and routing offline using a Mobile Map Package.
 
-![](MobileMapSearchAndRoute.jpg)
+![Image of mobile map search and route](MobileMapSearchAndRoute.jpg)
 
 ## Use case
 
-Mobile map packages make it easy to transmit and store the necessary components for an offline map experience, including transportation networks (for routing/navigation), locators (address search, forward and reverse geocoding), and maps. A field worker might download a mobile map package to support their operations while working outside the range of cell service.
+Mobile map packages make it easy to transmit and store the necessary components for an offline map experience including: transportation networks (for routing/navigation), locators (address search, forward and reverse geocoding), and maps. 
+
+A field worker might download a mobile map package to support their operations while working offline.
 
 ## How to use the sample
 
-Tap 'Choose map' to see a list of maps in the package. If a map contains transportation networks, the list item will have a check mark. Click on a map in the list to open it. Tap on the map to reverse geocode the tapped location's address if a locator task is available. If transportation networks are available, a route will be calculated between tapped locations. Tap on the map again to clear the route result.
+A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Tap on a map in the list to open it. If a locator task is available, tap on the map to reverse geocode the location's address. If transportation networks are available, a route will be calculated between geocode locations.
 
 ## How it works
 
@@ -32,4 +34,4 @@ Tap 'Choose map' to see a list of maps in the package. If a map contains transpo
 
 ## Tags
 
-Offline, Routing, Search, geocode, network, transportation, network analysis, disconnected, field mobility
+disconnected, field mobility, geocode, network, network analysis, offline, routing, search, transportation

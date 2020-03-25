@@ -2,7 +2,7 @@
 
 Perform a line of sight analysis between two points in real time.
 
-![screenshot](LineOfSightLocation.jpg)
+![Image of line of sight location](LineOfSightLocation.jpg)
 
 ## Use case
 
@@ -16,7 +16,7 @@ Tap to place the starting point for the line. Tap again to place the end point.
 
 1. Create an `AnalysisOverlay` and add it to the scene view.
 2. Create a `LocationLineOfSight` with initial observer and target locations and add it to the analysis overlay.
-3. Listen for taps on the scene view..
+3. Listen for taps on the scene view.
 4. Update the target location with `lineOfSight.TargetLocation = scenePoint`.
 
 ## Relevant API
@@ -27,4 +27,4 @@ Tap to place the starting point for the line. Tap again to place the end point.
 
 ## Tags
 
-3D, line of sight, visibility analysis
+3D, line of sight, visibility, visibility analysis

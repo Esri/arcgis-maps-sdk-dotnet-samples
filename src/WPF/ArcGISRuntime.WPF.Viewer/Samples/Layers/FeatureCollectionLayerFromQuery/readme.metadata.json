@@ -1,14 +1,16 @@
 {
     "category": "Layers",
-    "description": "Create a feature collection layer to show a query result from a service feature table. The feature collection is then displayed on a map with a feature collection layer.",
+    "description": "Create a feature collection layer to show a query result from a service feature table.",
     "formal_name": "FeatureCollectionLayerFromQuery",
     "ignore": false,
     "images": [
         "FeatureCollectionLayerFromQuery.jpg"
     ],
     "keywords": [
-        "Search and Query",
-        "feature collection layer"
+        "layer",
+        "query",
+        "search",
+        "table"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -21,7 +23,9 @@
         "FeatureCollection",
         "FeatureCollectionLayer",
         "FeatureCollectionTable",
+        "FeatureLayer",
         "FeatureQueryResult",
+        "FeatureTable",
         "QueryParameters",
         "ServiceFeatureTable"
     ],
@@ -29,5 +33,5 @@
         "FeatureCollectionLayerFromQuery.xaml",
         "FeatureCollectionLayerFromQuery.xaml.cs"
     ],
-    "title": "Feature collection layer (Query)"
+    "title": "Feature collection layer (query)"
 }

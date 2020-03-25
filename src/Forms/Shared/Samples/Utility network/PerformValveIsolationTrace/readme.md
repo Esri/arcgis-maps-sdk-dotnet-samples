@@ -10,7 +10,7 @@ Determine the set of operable features required to stop a network's resource, ef
 
 ## How to use the sample
 
-Create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Click 'Trace' to run a subnetwork-based isolation trace.
+Create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Tap 'Trace' to run a subnetwork-based isolation trace.
 
 ## How it works
 
@@ -38,8 +38,8 @@ Create and set the configuration's filter barriers by selecting a category. Chec
 * UtilityElementTraceResult
 * UtilityNetwork
 * UtilityNetworkDefinition
-* UtilityTraceFilter
 * UtilityTier
+* UtilityTraceFilter
 * UtilityTraceParameters
 * UtilityTraceResult
 * UtilityTraceType

@@ -1,16 +1,15 @@
 {
     "category": "Map",
-    "description": "Set a map's reference scale and control which feature layers should honor that scale.",
+    "description": "Set the map's reference scale and which feature layers should honor the reference scale.",
     "formal_name": "MapReferenceScale",
     "ignore": false,
     "images": [
         "MapReferenceScale.jpg"
     ],
     "keywords": [
-        "Maps & Scenes",
-        "annotation",
-        "reference",
-        "scale"
+        "map",
+        "reference scale",
+        "scene"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

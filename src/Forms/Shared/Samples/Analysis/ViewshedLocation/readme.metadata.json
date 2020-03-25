@@ -1,6 +1,6 @@
 {
     "category": "Analysis",
-    "description": "Perform a viewshed analysis from a defined vantage point. Viewshed analyses have several configuration options that are demonstrated in this sample.",
+    "description": "Perform a viewshed analysis from a defined vantage point. ",
     "formal_name": "ViewshedLocation",
     "ignore": false,
     "images": [
@@ -8,7 +8,6 @@
     ],
     "keywords": [
         "3D",
-        "AnalysisOverlay",
         "LocationViewshed",
         "Scene",
         "frustum",
@@ -33,5 +32,5 @@
         "ViewshedLocation.xaml",
         "ViewshedLocation.xaml.cs"
     ],
-    "title": "Viewshed for location"
+    "title": "Viewshed (location)"
 }

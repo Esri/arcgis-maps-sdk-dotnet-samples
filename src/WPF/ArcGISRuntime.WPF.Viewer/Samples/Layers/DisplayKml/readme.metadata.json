@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Load and display KML from a URL, a local file, or a portal item.",
+    "description": "Display KML from a URL, portal item, or local KML file.",
     "formal_name": "DisplayKml",
     "ignore": false,
     "images": [
@@ -9,8 +9,8 @@
     "keywords": [
         "KML",
         "KMZ",
-        "Keyhole",
-        "OGC"
+        "OGC",
+        "keyhole"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
@@ -22,9 +22,8 @@
         "/net/latest/wpf/sample-code/displaykml.htm"
     ],
     "relevant_apis": [
-        "KmlLayer",
-        "KmlLayer(PortalItem)",
-        "KmlLayer(Uri)"
+        "KmlDataset",
+        "KmlLayer"
     ],
     "snippets": [
         "DisplayKml.xaml",

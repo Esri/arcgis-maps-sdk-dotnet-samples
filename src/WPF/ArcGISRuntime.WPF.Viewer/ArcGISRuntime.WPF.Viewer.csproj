@@ -2192,13 +2192,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2726</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2726</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.WPF">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2726</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

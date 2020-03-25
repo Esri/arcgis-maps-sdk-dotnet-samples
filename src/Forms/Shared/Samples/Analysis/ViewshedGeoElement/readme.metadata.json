@@ -8,11 +8,7 @@
     ],
     "keywords": [
         "3D",
-        "AnalysisOverlay",
-        "GeoElementViewshed",
-        "ModelSceneSymbol",
-        "OrbitGeoElementCameraController",
-        "SceneProperties",
+        "analysis",
         "buildings",
         "model",
         "scene",

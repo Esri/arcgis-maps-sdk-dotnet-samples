@@ -2,11 +2,15 @@
 
 Zoom to features matching a query and count the features in the current visible extent.
 
-![](QueryFeatureCountAndExtent.jpg)
+![Image of query feature count and extent](QueryFeatureCountAndExtent.jpg)
+
+## Use case
+
+Queries can be used to search for features in a feature table using text entry. This is helpful for finding a specific feature by name in a large feature table. A query can also be used to count features in an extent. This could be used to count the number of a traffic incidents in a particular region when working with an incident dataset for a larger area.
 
 ## How to use the sample
 
-Use the button to zoom to the extent of a state or use the button to count the features in the current extent.
+Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.
 
 ## How it works
 
@@ -24,20 +28,20 @@ Counting features in the current extent:
 
 ## Relevant API
 
-* `QueryParameters`
-* `QueryParameters.WhereClause`
-* `QueryParameters.Geometry`
-* `QueryParameters.SpatialRelationship`
-* `FeatureTable.QueryExtentAsync`
-* `FeatureTable.QueryFeatureCountAsync`
-* `MapView.GetCurrentViewpoint(ViewpointType)`
+* FeatureTable.QueryExtentAsync
+* FeatureTable.QueryFeatureCountAsync
+* MapView.GetCurrentViewpoint(ViewpointType)
+* QueryParameters
+* QueryParameters.Geometry
+* QueryParameters.SpatialRelationship
+* QueryParameters.WhereClause
 
 ## About the data
 
-[See the layer on ArcGIS Online](https://www.arcgis.com/home/item.html?id=c8810b20c01b4e8ba5cd848966a66d7b)
+See the [Medicare Hospital Spending per Patient, 2016](https://www.arcgis.com/home/item.html?id=c8810b20c01b4e8ba5cd848966a66d7b#overview) layer on ArcGIS Online.
 
-This map shows hospital spending per-patient for common incidents. Hospitals in blue/turquoise spend less than the national average. Red/salmon indicates higher spending relative to other hospitals, while gray is average.
+Hospitals in blue/turquoise spend less than the national average. Red/salmon indicates higher spending relative to other hospitals, while gray is average.
 
 ## Tags
 
-Feature layer, Feature table, Query, Medicare
+count, feature layer, feature table, features, filter, number, query

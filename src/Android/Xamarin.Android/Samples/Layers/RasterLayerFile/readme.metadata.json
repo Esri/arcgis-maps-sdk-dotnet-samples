@@ -7,8 +7,12 @@
         "RasterLayerFile.jpg"
     ],
     "keywords": [
-        "Layers",
-        "raster"
+        "data",
+        "image",
+        "import",
+        "layer",
+        "raster",
+        "visualization"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

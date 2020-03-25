@@ -2,7 +2,7 @@
 
 Select features in a feature layer.
 
-![screenshot](FeatureLayerSelection.jpg)
+![Image of feature layer selection](FeatureLayerSelection.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Selecting features, whether by query or identify, can be an important step both 
 
 ## How to use the sample
 
-Click on a feature in the map. All features within a given tolerance (in pixels) of the click will be selected.
+Tap on a feature in the map. All features within a given tolerance (in pixels) of the tap will be selected.
 
 ## How it works
 
@@ -31,4 +31,4 @@ This sample uses the [Gross Domestic Product, 1960-2016](https://www.arcgis.com/
 
 ## Tags
 
-Layers, SelectFeaturesAsync, SelectionMode, select, tolerance
+features, layers, select, selection, tolerance

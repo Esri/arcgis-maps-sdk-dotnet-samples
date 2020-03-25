@@ -2,7 +2,7 @@
 
 Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
 
-![screenshot](DisplayDrawingStatus.jpg)
+![Image of display drawing status](DisplayDrawingStatus.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ You may want to display a loading indicator while layers are loading, which coul
 
 ## How to use the sample
 
-Pan and zoom to see drawing status changes.
+Pan and zoom around the map. Observe how the status changes from a loading animation to solid, indicating that drawing has completed.
 
 ## How it works
 
@@ -21,8 +21,10 @@ Pan and zoom to see drawing status changes.
 
 * Map
 * DrawStatus
+* DrawStatusChangedEvent
+* DrawStatusChangedListener
 * MapView
 
 ## Tags
 
-MapViews, SceneViews and UI
+draw, loading, map, render

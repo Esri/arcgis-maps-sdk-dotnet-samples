@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
     [Register("SymbolizeShapefile")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Symbolize a shapefile",
+        "Symbolize shapefile",
         "Data",
         "This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.",
         "Click the button to switch renderers. ")]

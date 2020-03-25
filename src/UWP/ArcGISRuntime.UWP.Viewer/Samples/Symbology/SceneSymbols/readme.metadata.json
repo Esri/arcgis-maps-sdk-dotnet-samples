@@ -8,16 +8,21 @@
     ],
     "keywords": [
         "3D",
-        "Scenes",
         "cone",
+        "cube",
         "cylinder",
         "diamond",
-        "graphics",
+        "geometry",
+        "graphic",
         "graphics overlay",
+        "pyramid",
+        "scene",
+        "shape",
         "sphere",
-        "symbols",
+        "symbol",
         "tetrahedron",
-        "tube"
+        "tube",
+        "visualization"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

@@ -7,8 +7,9 @@
         "MapRotation.jpg"
     ],
     "keywords": [
-        "SetViewpointRotationAsync",
-        "rotate"
+        "rotate",
+        "rotation",
+        "viewpoint"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"

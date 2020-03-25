@@ -125,7 +125,11 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             MyARSceneView.OriginCamera = newCamera;
         }
 
-        private void CalibrateButtonPressed(object sender, EventArgs e) { IsCalibrating = !IsCalibrating; }
+        private void CalibrateButtonPressed(object sender, EventArgs e)
+        {
+            HelpLabel.IsVisible = false;
+            IsCalibrating = !IsCalibrating;
+        }
 
         private bool IsCalibrating
         {

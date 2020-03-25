@@ -34,7 +34,9 @@
                     Grid.Column="1"
                     Maximum="10.0"
                     Minimum="-10.0"
-                    Value="0.0" />
+                    Value="0.0"
+                    MinimumTrackColor="CadetBlue"
+                    MaximumTrackColor="CadetBlue"/>
             </Grid>
             <Grid Grid.Row="3" HorizontalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>

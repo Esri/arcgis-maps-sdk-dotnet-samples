@@ -6,7 +6,8 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Title="Settings">
     <TabbedPage.Children>
         <ContentPage Title="About" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.infogrey.png}, iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.info.png}, UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.info.png}}">
             <ContentPage.Content>

@@ -23,6 +23,10 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
+#if XAMARIN_ANDROID
+using ArcGISRuntime.Droid;
+#endif
+
 namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -90,16 +94,22 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the custom location data source and configure the AR scene view to use it.
 #if XAMARIN_ANDROID
+            bool locationGranted = await MainActivity.Instance.LocationPermissionGranted();
+            if(!locationGranted)
+            {
+                return;
+            }    
             _locationDataSource = new ARLocationDataSource(Android.App.Application.Context);
             _locationDataSource.AltitudeMode = ARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
 #elif __IOS__
             _locationDataSource = new ARLocationDataSource();
 #endif
             MyARSceneView.LocationDataSource = _locationDataSource;
+            await MyARSceneView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
 
             // Create the scene and show it.
             _scene = new Scene(Basemap.CreateImagery());

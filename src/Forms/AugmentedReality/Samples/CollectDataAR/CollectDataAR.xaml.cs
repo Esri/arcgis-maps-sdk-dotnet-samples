@@ -96,58 +96,66 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
         private async void Initialize()
         {
-            // Create the custom location data source and configure the AR scene view to use it.
-#if XAMARIN_ANDROID
-            bool locationGranted = await MainActivity.Instance.LocationPermissionGranted();
-            if(!locationGranted)
+            try
             {
-                return;
-            }    
-            _locationDataSource = new ARLocationDataSource(Android.App.Application.Context);
-            _locationDataSource.AltitudeMode = ARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
+                // Create the custom location data source and configure the AR scene view to use it.
+#if XAMARIN_ANDROID
+                bool locationGranted = await MainActivity.Instance.AskForLocationPermission();
+                if (!locationGranted)
+                {
+                    return;
+                }
+                _locationDataSource = new ARLocationDataSource(Android.App.Application.Context);
+                _locationDataSource.AltitudeMode = ARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
 #elif __IOS__
             _locationDataSource = new ARLocationDataSource();
 #endif
-            MyARSceneView.LocationDataSource = _locationDataSource;
-            await MyARSceneView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
+                MyARSceneView.LocationDataSource = _locationDataSource;
+                await MyARSceneView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
 
-            // Create the scene and show it.
-            _scene = new Scene(Basemap.CreateImagery());
-            MyARSceneView.Scene = _scene;
+                // Create the scene and show it.
+                _scene = new Scene(Basemap.CreateImagery());
+                MyARSceneView.Scene = _scene;
 
-            // Create and add the elevation surface.
-            _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
-            _elevationSurface = new Surface();
-            _elevationSurface.ElevationSources.Add(_elevationSource);
-            MyARSceneView.Scene.BaseSurface = _elevationSurface;
+                // Create and add the elevation surface.
+                _elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+                _elevationSurface = new Surface();
+                _elevationSurface.ElevationSources.Add(_elevationSource);
+                MyARSceneView.Scene.BaseSurface = _elevationSurface;
 
-            // Hide the surface in AR.
-            _elevationSurface.NavigationConstraint = NavigationConstraint.None;
-            _elevationSurface.Opacity = 0;
+                // Hide the surface in AR.
+                _elevationSurface.NavigationConstraint = NavigationConstraint.None;
+                _elevationSurface.Opacity = 0;
 
-            // Configure the space and atmosphere effects for AR.
-            MyARSceneView.SpaceEffect = SpaceEffect.None;
-            MyARSceneView.AtmosphereEffect = AtmosphereEffect.None;
+                // Configure the space and atmosphere effects for AR.
+                MyARSceneView.SpaceEffect = SpaceEffect.None;
+                MyARSceneView.AtmosphereEffect = AtmosphereEffect.None;
 
-            // Add a graphics overlay for displaying points in AR.
-            _graphicsOverlay = new GraphicsOverlay();
-            _graphicsOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
-            _graphicsOverlay.Renderer = new SimpleRenderer(_tappedPointSymbol);
-            MyARSceneView.GraphicsOverlays.Add(_graphicsOverlay);
+                // Add a graphics overlay for displaying points in AR.
+                _graphicsOverlay = new GraphicsOverlay();
+                _graphicsOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
+                _graphicsOverlay.Renderer = new SimpleRenderer(_tappedPointSymbol);
+                MyARSceneView.GraphicsOverlays.Add(_graphicsOverlay);
 
-            // Add the exisiting features to the scene.
-            FeatureLayer treeLayer = new FeatureLayer(_featureTable);
-            treeLayer.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
-            MyARSceneView.Scene.OperationalLayers.Add(treeLayer);
+                // Add the exisiting features to the scene.
+                FeatureLayer treeLayer = new FeatureLayer(_featureTable);
+                treeLayer.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
+                MyARSceneView.Scene.OperationalLayers.Add(treeLayer);
 
-            // Add the event for the user tapping the screen.
-            MyARSceneView.GeoViewTapped += ARViewTapped;
+                // Add the event for the user tapping the screen.
+                MyARSceneView.GeoViewTapped += ARViewTapped;
 
-            // Disable scene interaction.
-            MyARSceneView.InteractionOptions = new SceneViewInteractionOptions() { IsEnabled = false };
+                // Disable scene interaction.
+                MyARSceneView.InteractionOptions = new SceneViewInteractionOptions() { IsEnabled = false };
 
-            // Enable the calibrate button.
-            CalibrateButton.IsEnabled = true;
+                // Enable the calibrate button.
+                CalibrateButton.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                await Application.Current.MainPage.DisplayAlert("Error", "Could not create feature", "OK");
+            }
         }
 
         private void ARViewTapped(object sender, GeoViewInputEventArgs e)

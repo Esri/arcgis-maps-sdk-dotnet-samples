@@ -30,6 +30,7 @@ using UIKit;
 using Android.App;
 using Application = Xamarin.Forms.Application;
 using Xamarin.Auth;
+using ArcGISRuntime.Droid;
 using System.IO;
 using Esri.ArcGISRuntime.Xamarin.Forms;
 #endif
@@ -70,16 +71,27 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             // Create and add the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
-            MyMapView.PropertyChanged += async (o, e) =>
+            // Start the location display on the mapview.
+            try
             {
-                if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                // Permission request only needed on Android.
+#if XAMARIN_ANDROID
+                // See implementation in MainActivity.cs in the Android platform project.
+                bool permissionGranted = await MainActivity.Instance.AskForLocationPermission();
+                if (!permissionGranted)
                 {
-                    // Configure location display.
-                    MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-                    await MyMapView.LocationDisplay.DataSource.StartAsync();
-                    MyMapView.LocationDisplay.IsEnabled = true;
+                    throw new Exception("Location permission not granted.");
                 }
-            };
+#endif
+                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+                await MyMapView.LocationDisplay.DataSource.StartAsync();
+                MyMapView.LocationDisplay.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+            }
 
             // Enable authentication.
             SetOAuthInfo();

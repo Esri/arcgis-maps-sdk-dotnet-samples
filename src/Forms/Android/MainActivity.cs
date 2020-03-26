@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Droid
         private Esri.ArcGISRuntime.Xamarin.Forms.MapView _lastUsedMapView;
         private TaskCompletionSource<bool> _permissionTCS;
 
-        public async Task<bool> LocationPermissionGranted()
+        public async Task<bool> AskForLocationPermission()
         {
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
@@ -112,14 +112,7 @@ namespace ArcGISRuntime.Droid
             }
             else if (requestCode == LocationRequesNoMap)
             {
-                if (grantResults.Length == 1 && grantResults[0] == Permission.Granted)
-                {
-                    _permissionTCS?.TrySetResult(true);
-                }
-                else
-                {
-                    _permissionTCS.SetException(new Exception("Permission not granted."));
-                }
+                _permissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
             }
         }
 

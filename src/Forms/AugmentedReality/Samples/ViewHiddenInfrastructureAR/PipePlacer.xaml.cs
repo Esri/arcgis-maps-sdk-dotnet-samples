@@ -16,6 +16,10 @@ using System.Diagnostics;
 using System.Linq;
 using Xamarin.Forms;
 
+#if XAMARIN_ANDROID
+using ArcGISRuntime.Droid;
+#endif
+
 namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -47,17 +51,27 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             // Create and add the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Configure location display.
-            MyMapView.PropertyChanged += async (o, e) =>
+            // Start the location display on the mapview.
+            try
             {
-                if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                // Permission request only needed on Android.
+#if XAMARIN_ANDROID
+                // See implementation in MainActivity.cs in the Android platform project.
+                bool permissionGranted = await MainActivity.Instance.AskForLocationPermission();
+                if (!permissionGranted)
                 {
-                    // Configure location display.
-                    MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-                    await MyMapView.LocationDisplay.DataSource.StartAsync();
-                    MyMapView.LocationDisplay.IsEnabled = true;
+                    throw new Exception("Location permission not granted.");
                 }
-            };
+#endif
+                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+                await MyMapView.LocationDisplay.DataSource.StartAsync();
+                MyMapView.LocationDisplay.IsEnabled = true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+            }
 
             // Add a graphics overlay for the drawn pipes.
             MyMapView.GraphicsOverlays.Add(_pipesOverlay);
@@ -75,7 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                 _elevationSurface.ElevationSources.Add(_elevationSource);
                 await _elevationSurface.LoadAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 await Application.Current.MainPage.DisplayAlert("Error", "Failed to load elevation.", "OK");

@@ -8,5 +8,8 @@
     <AndroidAsset Include="..\Shared\Samples\**\*.*">
       <Link>Samples\%(RecursiveDir)%(Filename)%(Extension)</Link>
     </AndroidAsset>
+    <AndroidAsset Include="..\AugmentedReality\Samples\**\*.*">
+      <Link>Samples\Augmented reality\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </AndroidAsset>
   </ItemGroup>
 </Project>

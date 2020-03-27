@@ -63,9 +63,15 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
                     throw new Exception("Location permission not granted.");
                 }
 #endif
-                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-                await MyMapView.LocationDisplay.DataSource.StartAsync();
-                MyMapView.LocationDisplay.IsEnabled = true;
+                MyMapView.PropertyChanged += async (o, e) =>
+                {
+                    if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                    {
+                        MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+                        await MyMapView.LocationDisplay.DataSource.StartAsync();
+                        MyMapView.LocationDisplay.IsEnabled = true;
+                    }
+                };
             }
             catch (Exception ex)
             {

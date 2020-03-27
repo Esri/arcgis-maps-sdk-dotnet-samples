@@ -51,33 +51,33 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             // Create and add the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Start the location display on the mapview.
-            try
+            MyMapView.PropertyChanged += async (o, e) =>
             {
-                // Permission request only needed on Android.
-#if XAMARIN_ANDROID
-                // See implementation in MainActivity.cs in the Android platform project.
-                bool permissionGranted = await MainActivity.Instance.AskForLocationPermission();
-                if (!permissionGranted)
+                if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
                 {
-                    throw new Exception("Location permission not granted.");
-                }
-#endif
-                MyMapView.PropertyChanged += async (o, e) =>
-                {
-                    if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                    // Start the location display on the mapview.
+                    try
                     {
+                        // Permission request only needed on Android.
+#if XAMARIN_ANDROID
+                        // See implementation in MainActivity.cs in the Android platform project.
+                        bool permissionGranted = await MainActivity.Instance.AskForLocationPermission();
+                        if (!permissionGranted)
+                        {
+                            throw new Exception("Location permission not granted.");
+                        }
+#endif
                         MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
                         await MyMapView.LocationDisplay.DataSource.StartAsync();
                         MyMapView.LocationDisplay.IsEnabled = true;
                     }
-                };
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
-            }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                        await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+                    }
+                }
+            };
 
             // Add a graphics overlay for the drawn pipes.
             MyMapView.GraphicsOverlays.Add(_pipesOverlay);

@@ -107,12 +107,13 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 }
                 _locationDataSource = new ARLocationDataSource(Android.App.Application.Context);
                 _locationDataSource.AltitudeMode = ARLocationDataSource.AltitudeAdjustmentMode.NmeaParsedMsl;
-#elif __IOS__
-            _locationDataSource = new ARLocationDataSource();
-#endif
+
                 MyARSceneView.LocationDataSource = _locationDataSource;
                 await MyARSceneView.StartTrackingAsync(ARLocationTrackingMode.Continuous);
-
+#elif __IOS__
+                _locationDataSource = new ARLocationDataSource();
+                MyARSceneView.LocationDataSource = _locationDataSource;
+#endif
                 // Create the scene and show it.
                 _scene = new Scene(Basemap.CreateImagery());
                 MyARSceneView.Scene = _scene;

@@ -202,9 +202,17 @@ namespace ArcGISRuntime.UWP.Samples.NavigateRoute
                 _routeTraveledGraphic.Geometry = status.RouteResult.Routes[0].RouteGeometry;
 
                 // Navigate to the next stop (if there are stops remaining).
-                if(status.RemainingDestinationCount > 1)
+                if (status.RemainingDestinationCount > 1)
                 {
                     await _tracker.SwitchToNextDestinationAsync();
+                }
+                else
+                {
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        // Stop the simulated location data source.
+                        MyMapView.LocationDisplay.DataSource.StopAsync();
+                    });
                 }
             }
 

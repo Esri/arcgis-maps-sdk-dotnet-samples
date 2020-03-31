@@ -208,6 +208,15 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
                 {
                     _tracker.SwitchToNextDestinationAsync();
                 }
+                else
+                {
+                    // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
+                    BeginInvokeOnMainThread(() =>
+                    {
+                        // Stop the simulated location data source.
+                        _myMapView.LocationDisplay.DataSource.StopAsync();
+                    });
+                }
             }
 
             // Show the status information in the UI.

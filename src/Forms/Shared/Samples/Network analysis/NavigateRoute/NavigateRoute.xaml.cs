@@ -200,6 +200,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
                 {
                     _tracker.SwitchToNextDestinationAsync();
                 }
+
+                // Stop the simulated location data source.
+                MyMapView.LocationDisplay.DataSource.StopAsync();
             }
 
             Device.BeginInvokeOnMainThread(() =>

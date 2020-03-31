@@ -221,6 +221,14 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
                 {
                     _tracker.SwitchToNextDestinationAsync();
                 }
+                else
+                {
+                    RunOnUiThread(() =>
+                    {
+                        // Stop the simulated location data source.
+                        _myMapView.LocationDisplay.DataSource.StopAsync();
+                    });
+                }
             }
 
             _statusMessage = statusMessageBuilder.ToString().TrimEnd('\n').TrimEnd('\r');

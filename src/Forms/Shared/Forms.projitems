@@ -224,7 +224,6 @@
       <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
       <SubType>Code</SubType>

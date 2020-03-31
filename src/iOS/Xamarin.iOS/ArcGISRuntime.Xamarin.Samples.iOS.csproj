@@ -235,7 +235,7 @@
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_180.png">
       <Visible>false</Visible>
     </ImageAsset>
-        <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_400.png">
+    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_400.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_1024.png">
@@ -472,7 +472,6 @@
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.cs" />
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.cs" />
-    <Compile Include="Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network analysis\NavigateRoute\NavigateRoute.cs" />
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.cs" />
     <Compile Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.cs" />
@@ -695,10 +694,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2740</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2740</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

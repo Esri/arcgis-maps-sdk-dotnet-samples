@@ -391,7 +391,6 @@
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml.cs">
       <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
     </Compile>
@@ -1749,10 +1748,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2740</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2740</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

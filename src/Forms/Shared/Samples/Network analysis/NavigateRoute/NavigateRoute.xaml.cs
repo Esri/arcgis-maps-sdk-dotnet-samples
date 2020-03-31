@@ -149,7 +149,11 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             MyMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
 
             // Add a data source for the location display.
-            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(new FakeLocationProvider(_route.RouteGeometry), _tracker);
+            var simulationParameters = new SimulationParameters(DateTimeOffset.Now, 40.0);
+            var simulatedDataSource = new SimulatedLocationDataSource();
+            simulatedDataSource.SetLocationsWithPolyline(_route.RouteGeometry, simulationParameters);
+            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(simulatedDataSource, _tracker);
+
             // Use this instead if you want real location:
             // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 

@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Esri.ArcGISRuntime.Xamarin.Forms;
 
 #if __IOS__
 using Xamarin.Auth;
@@ -71,27 +72,34 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             // Create and add the map.
             MyMapView.Map = new Map(Basemap.CreateImagery());
 
-            // Start the location display on the mapview.
-            try
+            MyMapView.PropertyChanged += async (o, e) =>
             {
-                // Permission request only needed on Android.
-#if XAMARIN_ANDROID
-                // See implementation in MainActivity.cs in the Android platform project.
-                bool permissionGranted = await MainActivity.Instance.AskForLocationPermission();
-                if (!permissionGranted)
+                // Start the location display on the mapview.
+                try
                 {
-                    throw new Exception("Location permission not granted.");
-                }
+                    // Permission request only needed on Android.
+#if XAMARIN_ANDROID
+                    // See implementation in MainActivity.cs in the Android platform project.
+                    bool permissionGranted = await MainActivity.Instance.AskForLocationPermission();
+                    if (!permissionGranted)
+                    {
+                        throw new Exception("Location permission not granted.");
+                    }
 #endif
-                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-                await MyMapView.LocationDisplay.DataSource.StartAsync();
-                MyMapView.LocationDisplay.IsEnabled = true;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
-            }
+
+                    if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                    {
+                        MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+                        await MyMapView.LocationDisplay.DataSource.StartAsync();
+                        MyMapView.LocationDisplay.IsEnabled = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                    await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+                }
+            };
 
             // Enable authentication.
             SetOAuthInfo();
@@ -128,7 +136,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             HelpLabel.Text = "Tap to set a start point";
         }
 
-        private void MapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             if (_startPoint == null)
             {

@@ -35,7 +35,6 @@
         "VoiceGuidance"
     ],
     "snippets": [
-        "FakeLocationProvider.cs",
         "NavigateRoute.cs"
     ],
     "title": "Navigate route"

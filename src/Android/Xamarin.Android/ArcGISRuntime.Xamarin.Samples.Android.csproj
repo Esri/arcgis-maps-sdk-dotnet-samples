@@ -560,13 +560,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.ARToolkit">
-      <Version>100.7.0</Version>
+      <Version>100.7.1</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2741</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.Android">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2741</Version>
     </PackageReference>
     <PackageReference Include="PCLCrypto">
       <Version>2.0.147</Version>

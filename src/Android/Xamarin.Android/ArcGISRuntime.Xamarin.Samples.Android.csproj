@@ -281,7 +281,6 @@
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.cs" />
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.cs" />
-    <Compile Include="Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network analysis\NavigateRoute\NavigateRoute.cs" />
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.cs" />
     <Compile Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.cs" />

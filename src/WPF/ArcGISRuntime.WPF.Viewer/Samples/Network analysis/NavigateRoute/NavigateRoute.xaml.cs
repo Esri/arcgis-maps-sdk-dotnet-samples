@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.WPF.Topics.NavigateRoute;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
@@ -22,7 +21,9 @@ using System.Threading.Tasks;
 using System.Windows;
 
 #if !NET_CORE_3
+
 using System.Speech.Synthesis;
+
 #endif
 
 namespace ArcGISRuntime.WPF.Samples.NavigateRoute
@@ -45,6 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
         private IReadOnlyList<DirectionManeuver> _directionsList;
 
 #if !NET_CORE_3
+
         // Speech synthesizer to play voice guidance audio.
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
 #endif
@@ -157,7 +159,11 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
             MyMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
 
             // Add a data source for the location display.
-            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(new FakeLocationProvider(_route.RouteGeometry), _tracker);
+            var simulationParameters = new SimulationParameters(DateTimeOffset.Now, 40.0);
+            var simulatedDataSource = new SimulatedLocationDataSource();
+            simulatedDataSource.SetLocationsWithPolyline(_route.RouteGeometry, simulationParameters);
+            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(simulatedDataSource, _tracker);
+
             // Use this instead if you want real location:
             // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 
@@ -203,6 +209,14 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
                 if (status.RemainingDestinationCount > 1)
                 {
                     _tracker.SwitchToNextDestinationAsync();
+                }
+                else
+                {
+                    Dispatcher.BeginInvoke((Action)delegate ()
+                    {
+                        // Stop the simulated location data source.
+                        MyMapView.LocationDisplay.DataSource.StopAsync();
+                    });
                 }
             }
 

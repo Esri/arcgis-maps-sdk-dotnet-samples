@@ -155,7 +155,11 @@ namespace ArcGISRuntime.UWP.Samples.NavigateRoute
             MyMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
 
             // Add a data source for the location display.
-            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(new FakeLocationProvider(_route.RouteGeometry), _tracker);
+            var simulationParameters = new SimulationParameters(DateTimeOffset.Now, 40.0);
+            var simulatedDataSource = new SimulatedLocationDataSource();
+            simulatedDataSource.SetLocationsWithPolyline(_route.RouteGeometry, simulationParameters);
+            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(simulatedDataSource, _tracker);
+
             // Use this instead if you want real location:
             // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 
@@ -198,9 +202,17 @@ namespace ArcGISRuntime.UWP.Samples.NavigateRoute
                 _routeTraveledGraphic.Geometry = status.RouteResult.Routes[0].RouteGeometry;
 
                 // Navigate to the next stop (if there are stops remaining).
-                if(status.RemainingDestinationCount > 1)
+                if (status.RemainingDestinationCount > 1)
                 {
                     await _tracker.SwitchToNextDestinationAsync();
+                }
+                else
+                {
+                    await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                    {
+                        // Stop the simulated location data source.
+                        MyMapView.LocationDisplay.DataSource.StopAsync();
+                    });
                 }
             }
 

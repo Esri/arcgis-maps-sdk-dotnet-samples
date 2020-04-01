@@ -391,7 +391,6 @@
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml.cs">
       <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
     </Compile>

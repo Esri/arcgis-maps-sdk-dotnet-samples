@@ -12,7 +12,7 @@
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" NavigationCompleted="OnViewpointUpdated" />
+        <esriUI:MapView x:Name="MyMapView" NavigationCompleted="OnNavigationCompleted" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Margin="5" Text="Utility association types" />

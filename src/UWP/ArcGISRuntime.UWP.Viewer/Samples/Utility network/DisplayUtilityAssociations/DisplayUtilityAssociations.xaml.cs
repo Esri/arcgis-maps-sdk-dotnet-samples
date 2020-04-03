@@ -99,6 +99,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayUtilityAssociations
                 legend[UtilityAssociationType.Connectivity] = await connectSwatch?.ToImageSourceAsync();
                 AssociationLegend.ItemsSource = legend;
 
+                // Set the starting viewpoint.
                 await MyMapView.SetViewpointAsync(InitialViewpoint);
             }
             catch (Exception ex)
@@ -107,7 +108,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayUtilityAssociations
             }
         }
 
-        private async void OnViewpointUpdated(object sender, EventArgs e)
+        private async void OnNavigationCompleted(object sender, EventArgs e)
         {
             try
             {

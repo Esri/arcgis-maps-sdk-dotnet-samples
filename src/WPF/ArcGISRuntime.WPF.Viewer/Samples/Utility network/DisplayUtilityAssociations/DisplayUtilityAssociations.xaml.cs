@@ -18,7 +18,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
 {
@@ -48,9 +47,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
 
         private UtilityNetwork _utilityNetwork;
 
-        // Timer for calling draw method.
-        private DispatcherTimer _dispatcherTimer;
-
         public DisplayUtilityAssociations()
         {
             InitializeComponent();
@@ -64,10 +60,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
                 // Create the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServerUrl));
 
-                MyMapView.Map = new Map(Basemap.CreateTopographicVector())
-                {
-                    InitialViewpoint = InitialViewpoint
-                };
+                MyMapView.Map = new Map(Basemap.CreateTopographicVector());
 
                 // Get all of the edges and junctions in the network.
                 IEnumerable<UtilityNetworkSource> edges = _utilityNetwork.Definition.NetworkSources.Where(n => n.SourceType == UtilityNetworkSourceType.Edge);
@@ -104,15 +97,8 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
                 legend[UtilityAssociationType.Connectivity] = await connectSwatch?.ToImageSourceAsync();
                 AssociationLegend.ItemsSource = legend;
 
-                // Create a dispatcher timer for calling the method to add graphics for associations.
-                _dispatcherTimer = new DispatcherTimer(
-                    TimeSpan.FromSeconds(1),
-                    DispatcherPriority.Normal,
-                    AddAssociationGraphicsAsync,
-                    Application.Current.Dispatcher);
-
-                // Start the dispatcher timer to draw the initial association graphics.
-                _dispatcherTimer.Start();
+                // Set the starting viewpoint.
+                await MyMapView.SetViewpointAsync(InitialViewpoint);
             }
             catch (Exception ex)
             {
@@ -120,12 +106,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
             }
         }
 
-        private void OnGeoViewpointChanged(object sender, EventArgs e)
-        {
-            _dispatcherTimer.Start();
-        }
-
-        private async void AddAssociationGraphicsAsync(object sender, EventArgs e)
+        private async void OnNavigationCompleted(object sender, EventArgs e)
         {
             try
             {
@@ -171,10 +152,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-            finally
-            {
-                _dispatcherTimer.Stop();
             }
         }
     }

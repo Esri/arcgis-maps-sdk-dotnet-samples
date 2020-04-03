@@ -107,7 +107,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayUtilityAssociations
             }
         }
 
-        private async void OnGeoViewpointChanged(object sender, EventArgs e)
+        private async void OnViewpointUpdated(object sender, EventArgs e)
         {
             try
             {

@@ -42,7 +42,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         private Scene _scene;
 
         // Track when user is changing between AR and GPS localization.
-        private bool _changingScale;
+        private bool _changingTrackingMode;
 
         // Feature table for collected data about trees.
         private ServiceFeatureTable _featureTable = new ServiceFeatureTable(new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/AR_Tree_Survey/FeatureServer/0"));
@@ -217,11 +217,11 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         private async void RealScaleValueChanged(object sender, EventArgs e)
         {
             // Prevent this from being called concurrently
-            if (_changingScale)
+            if (_changingTrackingMode)
             {
                 return;
             }
-            _changingScale = true;
+            _changingTrackingMode = true;
 
             // Disable the associated UI controls while switching.
             RoamingButton.IsEnabled = false;
@@ -246,7 +246,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                 ElevationSlider.IsEnabled = false;
                 RoamingButton.IsEnabled = true;
             }
-            _changingScale = false;
+            _changingTrackingMode = false;
         }
 
         private async void AddButtonPressed(object sender, EventArgs e)

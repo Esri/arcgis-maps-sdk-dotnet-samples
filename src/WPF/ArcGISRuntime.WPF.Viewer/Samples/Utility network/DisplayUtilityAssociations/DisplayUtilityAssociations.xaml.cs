@@ -26,7 +26,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
         "Utility network",
         "Create graphics for utility associations in a utility network.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayUtilityAssociations
     {
         // Feature server for the utility network.

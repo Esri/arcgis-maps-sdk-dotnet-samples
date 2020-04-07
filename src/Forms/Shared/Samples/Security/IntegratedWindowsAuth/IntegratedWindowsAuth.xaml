@@ -32,7 +32,7 @@
                         Text="Search secure portal"
                         Clicked="SearchSecureMapsButtonClick"/>
                 <Button Grid.Row="1" Grid.Column="1"
-                        Text="Search public portal"
+                        Text="Search ArcGIS online portal"
                         Clicked="SearchPublicMapsButtonClick"/>
                 <ListView x:Name="WebMapListView"
                         Grid.Row="2" Grid.ColumnSpan="2" />

@@ -105,7 +105,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             _messagesTextView = new TextView(this);
 
             // Buttons to search a public and private portal.
-            _searchPublicPortalButton = new Button(this) { Text = "Search public" };
+            _searchPublicPortalButton = new Button(this) { Text = "Search ArcGIS Online" };
             _searchSecurePortalButton = new Button(this) { Text = "Search secure" };
 
             // Event handlers to perform the appropriate search.

@@ -133,7 +133,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 
             // Button for searching the public portal.
             _searchPublicPortalButton = new UIButton();
-            _searchPublicPortalButton.SetTitle("Search public", UIControlState.Normal);
+            _searchPublicPortalButton.SetTitle("Search ArcGIS online", UIControlState.Normal);
             _searchPublicPortalButton.SetTitleColor(View.TintColor, UIControlState.Normal);
             _searchPublicPortalButton.TouchUpInside += SearchPublicPortalButton_Click;
 

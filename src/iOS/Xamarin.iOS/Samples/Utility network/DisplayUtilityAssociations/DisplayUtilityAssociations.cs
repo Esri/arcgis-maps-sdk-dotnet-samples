@@ -96,9 +96,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
 
                 // Populate the legend in the UI.
                 RuntimeImage attachmentSwatch = await _attachmentSymbol.CreateSwatchAsync();
-                _connectivityImage.Image = await attachmentSwatch?.ToImageSourceAsync();
+                _attachmentImage.Image = await attachmentSwatch?.ToImageSourceAsync();
                 RuntimeImage connectSwatch = await _connectivitySymbol.CreateSwatchAsync();
-                _attachmentImage.Image = await connectSwatch?.ToImageSourceAsync();
+                _connectivityImage.Image = await connectSwatch?.ToImageSourceAsync();
 
                 // Set the starting viewpoint.
                 await _myMapView.SetViewpointAsync(InitialViewpoint);
@@ -112,7 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
         private async void OnNavigationCompleted(object sender, EventArgs e)
         {
             try
-            { 
+            {
                 // Check if the current viewpoint is outside of the max scale.
                 if (_myMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale)?.TargetScale >= _maxScale)
                 {
@@ -176,13 +176,13 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
 
             toolbar.Items = new[]
             {
-                new UIBarButtonItem() { CustomView = _connectivityImage},
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                new UIBarButtonItem() { CustomView = connectivityLabel},
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem() { CustomView = _attachmentImage},
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 new UIBarButtonItem() { CustomView = attachmentLabel},
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem() { CustomView = _connectivityImage},
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem() { CustomView = connectivityLabel},
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
             };
 

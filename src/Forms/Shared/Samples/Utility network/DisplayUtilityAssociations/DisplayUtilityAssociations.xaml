@@ -1,9 +1,26 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations.DisplayUtilityAssociations">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+﻿<ContentPage
+    x:Class="ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations.DisplayUtilityAssociations"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    xmlns:resources="clr-namespace:Forms.Resources">
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView" BindingContext="{x:Reference Name=ResponsiveFormContainer}" NavigationCompleted="OnNavigationCompleted" Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="1" Text="Attachment" />
+                <Label Grid.Row="1" Grid.Column="1" Text="Connectivity" />
+                <Image x:Name="AttachmentImage" Grid.Row="0" Grid.Column="0" WidthRequest="25" />
+                <Image x:Name="ConnectivityImage" Grid.Row="1" Grid.Column="0" WidthRequest="25" />
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
 </ContentPage>

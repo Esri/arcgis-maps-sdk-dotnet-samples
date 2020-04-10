@@ -19,7 +19,8 @@
             BackgroundColor="#AA000000"
             HorizontalOptions="FillAndExpand"
             Text="Connecting to services..."
-            TextColor="White" />
+            TextColor="White"
+            FontSize="Title"/>
         <Button
             x:Name="StartARButton"
             Grid.Row="2"

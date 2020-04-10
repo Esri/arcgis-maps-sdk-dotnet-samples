@@ -78,17 +78,17 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 try
                 {
                     // Permission request only needed on Android.
-#if XAMARIN_ANDROID
-                    // See implementation in MainActivity.cs in the Android platform project.
-                    bool permissionGranted = await MainActivity.Instance.AskForLocationPermission();
-                    if (!permissionGranted)
-                    {
-                        throw new Exception("Location permission not granted.");
-                    }
-#endif
-
                     if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
                     {
+#if XAMARIN_ANDROID
+                        // See implementation in MainActivity.cs in the Android platform project.
+                        bool permissionGranted = await MainActivity.Instance.AskForLocationPermission();
+                        if (!permissionGranted)
+                        {
+                            throw new Exception("Location permission not granted.");
+                        }
+#endif
+
                         MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
                         await MyMapView.LocationDisplay.DataSource.StartAsync();
                         MyMapView.LocationDisplay.IsEnabled = true;

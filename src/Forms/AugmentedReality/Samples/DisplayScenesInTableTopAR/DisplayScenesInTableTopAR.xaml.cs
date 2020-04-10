@@ -129,6 +129,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
             // The width of the scene content is about 800 meters.
             double geographicContentWidth = 800;
 
+            // Set the clipping distance for the scene.
+            MyARSceneView.ClippingDistance = geographicContentWidth/2;
+
             // The desired physical width of the scene is 1 meter.
             double tableContainerWidth = 1;
 

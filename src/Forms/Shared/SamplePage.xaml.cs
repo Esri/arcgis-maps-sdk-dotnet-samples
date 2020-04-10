@@ -65,6 +65,10 @@ namespace ArcGISRuntime
                 string baseUrl = "";
                 string readmePath = "";
                 string basePath = "";
+
+                // Handle AR edge cases
+                folderPath = folderPath.Replace("RoutePlanner", "NavigateAR").Replace("PipePlacer", "ViewHiddenInfrastructureAR");
+
 #if WINDOWS_UWP
                 baseUrl = "ms-appx-web:///";
                 basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";

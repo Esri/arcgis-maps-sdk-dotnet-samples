@@ -49,8 +49,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
         private const double _maxScale = 2000;
 
         // Symbols for the associations.
-        private Symbol _attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Green, 5d);
-        private Symbol _connectivitySymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Red, 5d);
+        private readonly Symbol _attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Green, 5d);
+        private readonly Symbol _connectivitySymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Red, 5d);
 
         // Overlay to hold graphics for all of the associations.
         private GraphicsOverlay _associationsOverlay;

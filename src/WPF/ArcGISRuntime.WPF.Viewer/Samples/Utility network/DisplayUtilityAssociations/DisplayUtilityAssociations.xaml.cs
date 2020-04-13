@@ -38,12 +38,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
         private const double _maxScale = 2000;
 
         // Symbols for the associations.
-        private Symbol _attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Green, 5d);
-        private Symbol _connectivitySymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Red, 5d);
+        private readonly Symbol _attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Green, 5d);
+        private readonly Symbol _connectivitySymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Red, 5d);
 
         // Overlay to hold graphics for all of the associations.
         private GraphicsOverlay _associationsOverlay;
 
+        // Utility network that will be created from the feature server.
         private UtilityNetwork _utilityNetwork;
 
         public DisplayUtilityAssociations()
@@ -59,6 +60,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
                 // Create the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServerUrl));
 
+                // Create the map.
                 MyMapView.Map = new Map(Basemap.CreateTopographicVector());
 
                 // Get all of the edges and junctions in the network.
@@ -90,10 +92,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
                 // Populate the legend in the UI.
                 Dictionary<UtilityAssociationType, System.Windows.Media.ImageSource> legend;
                 legend = new Dictionary<UtilityAssociationType, System.Windows.Media.ImageSource>();
+
                 RuntimeImage attachmentSwatch = await _attachmentSymbol.CreateSwatchAsync();
                 legend[UtilityAssociationType.Attachment] = await attachmentSwatch?.ToImageSourceAsync();
+
                 RuntimeImage connectSwatch = await _connectivitySymbol.CreateSwatchAsync();
                 legend[UtilityAssociationType.Connectivity] = await connectSwatch?.ToImageSourceAsync();
+
                 AssociationLegend.ItemsSource = legend;
 
                 // Set the starting viewpoint.
@@ -144,6 +149,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
                     }
                 }
             }
+
             // This is thrown when there are too many associations in the extent.
             catch (TooManyAssociationsException)
             {

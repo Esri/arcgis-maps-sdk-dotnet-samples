@@ -55,6 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
         // Overlay to hold graphics for all of the associations.
         private GraphicsOverlay _associationsOverlay;
 
+        // Utility network that will be created from the feature server.
         private UtilityNetwork _utilityNetwork;
 
         protected override void OnCreate(Bundle bundle)
@@ -74,6 +75,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                 // Create the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServerUrl));
 
+                // Create the map.
                 _myMapView.Map = new Map(Basemap.CreateTopographicVector());
 
                 // Get all of the edges and junctions in the network.
@@ -106,6 +108,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                 RuntimeImage attachmentSwatch = await _attachmentSymbol.CreateSwatchAsync();
                 Android.Graphics.Bitmap attachmentBitmap = await attachmentSwatch?.ToImageSourceAsync();
                 _attachmentImageView.SetImageBitmap(attachmentBitmap);
+
                 RuntimeImage connectSwatch = await _connectivitySymbol.CreateSwatchAsync();
                 Android.Graphics.Bitmap connectivityBitmap = await connectSwatch?.ToImageSourceAsync();
                 _connectivityImageView.SetImageBitmap(connectivityBitmap);
@@ -158,6 +161,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                     }
                 }
             }
+
             // This is thrown when there are too many associations in the extent.
             catch (TooManyAssociationsException)
             {

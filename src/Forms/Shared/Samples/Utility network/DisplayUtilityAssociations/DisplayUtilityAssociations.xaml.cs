@@ -26,7 +26,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
         "Utility network",
         "Create graphics for utility associations in a utility network.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayUtilityAssociations : ContentPage
     {
         // Feature server for the utility network.
@@ -45,6 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
         // Overlay to hold graphics for all of the associations.
         private GraphicsOverlay _associationsOverlay;
 
+        // Utility network that will be created from the feature server.
         private UtilityNetwork _utilityNetwork;
 
         public DisplayUtilityAssociations()
@@ -60,6 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                 // Create the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServerUrl));
 
+                // Create the map.
                 MyMapView.Map = new Map(Basemap.CreateTopographicVector());
 
                 // Get all of the edges and junctions in the network.
@@ -91,6 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                 // Populate the legend in the UI.
                 RuntimeImage attachmentSwatch = await _attachmentSymbol.CreateSwatchAsync();
                 AttachmentImage.Source = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(attachmentSwatch);
+                
                 RuntimeImage connectSwatch = await _connectivitySymbol.CreateSwatchAsync();
                 ConnectivityImage.Source = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(connectSwatch);
 
@@ -142,6 +144,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                     }
                 }
             }
+
             // This is thrown when there are too many associations in the extent.
             catch (TooManyAssociationsException)
             {

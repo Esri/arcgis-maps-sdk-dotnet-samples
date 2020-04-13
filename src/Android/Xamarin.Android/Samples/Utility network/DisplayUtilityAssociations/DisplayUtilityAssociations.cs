@@ -48,10 +48,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
         // Max scale at which to create graphics for the associations.
         private const double _maxScale = 2000;
 
-        // Symbols for the associations.
-        private readonly Symbol _attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Green, 5d);
-        private readonly Symbol _connectivitySymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Red, 5d);
-
         // Overlay to hold graphics for all of the associations.
         private GraphicsOverlay _associationsOverlay;
 
@@ -104,17 +100,29 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                 _associationsOverlay = new GraphicsOverlay();
                 _myMapView.GraphicsOverlays.Add(_associationsOverlay);
 
+                // Symbols for the associations.
+                Symbol attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Green, 5d);
+                Symbol connectivitySymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Red, 5d);
+
+                // Create a renderer for the associations.
+                var attachmentValue = new UniqueValue("Attachment", string.Empty, attachmentSymbol, UtilityAssociationType.Attachment.ToString());
+                var connectivityValue = new UniqueValue("Connectivity", string.Empty, connectivitySymbol, UtilityAssociationType.Connectivity.ToString());
+                _associationsOverlay.Renderer = new UniqueValueRenderer(new List<string> { "AssociationType" }, new List<UniqueValue> { attachmentValue, connectivityValue }, string.Empty, null);
+
                 // Populate the legend in the UI.
-                RuntimeImage attachmentSwatch = await _attachmentSymbol.CreateSwatchAsync();
+                RuntimeImage attachmentSwatch = await attachmentSymbol.CreateSwatchAsync();
                 Android.Graphics.Bitmap attachmentBitmap = await attachmentSwatch?.ToImageSourceAsync();
                 _attachmentImageView.SetImageBitmap(attachmentBitmap);
 
-                RuntimeImage connectSwatch = await _connectivitySymbol.CreateSwatchAsync();
+                RuntimeImage connectSwatch = await connectivitySymbol.CreateSwatchAsync();
                 Android.Graphics.Bitmap connectivityBitmap = await connectSwatch?.ToImageSourceAsync();
                 _connectivityImageView.SetImageBitmap(connectivityBitmap);
 
                 // Set the starting viewpoint.
                 await _myMapView.SetViewpointAsync(InitialViewpoint);
+
+                // Add the associations in the starting viewpoint.
+                AddAssociations();
             }
             catch (Exception ex)
             {
@@ -122,7 +130,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
             }
         }
 
-        private async void OnNavigationCompleted(object sender, EventArgs e)
+        private async void AddAssociations()
         {
             try
             {
@@ -150,15 +158,10 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                     }
 
                     // Add a graphic for the association.
-                    Symbol symbol = null;
-                    if (association.AssociationType == UtilityAssociationType.Attachment) symbol = _attachmentSymbol;
-                    else if (association.AssociationType == UtilityAssociationType.Connectivity) symbol = _connectivitySymbol;
-                    if (symbol != null)
-                    {
-                        Graphic graphic = new Graphic(association.Geometry, symbol);
-                        graphic.Attributes["GlobalId"] = association.GlobalId;
-                        _associationsOverlay.Graphics.Add(graphic);
-                    }
+                    Graphic graphic = new Graphic(association.Geometry);
+                    graphic.Attributes["GlobalId"] = association.GlobalId;
+                    graphic.Attributes["AssociationType"] = association.AssociationType.ToString();
+                    _associationsOverlay.Graphics.Add(graphic);
                 }
             }
 
@@ -181,7 +184,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
             _attachmentImageView = FindViewById<ImageView>(Resource.Id.attachmentImage);
             _connectivityImageView = FindViewById<ImageView>(Resource.Id.connectivityImage);
 
-            _myMapView.NavigationCompleted += OnNavigationCompleted;
+            _myMapView.NavigationCompleted += (s, e) => { AddAssociations(); };
         }
     }
 }

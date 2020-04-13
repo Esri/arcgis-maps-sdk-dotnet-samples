@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\CollectDataAR\CollectDataAR.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTableTopAR\DisplayScenesInTabletopAR.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\NavigateAR.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.jpg" />
@@ -19,7 +19,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\CollectDataAR\CollectDataAR.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTableTopAR\DisplayScenesInTabletopAR.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.xaml">
@@ -36,7 +36,7 @@
       <SubType>Code</SubType>
       <DependentUpon>CollectDataAR.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTableTopAR\DisplayScenesInTabletopAR.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>DisplayScenesInTabletopAR.xaml</DependentUpon>
     </Compile>

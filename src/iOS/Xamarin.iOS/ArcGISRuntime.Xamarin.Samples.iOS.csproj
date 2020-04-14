@@ -269,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <None Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <None Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <None Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
@@ -456,6 +457,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.cs" />
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.cs" />
     <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.cs" />

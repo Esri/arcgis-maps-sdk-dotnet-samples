@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
@@ -195,6 +196,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
+      <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
       <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -838,6 +843,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

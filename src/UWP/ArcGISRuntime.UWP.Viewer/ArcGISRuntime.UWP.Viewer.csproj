@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <Content Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <Content Include="Assets\banner-background-purple.png" />
@@ -369,6 +370,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
+      <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
       <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
     </Compile>
@@ -941,6 +945,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

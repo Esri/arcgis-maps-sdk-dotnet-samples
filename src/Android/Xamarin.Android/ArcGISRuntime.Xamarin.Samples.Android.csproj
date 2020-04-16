@@ -74,6 +74,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <None Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <None Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <None Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
@@ -265,6 +266,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.cs" />
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.cs" />
     <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.cs" />
@@ -281,7 +283,6 @@
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
     <Compile Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.cs" />
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.cs" />
-    <Compile Include="Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="Samples\Network analysis\NavigateRoute\NavigateRoute.cs" />
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.cs" />
     <Compile Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.cs" />
@@ -696,6 +697,11 @@
     <AndroidResource Include="Resources\layout\ConfigureSubnetworkTrace.axml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\DisplayUtilityAssociations.axml">
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->

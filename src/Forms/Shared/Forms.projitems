@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg" />
@@ -197,6 +198,10 @@
     <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Resources\IARSample.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Resources\JoystickSlider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
+      <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
       <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -226,7 +231,6 @@
       <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRoute\FakeLocationProvider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -841,6 +845,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

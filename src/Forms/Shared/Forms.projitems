@@ -196,6 +196,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\IARSample.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Resources\JoystickSlider.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
       <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -1,0 +1,22 @@
+{
+    "category": "Augmented reality",
+    "description": "Tap on real-world objects to collect data.",
+    "formal_name": "CollectDataAR",
+    "ignore": false,
+    "images": [
+        "CollectDataAR.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/CollectDataAR.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Collect data in AR"
+}

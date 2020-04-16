@@ -1,0 +1,22 @@
+{
+    "category": "Augmented reality",
+    "description": "Use a route displayed in the real world to navigate.",
+    "formal_name": "NavigateAR",
+    "ignore": false,
+    "images": [
+        "NavigateAR.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/NavigateAR.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Navigate in AR"
+}

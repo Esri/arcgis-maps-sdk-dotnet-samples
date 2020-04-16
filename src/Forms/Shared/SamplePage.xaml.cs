@@ -8,11 +8,16 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISRuntimeXamarin;
 using System;
 using System.Diagnostics;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+
+#if __IOS__
+using UIKit;
+#endif
 
 namespace ArcGISRuntime
 {
@@ -43,9 +48,8 @@ namespace ArcGISRuntime
             //    navigation won't work from within the sample until the parent is manually set.
             sample.Parent = this;
 
-            // Set the title. If the sample control didn't
-            // define the title, use the name from the sample metadata.
-            if (!String.IsNullOrWhiteSpace(sample.Title))
+            // Set the title. If the sample control didn't define the title, use the name from the sample metadata.
+            if (!string.IsNullOrWhiteSpace(sample.Title))
             {
                 Title = sample.Title;
             }
@@ -61,6 +65,10 @@ namespace ArcGISRuntime
                 string baseUrl = "";
                 string readmePath = "";
                 string basePath = "";
+
+                // Handle AR edge cases
+                folderPath = folderPath.Replace("RoutePlanner", "NavigateAR").Replace("PipePlacer", "ViewHiddenInfrastructureAR");
+
 #if WINDOWS_UWP
                 baseUrl = "ms-appx-web:///";
                 basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
@@ -96,9 +104,16 @@ namespace ArcGISRuntime
             }
         }
 
+        protected override void OnAppearing()
+        {
+            if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
+            base.OnAppearing();
+        }
+
         protected override void OnDisappearing()
         {
-            if (_sample is IDisposable) ((IDisposable)_sample).Dispose();
+            if (_sample is IDisposable disposableSample) disposableSample.Dispose();
+            if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
             base.OnDisappearing();
         }
 

@@ -157,9 +157,11 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Photo picker uses photos.</string>
 	<key>MinimumOSVersion</key>
-	<string>11.0</string>
+	<string>11.2</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location information is used to enable location display on maps and to find points of interest nearby.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera used for augmented reality</string>
 	<key>CFBundleDisplayName</key>
 	<string>ArcGIS Runtime SDK for .NET (Forms)</string>
 	<key>CFBundleName</key>

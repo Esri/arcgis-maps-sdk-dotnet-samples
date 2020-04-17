@@ -77,6 +77,9 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
                     // Enable scene interaction.
                     _arView.InteractionOptions.IsEnabled = true;
                     ShowCalibrationPopover();
+
+                    // Set continuous positioning in case real scale is changed before calibration.
+                    _calibrationVC.SetIsUsingContinuousPositioning(_realScalePicker.SelectedSegment == 0);
                 }
                 else
                 {
@@ -504,14 +507,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         public void SetIsUsingContinuousPositioning(bool continuous)
         {
             _isContinuous = continuous;
-            if (_isContinuous)
-            {
-                _elevationSlider.Enabled = true;
-            }
-            else
-            {
-                _elevationSlider.Enabled = false;
-            }
+            if (_elevationSlider != null) _elevationSlider.Enabled = continuous;
         }
 
         private void HeadingSlider_ValueChanged(object sender, EventArgs e)

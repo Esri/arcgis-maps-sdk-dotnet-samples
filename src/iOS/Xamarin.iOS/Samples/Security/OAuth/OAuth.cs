@@ -40,13 +40,13 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
-        private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+        private const string AppClientId = @"IBkBd7YYFHOzPIIO";
 
         // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
         private const string ClientSecret = "";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"my-ags-app://auth";
+        private const string OAuthRedirectUrl = @"xamarin-ios-app://auth";
 
         // Hold a reference to the authenticator.
         private Xamarin.Auth.OAuth2Authenticator _auth;

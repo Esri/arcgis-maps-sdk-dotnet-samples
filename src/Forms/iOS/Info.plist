@@ -144,7 +144,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>my-ags-app</string>
+				<string>forms-samples-app</string>
 			</array>
 		</dict>
 	</array>
@@ -166,7 +166,7 @@
 	<string>ArcGIS Runtime SDK for .NET (Forms)</string>
 	<key>CFBundleName</key>
 	<string>ArcGIS Runtime SDK for .NET (Forms)</string>
-  <key>UIUserInterfaceStyle</key>
-  <string>Light</string>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>

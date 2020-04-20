@@ -158,7 +158,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>my-ags-app</string>
+				<string>xamarin-ios-app</string>
 			</array>
 		</dict>
 	</array>

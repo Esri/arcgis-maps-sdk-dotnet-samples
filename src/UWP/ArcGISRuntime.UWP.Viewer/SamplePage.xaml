@@ -73,7 +73,8 @@
                     InlineCodeFontFamily="Consolas"
                     InlineCodeForeground="{StaticResource InlineCodeColor}"
                     InlineCodeMargin="0"
-                    InlineCodePadding="0" />
+                    InlineCodePadding="0"
+                    LinkClicked="MarkdownText_LinkClicked" />
             </ScrollViewer>
 
             <local:SourceCode

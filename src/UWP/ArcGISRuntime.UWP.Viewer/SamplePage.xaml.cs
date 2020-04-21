@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -103,6 +104,11 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             Tabs.SelectionChanged -= TabChanged;
             DescriptionBlock.ImageResolving -= MarkDownBlock_ImageResolving;
+        }
+
+        private async void MarkdownText_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri(e.Link));
         }
     }
 }

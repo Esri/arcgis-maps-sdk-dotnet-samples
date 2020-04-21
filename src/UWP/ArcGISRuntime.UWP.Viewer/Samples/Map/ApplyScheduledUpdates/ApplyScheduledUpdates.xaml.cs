@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using Windows.UI.Popups;
 
 namespace ArcGISRuntime.UWP.Samples.ApplyScheduledUpdates
@@ -59,11 +60,19 @@ namespace ArcGISRuntime.UWP.Samples.ApplyScheduledUpdates
 
             try
             {
-                // Download the mobile map package using the sample viewer's data manager.
-                await DataManager.DownloadDataItem(_itemId);
+                // Token for cancelling the download if the sample is exited early.
+                var tokenSource = new CancellationTokenSource();
+                CancellationToken token = tokenSource.Token;
 
                 // Add an event to close the mobile map package when the sample closes.
-                Unloaded += (s, e) => { _mobileMapPackage?.Close(); };
+                Unloaded += (s, e) =>
+                {
+                    _mobileMapPackage?.Close();
+                    tokenSource.Cancel();
+                };
+
+                // Download the mobile map package using the sample viewer's data manager.
+                await DataManager.DownloadDataItem(_itemId, token);
 
                 // Get the folder path to the mobile map package.
                 _mapPackagePath = DataManager.GetDataFolder(_itemId, "");

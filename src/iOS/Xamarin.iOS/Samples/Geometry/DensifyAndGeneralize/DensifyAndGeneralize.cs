@@ -1,21 +1,21 @@
-// Copyright 2018 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Drawing;
-using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Drawing;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.DensifyAndGeneralize
@@ -93,36 +93,23 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
 
         private void OnUIChanged(object sender, EventArgs e)
         {
-            // Update the geometry appropriately based on selected segment and slider value.
-            if (_operationPicker.SelectedSegment == 0)
-            {
-                UpdateGeometry("Densify", _slider.Value);
-            }
-            else
-            {
-                UpdateGeometry("Generalize", _slider.Value);
-            }
-        }
-
-        private void UpdateGeometry(string operation, double value)
-        {
             // Start with the original polyline.
             Polyline polyline = _originalPolyline;
 
             // Apply the selected operation.
-            if (operation == "Generalize")
+            if (_operationPicker.SelectedSegment == 0)
             {
-                polyline = (Polyline) GeometryEngine.Generalize(polyline, value, true);
+                polyline = (Polyline)GeometryEngine.Densify(polyline, _slider.Value);
 
                 // Update the result label.
-                _resultLabel.Text = $"Generalize - Deviation: {value:f}";
+                _resultLabel.Text = $"Densify - Segment length: {_slider.Value:f}";
             }
             else
             {
-                polyline = (Polyline) GeometryEngine.Densify(polyline, value);
+                polyline = (Polyline)GeometryEngine.Generalize(polyline, _slider.Value, true);
 
                 // Update the result label.
-                _resultLabel.Text = $"Densify - Segment length: {value:f}";
+                _resultLabel.Text = $"Generalize - Deviation: {_slider.Value:f}";
             }
 
             // Update the graphic geometries to show the results.
@@ -163,7 +150,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

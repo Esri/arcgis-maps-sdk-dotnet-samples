@@ -9,7 +9,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <Editor Grid.Row="0" x:Name="ResultTextbox" />
+        <Label Grid.Row="0" x:Name="ResultTextbox" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>
 </ContentPage>

@@ -88,6 +88,9 @@ namespace ArcGISRuntime.WPF.Samples.DensifyAndGeneralize
             // Apply the selected operation.
             if (operation == "Generalize")
             {
+                // Reset the other slider.
+                SegmentLengthSlider.Value = 100;
+
                 polyline = (Polyline) GeometryEngine.Generalize(polyline, deviation, true);
 
                 // Update the result label.
@@ -95,6 +98,9 @@ namespace ArcGISRuntime.WPF.Samples.DensifyAndGeneralize
             }
             else
             {
+                // Reset the other slider.
+                DeviationSlider.Value = 10;
+
                 polyline = (Polyline) GeometryEngine.Densify(polyline, segmentLength);
 
                 // Update the result label.

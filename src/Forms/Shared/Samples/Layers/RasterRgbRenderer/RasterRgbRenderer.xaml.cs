@@ -161,7 +161,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer.Renderer = rasterRenderer;
         }
 
-        private void StretchTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void StretchTypeSelectionChanged(object sender, EventArgs e)
         {
             // Hide all UI controls for the input parameters.
             MinMaxParametersGrid.IsVisible = false;

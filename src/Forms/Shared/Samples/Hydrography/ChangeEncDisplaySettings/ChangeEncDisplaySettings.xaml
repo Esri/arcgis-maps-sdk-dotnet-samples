@@ -17,7 +17,7 @@
             <Picker x:Name="AreaPicker" VerticalOptions="CenterAndExpand" />
             <Label FontAttributes="Bold">Point Symbolization Type</Label>
             <Picker x:Name="PointPicker" VerticalOptions="CenterAndExpand" />
-            <Button Clicked="Button_Clicked" Text="Apply" />
+            <Button Text="Apply" Clicked="Button_Clicked"/>
         </StackLayout>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>

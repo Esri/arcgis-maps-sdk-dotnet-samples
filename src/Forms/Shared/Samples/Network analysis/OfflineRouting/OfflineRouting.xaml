@@ -48,8 +48,8 @@
                     VerticalOptions="CenterAndExpand" />
                 <Button
                     Grid.Row="2"
-                    Clicked="ResetButton_Click"
-                    Text="Reset" />
+                    Text="Reset"
+                    Clicked="ResetButton_Click"/>
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

@@ -11,7 +11,11 @@
             <RowDefinition Height="220" />
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
-        <Grid Grid.Row="1" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" WidthRequest="400">
+        <Grid
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand"
+            WidthRequest="400">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="Auto" />
@@ -21,14 +25,21 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Orientation="Horizontal">
                 <Label
                     Margin="10,0,3,0"
                     HorizontalOptions="End"
                     MinimumWidthRequest="80"
                     Text="Stretch: "
                     VerticalOptions="CenterAndExpand" />
-                <Picker x:Name="StretchTypeComboBox" SelectedIndexChanged="StretchTypeComboBox_SelectedIndexChanged" VerticalOptions="CenterAndExpand"/>
+                <Picker
+                    x:Name="StretchTypeComboBox"
+                    SelectedIndexChanged="StretchTypeSelectionChanged"
+                    VerticalOptions="CenterAndExpand" />
             </StackLayout>
             <Grid
                 x:Name="MinMaxParametersGrid"

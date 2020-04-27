@@ -10,7 +10,6 @@
 using Android.App;
 using Android.OS;
 using Android.Webkit;
-using Android.Widget;
 using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -34,8 +33,6 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
         // Hold references to UI controls.
         private MapView _myMapView;
         private WebView _htmlView;
-        private LinearLayout _sampleLayout;
-        private LinearLayout.LayoutParams _layoutParams;
 
         // Hold a reference to the KML layer for use in identify operations.
         private KmlLayer _forecastLayer;

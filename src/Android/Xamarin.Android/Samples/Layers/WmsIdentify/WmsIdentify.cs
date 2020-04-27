@@ -36,15 +36,13 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Create and hold a list of uniquely-identifying WMS layer names to display
-        private List<String> _wmsLayerNames = new List<string> { "4" };
+        private List<string> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer
         private WmsLayer _wmsLayer;
 
         // Hold the webview
         private WebView _htmlView;
-        private LinearLayout _sampleLayout;
-        private LinearLayout.LayoutParams _layoutParams;
 
         protected override void OnCreate(Bundle bundle)
         {

@@ -73,7 +73,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                     }
 
                     // Display the results to the user
-                    theTextBox.Text = myStringBuilder.ToString();
+                    VersionsLabel.Text = myStringBuilder.ToString();
                 }
             }
             catch (Exception e)

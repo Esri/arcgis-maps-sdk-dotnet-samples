@@ -5,10 +5,16 @@
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
     xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView" BindingContext="{x:Reference Name=ResponsiveFormContainer}" Style="{StaticResource MapWithFormStyle}" />
+        <esriUI:MapView
+            x:Name="MyMapView"
+            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+            Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout x:Name="FilterOptions" Orientation="Vertical">
-                <Label Margin="5" FontAttributes="Bold" Text="Choose Category for Filter Barrier:" />
+                <Label
+                    Margin="5"
+                    FontAttributes="Bold"
+                    Text="Choose Category for Filter Barrier:" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -20,11 +26,18 @@
                         Margin="5"
                         ItemDisplayBinding="{Binding Name}"
                         TextColor="Black"
-                        VerticalOptions="Center" />
-                    <Button Grid.Column="1" Margin="5" Clicked="OnTrace" Text="Trace" />
+                        VerticalOptions="CenterAndExpand" />
+                    <Button
+                        Grid.Column="1"
+                        Margin="5"
+                        Clicked="OnTrace"
+                        Text="Trace" />
                 </Grid>
                 <StackLayout Orientation="Horizontal">
-                    <Switch x:Name="IncludeIsolatedFeatures" Margin="5" IsToggled="False" />
+                    <Switch
+                        x:Name="IncludeIsolatedFeatures"
+                        Margin="5"
+                        IsToggled="False" />
                     <Label Text="Include Isolated Features" VerticalOptions="Center" />
                 </StackLayout>
             </StackLayout>

@@ -12,7 +12,10 @@
             ViewInsets="0" />
         <resources:ResponsiveFormContainer x:Name="FormContainer">
             <StackLayout>
-                <Picker x:Name="AtmosphereEffectPicker" TextColor="Black" />
+                <Picker
+                    x:Name="AtmosphereEffectPicker"
+                    TextColor="Black"
+                    VerticalOptions="CenterAndExpand" />
             </StackLayout>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

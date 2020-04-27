@@ -37,12 +37,17 @@
                                 x:Name="Attributes"
                                 Grid.Row="0"
                                 ItemDisplayBinding="{Binding Name}"
-                                SelectedIndexChanged="OnAttributeChanged" />
-                            <Picker x:Name="Operators" Grid.Row="1" />
+                                SelectedIndexChanged="OnAttributeChanged"
+                                VerticalOptions="CenterAndExpand" />
+                            <Picker
+                                x:Name="Operators"
+                                Grid.Row="1"
+                                VerticalOptions="CenterAndExpand" />
                             <Picker
                                 x:Name="ValueSelection"
                                 Grid.Row="2"
-                                ItemDisplayBinding="{Binding Name}" />
+                                ItemDisplayBinding="{Binding Name}"
+                                VerticalOptions="CenterAndExpand" />
                             <Entry
                                 x:Name="ValueEntry"
                                 Grid.Row="2"

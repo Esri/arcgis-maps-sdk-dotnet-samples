@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,17 +17,16 @@ using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using Android.Graphics;
-using Android.Views;
 
 namespace ArcGISRuntime.Samples.WmsIdentify
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Identify WMS features",
         "Layers",
         "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
         "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("WmsIdentify.axml")]
     public class WmsIdentify : Activity
     {
         // Hold a reference to the map view
@@ -91,46 +90,11 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
-            _sampleLayout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical
-            };
+            // Load the layout from the axml resource.
+            SetContentView(Resource.Layout.WmsIdentify);
 
-            // Configuration for having the mapview and webview fill the screen.
-            _layoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MatchParent,
-                ViewGroup.LayoutParams.MatchParent,
-                1.0f
-            );
-
-            // Create and add the webview
-            _htmlView = new WebView(this)
-            {
-                LayoutParameters = _layoutParams
-            };
-
-            _myMapView = new MapView(this);
-
-            _myMapView.LayoutParameters = _layoutParams;
-
-            // Create and add a help label
-            TextView helpLabel = new TextView(this)
-            {
-                Text = "Tap to identify features."
-            };
-            helpLabel.SetTextColor(Color.Black);
-            _sampleLayout.AddView(helpLabel);
-
-            // Add the map view to the layout
-            _sampleLayout.AddView(_myMapView);
-            _sampleLayout.AddView(_htmlView);
-
-            // Make the background white to hide the flash when the webview is removed/re-created.
-            _sampleLayout.SetBackgroundColor(Color.White);
-
-            // Show the layout in the app
-            SetContentView(_sampleLayout);
+            _myMapView = FindViewById<MapView>(Resource.Id.mapView);
+            _htmlView = FindViewById<WebView>(Resource.Id.webView);
         }
 
         private async void _myMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -153,27 +117,15 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 string htmlContent = identifiedFeature.Attributes["HTML"].ToString();
 
                 // Note that the service returns a boilerplate HTML result if there is no feature found.
-                //    This would be a good place to check if the result looks like it includes feature detail. 
+                //    This would be a good place to check if the result looks like it includes feature detail.
 
-                // Display the string content as an HTML document. 
-                ShowResult(htmlContent);
+                // Display the string content as an HTML document.
+                _htmlView.LoadDataWithBaseURL(string.Empty, htmlContent, "text/html", "UTF-8", null);
             }
             catch (Exception ex)
             {
                 new AlertDialog.Builder(this).SetMessage(ex.ToString()).SetTitle("Error").Show();
             }
-        }
-
-        private void ShowResult(string htmlContent)
-        {
-            // Display the content in a web view. Note that the web view needs to be re-created each time.
-            _sampleLayout.RemoveView(_htmlView);
-            _htmlView = new WebView(this)
-            {
-                LayoutParameters = _layoutParams
-            };
-            _htmlView.LoadData(htmlContent, "text/html", "UTF-8");
-            _sampleLayout.AddView(_htmlView);
         }
     }
 }

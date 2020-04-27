@@ -1,34 +1,34 @@
-// Copyright 2018 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Linq;
 using Android.App;
-using Android.Graphics;
 using Android.OS;
-using Android.Views;
 using Android.Webkit;
 using Android.Widget;
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Identify KML features",
         "Layers",
         "Identify KML features and show popups.",
         "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("IdentifyKMLFeatures.axml")]
     public class IdentifyKmlFeatures : Activity
     {
         // Hold references to UI controls.
@@ -93,8 +93,8 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
                 // Get the first identified feature that is a KML placemark
                 KmlNode firstIdentifiedPlacemark = identifyResult.GeoElements.OfType<KmlGeoElement>().First().KmlNode;
 
-                // Display the string content as an HTML document. 
-                ShowResult(firstIdentifiedPlacemark.BalloonContent);
+                // Display the string content as an HTML document.
+                _htmlView.LoadDataWithBaseURL(string.Empty, firstIdentifiedPlacemark.BalloonContent, "text/html", "UTF-8", null);
             }
             catch (Exception ex)
             {
@@ -102,59 +102,13 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
             }
         }
 
-        private void ShowResult(string htmlContent)
-        {
-            // Display the content in a web view. Note that the web view needs to be re-created each time.
-            _sampleLayout.RemoveView(_htmlView);
-            _htmlView = new WebView(this)
-            {
-                LayoutParameters = _layoutParams
-            };
-            _htmlView.LoadData(htmlContent, "text/html", "UTF-8");
-            _sampleLayout.AddView(_htmlView);
-        }
-
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
-            _sampleLayout = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical
-            };
+            // Load the layout from the axml resource.
+            SetContentView(Resource.Layout.IdentifyKMLFeatures);
 
-            // Configuration for having the mapview and webview fill the screen.
-            _layoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.MatchParent,
-                ViewGroup.LayoutParams.MatchParent,
-                1.0f
-            );
-
-            // Create and add the webview
-            _htmlView = new WebView(this)
-            {
-                LayoutParameters = _layoutParams
-            };
-
-            _myMapView = new MapView(this);
-            _myMapView.LayoutParameters = _layoutParams;
-
-            // Create and add a help label
-            TextView helpLabel = new TextView(this)
-            {
-                Text = "Tap to identify features."
-            };
-            helpLabel.SetTextColor(Color.Black);
-            _sampleLayout.AddView(helpLabel);
-
-            // Add the map view to the layout
-            _sampleLayout.AddView(_myMapView);
-            _sampleLayout.AddView(_htmlView);
-
-            // Make the background white to hide the flash when the webview is removed/re-created.
-            _sampleLayout.SetBackgroundColor(Color.White);
-
-            // Show the layout in the app
-            SetContentView(_sampleLayout);
+            _myMapView = FindViewById<MapView>(Resource.Id.mapView);
+            _htmlView = FindViewById<WebView>(Resource.Id.webView);
         }
     }
 }

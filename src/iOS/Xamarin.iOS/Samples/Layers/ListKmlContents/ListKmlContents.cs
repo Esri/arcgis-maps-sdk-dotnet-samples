@@ -121,7 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 
             _stackView = new UIStackView(new UIView[] {_mySceneView, _myDisplayList});
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            _stackView.Axis = UILayoutConstraintAxis.Vertical;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
 
             // Add the views.

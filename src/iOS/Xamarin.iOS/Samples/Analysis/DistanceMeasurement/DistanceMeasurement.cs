@@ -48,6 +48,8 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
         private void Initialize()
         {
+            _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
+
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
@@ -216,6 +218,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             base.ViewWillAppear(animated);
 
             // Subscribe to events.
+            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
             _helpButton.Clicked += ShowHelp_Click;
             _changeUnitsButton.Clicked += UnitChangeButton_TouchUpInside;
         }

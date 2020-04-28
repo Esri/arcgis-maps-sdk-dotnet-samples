@@ -1,4 +1,4 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="ArcGISRuntime.UWP.Samples.OfflineGeocode.OfflineGeocode"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,16 +7,20 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Enter an address and tap 🔎 to search."
-                           IsColorFontEnabled="False"
-                           TextAlignment="Center" FontWeight="SemiBold" />
-                <AutoSuggestBox x:Name="AutoSuggestBox"
-                                QueryIcon="Find"
-                                HorizontalAlignment="Stretch"
-                                Margin="0,5,0,0"
-                                IsEnabled="False"
-                                ItemsSource="{x:Bind _addresses}"
-                                QuerySubmitted="AutoSuggestBox_OnQuerySubmitted" />
+                <TextBlock
+                    FontWeight="SemiBold"
+                    IsColorFontEnabled="False"
+                    Text="Enter an address and tap 🔎 to search. Start typing for suggestions."
+                    TextAlignment="Center"
+                    TextWrapping="Wrap" />
+                <AutoSuggestBox
+                    x:Name="AutoSuggestBox"
+                    Margin="0,5,0,0"
+                    HorizontalAlignment="Stretch"
+                    IsEnabled="False"
+                    ItemsSource="{x:Bind _addresses}"
+                    QueryIcon="Find"
+                    QuerySubmitted="AutoSuggestBox_OnQuerySubmitted" />
             </StackPanel>
         </Border>
     </Grid>

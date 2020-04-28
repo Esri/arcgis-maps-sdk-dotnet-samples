@@ -99,7 +99,7 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
         /// <summary>
         /// Takes action once a new layer selection is made.
         /// </summary>
-        private void MyDisplayList_SelectionChanged_1(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
+        private void ListSelectionChanged(object sender, Windows.UI.Xaml.Controls.SelectionChangedEventArgs e)
         {
             // Deselect removed layers.
             foreach (LayerDisplayVM item in e.RemovedItems)

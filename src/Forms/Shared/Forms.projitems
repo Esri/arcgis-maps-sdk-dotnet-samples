@@ -533,12 +533,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceArea\FindServiceArea.xaml.cs">
       <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\LoginPage.xaml.cs">
-      <DependentUpon>LoginPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml.cs">
-      <DependentUpon>IntegratedWindowsAuth.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Security\OAuth\OAuth.xaml.cs">
       <DependentUpon>OAuth.xaml</DependentUpon>
     </Compile>
@@ -1080,10 +1074,6 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceArea\FindServiceArea.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -1457,12 +1447,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Security\IntegratedWindowsAuth\LoginPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\routingSymbol.png" />

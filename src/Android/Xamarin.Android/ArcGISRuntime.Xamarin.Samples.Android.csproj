@@ -267,7 +267,6 @@
     <None Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg" />
     <None Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg" />
     <None Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg" />
-    <None Include="Samples\Security\IntegratedWindowsAuth\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
@@ -469,7 +468,6 @@
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.cs" />
     <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.cs" />
     <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.cs" />
-    <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.cs" />
     <Compile Include="Controls\JoystickSeekBar.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\RouteViewerAR.cs" />
     <Compile Include="Samples\Augmented reality\NavigateAR\MslAdjustedARLocationDataSource.cs" />

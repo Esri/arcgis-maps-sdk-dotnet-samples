@@ -30,6 +30,7 @@
         "KmlPlacemark.BalloonContent"
     ],
     "snippets": [
+        "../../../Resources/layout/IdentifyKMLFeatures.axml",
         "IdentifyKmlFeatures.cs"
     ],
     "title": "Identify KML features"

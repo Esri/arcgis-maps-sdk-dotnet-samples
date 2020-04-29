@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -48,8 +48,6 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 
         private void Initialize()
         {
-            _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
-
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
@@ -73,28 +71,24 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
 
             // Keep the UI updated.
-            _distanceMeasurement.MeasurementChanged += (o, e) =>
-            {
-                // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
-                BeginInvokeOnMainThread(() =>
-                {
-                    // Update the labels with new values in the format {value} {unit system}.
-                    string direct =
-                        $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
-                    string vertical =
-                        $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
-                    string horizontal =
-                        $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
-                    _resultLabel.Text = $"Direct: {direct}, V: {vertical}, H: {horizontal}";
-                });
-            };
+            _distanceMeasurement.MeasurementChanged += MeasurementChanged;
 
             // Show the scene in the view.
             _mySceneView.Scene = myScene;
             _mySceneView.SetViewpointCamera(new Camera(start, 200, 45, 45, 0));
+        }
 
-            // Subscribe to tap events to enable updating the measurement.
-            _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+        private void MeasurementChanged(object sender, EventArgs e)
+        {
+            // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
+            BeginInvokeOnMainThread(() =>
+            {
+                // Update the labels with new values in the format {value} {unit system}.
+                string direct = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
+                string vertical = $"{_distanceMeasurement.VerticalDistance.Value:F} {_distanceMeasurement.VerticalDistance.Unit.Abbreviation}";
+                string horizontal = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
+                _resultLabel.Text = $"Direct: {direct}, V: {vertical}, H: {horizontal}";
+            });
         }
 
         private async void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -221,6 +215,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _mySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
             _helpButton.Clicked += ShowHelp_Click;
             _changeUnitsButton.Clicked += UnitChangeButton_TouchUpInside;
+            if (_distanceMeasurement != null) _distanceMeasurement.MeasurementChanged += MeasurementChanged;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -231,6 +226,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _mySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
             _helpButton.Clicked -= ShowHelp_Click;
             _changeUnitsButton.Clicked -= UnitChangeButton_TouchUpInside;
+            if (_distanceMeasurement != null) _distanceMeasurement.MeasurementChanged -= MeasurementChanged;
         }
     }
 }

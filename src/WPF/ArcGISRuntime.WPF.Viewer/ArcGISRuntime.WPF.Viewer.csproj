@@ -198,7 +198,6 @@
     <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
       <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
     </Compile>
@@ -2201,13 +2200,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2759</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2759</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.WPF">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2759</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

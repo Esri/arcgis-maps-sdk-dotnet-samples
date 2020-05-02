@@ -482,7 +482,6 @@
     <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.cs" />
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
     <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.cs" />
-    <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.cs" />
     <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.cs" />
     <Compile Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.cs" />
@@ -696,10 +695,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2759</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2759</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

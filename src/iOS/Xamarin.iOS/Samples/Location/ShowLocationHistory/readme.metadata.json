@@ -37,7 +37,6 @@
         "SystemLocationDataSource"
     ],
     "snippets": [
-        "FakeLocationDataSource.cs",
         "ShowLocationHistory.cs"
     ],
     "title": "Show location history"

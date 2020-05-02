@@ -425,7 +425,6 @@
     <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
       <DependentUpon>ChooseCameraController.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
       <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
     </Compile>
@@ -1756,10 +1755,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2759</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.8.0</Version>
+      <Version>100.8.0-daily2759</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.2</Version>

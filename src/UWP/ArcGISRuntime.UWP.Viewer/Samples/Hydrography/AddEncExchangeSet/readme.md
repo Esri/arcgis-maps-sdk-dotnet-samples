@@ -6,7 +6,7 @@ Display nautical charts per the ENC specification.
 
 ## Use case
 
-The [ENC specification](https://docs.iho.int/iho_pubs/standard/S-57Ed3.1/20ApB1.pdf) describes how hydrographic data should be displayed digitally.
+The [ENC specification](https://iho.int/uploads/user/pubs/standards/s-57/20ApB1.pdf) describes how hydrographic data should be displayed digitally.
 
 An ENC exchange set is a catalog of data files which can be loaded as cells. The cells contain information on how symbols should be displayed in relation to one another, so as to represent information such as depth and obstacles accurately.
 

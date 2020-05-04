@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
+        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.Wgs84);
 
         public ConvexHull()
         {
@@ -65,8 +65,11 @@ namespace ArcGISRuntime.Samples.ConvexHull
         {
             try
             {
+                // Project the tapped location to WGS 84.
+                var projectedPoint = (MapPoint)GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
+
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
-                _inputPointCollection.Add(e.Location);
+                _inputPointCollection.Add(projectedPoint);
 
                 // Check if there are at least three points.
                 if (_inputPointCollection.Count > 2)

@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
             if (ppc != null)
             {
-                ppc.SourceView = View;
+                ppc.SourceView = _toolbar;
                 ppc.PermittedArrowDirections = UIPopoverArrowDirection.Up;
             }
 

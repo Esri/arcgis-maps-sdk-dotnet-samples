@@ -79,14 +79,12 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             _atmosphereEffectPicker = new UISegmentedControl("Realistic", "Horizon only", "None");
             _atmosphereEffectPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             _atmosphereEffectPicker.SelectedSegment = 1;
-            _atmosphereEffectPicker.TintColor = UIColor.White;
-            _atmosphereEffectPicker.BackgroundColor = UIColor.Black;
+            _atmosphereEffectPicker.BackgroundColor = UIColor.White;
             _atmosphereEffectPicker.Layer.CornerRadius = 4;
             _atmosphereEffectPicker.ClipsToBounds = true;
 
             // Add the views.
             View.AddSubviews(_mySceneView, _atmosphereEffectPicker);
-
 
             // Lay out the views.
             _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor).Active = true;

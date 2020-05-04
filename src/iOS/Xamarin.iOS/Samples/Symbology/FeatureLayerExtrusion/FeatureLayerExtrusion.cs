@@ -139,7 +139,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 
             _extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
             {
-                TintColor = UIColor.White,
+                BackgroundColor = UIColor.White,
                 SelectedSegment = 1,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };

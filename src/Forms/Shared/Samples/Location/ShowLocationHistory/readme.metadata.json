@@ -34,7 +34,7 @@
         "LocationDisplay.DataSource",
         "LocationDisplay.IsEnabled",
         "MapView.LocationDisplay",
-        "SystemLocationDataSource"
+        "SimulatedLocationDataSource"
     ],
     "snippets": [
         "ShowLocationHistory.xaml",

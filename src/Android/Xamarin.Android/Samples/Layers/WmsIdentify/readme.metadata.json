@@ -30,6 +30,7 @@
         "WmsLayer"
     ],
     "snippets": [
+        "../../../Resources/layout/WmsIdentify.axml",
         "WmsIdentify.cs"
     ],
     "title": "Identify WMS features"

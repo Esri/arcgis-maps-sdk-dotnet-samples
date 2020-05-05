@@ -34,6 +34,7 @@
         "GeoprocessingTask.CreateJob"
     ],
     "snippets": [
+        "../../../Resources/layout/ListGeodatabaseVersions.axml",
         "ListGeodatabaseVersions.cs"
     ],
     "title": "List geodatabase versions"

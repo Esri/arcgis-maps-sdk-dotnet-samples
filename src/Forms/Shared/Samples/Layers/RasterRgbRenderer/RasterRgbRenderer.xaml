@@ -11,7 +11,11 @@
             <RowDefinition Height="220" />
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
-        <Grid Grid.Row="1" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="400">
+        <Grid
+            Grid.Row="1"
+            HorizontalOptions="Center"
+            VerticalOptions="CenterAndExpand"
+            WidthRequest="400">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40" />
                 <RowDefinition Height="Auto" />
@@ -21,14 +25,21 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <StackLayout
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Orientation="Horizontal">
                 <Label
                     Margin="10,0,3,0"
                     HorizontalOptions="End"
                     MinimumWidthRequest="80"
                     Text="Stretch: "
-                    VerticalOptions="Center" />
-                <Picker x:Name="StretchTypeComboBox" SelectedIndexChanged="StretchTypeComboBox_SelectedIndexChanged" />
+                    VerticalOptions="CenterAndExpand" />
+                <Picker
+                    x:Name="StretchTypeComboBox"
+                    SelectedIndexChanged="StretchTypeSelectionChanged"
+                    VerticalOptions="CenterAndExpand" />
             </StackLayout>
             <Grid
                 x:Name="MinMaxParametersGrid"
@@ -53,7 +64,7 @@
                     Margin="0,0,3,0"
                     HorizontalOptions="End"
                     Text="Min: "
-                    VerticalOptions="Center" />
+                    VerticalOptions="CenterAndExpand" />
                 <Picker
                     x:Name="MinRedComboBox"
                     Grid.Row="0"
@@ -61,7 +72,7 @@
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     TextColor="Red"
-                    VerticalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
                     WidthRequest="80" />
                 <Picker
                     x:Name="MinGreenComboBox"
@@ -70,7 +81,7 @@
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     TextColor="Green"
-                    VerticalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
                     WidthRequest="80" />
                 <Picker
                     x:Name="MinBlueComboBox"
@@ -79,7 +90,7 @@
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     TextColor="Blue"
-                    VerticalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
                     WidthRequest="80" />
                 <Label
                     Grid.Row="1"
@@ -87,7 +98,7 @@
                     Margin="0,0,3,0"
                     HorizontalOptions="End"
                     Text="Max: "
-                    VerticalOptions="Center" />
+                    VerticalOptions="CenterAndExpand" />
                 <Picker
                     x:Name="MaxRedComboBox"
                     Grid.Row="1"
@@ -95,7 +106,7 @@
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     TextColor="Red"
-                    VerticalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
                     WidthRequest="80" />
                 <Picker
                     x:Name="MaxGreenComboBox"
@@ -104,7 +115,7 @@
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     TextColor="Green"
-                    VerticalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
                     WidthRequest="80" />
                 <Picker
                     x:Name="MaxBlueComboBox"
@@ -113,7 +124,7 @@
                     HeightRequest="40"
                     HorizontalOptions="Center"
                     TextColor="Blue"
-                    VerticalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
                     WidthRequest="80" />
             </Grid>
             <Grid
@@ -135,7 +146,7 @@
                     Grid.Column="0"
                     HorizontalOptions="Center"
                     Text="Min %: "
-                    VerticalOptions="Center" />
+                    VerticalOptions="CenterAndExpand" />
                 <Slider
                     x:Name="MinimumValueSlider"
                     Grid.Row="0"
@@ -145,13 +156,13 @@
                     MaximumTrackColor="CadetBlue"
                     Minimum="0"
                     MinimumTrackColor="CadetBlue"
-                    VerticalOptions="Center" />
+                    VerticalOptions="CenterAndExpand" />
                 <Label
                     Grid.Row="1"
                     Grid.Column="0"
                     HorizontalOptions="Center"
                     Text="Max %: "
-                    VerticalOptions="Center" />
+                    VerticalOptions="CenterAndExpand" />
                 <Slider
                     x:Name="MaximumValueSlider"
                     Grid.Row="1"
@@ -161,7 +172,7 @@
                     MaximumTrackColor="CadetBlue"
                     Minimum="0"
                     MinimumTrackColor="CadetBlue"
-                    VerticalOptions="Center" />
+                    VerticalOptions="CenterAndExpand" />
             </Grid>
             <Grid
                 x:Name="StdDeviationParametersGrid"
@@ -183,14 +194,14 @@
                     Grid.Column="0"
                     HorizontalOptions="Center"
                     Text="Factor: "
-                    VerticalOptions="Center" />
+                    VerticalOptions="CenterAndExpand" />
                 <Picker
                     x:Name="StdDeviationFactorComboBox"
                     Grid.Row="1"
                     Grid.Column="1"
                     Grid.ColumnSpan="2"
                     HorizontalOptions="Start"
-                    VerticalOptions="Center"
+                    VerticalOptions="CenterAndExpand"
                     WidthRequest="60" />
             </Grid>
             <Button

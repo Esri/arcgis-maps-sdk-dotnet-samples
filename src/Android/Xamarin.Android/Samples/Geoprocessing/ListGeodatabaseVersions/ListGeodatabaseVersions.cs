@@ -1,10 +1,10 @@
-// Copyright 2016 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -21,19 +21,20 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Shared.Attributes.Sample(
         "List geodatabase versions",
         "Geoprocessing",
         "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
         "")]
+    [Shared.Attributes.AndroidLayout("ListGeodatabaseVersions.axml")]
     public class ListGeodatabaseVersions : Activity
     {
         // Progress bar to show when the geoprocessing task is working
         private ProgressBar _myProgressBar;
 
         // Edit text to display the list of geodatabases
-        private EditText _myEditText_ListGeodatabases;
+        private TextView _geoDatabaseText;
 
         // Url to used geoprocessing service
         private const string ListVersionsUrl =
@@ -45,7 +46,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 
             Title = "List geodatabase versions";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -63,20 +64,20 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                 // Continue if we got a valid geoprocessing result
                 if (versionsFeatureSet != null)
                 {
-                    // Create a string builder to hold all of the information from the geoprocessing 
-                    // task to display in the UI 
+                    // Create a string builder to hold all of the information from the geoprocessing
+                    // task to display in the UI
                     StringBuilder myStringBuilder = new StringBuilder();
 
-                    // Loop through each Feature in the FeatureSet 
+                    // Loop through each Feature in the FeatureSet
                     foreach (Feature version in versionsFeatureSet)
                     {
                         // Get the attributes (a dictionary of <key,value> pairs) from the Feature
-                        IDictionary<string,object> myDictionary = version.Attributes;
+                        IDictionary<string, object> myDictionary = version.Attributes;
 
                         // Loop through each attribute (a <key,value> pair)
-                        foreach (KeyValuePair<string,object> attribute in myDictionary)
+                        foreach (KeyValuePair<string, object> attribute in myDictionary)
                         {
-                            // Add the key and value strings to the string builder 
+                            // Add the key and value strings to the string builder
                             myStringBuilder.AppendLine(attribute.Key + ": " + attribute.Value);
                         }
 
@@ -85,7 +86,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
                     }
 
                     // Display the results to the user
-                    _myEditText_ListGeodatabases.Text = myStringBuilder.ToString();
+                    _geoDatabaseText.Text = myStringBuilder.ToString();
                 }
             }
             catch (Exception e)
@@ -102,7 +103,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
             // Results will be returned as a feature set
             IFeatureSet results = null;
 
-            // Create new geoprocessing task 
+            // Create new geoprocessing task
             GeoprocessingTask listVersionsTask = await GeoprocessingTask.CreateAsync(new Uri(ListVersionsUrl));
 
             // Create default parameters that are passed to the geoprocessing task
@@ -150,7 +151,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 
         private void SetBusy(bool isBusy = true)
         {
-            // This function toggles running of the 'progress' control feedback status to denote if 
+            // This function toggles running of the 'progress' control feedback status to denote if
             // the viewshed analysis is executing as a result of the user click on the map
 
             if (isBusy)
@@ -167,31 +168,11 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app
-            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            // Load the layout from the axml resource.
+            SetContentView(Resource.Layout.ListGeodatabaseVersions);
 
-            // Label for the user instructions
-            TextView textview_Label1 = new TextView(this)
-            {
-                Text = "Current versions:"
-            };
-            layout.AddView(textview_Label1);
-
-            // Add the progress bar to indicate the geoprocessing task is running; make invisible by default
-            _myProgressBar = new ProgressBar(this)
-            {
-                Indeterminate = true,
-                Visibility = ViewStates.Invisible
-            };
-            layout.AddView(_myProgressBar);
-
-            // Edit text for the start date (user can change if desired)
-            _myEditText_ListGeodatabases = new EditText(this);
-            layout.AddView(_myEditText_ListGeodatabases);
-
-            // Show the layout in the app
-            SetContentView(layout);
+            _myProgressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
+            _geoDatabaseText = FindViewById<TextView>(Resource.Id.geoDatabaseText);
         }
-
     }
 }

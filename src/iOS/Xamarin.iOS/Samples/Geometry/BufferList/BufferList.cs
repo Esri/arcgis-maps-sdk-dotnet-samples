@@ -316,7 +316,7 @@ namespace ArcGISRuntime.Samples.BufferList
             _bufferDistanceEntry.Layer.CornerRadius = 4;
             _bufferDistanceEntry.LeftView = new UIView(new CGRect(0, 0, 5, 20));
             _bufferDistanceEntry.LeftViewMode = UITextFieldViewMode.Always;
-            _bufferDistanceEntry.KeyboardType = UIKeyboardType.NumberPad;
+            _bufferDistanceEntry.KeyboardType = UIKeyboardType.Default;
 
             UILabel bufferDistanceEntryLabel = new UILabel();
             bufferDistanceEntryLabel.TranslatesAutoresizingMaskIntoConstraints = false;

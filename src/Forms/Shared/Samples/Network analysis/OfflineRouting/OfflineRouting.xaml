@@ -1,12 +1,15 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
-             x:Class="ArcGISRuntimeXamarin.Samples.OfflineRouting.OfflineRouting">
+﻿<ContentPage
+    x:Class="ArcGISRuntimeXamarin.Samples.OfflineRouting.OfflineRouting"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        ViewInsets="0,250,0,0" />
+        <esriUI:MapView
+            x:Name="MyMapView"
+            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+            Style="{StaticResource MapWithFormStyle}"
+            ViewInsets="0,250,0,0" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <Grid.RowDefinitions>
@@ -35,16 +38,18 @@
                         </RowDefinition.Height>
                     </RowDefinition>
                 </Grid.RowDefinitions>
-                <Label
-                    Text="Click the map to add up to 5 stops. Route lines will be displayed automatically."
-                    Grid.Row="0" />
-                <Picker x:Name="TravelModesCombo"
-                        Grid.Row="1"
-                        Margin="0,5,0,5" TextColor="Black"
-                        ItemDisplayBinding="{Binding Name}" />
-                <Button Text="Reset"
-                        Grid.Row="2"
-                        Clicked="ResetButton_Click" />
+                <Label Grid.Row="0" Text="Click the map to add up to 5 stops. Route lines will be displayed automatically." />
+                <Picker
+                    x:Name="TravelModesCombo"
+                    Grid.Row="1"
+                    Margin="0,5,0,5"
+                    ItemDisplayBinding="{Binding Name}"
+                    TextColor="Black"
+                    VerticalOptions="CenterAndExpand" />
+                <Button
+                    Grid.Row="2"
+                    Text="Reset"
+                    Clicked="ResetButton_Click"/>
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

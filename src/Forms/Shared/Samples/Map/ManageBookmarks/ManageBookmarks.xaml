@@ -1,31 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntime.Samples.ManageBookmarks.ManageBookmarks">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <Grid Grid.Row="0">
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="Auto"/>
-        <ColumnDefinition Width="200"/>
-        <ColumnDefinition/>
-      </Grid.ColumnDefinitions>
-      <Label Grid.Column="0"
-              HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
-              Text="Go to:" />
-      <Picker x:Name="bookmarkPicker"
+<ContentPage
+    x:Class="ArcGISRuntime.Samples.ManageBookmarks.ManageBookmarks"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label
+                Grid.Column="0"
+                HorizontalTextAlignment="Center"
+                Text="Go to:"
+                VerticalTextAlignment="Center" />
+            <Picker
+                x:Name="bookmarkPicker"
                 Grid.Column="1"
-              SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"/>
-      <Button x:Name="ButtonAddBookmark" 
+                SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"
+                VerticalOptions="CenterAndExpand" />
+            <Button
+                x:Name="ButtonAddBookmark"
                 Grid.Column="2"
-              Text="New ..." 
-              Clicked="ButtonAddBookmark_Clicked" />
+                Clicked="ButtonAddBookmark_Clicked"
+                Text="New ..." />
+        </Grid>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>
-    <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
-  </Grid>
 </ContentPage>

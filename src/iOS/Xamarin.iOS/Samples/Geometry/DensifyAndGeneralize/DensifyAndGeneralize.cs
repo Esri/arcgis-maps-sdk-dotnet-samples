@@ -96,6 +96,9 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             // Start with the original polyline.
             Polyline polyline = _originalPolyline;
 
+            // Reset the slider if the operation is changed.
+            if (sender is UISegmentedControl) _slider.Value = 100;
+
             // Apply the selected operation.
             if (_operationPicker.SelectedSegment == 0)
             {

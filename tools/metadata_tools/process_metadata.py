@@ -118,6 +118,8 @@ def update_attribute(sample, sample_dir):
                 if "]" in line and start_found:
                     # Store the end index
                     end = i
+                    # Check if sample was featured
+                    featured = "Featured" in line
                     # Delete the existing attributes
                     del lines[start:end+1]
 
@@ -125,7 +127,7 @@ def update_attribute(sample, sample_dir):
                     new_attributes = "    [ArcGISRuntime.Samples.Shared.Attributes.Sample(\n"
                     new_attributes += "        \"" + sample.friendly_name + "\",\n"
                     new_attributes += "        \"" + sample.category + "\",\n"
-                    new_attributes += "        \"" + sample.description + "\",\n"
+                    new_attributes += "        \"" + sample.description.replace("\"", "\\\"") + "\",\n"
 
                     # Add the instructions
                     if type(sample.how_to_use) is str:
@@ -138,14 +140,22 @@ def update_attribute(sample, sample_dir):
                     # Instructions can have multiple items, we only add the first one.
                     if "\n" in instructions:
                         instructions = instructions.split("\n")[0]
-                    instructions = "        \"" + instructions + "\""
+                    instructions = "        \"" + instructions.replace("\"", "\\\"") + "\""
                         
                     new_attributes += instructions
 
                     # Add the tags
+                    tags = []
                     if type(sample.keywords) is list and len(sample.keywords)>0:
+                        tags = sample.keywords
+                        if featured:
+                            tags.append("Featured")
+                    elif featured:
+                        tags = ["Featured"]
+                        
+                    if len(tags)>0:
                         new_attributes += ",\n        "
-                        for tag in sample.keywords:
+                        for tag in tags:
                             new_attributes += "\"" + tag +"\", "
                         # Remove the trailing comma-space
                         new_attributes = new_attributes[:-2]
@@ -166,6 +176,7 @@ def update_attribute(sample, sample_dir):
             file.writelines(lines)
             file.truncate()
     except:
+        #x = 2
         print("Error with sample: "+sample_dir)
 
 def main():

@@ -34,10 +34,9 @@
         "LocationDisplay.DataSource",
         "LocationDisplay.IsEnabled",
         "MapView.LocationDisplay",
-        "SystemLocationDataSource"
+        "SimulatedLocationDataSource"
     ],
     "snippets": [
-        "FakeLocationDataSource.cs",
         "ShowLocationHistory.cs"
     ],
     "title": "Show location history"

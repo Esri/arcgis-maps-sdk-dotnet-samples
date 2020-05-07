@@ -267,7 +267,6 @@
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\FakeLocationDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
       <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Drawing;
 using Android.App;
 using Android.OS;
 using Android.Widget;
@@ -16,10 +15,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using System.Drawing;
 
 namespace ArcGISRuntime.Samples.NearestVertex
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Nearest vertex",
         "Geometry",
@@ -94,7 +94,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
             _nearestCoordinateGraphic = new Graphic { Symbol = nearestCoordinateSymbol };
             _tappedLocationGraphic = new Graphic { Symbol = tappedLocationSymbol };
             _nearestVertexGraphic = new Graphic { Symbol = nearestVertexSymbol };
-            
+
             _graphicsOverlay.Graphics.Add(_tappedLocationGraphic);
             _graphicsOverlay.Graphics.Add(_nearestVertexGraphic);
             _graphicsOverlay.Graphics.Add(_nearestCoordinateGraphic);
@@ -103,8 +103,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
             _myMapView.GeoViewTapped += MapViewTapped;
 
             // Center the map on the polygon
-            MapPoint centerPoint = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
-            _myMapView.SetViewpointCenterAsync(centerPoint, 200000000);
+            _myMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 200000000);
         }
 
         private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
@@ -147,7 +146,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
 
             // Add the label and map to the view
             layout.AddView(_resultTextView);
-            _myMapView = new MapView(this);
+            _myMapView = new MapView(this) { WrapAroundMode = WrapAroundMode.Disabled };
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

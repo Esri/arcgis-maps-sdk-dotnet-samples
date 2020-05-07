@@ -29,7 +29,7 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
+        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.Wgs84);
 
         public ConvexHull()
         {
@@ -63,8 +63,11 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
         {
             try
             {
+                // Project the tapped location to WGS 84.
+                var projectedPoint = (MapPoint)GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
+
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
-                _inputPointCollection.Add(e.Location);
+                _inputPointCollection.Add(projectedPoint);
 
                 // Check if there are at least three points.
                 if (_inputPointCollection.Count > 2)
@@ -81,7 +84,8 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
                 Graphic userTappedGraphic = new Graphic(e.Location, new Dictionary<string, object>
                 {
                     { "Type", "Point" }
-                }, userTappedSimpleMarkerSymbol) { ZIndex = 0 };
+                }, userTappedSimpleMarkerSymbol)
+                { ZIndex = 0 };
 
                 // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
                 userTappedGraphic.ZIndex = 1;

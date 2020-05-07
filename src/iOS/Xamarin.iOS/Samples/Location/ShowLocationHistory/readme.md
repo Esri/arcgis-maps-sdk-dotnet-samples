@@ -10,15 +10,16 @@ You can track device location history and display it as lines and points on the 
 
 ## How to use the sample
 
-Click, 'Start tracking' to start tracking your location, which will appear as points on the map. A line will connect the points for easier visualization. Tap 'Stop tracking' to stop updating the location history.
+Tap 'Start tracking' to start tracking your location, which will appear as points on the map. A line will connect the points for easier visualization. Tap 'Stop tracking' to stop updating the location history. This sample uses a simulated data source to allow the sample to be useful on desktop/non-mobile devices. To track a user's real position, use the `SystemLocationDataSource` instead.
 
 ## How it works
 
 1. If necessary, request location permission from the operating system.
 2. Create a graphics overlay to show each point and another graphics overlay for displaying the route line.
-3. Create a `SystemLocationDataSource` and start it to begin receiving location updates.
+3. Create a `SimulatedLocationDataSource` and initialize it with a polyline. Start the `SimulatedLocationDataSource` to begin receiving location updates.
+ - NOTE: To track a user's real position, use `SystemLocationDataSource` instead.
 4. Subscribe to the `LocationChanged` event to handle location updates.
-5. Every time the location updates, store that location, display a point on the map, and re-create the route line.
+5. Every time the location updates, store that location, display a point on the map, and recreate the route line.
 
 ## Relevant API
 
@@ -30,11 +31,11 @@ Click, 'Start tracking' to start tracking your location, which will appear as po
 * LocationDisplay.DataSource
 * LocationDisplay.IsEnabled
 * MapView.LocationDisplay
-* SystemLocationDataSource
+* SimulatedLocationDataSource
 
 ## About the data
 
-The sample uses a dark gray basemap with lime and red graphics. A custom location data source that provides fake/random location data is provided to enable easier testing and allow the sample to be useful on desktop/non-mobile devices.
+A custom set of points is used to create a `Polyline` and initialize a `SimulatedLocationDataSource`. This simulated location data source enables easier testing and allows the sample to be used on devices without an actively updating GPS signal.
 
 ## Tags
 

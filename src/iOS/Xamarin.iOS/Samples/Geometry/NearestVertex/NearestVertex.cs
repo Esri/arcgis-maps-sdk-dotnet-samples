@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Drawing;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.NearestVertex
@@ -80,17 +80,16 @@ namespace ArcGISRuntime.Samples.NearestVertex
             SimpleMarkerSymbol tappedLocationSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Orange, 15);
             SimpleMarkerSymbol nearestCoordinateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, Color.Red, 10);
             SimpleMarkerSymbol nearestVertexSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 15);
-            _nearestCoordinateGraphic = new Graphic {Symbol = nearestCoordinateSymbol};
-            _tappedLocationGraphic = new Graphic {Symbol = tappedLocationSymbol};
-            _nearestVertexGraphic = new Graphic {Symbol = nearestVertexSymbol};
+            _nearestCoordinateGraphic = new Graphic { Symbol = nearestCoordinateSymbol };
+            _tappedLocationGraphic = new Graphic { Symbol = tappedLocationSymbol };
+            _nearestVertexGraphic = new Graphic { Symbol = nearestVertexSymbol };
 
             _graphicsOverlay.Graphics.Add(_tappedLocationGraphic);
             _graphicsOverlay.Graphics.Add(_nearestVertexGraphic);
             _graphicsOverlay.Graphics.Add(_nearestCoordinateGraphic);
 
             // Center the map on the polygon.
-            MapPoint centerPoint = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
-            _myMapView.SetViewpointCenterAsync(centerPoint, 200000000);
+            _myMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 200000000);
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
@@ -109,10 +108,10 @@ namespace ArcGISRuntime.Samples.NearestVertex
                 GeometryEngine.NearestCoordinate(_polygonGraphic.Geometry, tappedLocation);
 
             // Get the distance to the nearest vertex in the polygon.
-            int distanceVertex = (int) (nearestVertexResult.Distance / 1000);
+            int distanceVertex = (int)(nearestVertexResult.Distance / 1000);
 
             // Get the distance to the nearest coordinate in the polygon.
-            int distanceCoordinate = (int) (nearestCoordinateResult.Distance / 1000);
+            int distanceCoordinate = (int)(nearestCoordinateResult.Distance / 1000);
 
             // Show the nearest vertex in blue.
             _nearestVertexGraphic.Geometry = nearestVertexResult.Coordinate;
@@ -135,7 +134,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
             // Create the views.
             View = new UIView() { BackgroundColor = UIColor.White };
 
-            _myMapView = new MapView();
+            _myMapView = new MapView() { WrapAroundMode = WrapAroundMode.Disabled };
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _distanceLabel = new UILabel

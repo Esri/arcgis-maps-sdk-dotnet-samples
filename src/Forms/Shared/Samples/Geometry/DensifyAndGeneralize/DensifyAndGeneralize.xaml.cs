@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -92,6 +92,9 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             // Apply the selected operation.
             if (operation == "Generalize")
             {
+                // Reset the other slider.
+                SegmentLengthSlider.Value = 100;
+
                 polyline = (Polyline) GeometryEngine.Generalize(polyline, deviation, true);
 
                 // Update the result label.
@@ -99,6 +102,9 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             }
             else
             {
+                // Reset the other slider.
+                DeviationSlider.Value = 1;
+
                 polyline = (Polyline) GeometryEngine.Densify(polyline, segmentLength);
 
                 // Update the result label.

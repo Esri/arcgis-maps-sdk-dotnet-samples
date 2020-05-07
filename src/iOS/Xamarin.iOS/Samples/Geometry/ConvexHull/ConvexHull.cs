@@ -7,15 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ConvexHull
@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private readonly PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
+        private readonly PointCollection _inputPointCollection = new PointCollection(SpatialReferences.Wgs84);
 
         public ConvexHull()
         {
@@ -62,8 +62,11 @@ namespace ArcGISRuntime.Samples.ConvexHull
         {
             try
             {
+                // Project the tapped location to WGS 84.
+                var projectedPoint = (MapPoint)GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
+
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
-                _inputPointCollection.Add(e.Location);
+                _inputPointCollection.Add(projectedPoint);
 
                 // Check if there are at least three points.
                 if (_inputPointCollection.Count > 2)
@@ -76,8 +79,8 @@ namespace ArcGISRuntime.Samples.ConvexHull
                 // will be a solid, red circle.
                 SimpleMarkerSymbol userTappedSimpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Red, 10);
 
-                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol. 
-                Graphic userTappedGraphic = new Graphic(e.Location, new Dictionary<string, object>{{ "Type", "Point" }}, userTappedSimpleMarkerSymbol)
+                // Create a new graphic for the spot where the user clicked on the map using the simple marker symbol.
+                Graphic userTappedGraphic = new Graphic(e.Location, new Dictionary<string, object> { { "Type", "Point" } }, userTappedSimpleMarkerSymbol)
                 {
                     // Set the Z index for the user tapped graphic so that it appears above the convex hull graphic(s) added later.
                     ZIndex = 1
@@ -165,7 +168,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

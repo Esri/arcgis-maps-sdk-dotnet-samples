@@ -130,6 +130,7 @@ def main():
                     sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
                 if operation in ["improve", "sync"]:
                     sample.flush_to_json(os.path.join(r, sample_dir, "readme.metadata.json"))
+                update_attribute(sample, os.path.join(r, sample_dir))
                 list_of_sample_dirs.append(sample_dir)
                 # track samples in each category to enable TOC generation
                 if sample.category in list_of_samples.keys():
@@ -140,6 +141,88 @@ def main():
         if operation in ["toc", "improve", "sync"]:
             write_samples_toc(get_platform_samples_root(platform, sample_root), get_relative_path_to_samples_from_platform_root(platform), list_of_samples)
     return
+
+def update_attribute(sample, sample_dir):
+    try:
+        # Get the formal name of the sample
+        name = sample_dir.split('\\')[-1]
+
+        # Get the correct file ending
+        if "Xamarin.iOS" in sample_dir or "Xamarin.Android" in sample_dir:
+            ending = ".cs"
+        else:
+            ending = ".xaml.cs"
+
+        # Open the file
+        path_to_source = os.path.join(sample_dir, name + ending)
+        with open(path_to_source, 'r') as f:
+            lines = f.readlines()
+            i = 0
+            start_found = False
+
+            # Use an indexed while loop so we can delete sections of lines
+            while i < len(lines):
+                line = lines[i]
+
+                # Check if the line is the start of the attributes
+                if ".Sample(" in line and "[" in line:
+                    #store the start index
+                    start = i
+                    start_found = True
+
+                # Check for the end of the attributes
+                if "]" in line and start_found:
+                    # Store the end index
+                    end = i
+                    # Delete the existing attributes
+                    del lines[start:end+1]
+
+                    # Create the new attributes
+                    new_attributes = "    [ArcGISRuntime.Samples.Shared.Attributes.Sample(\n"
+                    new_attributes += "        \"" + sample.friendly_name + "\",\n"
+                    new_attributes += "        \"" + sample.category + "\",\n"
+                    new_attributes += "        \"" + sample.description + "\",\n"
+
+                    # Add the instructions
+                    if type(sample.how_to_use) is str:
+                        instructions = sample.how_to_use
+                    elif type(sample.how_to_use) is list and len(sample.how_to_use)>0:
+                        instructions = sample.how_to_use[0]
+                    else:
+                        instructions = ""
+
+                    # Instructions can have multiple items, we only add the first one.
+                    if "\n" in instructions:
+                        instructions = instructions.split("\n")[0]
+                    instructions = "        \"" + instructions + "\""
+                        
+                    new_attributes += instructions
+
+                    # Add the tags
+                    if type(sample.keywords) is list and len(sample.keywords)>0:
+                        new_attributes += ",\n        "
+                        for tag in sample.keywords:
+                            new_attributes += "\"" + tag +"\", "
+                        # Remove the trailing comma-space
+                        new_attributes = new_attributes[:-2]
+
+                    # Add the closing characters
+                    new_attributes += ")]\n"
+
+                    # Add the new attributes
+                    lines.insert(start, new_attributes)
+
+                    # Break and write the revised file.
+                    break
+                i=i+1
+
+        # Rewrite the file with updated attributes.
+        with open(path_to_source, "r+") as file:
+            file.seek(0)
+            file.writelines(lines)
+            file.truncate()
+    except:
+        print("Error with sample: "+sample_dir)
 
 if __name__ == "__main__":
     main()

@@ -96,7 +96,7 @@ def main():
 
     if len(sys.argv) < 3:
         print("Usage: python process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}")
-        print("Operations are toc, improve, and sync; secondary path is path to common readme source for the improve operation.")
+        print("Operations are toc, improve, attributes, and sync; secondary path is path to common readme source for the improve operation.")
         return
 
     operation = sys.argv[1]        
@@ -130,7 +130,8 @@ def main():
                     sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
                 if operation in ["improve", "sync"]:
                     sample.flush_to_json(os.path.join(r, sample_dir, "readme.metadata.json"))
-                update_attribute(sample, os.path.join(r, sample_dir))
+                if operation == "attributes":
+                    update_attribute(sample, os.path.join(r, sample_dir))
                 list_of_sample_dirs.append(sample_dir)
                 # track samples in each category to enable TOC generation
                 if sample.category in list_of_samples.keys():

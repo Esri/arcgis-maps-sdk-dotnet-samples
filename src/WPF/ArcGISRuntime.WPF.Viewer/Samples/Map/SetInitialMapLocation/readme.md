@@ -1,8 +1,16 @@
 # Set initial map location
 
-Display a map centered on an initial point with a specified level of detail (zoom level).
+Display a basemap centered at an initial location and scale.
 
-![screenshot](SetInitialMapLocation.jpg)
+![Image of set initial map location](SetInitialMapLocation.jpg)
+
+## Use case
+
+You can set a map's initial location when you want to highlight a particular feature or area to establish the context.
+
+## How to use the sample
+
+When the map loads, note the specific location and scale of the initial map view.
 
 ## How it works
 
@@ -21,4 +29,4 @@ The map opens with satellite imagery of a guitar-shaped field in the Pampas regi
 
 ## Tags
 
-center, envelope, extent, initial location, level of detail
+basemap, center, envelope, extent, initial, lat, latitude, level of detail, location, LOD, long, longitude, scale, zoom level

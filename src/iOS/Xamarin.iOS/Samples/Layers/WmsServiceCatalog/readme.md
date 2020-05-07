@@ -1,8 +1,13 @@
 # WMS service catalog
 
-Connect to a WMS service and show the available layers and sublayers. Layers are shown in a hierarchy. Selecting a group layer will recursively select all sublayers for display.
+Connect to a WMS service and show the available layers and sublayers. 
 
-![screenshot](WmsServiceCatalog.jpg)
+![Image of WMS service catalog](WmsServiceCatalog.jpg)
+
+## Use case
+
+WMS services often contain many layers and sublayers. Presenting the layers and sublayers in a UI allows you to explore what is available in the service and add individual layers to a map.
+
 
 ## How to use the sample
 
@@ -27,8 +32,8 @@ Connect to a WMS service and show the available layers and sublayers. Layers are
 
 ## About the data
 
-The map in this sample shows a weather forecast produced by the U.S. National Weather Service. The map shows fronts, highs, and lows, as well as areas of forecast precipitation. For more information, see the [service page](https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer).
+This sample shows [forecasts guidance warnings](https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer) from an ArcGIS REST service produced by the U.S. National Weather Service. The map shows fronts, highs, and lows, as well as areas of forecast precipitation.
 
 ## Tags
 
-OGC, WmsLayer, WmsLayerInfo, WmsService, WmsServiceInfo, web map service
+catalog, OGC, web map service, WMS

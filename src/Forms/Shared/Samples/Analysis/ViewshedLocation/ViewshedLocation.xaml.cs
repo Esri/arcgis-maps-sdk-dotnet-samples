@@ -20,7 +20,7 @@ using Esri.ArcGISRuntime.UI;
 namespace ArcGISRuntime.Samples.ViewshedLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Viewshed (Location)",
+        "Viewshed (location)",
         "Analysis",
         "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
         "Tap anywhere in the scene to change the viewshed observer location."

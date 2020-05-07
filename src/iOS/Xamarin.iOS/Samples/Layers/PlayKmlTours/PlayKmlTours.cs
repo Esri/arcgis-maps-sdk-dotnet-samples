@@ -22,7 +22,7 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
 {
     [Register("PlayKmlTours")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Play a KML tour",
+        "Play KML tour",
         "Layers",
         "Display tours in KML files.",
         "")]

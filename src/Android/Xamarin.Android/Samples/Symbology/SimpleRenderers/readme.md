@@ -2,7 +2,7 @@
 
 Display common symbols for all graphics in a graphics overlay with a renderer.
 
-![screenshot](SimpleRenderers.jpg)
+![Image of simple renderer](SimpleRenderers.jpg)
 
 ## Use case
 
@@ -36,4 +36,4 @@ Renderers are used to display graphics that don't already have a symbol set. A r
 
 ## Tags
 
-SimpleMarkerSymbol, SimpleRenderer, symbolize, symbology
+graphics, marker, renderer, symbol, symbolize, symbology

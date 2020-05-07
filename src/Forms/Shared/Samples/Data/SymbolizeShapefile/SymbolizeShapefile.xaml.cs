@@ -19,7 +19,7 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.SymbolizeShapefile
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Symbolize a shapefile",
+        "Symbolize shapefile",
         "Data",
         "This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.",
         "Click the button to switch renderers. ")]

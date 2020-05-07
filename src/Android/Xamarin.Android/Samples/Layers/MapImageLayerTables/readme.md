@@ -2,7 +2,7 @@
 
 Find features in a spatial table related to features in a non-spatial table.
 
-![screenshot](MapImageLayerTables.jpg)
+![Image of map image layer tables](MapImageLayerTables.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ The non-spatial tables contained by a map service may contain additional informa
 
 ## How to use the sample
 
-Once the map image layer loads, a list view will be populated with comment data from non-spatial features. Click on one of the comments to query related spatial features and display the first result on the map.
+Once the map image layer loads, a list view will be populated with comment data from non-spatial features. Tap on one of the comments to query related spatial features and display the first result on the map.
 
 ## How it works
 
@@ -41,4 +41,4 @@ You can use `arcGISMapImageLayer.LoadTablesAndLayersAsync()` to recursively load
 
 ## Tags
 
-features, related features, search and query
+features, query, related features, search

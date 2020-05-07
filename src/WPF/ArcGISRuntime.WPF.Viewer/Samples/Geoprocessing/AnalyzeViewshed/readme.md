@@ -2,7 +2,7 @@
 
 Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.
 
-![screenshot](AnalyzeViewshed.jpg)
+![Image of viewshed geoprocessing](AnalyzeViewshed.jpg)
 
 ## Use case
 
@@ -33,4 +33,4 @@ Click the map to see all areas visible from that point within a 15km radius. Cli
 
 ## Tags
 
-Geoprocessing, GeoprocessingJob, GeoprocessingParameters, GeoprocessingResult, heat map
+geoprocessing, heat map, heatmap, viewshed

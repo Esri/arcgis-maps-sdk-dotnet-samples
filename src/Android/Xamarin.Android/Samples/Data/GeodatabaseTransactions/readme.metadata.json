@@ -1,20 +1,32 @@
 {
     "category": "Data",
-    "description": "This sample demonstrates how to manage edits to a local geodatabase inside of transactions.",
+    "description": "Use transactions to manage how changes are committed to a geodatabase.",
     "formal_name": "GeodatabaseTransactions",
     "ignore": false,
     "images": [
         "GeodatabaseTransactions.jpg"
     ],
-    "keywords": [],
+    "keywords": [
+        "commit",
+        "database",
+        "geodatabase",
+        "transact",
+        "transactions"
+    ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/geodatabasetransactions.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "Geodatabase",
+        "Geodatabase.BeginTransaction",
+        "Geodatabase.CommitTransaction",
+        "Geodatabase.IsInTransaction",
+        "Geodatabase.RollbackTransaction"
+    ],
     "snippets": [
         "GeodatabaseTransactions.cs"
     ],

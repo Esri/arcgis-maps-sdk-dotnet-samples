@@ -1,21 +1,24 @@
 {
     "category": "Data",
-    "description": "Open a `GeoPackage`, obtain a raster from the package, and display the table as a `RasterLayer`.",
+    "description": "Display a raster contained in a GeoPackage.",
     "formal_name": "RasterLayerGeoPackage",
     "ignore": false,
     "images": [
         "RasterLayerGeoPackage.jpg"
     ],
     "keywords": [
-        "Layers",
         "OGC",
         "container",
-        "geopackage",
+        "data",
+        "image",
+        "import",
+        "layer",
         "package",
-        "raster"
+        "raster",
+        "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [
         "68ec42517cdd439e81b036210483e8e7"

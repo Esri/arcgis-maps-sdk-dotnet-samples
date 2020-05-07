@@ -7,24 +7,26 @@
         "ChangeViewpoint.jpg"
     ],
     "keywords": [
-        "SetViewpointAsync",
-        "SetViewpointCenterAsync",
-        "SetViewpointGeometryAsync",
+        "animate",
         "extent",
+        "pan",
+        "rotate",
+        "scale",
+        "view",
         "zoom"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/forms/sample-code/changeviewpoint.htm"
     ],
     "relevant_apis": [
+        "Geometry",
         "Map",
         "MapView",
         "Point",
-        "SpatialReference",
         "Viewpoint"
     ],
     "snippets": [

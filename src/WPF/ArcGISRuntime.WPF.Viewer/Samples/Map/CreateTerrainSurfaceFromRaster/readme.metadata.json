@@ -1,6 +1,6 @@
 {
     "category": "Map",
-    "description": "Use a terrain surface with elevation described by a raster file.",
+    "description": "Set the terrain surface with elevation described by a raster file.",
     "formal_name": "CreateTerrainSurfaceFromRaster",
     "ignore": false,
     "images": [
@@ -8,12 +8,13 @@
     ],
     "keywords": [
         "3D",
-        "Elevation",
-        "Raster",
-        "Surface"
+        "elevation",
+        "raster",
+        "surface",
+        "terrain"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

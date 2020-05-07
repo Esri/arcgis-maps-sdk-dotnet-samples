@@ -281,10 +281,10 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
-        private const string AppClientId = @"lgAdHkYZYlwwfAhC";
+        private const string AppClientId = @"6wMAmbUEX1rvsOb4";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"my-ags-app://auth";
+        private const string OAuthRedirectUrl = @"forms-samples-app://auth";
 
         private void SetOAuthInfo()
         {

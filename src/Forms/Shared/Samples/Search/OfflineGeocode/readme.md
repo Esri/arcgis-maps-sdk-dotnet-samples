@@ -2,7 +2,11 @@
 
 Geocode addresses to locations and reverse geocode locations to addresses offline.
 
-![screenshot](OfflineGeocode.jpg)
+![Image of offline geocode](OfflineGeocode.jpg)
+
+## Use case
+
+You can use an address locator file to geocode addresses and locations. For example, you could provide offline geocoding capabilities to field workers repairing critical infrastructure in a disaster when network availability is limited.
 
 ## How to use the sample
 
@@ -24,9 +28,9 @@ Type the address in the Search menu option or select from the list to `Geocode` 
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [streetmap_SD.tpk](https://www.arcgis.com/home/item.html?id=1330ab96ac9c40a49e59650557f2cd63) - Streets Tile Package (tpk) for the City of San Diego.
-* [san-diego-locator.zip](https://www.arcgis.com/home/item.html?id=344e3b12368543ef84045ef9aa3c32ba) - Includes San Diego Locator Offline Dataset.
+* [San Diego Streets Tile Package](https://www.arcgis.com/home/item.html?id=1330ab96ac9c40a49e59650557f2cd63) - Streets Tile Package (tpk) for the City of San Diego.
+* [San Diego Offline Locator](https://www.arcgis.com/home/item.html?id=344e3b12368543ef84045ef9aa3c32ba) - Includes San Diego Locator Offline Dataset.
 
 ## Tags
 
-Search and Query, geocode, geocoder, locator, offline, package
+geocode, geocoder, locator, offline, package, query, search

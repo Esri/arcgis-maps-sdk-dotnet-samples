@@ -18,13 +18,14 @@
         "web"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/uwp/sample-code/displaywfs.htm"
     ],
     "relevant_apis": [
+        "FeatureLayer",
         "MapView.NavigationCompleted",
         "WfsFeatureTable",
         "WfsFeatureTable.PopulateFromServiceAsync"
@@ -33,5 +34,5 @@
         "DisplayWfs.xaml",
         "DisplayWfs.xaml.cs"
     ],
-    "title": "Display a WFS layer"
+    "title": "Display WFS layer"
 }

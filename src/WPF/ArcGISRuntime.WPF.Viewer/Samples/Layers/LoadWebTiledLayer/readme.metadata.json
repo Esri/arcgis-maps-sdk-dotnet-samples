@@ -10,12 +10,13 @@
         "OGC",
         "Open Street Map",
         "OpenStreetMap",
-        "WebTiledLayer",
+        "layer",
         "stamen.com",
-        "tiled"
+        "tiled",
+        "tiles"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

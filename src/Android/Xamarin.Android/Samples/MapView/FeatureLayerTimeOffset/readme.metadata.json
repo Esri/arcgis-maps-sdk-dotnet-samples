@@ -1,20 +1,32 @@
 {
     "category": "MapView",
-    "description": "Show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.",
+    "description": "Display a time-enabled feature layer with a time offset.",
     "formal_name": "FeatureLayerTimeOffset",
     "ignore": false,
     "images": [
         "FeatureLayerTimeOffset.jpg"
     ],
-    "keywords": [],
+    "keywords": [
+        "change",
+        "range",
+        "time",
+        "time extent",
+        "time offset",
+        "time-aware",
+        "time-enabled"
+    ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/featurelayertimeoffset.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "FeatureLayer",
+        "MapView",
+        "TimeExtent"
+    ],
     "snippets": [
         "FeatureLayerTimeOffset.cs"
     ],

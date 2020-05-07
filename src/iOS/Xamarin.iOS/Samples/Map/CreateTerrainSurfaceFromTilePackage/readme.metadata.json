@@ -8,12 +8,14 @@
     ],
     "keywords": [
         "3D",
-        "Elevation",
-        "Surface",
-        "Tile Cache"
+        "LERC",
+        "elevation",
+        "surface",
+        "terrain",
+        "tile cache"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -26,5 +28,5 @@
     "snippets": [
         "CreateTerrainSurfaceFromTilePackage.cs"
     ],
-    "title": "Create terrain surface from a tile package"
+    "title": "Create terrain from local tile package"
 }

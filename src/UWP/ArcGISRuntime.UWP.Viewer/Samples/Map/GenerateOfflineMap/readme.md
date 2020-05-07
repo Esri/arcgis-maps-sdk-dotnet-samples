@@ -2,7 +2,7 @@
 
 Take a web map offline.
 
-![screenshot](GenerateOfflineMap.jpg)
+![Image of generate offline map](GenerateOfflineMap.jpg)
 
 ## Use case
 
@@ -34,9 +34,9 @@ The map used in this sample shows the [stormwater network](https://arcgisruntime
 
 ## Additional information
 
-The creation of the offline map can be fine-tuned using [parameter overrides for feature layers](https://github.com/Esri/arcgis-runtime-samples-java/tree/master/src/main/java/com/esri/samples/map/generate_offline_map_overrides), or by using [local basemaps](https://github.com/Esri/arcgis-runtime-samples-java/tree/master/src/main/java/com/esri/samples/map/generate_offline_map_with_local_basemap)
+The creation of the offline map can be fine-tuned using [parameter overrides for feature layers](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/v.next/src/UWP/ArcGISRuntime.UWP.Viewer/Samples/Map/GenerateOfflineMapWithOverrides), or by using [local basemaps](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/v.next/src/UWP/ArcGISRuntime.UWP.Viewer/Samples/Map/OfflineBasemapByReference)
  to achieve more customized results.
 
 ## Tags
 
-map, offline
+download, offline, save, web map

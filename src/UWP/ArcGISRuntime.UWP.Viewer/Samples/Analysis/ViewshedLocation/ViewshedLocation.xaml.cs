@@ -20,7 +20,7 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Viewshed (Location)",
+        "Viewshed (location)",
         "Analysis",
         "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
         "Click anywhere in the scene to change the viewshed observer location."

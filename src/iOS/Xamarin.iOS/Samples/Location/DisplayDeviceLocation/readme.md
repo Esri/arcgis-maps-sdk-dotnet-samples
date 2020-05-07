@@ -2,7 +2,7 @@
 
 Display your current position on the map, as well as switch between different types of auto pan Modes.
 
-![screenshot](DisplayDeviceLocation.jpg)
+![Image of display device location](DisplayDeviceLocation.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ When using a map within a GIS, it may be helpful for a user to know their own lo
 
 ## How to use the sample
 
-Use the buttons to start and stop location display. When you start location display, choose an autopan mode.
+Select an autopan mode, then use the buttons to start and stop location display.
 
 ## How it works
 
@@ -20,9 +20,9 @@ Use the buttons to start and stop location display. When you start location disp
 
 ## Relevant API
 
-* Map
 * LocationDisplay
 * LocationDisplay.AutoPanMode
+* Map
 * MapView
 
 ## Additional information
@@ -31,4 +31,4 @@ Location permissions are required for this sample.
 
 ## Tags
 
-MapViews SceneViews and UI, gps, mobile
+compass, GPS, location, map, mobile, navigation

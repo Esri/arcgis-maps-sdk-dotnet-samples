@@ -142,7 +142,14 @@ namespace ArcGISRuntime
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await new MessageDialog("Couldn't delete the offline data folder", "Error").ShowAsync();
+                if (exception.Message.Contains("used by another process"))
+                {
+                    await new MessageDialog("Couldn't delete offline data. Data is being used by a sample. Restart the sample viewer and try again.", "Error").ShowAsync();
+                }
+                else
+                {
+                    await new MessageDialog("Couldn't delete the offline data folder", "Error").ShowAsync();
+                }
             }
             finally
             {
@@ -206,7 +213,14 @@ namespace ArcGISRuntime
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await new MessageDialog($"Couldn't delete offline data.", "Error").ShowAsync();
+                if (exception.Message.Contains("used by another process"))
+                {
+                    await new MessageDialog("Couldn't delete offline data. Data is being used by a sample. Restart the sample viewer and try again.", "Error").ShowAsync();
+                }
+                else
+                {
+                    await new MessageDialog("Couldn't delete the offline data folder", "Error").ShowAsync();
+                }
             }
             finally
             {
@@ -217,17 +231,8 @@ namespace ArcGISRuntime
         private void SetStatusMessage(string message, bool isRunning)
         {
             StatusLabel.Text = message;
-
-            if (isRunning)
-            {
-                StatusSpinner.Visibility = Visibility.Visible;
-                SampleDataListView.IsEnabled = false;
-            }
-            else
-            {
-                StatusSpinner.Visibility = Visibility.Collapsed;
-                SampleDataListView.IsEnabled = true;
-            }
+            SampleDataListView.IsEnabled = !isRunning;
+            StatusSpinner.Visibility = isRunning ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private async void MarkdownText_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)

@@ -2,7 +2,7 @@
 
 Display directions for a route between two points.
 
-![screenshot](FindRoute.jpg)
+![Image of find route](FindRoute.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Find routes with driving directions between any number of locations. You might u
 
 ## How to use the sample
 
-For simplicity, the sample comes loaded with a start and end stop. Click 'Solve route' to display a route between these stops. Once the route is generated, click 'Directions' to see turn-by-turn directions.
+For simplicity, the sample comes loaded with a start and end stop. You can tap on the Find Route button to display a route between these stops. Once the route is generated, turn-by-turn directions are shown in a list.
 
 ## How it works
 

@@ -1,8 +1,8 @@
-# Render simple markers
+# Simple marker symbol
 
 Show a simple marker symbol on a map.
 
-![screenshot](RenderSimpleMarkers.jpg)
+![Image of simple marker symbol](RenderSimpleMarkers.jpg)
 
 ## Use case
 

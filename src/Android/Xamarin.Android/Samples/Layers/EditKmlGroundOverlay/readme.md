@@ -2,7 +2,7 @@
 
 Edit the values of a KML ground overlay.
 
-![Edit KML ground overlay](EditKmlGroundOverlay.jpg)
+![Image of edit KML ground overlay](EditKmlGroundOverlay.jpg)
 
 ## Use case
 
@@ -36,7 +36,7 @@ This sample uses an .jpg image downloaded from [ArcGIS Online](https://arcgisrun
 
 ## About the data
 
-The [image](https://libapps.s3.amazonaws.com/accounts/55937/images/1944.jpg) is an aerial view of the campus of the University of Oregon. This imagery was taken in 1944 by the U.S. Army Corps of Engineers. It is publicly available on the University of Oregon libraries [website](https://researchguides.uoregon.edu/online-aerial-photography).
+The [image](https://libapps.s3.amazonaws.com/accounts/55937/images/1944.jpg) is an aerial view of the campus of the University of Oregon. This imagery was taken in 1944 by the U.S. Army Corps of Engineers. It is publicly available on the University of Oregon libraries [website](https://researchguides.uoregon.edu/online-aerial-photography). It is also available on [ArcGIS Online](https://arcgisruntime.maps.arcgis.com/home/item.html?id=1f3677c24b2c446e96eaf1099292e83e).
 
 ## Tags
 

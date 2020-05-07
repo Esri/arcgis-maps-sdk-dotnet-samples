@@ -2,7 +2,7 @@
 
 Project a point from one spatial reference to another.
 
-![](Project.jpg)
+![Image of project](Project.jpg)
 
 ## Use case
 
@@ -10,18 +10,22 @@ Being able to project between spatial references is fundamental to a GIS. An exa
 
 ## How to use the sample
 
-Click anywhere on the map. A callout will display the clicked location's coordinate in the original (basemap's) spatial reference and in the projected spatial reference.
+Tap anywhere on the map. A callout will display the clicked location's coordinate in the original (basemap's) spatial reference and in the projected spatial reference.
 
 ## How it works
 
-1. Call the static method, `GeometryEngine.project`, passing in the original `Geometry` and a `SpatialReference` to project to.
+1. Call the static method, `GeometryEngine.Project`, passing in the original `Geometry` and a `SpatialReference` to which it should be projected.
 
 ## Relevant API
 
-- GeometryEngine
-- Point
-- SpatialReference
+* GeometryEngine
+* Point
+* SpatialReference
+
+## Additional information
+
+In cases where the the output spatial reference uses a different geographic coordinate system than that of the input spatial reference, see the GeometryEngine.project method that additionally takes in a DatumTransformation parameter.
 
 ## Tags
 
-GeometryEngine, projection, spatial reference, Web Mercator, WGS 84, latitude, longitude, projected coordinate system, geographic coordinate system
+coordinate system, coordinates, latitude, longitude, projected, projection, spatial reference, Web Mercator, WGS 84

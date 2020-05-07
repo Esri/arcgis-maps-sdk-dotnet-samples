@@ -1,20 +1,19 @@
 {
     "category": "Geometry",
-    "description": "This sample demonstrates how to perform geodesic operations on geometries using the GeometryEngine. Geodesic calculations take into account the curvature of the Earth, while planar calculations are based on a 2D Cartesian plane.",
+    "description": "Calculate a geodesic path between two points and measure its distance.",
     "formal_name": "GeodesicOperations",
     "ignore": false,
     "images": [
         "GeodesicOperations.jpg"
     ],
     "keywords": [
-        "GeometryEngine",
         "densify",
         "distance",
         "geodesic",
         "geodetic"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

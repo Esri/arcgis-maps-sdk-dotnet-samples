@@ -4,12 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <controls:MapView x:Name="MyMapView" />
+        <controls:MapView x:Name="MyMapView" WrapAroundMode="Disabled" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock x:Name="ResultsLabel"
-                           Text="Tap to see the nearest vertex and point."
-                           FontWeight="SemiBold" TextAlignment="Center" />
+                <TextBlock
+                    x:Name="ResultsLabel"
+                    FontWeight="SemiBold"
+                    Text="Tap to see the nearest vertex and point."
+                    TextAlignment="Center" />
             </StackPanel>
         </Border>
     </Grid>

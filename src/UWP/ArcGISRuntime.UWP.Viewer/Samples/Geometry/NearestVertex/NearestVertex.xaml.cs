@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -78,7 +78,7 @@ namespace ArcGISRuntime.UWP.Samples.NearestVertex
             _nearestCoordinateGraphic = new Graphic { Symbol = nearestCoordinateSymbol };
             _tappedLocationGraphic = new Graphic { Symbol = tappedLocationSymbol };
             _nearestVertexGraphic = new Graphic { Symbol = nearestVertexSymbol };
-            
+
             _graphicsOverlay.Graphics.Add(_tappedLocationGraphic);
             _graphicsOverlay.Graphics.Add(_nearestVertexGraphic);
             _graphicsOverlay.Graphics.Add(_nearestCoordinateGraphic);
@@ -87,9 +87,7 @@ namespace ArcGISRuntime.UWP.Samples.NearestVertex
             MyMapView.GeoViewTapped += MapViewTapped;
 
             // Center the map on the polygon
-            // Create the point that defines the point graphic
-            MapPoint centerPoint = new MapPoint(-4487263.495911, 3699176.480377, SpatialReferences.WebMercator);
-            MyMapView.SetViewpointCenterAsync(centerPoint, 200000000);
+            MyMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 200000000);
         }
 
         private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)

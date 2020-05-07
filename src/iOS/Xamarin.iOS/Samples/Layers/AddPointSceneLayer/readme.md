@@ -2,15 +2,15 @@
 
 View a point scene layer from a scene service.
 
-![](AddPointSceneLayer.jpg)
+![Image of a point scene layer](AddPointSceneLayer.jpg)
 
 ## Use case
 
-Point scene layers can efficiently display large amounts of point features. While point cloud layers can only display simple symbols, point scene layer's can display any type of billboard symbol or even 3D models, as long as the location of the symbol can be described by a point. Points are cached and automatically thinned when zoomed out to improve performance.
+Point scene layers can efficiently display large amounts of point features. While point cloud layers can only display simple symbols, point scene layers can display any type of billboard symbol or even 3D models, as long as the location of the symbol can be described by a point. Points are cached and automatically thinned when zoomed out to improve performance.
 
 ## How to use the sample
 
-Zoom in and pan around the scene. Notice how there are many thousands of features which are thinned when zoomed out.
+Pan around the scene and zoom in. Notice how many thousands of additional features appear at each successive zoom scale.
 
 ## How it works
 
@@ -21,6 +21,14 @@ Zoom in and pan around the scene. Notice how there are many thousands of feature
 ## Relevant API
 
 * ArcGISSceneLayer
+
+## About the data
+
+This dataset contains more than 40,000 points representing world airports. Points are retrieved on demand by the scene layer as the user navigates the scene.
+
+## Additional information
+
+Point scene layers can also be retrieved from scene layer packages (.slpk) and mobile scene packages (.mspk).
 
 ## Tags
 

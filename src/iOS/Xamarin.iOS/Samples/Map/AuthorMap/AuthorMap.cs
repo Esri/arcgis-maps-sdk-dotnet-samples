@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 {
     [Register("AuthorMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Author and save a map",
+        "Create and save map",
         "Map",
         "This sample demonstrates how to author and save a map as an ArcGIS portal item (web map). Saving a map to arcgis.com requires an ArcGIS Online login.",
         "1. Pan and zoom to the extent you would like for your map. \n2. Choose a basemap from the list of available basemaps. \n3. Choose one or more operational layers to include. \n4. Click 'Save ...' to apply your changes. \n5. Provide info for the new portal item, such as a Title, Description, and Tags. \n6. Click 'Save Map'. \n7. After successfully logging in to your ArcGIS Online account, the map will be saved to your default folder. \n8. You can make additional changes, update the map, and then re-save to store changes in the portal item.")]
@@ -68,11 +68,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
 
         // TODO: Add Client ID for an app registered with the server
-        private string _appClientId = "lgAdHkYZYlwwfAhC";
+        private string _appClientId = "IBkBd7YYFHOzPIIO";
 
         // TODO: Add URL for redirecting after a successful authorization
         //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string _oAuthRedirectUrl = "my-ags-app://auth";
+        private string _oAuthRedirectUrl = "xamarin-ios-app://auth";
 
         // URL used by the server for authorization.
         private const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";

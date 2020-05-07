@@ -1,16 +1,16 @@
 # Feature layer definition expression
 
-Limit the features to display on the map using a definition expression.
+Limit the features displayed on a map with a definition expression.
 
-![screenshot](FeatureLayerDefinitionExpression.jpg)
+![Image of feature layer definition expression](FeatureLayerDefinitionExpression.jpg)
 
 ## Use case
 
-One use case includes improving application performance by restricting the amount of features returned from a feature service. The definition expression is applied to visualized features as well as the underlying feature table. Another use case is the data in a FeatureLayer may be sensitive and require a certain level of authorization/permission to view. By setting a definition expression to only those records specified the data is protected from unauthorized access.
+Set a definition expression to filter out the features to be displayed. You might filter a dataset of tree quality selecting for only those trees which require maintenance or are damaged.
 
 ## How to use the sample
 
-Press the 'Apply Expression' button to limit the features requested from the feature layer to those specified by the SQL query definition expression. Click the 'Reset Expression' button to remove the definition expression on the feature layer, which returns all the records.
+Press the 'Apply Expression' button to limit the features requested from the feature layer to those specified by the SQL query definition expression. Tap the 'Reset Expression' button to remove the definition expression on the feature layer, which returns all the records.
 
 ## How it works
 
@@ -24,6 +24,10 @@ Press the 'Apply Expression' button to limit the features requested from the fea
 * FeatureLayer
 * ServiceFeatureTable
 
+## About the data
+
+This map displays point features related to crime incidents that have been reported by city residents.
+
 ## Tags
 
-DefinitionExpression, ServiceFeatureTable, definition expression, filter, limit data, query, restrict data, sql where clause
+definition expression, filter, limit data, query, restrict data, SQL, where clause

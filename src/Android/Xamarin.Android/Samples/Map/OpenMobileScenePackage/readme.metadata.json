@@ -1,17 +1,17 @@
 {
     "category": "Map",
-    "description": "Open and display a scene from a Mobile Scene Package (.mspk).",
+    "description": "Opens and displays a scene from a Mobile Scene Package (.mspk).",
     "formal_name": "OpenMobileScenePackage",
     "ignore": false,
     "images": [
         "OpenMobileScenePackage.jpg"
     ],
     "keywords": [
-        "Offline",
-        "Scene"
+        "offline",
+        "scene"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [
         "7dd2f97bb007466ea939160d0de96a9d"
@@ -26,5 +26,5 @@
     "snippets": [
         "OpenMobileScenePackage.cs"
     ],
-    "title": "Open Mobile Scene Package"
+    "title": "Open mobile scene package"
 }

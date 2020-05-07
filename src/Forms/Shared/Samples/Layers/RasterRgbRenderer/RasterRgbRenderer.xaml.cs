@@ -19,7 +19,7 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.RasterRgbRenderer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster RGB renderer",
+        "RGB renderer",
         "Layers",
         "This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.",
         "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]
@@ -161,7 +161,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _rasterLayer.Renderer = rasterRenderer;
         }
 
-        private void StretchTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void StretchTypeSelectionChanged(object sender, EventArgs e)
         {
             // Hide all UI controls for the input parameters.
             MinMaxParametersGrid.IsVisible = false;

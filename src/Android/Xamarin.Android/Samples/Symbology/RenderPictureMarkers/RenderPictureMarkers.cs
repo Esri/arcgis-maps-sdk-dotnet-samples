@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Render picture markers",
+        "Picture marker symbol",
         "Symbology",
         "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
         "")]

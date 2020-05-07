@@ -7,10 +7,16 @@
         "EditFeatureAttachments.jpg"
     ],
     "keywords": [
-        "Edit and Manage Data"
+        "JPEG",
+        "PDF",
+        "PNG",
+        "TXT",
+        "data",
+        "image",
+        "picture"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -20,8 +26,8 @@
         "ApplyEditsAsync",
         "DeleteAttachmentAsync",
         "FeatureLayer",
-        "GetAttachmentsAsync",
-        "GetDataAsync",
+        "FetchAttachmentsAsync",
+        "FetchDataAsync",
         "ServiceFeatureTable",
         "UpdateFeatureAsync"
     ],

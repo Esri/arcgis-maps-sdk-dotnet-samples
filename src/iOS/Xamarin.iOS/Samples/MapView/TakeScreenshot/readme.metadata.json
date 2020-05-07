@@ -7,17 +7,17 @@
         "TakeScreenshot.jpg"
     ],
     "keywords": [
-        "Screenshot",
         "capture",
         "export",
         "image",
         "print",
         "screen capture",
+        "screenshot",
         "share",
         "shot"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -33,5 +33,5 @@
     "snippets": [
         "TakeScreenshot.cs"
     ],
-    "title": "Take a screenshot"
+    "title": "Take screenshot"
 }

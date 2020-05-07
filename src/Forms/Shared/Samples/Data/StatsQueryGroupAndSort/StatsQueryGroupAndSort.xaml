@@ -38,14 +38,16 @@
             Grid.Row="1"
             Grid.Column="1"
             Margin="5"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            VerticalOptions="CenterAndExpand" />
         <Picker
             x:Name="StatTypeComboBox"
             Title="Statistic"
             Grid.Row="1"
             Grid.Column="3"
             Margin="5"
-            HorizontalOptions="Fill" />
+            HorizontalOptions="Fill"
+            VerticalOptions="CenterAndExpand" />
         <Button
             x:Name="AddStatisticButton"
             Grid.Row="1"

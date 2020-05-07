@@ -17,7 +17,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display a map",
+        "Display map",
         "Map",
         "This sample demonstrates how to display a map with a basemap.",
         "")]

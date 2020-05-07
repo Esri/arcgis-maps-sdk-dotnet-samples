@@ -1,6 +1,6 @@
 {
     "category": "Data",
-    "description": "Add rasters and feature tables from GeoPackages to a map.",
+    "description": "Add rasters and feature tables from a GeoPackage to a map.",
     "formal_name": "ReadGeoPackage",
     "ignore": false,
     "images": [
@@ -8,16 +8,16 @@
     ],
     "keywords": [
         "GeoPackage",
-        "Layers",
-        "Maps",
         "OGC",
-        "Rasters",
-        "Tables",
         "container",
-        "package"
+        "layer",
+        "map",
+        "package",
+        "raster",
+        "table"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [
         "68ec42517cdd439e81b036210483e8e7"
@@ -36,5 +36,5 @@
         "ReadGeoPackage.xaml",
         "ReadGeoPackage.xaml.cs"
     ],
-    "title": "Read a GeoPackage"
+    "title": "Read GeoPackage"
 }

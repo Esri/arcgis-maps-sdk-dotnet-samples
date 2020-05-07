@@ -2,7 +2,7 @@
 
 Find the service area within a network from a given point.
 
-![screenshot](FindServiceArea.jpg)
+![Image of find service area](FindServiceArea.jpg)
 
 ## Use case
 

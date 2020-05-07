@@ -1,6 +1,6 @@
 {
     "category": "Map",
-    "description": "Get the elevation for a given point on a surface in a scene. ",
+    "description": "Get the elevation for a given point on a surface in a scene.",
     "formal_name": "GetElevationAtPoint",
     "ignore": false,
     "images": [
@@ -12,7 +12,7 @@
         "surface"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

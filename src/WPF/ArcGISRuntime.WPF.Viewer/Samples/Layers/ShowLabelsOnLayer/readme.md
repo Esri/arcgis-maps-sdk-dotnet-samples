@@ -2,7 +2,11 @@
 
 Display custom labels on a feature layer.
 
-![screenshot](ShowLabelsOnLayer.jpg)
+![Image of show labels on layers](ShowLabelsOnLayer.jpg)
+
+## Use case
+
+Labeling features is useful to visually display a key piece of information or attribute of a feature on a map. For example, you may want to label rivers or street with their names. 
 
 ## How to use the sample
 
@@ -28,12 +32,12 @@ Pan and zoom around the United States. Labels for congressional districts will b
 
 ## About the data
 
-This sample uses the [USA 116th Congressional Districts](https://www.arcgis.com/home/item.html?id=cc6a869374434bee9fefad45e291b779) feature layer.
+This sample uses the [USA 116th Congressional Districts](https://www.arcgis.com/home/item.html?id=cc6a869374434bee9fefad45e291b779) feature layer hosted on ArcGIS Online.
 
 ## Additional information
 
-Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found in the [web map specification](https://developers.arcgis.com/web-map-specification/objects/labelingInfo/).
+Help regarding the JSON syntax for defining the `LabelDefinition.FromJson` syntax can be found in [labeling info](https://developers.arcgis.com/web-map-specification/objects/labelingInfo/) in the *Web map specification*.
 
 ## Tags
 
-Deconfliction, Labeling, Labels, visualization
+attribute, deconfliction, label, labeling, string, symbol, text, visualization

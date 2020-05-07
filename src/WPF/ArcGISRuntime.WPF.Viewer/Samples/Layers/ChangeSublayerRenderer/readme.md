@@ -2,7 +2,7 @@
 
 Apply a renderer to a sublayer.
 
-![screenshot](ChangeSublayerRenderer.jpg)
+![Image of change sublayer renderer](ChangeSublayerRenderer.jpg)
 
 ## Use case
 

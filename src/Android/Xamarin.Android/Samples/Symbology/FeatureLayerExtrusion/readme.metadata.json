@@ -8,23 +8,27 @@
     ],
     "keywords": [
         "3D",
-        "ExtrusionExpression",
-        "ExtrusionMode",
-        "Scene",
-        "SimpleRenderer",
-        "extrude"
+        "extrude",
+        "extrusion",
+        "extrusion expression",
+        "height",
+        "renderer",
+        "scene"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/featurelayerextrusion.htm"
     ],
     "relevant_apis": [
+        "ExtrusionExpression",
+        "ExtrusionMode",
         "FeatureLayer",
         "SceneProperties",
-        "ServiceFeatureTable"
+        "ServiceFeatureTable",
+        "SimpleRenderer"
     ],
     "snippets": [
         "FeatureLayerExtrusion.cs"

@@ -29,7 +29,7 @@
             Grid.ColumnSpan="3"
             Margin="5"
             Orientation="Horizontal">
-            <Picker x:Name="MissionSelectionBox" />
+            <Picker x:Name="MissionSelectionBox" VerticalOptions="CenterAndExpand" />
             <Button
                 x:Name="MissionPlayPause"
                 Clicked="MissionPlayPlauseClick"
@@ -50,6 +50,8 @@
                 <Slider
                     x:Name="MissionProgressBar"
                     Maximum="100"
+                    MaximumTrackColor="CadetBlue"
+                    MinimumTrackColor="CadetBlue"
                     ValueChanged="MissionProgressOnSeek" />
                 <Label TextColor="Black">Altitude:</Label>
                 <Label x:Name="AltitudeLabel" TextColor="Black" />

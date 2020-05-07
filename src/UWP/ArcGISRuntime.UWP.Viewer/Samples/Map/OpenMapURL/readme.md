@@ -2,7 +2,7 @@
 
 Display a web map.
 
-![screenshot](OpenMapURL.jpg)
+![Image of open map URL](OpenMapURL.jpg)
 
 ## Use case
 

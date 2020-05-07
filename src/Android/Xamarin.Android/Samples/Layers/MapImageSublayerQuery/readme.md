@@ -2,7 +2,7 @@
 
 Find features in a sublayer based on attributes and location.
 
-![screenshot](MapImageSublayerQuery.jpg)
+![Image of query map image sublayer](MapImageSublayerQuery.jpg)
 
 ## Use case
 
@@ -10,7 +10,7 @@ Sublayers of an `ArcGISMapImageLayer` may expose a `ServiceFeatureTable` through
 
 ## How to use the sample
 
-Specify a minimum population in the input field (values under 1810000 will produce a selection in all layers) and click the query button to query the sublayers in the current view extent. After a short time, the results for each sublayer will appear as graphics.
+Specify a minimum population in the input field (values under 1810000 will produce a selection in all layers) and tap the query button to query the sublayers in the current view extent. After a short time, the results for each sublayer will appear as graphics.
 
 ## How it works
 

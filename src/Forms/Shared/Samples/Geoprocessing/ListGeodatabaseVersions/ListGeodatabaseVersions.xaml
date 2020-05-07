@@ -1,20 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntime.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <StackLayout Orientation="Vertical">
-      <StackLayout Orientation="Horizontal">
-        <Label Margin="10,0,0,0">Current versions:</Label>
-      </StackLayout>
-    </StackLayout>
-    <ActivityIndicator x:Name="MyActivityIndicator" IsVisible="False"/>
-    <Editor x:Name="theTextBox" Grid.Row="1"/>
-  </Grid>
+<ContentPage
+    x:Class="ArcGISRuntime.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal">
+                <Label Margin="10,0,0,0" Text="Current versions:" />
+            </StackLayout>
+        </StackLayout>
+        <ActivityIndicator
+            x:Name="MyActivityIndicator"
+            Grid.Row="1"
+            IsVisible="False" />
+        <ScrollView Grid.Row="1">
+            <Label Margin="10,0,0,0" x:Name="VersionsLabel" />
+        </ScrollView>
+    </Grid>
 </ContentPage>

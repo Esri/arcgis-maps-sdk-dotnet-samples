@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android;
@@ -70,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
 
         // Permissions and permission request.
-        private readonly string[] _requestedPermissions = {Manifest.Permission.AccessFineLocation};
+        private readonly string[] _requestedPermissions = { Manifest.Permission.AccessFineLocation };
         private const int RequestCode = 35;
 
         protected override void OnCreate(Bundle bundle)
@@ -208,7 +208,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 // Set the stops for the route.
                 Stop stop1 = new Stop(_startPoint);
                 Stop stop2 = new Stop(_endPoint);
-                _routeParameters.SetStops(new[] {stop1, stop2});
+                _routeParameters.SetStops(new[] { stop1, stop2 });
 
                 // Calculate the route.
                 _routeResult = await _routeTask.SolveRouteAsync(_routeParameters);
@@ -301,7 +301,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
             return credential;
         }
-
 
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation.
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)

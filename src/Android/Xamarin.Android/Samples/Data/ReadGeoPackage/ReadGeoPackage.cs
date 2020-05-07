@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Read a GeoPackage",
+        "Read GeoPackage",
         "Data",
         "Add rasters and feature tables from GeoPackages to a map.",
         "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.")]

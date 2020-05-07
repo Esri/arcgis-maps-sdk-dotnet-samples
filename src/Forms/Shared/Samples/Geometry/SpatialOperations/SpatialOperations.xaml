@@ -24,6 +24,7 @@
                 <Picker
                     x:Name="SpatialOperationComboBox"
                     Margin="0,5"
+                    VerticalOptions="CenterAndExpand"
                     SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"
                     WidthRequest="253">
                     <Picker.BackgroundColor>

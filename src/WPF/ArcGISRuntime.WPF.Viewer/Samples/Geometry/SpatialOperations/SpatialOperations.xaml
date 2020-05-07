@@ -1,20 +1,22 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.SpatialOperations.SpatialOperations"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+﻿<UserControl
+    x:Class="ArcGISRuntime.WPF.Samples.SpatialOperations.SpatialOperations"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Center" VerticalAlignment="Top"
-                Margin="30" Padding="10" Width="275">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Select a spatial operation:"/>
-                <ComboBox x:Name="SpatialOperationComboBox" 
-                          Margin="0,5"
-                          SelectionChanged="SpatialOperationComboBox_SelectionChanged" Width="253"/>
-                <Button x:Name="ResetOperationButton"
-                        Content="Reset operation"
-                        Click="ResetOperationButton_Click" Width="253"/>
+                <TextBlock Margin="5" Text="Select a spatial operation:" />
+                <ComboBox
+                    x:Name="SpatialOperationComboBox"
+                    Margin="5"
+                    SelectionChanged="SpatialOperationComboBox_SelectionChanged" />
+                <Button
+                    x:Name="ResetOperationButton"
+                    Margin="5"
+                    Click="ResetOperationButton_Click"
+                    Content="Reset operation" />
             </StackPanel>
         </Border>
     </Grid>

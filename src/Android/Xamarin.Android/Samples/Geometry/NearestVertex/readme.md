@@ -1,18 +1,24 @@
 # Nearest vertex
 
-Shows how to find the nearest vertex on a geometry to a given point.
+Find the closest vertex and coordinate of a geometry to a point.
 
-![screenshot](NearestVertex.jpg)
+![Image of nearest vertex](NearestVertex.jpg)
+
+## Use case
+
+Determine the shortest distance between a location and the boundary of an area. For example, developers can snap imprecise user clicks to a geometry if the tap is within a certain distance of the geometry.
 
 ## How to use the sample
 
-Tap anywhere on the map. An orange marker will show the tapped location. A blue marker will show the polygon's nearest vertex to the tapped location. A red marker will show the nearest coordinate on the geometry.
+Tap anywhere on the map. An orange cross will show at that location. A blue circle will show the polygon's nearest vertex to the point that was clicked. A red diamond will appear at the coordinate on the geometry that is nearest to the point that was clicked. If clicked inside the geometry, the red and orange markers will overlap. The information box showing distance between the clicked point and the nearest vertex/coordinate will be updated with every new location clicked.
 
 ## How it works
 
-1. Get a `Point` to check the nearest vertex against.
-2. Call `GeometryEngine.NearestVertex(inputGeometry, point)`. The returned `ProximityResult` can be used to get the coordinate and distance between the vertex and point.
-3. Call `GeometryEngine.NearestCoordinate(inputGeometry, point)`. The returned `ProximityResult` can be used to get the coordinate and distance between the coordinate and point.
+1. Get a `Geometry` and a `Point` to check the nearest vertex against.
+2. Call `GeometryEngine.NearestVertex(inputGeometry, point)`.
+3. Use the returned `ProximityResult` to get the `Point` representing the polygon vertex, and to determine the distance between that vertex and the clicked point.
+4. Call `GeometryEngine.NearestCoordinate(inputGeometry, point)`.
+5. Use the returned `ProximityResult` to get the `Point` representing the coordinate on the polygon, and to determine the distance between that coordinate and the clicked point.
 
 ## Relevant API
 
@@ -21,4 +27,4 @@ Tap anywhere on the map. An orange marker will show the tapped location. A blue 
 
 ## Tags
 
-Analysis, Geometry
+analysis, coordinate, geometry, nearest, proximity, vertex

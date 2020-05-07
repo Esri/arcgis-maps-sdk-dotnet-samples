@@ -2,11 +2,15 @@
 
 Display a tiled web layer.
 
-![screenshot](LoadWebTiledLayer.jpg)
+![Image of web tiled layer](LoadWebTiledLayer.jpg)
+
+## Use case
+
+Tiled map services are a set of pre-generated images (e.g. "tiles") arranged in folders for each row, column, and zoom level. As you navigate the map, map tiles are requested for the current extent. `ArcGISTiledLayer` and `WMTSLayer` are types of tiled map services used for specific data types. `WebTiledLayer` is useful for displaying other data sources that contain tiles arranged in a row/column/level directory structure, such as OpenStreetMap.
 
 ## How to use the sample
 
-The web tiled basemap will load automatically when the sample starts.
+Run the sample and a map will appear. As you navigate the map, map tiles will be fetched automatically and displayed on the map.
 
 ## How it works
 
@@ -22,7 +26,7 @@ The web tiled basemap will load automatically when the sample starts.
 
 ## About the data
 
-The basemap in this sample is provided by [Stamen Design](maps.stamen.com). Stamen publishes tiled services based on OpenStreetMap data with several unique styles applied.
+The basemap in this sample is provided by [Stamen Design](https://stamen.com/). Stamen publishes tiled services based on OpenStreetMap data with several unique styles applied.
 
 ## Additional information
 
@@ -38,4 +42,4 @@ For more information about web tiled layers, see the following resources:
 
 ## Tags
 
-OGC, Open Street Map, OpenStreetMap, WebTiledLayer, stamen.com, tiled
+layer, OGC, Open Street Map, OpenStreetMap, stamen.com, tiled, tiles

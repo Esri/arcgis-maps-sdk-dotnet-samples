@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-            "Read symbols from a mobile style",
+            "Read symbols from mobile style",
             "Symbology",
             "Open a local mobile style file (.stylx) and read its contents.",
             "")]

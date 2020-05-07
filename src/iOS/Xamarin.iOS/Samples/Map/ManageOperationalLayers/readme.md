@@ -2,23 +2,36 @@
 
 Add, remove, and reorder operational layers in a map.
 
-![Manage Operational Layers App](ManageOperationalLayers.jpg)
+![Image of manage operational layers](ManageOperationalLayers.jpg)
+
+## Use case
+
+Operational layers display the primary content of the map and usually provide dynamic content for the user to interact with (as opposed to basemap layers that provide context).
+
+The order of operational layers in a map determines the visual hierarchy of layers in the view. You can bring attention to a specific layer by rendering above other layers.
 
 ## How to use the sample
 
-Tap 'Manage layers' to see a list of layers. Tap edit in the popup to see editing controls. Layers can be dragged (using the handle on the right of the list item) to reorder within lists or moved in/out of the map's operational layers.
+When the app starts, a list displays the operational layers that are currently displayed in the map. Right-tap on the list item to remove the layer, or left-tap to move it to the top. The map will be updated automatically.
+
+The second list shows layers that have been removed from the map. Tap one to add it to the map.
 
 ## How it works
 
-A map's `OperationalLayers` collection controls which layers are visualized. `MapView` automatically updates the visualization when the `Map` changes. A separate collection holds layers that have been removed from the operational layers. 
+1. Get the operational layers from the map using `map.OperationalLayers`.
+2. Add or remove layers using `layerList.Add(layer)` and `layerList.Remove(layer)` respectively. The last layer in the list will be rendered on top.
 
 ## Relevant API
 
-* Map
 * ArcGISMapImageLayer
+* Map
 * MapView
 * MapView.OperationalLayers
 
+## Additional information
+
+You cannot add the same layer to the map multiple times or add the same layer to multiple maps. Instead, clone the layer with `layer.Clone()` before duplicating.
+
 ## Tags
 
-Map, scene, operational, hide, remove, add
+add, delete, layer, map, remove

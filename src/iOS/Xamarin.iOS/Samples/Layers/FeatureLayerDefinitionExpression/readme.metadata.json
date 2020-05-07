@@ -1,23 +1,22 @@
 {
     "category": "Layers",
-    "description": "Limit the features to display on the map using a definition expression.",
+    "description": "Limit the features displayed on a map with a definition expression.",
     "formal_name": "FeatureLayerDefinitionExpression",
     "ignore": false,
     "images": [
         "FeatureLayerDefinitionExpression.jpg"
     ],
     "keywords": [
-        "DefinitionExpression",
-        "ServiceFeatureTable",
+        "SQL",
         "definition expression",
         "filter",
         "limit data",
         "query",
         "restrict data",
-        "sql where clause"
+        "where clause"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.7.0"
+        "Esri.ArcGISRuntime": "100.8.0"
     },
     "offline_data": [],
     "redirect_from": [

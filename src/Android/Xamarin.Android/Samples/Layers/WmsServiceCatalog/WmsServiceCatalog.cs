@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
@@ -19,7 +20,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMS service catalog",
         "Layers",
@@ -55,19 +56,28 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         private void CreateLayout()
         {
             // Create a new vertical layout for the app
-            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Configuration for having the mapview and webview fill the screen.
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MatchParent,
+                ViewGroup.LayoutParams.MatchParent,
+                1.0f
+            );
 
             // Create the list view
-            _myDisplayList = new ListView(this);
+            _myDisplayList = new ListView(this) { LayoutParameters = layoutParams };
 
             // Create two help labels
-            TextView promptLabel = new TextView(this) {Text = "Select a layer"};
+            TextView promptLabel = new TextView(this) { Text = "Select a layer" };
+
+            // Create the mapview.
+            _myMapView = new MapView(this) { LayoutParameters = layoutParams };
 
             // Add the views to the layout
             layout.AddView(promptLabel);
-            layout.AddView(_myDisplayList);
-            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
+            layout.AddView(_myDisplayList);
 
             // Show the layout in the app
             SetContentView(layout);

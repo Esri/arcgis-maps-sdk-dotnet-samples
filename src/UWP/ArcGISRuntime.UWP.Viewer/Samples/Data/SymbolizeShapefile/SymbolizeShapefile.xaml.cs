@@ -19,7 +19,7 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Symbolize a shapefile",
+        "Symbolize shapefile",
         "Data",
         "This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.",
         "Click the button to switch renderers. ")]

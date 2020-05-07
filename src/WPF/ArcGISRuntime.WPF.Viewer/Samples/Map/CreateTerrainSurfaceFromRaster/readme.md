@@ -1,8 +1,16 @@
 # Create terrain surface from a local raster
 
-Use a terrain surface with elevation described by a raster file.
+Set the terrain surface with elevation described by a raster file.
 
-![screenshot](CreateTerrainSurfaceFromRaster.jpg)
+![Image of create terrain surface from local raster](CreateTerrainSurfaceFromRaster.jpg)
+
+## Use case
+
+In a scene view, the terrain surface is what the basemap, operational layers, and graphics are draped onto. For example, when viewing a scene in a mountainous region, applying a terrain surface to the scene will help in recognizing the slopes, valleys, and elevated areas.
+
+## How to use the sample
+
+When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.
 
 ## How it works
 
@@ -10,9 +18,12 @@ Use a terrain surface with elevation described by a raster file.
 2. Create a `RasterElevationSource` with a list of raster file paths.
 3. Add this source to the scene's base surface: `Scene.BaseSurface.ElevationSources.Add(rasterElevationSource)`.
 
-## Additional information
+## Relevant API
 
-The terrain surface is what the basemap, operational layers, and graphics are draped on.
+* RasterElevationSource
+* Surface
+
+## Additional information
 
 Supported raster formats include:
 
@@ -30,13 +41,6 @@ Supported raster formats include:
 * RPF
 * SRTM1, 2
 
-The raster used in this sample is a DTED2 file.
-
-## Relevant API
-
-* RasterElevationSource
-* Surface
-
 ## Tags
 
-3D, Raster, Elevation, Surface
+3D, elevation, raster, surface, terrain

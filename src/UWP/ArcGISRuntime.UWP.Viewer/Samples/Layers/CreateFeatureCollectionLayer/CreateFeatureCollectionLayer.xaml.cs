@@ -20,7 +20,7 @@ using System.Drawing;
 namespace ArcGISRuntime.UWP.Samples.CreateFeatureCollectionLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create a new feature collection layer",
+        "Featue collection layer",
         "Layers",
         "This sample demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.",
         "")]

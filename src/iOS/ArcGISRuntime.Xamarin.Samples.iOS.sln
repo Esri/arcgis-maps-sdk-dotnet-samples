@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.Xamarin.Samples.iOS", "Xamarin.iOS\ArcGISRuntime.Xamarin.Samples.iOS.csproj", "{3192A404-34AC-4083-A3B9-44610EE92E68}"
 EndProject
@@ -33,6 +33,7 @@ Global
 		{3192A404-34AC-4083-A3B9-44610EE92E68}.AppStore|iPhoneSimulator.Build.0 = AppStore|iPhoneSimulator
 		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhone.Build.0 = Debug|iPhone
+		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhone.Deploy.0 = Debug|iPhone
 		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{3192A404-34AC-4083-A3B9-44610EE92E68}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{3192A404-34AC-4083-A3B9-44610EE92E68}.Release|iPhone.ActiveCfg = Release|iPhone

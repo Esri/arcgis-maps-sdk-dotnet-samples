@@ -55,8 +55,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         // Auth.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
-        private const string AppClientId = @"lgAdHkYZYlwwfAhC";
-        private const string OAuthRedirectUrl = @"my-ags-app://auth";
+        private const string AppClientId = @"IBkBd7YYFHOzPIIO";
+        private const string OAuthRedirectUrl = @"xamarin-ios-app://auth";
         private Xamarin.Auth.OAuth2Authenticator _auth;
 
         public override void LoadView()

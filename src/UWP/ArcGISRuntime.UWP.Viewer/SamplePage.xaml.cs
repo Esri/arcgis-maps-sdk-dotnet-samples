@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -22,8 +23,9 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             InitializeComponent();
 
-            // Add event for cleaning up sample page when closed.
+            // Add events for cleaning up sample page when closed or opened.
             Unloaded += SamplePage_Unloaded;
+            Loaded += SamplePage_Loaded;
 
             // Get selected sample and set that as the DataContext.
             DataContext = SampleManager.Current.SelectedSample;
@@ -92,15 +94,21 @@ namespace ArcGISRuntime.UWP.Viewer
             e.Handled = true;
         }
 
-        private static void SamplePage_Unloaded(object sender, RoutedEventArgs e)
+        private void SamplePage_Loaded(object sender, RoutedEventArgs e)
         {
-            ((SamplePage)sender).RemoveSamplePageHandlers();
+            Tabs.SelectionChanged += TabChanged;
+            DescriptionBlock.ImageResolving += MarkDownBlock_ImageResolving;
         }
 
-        private void RemoveSamplePageHandlers()
+        private void SamplePage_Unloaded(object sender, RoutedEventArgs e)
         {
             Tabs.SelectionChanged -= TabChanged;
             DescriptionBlock.ImageResolving -= MarkDownBlock_ImageResolving;
+        }
+
+        private async void MarkdownText_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            await Launcher.LaunchUriAsync(new Uri(e.Link));
         }
     }
 }

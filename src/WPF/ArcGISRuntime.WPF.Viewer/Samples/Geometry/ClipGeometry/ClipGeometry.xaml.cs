@@ -18,9 +18,9 @@ namespace ArcGISRuntime.WPF.Samples.ClipGeometry
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Clip geometry",
         "Geometry",
-        "This sample demonstrates how to clip a geometry with an envelope using the GeometryEngine",
-        "Click the 'Clip' button to clip the blue graphic with red envelopes.",
-        "")]
+        "Clip a geometry with another geometry.",
+        "Click the \"Clip\" button to clip the blue graphic with the red dashed envelopes.",
+        "analysis", "clip", "geometry")]
     public partial class ClipGeometry
     {
         // Graphics overlay to display input geometries for the clip operation.

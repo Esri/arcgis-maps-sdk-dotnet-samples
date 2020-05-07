@@ -20,10 +20,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Distance composite symbol",
+        "Distance composite scene symbol",
         "Symbology",
-        "This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.",
-        "1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D model symbol (airplane).\n2. Zoom away slightly from the graphic and the symbol will change to a blue 3D cone symbol (pointing in the direction of flight).\n3. Zoom farther from the graphic and the symbol will change to a blue circle marker symbol.")]
+        "Change a graphic's symbol based on the camera's proximity to it.",
+        "The sample starts looking at a plane. Zoom out from the plane to see it turn into a cone. Keeping zooming out and it will turn into a point.",
+        "3D", "data", "graphic", "range", "symbol")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public partial class UseDistanceCompositeSym : ContentPage
     {

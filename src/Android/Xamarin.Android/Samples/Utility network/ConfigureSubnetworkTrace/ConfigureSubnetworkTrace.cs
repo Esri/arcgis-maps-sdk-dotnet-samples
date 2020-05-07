@@ -27,7 +27,8 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         "Configure subnetwork trace",
         "Utility network",
         "Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.",
-        "")]
+        "The sample loads with a server-defined trace configuration from a tier. Check or uncheck which options to include in the trace - such as containers or barriers. Use the selection boxes to define a new condition network attribute comparison, and then use 'Add' to add the it to the trace configuration. Tap 'Trace' to run a subnetwork trace with this modified configuration from a default starting location.",
+        "category comparison", "condition barriers", "network analysis", "network attribute comparison", "subnetwork trace", "trace configuration", "traversability", "utility network", "validate consistency")]
     public class ConfigureSubnetworkTrace : Activity
     {
         // Hold references to the UI controls.

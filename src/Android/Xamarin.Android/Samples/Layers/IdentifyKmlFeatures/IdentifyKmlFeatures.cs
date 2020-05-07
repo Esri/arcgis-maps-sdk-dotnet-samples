@@ -25,8 +25,9 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Identify KML features",
         "Layers",
-        "Identify KML features and show popups.",
-        "")]
+        "Show a callout with formatted content for a KML feature.",
+        "Tap a feature to identify it. Feature information will be displayed in a callout.",
+        "KML", "KMZ", "Keyhole", "NOAA", "NWS", "OGC", "weather")]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("IdentifyKMLFeatures.axml")]
     public class IdentifyKmlFeatures : Activity
     {

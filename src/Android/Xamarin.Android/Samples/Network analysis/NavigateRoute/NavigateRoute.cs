@@ -33,8 +33,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         "Navigate route",
         "Network analysis",
         "Use a routing service to navigate between points.",
-        "",
-        "Featured")]
+        "Tap 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Tap 'Recenter' to refocus on the location display.",
+        "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class NavigateRoute : Activity, TextToSpeech.IOnInitListener
     {

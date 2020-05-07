@@ -15,8 +15,9 @@ namespace ArcGISRuntime.WPF.Samples.MapRotation
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Map rotation",
         "MapView",
-        "This sample demonstrates how to rotate a map.",
-        "Use the available slider to dictate the number of degrees the map is rotated")]
+        "Rotate a map.",
+        "Use the slider to rotate the map.",
+        "rotate", "rotation", "viewpoint")]
     public partial class MapRotation
     {
         public MapRotation()

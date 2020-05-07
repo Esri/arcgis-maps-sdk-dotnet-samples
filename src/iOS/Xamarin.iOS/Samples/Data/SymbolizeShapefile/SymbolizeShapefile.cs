@@ -24,8 +24,9 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Symbolize shapefile",
         "Data",
-        "This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.",
-        "Click the button to switch renderers. ")]
+        "Display a shapefile with custom symbology.",
+        "Tap the button to apply a new symbology renderer to the feature layer created from the shapefile. ",
+        "package", "shape file", "shapefile", "symbology", "visualization")]
     public class SymbolizeShapefile : UIViewController
     {
         // Hold references to UI controls.

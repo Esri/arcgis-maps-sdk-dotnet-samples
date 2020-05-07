@@ -24,8 +24,9 @@ namespace ArcGISRuntime.Samples.WmsIdentify
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Identify WMS features",
         "Layers",
-        "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
+        "Identify features in a WMS layer and display the associated popup content.",
+        "Tap a feature to identify it. The HTML content associated with the feature will be displayed in a web view.",
+        "IdentifyLayerAsync", "OGC", "ShowCalloutAt", "WMS", "callout", "web map service")]
     public class WmsIdentify : UIViewController
     {
         // Hold references to UI controls.

@@ -18,8 +18,9 @@ namespace ArcGISRuntime.Samples.SetInitialMapLocation
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Set initial map location",
         "Map",
-        "This sample demonstrates how to create a map with a standard ESRI Imagery with Labels basemap that is centered on a latitude and longitude location and zoomed into a specific level of detail.",
-        "")]
+        "Display a basemap centered at an initial location and scale.",
+        "When the map loads, note the specific location and scale of the initial map view.",
+        "LOD", "basemap", "center", "envelope", "extent", "initial", "lat", "latitude", "level of detail", "location", "long", "longitude", "scale", "zoom level")]
     public class SetInitialMapLocation : UIViewController
     {
         // Hold references to UI controls.

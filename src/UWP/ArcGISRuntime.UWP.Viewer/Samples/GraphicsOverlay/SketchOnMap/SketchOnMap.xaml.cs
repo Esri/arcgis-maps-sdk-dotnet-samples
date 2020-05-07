@@ -23,10 +23,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.SketchOnMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Sketch graphics on the map",
+        "Sketch on map",
         "GraphicsOverlay",
-        "This sample demonstrates how to interactively sketch and edit graphics in the map view and display them in a graphics overlay. You can sketch a variety of geometry types and undo or redo operations.",
-        "1. Click the 'Sketch' button.\n2. Choose a sketch type from the drop down list.\n3. Click the 'Draw' button and click in the map view to create the sketch.\n4. While sketching, you can undo/redo operations.\n5. Click 'Done' to finish the sketch.\n6. To edit a graphic, click 'Draw/Edit', then 'Edit'. Select a graphic in the map to start editing.\n7. Make edits then click 'Done' to finish editing.")]
+        "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",
+        "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, and freehand polygons.",
+        "Geometry", "Graphic", "GraphicsOverlay", "SketchCreationMode", "SketchEditor", "draw", "edit")]
     public sealed partial class SketchOnMap
     {
         // Graphics overlay to host sketch graphics

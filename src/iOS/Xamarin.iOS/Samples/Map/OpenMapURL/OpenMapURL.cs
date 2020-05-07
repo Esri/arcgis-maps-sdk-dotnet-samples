@@ -17,10 +17,11 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 {
     [Register("OpenMapURL")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open map (URL)",
+        "Open map URL",
         "Map",
-        "This sample demonstrates how to open an existing map from a portal. The sample opens with a map displayed by default. You can change the shown map by selecting a new one from the populated list.",
-        "")]
+        "Display a web map.",
+        "A web map can be selected from the drop-down list. On selection the web map displays in the map view.",
+        "portal item", "web map")]
     public class OpenMapURL : UIViewController
     {
         // Hold references to UI controls.

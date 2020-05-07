@@ -24,9 +24,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer (GeoPackage)",
         "Data",
-        "This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.",
-        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically."
-        )]
+        "Display features from a local GeoPackage.",
+        "Pan and zoom around the map. View the data loaded from the geopackage.",
+        "OGC", "feature table", "geopackage", "gpkg", "package", "standards")]
     public class FeatureLayerGeoPackage : Activity
     {
         private MapView _myMapView;

@@ -23,8 +23,9 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Identify graphics",
         "GraphicsOverlay",
-        "This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.",
-        "")]
+        "Display an alert message when a graphic is clicked.",
+        "Select a graphic to identify it. You will see an alert message displayed.",
+        "graphics", "identify")]
     public class IdentifyGraphics : UIViewController
     {
         // Hold references to UI controls.

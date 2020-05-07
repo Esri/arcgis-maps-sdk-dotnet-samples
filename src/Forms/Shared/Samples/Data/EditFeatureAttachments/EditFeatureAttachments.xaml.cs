@@ -31,7 +31,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         "Edit feature attachments",
         "Data",
         "Add, delete, and download attachments for features from a service.",
-        "")]
+        "Tap a feature to load its attachments. Use the buttons to save, delete, or add attachments.",
+        "JPEG", "PDF", "PNG", "TXT", "data", "image", "picture")]
     public partial class EditFeatureAttachments : ContentPage
     {
         // URL to the feature service.

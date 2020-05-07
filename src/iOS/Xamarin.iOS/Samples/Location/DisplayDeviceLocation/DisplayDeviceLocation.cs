@@ -18,10 +18,11 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
     [Register("DisplayDeviceLocation")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display Device Location",
+        "Display device location",
         "Location",
-        "This sample demonstrates how you can enable location services and switch between different types of auto pan modes.",
-        "")]
+        "Display your current position on the map, as well as switch between different types of auto pan Modes.",
+        "Select an autopan mode, then use the buttons to start and stop location display.",
+        "GPS", "compass", "location", "map", "mobile", "navigation")]
     public class DisplayDeviceLocation : UIViewController
     {
         // Hold references to UI controls.

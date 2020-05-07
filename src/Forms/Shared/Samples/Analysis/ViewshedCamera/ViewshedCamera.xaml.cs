@@ -18,8 +18,9 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed for camera",
         "Analysis",
-        "This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.",
-        "")]
+        "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
+        "The sample will start with a viewshed created from the initial camera location, so only the visible (green) portion of the viewshed will be visible. Move around the scene to see the obstructed (red) portions. Tap the button to update the viewshed to the current camera position.",
+        "3D", "Scene", "viewshed", "visibility analysis")]
     public partial class ViewshedCamera : ContentPage
     {
         // URL for a scene service of buildings in Brest, France

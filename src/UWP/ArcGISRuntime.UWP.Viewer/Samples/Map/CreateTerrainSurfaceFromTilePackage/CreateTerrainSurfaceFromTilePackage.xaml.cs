@@ -13,10 +13,11 @@ using Esri.ArcGISRuntime.Mapping;
 namespace ArcGISRuntime.UWP.Samples.CreateTerrainSurfaceFromTilePackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create terrain surface from a tile package",
+        "Create terrain from local tile package",
         "Map",
-        "Use a terrain surface with elevation described by a local tile package.",
-        "")]
+        "Set the terrain surface with elevation described by a local tile package.",
+        "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
+        "3D", "LERC", "elevation", "surface", "terrain", "tile cache")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("cce37043eb0440c7a5c109cf8aad5500")]
     public partial class CreateTerrainSurfaceFromTilePackage
     {

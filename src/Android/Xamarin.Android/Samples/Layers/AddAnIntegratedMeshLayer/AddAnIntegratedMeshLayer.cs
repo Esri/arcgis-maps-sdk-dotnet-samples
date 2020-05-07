@@ -22,7 +22,8 @@ namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer
         "Add an integrated mesh layer",
         "Layers",
         "View an integrated mesh layer from a scene service.",
-        "")]
+        "Run the sample and watch the integrated mesh layer load in place of the extruded imagery basemap. Navigate around the scene to visualize the high level of detail on the cliffs and valley floor.",
+        "3D", "integrated mesh", "layers")]
     public class AddAnIntegratedMeshLayer : Activity
     {
         // Hold a reference to the scene view.

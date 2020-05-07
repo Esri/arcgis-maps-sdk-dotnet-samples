@@ -23,9 +23,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer (shapefile)",
         "Data",
-        "This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.",
-        "The shapefile will be downloaded from an ArcGIS Online portal automatically."
-        )]
+        "Open a shapefile stored on the device and display it as a feature layer with default symbology.",
+        "Pan and zoom around the map to observe the data from the shapefile.",
+        "layers", "shapefile", "shp", "vector")]
     public class FeatureLayerShapefile : Activity
     {
         private MapView _myMapView;

@@ -14,10 +14,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS map image layer (URL)",
+        "ArcGIS map image layer",
         "Layers",
-        "This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.",
-        "")]
+        "Add an ArcGIS Map Image Layer from a URL to a map.",
+        "",
+        "ArcGIS dynamic map service layer", "ArcGISMapImageLayer", "layers")]
     public partial class ArcGISMapImageLayerUrl : ContentPage
     {
         public ArcGISMapImageLayerUrl()

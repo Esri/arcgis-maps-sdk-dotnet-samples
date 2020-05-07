@@ -22,8 +22,9 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Time-based query",
         "Layers",
-        "This sample demonstrates how to apply a time-based parameter to a feature layer query.",
-        "")]
+        "Query data using a time extent. ",
+        "Run the sample, and a subset of records will be displayed on the map.",
+        "query", "time", "time extent")]
     public class TimeBasedQuery : Activity
     {
         // Hold a reference to the map view

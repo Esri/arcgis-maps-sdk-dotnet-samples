@@ -15,8 +15,9 @@ namespace ArcGISRuntime.Samples.DisplayMap
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display map",
         "Map",
-        "This sample demonstrates how to display a map with a basemap.",
-        "")]
+        "Display a map with an imagery basemap.",
+        "Run the sample to view the map. Pan and zoom to navigate the map.",
+        "basemap", "map")]
     public partial class DisplayMap : ContentPage
     {
         public DisplayMap()

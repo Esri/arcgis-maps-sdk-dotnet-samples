@@ -23,9 +23,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer (geodatabase)",
         "Data",
-        "This sample demonstrates how to consume an Esri .geodatabase file (aka. mobile geodatabase) by using a FeatureLayer and a GeodatabaseFeatureTable.",
-        "The mobile geodatabase (.geodatabase file) will be downloaded from an ArcGIS Online portal automatically from the Url: https://www.arcgis.com/home/item.html?id=2b0f9e17105847809dfeb04e3cad69e0.",
-        "")]
+        "Display features from a local geodatabase.",
+        "",
+        "geodatabase", "mobile", "offline")]
     public class FeatureLayerGeodatabase : Activity
     {
         // Create a reference to MapView.

@@ -21,9 +21,9 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Terrain exaggeration",
         "Map",
-        "Configure the vertical exaggeration of terrain (the ground surface) in a scene.",
-        "",
-        "Elevation", "terrain", "DTM", "DEM", "surface", "3D", "scene")]
+        "Vertically exaggerate terrain in a scene.",
+        "Use the slider to update terrain exaggeration.",
+        "3D", "DEM", "DTM", "elevation", "scene", "surface", "terrain")]
     public class TerrainExaggeration : Activity
     {
         // Hold reference to the UI controls.

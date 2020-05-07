@@ -23,9 +23,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change atmosphere effect",
         "Map",
-        "Change the appearance of the atmosphere in a scene.",
-        "",
-        "3D", "AtmosphereEffect", "Scene")]
+        "Changes the appearance of the atmosphere in a scene.",
+        "Select one of the three available atmosphere effects. The sky will change to display the selected atmosphere effect. ",
+        "atmosphere", "horizon", "sky")]
     public class ChangeAtmosphereEffect : Activity
     {
         // Hold references to the UI controls.

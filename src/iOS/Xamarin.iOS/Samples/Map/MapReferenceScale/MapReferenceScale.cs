@@ -21,8 +21,9 @@ namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Map reference scale",
         "Map",
-        "Set a map's reference scale and control which feature layers honor that scale.",
-        "")]
+        "Set the map's reference scale and which feature layers should honor the reference scale.",
+        "Use the control at the top to set the map's reference scale (1:500,000 1:250,000 1:100,000 1:50,000). Use the menu checkboxes in the layer menu to set which feature layers should honor the reference scale.",
+        "map", "reference scale", "scene")]
     public class MapReferenceScale : UIViewController
     {
         // Hold references to UI controls.

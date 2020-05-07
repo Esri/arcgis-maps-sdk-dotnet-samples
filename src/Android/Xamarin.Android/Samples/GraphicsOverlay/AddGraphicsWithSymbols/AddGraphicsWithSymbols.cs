@@ -23,8 +23,9 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Add graphics with symbols",
         "GraphicsOverlay",
-        "This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.",
-        "")]
+        "Use a symbol style to display a graphic on a graphics overlay.",
+        "Observe the graphics on the map.",
+        "SimpleFillSymbol", "SimpleLineSymbol", "SimpleMarkerSymbol")]
     public class AddGraphicsWithSymbols : Activity
     {
         // Hold a reference to the map view

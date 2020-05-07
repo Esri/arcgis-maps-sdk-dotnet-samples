@@ -16,11 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show labels on layer",
+        "Show labels on layers",
         "Layers",
-        "Show labels on a feature layer using a JSON label definition.",
-        "The labeling of the names on the US Highways layer is accomplished by supplying a JSON string to the FeatureLayer's LabelDefinition. The JSON is based on the new ArcGIS web map specification.",
-        "")]
+        "Display custom labels on a feature layer.",
+        "Pan and zoom around the United States. Labels for congressional districts will be shown in red for Republican districts and blue for Democrat districts. Notice how labels pop into view as you zoom in.",
+        "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization")]
     public partial class ShowLabelsOnLayer : ContentPage
     {
         // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:

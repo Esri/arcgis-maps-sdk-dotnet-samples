@@ -39,8 +39,9 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Collect data in AR",
         "Augmented reality",
-        "Use a route displayed in the real world to navigate.",
-        "")]
+        "Tap on real-world objects to collect data.",
+        "Before you start, go through the on-screen calibration process to ensure accurate positioning of recorded features.",
+        "attachment", "augmented reality", "capture", "collection", "collector", "data", "field", "field worker", "full-scale", "mixed reality", "survey", "world-scale")]
     public class CollectDataAR : Activity, IDialogInterfaceOnCancelListener
     {
         // Hold references to UI controls.

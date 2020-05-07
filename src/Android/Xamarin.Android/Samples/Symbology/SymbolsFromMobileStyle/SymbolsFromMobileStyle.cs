@@ -26,10 +26,11 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-            "Read symbols from mobile style",
-            "Symbology",
-            "Open a local mobile style file (.stylx) and read its contents.",
-            "")]
+        "Read symbols from mobile style",
+        "Symbology",
+        "Combine multiple symbols from a mobile style file into a single symbol.",
+        "Select a symbol and a color from each of the category lists to create an emoji. A preview of the symbol is updated as selections are made. The size of the symbol can be set using the slider. Tap the map to create a point graphic using the customized emoji symbol, and tap \"Reset\" to clear all graphics from the display.",
+        "advanced symbology", "mobile style", "multilayer", "stylx")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1bd036f221f54a99abc9e46ff3511cbf")]
     public class SymbolsFromMobileStyle : Activity
     {

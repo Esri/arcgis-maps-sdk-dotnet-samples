@@ -21,10 +21,11 @@ using Color = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.ClosestFacility
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Closest facility (interactive)",
+        "Find closest facility to an incident (interactive)",
         "Network analysis",
-        "Demonstrates how to solve a Closest Facility Task to find the closest route between a facility (hospital) and a incident (black cross).",
-        "Tap to find the route to the nearest hospital.")]
+        "Find a route to the closest facility from a location.",
+        "Tap near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.",
+        "incident", "network analysis", "route", "search")]
     public partial class ClosestFacility
     {
         // Holds locations of hospitals around San Diego.

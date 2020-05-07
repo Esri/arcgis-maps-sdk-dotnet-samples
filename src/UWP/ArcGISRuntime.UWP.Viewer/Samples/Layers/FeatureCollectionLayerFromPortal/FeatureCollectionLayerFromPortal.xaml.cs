@@ -17,10 +17,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create a feature collection layer from a portal item",
+        "Create feature collection layer (Portal item)",
         "Layers",
-        "This sample demonstrates opening a feature collection saved as a portal item.",
-        "")]
+        "Create a feature collection layer from a portal item.",
+        "The feature collection is loaded from the Portal item when the sample starts.",
+        "collection", "feature collection", "feature collection layer", "id", "item", "map notes", "portal")]
     public partial class FeatureCollectionLayerFromPortal
     {
         // Default portal item Id to load features from.

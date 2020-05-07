@@ -19,10 +19,11 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS scene layer (URL)",
+        "Scene layer (URL)",
         "Layers",
-        "Display an ArcGIS Scene layer from a service.",
-        "")]
+        "Display an ArcGIS scene layer from a URL.",
+        "Pan and zoom to explore the scene.",
+        "3D", "Portland", "URL", "buildings", "model", "scene", "service")]
     public class SceneLayerUrl : Activity
     {
         // Hold a reference to the scene view.

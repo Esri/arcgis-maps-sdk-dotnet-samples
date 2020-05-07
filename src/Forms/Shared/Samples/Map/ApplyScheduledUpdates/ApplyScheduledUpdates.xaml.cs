@@ -22,8 +22,8 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
         "Apply scheduled updates to preplanned map area",
         "Map",
         "Apply scheduled updates to a downloaded preplanned map area.",
-        "",
-        "Featured")]
+        "Start the app. It will display an offline map, check for available updates, and show update availability and size. Select 'Apply Updates' to apply the updates to the local offline map and show the results.",
+        "offline", "pre-planned", "preplanned", "synchronize", "update", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ApplyScheduledUpdates : ContentPage, IDisposable
     {

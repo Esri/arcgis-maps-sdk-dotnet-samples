@@ -14,10 +14,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.DisplayScene
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display scene",
+        "Display a scene",
         "Layers",
-        "Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.",
-        "")]
+        "Display a scene with a terrain surface and some imagery.",
+        "When loaded, the sample will display a scene. Pan and zoom to explore the scene.",
+        "3D", "basemap", "elevation", "scene", "surface")]
     public partial class DisplayScene : ContentPage
     {
         public DisplayScene()

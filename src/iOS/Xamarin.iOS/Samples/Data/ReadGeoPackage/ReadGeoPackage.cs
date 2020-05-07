@@ -23,11 +23,12 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 {
     [Register("ReadGeoPackage")]
     [Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
-    [Shared.Attributes.Sample(
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Read GeoPackage",
         "Data",
-        "This sample demonstrates how to open a GeoPackage file from the local file system and list the available GeoPackageRasters and GeoPackageFeatureTables from the GeoPackage. Users can add and remove the selected datasets as RasterLayers or FeatureLayers to the map.",
-        "Select a layer name in the 'Layers Not in the Map' UISegmentedControl to add it to the map. Conversely to remove a layer from the map select a layer name in the 'Layers in the Map' UISegmentedControl. NOTE: The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
+        "Add rasters and feature tables from a GeoPackage to a map.",
+        "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.",
+        "GeoPackage", "OGC", "container", "layer", "map", "package", "raster", "table")]
     public class ReadGeoPackage : UIViewController
     {
         // Hold references to UI controls.

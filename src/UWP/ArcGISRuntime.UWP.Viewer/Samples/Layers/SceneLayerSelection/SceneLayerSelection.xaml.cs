@@ -20,9 +20,9 @@ namespace ArcGISRuntime.UWP.Samples.SceneLayerSelection
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Scene layer selection",
         "Layers",
-        "Identify GeoElements in a scene layer.",
-        "Tap/Click on a building in the scene layer to identify it.",
-        "")]
+        "Identify features in a scene to select.",
+        "Click on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.",
+        "3D", "Berlin", "buildings", "identify", "model", "query", "search", "select")]
     public partial class SceneLayerSelection
     {
         public SceneLayerSelection()

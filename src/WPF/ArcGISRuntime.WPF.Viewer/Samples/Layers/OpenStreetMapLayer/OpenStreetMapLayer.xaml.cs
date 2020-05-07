@@ -14,8 +14,9 @@ namespace ArcGISRuntime.WPF.Samples.OpenStreetMapLayer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "OpenStreetMap layer",
         "Layers",
-        "Display an OpenStreetMap layer as a basemap.",
-        "")]
+        "Add OpenStreetMap as a basemap layer.",
+        "When the sample opens, it will automatically display the map with the OpenStreetMap basemap. Pan and zoom to observe the basemap.",
+        "OSM", "OpenStreetMap", "basemap", "layers", "map", "open", "street")]
     public partial class OpenStreetMapLayer
     {
         public OpenStreetMapLayer()

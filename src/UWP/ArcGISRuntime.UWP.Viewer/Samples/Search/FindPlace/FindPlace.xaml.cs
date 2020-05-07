@@ -29,8 +29,9 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Find place",
         "Search",
-        "This sample demonstrates how to use geocode functionality to search for points of interest, around a location or within an extent.",
-        "1. Enter a point of interest you'd like to search for (e.g. 'Starbucks')\n2. Enter a search location or accept the default 'Current Location'\n3. Select 'search all' to get all results, or press 'search view' to only get results within the current extent.")]
+        "Find places of interest near a location or within a specific area.",
+        "Choose a type of place in the first field and an area to search within in the second field. Click the Search button to show the results of the query on the map. Click on a result pin to show its name and address. If you pan away from the result area, a \"Redo search in this area\" button will appear. Click it to query again for the currently viewed area on the map.",
+        "POI", "businesses", "geocode", "locations", "locator", "places of interest", "point of interest", "search", "suggestions")]
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindPlace
     {

@@ -21,7 +21,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayAnnotation
         "Display annotation",
         "Layers",
         "Display annotation from a feature service URL.",
-        "")]
+        "Pan and zoom to see names of waters and burns in a small region of Scotland.",
+        "annotation", "cartography", "labels", "placement", "reference scale", "text", "utility")]
     public class DisplayAnnotation : UIViewController
     {
         // Hold references to UI controls.

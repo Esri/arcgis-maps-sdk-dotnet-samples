@@ -17,10 +17,12 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample("Spatial operations",
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        "Perform spatial operations",
         "Geometry",
-        "Demonstrates how to use the GeometryEngine to perform geometry operations between overlapping polygons in a GraphicsOverlay.",
-        "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
+        "Find the union, intersection, or difference of two geometries.",
+        "The sample provides an option to select a spatial operation. When an operation is selected, the resulting geometry is shown in red. The 'reset operation' button undoes the action and allow selecting a different operation.",
+        "analysis", "combine", "difference", "geometry", "intersection", "merge", "polygon", "union")]
     public partial class SpatialOperations : ContentPage
     {
         // GraphicsOverlay to hold the polygon graphics.

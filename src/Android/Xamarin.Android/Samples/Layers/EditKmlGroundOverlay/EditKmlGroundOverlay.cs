@@ -25,8 +25,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
         "Edit KML ground overlay",
         "Layers",
         "Edit the values of a KML ground overlay.",
-        "",
-        "Featured")]
+        "Use the slider to adjust the opacity of the ground overlay.",
+        "KML", "KMZ", "Keyhole", "OGC", "imagery", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1f3677c24b2c446e96eaf1099292e83e")]
     public class EditKmlGroundOverlay : Activity
     {

@@ -19,8 +19,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer time offset",
         "MapView",
-        "This sample demonstrates how to show data from the same service side-by-side with a time offset. This allows for the comparison of data over time.",
-        "")]
+        "Display a time-enabled feature layer with a time offset.",
+        "When the sample loads, you'll see hurricane tracks visualized in red and blue. The red hurricane tracks occurred 10 days before the tracks displayed in blue. Adjust the slider to move the interval to visualize how storms progress over time.",
+        "change", "range", "time", "time extent", "time offset", "time-aware", "time-enabled")]
     public partial class FeatureLayerTimeOffset : ContentPage
     {
         private Uri _featureLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/0");

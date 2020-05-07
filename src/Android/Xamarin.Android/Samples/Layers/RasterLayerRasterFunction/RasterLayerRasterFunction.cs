@@ -23,8 +23,9 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Apply raster function to raster from service",
         "Layers",
-        "This sample demonstrates how to show a raster layer on a map based on an image service layer that has a raster function applied.",
-        "")]
+        "Load a raster from a service, then apply a function to it.",
+        "The raster function is applied automatically when the sample starts and the result is displayed.",
+        "function", "layer", "raster", "raster function", "service")]
     public class RasterLayerRasterFunction : Activity
     {
         // Hold a reference to the map view

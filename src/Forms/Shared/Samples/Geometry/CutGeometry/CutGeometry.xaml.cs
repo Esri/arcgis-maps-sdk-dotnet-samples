@@ -20,9 +20,9 @@ namespace ArcGISRuntime.Samples.CutGeometry
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Cut geometry",
         "Geometry",
-        "This sample demonstrates how to cut a geometry with a polyline using the GeometryEngine.",
-        "Click the 'Cut' button to cut the polygon with the polyline and see the resulting parts.",
-        "")]
+        "Cut a geometry along a polyline.",
+        "Tap the \"Cut\" button to cut the polygon with the polyline and see the resulting parts (shaded in different colors).",
+        "cut", "geometry", "split")]
     public partial class CutGeometry
     {
         // Graphics overlay to display the graphics.

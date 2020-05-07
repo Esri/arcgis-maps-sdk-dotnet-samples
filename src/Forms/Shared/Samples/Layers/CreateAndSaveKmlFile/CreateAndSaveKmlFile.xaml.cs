@@ -37,8 +37,8 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         "Create and save KML file",
         "Layers",
         "Construct a KML document and save it as a KMZ file.",
-        "",
-        "Featured")]
+        "Tap on one of the buttons in the middle row to start adding a geometry. Tap on the map view to place vertices. Tap the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, tap the \"Don't Apply Style\" button. When you are finished adding KML nodes, tap on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
+        "KML", "KMZ", "Keyhole", "OGC", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateAndSaveKmlFile : ContentPage
     {

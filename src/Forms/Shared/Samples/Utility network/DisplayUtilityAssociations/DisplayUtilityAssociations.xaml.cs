@@ -25,7 +25,8 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
         "Display utility associations",
         "Utility network",
         "Create graphics for utility associations in a utility network.",
-        "")]
+        "Pan and zoom around the map. Observe graphics that show utility associations between junctions.",
+        "associating", "association", "attachment", "connectivity", "containment", "relationships")]
     public partial class DisplayUtilityAssociations : ContentPage
     {
         // Feature server for the utility network.

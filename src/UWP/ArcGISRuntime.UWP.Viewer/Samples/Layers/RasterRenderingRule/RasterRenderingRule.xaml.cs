@@ -21,8 +21,9 @@ namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster rendering rule",
         "Layers",
-        "This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.",
-        "")]
+        "Display a raster on a map and apply different rendering rules to that raster.",
+        "Run the sample and use the drop-down menu at the top to select a rendering rule.",
+        "raster", "rendering rules", "visualization")]
     public partial class RasterRenderingRule
     {
         public RasterRenderingRule()

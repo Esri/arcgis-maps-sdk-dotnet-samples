@@ -23,9 +23,9 @@ namespace ArcGISRuntime.Samples.ClipGeometry
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Clip geometry",
         "Geometry",
-        "This sample demonstrates how to clip a geometry with an envelope using the GeometryEngine",
-        "Click the 'Clip' button to clip the blue graphic with red envelopes.",
-        "")]
+        "Clip a geometry with another geometry.",
+        "Tap the \"Clip\" button to clip the blue graphic with the red dashed envelopes.",
+        "analysis", "clip", "geometry")]
     public class ClipGeometry : Activity
     {
         // Hold a reference to the map view.

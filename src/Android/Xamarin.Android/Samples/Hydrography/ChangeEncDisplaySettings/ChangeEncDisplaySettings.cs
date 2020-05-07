@@ -24,8 +24,9 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change ENC display settings",
         "Hydrography",
-        "This sample demonstrates how to control ENC environment settings. These settings apply to the display of all ENC content in your app.",
-        "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
+        "Configure the display of ENC content.",
+        "The sample displays an electronic navigational chart when it opens. Use the options to choose variations on colors and symbology.",
+        "ENC", "IHO", "S-52", "S-57", "display", "hydrographic", "hydrography", "layers", "maritime", "nautical chart", "settings", "symbology")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public class ChangeEncDisplaySettings : Activity
     {

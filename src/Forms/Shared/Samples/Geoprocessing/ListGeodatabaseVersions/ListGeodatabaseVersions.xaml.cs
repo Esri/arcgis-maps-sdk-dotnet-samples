@@ -21,8 +21,9 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "List geodatabase versions",
         "Geoprocessing",
-        "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
-        "")]
+        "Connect to a service and list versions of the geodatabase.",
+        "When the sample loads, a list of geodatabase versions and their properties will be displayed.",
+        "conflict resolution", "data management", "database", "multi-user", "sync", "version")]
     public partial class ListGeodatabaseVersions : ContentPage
     {
 

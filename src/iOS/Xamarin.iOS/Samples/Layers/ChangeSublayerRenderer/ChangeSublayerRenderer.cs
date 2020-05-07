@@ -22,9 +22,9 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change sublayer renderer",
         "Layers",
-        "This sample demonstrates how to change the sub-layer renderer of an ArcGIS map image layer. A unique value renderer is applied to see different population ranges in the counties sub-layer data.",
-        "Click the 'Change Sublayer Renderer' button to apply a unique value renderer to the counties sub-layer.",
-        "")]
+        "Apply a renderer to a sublayer.",
+        "Wait for the map image layer to load. Tap the button to apply a unique value renderer to see different population ranges in the counties sub-layer data.",
+        "class breaks", "dynamic layer", "dynamic rendering", "renderer", "sublayer", "symbology", "visualization")]
     public class ChangeSublayerRenderer : UIViewController
     {
         // Hold references to UI controls.

@@ -21,10 +21,11 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open mobile map (map package)",
+        "Open mobile map package",
         "Map",
-        "This sample demonstrates how to open a map from a mobile map package.",
-        "The map package will be downloaded from an ArcGIS Online portal automatically.")]
+        "Display a map from a mobile map package.",
+        "When the sample opens, it will automatically display the map in the mobile map package. Pan and zoom to observe the data from the mobile map package.",
+        "mmpk", "mobile map package", "offline")]
     public class OpenMobileMap : Activity
     {
         private MapView _myMapView;

@@ -21,8 +21,9 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Style WMS layers",
         "Layers",
-        "This sample demonstrates how to select from the available styles on WMS sublayers. ",
-        "Click to select from one of the two preset styles.")]
+        "Change the style of a Web Map Service (WMS) layer.",
+        "Once the layer loads, the toggle button will be enabled. Tap it to toggle between the first and second styles of the WMS layer.",
+        "WMS", "imagery", "styles", "visualization")]
     public class StyleWmsLayer : UIViewController
     {
         // Hold references to UI controls.

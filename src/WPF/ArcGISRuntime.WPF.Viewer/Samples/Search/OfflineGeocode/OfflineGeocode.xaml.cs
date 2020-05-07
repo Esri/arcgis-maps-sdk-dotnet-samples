@@ -28,8 +28,9 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Offline geocode",
         "Search",
-        "Geocode with offline data.",
-        "")]
+        "Geocode addresses to locations and reverse geocode locations to addresses offline.",
+        "Type the address in the Search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. Tap the pin to see the full address.",
+        "geocode", "geocoder", "locator", "offline", "package", "query", "search")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1330ab96ac9c40a49e59650557f2cd63", "344e3b12368543ef84045ef9aa3c32ba")]
     public partial class OfflineGeocode
     {

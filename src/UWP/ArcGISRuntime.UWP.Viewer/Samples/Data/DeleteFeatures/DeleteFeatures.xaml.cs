@@ -22,8 +22,9 @@ namespace ArcGISRuntime.UWP.Samples.DeleteFeatures
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Delete features (feature service)",
         "Data",
-        "Delete features from a feature service.",
-        "")]
+        "Delete features from an online feature service.",
+        "To delete a feature, tap it, then click 'Delete incident'.",
+        "Service", "deletion", "feature", "online", "table")]
     public partial class DeleteFeatures
     {
         // Path to the feature service.

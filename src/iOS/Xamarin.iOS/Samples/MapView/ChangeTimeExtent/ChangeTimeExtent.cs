@@ -20,8 +20,9 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change time extent",
         "MapView",
-        "This sample demonstrates how to filter data in layers by applying a time extent to a MapView.",
-        "Switch between the available options and observe how the data is filtered.")]
+        "Filter data in layers by applying a time extent to a MapView.",
+        "Switch between the available options and observe how the data is filtered.",
+        "data", "filter", "time", "time frame", "time span")]
     public class ChangeTimeExtent : UIViewController
     {
         // Hold references to UI controls.

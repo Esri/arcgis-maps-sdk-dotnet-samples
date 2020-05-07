@@ -28,8 +28,9 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Select ENC features",
         "Hydrography",
-        "This sample demonstrates how to select an ENC feature.",
-        "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
+        "Select features in an ENC layer.",
+        "Tap to select ENC features. Feature properties will be displayed in a callout.",
+        "IHO", "S-57", "S57", "chart", "hydrography", "identify", "maritime", "select", "selection")]
     public class SelectEncFeatures : Activity
     {
         // Hold a reference to the map view

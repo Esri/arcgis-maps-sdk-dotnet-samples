@@ -22,7 +22,8 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
         "Load WFS with XML query",
         "Layers",
         "Load a WFS feature table using an XML query.",
-        "")]
+        "Run the sample and view the data loaded from the the WFS feature table.",
+        "OGC", "WFS", "XML", "feature", "query", "service", "web")]
     public class WfsXmlQuery : UIViewController
     {
         // Hold references to UI controls.

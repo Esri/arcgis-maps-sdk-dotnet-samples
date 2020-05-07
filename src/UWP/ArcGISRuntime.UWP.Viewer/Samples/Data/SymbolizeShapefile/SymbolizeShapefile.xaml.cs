@@ -21,8 +21,9 @@ namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Symbolize shapefile",
         "Data",
-        "This sample demonstrates how to apply a custom renderer to a shapefile displayed by a feature layer.",
-        "Click the button to switch renderers. ")]
+        "Display a shapefile with custom symbology.",
+        "Click the button to apply a new symbology renderer to the feature layer created from the shapefile. ",
+        "package", "shape file", "shapefile", "symbology", "visualization")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class SymbolizeShapefile
     {

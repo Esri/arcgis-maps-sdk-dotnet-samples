@@ -20,8 +20,9 @@ namespace ArcGISRuntime.Samples.MapRotation
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Map rotation",
         "MapView",
-        "This sample illustrates how to rotate a map.",
-        "")]
+        "Rotate a map.",
+        "Use the slider to rotate the map.",
+        "rotate", "rotation", "viewpoint")]
     public class MapRotation : Activity
     {
         // Hold a reference to the map view

@@ -22,10 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add ENC Exchange Set",
+        "Add ENC exchange set",
         "Hydrography",
-        "This sample demonstrates how to load an ENC Exchange Set, including its component cells.",
-        "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
+        "Display nautical charts per the ENC specification.",
+        "Run the sample and view the ENC data. Pan and zoom around the map. Take note of the high level of detail in the data and the smooth rendering of the layer.",
+        "Data", "ENC", "hydrographic", "layers", "maritime", "nautical chart")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public class AddEncExchangeSet : Activity
     {

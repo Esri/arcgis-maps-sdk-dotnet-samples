@@ -13,10 +13,11 @@ using Esri.ArcGISRuntime.Mapping;
 namespace ArcGISRuntime.UWP.Samples.SetInitialMapArea
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set initial map area",
+        "Map initial extent",
         "Map",
-        "This sample displays a map at a specific viewpoint. In this sample a viewpoint is constructed from an envelope defined by minimum (x,y) and maximum (x,y) values. The map's initialViewpoint is set to this viewpoint before the map is loaded. Upon loading the map zooms to this initial area.",
-        "")]
+        "Display the map at an initial viewpoint representing a bounding geometry.",
+        "As application is loading, initial view point is set and map view opens at the given location.",
+        "envelope", "extent", "initial", "viewpoint", "zoom")]
     public partial class SetInitialMapArea
     {
         public SetInitialMapArea()

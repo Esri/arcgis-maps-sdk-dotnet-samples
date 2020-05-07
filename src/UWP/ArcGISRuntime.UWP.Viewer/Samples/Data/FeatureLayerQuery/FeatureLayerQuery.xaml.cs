@@ -24,8 +24,9 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer query",
         "Data",
-        "Query a feature layer via a feature table.",
-        "The sample provides a panel with two controls: a text box where you can input the name of a US State, and a button that executes an attribute query using that value. A successful query will select (highlight) the state and zoom the map to its extent.")]
+        "Find features in a feature table which match an SQL query.",
+        "Input the name of a U.S. state into the text field. When you click the button, a query is performed and the matching features are highlighted or an error is returned.",
+        "query", "search")]
     public partial class FeatureLayerQuery
     {
         // Create reference to service of US States

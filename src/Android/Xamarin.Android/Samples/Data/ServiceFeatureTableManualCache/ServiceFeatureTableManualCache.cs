@@ -22,8 +22,9 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Service feature table (manual cache)",
         "Data",
-        "This sample demonstrates how to use a feature service in manual cache mode.",
-        "")]
+        "Display a feature layer from a service using the **manual cache** feature request mode.",
+        "Run the sample and pan and zoom around the map. Observe the features loaded from the table.",
+        "cache", "feature request mode", "performance")]
     public class ServiceFeatureTableManualCache : Activity
     {
         // Hold a reference to the map view

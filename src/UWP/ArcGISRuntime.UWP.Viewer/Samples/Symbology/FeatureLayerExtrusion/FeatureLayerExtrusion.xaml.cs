@@ -20,10 +20,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature Layer Extrusion",
+        "Feature layer extrusion",
         "Symbology",
-        "This sample demonstrates how to apply extrusion to a renderer on a feature layer.",
-        "")]
+        "Extrude features based on their attributes.",
+        "Press the button to switch between using population density and total population for extrusion. Higher extrusion directly corresponds to higher attribute values.",
+        "3D", "extrude", "extrusion", "extrusion expression", "height", "renderer", "scene")]
     public partial class FeatureLayerExtrusion
     {
         public FeatureLayerExtrusion()

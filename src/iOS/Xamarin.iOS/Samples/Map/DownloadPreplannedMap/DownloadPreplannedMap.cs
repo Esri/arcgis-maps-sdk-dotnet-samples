@@ -28,9 +28,10 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Download preplanned map area",
         "Map",
-        "Take a map offline using a preplanned map area",
-        "Select a map area to take offline, then use the button to take it offline. Click 'Delete offline areas' to remove any downloaded map areas.")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+        "Take a map offline using a preplanned map area.",
+        "Downloading tiles for offline use requires authentication with the web map's server. An [ArcGIS Online](www.arcgis.com) account is required to use this sample.",
+        "map area", "offline", "pre-planned", "preplanned")]
+        "map area", "offline", "pre-planned", "preplanned")]
     public class DownloadPreplannedMap : UIViewController
     {
         // Hold references to UI controls.

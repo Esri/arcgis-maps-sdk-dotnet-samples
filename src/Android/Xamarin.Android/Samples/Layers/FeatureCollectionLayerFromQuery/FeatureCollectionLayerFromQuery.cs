@@ -19,10 +19,11 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature collection layer from query result",
+        "Feature collection layer (query)",
         "Layers",
-        "This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.",
-        "")]
+        "Create a feature collection layer to show a query result from a service feature table.",
+        "When launched, this sample displays a map with point features as a feature collection layer. Pan and zoom to explore the map.",
+        "layer", "query", "search", "table")]
     public class FeatureCollectionLayerFromQuery : Activity
     {
         // Hold a reference to the map view.

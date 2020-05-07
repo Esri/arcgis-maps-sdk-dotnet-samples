@@ -25,9 +25,9 @@ namespace ArcGISRuntime.Samples.BufferList
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Buffer list",
         "Geometry",
-        "This sample demonstrates how to use a planar (Euclidean) buffer operation by calling `GeometryEngine.Buffer` to generate one or more polygons from a collection of input geometries and a corresponding collection of buffer distances. The result polygons can be returned as individual geometries or unioned into a single polygon output.",
-        "Tap on the map to add points. Each point will use the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
-        "GeometryEngine, Geometry, Buffer, SpatialReference")]
+        "Generate multiple individual buffers or a single unioned buffer around multiple points.",
+        "Click/tap on the map to add points. Tap the \"Create Buffer(s)\" button to draw buffer(s) around the points (the size of the buffer is determined by the value entered by the user). Check the check box if you want the result to union (combine) the buffers. Tap the \"Clear\" button to start over. The red dashed envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
+        "analysis", "buffer", "geometry", "planar")]
     public class BufferList : Activity
     {
         // Hold references to the UI controls.

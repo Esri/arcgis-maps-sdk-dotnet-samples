@@ -24,8 +24,8 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
         "Scene symbols",
         "Symbology",
         "Show various kinds of 3D symbols in a scene.",
-        "",
-        "Scenes", "Symbols", "Graphics", "graphics overlay", "3D", "cone", "cylinder", "tube", "sphere", "diamond", "tetrahedron")]
+        "When the scene loads, note the different types of 3D symbols that you can create.",
+        "3D", "cone", "cube", "cylinder", "diamond", "geometry", "graphic", "graphics overlay", "pyramid", "scene", "shape", "sphere", "symbol", "tetrahedron", "tube", "visualization")]
     public class SceneSymbols : UIViewController
     {
         // Hold references to UI controls.

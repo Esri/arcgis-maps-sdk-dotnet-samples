@@ -29,7 +29,8 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         "Perform valve isolation trace",
         "Utility network",
         "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",
-        "")]
+        "Create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Tap 'Trace' to run a subnetwork-based isolation trace.",
+        "category comparison", "condition barriers", "isolated features", "network analysis", "subnetwork trace", "trace configuration", "trace filter", "utility network")]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("PerformValveIsolationTrace.axml")]
     public class PerformValveIsolationTrace : Activity
     {

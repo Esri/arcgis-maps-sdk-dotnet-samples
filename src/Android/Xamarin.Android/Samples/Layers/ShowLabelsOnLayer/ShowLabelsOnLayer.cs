@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show labels on layer",
+        "Show labels on layers",
         "Layers",
-        "Show labels on a feature layer using a JSON label definition.",
-        "The labeling of the names on the US Highways layer is accomplished by supplying a JSON string to the FeatureLayer's LabelDefinition. The JSON is based on the new ArcGIS web map specification.",
-        "")]
+        "Display custom labels on a feature layer.",
+        "Pan and zoom around the United States. Labels for congressional districts will be shown in red for Republican districts and blue for Democrat districts. Notice how labels pop into view as you zoom in.",
+        "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization")]
     public class ShowLabelsOnLayer : Activity
     {
         // Create and hold reference to the used MapView.

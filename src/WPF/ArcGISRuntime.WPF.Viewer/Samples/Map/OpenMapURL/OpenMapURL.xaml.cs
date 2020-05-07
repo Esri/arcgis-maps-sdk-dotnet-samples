@@ -14,10 +14,11 @@ using System.Linq;
 namespace ArcGISRuntime.WPF.Samples.OpenMapURL
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open map (URL)",
+        "Open map URL",
         "Map",
-        "This sample demonstrates loading a webmap in a map from a Uri.",
-        "")]
+        "Display a web map.",
+        "A web map can be selected from the drop-down list. On selection the web map displays in the map view.",
+        "portal item", "web map")]
     public partial class OpenMapURL
     {
         // String array to hold urls to publicly available web maps

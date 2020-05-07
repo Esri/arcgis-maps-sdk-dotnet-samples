@@ -18,8 +18,9 @@ namespace ArcGISRuntime.Samples.WMTSLayer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMTS layer",
         "Layers",
-        "This sample demonstrates how to display a WMTS layer on a map via a Uri and WmtsLayerInfo.",
-        "")]
+        "Display a layer from a Web Map Tile Service.",
+        "The layer will be displayed automatically. Use the buttons to choose a different method of loading the layer.",
+        "OGC", "layer", "raster", "tiled", "web map tile service")]
     public partial class WMTSLayer : ContentPage
     {
         public WMTSLayer()

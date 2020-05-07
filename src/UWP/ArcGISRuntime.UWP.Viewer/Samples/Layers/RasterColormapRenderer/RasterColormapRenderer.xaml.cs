@@ -20,11 +20,11 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.RasterColormapRenderer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster colormap renderer",
+        "Colormap renderer",
         "Layers",
         "Apply a colormap renderer to a raster.",
         "Pan and zoom to explore the effect of the colormap applied to the raster.",
-        "Featured")]
+        "colormap", "data", "raster", "renderer", "visualization", "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public partial class RasterColormapRenderer
     {

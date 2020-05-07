@@ -22,8 +22,9 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Raster layer (file)",
         "Layers",
-        "This sample demonstrates how to use a raster layer created from a local raster file.",
-        "The raster file is downloaded by the sample viewer automatically.")]
+        "Create and use a raster layer made from a local raster file.",
+        "When the sample starts, a raster will be loaded from a file and displayed in the map view.",
+        "data", "image", "import", "layer", "raster", "visualization")]
     public class RasterLayerFile : UIViewController
     {
         // Create and hold a reference to the MapView.

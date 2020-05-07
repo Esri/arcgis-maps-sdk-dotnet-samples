@@ -31,7 +31,8 @@ namespace ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute
         "Mobile map (search and route)",
         "Map",
         "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
-        "")]
+        "A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Click on a map in the list to open it. If a locator task is available, click on the map to reverse geocode the location's address. If transportation networks are available, a route will be calculated between geocode locations.",
+        "disconnected", "field mobility", "geocode", "network", "network analysis", "offline", "routing", "search", "transportation")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
     public partial class MobileMapSearchAndRoute

@@ -23,7 +23,8 @@ namespace ArcGISRuntime.UWP.Samples.DisplayWfs
         "Display WFS layer",
         "Layers",
         "Display a layer from a WFS service, requesting only features for the current extent.",
-        "")]
+        "Pan and zoom to see features within the current map extent.",
+        "OGC", "WFS", "browse", "catalog", "feature", "interaction cache", "layers", "service", "web")]
     public partial class DisplayWfs
     {
         // Hold a reference to the WFS feature table.

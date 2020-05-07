@@ -20,8 +20,9 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Analyze hotspots",
         "Geoprocessing",
-        "This sample demonstrates how to execute the GeoprocessingTask asynchronously to calculate a hotspot analysis based on the frequency of 911 calls. It calculates the frequency of these calls within a given study area during a specified constrained time period set between 1/1/1998 and 5/31/1998.",
-        "To run the hotspot analysis, select a data range and click on the 'Run analysis' button. Note the larger the date range, the longer it may take for the task to run and send back the results.")]
+        "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",
+        "Select a date range (between 1998-01-01 and 1998-05-31) from the dialog and tap on Analyze. The results will be shown on the map upon successful completion of the `GeoprocessingJob`.",
+        "Geoprocessing", "GeoprocessingJob", "GeoprocessingParameters", "GeoprocessingResult")]
     public partial class AnalyzeHotspots
     {
         // Url for the geoprocessing service

@@ -20,8 +20,9 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Identify layers",
         "MapView",
-        "This sample demonstrates how to identify features from multiple layers in a map.",
-        "")]
+        "Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.",
+        "Tap to identify features. An alert will show all layers with features under the cursor.",
+        "identify", "recursion", "recursive", "sublayers")]
     public partial class IdentifyLayers : ContentPage
     {
         public IdentifyLayers()

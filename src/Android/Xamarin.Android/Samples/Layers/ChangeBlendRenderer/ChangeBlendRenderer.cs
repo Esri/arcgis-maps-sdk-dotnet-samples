@@ -23,12 +23,12 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
-    [Shared.Attributes.Sample(
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Blend renderer",
         "Layers",
-        "This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.",
-        "Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used."
-        )]
+        "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
+        "Choose and adjust the altitude, azimuth, slope type, and color ramp type settings to update the image.",
+        "Elevation", "Hillshade", "RasterLayer", "color ramp", "elevation", "image", "visualization")]
     public class ChangeBlendRenderer : Activity
     {
         // Global reference to a label for Altitude

@@ -17,8 +17,9 @@ namespace ArcGISRuntime.UWP.Samples.ChangeTimeExtent
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change time extent",
         "MapView",
-        "This sample demonstrates how to filter data in layers by applying a time extent to a MapView.",
-        "Switch between the available options and observe how the data is filtered.")]
+        "Filter data in layers by applying a time extent to a MapView.",
+        "Switch between the available options and observe how the data is filtered.",
+        "data", "filter", "time", "time frame", "time span")]
     public partial class ChangeTimeExtent
     {
         // Hold two map service URIs, one for use with an ArcGISMapImageLayer, the other for use with a FeatureLayer.

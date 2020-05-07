@@ -25,8 +25,9 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "RGB renderer",
         "Layers",
-        "This sample demonstrates how to use an RGB renderer on a raster layer. An RGB renderer is used to adjust the color bands of a multi-spectral image.",
-        "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and press the Apply button to update the renderer.")]
+        "Apply an RGB renderer to a raster layer to enhance feature visibility.",
+        "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and select the 'Update' button to update the renderer.",
+        "analysis", "color", "composite", "imagery", "multiband", "multispectral", "pan-sharpen", "photograph", "raster", "spectrum", "stretch", "visualization")]
     public class RasterRgbRenderer : Activity
     {
         // Reference to the MapView used in the sample.

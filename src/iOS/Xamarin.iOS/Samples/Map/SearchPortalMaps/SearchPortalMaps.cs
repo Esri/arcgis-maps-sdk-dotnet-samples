@@ -24,10 +24,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
     [Register("SearchPortalMaps")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Search a portal for maps",
+        "Search for webmap",
         "Map",
-        "This sample demonstrates searching a portal for web maps and loading them in the map view. You can search ArcGIS Online public web maps using tag values or browse the web maps in your account. OAuth is used to authenticate with ArcGIS Online to access items in your account.",
-        "1. When the sample starts, you will be presented with a dialog for entering OAuth settings. If you need to create your own settings, sign in with your developer account and use the [ArcGIS for Developers dashboard](https://developers.arcgis.com/dashboard) to create an Application to store these settings.\n2. Enter values for the following OAuth settings.\n\t1. **Client ID**: a unique alphanumeric string identifier for your application\n\t2. **Redirect URL**: a URL to which a successful OAuth login response will be sent\n3. If you do not enter OAuth settings, you will be able to search public web maps on ArcGIS Online. Browsing the web map items in your ArcGIS Online account will be disabled, however.")]
+        "Find webmap portal items by using a search term.",
+        "Enter search terms into the search bar. Once the search is complete, a list is populated with the resultant webmaps. Tap on a webmap to set it to the map view. Scrolling to the bottom of the webmap recycler view will get more results.",
+        "keyword", "query", "search", "webmap")]
     public class SearchPortalMaps : UIViewController, IOAuthAuthorizeHandler
     {
         // Hold references to UI controls.

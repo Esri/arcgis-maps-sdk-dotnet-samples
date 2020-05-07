@@ -19,10 +19,11 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {
     [Register("DisplayDrawingStatus")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display drawing status",
+        "Display draw status",
         "MapView",
-        "This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.",
-        "")]
+        "Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.",
+        "Pan and zoom around the map. Observe how the status changes from a loading animation to solid, indicating that drawing has completed.",
+        "draw", "loading", "map", "render")]
     public class DisplayDrawingStatus : UIViewController
     {
         // Hold references to UI controls.

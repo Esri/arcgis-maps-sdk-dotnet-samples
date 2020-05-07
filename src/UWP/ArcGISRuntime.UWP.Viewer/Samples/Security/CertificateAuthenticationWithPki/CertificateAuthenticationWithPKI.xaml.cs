@@ -23,7 +23,8 @@ namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
         "Certificate authentication with PKI",
         "Security",
         "Access secured portals using a certificate.",
-        "")]
+        "> **NOTE**: You must provide your own ArcGIS Portal with PKI authentication configured.",
+        "PKI", "X509", "authentication", "certificate", "login", "passwordless", "smartcard", "store")]
     public partial class CertificateAuthenticationWithPKI
     {
         private string _serverUrl;

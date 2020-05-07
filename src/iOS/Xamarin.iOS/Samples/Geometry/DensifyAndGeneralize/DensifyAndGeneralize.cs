@@ -24,9 +24,9 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Densify and generalize",
         "Geometry",
-        "This sample demonstrates how to densify or generalize a polyline geometry. In this example, points representing a ship's location are shown at irregular intervals. You can densify the polyline to interpolate points along the line at regular intervals. Generalizing the polyline can also simplify the geometry while preserving its general shape.",
-        "Use the sliders to adjust the max deviation (for generalize) and the max segment length (for densify). The results will update automatically."
-        )]
+        "A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.",
+        "Use the sliders to control the parameters of the densify and generalize methods.",
+        "data", "densify", "generalize", "simplify")]
     public class DensifyAndGeneralize : UIViewController
     {
         // Hold references to UI controls.

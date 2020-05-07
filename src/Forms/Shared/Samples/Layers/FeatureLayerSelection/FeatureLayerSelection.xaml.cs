@@ -21,8 +21,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer selection",
         "Layers",
-        "Select features by tapping a MapView.",
-        "")]
+        "Select features in a feature layer.",
+        "Tap on a feature in the map. All features within a given tolerance (in pixels) of the tap will be selected.",
+        "features", "layers", "select", "selection", "tolerance")]
     public partial class FeatureLayerSelection : ContentPage
     {
         // Hold reference to the feature layer.

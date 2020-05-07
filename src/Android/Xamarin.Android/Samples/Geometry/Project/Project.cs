@@ -23,8 +23,9 @@ namespace ArcGISRuntimeXamarin.Samples.Project
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Project",
         "Geometry",
-        "Project a point to another spatial reference.",
-        "")]
+        "Project a point from one spatial reference to another.",
+        "Tap anywhere on the map. A callout will display the clicked location's coordinate in the original (basemap's) spatial reference and in the projected spatial reference.",
+        "WGS 84", "Web Mercator", "coordinate system", "coordinates", "latitude", "longitude", "projected", "projection", "spatial reference")]
     public class Project : Activity
     {
         // Create and hold reference to the used MapView.

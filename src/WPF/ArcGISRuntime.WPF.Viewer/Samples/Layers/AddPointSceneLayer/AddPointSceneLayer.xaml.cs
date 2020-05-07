@@ -16,7 +16,8 @@ namespace ArcGISRuntime.WPF.Samples.AddPointSceneLayer
         "Add a point scene layer",
         "Layers",
         "View a point scene layer from a scene service.",
-        "")]
+        "Pan around the scene and zoom in. Notice how many thousands of additional features appear at each successive zoom scale.",
+        "3D", "layers", "point scene layer")]
     public partial class AddPointSceneLayer
     {
         // URL for the service with the point scene layer.

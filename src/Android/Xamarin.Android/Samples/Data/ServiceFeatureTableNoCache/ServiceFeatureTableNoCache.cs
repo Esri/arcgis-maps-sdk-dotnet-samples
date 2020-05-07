@@ -22,8 +22,9 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Service feature table (no cache)",
         "Data",
-        "This sample demonstrates how to use a feature service in on interaction no cache mode.",
-        "")]
+        "Display a feature layer from a service using the **no cache** feature request mode.",
+        "Run the sample and pan and zoom around the map. With each interaction, new features will be requested from the service and displayed on the map.",
+        "cache", "feature request mode", "performance")]
     public class ServiceFeatureTableNoCache : Activity
     {
         // Hold a reference to the map view

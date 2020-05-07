@@ -18,10 +18,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerRenderingModeMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer rendering mode (Map)",
+        "Feature layer rendering mode (map)",
         "Layers",
-        "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
-        "")]
+        "Render features statically or dynamically by setting the feature layer rendering mode.",
+        "Click the button to trigger the same zoom animation on both static and dynamic maps.",
+        "dynamic", "feature layer", "features", "rendering", "static")]
     public partial class FeatureLayerRenderingModeMap
     {
         // Viewpoint locations for map view to zoom in and out to.

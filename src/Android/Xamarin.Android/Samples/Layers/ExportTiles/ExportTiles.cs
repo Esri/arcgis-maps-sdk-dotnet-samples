@@ -28,8 +28,9 @@ namespace ArcGISRuntime.Samples.ExportTiles
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Export tiles",
         "Layers",
-        "This sample demonstrates how to export tiles from a map server.",
-        "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
+        "Download tiles to a local tile cache file stored on the device.",
+        "Pan and zoom into the desired area, making sure the area is within the red boundary. Tap the 'Export tiles' button to start the process. On successful completion you will see a preview of the downloaded tile package.",
+        "cache", "download", "export", "local", "offline", "package", "tiles")]
     public class ExportTiles : Activity
     {
         // Reference to the MapView used in the sample.

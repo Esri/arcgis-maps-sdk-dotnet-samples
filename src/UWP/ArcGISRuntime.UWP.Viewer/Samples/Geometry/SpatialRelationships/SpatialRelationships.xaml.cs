@@ -24,8 +24,9 @@ namespace ArcGISRuntime.UWP.Samples.SpatialRelationships
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Spatial relationships",
         "Geometry",
-        "This sample demonstrates how to use the GeometryEngine to evaluate the spatial relationships (for example, polygon a contains line b) between geometries.",
-        "Tap a graphic to select it. The display will update to show the relationships with the other graphics.")]
+        "Determine spatial relationships between two geometries.",
+        "Select one of the three graphics. The tree view will list the relationships the selected graphic has to the other graphic geometries.",
+        "geometries", "relationship", "spatial analysis")]
     public partial class SpatialRelationships
     {
         // References to the graphics and graphics overlay

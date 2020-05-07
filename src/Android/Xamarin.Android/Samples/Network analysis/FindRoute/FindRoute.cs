@@ -25,10 +25,11 @@ namespace ArcGISRuntime.Samples.FindRoute
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find a route",
+        "Find route",
         "Network analysis",
-        "This sample demonstrates how to solve for the best route between two locations on the map and display driving directions between them.",
-        "")]
+        "Display directions for a route between two points.",
+        "For simplicity, the sample comes loaded with a start and end stop. You can tap on the Find Route button to display a route between these stops. Once the route is generated, turn-by-turn directions are shown in a list.",
+        "directions", "driving", "navigation", "network", "network analysis", "route", "routing", "shortest path", "turn-by-turn")]
     public class FindRoute : Activity
     {
         // Hold a reference to the map view.

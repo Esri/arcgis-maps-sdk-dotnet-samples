@@ -21,8 +21,9 @@ namespace ArcGISRuntime.UWP.Samples.GetElevationAtPoint
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Get elevation at a point",
         "Map",
-        "Retrieve the elevation of a point on a surface",
-        "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.")]
+        "Get the elevation for a given point on a surface in a scene.",
+        "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.",
+        "elevation", "point", "surface")]
     public partial class GetElevationAtPoint
     {
         // URL of the elevation service - provides elevation component of the scene.

@@ -19,10 +19,11 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
     [Register("FeatureCollectionLayerFromPortal")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature collection layer from portal item",
+        "Create feature collection layer (Portal item)",
         "Layers",
-        "This sample demonstrates opening a feature collection saved as a portal item.",
-        "")]
+        "Create a feature collection layer from a portal item.",
+        "The feature collection is loaded from the Portal item when the sample starts.",
+        "collection", "feature collection", "feature collection layer", "id", "item", "map notes", "portal")]
     public class FeatureCollectionLayerFromPortal : UIViewController
     {
         // Hold references to UI controls.

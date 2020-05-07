@@ -16,8 +16,9 @@ namespace ArcGISRuntime.WPF.Samples.AccessLoadStatus
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Access load status",
         "Map",
-        "This sample demonstrates how to access the Maps' LoadStatus. The LoadStatus will be considered loaded when the following are true: The Map has a valid SpatialReference and the Map has an been set to the MapView.",
-        "")]
+        "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",
+        "The load status of the map will be displayed as the sample loads.",
+        "LoadStatus", "Loadable pattern", "Map")]
     public partial class AccessLoadStatus
     {
         public AccessLoadStatus()

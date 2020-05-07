@@ -17,9 +17,9 @@ namespace ArcGISRuntime.WPF.Samples.CreateGeometries
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Create geometries",
         "Geometry",
-        "This sample demonstrates simple ways to create different types of Geometry. The geometries are added as Graphics to a GraphicsOverlay and displayed in a MapView. An Envelope is used to set the Viewpoint of the MapView.",
-        "",
-        "")]
+        "Create simple geometry types.",
+        "Pan and zoom freely to see the different types of geometries placed onto the map.",
+        "area", "boundary", "line", "marker", "path", "shape")]
     public partial class CreateGeometries
     {
         public CreateGeometries()

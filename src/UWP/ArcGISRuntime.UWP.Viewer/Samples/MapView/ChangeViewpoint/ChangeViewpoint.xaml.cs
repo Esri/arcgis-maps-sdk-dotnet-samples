@@ -21,8 +21,9 @@ namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change viewpoint",
         "MapView",
-        "This sample demonstrates different ways in which you can change the viewpoint of the MapView.",
-        "Click any of the available buttons to change the current viewpoint")]
+        "Set the map view to a new viewpoint.",
+        "The map view has several methods for setting its current viewpoint. Select a viewpoint from the UI to see the viewpoint changed using that method.",
+        "animate", "extent", "pan", "rotate", "scale", "view", "zoom")]
     public partial class ChangeViewpoint
     {
         // Coordinates for London

@@ -19,8 +19,9 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileScenePackage
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Open mobile scene package",
         "Map",
-        "Display a scene from an offline mobile scene package (.mspk).",
-        "")]
+        "Opens and displays a scene from a Mobile Scene Package (.mspk).",
+        "When the sample opens, it will automatically display the Scene in the Mobile Map Package.",
+        "offline", "scene")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
     public partial class OpenMobileScenePackage : ContentPage
     {

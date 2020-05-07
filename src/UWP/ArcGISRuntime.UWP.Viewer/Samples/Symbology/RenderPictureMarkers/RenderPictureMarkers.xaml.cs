@@ -22,8 +22,9 @@ namespace ArcGISRuntime.UWP.Samples.RenderPictureMarkers
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Picture marker symbol",
         "Symbology",
-        "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
-        "")]
+        "Use pictures for markers.",
+        "When launched, this sample displays a map with picture marker symbols. Pan and zoom to explore the map.",
+        "graphics", "marker", "picture", "symbol", "visualization")]
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public sealed partial class RenderPictureMarkers
     {

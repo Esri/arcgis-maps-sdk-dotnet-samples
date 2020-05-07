@@ -24,10 +24,11 @@ using System.Drawing;
 namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Viewshed (Geoprocessing)",
+        "Analyze viewshed (geoprocessing)",
         "Geoprocessing",
-        "This sample demonstrates how to use GeoprocessingTask to calculate a viewshed using a geoprocessing service. Click any point on the map to see all areas that are visible within a 1 kilometer radius. It may take a few seconds for the model to run and send back the results.",
-        "")]
+        "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",
+        "Click the map to see all areas visible from that point within a 15km radius. Clicking on an elevated area will highlight a larger part of the surrounding landscape. It may take a few seconds for the task to run and send back the results.",
+        "geoprocessing", "heat map", "heatmap", "viewshed")]
     public partial class AnalyzeViewshed
     {
         // Url for the geoprocessing service

@@ -20,10 +20,11 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change sublayer visibility",
+        "Map image layer sublayer visibility",
         "Layers",
-        "This sample demonstrates how to show or hide sublayers of a map image layer.",
-        "")]
+        "Change the visibility of sublayers.",
+        "Each sublayer has a check box which can be used to toggle the visibility of the sublayer.",
+        "layers", "sublayers", "visibility")]
     public class ChangeSublayerVisibility : Activity
     {
         // Hold a reference to the map view

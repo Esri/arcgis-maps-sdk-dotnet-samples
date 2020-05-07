@@ -27,7 +27,8 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceAreasForMultipleFacilities
         "Find service areas for multiple facilities",
         "Network analysis",
         "Find the service areas of several facilities from a feature service.",
-        "")]
+        "Click 'find service area' to calculate and display the service area of each facility on the map. The polygons displayed around each facility represents the service area; in red is the area that is within 3 minutes away from the hospital by car. Light orange is the area that is within 5 minutes away from the hospital by car.",
+        "facilities", "feature service", "impedance", "network analysis", "service area", "travel time")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class FindServiceAreasForMultipleFacilities
     {

@@ -16,10 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer rendering mode (Scene)",
+        "Feature layer rendering mode (scene)",
         "Layers",
-        "This sample demonstrates how to use load settings to change the preferred rendering mode for a scene. Static rendering mode only redraws features periodically when a sceneview is navigating, while dynamic mode dynamically re-renders as the scene moves.",
-        "Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes.")]
+        "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",
+        "Tap the button to trigger the same zoom animation on both static and dynamicly rendered scenes.",
+        "3D", "dynamic", "feature layer", "features", "rendering", "static")]
     public partial class FeatureLayerRenderingModeScene : ContentPage
     {
         // Points for demonstrating zoom

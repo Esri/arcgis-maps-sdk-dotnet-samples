@@ -26,11 +26,11 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
     [Register("ViewshedGeoElement")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Viewshed (GeoElement)",
+        "Viewshed for GeoElement",
         "Analysis",
-        "Display a live viewshed analysis for a moving GeoElement.",
-        "Tap on the scene to see the tank move to that point."
-        )]
+        "Analyze the viewshed for an object (GeoElement) in a scene.",
+        "Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive' towards the tapped location. The viewshed analysis will update as the vehicle moves.",
+        "3D", "analysis", "buildings", "model", "scene", "viewshed", "visibility analysis")]
     public class ViewshedGeoElement : UIViewController
     {
         // Hold references to UI controls.

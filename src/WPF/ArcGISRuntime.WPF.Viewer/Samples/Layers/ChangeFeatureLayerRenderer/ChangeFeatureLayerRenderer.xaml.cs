@@ -20,8 +20,9 @@ namespace ArcGISRuntime.WPF.Samples.ChangeFeatureLayerRenderer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Change feature layer renderer",
         "Layers",
-        "This sample demonstrates how to change renderer for a feature layer. It also shows how to reset the renderer back to the default.",
-        "")]
+        "Change the appearance of a feature layer with a renderer.",
+        "Use the buttons to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.",
+        "feature layer", "renderer", "visualization")]
     public partial class ChangeFeatureLayerRenderer
     {
         // Create and hold reference to the feature layer

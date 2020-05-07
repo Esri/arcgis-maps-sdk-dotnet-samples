@@ -22,10 +22,11 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display a grid",
+        "Display grid",
         "MapView",
-        "This sample demonstrates how to display and work with coordinate grid systems such as Latitude/Longitude, MGRS, UTM and USNG on a map view. This includes toggling labels visibility, changing the color of the grid lines, and changing the color of the grid labels.",
-        "Choose the grid settings and then tap 'Apply settings' to see them applied.")]
+        "Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.",
+        "Select type of grid from the types (LatLong, MGRS, UTM and USNG) and modify its properties like label visibility, grid line color, and grid label color. Press the button to apply these settings.",
+        "MGRS", "USNG", "UTM", "coordinates", "degrees", "graticule", "grid", "latitude", "longitude", "minutes", "seconds")]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("DisplayGrid.axml")]
     public class DisplayGrid : Activity
     {

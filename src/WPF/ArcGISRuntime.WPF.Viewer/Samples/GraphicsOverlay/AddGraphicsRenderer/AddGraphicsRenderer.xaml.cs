@@ -16,10 +16,11 @@ using System.Drawing;
 namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add graphics (SimpleRenderer)",
+        "Add graphics with renderer",
         "GraphicsOverlay",
-        "This sample demonstrates how you add graphics and set a renderer on a graphic overlays.",
-        "")]
+        "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style.",
+        "Run the sample and view graphics for points, lines, and polygons, which are stylized using renderers.",
+        "GraphicsOverlay", "SimpleMarkerSymbol", "SimpleRenderer")]
     public partial class AddGraphicsRenderer
     {
         public AddGraphicsRenderer()

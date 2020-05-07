@@ -21,10 +21,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FeatureLayerRenderingModeScene.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer rendering mode (Scene)",
+        "Feature layer rendering mode (scene)",
         "Layers",
-        "This sample demonstrates how to use load settings to change the preferred rendering mode for a scene. Static rendering mode only redraws features periodically when a sceneview is navigating, while dynamic mode dynamically re-renders as the scene moves.",
-        "Press the 'Animated Zoom' button to trigger a zoom. Observe the differences between the two scenes. Static is on top, dynamic on bottom.")]
+        "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",
+        "Tap the button to trigger the same zoom animation on both static and dynamicly rendered scenes.",
+        "3D", "dynamic", "feature layer", "features", "rendering", "static")]
     public class FeatureLayerRenderingModeScene : Activity
     {
         // Hold references to the scene views.

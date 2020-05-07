@@ -24,8 +24,8 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         "Surface placement",
         "GraphicsOverlay",
         "Position graphics relative to a surface using different surface placement modes.",
-        "",
-        "Featured")]
+        "The application loads a scene showing three points that use the individual surface placement rules (Absolute, Relative, and either Draped Billboarded or Draped Flat). Use the control to toggle the draped mode, then explore the scene by zooming in/out and by panning around to observe the effects of the surface placement rules.",
+        "3D", "absolute", "altitude", "draped", "elevation", "floating", "relative", "scenes", "sea level", "surface placement", "Featured")]
     public class SurfacePlacements : UIViewController
     {
         // Hold references to UI controls.

@@ -19,10 +19,11 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 {
     [Register("RasterLayerImageServiceRaster")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS raster layer (service)",
+        "Raster layer (service)",
         "Layers",
-        "Add a raster layer from an image service to a map.",
-        "")]
+        "Create a raster layer from a raster image service.",
+        "Simply launch the sample to see a raster from an image service being used on a map.",
+        "image service", "raster")]
     public class RasterLayerImageServiceRaster : UIViewController
     {
         // Hold references to UI controls.

@@ -15,8 +15,9 @@ namespace ArcGISRuntime.WPF.Samples.ShowMagnifier
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Show magnifier",
         "MapView",
-        "This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.",
-        "This sample only works on a device with a touch screen. The magnifier will not appear via a mouse click.")]
+        "Tap and hold on a map to show a magnifier.",
+        "Tap and hold on the map to show a magnifier, then drag across the map to move the magnifier. You can also pan the map while holding the magnifier, by dragging the magnifier to the edge of the map.",
+        "magnify", "map", "zoom")]
     public partial class ShowMagnifier
     {
         public ShowMagnifier()

@@ -17,10 +17,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.AddFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add features (feature service)",
+        "Add features",
         "Data",
-        "Add new features to an online feature service.",
-        "")]
+        "Add features to a feature layer.",
+        "Tap on a location on the map to add a feature at that location.",
+        "edit", "feature", "online service")]
     public partial class AddFeatures : ContentPage
     {
         // URL to the feature service.

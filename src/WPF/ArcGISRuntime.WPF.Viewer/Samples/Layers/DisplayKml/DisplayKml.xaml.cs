@@ -20,8 +20,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKml
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display KML",
         "Layers",
-        "Display a KML file from URL, a local file, or a portal item.",
-        "")]
+        "Display KML from a URL, portal item, or local KML file.",
+        "Use the UI to select a source. A KML file from that source will be loaded and displayed in the scene.",
+        "KML", "KMZ", "OGC", "keyhole")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("324e4742820e46cfbe5029ff2c32cb1f")]
     public partial class DisplayKml
     {

@@ -18,8 +18,9 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerDefinitionExpression
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Feature layer definition expression",
         "Layers",
-        "This sample demonstrates how to apply definition expression to a feature layer for filtering features. It also shows how to reset the definition expression.",
-        "")]
+        "Limit the features displayed on a map with a definition expression.",
+        "Press the 'Apply Expression' button to limit the features requested from the feature layer to those specified by the SQL query definition expression. Click the 'Reset Expression' button to remove the definition expression on the feature layer, which returns all the records.",
+        "SQL", "definition expression", "filter", "limit data", "query", "restrict data", "where clause")]
     public partial class FeatureLayerDefinitionExpression
     {
         // Create and hold reference to the feature layer

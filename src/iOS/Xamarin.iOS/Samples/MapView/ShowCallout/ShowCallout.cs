@@ -20,8 +20,9 @@ namespace ArcGISRuntime.Samples.ShowCallout
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Show callout",
         "MapView",
-        "This sample illustrates how to show callouts on a map in response to user interaction.",
-        "Tap on the map to show that point's coordinates.")]
+        "Show a callout with the latitude and longitude of user-tapped points.",
+        "Tap anywhere on the map. A callout showing the WGS84 coordinates for the tapped point will appear.",
+        "balloon", "bubble", "callout", "flyout", "flyover", "info window", "popup", "tap")]
     public class ShowCallout : UIViewController
     {
         // Hold references to UI controls.

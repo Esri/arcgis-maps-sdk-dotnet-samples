@@ -22,8 +22,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Display KML network links",
         "Layers",
-        "Display a KML file that loads content from a network resource.",
-        "")]
+        "Display a file with a KML network link, including displaying any network link control messages at launch.",
+        "The sample will load the KML file automatically. The data shown should refresh automatically every few seconds. Pan and zoom to explore the map.",
+        "KML", "KMZ", "Keyhole", "Network Link", "Network Link Control", "OGC")]
     public class DisplayKmlNetworkLinks : Activity
     {
         // Hold a reference to the scene view.

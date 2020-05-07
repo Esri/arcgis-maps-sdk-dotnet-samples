@@ -21,11 +21,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of sight (GeoElement)",
+        "Line of sight (geoelement)",
         "Analysis",
-        "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
-        "Use the slider to adjust the height of the observer."
-        )]
+        "Show a line of sight between two moving objects.",
+        "A line of sight will display between a point on the Empire State Building (observer) and a taxi (target).",
+        "3D", "line of sight", "visibility", "visibility analysis")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class LineOfSightGeoElement
     {

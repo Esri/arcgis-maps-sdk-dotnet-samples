@@ -15,10 +15,11 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.ServiceFeatureTableCache
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Service feature table (cache)",
+        "Service feature table (on interaction cache)",
         "Data",
-        "This sample demonstrates how to use a feature service in on interaction cache mode.",
-        "")]
+        "Display a feature layer from a service using the **on interaction cache** feature request mode.",
+        "Run the sample and pan and zoom around the map. With each interaction, features will be requested and stored in a local cache. Each subsequent interaction will display features from the cache and only request new features from the service.",
+        "cache", "feature request mode", "performance")]
     public partial class ServiceFeatureTableCache
     {
         public ServiceFeatureTableCache()

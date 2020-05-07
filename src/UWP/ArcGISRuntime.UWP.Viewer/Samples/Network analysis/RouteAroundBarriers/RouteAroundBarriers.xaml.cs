@@ -30,7 +30,8 @@ namespace ArcGISRuntime.UWP.Samples.RouteAroundBarriers
         "Route around barriers",
         "Network analysis",
         "Find a route that reaches all stops without crossing any barriers.",
-        "")]
+        "Click 'Add stop' to add stops to the route. Click 'Add barrier' to add areas that can't be crossed by the route. Click 'Route' to find the route and display it. Select 'Allow stops to be re-ordered' to find the best sequence. Select 'Preserve first stop' if there is a known start point, and 'Preserve last stop' if there is a known final destination.",
+        "barriers", "best sequence", "directions", "maneuver", "network analysis", "routing", "sequence", "stop order", "stops")]
     public partial class RouteAroundBarriers
     {
         // Track the current state of the sample.

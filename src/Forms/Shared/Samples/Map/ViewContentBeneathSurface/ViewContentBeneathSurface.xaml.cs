@@ -17,7 +17,8 @@ namespace ArcGISRuntimeXamarin.Samples.ViewContentBeneathSurface
         "View content beneath terrain surface",
         "Map",
         "See through terrain in a scene and move the camera underground.",
-        "")]
+        "The sample loads a scene with underground features. Pan and zoom to explore the scene. Observe how the opacity of the base surface is reduced and the navigation constraint is removed, allowing you to pan and zoom through the base surface.",
+        "3D", "subsurface", "underground", "utilities")]
     public partial class ViewContentBeneathSurface : ContentPage
     {
         public ViewContentBeneathSurface()

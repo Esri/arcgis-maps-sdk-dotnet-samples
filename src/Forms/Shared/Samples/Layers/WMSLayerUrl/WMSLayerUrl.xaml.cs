@@ -18,8 +18,9 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMS layer (URL)",
         "Layers",
-        "Add a layer from a WMS service to a map.",
-        "")]
+        "Display a WMS layer using a WMS service URL.",
+        "The map will load automatically when the sample starts.",
+        "OGC", "WmsLayer", "web map service")]
     public partial class WMSLayerUrl : ContentPage
     {
         // Hold the URL to the WMS service showing U.S. weather radar.

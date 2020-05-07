@@ -24,8 +24,9 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Viewshed (location)",
         "Analysis",
-        "This sample demonstrates the configurable properties of viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
-        "Click anywhere in the scene to 'pick up' the viewshed observer location. Move the mouse to see the viewshed observer location update in real time. Click again to 'drop' the viewshed observer location.")]
+        "Perform a viewshed analysis from a defined vantage point. ",
+        "Use the sliders to change the properties (heading, pitch, etc.), of the viewshed and see them updated in real time.",
+        "3D", "LocationViewshed", "Scene", "frustum", "viewshed", "visibility analysis")]
     public partial class ViewshedLocation
     {
         // Hold the URL to the elevation source.

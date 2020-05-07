@@ -19,10 +19,11 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
 {
     [Register("AddFeatures")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add features (feature service)",
+        "Add features",
         "Data",
-        "Add new features to an online feature service.",
-        "")]
+        "Add features to a feature layer.",
+        "Tap on a location on the map to add a feature at that location.",
+        "edit", "feature", "online service")]
     public class AddFeatures : UIViewController
     {
         // Hold references to UI controls.

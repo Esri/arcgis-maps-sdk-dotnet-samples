@@ -22,7 +22,8 @@ namespace ArcGISRuntime.WPF.Samples.UpdateAttributes
         "Update attributes (feature service)",
         "Data",
         "Update feature attributes in an online feature service.",
-        "")]
+        "To change the feature's damage property, tap the feature to select it, and update the damage type using the drop down.",
+        "attribute", "coded value", "coded value domain", "domain", "editing", "value")]
     public partial class UpdateAttributes
     {
         // URL to the feature service.

@@ -20,8 +20,9 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Map spatial reference",
         "Map",
-        "This sample demonstrates how you can set the spatial reference on a Map and all the operational layers would project accordingly.",
-        "")]
+        "Specify a map's spatial reference.",
+        "Pan and zoom around the map. Observe how the map is displayed using the World Bonne spatial reference.",
+        "SpatialReference", "WKID", "project")]
     public class SetMapSpatialReference : UIViewController
     {
         // Hold references to UI controls.

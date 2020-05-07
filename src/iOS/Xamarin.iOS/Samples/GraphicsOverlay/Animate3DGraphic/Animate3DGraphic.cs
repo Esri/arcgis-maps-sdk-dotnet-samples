@@ -32,9 +32,9 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Animate 3D graphic",
         "GraphicsOverlay",
-        "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
-        "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. Click 'Stats' to toggle stats display. Tap 'Mission' to choose from a list of alternative routes. Changing the settings for choosing a different mission will automatically re-start the animation if it is currently paused.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator)."
-        )]
+        "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
+        "Animation Controls:",
+        "Camera", "ModelSceneSymbol", "OrbitGeoElementCameraController", "RendererSceneProperties", "SceneView")]
     public class Animate3DGraphic : UIViewController
     {
         // Hold references to UI controls.

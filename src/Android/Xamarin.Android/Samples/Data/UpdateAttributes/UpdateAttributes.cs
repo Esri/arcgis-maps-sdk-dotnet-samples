@@ -25,7 +25,8 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         "Update attributes (feature service)",
         "Data",
         "Update feature attributes in an online feature service.",
-        "")]
+        "To change the feature's damage property, tap the feature to select it, and update the damage type using the drop down.",
+        "attribute", "coded value", "coded value domain", "domain", "editing", "value")]
     public class UpdateAttributes : Activity
     {
         // Hold a reference to the MapView.

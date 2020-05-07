@@ -23,7 +23,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         "Explore scenes in flyover AR",
         "Augmented reality",
         "Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.",
-        "")]
+        "When you open the sample, you'll be viewing the scene from above. You can walk around, using your device as a window into the scene. Try moving vertically to get closer to the ground. Touch gestures which ",
+        "augmented reality", "bird's eye", "birds-eye-view", "fly over", "flyover", "mixed reality", "translation factor")]
     public class ExploreScenesInFlyoverAR : UIViewController
     {
         // Hold references to UI controls.

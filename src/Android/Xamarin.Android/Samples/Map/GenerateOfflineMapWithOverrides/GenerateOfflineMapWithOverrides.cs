@@ -35,7 +35,8 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         "Generate offline map (overrides)",
         "Map",
         "Take a web map offline with additional options for each layer.",
-        "")]
+        "Modify the overrides parameters:",
+        "LOD", "adjust", "download", "extent", "filter", "offline", "override", "parameters", "reduce", "scale range", "setting")]
     public class GenerateOfflineMapWithOverrides : Activity, IOAuthAuthorizeHandler
     {
         // Mapview.

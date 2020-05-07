@@ -20,8 +20,9 @@ namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "WMS service catalog",
         "Layers",
-        "This sample demonstrates how to enable and disable the display of layers discovered from a WMS service.",
-        "")]
+        "Connect to a WMS service and show the available layers and sublayers. ",
+        "",
+        "OGC", "WMS", "catalog", "web map service")]
     public partial class WmsServiceCatalog
     {
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.

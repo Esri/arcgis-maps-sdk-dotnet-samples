@@ -20,10 +20,11 @@ using System.Windows.Controls;
 namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Local Server geoprocessing",
+        "Local server geoprocessing",
         "Local Server",
-        "This sample demonstrates how to perform geoprocessing tasks using Local Server.",
-        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nSample data is loaded in the background.\nNote that the functionality used by this sample requires that Geoprocessing packages be enabled in the ArcGISLocalServer.AGSDeployment file that is included in your project. See [Create a Local Server deployment](https://developers.arcgis.com/net/latest/wpf/guide/create-a-local-server-deployment.htm) for more information.")]
+        "Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.",
+        "Contour Line Controls (Top Left):",
+        "geoprocessing", "local", "offline", "parameters", "processing", "service")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f7c7b4a30fb9415896ba0d1921fe014b", "da9e565a52ca41c1937cff1a01017068")]
     public partial class LocalServerGeoprocessing
     {

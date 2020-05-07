@@ -17,8 +17,9 @@ namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Manage bookmarks",
         "Map",
-        "This sample demonstrates how to access and add bookmarks to a map.",
-        "")]
+        "Access and create bookmarks on a map.",
+        "The map in the sample comes pre-populated with a set of bookmarks. To access a bookmark and move to that location, click on a bookmark's name from the list. To add a bookmark, pan and/or zoom to a new location and click on the 'Add Bookmark' button. Enter a unique name for the bookmark and click ok, and the bookmark will be added to the list",
+        "bookmark", "extent", "location", "zoom")]
     public partial class ManageBookmarks
     {
         public ManageBookmarks()

@@ -16,11 +16,11 @@ using System.Drawing;
 namespace ArcGISRuntime.UWP.Samples.LineOfSightLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of sight from location",
+        "Line of sight (location)",
         "Analysis",
-        "This sample demonstrates a `LocationLineOfSight` analysis that shows segments that are visible or obstructed along a line drawn from observer to target.",
-        "Click to define a location for the observer, then again to define the target. The result will show visible segments in cyan and obstructed ones in magenta."
-        )]
+        "Perform a line of sight analysis between two points in real time.",
+        "Tap to place the starting point for the line. Tap again to place the end point.",
+        "3D", "line of sight", "visibility", "visibility analysis")]
     public sealed partial class LineOfSightLocation
     {
         // URL for an image service to use as an elevation source

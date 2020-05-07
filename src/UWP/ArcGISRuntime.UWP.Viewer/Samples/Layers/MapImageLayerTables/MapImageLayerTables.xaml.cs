@@ -22,11 +22,11 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.MapImageLayerTables
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Query map image layer tables",
+        "Map image layer tables",
         "Layers",
-        "This sample demonstrates how to get a non-spatial table from an ArcGIS map image layer. It shows how to query such a table, as well as how to find related features in another table. The non-spatial tables contained by a map service may contain additional information about sublayer features. Such information can be accessed by traversing table relationships defined in the service.",
-        "1. Launch the sample, the map displays at the extent of the `Service Requests` layer.\n2. The list is populated with service request comment records that have a valid(non-null) comment.\n3. Select one of the service request comments from the list to see the related service request feature selected in the map.",
-        "Query", "Sublayer", "MapServer", "Related Tables")]
+        "Find features in a spatial table related to features in a non-spatial table.",
+        "Once the map image layer loads, a list view will be populated with comment data from non-spatial features. Click on one of the comments to query related spatial features and display the first result on the map.",
+        "features", "query", "related features", "search")]
     public partial class MapImageLayerTables
     {
         // A graphics overlay for showing selected features.

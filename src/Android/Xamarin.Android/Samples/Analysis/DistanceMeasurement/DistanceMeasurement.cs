@@ -24,9 +24,9 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         "Distance measurement analysis",
         "Analysis",
-        "This sample demonstrates measuring 3D distances between two points in a scene. The distance measurement analysis allows you to add the same measuring experience found in ArcGIS Pro, City Engine, and the ArcGIS API for JavaScript to your app. You can set the unit system of measurement (metric or imperial) and have the units automatically switch to one appropriate for the current scale. The rendering is handled internally so they do not interfere with other analyses like viewsheds.",
-        "Tap to set a new end point for the measurement."
-        )]
+        "Measure distances between two points in 3D.",
+        "Choose a unit system for the measurement. Tap any location in the scene to start measuring. Move the mouse to an end location, and tap to complete the measurement. Tap a new location to clear and start a new measurement.",
+        "3D", "analysis", "distance", "measure")]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("DistanceMeasurement.axml")]
     public class DistanceMeasurement : Activity
     {

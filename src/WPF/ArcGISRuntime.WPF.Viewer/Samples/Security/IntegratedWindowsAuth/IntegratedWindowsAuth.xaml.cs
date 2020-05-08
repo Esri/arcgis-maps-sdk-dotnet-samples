@@ -22,11 +22,11 @@ using System.Windows.Controls;
 namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Integrated Windows Authentication",
-        "Security",
-        "Connect to an IWA secured Portal and search for maps.",
-        "1. Enter the URL to your IWA-secured portal.",
-        "Portal", "Windows", "authentication", "security")]
+        name: "Integrated Windows Authentication",
+        category: "Security",
+        description: "Connect to an IWA secured Portal and search for maps.",
+        instructions: "1. Enter the URL to your IWA-secured portal.",
+        tags: new[] { "Portal", "Windows", "authentication", "security" })]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("LoginWindow.xaml.cs")]
     [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("LoginWindow.xaml")]
     public partial class IntegratedWindowsAuth

@@ -21,11 +21,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.BufferList
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Buffer list",
-        "Geometry",
-        "Generate multiple individual buffers or a single unioned buffer around multiple points.",
-        "Click/tap on the map to add points. Click the \"Create Buffer(s)\" button to draw buffer(s) around the points (the size of the buffer is determined by the value entered by the user). Check the check box if you want the result to union (combine) the buffers. Click the \"Clear\" button to start over. The red dashed envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
-        "analysis", "buffer", "geometry", "planar")]
+        name: "Buffer list",
+        category: "Geometry",
+        description: "Generate multiple individual buffers or a single unioned buffer around multiple points.",
+        instructions: "Click/tap on the map to add points. Click the \"Create Buffer(s)\" button to draw buffer(s) around the points (the size of the buffer is determined by the value entered by the user). Check the check box if you want the result to union (combine) the buffers. Click the \"Clear\" button to start over. The red dashed envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.",
+        tags: new[] { "analysis", "buffer", "geometry", "planar" })]
     public partial class BufferList
     {
         // A polygon that defines the valid area of the spatial reference used.

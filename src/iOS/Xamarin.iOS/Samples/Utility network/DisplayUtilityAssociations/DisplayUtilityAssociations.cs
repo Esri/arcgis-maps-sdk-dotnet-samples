@@ -25,11 +25,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
 {
     [Register("DisplayUtilityAssociations")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display utility associations",
-        "Utility network",
-        "Create graphics for utility associations in a utility network.",
-        "Pan and zoom around the map. Observe graphics that show utility associations between junctions.",
-        "associating", "association", "attachment", "connectivity", "containment", "relationships")]
+        name: "Display utility associations",
+        category: "Utility network",
+        description: "Create graphics for utility associations in a utility network.",
+        instructions: "Pan and zoom around the map. Observe graphics that show utility associations between junctions.",
+        tags: new[] { "associating", "association", "attachment", "connectivity", "containment", "relationships" })]
     public class DisplayUtilityAssociations : UIViewController
     {
         // Hold references to UI controls.

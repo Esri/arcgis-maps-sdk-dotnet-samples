@@ -22,11 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Update geometries (feature service)",
-        "Data",
-        "Update a feature's location in an online feature service.",
-        "Tap a feature to select it. Tap again to set the updated location for that feature. An alert will be shown confirming success or failure.",
-        "editing", "feature layer", "feature table", "moving", "service", "updating")]
+        name: "Update geometries (feature service)",
+        category: "Data",
+        description: "Update a feature's location in an online feature service.",
+        instructions: "Tap a feature to select it. Tap again to set the updated location for that feature. An alert will be shown confirming success or failure.",
+        tags: new[] { "editing", "feature layer", "feature table", "moving", "service", "updating" })]
     public class UpdateGeometries : Activity
     {
         // Hold a reference to the MapView.

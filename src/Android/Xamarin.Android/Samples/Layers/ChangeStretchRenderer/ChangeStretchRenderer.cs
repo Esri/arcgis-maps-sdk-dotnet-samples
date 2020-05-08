@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Stretch renderer",
-        "Layers",
-        "Use a stretch renderer to enhance the visual contrast of raster data for analysis.",
-        "Choose one of the stretch parameter types:",
-        "analysis", "deviation", "histogram", "imagery", "interpretation", "min-max", "percent clip", "pixel", "raster", "stretch", "symbology", "visualization")]
+        name: "Stretch renderer",
+        category: "Layers",
+        description: "Use a stretch renderer to enhance the visual contrast of raster data for analysis.",
+        instructions: "Choose one of the stretch parameter types:",
+        tags: new[] { "analysis", "deviation", "histogram", "imagery", "interpretation", "min-max", "percent clip", "pixel", "raster", "stretch", "symbology", "visualization" })]
     public class ChangeStretchRenderer : Activity
     {
         // Global reference to the MapView used in the sample

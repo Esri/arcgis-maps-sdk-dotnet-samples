@@ -18,11 +18,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.CutGeometry
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Cut geometry",
-        "Geometry",
-        "Cut a geometry along a polyline.",
-        "Click the \"Cut\" button to cut the polygon with the polyline and see the resulting parts (shaded in different colors).",
-        "cut", "geometry", "split")]
+        name: "Cut geometry",
+        category: "Geometry",
+        description: "Cut a geometry along a polyline.",
+        instructions: "Click the \"Cut\" button to cut the polygon with the polyline and see the resulting parts (shaded in different colors).",
+        tags: new[] { "cut", "geometry", "split" })]
     public partial class CutGeometry
     {
         // Graphics overlay to display the graphics.

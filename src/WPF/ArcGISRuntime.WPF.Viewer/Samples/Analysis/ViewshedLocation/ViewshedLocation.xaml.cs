@@ -22,11 +22,11 @@ using Point = System.Windows.Point;
 namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Viewshed (location)",
-        "Analysis",
-        "Perform a viewshed analysis from a defined vantage point. ",
-        "Use the sliders to change the properties (heading, pitch, etc.), of the viewshed and see them updated in real time.",
-        "3D", "LocationViewshed", "Scene", "frustum", "viewshed", "visibility analysis")]
+        name: "Viewshed (location)",
+        category: "Analysis",
+        description: "Perform a viewshed analysis from a defined vantage point. ",
+        instructions: "Use the sliders to change the properties (heading, pitch, etc.), of the viewshed and see them updated in real time.",
+        tags: new[] { "3D", "LocationViewshed", "Scene", "frustum", "viewshed", "visibility analysis" })]
     public partial class ViewshedLocation
     {
         // Hold the URL to the elevation source.

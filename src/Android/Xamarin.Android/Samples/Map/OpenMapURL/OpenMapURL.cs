@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open map URL",
-        "Map",
-        "Display a web map.",
-        "A web map can be selected from the drop-down list. On selection the web map displays in the map view.",
-        "portal item", "web map")]
+        name: "Open map URL",
+        category: "Map",
+        description: "Display a web map.",
+        instructions: "A web map can be selected from the drop-down list. On selection the web map displays in the map view.",
+        tags: new[] { "portal item", "web map" })]
     public class OpenMapURL : Activity
     {
         // Hold a reference to the map view

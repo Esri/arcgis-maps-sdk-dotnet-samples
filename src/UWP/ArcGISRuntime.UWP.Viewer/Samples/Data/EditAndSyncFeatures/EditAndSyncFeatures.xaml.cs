@@ -29,11 +29,11 @@ using Esri.ArcGISRuntime;
 namespace ArcGISRuntime.UWP.Samples.EditAndSyncFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Edit and sync features",
-        "Data",
-        "Synchronize offline edits with a feature service.",
-        "Pan and zoom to position the red rectangle around the area you want to take offline. Click \"Generate geodatabase\" to take the area offline. When complete, the map will update to only show the offline area. To edit features, click to select a feature, and click again anywhere else on the map to move the selected feature to the clicked location. To sync the edits with the feature service, click the \"Sync geodatabase\" button.",
-        "feature service", "geodatabase", "offline", "synchronize")]
+        name: "Edit and sync features",
+        category: "Data",
+        description: "Synchronize offline edits with a feature service.",
+        instructions: "Pan and zoom to position the red rectangle around the area you want to take offline. Click \"Generate geodatabase\" to take the area offline. When complete, the map will update to only show the offline area. To edit features, click to select a feature, and click again anywhere else on the map to move the selected feature to the clicked location. To sync the edits with the feature service, click the \"Sync geodatabase\" button.",
+        tags: new[] { "feature service", "geodatabase", "offline", "synchronize" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
     public partial class EditAndSyncFeatures
     {

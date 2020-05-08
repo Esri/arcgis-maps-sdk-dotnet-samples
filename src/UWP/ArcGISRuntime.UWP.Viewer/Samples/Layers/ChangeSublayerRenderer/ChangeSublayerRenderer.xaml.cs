@@ -17,11 +17,11 @@ using System.Drawing;
 namespace ArcGISRuntime.UWP.Samples.ChangeSublayerRenderer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change sublayer renderer",
-        "Layers",
-        "Apply a renderer to a sublayer.",
-        "Wait for the map image layer to load. Click the button to apply a unique value renderer to see different population ranges in the counties sub-layer data.",
-        "class breaks", "dynamic layer", "dynamic rendering", "renderer", "sublayer", "symbology", "visualization")]
+        name: "Change sublayer renderer",
+        category: "Layers",
+        description: "Apply a renderer to a sublayer.",
+        instructions: "Wait for the map image layer to load. Click the button to apply a unique value renderer to see different population ranges in the counties sub-layer data.",
+        tags: new[] { "class breaks", "dynamic layer", "dynamic rendering", "renderer", "sublayer", "symbology", "visualization" })]
     public partial class ChangeSublayerRenderer
     {
         // ArcGIS map image layer that contains four Census sub-layers.

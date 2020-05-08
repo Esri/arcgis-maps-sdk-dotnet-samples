@@ -15,11 +15,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.OpenMapURL
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open map URL",
-        "Map",
-        "Display a web map.",
-        "A web map can be selected from the drop-down list. On selection the web map displays in the map view.",
-        "portal item", "web map")]
+        name: "Open map URL",
+        category: "Map",
+        description: "Display a web map.",
+        instructions: "A web map can be selected from the drop-down list. On selection the web map displays in the map view.",
+        tags: new[] { "portal item", "web map" })]
     public partial class OpenMapURL : ContentPage
     {
         // String array to hold urls to publicly available web maps

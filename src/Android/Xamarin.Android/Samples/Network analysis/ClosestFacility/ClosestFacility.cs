@@ -24,11 +24,11 @@ namespace ArcGISRuntime.Samples.ClosestFacility
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find closest facility to an incident (interactive)",
-        "Network analysis",
-        "Find a route to the closest facility from a location.",
-        "Tap near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.",
-        "incident", "network analysis", "route", "search")]
+        name: "Find closest facility to an incident (interactive)",
+        category: "Network analysis",
+        description: "Find a route to the closest facility from a location.",
+        instructions: "Tap near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.",
+        tags: new[] { "incident", "network analysis", "route", "search" })]
     public class ClosestFacility : Activity
     {
         // Hold a reference to the map view.

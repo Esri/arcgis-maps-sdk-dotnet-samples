@@ -23,11 +23,11 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster layer (GeoPackage)",
-        "Data",
-        "Display a raster contained in a GeoPackage.",
-        "When the sample starts, a raster will be loaded from a GeoPackage and displayed in the map view.",
-        "OGC", "container", "data", "image", "import", "layer", "package", "raster", "visualization")]
+        name: "Raster layer (GeoPackage)",
+        category: "Data",
+        description: "Display a raster contained in a GeoPackage.",
+        instructions: "When the sample starts, a raster will be loaded from a GeoPackage and displayed in the map view.",
+        tags: new[] { "OGC", "container", "data", "image", "import", "layer", "package", "raster", "visualization" })]
     public class RasterLayerGeoPackage : Activity
     {
         private MapView _myMapView;

@@ -26,11 +26,11 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display device location",
-        "Location",
-        "Display your current position on the map, as well as switch between different types of auto pan Modes.",
-        "Select an autopan mode, then use the buttons to start and stop location display.",
-        "GPS", "compass", "location", "map", "mobile", "navigation")]
+        name: "Display device location",
+        category: "Location",
+        description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
+        instructions: "Select an autopan mode, then use the buttons to start and stop location display.",
+        tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public class DisplayDeviceLocation : Activity, ActivityCompat.IOnRequestPermissionsResultCallback
     {
         // Constant for tracking permission request.

@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster layer (service)",
-        "Layers",
-        "Create a raster layer from a raster image service.",
-        "Simply launch the sample to see a raster from an image service being used on a map.",
-        "image service", "raster")]
+        name: "Raster layer (service)",
+        category: "Layers",
+        description: "Create a raster layer from a raster image service.",
+        instructions: "Simply launch the sample to see a raster from an image service being used on a map.",
+        tags: new[] { "image service", "raster" })]
     public class RasterLayerImageServiceRaster : Activity
     {
         // Create and hold reference to the used MapView.

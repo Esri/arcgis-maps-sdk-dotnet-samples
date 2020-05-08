@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 {
     [Register("AddGraphicsWithSymbols")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add graphics with symbols",
-        "GraphicsOverlay",
-        "Use a symbol style to display a graphic on a graphics overlay.",
-        "Observe the graphics on the map.",
-        "SimpleFillSymbol", "SimpleLineSymbol", "SimpleMarkerSymbol")]
+        name: "Add graphics with symbols",
+        category: "GraphicsOverlay",
+        description: "Use a symbol style to display a graphic on a graphics overlay.",
+        instructions: "Observe the graphics on the map.",
+        tags: new[] { "SimpleFillSymbol", "SimpleLineSymbol", "SimpleMarkerSymbol" })]
     public class AddGraphicsWithSymbols : UIViewController
     {
         // Hold references to UI controls.

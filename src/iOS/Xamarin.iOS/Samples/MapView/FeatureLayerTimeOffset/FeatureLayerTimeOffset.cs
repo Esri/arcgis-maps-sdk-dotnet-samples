@@ -19,11 +19,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 {
     [Register("FeatureLayerTimeOffset")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer time offset",
-        "MapView",
-        "Display a time-enabled feature layer with a time offset.",
-        "When the sample loads, you'll see hurricane tracks visualized in red and blue. The red hurricane tracks occurred 10 days before the tracks displayed in blue. Adjust the slider to move the interval to visualize how storms progress over time.",
-        "change", "range", "time", "time extent", "time offset", "time-aware", "time-enabled")]
+        name: "Feature layer time offset",
+        category: "MapView",
+        description: "Display a time-enabled feature layer with a time offset.",
+        instructions: "When the sample loads, you'll see hurricane tracks visualized in red and blue. The red hurricane tracks occurred 10 days before the tracks displayed in blue. Adjust the slider to move the interval to visualize how storms progress over time.",
+        tags: new[] { "change", "range", "time", "time extent", "time offset", "time-aware", "time-enabled" })]
     public class FeatureLayerTimeOffset : UIViewController
     {
         // Hold references to UI controls.

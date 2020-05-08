@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
     [Register("AnalyzeHotspots")]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("DateSelectionViewController.cs")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Analyze hotspots",
-        "Geoprocessing",
-        "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",
-        "Select a date range (between 1998-01-01 and 1998-05-31) from the dialog and tap on Analyze. The results will be shown on the map upon successful completion of the `GeoprocessingJob`.",
-        "Geoprocessing", "GeoprocessingJob", "GeoprocessingParameters", "GeoprocessingResult")]
+        name: "Analyze hotspots",
+        category: "Geoprocessing",
+        description: "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",
+        instructions: "Select a date range (between 1998-01-01 and 1998-05-31) from the dialog and tap on Analyze. The results will be shown on the map upon successful completion of the `GeoprocessingJob`.",
+        tags: new[] { "Geoprocessing", "GeoprocessingJob", "GeoprocessingParameters", "GeoprocessingResult" })]
     public class AnalyzeHotspots : UIViewController
     {
         // Hold references to UI controls.

@@ -17,11 +17,11 @@ namespace ArcGISRuntime.Samples.DisplayMap
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display map",
-        "Map",
-        "Display a map with an imagery basemap.",
-        "Run the sample to view the map. Pan and zoom to navigate the map.",
-        "basemap", "map")]
+        name: "Display map",
+        category: "Map",
+        description: "Display a map with an imagery basemap.",
+        instructions: "Run the sample to view the map. Pan and zoom to navigate the map.",
+        tags: new[] { "basemap", "map" })]
     public class DisplayMap : Activity
     {
         // Hold a reference to the map view

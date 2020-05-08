@@ -21,11 +21,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.FindRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find route",
-        "Network analysis",
-        "Display directions for a route between two points.",
-        "For simplicity, the sample comes loaded with a start and end stop. You can tap on the Find Route button to display a route between these stops. Once the route is generated, turn-by-turn directions are shown in a list.",
-        "directions", "driving", "navigation", "network", "network analysis", "route", "routing", "shortest path", "turn-by-turn")]
+        name: "Find route",
+        category: "Network analysis",
+        description: "Display directions for a route between two points.",
+        instructions: "For simplicity, the sample comes loaded with a start and end stop. You can tap on the Find Route button to display a route between these stops. Once the route is generated, turn-by-turn directions are shown in a list.",
+        tags: new[] { "directions", "driving", "navigation", "network", "network analysis", "route", "routing", "shortest path", "turn-by-turn" })]
     public partial class FindRoute : ContentPage
     {
         // List of stops on the route ('from' and 'to')

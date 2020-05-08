@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer (GeoPackage)",
-        "Data",
-        "Display features from a local GeoPackage.",
-        "Pan and zoom around the map. View the data loaded from the geopackage.",
-        "OGC", "feature table", "geopackage", "gpkg", "package", "standards")]
+        name: "Feature layer (GeoPackage)",
+        category: "Data",
+        description: "Display features from a local GeoPackage.",
+        instructions: "Pan and zoom around the map. View the data loaded from the geopackage.",
+        tags: new[] { "OGC", "feature table", "geopackage", "gpkg", "package", "standards" })]
     public class FeatureLayerGeoPackage : Activity
     {
         private MapView _myMapView;

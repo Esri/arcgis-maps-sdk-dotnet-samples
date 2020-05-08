@@ -21,11 +21,11 @@ using ArcGISRuntime.Droid;
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display device location",
-        "Location",
-        "Display your current position on the map, as well as switch between different types of auto pan Modes.",
-        "Select an autopan mode, then use the buttons to start and stop location display.",
-        "GPS", "compass", "location", "map", "mobile", "navigation")]
+        name: "Display device location",
+        category: "Location",
+        description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
+        instructions: "Select an autopan mode, then use the buttons to start and stop location display.",
+        tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public partial class DisplayDeviceLocation : ContentPage, IDisposable
     {
         // String array to store the different device location options.

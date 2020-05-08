@@ -18,11 +18,11 @@ namespace ArcGISRuntimeXamarin.Samples.AddPointSceneLayer
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add a point scene layer",
-        "Layers",
-        "View a point scene layer from a scene service.",
-        "Pan around the scene and zoom in. Notice how many thousands of additional features appear at each successive zoom scale.",
-        "3D", "layers", "point scene layer")]
+        name: "Add a point scene layer",
+        category: "Layers",
+        description: "View a point scene layer from a scene service.",
+        instructions: "Pan around the scene and zoom in. Notice how many thousands of additional features appear at each successive zoom scale.",
+        tags: new[] { "3D", "layers", "point scene layer" })]
     public class AddPointSceneLayer : Activity
     {
         // Hold references to the UI controls.

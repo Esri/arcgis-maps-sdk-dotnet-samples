@@ -28,11 +28,11 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 {
     [Register("CollectDataAR")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Collect data in AR",
-        "Augmented reality",
-        "Tap on real-world objects to collect data.",
-        "Before you start, go through the on-screen calibration process to ensure accurate positioning of recorded features. Feature points detected by ARKit are shown to help you understand what the application sees and where you can tap to collect accurate features.",
-        "attachment", "augmented reality", "capture", "collection", "collector", "data", "field", "field worker", "full-scale", "mixed reality", "survey", "world-scale")]
+        name: "Collect data in AR",
+        category: "Augmented reality",
+        description: "Tap on real-world objects to collect data.",
+        instructions: "Before you start, go through the on-screen calibration process to ensure accurate positioning of recorded features. Feature points detected by ARKit are shown to help you understand what the application sees and where you can tap to collect accurate features.",
+        tags: new[] { "attachment", "augmented reality", "capture", "collection", "collector", "data", "field", "field worker", "full-scale", "mixed reality", "survey", "world-scale" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class CollectDataAR : UIViewController
     {

@@ -19,11 +19,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.GetElevationAtPoint
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Get elevation at a point",
-        "Map",
-        "Get the elevation for a given point on a surface in a scene.",
-        "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.",
-        "elevation", "point", "surface")]
+        name: "Get elevation at a point",
+        category: "Map",
+        description: "Get the elevation for a given point on a surface in a scene.",
+        instructions: "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.",
+        tags: new[] { "elevation", "point", "surface" })]
     public partial class GetElevationAtPoint
     {
         // URL of the elevation service - provides elevation component of the scene.

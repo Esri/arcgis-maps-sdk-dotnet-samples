@@ -27,11 +27,11 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
 {
     [Register("NavigateRoute")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Navigate route",
-        "Network analysis",
-        "Use a routing service to navigate between points.",
-        "Tap 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Tap 'Recenter' to refocus on the location display.",
-        "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice", "Featured")]
+        name: "Navigate route",
+        category: "Network analysis",
+        description: "Use a routing service to navigate between points.",
+        instructions: "Tap 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Tap 'Recenter' to refocus on the location display.",
+        tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice", "Featured" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class NavigateRoute : UIViewController
     {

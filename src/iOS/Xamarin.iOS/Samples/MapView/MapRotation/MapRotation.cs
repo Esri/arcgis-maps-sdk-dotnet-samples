@@ -17,11 +17,11 @@ namespace ArcGISRuntime.Samples.MapRotation
 {
     [Register("MapRotation")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Map rotation",
-        "MapView",
-        "Rotate a map.",
-        "Use the slider to rotate the map.",
-        "rotate", "rotation", "viewpoint")]
+        name: "Map rotation",
+        category: "MapView",
+        description: "Rotate a map.",
+        instructions: "Use the slider to rotate the map.",
+        tags: new[] { "rotate", "rotation", "viewpoint" })]
     public class MapRotation : UIViewController
     {
         // Hold references to UI controls.

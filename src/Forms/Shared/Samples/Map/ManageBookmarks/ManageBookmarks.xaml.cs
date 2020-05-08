@@ -15,11 +15,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ManageBookmarks
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Manage bookmarks",
-        "Map",
-        "Access and create bookmarks on a map.",
-        "The map in the sample comes pre-populated with a set of bookmarks. To access a bookmark and move to that location, tap on a bookmark's name from the list. To add a bookmark, pan and/or zoom to a new location and tap on the 'Add Bookmark' button. Enter a unique name for the bookmark and tap ok, and the bookmark will be added to the list",
-        "bookmark", "extent", "location", "zoom")]
+        name: "Manage bookmarks",
+        category: "Map",
+        description: "Access and create bookmarks on a map.",
+        instructions: "The map in the sample comes pre-populated with a set of bookmarks. To access a bookmark and move to that location, tap on a bookmark's name from the list. To add a bookmark, pan and/or zoom to a new location and tap on the 'Add Bookmark' button. Enter a unique name for the bookmark and tap ok, and the bookmark will be added to the list",
+        tags: new[] { "bookmark", "extent", "location", "zoom" })]
     public partial class ManageBookmarks : ContentPage
     {
         public ManageBookmarks()

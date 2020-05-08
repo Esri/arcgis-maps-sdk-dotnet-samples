@@ -23,11 +23,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Download preplanned map area",
-        "Map",
-        "Take a map offline using a preplanned map area.",
-        "Downloading tiles for offline use requires authentication with the web map's server. An [ArcGIS Online](www.arcgis.com) account is required to use this sample.",
-        "map area", "offline", "pre-planned", "preplanned")]
+        name: "Download preplanned map area",
+        category: "Map",
+        description: "Take a map offline using a preplanned map area.",
+        instructions: "Downloading tiles for offline use requires authentication with the web map's server. An [ArcGIS Online](www.arcgis.com) account is required to use this sample.",
+        tags: new[] { "map area", "offline", "pre-planned", "preplanned" })]
     public partial class DownloadPreplannedMap
     {
         // ID of a web map with preplanned map areas.

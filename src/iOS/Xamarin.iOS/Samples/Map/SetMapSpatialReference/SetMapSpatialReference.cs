@@ -18,11 +18,11 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
 {
     [Register("SetMapSpatialReference")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Map spatial reference",
-        "Map",
-        "Specify a map's spatial reference.",
-        "Pan and zoom around the map. Observe how the map is displayed using the World Bonne spatial reference.",
-        "SpatialReference", "WKID", "project")]
+        name: "Map spatial reference",
+        category: "Map",
+        description: "Specify a map's spatial reference.",
+        instructions: "Pan and zoom around the map. Observe how the map is displayed using the World Bonne spatial reference.",
+        tags: new[] { "SpatialReference", "WKID", "project" })]
     public class SetMapSpatialReference : UIViewController
     {
         // Hold references to UI controls.

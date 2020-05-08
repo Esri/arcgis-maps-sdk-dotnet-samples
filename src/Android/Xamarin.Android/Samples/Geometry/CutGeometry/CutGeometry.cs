@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.CutGeometry
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Cut geometry",
-        "Geometry",
-        "Cut a geometry along a polyline.",
-        "Tap the \"Cut\" button to cut the polygon with the polyline and see the resulting parts (shaded in different colors).",
-        "cut", "geometry", "split")]
+        name: "Cut geometry",
+        category: "Geometry",
+        description: "Cut a geometry along a polyline.",
+        instructions: "Tap the \"Cut\" button to cut the polygon with the polyline and see the resulting parts (shaded in different colors).",
+        tags: new[] { "cut", "geometry", "split" })]
     public class CutGeometry : Activity
     {
         // Hold a reference to the map view.

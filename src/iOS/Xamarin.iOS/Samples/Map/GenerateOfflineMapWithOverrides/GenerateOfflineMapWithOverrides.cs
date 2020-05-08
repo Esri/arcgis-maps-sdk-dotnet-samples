@@ -32,11 +32,11 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 {
     [Register("GenerateOfflineMapWithOverrides")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate offline map (overrides)",
-        "Map",
-        "Take a web map offline with additional options for each layer.",
-        "Modify the overrides parameters:",
-        "LOD", "adjust", "download", "extent", "filter", "offline", "override", "parameters", "reduce", "scale range", "setting")]
+        name: "Generate offline map (overrides)",
+        category: "Map",
+        description: "Take a web map offline with additional options for each layer.",
+        instructions: "Modify the overrides parameters:",
+        tags: new[] { "LOD", "adjust", "download", "extent", "filter", "offline", "override", "parameters", "reduce", "scale range", "setting" })]
     public class GenerateOfflineMapWithOverrides : UIViewController, IOAuthAuthorizeHandler
     {
         // Hold references to UI controls.

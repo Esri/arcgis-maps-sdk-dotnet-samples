@@ -19,11 +19,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.SymbolizeShapefile
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Symbolize shapefile",
-        "Data",
-        "Display a shapefile with custom symbology.",
-        "Tap the button to apply a new symbology renderer to the feature layer created from the shapefile. ",
-        "package", "shape file", "shapefile", "symbology", "visualization")]
+        name: "Symbolize shapefile",
+        category: "Data",
+        description: "Display a shapefile with custom symbology.",
+        instructions: "Tap the button to apply a new symbology renderer to the feature layer created from the shapefile. ",
+        tags: new[] { "package", "shape file", "shapefile", "symbology", "visualization" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class SymbolizeShapefile : ContentPage
     {

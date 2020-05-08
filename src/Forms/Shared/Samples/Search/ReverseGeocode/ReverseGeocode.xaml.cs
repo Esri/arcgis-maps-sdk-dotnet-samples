@@ -24,11 +24,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Reverse geocode",
-        "Search",
-        "Use an online service to find the address for a tapped point.",
-        "Tap the map to see the nearest address displayed in a callout.",
-        "address", "geocode", "locate", "reverse geocode", "search")]
+        name: "Reverse geocode",
+        category: "Search",
+        description: "Use an online service to find the address for a tapped point.",
+        instructions: "Tap the map to see the nearest address displayed in a callout.",
+        tags: new[] { "address", "geocode", "locate", "reverse geocode", "search" })]
     public partial class ReverseGeocode : ContentPage
     {
         // Service Uri to be provided to the LocatorTask (geocoder).

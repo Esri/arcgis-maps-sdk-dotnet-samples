@@ -18,11 +18,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Certificate authentication with PKI",
-        "Security",
-        "Access secured portals using a certificate.",
-        "> **NOTE**: You must provide your own ArcGIS Portal with PKI authentication configured.",
-        "PKI", "X509", "authentication", "certificate", "login", "passwordless", "smartcard", "store")]
+        name: "Certificate authentication with PKI",
+        category: "Security",
+        description: "Access secured portals using a certificate.",
+        instructions: "> **NOTE**: You must provide your own ArcGIS Portal with PKI authentication configured.",
+        tags: new[] { "PKI", "X509", "authentication", "certificate", "login", "passwordless", "smartcard", "store" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CertificateAuthenticationWithPKI
     {

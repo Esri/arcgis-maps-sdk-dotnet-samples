@@ -18,11 +18,11 @@ using System.Windows.Controls;
 namespace ArcGISRuntime.WPF.Samples.LocalServerServices
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Local server services",
-        "Local Server",
-        "Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.",
-        "Click `Start Local Server` to start the Local Server. Click `Stop Local Server` to stop the Local Server.",
-        "feature", "geoprocessing", "local services", "map", "server", "service")]
+        name: "Local server services",
+        category: "Local Server",
+        description: "Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.",
+        instructions: "Click `Start Local Server` to start the Local Server. Click `Stop Local Server` to stop the Local Server.",
+        tags: new[] { "feature", "geoprocessing", "local services", "map", "server", "service" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b", "4e94fec734434d1288e6ebe36c3c461f", "da9e565a52ca41c1937cff1a01017068")]
     public partial class LocalServerServices
     {

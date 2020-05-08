@@ -15,11 +15,11 @@ using System.Windows.Controls;
 namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change basemap",
-        "Map",
-        "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
-        "Use the drop down menu to select the active basemap from the list of available basemaps.",
-        "basemap", "map")]
+        name: "Change basemap",
+        category: "Map",
+        description: "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
+        instructions: "Use the drop down menu to select the active basemap from the list of available basemaps.",
+        tags: new[] { "basemap", "map" })]
     public partial class ChangeBasemap
     {
         // Dictionary that associates names with basemaps

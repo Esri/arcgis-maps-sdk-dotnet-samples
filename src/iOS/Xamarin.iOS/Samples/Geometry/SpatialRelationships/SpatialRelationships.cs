@@ -24,11 +24,11 @@ namespace ArcGISRuntime.Samples.ListTransformations
 {
     [Register("SpatialRelationships")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Spatial relationships",
-        "Geometry",
-        "Determine spatial relationships between two geometries.",
-        "Select one of the three graphics. The tree view will list the relationships the selected graphic has to the other graphic geometries.",
-        "geometries", "relationship", "spatial analysis")]
+        name: "Spatial relationships",
+        category: "Geometry",
+        description: "Determine spatial relationships between two geometries.",
+        instructions: "Select one of the three graphics. The tree view will list the relationships the selected graphic has to the other graphic geometries.",
+        tags: new[] { "geometries", "relationship", "spatial analysis" })]
     public class SpatialRelationships : UIViewController
     {
         // Hold references to UI controls.

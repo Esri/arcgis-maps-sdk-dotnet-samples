@@ -17,11 +17,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Update attributes (feature service)",
-        "Data",
-        "Update feature attributes in an online feature service.",
-        "To change the feature's damage property, tap the feature to select it, and update the damage type using the drop down.",
-        "attribute", "coded value", "coded value domain", "domain", "editing", "value")]
+        name: "Update attributes (feature service)",
+        category: "Data",
+        description: "Update feature attributes in an online feature service.",
+        instructions: "To change the feature's damage property, tap the feature to select it, and update the damage type using the drop down.",
+        tags: new[] { "attribute", "coded value", "coded value domain", "domain", "editing", "value" })]
     public partial class UpdateAttributes : ContentPage
     {
         // URL to the feature service.

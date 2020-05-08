@@ -17,11 +17,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.SpatialOperations
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Perform spatial operations",
-        "Geometry",
-        "Find the union, intersection, or difference of two geometries.",
-        "The sample provides an option to select a spatial operation. When an operation is selected, the resulting geometry is shown in red. The 'reset operation' button undoes the action and allow selecting a different operation.",
-        "analysis", "combine", "difference", "geometry", "intersection", "merge", "polygon", "union")]
+        name: "Perform spatial operations",
+        category: "Geometry",
+        description: "Find the union, intersection, or difference of two geometries.",
+        instructions: "The sample provides an option to select a spatial operation. When an operation is selected, the resulting geometry is shown in red. The 'reset operation' button undoes the action and allow selecting a different operation.",
+        tags: new[] { "analysis", "combine", "difference", "geometry", "intersection", "merge", "polygon", "union" })]
     public partial class SpatialOperations
     {
         // GraphicsOverlay to hold the polygon graphics.

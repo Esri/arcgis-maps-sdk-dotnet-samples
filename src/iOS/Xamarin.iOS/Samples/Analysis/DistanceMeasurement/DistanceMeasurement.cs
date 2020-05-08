@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
 {
     [Register("DistanceMeasurement")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Distance measurement analysis",
-        "Analysis",
-        "Measure distances between two points in 3D.",
-        "Choose a unit system for the measurement. Tap any location in the scene to start measuring. Move the mouse to an end location, and tap to complete the measurement. Tap a new location to clear and start a new measurement.",
-        "3D", "analysis", "distance", "measure")]
+        name: "Distance measurement analysis",
+        category: "Analysis",
+        description: "Measure distances between two points in 3D.",
+        instructions: "Choose a unit system for the measurement. Tap any location in the scene to start measuring. Move the mouse to an end location, and tap to complete the measurement. Tap a new location to clear and start a new measurement.",
+        tags: new[] { "3D", "analysis", "distance", "measure" })]
     public class DistanceMeasurement : UIViewController
     {
         // Hold references to UI controls.

@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.CreateGeometries
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create geometries",
-        "Geometry",
-        "Create simple geometry types.",
-        "Pan and zoom freely to see the different types of geometries placed onto the map.",
-        "area", "boundary", "line", "marker", "path", "shape")]
+        name: "Create geometries",
+        category: "Geometry",
+        description: "Create simple geometry types.",
+        instructions: "Pan and zoom freely to see the different types of geometries placed onto the map.",
+        tags: new[] { "area", "boundary", "line", "marker", "path", "shape" })]
     public class CreateGeometries : Activity
     {
         // Hold a reference to the map view.

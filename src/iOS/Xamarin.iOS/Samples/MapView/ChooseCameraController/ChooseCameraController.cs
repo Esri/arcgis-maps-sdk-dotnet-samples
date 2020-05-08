@@ -21,11 +21,11 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
 {
     [Register("ChooseCameraController")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Choose camera controller",
-        "MapView",
-        "Control the behavior of the camera in a scene.",
-        "The application loads with the \"Orbit camera around plane\" option (i.e. camera will now be fixed to the plane). Choose the \"Orbit camera around location\" option to rotate and center the scene around the location of the Upheaval Dome crater structure, or choose the \"Free pan round the globe\" option to go to default free navigation.",
-        "3D", "camera", "camera controller")]
+        name: "Choose camera controller",
+        category: "MapView",
+        description: "Control the behavior of the camera in a scene.",
+        instructions: "The application loads with the \"Orbit camera around plane\" option (i.e. camera will now be fixed to the plane). Choose the \"Orbit camera around location\" option to rotate and center the scene around the location of the Upheaval Dome crater structure, or choose the \"Free pan round the globe\" option to go to default free navigation.",
+        tags: new[] { "3D", "camera", "camera controller" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public class ChooseCameraController : UIViewController
     {

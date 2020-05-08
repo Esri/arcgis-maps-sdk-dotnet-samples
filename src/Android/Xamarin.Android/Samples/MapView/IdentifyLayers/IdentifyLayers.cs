@@ -21,11 +21,11 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify layers",
-        "MapView",
-        "Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.",
-        "Tap to identify features. An alert will show all layers with features under the cursor.",
-        "identify", "recursion", "recursive", "sublayers")]
+        name: "Identify layers",
+        category: "MapView",
+        description: "Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.",
+        instructions: "Tap to identify features. An alert will show all layers with features under the cursor.",
+        tags: new[] { "identify", "recursion", "recursive", "sublayers" })]
     public class IdentifyLayers : Activity
     {
         // Create and hold reference to the used MapView.

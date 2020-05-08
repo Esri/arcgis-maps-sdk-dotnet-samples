@@ -14,11 +14,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Web tiled layer",
-        "Layers",
-        "Display a tiled web layer.",
-        "Run the sample and a map will appear. As you navigate the map, map tiles will be fetched automatically and displayed on the map.",
-        "OGC", "Open Street Map", "OpenStreetMap", "layer", "stamen.com", "tiled", "tiles")]
+        name: "Web tiled layer",
+        category: "Layers",
+        description: "Display a tiled web layer.",
+        instructions: "Run the sample and a map will appear. As you navigate the map, map tiles will be fetched automatically and displayed on the map.",
+        tags: new[] { "OGC", "Open Street Map", "OpenStreetMap", "layer", "stamen.com", "tiled", "tiles" })]
     public partial class LoadWebTiledLayer : ContentPage
     {
         // Templated URL to the tile service

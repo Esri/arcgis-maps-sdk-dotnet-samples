@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
     [Register("ChangeStretchRenderer")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Stretch renderer",
-        "Layers",
-        "Use a stretch renderer to enhance the visual contrast of raster data for analysis.",
-        "Choose one of the stretch parameter types:",
-        "analysis", "deviation", "histogram", "imagery", "interpretation", "min-max", "percent clip", "pixel", "raster", "stretch", "symbology", "visualization")]
+        name: "Stretch renderer",
+        category: "Layers",
+        description: "Use a stretch renderer to enhance the visual contrast of raster data for analysis.",
+        instructions: "Choose one of the stretch parameter types:",
+        tags: new[] { "analysis", "deviation", "histogram", "imagery", "interpretation", "min-max", "percent clip", "pixel", "raster", "stretch", "symbology", "visualization" })]
     public class ChangeStretchRenderer : UIViewController
     {
         // Hold references to UI controls.

@@ -29,11 +29,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create and save map",
-        "Map",
-        "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
-        "1. Select the basemap and layers you'd like to add to your map.",
-        "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map")]
+        name: "Create and save map",
+        category: "Map",
+        description: "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
+        instructions: "1. Select the basemap and layers you'd like to add to your map.",
+        tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
     public class AuthorMap : Activity, IOAuthAuthorizeHandler
     {
         // Hold a reference to the map view

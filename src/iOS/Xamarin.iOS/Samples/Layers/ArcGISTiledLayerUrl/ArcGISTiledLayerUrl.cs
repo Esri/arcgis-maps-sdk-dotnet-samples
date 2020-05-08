@@ -17,11 +17,11 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
 {
     [Register("ArcGISTiledLayerUrl")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS tiled layer",
-        "Layers",
-        "Load an ArcGIS tiled layer from a URL.",
-        "Launch the app to view the \"World Topographic Map\" tile layer as the basemap. ",
-        "basemap", "layers", "raster tiles", "tiled layer", "visualization")]
+        name: "ArcGIS tiled layer",
+        category: "Layers",
+        description: "Load an ArcGIS tiled layer from a URL.",
+        instructions: "Launch the app to view the \"World Topographic Map\" tile layer as the basemap. ",
+        tags: new[] { "basemap", "layers", "raster tiles", "tiled layer", "visualization" })]
     public class ArcGISTiledLayerUrl : UIViewController
     {
         // Hold references to UI controls.

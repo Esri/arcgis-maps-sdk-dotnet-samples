@@ -17,11 +17,11 @@ namespace ArcGISRuntimeXamarin.Samples.OpenStreetMapLayer
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "OpenStreetMap layer",
-        "Layers",
-        "Add OpenStreetMap as a basemap layer.",
-        "When the sample opens, it will automatically display the map with the OpenStreetMap basemap. Pan and zoom to observe the basemap.",
-        "OSM", "OpenStreetMap", "basemap", "layers", "map", "open", "street")]
+        name: "OpenStreetMap layer",
+        category: "Layers",
+        description: "Add OpenStreetMap as a basemap layer.",
+        instructions: "When the sample opens, it will automatically display the map with the OpenStreetMap basemap. Pan and zoom to observe the basemap.",
+        tags: new[] { "OSM", "OpenStreetMap", "basemap", "layers", "map", "open", "street" })]
     public class OpenStreetMapLayer : Activity
     {
         // Create and hold reference to the used MapView.

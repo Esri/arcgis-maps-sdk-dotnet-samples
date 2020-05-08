@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("2b0f9e17105847809dfeb04e3cad69e0")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer (geodatabase)",
-        "Data",
-        "Display features from a local geodatabase.",
-        "",
-        "geodatabase", "mobile", "offline")]
+        name: "Feature layer (geodatabase)",
+        category: "Data",
+        description: "Display features from a local geodatabase.",
+        instructions: "",
+        tags: new[] { "geodatabase", "mobile", "offline" })]
     public class FeatureLayerGeodatabase : Activity
     {
         // Create a reference to MapView.

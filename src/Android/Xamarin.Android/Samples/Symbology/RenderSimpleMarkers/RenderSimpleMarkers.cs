@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.RenderSimpleMarkers
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Simple marker symbol",
-        "Symbology",
-        "Show a simple marker symbol on a map.",
-        "The sample loads with a predefined simple marker symbol, set as a red circle.",
-        "SimpleMarkerSymbol", "symbol")]
+        name: "Simple marker symbol",
+        category: "Symbology",
+        description: "Show a simple marker symbol on a map.",
+        instructions: "The sample loads with a predefined simple marker symbol, set as a red circle.",
+        tags: new[] { "SimpleMarkerSymbol", "symbol" })]
     public class RenderSimpleMarkers : Activity
     {
         // Hold a reference to the map view

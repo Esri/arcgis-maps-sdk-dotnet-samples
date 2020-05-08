@@ -17,11 +17,11 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
 {
     [Register("AccessLoadStatus")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Access load status",
-        "Map",
-        "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",
-        "The load status of the map will be displayed as the sample loads.",
-        "LoadStatus", "Loadable pattern", "Map")]
+        name: "Access load status",
+        category: "Map",
+        description: "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",
+        instructions: "The load status of the map will be displayed as the sample loads.",
+        tags: new[] { "LoadStatus", "Loadable pattern", "Map" })]
     public class AccessLoadStatus : UIViewController
     {
         // Hold references to UI controls.

@@ -23,11 +23,11 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "List related features",
-        "Data",
-        "List features related to the selected feature.",
-        "Tap on a feature to select it. The related features will be displayed in a list.",
-        "features", "identify", "query", "related", "relationship", "search")]
+        name: "List related features",
+        category: "Data",
+        description: "List features related to the selected feature.",
+        instructions: "Tap on a feature to select it. The related features will be displayed in a list.",
+        tags: new[] { "features", "identify", "query", "related", "relationship", "search" })]
     public class ListRelatedFeatures : Activity
     {
         // URL to the web map

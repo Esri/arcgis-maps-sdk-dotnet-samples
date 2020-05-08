@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer selection",
-        "Layers",
-        "Select features in a feature layer.",
-        "Tap on a feature in the map. All features within a given tolerance (in pixels) of the tap will be selected.",
-        "features", "layers", "select", "selection", "tolerance")]
+        name: "Feature layer selection",
+        category: "Layers",
+        description: "Select features in a feature layer.",
+        instructions: "Tap on a feature in the map. All features within a given tolerance (in pixels) of the tap will be selected.",
+        tags: new[] { "features", "layers", "select", "selection", "tolerance" })]
     public class FeatureLayerSelection : Activity
     {
         // Create and hold reference to the used MapView.

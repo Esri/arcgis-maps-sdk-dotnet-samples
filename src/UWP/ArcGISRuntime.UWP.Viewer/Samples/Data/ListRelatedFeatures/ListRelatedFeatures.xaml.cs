@@ -21,11 +21,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "List related features",
-        "Data",
-        "List features related to the selected feature.",
-        "Click on a feature to select it. The related features will be displayed in a list.",
-        "features", "identify", "query", "related", "relationship", "search")]
+        name: "List related features",
+        category: "Data",
+        description: "List features related to the selected feature.",
+        instructions: "Click on a feature to select it. The related features will be displayed in a list.",
+        tags: new[] { "features", "identify", "query", "related", "relationship", "search" })]
     public partial class ListRelatedFeatures
     {
         // URL to the web map

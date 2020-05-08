@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
     [Register("StatsQueryGroupAndSort")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Statistical query group and sort",
-        "Data",
-        "Query a feature table for statistics, grouping and sorting by different fields.",
-        "The sample will start with some default options selected. You can immediately tap the \"Get Statistics\" button to see the results for these options. There are several ways to customize your queries:",
-        "correlation", "data", "fields", "filter", "group", "sort", "statistics", "table")]
+        name: "Statistical query group and sort",
+        category: "Data",
+        description: "Query a feature table for statistics, grouping and sorting by different fields.",
+        instructions: "The sample will start with some default options selected. You can immediately tap the \"Get Statistics\" button to see the results for these options. There are several ways to customize your queries:",
+        tags: new[] { "correlation", "data", "fields", "filter", "group", "sort", "statistics", "table" })]
     public class StatsQueryGroupAndSort : UIViewController
     {
         // Hold references to UI controls.

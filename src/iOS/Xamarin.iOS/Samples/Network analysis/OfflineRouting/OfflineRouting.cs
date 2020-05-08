@@ -29,11 +29,11 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
 {
     [Register("OfflineRouting")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Offline routing",
-        "Network analysis",
-        "Solve a route on-the-fly using offline data.",
-        "Tap near a road to start adding a stop to the route, tap again to place it on the map. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose \"Fastest\" or \"Shortest\" to control how the route is optimized. The route will update on-the-fly while moving stops. The green box marks the boundary of the routable area provided by the offline data. This sample limits routes to 5 stops for performance reasons.",
-        "connectivity", "disconnected", "fastest", "locator", "navigation", "network analysis", "offline", "routing", "routing", "shortest", "turn-by-turn")]
+        name: "Offline routing",
+        category: "Network analysis",
+        description: "Solve a route on-the-fly using offline data.",
+        instructions: "Tap near a road to start adding a stop to the route, tap again to place it on the map. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose \"Fastest\" or \"Shortest\" to control how the route is optimized. The route will update on-the-fly while moving stops. The green box marks the boundary of the routable area provided by the offline data. This sample limits routes to 5 stops for performance reasons.",
+        tags: new[] { "connectivity", "disconnected", "fastest", "locator", "navigation", "network analysis", "offline", "routing", "routing", "shortest", "turn-by-turn" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
     public class OfflineRouting : UIViewController
     {

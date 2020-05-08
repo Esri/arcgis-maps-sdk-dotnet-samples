@@ -22,11 +22,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.ExportTiles
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Export tiles",
-        "Layers",
-        "Download tiles to a local tile cache file stored on the device.",
-        "Pan and zoom into the desired area, making sure the area is within the red boundary. Tap the 'Export tiles' button to start the process. On successful completion you will see a preview of the downloaded tile package.",
-        "cache", "download", "export", "local", "offline", "package", "tiles")]
+        name: "Export tiles",
+        category: "Layers",
+        description: "Download tiles to a local tile cache file stored on the device.",
+        instructions: "Pan and zoom into the desired area, making sure the area is within the red boundary. Tap the 'Export tiles' button to start the process. On successful completion you will see a preview of the downloaded tile package.",
+        tags: new[] { "cache", "download", "export", "local", "offline", "package", "tiles" })]
     public partial class ExportTiles : ContentPage
     {
         // URL to the service tiles will be exported from.

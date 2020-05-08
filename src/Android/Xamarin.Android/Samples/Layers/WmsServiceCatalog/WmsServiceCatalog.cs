@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "WMS service catalog",
-        "Layers",
-        "Connect to a WMS service and show the available layers and sublayers. ",
-        "",
-        "OGC", "WMS", "catalog", "web map service")]
+        name: "WMS service catalog",
+        category: "Layers",
+        description: "Connect to a WMS service and show the available layers and sublayers. ",
+        instructions: "",
+        tags: new[] { "OGC", "WMS", "catalog", "web map service" })]
     public class WmsServiceCatalog : Activity
     {
         // Create and hold reference to the used MapView

@@ -27,11 +27,11 @@ using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 namespace ArcGISRuntime.UWP.Samples.SymbolsFromMobileStyle
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Read symbols from mobile style",
-        "Symbology",
-        "Combine multiple symbols from a mobile style file into a single symbol.",
-        "Select a symbol and a color from each of the category lists to create an emoji. A preview of the symbol is updated as selections are made. The size of the symbol can be set using the slider. Click the map to create a point graphic using the customized emoji symbol, and click \"Reset\" to clear all graphics from the display.",
-        "advanced symbology", "mobile style", "multilayer", "stylx")]
+        name: "Read symbols from mobile style",
+        category: "Symbology",
+        description: "Combine multiple symbols from a mobile style file into a single symbol.",
+        instructions: "Select a symbol and a color from each of the category lists to create an emoji. A preview of the symbol is updated as selections are made. The size of the symbol can be set using the slider. Click the map to create a point graphic using the customized emoji symbol, and click \"Reset\" to clear all graphics from the display.",
+        tags: new[] { "advanced symbology", "mobile style", "multilayer", "stylx" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1bd036f221f54a99abc9e46ff3511cbf")]
     public partial class SymbolsFromMobileStyle
     {

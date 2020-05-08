@@ -24,11 +24,11 @@ namespace ArcGISRuntime.Samples.ChangeBlendRenderer
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Blend renderer",
-        "Layers",
-        "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
-        "Choose and adjust the altitude, azimuth, slope type, and color ramp type settings to update the image.",
-        "Elevation", "Hillshade", "RasterLayer", "color ramp", "elevation", "image", "visualization")]
+        name: "Blend renderer",
+        category: "Layers",
+        description: "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
+        instructions: "Choose and adjust the altitude, azimuth, slope type, and color ramp type settings to update the image.",
+        tags: new[] { "Elevation", "Hillshade", "RasterLayer", "color ramp", "elevation", "image", "visualization" })]
     public class ChangeBlendRenderer : Activity
     {
         // Global reference to a label for Altitude

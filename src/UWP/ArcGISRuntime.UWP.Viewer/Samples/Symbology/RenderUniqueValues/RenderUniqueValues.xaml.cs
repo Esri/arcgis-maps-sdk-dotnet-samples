@@ -16,11 +16,11 @@ using System.Drawing;
 namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Unique value renderer",
-        "Symbology",
-        "Render features in a layer using a distinct symbol for each unique attribute value.",
-        "The map with the symbolized feature layer will be shown automatically when the sample loads.",
-        "draw", "renderer", "symbol", "symbology", "values")]
+        name: "Unique value renderer",
+        category: "Symbology",
+        description: "Render features in a layer using a distinct symbol for each unique attribute value.",
+        instructions: "The map with the symbolized feature layer will be shown automatically when the sample loads.",
+        tags: new[] { "draw", "renderer", "symbol", "symbology", "values" })]
     public sealed partial class RenderUniqueValues
     {
         public RenderUniqueValues()

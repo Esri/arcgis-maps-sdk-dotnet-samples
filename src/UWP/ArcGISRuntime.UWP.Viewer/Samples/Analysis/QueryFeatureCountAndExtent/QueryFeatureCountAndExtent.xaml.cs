@@ -17,11 +17,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Query feature count and extent",
-        "Analysis",
-        "Zoom to features matching a query and count the features in the current visible extent.",
-        "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.",
-        "count", "feature layer", "feature table", "features", "filter", "number", "query")]
+        name: "Query feature count and extent",
+        category: "Analysis",
+        description: "Zoom to features matching a query and count the features in the current visible extent.",
+        instructions: "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.",
+        tags: new[] { "count", "feature layer", "feature table", "features", "filter", "number", "query" })]
     public partial class QueryFeatureCountAndExtent
     {
         // URL to the feature service.

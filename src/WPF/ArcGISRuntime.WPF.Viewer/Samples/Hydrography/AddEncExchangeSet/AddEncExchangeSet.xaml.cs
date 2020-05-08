@@ -18,11 +18,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.AddEncExchangeSet
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add ENC exchange set",
-        "Hydrography",
-        "Display nautical charts per the ENC specification.",
-        "Run the sample and view the ENC data. Pan and zoom around the map. Take note of the high level of detail in the data and the smooth rendering of the layer.",
-        "Data", "ENC", "hydrographic", "layers", "maritime", "nautical chart")]
+        name: "Add ENC exchange set",
+        category: "Hydrography",
+        description: "Display nautical charts per the ENC specification.",
+        instructions: "Run the sample and view the ENC data. Pan and zoom around the map. Take note of the high level of detail in the data and the smooth rendering of the layer.",
+        tags: new[] { "Data", "ENC", "hydrographic", "layers", "maritime", "nautical chart" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public partial class AddEncExchangeSet
     {

@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
     [Register("OpenMobileMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open mobile map package",
-        "Map",
-        "Display a map from a mobile map package.",
-        "When the sample opens, it will automatically display the map in the mobile map package. Pan and zoom to observe the data from the mobile map package.",
-        "mmpk", "mobile map package", "offline")]
+        name: "Open mobile map package",
+        category: "Map",
+        description: "Display a map from a mobile map package.",
+        instructions: "When the sample opens, it will automatically display the map in the mobile map package. Pan and zoom to observe the data from the mobile map package.",
+        tags: new[] { "mmpk", "mobile map package", "offline" })]
     public class OpenMobileMap : UIViewController
     {
         // Hold references to UI controls.

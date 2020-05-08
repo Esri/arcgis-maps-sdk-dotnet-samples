@@ -19,11 +19,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.IdentifyGraphics
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify graphics",
-        "GraphicsOverlay",
-        "Display an alert message when a graphic is clicked.",
-        "Select a graphic to identify it. You will see an alert message displayed.",
-        "graphics", "identify")]
+        name: "Identify graphics",
+        category: "GraphicsOverlay",
+        description: "Display an alert message when a graphic is clicked.",
+        instructions: "Select a graphic to identify it. You will see an alert message displayed.",
+        tags: new[] { "graphics", "identify" })]
     public partial class IdentifyGraphics : ContentPage
     {
         // Graphics overlay to host graphics

@@ -18,11 +18,11 @@ namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS map image layer",
-        "Layers",
-        "Add an ArcGIS Map Image Layer from a URL to a map.",
-        "",
-        "ArcGIS dynamic map service layer", "ArcGISMapImageLayer", "layers")]
+        name: "ArcGIS map image layer",
+        category: "Layers",
+        description: "Add an ArcGIS Map Image Layer from a URL to a map.",
+        instructions: "",
+        tags: new[] { "ArcGIS dynamic map service layer", "ArcGISMapImageLayer", "layers" })]
     public class ArcGISMapImageLayerUrl : Activity
     {
         // Hold a reference to the map view

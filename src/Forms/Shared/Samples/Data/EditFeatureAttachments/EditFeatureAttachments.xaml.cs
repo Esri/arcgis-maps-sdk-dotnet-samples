@@ -28,11 +28,11 @@ using Plugin.FilePicker.Abstractions;
 namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Edit feature attachments",
-        "Data",
-        "Add, delete, and download attachments for features from a service.",
-        "Tap a feature to load its attachments. Use the buttons to save, delete, or add attachments.",
-        "JPEG", "PDF", "PNG", "TXT", "data", "image", "picture")]
+        name: "Edit feature attachments",
+        category: "Data",
+        description: "Add, delete, and download attachments for features from a service.",
+        instructions: "Tap a feature to load its attachments. Use the buttons to save, delete, or add attachments.",
+        tags: new[] { "JPEG", "PDF", "PNG", "TXT", "data", "image", "picture" })]
     public partial class EditFeatureAttachments : ContentPage
     {
         // URL to the feature service.

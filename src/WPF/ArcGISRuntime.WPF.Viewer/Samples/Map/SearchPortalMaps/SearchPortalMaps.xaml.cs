@@ -23,11 +23,11 @@ using Esri.ArcGISRuntime;
 namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Search for webmap",
-        "Map",
-        "Find webmap portal items by using a search term.",
-        "Enter search terms into the search bar. Once the search is complete, a list is populated with the resultant webmaps. Tap on a webmap to set it to the map view. Scrolling to the bottom of the webmap recycler view will get more results.",
-        "keyword", "query", "search", "webmap")]
+        name: "Search for webmap",
+        category: "Map",
+        description: "Find webmap portal items by using a search term.",
+        instructions: "Enter search terms into the search bar. Once the search is complete, a list is populated with the resultant webmaps. Tap on a webmap to set it to the map view. Scrolling to the bottom of the webmap recycler view will get more results.",
+        tags: new[] { "keyword", "query", "search", "webmap" })]
     public partial class SearchPortalMaps
     {
         // Variables for OAuth with default values ...

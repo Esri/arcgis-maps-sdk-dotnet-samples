@@ -16,11 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster layer (service)",
-        "Layers",
-        "Create a raster layer from a raster image service.",
-        "Simply launch the sample to see a raster from an image service being used on a map.",
-        "image service", "raster")]
+        name: "Raster layer (service)",
+        category: "Layers",
+        description: "Create a raster layer from a raster image service.",
+        instructions: "Simply launch the sample to see a raster from an image service being used on a map.",
+        tags: new[] { "image service", "raster" })]
     public partial class RasterLayerImageServiceRaster : ContentPage
     {
         public RasterLayerImageServiceRaster()

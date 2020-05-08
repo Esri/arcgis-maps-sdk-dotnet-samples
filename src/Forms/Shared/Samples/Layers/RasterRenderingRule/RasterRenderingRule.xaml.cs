@@ -19,11 +19,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.RasterRenderingRule
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster rendering rule",
-        "Layers",
-        "Display a raster on a map and apply different rendering rules to that raster.",
-        "Run the sample and use the drop-down menu at the top to select a rendering rule.",
-        "raster", "rendering rules", "visualization")]
+        name: "Raster rendering rule",
+        category: "Layers",
+        description: "Display a raster on a map and apply different rendering rules to that raster.",
+        instructions: "Run the sample and use the drop-down menu at the top to select a rendering rule.",
+        tags: new[] { "raster", "rendering rules", "visualization" })]
     public partial class RasterRenderingRule : ContentPage
     {
         public RasterRenderingRule()

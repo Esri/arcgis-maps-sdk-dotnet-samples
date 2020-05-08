@@ -19,11 +19,11 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
 {
     [Register("GeodesicOperations")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Geodesic operations",
-        "Geometry",
-        "Calculate a geodesic path between two points and measure its distance.",
-        "Tap anywhere on the map. A line graphic will display the geodesic line between the two points. In addition, text that indicates the geodesic distance between the two points will be updated. Tap elsewhere and a new line will be created.",
-        "densify", "distance", "geodesic", "geodetic")]
+        name: "Geodesic operations",
+        category: "Geometry",
+        description: "Calculate a geodesic path between two points and measure its distance.",
+        instructions: "Tap anywhere on the map. A line graphic will display the geodesic line between the two points. In addition, text that indicates the geodesic distance between the two points will be updated. Tap elsewhere and a new line will be created.",
+        tags: new[] { "densify", "distance", "geodesic", "geodetic" })]
     public class GeodesicOperations : UIViewController
     {
         // Hold references to UI controls.

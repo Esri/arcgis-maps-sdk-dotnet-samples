@@ -23,11 +23,11 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature collection layer",
-        "Layers",
-        "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
-        "When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry.",
-        "Layers", "feature collection")]
+        name: "Feature collection layer",
+        category: "Layers",
+        description: "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
+        instructions: "When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry.",
+        tags: new[] { "Layers", "feature collection" })]
     public class CreateFeatureCollectionLayer : Activity
     {
         // Hold a reference to the map view.

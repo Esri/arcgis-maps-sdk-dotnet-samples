@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.ConvexHullList
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Convex hull list",
-        "Geometry",
-        "Generate convex hull polygon(s) from multiple input geometries.",
-        "Tap the 'Create Convex Hull' button to create convex hull(s) from the polygon graphics. If the 'Union' checkbox is checked, the resulting output will be one polygon being the convex hull for the two input polygons. If the 'Union' checkbox is un-checked, the resulting output will have two convex hull polygons - one for each of the two input polygons. Tap the 'Reset' button to start over.",
-        "analysis", "geometry", "outline", "perimeter", "union")]
+        name: "Convex hull list",
+        category: "Geometry",
+        description: "Generate convex hull polygon(s) from multiple input geometries.",
+        instructions: "Tap the 'Create Convex Hull' button to create convex hull(s) from the polygon graphics. If the 'Union' checkbox is checked, the resulting output will be one polygon being the convex hull for the two input polygons. If the 'Union' checkbox is un-checked, the resulting output will have two convex hull polygons - one for each of the two input polygons. Tap the 'Reset' button to start over.",
+        tags: new[] { "analysis", "geometry", "outline", "perimeter", "union" })]
     public class ConvexHullList : Activity
     {
         // Hold a reference to the map view.

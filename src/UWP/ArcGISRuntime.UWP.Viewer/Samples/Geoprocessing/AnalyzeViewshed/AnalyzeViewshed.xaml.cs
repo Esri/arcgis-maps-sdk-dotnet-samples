@@ -25,11 +25,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.AnalyzeViewshed
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Analyze viewshed (geoprocessing)",
-        "Geoprocessing",
-        "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",
-        "Click the map to see all areas visible from that point within a 15km radius. Clicking on an elevated area will highlight a larger part of the surrounding landscape. It may take a few seconds for the task to run and send back the results.",
-        "geoprocessing", "heat map", "heatmap", "viewshed")]
+        name: "Analyze viewshed (geoprocessing)",
+        category: "Geoprocessing",
+        description: "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",
+        instructions: "Click the map to see all areas visible from that point within a 15km radius. Clicking on an elevated area will highlight a larger part of the surrounding landscape. It may take a few seconds for the task to run and send back the results.",
+        tags: new[] { "geoprocessing", "heat map", "heatmap", "viewshed" })]
     public partial class AnalyzeViewshed
     {
         // Url for the geoprocessing service

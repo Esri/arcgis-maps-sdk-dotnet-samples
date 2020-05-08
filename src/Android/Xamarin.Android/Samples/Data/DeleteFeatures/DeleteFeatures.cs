@@ -22,11 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Delete features (feature service)",
-        "Data",
-        "Delete features from an online feature service.",
-        "To delete a feature, tap it, then tap 'Delete incident'.",
-        "Service", "deletion", "feature", "online", "table")]
+        name: "Delete features (feature service)",
+        category: "Data",
+        description: "Delete features from an online feature service.",
+        instructions: "To delete a feature, tap it, then tap 'Delete incident'.",
+        tags: new[] { "Service", "deletion", "feature", "online", "table" })]
     public class DeleteFeatures : Activity
     {
         // Hold a reference to the MapView.

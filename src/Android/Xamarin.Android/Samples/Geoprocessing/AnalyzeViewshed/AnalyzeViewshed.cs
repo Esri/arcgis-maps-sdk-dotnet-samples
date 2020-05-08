@@ -27,11 +27,11 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Analyze viewshed (geoprocessing)",
-        "Geoprocessing",
-        "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",
-        "Tap the map to see all areas visible from that point within a 15km radius. Clicking on an elevated area will highlight a larger part of the surrounding landscape. It may take a few seconds for the task to run and send back the results.",
-        "geoprocessing", "heat map", "heatmap", "viewshed")]
+        name: "Analyze viewshed (geoprocessing)",
+        category: "Geoprocessing",
+        description: "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",
+        instructions: "Tap the map to see all areas visible from that point within a 15km radius. Clicking on an elevated area will highlight a larger part of the surrounding landscape. It may take a few seconds for the task to run and send back the results.",
+        tags: new[] { "geoprocessing", "heat map", "heatmap", "viewshed" })]
     public class AnalyzeViewshed : Activity
     {
         // Hold a reference to the map view.

@@ -22,11 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Scene symbols",
-        "Symbology",
-        "Show various kinds of 3D symbols in a scene.",
-        "When the scene loads, note the different types of 3D symbols that you can create.",
-        "3D", "cone", "cube", "cylinder", "diamond", "geometry", "graphic", "graphics overlay", "pyramid", "scene", "shape", "sphere", "symbol", "tetrahedron", "tube", "visualization")]
+        name: "Scene symbols",
+        category: "Symbology",
+        description: "Show various kinds of 3D symbols in a scene.",
+        instructions: "When the scene loads, note the different types of 3D symbols that you can create.",
+        tags: new[] { "3D", "cone", "cube", "cylinder", "diamond", "geometry", "graphic", "graphics overlay", "pyramid", "scene", "shape", "sphere", "symbol", "tetrahedron", "tube", "visualization" })]
     public class SceneSymbols : Activity
     {
         // Hold a reference to the scene view.

@@ -22,11 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Update attributes (feature service)",
-        "Data",
-        "Update feature attributes in an online feature service.",
-        "To change the feature's damage property, tap the feature to select it, and update the damage type using the drop down.",
-        "attribute", "coded value", "coded value domain", "domain", "editing", "value")]
+        name: "Update attributes (feature service)",
+        category: "Data",
+        description: "Update feature attributes in an online feature service.",
+        instructions: "To change the feature's damage property, tap the feature to select it, and update the damage type using the drop down.",
+        tags: new[] { "attribute", "coded value", "coded value domain", "domain", "editing", "value" })]
     public class UpdateAttributes : Activity
     {
         // Hold a reference to the MapView.

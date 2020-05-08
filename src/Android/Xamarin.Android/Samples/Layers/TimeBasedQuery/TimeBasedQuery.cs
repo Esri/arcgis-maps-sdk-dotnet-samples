@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Time-based query",
-        "Layers",
-        "Query data using a time extent. ",
-        "Run the sample, and a subset of records will be displayed on the map.",
-        "query", "time", "time extent")]
+        name: "Time-based query",
+        category: "Layers",
+        description: "Query data using a time extent. ",
+        instructions: "Run the sample, and a subset of records will be displayed on the map.",
+        tags: new[] { "query", "time", "time extent" })]
     public class TimeBasedQuery : Activity
     {
         // Hold a reference to the map view

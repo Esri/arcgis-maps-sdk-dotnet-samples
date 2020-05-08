@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.ClipGeometry
 {
     [Register("ClipGeometry")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Clip geometry",
-        "Geometry",
-        "Clip a geometry with another geometry.",
-        "Tap the \"Clip\" button to clip the blue graphic with the red dashed envelopes.",
-        "analysis", "clip", "geometry")]
+        name: "Clip geometry",
+        category: "Geometry",
+        description: "Clip a geometry with another geometry.",
+        instructions: "Tap the \"Clip\" button to clip the blue graphic with the red dashed envelopes.",
+        tags: new[] { "analysis", "clip", "geometry" })]
     public class ClipGeometry : UIViewController
     {
         // Hold references to UI controls.

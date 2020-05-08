@@ -15,11 +15,11 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
 {
     [Register("ProjectWithSpecificTransformation")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Project with specific transformation",
-        "Geometry",
-        "Project a point from one coordinate system to another using a specific transformation step.",
-        "View the values for: unprojected point, projected with the GeometryEngine default, and projected with a specific transformation step.",
-        "coordinate system", "geographic", "project", "projection", "transform", "transformation", "transformation step")]
+        name: "Project with specific transformation",
+        category: "Geometry",
+        description: "Project a point from one coordinate system to another using a specific transformation step.",
+        instructions: "View the values for: unprojected point, projected with the GeometryEngine default, and projected with a specific transformation step.",
+        tags: new[] { "coordinate system", "geographic", "project", "projection", "transform", "transformation", "transformation step" })]
     public class ProjectWithSpecificTransformation : UIViewController
     {
         // Hold references to UI controls.

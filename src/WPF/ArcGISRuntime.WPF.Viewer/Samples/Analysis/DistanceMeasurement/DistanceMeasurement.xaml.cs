@@ -19,11 +19,11 @@ using System.Windows.Input;
 namespace ArcGISRuntime.WPF.Samples.DistanceMeasurement
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Distance measurement analysis",
-        "Analysis",
-        "Measure distances between two points in 3D.",
-        "Choose a unit system for the measurement. Click any location in the scene to start measuring. Move the mouse to an end location, and click to complete the measurement. Click a new location to clear and start a new measurement.",
-        "3D", "analysis", "distance", "measure")]
+        name: "Distance measurement analysis",
+        category: "Analysis",
+        description: "Measure distances between two points in 3D.",
+        instructions: "Choose a unit system for the measurement. Click any location in the scene to start measuring. Move the mouse to an end location, and click to complete the measurement. Click a new location to clear and start a new measurement.",
+        tags: new[] { "3D", "analysis", "distance", "measure" })]
     public partial class DistanceMeasurement
     {
         // URLs to various services used to provide an interesting scene for the sample.

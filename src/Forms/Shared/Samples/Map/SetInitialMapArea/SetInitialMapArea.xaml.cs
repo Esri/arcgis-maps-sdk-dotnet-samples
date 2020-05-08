@@ -14,11 +14,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.SetInitialMapArea
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Map initial extent",
-        "Map",
-        "Display the map at an initial viewpoint representing a bounding geometry.",
-        "As application is loading, initial view point is set and map view opens at the given location.",
-        "envelope", "extent", "initial", "viewpoint", "zoom")]
+        name: "Map initial extent",
+        category: "Map",
+        description: "Display the map at an initial viewpoint representing a bounding geometry.",
+        instructions: "As application is loading, initial view point is set and map view opens at the given location.",
+        tags: new[] { "envelope", "extent", "initial", "viewpoint", "zoom" })]
     public partial class SetInitialMapArea : ContentPage
     {
         public SetInitialMapArea()

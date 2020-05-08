@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
 {
     [Register("IdentifyGraphics")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify graphics",
-        "GraphicsOverlay",
-        "Display an alert message when a graphic is clicked.",
-        "Select a graphic to identify it. You will see an alert message displayed.",
-        "graphics", "identify")]
+        name: "Identify graphics",
+        category: "GraphicsOverlay",
+        description: "Display an alert message when a graphic is clicked.",
+        instructions: "Select a graphic to identify it. You will see an alert message displayed.",
+        tags: new[] { "graphics", "identify" })]
     public class IdentifyGraphics : UIViewController
     {
         // Hold references to UI controls.

@@ -18,11 +18,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.ReadGeoPackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Read GeoPackage",
-        "Data",
-        "Add rasters and feature tables from a GeoPackage to a map.",
-        "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.",
-        "GeoPackage", "OGC", "container", "layer", "map", "package", "raster", "table")]
+        name: "Read GeoPackage",
+        category: "Data",
+        description: "Add rasters and feature tables from a GeoPackage to a map.",
+        instructions: "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.",
+        tags: new[] { "GeoPackage", "OGC", "container", "layer", "map", "package", "raster", "table" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class ReadGeoPackage
     {

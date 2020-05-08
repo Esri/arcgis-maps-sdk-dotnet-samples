@@ -20,11 +20,11 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntime.UWP.Samples.IdentifyKmlFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify KML features",
-        "Layers",
-        "Show a callout with formatted content for a KML feature.",
-        "Tap a feature to identify it. Feature information will be displayed in a callout.",
-        "KML", "KMZ", "Keyhole", "NOAA", "NWS", "OGC", "weather")]
+        name: "Identify KML features",
+        category: "Layers",
+        description: "Show a callout with formatted content for a KML feature.",
+        instructions: "Tap a feature to identify it. Feature information will be displayed in a callout.",
+        tags: new[] { "KML", "KMZ", "Keyhole", "NOAA", "NWS", "OGC", "weather" })]
     public partial class IdentifyKmlFeatures
     {
         // Hold a reference to the KML layer for use in identify operations.

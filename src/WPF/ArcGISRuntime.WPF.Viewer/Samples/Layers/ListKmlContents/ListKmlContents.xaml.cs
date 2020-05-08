@@ -20,11 +20,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.ListKmlContents
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "List KML contents",
-        "Layers",
-        "List the contents of a KML file.",
-        "The contents of the KML file are shown in a tree. Select a node to zoom to that node. Not all nodes can be zoomed to (e.g. screen overlays).",
-        "KML", "KMZ", "Keyhole", "OGC", "layers")]
+        name: "List KML contents",
+        category: "Layers",
+        description: "List the contents of a KML file.",
+        instructions: "The contents of the KML file are shown in a tree. Select a node to zoom to that node. Not all nodes can be zoomed to (e.g. screen overlays).",
+        tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "layers" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("da301cb122874d5497f8a8f6c81eb36e")]
     public partial class ListKmlContents
     {

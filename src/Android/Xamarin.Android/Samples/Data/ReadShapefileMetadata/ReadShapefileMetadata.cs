@@ -25,11 +25,11 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Read shapefile metadata",
-        "Data",
-        "Read a shapefile and display its metadata.",
-        "The shapefile's metadata will be displayed when you open the sample.",
-        "credits", "description", "metadata", "package", "shape file", "shapefile", "summary", "symbology", "tags", "visualization")]
+        name: "Read shapefile metadata",
+        category: "Data",
+        description: "Read a shapefile and display its metadata.",
+        instructions: "The shapefile's metadata will be displayed when you open the sample.",
+        tags: new[] { "credits", "description", "metadata", "package", "shape file", "shapefile", "summary", "symbology", "tags", "visualization" })]
     public class ReadShapefileMetadata : Activity
     {
         // Store the app's map view

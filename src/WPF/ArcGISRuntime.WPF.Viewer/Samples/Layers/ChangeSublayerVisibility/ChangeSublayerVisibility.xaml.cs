@@ -14,11 +14,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.ChangeSublayerVisibility
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Map image layer sublayer visibility",
-        "Layers",
-        "Change the visibility of sublayers.",
-        "Each sublayer has a check box which can be used to toggle the visibility of the sublayer.",
-        "layers", "sublayers", "visibility")]
+        name: "Map image layer sublayer visibility",
+        category: "Layers",
+        description: "Change the visibility of sublayers.",
+        instructions: "Each sublayer has a check box which can be used to toggle the visibility of the sublayer.",
+        tags: new[] { "layers", "sublayers", "visibility" })]
     public partial class ChangeSublayerVisibility
     {
         public ChangeSublayerVisibility()

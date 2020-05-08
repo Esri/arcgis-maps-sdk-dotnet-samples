@@ -37,11 +37,11 @@ using Xamarin.Auth;
 namespace ArcGISRuntime.Samples.GenerateOfflineMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate offline map",
-        "Map",
-        "Take a web map offline.",
-        "When the app starts, you will be prompted to sign in using a free ArcGIS Online account. Once the map loads, zoom to the extent you want to take offline. The red border shows the extent that will be downloaded. Tap the \"Take Map Offline\" button to start the offline map job. The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.",
-        "download", "offline", "save", "web map")]
+        name: "Generate offline map",
+        category: "Map",
+        description: "Take a web map offline.",
+        instructions: "When the app starts, you will be prompted to sign in using a free ArcGIS Online account. Once the map loads, zoom to the extent you want to take offline. The red border shows the extent that will be downloaded. Tap the \"Take Map Offline\" button to start the offline map job. The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.",
+        tags: new[] { "download", "offline", "save", "web map" })]
     public partial class GenerateOfflineMap : ContentPage, IOAuthAuthorizeHandler
     {
         // The job to generate an offline map.

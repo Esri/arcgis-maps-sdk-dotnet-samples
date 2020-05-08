@@ -12,11 +12,11 @@ using Esri.ArcGISRuntime.Mapping;
 namespace ArcGISRuntime.WPF.Samples.DisplayMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display map",
-        "Map",
-        "Display a map with an imagery basemap.",
-        "Run the sample to view the map. Pan and zoom to navigate the map.",
-        "basemap", "map")]
+        name: "Display map",
+        category: "Map",
+        description: "Display a map with an imagery basemap.",
+        instructions: "Run the sample to view the map. Pan and zoom to navigate the map.",
+        tags: new[] { "basemap", "map" })]
     public partial class DisplayMap
     {
         public DisplayMap()

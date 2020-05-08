@@ -17,11 +17,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.LineOfSightLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of sight (location)",
-        "Analysis",
-        "Perform a line of sight analysis between two points in real time.",
-        "Tap to place the starting point for the line. Tap again to place the end point.",
-        "3D", "line of sight", "visibility", "visibility analysis")]
+        name: "Line of sight (location)",
+        category: "Analysis",
+        description: "Perform a line of sight analysis between two points in real time.",
+        instructions: "Tap to place the starting point for the line. Tap again to place the end point.",
+        tags: new[] { "3D", "line of sight", "visibility", "visibility analysis" })]
     public partial class LineOfSightLocation : ContentPage
     {
         // URL for an image service to use as an elevation source

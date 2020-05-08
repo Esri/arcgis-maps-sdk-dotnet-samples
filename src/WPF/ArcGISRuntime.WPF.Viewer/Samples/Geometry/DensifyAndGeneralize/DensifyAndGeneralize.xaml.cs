@@ -17,11 +17,11 @@ using System.Linq;
 namespace ArcGISRuntime.WPF.Samples.DensifyAndGeneralize
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Densify and generalize",
-        "Geometry",
-        "A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.",
-        "Use the sliders to control the parameters of the densify and generalize methods.",
-        "data", "densify", "generalize", "simplify")]
+        name: "Densify and generalize",
+        category: "Geometry",
+        description: "A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.",
+        instructions: "Use the sliders to control the parameters of the densify and generalize methods.",
+        tags: new[] { "data", "densify", "generalize", "simplify" })]
     public partial class DensifyAndGeneralize
     {
         // Graphic used to refer to the original geometry.

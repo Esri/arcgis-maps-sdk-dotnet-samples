@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 {
     [Register("WmsServiceCatalog")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "WMS service catalog",
-        "Layers",
-        "Connect to a WMS service and show the available layers and sublayers. ",
-        "",
-        "OGC", "WMS", "catalog", "web map service")]
+        name: "WMS service catalog",
+        category: "Layers",
+        description: "Connect to a WMS service and show the available layers and sublayers. ",
+        instructions: "",
+        tags: new[] { "OGC", "WMS", "catalog", "web map service" })]
     public class WmsServiceCatalog : UIViewController
     {
         // Hold references to UI controls.

@@ -26,11 +26,11 @@ namespace ArcGISRuntime.UWP.Samples.IntegratedWindowsAuth
     //    in your UWP project. Add this capability by checking "Private Networks (Client and Server)"
     //    in your project's Package.appxmanifest file.
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Integrated Windows Authentication",
-        "Security",
-        "Connect to an IWA secured Portal and search for maps.",
-        "1. Enter the URL to your IWA-secured portal.",
-        "Portal", "Windows", "authentication", "security")]
+        name: "Integrated Windows Authentication",
+        category: "Security",
+        description: "Connect to an IWA secured Portal and search for maps.",
+        instructions: "1. Enter the URL to your IWA-secured portal.",
+        tags: new[] { "Portal", "Windows", "authentication", "security" })]
     public partial class IntegratedWindowsAuth
     {
         // Note: The Universal Windows Platform handles challenging for Windows credentials.

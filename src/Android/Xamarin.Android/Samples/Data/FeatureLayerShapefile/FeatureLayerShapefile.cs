@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer (shapefile)",
-        "Data",
-        "Open a shapefile stored on the device and display it as a feature layer with default symbology.",
-        "Pan and zoom around the map to observe the data from the shapefile.",
-        "layers", "shapefile", "shp", "vector")]
+        name: "Feature layer (shapefile)",
+        category: "Data",
+        description: "Open a shapefile stored on the device and display it as a feature layer with default symbology.",
+        instructions: "Pan and zoom around the map to observe the data from the shapefile.",
+        tags: new[] { "layers", "shapefile", "shp", "vector" })]
     public class FeatureLayerShapefile : Activity
     {
         private MapView _myMapView;

@@ -18,11 +18,11 @@ using Esri.ArcGISRuntime.UI.Controls;
 namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Take screenshot",
-        "MapView",
-        "Take a screenshot of the map.",
-        "Pan and zoom to find an interesting location, then use the button to take a screenshot. The screenshot will be displayed. Note that there may be a small delay if the map is still rendering when you push the button.",
-        "capture", "export", "image", "print", "screen capture", "screenshot", "share", "shot")]
+        name: "Take screenshot",
+        category: "MapView",
+        description: "Take a screenshot of the map.",
+        instructions: "Pan and zoom to find an interesting location, then use the button to take a screenshot. The screenshot will be displayed. Note that there may be a small delay if the map is still rendering when you push the button.",
+        tags: new[] { "capture", "export", "image", "print", "screen capture", "screenshot", "share", "shot" })]
     public partial class TakeScreenshot
     {
         public TakeScreenshot()

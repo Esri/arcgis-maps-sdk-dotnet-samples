@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.Buffer
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Buffer",
-        "Geometry",
-        "Create a buffer around a map point and display the results as a `Graphic`",
-        "1. Tap on the map.",
-        "analysis", "buffer", "euclidean", "geodesic", "geometry", "planar")]
+        name: "Buffer",
+        category: "Geometry",
+        description: "Create a buffer around a map point and display the results as a `Graphic`",
+        instructions: "1. Tap on the map.",
+        tags: new[] { "analysis", "buffer", "euclidean", "geodesic", "geometry", "planar" })]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayoutAttribute("Buffer.axml")]
     public class Buffer : Activity
     {

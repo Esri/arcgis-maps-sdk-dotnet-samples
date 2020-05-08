@@ -15,11 +15,11 @@ using Esri.ArcGISRuntime.UI;
 namespace ArcGISRuntime.UWP.Samples.CreateGeometries
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create geometries",
-        "Geometry",
-        "Create simple geometry types.",
-        "Pan and zoom freely to see the different types of geometries placed onto the map.",
-        "area", "boundary", "line", "marker", "path", "shape")]
+        name: "Create geometries",
+        category: "Geometry",
+        description: "Create simple geometry types.",
+        instructions: "Pan and zoom freely to see the different types of geometries placed onto the map.",
+        tags: new[] { "area", "boundary", "line", "marker", "path", "shape" })]
     public partial class CreateGeometries
     {
 

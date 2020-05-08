@@ -24,11 +24,11 @@ using System.Windows.Threading;
 namespace ArcGISRuntime.WPF.Samples.AuthorMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create and save map",
-        "Map",
-        "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
-        "1. Select the basemap and layers you'd like to add to your map.",
-        "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map")]
+        name: "Create and save map",
+        category: "Map",
+        description: "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
+        instructions: "1. Select the basemap and layers you'd like to add to your map.",
+        tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
     public partial class AuthorMap
     {
         // Constants for OAuth-related values ...

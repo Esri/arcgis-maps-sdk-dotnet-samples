@@ -23,11 +23,11 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 {
     [Register("RenderPictureMarkers")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Picture marker symbol",
-        "Symbology",
-        "Use pictures for markers.",
-        "When launched, this sample displays a map with picture marker symbols. Pan and zoom to explore the map.",
-        "graphics", "marker", "picture", "symbol", "visualization")]
+        name: "Picture marker symbol",
+        category: "Symbology",
+        description: "Use pictures for markers.",
+        instructions: "When launched, this sample displays a map with picture marker symbols. Pan and zoom to explore the map.",
+        tags: new[] { "graphics", "marker", "picture", "symbol", "visualization" })]
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class RenderPictureMarkers : UIViewController
     {

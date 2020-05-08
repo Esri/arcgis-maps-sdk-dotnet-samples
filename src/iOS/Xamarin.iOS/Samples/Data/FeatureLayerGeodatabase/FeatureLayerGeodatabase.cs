@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
     [Register("FeatureLayerGeodatabase")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("2b0f9e17105847809dfeb04e3cad69e0")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer (geodatabase)",
-        "Data",
-        "Display features from a local geodatabase.",
-        "",
-        "geodatabase", "mobile", "offline")]
+        name: "Feature layer (geodatabase)",
+        category: "Data",
+        description: "Display features from a local geodatabase.",
+        instructions: "",
+        tags: new[] { "geodatabase", "mobile", "offline" })]
     public class FeatureLayerGeodatabase : UIViewController
     {
         // Hold references to UI controls.

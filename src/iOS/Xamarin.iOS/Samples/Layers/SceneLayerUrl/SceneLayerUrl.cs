@@ -18,11 +18,11 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
     [Register("SceneLayerUrl")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Scene layer (URL)",
-        "Layers",
-        "Display an ArcGIS scene layer from a URL.",
-        "Pan and zoom to explore the scene.",
-        "3D", "Portland", "URL", "buildings", "model", "scene", "service")]
+        name: "Scene layer (URL)",
+        category: "Layers",
+        description: "Display an ArcGIS scene layer from a URL.",
+        instructions: "Pan and zoom to explore the scene.",
+        tags: new[] { "3D", "Portland", "URL", "buildings", "model", "scene", "service" })]
     public class SceneLayerUrl : UIViewController
     {
         // Hold references to UI controls.

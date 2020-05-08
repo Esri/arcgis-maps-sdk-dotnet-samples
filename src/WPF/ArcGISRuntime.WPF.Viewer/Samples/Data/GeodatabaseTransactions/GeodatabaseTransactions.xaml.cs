@@ -20,11 +20,11 @@ using System.Windows.Controls;
 namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Geodatabase transactions",
-        "Data",
-        "Use transactions to manage how changes are committed to a geodatabase.",
-        "When the sample loads, a feature service is taken offline as a geodatabase. When the geodatabase is ready, you can add multiple types of features. To apply edits directly, uncheck the 'Require a transaction for edits' checkbox. When using transactions, use the buttons to start editing and stop editing. When you stop editing, you can choose to commit the changes or roll them back. At any point, you can synchronize the local geodatabase with the feature service.",
-        "commit", "database", "geodatabase", "transact", "transactions")]
+        name: "Geodatabase transactions",
+        category: "Data",
+        description: "Use transactions to manage how changes are committed to a geodatabase.",
+        instructions: "When the sample loads, a feature service is taken offline as a geodatabase. When the geodatabase is ready, you can add multiple types of features. To apply edits directly, uncheck the 'Require a transaction for edits' checkbox. When using transactions, use the buttons to start editing and stop editing. When you stop editing, you can choose to commit the changes or roll them back. At any point, you can synchronize the local geodatabase with the feature service.",
+        tags: new[] { "commit", "database", "geodatabase", "transact", "transactions" })]
     public partial class GeodatabaseTransactions
     {
         // URL for the editable feature service

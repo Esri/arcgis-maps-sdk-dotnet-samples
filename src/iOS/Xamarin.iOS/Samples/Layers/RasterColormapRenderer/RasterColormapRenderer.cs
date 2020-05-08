@@ -23,11 +23,11 @@ namespace ArcGISRuntimeXamarin.Samples.RasterColormapRenderer
 {
     [Register("RasterColormapRenderer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Colormap renderer",
-        "Layers",
-        "Apply a colormap renderer to a raster.",
-        "Pan and zoom to explore the effect of the colormap applied to the raster.",
-        "colormap", "data", "raster", "renderer", "visualization", "Featured")]
+        name: "Colormap renderer",
+        category: "Layers",
+        description: "Apply a colormap renderer to a raster.",
+        instructions: "Pan and zoom to explore the effect of the colormap applied to the raster.",
+        tags: new[] { "colormap", "data", "raster", "renderer", "visualization", "Featured" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public class RasterColormapRenderer : UIViewController
     {

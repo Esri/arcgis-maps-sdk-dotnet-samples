@@ -19,11 +19,11 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
 {
     [Register("WMSLayerUrl")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "WMS layer (URL)",
-        "Layers",
-        "Display a WMS layer using a WMS service URL.",
-        "The map will load automatically when the sample starts.",
-        "OGC", "WmsLayer", "web map service")]
+        name: "WMS layer (URL)",
+        category: "Layers",
+        description: "Display a WMS layer using a WMS service URL.",
+        instructions: "The map will load automatically when the sample starts.",
+        tags: new[] { "OGC", "WmsLayer", "web map service" })]
     public class WMSLayerUrl : UIViewController
     {
         // Hold references to UI controls.

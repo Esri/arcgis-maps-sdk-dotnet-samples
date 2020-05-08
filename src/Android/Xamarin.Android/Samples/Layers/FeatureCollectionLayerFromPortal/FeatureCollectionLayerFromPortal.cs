@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create feature collection layer (Portal item)",
-        "Layers",
-        "Create a feature collection layer from a portal item.",
-        "The feature collection is loaded from the Portal item when the sample starts.",
-        "collection", "feature collection", "feature collection layer", "id", "item", "map notes", "portal")]
+        name: "Create feature collection layer (Portal item)",
+        category: "Layers",
+        description: "Create a feature collection layer from a portal item.",
+        instructions: "The feature collection is loaded from the Portal item when the sample starts.",
+        tags: new[] { "collection", "feature collection", "feature collection layer", "id", "item", "map notes", "portal" })]
     public class FeatureCollectionLayerFromPortal : Activity
     {
         // Hold a reference to the map view.

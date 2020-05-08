@@ -15,11 +15,11 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.CustomDictionaryStyle
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Custom dictionary style",
-        "Symbology",
-        "Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.",
-        "Pan and zoom the map to see the symbology from the custom dictionary style.",
-        "dictionary", "military", "renderer", "style", "stylx", "unique value", "visualization", "Featured")]
+        name: "Custom dictionary style",
+        category: "Symbology",
+        description: "Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.",
+        instructions: "Pan and zoom the map to see the symbology from the custom dictionary style.",
+        tags: new[] { "dictionary", "military", "renderer", "style", "stylx", "unique value", "visualization", "Featured" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("751138a2e0844e06853522d54103222a")]
     public partial class CustomDictionaryStyle
     {

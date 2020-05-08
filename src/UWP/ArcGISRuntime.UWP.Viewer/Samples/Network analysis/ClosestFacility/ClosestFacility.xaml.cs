@@ -21,11 +21,11 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.ClosestFacility
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find closest facility to an incident (interactive)",
-        "Network analysis",
-        "Find a route to the closest facility from a location.",
-        "Click near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.",
-        "incident", "network analysis", "route", "search")]
+        name: "Find closest facility to an incident (interactive)",
+        category: "Network analysis",
+        description: "Find a route to the closest facility from a location.",
+        instructions: "Click near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.",
+        tags: new[] { "incident", "network analysis", "route", "search" })]
     public partial class ClosestFacility
     {
         // Holds locations of hospitals around San Diego.

@@ -23,11 +23,11 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Distance composite scene symbol",
-        "Symbology",
-        "Change a graphic's symbol based on the camera's proximity to it.",
-        "The sample starts looking at a plane. Zoom out from the plane to see it turn into a cone. Keeping zooming out and it will turn into a point.",
-        "3D", "data", "graphic", "range", "symbol")]
+        name: "Distance composite scene symbol",
+        category: "Symbology",
+        description: "Change a graphic's symbol based on the camera's proximity to it.",
+        instructions: "The sample starts looking at a plane. Zoom out from the plane to see it turn into a cone. Keeping zooming out and it will turn into a point.",
+        tags: new[] { "3D", "data", "graphic", "range", "symbol" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public class UseDistanceCompositeSym : Activity
     {

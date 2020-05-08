@@ -17,11 +17,11 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
 {
     [Register("ShowMagnifier")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show magnifier",
-        "MapView",
-        "Tap and hold on a map to show a magnifier.",
-        "Tap and hold on the map to show a magnifier, then drag across the map to move the magnifier. You can also pan the map while holding the magnifier, by dragging the magnifier to the edge of the map.",
-        "magnify", "map", "zoom")]
+        name: "Show magnifier",
+        category: "MapView",
+        description: "Tap and hold on a map to show a magnifier.",
+        instructions: "Tap and hold on the map to show a magnifier, then drag across the map to move the magnifier. You can also pan the map while holding the magnifier, by dragging the magnifier to the edge of the map.",
+        tags: new[] { "magnify", "map", "zoom" })]
     public class ShowMagnifier : UIViewController
     {
         // Hold references to UI controls.

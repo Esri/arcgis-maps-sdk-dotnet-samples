@@ -20,11 +20,11 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Load WFS with XML query",
-        "Layers",
-        "Load a WFS feature table using an XML query.",
-        "Run the sample and view the data loaded from the the WFS feature table.",
-        "OGC", "WFS", "XML", "feature", "query", "service", "web")]
+        name: "Load WFS with XML query",
+        category: "Layers",
+        description: "Load a WFS feature table using an XML query.",
+        instructions: "Run the sample and view the data loaded from the the WFS feature table.",
+        tags: new[] { "OGC", "WFS", "XML", "feature", "query", "service", "web" })]
     public class WfsXmlQuery : Activity
     {
         // Create and hold a reference to the MapView.

@@ -22,11 +22,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Map image layer tables",
-        "Layers",
-        "Find features in a spatial table related to features in a non-spatial table.",
-        "Once the map image layer loads, a list view will be populated with comment data from non-spatial features. Click on one of the comments to query related spatial features and display the first result on the map.",
-        "features", "query", "related features", "search")]
+        name: "Map image layer tables",
+        category: "Layers",
+        description: "Find features in a spatial table related to features in a non-spatial table.",
+        instructions: "Once the map image layer loads, a list view will be populated with comment data from non-spatial features. Click on one of the comments to query related spatial features and display the first result on the map.",
+        tags: new[] { "features", "query", "related features", "search" })]
     public partial class MapImageLayerTables
     {
         // A graphics overlay for showing selected features.

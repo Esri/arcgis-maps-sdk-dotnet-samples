@@ -24,11 +24,11 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
 {
     [Register("DictionaryRendererGraphicsOverlay")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Graphics overlay (dictionary renderer)",
-        "GraphicsOverlay",
-        "This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.",
-        "Pan and zoom to explore military symbols on the map.",
-        "defense", "military", "situational awareness", "tactical", "visualization")]
+        name: "Graphics overlay (dictionary renderer)",
+        category: "GraphicsOverlay",
+        description: "This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.",
+        instructions: "Pan and zoom to explore military symbols on the map.",
+        tags: new[] { "defense", "military", "situational awareness", "tactical", "visualization" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "1e4ea99af4b440c092e7959cf3957bfa")]
     public class DictionaryRendererGraphicsOverlay : UIViewController
     {

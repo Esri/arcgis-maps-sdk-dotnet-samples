@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change viewpoint",
-        "MapView",
-        "Set the map view to a new viewpoint.",
-        "The map view has several methods for setting its current viewpoint. Select a viewpoint from the UI to see the viewpoint changed using that method.",
-        "animate", "extent", "pan", "rotate", "scale", "view", "zoom")]
+        name: "Change viewpoint",
+        category: "MapView",
+        description: "Set the map view to a new viewpoint.",
+        instructions: "The map view has several methods for setting its current viewpoint. Select a viewpoint from the UI to see the viewpoint changed using that method.",
+        tags: new[] { "animate", "extent", "pan", "rotate", "scale", "view", "zoom" })]
     public class ChangeViewpoint : Activity
     {
         // Create and hold reference to the used MapView

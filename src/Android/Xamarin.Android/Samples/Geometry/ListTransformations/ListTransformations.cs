@@ -26,11 +26,11 @@ namespace ArcGISRuntime.Samples.ListTransformations
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "List transformations by suitability",
-        "Geometry",
-        "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",
-        "Select a transformation from the list to see the result of projecting the point from EPSG:27700 to EPSG:3857 using that transformation. The result is shown as a red cross; you can visually compare the original blue point with the projected red cross.",
-        "datum", "geodesy", "projection", "spatial reference", "transformation")]
+        name: "List transformations by suitability",
+        category: "Geometry",
+        description: "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",
+        instructions: "Select a transformation from the list to see the result of projecting the point from EPSG:27700 to EPSG:3857 using that transformation. The result is shown as a red cross; you can visually compare the original blue point with the projected red cross.",
+        tags: new[] { "datum", "geodesy", "projection", "spatial reference", "transformation" })]
     public class ListTransformations : Activity
     {
         // Hold a reference to the map view.

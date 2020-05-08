@@ -20,11 +20,11 @@ using Windows.UI.Xaml.Data;
 namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Statistical query group and sort",
-        "Data",
-        "Query a feature table for statistics, grouping and sorting by different fields.",
-        "The sample will start with some default options selected. You can immediately click the \"Get Statistics\" button to see the results for these options. There are several ways to customize your queries:",
-        "correlation", "data", "fields", "filter", "group", "sort", "statistics", "table")]
+        name: "Statistical query group and sort",
+        category: "Data",
+        description: "Query a feature table for statistics, grouping and sorting by different fields.",
+        instructions: "The sample will start with some default options selected. You can immediately click the \"Get Statistics\" button to see the results for these options. There are several ways to customize your queries:",
+        tags: new[] { "correlation", "data", "fields", "filter", "group", "sort", "statistics", "table" })]
     public partial class StatsQueryGroupAndSort
     {
         // URI for the US states map service

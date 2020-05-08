@@ -21,11 +21,11 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Scene properties expressions",
-        "GraphicsOverlay",
-        "Update the orientation of a graphic using expressions based on its attributes.",
-        "Adjust the heading and pitch sliders to rotate the cone.",
-        "3D", "expression", "graphics", "heading", "pitch", "rotation", "scene", "symbology")]
+        name: "Scene properties expressions",
+        category: "GraphicsOverlay",
+        description: "Update the orientation of a graphic using expressions based on its attributes.",
+        instructions: "Adjust the heading and pitch sliders to rotate the cone.",
+        tags: new[] { "3D", "expression", "graphics", "heading", "pitch", "rotation", "scene", "symbology" })]
     public class ScenePropertiesExpressions : Activity
     {
         // Hold reference to the used MapView.

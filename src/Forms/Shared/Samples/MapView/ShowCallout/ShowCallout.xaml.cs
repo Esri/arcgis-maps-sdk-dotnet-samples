@@ -16,11 +16,11 @@ using Esri.ArcGISRuntime.Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ShowCallout
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show callout",
-        "MapView",
-        "Show a callout with the latitude and longitude of user-tapped points.",
-        "Tap anywhere on the map. A callout showing the WGS84 coordinates for the tapped point will appear.",
-        "balloon", "bubble", "callout", "flyout", "flyover", "info window", "popup", "tap")]
+        name: "Show callout",
+        category: "MapView",
+        description: "Show a callout with the latitude and longitude of user-tapped points.",
+        instructions: "Tap anywhere on the map. A callout showing the WGS84 coordinates for the tapped point will appear.",
+        tags: new[] { "balloon", "bubble", "callout", "flyout", "flyover", "info window", "popup", "tap" })]
     public partial class ShowCallout : ContentPage
     {
         public ShowCallout()

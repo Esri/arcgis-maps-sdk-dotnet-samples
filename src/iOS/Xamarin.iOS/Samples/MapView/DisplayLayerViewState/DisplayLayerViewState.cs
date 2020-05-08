@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
 {
     [Register("DisplayLayerViewState")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display layer view state",
-        "MapView",
-        "Determine if a layer is currently being viewed.",
-        "Pan and zoom around in the map. Each layer's view status is displayed. Notice that some layers configured with a min and max scale change to \"OutOfScale\" at certain scales.",
-        "layer", "map", "status", "view")]
+        name: "Display layer view state",
+        category: "MapView",
+        description: "Determine if a layer is currently being viewed.",
+        instructions: "Pan and zoom around in the map. Each layer's view status is displayed. Notice that some layers configured with a min and max scale change to \"OutOfScale\" at certain scales.",
+        tags: new[] { "layer", "map", "status", "view" })]
     public class DisplayLayerViewState : UIViewController
     {
         // Hold references to UI controls.

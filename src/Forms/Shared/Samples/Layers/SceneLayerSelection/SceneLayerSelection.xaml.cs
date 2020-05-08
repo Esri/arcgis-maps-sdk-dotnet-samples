@@ -18,11 +18,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.SceneLayerSelection
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Scene layer selection",
-        "Layers",
-        "Identify features in a scene to select.",
-        "Tap on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.",
-        "3D", "Berlin", "buildings", "identify", "model", "query", "search", "select")]
+        name: "Scene layer selection",
+        category: "Layers",
+        description: "Identify features in a scene to select.",
+        instructions: "Tap on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.",
+        tags: new[] { "3D", "Berlin", "buildings", "identify", "model", "query", "search", "select" })]
     public partial class SceneLayerSelection : ContentPage
     {
         public SceneLayerSelection()

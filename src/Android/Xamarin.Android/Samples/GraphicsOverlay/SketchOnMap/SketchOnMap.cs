@@ -28,11 +28,11 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Sketch on map",
-        "GraphicsOverlay",
-        "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",
-        "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, and freehand polygons.",
-        "Geometry", "Graphic", "GraphicsOverlay", "SketchCreationMode", "SketchEditor", "draw", "edit")]
+        name: "Sketch on map",
+        category: "GraphicsOverlay",
+        description: "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",
+        instructions: "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, and freehand polygons.",
+        tags: new[] { "Geometry", "Graphic", "GraphicsOverlay", "SketchCreationMode", "SketchEditor", "draw", "edit" })]
     public class SketchOnMap : Activity
     {
         // Hold a reference to the map view

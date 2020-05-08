@@ -21,11 +21,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.FindServiceArea
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find service area",
-        "Network analysis",
-        "Find the service area within a network from a given point.",
-        "In order to find any service areas at least one facility needs to be added to the map view.",
-        "Routing and Logistics", "barriers", "facilities", "impedance")]
+        name: "Find service area",
+        category: "Network analysis",
+        description: "Find the service area within a network from a given point.",
+        instructions: "In order to find any service areas at least one facility needs to be added to the map view.",
+        tags: new[] { "Routing and Logistics", "barriers", "facilities", "impedance" })]
     public partial class FindServiceArea
     {
         // Uri for the service area around San Diego.

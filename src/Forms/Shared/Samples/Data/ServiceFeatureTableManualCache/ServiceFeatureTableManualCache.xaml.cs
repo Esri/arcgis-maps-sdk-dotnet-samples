@@ -16,11 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ServiceFeatureTableManualCache
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Service feature table (manual cache)",
-        "Data",
-        "Display a feature layer from a service using the **manual cache** feature request mode.",
-        "Run the sample and pan and zoom around the map. Observe the features loaded from the table.",
-        "cache", "feature request mode", "performance")]
+        name: "Service feature table (manual cache)",
+        category: "Data",
+        description: "Display a feature layer from a service using the **manual cache** feature request mode.",
+        instructions: "Run the sample and pan and zoom around the map. Observe the features loaded from the table.",
+        tags: new[] { "cache", "feature request mode", "performance" })]
     public partial class ServiceFeatureTableManualCache : ContentPage
     {
         private ServiceFeatureTable _incidentsFeatureTable;

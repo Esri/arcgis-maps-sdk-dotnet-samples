@@ -19,11 +19,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
     [Register("FeatureLayerRenderingModeScene")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer rendering mode (scene)",
-        "Layers",
-        "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",
-        "Tap the button to trigger the same zoom animation on both static and dynamicly rendered scenes.",
-        "3D", "dynamic", "feature layer", "features", "rendering", "static")]
+        name: "Feature layer rendering mode (scene)",
+        category: "Layers",
+        description: "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",
+        instructions: "Tap the button to trigger the same zoom animation on both static and dynamicly rendered scenes.",
+        tags: new[] { "3D", "dynamic", "feature layer", "features", "rendering", "static" })]
     public class FeatureLayerRenderingModeScene : UIViewController
     {
         // Hold references to UI controls.

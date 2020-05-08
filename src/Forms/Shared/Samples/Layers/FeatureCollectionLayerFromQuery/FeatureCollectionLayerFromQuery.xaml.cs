@@ -15,11 +15,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature collection layer (query)",
-        "Layers",
-        "Create a feature collection layer to show a query result from a service feature table.",
-        "When launched, this sample displays a map with point features as a feature collection layer. Pan and zoom to explore the map.",
-        "layer", "query", "search", "table")]
+        name: "Feature collection layer (query)",
+        category: "Layers",
+        description: "Create a feature collection layer to show a query result from a service feature table.",
+        instructions: "When launched, this sample displays a map with point features as a feature collection layer. Pan and zoom to explore the map.",
+        tags: new[] { "layer", "query", "search", "table" })]
     public partial class FeatureCollectionLayerFromQuery : ContentPage
     {
         // Feature service URL to query for features

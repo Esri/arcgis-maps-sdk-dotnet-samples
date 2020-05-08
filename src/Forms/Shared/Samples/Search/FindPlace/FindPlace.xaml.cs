@@ -28,11 +28,11 @@ using ArcGISRuntime.Droid;
 namespace ArcGISRuntime.Samples.FindPlace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find place",
-        "Search",
-        "Find places of interest near a location or within a specific area.",
-        "Choose a type of place in the first field and an area to search within in the second field. Tap the Search button to show the results of the query on the map. Tap on a result pin to show its name and address. If you pan away from the result area, a \"Redo search in this area\" button will appear. Tap it to query again for the currently viewed area on the map.",
-        "POI", "businesses", "geocode", "locations", "locator", "places of interest", "point of interest", "search", "suggestions")]
+        name: "Find place",
+        category: "Search",
+        description: "Find places of interest near a location or within a specific area.",
+        instructions: "Choose a type of place in the first field and an area to search within in the second field. Tap the Search button to show the results of the query on the map. Tap on a result pin to show its name and address. If you pan away from the result area, a \"Redo search in this area\" button will appear. Tap it to query again for the currently viewed area on the map.",
+        tags: new[] { "POI", "businesses", "geocode", "locations", "locator", "places of interest", "point of interest", "search", "suggestions" })]
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindPlace : ContentPage, IDisposable
     {

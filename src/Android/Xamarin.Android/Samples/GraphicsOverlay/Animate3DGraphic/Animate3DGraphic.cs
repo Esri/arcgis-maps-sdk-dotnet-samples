@@ -32,11 +32,11 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("Animate3DGraphic.axml")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63","e87c154fb9c2487f999143df5b08e9b1","5a9b60cee9ba41e79640a06bcdf8084d","12509ffdc684437f8f2656b0129d2c13","681d6f7694644709a7c830ec57a2d72b")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Animate 3D graphic",
-        "GraphicsOverlay",
-        "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
-        "Animation Controls:",
-        "Camera", "ModelSceneSymbol", "OrbitGeoElementCameraController", "RendererSceneProperties", "SceneView")]
+        name: "Animate 3D graphic",
+        category: "GraphicsOverlay",
+        description: "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
+        instructions: "Animation Controls:",
+        tags: new[] { "Camera", "ModelSceneSymbol", "OrbitGeoElementCameraController", "RendererSceneProperties", "SceneView" })]
     public class Animate3DGraphic : Activity
     {
         // Hold references to UI components so that they can be accessed by the sample programmatically

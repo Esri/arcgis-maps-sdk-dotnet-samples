@@ -24,11 +24,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
     [Register("FeatureLayerQuery")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer query",
-        "Data",
-        "Find features in a feature table which match an SQL query.",
-        "Input the name of a U.S. state into the text field. When you tap the button, a query is performed and the matching features are highlighted or an error is returned.",
-        "query", "search")]
+        name: "Feature layer query",
+        category: "Data",
+        description: "Find features in a feature table which match an SQL query.",
+        instructions: "Input the name of a U.S. state into the text field. When you tap the button, a query is performed and the matching features are highlighted or an error is returned.",
+        tags: new[] { "query", "search" })]
     public class FeatureLayerQuery : UIViewController
     {
         // Hold references to UI controls.

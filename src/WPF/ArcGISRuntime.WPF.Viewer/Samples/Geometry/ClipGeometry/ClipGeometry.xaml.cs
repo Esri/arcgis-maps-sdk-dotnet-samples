@@ -16,11 +16,11 @@ using Esri.ArcGISRuntime.UI;
 namespace ArcGISRuntime.WPF.Samples.ClipGeometry
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Clip geometry",
-        "Geometry",
-        "Clip a geometry with another geometry.",
-        "Click the \"Clip\" button to clip the blue graphic with the red dashed envelopes.",
-        "analysis", "clip", "geometry")]
+        name: "Clip geometry",
+        category: "Geometry",
+        description: "Clip a geometry with another geometry.",
+        instructions: "Click the \"Clip\" button to clip the blue graphic with the red dashed envelopes.",
+        tags: new[] { "analysis", "clip", "geometry" })]
     public partial class ClipGeometry
     {
         // Graphics overlay to display input geometries for the clip operation.

@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change feature layer renderer",
-        "Layers",
-        "Change the appearance of a feature layer with a renderer.",
-        "Use the buttons to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.",
-        "feature layer", "renderer", "visualization")]
+        name: "Change feature layer renderer",
+        category: "Layers",
+        description: "Change the appearance of a feature layer with a renderer.",
+        instructions: "Use the buttons to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.",
+        tags: new[] { "feature layer", "renderer", "visualization" })]
     public class ChangeFeatureLayerRenderer : Activity
     {
         // Hold a reference to the map view

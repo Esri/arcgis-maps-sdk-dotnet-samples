@@ -17,11 +17,11 @@ using System.Collections.Generic;
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster hillshade renderer",
-        "Layers",
-        "Use a hillshade renderer on a raster.",
-        "Configure the options for rendering, then tap 'Apply hillshade'.",
-        "Visualization", "hillshade", "raster", "shadow", "slope")]
+        name: "Raster hillshade renderer",
+        category: "Layers",
+        description: "Use a hillshade renderer on a raster.",
+        instructions: "Configure the options for rendering, then tap 'Apply hillshade'.",
+        tags: new[] { "Visualization", "hillshade", "raster", "shadow", "slope" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     public partial class RasterHillshade : ContentPage
     {

@@ -21,11 +21,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Perform valve isolation trace",
-        "Utility network",
-        "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",
-        "Create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Click 'Trace' to run a subnetwork-based isolation trace.",
-        "category comparison", "condition barriers", "isolated features", "network analysis", "subnetwork trace", "trace configuration", "trace filter", "utility network")]
+        name: "Perform valve isolation trace",
+        category: "Utility network",
+        description: "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",
+        instructions: "Create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Click 'Trace' to run a subnetwork-based isolation trace.",
+        tags: new[] { "category comparison", "condition barriers", "isolated features", "network analysis", "subnetwork trace", "trace configuration", "trace filter", "utility network" })]
     public partial class PerformValveIsolationTrace
     {
         // Feature service for an electric utility network in Naperville, Illinois.

@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Apply raster function to raster from service",
-        "Layers",
-        "Load a raster from a service, then apply a function to it.",
-        "The raster function is applied automatically when the sample starts and the result is displayed.",
-        "function", "layer", "raster", "raster function", "service")]
+        name: "Apply raster function to raster from service",
+        category: "Layers",
+        description: "Load a raster from a service, then apply a function to it.",
+        instructions: "The raster function is applied automatically when the sample starts and the result is displayed.",
+        tags: new[] { "function", "layer", "raster", "raster function", "service" })]
     public class RasterLayerRasterFunction : Activity
     {
         // Hold a reference to the map view

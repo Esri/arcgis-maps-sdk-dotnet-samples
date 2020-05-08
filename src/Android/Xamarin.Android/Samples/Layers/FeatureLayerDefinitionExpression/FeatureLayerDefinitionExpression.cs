@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer definition expression",
-        "Layers",
-        "Limit the features displayed on a map with a definition expression.",
-        "Press the 'Apply Expression' button to limit the features requested from the feature layer to those specified by the SQL query definition expression. Tap the 'Reset Expression' button to remove the definition expression on the feature layer, which returns all the records.",
-        "SQL", "definition expression", "filter", "limit data", "query", "restrict data", "where clause")]
+        name: "Feature layer definition expression",
+        category: "Layers",
+        description: "Limit the features displayed on a map with a definition expression.",
+        instructions: "Press the 'Apply Expression' button to limit the features requested from the feature layer to those specified by the SQL query definition expression. Tap the 'Reset Expression' button to remove the definition expression on the feature layer, which returns all the records.",
+        tags: new[] { "SQL", "definition expression", "filter", "limit data", "query", "restrict data", "where clause" })]
     public class FeatureLayerDefinitionExpression : Activity
     {
         // Hold a reference to the map view

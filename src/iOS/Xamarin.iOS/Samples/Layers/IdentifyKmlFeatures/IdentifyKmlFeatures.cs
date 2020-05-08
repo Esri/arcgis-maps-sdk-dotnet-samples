@@ -23,11 +23,11 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
 {
     [Register("IdentifyKmlFeatures")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify KML features",
-        "Layers",
-        "Show a callout with formatted content for a KML feature.",
-        "Tap a feature to identify it. Feature information will be displayed in a callout.",
-        "KML", "KMZ", "Keyhole", "NOAA", "NWS", "OGC", "weather")]
+        name: "Identify KML features",
+        category: "Layers",
+        description: "Show a callout with formatted content for a KML feature.",
+        instructions: "Tap a feature to identify it. Feature information will be displayed in a callout.",
+        tags: new[] { "KML", "KMZ", "Keyhole", "NOAA", "NWS", "OGC", "weather" })]
     public class IdentifyKmlFeatures : UIViewController
     {
         // Hold references to UI controls.

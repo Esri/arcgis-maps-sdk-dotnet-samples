@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 {
     [Register("WMTSLayer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "WMTS layer",
-        "Layers",
-        "Display a layer from a Web Map Tile Service.",
-        "The layer will be displayed automatically. Use the buttons to choose a different method of loading the layer.",
-        "OGC", "layer", "raster", "tiled", "web map tile service")]
+        name: "WMTS layer",
+        category: "Layers",
+        description: "Display a layer from a Web Map Tile Service.",
+        instructions: "The layer will be displayed automatically. Use the buttons to choose a different method of loading the layer.",
+        tags: new[] { "OGC", "layer", "raster", "tiled", "web map tile service" })]
     public class WMTSLayer : UIViewController
     {
         // Hold references to UI controls.

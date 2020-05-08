@@ -16,11 +16,11 @@ using Esri.ArcGISRuntime.Mapping;
 namespace ArcGISRuntime.WPF.Samples.ShowLabelsOnLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show labels on layers",
-        "Layers",
-        "Display custom labels on a feature layer.",
-        "Pan and zoom around the United States. Labels for congressional districts will be shown in red for Republican districts and blue for Democrat districts. Notice how labels pop into view as you zoom in.",
-        "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization")]
+        name: "Show labels on layers",
+        category: "Layers",
+        description: "Display custom labels on a feature layer.",
+        instructions: "Pan and zoom around the United States. Labels for congressional districts will be shown in red for Republican districts and blue for Democrat districts. Notice how labels pop into view as you zoom in.",
+        tags: new[] { "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization" })]
     public partial class ShowLabelsOnLayer
     {
         // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:

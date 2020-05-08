@@ -17,11 +17,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.SimpleRenderers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Simple renderer",
-        "Symbology",
-        "Display common symbols for all graphics in a graphics overlay with a renderer.",
-        "The sample loads with a predefined simple renderer, which displays a red cross simple marker symbol for the graphics in the graphics overlay.",
-        "graphics", "marker", "renderer", "symbol", "symbolize", "symbology")]
+        name: "Simple renderer",
+        category: "Symbology",
+        description: "Display common symbols for all graphics in a graphics overlay with a renderer.",
+        instructions: "The sample loads with a predefined simple renderer, which displays a red cross simple marker symbol for the graphics in the graphics overlay.",
+        tags: new[] { "graphics", "marker", "renderer", "symbol", "symbolize", "symbology" })]
     public partial class SimpleRenderers : ContentPage
     {
         public SimpleRenderers()

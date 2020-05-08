@@ -23,11 +23,11 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "List geodatabase versions",
-        "Geoprocessing",
-        "Connect to a service and list versions of the geodatabase.",
-        "When the sample loads, a list of geodatabase versions and their properties will be displayed.",
-        "conflict resolution", "data management", "database", "multi-user", "sync", "version")]
+        name: "List geodatabase versions",
+        category: "Geoprocessing",
+        description: "Connect to a service and list versions of the geodatabase.",
+        instructions: "When the sample loads, a list of geodatabase versions and their properties will be displayed.",
+        tags: new[] { "conflict resolution", "data management", "database", "multi-user", "sync", "version" })]
     [Shared.Attributes.AndroidLayout("ListGeodatabaseVersions.axml")]
     public class ListGeodatabaseVersions : Activity
     {

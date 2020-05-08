@@ -15,11 +15,11 @@ using System.Collections.Generic;
 namespace ArcGISRuntime.UWP.Samples.WMSLayerUrl
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "WMS layer (URL)",
-        "Layers",
-        "Display a WMS layer using a WMS service URL.",
-        "The map will load automatically when the sample starts.",
-        "OGC", "WmsLayer", "web map service")]
+        name: "WMS layer (URL)",
+        category: "Layers",
+        description: "Display a WMS layer using a WMS service URL.",
+        instructions: "The map will load automatically when the sample starts.",
+        tags: new[] { "OGC", "WmsLayer", "web map service" })]
     public partial class WMSLayerUrl
     {
         // Hold the URL to the WMS service showing U.S. weather radar.

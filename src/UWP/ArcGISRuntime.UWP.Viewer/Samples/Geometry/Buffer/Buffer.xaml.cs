@@ -19,11 +19,11 @@ using Windows.UI.Xaml.Media;
 namespace ArcGISRuntime.UWP.Samples.Buffer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Buffer",
-        "Geometry",
-        "Create a buffer around a map point and display the results as a `Graphic`",
-        "1. Tap on the map.",
-        "analysis", "buffer", "euclidean", "geodesic", "geometry", "planar")]
+        name: "Buffer",
+        category: "Geometry",
+        description: "Create a buffer around a map point and display the results as a `Graphic`",
+        instructions: "1. Tap on the map.",
+        tags: new[] { "analysis", "buffer", "euclidean", "geodesic", "geometry", "planar" })]
     public partial class Buffer
     {
         public Buffer()

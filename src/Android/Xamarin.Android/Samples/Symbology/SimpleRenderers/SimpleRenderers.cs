@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.SimpleRenderers
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Simple renderer",
-        "Symbology",
-        "Display common symbols for all graphics in a graphics overlay with a renderer.",
-        "The sample loads with a predefined simple renderer, which displays a red cross simple marker symbol for the graphics in the graphics overlay.",
-        "graphics", "marker", "renderer", "symbol", "symbolize", "symbology")]
+        name: "Simple renderer",
+        category: "Symbology",
+        description: "Display common symbols for all graphics in a graphics overlay with a renderer.",
+        instructions: "The sample loads with a predefined simple renderer, which displays a red cross simple marker symbol for the graphics in the graphics overlay.",
+        tags: new[] { "graphics", "marker", "renderer", "symbol", "symbolize", "symbology" })]
     public class SimpleRenderers : Activity
     {
         // Hold a reference to the map view.

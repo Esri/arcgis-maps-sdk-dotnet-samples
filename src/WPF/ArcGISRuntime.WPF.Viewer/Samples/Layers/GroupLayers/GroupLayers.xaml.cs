@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.WPF.Samples.GroupLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Group layers",
-        "Layers",
-        "Group a collection of layers together and toggle their visibility as a group.",
-        "The layers in the map will be displayed in a table of contents. Toggle the checkbox next to a layer's name to change its visibility. Turning a group layer's visibility off will override the visibility of its child layers.",
-        "group layer", "layers")]
+        name: "Group layers",
+        category: "Layers",
+        description: "Group a collection of layers together and toggle their visibility as a group.",
+        instructions: "The layers in the map will be displayed in a table of contents. Toggle the checkbox next to a layer's name to change its visibility. Turning a group layer's visibility off will override the visibility of its child layers.",
+        tags: new[] { "group layer", "layers" })]
     public partial class GroupLayers
     {
         public GroupLayers()

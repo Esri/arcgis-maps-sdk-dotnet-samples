@@ -24,11 +24,11 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Query map image sublayer",
-        "Layers",
-        "Find features in a sublayer based on attributes and location.",
-        "Specify a minimum population in the input field (values under 1810000 will produce a selection in all layers) and tap the query button to query the sublayers in the current view extent. After a short time, the results for each sublayer will appear as graphics.",
-        "search and query")]
+        name: "Query map image sublayer",
+        category: "Layers",
+        description: "Find features in a sublayer based on attributes and location.",
+        instructions: "Specify a minimum population in the input field (values under 1810000 will produce a selection in all layers) and tap the query button to query the sublayers in the current view extent. After a short time, the results for each sublayer will appear as graphics.",
+        tags: new[] { "search and query" })]
     public class MapImageSublayerQuery : Activity
     {
         // Hold a reference to the map view.

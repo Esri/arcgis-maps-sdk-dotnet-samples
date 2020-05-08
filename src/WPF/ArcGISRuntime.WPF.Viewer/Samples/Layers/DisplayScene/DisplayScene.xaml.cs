@@ -13,11 +13,11 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.DisplayScene
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display a scene",
-        "Layers",
-        "Display a scene with a terrain surface and some imagery.",
-        "When loaded, the sample will display a scene. Pan and zoom to explore the scene.",
-        "3D", "basemap", "elevation", "scene", "surface")]
+        name: "Display a scene",
+        category: "Layers",
+        description: "Display a scene with a terrain surface and some imagery.",
+        instructions: "When loaded, the sample will display a scene. Pan and zoom to explore the scene.",
+        tags: new[] { "3D", "basemap", "elevation", "scene", "surface" })]
     public partial class DisplayScene
     {
         public DisplayScene()

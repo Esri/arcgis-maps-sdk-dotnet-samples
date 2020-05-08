@@ -19,11 +19,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer (feature service)",
-        "Layers",
-        "Show features from an online feature service.",
-        "Run the sample and view the feature service as an operational layer on top of the basemap. Zoom and pan around the map to see the features in greater detail.",
-        "feature table", "layer", "layers", "service")]
+        name: "Feature layer (feature service)",
+        category: "Layers",
+        description: "Show features from an online feature service.",
+        instructions: "Run the sample and view the feature service as an operational layer on top of the basemap. Zoom and pan around the map to see the features in greater detail.",
+        tags: new[] { "feature table", "layer", "layers", "service" })]
     public class FeatureLayerUrl : Activity
     {
         // Hold a reference to the map view

@@ -125,9 +125,9 @@ def update_attribute(sample, sample_dir):
 
                     # Create the new attributes
                     new_attributes = "    [ArcGISRuntime.Samples.Shared.Attributes.Sample(\n"
-                    new_attributes += "        \"" + sample.friendly_name + "\",\n"
-                    new_attributes += "        \"" + sample.category + "\",\n"
-                    new_attributes += "        \"" + sample.description.replace("\"", "\\\"") + "\",\n"
+                    new_attributes += "        name: \"" + sample.friendly_name + "\",\n"
+                    new_attributes += "        category: \"" + sample.category + "\",\n"
+                    new_attributes += "        description: \"" + sample.description.replace("\"", "\\\"") + "\",\n"
 
                     # Add the instructions
                     if type(sample.how_to_use) is str:
@@ -140,7 +140,7 @@ def update_attribute(sample, sample_dir):
                     # Instructions can have multiple items, we only add the first one.
                     if "\n" in instructions:
                         instructions = instructions.split("\n")[0]
-                    instructions = "        \"" + instructions.replace("\"", "\\\"") + "\""
+                    instructions = "        instructions: \"" + instructions.replace("\"", "\\\"") + "\""
                         
                     new_attributes += instructions
 
@@ -154,11 +154,12 @@ def update_attribute(sample, sample_dir):
                         tags = ["Featured"]
                         
                     if len(tags)>0:
-                        new_attributes += ",\n        "
+                        new_attributes += ",\n        tags: new[] { "
                         for tag in tags:
                             new_attributes += "\"" + tag +"\", "
                         # Remove the trailing comma-space
                         new_attributes = new_attributes[:-2]
+                        new_attributes += " }"
 
                     # Add the closing characters
                     new_attributes += ")]\n"

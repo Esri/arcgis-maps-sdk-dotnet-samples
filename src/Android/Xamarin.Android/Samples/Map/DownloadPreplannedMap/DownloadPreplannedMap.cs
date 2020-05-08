@@ -35,8 +35,6 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
         description: "Take a map offline using a preplanned map area.",
         instructions: "Downloading tiles for offline use requires authentication with the web map's server. An [ArcGIS Online](www.arcgis.com) account is required to use this sample.",
         tags: new[] { "map area", "offline", "pre-planned", "preplanned" })]
-        tags: new[] { "map area", "offline", "pre-planned", "preplanned" })]
-        "map area", "offline", "pre-planned", "preplanned")]
     public class DownloadPreplannedMap : Activity
     {
         // Hold references to the UI controls.

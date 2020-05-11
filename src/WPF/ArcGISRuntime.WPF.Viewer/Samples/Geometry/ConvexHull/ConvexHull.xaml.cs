@@ -29,7 +29,7 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.Wgs84);
+        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
 
         public ConvexHull()
         {
@@ -63,11 +63,11 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHull
         {
             try
             {
-                // Project the tapped location to WGS 84.
-                var projectedPoint = (MapPoint)GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
+                // Normalize the tapped point.
+                var centralizedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
 
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
-                _inputPointCollection.Add(projectedPoint);
+                _inputPointCollection.Add(centralizedPoint);
 
                 // Check if there are at least three points.
                 if (_inputPointCollection.Count > 2)

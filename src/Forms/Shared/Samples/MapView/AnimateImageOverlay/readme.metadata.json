@@ -1,0 +1,22 @@
+{
+    "category": "MapView",
+    "description": "Animate a series of images with an image overlay.",
+    "formal_name": "AnimateImageOverlay",
+    "ignore": false,
+    "images": [
+        "AnimateImageOverlay.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/AnimateImageOverlay.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Animate images with image overlay"
+}

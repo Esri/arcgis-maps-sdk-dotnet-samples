@@ -97,6 +97,9 @@ def update_attribute(sample, sample_dir):
         else:
             ending = ".xaml.cs"
 
+        # Handle edge case with AR samples
+        name = name.replace("NavigateAR", "RoutePlanner").replace("ViewHiddenInfrastructureAR", "PipePlacer")
+
         # Open the file
         path_to_source = os.path.join(sample_dir, name + ending)
         with open(path_to_source, 'r') as f:

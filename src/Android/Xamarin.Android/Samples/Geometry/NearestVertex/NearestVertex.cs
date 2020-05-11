@@ -109,7 +109,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
         private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped location
-            MapPoint tappedLocation = geoViewInputEventArgs.Location;
+            MapPoint tappedLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geoViewInputEventArgs.Location);
 
             // Show the tapped location
             _tappedLocationGraphic.Geometry = tappedLocation;
@@ -146,7 +146,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
 
             // Add the label and map to the view
             layout.AddView(_resultTextView);
-            _myMapView = new MapView(this) { WrapAroundMode = WrapAroundMode.Disabled };
+            _myMapView = new MapView(this);
             layout.AddView(_myMapView);
 
             // Show the layout in the app.

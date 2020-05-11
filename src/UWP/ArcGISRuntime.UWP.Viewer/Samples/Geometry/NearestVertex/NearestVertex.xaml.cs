@@ -93,7 +93,7 @@ namespace ArcGISRuntime.UWP.Samples.NearestVertex
         private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped location
-            MapPoint tappedLocation = geoViewInputEventArgs.Location;
+            MapPoint tappedLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geoViewInputEventArgs.Location);
 
             // Show the tapped location
             _tappedLocationGraphic.Geometry = tappedLocation;

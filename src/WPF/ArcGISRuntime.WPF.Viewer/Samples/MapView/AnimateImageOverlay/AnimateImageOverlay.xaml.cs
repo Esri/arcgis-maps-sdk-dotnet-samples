@@ -27,12 +27,23 @@ namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9465e8c02b294c69bdb42de056a23ab1")]
     public partial class AnimateImageOverlay
     {
+        // Image overlay for displaying the images from the file system in the scene.
         private ImageOverlay _imageOverlay;
-        private Timer _timer;
-        private string[] _imagePaths;
+
+        // Envelope for geographic location of the images.
         private Envelope _pacificEnvelope;
-        private int _imageIndex = 0;
+
+        // Timer for animating images.
+        private Timer _timer;
+
+        // Boolean for stopping and starting the animation.
         private bool _animationStopped = false;
+
+        // File paths for all of the images.
+        private string[] _imagePaths;
+
+        // Index of the image currently being displayed.
+        private int _imageIndex = 0;
 
         public AnimateImageOverlay()
         {
@@ -67,7 +78,7 @@ namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
 
             // Create new Timer and set the timeout interval to approximately 15 frames a second.
             _timer = new Timer(AnimateOverlay);
-            _timer.Change(0, 1000/15);
+            _timer.Change(0, 1000 / 15);
 
             // Populate the combobox for selecting FPS.
             FPSComboBox.ItemsSource = new int[] { 15, 30, 60 };

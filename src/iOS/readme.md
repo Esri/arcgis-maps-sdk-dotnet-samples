@@ -183,6 +183,7 @@
 
 ## MapView
 
+* [Animate images with image overlay](Xamarin.iOS/Samples/MapView/AnimateImageOverlay/readme.md) - Animate a series of images with an image overlay.
 * [Change time extent](Xamarin.iOS/Samples/MapView/ChangeTimeExtent/readme.md) - Filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](Xamarin.iOS/Samples/MapView/ChangeViewpoint/readme.md) - Set the map view to a new viewpoint.
 * [Choose camera controller](Xamarin.iOS/Samples/MapView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.

@@ -4,18 +4,39 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <Border Style="{StaticResource BorderStyle}">
-            <StackPanel Orientation="Vertical">
-                <StackPanel Orientation="Horizontal">
-                    <Slider />
-                    <Label Content="Opacity" />
+        <esri:SceneView x:Name="MySceneView" />
+        <Border Style="{StaticResource BorderStyle}" Width="260">
+            <StackPanel Width="250">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                    <Label
+                        Margin="5"
+                        HorizontalAlignment="Right"
+                        Content="Opacity:" />
+                    <Slider
+                        Width="150"
+                        VerticalAlignment="Center"
+                        Maximum="1"
+                        Minimum="0"
+                        ValueChanged="ChangeOpacity"
+                        Value="1" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Button Content="Start" />
-                    <ComboBox />
+                <StackPanel
+                    Margin="5"
+                    HorizontalAlignment="Stretch"
+                    Orientation="Horizontal">
+                    <Button
+                        Margin="5"
+                        Padding="5"
+                        Click="StartStopAnimation"
+                        Content="Stop" />
+                    <Label VerticalAlignment="Center" Content="FPS:" />
+                    <ComboBox
+                        Name="FPSComboBox"
+                        Width="75"
+                        Height="25"
+                        SelectionChanged="FPSSelected" />
                 </StackPanel>
             </StackPanel>
         </Border>
-        <esri:SceneView x:Name="MySceneView" />
     </Grid>
 </UserControl>

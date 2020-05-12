@@ -7,24 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 using System.Threading;
-using ArcGISRuntime.Samples.Managers;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
 {
@@ -35,14 +26,13 @@ namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9465e8c02b294c69bdb42de056a23ab1")]
     public partial class AnimateImageOverlay
-
-
     {
         private ImageOverlay _imageOverlay;
-
         private Timer _timer;
-        private string[] images;
-        private Envelope pacificEnvelope;
+        private string[] _imagePaths;
+        private Envelope _pacificEnvelope;
+        private int _imageIndex = 0;
+        private bool _animationStopped = false;
 
         public AnimateImageOverlay()
         {
@@ -55,59 +45,67 @@ namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
             // Create the scene.
             MySceneView.Scene = new Scene(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")));
 
-            // Set the elevation source for the scene.
-            //MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
-
-            //// create an envelope of the pacific southwest sector for displaying the image frame
-            //const Point pointForImageFrame(-120.0724273439448, 35.131016955536694, SpatialReference(4326));
-            //m_pacificSouthwestEnvelope = Envelope(pointForImageFrame, 15.09589635986124, -14.3770441522488);
-
+            // Create an envelope for the imagery.
             var pointForFrame = new MapPoint(-120.0724273439448, 35.131016955536694, SpatialReferences.Wgs84);
-            pacificEnvelope = new Envelope(pointForFrame, 15.09589635986124, -14.3770441522488);
+            _pacificEnvelope = new Envelope(pointForFrame, 15.09589635986124, -14.3770441522488);
 
-            //// create a camera, looking at the pacific southwest sector
-            //const Point observationPoint(-116.621, 24.7773, 856977);
-            //const Camera camera(observationPoint, 353.994, 48.5495, 0);
-            //const Viewpoint pacificSouthwestViewpoint(observationPoint, camera);
-            //m_scene->setInitialViewpoint(pacificSouthwestViewpoint);
-
+            // Create a camera, looking at the pacific southwest sector.
             var observationPoint = new MapPoint(-116.621, 24.7773, 856977, SpatialReferences.Wgs84);
             var camera = new Camera(observationPoint, 353.994, 48.5495, 0);
+
+            // Set the viewpoint of the scene to this camera.
             var pacificViewpoint = new Viewpoint(observationPoint, camera);
             MySceneView.Scene.InitialViewpoint = pacificViewpoint;
 
-            //// create an image overlay
-            //m_imageOverlay = new ImageOverlay(this);
+            // Create an image overlay and add it ot the scene..
             _imageOverlay = new ImageOverlay();
-
-            //// append the image overlay to the scene view
-            //m_sceneView->imageOverlays()->append(m_imageOverlay);
-
             MySceneView.ImageOverlays.Add(_imageOverlay);
 
-            //// Create new Timer and set the timeout interval to 68
-            //// 68 ms interval timer equates to approximately 15 frames a second
-            //m_timer = new QTimer(this);
-            //m_timer->setInterval(68);
-            
-
+            // Create an array of the image filepaths.
             var imageFolder = Path.Combine(DataManager.GetDataFolder("9465e8c02b294c69bdb42de056a23ab1"), "PacificSouthWest");
+            _imagePaths = Directory.GetFiles(imageFolder);
 
-            images = Directory.GetFiles(imageFolder);
+            // Create new Timer and set the timeout interval to approximately 15 frames a second.
+            _timer = new Timer(AnimateOverlay);
+            _timer.Change(0, 1000/15);
 
-            _timer = new Timer(timerCallback);
-            _timer.Change(0, 68);
-
+            // Populate the combobox for selecting FPS.
+            FPSComboBox.ItemsSource = new int[] { 15, 30, 60 };
+            FPSComboBox.SelectedIndex = 0;
         }
 
-        private int m_index = 0;
-
-        private void timerCallback(object state)
+        private void AnimateOverlay(object state)
         {
+            if (!_animationStopped)
+            {
+                // Create a new image frame, using the image filepath and the envelope.
+                _imageOverlay.ImageFrame = new ImageFrame(new Uri(_imagePaths[_imageIndex]), _pacificEnvelope);
 
-            _imageOverlay.ImageFrame = new ImageFrame(new Uri(images[m_index]), pacificEnvelope);
+                // Increase the index of the image path.
+                _imageIndex = (_imageIndex + 1) % _imagePaths.Length;
+            }
+        }
 
-            m_index++;
+        private void StartStopAnimation(object sender, RoutedEventArgs e)
+        {
+            // Stop or start the animation.
+            _animationStopped = !_animationStopped;
+
+            // Update the button text to reflect the state of animation.
+            ((Button)sender).Content = _animationStopped ? "Start" : "Stop";
+        }
+
+        private void ChangeOpacity(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            // Update the opacity of the image overlay.
+            if (_imageOverlay != null) _imageOverlay.Opacity = e.NewValue;
+        }
+
+        private void FPSSelected(object sender, SelectionChangedEventArgs e)
+        {
+            // Calculate the new time interval using the selected frames per second.
+            int newInterval = 1000 / (int)FPSComboBox.SelectedItem;
+            _timer?.Change(0, newInterval);
         }
     }
 }

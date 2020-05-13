@@ -6,8 +6,8 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" />
-        <Border Width="260" Style="{StaticResource BorderStyle}">
-            <StackPanel Width="250">
+        <Border Width="300" Style="{StaticResource BorderStyle}">
+            <StackPanel Width="275">
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <TextBlock
                         Margin="5"
@@ -16,10 +16,10 @@
                     <Slider
                         Width="150"
                         VerticalAlignment="Center"
-                        Maximum="1"
+                        Maximum="100"
                         Minimum="0"
                         ValueChanged="ChangeOpacity"
-                        Value="1" />
+                        Value="100" />
                 </StackPanel>
                 <StackPanel
                     Margin="5"
@@ -34,8 +34,8 @@
                     <ComboBox
                         Name="FPSComboBox"
                         Width="75"
-                        Height="25"
-                        SelectionChanged="FPSSelected" />
+                        SelectionChanged="FPSSelected"
+                        VerticalAlignment="Stretch"/>
                 </StackPanel>
             </StackPanel>
         </Border>

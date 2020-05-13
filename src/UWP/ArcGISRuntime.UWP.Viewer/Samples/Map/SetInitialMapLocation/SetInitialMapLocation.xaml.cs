@@ -12,10 +12,11 @@ using Esri.ArcGISRuntime.Mapping;
 namespace ArcGISRuntime.UWP.Samples.SetInitialMapLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set initial map location",
-        "Map",
-        "This sample creates a map with a standard ESRI Imagery with Labels basemap that is centered on a latitude and longitude location and zoomed into a specific level of detail.",
-        "")]
+        name: "Set initial map location",
+        category: "Map",
+        description: "Display a basemap centered at an initial location and scale.",
+        instructions: "When the map loads, note the specific location and scale of the initial map view.",
+        tags: new[] { "LOD", "basemap", "center", "envelope", "extent", "initial", "lat", "latitude", "level of detail", "location", "long", "longitude", "scale", "zoom level" })]
     public partial class SetInitialMapLocation
     {
         public SetInitialMapLocation()

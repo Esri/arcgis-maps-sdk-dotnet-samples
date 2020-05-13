@@ -27,10 +27,11 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
 {
     [Register("ReverseGeocode")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Reverse geocode",
-        "Search",
-        "Use an online geocoding service to find the address for a point.",
-        "")]
+        name: "Reverse geocode",
+        category: "Search",
+        description: "Use an online service to find the address for a tapped point.",
+        instructions: "Tap the map to see the nearest address displayed in a callout.",
+        tags: new[] { "address", "geocode", "locate", "reverse geocode", "search" })]
     public class ReverseGeocode : UIViewController
     {
         // Hold references to UI controls.

@@ -21,11 +21,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
     [Register("FeatureLayerGeoPackage")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer (GeoPackage)",
-        "Data",
-        "This sample demonstrates how to open a GeoPackage and show a GeoPackage feature table in a feature layer.",
-        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically."
-        )]
+        name: "Feature layer (GeoPackage)",
+        category: "Data",
+        description: "Display features from a local GeoPackage.",
+        instructions: "Pan and zoom around the map. View the data loaded from the geopackage.",
+        tags: new[] { "OGC", "feature table", "geopackage", "gpkg", "package", "standards" })]
     public class FeatureLayerGeoPackage : UIViewController
     {
         // Hold references to UI controls.

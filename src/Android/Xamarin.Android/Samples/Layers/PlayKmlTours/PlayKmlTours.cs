@@ -25,10 +25,11 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Play KML tour",
-        "Layers",
-        "Play tours in KML files.",
-        "")]
+        name: "Play KML Tour",
+        category: "Layers",
+        description: "Play tours in KML files.",
+        instructions: "The sample will load the KMZ file from ArcGIS Online. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. When you're ready to show the tour, use the reset button to return the tour to the unplayed state.",
+        tags: new[] { "KML", "animation", "interactive", "narration", "pause", "play", "story", "tour" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f10b1d37fdd645c9bc9b189fb546307c")]
     public class PlayKmlTours : Activity
     {

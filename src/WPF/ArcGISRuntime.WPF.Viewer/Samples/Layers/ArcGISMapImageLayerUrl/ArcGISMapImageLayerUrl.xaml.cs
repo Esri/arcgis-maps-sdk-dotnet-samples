@@ -13,10 +13,11 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.ArcGISMapImageLayerUrl
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS map image layer (URL)",
-        "Layers",
-        "This sample demonstrates how to add an ArcGISMapImageLayer as a base layer in a map. The ArcGISMapImageLayer comes from an ArcGIS Server sample web service.",
-        "")]
+        name: "ArcGIS map image layer",
+        category: "Layers",
+        description: "Add an ArcGIS Map Image Layer from a URL to a map.",
+        instructions: "",
+        tags: new[] { "ArcGIS dynamic map service layer", "ArcGISMapImageLayer", "layers" })]
     public partial class ArcGISMapImageLayerUrl
     {
         public ArcGISMapImageLayerUrl()

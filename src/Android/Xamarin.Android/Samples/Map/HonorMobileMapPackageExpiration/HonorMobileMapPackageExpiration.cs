@@ -20,11 +20,11 @@ namespace ArcGISRuntimeXamarin.Samples.HonorMobileMapPackageExpiration
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Honor mobile map package expiration date",
-        "Map",
-        "Access the expiration information of an expired mobile map package.",
-        "",
-        "Featured")]
+        name: "Honor mobile map package expiration date",
+        category: "Map",
+        description: "Access the expiration information of an expired mobile map package.",
+        instructions: "Load the sample. The author of the MMPK used in this sample chose to set the MMPK's map as still readable, even if it's expired. The sample presents expiration information to the user.",
+        tags: new[] { "expiration", "mmpk", "Featured" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("174150279af74a2ba6f8b87a567f480b")]
     public class HonorMobileMapPackageExpiration : Activity
     {

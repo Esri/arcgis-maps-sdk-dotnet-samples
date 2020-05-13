@@ -20,10 +20,11 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Viewshed for camera",
-        "Analysis",
-        "This sample demonstrates how to create a `LocationViewshed` to display interactive viewshed results in the scene view. The viewshed observer is defined by the scene view camera to evaluate visible and obstructed areas of the scene from that location.",
-        "")]
+        name: "Viewshed for camera",
+        category: "Analysis",
+        description: "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
+        instructions: "The sample will start with a viewshed created from the initial camera location, so only the visible (green) portion of the viewshed will be visible. Move around the scene to see the obstructed (red) portions. Tap the button to update the viewshed to the current camera position.",
+        tags: new[] { "3D", "Scene", "viewshed", "visibility analysis" })]
     public class ViewshedCamera : Activity
     {
         // Hold a reference to the scene view

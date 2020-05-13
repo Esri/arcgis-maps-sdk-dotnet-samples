@@ -16,10 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Service feature table (no cache)",
-        "Data",
-        "This sample demonstrates how to use a feature service in on interaction no cache mode.",
-        "")]
+        name: "Service feature table (no cache)",
+        category: "Data",
+        description: "Display a feature layer from a service using the **no cache** feature request mode.",
+        instructions: "Run the sample and pan and zoom around the map. With each interaction, new features will be requested from the service and displayed on the map.",
+        tags: new[] { "cache", "feature request mode", "performance" })]
     public partial class ServiceFeatureTableNoCache : ContentPage
     {
         public ServiceFeatureTableNoCache()

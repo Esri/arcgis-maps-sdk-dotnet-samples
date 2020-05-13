@@ -20,10 +20,11 @@ using Esri.ArcGISRuntime.UI.Controls;
 namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Take screenshot",
-        "MapView",
-        "This sample demonstrates how you can take screenshot of a map. Click 'capture' button to take a screenshot of the visible area of the map. Created image is shown in the sample after creation.",
-        "")]
+        name: "Take screenshot",
+        category: "MapView",
+        description: "Take a screenshot of the map.",
+        instructions: "Pan and zoom to find an interesting location, then use the button to take a screenshot. The screenshot will be displayed. Note that there may be a small delay if the map is still rendering when you push the button.",
+        tags: new[] { "capture", "export", "image", "print", "screen capture", "screenshot", "share", "shot" })]
     public partial class TakeScreenshot
     {
         public TakeScreenshot()

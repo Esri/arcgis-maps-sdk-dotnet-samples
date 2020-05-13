@@ -18,10 +18,11 @@ namespace ArcGISRuntime.Samples.ArcGISTiledLayerUrl
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS tiled layer (URL)",
-        "Layers",
-        "This sample demonstrates how to add an ArcGISTiledLayer as a base layer in a map. The ArcGISTiledLayer comes from an ArcGIS Server sample web service.",
-        "")]
+        name: "ArcGIS tiled layer",
+        category: "Layers",
+        description: "Load an ArcGIS tiled layer from a URL.",
+        instructions: "Launch the app to view the \"World Topographic Map\" tile layer as the basemap. ",
+        tags: new[] { "basemap", "layers", "raster tiles", "tiled layer", "visualization" })]
     public class ArcGISTiledLayerUrl : Activity
     {
         // Hold a reference to the map view

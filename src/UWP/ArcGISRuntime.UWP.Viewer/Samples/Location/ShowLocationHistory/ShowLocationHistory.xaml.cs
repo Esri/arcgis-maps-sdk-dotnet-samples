@@ -19,11 +19,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.ShowLocationHistory
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show location history",
-        "Location",
-        "Display your location history on the map.",
-        "",
-        "Featured")]
+        name: "Show location history",
+        category: "Location",
+        description: "Display your location history on the map.",
+        instructions: "Click 'Start tracking' to start tracking your location, which will appear as points on the map. A line will connect the points for easier visualization. Click 'Stop tracking' to stop updating the location history. This sample uses a simulated data source to allow the sample to be useful on desktop/non-mobile devices. To track a user's real position, use the `SystemLocationDataSource` instead.",
+        tags: new[] { "GPS", "bread crumb", "breadcrumb", "history", "movement", "navigation", "real-time", "trace", "track", "trail", "Featured" })]
     public partial class ShowLocationHistory
     {
         // Track whether location tracking is enabled.

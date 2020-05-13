@@ -24,10 +24,11 @@ using Windows.UI.Xaml;
 namespace ArcGISRuntime.UWP.Samples.DownloadPreplannedMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Download preplanned map area",
-        "Map",
-        "Take a map offline using a preplanned map area",
-        "Select a map area to take offline, then use the button to take it offline. Click 'Delete offline areas' to remove any downloaded map areas.")]
+        name: "Download preplanned map area",
+        category: "Map",
+        description: "Take a map offline using a preplanned map area.",
+        instructions: "Downloading tiles for offline use requires authentication with the web map's server. An [ArcGIS Online](www.arcgis.com) account is required to use this sample.",
+        tags: new[] { "map area", "offline", "pre-planned", "preplanned" })]
     public partial class DownloadPreplannedMap
     {
         // ID of a web map with preplanned map areas.

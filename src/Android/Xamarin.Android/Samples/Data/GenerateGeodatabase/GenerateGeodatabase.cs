@@ -31,10 +31,11 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate geodatabase",
-        "Data",
-        "This sample demonstrates how to take a feature service offline by generating a geodatabase.",
-        "1. Pan and zoom to the area you would like to download features for, ensuring that all features are within the rectangle.\n2. Tap on the button. This will start the process of generating the offline geodatabase.\n3. Observe that the sample unregisters the geodatabase. This is best practice when changes won't be edited and synced back to the service.\n\nNote that the basemap will be automatically downloaded from an ArcGIS Online portal.")]
+        name: "Generate geodatabase",
+        category: "Data",
+        description: "Generate a local geodatabase from an online feature service.",
+        instructions: "Zoom to any extent. Then tap the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
+        tags: new[] { "disconnected", "local geodatabase", "offline", "sync" })]
     public class GenerateGeodatabase : Activity
     {
         // URL for a feature service that supports geodatabase generation.

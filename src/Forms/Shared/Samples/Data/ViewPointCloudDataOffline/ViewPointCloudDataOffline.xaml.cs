@@ -15,10 +15,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "View point cloud data offline",
-        "Data",
-        "Display local 3D point cloud data.",
-        "")]
+        name: "View point cloud data offline",
+        category: "Data",
+        description: "Display local 3D point cloud data.",
+        instructions: "The sample starts with a point cloud layer loaded and draped on top of a scene. Pan and zoom to explore the scene and see the detail of the point cloud layer.",
+        tags: new[] { "3D", "lidar", "point cloud" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("34da965ca51d4c68aa9b3a38edb29e00")]
     public partial class ViewPointCloudDataOffline : ContentPage
     {

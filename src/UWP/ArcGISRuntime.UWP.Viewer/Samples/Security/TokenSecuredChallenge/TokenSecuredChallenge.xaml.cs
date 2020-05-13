@@ -22,11 +22,11 @@ using Windows.UI.Xaml.Media;
 namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-           "ArcGIS token challenge",
-           "Security",
-           "This sample demonstrates how to authenticate with ArcGIS Server using ArcGIS Tokens to access a secure service. Accessing secured services requires a login that's been defined on the server.",
-           "1. When you run the sample, the app will load a map that contains a layer from a secured service.\n2. You will be challenged for a user name and password to view that layer.\n3. Enter the correct user name (user1) and password (user1).\n4. If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
-           "Authentication, Security, ArcGIS Token")]
+        name: "ArcGIS token challenge",
+        category: "Security",
+        description: "This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.",
+        instructions: "When you run the sample, the app will load a map that contains a layer from a secured service. Then, you will be challenged for a user name and password to view that layer. Enter the correct user name (user1) and password (user1). If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
+        tags: new[] { "authentication", "security", "token" })]
     public partial class TokenSecuredChallenge
     {
         // Public and secured map service URLs.

@@ -20,10 +20,11 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 {
     [Register("TakeScreenshot")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Take screenshot",
-        "MapView",
-        "This sample demonstrates how you can take screenshot of a map. The app has a Screenshot button in the bottom toolbar you can tap to take screenshot of the visible area of the map. You can pan or zoom to a specific location and tap on the button, which also shows you the preview of the image produced. You can tap on the Close Preview button to close image preview.",
-        "")]
+        name: "Take screenshot",
+        category: "MapView",
+        description: "Take a screenshot of the map.",
+        instructions: "Pan and zoom to find an interesting location, then use the button to take a screenshot. The screenshot will be displayed. Note that there may be a small delay if the map is still rendering when you push the button.",
+        tags: new[] { "capture", "export", "image", "print", "screen capture", "screenshot", "share", "shot" })]
     public class TakeScreenshot : UIViewController
     {
         // Hold references to UI controls.

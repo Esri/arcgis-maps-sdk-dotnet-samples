@@ -19,10 +19,11 @@ namespace ArcGISRuntime.Samples.GeoViewSync
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("GeoViewSync.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "GeoView viewpoint synchronization",
-        "MapView",
-        "This sample demonstrates how to keep two geo views (MapView/SceneView) in sync with each other.",
-        "")]
+        name: "GeoView viewpoint synchronization",
+        category: "MapView",
+        description: "Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.",
+        instructions: "Interact with the MapView or SceneView by zooming or panning. The other MapView or SceneView will automatically focus on the same viewpoint.",
+        tags: new[] { "3D", "automatic refresh", "event", "event handler", "events", "extent", "interaction", "interactions", "pan", "sync", "synchronize", "zoom" })]
     public class GeoViewSync : Activity
     {
         // Hold references to the GeoViews

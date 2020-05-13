@@ -32,11 +32,11 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("Animate3DGraphic.axml")]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63","e87c154fb9c2487f999143df5b08e9b1","5a9b60cee9ba41e79640a06bcdf8084d","12509ffdc684437f8f2656b0129d2c13","681d6f7694644709a7c830ec57a2d72b")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Animate 3D graphic",
-        "GraphicsOverlay",
-        "This sample demonstrates how to animate a graphic's position and follow it using a camera controller.",
-        "Click-and-drag to pan the sceneview, orbiting the moving plane. Click 'Camera' to toggle between the default and the orbiting camera controller.\nThe plane's route is shown on the inset map in the bottom left corner of the screen. The progress through the plane's mission is shown in a slider within the stats panel. Click 'Stats' to toggle stats display. Drag the slider to seek through the mission (like you might seek through a song). Tap 'Mission' to choose from a list of alternative routes. Changing the settings for choosing a different mission or modifying mission progress will automatically re-start the animation if it is currently paused.\n\nNote that this is a graphics-intensive sample; performance may be degraded in certain situations (such as using a simulator)."
-        )]
+        name: "Animate 3D graphic",
+        category: "GraphicsOverlay",
+        description: "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
+        instructions: "Animation Controls:",
+        tags: new[] { "Camera", "ModelSceneSymbol", "OrbitGeoElementCameraController", "RendererSceneProperties", "SceneView" })]
     public class Animate3DGraphic : Activity
     {
         // Hold references to UI components so that they can be accessed by the sample programmatically

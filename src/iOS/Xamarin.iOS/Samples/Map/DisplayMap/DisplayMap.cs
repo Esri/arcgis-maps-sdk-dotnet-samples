@@ -16,10 +16,11 @@ namespace ArcGISRuntime.Samples.DisplayMap
 {
     [Register("DisplayMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display map",
-        "Map",
-        "This sample demonstrates how to display a map with a basemap.",
-        "")]
+        name: "Display map",
+        category: "Map",
+        description: "Display a map with an imagery basemap.",
+        instructions: "Run the sample to view the map. Pan and zoom to navigate the map.",
+        tags: new[] { "basemap", "map" })]
     public class DisplayMap : UIViewController
     {
         // Hold references to UI controls.

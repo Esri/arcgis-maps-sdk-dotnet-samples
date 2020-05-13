@@ -15,10 +15,11 @@ using Esri.ArcGISRuntime.Geometry;
 namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "WMS layer (URL)",
-        "Layers",
-        "Add a layer from a WMS service to a map.",
-        "")]
+        name: "WMS layer (URL)",
+        category: "Layers",
+        description: "Display a WMS layer using a WMS service URL.",
+        instructions: "The map will load automatically when the sample starts.",
+        tags: new[] { "OGC", "WmsLayer", "web map service" })]
     public partial class WMSLayerUrl
     {
         // Hold the URL to the WMS service showing U.S. weather radar.

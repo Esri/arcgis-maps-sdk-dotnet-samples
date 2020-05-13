@@ -17,10 +17,11 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
 {
     [Register("SetMinMaxScale")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set min & max scale",
-        "Map",
-        "This sample demonstrates how to set the minimum and maximum scale of a Map. Setting the minimum and maximum scale for the Map can be useful in keeping the user focused at a certain level of detail.",
-        "")]
+        name: "Set min & max scale",
+        category: "Map",
+        description: "Restrict zooming between specific scale ranges.",
+        instructions: "Zoom in and out of the map. The zoom extents of the map are limited between the given minimum and maximum scales.",
+        tags: new[] { "area of interest", "level of detail", "maximum", "minimum", "scale", "viewpoint" })]
     public class SetMinMaxScale : UIViewController
     {
         // Hold references to UI controls.

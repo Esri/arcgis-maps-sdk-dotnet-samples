@@ -18,10 +18,11 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 {
     [Register("ManageOperationalLayers")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Manage operational layers",
-        "Map",
-        "Add, remove, and reorder operational layers in a map.",
-        "")]
+        name: "Manage operational layers",
+        category: "Map",
+        description: "Add, remove, and reorder operational layers in a map.",
+        instructions: "When the app starts, a list displays the operational layers that are currently displayed in the map. Right-tap on the list item to remove the layer, or left-tap to move it to the top. The map will be updated automatically.",
+        tags: new[] { "add", "delete", "layer", "map", "remove" })]
     public class ManageOperationalLayers : UIViewController
     {
         // Hold references to UI controls.

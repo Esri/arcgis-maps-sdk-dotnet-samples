@@ -19,10 +19,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create a feature collection layer",
-        "Layers",
-        "This sample demonstrates how to create a new feature collection with several feature collection tables. The collection is displayed in the map as a feature collection layer.",
-        "")]
+        name: "Feature collection layer",
+        category: "Layers",
+        description: "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
+        instructions: "When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry.",
+        tags: new[] { "Layers", "feature collection" })]
 	public partial class CreateFeatureCollectionLayer : ContentPage
 	{
 		public CreateFeatureCollectionLayer ()

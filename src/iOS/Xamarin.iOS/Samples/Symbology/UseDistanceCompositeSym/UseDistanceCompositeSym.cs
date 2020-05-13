@@ -22,10 +22,11 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 {
     [Register("UseDistanceCompositeSym")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Distance composite symbol",
-        "Symbology",
-        "This sample demonstrates how to create a `DistanceCompositeSceneSymbol` with unique marker symbols to display at various distances from the camera.",
-        "1. When the Scene initially loads, you will be looking at a point graphic symbolized with a 3D model symbol (airplane).\n2. Zoom away slightly from the graphic and the symbol will change to a blue 3D cone symbol (pointing in the direction of flight).\n3. Zoom farther from the graphic and the symbol will change to a blue circle marker symbol.")]
+        name: "Distance composite scene symbol",
+        category: "Symbology",
+        description: "Change a graphic's symbol based on the camera's proximity to it.",
+        instructions: "The sample starts looking at a plane. Zoom out from the plane to see it turn into a cone. Keeping zooming out and it will turn into a point.",
+        tags: new[] { "3D", "data", "graphic", "range", "symbol" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public class UseDistanceCompositeSym : UIViewController
     {

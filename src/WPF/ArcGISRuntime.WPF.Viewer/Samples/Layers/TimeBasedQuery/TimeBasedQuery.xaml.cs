@@ -16,10 +16,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.TimeBasedQuery
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Time-based query",
-        "Layers",
-        "This sample demonstrates how to apply a time-based parameter to a feature layer query.",
-        "")]
+        name: "Time-based query",
+        category: "Layers",
+        description: "Query data using a time extent. ",
+        instructions: "Run the sample, and a subset of records will be displayed on the map.",
+        tags: new[] { "query", "time", "time extent" })]
     public partial class TimeBasedQuery
     {
         // Hold a URI pointing to the feature service

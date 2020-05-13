@@ -14,10 +14,11 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.DisplayAnnotation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display annotation",
-        "Layers",
-        "Display annotation from a feature service URL.",
-        "")]
+        name: "Display annotation",
+        category: "Layers",
+        description: "Display annotation from a feature service URL.",
+        instructions: "Pan and zoom to see names of waters and burns in a small region of Scotland.",
+        tags: new[] { "annotation", "cartography", "labels", "placement", "reference scale", "text", "utility" })]
     public partial class DisplayAnnotation
     {
         public DisplayAnnotation()

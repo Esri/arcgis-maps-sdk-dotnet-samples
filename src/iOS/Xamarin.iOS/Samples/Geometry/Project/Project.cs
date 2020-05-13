@@ -20,10 +20,11 @@ namespace ArcGISRuntimeXamarin.Samples.Project
 {
     [Register("Project")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Project",
-        "Geometry",
-        "Project a point to another spatial reference.",
-        "")]
+        name: "Project",
+        category: "Geometry",
+        description: "Project a point from one spatial reference to another.",
+        instructions: "Tap anywhere on the map. A callout will display the clicked location's coordinate in the original (basemap's) spatial reference and in the projected spatial reference.",
+        tags: new[] { "WGS 84", "Web Mercator", "coordinate system", "coordinates", "latitude", "longitude", "projected", "projection", "spatial reference" })]
     public class Project : UIViewController
     {
         // Hold references to UI controls.

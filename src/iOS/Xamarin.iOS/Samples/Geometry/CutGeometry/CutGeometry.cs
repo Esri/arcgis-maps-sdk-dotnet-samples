@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.CutGeometry
 {
     [Register("CutGeometry")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Cut geometry",
-        "Geometry",
-        "This sample demonstrates how to cut a geometry with a polyline using the GeometryEngine.",
-        "Click the 'Cut' button to cut the polygon with the polyline and see the resulting parts.",
-        "")]
+        name: "Cut geometry",
+        category: "Geometry",
+        description: "Cut a geometry along a polyline.",
+        instructions: "Tap the \"Cut\" button to cut the polygon with the polyline and see the resulting parts (shaded in different colors).",
+        tags: new[] { "cut", "geometry", "split" })]
     public class CutGeometry : UIViewController
     {
         // Hold references to UI controls.

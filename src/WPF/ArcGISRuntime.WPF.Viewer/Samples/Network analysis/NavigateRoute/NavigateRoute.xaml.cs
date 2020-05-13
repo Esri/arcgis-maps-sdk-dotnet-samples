@@ -29,11 +29,11 @@ using System.Speech.Synthesis;
 namespace ArcGISRuntime.WPF.Samples.NavigateRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Navigate route",
-        "Network analysis",
-        "Use a routing service to navigate between points.",
-        "",
-        "Featured")]
+        name: "Navigate route",
+        category: "Network analysis",
+        description: "Use a routing service to navigate between points.",
+        instructions: "Click 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Click 'Recenter' to refocus on the location display.",
+        tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice", "Featured" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class NavigateRoute
     {

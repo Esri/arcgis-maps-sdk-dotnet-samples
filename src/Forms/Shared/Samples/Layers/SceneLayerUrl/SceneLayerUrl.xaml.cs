@@ -15,10 +15,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS scene layer (URL)",
-        "Layers",
-        "Display an ArcGIS Scene layer from a service.",
-        "")]
+        name: "Scene layer (URL)",
+        category: "Layers",
+        description: "Display an ArcGIS scene layer from a URL.",
+        instructions: "Pan and zoom to explore the scene.",
+        tags: new[] { "3D", "Portland", "URL", "buildings", "model", "scene", "service" })]
     public partial class SceneLayerUrl : ContentPage
     {
         // URL for a service to use as an elevation source.

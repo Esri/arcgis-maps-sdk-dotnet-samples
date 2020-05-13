@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.ConvexHull
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Convex hull",
-        "Geometry",
-        "This sample demonstrates how to use the GeometryEngine.ConvexHull operation to generate a polygon that encloses a series of user-tapped map points.",
-        "Tap on the map in several places, then click the 'Convex Hull' button.",
-        "Analysis", "ConvexHull", "GeometryEngine")]
+        name: "Convex hull",
+        category: "Geometry",
+        description: "Create a convex hull for a given set of points. The convex hull is a polygon with shortest perimeter that encloses a set of points. As a visual analogy, consider a set of points as nails in a board. The convex hull of the points would be like a rubber band stretched around the outermost nails.",
+        instructions: "Tap on the map to add points. Tap the \"Create Convex Hull\" button to generate the convex hull of those points. Tap the \"Reset\" button to start over.",
+        tags: new[] { "convex hull", "geometry", "spatial analysis" })]
     public class ConvexHull : Activity
     {
         // Hold a reference to the map view.

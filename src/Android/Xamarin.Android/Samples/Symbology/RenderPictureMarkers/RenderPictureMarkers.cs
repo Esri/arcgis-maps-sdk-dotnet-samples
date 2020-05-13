@@ -24,10 +24,11 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Picture marker symbol",
-        "Symbology",
-        "This sample demonstrates how to create picture marker symbols from a URL and embedded resources.",
-        "")]
+        name: "Picture marker symbol",
+        category: "Symbology",
+        description: "Use pictures for markers.",
+        instructions: "When launched, this sample displays a map with picture marker symbols. Pan and zoom to explore the map.",
+        tags: new[] { "graphics", "marker", "picture", "symbol", "visualization" })]
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class RenderPictureMarkers : Activity
     {

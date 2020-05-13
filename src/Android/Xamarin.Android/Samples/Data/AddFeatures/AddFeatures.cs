@@ -21,10 +21,11 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add features (feature service)",
-        "Data",
-        "Add new features to an online feature service.",
-        "")]
+        name: "Add features",
+        category: "Data",
+        description: "Add features to a feature layer.",
+        instructions: "Tap on a location on the map to add a feature at that location.",
+        tags: new[] { "edit", "feature", "online service" })]
     public class AddFeatures : Activity
     {
         // Hold a reference to the MapView.

@@ -28,10 +28,11 @@ namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Reverse geocode",
-        "Search",
-        "Use an online geocoding service to find the address for a point.",
-        "")]
+        name: "Reverse geocode",
+        category: "Search",
+        description: "Use an online service to find the address for a tapped point.",
+        instructions: "Tap the map to see the nearest address displayed in a callout.",
+        tags: new[] { "address", "geocode", "locate", "reverse geocode", "search" })]
     public class ReverseGeocode : Activity
     {
         // Create and hold reference to the MapView.

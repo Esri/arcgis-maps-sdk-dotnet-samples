@@ -16,10 +16,11 @@ using Esri.ArcGISRuntime.Rasters;
 namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster layer (file)",
-        "Layers",
-        "This sample demonstrates how to use a raster layer created from a local raster file.",
-        "The raster file is downloaded by the sample viewer automatically.")]
+        name: "Raster layer (file)",
+        category: "Layers",
+        description: "Create and use a raster layer made from a local raster file.",
+        instructions: "When the sample starts, a raster will be loaded from a file and displayed in the map view.",
+        tags: new[] { "data", "image", "import", "layer", "raster", "visualization" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterLayerFile
     {

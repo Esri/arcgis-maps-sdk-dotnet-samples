@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+﻿// Copyright 2017 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -27,10 +27,11 @@ namespace ArcGISRuntime.Samples.FindAddress
 {
     [Register("FindAddress")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Find address",
-        "Search",
-        "This sample demonstrates how you can use the LocatorTask API to geocode an address and display it with a pin on the map. Tapping the pin displays the reverse-geocoded address in a callout.",
-        "")]
+        name: "Find address",
+        category: "Search",
+        description: "Find the location for an address.",
+        instructions: "For simplicity, the sample comes loaded with a set of suggested addresses. Choose an address from the suggestions or submit your own address to show its location on the map in a callout.",
+        tags: new[] { "address", "geocode", "locator", "search" })]
     [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public class FindAddress : UIViewController
     {

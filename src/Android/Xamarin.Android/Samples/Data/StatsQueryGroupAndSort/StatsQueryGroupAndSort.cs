@@ -25,10 +25,11 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("GroupedResultsList_DataItem.axml", "GroupedResultsList_GroupItem.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Statistical query group and sort results",
-        "Data",
-        "Query a feature table to get grouped, sorted statistics.",
-        "")]
+        name: "Statistical query group and sort",
+        category: "Data",
+        description: "Query a feature table for statistics, grouping and sorting by different fields.",
+        instructions: "The sample will start with some default options selected. You can immediately tap the \"Get Statistics\" button to see the results for these options. There are several ways to customize your queries:",
+        tags: new[] { "correlation", "data", "fields", "filter", "group", "sort", "statistics", "table" })]
     public class StatsQueryGroupAndSort : Activity
     {
         // URI for the US states map service

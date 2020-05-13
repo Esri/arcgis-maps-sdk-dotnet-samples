@@ -17,10 +17,11 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntime.UWP.Samples.ChangeSublayerVisibility
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change sublayer visibility",
-        "Layers",
-        "This sample demonstrates how to show or hide sublayers of a map image layer.",
-        "")]
+        name: "Map image layer sublayer visibility",
+        category: "Layers",
+        description: "Change the visibility of sublayers.",
+        instructions: "Each sublayer has a check box which can be used to toggle the visibility of the sublayer.",
+        tags: new[] { "layers", "sublayers", "visibility" })]
     public partial class ChangeSublayerVisibility
     {
         private ArcGISMapImageLayer _imageLayer;

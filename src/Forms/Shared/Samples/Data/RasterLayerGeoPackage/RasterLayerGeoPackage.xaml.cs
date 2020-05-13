@@ -18,10 +18,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster layer (GeoPackage)",
-        "Data",
-        "This sample demonstrates how to open a GeoPackage and show a GeoPackage raster in a raster layer.",
-        "The GeoPackage will be downloaded from an ArcGIS Online portal automatically.")]
+        name: "Raster layer (GeoPackage)",
+        category: "Data",
+        description: "Display a raster contained in a GeoPackage.",
+        instructions: "When the sample starts, a raster will be loaded from a GeoPackage and displayed in the map view.",
+        tags: new[] { "OGC", "container", "data", "image", "import", "layer", "package", "raster", "visualization" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class RasterLayerGeoPackage : ContentPage
     {

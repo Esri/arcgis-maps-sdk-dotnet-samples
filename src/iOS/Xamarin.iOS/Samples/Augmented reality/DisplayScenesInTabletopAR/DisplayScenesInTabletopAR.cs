@@ -19,10 +19,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 {
     [Register("DisplayScenesInTabletopAR")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display scenes in tabletop AR",
-        "Augmented reality",
-        "Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.",
-        "")]
+        name: "Display scenes in tabletop AR",
+        category: "Augmented reality",
+        description: "Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.",
+        instructions: "You'll see a feed from the camera when you open the sample. Tap on any flat, horizontal surface (like a desk or table) to place the scene. With the scene placed, you can move the camera around the scene to explore. You can also pan and zoom with touch to adjust the position of the scene.",
+        tags: new[] { "augmented reality", "drop", "mixed reality", "model", "pin", "place", "table-top", "tabletop" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
     public class DisplayScenesInTabletopAR : UIViewController
     {

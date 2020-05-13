@@ -13,10 +13,11 @@ using System;
 namespace ArcGISRuntime.UWP.Samples.DisplayScene
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display scene",
-        "Layers",
-        "Demonstrates how to display a scene with an elevation data source. An elevation data source allows objects to be viewed in 3D, like this picture of Mt. Everest.",
-        "")]
+        name: "Display a scene",
+        category: "Layers",
+        description: "Display a scene with a terrain surface and some imagery.",
+        instructions: "When loaded, the sample will display a scene. Pan and zoom to explore the scene.",
+        tags: new[] { "3D", "basemap", "elevation", "scene", "surface" })]
     public partial class DisplayScene
     {
         public DisplayScene()

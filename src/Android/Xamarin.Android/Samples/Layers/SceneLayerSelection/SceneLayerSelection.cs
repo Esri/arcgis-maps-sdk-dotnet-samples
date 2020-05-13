@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Scene layer selection",
-        "Layers",
-        "Identify GeoElements in a scene layer.",
-        "Tap/Click on a building in the scene layer to identify it.",
-        "")]
+        name: "Scene layer selection",
+        category: "Layers",
+        description: "Identify features in a scene to select.",
+        instructions: "Tap on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.",
+        tags: new[] { "3D", "Berlin", "buildings", "identify", "model", "query", "search", "select" })]
     public class SceneLayerSelection : Activity
     {
         // Hold a reference to the scene view.

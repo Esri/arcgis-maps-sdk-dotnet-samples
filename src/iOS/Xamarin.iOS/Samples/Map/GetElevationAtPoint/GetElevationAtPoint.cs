@@ -22,10 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
 {
     [Register("GetElevationAtPoint")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Get elevation at a point",
-        "Map",
-        "Retrieve the elevation of a point on a surface",
-        "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.")]
+        name: "Get elevation at a point",
+        category: "Map",
+        description: "Get the elevation for a given point on a surface in a scene.",
+        instructions: "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.",
+        tags: new[] { "elevation", "point", "surface" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class GetElevationAtPoint : UIViewController
     {

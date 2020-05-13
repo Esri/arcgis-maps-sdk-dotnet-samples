@@ -26,10 +26,11 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 {
     [Register("NavigateAR")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Navigate in AR",
-        "Augmented reality",
-        "Use a route displayed in the real world to navigate.",
-        "")]
+        name: "Navigate in AR",
+        category: "Augmented reality",
+        description: "Use a route displayed in the real world to navigate.",
+        instructions: "The sample opens with a map centered on the current location. Tap the map to add an origin and a destination; the route will be shown as a line. When ready, click 'Confirm' to start the AR navigation. Calibrate the heading before starting to navigate. When you start, route instructions will be displayed and spoken. As you proceed through the route, new directions will be provided until you arrive.",
+        tags: new[] { "augmented reality", "directions", "full-scale", "guidance", "mixed reality", "navigate", "navigation", "real-scale", "route", "routing", "world-scale" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class NavigateAR : UIViewController, IOAuthAuthorizeHandler
     {

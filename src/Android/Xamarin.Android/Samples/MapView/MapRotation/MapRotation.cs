@@ -18,10 +18,11 @@ namespace ArcGISRuntime.Samples.MapRotation
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Map rotation",
-        "MapView",
-        "This sample illustrates how to rotate a map.",
-        "")]
+        name: "Map rotation",
+        category: "MapView",
+        description: "Rotate a map.",
+        instructions: "Use the slider to rotate the map.",
+        tags: new[] { "rotate", "rotation", "viewpoint" })]
     public class MapRotation : Activity
     {
         // Hold a reference to the map view

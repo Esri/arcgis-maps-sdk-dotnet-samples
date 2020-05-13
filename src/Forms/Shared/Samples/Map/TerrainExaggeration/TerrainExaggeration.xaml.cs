@@ -15,11 +15,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Terrain exaggeration",
-        "Map",
-        "Configure the vertical exaggeration of terrain (the ground surface) in a scene.",
-        "",
-        "Elevation", "terrain", "DTM", "DEM", "surface", "3D", "scene")]
+        name: "Terrain exaggeration",
+        category: "Map",
+        description: "Vertically exaggerate terrain in a scene.",
+        instructions: "Use the slider to update terrain exaggeration.",
+        tags: new[] { "3D", "DEM", "DTM", "elevation", "scene", "surface", "terrain" })]
     public partial class TerrainExaggeration : ContentPage
     {
         private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";

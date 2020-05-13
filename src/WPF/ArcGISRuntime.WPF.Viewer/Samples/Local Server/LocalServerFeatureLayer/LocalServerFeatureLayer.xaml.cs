@@ -18,10 +18,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Local Server feature layer",
-        "Local Server",
-        "This sample demonstrates how to display a Feature Layer service by a Local Server feature service.",
-        "Sample data is downloaded automatically from ArcGIS Online by the sample viewer.")]
+        name: "Local server feature layer",
+        category: "Local Server",
+        description: "Start a local feature service and display its features in a map.",
+        instructions: "A Local Server and Local Feature Service will automatically be started. Once started then a `FeatureLayer` will be created and added to the map.",
+        tags: new[] { "feature service", "local", "offline", "server", "service" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("4e94fec734434d1288e6ebe36c3c461f")]
     public partial class LocalServerFeatureLayer
     {

@@ -17,10 +17,11 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.RasterLayerRasterFunction
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Apply raster function to raster from service",
-        "Layers",
-        "Show a raster layer from an image service with a raster function applied.",
-        "")]
+        name: "Apply raster function to raster from service",
+        category: "Layers",
+        description: "Load a raster from a service, then apply a function to it.",
+        instructions: "The raster function is applied automatically when the sample starts and the result is displayed.",
+        tags: new[] { "function", "layer", "raster", "raster function", "service" })]
     public partial class RasterLayerRasterFunction
     {
         public RasterLayerRasterFunction()

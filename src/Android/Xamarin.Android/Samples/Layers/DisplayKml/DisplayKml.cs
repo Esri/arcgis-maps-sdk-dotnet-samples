@@ -22,10 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display KML",
-        "Layers",
-        "Display a KML file from URL, a local file, or a portal item.",
-        "")]
+        name: "Display KML",
+        category: "Layers",
+        description: "Display KML from a URL, portal item, or local KML file.",
+        instructions: "Use the UI to select a source. A KML file from that source will be loaded and displayed in the scene.",
+        tags: new[] { "KML", "KMZ", "OGC", "keyhole" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("324e4742820e46cfbe5029ff2c32cb1f")]
     public class DisplayKml : Activity
     {

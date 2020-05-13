@@ -18,10 +18,11 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
 {
     [Register("FeatureCollectionLayerFromQuery")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature collection layer from query result",
-        "Layers",
-        "This sample demonstrates how to create a feature collection layer to show a query result from a service feature table.",
-        "")]
+        name: "Feature collection layer (query)",
+        category: "Layers",
+        description: "Create a feature collection layer to show a query result from a service feature table.",
+        instructions: "When launched, this sample displays a map with point features as a feature collection layer. Pan and zoom to explore the map.",
+        tags: new[] { "layer", "query", "search", "table" })]
     public class FeatureCollectionLayerFromQuery : UIViewController
     {
         // Hold references to UI controls.

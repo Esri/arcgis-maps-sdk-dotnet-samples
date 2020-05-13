@@ -16,10 +16,11 @@ using System.Drawing;
 namespace ArcGISRuntime.UWP.Samples.SimpleRenderers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Simple renderer",
-        "Symbology",
-        "This sample demonstrates how to create a simple renderer and add it to a graphics overlay. Renderers define the symbology for all graphics in a graphics overlay (unless they are overridden by setting the symbol directly on the graphic). Simple renderers can also be defined on feature layers using the same code.",
-        "")]
+        name: "Simple renderer",
+        category: "Symbology",
+        description: "Display common symbols for all graphics in a graphics overlay with a renderer.",
+        instructions: "The sample loads with a predefined simple renderer, which displays a red cross simple marker symbol for the graphics in the graphics overlay.",
+        tags: new[] { "graphics", "marker", "renderer", "symbol", "symbolize", "symbology" })]
     public sealed partial class SimpleRenderers
     {
         public SimpleRenderers()

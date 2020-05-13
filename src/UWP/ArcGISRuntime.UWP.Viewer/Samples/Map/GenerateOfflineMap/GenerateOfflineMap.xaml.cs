@@ -25,10 +25,11 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate offline map",
-        "Map",
-        "This sample demonstrates how to generate an offline map for a web map in ArcGIS Portal.",
-        "When the app starts, a web map is loaded from ArcGIS Online. The red border shows the extent that of the data that will be downloaded for use offline. Click the `Take map offline` button to start the offline map job (you will be prompted for your ArcGIS Online login). The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.")]
+        name: "Generate offline map",
+        category: "Map",
+        description: "Take a web map offline.",
+        instructions: "When the app starts, you will be prompted to sign in using a free ArcGIS Online account. Once the map loads, zoom to the extent you want to take offline. The red border shows the extent that will be downloaded. Click the \"Take Map Offline\" button to start the offline map job. The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.",
+        tags: new[] { "download", "offline", "save", "web map" })]
     public partial class GenerateOfflineMap
     {
         // The job to generate an offline map.

@@ -20,10 +20,11 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.IdentifyGraphics
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify graphics",
-        "GraphicsOverlay",
-        "This sample demonstrates how to identify graphics in a graphics overlay. When you tap on a graphic on the map, you will see an alert message displayed.",
-        "")]
+        name: "Identify graphics",
+        category: "GraphicsOverlay",
+        description: "Display an alert message when a graphic is clicked.",
+        instructions: "Select a graphic to identify it. You will see an alert message displayed.",
+        tags: new[] { "graphics", "identify" })]
     public sealed partial class IdentifyGraphics
     {
         // Graphics overlay to host graphics

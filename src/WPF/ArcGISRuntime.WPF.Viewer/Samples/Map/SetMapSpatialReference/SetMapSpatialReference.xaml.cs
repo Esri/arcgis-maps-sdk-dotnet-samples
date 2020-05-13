@@ -14,10 +14,11 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.SetMapSpatialReference
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Map spatial reference",
-        "Map",
-        "This sample demonstrates how you can set the spatial reference on a Map and all the layers would project accordingly.",
-        "")]
+        name: "Map spatial reference",
+        category: "Map",
+        description: "Specify a map's spatial reference.",
+        instructions: "Pan and zoom around the map. Observe how the map is displayed using the World Bonne spatial reference.",
+        tags: new[] { "SpatialReference", "WKID", "project" })]
     public partial class SetMapSpatialReference
     {
 

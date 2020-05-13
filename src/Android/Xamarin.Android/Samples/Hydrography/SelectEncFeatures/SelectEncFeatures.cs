@@ -26,10 +26,11 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Select ENC features",
-        "Hydrography",
-        "This sample demonstrates how to select an ENC feature.",
-        "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
+        name: "Select ENC features",
+        category: "Hydrography",
+        description: "Select features in an ENC layer.",
+        instructions: "Tap to select ENC features. Feature properties will be displayed in a callout.",
+        tags: new[] { "IHO", "S-57", "S57", "chart", "hydrography", "identify", "maritime", "select", "selection" })]
     public class SelectEncFeatures : Activity
     {
         // Hold a reference to the map view

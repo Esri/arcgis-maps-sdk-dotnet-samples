@@ -16,10 +16,11 @@ using System.Drawing;
 namespace ArcGISRuntime.UWP.Samples.RenderSimpleMarkers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Simple marker symbol",
-        "Symbology",
-        "This sample adds a point graphic to a graphics overlay symbolized with a red circle specified via a SimpleMarkerSymbol.",
-        "")]
+        name: "Simple marker symbol",
+        category: "Symbology",
+        description: "Show a simple marker symbol on a map.",
+        instructions: "The sample loads with a predefined simple marker symbol, set as a red circle.",
+        tags: new[] { "SimpleMarkerSymbol", "symbol" })]
     public sealed partial class RenderSimpleMarkers
     {
         public RenderSimpleMarkers()

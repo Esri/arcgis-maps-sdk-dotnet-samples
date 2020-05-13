@@ -13,10 +13,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Project with specific transformation",
-        "Geometry",
-        "This sample demonstrates how to use the GeometryEngine with a specified geographic transformation to transform a geometry from one coordinate system to another. ",
-        "See [Coordinate Systems and Transformations](https://developers.arcgis.com/net/latest/wpf/guide/coordinate-systems-and-transformations.htm) for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems. ")]
+        name: "Project with specific transformation",
+        category: "Geometry",
+        description: "Project a point from one coordinate system to another using a specific transformation step.",
+        instructions: "View the values for: unprojected point, projected with the GeometryEngine default, and projected with a specific transformation step.",
+        tags: new[] { "coordinate system", "geographic", "project", "projection", "transform", "transformation", "transformation step" })]
     public partial class ProjectWithSpecificTransformation : ContentPage
     {
         public ProjectWithSpecificTransformation()

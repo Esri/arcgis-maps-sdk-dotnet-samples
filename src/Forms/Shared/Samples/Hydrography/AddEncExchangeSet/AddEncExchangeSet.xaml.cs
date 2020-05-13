@@ -18,10 +18,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add ENC Exchange Set",
-        "Hydrography",
-        "This sample demonstrates how to load an ENC Exchange Set, including its component cells.",
-        "This sample automatically downloads ENC data from ArcGIS Online before displaying the map.")]
+        name: "Add ENC exchange set",
+        category: "Hydrography",
+        description: "Display nautical charts per the ENC specification.",
+        instructions: "Run the sample and view the ENC data. Pan and zoom around the map. Take note of the high level of detail in the data and the smooth rendering of the layer.",
+        tags: new[] { "Data", "ENC", "hydrographic", "layers", "maritime", "nautical chart" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public partial class AddEncExchangeSet : ContentPage
     {

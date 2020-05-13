@@ -17,10 +17,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ChangeViewpoint
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change viewpoint",
-        "MapView",
-        "This sample demonstrates different ways in which you can change the viewpoint of the MapView.",
-        "")]
+        name: "Change viewpoint",
+        category: "MapView",
+        description: "Set the map view to a new viewpoint.",
+        instructions: "The map view has several methods for setting its current viewpoint. Select a viewpoint from the UI to see the viewpoint changed using that method.",
+        tags: new[] { "animate", "extent", "pan", "rotate", "scale", "view", "zoom" })]
     public partial class ChangeViewpoint : ContentPage
     {
         // Coordinates for London

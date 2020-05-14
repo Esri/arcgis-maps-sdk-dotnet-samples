@@ -94,7 +94,6 @@ namespace ArcGISRuntime.UWP.Samples.AnimateImageOverlay
 
                 // Increase the index of the image path.
                 _imageIndex = (_imageIndex + 1) % _imagePaths.Length;
-
             }
         }
 

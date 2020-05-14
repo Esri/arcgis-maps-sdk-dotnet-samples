@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -30,17 +31,14 @@ namespace ArcGISRuntime.UWP.Samples.AnimateImageOverlay
         // Image overlay for displaying the images from the file system in the scene.
         private ImageOverlay _imageOverlay;
 
-        // Envelope for geographic location of the images.
-        private Envelope _pacificEnvelope;
-
         // Timer for animating images.
         private Timer _timer;
 
         // Boolean for stopping and starting the animation.
         private bool _animationStopped = false;
 
-        // File paths for all of the images.
-        private string[] _imagePaths;
+        // All of the image frames used for the animation.
+        private ImageFrame[] _images;
 
         // Index of the image currently being displayed.
         private int _imageIndex = 0;
@@ -58,7 +56,7 @@ namespace ArcGISRuntime.UWP.Samples.AnimateImageOverlay
 
             // Create an envelope for the imagery.
             var pointForFrame = new MapPoint(-120.0724273439448, 35.131016955536694, SpatialReferences.Wgs84);
-            _pacificEnvelope = new Envelope(pointForFrame, 15.09589635986124, -14.3770441522488);
+            var pacificEnvelope = new Envelope(pointForFrame, 15.09589635986124, -14.3770441522488);
 
             // Create a camera, looking at the pacific southwest sector.
             var observationPoint = new MapPoint(-116.621, 24.7773, 856977, SpatialReferences.Wgs84);
@@ -74,7 +72,13 @@ namespace ArcGISRuntime.UWP.Samples.AnimateImageOverlay
 
             // Create an array of the image filepaths.
             var imageFolder = Path.Combine(DataManager.GetDataFolder("9465e8c02b294c69bdb42de056a23ab1"), "PacificSouthWest");
-            _imagePaths = Directory.GetFiles(imageFolder);
+            string[] imagePaths = Directory.GetFiles(imageFolder);
+
+            // The paths need to be sorted alphabetically on some file systems.
+            Array.Sort(imagePaths);
+
+            // Create all of the image frames using the filepaths and the envelope.
+            _images = imagePaths.Select(x => new ImageFrame(new Uri(x), pacificEnvelope)).ToArray();
 
             // Create new Timer and set the timeout interval to approximately 15 frames a second.
             _timer = new Timer(AnimateOverlay);
@@ -89,11 +93,11 @@ namespace ArcGISRuntime.UWP.Samples.AnimateImageOverlay
         {
             if (!_animationStopped)
             {
-                // Create a new image frame, using the image filepath and the envelope.
-                _imageOverlay.ImageFrame = new ImageFrame(new Uri(_imagePaths[_imageIndex]), _pacificEnvelope);
+                // Set the image overlay to display the next frame.
+                _imageOverlay.ImageFrame = _images[_imageIndex];
 
-                // Increase the index of the image path.
-                _imageIndex = (_imageIndex + 1) % _imagePaths.Length;
+                // Increase the index of the image.
+                _imageIndex = (_imageIndex + 1) % _images.Length;
             }
         }
 

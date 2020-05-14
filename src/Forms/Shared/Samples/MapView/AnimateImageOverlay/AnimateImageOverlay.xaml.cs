@@ -92,10 +92,10 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
         {
             if (!_animationStopped)
             {
-                // Create a new image frame, using the image filepath and the envelope.
+                // Set the image overlay to display the next frame.
                 _imageOverlay.ImageFrame = _images[_imageIndex];
 
-                // Increase the index of the image path.
+                // Increase the index of the image.
                 _imageIndex = (_imageIndex + 1) % _images.Length;
             }
         }

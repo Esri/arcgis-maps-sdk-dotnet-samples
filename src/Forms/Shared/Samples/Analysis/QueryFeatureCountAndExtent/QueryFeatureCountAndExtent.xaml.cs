@@ -16,10 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Query feature count and extent",
-        "Analysis",
-        "Zoom to features matching a query and count features in the visible extent.",
-        "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.")]
+        name: "Query feature count and extent",
+        category: "Analysis",
+        description: "Zoom to features matching a query and count the features in the current visible extent.",
+        instructions: "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.",
+        tags: new[] { "count", "feature layer", "feature table", "features", "filter", "number", "query" })]
     public partial class QueryFeatureCountAndExtent : ContentPage
     {
         // URL to the feature service.

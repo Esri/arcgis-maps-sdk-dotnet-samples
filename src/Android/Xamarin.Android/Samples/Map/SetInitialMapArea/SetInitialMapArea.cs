@@ -18,10 +18,11 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set initial map area",
-        "Map",
-        "This sample demonstrates how to set the initial viewpoint from envelope defined by minimum (x,y) and maximum (x,y) values. The map's InitialViewpoint is set to this viewpoint before the map is loaded into the MapView. Upon loading the map zoom to this initial area.",
-        "")]
+        name: "Map initial extent",
+        category: "Map",
+        description: "Display the map at an initial viewpoint representing a bounding geometry.",
+        instructions: "As application is loading, initial view point is set and map view opens at the given location.",
+        tags: new[] { "envelope", "extent", "initial", "viewpoint", "zoom" })]
     public class SetInitialMapArea : Activity
     {
         // Hold a reference to the map view

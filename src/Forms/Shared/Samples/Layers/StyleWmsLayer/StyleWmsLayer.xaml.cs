@@ -17,10 +17,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.StyleWmsLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Style WMS layers",
-        "Layers",
-        "This sample demonstrates how to select from the available styles on WMS sublayers. ",
-        "Click to select from one of the two pre-set styles.")]
+        name: "Style WMS layers",
+        category: "Layers",
+        description: "Change the style of a Web Map Service (WMS) layer.",
+        instructions: "Once the layer loads, the toggle button will be enabled. Tap it to toggle between the first and second styles of the WMS layer.",
+        tags: new[] { "WMS", "imagery", "styles", "visualization" })]
     public partial class StyleWmsLayer
     {
         // Hold the URL to the service, which has satellite imagery covering the state of Minnesota. 

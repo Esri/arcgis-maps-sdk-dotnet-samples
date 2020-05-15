@@ -17,10 +17,11 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.AddFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add features (feature service)",
-        "Data",
-        "Add new features to an online feature service.",
-        "")]
+        name: "Add features",
+        category: "Data",
+        description: "Add features to a feature layer.",
+        instructions: "Click on a location on the map to add a feature at that location.",
+        tags: new[] { "edit", "feature", "online service" })]
     public partial class AddFeatures
     {
         // URL to the feature service.

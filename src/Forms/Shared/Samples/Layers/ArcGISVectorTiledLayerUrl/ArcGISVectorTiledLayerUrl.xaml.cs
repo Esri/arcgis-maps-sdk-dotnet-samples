@@ -16,10 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS vector tiled layer (URL)",
-        "Layers",
-        "This sample demonstrates how to add an ArcVectorGISTiledLayer as a base layer in a map.",
-        "")]
+        name: "ArcGIS vector tiled layer URL",
+        category: "Layers",
+        description: "Load an ArcGIS Vector Tiled Layer from a URL.",
+        instructions: "Use the drop down menu to load different vector tile basemaps.",
+        tags: new[] { "tiles", "vector", "vector basemap", "vector tiled layer", "vector tiles" })]
     public partial class ArcGISVectorTiledLayerUrl : ContentPage
     {
         private readonly Dictionary<string, Uri> _layerUrls = new Dictionary<string, Uri>()

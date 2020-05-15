@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
 {
     [Register("MapImageSublayerQuery")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Query a map image sublayer",
-        "Layers",
-        "This sample demonstrates how to execute an attribute and spatial query on the sublayers of an ArcGIS map image layer. Sublayers of an ArcGISMapImageLayer may expose a ServiceFeatureTable through a Table property.This allows you to perform the same queries available when working with a table from a FeatureLayer: attribute query, spatial query, statistics query, query for related features, and so on.",
-        "1. Launch the sample, the map displays at an extent where individual states, counties, and cities can be seen clearly.\n2.Provide a numeric value for the population query(values under 1810000 will produce a selection in all layers).\n3.Click the `Query` button to find all features in the current map extent that have a population greater than the value entered.\n   - Any current selection is cleared from the map.\n   - If a non - numeric value was entered, an error message is displayed.\n4.All features(cities, counties, or states) meeting the query criteria are selected in the map.\n   - If no features meet the query criteria, a message displays stating zero features were selected.\n5.Experiment with different map extents and population values and see the results.",
-        "Query", "Sublayer", "MapServer", "Table")]
+        name: "Query map image sublayer",
+        category: "Layers",
+        description: "Find features in a sublayer based on attributes and location.",
+        instructions: "Specify a minimum population in the input field (values under 1810000 will produce a selection in all layers) and tap the query button to query the sublayers in the current view extent. After a short time, the results for each sublayer will appear as graphics.",
+        tags: new[] { "search and query" })]
     public class MapImageSublayerQuery : UIViewController
     {
         // Hold references to UI controls.

@@ -15,10 +15,11 @@ using System;
 namespace ArcGISRuntime.UWP.Samples.RasterLayerImageServiceRaster
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS raster layer (service)",
-        "Layers",
-        "Add a raster layer from an image service to a map.",
-        "")]
+        name: "Raster layer (service)",
+        category: "Layers",
+        description: "Create a raster layer from a raster image service.",
+        instructions: "Simply launch the sample to see a raster from an image service being used on a map.",
+        tags: new[] { "image service", "raster" })]
     public partial class RasterLayerImageServiceRaster
     {
         public RasterLayerImageServiceRaster()

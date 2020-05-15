@@ -27,10 +27,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display utility associations",
-        "Utility network",
-        "Create graphics for utility associations in a utility network.",
-        "")]
+        name: "Display utility associations",
+        category: "Utility network",
+        description: "Create graphics for utility associations in a utility network.",
+        instructions: "Pan and zoom around the map. Observe graphics that show utility associations between junctions.",
+        tags: new[] { "associating", "association", "attachment", "connectivity", "containment", "relationships" })]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("DisplayUtilityAssociation.axml")]
     public class DisplayUtilityAssociations : Activity
     {

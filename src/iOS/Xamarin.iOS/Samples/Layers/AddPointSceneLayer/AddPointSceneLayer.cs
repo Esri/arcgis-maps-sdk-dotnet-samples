@@ -17,10 +17,11 @@ namespace ArcGISRuntimeXamarin.Samples.AddPointSceneLayer
 {
     [Register("AddPointSceneLayer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add a point scene layer",
-        "Layers",
-        "View a point scene layer from a scene service.",
-        "")]
+        name: "Add a point scene layer",
+        category: "Layers",
+        description: "View a point scene layer from a scene service.",
+        instructions: "Pan around the scene and zoom in. Notice how many thousands of additional features appear at each successive zoom scale.",
+        tags: new[] { "3D", "layers", "point scene layer" })]
     public class AddPointSceneLayer : UIViewController
     {
         // URL for the service with the point scene layer.

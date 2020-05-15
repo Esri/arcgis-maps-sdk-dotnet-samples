@@ -22,10 +22,12 @@ using System.Drawing;
 namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample("Spatial operations",
-        "Geometry",
-        "Demonstrates how to use the GeometryEngine to perform geometry operations between overlapping polygons in a GraphicsOverlay.",
-        "The sample provides a drop down on the top, where you can select a geometry operation. When you choose a geometry operation, the application performs this operation between the overlapping polygons and applies the result to the geometries.")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        name: "Perform spatial operations",
+        category: "Geometry",
+        description: "Find the union, intersection, or difference of two geometries.",
+        instructions: "The sample provides an option to select a spatial operation. When an operation is selected, the resulting geometry is shown in red. The 'reset operation' button undoes the action and allow selecting a different operation.",
+        tags: new[] { "analysis", "combine", "difference", "geometry", "intersection", "merge", "polygon", "union" })]
     public class SpatialOperations : Activity
     {
         // Hold a reference to the map view.

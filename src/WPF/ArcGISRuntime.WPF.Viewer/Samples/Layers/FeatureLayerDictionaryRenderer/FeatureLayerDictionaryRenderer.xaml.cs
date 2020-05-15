@@ -18,11 +18,11 @@ using Esri.ArcGISRuntime.Symbology;
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer dictionary renderer",
-        "Layers",
-        "Demonstrates how to apply a dictionary renderer to a feature layer and display mil2525d graphics. The dictionary renderer creates these graphics using a mil2525d style file and the attributes attached to each feature within the geodatabase.",
-        "",
-        "Military", "Symbology", "Military symbology")]
+        name: "Dictionary renderer with feature layer",
+        category: "Layers",
+        description: "Convert features into graphics to show them with mil2525d symbols.",
+        instructions: "Pan and zoom around the map. Observe the displayed military symbology on the map.",
+        tags: new[] { "military", "symbol" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
     public partial class FeatureLayerDictionaryRenderer
     {

@@ -16,11 +16,11 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.EditKmlGroundOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Edit KML ground overlay",
-        "Layers",
-        "Edit the values of a KML ground overlay.",
-        "",
-        "Featured")]
+        name: "Edit KML ground overlay",
+        category: "Layers",
+        description: "Edit the values of a KML ground overlay.",
+        instructions: "Use the slider to adjust the opacity of the ground overlay.",
+        tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "imagery", "Featured" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1f3677c24b2c446e96eaf1099292e83e")]
     public partial class EditKmlGroundOverlay
     {

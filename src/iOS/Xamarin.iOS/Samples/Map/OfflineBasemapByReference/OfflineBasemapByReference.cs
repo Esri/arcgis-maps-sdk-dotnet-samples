@@ -31,10 +31,11 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
 {
     [Register("OfflineBasemapByReference")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate offline map with local basemap",
-        "Map",
-        "Use the OfflineMapTask to take a web map offline while using a basemap previously taken offline.",
-        "")]
+        name: "Generate offline map with local basemap",
+        category: "Map",
+        description: "Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.",
+        instructions: "1. Use the button to start taking the map offline.",
+        tags: new[] { "Offline" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
     public class OfflineBasemapByReference : UIViewController, IOAuthAuthorizeHandler
     {

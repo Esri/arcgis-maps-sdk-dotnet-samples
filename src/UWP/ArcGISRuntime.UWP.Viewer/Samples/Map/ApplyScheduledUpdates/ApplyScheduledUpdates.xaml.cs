@@ -20,11 +20,11 @@ using Windows.UI.Popups;
 namespace ArcGISRuntime.UWP.Samples.ApplyScheduledUpdates
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Apply scheduled updates to preplanned map area",
-        "Map",
-        "Apply scheduled updates to a downloaded preplanned map area.",
-        "",
-        "Featured")]
+        name: "Apply scheduled updates to preplanned map area",
+        category: "Map",
+        description: "Apply scheduled updates to a downloaded preplanned map area.",
+        instructions: "Start the app. It will display an offline map, check for available updates, and show update availability and size. Select 'Apply Updates' to apply the updates to the local offline map and show the results.",
+        tags: new[] { "offline", "pre-planned", "preplanned", "synchronize", "update", "Featured" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ApplyScheduledUpdates
     {

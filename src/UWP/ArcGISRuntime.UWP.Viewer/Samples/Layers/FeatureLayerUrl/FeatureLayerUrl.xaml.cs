@@ -14,10 +14,11 @@ using System;
 namespace ArcGISRuntime.UWP.Samples.FeatureLayerUrl
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer (feature service)",
-        "Layers",
-        "This sample demonstrates how to show a feature layer on a map using the URL to the service.",
-        "")]
+        name: "Feature layer (feature service)",
+        category: "Layers",
+        description: "Show features from an online feature service.",
+        instructions: "Run the sample and view the feature service as an operational layer on top of the basemap. Zoom and pan around the map to see the features in greater detail.",
+        tags: new[] { "feature table", "layer", "layers", "service" })]
     public partial class FeatureLayerUrl
     {
         public FeatureLayerUrl()

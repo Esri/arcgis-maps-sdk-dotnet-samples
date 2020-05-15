@@ -28,11 +28,11 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Viewshed (GeoElement)",
-        "Analysis",
-        "Display a live viewshed analysis for a moving GeoElement.",
-        "Tap on the scene to see the tank move to that point."
-        )]
+        name: "Viewshed for GeoElement",
+        category: "Analysis",
+        description: "Analyze the viewshed for an object (GeoElement) in a scene.",
+        instructions: "Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive' towards the tapped location. The viewshed analysis will update as the vehicle moves.",
+        tags: new[] { "3D", "analysis", "buildings", "model", "scene", "viewshed", "visibility analysis" })]
     public class ViewshedGeoElement : Activity
     {
         // Hold a reference to the scene view.

@@ -20,10 +20,11 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 {
     [Register("ArcGISVectorTiledLayerUrl")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "ArcGIS vector tiled layer (URL)",
-        "Layers",
-        "This sample demonstrates how to create a ArcGISVectorTiledLayer and bind this to a Basemap which is used in the creation of a map.",
-        "")]
+        name: "ArcGIS vector tiled layer URL",
+        category: "Layers",
+        description: "Load an ArcGIS Vector Tiled Layer from a URL.",
+        instructions: "Use the drop down menu to load different vector tile basemaps.",
+        tags: new[] { "tiles", "vector", "vector basemap", "vector tiled layer", "vector tiles" })]
     public class ArcGISVectorTiledLayerUrl : UIViewController
     {
         // Hold references to UI controls.

@@ -23,10 +23,11 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 {
     [Register("BrowseWfsLayers")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Browse WFS service for layers",
-        "Layers",
-        "Browse a WFS service for layers and add them to the map.",
-        "")]
+        name: "Browse WFS layers",
+        category: "Layers",
+        description: "Browse a WFS service for layers and add them to the map.",
+        instructions: "A list of layers in the WFS service will be shown. Select a layer to display.",
+        tags: new[] { "OGC", "WFS", "browse", "catalog", "feature", "layers", "service", "web" })]
     public class BrowseWfsLayers : UIViewController
     {
         // Hold references to UI controls.

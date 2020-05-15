@@ -26,10 +26,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer query",
-        "Data",
-        "Query a feature layer via a feature table.",
-        "The sample provides a search bar on the top, where you can input the name of a US State. When you hit search the app performs a query on the feature table and based on the result either highlights the state geometry or provides an error.")]
+        name: "Feature layer query",
+        category: "Data",
+        description: "Find features in a feature table which match an SQL query.",
+        instructions: "Input the name of a U.S. state into the text field. When you tap the button, a query is performed and the matching features are highlighted or an error is returned.",
+        tags: new[] { "query", "search" })]
     public class FeatureLayerQuery : Activity
     {
         // Create reference to service of US States

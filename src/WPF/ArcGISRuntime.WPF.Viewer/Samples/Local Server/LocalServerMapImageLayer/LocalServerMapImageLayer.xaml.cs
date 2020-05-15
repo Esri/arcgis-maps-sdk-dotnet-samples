@@ -17,10 +17,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Local Server map image layer",
-        "Local Server",
-        "This sample demonstrates how to display a Map Image Layer from a local map service",
-        "This sample depends on the local server being installed and configured. See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm for details and instructions.\nSample data is loaded in the background. ")]
+        name: "Local Server map image layer",
+        category: "Local Server",
+        description: "Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.",
+        instructions: "The Local Server and local map service will automatically be started and, once running, a map image layer will be created and added to the map.",
+        tags: new[] { "image", "layer", "local", "offline", "server" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b")]
     public partial class LocalServerMapImageLayer
     {

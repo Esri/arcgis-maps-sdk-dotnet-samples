@@ -17,10 +17,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.RenderUniqueValues
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Render unique values",
-        "Symbology",
-        "This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.",
-        "")]
+        name: "Unique value renderer",
+        category: "Symbology",
+        description: "Render features in a layer using a distinct symbol for each unique attribute value.",
+        instructions: "The map with the symbolized feature layer will be shown automatically when the sample loads.",
+        tags: new[] { "draw", "renderer", "symbol", "symbology", "values" })]
     public partial class RenderUniqueValues : ContentPage
     {
         public RenderUniqueValues()

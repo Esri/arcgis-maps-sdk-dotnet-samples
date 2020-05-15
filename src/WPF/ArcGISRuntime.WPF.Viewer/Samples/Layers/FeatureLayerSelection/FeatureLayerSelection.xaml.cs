@@ -19,10 +19,11 @@ using System.Drawing;
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerSelection
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer selection",
-        "Layers",
-        "Select features by tapping a MapView.",
-        "")]
+        name: "Feature layer selection",
+        category: "Layers",
+        description: "Select features in a feature layer.",
+        instructions: "Click on a feature in the map. All features within a given tolerance (in pixels) of the click will be selected.",
+        tags: new[] { "features", "layers", "select", "selection", "tolerance" })]
     public partial class FeatureLayerSelection
     {
         // Hold a reference to the feature layer.

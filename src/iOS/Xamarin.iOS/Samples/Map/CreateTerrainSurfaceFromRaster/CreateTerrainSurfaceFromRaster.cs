@@ -17,10 +17,11 @@ namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceFromRaster
 {
     [Register("CreateTerrainSurfaceFromRaster")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create terrain surface from a local raster",
-        "Map",
-        "Use a terrain surface with elevation described by a local raster file.",
-        "")]
+        name: "Create terrain surface from a local raster",
+        category: "Map",
+        description: "Set the terrain surface with elevation described by a raster file.",
+        instructions: "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
+        tags: new[] { "3D", "elevation", "raster", "surface", "terrain" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("98092369c4ae4d549bbbd45dba993ebc")]
     public class CreateTerrainSurfaceFromRaster : UIViewController
     {

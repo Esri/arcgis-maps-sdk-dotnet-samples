@@ -23,10 +23,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer extrusion",
-        "Symbology",
-        "This sample demonstrates how to apply extrusion to a renderer on a feature layer.",
-        "")]
+        name: "Feature layer extrusion",
+        category: "Symbology",
+        description: "Extrude features based on their attributes.",
+        instructions: "Press the button to switch between using population density and total population for extrusion. Higher extrusion directly corresponds to higher attribute values.",
+        tags: new[] { "3D", "extrude", "extrusion", "extrusion expression", "height", "renderer", "scene" })]
     public class FeatureLayerExtrusion : Activity
     {
         // Hold a reference to the scene view

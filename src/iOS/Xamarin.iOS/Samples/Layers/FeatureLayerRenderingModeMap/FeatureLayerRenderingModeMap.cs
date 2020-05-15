@@ -21,10 +21,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 {
     [Register("FeatureLayerRenderingModeMap")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer rendering mode (Map)",
-        "Layers",
-        "This sample demonstrates how to use load settings to set preferred rendering mode for feature layers, specifically static or dynamic rendering modes.",
-        "")]
+        name: "Feature layer rendering mode (map)",
+        category: "Layers",
+        description: "Render features statically or dynamically by setting the feature layer rendering mode.",
+        instructions: "Tap the button to trigger the same zoom animation on both static and dynamic maps.",
+        tags: new[] { "dynamic", "feature layer", "features", "rendering", "static" })]
     public class FeatureLayerRenderingModeMap : UIViewController
     {
         // Hold references to UI controls.

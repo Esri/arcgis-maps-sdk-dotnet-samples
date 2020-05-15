@@ -14,10 +14,11 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.DisplayLayerViewState
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display layer view state",
-        "MapView",
-        "This sample demonstrates how to get view status for layers in a map.",
-        "")]
+        name: "Display layer view state",
+        category: "MapView",
+        description: "Determine if a layer is currently being viewed.",
+        instructions: "Pan and zoom around in the map. Each layer's view status is displayed. Notice that some layers configured with a min and max scale change to \"OutOfScale\" at certain scales.",
+        tags: new[] { "layer", "map", "status", "view" })]
     public partial class DisplayLayerViewState
     {
 

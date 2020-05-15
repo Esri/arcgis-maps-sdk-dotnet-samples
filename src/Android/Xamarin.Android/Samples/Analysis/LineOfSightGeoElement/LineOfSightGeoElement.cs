@@ -25,11 +25,11 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Line of sight (GeoElement)",
-        "Analysis",
-        "This sample demonstrates how to perform a dynamic line of sight analysis between two moving GeoElements.",
-        "Use the slider to adjust the height of the observer."
-        )]
+        name: "Line of sight (geoelement)",
+        category: "Analysis",
+        description: "Show a line of sight between two moving objects.",
+        instructions: "A line of sight will display between a point on the Empire State Building (observer) and a taxi (target).",
+        tags: new[] { "3D", "line of sight", "visibility", "visibility analysis" })]
     public class LineOfSightGeoElement : Activity
     {
         // Hold a reference to the SceneView

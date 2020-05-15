@@ -19,11 +19,11 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
 {
     [Register("ShowLabelsOnLayer")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show labels on layer",
-        "Layers",
-        "Show labels on a feature layer using a JSON label definition.",
-        "The labeling of the names on the US Highways layer is accomplished by supplying a JSON string to the FeatureLayer's LabelDefinition. The JSON is based on the new ArcGIS web map specification.",
-        "")]
+        name: "Show labels on layers",
+        category: "Layers",
+        description: "Display custom labels on a feature layer.",
+        instructions: "Pan and zoom around the United States. Labels for congressional districts will be shown in red for Republican districts and blue for Democrat districts. Notice how labels pop into view as you zoom in.",
+        tags: new[] { "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization" })]
     public class ShowLabelsOnLayer : UIViewController
     {
         // Hold references to UI controls.

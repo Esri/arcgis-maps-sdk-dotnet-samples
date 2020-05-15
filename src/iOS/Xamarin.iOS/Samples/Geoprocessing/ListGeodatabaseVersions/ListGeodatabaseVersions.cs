@@ -21,10 +21,11 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
     [Register("ListGeodatabaseVersions")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "List geodatabase versions",
-        "Geoprocessing",
-        "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
-        "")]
+        name: "List geodatabase versions",
+        category: "Geoprocessing",
+        description: "Connect to a service and list versions of the geodatabase.",
+        instructions: "When the sample loads, a list of geodatabase versions and their properties will be displayed.",
+        tags: new[] { "conflict resolution", "data management", "database", "multi-user", "sync", "version" })]
     public class ListGeodatabaseVersions : UIViewController
     {
         // Hold references to UI controls.

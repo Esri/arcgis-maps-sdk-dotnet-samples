@@ -22,10 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
 {
     [Register("DisplayWfs")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display WFS layer",
-        "Layers",
-        "Display a layer from a WFS service, requesting only features for the current extent.",
-        "")]
+        name: "Display WFS layer",
+        category: "Layers",
+        description: "Display a layer from a WFS service, requesting only features for the current extent.",
+        instructions: "Pan and zoom to see features within the current map extent.",
+        tags: new[] { "OGC", "WFS", "browse", "catalog", "feature", "interaction cache", "layers", "service", "web" })]
     public class DisplayWfs : UIViewController
     {
         // Hold references to UI controls.

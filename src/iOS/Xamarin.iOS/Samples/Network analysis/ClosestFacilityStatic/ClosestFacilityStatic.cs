@@ -25,10 +25,11 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
 {
     [Register("ClosestFacilityStatic")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Closest facility (static)",
-        "Network analysis",
-        "Demonstrates how to solve a Closest Facility Task to find the closest route between facilities and incidents.",
-        "Click the solve button to find the closest facility to every incident.")]
+        name: "Find closest facility to multiple incidents (service)",
+        category: "Network analysis",
+        description: "Find routes from several locations to the respective closest facility.",
+        instructions: "Tap the button to solve and display the route from each incident (fire) to the nearest facility (fire station).",
+        tags: new[] { "incident", "network analysis", "route", "search" })]
     public class ClosestFacilityStatic : UIViewController
     {
         // Hold references to UI controls.

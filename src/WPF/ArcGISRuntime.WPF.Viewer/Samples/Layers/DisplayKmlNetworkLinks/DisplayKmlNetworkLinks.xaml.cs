@@ -16,10 +16,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.DisplayKmlNetworkLinks
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display KML network links",
-        "Layers",
-        "Display a KML file that loads content from a network resource.",
-        "")]
+        name: "Display KML network links",
+        category: "Layers",
+        description: "Display a file with a KML network link, including displaying any network link control messages at launch.",
+        instructions: "The sample will load the KML file automatically. The data shown should refresh automatically every few seconds. Pan and zoom to explore the map.",
+        tags: new[] { "KML", "KMZ", "Keyhole", "Network Link", "Network Link Control", "OGC" })]
     public partial class DisplayKmlNetworkLinks
     {
         public DisplayKmlNetworkLinks()

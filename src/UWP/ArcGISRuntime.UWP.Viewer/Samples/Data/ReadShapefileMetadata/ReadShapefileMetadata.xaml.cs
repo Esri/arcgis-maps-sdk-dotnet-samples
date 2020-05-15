@@ -17,11 +17,11 @@ using Esri.ArcGISRuntime.UI;
 namespace ArcGISRuntime.UWP.Samples.ReadShapefileMetadata
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Read shapefile metadata",
-        "Data",
-        "This sample demonstrates how to open a shapefile stored on the device, read metadata that describes the dataset, and display it as a feature layer with default symbology.",
-        "The shapefile will be downloaded from an ArcGIS Online portal automatically."
-        )]
+        name: "Read shapefile metadata",
+        category: "Data",
+        description: "Read a shapefile and display its metadata.",
+        instructions: "The shapefile's metadata will be displayed when you open the sample.",
+        tags: new[] { "credits", "description", "metadata", "package", "shape file", "shapefile", "summary", "symbology", "tags", "visualization" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class ReadShapefileMetadata
     {

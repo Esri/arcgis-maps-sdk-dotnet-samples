@@ -19,10 +19,11 @@ namespace ArcGISRuntime.Samples.OpenScene
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open scene (Portal item)",
-        "Map",
-        "Open a scene from a Portal item. Just like Web Maps are the ArcGIS format for maps, Web Scenes are the ArcGIS format for scenes. These scenes can be stored in ArcGIS Online or Portal.",
-        "The sample will load the scene automatically.")]
+        name: "Open a scene (portal item)",
+        category: "Map",
+        description: "Open a web scene from a portal item.",
+        instructions: "When the sample opens, it will automatically display the scene from ArcGIS Online. Pan and zoom to explore the scene.",
+        tags: new[] { "portal", "scene", "web scene" })]
     public class OpenScene : Activity
     {
         // Hold the ID of the portal item, which is a web scene.

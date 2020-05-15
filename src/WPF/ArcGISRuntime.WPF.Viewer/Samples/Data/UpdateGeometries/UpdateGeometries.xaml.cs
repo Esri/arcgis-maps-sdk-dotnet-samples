@@ -18,10 +18,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.UpdateGeometries
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Update geometries (feature service)",
-        "Data",
-        "Update a feature's location in an online feature service.",
-        "")]
+        name: "Update geometries (feature service)",
+        category: "Data",
+        description: "Update a feature's location in an online feature service.",
+        instructions: "Tap a feature to select it. Tap again to set the updated location for that feature. An alert will be shown confirming success or failure.",
+        tags: new[] { "editing", "feature layer", "feature table", "moving", "service", "updating" })]
     public partial class UpdateGeometries
     {
         // URL to the feature service.

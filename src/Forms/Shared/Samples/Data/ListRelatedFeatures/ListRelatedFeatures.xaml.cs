@@ -20,10 +20,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.ListRelatedFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "List related features",
-        "Data",
-        "This sample demonstrates how to query features related to an identified feature.",
-        "Click on a feature to identify it. Related features will be listed in the window above the map.")]
+        name: "List related features",
+        category: "Data",
+        description: "List features related to the selected feature.",
+        instructions: "Tap on a feature to select it. The related features will be displayed in a list.",
+        tags: new[] { "features", "identify", "query", "related", "relationship", "search" })]
     public partial class ListRelatedFeatures : ContentPage
     {
         // URL to the web map

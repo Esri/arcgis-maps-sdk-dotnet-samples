@@ -23,10 +23,11 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "View hidden infrastructure in AR",
-        "Augmented reality",
-        "Visualize hidden infrastructure in its real-world location using augmented reality.",
-        "")]
+        name: "View hidden infrastructure in AR",
+        category: "Augmented reality",
+        description: "Visualize hidden infrastructure in its real-world location using augmented reality.",
+        instructions: "When you open the sample, you'll see a map centered on your current location. Use the tools to draw pipes around your location. An elevation surface will be queried to place the drawn infrastructure above or below ground. When you're ready, use the button to view the infrastructure you drew in AR.",
+        tags: new[] { "augmented reality", "full-scale", "infrastructure", "lines", "mixed reality", "pipes", "real-scale", "underground", "visualization", "visualize", "world-scale" })]
     public class PipePlacer : Activity
     {
         // Hold references to the UI controls.

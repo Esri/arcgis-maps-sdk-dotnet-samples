@@ -16,10 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Load WFS with XML query",
-        "Layers",
-        "Load a WFS feature table using an XML query.",
-        "")]
+        name: "Load WFS with XML query",
+        category: "Layers",
+        description: "Load a WFS feature table using an XML query.",
+        instructions: "Run the sample and view the data loaded from the the WFS feature table.",
+        tags: new[] { "OGC", "WFS", "XML", "feature", "query", "service", "web" })]
     public partial class WfsXmlQuery : ContentPage
     {
         // To learn more about specifying filters in OGC technologies, see https://www.opengeospatial.org/standards/filter.

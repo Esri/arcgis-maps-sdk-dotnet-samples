@@ -20,18 +20,18 @@ using Color = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.ConvexHull
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Convex hull",
-        "Geometry",
-        "This sample demonstrates how to use the GeometryEngine.ConvexHull operation to generate a polygon that encloses a series of user-tapped map points.",
-        "Tap on the map in several places, then click the 'Convex Hull' button.",
-        "Analysis", "ConvexHull", "GeometryEngine")]
+        name: "Convex hull",
+        category: "Geometry",
+        description: "Create a convex hull for a given set of points. The convex hull is a polygon with shortest perimeter that encloses a set of points. As a visual analogy, consider a set of points as nails in a board. The convex hull of the points would be like a rubber band stretched around the outermost nails.",
+        instructions: "Tap on the map to add points. Tap the \"Create Convex Hull\" button to generate the convex hull of those points. Tap the \"Reset\" button to start over.",
+        tags: new[] { "convex hull", "geometry", "spatial analysis" })]
     public partial class ConvexHull : ContentPage
     {
         // Graphics overlay to display the hull.
         private GraphicsOverlay _graphicsOverlay;
 
         // List of geometry values (MapPoints in this case) that will be used by the GeometryEngine.ConvexHull operation.
-        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.Wgs84);
+        private PointCollection _inputPointCollection = new PointCollection(SpatialReferences.WebMercator);
 
         public ConvexHull()
         {
@@ -65,11 +65,11 @@ namespace ArcGISRuntime.Samples.ConvexHull
         {
             try
             {
-                // Project the tapped location to WGS 84.
-                var projectedPoint = (MapPoint)GeometryEngine.Project(e.Location, SpatialReferences.Wgs84);
+                // Normalize the tapped point.
+                var centralizedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
 
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
-                _inputPointCollection.Add(projectedPoint);
+                _inputPointCollection.Add(centralizedPoint);
 
                 // Check if there are at least three points.
                 if (_inputPointCollection.Count > 2)

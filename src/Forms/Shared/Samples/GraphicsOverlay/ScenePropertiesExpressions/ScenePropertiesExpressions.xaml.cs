@@ -17,11 +17,11 @@ using Color = System.Drawing.Color;
 namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Scene properties expressions",
-        "GraphicsOverlay",
-        "Update the orientation of a graphic using scene property rotation expressions.",
-        "",
-        "rotation", "expression", "heading", "pitch", "scene", "3D", "symbology")]
+        name: "Scene properties expressions",
+        category: "GraphicsOverlay",
+        description: "Update the orientation of a graphic using expressions based on its attributes.",
+        instructions: "Adjust the heading and pitch sliders to rotate the cone.",
+        tags: new[] { "3D", "expression", "graphics", "heading", "pitch", "rotation", "scene", "symbology" })]
     public partial class ScenePropertiesExpressions : ContentPage
     {
         public ScenePropertiesExpressions()

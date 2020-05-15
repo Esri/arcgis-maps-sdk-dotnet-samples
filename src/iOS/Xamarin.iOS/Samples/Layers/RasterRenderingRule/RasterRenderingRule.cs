@@ -22,10 +22,11 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
 {
     [Register("RasterRenderingRule")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster rendering rule",
-        "Layers",
-        "This sample demonstrates how to create an `ImageServiceRaster`, fetch the `RenderingRule`s from the service info, and use a `RenderingRule` to create an `ImageServiceRaster` and add it to a raster layer.",
-        "")]
+        name: "Raster rendering rule",
+        category: "Layers",
+        description: "Display a raster on a map and apply different rendering rules to that raster.",
+        instructions: "Run the sample and use the drop-down menu at the top to select a rendering rule.",
+        tags: new[] { "raster", "rendering rules", "visualization" })]
     public class RasterRenderingRule : UIViewController
     {
         // Hold references to UI controls.

@@ -19,11 +19,11 @@ namespace ArcGISRuntime.Samples.CreateGeometries
 {
     [Register("CreateGeometries")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create geometries",
-        "Geometry",
-        "This sample demonstrates simple ways to create different types of Geometry. The geometries are added as Graphics to a GraphicsOverlay and displayed in a MapView. An Envelope is used to set the Viewpoint of the MapView.",
-        "",
-        "")]
+        name: "Create geometries",
+        category: "Geometry",
+        description: "Create simple geometry types.",
+        instructions: "Pan and zoom freely to see the different types of geometries placed onto the map.",
+        tags: new[] { "area", "boundary", "line", "marker", "path", "shape" })]
     public class CreateGeometries : UIViewController
     {
         // Hold references to UI controls.

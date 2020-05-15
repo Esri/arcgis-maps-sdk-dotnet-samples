@@ -20,11 +20,11 @@ namespace ArcGISRuntime.Samples.FeatureLayerShapefile
     [Register("FeatureLayerShapefile")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Feature layer (shapefile)",
-        "Data",
-        "This sample demonstrates how to open a shapefile stored on the device and display it as a feature layer with default symbology.",
-        "The shapefile will be downloaded from an ArcGIS Online portal automatically."
-        )]
+        name: "Feature layer (shapefile)",
+        category: "Data",
+        description: "Open a shapefile stored on the device and display it as a feature layer with default symbology.",
+        instructions: "Pan and zoom around the map to observe the data from the shapefile.",
+        tags: new[] { "layers", "shapefile", "shp", "vector" })]
     public class FeatureLayerShapefile : UIViewController
     {
         // Hold references to UI controls.

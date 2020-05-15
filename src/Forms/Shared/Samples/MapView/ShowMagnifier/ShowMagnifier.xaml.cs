@@ -14,10 +14,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.ShowMagnifier
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show magnifier",
-        "MapView",
-        "This sample demonstrates how you can tap and hold on a map to get the magnifier. You can also pan while tapping and holding to move the magnifier across the map.",
-        "")]
+        name: "Show magnifier",
+        category: "MapView",
+        description: "Tap and hold on a map to show a magnifier.",
+        instructions: "Tap and hold on the map to show a magnifier, then drag across the map to move the magnifier. You can also pan the map while holding the magnifier, by dragging the magnifier to the edge of the map.",
+        tags: new[] { "magnify", "map", "zoom" })]
     public partial class ShowMagnifier : ContentPage
     {
         public ShowMagnifier()

@@ -19,10 +19,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayAnnotation
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display annotation",
-        "Layers",
-        "Display annotation from a feature service URL.",
-        "")]
+        name: "Display annotation",
+        category: "Layers",
+        description: "Display annotation from a feature service URL.",
+        instructions: "Pan and zoom to see names of waters and burns in a small region of Scotland.",
+        tags: new[] { "annotation", "cartography", "labels", "placement", "reference scale", "text", "utility" })]
     public class DisplayAnnotation : Activity
     {
         // Hold references to the UI controls.

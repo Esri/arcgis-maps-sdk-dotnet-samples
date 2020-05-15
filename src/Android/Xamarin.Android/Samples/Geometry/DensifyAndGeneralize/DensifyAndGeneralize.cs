@@ -22,11 +22,11 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Densify and generalize",
-        "Geometry",
-        "This sample demonstrates how to densify or generalize a polyline geometry. In this example, points representing a ship's location are shown at irregular intervals. You can densify the polyline to interpolate points along the line at regular intervals. Generalizing the polyline can also simplify the geometry while preserving its general shape.",
-        "Use the sliders to adjust the max deviation (for generalize) and the max segment length (for densify). The results will update automatically."
-        )]
+        name: "Densify and generalize",
+        category: "Geometry",
+        description: "A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.",
+        instructions: "Use the sliders to control the parameters of the densify and generalize methods.",
+        tags: new[] { "data", "densify", "generalize", "simplify" })]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("DensifyAndGeneralize.axml")]
     public class DensifyAndGeneralize : Activity
     {

@@ -17,10 +17,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.OpenMobileScenePackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open mobile scene package",
-        "Map",
-        "Display a scene from an offline mobile scene package (.mspk).",
-        "")]
+        name: "Open mobile scene package",
+        category: "Map",
+        description: "Opens and displays a scene from a Mobile Scene Package (.mspk).",
+        instructions: "When the sample opens, it will automatically display the Scene in the Mobile Map Package.",
+        tags: new[] { "offline", "scene" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
     public partial class OpenMobileScenePackage : ContentPage
     {

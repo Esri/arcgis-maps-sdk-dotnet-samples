@@ -16,9 +16,6 @@
             TextColor="Red">
             Tap to see the nearest vertex and point.
         </Label>
-        <forms:MapView
-            x:Name="MyMapView"
-            Grid.Row="1"
-            WrapAroundMode="Disabled" />
+        <forms:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>
 </ContentPage>

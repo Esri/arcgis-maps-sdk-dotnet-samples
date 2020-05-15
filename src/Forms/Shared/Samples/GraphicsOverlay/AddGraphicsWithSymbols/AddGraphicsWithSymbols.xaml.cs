@@ -17,10 +17,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Add graphics with symbols",
-        "GraphicsOverlay",
-        "This sample demonstrates how to add various types of graphics to a `GraphicsOverlay`.",
-        "")]
+        name: "Add graphics with symbols",
+        category: "GraphicsOverlay",
+        description: "Use a symbol style to display a graphic on a graphics overlay.",
+        instructions: "Observe the graphics on the map.",
+        tags: new[] { "SimpleFillSymbol", "SimpleLineSymbol", "SimpleMarkerSymbol" })]
     public partial class AddGraphicsWithSymbols : ContentPage
     {
         // Create the graphics overlay

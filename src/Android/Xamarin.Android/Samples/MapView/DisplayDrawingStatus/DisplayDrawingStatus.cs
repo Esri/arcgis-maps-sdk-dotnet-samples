@@ -21,10 +21,11 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display drawing status",
-        "MapView",
-        "This sample demonstrates how to use the DrawStatus value of the MapView to notify user that the MapView is drawing.",
-        "")]
+        name: "Display draw status",
+        category: "MapView",
+        description: "Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.",
+        instructions: "Pan and zoom around the map. Observe how the status changes from a loading animation to solid, indicating that drawing has completed.",
+        tags: new[] { "draw", "loading", "map", "render" })]
     public class DisplayDrawingStatus : Activity
     {
         // Hold a reference to the map view

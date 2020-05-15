@@ -22,10 +22,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.ExportTiles
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Export tiles",
-        "Layers",
-        "This sample demonstrates how to export tiles from a map server.",
-        "1. Pan and zoom until the area you want tiles for is within the red box.\n2. Click 'Export Tiles'.\n3. Pan and zoom to see the area covered by the downloaded tiles in the preview box.")]
+        name: "Export tiles",
+        category: "Layers",
+        description: "Download tiles to a local tile cache file stored on the device.",
+        instructions: "Pan and zoom into the desired area, making sure the area is within the red boundary. Click the 'Export tiles' button to start the process. On successful completion you will see a preview of the downloaded tile package.",
+        tags: new[] { "cache", "download", "export", "local", "offline", "package", "tiles" })]
     public partial class ExportTiles
     {
         // URL to the service tiles will be exported from.

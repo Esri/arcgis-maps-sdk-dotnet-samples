@@ -21,10 +21,11 @@ using Esri.ArcGISRuntime.UI;
 namespace ArcGISRuntime.WPF.Samples.IdentifyKmlFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify KML features",
-        "Layers",
-        "Identify KML features and show popups.",
-        "")]
+        name: "Identify KML features",
+        category: "Layers",
+        description: "Show a callout with formatted content for a KML feature.",
+        instructions: "Tap a feature to identify it. Feature information will be displayed in a callout.",
+        tags: new[] { "KML", "KMZ", "Keyhole", "NOAA", "NWS", "OGC", "weather" })]
     public partial class IdentifyKmlFeatures
     {
         // Hold a reference to the KML layer for use in identify operations.

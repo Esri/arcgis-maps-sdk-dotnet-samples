@@ -19,10 +19,11 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Change time extent",
-        "MapView",
-        "This sample demonstrates how to filter data in layers by applying a time extent to a MapView.",
-        "Switch between the available options and observe how the data is filtered.")]
+        name: "Change time extent",
+        category: "MapView",
+        description: "Filter data in layers by applying a time extent to a MapView.",
+        instructions: "Switch between the available options and observe how the data is filtered.",
+        tags: new[] { "data", "filter", "time", "time frame", "time span" })]
     public class ChangeTimeExtent : Activity
     {
         // Hold two map service URIs, one for use with an ArcGISMapImageLayer, the other for use with a FeatureLayer.

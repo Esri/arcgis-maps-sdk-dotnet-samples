@@ -22,11 +22,12 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
-    [Shared.Attributes.Sample(
-        "List geodatabase versions",
-        "Geoprocessing",
-        "This sample calls a custom GeoprocessingTask to get a list of available versions for an enterprise geodatabase. The task returns a table of geodatabase version information, which is displayed in the app as a list.",
-        "")]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        name: "List geodatabase versions",
+        category: "Geoprocessing",
+        description: "Connect to a service and list versions of the geodatabase.",
+        instructions: "When the sample loads, a list of geodatabase versions and their properties will be displayed.",
+        tags: new[] { "conflict resolution", "data management", "database", "multi-user", "sync", "version" })]
     [Shared.Attributes.AndroidLayout("ListGeodatabaseVersions.axml")]
     public class ListGeodatabaseVersions : Activity
     {

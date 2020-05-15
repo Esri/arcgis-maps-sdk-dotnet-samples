@@ -20,10 +20,11 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Unique value renderer",
-        "Symbology",
-        "This sample demonstrate how to use a unique value renderer to style different features in a feature layer with different symbols. Features do not have a symbol property for you to set, renderers should be used to define the symbol for features in feature layers. The unique value renderer allows for separate symbols to be used for features that have specific attribute values in a defined field.",
-        "")]
+        name: "Unique value renderer",
+        category: "Symbology",
+        description: "Render features in a layer using a distinct symbol for each unique attribute value.",
+        instructions: "The map with the symbolized feature layer will be shown automatically when the sample loads.",
+        tags: new[] { "draw", "renderer", "symbol", "symbology", "values" })]
     public class RenderUniqueValues : Activity
     {
         // Hold a reference to the map view

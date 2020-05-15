@@ -22,11 +22,11 @@ namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Control annotation sublayer visibility",
-        "Layers",
-        "Use annotation sublayers to gain finer control of annotation layer subtypes.",
-        "",
-        "Featured")]
+        name: "Control annotation sublayer visibility",
+        category: "Layers",
+        description: "Use annotation sublayers to gain finer control of annotation layer subtypes.",
+        instructions: "Start the sample and take note of the visibility of the annotation. Zoom in and out to see the annotation turn on and off based on scale ranges set on the data.",
+        tags: new[] { "annotation", "scale", "text", "utilities", "visualization", "Featured" })]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("ControlAnnotationSublayerVisibility.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("b87307dcfb26411eb2e92e1627cb615b")]
     public class ControlAnnotationSublayerVisibility : Activity

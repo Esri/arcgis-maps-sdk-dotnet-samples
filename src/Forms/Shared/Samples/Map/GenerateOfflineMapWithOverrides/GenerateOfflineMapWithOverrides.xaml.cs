@@ -35,10 +35,11 @@ using Xamarin.Auth;
 namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Generate offline map (overrides)",
-        "Map",
-        "Take a web map offline with additional options for each layer.",
-        "")]
+        name: "Generate offline map (overrides)",
+        category: "Map",
+        description: "Take a web map offline with additional options for each layer.",
+        instructions: "Modify the overrides parameters:",
+        tags: new[] { "LOD", "adjust", "download", "extent", "filter", "offline", "override", "parameters", "reduce", "scale range", "setting" })]
     public partial class GenerateOfflineMapWithOverrides : ContentPage, IOAuthAuthorizeHandler
     {
         // The job to generate an offline map.

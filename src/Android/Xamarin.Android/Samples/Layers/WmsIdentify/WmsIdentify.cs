@@ -22,10 +22,11 @@ namespace ArcGISRuntime.Samples.WmsIdentify
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify WMS features",
-        "Layers",
-        "This sample demonstrates how to identify WMS features and display the associated content for an identified WMS feature.",
-        "Tap to identify a feature. Note: the service returns HTML regardless of whether there was an identify result. See the Forms implementation for an example heuristic for identifying empty results.")]
+        name: "Identify WMS features",
+        category: "Layers",
+        description: "Identify features in a WMS layer and display the associated popup content.",
+        instructions: "Tap a feature to identify it. The HTML content associated with the feature will be displayed in a web view.",
+        tags: new[] { "IdentifyLayerAsync", "OGC", "ShowCalloutAt", "WMS", "callout", "web map service" })]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("WmsIdentify.axml")]
     public class WmsIdentify : Activity
     {

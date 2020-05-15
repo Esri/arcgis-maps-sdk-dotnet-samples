@@ -16,10 +16,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.OpenMobileMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Open mobile map (map package)",
-        "Map",
-        "This sample demonstrates how to open a mobile map from a map package.",
-        "The map package will be downloaded from an ArcGIS Online portal automatically.")]
+        name: "Open mobile map package",
+        category: "Map",
+        description: "Display a map from a mobile map package.",
+        instructions: "When the sample opens, it will automatically display the map in the mobile map package. Pan and zoom to observe the data from the mobile map package.",
+        tags: new[] { "mmpk", "mobile map package", "offline" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
     public partial class OpenMobileMap : ContentPage
     {

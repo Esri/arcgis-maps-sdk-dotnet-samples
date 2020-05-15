@@ -24,11 +24,11 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-           "Authenticate with OAuth",
-           "Security",
-           "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access a secure web map (or the secured layers it contains). Accessing secured items requires a login on the portal (an ArcGIS Online account, for example).",
-           "1. When you run the sample, the app will load a web map that contains premium content.\n2. You will be challenged for an ArcGIS Online login to view that layer (world traffic).\n3. Enter your ArcGIS Online user name and password.\n4. If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.\n5. You can alter the code to supply OAuth configuration settings specific to your app.",
-           "Authentication, Security, OAuth")]
+        name: "Authenticate with OAuth",
+        category: "Security",
+        description: "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).",
+        instructions: "When you run the sample, the app will load a web map which contains premium content. You will be challenged for an ArcGIS Online login to view the private layers. Enter a user name and password for an ArcGIS Online named user account (such as your ArcGIS for Developers account). If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.",
+        tags: new[] { "OAuth", "OAuth2", "authentication", "cloud", "credential", "portal", "security" })]
     public class OAuth : Activity, IOAuthAuthorizeHandler
     {
         // Hold a reference to the map view.

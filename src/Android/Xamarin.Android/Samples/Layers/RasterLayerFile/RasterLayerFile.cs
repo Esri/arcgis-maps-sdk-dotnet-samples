@@ -21,10 +21,11 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Raster layer (file)",
-        "Layers",
-        "This sample demonstrates how to use a raster layer created from a local raster file.",
-        "The raster file is downloaded by the sample viewer automatically. Note that due to a known bug, this sample may crash in emulators running Android 4.4 (API level 19). All other platform versions are unaffected.")]
+        name: "Raster layer (file)",
+        category: "Layers",
+        description: "Create and use a raster layer made from a local raster file.",
+        instructions: "When the sample starts, a raster will be loaded from a file and displayed in the map view.",
+        tags: new[] { "data", "image", "import", "layer", "raster", "visualization" })]
     public class RasterLayerFile : Activity
     {
         // Reference to the MapView used in the sample

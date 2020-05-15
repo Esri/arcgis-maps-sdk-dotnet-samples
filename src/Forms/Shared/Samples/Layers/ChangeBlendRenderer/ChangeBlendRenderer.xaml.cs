@@ -17,12 +17,12 @@ using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ChangeBlendRenderer
 {
-    [Shared.Attributes.Sample(
-        "Blend renderer",
-        "Layers",
-        "This sample demonstrates how to use blend renderer on a raster layer. You can get a hillshade blended with either a colored raster or color ramp.",
-        "Tap on the 'Update Renderer' button to change the settings for the blend renderer. The sample allows you to change the Altitude, Azimuth, SlopeType and ColorRamp. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used."
-        )]
+    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+        name: "Blend renderer",
+        category: "Layers",
+        description: "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
+        instructions: "Choose and adjust the altitude, azimuth, slope type, and color ramp type settings to update the image.",
+        tags: new[] { "Elevation", "Hillshade", "RasterLayer", "color ramp", "elevation", "image", "visualization" })]
 	[Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
     public partial class ChangeBlendRenderer : ContentPage
     {

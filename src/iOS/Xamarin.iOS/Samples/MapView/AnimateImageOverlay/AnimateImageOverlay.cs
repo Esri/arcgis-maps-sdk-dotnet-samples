@@ -15,10 +15,11 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
 {
     [Register("AnimateImageOverlay")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Animate images with image overlay",
-        "MapView",
-        "Animate a series of images with an image overlay.",
-        "")]
+        name: "Animate images with image overlay",
+        category: "MapView",
+        description: "Animate a series of images with an image overlay.",
+        instructions: "The application loads a map of the Southwestern United States. Tap the \"Start\" or \"Stop\" buttons to start or stop the radar animation. Use the drop down menu to select how quickly the animation plays. Move the slider to change the opacity of the image overlay.",
+        tags: new[] { "3d", "animation", "drone", "dynamic", "image frame", "image overlay", "real time", "rendering" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9465e8c02b294c69bdb42de056a23ab1")]
     public class AnimateImageOverlay : UIViewController
     {

@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -49,8 +50,15 @@ namespace ArcGISRuntime.UWP.Samples.AnimateImageOverlay
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
+            // This sample is only supported in x64 on UWP.
+            if (!Environment.Is64BitProcess)
+            {
+                await new MessageDialog("This sample is only supported on x64. Run the sample viewer in x64 to use this sample.", "Error").ShowAsync();
+                return;
+            }
+
             // Create the scene.
             MySceneView.Scene = new Scene(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")));
 

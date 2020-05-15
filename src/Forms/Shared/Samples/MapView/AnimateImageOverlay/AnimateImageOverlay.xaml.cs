@@ -50,6 +50,14 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
 
         private void Initialize()
         {
+#if WINDOWS_UWP
+            // This sample is only supported in x64 on UWP.
+            if (!Environment.Is64BitProcess)
+            {
+                Application.Current.MainPage.DisplayAlert("Error", "This sample is only supported on x64. Run the sample viewer in x64 to use this sample.", "OK");
+                return;
+            }
+#endif
             // Create the scene.
             MySceneView.Scene = new Scene(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")));
 

@@ -135,9 +135,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             }
             catch
             {
-
             }
-            
         }
 
         private void ChangeOpacity(object sender, SeekBar.ProgressChangedEventArgs e)

@@ -288,7 +288,7 @@
     <None Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
     <None Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
     <None Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
-    <None Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
+    <None Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
     <None Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <None Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
@@ -481,7 +481,7 @@
     <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.cs" />
     <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.cs" />
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
-    <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.cs" />
+    <Compile Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.cs" />
     <Compile Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.cs" />
     <Compile Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.cs" />

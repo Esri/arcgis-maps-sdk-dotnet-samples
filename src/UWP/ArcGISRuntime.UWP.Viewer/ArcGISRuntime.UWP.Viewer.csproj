@@ -267,7 +267,7 @@
     <Content Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
-    <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
+    <Content Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
@@ -422,7 +422,7 @@
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
       <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
+    <Compile Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml.cs">
       <DependentUpon>ChooseCameraController.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
@@ -1004,7 +1004,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+    <Page Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

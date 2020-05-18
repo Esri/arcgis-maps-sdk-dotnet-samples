@@ -25,7 +25,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\SceneView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
@@ -259,7 +259,7 @@
       <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml.cs">
       <DependentUpon>ChooseCameraController.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -883,7 +883,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml">

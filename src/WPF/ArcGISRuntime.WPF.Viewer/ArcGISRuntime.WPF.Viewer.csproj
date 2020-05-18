@@ -192,7 +192,7 @@
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
       <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
+    <Compile Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml.cs">
       <DependentUpon>ChooseCameraController.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
@@ -795,7 +795,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+    <Page Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1567,7 +1567,7 @@
     <Content Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg">
+    <Content Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg">

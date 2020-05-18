@@ -19,7 +19,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
     [Register("ChangeAtmosphereEffect")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Change atmosphere effect",
-        category: "Map",
+        category: "Scene",
         description: "Changes the appearance of the atmosphere in a scene.",
         instructions: "Select one of the three available atmosphere effects. The sky will change to display the selected atmosphere effect. ",
         tags: new[] { "atmosphere", "horizon", "sky" })]

@@ -15,7 +15,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceTilePackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create terrain from local tile package",
-        category: "Map",
+        category: "Scene",
         description: "Set the terrain surface with elevation described by a local tile package.",
         instructions: "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
         tags: new[] { "3D", "LERC", "elevation", "surface", "terrain", "tile cache" })]

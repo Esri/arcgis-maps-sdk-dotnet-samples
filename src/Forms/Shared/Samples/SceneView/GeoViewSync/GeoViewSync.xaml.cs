@@ -17,7 +17,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "GeoView viewpoint synchronization",
-        category: "MapView",
+        category: "SceneView",
         description: "Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.",
         instructions: "Interact with the MapView or SceneView by zooming or panning. The other MapView or SceneView will automatically focus on the same viewpoint.",
         tags: new[] { "3D", "automatic refresh", "event", "event handler", "events", "extent", "interaction", "interactions", "pan", "sync", "synchronize", "zoom" })]

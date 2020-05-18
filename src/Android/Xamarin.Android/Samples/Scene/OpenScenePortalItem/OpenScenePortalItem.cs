@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.OpenScenePortalItem
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Open a scene (portal item)",
-        category: "Map",
+        category: "Scene",
         description: "Open a web scene from a portal item.",
         instructions: "When the sample opens, it will automatically display the scene from ArcGIS Online. Pan and zoom to explore the scene.",
         tags: new[] { "portal", "scene", "web scene" })]

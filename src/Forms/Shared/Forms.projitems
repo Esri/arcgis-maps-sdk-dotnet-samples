@@ -36,7 +36,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\GroupLayers\GroupLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
@@ -299,7 +299,7 @@
       <DependentUpon>PlayKmlTours.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
       <DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -914,7 +914,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\PlayKmlTours\PlayKmlTours.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml">

@@ -264,7 +264,7 @@
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
     <Content Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.jpg" />
-    <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+    <Content Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
     <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
@@ -455,7 +455,7 @@
     <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
       <DependentUpon>PlayKmlTours.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
+    <Compile Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
       <DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml.cs">
@@ -1052,7 +1052,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
+    <Page Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

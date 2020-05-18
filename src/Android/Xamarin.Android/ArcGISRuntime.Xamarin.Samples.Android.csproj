@@ -122,7 +122,7 @@
     <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
     <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
     <None Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
-    <None Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+    <None Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <None Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <None Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
     <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
@@ -322,7 +322,7 @@
     <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
     <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.cs" />
-    <Compile Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.cs" />
+    <Compile Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.cs" />
     <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.cs" />
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\ParameterOverrideFragment.cs" />
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.cs" />

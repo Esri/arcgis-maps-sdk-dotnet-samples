@@ -113,7 +113,7 @@
     <None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
     <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
-    <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+    <None Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg" />
     <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
     <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
     <None Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
@@ -308,7 +308,7 @@
     <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
     <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
     <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.cs" />
     <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />
     <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />
     <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.cs" />
@@ -727,4 +727,5 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+</Project>
 </Project>

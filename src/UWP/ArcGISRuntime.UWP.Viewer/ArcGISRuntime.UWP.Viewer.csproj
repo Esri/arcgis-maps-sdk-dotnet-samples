@@ -241,7 +241,7 @@
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
     <Content Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
-    <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+    <Content Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg" />
     <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
@@ -479,8 +479,8 @@
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
       <DependentUpon>MapReferenceScale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml.cs">
-      <DependentUpon>CreateTerrainSurfaceFromRaster.xaml</DependentUpon>
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceRaster.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml.cs">
       <DependentUpon>CreateTerrainSurfaceFromTilePackage.xaml</DependentUpon>
@@ -1084,7 +1084,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml">
+    <Page Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1804,4 +1804,5 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
+</Project>argets" />
 </Project>

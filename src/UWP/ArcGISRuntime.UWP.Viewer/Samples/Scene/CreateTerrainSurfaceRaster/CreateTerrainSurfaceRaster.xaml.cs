@@ -9,13 +9,9 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
-using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceFromRaster
+namespace ArcGISRuntime.UWP.Samples.CreateTerrainSurfaceRaster
 {
-    [Register("CreateTerrainSurfaceFromRaster")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create terrain surface from a local raster",
         category: "Map",
@@ -23,20 +19,18 @@ namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceFromRaster
         instructions: "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
         tags: new[] { "3D", "elevation", "raster", "surface", "terrain" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("98092369c4ae4d549bbbd45dba993ebc")]
-    public class CreateTerrainSurfaceFromRaster : UIViewController
+    public partial class CreateTerrainSurfaceRaster
     {
-        // Hold references to UI controls.
-        private SceneView _mySceneView;
-
-        public CreateTerrainSurfaceFromRaster()
+        public CreateTerrainSurfaceRaster()
         {
-            Title = "Create terrain surface from a local raster";
+            InitializeComponent();
+            Initialize();
         }
 
         private void Initialize()
         {
             // Create the scene.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(Basemap.CreateImagery());
 
             // Get the path to the elevation raster.
             string packagePath = DataManager.GetDataFolder("98092369c4ae4d549bbbd45dba993ebc", "MontereyElevation.dt2");
@@ -51,38 +45,11 @@ namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceFromRaster
             elevationSurface.ElevationSources.Add(elevationSource);
 
             // Add the surface to the scene.
-            _mySceneView.Scene.BaseSurface = elevationSurface;
+            MySceneView.Scene.BaseSurface = elevationSurface;
 
             // Set an initial camera viewpoint.
             Camera camera = new Camera(36.51, -121.80, 300.0, 0, 70.0, 0.0);
-            _mySceneView.SetViewpointCamera(camera);
-        }
-
-        public override void LoadView()
-        {
-            // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
-
-            _mySceneView = new SceneView();
-            _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
-
-            // Add the views.
-            View.AddSubviews(_mySceneView);
-
-            // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
-                _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
-            });
-        }
-
-        public override void ViewDidLoad()
-        {
-            base.ViewDidLoad();
-            Initialize();
+            MySceneView.SetViewpointCamera(camera);
         }
     }
 }

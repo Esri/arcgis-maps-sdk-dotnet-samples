@@ -2,7 +2,7 @@
 
 Set the terrain surface with elevation described by a raster file.
 
-![Image of create terrain surface from local raster](CreateTerrainSurfaceFromRaster.jpg)
+![Image of create terrain surface from local raster](CreateTerrainSurfaceRaster.jpg)
 
 ## Use case
 

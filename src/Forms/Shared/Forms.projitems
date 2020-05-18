@@ -43,7 +43,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
@@ -335,8 +335,8 @@
       <DependentUpon>MapReferenceScale.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml.cs">
-      <DependentUpon>CreateTerrainSurfaceFromRaster.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceRaster.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml.cs">
@@ -938,7 +938,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml">
@@ -1511,4 +1511,5 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\infogrey.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\settingsgrey.png" />
   </ItemGroup>
+</Project>ItemGroup>
 </Project>

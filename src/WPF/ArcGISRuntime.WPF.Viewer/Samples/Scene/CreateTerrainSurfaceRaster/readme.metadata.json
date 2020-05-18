@@ -1,10 +1,10 @@
 {
     "category": "Map",
     "description": "Set the terrain surface with elevation described by a raster file.",
-    "formal_name": "CreateTerrainSurfaceFromRaster",
+    "formal_name": "CreateTerrainSurfaceRaster",
     "ignore": false,
     "images": [
-        "CreateTerrainSurfaceFromRaster.jpg"
+        "CreateTerrainSurfaceRaster.jpg"
     ],
     "keywords": [
         "3D",
@@ -25,8 +25,8 @@
         "Surface"
     ],
     "snippets": [
-        "CreateTerrainSurfaceFromRaster.xaml",
-        "CreateTerrainSurfaceFromRaster.xaml.cs"
+        "CreateTerrainSurfaceRaster.xaml",
+        "CreateTerrainSurfaceRaster.xaml.cs"
     ],
     "title": "Create terrain surface from a local raster"
 }

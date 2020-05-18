@@ -1,10 +1,10 @@
 {
     "category": "Map",
     "description": "Set the terrain surface with elevation described by a raster file.",
-    "formal_name": "CreateTerrainSurfaceFromRaster",
+    "formal_name": "CreateTerrainSurfaceRaster",
     "ignore": false,
     "images": [
-        "CreateTerrainSurfaceFromRaster.jpg"
+        "CreateTerrainSurfaceRaster.jpg"
     ],
     "keywords": [
         "3D",
@@ -18,14 +18,14 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/android/sample-code/createterrainsurfacefromraster.htm"
+        "/net/latest/ios/sample-code/createterrainsurfacefromraster.htm"
     ],
     "relevant_apis": [
         "RasterElevationSource",
         "Surface"
     ],
     "snippets": [
-        "CreateTerrainSurfaceFromRaster.cs"
+        "CreateTerrainSurfaceRaster.cs"
     ],
     "title": "Create terrain surface from a local raster"
 }

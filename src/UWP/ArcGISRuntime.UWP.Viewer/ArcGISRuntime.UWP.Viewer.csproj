@@ -256,7 +256,7 @@
     <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
     <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
-    <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <Content Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
     <Content Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
@@ -473,7 +473,7 @@
     <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
       <DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
+    <Compile Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
       <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
@@ -1076,7 +1076,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
+    <Page Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

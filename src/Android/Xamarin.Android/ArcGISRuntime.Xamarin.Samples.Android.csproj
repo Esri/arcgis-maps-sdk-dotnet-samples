@@ -112,7 +112,7 @@
     <None Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-    <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <None Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
     <None Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg" />
     <None Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.jpg" />
     <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
@@ -307,7 +307,7 @@
     <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.cs" />
     <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
     <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
-    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
+    <Compile Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
     <Compile Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.cs" />
     <Compile Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.cs" />
     <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />

@@ -41,7 +41,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.jpg" />
@@ -327,7 +327,7 @@
       <DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
       <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -932,7 +932,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\MapReferenceScale\MapReferenceScale.xaml">

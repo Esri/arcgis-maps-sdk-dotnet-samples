@@ -309,7 +309,7 @@
     <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml.cs">
       <DependentUpon>TerrainExaggeration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
+    <Compile Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
       <DependentUpon>ChangeAtmosphereEffect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml.cs">
@@ -947,7 +947,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
+    <Page Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1683,7 +1683,7 @@
     <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg">
+    <Content Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg">

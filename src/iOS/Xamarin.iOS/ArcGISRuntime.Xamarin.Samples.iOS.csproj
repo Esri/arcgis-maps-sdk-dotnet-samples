@@ -325,7 +325,7 @@
     <None Include="Samples\Data\DeleteFeatures\DeleteFeatures.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
     <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
-    <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
+    <None Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <None Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <None Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
@@ -518,7 +518,7 @@
     <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />
     <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />
-    <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />
+    <Compile Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />
     <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.cs" />
     <Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />
     <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.cs" />

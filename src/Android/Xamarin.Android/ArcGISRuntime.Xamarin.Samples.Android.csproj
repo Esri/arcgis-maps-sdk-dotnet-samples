@@ -251,7 +251,7 @@
     <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <None Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <None Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
-    <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
+    <None Include="Samples\SceneView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
@@ -448,7 +448,7 @@
     <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
     <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.cs" />
     <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.cs" />
-    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
+    <Compile Include="Samples\SceneView\GeoViewSync\GeoViewSync.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />

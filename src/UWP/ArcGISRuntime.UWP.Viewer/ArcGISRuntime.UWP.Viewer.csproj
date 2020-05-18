@@ -272,7 +272,7 @@
     <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <Content Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
-    <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
+    <Content Include="Samples\SceneView\GeoViewSync\GeoViewSync.jpg" />
     <Content Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
@@ -839,7 +839,7 @@
     <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml.cs">
       <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
+    <Compile Include="Samples\SceneView\GeoViewSync\GeoViewSync.xaml.cs">
       <DependentUpon>GeoViewSync.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
@@ -1564,7 +1564,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
+    <Page Include="Samples\SceneView\GeoViewSync\GeoViewSync.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

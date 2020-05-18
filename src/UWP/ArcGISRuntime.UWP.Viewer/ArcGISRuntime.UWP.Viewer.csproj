@@ -263,7 +263,7 @@
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
-    <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <Content Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.jpg" />
     <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
@@ -530,7 +530,7 @@
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml.cs">
       <DependentUpon>SceneSymbols.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml.cs">
+    <Compile Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.xaml.cs">
       <DependentUpon>TerrainExaggeration.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
@@ -1152,7 +1152,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml">
+    <Page Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

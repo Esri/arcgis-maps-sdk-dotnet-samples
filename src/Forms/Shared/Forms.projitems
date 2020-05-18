@@ -1511,6 +1511,4 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\infogrey.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\settingsgrey.png" />
   </ItemGroup>
-</Project>ItemGroup>
-</Project>ItemGroup>
 </Project>

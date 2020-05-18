@@ -2217,6 +2217,4 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
-</Project>argets" />
-</Project>argets" />
 </Project>

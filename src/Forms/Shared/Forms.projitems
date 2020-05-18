@@ -27,7 +27,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\OfflineRouting\OfflineRouting.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
@@ -263,7 +263,7 @@
       <DependentUpon>ChooseCameraController.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -886,7 +886,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">

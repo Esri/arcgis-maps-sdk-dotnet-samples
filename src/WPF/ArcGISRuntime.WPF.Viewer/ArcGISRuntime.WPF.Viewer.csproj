@@ -195,7 +195,7 @@
     <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
       <DependentUpon>ChooseCameraController.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+    <Compile Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
@@ -799,7 +799,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+    <Page Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1570,7 +1570,7 @@
     <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg">
+    <Content Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg">

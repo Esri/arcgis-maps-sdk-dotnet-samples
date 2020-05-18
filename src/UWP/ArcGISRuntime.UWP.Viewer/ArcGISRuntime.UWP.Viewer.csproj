@@ -247,7 +247,7 @@
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <Content Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
     <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
-    <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+    <Content Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <Content Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
@@ -413,7 +413,7 @@
     <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml.cs">
       <DependentUpon>CreateAndSaveKmlFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+    <Compile Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\MapReferenceScale\DoubleToScaleStringConverter.cs" />
@@ -1008,7 +1008,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+    <Page Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

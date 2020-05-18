@@ -1,0 +1,26 @@
+{
+    "category": "Scene",
+    "description": "Changes the appearance of the atmosphere in a scene.",
+    "formal_name": "ChangeAtmosphereEffect",
+    "ignore": false,
+    "images": [
+        "ChangeAtmosphereEffect.jpg"
+    ],
+    "keywords": [
+        "atmosphere",
+        "horizon",
+        "sky"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.8.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/changeatmosphereeffect.htm"
+    ],
+    "relevant_apis": [],
+    "snippets": [
+        "ChangeAtmosphereEffect.cs"
+    ],
+    "title": "Change atmosphere effect"
+}

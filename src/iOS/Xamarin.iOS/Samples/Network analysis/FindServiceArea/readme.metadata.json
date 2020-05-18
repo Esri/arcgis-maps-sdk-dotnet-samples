@@ -27,6 +27,8 @@
         "ServiceAreaResult",
         "ServiceAreaTask"
     ],
-    "snippets": [],
+    "snippets": [
+        "FindServiceArea.cs"
+    ],
     "title": "Find service area"
 }

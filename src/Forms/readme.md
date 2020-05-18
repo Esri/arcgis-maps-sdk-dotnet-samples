@@ -146,15 +146,11 @@
 * [Access load status](Shared/Samples/Map/AccessLoadStatus/readme.md) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Apply scheduled updates to preplanned map area](Shared/Samples/Map/ApplyScheduledUpdates/readme.md) - Apply scheduled updates to a downloaded preplanned map area.
 * [Create and save map](Shared/Samples/Map/AuthorMap/readme.md) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
-* [Change atmosphere effect](Shared/Samples/Map/ChangeAtmosphereEffect/readme.md) - Changes the appearance of the atmosphere in a scene.
 * [Change basemap](Shared/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
-* [Create terrain surface from a local raster](Shared/Samples/Map/CreateTerrainSurfaceFromRaster/readme.md) - Set the terrain surface with elevation described by a raster file.
-* [Create terrain from local tile package](Shared/Samples/Map/CreateTerrainSurfaceFromTilePackage/readme.md) - Set the terrain surface with elevation described by a local tile package.
 * [Display map](Shared/Samples/Map/DisplayMap/readme.md) - Display a map with an imagery basemap.
 * [Download preplanned map area](Shared/Samples/Map/DownloadPreplannedMap/readme.md) - Take a map offline using a preplanned map area.
 * [Generate offline map](Shared/Samples/Map/GenerateOfflineMap/readme.md) - Take a web map offline.
 * [Generate offline map (overrides)](Shared/Samples/Map/GenerateOfflineMapWithOverrides/readme.md) - Take a web map offline with additional options for each layer.
-* [Get elevation at a point](Shared/Samples/Map/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene.
 * [Honor mobile map package expiration date](Shared/Samples/Map/HonorMobileMapPackageExpiration/readme.md) - Access the expiration information of an expired mobile map package.
 * [Manage bookmarks](Shared/Samples/Map/ManageBookmarks/readme.md) - Access and create bookmarks on a map.
 * [Manage operational layers](Shared/Samples/Map/ManageOperationalLayers/readme.md) - Add, remove, and reorder operational layers in a map.
@@ -163,26 +159,20 @@
 * [Generate offline map with local basemap](Shared/Samples/Map/OfflineBasemapByReference/readme.md) - Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.
 * [Open map URL](Shared/Samples/Map/OpenMapURL/readme.md) - Display a web map.
 * [Open mobile map package](Shared/Samples/Map/OpenMobileMap/readme.md) - Display a map from a mobile map package.
-* [Open mobile scene package](Shared/Samples/Map/OpenMobileScenePackage/readme.md) - Opens and displays a scene from a Mobile Scene Package (.mspk).
-* [Open a scene (portal item)](Shared/Samples/Map/OpenScene/readme.md) - Open a web scene from a portal item.
 * [Search for webmap](Shared/Samples/Map/SearchPortalMaps/readme.md) - Find webmap portal items by using a search term.
 * [Map initial extent](Shared/Samples/Map/SetInitialMapArea/readme.md) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Set initial map location](Shared/Samples/Map/SetInitialMapLocation/readme.md) - Display a basemap centered at an initial location and scale.
 * [Map spatial reference](Shared/Samples/Map/SetMapSpatialReference/readme.md) - Specify a map's spatial reference.
 * [Set min & max scale](Shared/Samples/Map/SetMinMaxScale/readme.md) - Restrict zooming between specific scale ranges.
-* [Terrain exaggeration](Shared/Samples/Map/TerrainExaggeration/readme.md) - Vertically exaggerate terrain in a scene.
-* [View content beneath terrain surface](Shared/Samples/Map/ViewContentBeneathSurface/readme.md) - See through terrain in a scene and move the camera underground.
 
 ## MapView
 
 * [Change time extent](Shared/Samples/MapView/ChangeTimeExtent/readme.md) - Filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](Shared/Samples/MapView/ChangeViewpoint/readme.md) - Set the map view to a new viewpoint.
-* [Choose camera controller](Shared/Samples/MapView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
 * [Display draw status](Shared/Samples/MapView/DisplayDrawingStatus/readme.md) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
 * [Display grid](Shared/Samples/MapView/DisplayGrid/readme.md) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
 * [Display layer view state](Shared/Samples/MapView/DisplayLayerViewState/readme.md) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](Shared/Samples/MapView/FeatureLayerTimeOffset/readme.md) - Display a time-enabled feature layer with a time offset.
-* [GeoView viewpoint synchronization](Shared/Samples/MapView/GeoViewSync/readme.md) - Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 * [Identify layers](Shared/Samples/MapView/IdentifyLayers/readme.md) - Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.
 * [Map rotation](Shared/Samples/MapView/MapRotation/readme.md) - Rotate a map.
 * [Show callout](Shared/Samples/MapView/ShowCallout/readme.md) - Show a callout with the latitude and longitude of user-tapped points.
@@ -200,6 +190,22 @@
 * [Navigate route with rerouting](Shared/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 * [Offline routing](Shared/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](Shared/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+
+## Scene
+
+* [Change atmosphere effect](Shared/Samples/Scene/ChangeAtmosphereEffect/readme.md) - Changes the appearance of the atmosphere in a scene.
+* [Create terrain surface from a local raster](Shared/Samples/Scene/CreateTerrainSurfaceRaster/readme.md) - Set the terrain surface with elevation described by a raster file.
+* [Create terrain from local tile package](Shared/Samples/Scene/CreateTerrainSurfaceTilePackage/readme.md) - Set the terrain surface with elevation described by a local tile package.
+* [Get elevation at a point](Shared/Samples/Scene/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene.
+* [Open mobile scene package](Shared/Samples/Scene/OpenMobileScenePackage/readme.md) - Opens and displays a scene from a Mobile Scene Package (.mspk).
+* [Open a scene (portal item)](Shared/Samples/Scene/OpenScenePortalItem/readme.md) - Open a web scene from a portal item.
+* [Terrain exaggeration](Shared/Samples/Scene/TerrainExaggeration/readme.md) - Vertically exaggerate terrain in a scene.
+* [View content beneath terrain surface](Shared/Samples/Scene/ViewContentBeneathSurface/readme.md) - See through terrain in a scene and move the camera underground.
+
+## SceneView
+
+* [Choose camera controller](Shared/Samples/SceneView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
+* [GeoView viewpoint synchronization](Shared/Samples/SceneView/GeoViewSync/readme.md) - Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 
 ## Search
 

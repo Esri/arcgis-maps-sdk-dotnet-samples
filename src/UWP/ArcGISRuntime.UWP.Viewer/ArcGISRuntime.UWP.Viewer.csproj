@@ -239,15 +239,15 @@
     <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg" />
     <Content Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg" />
     <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg" />
-    <Content Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
+    <Content Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
-    <Content Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
-    <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+    <Content Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg" />
+    <Content Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <Content Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
     <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
-    <Content Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+    <Content Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <Content Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg" />
     <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg" />
@@ -256,23 +256,23 @@
     <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg" />
     <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
-    <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
-    <Content Include="Samples\Map\OpenScene\OpenScene.jpg" />
+    <Content Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <Content Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
     <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg" />
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg" />
-    <Content Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
-    <Content Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+    <Content Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <Content Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg" />
     <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg" />
-    <Content Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
+    <Content Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.jpg" />
     <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg" />
     <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <Content Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
-    <Content Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
+    <Content Include="Samples\SceneView\GeoViewSync\GeoViewSync.jpg" />
     <Content Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <Content Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
@@ -413,7 +413,7 @@
     <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml.cs">
       <DependentUpon>CreateAndSaveKmlFile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+    <Compile Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\MapReferenceScale\DoubleToScaleStringConverter.cs" />
@@ -422,7 +422,7 @@
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
       <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml.cs">
+    <Compile Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml.cs">
       <DependentUpon>ChooseCameraController.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
@@ -455,7 +455,7 @@
     <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
       <DependentUpon>PlayKmlTours.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
+    <Compile Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
       <DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml.cs">
@@ -473,17 +473,17 @@
     <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
       <DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
+    <Compile Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
       <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
       <DependentUpon>MapReferenceScale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml.cs">
-      <DependentUpon>CreateTerrainSurfaceFromRaster.xaml</DependentUpon>
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceRaster.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml.cs">
-      <DependentUpon>CreateTerrainSurfaceFromTilePackage.xaml</DependentUpon>
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceTilePackage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml.cs">
       <DependentUpon>ViewPointCloudDataOffline.xaml</DependentUpon>
@@ -530,10 +530,10 @@
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml.cs">
       <DependentUpon>SceneSymbols.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml.cs">
+    <Compile Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.xaml.cs">
       <DependentUpon>TerrainExaggeration.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
+    <Compile Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
       <DependentUpon>ChangeAtmosphereEffect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml.cs">
@@ -839,7 +839,7 @@
     <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml.cs">
       <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml.cs">
+    <Compile Include="Samples\SceneView\GeoViewSync\GeoViewSync.xaml.cs">
       <DependentUpon>GeoViewSync.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
@@ -872,8 +872,8 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\OpenScene\OpenScene.xaml.cs">
-      <DependentUpon>OpenScene.xaml</DependentUpon>
+    <Compile Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.xaml.cs">
+      <DependentUpon>OpenScenePortalItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
       <DependentUpon>OpenMapURL.xaml</DependentUpon>
@@ -1004,11 +1004,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\MapView\ChooseCameraController\ChooseCameraController.xaml">
+    <Page Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.xaml">
+    <Page Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1052,7 +1052,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
+    <Page Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1076,7 +1076,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
+    <Page Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1084,11 +1084,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.xaml">
+    <Page Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml">
+    <Page Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1152,11 +1152,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.xaml">
+    <Page Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
+    <Page Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1564,7 +1564,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\MapView\GeoViewSync\GeoViewSync.xaml">
+    <Page Include="Samples\SceneView\GeoViewSync\GeoViewSync.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1608,7 +1608,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenScene\OpenScene.xaml">
+    <Page Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

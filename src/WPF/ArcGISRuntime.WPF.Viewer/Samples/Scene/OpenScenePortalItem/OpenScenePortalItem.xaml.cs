@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.OpenScene
+namespace ArcGISRuntime.WPF.Samples.OpenScenePortalItem
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Open a scene (portal item)",
@@ -20,12 +20,12 @@ namespace ArcGISRuntime.WPF.Samples.OpenScene
         description: "Open a web scene from a portal item.",
         instructions: "When the sample opens, it will automatically display the scene from ArcGIS Online. Pan and zoom to explore the scene.",
         tags: new[] { "portal", "scene", "web scene" })]
-    public partial class OpenScene
+    public partial class OpenScenePortalItem
     {
         // Hold the ID of the portal item, which is a web scene.
         private const string ItemId = "c6f90b19164c4283884361005faea852";
 
-        public OpenScene()
+        public OpenScenePortalItem()
         {
             InitializeComponent();
 

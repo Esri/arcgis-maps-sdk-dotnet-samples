@@ -257,7 +257,7 @@
     <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
     <Content Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
-    <Content Include="Samples\Map\OpenScene\OpenScene.jpg" />
+    <Content Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.jpg" />
     <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
@@ -872,8 +872,8 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
       <DependentUpon>ManageBookmarks.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\OpenScene\OpenScene.xaml.cs">
-      <DependentUpon>OpenScene.xaml</DependentUpon>
+    <Compile Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.xaml.cs">
+      <DependentUpon>OpenScenePortalItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
       <DependentUpon>OpenMapURL.xaml</DependentUpon>
@@ -1608,7 +1608,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\OpenScene\OpenScene.xaml">
+    <Page Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

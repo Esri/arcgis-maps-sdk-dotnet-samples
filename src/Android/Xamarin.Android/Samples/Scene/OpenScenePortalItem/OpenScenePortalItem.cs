@@ -7,29 +7,38 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
-using System;
 using Esri.ArcGISRuntime.Portal;
-using Xamarin.Forms;
+using Esri.ArcGISRuntime.UI.Controls;
+using System;
 
-namespace ArcGISRuntime.Samples.OpenScene
+namespace ArcGISRuntime.Samples.OpenScenePortalItem
 {
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Open a scene (portal item)",
         category: "Map",
         description: "Open a web scene from a portal item.",
         instructions: "When the sample opens, it will automatically display the scene from ArcGIS Online. Pan and zoom to explore the scene.",
         tags: new[] { "portal", "scene", "web scene" })]
-    public partial class OpenScene : ContentPage
+    public class OpenScenePortalItem : Activity
     {
         // Hold the ID of the portal item, which is a web scene.
         private const string ItemId = "c6f90b19164c4283884361005faea852";
 
-        public OpenScene()
-        {
-            InitializeComponent();
+        // Hold a reference to the scene view.
+        private SceneView _mySceneView;
 
-            // Create the UI, setup the control references and execute initialization 
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+
+            Title = "Open scene (Portal item)";
+
+            CreateLayout();
             Initialize();
         }
 
@@ -44,12 +53,25 @@ namespace ArcGISRuntime.Samples.OpenScene
                 PortalItem websceneItem = await PortalItem.CreateAsync(portal, ItemId);
 
                 // Create and show the scene.
-                MySceneView.Scene = new Scene(websceneItem);
+                _mySceneView.Scene = new Scene(websceneItem);
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                new AlertDialog.Builder(this).SetMessage(e.ToString()).SetTitle("Error").Show();
             }
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new vertical layout for the app
+            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+
+            // Add the map view to the layout
+            _mySceneView = new SceneView(this);
+            layout.AddView(_mySceneView);
+
+            // Show the layout in the app
+            SetContentView(layout);
         }
     }
 }

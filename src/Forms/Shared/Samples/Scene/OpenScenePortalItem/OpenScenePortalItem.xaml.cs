@@ -8,11 +8,11 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Portal;
 using System;
-using Windows.UI.Popups;
+using Esri.ArcGISRuntime.Portal;
+using Xamarin.Forms;
 
-namespace ArcGISRuntime.UWP.Samples.OpenScene
+namespace ArcGISRuntime.Samples.OpenScenePortalItem
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Open a scene (portal item)",
@@ -20,19 +20,19 @@ namespace ArcGISRuntime.UWP.Samples.OpenScene
         description: "Open a web scene from a portal item.",
         instructions: "When the sample opens, it will automatically display the scene from ArcGIS Online. Pan and zoom to explore the scene.",
         tags: new[] { "portal", "scene", "web scene" })]
-    public partial class OpenScene
+    public partial class OpenScenePortalItem : ContentPage
     {
         // Hold the ID of the portal item, which is a web scene.
         private const string ItemId = "c6f90b19164c4283884361005faea852";
 
-        public OpenScene()
+        public OpenScenePortalItem()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization.
+            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
-        
+
         private async void Initialize()
         {
             try
@@ -48,7 +48,7 @@ namespace ArcGISRuntime.UWP.Samples.OpenScene
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
     }

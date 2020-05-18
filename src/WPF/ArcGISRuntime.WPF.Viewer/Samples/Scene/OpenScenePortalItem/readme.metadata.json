@@ -1,10 +1,10 @@
 {
     "category": "Map",
     "description": "Open a web scene from a portal item.",
-    "formal_name": "OpenScene",
+    "formal_name": "OpenScenePortalItem",
     "ignore": false,
     "images": [
-        "OpenScene.jpg"
+        "OpenScenePortalItem.jpg"
     ],
     "keywords": [
         "portal",
@@ -24,8 +24,8 @@
         "SceneView"
     ],
     "snippets": [
-        "OpenScene.xaml",
-        "OpenScene.xaml.cs"
+        "OpenScenePortalItem.xaml",
+        "OpenScenePortalItem.xaml.cs"
     ],
     "title": "Open a scene (portal item)"
 }

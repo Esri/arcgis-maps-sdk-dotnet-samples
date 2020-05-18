@@ -164,7 +164,7 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
@@ -531,8 +531,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml.cs">
       <DependentUpon>GenerateOfflineMap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml.cs">
-      <DependentUpon>OpenScene.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.xaml.cs">
+      <DependentUpon>OpenScenePortalItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
       <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
@@ -1088,7 +1088,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\OpenScene\OpenScene.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Network analysis\FindServiceArea\FindServiceArea.xaml">

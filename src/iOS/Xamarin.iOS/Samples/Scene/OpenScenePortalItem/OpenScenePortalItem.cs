@@ -14,16 +14,16 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using UIKit;
 
-namespace ArcGISRuntime.Samples.OpenScene
+namespace ArcGISRuntime.Samples.OpenScenePortalItem
 {
-    [Register("OpenScene")]
+    [Register("OpenScenePortalItem")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Open a scene (portal item)",
         category: "Map",
         description: "Open a web scene from a portal item.",
         instructions: "When the sample opens, it will automatically display the scene from ArcGIS Online. Pan and zoom to explore the scene.",
         tags: new[] { "portal", "scene", "web scene" })]
-    public class OpenScene : UIViewController
+    public class OpenScenePortalItem : UIViewController
     {
         // Hold references to UI controls.
         private SceneView _mySceneView;
@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.OpenScene
         // Hold the ID of the portal item, which is a web scene.
         private const string ItemId = "c6f90b19164c4283884361005faea852";
 
-        public OpenScene()
+        public OpenScenePortalItem()
         {
             Title = "Open scene (Portal item)";
         }

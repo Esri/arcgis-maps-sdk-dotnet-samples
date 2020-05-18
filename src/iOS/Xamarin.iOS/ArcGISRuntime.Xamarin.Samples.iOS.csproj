@@ -425,7 +425,7 @@
     <None Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <None Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <None Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
-    <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
+    <None Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.jpg" />
     <None Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <None Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <None Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
@@ -622,7 +622,7 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
-    <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
+    <Compile Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.cs" />
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />

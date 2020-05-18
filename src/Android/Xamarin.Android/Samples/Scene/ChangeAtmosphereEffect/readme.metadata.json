@@ -1,5 +1,5 @@
 {
-    "category": "Map",
+    "category": "Scene",
     "description": "Changes the appearance of the atmosphere in a scene.",
     "formal_name": "ChangeAtmosphereEffect",
     "ignore": false,

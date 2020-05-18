@@ -1,5 +1,5 @@
 {
-    "category": "Map",
+    "category": "Scene",
     "description": "Get the elevation for a given point on a surface in a scene.",
     "formal_name": "GetElevationAtPoint",
     "ignore": false,

@@ -1,5 +1,5 @@
 {
-    "category": "Map",
+    "category": "Scene",
     "description": "Opens and displays a scene from a Mobile Scene Package (.mspk).",
     "formal_name": "OpenMobileScenePackage",
     "ignore": false,

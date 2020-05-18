@@ -1,5 +1,5 @@
 {
-    "category": "Map",
+    "category": "Scene",
     "description": "Set the terrain surface with elevation described by a raster file.",
     "formal_name": "CreateTerrainSurfaceRaster",
     "ignore": false,
@@ -18,7 +18,7 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/createterrainsurfacefromraster.htm"
+        "/net/latest/forms/sample-code/createterrainsurfaceraster.htm"
     ],
     "relevant_apis": [
         "RasterElevationSource",

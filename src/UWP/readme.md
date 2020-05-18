@@ -146,15 +146,11 @@
 * [Access load status](ArcGISRuntime.UWP.Viewer/Samples/Map/AccessLoadStatus/readme.md) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Apply scheduled updates to preplanned map area](ArcGISRuntime.UWP.Viewer/Samples/Map/ApplyScheduledUpdates/readme.md) - Apply scheduled updates to a downloaded preplanned map area.
 * [Create and save map](ArcGISRuntime.UWP.Viewer/Samples/Map/AuthorMap/readme.md) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
-* [Change atmosphere effect](ArcGISRuntime.UWP.Viewer/Samples/Map/ChangeAtmosphereEffect/readme.md) - Changes the appearance of the atmosphere in a scene.
 * [Change basemap](ArcGISRuntime.UWP.Viewer/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
-* [Create terrain surface from a local raster](ArcGISRuntime.UWP.Viewer/Samples/Map/CreateTerrainSurfaceFromRaster/readme.md) - Set the terrain surface with elevation described by a raster file.
-* [Create terrain from local tile package](ArcGISRuntime.UWP.Viewer/Samples/Map/CreateTerrainSurfaceFromTilePackage/readme.md) - Set the terrain surface with elevation described by a local tile package.
 * [Display map](ArcGISRuntime.UWP.Viewer/Samples/Map/DisplayMap/readme.md) - Display a map with an imagery basemap.
 * [Download preplanned map area](ArcGISRuntime.UWP.Viewer/Samples/Map/DownloadPreplannedMap/readme.md) - Take a map offline using a preplanned map area.
 * [Generate offline map](ArcGISRuntime.UWP.Viewer/Samples/Map/GenerateOfflineMap/readme.md) - Take a web map offline.
 * [Generate offline map (overrides)](ArcGISRuntime.UWP.Viewer/Samples/Map/GenerateOfflineMapWithOverrides/readme.md) - Take a web map offline with additional options for each layer.
-* [Get elevation at a point](ArcGISRuntime.UWP.Viewer/Samples/Map/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene.
 * [Honor mobile map package expiration date](ArcGISRuntime.UWP.Viewer/Samples/Map/HonorMobileMapPackageExpiration/readme.md) - Access the expiration information of an expired mobile map package.
 * [Manage bookmarks](ArcGISRuntime.UWP.Viewer/Samples/Map/ManageBookmarks/readme.md) - Access and create bookmarks on a map.
 * [Manage operational layers](ArcGISRuntime.UWP.Viewer/Samples/Map/ManageOperationalLayers/readme.md) - Add, remove, and reorder operational layers in a map.
@@ -163,26 +159,20 @@
 * [Generate offline map with local basemap](ArcGISRuntime.UWP.Viewer/Samples/Map/OfflineBasemapByReference/readme.md) - Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.
 * [Open map URL](ArcGISRuntime.UWP.Viewer/Samples/Map/OpenMapURL/readme.md) - Display a web map.
 * [Open mobile map package](ArcGISRuntime.UWP.Viewer/Samples/Map/OpenMobileMap/readme.md) - Display a map from a mobile map package.
-* [Open mobile scene package](ArcGISRuntime.UWP.Viewer/Samples/Map/OpenMobileScenePackage/readme.md) - Opens and displays a scene from a Mobile Scene Package (.mspk).
-* [Open a scene (portal item)](ArcGISRuntime.UWP.Viewer/Samples/Map/OpenScene/readme.md) - Open a web scene from a portal item.
 * [Search for webmap](ArcGISRuntime.UWP.Viewer/Samples/Map/SearchPortalMaps/readme.md) - Find webmap portal items by using a search term.
 * [Map initial extent](ArcGISRuntime.UWP.Viewer/Samples/Map/SetInitialMapArea/readme.md) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Set initial map location](ArcGISRuntime.UWP.Viewer/Samples/Map/SetInitialMapLocation/readme.md) - Display a basemap centered at an initial location and scale.
 * [Map spatial reference](ArcGISRuntime.UWP.Viewer/Samples/Map/SetMapSpatialReference/readme.md) - Specify a map's spatial reference.
 * [Set min & max scale](ArcGISRuntime.UWP.Viewer/Samples/Map/SetMinMaxScale/readme.md) - Restrict zooming between specific scale ranges.
-* [Terrain exaggeration](ArcGISRuntime.UWP.Viewer/Samples/Map/TerrainExaggeration/readme.md) - Vertically exaggerate terrain in a scene.
-* [View content beneath terrain surface](ArcGISRuntime.UWP.Viewer/Samples/Map/ViewContentBeneathSurface/readme.md) - See through terrain in a scene and move the camera underground.
 
 ## MapView
 
 * [Change time extent](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChangeTimeExtent/readme.md) - Filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChangeViewpoint/readme.md) - Set the map view to a new viewpoint.
-* [Choose camera controller](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
 * [Display draw status](ArcGISRuntime.UWP.Viewer/Samples/MapView/DisplayDrawingStatus/readme.md) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
 * [Display grid](ArcGISRuntime.UWP.Viewer/Samples/MapView/DisplayGrid/readme.md) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
 * [Display layer view state](ArcGISRuntime.UWP.Viewer/Samples/MapView/DisplayLayerViewState/readme.md) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](ArcGISRuntime.UWP.Viewer/Samples/MapView/FeatureLayerTimeOffset/readme.md) - Display a time-enabled feature layer with a time offset.
-* [GeoView viewpoint synchronization](ArcGISRuntime.UWP.Viewer/Samples/MapView/GeoViewSync/readme.md) - Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 * [Identify layers](ArcGISRuntime.UWP.Viewer/Samples/MapView/IdentifyLayers/readme.md) - Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.
 * [Map rotation](ArcGISRuntime.UWP.Viewer/Samples/MapView/MapRotation/readme.md) - Rotate a map.
 * [Show callout](ArcGISRuntime.UWP.Viewer/Samples/MapView/ShowCallout/readme.md) - Show a callout with the latitude and longitude of user-tapped points.
@@ -200,6 +190,22 @@
 * [Navigate route with rerouting](ArcGISRuntime.UWP.Viewer/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 * [Offline routing](ArcGISRuntime.UWP.Viewer/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
 * [Route around barriers](ArcGISRuntime.UWP.Viewer/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+
+## Scene
+
+* [Change atmosphere effect](ArcGISRuntime.UWP.Viewer/Samples/Scene/ChangeAtmosphereEffect/readme.md) - Changes the appearance of the atmosphere in a scene.
+* [Create terrain surface from a local raster](ArcGISRuntime.UWP.Viewer/Samples/Scene/CreateTerrainSurfaceRaster/readme.md) - Set the terrain surface with elevation described by a raster file.
+* [Create terrain from local tile package](ArcGISRuntime.UWP.Viewer/Samples/Scene/CreateTerrainSurfaceTilePackage/readme.md) - Set the terrain surface with elevation described by a local tile package.
+* [Get elevation at a point](ArcGISRuntime.UWP.Viewer/Samples/Scene/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene.
+* [Open mobile scene package](ArcGISRuntime.UWP.Viewer/Samples/Scene/OpenMobileScenePackage/readme.md) - Opens and displays a scene from a Mobile Scene Package (.mspk).
+* [Open a scene (portal item)](ArcGISRuntime.UWP.Viewer/Samples/Scene/OpenScenePortalItem/readme.md) - Open a web scene from a portal item.
+* [Terrain exaggeration](ArcGISRuntime.UWP.Viewer/Samples/Scene/TerrainExaggeration/readme.md) - Vertically exaggerate terrain in a scene.
+* [View content beneath terrain surface](ArcGISRuntime.UWP.Viewer/Samples/Scene/ViewContentBeneathSurface/readme.md) - See through terrain in a scene and move the camera underground.
+
+## SceneView
+
+* [Choose camera controller](ArcGISRuntime.UWP.Viewer/Samples/SceneView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
+* [GeoView viewpoint synchronization](ArcGISRuntime.UWP.Viewer/Samples/SceneView/GeoViewSync/readme.md) - Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 
 ## Search
 

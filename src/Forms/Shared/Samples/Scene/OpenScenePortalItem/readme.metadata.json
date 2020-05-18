@@ -1,5 +1,5 @@
 {
-    "category": "Map",
+    "category": "Scene",
     "description": "Open a web scene from a portal item.",
     "formal_name": "OpenScenePortalItem",
     "ignore": false,
@@ -16,7 +16,7 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/openscene.htm"
+        "/net/latest/forms/sample-code/opensceneportalitem.htm"
     ],
     "relevant_apis": [
         "PortalItem",

@@ -1,5 +1,5 @@
 {
-    "category": "Map",
+    "category": "Scene",
     "description": "Set the terrain surface with elevation described by a local tile package.",
     "formal_name": "CreateTerrainSurfaceTilePackage",
     "ignore": false,
@@ -19,7 +19,7 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/createterrainsurfacefromtilepackage.htm"
+        "/net/latest/forms/sample-code/createterrainsurfacetilepackage.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledElevationSource",

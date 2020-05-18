@@ -1,10 +1,10 @@
 {
     "category": "Map",
     "description": "Set the terrain surface with elevation described by a local tile package.",
-    "formal_name": "CreateTerrainSurfaceFromTilePackage",
+    "formal_name": "CreateTerrainSurfaceTilePackage",
     "ignore": false,
     "images": [
-        "CreateTerrainSurfaceFromTilePackage.jpg"
+        "CreateTerrainSurfaceTilePackage.jpg"
     ],
     "keywords": [
         "3D",
@@ -19,14 +19,15 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/android/sample-code/createterrainsurfacefromtilepackage.htm"
+        "/net/latest/wpf/sample-code/createterrainsurfacefromtilepackage.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledElevationSource",
         "Surface"
     ],
     "snippets": [
-        "CreateTerrainSurfaceFromTilePackage.cs"
+        "CreateTerrainSurfaceTilePackage.xaml",
+        "CreateTerrainSurfaceTilePackage.xaml.cs"
     ],
     "title": "Create terrain from local tile package"
 }

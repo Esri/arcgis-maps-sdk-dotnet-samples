@@ -1,10 +1,10 @@
 {
     "category": "Map",
     "description": "Set the terrain surface with elevation described by a local tile package.",
-    "formal_name": "CreateTerrainSurfaceFromTilePackage",
+    "formal_name": "CreateTerrainSurfaceTilePackage",
     "ignore": false,
     "images": [
-        "CreateTerrainSurfaceFromTilePackage.jpg"
+        "CreateTerrainSurfaceTilePackage.jpg"
     ],
     "keywords": [
         "3D",
@@ -26,7 +26,7 @@
         "Surface"
     ],
     "snippets": [
-        "CreateTerrainSurfaceFromTilePackage.cs"
+        "CreateTerrainSurfaceTilePackage.cs"
     ],
     "title": "Create terrain from local tile package"
 }

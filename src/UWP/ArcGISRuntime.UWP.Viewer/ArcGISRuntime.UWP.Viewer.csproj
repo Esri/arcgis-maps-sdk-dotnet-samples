@@ -242,7 +242,7 @@
     <Content Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg" />
     <Content Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg" />
-    <Content Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+    <Content Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.jpg" />
     <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg" />
     <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg" />
     <Content Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg" />
@@ -482,8 +482,8 @@
     <Compile Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml.cs">
       <DependentUpon>CreateTerrainSurfaceRaster.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml.cs">
-      <DependentUpon>CreateTerrainSurfaceFromTilePackage.xaml</DependentUpon>
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceTilePackage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml.cs">
       <DependentUpon>ViewPointCloudDataOffline.xaml</DependentUpon>
@@ -1088,7 +1088,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.xaml">
+    <Page Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1804,5 +1804,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />
+</Project>argets" />
 </Project>argets" />
 </Project>

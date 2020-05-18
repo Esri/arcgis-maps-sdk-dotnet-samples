@@ -14,7 +14,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceFromTilePackage
+namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceTilePackage
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -24,7 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceFromTilePackage
         instructions: "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
         tags: new[] { "3D", "LERC", "elevation", "surface", "terrain", "tile cache" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("cce37043eb0440c7a5c109cf8aad5500")]
-    public class CreateTerrainSurfaceFromTilePackage : Activity
+    public class CreateTerrainSurfaceTilePackage : Activity
     {
         // Hold references to the UI controls.
         private SceneView _mySceneView;

@@ -3,14 +3,14 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.WPF.Samples.CreateTerrainSurfaceFromTilePackage
+namespace ArcGISRuntime.UWP.Samples.CreateTerrainSurfaceTilePackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create terrain from local tile package",
@@ -19,9 +19,9 @@ namespace ArcGISRuntime.WPF.Samples.CreateTerrainSurfaceFromTilePackage
         instructions: "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
         tags: new[] { "3D", "LERC", "elevation", "surface", "terrain", "tile cache" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("cce37043eb0440c7a5c109cf8aad5500")]
-    public partial class CreateTerrainSurfaceFromTilePackage
+    public partial class CreateTerrainSurfaceTilePackage
     {
-        public CreateTerrainSurfaceFromTilePackage()
+        public CreateTerrainSurfaceTilePackage()
         {
             InitializeComponent();
             Initialize();

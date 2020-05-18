@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ArcGISRuntime.WPF.Samples.CreateTerrainSurfaceFromTilePackage.CreateTerrainSurfaceFromTilePackage"
+    x:Class="ArcGISRuntime.WPF.Samples.CreateTerrainSurfaceTilePackage.CreateTerrainSurfaceTilePackage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">

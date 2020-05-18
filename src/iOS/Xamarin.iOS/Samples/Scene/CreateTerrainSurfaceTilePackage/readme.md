@@ -2,7 +2,7 @@
 
 Set the terrain surface with elevation described by a local tile package.
 
-![Image of create terrain from local tile package](CreateTerrainSurfaceFromTilePackage.jpg)
+![Image of create terrain from local tile package](CreateTerrainSurfaceTilePackage.jpg)
 
 ## Use case
 

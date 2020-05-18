@@ -100,9 +100,9 @@
     <None Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg" />
     <None Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg" />
     <None Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg" />
-    <None Include="Samples\MapView\ChooseCameraController\ChooseCameraController.jpg" />
+    <None Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.jpg" />
     <None Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg" />
-    <None Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.jpg" />
+    <None Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg" />
     <None Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg" />
     <None Include="Samples\Network analysis\OfflineRouting\OfflineRouting.jpg" />
     <None Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.jpg" />
@@ -113,9 +113,9 @@
     <None Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg" />
     <None Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg" />
     <None Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg" />
-    <None Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
-    <None Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.jpg" />
-    <None Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.jpg" />
+    <None Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.jpg" />
+    <None Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg" />
+    <None Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.jpg" />
     <None Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg" />
     <None Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg" />
     <None Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg" />
@@ -123,7 +123,7 @@
     <None Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg" />
     <None Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg" />
     <None Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg" />
-    <None Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
+    <None Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg" />
     <None Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg" />
     <None Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg" />
     <None Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg" />
@@ -136,8 +136,8 @@
     <None Include="Samples\Data\UpdateGeometries\UpdateGeometries.jpg" />
     <None Include="Samples\Data\AddFeatures\AddFeatures.jpg" />
     <None Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg" />
-    <None Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.jpg" />
-    <None Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
+    <None Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.jpg" />
+    <None Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg" />
     <None Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg" />
     <None Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg" />
     <None Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg" />
@@ -240,7 +240,7 @@
     <None Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg" />
     <None Include="Samples\Map\OpenMapURL\OpenMapURL.jpg" />
     <None Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg" />
-    <None Include="Samples\Map\OpenScene\OpenScene.jpg" />
+    <None Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.jpg" />
     <None Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg" />
     <None Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg" />
     <None Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg" />
@@ -252,7 +252,7 @@
     <None Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg" />
     <None Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg" />
     <None Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg" />
-    <None Include="Samples\MapView\GeoViewSync\GeoViewSync.jpg" />
+    <None Include="Samples\SceneView\GeoViewSync\GeoViewSync.jpg" />
     <None Include="Samples\MapView\MapRotation\MapRotation.jpg" />
     <None Include="Samples\MapView\ShowCallout\ShowCallout.jpg" />
     <None Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg" />
@@ -296,9 +296,9 @@
     <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.cs" />
     <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.cs" />
     <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.cs" />
-    <Compile Include="Samples\MapView\ChooseCameraController\ChooseCameraController.cs" />
+    <Compile Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.cs" />
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.cs" />
-    <Compile Include="Samples\Map\GetElevationAtPoint\GetElevationAtPoint.cs" />
+    <Compile Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.cs" />
     <Compile Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.cs" />
     <Compile Include="Samples\Network analysis\OfflineRouting\OfflineRouting.cs" />
     <Compile Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.cs" />
@@ -309,9 +309,9 @@
     <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.cs" />
     <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.cs" />
     <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.cs" />
-    <Compile Include="Samples\Map\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromRaster\CreateTerrainSurfaceFromRaster.cs" />
-    <Compile Include="Samples\Map\CreateTerrainSurfaceFromTilePackage\CreateTerrainSurfaceFromTilePackage.cs" />
+    <Compile Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.cs" />
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.cs" />
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.cs" />
     <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.cs" />
     <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.cs" />
     <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.cs" />
@@ -324,7 +324,7 @@
     <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.cs" />
     <Compile Include="Samples\Data\UpdateAttributes\UpdateAttributes.cs" />
     <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.cs" />
-    <Compile Include="Samples\Map\ViewContentBeneathSurface\ViewContentBeneathSurface.cs" />
+    <Compile Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.cs" />
     <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.cs" />
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\ParameterOverrideFragment.cs" />
     <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.cs" />
@@ -333,8 +333,8 @@
     <Compile Include="Samples\Data\AddFeatures\AddFeatures.cs" />
     <Compile Include="Samples\Data\DeleteFeatures\DeleteFeatures.cs" />
     <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.cs" />
-    <Compile Include="Samples\Map\TerrainExaggeration\TerrainExaggeration.cs" />
-    <Compile Include="Samples\Map\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />
+    <Compile Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.cs" />
+    <Compile Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.cs" />
     <Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.cs" />
     <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.cs" />
     <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.cs" />
@@ -438,7 +438,7 @@
     <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.cs" />
     <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.cs" />
     <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.cs" />
-    <Compile Include="Samples\Map\OpenScene\OpenScene.cs" />
+    <Compile Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.cs" />
     <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.cs" />
     <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.cs" />
     <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.cs" />
@@ -450,7 +450,7 @@
     <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.cs" />
     <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.cs" />
     <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.cs" />
-    <Compile Include="Samples\MapView\GeoViewSync\GeoViewSync.cs" />
+    <Compile Include="Samples\SceneView\GeoViewSync\GeoViewSync.cs" />
     <Compile Include="Samples\MapView\MapRotation\MapRotation.cs" />
     <Compile Include="Samples\MapView\ShowCallout\ShowCallout.cs" />
     <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.cs" />

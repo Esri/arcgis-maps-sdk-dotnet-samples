@@ -1,0 +1,32 @@
+{
+    "category": "Scene",
+    "description": "Get the elevation for a given point on a surface in a scene.",
+    "formal_name": "GetElevationAtPoint",
+    "ignore": false,
+    "images": [
+        "GetElevationAtPoint.jpg"
+    ],
+    "keywords": [
+        "elevation",
+        "point",
+        "surface"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.8.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/getelevationatpoint.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISTiledElevationSource",
+        "BaseSurface",
+        "ElevationSourcesList",
+        "SceneView"
+    ],
+    "snippets": [
+        "GetElevationAtPoint.xaml",
+        "GetElevationAtPoint.xaml.cs"
+    ],
+    "title": "Get elevation at a point"
+}

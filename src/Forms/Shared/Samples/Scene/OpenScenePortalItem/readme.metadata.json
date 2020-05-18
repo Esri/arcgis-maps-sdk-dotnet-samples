@@ -1,0 +1,31 @@
+{
+    "category": "Scene",
+    "description": "Open a web scene from a portal item.",
+    "formal_name": "OpenScenePortalItem",
+    "ignore": false,
+    "images": [
+        "OpenScenePortalItem.jpg"
+    ],
+    "keywords": [
+        "portal",
+        "scene",
+        "web scene"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.8.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/opensceneportalitem.htm"
+    ],
+    "relevant_apis": [
+        "PortalItem",
+        "Scene",
+        "SceneView"
+    ],
+    "snippets": [
+        "OpenScenePortalItem.xaml",
+        "OpenScenePortalItem.xaml.cs"
+    ],
+    "title": "Open a scene (portal item)"
+}

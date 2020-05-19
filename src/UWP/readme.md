@@ -167,7 +167,6 @@
 
 ## MapView
 
-* [Animate images with image overlay](ArcGISRuntime.UWP.Viewer/Samples/MapView/AnimateImageOverlay/readme.md) - Animate a series of images with an image overlay.
 * [Change time extent](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChangeTimeExtent/readme.md) - Filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](ArcGISRuntime.UWP.Viewer/Samples/MapView/ChangeViewpoint/readme.md) - Set the map view to a new viewpoint.
 * [Display draw status](ArcGISRuntime.UWP.Viewer/Samples/MapView/DisplayDrawingStatus/readme.md) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
@@ -205,6 +204,7 @@
 
 ## SceneView
 
+* [Animate images with image overlay](ArcGISRuntime.UWP.Viewer/Samples/SceneView/AnimateImageOverlay/readme.md) - Animate a series of images with an image overlay.
 * [Choose camera controller](ArcGISRuntime.UWP.Viewer/Samples/SceneView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
 * [GeoView viewpoint synchronization](ArcGISRuntime.UWP.Viewer/Samples/SceneView/GeoViewSync/readme.md) - Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 

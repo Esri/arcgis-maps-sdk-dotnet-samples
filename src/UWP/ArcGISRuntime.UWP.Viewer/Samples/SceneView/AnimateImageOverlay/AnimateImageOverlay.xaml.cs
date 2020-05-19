@@ -23,7 +23,7 @@ namespace ArcGISRuntime.UWP.Samples.AnimateImageOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Animate images with image overlay",
-        category: "MapView",
+        category: "SceneView",
         description: "Animate a series of images with an image overlay.",
         instructions: "The application loads a map of the Southwestern United States. Click the \"Start\" or \"Stop\" buttons to start or stop the radar animation. Use the drop down menu to select how quickly the animation plays. Move the slider to change the opacity of the image overlay.",
         tags: new[] { "3d", "animation", "drone", "dynamic", "image frame", "image overlay", "real time", "rendering" })]

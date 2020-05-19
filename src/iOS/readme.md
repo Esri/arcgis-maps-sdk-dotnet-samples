@@ -175,7 +175,6 @@
 
 ## MapView
 
-* [Animate images with image overlay](Xamarin.iOS/Samples/MapView/AnimateImageOverlay/readme.md) - Animate a series of images with an image overlay.
 * [Change time extent](Xamarin.iOS/Samples/MapView/ChangeTimeExtent/readme.md) - Filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](Xamarin.iOS/Samples/MapView/ChangeViewpoint/readme.md) - Set the map view to a new viewpoint.
 * [Display draw status](Xamarin.iOS/Samples/MapView/DisplayDrawingStatus/readme.md) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
@@ -213,6 +212,7 @@
 
 ## SceneView
 
+* [Animate images with image overlay](Xamarin.iOS/Samples/SceneView/AnimateImageOverlay/readme.md) - Animate a series of images with an image overlay.
 * [Choose camera controller](Xamarin.iOS/Samples/SceneView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
 * [GeoView viewpoint synchronization](Xamarin.iOS/Samples/SceneView/GeoViewSync/readme.md) - Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 

@@ -1,5 +1,5 @@
 {
-    "category": "MapView",
+    "category": "SceneView",
     "description": "Animate a series of images with an image overlay.",
     "formal_name": "AnimateImageOverlay",
     "ignore": false,

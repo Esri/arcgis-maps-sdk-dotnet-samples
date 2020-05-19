@@ -1,5 +1,5 @@
 {
-    "category": "MapView",
+    "category": "SceneView",
     "description": "Animate a series of images with an image overlay.",
     "formal_name": "AnimateImageOverlay",
     "ignore": false,
@@ -28,9 +28,9 @@
         "ImageOverlay",
         "SceneView"
     ],
-  "snippets": [
-    "../../../Resources/layout/AnimateImageOverlay.xml",
-    "AnimateImageOverlay.cs"
-  ],
+    "snippets": [
+        "../../../Resources/layout/AnimateImageOverlay.axml",
+        "AnimateImageOverlay.cs"
+    ],
     "title": "Animate images with image overlay"
 }

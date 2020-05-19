@@ -167,9 +167,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             stackView.AddArrangedSubview(opacityLabel);
             stackView.AddArrangedSubview(_opacitySlider);
 
-            opacityToolbar.Items = new UIBarButtonItem[] {
-                new UIBarButtonItem(){ CustomView = stackView}
-            };
+            opacityToolbar.Items = new UIBarButtonItem[] { new UIBarButtonItem() { CustomView = stackView } };
 
             _pauseButton = new UIBarButtonItem() { Title = "Stop" };
             _fpsButton = new UIBarButtonItem() { Title = "FPS: 15" };

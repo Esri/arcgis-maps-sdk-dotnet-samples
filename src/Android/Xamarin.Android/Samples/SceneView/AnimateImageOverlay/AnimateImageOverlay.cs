@@ -156,5 +156,26 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             _opacitySlider.ProgressChanged += ChangeOpacity;
             _fpsSpinner.ItemSelected += FPSSelected;
         }
+
+        // Stop the animation on pause.
+        protected override void OnPause()
+        {
+            base.OnPause();
+            _animationStopped = true;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Unhook event handlers.
+            _pauseButton.Click -= StartStopAnimation;
+            _opacitySlider.ProgressChanged -= ChangeOpacity;
+            _fpsSpinner.ItemSelected -= FPSSelected;
+
+            // Stop the animation and timer.
+            _animationStopped = true;
+            _timer.Dispose();
+        }
     }
 }

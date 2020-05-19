@@ -8,7 +8,7 @@
         <esriUI:SceneView
             x:Name="MySceneView"
             BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-            Style="{StaticResource MapWithFormStyle}" />
+            Style="{StaticResource SceneWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
                 <Grid>

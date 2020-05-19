@@ -129,13 +129,10 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
         private void FPSSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             // Calculate the new time interval using the selected frames per second.
-            try
+            if(_timer != null)
             {
                 int newInterval = 1000 / int.Parse(_fpsSpinner.SelectedItem.ToString());
                 _timer?.Change(0, newInterval);
-            }
-            catch
-            {
             }
         }
 

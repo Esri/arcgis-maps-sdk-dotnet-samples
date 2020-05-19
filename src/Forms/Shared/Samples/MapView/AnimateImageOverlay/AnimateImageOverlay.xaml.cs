@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             // This sample is only supported in x64 on UWP.
             if (!Environment.Is64BitProcess)
             {
-                Application.Current.MainPage.DisplayAlert("Error", "This sample is only supported on x64. Run the sample viewer in x64 to use this sample.", "OK");
+                Application.Current.MainPage.DisplayAlert("Error", "This sample is only supported for UWP in x64. Run the sample viewer in x64 to use this sample.", "OK");
                 return;
             }
 #endif

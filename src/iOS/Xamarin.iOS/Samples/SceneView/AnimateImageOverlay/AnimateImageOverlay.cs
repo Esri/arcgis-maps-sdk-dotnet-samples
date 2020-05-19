@@ -233,6 +233,10 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             _pauseButton.Clicked -= StopStartAnimation;
             _opacitySlider.TouchUpInside -= ChangeOpacity;
             _fpsButton.Clicked -= FPSButtonClicked;
+
+            // Stop the animation when the sample is unloaded.
+            _animationStopped = true;
+            _timer.Dispose();
         }
 
         public override void ViewDidLoad()

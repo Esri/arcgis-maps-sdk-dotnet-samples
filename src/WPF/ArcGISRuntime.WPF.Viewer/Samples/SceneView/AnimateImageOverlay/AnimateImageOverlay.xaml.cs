@@ -88,6 +88,13 @@ namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
             // Populate the combobox for selecting FPS.
             FPSComboBox.ItemsSource = new int[] { 15, 30, 60 };
             FPSComboBox.SelectedIndex = 0;
+
+            // Set an event to stop the animation when the sample is unloaded.
+            Unloaded += (s, e) =>
+            {
+                _animationStopped = true;
+                _timer.Dispose();
+            };
         }
 
         private void AnimateOverlay(object state)

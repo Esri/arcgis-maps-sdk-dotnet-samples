@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <Content Include="Samples\MapView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
+    <Content Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <Content Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <Content Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
@@ -371,7 +371,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\MapView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
+    <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
       <DependentUpon>AnimateImageOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
@@ -948,7 +948,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <Page Include="Samples\MapView\AnimateImageOverlay\AnimateImageOverlay.xaml">
+    <Page Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

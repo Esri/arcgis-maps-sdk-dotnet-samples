@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
@@ -197,7 +197,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
       <DependentUpon>AnimateImageOverlay.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -843,7 +843,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\AnimateImageOverlay\AnimateImageOverlay.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">

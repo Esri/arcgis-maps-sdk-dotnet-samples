@@ -156,22 +156,35 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             // Create the views.
             View = new UIView() { BackgroundColor = UIColor.White };
 
-            _mySceneView = new SceneView() { TranslatesAutoresizingMaskIntoConstraints = false };
-            var opacityToolbar = new UIToolbar() { TranslatesAutoresizingMaskIntoConstraints = false };
-            _buttonToolbar = new UIToolbar() { TranslatesAutoresizingMaskIntoConstraints = false };
+            // Create the scene view.
+            _mySceneView = new SceneView { TranslatesAutoresizingMaskIntoConstraints = false };
 
-            var opacityLabel = new UILabel() { TranslatesAutoresizingMaskIntoConstraints = false };
-            opacityLabel.Text = "Opacity";
-            _opacitySlider = new UISlider() { TranslatesAutoresizingMaskIntoConstraints = false, MinValue = 0, MaxValue = 1, Value = 1 };
-            var stackView = new UIStackView(opacityToolbar.Frame) { TranslatesAutoresizingMaskIntoConstraints = false, Distribution = UIStackViewDistribution.Fill, Alignment = UIStackViewAlignment.Center, Axis = UILayoutConstraintAxis.Horizontal, Spacing = 10 };
+            // Create the toolbars.
+            _buttonToolbar = new UIToolbar { TranslatesAutoresizingMaskIntoConstraints = false };
+
+            // Create the opacity items.
+            var opacityLabel = new UILabel { TranslatesAutoresizingMaskIntoConstraints = false, Text = "Opacity" };
+            _opacitySlider = new UISlider { TranslatesAutoresizingMaskIntoConstraints = false, MinValue = 0, MaxValue = 1, Value = 1 };
+
+            // Add the opacity items to a stackview.
+            var stackView = new UIStackView()
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Distribution = UIStackViewDistribution.Fill,
+                Alignment = UIStackViewAlignment.Center,
+                Axis = UILayoutConstraintAxis.Horizontal,
+                Spacing = 10,
+                LayoutMargins = new UIEdgeInsets(5, 5, 5, 5),
+                LayoutMarginsRelativeArrangement = true,
+            };
             stackView.AddArrangedSubview(opacityLabel);
             stackView.AddArrangedSubview(_opacitySlider);
 
-            opacityToolbar.Items = new UIBarButtonItem[] { new UIBarButtonItem() { CustomView = stackView } };
+            // Create the buttons.
+            _pauseButton = new UIBarButtonItem { Title = "Stop" };
+            _fpsButton = new UIBarButtonItem { Title = "FPS: 15" };
 
-            _pauseButton = new UIBarButtonItem() { Title = "Stop" };
-            _fpsButton = new UIBarButtonItem() { Title = "FPS: 15" };
-
+            // Add the buttons to a toolbar.
             _buttonToolbar.Items = new UIBarButtonItem[] {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _pauseButton,
@@ -181,21 +194,21 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             };
 
             // Add the views.
-            View.AddSubviews(_mySceneView, opacityToolbar, _buttonToolbar);
+            View.AddSubviews(_mySceneView, stackView, _buttonToolbar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]{
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(opacityToolbar.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(stackView.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-                opacityToolbar.TopAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor),
-                opacityToolbar.BottomAnchor.ConstraintEqualTo(_buttonToolbar.TopAnchor),
-                opacityToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                opacityToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                stackView.TopAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor),
+                stackView.BottomAnchor.ConstraintEqualTo(_buttonToolbar.TopAnchor),
+                stackView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                stackView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-                _buttonToolbar.TopAnchor.ConstraintEqualTo(opacityToolbar.BottomAnchor),
+                _buttonToolbar.TopAnchor.ConstraintEqualTo(stackView.BottomAnchor),
                 _buttonToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
                 _buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),

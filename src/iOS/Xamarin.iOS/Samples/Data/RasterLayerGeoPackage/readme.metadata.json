@@ -18,7 +18,7 @@
         "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.8.0"
+        "Esri.ArcGISRuntime": "100.9.0"
     },
     "offline_data": [
         "68ec42517cdd439e81b036210483e8e7"

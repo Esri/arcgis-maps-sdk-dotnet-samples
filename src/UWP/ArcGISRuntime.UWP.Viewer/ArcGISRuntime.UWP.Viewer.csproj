@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
     <Content Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <Content Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
@@ -370,6 +371,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml.cs">
+      <DependentUpon>IdentifyRasterCell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
       <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
     </Compile>
@@ -944,6 +948,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

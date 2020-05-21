@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
         "Layers",
         "",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("b5f977c78ec74b3a8857ca86d1d9b318")]
     public partial class IdentifyRasterCell
     {
         // Define a raster layer
@@ -40,10 +40,10 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
         private async void Initialize()
         {
             // Define a new map with Wgs84 Spatial Reference
-            var map = new Map(SpatialReferences.Wgs84);
+            var map = new Map(BasemapType.Oceans, latitude: -34.1, longitude: 18.6, levelOfDetail: 9);
 
             // Get the file name for the raster
-            string filepath = DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");
+            string filepath = DataManager.GetDataFolder("b5f977c78ec74b3a8857ca86d1d9b318",  "SA_EVI_8Day_03May20.tif");
 
             // Load the raster file
             var raster = new Raster(filepath);
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
                 IReadOnlyList<GeoElement> cells = identifyResult.GeoElements;
 
                 // Create a StringBuilder to display information to the user
-                StringBuilder myStringBuilder = new StringBuilder();
+                StringBuilder stringBuilder = new StringBuilder();
 
                 // Loop through each RasterCell
                 foreach (RasterCell cell in cells)
@@ -93,31 +93,25 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
                     // Loop through the attributes (key/value pairs)
                     foreach (KeyValuePair<string, object> keyValuePair in cell.Attributes)
                     {
-                        // Get the key
-                        var theKey = keyValuePair.Key;
-
-                        // Get the value
-                        var thevalue = keyValuePair.Value;
-
                         // Add the key/value pair to the string builder
-                        myStringBuilder.AppendLine(theKey + ": " + thevalue);
+                        stringBuilder.AppendLine($"{keyValuePair.Key}: {keyValuePair.Value}");
                     }
 
                     // Shorten the X & Y values a little to show better in the call out
-                    double theX = cell.Geometry.Extent.XMin;
-                    double theY = cell.Geometry.Extent.YMin;
+                    double x = cell.Geometry.Extent.XMin;
+                    double y = cell.Geometry.Extent.YMin;
 
                     // Format the X & Y values as a human readable string
-                    string theString = "X: " + Math.Round(theX, 4) + " Y: " + Math.Round(theY, 4);
+                    string calloutMessage = $"X: {Math.Round(x, 4)}\nY: {Math.Round(y, 4)}";
 
                     // Add the X & Y coordinates where the user clicked raster cell to the string builder
-                    myStringBuilder.AppendLine(theString);
+                    stringBuilder.AppendLine(calloutMessage);
 
                     // Define a call out based on the string builder
-                    CalloutDefinition myCalloutDefinition = new CalloutDefinition(myStringBuilder.ToString());
+                    CalloutDefinition definition = new CalloutDefinition(stringBuilder.ToString());
 
                     // Display the call out in the map view
-                    MyMapView.ShowCalloutAt(e.Location, myCalloutDefinition);
+                    MyMapView.ShowCalloutAt(e.Location, definition);
                 }
             }
             catch (Exception ex)

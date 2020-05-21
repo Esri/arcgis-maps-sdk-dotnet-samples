@@ -9,14 +9,15 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
 {
@@ -43,7 +44,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
             var map = new Map(BasemapType.Oceans, latitude: -34.1, longitude: 18.6, levelOfDetail: 9);
 
             // Get the file name for the raster
-            string filepath = DataManager.GetDataFolder("b5f977c78ec74b3a8857ca86d1d9b318",  "SA_EVI_8Day_03May20.tif");
+            string filepath = DataManager.GetDataFolder("b5f977c78ec74b3a8857ca86d1d9b318", "SA_EVI_8Day_03May20.tif");
 
             // Load the raster file
             var raster = new Raster(filepath);
@@ -70,49 +71,51 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
                 MessageBox.Show(e.Message, e.GetType().ToString());
             }
 
-            // Listen for taps/clicks to start the identify operation.
-            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            // Listen for mouse movement to start the identify operation.
+            MyMapView.MouseMove += MouseMoved;
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private async void MouseMoved(object sender, MouseEventArgs e)
         {
             try
             {
-                // Get the identify value for where the user clicked on the raster layer
-                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_rasterLayer, e.Position, 1, false, 10);
+                // Get the curent mouse position.
+                Point position = e.GetPosition(MyMapView);
 
-                // Get the read only list of geo elements (they contain RasterCell's)
-                IReadOnlyList<GeoElement> cells = identifyResult.GeoElements;
+                // Get the identify value for where the user clicked on the raster layer
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_rasterLayer, position, 1, false, 1);
+
+                if (!identifyResult.GeoElements.Any())
+                {
+                    MyMapView.DismissCallout();
+                    return;
+                }
 
                 // Create a StringBuilder to display information to the user
                 StringBuilder stringBuilder = new StringBuilder();
 
-                // Loop through each RasterCell
-                foreach (RasterCell cell in cells)
+                // Get the identified raster cell.
+                GeoElement cell = identifyResult.GeoElements.First();
+
+                // Loop through the attributes (key/value pairs)
+                foreach (KeyValuePair<string, object> keyValuePair in cell.Attributes)
                 {
-                    // Loop through the attributes (key/value pairs)
-                    foreach (KeyValuePair<string, object> keyValuePair in cell.Attributes)
-                    {
-                        // Add the key/value pair to the string builder
-                        stringBuilder.AppendLine($"{keyValuePair.Key}: {keyValuePair.Value}");
-                    }
-
-                    // Shorten the X & Y values a little to show better in the call out
-                    double x = cell.Geometry.Extent.XMin;
-                    double y = cell.Geometry.Extent.YMin;
-
-                    // Format the X & Y values as a human readable string
-                    string calloutMessage = $"X: {Math.Round(x, 4)}\nY: {Math.Round(y, 4)}";
-
-                    // Add the X & Y coordinates where the user clicked raster cell to the string builder
-                    stringBuilder.AppendLine(calloutMessage);
-
-                    // Define a call out based on the string builder
-                    CalloutDefinition definition = new CalloutDefinition(stringBuilder.ToString());
-
-                    // Display the call out in the map view
-                    MyMapView.ShowCalloutAt(e.Location, definition);
+                    // Add the key/value pair to the string builder
+                    stringBuilder.AppendLine($"{keyValuePair.Key}: {keyValuePair.Value}");
                 }
+
+                // Get the x and y values of the cell.
+                double x = cell.Geometry.Extent.XMin;
+                double y = cell.Geometry.Extent.YMin;
+
+                // Add the X & Y coordinates where the user clicked raster cell to the string builder
+                stringBuilder.AppendLine($"X: {Math.Round(x, 4)}\nY: {Math.Round(y, 4)}");
+
+                // Create a callout using the string.
+                var definition = new CalloutDefinition(stringBuilder.ToString());
+
+                // Display the call out in the map view.
+                MyMapView.ShowCalloutAt(MyMapView.ScreenToLocation(position), definition);
             }
             catch (Exception ex)
             {

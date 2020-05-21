@@ -124,26 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     $$nuget_packages$$
-    <PackageReference Include="MarkedNet">
-      <Version>2.1.2</Version>
-    </PackageReference>
-    <PackageReference Include="PInvoke.BCrypt">
-      <Version>0.5.184</Version>
-    </PackageReference>
-    <PackageReference Include="Validation">
-      <Version>2.4.18</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Auth">
-      <Version>1.6.0.4</Version>
-    </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>3.6.0.220655</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Plugin.FilePicker">
-      <Version>2.0.135</Version>
-    </PackageReference>
-    <PackageReference Include="Xamarin.Essentials">
-      <Version>1.3.0</Version>
+      <Version>4.5.0.657</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

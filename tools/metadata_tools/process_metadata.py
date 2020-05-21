@@ -231,6 +231,7 @@ def main():
                 if operation == "improve":
                     sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
                 if operation in ["improve", "sync"]:
+                    sample.resync_nuget_packages(platform)
                     sample.flush_to_json(os.path.join(r, sample_dir, "readme.metadata.json"))
                 if operation == "attributes":
                     update_attribute(sample, os.path.join(r, sample_dir))

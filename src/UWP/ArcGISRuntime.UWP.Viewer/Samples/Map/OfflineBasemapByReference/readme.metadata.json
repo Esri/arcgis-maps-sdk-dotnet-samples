@@ -10,7 +10,8 @@
         "Offline"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.9.0"
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
     },
     "offline_data": [
         "628e8e3521cf45e9a28a12fe10c02c4d"

@@ -15,7 +15,8 @@
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.9.0",
-        "Esri.ArcGISRuntime.LocalServices": "100.8.0"
+        "Esri.ArcGISRuntime.LocalServices": "100.8.0",
+        "Esri.ArcGISRuntime.WPF": "100.9.0"
     },
     "offline_data": [
         "dee5d8060a6048a4b063484199a9546b"

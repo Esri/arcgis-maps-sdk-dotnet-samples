@@ -13,7 +13,8 @@
         "impedance"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.9.0"
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.WPF": "100.9.0"
     },
     "offline_data": [],
     "redirect_from": [

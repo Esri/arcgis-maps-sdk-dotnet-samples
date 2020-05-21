@@ -13,7 +13,8 @@
         "synchronize"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.9.0"
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.9.0"
     },
     "offline_data": [
         "3f1bbf0ec70b409a975f5c91f363fe7d"

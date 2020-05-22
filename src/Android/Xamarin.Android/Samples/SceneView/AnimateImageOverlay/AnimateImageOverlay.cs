@@ -94,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             Array.Sort(imagePaths);
 
             // Create all of the image frames using the filepaths and the envelope.
-            _images = imagePaths.Select(path => new ImageFrame(new Uri(path), pacificEnvelope)).ToArray();
+            _images = imagePaths.Select(path => new ImageFrame(new Uri(path), pacificEnvelope)).Take(120).ToArray();
 
             // Create new Timer and set the timeout interval to approximately 15 frames a second.
             _timer = new Timer(AnimateOverlay);

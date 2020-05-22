@@ -53,12 +53,9 @@ class sample_metadata:
         with open(path_to_json, 'r') as json_file:
             data = json.load(json_file)
             keys = data.keys()
-            print(keys)
             for key in ["category", "keywords", "images", "redirect_from", "description", "ignore", "nuget_packages"]:
                 if key in keys:
                     setattr(self, key, data[key])
-                    if key == "nuget_packages":
-                        print(self.nuget_packages)
             if "title" in keys:
                 self.friendly_name = data["title"]
             if "relevant_apis" in keys:

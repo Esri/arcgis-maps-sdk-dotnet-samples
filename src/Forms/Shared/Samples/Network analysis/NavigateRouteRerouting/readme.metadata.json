@@ -19,7 +19,8 @@
         "Esri.ArcGISRuntime.UWP": "100.9.0",
         "Esri.ArcGISRuntime.Xamarin.Android": "100.9.0",
         "Esri.ArcGISRuntime.Xamarin.Forms": "100.9.0",
-        "Esri.ArcGISRuntime.Xamarin.iOS": "100.9.0"
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.9.0",
+        "Xamarin.Essentials": "1.5.3.1"
     },
     "offline_data": [
         "91e7e6be79cc4d2f8416eff867674c1e",

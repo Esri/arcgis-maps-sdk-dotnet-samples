@@ -231,8 +231,14 @@ def main():
                 if operation == "improve":
                     sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
                 if operation in ["improve", "sync"]:
+                    # read existing packages from metadata
+                    path_to_json = os.path.join(r, sample_dir, "readme.metadata.json")
+                    if os.path.exists(path_to_json):
+                        metadata_based_sample = sample_metadata()
+                        metadata_based_sample.populate_from_json(path_to_json)
+                        sample.nuget_packages = metadata_based_sample.nuget_packages
                     sample.resync_nuget_packages(platform)
-                    sample.flush_to_json(os.path.join(r, sample_dir, "readme.metadata.json"))
+                    sample.flush_to_json(path_to_json)
                 if operation == "attributes":
                     update_attribute(sample, os.path.join(r, sample_dir))
                 list_of_sample_dirs.append(sample_dir)

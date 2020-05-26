@@ -81,7 +81,7 @@ namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
             // Create all of the image frames using the filepaths and the envelope.
             _images = imagePaths.Select(path => new ImageFrame(new Uri(path), pacificEnvelope)).ToArray();
 
-            // Create new Timer and set the timeout interval to approximately 15 frames a second.
+            // Create new Timer and set the timeout interval to approximately 15 image frames per second.
             _timer = new Timer(AnimateOverlay);
             _timer.Change(0, 1000 / 15);
 

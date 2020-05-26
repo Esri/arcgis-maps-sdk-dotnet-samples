@@ -34,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
         // Hold references to UI controls.
         private SceneView _mySceneView;
         private UIBarButtonItem _pauseButton;
-        private UIBarButtonItem _fpsButton;
+        private UIBarButtonItem _speedButton;
         private UISlider _opacitySlider;
         private UIToolbar _buttonToolbar;
 
@@ -89,7 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             // Create all of the image frames using the filepaths and the envelope.
             _images = imagePaths.Select(path => new ImageFrame(new Uri(path), pacificEnvelope)).Take(120).ToArray();
 
-            // Create new Timer and set the timeout interval to approximately 15 frames a second.
+            // Create new Timer and set the timeout interval to approximately 15 image frames per second.
             _timer = new Timer(AnimateOverlay);
             _timer.Change(0, 1000 / 15);
         }
@@ -106,15 +106,15 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             }
         }
 
-        private void FPSButtonClicked(object sender, EventArgs e)
+        private void SpeedButtonClick(object sender, EventArgs e)
         {
             // Start the UI for the user choosing the trace type.
             UIAlertController prompt = UIAlertController.Create(null, "Choose trace type", UIAlertControllerStyle.ActionSheet);
 
             // Add a selection action for every valid trace type.
-            foreach (int fps in new int[] { 15, 30, 60 })
+            foreach (string speed in new string[] { "Slow", "Medium", "Fast"})
             {
-                prompt.AddAction(UIAlertAction.Create(fps.ToString(), UIAlertActionStyle.Default, FPSSelected));
+                prompt.AddAction(UIAlertAction.Create(speed, UIAlertActionStyle.Default, SpeedSelected));
             }
 
             // Needed to prevent crash on iPad.
@@ -128,12 +128,29 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             PresentViewController(prompt, true, null);
         }
 
-        private void FPSSelected(UIAlertAction obj)
+        private void SpeedSelected(UIAlertAction action)
         {
-            // Calculate the new time interval using the selected frames per second.
-            int newInterval = 1000 / int.Parse(obj.Title);
+            int newInterval = 0;
+            switch (action.Title)
+            {
+                case "Slow":
+                    newInterval = 1000 / 15;
+                    break;
+
+                case "Medium":
+                    newInterval = 1000 / 30;
+                    break;
+
+                case "Fast":
+                    newInterval = 1000 / 60;
+                    break;
+            }
+
+            // Calculate the new time interval using the selected speed.
             _timer?.Change(0, newInterval);
-            _fpsButton.Title = $"FPS: {obj.Title}";
+
+            // Update the button text.
+            _speedButton.Title = action.Title;
         }
 
         private void ChangeOpacity(object sender, EventArgs e)
@@ -182,14 +199,14 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
 
             // Create the buttons.
             _pauseButton = new UIBarButtonItem { Title = "Stop" };
-            _fpsButton = new UIBarButtonItem { Title = "FPS: 15" };
+            _speedButton = new UIBarButtonItem { Title = "Slow" };
 
             // Add the buttons to a toolbar.
             _buttonToolbar.Items = new UIBarButtonItem[] {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
                 _pauseButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _fpsButton,
+                _speedButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
             };
 
@@ -222,7 +239,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             // Subscribe to events.
             _pauseButton.Clicked += StopStartAnimation;
             _opacitySlider.TouchUpInside += ChangeOpacity;
-            _fpsButton.Clicked += FPSButtonClicked;
+            _speedButton.Clicked += SpeedButtonClick;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -232,7 +249,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             // Unsubscribe from events, per best practice.
             _pauseButton.Clicked -= StopStartAnimation;
             _opacitySlider.TouchUpInside -= ChangeOpacity;
-            _fpsButton.Clicked -= FPSButtonClicked;
+            _speedButton.Clicked -= SpeedButtonClick;
 
             // Stop the animation when the sample is unloaded.
             _animationStopped = true;

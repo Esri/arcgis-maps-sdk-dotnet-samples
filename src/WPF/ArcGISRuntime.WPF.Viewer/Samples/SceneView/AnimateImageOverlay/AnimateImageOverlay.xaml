@@ -5,9 +5,9 @@
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Style="{StaticResource BorderStyle}" Width="260">
+        <Border Width="260" Style="{StaticResource BorderStyle}">
             <StackPanel Width="250">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Label
                         Margin="5"
                         HorizontalAlignment="Right"
@@ -29,12 +29,12 @@
                         Padding="5"
                         Click="StartStopAnimation"
                         Content="Stop" />
-                    <Label VerticalAlignment="Center" Content="FPS:" />
+                    <Label VerticalAlignment="Center" Content="Speed:" />
                     <ComboBox
-                        Name="FPSComboBox"
+                        Name="SpeedComboBox"
                         Width="75"
                         Height="25"
-                        SelectionChanged="FPSSelected" />
+                        SelectionChanged="SpeedSelected" />
                 </StackPanel>
             </StackPanel>
         </Border>

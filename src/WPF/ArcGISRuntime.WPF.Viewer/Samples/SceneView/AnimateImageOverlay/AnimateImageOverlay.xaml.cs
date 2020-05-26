@@ -85,9 +85,9 @@ namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
             _timer = new Timer(AnimateOverlay);
             _timer.Change(0, 1000 / 15);
 
-            // Populate the combobox for selecting FPS.
-            FPSComboBox.ItemsSource = new int[] { 15, 30, 60 };
-            FPSComboBox.SelectedIndex = 0;
+            // Populate the combobox for selecting speed.
+            SpeedComboBox.ItemsSource = new string[] { "Slow", "Medium", "Fast" };
+            SpeedComboBox.SelectedIndex = 0;
 
             // Set an event to stop the animation when the sample is unloaded.
             Unloaded += (s, e) =>
@@ -124,10 +124,25 @@ namespace ArcGISRuntime.WPF.Samples.AnimateImageOverlay
             if (_imageOverlay != null) _imageOverlay.Opacity = e.NewValue;
         }
 
-        private void FPSSelected(object sender, SelectionChangedEventArgs e)
+        private void SpeedSelected(object sender, SelectionChangedEventArgs e)
         {
-            // Calculate the new time interval using the selected frames per second.
-            int newInterval = 1000 / (int)FPSComboBox.SelectedItem;
+            int newInterval = 0;
+            switch (SpeedComboBox.SelectedItem)
+            {
+                case "Slow":
+                    newInterval = 1000 / 15;
+                    break;
+
+                case "Medium":
+                    newInterval = 1000 / 30;
+                    break;
+
+                case "Fast":
+                    newInterval = 1000 / 60;
+                    break;
+            }
+
+            // Calculate the new time interval using the selected speed.
             _timer?.Change(0, newInterval);
         }
     }

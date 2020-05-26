@@ -30,16 +30,11 @@
                         Padding="5"
                         Click="StartStopAnimation"
                         Content="Stop" />
-                    <TextBlock
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Text="FPS:" />
                     <ComboBox
-                        Name="FPSComboBox"
-                        Width="75"
+                        Name="SpeedComboBox"
                         Margin="5"
                         VerticalAlignment="Stretch"
-                        SelectionChanged="FPSSelected" />
+                        SelectionChanged="SpeedSelected" />
                 </StackPanel>
             </StackPanel>
         </Border>

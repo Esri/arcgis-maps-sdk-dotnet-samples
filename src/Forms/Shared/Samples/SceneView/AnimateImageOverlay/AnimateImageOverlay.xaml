@@ -43,11 +43,11 @@
                     <Label
                         Grid.Column="1"
                         Margin="5"
-                        Text="FPS:" />
+                        Text="Speed:" />
                     <Picker
-                        x:Name="FPSComboBox"
+                        x:Name="SpeedComboBox"
                         Grid.Column="2"
-                        SelectedIndexChanged="FPSSelected" />
+                        SelectedIndexChanged="SpeedSelected" />
                 </Grid>
             </StackLayout>
         </resources:ResponsiveFormContainer>

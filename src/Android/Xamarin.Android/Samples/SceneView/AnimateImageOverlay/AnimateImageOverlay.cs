@@ -36,7 +36,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
     {
         // Hold references to the UI controls.
         private SceneView _mySceneView;
-        private Spinner _fpsSpinner;
+        private Spinner _speedSpinner;
         private SeekBar _opacitySlider;
         private Button _pauseButton;
 
@@ -100,9 +100,9 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             _timer = new Timer(AnimateOverlay);
             _timer.Change(0, 1000 / 15);
 
-            // Populate the combobox for selecting FPS.
-            _fpsSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new string[] { "15", "30", "60" });
-            _fpsSpinner.SetSelection(0);
+            // Populate the spinner for selecting speed.
+            _speedSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new string[] { "Slow", "Medium", "Fast" });
+            _speedSpinner.SetSelection(0);
         }
 
         private void AnimateOverlay(object state)
@@ -126,14 +126,26 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             ((Button)sender).Text = _animationStopped ? "Start" : "Stop";
         }
 
-        private void FPSSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void SpeedSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            // Calculate the new time interval using the selected frames per second.
-            if (_timer != null)
+            int newInterval = 0;
+            switch (_speedSpinner.SelectedItem.ToString())
             {
-                int newInterval = 1000 / int.Parse(_fpsSpinner.SelectedItem.ToString());
-                _timer?.Change(0, newInterval);
+                case "Slow":
+                    newInterval = 1000 / 15;
+                    break;
+
+                case "Medium":
+                    newInterval = 1000 / 30;
+                    break;
+
+                case "Fast":
+                    newInterval = 1000 / 60;
+                    break;
             }
+
+            // Calculate the new time interval using the selected speed.
+            _timer?.Change(0, newInterval);
         }
 
         private void ChangeOpacity(object sender, SeekBar.ProgressChangedEventArgs e)
@@ -150,11 +162,11 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             _mySceneView = FindViewById<SceneView>(Resource.Id.SceneView);
             _pauseButton = FindViewById<Button>(Resource.Id.pauseButton);
             _opacitySlider = FindViewById<SeekBar>(Resource.Id.opacitySlider);
-            _fpsSpinner = FindViewById<Spinner>(Resource.Id.fpsSpinner);
+            _speedSpinner = FindViewById<Spinner>(Resource.Id.speedSpinner);
 
             _pauseButton.Click += StartStopAnimation;
             _opacitySlider.ProgressChanged += ChangeOpacity;
-            _fpsSpinner.ItemSelected += FPSSelected;
+            _speedSpinner.ItemSelected += SpeedSelected;
         }
 
         // Stop the animation on pause.
@@ -171,7 +183,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             // Unhook event handlers.
             _pauseButton.Click -= StartStopAnimation;
             _opacitySlider.ProgressChanged -= ChangeOpacity;
-            _fpsSpinner.ItemSelected -= FPSSelected;
+            _speedSpinner.ItemSelected -= SpeedSelected;
 
             // Stop the animation and timer.
             _animationStopped = true;

@@ -51,15 +51,8 @@
             android:layout_weight="0.75"
             android:text="Stop"
             android:id="@+id/pauseButton" />
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="FPS: "
-            android:textAlignment="viewEnd"
-            android:textSize="20dp" />
         <Spinner 
-            android:id="@+id/fpsSpinner"
+            android:id="@+id/speedSpinner"
             android:layout_height="match_parent"
             android:text="15"
             android:layout_width="0dp"

@@ -40,19 +40,19 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
 
         private async void Initialize()
         {
-            // Define a new map with Wgs84 Spatial Reference
+            // Define a new map with Wgs84 Spatial Reference.
             var map = new Map(BasemapType.Oceans, latitude: -34.1, longitude: 18.6, levelOfDetail: 9);
 
-            // Get the file name for the raster
+            // Get the file name for the raster.
             string filepath = DataManager.GetDataFolder("b5f977c78ec74b3a8857ca86d1d9b318", "SA_EVI_8Day_03May20.tif");
 
-            // Load the raster file
+            // Load the raster file.
             var raster = new Raster(filepath);
 
-            // Initialize the raster layer
+            // Initialize the raster layer.
             _rasterLayer = new RasterLayer(raster);
 
-            // Add the raster layer to the map
+            // Add the raster layer to the map.
             map.OperationalLayers.Add(_rasterLayer);
 
             // Add map to the map view
@@ -60,10 +60,10 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
 
             try
             {
-                // Wait for the layer to load
+                // Wait for the layer to load.
                 await _rasterLayer.LoadAsync();
 
-                // Set the viewpoint
+                // Set the viewpoint.
                 await MyMapView.SetViewpointGeometryAsync(_rasterLayer.FullExtent);
             }
             catch (Exception e)
@@ -82,25 +82,26 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
                 // Get the curent mouse position.
                 Point position = e.GetPosition(MyMapView);
 
-                // Get the identify value for where the user clicked on the raster layer
+                // Get the result for where the user hovered on the raster layer.
                 IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_rasterLayer, position, 1, false, 1);
 
+                // If no cell was identified, dismiss the callout.
                 if (!identifyResult.GeoElements.Any())
                 {
                     MyMapView.DismissCallout();
                     return;
                 }
 
-                // Create a StringBuilder to display information to the user
-                StringBuilder stringBuilder = new StringBuilder();
+                // Create a StringBuilder to display information to the user.
+                var stringBuilder = new StringBuilder();
 
                 // Get the identified raster cell.
                 GeoElement cell = identifyResult.GeoElements.First();
 
-                // Loop through the attributes (key/value pairs)
+                // Loop through the attributes (key/value pairs).
                 foreach (KeyValuePair<string, object> keyValuePair in cell.Attributes)
                 {
-                    // Add the key/value pair to the string builder
+                    // Add the key/value pair to the string builder.
                     stringBuilder.AppendLine($"{keyValuePair.Key}: {keyValuePair.Value}");
                 }
 
@@ -108,7 +109,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
                 double x = cell.Geometry.Extent.XMin;
                 double y = cell.Geometry.Extent.YMin;
 
-                // Add the X & Y coordinates where the user clicked raster cell to the string builder
+                // Add the X & Y coordinates where the user clicked raster cell to the string builder.
                 stringBuilder.AppendLine($"X: {Math.Round(x, 4)}\nY: {Math.Round(y, 4)}");
 
                 // Create a callout using the string.
@@ -119,7 +120,6 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
             }
             catch (Exception ex)
             {
-                // Show any errors
                 MessageBox.Show(ex.ToString(), "Error");
             }
         }

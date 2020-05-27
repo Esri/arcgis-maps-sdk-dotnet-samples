@@ -29,7 +29,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("b5f977c78ec74b3a8857ca86d1d9b318")]
     public partial class IdentifyRasterCell
     {
-        // Define a raster layer
+        // Raster layer to display raster data on the map.
         private RasterLayer _rasterLayer;
 
         public IdentifyRasterCell()
@@ -66,9 +66,9 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
                 // Set the viewpoint.
                 await MyMapView.SetViewpointGeometryAsync(_rasterLayer.FullExtent);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message, e.GetType().ToString());
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
             }
 
             // Listen for mouse movement to start the identify operation.
@@ -120,7 +120,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                MessageBox.Show(ex.Message, ex.GetType().ToString());
             }
         }
     }

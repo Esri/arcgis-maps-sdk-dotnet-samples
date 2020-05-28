@@ -55,7 +55,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
             // Add the raster layer to the map.
             map.OperationalLayers.Add(_rasterLayer);
 
-            // Add map to the map view
+            // Add map to the map view.
             MyMapView.Map = map;
 
             try

@@ -25,10 +25,11 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyRasterCell
 {
     [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Identify raster cell",
-        "Layers",
-        "",
-        "")]
+        name: "Identify raster cell",
+        category: "Layers",
+        description: "Get the cell value of a local raster at the tapped location and display the result in a callout.",
+        instructions: "Tap or move your cursor over an area of the raster to identify a raster cell and display it's attributes in a callout.",
+        tags: new[] { "NDVI", "band", "cell", "cell value", "continuous", "discrete", "identify", "pixel", "pixel value", "raster" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("b5f977c78ec74b3a8857ca86d1d9b318")]
     public class IdentifyRasterCell : Activity
     {

@@ -19,7 +19,9 @@
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.8.0"
     },
-    "offline_data": [],
+    "offline_data": [
+        "9465e8c02b294c69bdb42de056a23ab1"
+    ],
     "redirect_from": [
         "/net/latest/ios/sample-code/animateimageoverlay.htm"
     ],

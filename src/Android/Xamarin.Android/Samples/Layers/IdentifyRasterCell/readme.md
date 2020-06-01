@@ -30,7 +30,7 @@ Tap or move your cursor over an area of the raster to identify a raster cell and
 
 ## Offline data
 
-This sample uses [MODIS raster images](https://arcgisruntime.maps.arcgis.com/home/item.html?id=b5f977c78ec74b3a8857ca86d1d9b318). Data is downloaded from ArcGIS Online automatically.
+This sample uses [MODIS raster imagery](https://arcgisruntime.maps.arcgis.com/home/item.html?id=b5f977c78ec74b3a8857ca86d1d9b318). Data is downloaded from ArcGIS Online automatically.
 
 ## About the data
 

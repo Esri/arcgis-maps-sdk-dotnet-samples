@@ -28,6 +28,10 @@ Tap or move your cursor over an area of the raster to identify a raster cell and
 * RasterCell.Attributes
 * RasterLayer
 
+## Offline data
+
+This sample uses [MODIS raster images](https://arcgisruntime.maps.arcgis.com/home/item.html?id=b5f977c78ec74b3a8857ca86d1d9b318). It is downloaded from ArcGIS Online automatically.
+
 ## About the data
 
 The data shown is an NDVI classification derived from MODIS imagery between 27 Apr 2020 and 4 May 2020. It comes from the [NASA Worldview application](https://worldview.earthdata.nasa.gov/). In a normalized difference vegetation index, or [NDVI](https://en.wikipedia.org/wiki/Normalized_difference_vegetation_index), values range between -1 and +1 with the positive end of the spectrum showing green vegetation.

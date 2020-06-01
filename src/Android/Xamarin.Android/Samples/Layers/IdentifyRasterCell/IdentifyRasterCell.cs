@@ -137,6 +137,10 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyRasterCell
             // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
+            // Add instructions label to layout.
+            var instructions = new TextView(this) { Text = "Tap to identify raster cell." };
+            layout.AddView(instructions);
+
             // Add the map view to the layout.
             _myMapView = new MapView(this);
             layout.AddView(_myMapView);

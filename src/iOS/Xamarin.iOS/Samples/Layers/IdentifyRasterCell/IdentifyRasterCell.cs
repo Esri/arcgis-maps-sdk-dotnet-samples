@@ -140,15 +140,31 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyRasterCell
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            var instructionLabel = new UILabel
+            {
+                Text = "Tap to identify raster cell.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
+
             // Add the views.
-            View.AddSubviews(_myMapView);
+            View.AddSubviews(_myMapView, instructionLabel);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]{
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                instructionLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                instructionLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                instructionLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                instructionLabel.HeightAnchor.ConstraintEqualTo(40),
             });
         }
 

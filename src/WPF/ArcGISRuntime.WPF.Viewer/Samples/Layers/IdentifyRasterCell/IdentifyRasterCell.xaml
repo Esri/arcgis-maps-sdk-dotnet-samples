@@ -5,5 +5,8 @@
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Label Margin="5" Content="Hover cursor over raster to identify raster cells." />
+        </Border>
     </Grid>
 </UserControl>

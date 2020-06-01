@@ -5,6 +5,9 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock Margin="5" Text="Hover cursor over raster to identify raster cells." />
+        </Border>
     </Grid>
 </UserControl>
 

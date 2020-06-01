@@ -74,6 +74,12 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
 
             // Listen for mouse movement to start the identify operation.
             MyMapView.MouseMove += MouseMoved;
+
+            // Disable magnifier.
+            MyMapView.InteractionOptions = new MapViewInteractionOptions
+            {
+                IsMagnifierEnabled = false
+            };
         }
 
         private async void MouseMoved(object sender, MouseEventArgs e)

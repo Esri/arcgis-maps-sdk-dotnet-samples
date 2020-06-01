@@ -171,7 +171,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = UIColor.White };
 
             // Create the scene view.
             _mySceneView = new SceneView { TranslatesAutoresizingMaskIntoConstraints = false };
@@ -240,6 +240,11 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
             _pauseButton.Clicked += StopStartAnimation;
             _opacitySlider.TouchUpInside += ChangeOpacity;
             _speedButton.Clicked += SpeedButtonClick;
+
+            // Create new Timer and set the timeout interval to approximately 15 image frames per second.
+            _timer = new Timer(AnimateOverlay);
+            _timer.Change(0, 1000 / 15);
+            _speedButton.Title = "Slow";
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -253,6 +258,7 @@ namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
 
             // Stop the animation when the sample is unloaded.
             _animationStopped = true;
+            _pauseButton.Title = "Start";
             _timer.Dispose();
         }
 

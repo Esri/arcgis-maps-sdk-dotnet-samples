@@ -120,6 +120,7 @@
 * [Feature layer (feature service)](Xamarin.iOS/Samples/Layers/FeatureLayerUrl/readme.md) - Show features from an online feature service.
 * [Group layers](Xamarin.iOS/Samples/Layers/GroupLayers/readme.md) - Group a collection of layers together and toggle their visibility as a group.
 * [Identify KML features](Xamarin.iOS/Samples/Layers/IdentifyKmlFeatures/readme.md) - Show a callout with formatted content for a KML feature.
+* [Identify raster cell](Xamarin.iOS/Samples/Layers/IdentifyRasterCell/readme.md) - Get the cell value of a local raster at the tapped location and display the result in a callout.
 * [List KML contents](Xamarin.iOS/Samples/Layers/ListKmlContents/readme.md) - List the contents of a KML file.
 * [Web tiled layer](Xamarin.iOS/Samples/Layers/LoadWebTiledLayer/readme.md) - Display a tiled web layer.
 * [Map image layer tables](Xamarin.iOS/Samples/Layers/MapImageLayerTables/readme.md) - Find features in a spatial table related to features in a non-spatial table.

@@ -1,0 +1,38 @@
+{
+    "category": "SceneView",
+    "description": "Animate a series of images with an image overlay.",
+    "formal_name": "AnimateImageOverlay",
+    "ignore": false,
+    "images": [
+        "AnimateImageOverlay.jpg"
+    ],
+    "keywords": [
+        "3d",
+        "animation",
+        "drone",
+        "dynamic",
+        "image frame",
+        "image overlay",
+        "real time",
+        "rendering"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.8.0"
+    },
+    "offline_data": [
+        "9465e8c02b294c69bdb42de056a23ab1"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/animateimageoverlay.htm"
+    ],
+    "relevant_apis": [
+        "ImageFrame",
+        "ImageOverlay",
+        "SceneView"
+    ],
+    "snippets": [
+        "AnimateImageOverlay.xaml",
+        "AnimateImageOverlay.xaml.cs"
+    ],
+    "title": "Animate images with image overlay"
+}

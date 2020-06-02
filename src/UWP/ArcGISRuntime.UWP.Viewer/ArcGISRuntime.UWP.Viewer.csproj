@@ -114,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <Content Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
     <Content Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
@@ -371,6 +372,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
+      <DependentUpon>AnimateImageOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml.cs">
       <DependentUpon>IdentifyRasterCell.xaml</DependentUpon>
     </Compile>
@@ -948,6 +952,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

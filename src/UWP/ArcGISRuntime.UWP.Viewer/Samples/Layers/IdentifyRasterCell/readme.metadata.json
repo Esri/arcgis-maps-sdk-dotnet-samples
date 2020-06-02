@@ -1,0 +1,42 @@
+{
+    "category": "Layers",
+    "description": "Get the cell value of a local raster at the tapped location and display the result in a callout.",
+    "formal_name": "IdentifyRasterCell",
+    "ignore": false,
+    "images": [
+        "IdentifyRasterCell.jpg"
+    ],
+    "keywords": [
+        "NDVI",
+        "band",
+        "cell",
+        "cell value",
+        "continuous",
+        "discrete",
+        "identify",
+        "pixel",
+        "pixel value",
+        "raster"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.8.0"
+    },
+    "offline_data": [
+        "b5f977c78ec74b3a8857ca86d1d9b318"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/identifyrastercell.htm"
+    ],
+    "relevant_apis": [
+        "GeoView.IdentifyLayerAsync",
+        "IdentifyLayerResult",
+        "RasterCell",
+        "RasterCell.Attributes",
+        "RasterLayer"
+    ],
+    "snippets": [
+        "IdentifyRasterCell.xaml",
+        "IdentifyRasterCell.xaml.cs"
+    ],
+    "title": "Identify raster cell"
+}

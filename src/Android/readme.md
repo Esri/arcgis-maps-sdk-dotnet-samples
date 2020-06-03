@@ -224,7 +224,7 @@
 
 ## Security
 
-* [Authenticate with OAuth](Xamarin.Android/Samples/Security/OAuth/readme.md) - This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).
+* [Authenticate with OAuth](Xamarin.Android/Samples/Security/OAuth/readme.md) - Authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers).
 * [ArcGIS token challenge](Xamarin.Android/Samples/Security/TokenSecuredChallenge/readme.md) - This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 
 ## Symbology

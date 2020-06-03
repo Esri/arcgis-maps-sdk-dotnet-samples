@@ -10,7 +10,7 @@ Setting the initial viewpoint is useful when a user wishes to first load the map
 
 ## How to use the sample
 
-As application is loading, initial view point is set and map view opens at the given location.
+When the sample loads, note the map is opened at the initial view point that is set to it.
 
 ## How it works
 

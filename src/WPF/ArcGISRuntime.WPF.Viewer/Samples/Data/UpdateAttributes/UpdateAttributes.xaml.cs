@@ -181,5 +181,4 @@ namespace ArcGISRuntime.WPF.Samples.UpdateAttributes
             }
         }
     }
-}}
 }

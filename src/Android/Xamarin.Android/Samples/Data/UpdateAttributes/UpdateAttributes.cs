@@ -229,5 +229,4 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             SetContentView(layout);
         }
     }
-}}
 }

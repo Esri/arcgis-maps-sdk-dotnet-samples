@@ -274,5 +274,4 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             if (_changeValueButton != null) _changeValueButton.TouchUpInside -= ShowDamageTypeChoices;
         }
     }
-}}
 }

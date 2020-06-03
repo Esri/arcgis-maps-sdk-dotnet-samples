@@ -182,5 +182,3 @@ namespace ArcGISRuntime.UWP.Samples.UpdateAttributes
         }
     }
 }
-
-}

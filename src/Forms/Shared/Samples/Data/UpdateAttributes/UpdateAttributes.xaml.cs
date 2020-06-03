@@ -180,5 +180,3 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         }
     }
 }
-
-}

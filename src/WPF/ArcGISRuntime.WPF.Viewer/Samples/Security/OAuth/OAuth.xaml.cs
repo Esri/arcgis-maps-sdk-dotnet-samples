@@ -308,11 +308,4 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
             return keyValueDictionary;
         }
     }
-}lue);
-            }
-
-            // Return the dictionary of string keys/values.
-            return keyValueDictionary;
-        }
-    }
 }

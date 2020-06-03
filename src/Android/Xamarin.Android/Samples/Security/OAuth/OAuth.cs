@@ -268,11 +268,4 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             return keyValueDictionary;
         }
     }
-}lue);
-            }
-
-            // Return the dictionary of string keys/values.
-            return keyValueDictionary;
-        }
-    }
 }

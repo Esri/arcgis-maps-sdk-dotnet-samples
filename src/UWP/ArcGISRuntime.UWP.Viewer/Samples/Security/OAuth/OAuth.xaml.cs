@@ -123,11 +123,4 @@ namespace ArcGISRuntime.UWP.Samples.OAuth
             return credential;
         }
     }
-}// Exception will be reported in calling function.
-                throw;
-            }
-
-            return credential;
-        }
-    }
 }

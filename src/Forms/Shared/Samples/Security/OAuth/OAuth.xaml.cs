@@ -264,9 +264,4 @@ namespace ArcGISRuntime.Samples.OAuth
         }
 #endregion 
     }
-}urn completion source task so the caller can await completion.
-            return _taskCompletionSource.Task;
-        }
-#endregion 
-    }
 }

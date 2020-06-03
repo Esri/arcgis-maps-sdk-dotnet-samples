@@ -45,5 +45,4 @@ namespace ArcGISRuntime.WPF.Samples.SetInitialMapArea
             MyMapView.Map = myMap;
         }
     }
-}}
 }

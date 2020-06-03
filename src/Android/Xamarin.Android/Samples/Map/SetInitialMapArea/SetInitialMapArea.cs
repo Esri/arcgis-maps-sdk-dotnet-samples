@@ -67,5 +67,4 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
             SetContentView(layout);
         }
     }
-}}
 }

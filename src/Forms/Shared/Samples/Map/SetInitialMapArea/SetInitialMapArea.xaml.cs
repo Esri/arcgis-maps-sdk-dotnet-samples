@@ -45,5 +45,3 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
         }
     }
 }
-
-}

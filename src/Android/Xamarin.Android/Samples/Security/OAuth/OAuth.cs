@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Authenticate with OAuth",
         category: "Security",
-        description: "This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).",
+        description: "Authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers).",
         instructions: "When you run the sample, the app will load a web map which contains premium content. You will be challenged for an ArcGIS Online login to view the private layers. Enter a user name and password for an ArcGIS Online named user account (such as your ArcGIS for Developers account). If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.",
         tags: new[] { "OAuth", "OAuth2", "authentication", "cloud", "credential", "portal", "security" })]
     public class OAuth : Activity, IOAuthAuthorizeHandler
@@ -262,6 +262,13 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
                 }
 
                 keyValueDictionary.Add(key, value);
+            }
+
+            // Return the dictionary of string keys/values.
+            return keyValueDictionary;
+        }
+    }
+}lue);
             }
 
             // Return the dictionary of string keys/values.

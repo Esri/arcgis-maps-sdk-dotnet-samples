@@ -16,7 +16,7 @@ namespace ArcGISRuntime.WPF.Samples.SetInitialMapArea
         name: "Map initial extent",
         category: "Map",
         description: "Display the map at an initial viewpoint representing a bounding geometry.",
-        instructions: "As application is loading, initial view point is set and map view opens at the given location.",
+        instructions: "When the sample loads, note the map is opened at the initial view point that is set to it.",
         tags: new[] { "envelope", "extent", "initial", "viewpoint", "zoom" })]
     public partial class SetInitialMapArea
     {
@@ -45,4 +45,5 @@ namespace ArcGISRuntime.WPF.Samples.SetInitialMapArea
             MyMapView.Map = myMap;
         }
     }
+}}
 }

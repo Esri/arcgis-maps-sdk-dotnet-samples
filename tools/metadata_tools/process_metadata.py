@@ -126,10 +126,6 @@ def update_attribute(sample, sample_dir):
                     # Delete the existing attributes
                     del lines[start:end+1]
 
-                    # Fix for edge case with download preplanned map
-                    if "DownloadPreplannedMap" in path_to_source:
-                        del lines[start]
-
                     # Create the new attributes
                     new_attributes = "    [ArcGISRuntime.Samples.Shared.Attributes.Sample(\n"
                     new_attributes += "        name: \"" + sample.friendly_name + "\",\n"
@@ -180,11 +176,11 @@ def update_attribute(sample, sample_dir):
             f.close()
 
         # Rewrite the file with updated attributes.
-        with open(path_to_source, "r+") as file:
-            file.writelines(lines)
+        with open(path_to_source, "w") as file:
+            file.seek(0)
+            file.write(''.join(lines))
             file.close()
     except:
-        #x = 2
         print("Error with sample: "+sample_dir)
 
 def main():

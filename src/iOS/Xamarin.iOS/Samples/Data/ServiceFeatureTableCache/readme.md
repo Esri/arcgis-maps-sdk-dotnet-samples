@@ -26,7 +26,7 @@ Run the sample and pan and zoom around the map. With each interaction, features 
 
 ## About the data
 
-The U.S. National Bridge Inventory describes 600,000 bridges in the United States. The sample uses [US Bridges](https://arcgisruntime.maps.arcgis.com/home/item.html?id=250b103a722c4e1ea71e562eac61be1b), a modified copy of the U.S. National Bridge Inventory hosted on ArcGIS Online. The sample opens with an initial visible extent centered over Bridgeport, CT.
+The sample uses [a feature service showing pool permits](https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0) for land parcels in a Riverside, CA neighborhood.
 
 ## Additional information
 

@@ -14,7 +14,7 @@ The load status of the map will be displayed as the sample loads.
 
 ## How it works
 
-1. Create an `Map` and add it to a `MapView`.
+1. Create a `Map` and add it to a `MapView`.
 2. Use the `Map.LoadStatusChanged` event to listen for changes in the map's load status.
 
 The `LoadStatus` is `Loaded` when any of the following criteria are met:

@@ -31,7 +31,7 @@
         "SceneView"
     ],
     "snippets": [
-        "../../../Resources/layout/AnimateImageOverlay.axml",
+        "../../../Resources/layout/AnimateImageOverlay.xml",
         "AnimateImageOverlay.cs"
     ],
     "title": "Animate images with image overlay"

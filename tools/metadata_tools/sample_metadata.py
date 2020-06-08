@@ -406,21 +406,24 @@ class sample_metadata:
                 referencing_file_path = os.path.join(sample_dir, file)
                 referencing_file_contents = safe_read_contents(referencing_file_path)
                 for line in referencing_file_contents.split("\n"):
+                    layout_name = None
                     if "SetContentView(Resource.Layout." in line:
                         # extract name of layout
                         layout_name = line.split("Layout.")[1].strip().strip(";").strip(")")
-                        # add the file path to the snippets list
-                        self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
                     elif "SetContentView(ArcGISRuntime.Resource.Layout." in line:
                         # extract name of layout
                         layout_name = line.split("Layout.")[1].strip().strip(";").strip(")")
-                        # add the file path to the snippets list
-                        self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
                     elif ".Inflate(Resource.Layout." in line:
                         # extract name of layout
                         layout_name = line.split("Layout.")[1].strip().strip(";").strip(", null)")
+                    if layout_name is not None:
+                        # determine if the file ending is .xml
+                        if (os.path.exists(os.path.join("..", "..", "src", "Android", "Xamarin.Android", "Resources", "layout", f"{layout_name}.xml"))):
+                            ending = ".xml"
+                        else:
+                            ending = ".axml"
                         # add the file path to the snippets list
-                        self.source_files.append(f"../../../Resources/layout/{layout_name}.axml")
+                        self.source_files.append(f"../../../Resources/layout/{layout_name}{ending}")
         # Manually add JoystickSeekBar control on Android for AR only
         if platform == "Android" and self.formal_name in ["NavigateAR", "CollectDataAR", "ViewHiddenInfrastructureAR"]:
             self.source_files.append("../../../Resources/values/Attrs.xml")

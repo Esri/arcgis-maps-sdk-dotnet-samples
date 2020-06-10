@@ -3,24 +3,24 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Android;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
 using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Google.Android.Material.Snackbar;
 using System;
 using System.Linq;
-using Android;
-using Android.Content.PM;
-using Android.Support.Design.Widget;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
 
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 
         private void OnStartButtonClicked(object sender, EventArgs e)
         {
-            Button startButton = (Button) sender;
+            Button startButton = (Button)sender;
 
             // Create menu to show navigation options
             PopupMenu navigationMenu = new PopupMenu(this, startButton);
@@ -104,6 +104,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                 case 0:
                     _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
                     break;
+
                 case 1:
                     _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
                     break;
@@ -127,7 +128,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
                 // The Fine location permission will be requested.
-                var requiredPermissions = new[] {Manifest.Permission.AccessFineLocation};
+                var requiredPermissions = new[] { Manifest.Permission.AccessFineLocation };
 
                 // Only prompt the user first if the system says to.
                 if (ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.AccessFineLocation))
@@ -203,7 +204,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private void CreateLayout()
         {
             // Create a new vertical layout for the app.
-            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Create button to show possible navigation options.
             Button startButton = new Button(this)

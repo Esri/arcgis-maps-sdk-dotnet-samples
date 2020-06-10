@@ -7,8 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Android;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
+using Android.Support.V4.App;
+using Android.Support.V4.Content;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -17,18 +22,13 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Google.Android.Material.Snackbar;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Android;
-using Android.Content.PM;
-using Android.Support.Design.Widget;
-using Android.Support.V4.App;
-using Android.Support.V4.Content;
-using Android.Views;
 
 namespace ArcGISRuntime.Samples.FindPlace
 {
@@ -99,21 +99,21 @@ namespace ArcGISRuntime.Samples.FindPlace
             }
 
             // Unsubscribe; only want to zoom to location once.
-            ((LocationDisplay) sender).LocationChanged -= LocationDisplay_LocationChanged;
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
             RunOnUiThread(() => { _myMapView.SetViewpoint(new Viewpoint(e.Position, 10000)); });
         }
 
         private void CreateLayout()
         {
             // Vertical stack layout.
-            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Search bar.
-            _mySearchBox = new AutoCompleteTextView(this) {Text = "Coffee"};
+            _mySearchBox = new AutoCompleteTextView(this) { Text = "Coffee" };
             layout.AddView(_mySearchBox);
 
             // Location search bar.
-            _myLocationBox = new AutoCompleteTextView(this) {Text = "Current Location"};
+            _myLocationBox = new AutoCompleteTextView(this) { Text = "Current Location" };
             layout.AddView(_myLocationBox);
 
             // Disable multi-line searches.
@@ -126,16 +126,16 @@ namespace ArcGISRuntime.Samples.FindPlace
                 ViewGroup.LayoutParams.MatchParent,
                 1.0f
             );
-            LinearLayout searchButtonLayout = new LinearLayout(this) {Orientation = Orientation.Horizontal};
-            _mySearchButton = new Button(this) {Text = "Search All", LayoutParameters = param};
-            _mySearchRestrictedButton = new Button(this) {Text = "Search View", LayoutParameters = param};
+            LinearLayout searchButtonLayout = new LinearLayout(this) { Orientation = Orientation.Horizontal };
+            _mySearchButton = new Button(this) { Text = "Search All", LayoutParameters = param };
+            _mySearchRestrictedButton = new Button(this) { Text = "Search View", LayoutParameters = param };
 
             // Add the buttons to the layout.
             searchButtonLayout.AddView(_mySearchButton);
             searchButtonLayout.AddView(_mySearchRestrictedButton);
 
             // Progress bar.
-            _myProgressBar = new ProgressBar(this) {Indeterminate = true, Visibility = Android.Views.ViewStates.Gone};
+            _myProgressBar = new ProgressBar(this) { Indeterminate = true, Visibility = Android.Views.ViewStates.Gone };
             layout.AddView(_myProgressBar);
 
             // Add the layout to the view.
@@ -451,7 +451,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Hide the callout.
             _myMapView.DismissCallout();
         }
-        
+
         private void ShowMessage(string message, string title = "Error") => new AlertDialog.Builder(this).SetTitle(title).SetMessage(message).Show();
 
         protected override void OnDestroy()
@@ -475,7 +475,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
                 // The Fine location permission will be requested.
-                var requiredPermissions = new[] {Manifest.Permission.AccessFineLocation};
+                var requiredPermissions = new[] { Manifest.Permission.AccessFineLocation };
 
                 // Only prompt the user first if the system says to.
                 if (ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.AccessFineLocation))
@@ -549,5 +549,5 @@ namespace ArcGISRuntime.Samples.FindPlace
         }
     }
 
-    #endregion
+    #endregion Location Display Permissions
 }

@@ -15,8 +15,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Support.V4.Content;
-using Android.Support.V7.App;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
@@ -137,8 +137,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             catch (Exception ex)
             {
-                new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage("Failed to start sample")
-                    .SetTitle("Error").Show();
+                new AndroidX.AppCompat.App.AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }
@@ -226,8 +225,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             catch (Exception ex)
             {
-                new Android.Support.V7.App.AlertDialog.Builder(this).SetMessage("Failed to calculate route.")
-                    .SetTitle("Error").Show();
+                new AndroidX.AppCompat.App.AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }

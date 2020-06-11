@@ -10,9 +10,9 @@
 using Android.App;
 using Android.Graphics;
 using Android.OS;
-using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Mapping;

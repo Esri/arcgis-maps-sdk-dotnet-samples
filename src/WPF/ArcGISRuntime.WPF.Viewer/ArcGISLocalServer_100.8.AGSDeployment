@@ -54,6 +54,9 @@ Only include these if your setup is not installing the Microsoft redistribution 
               <!--Adds support for direct connect to geodatabases stored in DB2.-->
               <!--DB2 Drivers must be present on end users machine.-->
               <Package id="ProDB2" name="DB2" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in Netezza.-->
+              <!--Netezza Drivers must be present on end users machine.-->
+              <Package id="ProNetezza" name="Netezza" enabled="false" />
               <!-- Adds support for direct connect to geodatabases stored in Oracle.-->
               <!--Oracle Drivers must be present on end users machine.-->
               <Package id="ProOracle" name="Oracle" enabled="false" />
@@ -94,7 +97,7 @@ Only include these if your setup is not installing the Microsoft redistribution 
     </ChildPackages>
   </Package>
   <!--This local server has support for ArcMap mpk and gpk packages.-->
-  <Package id="ArcMap" name="ArcMap Compatible Server" enabled="true">
+  <Package id="ArcMap" name="ArcMap Compatible Server" enabled="false">
     <ChildPackages>
       <!--Including Microsoft C and C++ libraries in the runtime deployment allows for XCopy style deployments.
 Only include these if your setup is not installing the Microsoft redistribution package.-->
@@ -149,6 +152,9 @@ Only include these if your setup is not installing the Microsoft redistribution 
               <!--Adds support for direct connect to geodatabases stored in Informix.-->
               <!--Informix Drivers must be present on end users machine.-->
               <Package id="ArcMapInformix" name="Informix" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in Netezza.-->
+              <!--Netezza Drivers must be present on end users machine.-->
+              <Package id="ArcMapNetezza" name="Netezza" enabled="false" />
               <!-- Adds support for direct connect to geodatabases stored in Oracle.-->
               <!--Oracle Drivers must be present on end users machine.-->
               <Package id="ArcMapOracle" name="Oracle" enabled="false" />

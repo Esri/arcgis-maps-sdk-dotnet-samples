@@ -33,6 +33,12 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
         // Raster layer to display raster data on the map.
         private RasterLayer _rasterLayer;
 
+        // Boolean to prevent concurrent identify calls.
+        private bool _isIdentifying = false;
+
+        // Store the next identify cell task.
+        private Action _nextIdentifyAction = null;
+
         public IdentifyRasterCell()
         {
             InitializeComponent();
@@ -82,13 +88,29 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
             };
         }
 
-        private async void MouseMoved(object sender, MouseEventArgs e)
+        private void MouseMoved(object sender, MouseEventArgs mouseArgs)
         {
+            // Get the curent mouse position.
+            Point position = mouseArgs.GetPosition(MyMapView);
+
+            // Identify the raster cell at that position.
+            IdentifyCell(position);
+        }
+
+        private async void IdentifyCell(Point position)
+        {
+            // Check if a cell is already being identified
+            if (_isIdentifying)
+            {
+                _nextIdentifyAction = () => IdentifyCell(position);
+                return;
+            }
+
+            // Set variable to true to prevent concurrent identify calls.
+            _isIdentifying = true;
+
             try
             {
-                // Get the curent mouse position.
-                Point position = e.GetPosition(MyMapView);
-
                 // Get the result for where the user hovered on the raster layer.
                 IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_rasterLayer, position, 1, false, 1);
 
@@ -128,6 +150,22 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, ex.GetType().ToString());
+            }
+            finally
+            {
+                _isIdentifying = false;
+            }
+
+            // Check if there is a new position to identify.
+            if (_nextIdentifyAction != null)
+            {
+                Action action = _nextIdentifyAction;
+
+                // Clear the queued identify action.
+                _nextIdentifyAction = null;
+
+                // Run the next action.
+                action.Invoke();
             }
         }
     }

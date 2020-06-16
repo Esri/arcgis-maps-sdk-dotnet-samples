@@ -165,7 +165,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
                 _nextIdentifyAction = null;
 
                 // Run the next action.
-                action.Invoke();
+                action();
             }
         }
     }

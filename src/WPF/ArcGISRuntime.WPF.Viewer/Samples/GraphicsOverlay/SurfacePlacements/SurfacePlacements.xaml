@@ -12,6 +12,13 @@
                     Content="Draped billboarded"
                     IsChecked="True" />
                 <RadioButton x:Name="FlatButton" Content="Draped flat" />
+
+                <Label Content="Z-Value" />
+                <Slider
+                    Maximum="140"
+                    Minimum="0"
+                    ValueChanged="ZValueChanged"
+                    Value="70" />
             </StackPanel>
         </Border>
     </Grid>

@@ -131,5 +131,16 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             MySceneView.GraphicsOverlays.Remove(_drapedBillboardedOverlay);
             MySceneView.GraphicsOverlays.Add(_drapedFlatOverlay);
         }
+
+        private void ZValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
+        {
+            foreach(GraphicsOverlay overlay in MySceneView.GraphicsOverlays)
+            {
+                foreach(Graphic graphic in overlay.Graphics)
+                {
+                    graphic.Geometry = GeometryEngine.SetZ(graphic.Geometry, e.NewValue);
+                }
+            }
+        }
     }
 }

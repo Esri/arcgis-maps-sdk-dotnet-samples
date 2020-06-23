@@ -30,27 +30,25 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
         public SurfacePlacements()
         {
             InitializeComponent();
-
-            // Execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create new Scene
+            // Create new Scene.
             Scene myScene = new Scene
             {
-                // Set Scene's base map property
+                // Set Scene's base map property.
                 Basemap = Basemap.CreateImagery()
             };
 
-            // Create a camera with coordinates showing layer data
-            Camera camera = new Camera(48.3889,  -4.45968,  37.9922, 329.91, 96.6632, 0);
+            // Create a camera with coordinates showing layer data.
+            Camera camera = new Camera(48.389124348393182, -4.4595173327138591, 140, 322, 74, 0);
 
-            // Assign the Scene to the SceneView
+            // Assign the Scene to the SceneView.
             MySceneView.Scene = myScene;
 
-            // Create ElevationSource from elevation data Uri
+            // Create ElevationSource from elevation data Uri.
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(
                 new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
 
@@ -58,13 +56,13 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             var sceneLayer = new ArcGISSceneLayer(new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer"));
             MySceneView.Scene.OperationalLayers.Add(sceneLayer);
 
-            // Add elevationSource to BaseSurface's ElevationSources
+            // Add elevationSource to BaseSurface's ElevationSources.
             MySceneView.Scene.BaseSurface.ElevationSources.Add(elevationSource);
 
-            // Set view point of scene view using camera
+            // Set view point of scene view using camera.
             MySceneView.SetViewpointCameraAsync(camera);
 
-            // Create overlays with elevation modes
+            // Create overlays with elevation modes.
             _drapedBillboardedOverlay = new GraphicsOverlay();
             _drapedBillboardedOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedBillboarded;
             MySceneView.GraphicsOverlays.Add(_drapedBillboardedOverlay);
@@ -72,9 +70,9 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             _drapedFlatOverlay = new GraphicsOverlay();
             _drapedFlatOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedFlat;
 
-            GraphicsOverlay relativeOverlay = new GraphicsOverlay();
-            relativeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.RelativeToScene;
-            MySceneView.GraphicsOverlays.Add(relativeOverlay);
+            GraphicsOverlay relativeToSceneOverlay = new GraphicsOverlay();
+            relativeToSceneOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.RelativeToScene;
+            MySceneView.GraphicsOverlays.Add(relativeToSceneOverlay);
 
             GraphicsOverlay relativeToSurfaceOverlay = new GraphicsOverlay();
             relativeToSurfaceOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
@@ -84,14 +82,14 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             absoluteOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
             MySceneView.GraphicsOverlays.Add(absoluteOverlay);
 
-            // Create point for graphic location
-            var sceneRelatedPoint = new MapPoint(-4.4610562, 48.3902727,  70, camera.Location.SpatialReference);
+            // Create point for graphic location.
+            var sceneRelatedPoint = new MapPoint(-4.4610562, 48.3902727, 70, camera.Location.SpatialReference);
             var surfaceRelatedPoint = new MapPoint(-4.4609257, 48.3903965, 70, camera.Location.SpatialReference);
 
-            // Create a red triangle symbol
-            SimpleMarkerSymbol triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);
+            // Create a red triangle symbol.
+            var triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);
 
-            // Create a text symbol for each elevation mode
+            // Create a text symbol for each elevation mode.
             TextSymbol drapedBillboardedText = new TextSymbol("DRAPED BILLBOARDED", Color.FromArgb(255, 0, 0, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
@@ -102,10 +100,10 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             drapedFlatText.OffsetY += 20;
 
-            TextSymbol relativeText = new TextSymbol("RELATIVE TO SURFACE", Color.FromArgb(255, 0, 0, 255), 10,
+            TextSymbol relativeToSurfaceText = new TextSymbol("RELATIVE TO SURFACE", Color.FromArgb(255, 0, 0, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
-            relativeText.OffsetY += 20;
+            relativeToSurfaceText.OffsetY += 20;
 
             TextSymbol relativeToSceneText = new TextSymbol("RELATIVE TO SCENE", Color.FromArgb(255, 0, 0, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
@@ -117,18 +115,18 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             absoluteText.OffsetY += 20;
 
-            // Add the point graphic and text graphic to the corresponding graphics overlay
+            // Add the point graphic and text graphic to the corresponding graphics overlay.
             _drapedBillboardedOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
             _drapedBillboardedOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, drapedBillboardedText));
 
             _drapedFlatOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
             _drapedFlatOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, drapedFlatText));
 
-            relativeOverlay.Graphics.Add(new Graphic(sceneRelatedPoint, triangleSymbol));
-            relativeOverlay.Graphics.Add(new Graphic(sceneRelatedPoint, relativeToSceneText));
+            relativeToSceneOverlay.Graphics.Add(new Graphic(sceneRelatedPoint, triangleSymbol));
+            relativeToSceneOverlay.Graphics.Add(new Graphic(sceneRelatedPoint, relativeToSceneText));
 
             relativeToSurfaceOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
-            relativeToSurfaceOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, relativeText));
+            relativeToSurfaceOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, relativeToSurfaceText));
 
             absoluteOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
             absoluteOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, absoluteText));
@@ -151,9 +149,9 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
 
         private void ZValueChanged(object sender, System.Windows.RoutedPropertyChangedEventArgs<double> e)
         {
-            foreach(GraphicsOverlay overlay in MySceneView.GraphicsOverlays)
+            foreach (GraphicsOverlay overlay in MySceneView.GraphicsOverlays)
             {
-                foreach(Graphic graphic in overlay.Graphics)
+                foreach (Graphic graphic in overlay.Graphics)
                 {
                     graphic.Geometry = GeometryEngine.SetZ(graphic.Geometry, e.NewValue);
                 }

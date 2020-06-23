@@ -45,7 +45,7 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             };
 
             // Create a camera with coordinates showing layer data
-            Camera camera = new Camera(53.05, -4.01, 1115, 299, 88, 0);
+            Camera camera = new Camera(48.3889,  -4.45968,  37.9922, 329.91, 96.6632, 0);
 
             // Assign the Scene to the SceneView
             MySceneView.Scene = myScene;
@@ -53,6 +53,10 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             // Create ElevationSource from elevation data Uri
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(
                 new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+
+            // Create scene layer from the Brest, France scene server.
+            var sceneLayer = new ArcGISSceneLayer(new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer"));
+            MySceneView.Scene.OperationalLayers.Add(sceneLayer);
 
             // Add elevationSource to BaseSurface's ElevationSources
             MySceneView.Scene.BaseSurface.ElevationSources.Add(elevationSource);
@@ -69,52 +73,65 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             _drapedFlatOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedFlat;
 
             GraphicsOverlay relativeOverlay = new GraphicsOverlay();
-            relativeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+            relativeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.RelativeToScene;
             MySceneView.GraphicsOverlays.Add(relativeOverlay);
+
+            GraphicsOverlay relativeToSurfaceOverlay = new GraphicsOverlay();
+            relativeToSurfaceOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+            MySceneView.GraphicsOverlays.Add(relativeToSurfaceOverlay);
 
             GraphicsOverlay absoluteOverlay = new GraphicsOverlay();
             absoluteOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
             MySceneView.GraphicsOverlays.Add(absoluteOverlay);
 
             // Create point for graphic location
-            MapPoint point = new MapPoint(-4.04, 53.06, 1000, camera.Location.SpatialReference);
+            var sceneRelatedPoint = new MapPoint(-4.4610562, 48.3902727,  70, camera.Location.SpatialReference);
+            var surfaceRelatedPoint = new MapPoint(-4.4609257, 48.3903965, 70, camera.Location.SpatialReference);
 
             // Create a red triangle symbol
             SimpleMarkerSymbol triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);
 
             // Create a text symbol for each elevation mode
-            TextSymbol drapedBillboardedText = new TextSymbol("DRAPED BILLBOARDED", Color.FromArgb(255, 255, 255, 255), 10,
+            TextSymbol drapedBillboardedText = new TextSymbol("DRAPED BILLBOARDED", Color.FromArgb(255, 0, 0, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             drapedBillboardedText.OffsetY += 20;
 
-            TextSymbol drapedFlatText = new TextSymbol("DRAPED FLAT", Color.FromArgb(255, 255, 255, 255), 10,
+            TextSymbol drapedFlatText = new TextSymbol("DRAPED FLAT", Color.FromArgb(255, 0, 0, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             drapedFlatText.OffsetY += 20;
 
-            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10,
+            TextSymbol relativeText = new TextSymbol("RELATIVE TO SURFACE", Color.FromArgb(255, 0, 0, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             relativeText.OffsetY += 20;
 
-            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10,
+            TextSymbol relativeToSceneText = new TextSymbol("RELATIVE TO SCENE", Color.FromArgb(255, 0, 0, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
+                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            relativeToSceneText.OffsetY -= 20;
+
+            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 0, 0, 255), 10,
                 Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
                 Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             absoluteText.OffsetY += 20;
 
             // Add the point graphic and text graphic to the corresponding graphics overlay
-            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
-            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, drapedBillboardedText));
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, drapedBillboardedText));
 
-            _drapedFlatOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
-            _drapedFlatOverlay.Graphics.Add(new Graphic(point, drapedFlatText));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, drapedFlatText));
 
-            relativeOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
-            relativeOverlay.Graphics.Add(new Graphic(point, relativeText));
+            relativeOverlay.Graphics.Add(new Graphic(sceneRelatedPoint, triangleSymbol));
+            relativeOverlay.Graphics.Add(new Graphic(sceneRelatedPoint, relativeToSceneText));
 
-            absoluteOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
-            absoluteOverlay.Graphics.Add(new Graphic(point, absoluteText));
+            relativeToSurfaceOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
+            relativeToSurfaceOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, relativeText));
+
+            absoluteOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
+            absoluteOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, absoluteText));
 
             BillboardButton.Checked += BillboardedClick;
             FlatButton.Checked += FlatClick;

@@ -45,7 +45,7 @@ To start a `LocalServer` and attach a `LocalService`:
 
 ## Additional information
 
-Local Server can be downloaded for Windows and Linux platforms. Local Server is not supported on macOS.
+Local Server can be downloaded for Windows and Linux platforms from the [developers website](https://developers.arcgis.com/downloads/apis-and-sdks?product=local-server#arcgis-runtime-local-server). Local Server is not supported on macOS.
 
 ## Tags
 

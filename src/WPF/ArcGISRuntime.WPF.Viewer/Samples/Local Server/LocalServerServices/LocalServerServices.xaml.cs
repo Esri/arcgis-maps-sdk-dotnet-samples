@@ -53,7 +53,6 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 {
                     UpdateUiWithServiceUpdate("Local Server", e.Status);
                 };
-                throw new Exception();
             }
             catch (Exception ex)
             {

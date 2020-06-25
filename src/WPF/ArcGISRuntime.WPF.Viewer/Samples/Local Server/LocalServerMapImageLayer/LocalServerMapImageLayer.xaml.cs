@@ -24,7 +24,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
         description: "Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.",
         instructions: "The Local Server and local map service will automatically be started and, once running, a map image layer will be created and added to the map.",
         tags: new[] { "image", "layer", "local", "offline", "server" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b")]
     public partial class LocalServerMapImageLayer
     {
         // Hold a reference to the local map service

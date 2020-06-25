@@ -11,7 +11,9 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
@@ -85,7 +87,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(string.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md. Message: {0}", ex.Message), "Local Server failed to start");
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
             }
         }
 

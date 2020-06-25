@@ -10,8 +10,10 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -23,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         description: "Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.",
         instructions: "Click `Start Local Server` to start the Local Server. Click `Stop Local Server` to stop the Local Server.",
         tags: new[] { "feature", "geoprocessing", "local services", "map", "server", "service" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b", "4e94fec734434d1288e6ebe36c3c461f", "da9e565a52ca41c1937cff1a01017068")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b", "4e94fec734434d1288e6ebe36c3c461f", "da9e565a52ca41c1937cff1a01017068")]
     public partial class LocalServerServices
     {
         // Hold references to the individual services
@@ -51,10 +53,14 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 {
                     UpdateUiWithServiceUpdate("Local Server", e.Status);
                 };
+                throw new Exception();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md. Message: {0}", ex.Message), "Local Server failed to start");
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
             }
         }
 
@@ -213,7 +219,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 string tempDataPath = Path.Combine(tempDataPathRoot, "EsriSamples", "AppData");
                 Directory.CreateDirectory(tempDataPath); // CreateDirectory won't overwrite if it already exists.
                 LocalServer.Instance.AppDataPath = tempDataPath;
-                
+
                 // Start the server
                 await LocalServer.Instance.StartAsync();
 

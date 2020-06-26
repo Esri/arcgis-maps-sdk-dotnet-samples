@@ -227,7 +227,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Local Server Failed to start");
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
             }
 
             // Update the UI
@@ -269,7 +272,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 string serviceUri = strFullName.Split(splitChars, 2)[1].Trim();
 
                 // Navigate to the service
-                System.Diagnostics.Process.Start(serviceUri);
+                Process.Start(serviceUri);
             }
             catch (Exception ex)
             {

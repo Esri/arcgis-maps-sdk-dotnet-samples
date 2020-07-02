@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -31,6 +32,8 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
         // Hold references to UI controls.
         private SceneView _mySceneView;
         private UISegmentedControl _picker;
+        private UISlider _zSlider;
+        private UILabel _valueLabel;
 
         // Draped overlays.
         private GraphicsOverlay _drapedBillboardedOverlay;
@@ -43,18 +46,26 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
 
         private void Initialize()
         {
-            // Create new scene with imagery basemap.
-            Scene scene = new Scene(Basemap.CreateImagery());
+            // Create new Scene.
+            Scene myScene = new Scene
+            {
+                // Set Scene's base map property.
+                Basemap = Basemap.CreateImagery()
+            };
 
             // Create a camera with coordinates showing layer data.
-            Camera camera = new Camera(53.05, -4.01, 1115, 299, 88, 0);
+            Camera camera = new Camera(48.389124348393182, -4.4595173327138591, 140, 322, 74, 0);
 
             // Assign the Scene to the SceneView.
-            _mySceneView.Scene = scene;
+            _mySceneView.Scene = myScene;
 
             // Create ElevationSource from elevation data Uri.
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(
                 new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+
+            // Create scene layer from the Brest, France scene server.
+            var sceneLayer = new ArcGISSceneLayer(new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer"));
+            _mySceneView.Scene.OperationalLayers.Add(sceneLayer);
 
             // Add elevationSource to BaseSurface's ElevationSources.
             _mySceneView.Scene.BaseSurface.ElevationSources.Add(elevationSource);
@@ -70,53 +81,66 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             _drapedFlatOverlay = new GraphicsOverlay();
             _drapedFlatOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.DrapedFlat;
 
-            GraphicsOverlay relativeOverlay = new GraphicsOverlay();
-            relativeOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
-            _mySceneView.GraphicsOverlays.Add(relativeOverlay);
+            GraphicsOverlay relativeToSceneOverlay = new GraphicsOverlay();
+            relativeToSceneOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.RelativeToScene;
+            _mySceneView.GraphicsOverlays.Add(relativeToSceneOverlay);
+
+            GraphicsOverlay relativeToSurfaceOverlay = new GraphicsOverlay();
+            relativeToSurfaceOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Relative;
+            _mySceneView.GraphicsOverlays.Add(relativeToSurfaceOverlay);
 
             GraphicsOverlay absoluteOverlay = new GraphicsOverlay();
             absoluteOverlay.SceneProperties.SurfacePlacement = SurfacePlacement.Absolute;
             _mySceneView.GraphicsOverlays.Add(absoluteOverlay);
 
             // Create point for graphic location.
-            MapPoint point = new MapPoint(-4.04, 53.06, 1000, camera.Location.SpatialReference);
+            var sceneRelatedPoint = new MapPoint(-4.4610562, 48.3902727, 70, camera.Location.SpatialReference);
+            var surfaceRelatedPoint = new MapPoint(-4.4609257, 48.3903965, 70, camera.Location.SpatialReference);
 
-            // Create a red triangle symbol
-            SimpleMarkerSymbol triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);
+            // Create a red triangle symbol.
+            var triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);
 
-            // Create a text symbol for each elevation mode
-            TextSymbol drapedBillboardedText = new TextSymbol("DRAPED BILLBOARDED", Color.FromArgb(255, 255, 255, 255), 10,
-                HorizontalAlignment.Center,
-                VerticalAlignment.Middle);
+            // Create a text symbol for each elevation mode.
+            TextSymbol drapedBillboardedText = new TextSymbol("DRAPED BILLBOARDED", Color.FromArgb(255, 0, 0, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
+                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             drapedBillboardedText.OffsetY += 20;
 
-            TextSymbol drapedFlatText = new TextSymbol("DRAPED FLAT", Color.FromArgb(255, 255, 255, 255), 10,
-                HorizontalAlignment.Center,
-                VerticalAlignment.Middle);
+            TextSymbol drapedFlatText = new TextSymbol("DRAPED FLAT", Color.FromArgb(255, 0, 0, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
+                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             drapedFlatText.OffsetY += 20;
 
-            TextSymbol relativeText = new TextSymbol("RELATIVE", Color.FromArgb(255, 255, 255, 255), 10,
-                HorizontalAlignment.Center,
-                VerticalAlignment.Middle);
-            relativeText.OffsetY += 20;
+            TextSymbol relativeToSurfaceText = new TextSymbol("RELATIVE TO SURFACE", Color.FromArgb(255, 0, 0, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
+                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            relativeToSurfaceText.OffsetY += 20;
 
-            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 255, 255, 255), 10,
-                HorizontalAlignment.Center,
-                VerticalAlignment.Middle);
+            TextSymbol relativeToSceneText = new TextSymbol("RELATIVE TO SCENE", Color.FromArgb(255, 0, 0, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
+                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
+            relativeToSceneText.OffsetY -= 20;
+
+            TextSymbol absoluteText = new TextSymbol("ABSOLUTE", Color.FromArgb(255, 0, 0, 255), 10,
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
+                Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
             absoluteText.OffsetY += 20;
 
-            // Add the point graphic and text graphic to the corresponding graphics overlay
-            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
-            _drapedBillboardedOverlay.Graphics.Add(new Graphic(point, drapedBillboardedText));
+            // Add the point graphic and text graphic to the corresponding graphics overlay.
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
+            _drapedBillboardedOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, drapedBillboardedText));
 
-            _drapedFlatOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
-            _drapedFlatOverlay.Graphics.Add(new Graphic(point, drapedFlatText));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
+            _drapedFlatOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, drapedFlatText));
 
-            relativeOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
-            relativeOverlay.Graphics.Add(new Graphic(point, relativeText));
+            relativeToSceneOverlay.Graphics.Add(new Graphic(sceneRelatedPoint, triangleSymbol));
+            relativeToSceneOverlay.Graphics.Add(new Graphic(sceneRelatedPoint, relativeToSceneText));
 
-            absoluteOverlay.Graphics.Add(new Graphic(point, triangleSymbol));
-            absoluteOverlay.Graphics.Add(new Graphic(point, absoluteText));
+            relativeToSurfaceOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
+            relativeToSurfaceOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, relativeToSurfaceText));
+
+            absoluteOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
+            absoluteOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, absoluteText));
         }
 
         private void ChangeDraped(object sender, EventArgs e)
@@ -134,6 +158,19 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             {
                 _mySceneView.GraphicsOverlays.Add(_drapedFlatOverlay);
             }
+        }
+
+        private void ZValueChanged(object sender, EventArgs e)
+        {
+            foreach (GraphicsOverlay overlay in _mySceneView.GraphicsOverlays)
+            {
+                foreach (Graphic graphic in overlay.Graphics)
+                {
+                    graphic.Geometry = GeometryEngine.SetZ(graphic.Geometry, _zSlider.Value) ;
+                }
+            }
+
+            _valueLabel.Text = $"{_zSlider.Value} meters";
         }
 
         public override void ViewDidLoad()
@@ -154,6 +191,14 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             _picker.SelectedSegment = 0;
             _picker.TranslatesAutoresizingMaskIntoConstraints = false;
 
+            _zSlider = new UISlider() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _zSlider.MinValue = 0;
+            _zSlider.MaxValue = 140;
+            _zSlider.SetValue(70, false);
+
+            _valueLabel = new UILabel() { Text = "70 meters", TranslatesAutoresizingMaskIntoConstraints = false };
+
+
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
@@ -163,21 +208,37 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
             };
 
+            UIToolbar sliderToolbar = new UIToolbar();
+            sliderToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            sliderToolbar.Items = new[]
+            {
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem {CustomView = _zSlider, Width = 200},
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem {CustomView = _valueLabel, Width = 150 },
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+            };
+
             // Add the views.
-            View.AddSubviews(_mySceneView, toolbar);
+            View.AddSubviews(_mySceneView, toolbar, sliderToolbar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _mySceneView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _mySceneView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                _mySceneView.BottomAnchor.ConstraintEqualTo(sliderToolbar.TopAnchor),
                 _mySceneView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _mySceneView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-                toolbar.TopAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor),
+                sliderToolbar.TopAnchor.ConstraintEqualTo(_mySceneView.BottomAnchor),
+                sliderToolbar.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
+                sliderToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                sliderToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+
+                toolbar.TopAnchor.ConstraintEqualTo(sliderToolbar.BottomAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
         }
 
@@ -187,6 +248,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
 
             // Subscribe to events.
             _picker.ValueChanged += ChangeDraped;
+            _zSlider.ValueChanged += ZValueChanged;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -194,7 +256,8 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, per best practice.
-            _picker.ValueChanged += ChangeDraped;
+            _picker.ValueChanged -= ChangeDraped;
+            _zSlider.ValueChanged -= ZValueChanged;
         }
     }
 }

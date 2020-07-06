@@ -29,8 +29,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:min="0"
-            android:max="255"
-            android:progress="255"
+            android:max="140"
+            android:progress="70"
             app:layout_constraintLeft_toRightOf="@+id/Label"
             app:layout_constraintRight_toLeftOf="@+id/ValueLabel"/>
         <TextView

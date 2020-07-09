@@ -38,7 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             // Create new Scene.
             Scene myScene = new Scene
             {
-                // Set Scene's base map property.
+                // Set the Scene's basemap property.
                 Basemap = Basemap.CreateImagery()
             };
 
@@ -83,8 +83,8 @@ namespace ArcGISRuntime.WPF.Samples.SurfacePlacements
             MySceneView.GraphicsOverlays.Add(absoluteOverlay);
 
             // Create point for graphic location.
-            var sceneRelatedPoint = new MapPoint(-4.4610562, 48.3902727, 70, camera.Location.SpatialReference);
-            var surfaceRelatedPoint = new MapPoint(-4.4609257, 48.3903965, 70, camera.Location.SpatialReference);
+            MapPoint sceneRelatedPoint = new MapPoint(-4.4610562, 48.3902727, 70, camera.Location.SpatialReference);
+            MapPoint surfaceRelatedPoint = new MapPoint(-4.4609257, 48.3903965, 70, camera.Location.SpatialReference);
 
             // Create a red triangle symbol.
             var triangleSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Color.FromArgb(255, 255, 0, 0), 10);

@@ -10,6 +10,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" />
             <Button
@@ -23,6 +25,19 @@
                 Grid.Row="2"
                 Clicked="FlatClicked"
                 Text="Draped Flat" />
+            <Label
+                x:Name="ValueLabel"
+                Grid.Row="3"
+                Margin="5,0,5,0"
+                Text="Z Value: 70 meters" />
+            <Slider
+                x:Name="ZSlider"
+                Grid.Row="4"
+                Margin="5,0,5,0"
+                Maximum="140"
+                Minimum="0"
+                ValueChanged="ZSlider_ValueChanged"
+                Value="70" />
         </Grid>
     </Grid>
 </ContentPage>

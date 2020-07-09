@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/SurfacePlacements">
+    <Esri.ArcGISRuntime.UI.Controls.SceneView
+        android:id="@+id/SceneView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Toolbar"/>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/SceneView"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/Label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Z Value"/>
+        <SeekBar
+            android:id="@+id/Slider"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:min="0"
+            android:max="140"
+            android:progress="70"
+            app:layout_constraintLeft_toRightOf="@+id/Label"
+            app:layout_constraintRight_toLeftOf="@+id/ValueLabel"/>
+        <TextView
+            android:id="@+id/ValueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="70 meters"
+            app:layout_constraintLeft_toRightOf="@+id/Slider"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </android.support.constraint.ConstraintLayout>
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="horizontal" >
+        <RadioButton
+            android:id="@+id/billboardedButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Draped Billboarded"
+            android:layout_weight="1"
+            android:checked="true"/>
+        <RadioButton
+            android:id="@+id/flatButton"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="Draped Flat"
+            android:layout_weight="1"/>
+    </RadioGroup>
+</android.support.constraint.ConstraintLayout>

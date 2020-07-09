@@ -14,7 +14,7 @@ The application loads a scene showing four points that use individual surface pl
 
 ## How it works
 
-1. Create a `GraphicsOverlay` for each placement mode, setting `LayerSceneProperties.SurfacePlacement`:
+1. Create a `GraphicsOverlay` for each placement mode, setting `SceneProperties.SurfacePlacement`:
     * `Absolute`, position graphic using only its Z value.
     * `Relative`, position graphic using its Z value plus the elevation of the surface.
     * `DrapedBillboarded`, position graphic upright on the surface and always facing the camera, not using its z value.
@@ -27,7 +27,7 @@ The application loads a scene showing four points that use individual surface pl
 
 * Graphic
 * GraphicsOverlay
-* LayerSceneProperties.SurfacePlacement
+* SceneProperties.SurfacePlacement
 * SceneProperties
 * Surface
 

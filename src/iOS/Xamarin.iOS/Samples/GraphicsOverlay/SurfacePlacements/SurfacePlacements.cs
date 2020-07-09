@@ -196,8 +196,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             _zSlider.MaxValue = 140;
             _zSlider.SetValue(70, false);
 
-            _valueLabel = new UILabel() { Text = "70 meters", TranslatesAutoresizingMaskIntoConstraints = false };
-
+            _valueLabel = new UILabel { Text = "70 meters", TranslatesAutoresizingMaskIntoConstraints = false };
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;

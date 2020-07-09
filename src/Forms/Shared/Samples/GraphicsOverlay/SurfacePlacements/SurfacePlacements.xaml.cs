@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             }
 
             // Update Z value in the UI.
-            ValueText.Text = ((int)e.NewValue).ToString();
+            ValueLabel.Text = $"Z Value: {(int)e.NewValue} meters";
         }
     }
 }

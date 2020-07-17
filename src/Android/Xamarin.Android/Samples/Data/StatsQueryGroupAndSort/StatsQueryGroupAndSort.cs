@@ -17,12 +17,11 @@ using Esri.ArcGISRuntime.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
-using OrderFieldOption = ArcGISRuntime.Samples.StatsQueryGroupAndSort.OrderFieldOption;
+using ContextThemeWrapper = AndroidX.AppCompat.View.ContextThemeWrapper;
 
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("GroupedResultsList_DataItem.axml", "GroupedResultsList_GroupItem.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Statistical query group and sort",
@@ -315,7 +314,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         // List of statistic definitions for the query
         private List<StatisticDefinition> _statisticDefinitions;
 
-        // Spinner (drop down) to display fields from the table 
+        // Spinner (drop down) to display fields from the table
         private Spinner _fieldSpinner;
 
         // Spinner to display available statistic types (average, sum, maximum, etc.)
@@ -340,8 +339,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = Activity.ApplicationContext;
-            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
-
+            ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // Set a dialog title
             Dialog.SetTitle("Statistics Definitions");
@@ -644,7 +642,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = this.Activity.ApplicationContext;
-            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
+            ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // Set a dialog title
             this.Dialog.SetTitle("Group Results By");
@@ -800,8 +798,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = this.Activity.ApplicationContext;
-            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
-
+            ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // Set a dialog title
             this.Dialog.SetTitle("Order Results");

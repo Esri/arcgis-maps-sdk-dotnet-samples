@@ -7,23 +7,23 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Android.App;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.Controls;
-using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.UI;
-using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
+using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using ContextThemeWrapper = AndroidX.AppCompat.View.ContextThemeWrapper;
 
 namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Read shapefile metadata",
         category: "Data",
@@ -143,8 +143,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = Activity.ApplicationContext;
-            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
-
+            AndroidX.AppCompat.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // Set a dialog title
             Dialog.SetTitle(_metadata.Credits);
@@ -184,7 +183,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             {
                 Text = "OK"
             };
-            dismissButton.Click += (s,e)=> Dismiss();
+            dismissButton.Click += (s, e) => Dismiss();
             dialogView.AddView(dismissButton);
 
             // Return the new view for display

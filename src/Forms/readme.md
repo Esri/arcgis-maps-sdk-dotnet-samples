@@ -112,6 +112,7 @@
 * [Feature layer (feature service)](Shared/Samples/Layers/FeatureLayerUrl/readme.md) - Show features from an online feature service.
 * [Group layers](Shared/Samples/Layers/GroupLayers/readme.md) - Group a collection of layers together and toggle their visibility as a group.
 * [Identify KML features](Shared/Samples/Layers/IdentifyKmlFeatures/readme.md) - Show a callout with formatted content for a KML feature.
+* [Identify raster cell](Shared/Samples/Layers/IdentifyRasterCell/readme.md) - Get the cell value of a local raster at the tapped location and display the result in a callout.
 * [List KML contents](Shared/Samples/Layers/ListKmlContents/readme.md) - List the contents of a KML file.
 * [Web tiled layer](Shared/Samples/Layers/LoadWebTiledLayer/readme.md) - Display a tiled web layer.
 * [Map image layer tables](Shared/Samples/Layers/MapImageLayerTables/readme.md) - Find features in a spatial table related to features in a non-spatial table.
@@ -204,6 +205,7 @@
 
 ## SceneView
 
+* [Animate images with image overlay](Shared/Samples/SceneView/AnimateImageOverlay/readme.md) - Animate a series of images with an image overlay.
 * [Choose camera controller](Shared/Samples/SceneView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
 * [GeoView viewpoint synchronization](Shared/Samples/SceneView/GeoViewSync/readme.md) - Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 
@@ -216,7 +218,7 @@
 
 ## Security
 
-* [Authenticate with OAuth](Shared/Samples/Security/OAuth/readme.md) - This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).
+* [Authenticate with OAuth](Shared/Samples/Security/OAuth/readme.md) - Authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers).
 * [ArcGIS token challenge](Shared/Samples/Security/TokenSecuredChallenge/readme.md) - This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 
 ## Symbology

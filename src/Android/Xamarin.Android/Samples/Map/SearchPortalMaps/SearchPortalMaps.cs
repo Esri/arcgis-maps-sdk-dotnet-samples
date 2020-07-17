@@ -21,7 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Esri.ArcGISRuntime;
 using Xamarin.Auth;
-using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
+using ContextThemeWrapper = AndroidX.AppCompat.View.ContextThemeWrapper;
 
 namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
@@ -589,7 +589,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
             // Get the context for creating the dialog controls
             Android.Content.Context ctx = Activity.ApplicationContext;
-            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
+            ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // Set a dialog title
             Dialog.SetTitle("Search Portal");

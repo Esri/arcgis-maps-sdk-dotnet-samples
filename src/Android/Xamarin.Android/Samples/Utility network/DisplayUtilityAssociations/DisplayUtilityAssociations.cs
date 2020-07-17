@@ -10,7 +10,6 @@
 using Android.App;
 using Android.OS;
 using Android.Widget;
-using ArcGISRuntime;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -22,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using Resource = ArcGISRuntime.Resource;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
 {

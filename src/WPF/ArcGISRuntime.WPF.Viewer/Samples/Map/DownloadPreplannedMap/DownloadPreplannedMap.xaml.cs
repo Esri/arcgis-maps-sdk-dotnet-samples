@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
         name: "Download preplanned map area",
         category: "Map",
         description: "Take a map offline using a preplanned map area.",
-        instructions: "Downloading tiles for offline use requires authentication with the web map's server. An [ArcGIS Online](www.arcgis.com) account is required to use this sample.",
+        instructions: "Select a map area from the Preplanned Map Areas list. Click the button to download the selected area. The download progress will be shown in the Downloads list. When a download is complete, select it to display the offline map in the map view.",
         tags: new[] { "map area", "offline", "pre-planned", "preplanned" })]
     public partial class DownloadPreplannedMap
     {

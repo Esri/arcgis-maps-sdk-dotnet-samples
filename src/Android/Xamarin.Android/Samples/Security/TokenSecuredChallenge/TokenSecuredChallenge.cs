@@ -3,11 +3,12 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
+using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
@@ -17,12 +18,11 @@ using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading.Tasks;
-using Android.Content;
-using ContextThemeWrapper = Android.Support.V7.View.ContextThemeWrapper;
+using ContextThemeWrapper = AndroidX.AppCompat.View.ContextThemeWrapper;
 
 namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "ArcGIS token challenge",
         category: "Security",
@@ -151,14 +151,17 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
                     updateText = layer.Name + " (Load failed)";
                     textColor = Color.Red;
                     break;
+
                 case Esri.ArcGISRuntime.LoadStatus.Loaded:
                     updateText = layer.Name + " (Loaded)";
                     textColor = Color.Green;
                     break;
+
                 case Esri.ArcGISRuntime.LoadStatus.Loading:
                     updateText = layer.Name + " (Loading ...)";
                     textColor = Color.Gray;
                     break;
+
                 case Esri.ArcGISRuntime.LoadStatus.NotLoaded:
                     updateText = layer.Name + " (Not loaded)";
                     textColor = Color.LightGray;
@@ -257,7 +260,7 @@ namespace ArcGISRuntimeXamarin.Samples.TokenSecuredChallenge
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             Context ctx = this.Activity.ApplicationContext;
-            Android.Support.V7.View.ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
+            ContextThemeWrapper ctxWrapper = new ContextThemeWrapper(ctx, Android.Resource.Style.ThemeMaterialLight);
 
             // The container for the dialog is a vertical linear layout.
             LinearLayout dialogView = new LinearLayout(ctxWrapper) { Orientation = Orientation.Vertical };

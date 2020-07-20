@@ -45,7 +45,7 @@ namespace ArcGISRuntimeXamarin.Samples.sample_name
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = UIColor.White };
 
             _myGeo_View = new Geo_View();
             _myGeo_View.TranslatesAutoresizingMaskIntoConstraints = false;

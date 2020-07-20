@@ -120,6 +120,7 @@
 * [Feature layer (feature service)](Xamarin.iOS/Samples/Layers/FeatureLayerUrl/readme.md) - Show features from an online feature service.
 * [Group layers](Xamarin.iOS/Samples/Layers/GroupLayers/readme.md) - Group a collection of layers together and toggle their visibility as a group.
 * [Identify KML features](Xamarin.iOS/Samples/Layers/IdentifyKmlFeatures/readme.md) - Show a callout with formatted content for a KML feature.
+* [Identify raster cell](Xamarin.iOS/Samples/Layers/IdentifyRasterCell/readme.md) - Get the cell value of a local raster at the tapped location and display the result in a callout.
 * [List KML contents](Xamarin.iOS/Samples/Layers/ListKmlContents/readme.md) - List the contents of a KML file.
 * [Web tiled layer](Xamarin.iOS/Samples/Layers/LoadWebTiledLayer/readme.md) - Display a tiled web layer.
 * [Map image layer tables](Xamarin.iOS/Samples/Layers/MapImageLayerTables/readme.md) - Find features in a spatial table related to features in a non-spatial table.
@@ -212,6 +213,7 @@
 
 ## SceneView
 
+* [Animate images with image overlay](Xamarin.iOS/Samples/SceneView/AnimateImageOverlay/readme.md) - Animate a series of images with an image overlay.
 * [Choose camera controller](Xamarin.iOS/Samples/SceneView/ChooseCameraController/readme.md) - Control the behavior of the camera in a scene.
 * [GeoView viewpoint synchronization](Xamarin.iOS/Samples/SceneView/GeoViewSync/readme.md) - Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 
@@ -225,7 +227,7 @@
 ## Security
 
 * [Integrated Windows Authentication](Xamarin.iOS/Samples/Security/IntegratedWindowsAuth/readme.md) - Connect to an IWA secured Portal and search for maps.
-* [Authenticate with OAuth](Xamarin.iOS/Samples/Security/OAuth/readme.md) - This sample demonstrates how to authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers). Accessing secured items requires a login on the portal that hosts them (an ArcGIS Online account, for example).
+* [Authenticate with OAuth](Xamarin.iOS/Samples/Security/OAuth/readme.md) - Authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers).
 * [ArcGIS token challenge](Xamarin.iOS/Samples/Security/TokenSecuredChallenge/readme.md) - This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 
 ## Symbology

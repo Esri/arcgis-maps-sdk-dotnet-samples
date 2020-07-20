@@ -1,9 +1,9 @@
-﻿using System;
-using System.Timers;
-using Android.Content;
-using Android.Support.V7.Widget;
+﻿using Android.Content;
 using Android.Util;
+using AndroidX.AppCompat.Widget;
 using ArcGISRuntime;
+using System;
+using System.Timers;
 
 namespace ArcGISRuntimeXamarin.Samples.ARToolkit.Controls
 {
@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.ARToolkit.Controls
             Progress = (int)(_max * 0.5);
         }
 
-        public JoystickSeekBar(Context context, IAttributeSet attrs): base(context, attrs)
+        public JoystickSeekBar(Context context, IAttributeSet attrs) : base(context, attrs)
         {
             var attributes = context.Theme.ObtainStyledAttributes(attrs, Resource.Styleable.JoystickSeekBar, 0, 0);
             _min = attributes.GetFloat(Resource.Styleable.JoystickSeekBar_jsb_min, (float)DefaultMin);

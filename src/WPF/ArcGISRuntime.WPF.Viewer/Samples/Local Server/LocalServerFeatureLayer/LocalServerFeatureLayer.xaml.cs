@@ -12,7 +12,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
@@ -23,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
         description: "Start a local feature service and display its features in a map.",
         instructions: "A Local Server and Local Feature Service will automatically be started. Once started then a `FeatureLayer` will be created and added to the map.",
         tags: new[] { "feature service", "local", "offline", "server", "service" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("4e94fec734434d1288e6ebe36c3c461f")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("4e94fec734434d1288e6ebe36c3c461f")]
     public partial class LocalServerFeatureLayer
     {
         // Hold a reference to the local feature service; the ServiceFeatureTable will be loaded from this service
@@ -62,7 +64,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md. Message: {0}", ex.Message), "Local Server failed to start");
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
                 return;
             }
 

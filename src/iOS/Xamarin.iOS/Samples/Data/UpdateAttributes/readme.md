@@ -30,4 +30,4 @@ To change the feature's damage property, tap the feature to select it, and updat
 
 ## Tags
 
-attribute, coded value, coded value domain, domain, editing, value
+amend, attribute, details, edit, editing, information, value

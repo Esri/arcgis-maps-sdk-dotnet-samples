@@ -230,12 +230,12 @@ namespace ArcGISRuntime
             _switcher = new UISegmentedControl(new string[] { "About", "Licenses", "Offline data" }) { SelectedSegment = 0 };
 
             // Displays the about.md in a web view.
-            _aboutView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { BackgroundColor = ApplicationTheme.BackgroundColor };
+            _aboutView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false };
             _aboutView.TranslatesAutoresizingMaskIntoConstraints = false;
             _aboutView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
             // Displays the licenses.md in a web view.
-            _licensesView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { Hidden = true, BackgroundColor = ApplicationTheme.BackgroundColor };
+            _licensesView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { Hidden = true, BackgroundColor = UIColor.Clear, Opaque = false };
             _licensesView.TranslatesAutoresizingMaskIntoConstraints = false;
             _licensesView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 

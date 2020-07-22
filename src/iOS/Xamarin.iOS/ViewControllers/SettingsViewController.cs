@@ -52,6 +52,11 @@ namespace ArcGISRuntime
         // Directory for loading HTML locally.
         private string _contentDirectoryPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Content/");
 
+        private const string _lightMarkdownFile = "github-markdown.css";
+        private const string _darkMarkdownFile = "github-markdown-dark.css";
+
+        private bool _darkMode = false;
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -81,9 +86,18 @@ namespace ArcGISRuntime
             _licensesView.LoadHtmlString(licenseHTML, new NSUrl(_contentDirectoryPath, true));
         }
 
+        private void CheckDarkMode()
+        {
+            _darkMode = UIDevice.CurrentDevice.CheckSystemVersion(12, 0) && TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark;
+        }
+
         private string MarkdownToHTML(string rawMarkdown)
         {
-            string markdownCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/github-markdown.css");
+            CheckDarkMode();
+
+            string markdownFile = _darkMode ? _darkMarkdownFile : _lightMarkdownFile;
+
+            string markdownCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{markdownFile}");
             string parsedMarkdown = new MarkedNet.Marked().Parse(rawMarkdown);
 
             string markdowntHTML = "<!doctype html>" +
@@ -210,23 +224,23 @@ namespace ArcGISRuntime
         public override void LoadView()
         {
             // Create and configure the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             // Used to switch between the different views.
             _switcher = new UISegmentedControl(new string[] { "About", "Licenses", "Offline data" }) { SelectedSegment = 0 };
 
             // Displays the about.md in a web view.
-            _aboutView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
+            _aboutView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { BackgroundColor = ApplicationTheme.BackgroundColor };
             _aboutView.TranslatesAutoresizingMaskIntoConstraints = false;
             _aboutView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
             // Displays the licenses.md in a web view.
-            _licensesView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { Hidden = true };
+            _licensesView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { Hidden = true, BackgroundColor = ApplicationTheme.BackgroundColor };
             _licensesView.TranslatesAutoresizingMaskIntoConstraints = false;
             _licensesView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
             // View for managing offline data for samples.
-            _downloadView = new UIStackView { BackgroundColor = UIColor.White, Hidden = true };
+            _downloadView = new UIStackView { BackgroundColor = ApplicationTheme.BackgroundColor, Hidden = true };
             _downloadView.Axis = UILayoutConstraintAxis.Vertical;
             _downloadView.LayoutMarginsRelativeArrangement = true;
             _downloadView.Alignment = UIStackViewAlignment.Fill;
@@ -339,7 +353,7 @@ namespace ArcGISRuntime
                     cell.TextLabel.Text = _samples[indexPath.Row].SampleName;
 
                     // Make the accessory view
-                    UIView accessoryView = new UIView() { BackgroundColor = UIColor.White };
+                    UIView accessoryView = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
                     UIButton agolButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
                     agolButton.SetImage(_globeImage, UIControlState.Normal);

@@ -269,6 +269,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
+    <None Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
     <None Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
     <None Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg" />
     <None Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg" />
@@ -458,9 +460,8 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="ApplicationTheme.cs" />
-    <BundleResource Include="Resources\SyntaxHighlighting\highlight-dark.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </BundleResource>
+    <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.cs" />
+    <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.cs" />
     <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.cs" />
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.cs" />
     <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />
@@ -725,7 +726,13 @@
     <BundleResource Include="Resources\SyntaxHighlighting\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
+    <BundleResource Include="Resources\SyntaxHighlighting\github-markdown-dark.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
     <BundleResource Include="Resources\SyntaxHighlighting\highlight.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+        <BundleResource Include="Resources\SyntaxHighlighting\highlight-dark.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
     <BundleResource Include="Resources\SyntaxHighlighting\highlight.pack.js">
@@ -746,11 +753,6 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <BundleResource Include="Resources\SyntaxHighlighting\github-markdown-dark.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </BundleResource>
   </ItemGroup>
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />

@@ -1,0 +1,55 @@
+﻿<ContentPage
+    x:Class="ArcGISRuntimeXamarin.Samples.AnimateImageOverlay.AnimateImageOverlay"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+    <RelativeLayout>
+        <esriUI:SceneView
+            x:Name="MySceneView"
+            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+            Style="{StaticResource SceneWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Column="0"
+                        Margin="5"
+                        Text="Opacity:" />
+                    <Slider
+                        Grid.Column="1"
+                        Maximum="1"
+                        MaximumTrackColor="CadetBlue"
+                        Minimum="0"
+                        MinimumTrackColor="CadetBlue"
+                        ValueChanged="ChangeOpacity"
+                        Value="1" />
+                </Grid>
+                <Grid Margin="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Margin="5"
+                        Clicked="StartStopAnimation"
+                        Text="Stop" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="5"
+                        Text="Speed:" />
+                    <Picker
+                        x:Name="SpeedComboBox"
+                        Grid.Column="2"
+                        SelectedIndexChanged="SpeedSelected" />
+                </Grid>
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
+</ContentPage>

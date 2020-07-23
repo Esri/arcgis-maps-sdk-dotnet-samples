@@ -13,7 +13,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -25,7 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
         description: "Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.",
         instructions: "Contour Line Controls (Top Left):",
         tags: new[] { "geoprocessing", "local", "offline", "parameters", "processing", "service" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f7c7b4a30fb9415896ba0d1921fe014b", "da9e565a52ca41c1937cff1a01017068")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f7c7b4a30fb9415896ba0d1921fe014b", "da9e565a52ca41c1937cff1a01017068")]
     public partial class LocalServerGeoprocessing
     {
         // Hold a reference to the local geoprocessing service
@@ -98,7 +100,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             }
             catch (Exception ex)
             {
-                MessageBox.Show(String.Format("Please ensure that local server is installed prior to using the sample. See instructions in readme.md. Message: {0}", ex.Message), "Local Server failed to start");
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
                 return;
             }
 

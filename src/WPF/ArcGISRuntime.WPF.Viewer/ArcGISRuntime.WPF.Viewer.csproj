@@ -113,7 +113,7 @@
   </ItemGroup>
   <!-- Resources -->
   <ItemGroup>
-    <None Include="ArcGISLocalServer_100.6.AGSDeployment" />
+    <None Include="ArcGISLocalServer_100.8.AGSDeployment" />
     <None Include="Readme.md" />
     <Resource Include="Assets\banner-background-purple.png" />
     <Content Include="Resources\hide-header.css">
@@ -146,6 +146,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
+      <DependentUpon>AnimateImageOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml.cs">
+      <DependentUpon>IdentifyRasterCell.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
       <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
     </Compile>
@@ -735,6 +741,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1522,6 +1536,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2203,7 +2223,7 @@
       <Version>100.9.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices">
-      <Version>100.6.0</Version>
+      <Version>100.8.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.WPF">
       <Version>100.9.0</Version>

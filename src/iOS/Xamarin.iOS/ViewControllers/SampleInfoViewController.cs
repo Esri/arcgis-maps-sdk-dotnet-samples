@@ -41,6 +41,14 @@ namespace ArcGISRuntime
         // Directory for loading HTML locally.
         private string _contentDirectoryPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Content/");
 
+        private bool _darkMode = false;
+
+        private const string _lightMarkdownFile = "github-markdown.css";
+        private const string _darkMarkdownFile = "github-markdown-dark.css";
+
+        private const string _lightSyntaxFile = "highlight.css";
+        private const string _darkSyntaxFile = "highlight-dark.css";
+
         public SampleInfoViewController(SampleInfo info, UISegmentedControl switcher)
         {
             _info = info;
@@ -55,11 +63,14 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
+            CheckDarkMode();
             // Build out readme html.
             try
             {
+                string markdownFile = _darkMode ? _darkMarkdownFile : _lightMarkdownFile;
+
                 string readmePath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName, "readme.md");
-                string readmeCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/github-markdown.css");
+                string readmeCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{markdownFile}");
                 string readmeContent = new MarkedNet.Marked().Parse(File.ReadAllText(readmePath));
 
                 string readmeHTML = "<!doctype html><head><base href=\"" +
@@ -87,8 +98,10 @@ namespace ArcGISRuntime
             // Build out source code html.
             try
             {
+                string syntaxFile = _darkMode ? _darkSyntaxFile : _lightSyntaxFile;
+
                 // Get the paths for the .css and .js files for syntax highlighting.
-                string syntaxHighlightCSS = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/highlight.css");
+                string syntaxHighlightCSS = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{syntaxFile}");
                 string jsPath = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/highlight.pack.js");
 
                 // Start and end HTML tags.
@@ -143,6 +156,11 @@ namespace ArcGISRuntime
             }
         }
 
+        private void CheckDarkMode()
+        {
+            _darkMode = UIDevice.CurrentDevice.CheckSystemVersion(12, 0) && TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark;
+        }
+
         private void SegmentChanged(object sender, EventArgs e)
         {
             if (_switcherControl.SelectedSegment == 0)
@@ -190,21 +208,21 @@ namespace ArcGISRuntime
         public override void LoadView()
         {
             // Create and configure the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             // Web view for the readme.
-            _readmeView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration());
+            _readmeView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false };
             _readmeView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Add navigation delegat for opening readme links in browser.
             _readmeView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
             // View for source code files.
-            _codeView = new UIView { BackgroundColor = UIColor.White, Hidden = true };
+            _codeView = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor, Hidden = true };
             _codeView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Web view of the source code html.
-            _codeWebView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration());
+            _codeWebView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false };
             _codeWebView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Button for bringing up alertcontroller to switch between source code files.

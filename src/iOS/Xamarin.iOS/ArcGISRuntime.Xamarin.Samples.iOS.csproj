@@ -458,6 +458,9 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="ApplicationTheme.cs" />
+    <BundleResource Include="Resources\SyntaxHighlighting\highlight-dark.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
     <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.cs" />
     <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.cs" />
     <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.cs" />

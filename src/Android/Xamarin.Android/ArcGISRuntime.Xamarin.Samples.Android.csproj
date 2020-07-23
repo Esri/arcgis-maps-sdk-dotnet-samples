@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <None Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <None Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
     <None Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
@@ -273,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\ShowPopup\ShowPopup.cs" />
     <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.cs" />
     <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.cs" />
     <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.cs" />

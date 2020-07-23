@@ -1,0 +1,22 @@
+{
+    "category": "Layers",
+    "description": "Show predefined popups from a web map.",
+    "formal_name": "ShowPopup",
+    "ignore": false,
+    "images": [
+        "ShowPopup.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/ShowPopup.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Show popup"
+}

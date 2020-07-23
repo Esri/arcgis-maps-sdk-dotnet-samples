@@ -327,8 +327,8 @@ namespace ArcGISRuntime
             private List<SampleInfo> _samples;
 
             // Images for button icons.
-            private UIImage _globeImage = UIImage.FromBundle("GlobeIcon");
-            private UIImage _downloadImage = UIImage.FromBundle("DownloadIcon");
+            private UIImage _globeImage = UIImage.FromBundle("GlobeIcon").ApplyTintColor(ApplicationTheme.ForegroundColor);
+            private UIImage _downloadImage = UIImage.FromBundle("DownloadIcon").ApplyTintColor(ApplicationTheme.ForegroundColor);
 
             // Label for changing status text on downloads.
             private UILabel _statusLabel;

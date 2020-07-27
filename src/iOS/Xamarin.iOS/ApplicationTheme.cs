@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-using System;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -25,36 +24,19 @@ namespace ArcGISRuntime
 
         public static UIColor BackgroundColor;
         public static UIColor ForegroundColor;
-        public static UIColor SeparatorColor;
-        public static UIBlurEffect PanelBackgroundMaterial;
-
-        public static UIColor PrimaryLabelColor;
-        public static UIColor SecondaryLabelColor;
-
-        // Accessory button is a light/dark responsive color defined in the asset catalog
-        public static UIColor AccessoryButtonColor;
-        public static nint ActionButtonHeight;
-        public static UIFont HeaderFont;
 
         static ApplicationTheme()
         {
+            // Check if the device is running iOS 13 or higher. iOS 13 is required to use these UIColor values at runtime in code.
             if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
                 BackgroundColor = UIColor.SystemBackgroundColor;
                 ForegroundColor = UIColor.LabelColor;
-                SeparatorColor = UIColor.SystemGray2Color;
-                PanelBackgroundMaterial = UIBlurEffect.FromStyle(UIBlurEffectStyle.SystemMaterial);
-                PrimaryLabelColor = UIColor.LabelColor;
-                SecondaryLabelColor = UIColor.SecondaryLabelColor;
             }
             else
             {
                 BackgroundColor = UIColor.White;
                 ForegroundColor = UIColor.Black;
-                SeparatorColor = UIColor.LightGray;
-                PanelBackgroundMaterial = UIBlurEffect.FromStyle(UIBlurEffectStyle.Prominent);
-                PrimaryLabelColor = UIColor.Black;
-                SecondaryLabelColor = UIColor.DarkGray;
             }
         }
     }

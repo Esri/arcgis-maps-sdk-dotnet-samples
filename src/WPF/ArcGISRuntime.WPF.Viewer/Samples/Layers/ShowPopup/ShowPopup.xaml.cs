@@ -10,19 +10,11 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Mapping.Popups;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.ShowPopup
 {
@@ -42,6 +34,42 @@ namespace ArcGISRuntime.WPF.Samples.ShowPopup
 
         private void Initialize()
         {
+            // Load the map.
+            MyMapView.Map = new Map(new Uri("https://runtime.maps.arcgis.com/home/webmap/viewer.html?webmap=e4c6eb667e6c43b896691f10cc2f1580"));
+        }
+
+        private async void MapViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // Get the feature layer from the map.
+                FeatureLayer incidentLayer = MyMapView.Map.OperationalLayers.First() as FeatureLayer;
+
+                // Identify the tapped on feature.
+                IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(incidentLayer, e.Position, 12, true);
+
+                if (result != null && result.Popups.Any())
+                {
+                    // Get the first popup from the identify result.
+                    Popup popup = result.Popups.First();
+
+                    // Create a new popup manager for the popup.
+                    MyPopupViewer.PopupManager = new PopupManager(popup);
+
+                    QueryParameters queryParams = new QueryParameters
+                    {
+                        // Set the geometry to selection envelope for selection by geometry.
+                        Geometry = new Envelope((MapPoint)popup.GeoElement.Geometry, 6, 6)
+                    };
+
+                    // Select the features based on query parameters defined above.
+                    await incidentLayer.SelectFeaturesAsync(queryParams, SelectionMode.New);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
         }
     }
 }

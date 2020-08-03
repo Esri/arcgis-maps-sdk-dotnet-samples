@@ -23,7 +23,6 @@ namespace ArcGISRuntime.WPF.Samples.ShowPopup
         "Layers",
         "Show predefined popups from a web map.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ShowPopup
     {
         public ShowPopup()

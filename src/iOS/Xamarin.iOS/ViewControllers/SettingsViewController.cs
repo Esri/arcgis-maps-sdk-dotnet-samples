@@ -69,6 +69,11 @@ namespace ArcGISRuntime
             NavigationItem.TitleView = _switcher;
             _switcher.ValueChanged += TabChanged;
 
+            LoadHTML();
+        }
+
+        private void LoadHTML()
+        {
             // Create the about page.
             var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
             var rtVersionString = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
@@ -320,6 +325,12 @@ namespace ArcGISRuntime
             _downloadAllButton.Clicked -= DownloadAll;
             _deleteAllButton.Clicked -= DeleteAll;
             _cancelButton.Clicked -= CancelDownloadAll;
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            // Reload the html pages when switching to and from dark mode.
+            if (previousTraitCollection.UserInterfaceStyle != TraitCollection.UserInterfaceStyle) LoadHTML();
         }
 
         private class SamplesTableSource : UITableViewSource

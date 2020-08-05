@@ -36,7 +36,7 @@ namespace ArcGISRuntime
         private UIBarButtonItem _codeButton;
 
         // Dictionary where keys are filenames and values are HTML of source code.
-        private Dictionary<string, string> _sourceCodeFiles = new Dictionary<string, string>();
+        private Dictionary<string, string> _sourceCodeFiles;
 
         // Directory for loading HTML locally.
         private string _contentDirectoryPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Content/");
@@ -121,6 +121,9 @@ namespace ArcGISRuntime
                            "</html>";
 
                 string sourceFilesPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName);
+
+                // Create a dictionary of the files.
+                _sourceCodeFiles = new Dictionary<string, string>();
 
                 // Loop over every source code file in the sample directory.
                 foreach (string sourceCodePath in Directory.GetFiles(sourceFilesPath, "*.cs"))
@@ -276,6 +279,12 @@ namespace ArcGISRuntime
 
             // Unsubscribe from events, per best practice.
             _switcherControl.ValueChanged -= SegmentChanged;
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            // Reload the html pages when switching to and from dark mode.
+            if (previousTraitCollection.UserInterfaceStyle != TraitCollection.UserInterfaceStyle) Initialize();
         }
     }
 

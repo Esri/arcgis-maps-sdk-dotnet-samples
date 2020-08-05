@@ -250,7 +250,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
             View.BackgroundColor = UIColor.White;
 
             _mySceneView = new SceneView();

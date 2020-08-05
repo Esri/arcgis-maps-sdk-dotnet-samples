@@ -129,6 +129,7 @@
 * [Scene layer selection](Shared/Samples/Layers/SceneLayerSelection/readme.md) - Identify features in a scene to select.
 * [Scene layer (URL)](Shared/Samples/Layers/SceneLayerUrl/readme.md) - Display an ArcGIS scene layer from a URL.
 * [Show labels on layers](Shared/Samples/Layers/ShowLabelsOnLayer/readme.md) - Display custom labels on a feature layer.
+* [Show a popup](Shared/Samples/Layers/ShowPopup/readme.md) - Show predefined popups from a web map.
 * [Style WMS layers](Shared/Samples/Layers/StyleWmsLayer/readme.md) - Change the style of a Web Map Service (WMS) layer.
 * [Time-based query](Shared/Samples/Layers/TimeBasedQuery/readme.md) - Query data using a time extent. 
 * [Load WFS with XML query](Shared/Samples/Layers/WfsXmlQuery/readme.md) - Load a WFS feature table using an XML query.

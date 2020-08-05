@@ -137,6 +137,7 @@
 * [Scene layer selection](Xamarin.iOS/Samples/Layers/SceneLayerSelection/readme.md) - Identify features in a scene to select.
 * [Scene layer (URL)](Xamarin.iOS/Samples/Layers/SceneLayerUrl/readme.md) - Display an ArcGIS scene layer from a URL.
 * [Show labels on layers](Xamarin.iOS/Samples/Layers/ShowLabelsOnLayer/readme.md) - Display custom labels on a feature layer.
+* [Show a popup](Xamarin.iOS/Samples/Layers/ShowPopup/readme.md) - Show predefined popups from a web map.
 * [Style WMS layers](Xamarin.iOS/Samples/Layers/StyleWmsLayer/readme.md) - Change the style of a Web Map Service (WMS) layer.
 * [Time-based query](Xamarin.iOS/Samples/Layers/TimeBasedQuery/readme.md) - Query data using a time extent. 
 * [Load WFS with XML query](Xamarin.iOS/Samples/Layers/WfsXmlQuery/readme.md) - Load a WFS feature table using an XML query.

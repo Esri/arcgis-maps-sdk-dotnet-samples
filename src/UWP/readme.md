@@ -129,6 +129,7 @@
 * [Scene layer selection](ArcGISRuntime.UWP.Viewer/Samples/Layers/SceneLayerSelection/readme.md) - Identify features in a scene to select.
 * [Scene layer (URL)](ArcGISRuntime.UWP.Viewer/Samples/Layers/SceneLayerUrl/readme.md) - Display an ArcGIS scene layer from a URL.
 * [Show labels on layers](ArcGISRuntime.UWP.Viewer/Samples/Layers/ShowLabelsOnLayer/readme.md) - Display custom labels on a feature layer.
+* [Show a popup](ArcGISRuntime.UWP.Viewer/Samples/Layers/ShowPopup/readme.md) - Show predefined popups from a web map.
 * [Style WMS layers](ArcGISRuntime.UWP.Viewer/Samples/Layers/StyleWmsLayer/readme.md) - Change the style of a Web Map Service (WMS) layer.
 * [Time-based query](ArcGISRuntime.UWP.Viewer/Samples/Layers/TimeBasedQuery/readme.md) - Query data using a time extent. 
 * [Load WFS with XML query](ArcGISRuntime.UWP.Viewer/Samples/Layers/WfsXmlQuery/readme.md) - Load a WFS feature table using an XML query.

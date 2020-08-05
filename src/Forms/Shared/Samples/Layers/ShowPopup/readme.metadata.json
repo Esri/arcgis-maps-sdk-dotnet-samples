@@ -7,16 +7,30 @@
         "ShowPopup.jpg"
     ],
     "keywords": [
+        "feature",
+        "feature layer",
+        "popup",
+        "web map"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.9.0",
+        "Esri.ArcGISRuntime.Xamarin.Forms": "100.9.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.9.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/ShowPopup.htm"
+        "/net/latest/forms/sample-code/showpopup.htm"
     ],
     "relevant_apis": [
+        "IdentifyLayerResult",
+        "Popup",
+        "PopupManager"
     ],
     "snippets": [
+        "ShowPopup.xaml",
+        "ShowPopup.xaml.cs"
     ],
-    "title": "Show popup"
+    "title": "Show a popup"
 }

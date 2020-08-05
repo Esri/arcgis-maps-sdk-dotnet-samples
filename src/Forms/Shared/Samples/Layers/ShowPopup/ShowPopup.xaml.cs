@@ -20,10 +20,11 @@ using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
 namespace ArcGISRuntimeXamarin.Samples.ShowPopup
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show popup",
-        "Layers",
-        "Show predefined popups from a web map.",
-        "")]
+        name: "Show a popup",
+        category: "Layers",
+        description: "Show predefined popups from a web map.",
+        instructions: "Tap on the features to prompt a popup that displays information about the feature. ",
+        tags: new[] { "feature", "feature layer", "popup", "web map" })]
     public partial class ShowPopup : ContentPage
     {
         public ShowPopup()

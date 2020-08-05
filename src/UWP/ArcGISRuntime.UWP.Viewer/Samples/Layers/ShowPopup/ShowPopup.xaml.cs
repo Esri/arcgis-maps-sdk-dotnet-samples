@@ -19,10 +19,11 @@ using System.Linq;
 namespace ArcGISRuntime.UWP.Samples.ShowPopup
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show popup",
-        "Layers",
-        "Show predefined popups from a web map.",
-        "")]
+        name: "Show a popup",
+        category: "Layers",
+        description: "Show predefined popups from a web map.",
+        instructions: "Click on the features to prompt a popup that displays information about the feature. ",
+        tags: new[] { "feature", "feature layer", "popup", "web map" })]
     public partial class ShowPopup
     {
         public ShowPopup()

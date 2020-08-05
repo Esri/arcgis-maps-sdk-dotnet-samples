@@ -356,7 +356,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;

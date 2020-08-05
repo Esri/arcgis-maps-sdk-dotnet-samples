@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             // Add the views.
             View.AddSubviews(_myMapView);

@@ -101,7 +101,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _webView = new WKWebView(new CGRect(), new WKWebViewConfiguration());
             _myMapView = new MapView();

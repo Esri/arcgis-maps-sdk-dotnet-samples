@@ -39,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _arSceneView = new ARSceneView();
             _arSceneView.TranslatesAutoresizingMaskIntoConstraints = false;

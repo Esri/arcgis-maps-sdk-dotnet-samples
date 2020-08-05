@@ -198,7 +198,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView() { TranslatesAutoresizingMaskIntoConstraints = false };
             var switchToolbar = new UIToolbar() { TranslatesAutoresizingMaskIntoConstraints = false };

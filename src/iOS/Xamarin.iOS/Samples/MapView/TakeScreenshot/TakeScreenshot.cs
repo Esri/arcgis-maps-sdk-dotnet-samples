@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _overlayImageView.TranslatesAutoresizingMaskIntoConstraints = false;
             _overlayImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 
-            _overlayView = new UIView() { BackgroundColor = UIColor.White };
+            _overlayView = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
             _overlayView.TranslatesAutoresizingMaskIntoConstraints = false;
             _overlayView.BackgroundColor = UIColor.White;
             _overlayView.Layer.BorderColor = UIColor.Black.CGColor;

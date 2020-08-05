@@ -140,7 +140,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         public override void LoadView()
         {
             // Create the view.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
             View.BackgroundColor = UIColor.White;
 
             // Create the scene.

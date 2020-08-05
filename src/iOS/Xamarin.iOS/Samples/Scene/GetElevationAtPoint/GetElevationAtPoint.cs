@@ -134,7 +134,7 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;

@@ -236,7 +236,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
         public override void LoadView()
         {
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -388,7 +388,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
         public override void LoadView()
         {
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -475,7 +475,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
         public override void LoadView()
         {
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;

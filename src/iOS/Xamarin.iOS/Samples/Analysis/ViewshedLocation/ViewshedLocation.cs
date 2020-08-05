@@ -274,7 +274,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         public override void LoadView()
         {
             // Create and add the container views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;

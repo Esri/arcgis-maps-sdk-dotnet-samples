@@ -168,7 +168,7 @@ namespace ArcGISRuntime.Samples.ListRelatedFeatures
             _tableView.TranslatesAutoresizingMaskIntoConstraints = false;
             _tableView.RowHeight = 30;
 
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             // Add the views.
             View.AddSubviews(_myMapView, _tableView);

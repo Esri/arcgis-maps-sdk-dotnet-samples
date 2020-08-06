@@ -378,7 +378,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
 
         public override void LoadView()
         {
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;

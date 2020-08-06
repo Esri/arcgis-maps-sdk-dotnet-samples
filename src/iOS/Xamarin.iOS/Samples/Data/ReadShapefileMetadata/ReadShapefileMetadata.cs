@@ -102,7 +102,6 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         {
             // Create the views.
             View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
-            View.BackgroundColor = UIColor.White;
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

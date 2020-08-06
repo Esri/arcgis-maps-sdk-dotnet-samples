@@ -251,7 +251,6 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
         {
             // Create the views.
             View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
-            View.BackgroundColor = UIColor.White;
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;

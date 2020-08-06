@@ -141,7 +141,6 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         {
             // Create the view.
             View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
-            View.BackgroundColor = UIColor.White;
 
             // Create the scene.
             _mySceneView = new SceneView();

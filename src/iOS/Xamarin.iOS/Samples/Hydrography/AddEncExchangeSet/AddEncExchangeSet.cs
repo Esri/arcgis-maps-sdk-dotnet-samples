@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;

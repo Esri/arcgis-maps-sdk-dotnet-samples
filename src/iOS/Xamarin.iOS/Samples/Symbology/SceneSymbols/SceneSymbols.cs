@@ -16,6 +16,7 @@ using Foundation;
 using UIKit;
 using System;
 using Color = System.Drawing.Color;
+using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
 {

@@ -9,6 +9,7 @@
 
 using System;
 using System.Linq;
+using ArcGISRuntime;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;

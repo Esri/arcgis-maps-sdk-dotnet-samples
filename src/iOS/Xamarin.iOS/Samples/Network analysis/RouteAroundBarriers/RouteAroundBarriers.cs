@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using CoreGraphics;
 using UIKit;
+using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 {

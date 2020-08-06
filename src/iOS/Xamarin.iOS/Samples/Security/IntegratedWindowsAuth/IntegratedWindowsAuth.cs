@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ArcGISRuntime;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -112,7 +113,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             {
                 Placeholder = "Enter IWA-secured portal URL",
                 BorderStyle = UITextBorderStyle.RoundedRect,
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BackgroundColor = ApplicationTheme.BackgroundColor,
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 SpellCheckingType = UITextSpellCheckingType.No,
                 AutocorrectionType = UITextAutocorrectionType.No
@@ -153,6 +154,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 
             // Add the map view and toolbar controls to the page.
             View.AddSubviews(_myMapView, _toolbar, _securePortalUrlEntry, _webMapTableView, _searchSecurePortalButton, _searchPublicPortalButton, _messagesLabel);
+            View.BackgroundColor = ApplicationTheme.BackgroundColor;
         }
 
         private void Initialize()

@@ -144,7 +144,7 @@ namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _progressBar = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge);
             _progressBar.TranslatesAutoresizingMaskIntoConstraints = false;

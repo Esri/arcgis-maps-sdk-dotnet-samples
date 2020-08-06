@@ -153,7 +153,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 
             _visibilityControl = new UISegmentedControl("Visible", "Not visible");
             _visibilityControl.SelectedSegment = 0;
-            _visibilityControl.BackgroundColor = UIColor.White;
+            _visibilityControl.BackgroundColor = ApplicationTheme.BackgroundColor;
             _visibilityControl.TranslatesAutoresizingMaskIntoConstraints = false;
 
             UIToolbar toolbar = new UIToolbar();

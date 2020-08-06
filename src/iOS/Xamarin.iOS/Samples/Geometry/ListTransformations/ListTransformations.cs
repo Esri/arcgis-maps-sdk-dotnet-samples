@@ -216,7 +216,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _outerStackView = new UIStackView();
             _outerStackView.TranslatesAutoresizingMaskIntoConstraints = false;

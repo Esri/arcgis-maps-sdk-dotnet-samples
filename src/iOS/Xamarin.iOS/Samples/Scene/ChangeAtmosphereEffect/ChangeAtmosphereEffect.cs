@@ -80,7 +80,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             _atmosphereEffectPicker = new UISegmentedControl("Realistic", "Horizon only", "None");
             _atmosphereEffectPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             _atmosphereEffectPicker.SelectedSegment = 1;
-            _atmosphereEffectPicker.BackgroundColor = UIColor.White;
+            _atmosphereEffectPicker.BackgroundColor = ApplicationTheme.BackgroundColor;
             _atmosphereEffectPicker.Layer.CornerRadius = 4;
             _atmosphereEffectPicker.ClipsToBounds = true;
 

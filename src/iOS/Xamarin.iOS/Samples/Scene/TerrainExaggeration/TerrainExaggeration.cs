@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -62,7 +63,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
 
         public override void LoadView()
         {
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;

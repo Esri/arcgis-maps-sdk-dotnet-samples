@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _minMaxButton = new UIBarButtonItem();
             _minMaxButton.Title = "Min/Max";

@@ -225,7 +225,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             }
 
             // Get the existing raster layer in the map.
-            RasterLayer rasterLayer = (RasterLayer) _myMapView.Map.OperationalLayers[0];
+            RasterLayer rasterLayer = (RasterLayer) _myMapView.Map.OperationalLayers[0];View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             // Apply the stretch renderer to the raster layer.
             rasterLayer.Renderer = stretchRenderer;
@@ -245,11 +245,11 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             UIView formContainer = new UIView();
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
-            formContainer.BackgroundColor = UIColor.White;
+            formContainer.BackgroundColor = ApplicationTheme.BackgroundColor;
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

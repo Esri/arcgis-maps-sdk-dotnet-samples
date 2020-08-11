@@ -6,7 +6,10 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MapViewTapped" />
         <Border Style="{StaticResource BorderStyle}">
-            <esri:PopupViewer x:Name="MyPopupViewer" Width="400" />
+            <Grid>
+                <Label x:Name="InstructionsLabel" Content="Click a feature to display its popup." />
+                <esri:PopupViewer x:Name="MyPopupViewer" Width="400" />
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

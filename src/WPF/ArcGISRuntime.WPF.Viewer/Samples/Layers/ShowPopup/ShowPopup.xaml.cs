@@ -48,10 +48,10 @@ namespace ArcGISRuntime.WPF.Samples.ShowPopup
                 // Identify the tapped on feature.
                 IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(incidentLayer, e.Position, 12, true);
 
-                if (result != null && result.Popups.Any())
+                if (result?.Popups?.FirstOrDefault() is Popup popup)
                 {
-                    // Get the first popup from the identify result.
-                    Popup popup = result.Popups.First();
+                    // Remove the instructions label.
+                    InstructionsLabel.Visibility = System.Windows.Visibility.Hidden;
 
                     // Create a new popup manager for the popup.
                     MyPopupViewer.PopupManager = new PopupManager(popup);

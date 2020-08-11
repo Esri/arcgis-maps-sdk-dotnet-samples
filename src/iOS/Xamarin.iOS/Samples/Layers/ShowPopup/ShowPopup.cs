@@ -23,11 +23,11 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
 {
     [Register("ShowPopup")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Show a popup",
+        name: "Show popup",
         category: "Layers",
         description: "Show predefined popups from a web map.",
-        instructions: "Tap on the features to prompt a popup that displays information about the feature. ",
-        tags: new[] { "feature", "feature layer", "popup", "web map" })]
+        instructions: "Tap on the features to prompt a popup that displays information about the feature.",
+        tags: new[] { "feature", "feature layer", "popup", "toolkit", "web map" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class ShowPopup : UIViewController
     {

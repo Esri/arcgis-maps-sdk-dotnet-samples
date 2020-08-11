@@ -10,6 +10,7 @@
         "feature",
         "feature layer",
         "popup",
+        "toolkit",
         "web map"
     ],
     "nuget_packages": {
@@ -32,5 +33,5 @@
         "ShowPopup.xaml",
         "ShowPopup.xaml.cs"
     ],
-    "title": "Show a popup"
+    "title": "Show popup"
 }

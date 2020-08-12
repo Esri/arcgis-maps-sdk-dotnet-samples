@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Widget;
 using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -34,6 +35,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
         // Hold references to the UI controls.
         private MapView _myMapView;
         private PopupViewer _popupViewer;
+        private TextView _textView;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -61,10 +63,11 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
                 // Identify the tapped on feature.
                 IdentifyLayerResult result = await _myMapView.IdentifyLayerAsync(incidentLayer, e.Position, 12, true);
 
-                if (result != null && result.Popups.Any())
+                if (result?.Popups?.FirstOrDefault() is Popup popup)
                 {
-                    // Get the first popup from the identify result.
-                    Popup popup = result.Popups.First();
+                    // Remove the instructions label.
+                    _textView.Visibility = Android.Views.ViewStates.Gone;
+                    _popupViewer.Visibility = Android.Views.ViewStates.Visible;
 
                     // Create a new popup manager for the popup.
                     _popupViewer.PopupManager = new PopupManager(popup);
@@ -92,6 +95,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
 
             _myMapView = FindViewById<MapView>(Resource.Id.MapView);
             _popupViewer = FindViewById<PopupViewer>(Resource.Id.popupViewer);
+            _textView = FindViewById<TextView>(Resource.Id.instructionsLabel);
 
             // Add event handlers.
             _myMapView.GeoViewTapped += MapViewTapped;

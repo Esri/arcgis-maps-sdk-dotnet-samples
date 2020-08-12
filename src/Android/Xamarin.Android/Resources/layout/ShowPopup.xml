@@ -11,12 +11,21 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/instructionsLabel"/>
+    <TextView
+        android:id="@+id/instructionsLabel"
+        android:text="Tap a feature to display its popup."
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintTop_toBottomOf="@+id/MapView"
         app:layout_constraintBottom_toTopOf="@+id/popupViewer"/>
     <Esri.ArcGISRuntime.Toolkit.UI.Controls.PopupViewer
         android:id="@+id/popupViewer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

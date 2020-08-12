@@ -28,7 +28,6 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
         description: "Show predefined popups from a web map.",
         instructions: "Tap on the features to prompt a popup that displays information about the feature.",
         tags: new[] { "feature", "feature layer", "popup", "toolkit", "web map" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class ShowPopup : UIViewController
     {
         // Hold references to UI controls.
@@ -56,11 +55,8 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
                 // Identify the tapped on feature.
                 IdentifyLayerResult result = await _myMapView.IdentifyLayerAsync(incidentLayer, e.Position, 12, true);
 
-                if (result != null && result.Popups.Any())
+                if (result?.Popups?.FirstOrDefault() is Popup popup)
                 {
-                    // Get the first popup from the identify result.
-                    Popup popup = result.Popups.First();
-
                     // Create a new popup manager for the popup.
                     _popupViewer.PopupManager = new PopupManager(popup);
 
@@ -85,8 +81,8 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
             // Create the views.
             View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
-            _myMapView = new MapView() { TranslatesAutoresizingMaskIntoConstraints = false };
-            _popupViewer = new PopupViewer() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _myMapView = new MapView { TranslatesAutoresizingMaskIntoConstraints = false };
+            _popupViewer = new PopupViewer { TranslatesAutoresizingMaskIntoConstraints = false };
 
             // Add the views.
             View.AddSubviews(_myMapView, _popupViewer);
@@ -99,7 +95,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
                 _popupViewer.TopAnchor.ConstraintEqualTo(_myMapView.BottomAnchor),
-                _popupViewer.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _popupViewer.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
                 _popupViewer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _popupViewer.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
             });

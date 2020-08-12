@@ -33,6 +33,8 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
         // Hold references to UI controls.
         private MapView _myMapView;
         private PopupViewer _popupViewer;
+        private UIStackView _stackView;
+        private UILabel _instructionsLabel;
 
         public ShowPopup()
         {
@@ -57,6 +59,10 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
 
                 if (result?.Popups?.FirstOrDefault() is Popup popup)
                 {
+                    // Remove the instructions label.
+                    _stackView.RemoveArrangedSubview(_instructionsLabel);
+                    _stackView.AddArrangedSubview(_popupViewer);
+
                     // Create a new popup manager for the popup.
                     _popupViewer.PopupManager = new PopupManager(popup);
 
@@ -81,24 +87,46 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
             // Create the views.
             View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
+            _stackView = new UIStackView { TranslatesAutoresizingMaskIntoConstraints = false, Spacing = 8, Distribution = UIStackViewDistribution.FillEqually };
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            }
+            else
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
+            }
+
             _myMapView = new MapView { TranslatesAutoresizingMaskIntoConstraints = false };
             _popupViewer = new PopupViewer { TranslatesAutoresizingMaskIntoConstraints = false };
+            _instructionsLabel = new UILabel { TranslatesAutoresizingMaskIntoConstraints = false, Text = "Tap a feature to display its popup." };
+
+            _stackView.AddArrangedSubview(_myMapView);
+            _stackView.AddArrangedSubview(_instructionsLabel);
 
             // Add the views.
-            View.AddSubviews(_myMapView, _popupViewer);
+            View.AddSubviews(_stackView);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]{
-                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(_popupViewer.TopAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-
-                _popupViewer.TopAnchor.ConstraintEqualTo(_myMapView.BottomAnchor),
-                _popupViewer.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                _popupViewer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _popupViewer.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+                _stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _stackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _stackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _stackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
             });
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            base.TraitCollectionDidChange(previousTraitCollection);
+            if (View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact)
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Horizontal;
+            }
+            else
+            {
+                _stackView.Axis = UILayoutConstraintAxis.Vertical;
+            }
         }
 
         public override void ViewDidLoad()

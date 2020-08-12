@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WPF.Samples.ShowPopup
         private void Initialize()
         {
             // Load the map.
-            MyMapView.Map = new Map(new Uri("https://runtime.maps.arcgis.com/home/webmap/viewer.html?webmap=e4c6eb667e6c43b896691f10cc2f1580"));
+            MyMapView.Map = new Map(new Uri("https://arcgisruntime.maps.arcgis.com/home/item.html?id=fb788308ea2e4d8682b9c05ef641f273"));
         }
 
         private async void MapViewTapped(object sender, GeoViewInputEventArgs e)

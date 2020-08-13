@@ -16,7 +16,6 @@
                 <Label x:Name="InstructionsLabel" Text="Tap a feature to display its popup." />
                 <toolkit:PopupViewer x:Name="MyPopupViewer" IsVisible="False" />
             </Grid>
-
         </resources:ResponsiveFormContainer>
     </RelativeLayout>
 </ContentPage>

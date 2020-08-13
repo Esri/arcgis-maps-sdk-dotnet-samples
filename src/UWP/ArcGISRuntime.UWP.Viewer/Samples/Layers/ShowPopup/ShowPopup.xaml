@@ -14,8 +14,6 @@
                     Width="400"
                     Visibility="Collapsed" />
             </Grid>
-
         </Border>
     </Grid>
 </UserControl>
-

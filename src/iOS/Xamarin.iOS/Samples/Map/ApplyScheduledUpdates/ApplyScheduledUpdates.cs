@@ -194,8 +194,8 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                 Text = " \n ",
                 AdjustsFontSizeToFitWidth = true,
                 TextAlignment = UITextAlignment.Left,
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.Black,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TextColor = ApplicationTheme.ForegroundColor,
                 LineBreakMode = UILineBreakMode.WordWrap,
                 Lines = 2,
                 TranslatesAutoresizingMaskIntoConstraints = false

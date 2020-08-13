@@ -172,8 +172,8 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
 
             _operationChoiceButton = new UISegmentedControl("Difference", "Intersection", "Symm. diff.", "Union")
             {
-                BackgroundColor = UIColor.White,
-                TintColor = UIColor.White,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TintColor = ApplicationTheme.ForegroundColor,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 

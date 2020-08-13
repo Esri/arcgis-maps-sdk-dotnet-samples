@@ -112,8 +112,8 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
 
             _styleChoiceButton = new UISegmentedControl("Default", "Contrast stretch")
             {
-                BackgroundColor = UIColor.White,
-                TintColor = UIColor.White,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TintColor = ApplicationTheme.ForegroundColor,
                 Enabled = false,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 SelectedSegment = 0,

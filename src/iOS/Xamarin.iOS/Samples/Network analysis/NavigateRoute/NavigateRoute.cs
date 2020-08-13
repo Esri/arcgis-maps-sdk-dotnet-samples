@@ -273,8 +273,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
                 Text = "",
                 AdjustsFontSizeToFitWidth = true,
                 TextAlignment = UITextAlignment.Left,
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.White,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TextColor = ApplicationTheme.ForegroundColor,
                 LineBreakMode = UILineBreakMode.WordWrap,
                 Lines = 0,
                 TranslatesAutoresizingMaskIntoConstraints = false

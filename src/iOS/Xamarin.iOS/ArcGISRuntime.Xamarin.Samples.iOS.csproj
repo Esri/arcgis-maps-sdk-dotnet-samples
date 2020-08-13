@@ -269,6 +269,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <None Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <None Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
     <None Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
@@ -459,6 +460,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\ShowPopup\ShowPopup.cs" />
     <Compile Include="ApplicationTheme.cs" />
     <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.cs" />
     <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.cs" />
@@ -702,6 +704,9 @@
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
       <Version>100.9.0</Version>
     </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit">
+      <Version>100.9.0</Version>
+    </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
       <Version>100.9.0</Version>
     </PackageReference>
@@ -732,7 +737,7 @@
     <BundleResource Include="Resources\SyntaxHighlighting\highlight.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
-        <BundleResource Include="Resources\SyntaxHighlighting\highlight-dark.css">
+    <BundleResource Include="Resources\SyntaxHighlighting\highlight-dark.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
     <BundleResource Include="Resources\SyntaxHighlighting\highlight.pack.js">

@@ -29,8 +29,8 @@
     "relevant_apis": [
         "Graphic",
         "GraphicsOverlay",
-        "LayerSceneProperties.SurfacePlacement",
         "SceneProperties",
+        "SceneProperties.SurfacePlacement",
         "Surface"
     ],
     "snippets": [

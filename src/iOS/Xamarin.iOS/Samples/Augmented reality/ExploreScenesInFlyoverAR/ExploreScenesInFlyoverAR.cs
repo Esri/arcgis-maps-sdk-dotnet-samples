@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
 using ARKit;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Geometry;
@@ -39,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _arSceneView = new ARSceneView();
             _arSceneView.TranslatesAutoresizingMaskIntoConstraints = false;

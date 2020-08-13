@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             UIStackView container = new UIStackView();
             container.TranslatesAutoresizingMaskIntoConstraints = false;

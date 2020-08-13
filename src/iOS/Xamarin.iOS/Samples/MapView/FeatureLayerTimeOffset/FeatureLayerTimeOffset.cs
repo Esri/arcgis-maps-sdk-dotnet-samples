@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             UIToolbar topToolbar = new UIToolbar();
             topToolbar.TranslatesAutoresizingMaskIntoConstraints = false;

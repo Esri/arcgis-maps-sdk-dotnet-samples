@@ -1,6 +1,6 @@
 ﻿using Esri.ArcGISRuntime.Data;
-using UIKit;
 using Esri.ArcGISRuntime.UI;
+using UIKit;
 
 namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 {
@@ -16,10 +16,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
         public override async void LoadView()
         {
-            View = new UIView
-            {
-                BackgroundColor = UIColor.White
-            };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIImageView imageView = new UIImageView();
             imageView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -69,7 +66,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             imageView.Image = await _metadata.Thumbnail.ToImageSourceAsync();
         }
 
-        UILabel getHeaderLabel(string text)
+        private UILabel getHeaderLabel(string text)
         {
             var label = new UILabel();
             label.Text = text;
@@ -79,7 +76,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
             return label;
         }
 
-        UILabel getContentLabel(string content)
+        private UILabel getContentLabel(string content)
         {
             var label = new UILabel();
             label.Text = content;

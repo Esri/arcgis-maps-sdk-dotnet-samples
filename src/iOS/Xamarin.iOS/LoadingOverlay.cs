@@ -25,7 +25,7 @@ namespace ArcGISRuntime
         {
             _cancellationTokenSource = cancellationTokenSource;
 
-            BackgroundColor = UIColor.Black;
+            BackgroundColor = ApplicationTheme.BackgroundColor;
             Alpha = 0.8f;
             AutoresizingMask = UIViewAutoresizing.All;
 
@@ -50,7 +50,7 @@ namespace ArcGISRuntime
             ))
             {
                 BackgroundColor = UIColor.Clear,
-                TextColor = UIColor.White,
+                TextColor = ApplicationTheme.ForegroundColor,
                 Text = "Downloading Data",
                 TextAlignment = UITextAlignment.Center,
                 AutoresizingMask = UIViewAutoresizing.All

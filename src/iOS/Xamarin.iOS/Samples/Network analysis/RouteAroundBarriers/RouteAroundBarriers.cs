@@ -23,6 +23,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using CoreGraphics;
 using UIKit;
+using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 {
@@ -449,8 +450,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
-            View.BackgroundColor = UIColor.White;
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -617,7 +617,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 
         public override void LoadView()
         {
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIScrollView scrollView = new UIScrollView();
             scrollView.TranslatesAutoresizingMaskIntoConstraints = false;

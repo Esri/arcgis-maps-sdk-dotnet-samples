@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
 using AVFoundation;
 using CoreGraphics;
 using Esri.ArcGISRuntime.ARToolkit;
@@ -69,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -308,7 +309,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         public override void LoadView()
         {
             // Create and add the container views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIStackView formContainer = new UIStackView();
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;

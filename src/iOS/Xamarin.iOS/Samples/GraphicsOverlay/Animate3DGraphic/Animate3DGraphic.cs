@@ -366,7 +366,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIToolbar controlToolbox = new UIToolbar();
             controlToolbox.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -584,7 +584,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
             floatContainer.AddArrangedSubview(statsContainer);
 
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
             View.AddSubview(floatContainer);
 
             floatContainer.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor).Active = true;

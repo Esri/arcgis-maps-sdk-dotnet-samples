@@ -249,7 +249,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -780,7 +780,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Add the buttons to the toolbar.
             toolbar.Items = new[] {addButton, doneButton};
 
-            statPicker.BackgroundColor = UIColor.White;
+            statPicker.BackgroundColor = ApplicationTheme.BackgroundColor;
 
             // Add the controls.
             AddSubviews(toolbar, statPicker);

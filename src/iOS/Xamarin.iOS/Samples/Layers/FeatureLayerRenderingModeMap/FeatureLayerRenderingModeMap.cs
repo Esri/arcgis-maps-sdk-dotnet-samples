@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _staticMapView = new MapView();
             _staticMapView.TranslatesAutoresizingMaskIntoConstraints = false;

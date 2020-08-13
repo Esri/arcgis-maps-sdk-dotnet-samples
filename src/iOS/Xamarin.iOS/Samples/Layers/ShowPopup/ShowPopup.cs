@@ -61,6 +61,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
                 {
                     // Remove the instructions label.
                     _stackView.RemoveArrangedSubview(_instructionsLabel);
+                    _instructionsLabel.Hidden = true;
                     _stackView.AddArrangedSubview(_popupViewer);
 
                     // Create a new popup manager for the popup.

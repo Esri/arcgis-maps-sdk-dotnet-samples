@@ -133,14 +133,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _extrusionFieldButton = new UISegmentedControl("Population density", "Total population")
             {
-                BackgroundColor = UIColor.White,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
                 SelectedSegment = 1,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };

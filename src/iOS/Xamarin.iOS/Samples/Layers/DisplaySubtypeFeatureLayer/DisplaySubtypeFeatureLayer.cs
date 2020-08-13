@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -139,7 +140,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -152,7 +153,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 
             _visibilityControl = new UISegmentedControl("Visible", "Not visible");
             _visibilityControl.SelectedSegment = 0;
-            _visibilityControl.BackgroundColor = UIColor.White;
+            _visibilityControl.BackgroundColor = ApplicationTheme.BackgroundColor;
             _visibilityControl.TranslatesAutoresizingMaskIntoConstraints = false;
 
             UIToolbar toolbar = new UIToolbar();

@@ -171,7 +171,7 @@ namespace ArcGISRuntime.Samples.Buffer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -185,7 +185,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            UIView formArea = new UIView {BackgroundColor = UIColor.White};
+            UIView formArea = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
             formArea.TranslatesAutoresizingMaskIntoConstraints = false;
 
             UILabel bufferInputLabel = new UILabel
@@ -260,7 +260,7 @@ namespace ArcGISRuntime.Samples.Buffer
                 BackgroundColor = View.TintColor
             };
             _clearBuffersButton.SetTitle("Clear", UIControlState.Normal);
-            _clearBuffersButton.SetTitleColor(UIColor.White, UIControlState.Normal);
+            _clearBuffersButton.SetTitleColor(ApplicationTheme.ForegroundColor, UIControlState.Normal);
             _clearBuffersButton.Layer.CornerRadius = 5;
             _clearBuffersButton.TranslatesAutoresizingMaskIntoConstraints = false;
 

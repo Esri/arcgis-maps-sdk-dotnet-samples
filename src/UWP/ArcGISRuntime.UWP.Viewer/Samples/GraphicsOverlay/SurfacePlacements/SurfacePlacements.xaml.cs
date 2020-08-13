@@ -21,7 +21,7 @@ namespace ArcGISRuntime.UWP.Samples.SurfacePlacements
         name: "Surface placement",
         category: "GraphicsOverlay",
         description: "Position graphics relative to a surface using different surface placement modes.",
-        instructions: "The application loads a scene showing three points that use the individual surface placement rules (Absolute, Relative, and either Draped Billboarded or Draped Flat). Use the control to toggle the draped mode, then explore the scene by zooming in/out and by panning around to observe the effects of the surface placement rules.",
+        instructions: "The application loads a scene showing four points that use individual surface placement modes (Absolute, Relative, Relative to Scene, and either Draped Billboarded or Draped Flat). Use the toggle to change the draped mode and the slider to dynamically adjust the Z value of the graphics. Explore the scene by zooming in/out and by panning around to observe the effects of the surface placement rules.",
         tags: new[] { "3D", "absolute", "altitude", "draped", "elevation", "floating", "relative", "scenes", "sea level", "surface placement", "Featured" })]
     public sealed partial class SurfacePlacements
     {

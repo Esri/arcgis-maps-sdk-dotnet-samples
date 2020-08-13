@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <Content Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <Content Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
     <Content Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
@@ -375,6 +376,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\ShowPopup\ShowPopup.xaml.cs">
+      <DependentUpon>ShowPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
       <DependentUpon>AnimateImageOverlay.xaml</DependentUpon>
     </Compile>
@@ -955,6 +959,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\ShowPopup\ShowPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1774,6 +1782,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
+      <Version>100.9.0</Version>
+    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit">
       <Version>100.9.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">

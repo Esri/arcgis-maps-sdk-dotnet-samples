@@ -29,12 +29,12 @@
     "relevant_apis": [
         "Graphic",
         "GraphicsOverlay",
-        "LayerSceneProperties.SurfacePlacement",
         "SceneProperties",
+        "SceneProperties.SurfacePlacement",
         "Surface"
     ],
     "snippets": [
-        "../../../Resources/layout/SurfacePlacements.axml",
+        "../../../Resources/layout/SurfacePlacements.xml",
         "SurfacePlacements.cs"
     ],
     "title": "Surface placement"

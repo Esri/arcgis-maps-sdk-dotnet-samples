@@ -7,12 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -22,6 +16,12 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FindPlace
@@ -93,7 +93,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             }
 
             // Unsubscribe from further events; only want to zoom to location once.
-            ((LocationDisplay) sender).LocationChanged -= LocationDisplay_LocationChanged;
+            ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
             // Need to use this to interact with UI elements because this function is called from a background thread.
             InvokeOnMainThread(() => _myMapView.SetViewpoint(new Viewpoint(e.Position, 100000)));
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _myMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready.
-            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
             {
                 return;
             }
@@ -174,7 +174,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             if (locations.Count < 1)
             {
                 _activityView.StopAnimating(); // 1. Hide the progress bar.
-                new UIAlertView("alert", "No results found", (IUIAlertViewDelegate) null, "OK", null)
+                new UIAlertView("alert", "No results found", (IUIAlertViewDelegate)null, "OK", null)
                     .Show(); // 2. Show a message.
                 return; // 3. Stop.
             }
@@ -493,12 +493,12 @@ namespace ArcGISRuntime.Samples.FindPlace
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            UIView formContainer = new UIView {BackgroundColor = UIColor.FromWhiteAlpha(1f, .8f)};
+            UIView formContainer = new UIView();
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _searchBox = new UITextField();
@@ -516,7 +516,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _locationBox.LeftViewMode = UITextFieldViewMode.Always;
 
             _searchButton = new UIButton(UIButtonType.RoundedRect);
-            _searchButton.BackgroundColor = UIColor.White;
             _searchButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _searchButton.SetTitle("Search all", UIControlState.Normal);
             _searchButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);
@@ -526,7 +525,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             _searchButton.Layer.BorderWidth = 1;
 
             _searchInViewButton = new UIButton(UIButtonType.RoundedRect);
-            _searchInViewButton.BackgroundColor = UIColor.White;
             _searchInViewButton.TranslatesAutoresizingMaskIntoConstraints = false;
             _searchInViewButton.SetTitle("Search in view", UIControlState.Normal);
             _searchInViewButton.SetTitleColor(UIColor.Gray, UIControlState.Disabled);

@@ -131,7 +131,6 @@ namespace ArcGISRuntime.Samples.WMTSLayer
             _constructorChoiceButton = new UISegmentedControl("URI", "Service Info")
             {
                 BackgroundColor = ApplicationTheme.BackgroundColor,
-                TintColor = ApplicationTheme.ForegroundColor,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 SelectedSegment = 0,
                 // Clean up borders of segmented control - avoid corner pixels.

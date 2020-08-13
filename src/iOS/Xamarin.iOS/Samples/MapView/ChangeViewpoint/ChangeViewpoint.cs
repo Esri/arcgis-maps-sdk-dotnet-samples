@@ -123,7 +123,6 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             _viewpointsButton = new UISegmentedControl("Geometry", "Center & Scale", "Animate")
             {
                 BackgroundColor = ApplicationTheme.BackgroundColor,
-                TintColor = ApplicationTheme.ForegroundColor,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 // Clean up borders of segmented control - avoid corner pixels.
                 ClipsToBounds = true,

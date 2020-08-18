@@ -72,6 +72,7 @@
     <Compile Include="Infrastructure\SampleInfo.cs" />
     <Compile Include="Infrastructure\OfflineDataAttribute.cs" />
     <Compile Include="Infrastructure\AdditionalFilesAttribute.cs" />
+    <Compile Include="Infrastructure\ApplicationTheme.cs" />
     $$code_and_xaml$$
   </ItemGroup>
   <ItemGroup>

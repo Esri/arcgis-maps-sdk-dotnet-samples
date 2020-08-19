@@ -182,7 +182,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _helpLabel.TextAlignment = UITextAlignment.Center;
             _helpLabel.TextColor = UIColor.White;
             _helpLabel.BackgroundColor = UIColor.FromWhiteAlpha(0f, 0.6f);
-            _helpLabel.Text = "Preparing services...";
+            _helpLabel.Text = "";
 
             UIToolbar elevToolbar = new UIToolbar();
             elevToolbar.TranslatesAutoresizingMaskIntoConstraints = false;

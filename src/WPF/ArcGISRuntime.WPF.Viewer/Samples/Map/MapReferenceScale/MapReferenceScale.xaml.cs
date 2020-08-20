@@ -38,6 +38,9 @@ namespace ArcGISRuntime.WPF.Samples.MapReferenceScale
 
         private async void Initialize()
         {
+            // Populate the reference scale choices.
+            ReferenceScaleBox.ItemsSource = _referenceScales;
+
             // Create a portal and an item; the map will be loaded from portal item.
             ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri("https://runtime.maps.arcgis.com"));
             PortalItem mapItem = await PortalItem.CreateAsync(portal, "3953413f3bd34e53a42bf70f2937a408");
@@ -45,14 +48,8 @@ namespace ArcGISRuntime.WPF.Samples.MapReferenceScale
             // Create the map from the item.
             Map webMap = new Map(mapItem);
 
-            // Load the map.
-            await webMap.LoadAsync();
-
             // Display the map.
             MyMapView.Map = webMap;
-
-            // Populate the reference scale choices.
-            ReferenceScaleBox.ItemsSource = _referenceScales;
 
             // NOTE: this sample uses binding, so explicit control of reference scale isn't seen here.
             // See the iOS or Android samples for an implementation that does not rely on data binding.

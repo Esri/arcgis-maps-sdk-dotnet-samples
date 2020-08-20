@@ -45,6 +45,9 @@ namespace ArcGISRuntime.WPF.Samples.MapReferenceScale
             // Create the map from the item.
             Map webMap = new Map(mapItem);
 
+            // Load the map.
+            await webMap.LoadAsync();
+
             // Display the map.
             MyMapView.Map = webMap;
 

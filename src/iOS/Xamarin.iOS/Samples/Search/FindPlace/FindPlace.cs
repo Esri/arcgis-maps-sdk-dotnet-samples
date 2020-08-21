@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -96,13 +97,10 @@ namespace ArcGISRuntime.Samples.FindPlace
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
             // Need to use this to interact with UI elements because this function is called from a background thread.
-            InvokeOnMainThread(() => _myMapView.SetViewpoint(new Viewpoint(e.Position, 100000)));
+            BeginInvokeOnMainThread(() => _myMapView.SetViewpoint(new Viewpoint(e.Position, 100000)));
         }
 
-        /// <summary>
-        /// Gets the map point corresponding to the text in the location textbox.
-        /// If the text is 'Current Location', the returned map point will be the device's location.
-        /// </summary>
+        // Gets the map point corresponding to the text in the location textbox.
         private async Task<MapPoint> GetSearchMapPoint(string locationText)
         {
             // Get the point for the search text.
@@ -128,12 +126,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             return _myMapView.LocationDisplay.Location.Position;
         }
 
-        /// <summary>
-        /// Runs a search and populates the map with results based on the provided information.
-        /// </summary>
-        /// <param name="enteredText">Results to search for.</param>
-        /// <param name="locationText">Location around which to find results.</param>
-        /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent.</param>
+        // Runs a search and populates the map with results based on the provided information.
         private async Task UpdateSearchAsync(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers.
@@ -174,8 +167,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             if (locations.Count < 1)
             {
                 _activityView.StopAnimating(); // 1. Hide the progress bar.
-                new UIAlertView("alert", "No results found", (IUIAlertViewDelegate)null, "OK", null)
-                    .Show(); // 2. Show a message.
+                new UIAlertView("alert", "No results found", (IUIAlertViewDelegate)null, "OK", null).Show(); // 2. Show a message.
                 return; // 3. Stop.
             }
 
@@ -214,9 +206,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             await _myMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
         }
 
-        /// <summary>
-        /// Creates and returns a Graphic associated with the given MapPoint.
-        /// </summary>
+        // Creates and returns a Graphic associated with the given MapPoint.
         private async Task<Graphic> GraphicForPointAsync(MapPoint point)
         {
             // Get current assembly that contains the image.
@@ -238,51 +228,48 @@ namespace ArcGISRuntime.Samples.FindPlace
             return new Graphic(point, pinSymbol);
         }
 
-        /// <summary>
-        /// Shows a callout for any tapped graphics.
-        /// </summary>
+        // Shows a callout for any tapped graphics.
         private async void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Search for the graphics underneath the user's tap.
-            IReadOnlyList<IdentifyGraphicsOverlayResult> results =
-                await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
-
-            // Clear callouts and return if there was no result.
-            if (results.Count < 1 || results.First().Graphics.Count < 1)
+            try
             {
-                _myMapView.DismissCallout();
-                return;
+                // Search for the graphics underneath the user's tap.
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results =
+                    await _myMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+
+                // Clear callouts and return if there was no result.
+                if (results.Count < 1 || results.First().Graphics.Count < 1)
+                {
+                    _myMapView.DismissCallout();
+                    return;
+                }
+
+                // Get the first graphic from the first result.
+                Graphic matchingGraphic = results.First().Graphics.First();
+
+                // Get the title; manually added to the point's attributes in UpdateSearchAsync.
+                string title = matchingGraphic.Attributes["Match_Title"] as string;
+
+                // Get the address; manually added to the point's attributes in UpdateSearchAsync.
+                string address = matchingGraphic.Attributes["Match_Address"] as string;
+
+                // Define the callout.
+                CalloutDefinition calloutBody = new CalloutDefinition(title, address);
+
+                // Show the callout on the map at the tapped location.
+                _myMapView.ShowCalloutAt(e.Location, calloutBody);
             }
-
-            // Get the first graphic from the first result.
-            Graphic matchingGraphic = results.First().Graphics.First();
-
-            // Get the title; manually added to the point's attributes in UpdateSearchAsync.
-            string title = matchingGraphic.Attributes["Match_Title"] as string;
-
-            // Get the address; manually added to the point's attributes in UpdateSearchAsync.
-            string address = matchingGraphic.Attributes["Match_Address"] as string;
-
-            // Define the callout.
-            CalloutDefinition calloutBody = new CalloutDefinition(title, address);
-
-            // Show the callout on the map at the tapped location.
-            _myMapView.ShowCalloutAt(e.Location, calloutBody);
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
         }
 
-        /// <summary>
-        /// Returns a list of suggestions based on the input search text and limited by the specified parameters.
-        /// </summary>
-        /// <param name="searchText">Text to get suggestions for.</param>
-        /// <param name="location">Location around which to look for suggestions.</param>
-        /// <param name="poiOnly">If true, restricts suggestions to only Points of Interest (e.g. businesses, parks),
-        /// rather than all matching results.</param>
-        /// <returns>List of suggestions as strings or null if suggestions couldn't be retrieved.</returns>
-        private async Task<List<string>> GetSuggestResultsAsync(string searchText, string location = "",
-            bool poiOnly = false)
+        // Returns a list of suggestions based on the input search text and limited by the specified parameters.
+        private async Task<List<string>> GetSuggestResultsAsync(string searchText, string location = "", bool interestPointsOnly = false)
         {
             // Quit if string is null, empty, or whitespace.
-            if (String.IsNullOrWhiteSpace(searchText))
+            if (string.IsNullOrWhiteSpace(searchText))
             {
                 return new List<string>();
             }
@@ -297,13 +284,13 @@ namespace ArcGISRuntime.Samples.FindPlace
             SuggestParameters parameters = new SuggestParameters();
 
             // Restrict suggestions to points of interest if desired.
-            if (poiOnly)
+            if (interestPointsOnly)
             {
                 parameters.Categories.Add("POI");
             }
 
             // Set the location for the suggest parameters.
-            if (!String.IsNullOrWhiteSpace(location))
+            if (!string.IsNullOrWhiteSpace(location))
             {
                 // Get the MapPoint for the current search location.
                 MapPoint searchLocation = await GetSearchMapPoint(location);
@@ -322,9 +309,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             return results.Select(result => result.Label).ToList();
         }
 
-        /// <summary>
-        /// Method used to keep the suggestions up-to-date for the location box.
-        /// </summary>
+        // Method used to keep the suggestions up-to-date for the location box.
         private async void LocationBox_TextChanged(object sender, EventArgs e)
         {
             // Dismiss callout, if any.
@@ -358,9 +343,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _suggestionView.Hidden = false;
         }
 
-        /// <summary>
-        /// Method used to keep the suggestions up-to-date for the search box.
-        /// </summary>
+        // Method used to keep the suggestions up-to-date for the search box.
         private async void SearchBox_TextChanged(object sender, EventArgs e)
         {
             // Dismiss callout, if any.
@@ -394,9 +377,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _suggestionView.Hidden = false;
         }
 
-        /// <summary>
-        /// Method called to start a search that is restricted to results within the current extent.
-        /// </summary>
+        // Method called to start a search that is restricted to results within the current extent.
         private async void SearchRestrictedButton_Touched(object sender, EventArgs e)
         {
             try
@@ -419,13 +400,11 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Uncaught exceptions in async void method will crash the app.
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
         }
 
-        /// <summary>
-        /// Method called to start an unrestricted search.
-        /// </summary>
+        // Method called to start an unrestricted search.
         private async void SearchButton_Touched(object sender, EventArgs e)
         {
             try
@@ -452,10 +431,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             }
         }
 
-        /// <summary>
-        /// Called by the UITableView's data source to indicate that a suggestion was selected.
-        /// </summary>
-        /// <param name="text">The selected suggestion.</param>
+        // Called by the UITableView's data source to indicate that a suggestion was selected.
         public void AcceptSuggestion(string text)
         {
             // Update the text for the currently active text box.
@@ -475,9 +451,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             _mySuggestionSource.TableItems = new List<string>();
         }
 
-        /// <summary>
-        /// Method to handle hiding the callout, should be called by all UI event handlers.
-        /// </summary>
+        // Method to handle hiding the callout, should be called by all UI event handlers.
         private void UserInteracted()
         {
             // Hide the callout.
@@ -631,10 +605,8 @@ namespace ArcGISRuntime.Samples.FindPlace
         }
     }
 
-    /// <summary>
-    /// Class defines how a UITableView renders its contents.
-    /// This implements the suggestion UI for the table view.
-    /// </summary>
+    // Class defines how a UITableView renders its contents.
+    // This implements the suggestion UI for the table view.
     public class SuggestionSource : UITableViewSource
     {
         // List of strings; these will be the suggestions.
@@ -658,9 +630,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             Owner = owner;
         }
 
-        /// <summary>
-        /// This method gets a table view cell for the suggestion at the specified index.
-        /// </summary>
+        // This method gets a table view cell for the suggestion at the specified index.
         public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
         {
             // Try to get a re-usable cell (this is for performance). If there are no cells, create a new one.
@@ -674,17 +644,13 @@ namespace ArcGISRuntime.Samples.FindPlace
             return cell;
         }
 
-        /// <summary>
-        /// This method allows the UITableView to know how many rows to render.
-        /// </summary>
+        // This method allows the UITableView to know how many rows to render.
         public override nint RowsInSection(UITableView tableview, nint section)
         {
             return TableItems.Count;
         }
 
-        /// <summary>
-        /// Method called when a row is selected; notifies the primary view.
-        /// </summary>
+        // Method called when a row is selected; notifies the primary view.
         public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
         {
             // Deselect the row.

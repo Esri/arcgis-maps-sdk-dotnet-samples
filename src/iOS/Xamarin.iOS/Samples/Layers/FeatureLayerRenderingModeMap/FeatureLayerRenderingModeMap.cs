@@ -3,18 +3,18 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
@@ -74,7 +74,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
                 _staticMapView.Map.OperationalLayers.Add(layer);
 
                 // Add the dynamic layer to the bottom map view.
-                FeatureLayer dynamicLayer = (FeatureLayer) layer.Clone();
+                FeatureLayer dynamicLayer = (FeatureLayer)layer.Clone();
                 dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
                 _dynamicMapView.Map.OperationalLayers.Add(dynamicLayer);
             }
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             try
             {
-                // Initiate task to zoom both map views in.  
+                // Initiate task to zoom both map views in.
                 Task t1 = _staticMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
                 Task t2 = _dynamicMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t1, t2);
@@ -103,14 +103,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
                 // Delay start of next set of zoom tasks.
                 await Task.Delay(2000);
 
-                // Initiate task to zoom both map views out. 
+                // Initiate task to zoom both map views out.
                 Task t3 = _staticMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
                 Task t4 = _dynamicMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t3, t4);
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", ex.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
@@ -123,7 +123,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _staticMapView = new MapView();
             _staticMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -131,9 +131,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             _dynamicMapView = new MapView();
             _dynamicMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _stackView = new UIStackView(new UIView[] {_staticMapView, _dynamicMapView});
+            _stackView = new UIStackView(new UIView[] { _staticMapView, _dynamicMapView });
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
+            _stackView.Axis = View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact ? UILayoutConstraintAxis.Horizontal : UILayoutConstraintAxis.Vertical;
 
             _zoomButton = new UIBarButtonItem();
             _zoomButton.Title = "Zoom";

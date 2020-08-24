@@ -29,7 +29,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         description: "Construct a KML document and save it as a KMZ file.",
         instructions: "Tap on one of the buttons in the middle row to start adding a geometry. Tap on the map view to place vertices. Tap the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, tap the \"Don't Apply Style\" button. When you are finished adding KML nodes, tap on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "Featured" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class CreateAndSaveKmlFile : UIViewController
     {
         // Hold references to UI controls.
@@ -110,16 +109,16 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             prompt.AddAction(UIAlertAction.Create("Polyline", UIAlertActionStyle.Default, AddGeometry));
             prompt.AddAction(UIAlertAction.Create("Polygon", UIAlertActionStyle.Default, AddGeometry));
 
+            // Swap toolbar.
+            _toolbar.Items = new[] { _doneButton };
+
             // Needed to prevent crash on iPad.
             UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
             if (ppc != null)
             {
-                ppc.BarButtonItem = _doneButton;
+                ppc.SourceView = _toolbar;
                 ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
             }
-
-            // Swap toolbar.
-            _toolbar.Items = new[] { _doneButton };
 
             PresentViewController(prompt, true, null);
         }
@@ -195,7 +194,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             if (_currentPlacemark.GraphicType == KmlGraphicType.Point)
             {
                 // Build a UI alert controller for picking the icon.
-                UIAlertController prompt = UIAlertController.Create(null, "Choose an icon.", UIAlertControllerStyle.ActionSheet);
+                UIAlertController prompt = UIAlertController.Create(string.Empty, "Choose an icon.", UIAlertControllerStyle.ActionSheet);
                 foreach (string link in _iconLinks)
                 {
                     UIAlertAction action = UIAlertAction.Create(link, UIAlertActionStyle.Default, Icon_Select);
@@ -209,7 +208,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
                 if (ppc != null)
                 {
-                    ppc.BarButtonItem = _addButton;
+                    ppc.SourceView = _toolbar;
                     ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 }
 
@@ -231,7 +230,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
                 if (ppc != null)
                 {
-                    ppc.BarButtonItem = _addButton;
+                    ppc.SourceView = _toolbar;
                     ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 }
 

@@ -345,12 +345,14 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             // Show the layer list popover. Note: most behavior is managed by the table view & its source. See MapViewModel.
             var controller = new UINavigationController(_directionsController);
             controller.Title = "Directions";
+
             // Show a close button in the top right.
             var closeButton = new UIBarButtonItem("Close", UIBarButtonItemStyle.Plain, (o, ea) => controller.DismissViewController(true, null));
             controller.NavigationBar.Items[0].SetRightBarButtonItem(closeButton, false);
+
             // Show the table view in a popover.
             controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
-            controller.PreferredContentSize = new CGSize(300, 250);
+            controller.PreferredContentSize = new CGSize(500, 500);
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {

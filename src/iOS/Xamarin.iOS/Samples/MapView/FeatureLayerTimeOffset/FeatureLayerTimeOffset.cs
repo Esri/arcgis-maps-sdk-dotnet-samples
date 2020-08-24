@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
@@ -86,7 +86,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
@@ -97,6 +97,9 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
         private void UpdateTimeExtent()
         {
+            // Check that the original extent has loaded.
+            if (_originalExtent == null) return;
+
             // Get the value of the slider.
             double value = _timeSlider.Value;
 
@@ -111,7 +114,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
             double desiredInterval = value * days;
 
             // 4. Create a new TimeSpan.
-            TimeSpan newOffset = new TimeSpan((int) desiredInterval, 0, 0, 0);
+            TimeSpan newOffset = new TimeSpan((int)desiredInterval, 0, 0, 0);
 
             // Determine the new starting offset.
             DateTime newStart = _originalExtent.StartTime.DateTime.Add(newOffset);
@@ -147,20 +150,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
-            UIToolbar topToolbar = new UIToolbar();
-            topToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            UIToolbar topToolbar = new UIToolbar { TranslatesAutoresizingMaskIntoConstraints = false };
 
-            _myMapView = new MapView();
-            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _myMapView = new MapView { TranslatesAutoresizingMaskIntoConstraints = false };
 
-            _timeLabel = new UILabel
-            {
-                TextColor = UIColor.Black,
-                TextAlignment = UITextAlignment.Center,
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
+            _timeLabel = new UILabel();
 
             _timeSlider = new UISlider
             {
@@ -171,11 +167,13 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
             UIToolbar bottomToolbar = new UIToolbar();
             bottomToolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+
             bottomToolbar.Items = new[]
             {
-                new UIBarButtonItem(_timeLabel),
-                new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) {Width = 0},
-                new UIBarButtonItem(_timeSlider)
+                new UIBarButtonItem { CustomView = _timeSlider, Width = 100 },
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                new UIBarButtonItem { CustomView = _timeLabel},
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
             };
 
             UIStackView legendView = new UIStackView();
@@ -202,7 +200,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
 
             UIView spacer = new UIView();
             spacer.TranslatesAutoresizingMaskIntoConstraints = false;
-            spacer.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            spacer.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             legendView.AddArrangedSubview(spacer);
 
             UIView blueIcon = new UIView();
@@ -238,8 +236,8 @@ namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
                 _myMapView.TopAnchor.ConstraintEqualTo(topToolbar.BottomAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(bottomToolbar.TopAnchor),
 
-                bottomToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                bottomToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                bottomToolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                bottomToolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
                 bottomToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
                 legendView.LeftAnchor.ConstraintEqualTo(topToolbar.SafeAreaLayoutGuide.LeftAnchor, 8),

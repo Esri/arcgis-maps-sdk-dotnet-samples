@@ -208,7 +208,7 @@
 * [Create terrain from local tile package](Xamarin.Android/Samples/Scene/CreateTerrainSurfaceTilePackage/readme.md) - Set the terrain surface with elevation described by a local tile package.
 * [Get elevation at a point](Xamarin.Android/Samples/Scene/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](Xamarin.Android/Samples/Scene/OpenMobileScenePackage/readme.md) - Opens and displays a scene from a Mobile Scene Package (.mspk).
-* [Open a scene (portal item)](Xamarin.Android/Samples/Scene/OpenScenePortalItem/readme.md) - Open a web scene from a portal item.
+* [Open scene (portal item)](Xamarin.Android/Samples/Scene/OpenScenePortalItem/readme.md) - Open a web scene from a portal item.
 * [Terrain exaggeration](Xamarin.Android/Samples/Scene/TerrainExaggeration/readme.md) - Vertically exaggerate terrain in a scene.
 * [View content beneath terrain surface](Xamarin.Android/Samples/Scene/ViewContentBeneathSurface/readme.md) - See through terrain in a scene and move the camera underground.
 

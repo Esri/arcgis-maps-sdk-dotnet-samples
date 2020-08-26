@@ -23,6 +23,10 @@ When you run the sample, the app will load a map that contains a layer from a se
 * AuthenticationManager
 * TokenCredential
 
+## Additional information
+
+Please note: the username and password are case sensitive for token-based authentication. If the user doesn't have permission to access all the content within the portal item, partial or no content will be returned.
+
 ## Tags
 
-authentication, security, token
+authentication, cloud, portal, remember, security

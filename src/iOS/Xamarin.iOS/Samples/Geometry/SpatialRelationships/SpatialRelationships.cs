@@ -258,7 +258,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
 
             _resultTextView = new UITextView
             {
-                TextColor = UIColor.Black,
+                TextColor = ApplicationTheme.ForegroundColor,
                 Text = "Tap a shape to see its relationship with the others.",
                 Editable = false,
                 ScrollEnabled = false,

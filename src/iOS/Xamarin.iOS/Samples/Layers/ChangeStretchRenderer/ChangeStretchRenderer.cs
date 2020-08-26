@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ChangeStretchRenderer
@@ -69,13 +69,13 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
         private void rendererTypes_ValueChanged(object sender, EventArgs e)
         {
-            // This function modifies the UI parameter controls depending on which stretch 
+            // This function modifies the UI parameter controls depending on which stretch
             // renderer is chosen by the user.
             switch (_rendererTypes.SelectedSegment)
             {
@@ -127,7 +127,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         private void UpdateRendererButton_Clicked(object sender, EventArgs e)
         {
             // This function acquires the user selection of the stretch renderer from the table view
-            // along with the parameters specified, then a stretch renderer is created and applied to 
+            // along with the parameters specified, then a stretch renderer is created and applied to
             // the raster layer.
 
             // Convert the input text to doubles and return if they're invalid.
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             }
             catch (Exception ex)
             {
-                new UIAlertView("alert", ex.Message, (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("alert", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;
             }
 
@@ -163,10 +163,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     try
                     {
                         // Create an IEnumerable from a list of double min stretch value doubles.
-                        IEnumerable<double> minValues = new List<double> {input1};
+                        IEnumerable<double> minValues = new List<double> { input1 };
 
                         // Create an IEnumerable from a list of double max stretch value doubles.
-                        IEnumerable<double> maxValues = new List<double> {input2};
+                        IEnumerable<double> maxValues = new List<double> { input2 };
 
                         // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values.
                         MinMaxStretchParameters minMaxStretchParameters = new MinMaxStretchParameters(minValues, maxValues);
@@ -225,7 +225,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             }
 
             // Get the existing raster layer in the map.
-            RasterLayer rasterLayer = (RasterLayer) _myMapView.Map.OperationalLayers[0];View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            RasterLayer rasterLayer = (RasterLayer)_myMapView.Map.OperationalLayers[0];
 
             // Apply the stretch renderer to the raster layer.
             rasterLayer.Renderer = stretchRenderer;
@@ -233,7 +233,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
 
         private void ShowMessage(string title, string message)
         {
-            new UIAlertView(title, message, (IUIAlertViewDelegate) null, "OK", null).Show();
+            new UIAlertView(title, message, (IUIAlertViewDelegate)null, "OK", null).Show();
         }
 
         public override void ViewDidLoad()
@@ -245,7 +245,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIView formContainer = new UIView();
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;

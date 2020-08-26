@@ -77,6 +77,9 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
             // Enable the add button.
             _addButton.Enabled = true;
+
+            // Update the help message.
+            _helpLabel.Text = "Draw pipes on the map, then tap 📷 to view in AR";
         }
 
         private void DoneButton_Clicked(object sender, EventArgs e)

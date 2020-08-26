@@ -8,8 +8,10 @@
     ],
     "keywords": [
         "authentication",
-        "security",
-        "token"
+        "cloud",
+        "portal",
+        "remember",
+        "security"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.9.0",

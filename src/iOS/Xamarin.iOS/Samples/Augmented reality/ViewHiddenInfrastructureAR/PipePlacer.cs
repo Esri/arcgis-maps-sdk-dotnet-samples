@@ -77,6 +77,9 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
             // Enable the add button.
             _addButton.Enabled = true;
+
+            // Update the help message.
+            _helpLabel.Text = "Draw pipes on the map, then tap 📷 to view in AR";
         }
 
         private void DoneButton_Clicked(object sender, EventArgs e)
@@ -182,7 +185,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
             _helpLabel.TextAlignment = UITextAlignment.Center;
             _helpLabel.TextColor = UIColor.White;
             _helpLabel.BackgroundColor = UIColor.FromWhiteAlpha(0f, 0.6f);
-            _helpLabel.Text = "";
+            _helpLabel.Text = "Preparing services...";
 
             UIToolbar elevToolbar = new UIToolbar();
             elevToolbar.TranslatesAutoresizingMaskIntoConstraints = false;

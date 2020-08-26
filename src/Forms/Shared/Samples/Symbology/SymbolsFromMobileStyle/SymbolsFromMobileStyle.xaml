@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage 
-    x:Class="ArcGISRuntime.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle" 
-    xmlns="http://xamarin.com/schemas/2014/forms" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+<ContentPage
+    x:Class="ArcGISRuntime.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,8 +15,14 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Clicked="ChooseSymbolButtonClicked" Text="Choose symbol" />
-            <Button Grid.Column="1" Clicked="ClearGraphicsButtonClicked" Text="Clear" />
+            <Button
+                Grid.Column="0"
+                Clicked="ChooseSymbolButtonClicked"
+                Text="Choose symbol" />
+            <Button
+                Grid.Column="1"
+                Clicked="ClearGraphicsButtonClicked"
+                Text="Clear" />
         </Grid>
         <Grid
             x:Name="SelectSymbolGrid"
@@ -53,13 +59,11 @@
                 Grid.Row="1"
                 Grid.Column="0"
                 Margin="10,0,0,0"
-                HeightRequest="100"
                 HorizontalOptions="Center"
                 HorizontalScrollBarVisibility="Never"
                 ItemSelected="SymbolLayerSelected"
                 VerticalOptions="Center"
-                VerticalScrollBarVisibility="Never"
-                WidthRequest="40">
+                VerticalScrollBarVisibility="Never">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding ImageSrc}" />
@@ -78,13 +82,11 @@
                 x:Name="MouthListView"
                 Grid.Row="1"
                 Grid.Column="1"
-                HeightRequest="100"
                 HorizontalOptions="Center"
                 HorizontalScrollBarVisibility="Never"
                 ItemSelected="SymbolLayerSelected"
                 VerticalOptions="Center"
-                VerticalScrollBarVisibility="Never"
-                WidthRequest="40">
+                VerticalScrollBarVisibility="Never">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding ImageSrc}" />
@@ -103,13 +105,11 @@
                 x:Name="HatListView"
                 Grid.Row="1"
                 Grid.Column="2"
-                HeightRequest="100"
                 HorizontalOptions="Center"
                 HorizontalScrollBarVisibility="Never"
                 ItemSelected="SymbolLayerSelected"
                 VerticalOptions="Center"
-                VerticalScrollBarVisibility="Never"
-                WidthRequest="40">
+                VerticalScrollBarVisibility="Never">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding ImageSrc}" />

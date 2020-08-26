@@ -147,7 +147,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
         }
 
         public override void ViewDidLoad()
-        {View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
+        {
             base.ViewDidLoad();
             Initialize();
         }

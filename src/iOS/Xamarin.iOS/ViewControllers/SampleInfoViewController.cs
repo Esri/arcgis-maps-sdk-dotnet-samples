@@ -31,9 +31,9 @@ namespace ArcGISRuntime
         private WKWebView _readmeView;
 
         // Controls for the source code viewer.
-        private UIView _codeView;
         private WKWebView _codeWebView;
         private UIBarButtonItem _codeButton;
+        private UIToolbar _codeToolbar;
 
         // Dictionary where keys are filenames and values are HTML of source code.
         private Dictionary<string, string> _sourceCodeFiles;
@@ -64,6 +64,7 @@ namespace ArcGISRuntime
         private void Initialize()
         {
             CheckDarkMode();
+
             // Build out readme html.
             try
             {
@@ -169,14 +170,14 @@ namespace ArcGISRuntime
             if (_switcherControl.SelectedSegment == 0)
             {
                 // If about section.
-                _codeView.Hidden = true;
+                _codeWebView.Hidden = _codeToolbar.Hidden = true;
                 _readmeView.Hidden = false;
             }
             else
             {
                 // If code section.
                 _readmeView.Hidden = true;
-                _codeView.Hidden = false;
+                _codeWebView.Hidden = _codeToolbar.Hidden = false;
             }
         }
 
@@ -220,48 +221,35 @@ namespace ArcGISRuntime
             // Add navigation delegat for opening readme links in browser.
             _readmeView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
-            // View for source code files.
-            _codeView = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor, Hidden = true };
-            _codeView.TranslatesAutoresizingMaskIntoConstraints = false;
-
             // Web view of the source code html.
-            _codeWebView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false };
+            _codeWebView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false, Hidden = true };
             _codeWebView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Button for bringing up alertcontroller to switch between source code files.
-            var toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _codeToolbar = new UIToolbar { Hidden = true, TranslatesAutoresizingMaskIntoConstraints = false };
             _codeButton = new UIBarButtonItem("", UIBarButtonItemStyle.Plain, SourceCodeButtonPressed);
-            toolbar.Items = new UIBarButtonItem[] { _codeButton };
-
-            // Add sub views to code view.
-            _codeView.AddSubviews(_codeWebView, toolbar);
+            _codeToolbar.Items = new UIBarButtonItem[] { _codeButton };
 
             // Add sub views to main view.
-            View.AddSubviews(_readmeView, _codeView);
+            View.AddSubviews(_readmeView, _codeWebView, _codeToolbar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                 _readmeView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
-                 _readmeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                 _readmeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                 _readmeView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                 _readmeView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                 _readmeView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
                  _readmeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
-                 _codeView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
-                 _codeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                 _codeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                 _codeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                 _codeWebView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                 _codeWebView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                 _codeWebView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                 _codeWebView.BottomAnchor.ConstraintEqualTo(_codeToolbar.TopAnchor),
 
-                 _codeWebView.TopAnchor.ConstraintEqualTo(_codeView.TopAnchor),
-                 _codeWebView.LeadingAnchor.ConstraintEqualTo(_codeView.LeadingAnchor),
-                 _codeWebView.TrailingAnchor.ConstraintEqualTo(_codeView.TrailingAnchor),
-                 _codeWebView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
-
-                 toolbar.TopAnchor.ConstraintEqualTo(_codeWebView.BottomAnchor),
-                 toolbar.LeadingAnchor.ConstraintEqualTo(_codeView.LeadingAnchor),
-                 toolbar.TrailingAnchor.ConstraintEqualTo(_codeView.TrailingAnchor),
-                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                 _codeToolbar.TopAnchor.ConstraintEqualTo(_codeWebView.BottomAnchor),
+                 _codeToolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                 _codeToolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                 _codeToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
             });
         }
 

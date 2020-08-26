@@ -3,10 +3,12 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
+using CoreGraphics;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -21,9 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using CoreGraphics;
 using UIKit;
-using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 {
@@ -137,7 +137,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         private async void HandleMapTap(MapPoint mapLocation)
         {
             // Normalize geometry - important for geometries that will be sent to a server for processing.
-            mapLocation = (MapPoint) GeometryEngine.NormalizeCentralMeridian(mapLocation);
+            mapLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(mapLocation);
 
             switch (_currentSampleState)
             {
@@ -151,6 +151,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                     // Add the graphic to the overlay - this will cause it to appear on the map.
                     _barriersOverlay.Graphics.Add(barrierGraphic);
                     break;
+
                 case SampleState.AddingStops:
                     // Get the name of this stop.
                     string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
@@ -162,7 +163,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                     TextSymbol stopSymbol = new TextSymbol(stopName, Color.White, 15, HorizontalAlignment.Center, VerticalAlignment.Middle);
                     stopSymbol.OffsetY = 15;
 
-                    CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] {pushpinMarker, stopSymbol});
+                    CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
                     // Create the graphic to show the stop.
                     Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
@@ -179,12 +180,14 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             if (_routeParameters == null)
             {
                 ShowMessage("Not ready yet", "Sample isn't ready yet; define route parameters first.");
+                UpdateInterfaceState(SampleState.Ready);
                 return;
             }
 
             if (_stopsOverlay.Graphics.Count < 2)
             {
                 ShowMessage("Not enough stops", "Add at least two stops before solving a route.");
+                UpdateInterfaceState(SampleState.Ready);
                 return;
             }
 
@@ -202,7 +205,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
             {
                 // Note: this assumes that only points were added to the stops overlay.
-                MapPoint stopPoint = (MapPoint) stopGraphic.Geometry;
+                MapPoint stopPoint = (MapPoint)stopGraphic.Geometry;
 
                 // Create the stop from the graphic's geometry.
                 Stop routeStop = new Stop(stopPoint);
@@ -225,7 +228,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             foreach (Graphic barrierGraphic in _barriersOverlay.Graphics)
             {
                 // Get the polygon from the graphic.
-                Polygon barrierPolygon = (Polygon) barrierGraphic.Geometry;
+                Polygon barrierPolygon = (Polygon)barrierGraphic.Geometry;
 
                 // Create a barrier from the polygon.
                 PolygonBarrier routeBarrier = new PolygonBarrier(barrierPolygon);
@@ -325,11 +328,11 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             controller.NavigationBar.Items[0].SetRightBarButtonItem(closeButton, false);
             // Show the table view in a popover.
             controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
-            controller.PreferredContentSize = new CGSize(320, 250);
+            controller.PreferredContentSize = new CGSize(300, 250);
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem) sender;
+                pc.BarButtonItem = (UIBarButtonItem)sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new ppDelegate();
             }
@@ -342,16 +345,18 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             // Show the layer list popover. Note: most behavior is managed by the table view & its source. See MapViewModel.
             var controller = new UINavigationController(_directionsController);
             controller.Title = "Directions";
+
             // Show a close button in the top right.
             var closeButton = new UIBarButtonItem("Close", UIBarButtonItemStyle.Plain, (o, ea) => controller.DismissViewController(true, null));
             controller.NavigationBar.Items[0].SetRightBarButtonItem(closeButton, false);
+
             // Show the table view in a popover.
             controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
-            controller.PreferredContentSize = new CGSize(300, 250);
+            controller.PreferredContentSize = new CGSize(500, 500);
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem) sender;
+                pc.BarButtonItem = (UIBarButtonItem)sender;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new ppDelegate();
             }
@@ -366,6 +371,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                 case 0:
                     UpdateInterfaceState(SampleState.AddingStops);
                     break;
+
                 case 1:
                     UpdateInterfaceState(SampleState.AddingBarriers);
                     break;
@@ -409,12 +415,15 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                     _statusLabel.Text = "Preparing sample...";
                     _activityIndicator.StartAnimating();
                     break;
+
                 case SampleState.AddingBarriers:
                     _statusLabel.Text = "Tap the map to add a barrier.";
                     break;
+
                 case SampleState.AddingStops:
                     _statusLabel.Text = "Tap the map to add a stop.";
                     break;
+
                 case SampleState.Ready:
                     _stopsOrBarriersPicker.Enabled = true;
                     _resetButton.Enabled = true;
@@ -425,6 +434,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                     _stopsOrBarriersPicker.SelectedSegment = -1;
                     _activityIndicator.StopAnimating();
                     break;
+
                 case SampleState.Routing:
                     _activityIndicator.StartAnimating();
                     _statusLabel.Text = "Calculating route...";
@@ -444,7 +454,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
 
         private void ShowMessage(string title, string detail)
         {
-            new UIAlertView(title, detail, (IUIAlertViewDelegate) null, "OK", null).Show();
+            new UIAlertView(title, detail, (IUIAlertViewDelegate)null, "OK", null).Show();
         }
 
         public override void LoadView()
@@ -564,7 +574,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         }
     }
 
-    class DirectionsViewModel : UITableViewSource
+    internal class DirectionsViewModel : UITableViewSource
     {
         public List<DirectionManeuver> Directions;
         private const string CellIdentifier = "LayerTableCell";
@@ -612,7 +622,6 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            NavigationController.PreferredContentSize = new CGSize(200, 175);
         }
 
         public override void LoadView()
@@ -633,7 +642,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.Spacing = 8;
             formContainer.LayoutMarginsRelativeArrangement = true;
-            formContainer.Alignment = UIStackViewAlignment.Center;
+            formContainer.Alignment = UIStackViewAlignment.Trailing;
             formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
 
@@ -646,9 +655,9 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             reorderLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             reorderLabel.Text = "Re-order stops";
             reorderLabel.TextAlignment = UITextAlignment.Right;
-            reorderLabel.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
+            reorderLabel.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
 
-            UIStackView allowReorderRow = new UIStackView(new UIView[] {reorderSwitch, reorderLabel});
+            UIStackView allowReorderRow = new UIStackView(new UIView[] { reorderSwitch, reorderLabel });
             allowReorderRow.TranslatesAutoresizingMaskIntoConstraints = false;
             allowReorderRow.Axis = UILayoutConstraintAxis.Horizontal;
             allowReorderRow.Distribution = UIStackViewDistribution.Fill;
@@ -666,9 +675,9 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             preserveFirstStopLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             preserveFirstStopLabel.Text = "Keep origin";
             preserveFirstStopLabel.TextAlignment = UITextAlignment.Right;
-            preserveFirstStopLabel.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
+            preserveFirstStopLabel.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
 
-            UIStackView preserveFirstStopRow = new UIStackView(new UIView[] {preserveFirstStopSwitch, preserveFirstStopLabel});
+            UIStackView preserveFirstStopRow = new UIStackView(new UIView[] { preserveFirstStopSwitch, preserveFirstStopLabel });
             preserveFirstStopRow.TranslatesAutoresizingMaskIntoConstraints = false;
             preserveFirstStopRow.Axis = UILayoutConstraintAxis.Horizontal;
             preserveFirstStopRow.Distribution = UIStackViewDistribution.Fill;
@@ -686,9 +695,9 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             preserveLastStopLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             preserveLastStopLabel.Text = "Keep dest.";
             preserveLastStopLabel.TextAlignment = UITextAlignment.Right;
-            preserveLastStopLabel.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
+            preserveLastStopLabel.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultHigh, UILayoutConstraintAxis.Horizontal);
 
-            UIStackView preserveLastStopRow = new UIStackView(new UIView[] {preserveLastStopSwitch, preserveLastStopLabel});
+            UIStackView preserveLastStopRow = new UIStackView(new UIView[] { preserveLastStopSwitch, preserveLastStopLabel });
             preserveLastStopRow.TranslatesAutoresizingMaskIntoConstraints = false;
             preserveLastStopRow.Axis = UILayoutConstraintAxis.Horizontal;
             preserveLastStopRow.Distribution = UIStackViewDistribution.Fill;
@@ -706,10 +715,10 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             formContainer.WidthAnchor.ConstraintEqualTo(scrollView.WidthAnchor).Active = true;
         }
 
-        private void ReorderSwitchOnValueChanged(object sender, EventArgs e) => AllowReorderStops = ((UISwitch) sender).On;
+        private void ReorderSwitchOnValueChanged(object sender, EventArgs e) => AllowReorderStops = ((UISwitch)sender).On;
 
-        private void PreserveFirstStopSwitchOnValueChanged(object sender, EventArgs e) => PreserveFirstStop = ((UISwitch) sender).On;
+        private void PreserveFirstStopSwitchOnValueChanged(object sender, EventArgs e) => PreserveFirstStop = ((UISwitch)sender).On;
 
-        private void PreserveLastStopSwitchOnValueChanged(object sender, EventArgs e) => PreserveLastStop = ((UISwitch) sender).On;
+        private void PreserveLastStopSwitchOnValueChanged(object sender, EventArgs e) => PreserveLastStop = ((UISwitch)sender).On;
     }
 }

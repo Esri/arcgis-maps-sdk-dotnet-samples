@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -33,12 +33,16 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization 
+            // Setup the control references and execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
+            // Create maps for the map views.
+            StaticMapView.Map = new Map();
+            DynamicMapView.Map = new Map();
+
             // Create service feature table using a point, polyline, and polygon service.
             ServiceFeatureTable pointServiceFeatureTable = new ServiceFeatureTable(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/0"));
             ServiceFeatureTable polylineServiceFeatureTable = new ServiceFeatureTable(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Energy/Geology/FeatureServer/8"));
@@ -57,34 +61,34 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             {
                 // Add the static layer to the top map view
                 layer.RenderingMode = FeatureRenderingMode.Static;
-                MyMapViewTop.Map.OperationalLayers.Add(layer);
+                StaticMapView.Map.OperationalLayers.Add(layer);
 
                 // Add the dynamic layer to the bottom map view
                 FeatureLayer dynamicLayer = (FeatureLayer)layer.Clone();
                 dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
-                MyMapViewBottom.Map.OperationalLayers.Add(dynamicLayer);
+                DynamicMapView.Map.OperationalLayers.Add(dynamicLayer);
             }
 
             // Set the view point of both MapViews.
-            MyMapViewTop.SetViewpoint(_zoomOutPoint);
-            MyMapViewBottom.SetViewpoint(_zoomOutPoint);
+            StaticMapView.SetViewpoint(_zoomOutPoint);
+            DynamicMapView.SetViewpoint(_zoomOutPoint);
         }
 
         private async void OnZoomClick(object sender, EventArgs e)
         {
             try
             {
-                // Initiate task to zoom both map views in.  
-                Task t1 = MyMapViewTop.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
-                Task t2 = MyMapViewBottom.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
+                // Initiate task to zoom both map views in.
+                Task t1 = StaticMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
+                Task t2 = DynamicMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t1, t2);
 
                 // Delay start of next set of zoom tasks.
                 await Task.Delay(2000);
 
-                // Initiate task to zoom both map views out. 
-                Task t3 = MyMapViewTop.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
-                Task t4 = MyMapViewBottom.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
+                // Initiate task to zoom both map views out.
+                Task t3 = StaticMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
+                Task t4 = DynamicMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t3, t4);
             }
             catch (Exception ex)

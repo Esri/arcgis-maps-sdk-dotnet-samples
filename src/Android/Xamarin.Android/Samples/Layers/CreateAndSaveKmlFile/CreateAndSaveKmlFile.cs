@@ -289,7 +289,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private async void Save_Click(object sender, EventArgs e)
         {
             // Determine where to save your file
-            string filePath = System.IO.Path.Combine(Android.OS.Environment.ExternalStorageDirectory.AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
+            string filePath = System.IO.Path.Combine(ApplicationContext.GetExternalFilesDir(null).AbsolutePath, "sampledata.kmz");
 
             // Check if the user can save their file.
             if (ContextCompat.CheckSelfPermission(this, Manifest.Permission.WriteExternalStorage) != Android.Content.PM.Permission.Granted)

@@ -328,7 +328,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             controller.NavigationBar.Items[0].SetRightBarButtonItem(closeButton, false);
             // Show the table view in a popover.
             controller.ModalPresentationStyle = UIModalPresentationStyle.Popover;
-            controller.PreferredContentSize = new CGSize(450, 250);
+            controller.PreferredContentSize = new CGSize(300, 250);
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {
@@ -622,7 +622,6 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         public override void ViewWillAppear(bool animated)
         {
             base.ViewWillAppear(animated);
-            NavigationController.PreferredContentSize = new CGSize(200, 175);
         }
 
         public override void LoadView()
@@ -643,7 +642,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             formContainer.TranslatesAutoresizingMaskIntoConstraints = false;
             formContainer.Spacing = 8;
             formContainer.LayoutMarginsRelativeArrangement = true;
-            formContainer.Alignment = UIStackViewAlignment.Center;
+            formContainer.Alignment = UIStackViewAlignment.Trailing;
             formContainer.LayoutMargins = new UIEdgeInsets(8, 8, 8, 8);
             formContainer.Axis = UILayoutConstraintAxis.Vertical;
 

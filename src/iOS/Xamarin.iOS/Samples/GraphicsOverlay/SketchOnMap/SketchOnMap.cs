@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         category: "GraphicsOverlay",
         description: "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",
         instructions: "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, and freehand polygons.",
-        tags: new[] { "Geometry", "Graphic", "GraphicsOverlay", "SketchCreationMode", "SketchEditor", "draw", "edit" })]
+        tags: new[] { "draw", "edit" })]
     public class SketchOnMap : UIViewController
     {
         // Hold references to UI controls.

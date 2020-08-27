@@ -15,7 +15,7 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.OpenScenePortalItem
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Open a scene (portal item)",
+        name: "Open scene (portal item)",
         category: "Scene",
         description: "Open a web scene from a portal item.",
         instructions: "When the sample opens, it will automatically display the scene from ArcGIS Online. Pan and zoom to explore the scene.",
@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenScenePortalItem
     public partial class OpenScenePortalItem
     {
         // Hold the ID of the portal item, which is a web scene.
-        private const string ItemId = "c6f90b19164c4283884361005faea852";
+        private const string ItemId = "31874da8a16d45bfbc1273422f772270";
 
         public OpenScenePortalItem()
         {

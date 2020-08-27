@@ -19,7 +19,8 @@
         "surface placement"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.8.0"
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.9.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -28,12 +29,12 @@
     "relevant_apis": [
         "Graphic",
         "GraphicsOverlay",
-        "LayerSceneProperties.SurfacePlacement",
         "SceneProperties",
+        "SceneProperties.SurfacePlacement",
         "Surface"
     ],
     "snippets": [
-        "../../../Resources/layout/SurfacePlacements.axml",
+        "../../../Resources/layout/SurfacePlacements.xml",
         "SurfacePlacements.cs"
     ],
     "title": "Surface placement"

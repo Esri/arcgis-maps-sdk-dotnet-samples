@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -153,10 +153,10 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             _overlayImageView.TranslatesAutoresizingMaskIntoConstraints = false;
             _overlayImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 
-            _overlayView = new UIView() { BackgroundColor = UIColor.White };
+            _overlayView = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
             _overlayView.TranslatesAutoresizingMaskIntoConstraints = false;
-            _overlayView.BackgroundColor = UIColor.White;
-            _overlayView.Layer.BorderColor = UIColor.Black.CGColor;
+            _overlayView.BackgroundColor = ApplicationTheme.BackgroundColor;
+            _overlayView.Layer.BorderColor = ApplicationTheme.ForegroundColor.CGColor;
             _overlayView.Layer.BorderWidth = 2;
             _overlayView.Hidden = true;
 

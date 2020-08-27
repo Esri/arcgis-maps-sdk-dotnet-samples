@@ -7,17 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ArcGISRuntime;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
@@ -99,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         private void CreateLayout()
         {
             // Setup the visual frame for the MapView.
-            var mapViewRect = new CoreGraphics.CGRect(0, 90, View.Bounds.Width, View.Bounds.Height - 90);
+            var mapViewRect = new CGRect(0, 90, View.Bounds.Width, View.Bounds.Height - 90);
 
             // Create the map view (map will be added in Initialize).
             _myMapView = new MapView
@@ -112,7 +113,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             {
                 Placeholder = "Enter IWA-secured portal URL",
                 BorderStyle = UITextBorderStyle.RoundedRect,
-                BackgroundColor = UIColor.FromWhiteAlpha(1, .8f),
+                BackgroundColor = ApplicationTheme.BackgroundColor,
                 AutocapitalizationType = UITextAutocapitalizationType.None,
                 SpellCheckingType = UITextSpellCheckingType.No,
                 AutocorrectionType = UITextAutocorrectionType.No
@@ -153,6 +154,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
 
             // Add the map view and toolbar controls to the page.
             View.AddSubviews(_myMapView, _toolbar, _securePortalUrlEntry, _webMapTableView, _searchSecurePortalButton, _searchPublicPortalButton, _messagesLabel);
+            View.BackgroundColor = ApplicationTheme.BackgroundColor;
         }
 
         private void Initialize()
@@ -326,7 +328,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         {
             try
             {
-                // Get the web map (portal item) that was selected.               
+                // Get the web map (portal item) that was selected.
                 var webMap = e.SelectedWebMapItem;
                 if (webMap != null)
                 {
@@ -458,8 +460,8 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             {
                 Placeholder = "Username",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.Black
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TextColor = ApplicationTheme.ForegroundColor
             };
 
             // Adjust the Y position for the next control.
@@ -471,8 +473,8 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
                 SecureTextEntry = true,
                 Placeholder = "Password",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.Black
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TextColor = ApplicationTheme.ForegroundColor
             };
 
             // Adjust the Y position for the next control.
@@ -483,8 +485,8 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             {
                 Placeholder = "Domain",
                 AutocapitalizationType = UITextAutocapitalizationType.None,
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.Black
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TextColor = ApplicationTheme.ForegroundColor
             };
 
             // Adjust the Y position for the next control.
@@ -493,7 +495,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             // Button to submit the login information.
             UIButton loginButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             loginButton.SetTitle("Login", UIControlState.Normal);
-            loginButton.SetTitleColor(UIColor.White, UIControlState.Normal);
+            loginButton.SetTitleColor(ApplicationTheme.BackgroundColor, UIControlState.Normal);
             loginButton.TouchUpInside += LoginButtonClick;
 
             // Adjust the X position for the next control.
@@ -502,7 +504,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             // Button to cancel the login.
             UIButton cancelButton = new UIButton(new CGRect(controlX, controlY, buttonWidth, controlHeight));
             cancelButton.SetTitle("Cancel", UIControlState.Normal);
-            cancelButton.SetTitleColor(UIColor.White, UIControlState.Normal);
+            cancelButton.SetTitleColor(ApplicationTheme.BackgroundColor, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) => { OnCanceled.Invoke(this, null); };
 
             // Add the controls.

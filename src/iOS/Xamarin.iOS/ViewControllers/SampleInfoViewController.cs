@@ -31,15 +31,23 @@ namespace ArcGISRuntime
         private WKWebView _readmeView;
 
         // Controls for the source code viewer.
-        private UIView _codeView;
         private WKWebView _codeWebView;
         private UIBarButtonItem _codeButton;
+        private UIToolbar _codeToolbar;
 
         // Dictionary where keys are filenames and values are HTML of source code.
-        private Dictionary<string, string> _sourceCodeFiles = new Dictionary<string, string>();
+        private Dictionary<string, string> _sourceCodeFiles;
 
         // Directory for loading HTML locally.
         private string _contentDirectoryPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Content/");
+
+        private bool _darkMode = false;
+
+        private const string _lightMarkdownFile = "github-markdown.css";
+        private const string _darkMarkdownFile = "github-markdown-dark.css";
+
+        private const string _lightSyntaxFile = "highlight.css";
+        private const string _darkSyntaxFile = "highlight-dark.css";
 
         public SampleInfoViewController(SampleInfo info, UISegmentedControl switcher)
         {
@@ -55,11 +63,15 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
+            CheckDarkMode();
+
             // Build out readme html.
             try
             {
+                string markdownFile = _darkMode ? _darkMarkdownFile : _lightMarkdownFile;
+
                 string readmePath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName, "readme.md");
-                string readmeCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/github-markdown.css");
+                string readmeCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{markdownFile}");
                 string readmeContent = new MarkedNet.Marked().Parse(File.ReadAllText(readmePath));
 
                 string readmeHTML = "<!doctype html><head><base href=\"" +
@@ -87,8 +99,10 @@ namespace ArcGISRuntime
             // Build out source code html.
             try
             {
+                string syntaxFile = _darkMode ? _darkSyntaxFile : _lightSyntaxFile;
+
                 // Get the paths for the .css and .js files for syntax highlighting.
-                string syntaxHighlightCSS = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/highlight.css");
+                string syntaxHighlightCSS = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{syntaxFile}");
                 string jsPath = Path.Combine(NSBundle.MainBundle.BundlePath, "SyntaxHighlighting/highlight.pack.js");
 
                 // Start and end HTML tags.
@@ -108,6 +122,9 @@ namespace ArcGISRuntime
                            "</html>";
 
                 string sourceFilesPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName);
+
+                // Create a dictionary of the files.
+                _sourceCodeFiles = new Dictionary<string, string>();
 
                 // Loop over every source code file in the sample directory.
                 foreach (string sourceCodePath in Directory.GetFiles(sourceFilesPath, "*.cs"))
@@ -143,19 +160,24 @@ namespace ArcGISRuntime
             }
         }
 
+        private void CheckDarkMode()
+        {
+            _darkMode = UIDevice.CurrentDevice.CheckSystemVersion(12, 0) && TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark;
+        }
+
         private void SegmentChanged(object sender, EventArgs e)
         {
             if (_switcherControl.SelectedSegment == 0)
             {
                 // If about section.
-                _codeView.Hidden = true;
+                _codeWebView.Hidden = _codeToolbar.Hidden = true;
                 _readmeView.Hidden = false;
             }
             else
             {
                 // If code section.
                 _readmeView.Hidden = true;
-                _codeView.Hidden = false;
+                _codeWebView.Hidden = _codeToolbar.Hidden = false;
             }
         }
 
@@ -190,57 +212,44 @@ namespace ArcGISRuntime
         public override void LoadView()
         {
             // Create and configure the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             // Web view for the readme.
-            _readmeView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration());
+            _readmeView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false };
             _readmeView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Add navigation delegat for opening readme links in browser.
             _readmeView.NavigationDelegate = new BrowserLinksNavigationDelegate();
 
-            // View for source code files.
-            _codeView = new UIView { BackgroundColor = UIColor.White, Hidden = true };
-            _codeView.TranslatesAutoresizingMaskIntoConstraints = false;
-
             // Web view of the source code html.
-            _codeWebView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration());
+            _codeWebView = new WKWebView(new CoreGraphics.CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false, Hidden = true };
             _codeWebView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             // Button for bringing up alertcontroller to switch between source code files.
-            var toolbar = new UIToolbar();
-            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _codeToolbar = new UIToolbar { Hidden = true, TranslatesAutoresizingMaskIntoConstraints = false };
             _codeButton = new UIBarButtonItem("", UIBarButtonItemStyle.Plain, SourceCodeButtonPressed);
-            toolbar.Items = new UIBarButtonItem[] { _codeButton };
-
-            // Add sub views to code view.
-            _codeView.AddSubviews(_codeWebView, toolbar);
+            _codeToolbar.Items = new UIBarButtonItem[] { _codeButton };
 
             // Add sub views to main view.
-            View.AddSubviews(_readmeView, _codeView);
+            View.AddSubviews(_readmeView, _codeWebView, _codeToolbar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                 _readmeView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
-                 _readmeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                 _readmeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                 _readmeView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                 _readmeView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                 _readmeView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
                  _readmeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
-                 _codeView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
-                 _codeView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                 _codeView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                 _codeView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                 _codeWebView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                 _codeWebView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                 _codeWebView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                 _codeWebView.BottomAnchor.ConstraintEqualTo(_codeToolbar.TopAnchor),
 
-                 _codeWebView.TopAnchor.ConstraintEqualTo(_codeView.TopAnchor),
-                 _codeWebView.LeadingAnchor.ConstraintEqualTo(_codeView.LeadingAnchor),
-                 _codeWebView.TrailingAnchor.ConstraintEqualTo(_codeView.TrailingAnchor),
-                 _codeWebView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
-
-                 toolbar.TopAnchor.ConstraintEqualTo(_codeWebView.BottomAnchor),
-                 toolbar.LeadingAnchor.ConstraintEqualTo(_codeView.LeadingAnchor),
-                 toolbar.TrailingAnchor.ConstraintEqualTo(_codeView.TrailingAnchor),
-                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                 _codeToolbar.TopAnchor.ConstraintEqualTo(_codeWebView.BottomAnchor),
+                 _codeToolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                 _codeToolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                 _codeToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
             });
         }
 
@@ -258,6 +267,12 @@ namespace ArcGISRuntime
 
             // Unsubscribe from events, per best practice.
             _switcherControl.ValueChanged -= SegmentChanged;
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            // Reload the html pages when switching to and from dark mode.
+            if (previousTraitCollection.UserInterfaceStyle != TraitCollection.UserInterfaceStyle) Initialize();
         }
     }
 

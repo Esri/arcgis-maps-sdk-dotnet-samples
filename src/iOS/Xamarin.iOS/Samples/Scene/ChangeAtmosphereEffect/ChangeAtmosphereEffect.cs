@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -71,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -79,7 +80,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             _atmosphereEffectPicker = new UISegmentedControl("Realistic", "Horizon only", "None");
             _atmosphereEffectPicker.TranslatesAutoresizingMaskIntoConstraints = false;
             _atmosphereEffectPicker.SelectedSegment = 1;
-            _atmosphereEffectPicker.BackgroundColor = UIColor.White;
+            _atmosphereEffectPicker.BackgroundColor = ApplicationTheme.BackgroundColor;
             _atmosphereEffectPicker.Layer.CornerRadius = 4;
             _atmosphereEffectPicker.ClipsToBounds = true;
 

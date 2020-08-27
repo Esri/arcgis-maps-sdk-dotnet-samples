@@ -7,9 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using CoreGraphics;
 using System;
 using System.Threading;
-using CoreGraphics;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -25,7 +25,7 @@ namespace ArcGISRuntime
         {
             _cancellationTokenSource = cancellationTokenSource;
 
-            BackgroundColor = UIColor.Black;
+            BackgroundColor = ApplicationTheme.BackgroundColor;
             Alpha = 0.8f;
             AutoresizingMask = UIViewAutoresizing.All;
 
@@ -39,6 +39,7 @@ namespace ArcGISRuntime
                 activitySpinner.Frame.Width,
                 activitySpinner.Frame.Height);
             activitySpinner.AutoresizingMask = UIViewAutoresizing.All;
+            activitySpinner.Color = ApplicationTheme.ForegroundColor;
             AddSubview(activitySpinner);
             activitySpinner.StartAnimating();
 
@@ -50,7 +51,7 @@ namespace ArcGISRuntime
             ))
             {
                 BackgroundColor = UIColor.Clear,
-                TextColor = UIColor.White,
+                TextColor = ApplicationTheme.ForegroundColor,
                 Text = "Downloading Data",
                 TextAlignment = UITextAlignment.Center,
                 AutoresizingMask = UIViewAutoresizing.All
@@ -64,6 +65,7 @@ namespace ArcGISRuntime
                 centerY + 50,
                 100,
                 100);
+            cancelButton.SetTitleColor(ApplicationTheme.ForegroundColor, UIControlState.Normal);
             cancelButton.TouchUpInside += (s, e) =>
             {
                 _cancellationTokenSource?.Cancel();

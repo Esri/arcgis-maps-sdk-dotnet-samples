@@ -129,6 +129,7 @@
 * [Scene layer selection](Shared/Samples/Layers/SceneLayerSelection/readme.md) - Identify features in a scene to select.
 * [Scene layer (URL)](Shared/Samples/Layers/SceneLayerUrl/readme.md) - Display an ArcGIS scene layer from a URL.
 * [Show labels on layers](Shared/Samples/Layers/ShowLabelsOnLayer/readme.md) - Display custom labels on a feature layer.
+* [Show popup](Shared/Samples/Layers/ShowPopup/readme.md) - Show predefined popups from a web map.
 * [Style WMS layers](Shared/Samples/Layers/StyleWmsLayer/readme.md) - Change the style of a Web Map Service (WMS) layer.
 * [Time-based query](Shared/Samples/Layers/TimeBasedQuery/readme.md) - Query data using a time extent. 
 * [Load WFS with XML query](Shared/Samples/Layers/WfsXmlQuery/readme.md) - Load a WFS feature table using an XML query.
@@ -199,7 +200,7 @@
 * [Create terrain from local tile package](Shared/Samples/Scene/CreateTerrainSurfaceTilePackage/readme.md) - Set the terrain surface with elevation described by a local tile package.
 * [Get elevation at a point](Shared/Samples/Scene/GetElevationAtPoint/readme.md) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](Shared/Samples/Scene/OpenMobileScenePackage/readme.md) - Opens and displays a scene from a Mobile Scene Package (.mspk).
-* [Open a scene (portal item)](Shared/Samples/Scene/OpenScenePortalItem/readme.md) - Open a web scene from a portal item.
+* [Open scene (portal item)](Shared/Samples/Scene/OpenScenePortalItem/readme.md) - Open a web scene from a portal item.
 * [Terrain exaggeration](Shared/Samples/Scene/TerrainExaggeration/readme.md) - Vertically exaggerate terrain in a scene.
 * [View content beneath terrain surface](Shared/Samples/Scene/ViewContentBeneathSurface/readme.md) - See through terrain in a scene and move the camera underground.
 

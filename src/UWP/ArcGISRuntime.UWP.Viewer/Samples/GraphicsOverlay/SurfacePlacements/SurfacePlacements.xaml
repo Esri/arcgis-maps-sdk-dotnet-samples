@@ -5,13 +5,26 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border Width="200" Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <RadioButton
                     x:Name="BillboardButton"
                     Content="Draped billboarded"
                     IsChecked="True" />
                 <RadioButton x:Name="FlatButton" Content="Draped flat" />
+                <TextBlock Margin="5">
+                    <Run Text="Z Value:" />
+                    <Run Text="{Binding ElementName=ZSlider, Path=Value}" />
+                    <Run Text="meters" />
+                </TextBlock>
+                <Slider
+                    x:Name="ZSlider"
+                    Height="150"
+                    Maximum="140"
+                    Minimum="0"
+                    Orientation="Vertical"
+                    ValueChanged="ZValueChanged"
+                    Value="70" />
             </StackPanel>
         </Border>
     </Grid>

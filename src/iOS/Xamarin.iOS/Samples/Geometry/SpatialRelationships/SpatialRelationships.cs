@@ -251,14 +251,14 @@ namespace ArcGISRuntime.Samples.ListTransformations
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _resultTextView = new UITextView
             {
-                TextColor = UIColor.Black,
+                TextColor = ApplicationTheme.ForegroundColor,
                 Text = "Tap a shape to see its relationship with the others.",
                 Editable = false,
                 ScrollEnabled = false,

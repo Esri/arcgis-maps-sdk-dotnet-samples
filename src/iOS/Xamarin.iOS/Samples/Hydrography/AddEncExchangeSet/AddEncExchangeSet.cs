@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
@@ -93,7 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

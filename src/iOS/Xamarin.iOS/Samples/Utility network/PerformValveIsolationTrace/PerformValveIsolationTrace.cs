@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -198,7 +199,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView() { TranslatesAutoresizingMaskIntoConstraints = false };
             var switchToolbar = new UIToolbar() { TranslatesAutoresizingMaskIntoConstraints = false };
@@ -236,23 +237,23 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             NSLayoutConstraint.ActivateConstraints(new[]{
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(switchToolbar.TopAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
 
                 switchToolbar.TopAnchor.ConstraintEqualTo(_myMapView.BottomAnchor),
                 switchToolbar.BottomAnchor.ConstraintEqualTo(buttonToolbar.TopAnchor),
-                switchToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                switchToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                switchToolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                switchToolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
 
                 buttonToolbar.TopAnchor.ConstraintEqualTo(switchToolbar.BottomAnchor),
                 buttonToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
 
                 _loadingView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _loadingView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                _loadingView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _loadingView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _loadingView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _loadingView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
             });
         }
 

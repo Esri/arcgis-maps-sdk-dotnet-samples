@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         category: "GraphicsOverlay",
         description: "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",
         instructions: "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, and freehand polygons.",
-        tags: new[] { "Geometry", "Graphic", "GraphicsOverlay", "SketchCreationMode", "SketchEditor", "draw", "edit" })]
+        tags: new[] { "draw", "edit" })]
     public class SketchOnMap : UIViewController
     {
         // Hold references to UI controls.
@@ -230,8 +230,8 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             UIPopoverPresentationController presentationPopover = sketchModeActionSheet.PopoverPresentationController;
             if (presentationPopover != null)
             {
-                presentationPopover.SourceView = View;
-                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Left;
+                presentationPopover.SourceView = _segmentButton;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Any;
             }
 
             // Display the list of sketch modes.
@@ -295,15 +295,14 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _segmentButton = new UISegmentedControl("Sketch", "Edit", "Undo", "Redo", "Done", "Clear")
             {
-                BackgroundColor = UIColor.White,
-                TintColor = UIColor.White,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 

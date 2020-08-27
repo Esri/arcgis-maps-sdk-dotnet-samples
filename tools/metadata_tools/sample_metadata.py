@@ -17,9 +17,9 @@ class sample_metadata:
     Use emit_standalone_solution to write out the sample as a standalone Visual Studio solution.
     '''
     
-    arcgis_runtime_latest = "100.8.0" # store latest Runtime version, for use with packages
+    arcgis_runtime_latest = "100.9.0" # store latest Runtime version, for use with packages
     local_server_latest = "100.8.0"
-    ar_toolkit_latest = "100.7.0"
+    ar_toolkit_latest = "100.8.0"
 
     def reset_props(self):
         self.formal_name = ""
@@ -53,20 +53,17 @@ class sample_metadata:
         with open(path_to_json, 'r') as json_file:
             data = json.load(json_file)
             keys = data.keys()
-            for key in ["category", "keywords", "images", "redirect_from", "description", "ignore"]:
+            for key in ["category", "keywords", "images", "redirect_from", "description", "ignore", "nuget_packages"]:
                 if key in keys:
                     setattr(self, key, data[key])
             if "title" in keys:
                 self.friendly_name = data["title"]
-            if "packages" in keys:
-                self.nuget_packages = data["packages"]
             if "relevant_apis" in keys:
                 self.relevant_api = data["relevant_apis"]
             if "snippets" in keys:
                 self.source_files = data["snippets"]
 
             # manually correct nuget package if needed
-            packages = self.nuget_packages.keys()
             self.nuget_packages["Esri.ArcGISRuntime"] = self.arcgis_runtime_latest
             if self.category == "Hydrography":
                 self.nuget_packages["Esri.ArcGISRuntime.Hydrography"] = self.arcgis_runtime_latest
@@ -75,6 +72,28 @@ class sample_metadata:
             if self.category in ["Augmented reality", "Augmented Reality"]:
                 self.nuget_packages["Esri.ArcGISRuntime.ARToolkit"] = self.ar_toolkit_latest
 
+        return
+    
+    def resync_nuget_packages(self, platform):
+        '''
+        Updates this sample's nuget packages.
+        '''
+        # add base package
+        self.nuget_packages["Esri.ArcGISRuntime"] = self.arcgis_runtime_latest
+        # add platform-specific package
+        if platform == "Forms":
+            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Forms"] = self.arcgis_runtime_latest
+            self.nuget_packages["Esri.ArcGISRuntime.UWP"] = self.arcgis_runtime_latest
+            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.iOS"] = self.arcgis_runtime_latest
+            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Android"] = self.arcgis_runtime_latest
+        elif platform == "iOS":
+            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.iOS"] = self.arcgis_runtime_latest
+        elif platform == "Android":
+            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Android"] = self.arcgis_runtime_latest
+        elif platform == "UWP":
+            self.nuget_packages["Esri.ArcGISRuntime.UWP"] = self.arcgis_runtime_latest
+        elif platform == "WPF":
+            self.nuget_packages["Esri.ArcGISRuntime.WPF"] = self.arcgis_runtime_latest
         return
     
     def populate_from_readme(self, platform, path_to_readme):
@@ -328,9 +347,16 @@ class sample_metadata:
                         dest_path = os.path.join(output_dir, "Controls", os.path.split(file)[1])
                     copyfile(source_path, dest_path)
 
-        # Add forms packages if needed
-        if platform in ["XFA", "XFI", "XFU"]:
-            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Forms"] = self.arcgis_runtime_latest
+        # Remove nuget packages for forms as needed
+        if platform == "XFA":
+            del self.nuget_packages["Esri.ArcGISRuntime.Xamarin.iOS"]
+            del self.nuget_packages["Esri.ArcGISRuntime.UWP"]
+        elif platform == "XFI":
+            del self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Android"]
+            del self.nuget_packages["Esri.ArcGISRuntime.UWP"]
+        elif platform == "XFU":
+            del self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Android"]
+            del self.nuget_packages["Esri.ArcGISRuntime.Xamarin.iOS"]
 
         # accumulate list of source, xaml, axml, and resource files
         all_source_files = self.source_files

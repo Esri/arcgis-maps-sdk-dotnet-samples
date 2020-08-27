@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
@@ -15,7 +16,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using ArcGISRuntime.Samples.Managers;
 
 namespace ArcGISRuntime.WPF.Samples.PlayKmlTours
 {
@@ -141,11 +141,13 @@ namespace ArcGISRuntime.WPF.Samples.PlayKmlTours
                     PlayButton.IsEnabled = true;
                     PauseButton.IsEnabled = false;
                     break;
+
                 case KmlTourStatus.Paused:
                     PlayButton.IsEnabled = true;
                     PauseButton.IsEnabled = false;
                     ResetButton.IsEnabled = true;
                     break;
+
                 case KmlTourStatus.Playing:
                     ResetButton.IsEnabled = true;
                     PlayButton.IsEnabled = false;
@@ -164,7 +166,12 @@ namespace ArcGISRuntime.WPF.Samples.PlayKmlTours
         private void Reset_Clicked(object sender, EventArgs e) => _tourController?.Reset();
 
         // Reset the tour when the user leaves the sample - avoids a crash.
-        private void Sample_Unloaded(object sender, RoutedEventArgs e) => _tourController?.Reset();
+        private void Sample_Unloaded(object sender, RoutedEventArgs e)
+        {
+            _tourController?.Pause();
+            _tourController?.Reset();
+        }
+
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             _tourController?.Pause();

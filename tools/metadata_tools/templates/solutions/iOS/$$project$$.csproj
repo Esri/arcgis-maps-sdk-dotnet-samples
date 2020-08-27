@@ -72,6 +72,7 @@
     <Compile Include="Infrastructure\SampleInfo.cs" />
     <Compile Include="Infrastructure\OfflineDataAttribute.cs" />
     <Compile Include="Infrastructure\AdditionalFilesAttribute.cs" />
+    <Compile Include="Infrastructure\ApplicationTheme.cs" />
     $$code_and_xaml$$
   </ItemGroup>
   <ItemGroup>
@@ -87,9 +88,6 @@
   </ItemGroup>
   <ItemGroup>
   $$nuget_packages$$
-  <PackageReference Include="Xamarin.Auth">
-      <Version>1.6.0.4</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

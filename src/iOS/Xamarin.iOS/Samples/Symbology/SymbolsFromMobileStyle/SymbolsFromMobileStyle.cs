@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
@@ -81,7 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
         public override void LoadView()
         {
             // Create the user interface.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             // Create a new map view control.
             _myMapView = new MapView
@@ -389,7 +390,7 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
         public override void LoadView()
         {
             // Create the UI for the symbol selection.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             // A vertical stack view to contain all the controls.
             _outerStackView = new UIStackView

@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Show predefined popups from a web map.",
+    "formal_name": "ShowPopup",
+    "ignore": false,
+    "images": [
+        "ShowPopup.jpg"
+    ],
+    "keywords": [
+        "feature",
+        "feature layer",
+        "popup",
+        "toolkit",
+        "web map"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.Toolkit": "100.9.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/ios/sample-code/showpopup.htm"
+    ],
+    "relevant_apis": [
+        "IdentifyLayerResult",
+        "Popup",
+        "PopupManager"
+    ],
+    "snippets": [
+        "ShowPopup.cs"
+    ],
+    "title": "Show popup"
+}

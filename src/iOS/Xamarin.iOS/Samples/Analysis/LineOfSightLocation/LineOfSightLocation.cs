@@ -121,7 +121,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             // Add the views.
             View.AddSubviews(_mySceneView);

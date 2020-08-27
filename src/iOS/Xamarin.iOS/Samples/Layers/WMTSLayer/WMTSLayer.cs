@@ -123,15 +123,14 @@ namespace ArcGISRuntime.Samples.WMTSLayer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
             _constructorChoiceButton = new UISegmentedControl("URI", "Service Info")
             {
-                BackgroundColor = UIColor.White,
-                TintColor = UIColor.White,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
                 TranslatesAutoresizingMaskIntoConstraints = false,
                 SelectedSegment = 0,
                 // Clean up borders of segmented control - avoid corner pixels.

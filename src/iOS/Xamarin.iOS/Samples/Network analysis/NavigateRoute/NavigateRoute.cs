@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
 using AVFoundation;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
@@ -252,7 +253,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView { BackgroundColor = UIColor.White };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView() { TranslatesAutoresizingMaskIntoConstraints = false };
 
@@ -272,8 +273,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
                 Text = "",
                 AdjustsFontSizeToFitWidth = true,
                 TextAlignment = UITextAlignment.Left,
-                BackgroundColor = UIColor.White,
-                TextColor = UIColor.White,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TextColor = ApplicationTheme.ForegroundColor,
                 LineBreakMode = UILineBreakMode.WordWrap,
                 Lines = 0,
                 TranslatesAutoresizingMaskIntoConstraints = false

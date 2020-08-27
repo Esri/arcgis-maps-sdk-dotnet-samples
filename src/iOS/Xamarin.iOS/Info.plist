@@ -172,7 +172,5 @@
 	<string>Your location information is used to enable location display on maps and to find points of interest nearby.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>For Augmented Reality</string>
-  <key>UIUserInterfaceStyle</key>
-  <string>Light</string>
 </dict>
 </plist>

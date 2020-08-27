@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -113,7 +114,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -416,7 +417,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     imageView.ContentMode = UIViewContentMode.ScaleAspectFit;
                     // A view controller is needed to show the view.
                     var imagePreviewVC = new UIViewController();
-                    imagePreviewVC.View = new UIView {BackgroundColor = UIColor.White};
+                    imagePreviewVC.View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
                     imagePreviewVC.View.AddSubview(imageView);
                     imagePreviewVC.Title = "Attachment preview";
                     NSLayoutConstraint.ActivateConstraints(new[]

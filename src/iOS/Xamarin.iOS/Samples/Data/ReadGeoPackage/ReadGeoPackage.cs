@@ -94,6 +94,9 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
                     // Append the 'type of layer' to the raster layer name string to display in the ListBox and as the key for the dictionary.
                     rasterLayerName = $"{rasterLayerName} - RasterLayer";
 
+                    // Check if a layer has already been added from the geopackage.
+                    if (_nameToLayerDictionary.ContainsKey(rasterLayerName)) continue;
+
                     // Add the name of the RasterLayer and the RasterLayer itself into the dictionary.
                     _nameToLayerDictionary[rasterLayerName] = rasterLayer;
 
@@ -116,6 +119,9 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
 
                     // Append the 'type of layer' to the feature layer name string to display in the ListBox and as the key for the dictionary.
                     featureLayerName = $"{featureLayerName} - FeatureLayer";
+
+                    // Check if a layer has already been added from the geopackage.
+                    if (_nameToLayerDictionary.ContainsKey(featureLayerName)) continue;
 
                     // Add the name of the FeatureLayer and the FeatureLayer itself into the dictionary.
                     _nameToLayerDictionary[featureLayerName] = featureLayer;
@@ -241,7 +247,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -76,6 +77,9 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
 
             // Enable the add button.
             _addButton.Enabled = true;
+
+            // Update the help message.
+            _helpLabel.Text = "Draw pipes on the map, then tap 📷 to view in AR";
         }
 
         private void DoneButton_Clicked(object sender, EventArgs e)
@@ -171,7 +175,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = UIColor.White };
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _mapView = new MapView();
             _mapView.TranslatesAutoresizingMaskIntoConstraints = false;

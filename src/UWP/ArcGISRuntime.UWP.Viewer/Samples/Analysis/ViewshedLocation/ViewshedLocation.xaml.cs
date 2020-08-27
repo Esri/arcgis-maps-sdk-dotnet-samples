@@ -24,7 +24,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewshedLocation
         category: "Analysis",
         description: "Perform a viewshed analysis from a defined vantage point. ",
         instructions: "Use the sliders to change the properties (heading, pitch, etc.), of the viewshed and see them updated in real time.",
-        tags: new[] { "3D", "LocationViewshed", "Scene", "frustum", "viewshed", "visibility analysis" })]
+        tags: new[] { "3D", "frustum", "scene", "viewshed", "visibility analysis" })]
     public partial class ViewshedLocation
     {
         // Hold the URL to the elevation source.

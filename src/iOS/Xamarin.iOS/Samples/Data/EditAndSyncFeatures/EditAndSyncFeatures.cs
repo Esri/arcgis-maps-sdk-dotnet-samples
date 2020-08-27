@@ -553,7 +553,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             _generateButton = new UIBarButtonItem();
             _generateButton.Title = "Generate";

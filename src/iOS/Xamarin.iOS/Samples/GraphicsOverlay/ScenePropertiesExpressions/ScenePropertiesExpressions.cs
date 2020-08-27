@@ -9,6 +9,7 @@
 
 using System;
 using System.Drawing;
+using ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -118,7 +119,7 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
             _headingValueLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             _headingValueLabel.TextAlignment = UITextAlignment.Center;
 
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
 
             // Add the views.
             View.AddSubviews(_mySceneView, _headingSlider, _pitchSlider, headingLabel, _headingValueLabel, pitchLabel, _pitchValueLabel);

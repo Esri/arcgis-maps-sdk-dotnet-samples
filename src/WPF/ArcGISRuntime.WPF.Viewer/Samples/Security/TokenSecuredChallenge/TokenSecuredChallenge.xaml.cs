@@ -21,7 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
         category: "Security",
         description: "This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.",
         instructions: "When you run the sample, the app will load a map that contains a layer from a secured service. Then, you will be challenged for a user name and password to view that layer. Enter the correct user name (user1) and password (user1). If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
-        tags: new[] { "authentication", "security", "token" })]
+        tags: new[] { "authentication", "cloud", "portal", "remember", "security" })]
     public partial class TokenSecuredChallenge
     {
         // Task completion source to track a login attempt.

@@ -2,9 +2,7 @@
 <ContentPage
     x:Class="ArcGISRuntime.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -18,9 +16,11 @@
         <ActivityIndicator
             x:Name="MyActivityIndicator"
             Grid.Row="1"
-            IsVisible="False" />
+            HorizontalOptions="Center"
+            IsVisible="False"
+            VerticalOptions="Center" />
         <ScrollView Grid.Row="1">
-            <Label Margin="10,0,0,0" x:Name="VersionsLabel" />
+            <Label x:Name="VersionsLabel" Margin="10,0,0,0" />
         </ScrollView>
     </Grid>
 </ContentPage>

@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 InitialViewpoint = new Viewpoint(_zoomedOutPoint, _zoomedOutCamera)
             };
 
-            foreach (string identifier in new[] {"8", "9", "0"})
+            foreach (string identifier in new[] { "8", "9", "0" })
             {
                 // Create the table.
                 ServiceFeatureTable serviceTable = new ServiceFeatureTable(new Uri(FeatureService + identifier));
@@ -82,7 +82,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 staticScene.OperationalLayers.Add(staticLayer);
 
                 // Create and add the dynamic layer.
-                FeatureLayer dynamicLayer = (FeatureLayer) staticLayer.Clone();
+                FeatureLayer dynamicLayer = (FeatureLayer)staticLayer.Clone();
                 dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
                 dynamicScene.OperationalLayers.Add(dynamicLayer);
             }
@@ -119,16 +119,17 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = UIColor.White};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _staticSceneView = new SceneView();
             _staticSceneView.TranslatesAutoresizingMaskIntoConstraints = false;
             _dynamicSceneView = new SceneView();
             _dynamicSceneView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _stackView = new UIStackView(new UIView[] {_staticSceneView, _dynamicSceneView});
+            _stackView = new UIStackView(new UIView[] { _staticSceneView, _dynamicSceneView });
             _stackView.TranslatesAutoresizingMaskIntoConstraints = false;
             _stackView.Distribution = UIStackViewDistribution.FillEqually;
+            _stackView.Axis = View.TraitCollection.VerticalSizeClass == UIUserInterfaceSizeClass.Compact ? UILayoutConstraintAxis.Horizontal : UILayoutConstraintAxis.Vertical;
 
             _zoomButton = new UIBarButtonItem();
             _zoomButton.Title = "Zoom";

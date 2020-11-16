@@ -104,11 +104,16 @@ namespace ArcGISRuntime
                     AlertDialog dialog = builder.Create();
                     dialog.Show();
 
-                    // Begin downloading data.
-                    await DataManager.EnsureSampleDataPresent(item);
-
-                    // Hide the progress dialog.
-                    dialog.Dismiss();
+                    try
+                    {
+                        // Begin downloading data.
+                        await DataManager.EnsureSampleDataPresent(item);
+                    }
+                    finally
+                    {
+                        // Hide the progress dialog.
+                        dialog.Dismiss();
+                    }
                 }
 
                 // Each sample is an Activity, so locate it and launch it via an Intent.

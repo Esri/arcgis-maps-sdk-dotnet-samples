@@ -58,6 +58,16 @@ namespace ArcGISRuntime
             }
         }
 
+        protected override void OnResume()
+        {
+            // Garbage collect when sample is closed.
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+            Java.Lang.JavaSystem.Gc();
+            GC.Collect(GC.MaxGeneration, GCCollectionMode.Forced, true, true);
+            Java.Lang.JavaSystem.Gc();
+            base.OnResume();
+        }
+
         private void SearchBoxOnQueryTextChange(object sender, SearchView.QueryTextChangeEventArgs queryTextChangeEventArgs)
         {
             SearchableTreeNode stnResult = SampleManager.Current.FullTree.Search(sample => SampleManager.Current.SampleSearchFunc(sample, queryTextChangeEventArgs.NewText));

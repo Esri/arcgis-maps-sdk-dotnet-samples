@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using Esri.ArcGISRuntime.Geometry;
+using Android.Views;
 
 namespace ArcGISRuntime.Samples.SceneLayerUrl
 {
@@ -96,6 +97,16 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

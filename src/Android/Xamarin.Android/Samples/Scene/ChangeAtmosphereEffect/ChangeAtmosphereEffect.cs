@@ -109,5 +109,15 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
             // Show the layout in the app.
             SetContentView(layout);
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
+        }
     }
 }

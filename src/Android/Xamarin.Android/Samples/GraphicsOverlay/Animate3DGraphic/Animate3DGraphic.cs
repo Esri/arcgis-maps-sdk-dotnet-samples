@@ -434,6 +434,16 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             };
         }
 
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
+        }
+
         /// <summary>
         /// Private helper class represents a single frame in the animation
         /// </summary>

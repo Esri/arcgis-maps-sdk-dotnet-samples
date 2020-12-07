@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
@@ -22,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
+using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntime.Samples.ViewshedGeoElement
 {
@@ -219,6 +221,16 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

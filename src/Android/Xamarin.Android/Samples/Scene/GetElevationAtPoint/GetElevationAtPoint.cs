@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -17,6 +18,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
+using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
 {
@@ -157,12 +159,23 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
                 _mySceneView.GeoViewTapped += SceneViewTapped;
             }
         }
+
         private void CreateErrorDialog(string message)
         {
             // Create a dialog to show message to user.
             AlertDialog alert = new AlertDialog.Builder(this).Create();
             alert.SetMessage(message);
             alert.Show();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
@@ -173,6 +174,16 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
             AlertDialog alert = new AlertDialog.Builder(this).Create();
             alert.SetMessage(message);
             alert.Show();
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

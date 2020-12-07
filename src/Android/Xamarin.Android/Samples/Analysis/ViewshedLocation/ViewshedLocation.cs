@@ -251,5 +251,15 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _analysisVisibilitySwitch.Click += HandleSettingsChange;
             _frustumVisibilitySwitch.Click += HandleSettingsChange;
         }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
+        }
     }
 }

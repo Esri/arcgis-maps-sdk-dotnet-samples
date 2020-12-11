@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Foundation;
 using System;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
@@ -75,22 +76,17 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         private async void Initialize()
         {
             // Create the scene with a basemap.
-            Scene flyoverScene = new Scene(Basemap.CreateImagery());
-
-            // Create the integrated mesh layer and add it to the scene.
-            IntegratedMeshLayer meshLayer =
-                new IntegratedMeshLayer(
-                    new Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
-            flyoverScene.OperationalLayers.Add(meshLayer);
+            Scene flyoverScene = new Scene(new Uri("https://www.arcgis.com/home/item.html?id=76ffb1a9e26b4602a04c209146bf2cd3"));
 
             try
             {
-                // Wait for the layer to load so that extent is available.
-                await meshLayer.LoadAsync();
+                // Display the scene.
+                await flyoverScene.LoadAsync();
+                _arSceneView.Scene = flyoverScene;
 
-                // Start with the camera at the center of the mesh layer.
-                Envelope layerExtent = meshLayer.FullExtent;
-                Camera originCamera = new Camera(layerExtent.GetCenter().Y, layerExtent.GetCenter().X, 600, 0, 90, 0);
+                // Start with the camera at the scenes initial viewpoint.
+                Envelope layerExtent = flyoverScene.OperationalLayers.Last().FullExtent;
+                Camera originCamera = new Camera(flyoverScene.InitialViewpoint.Camera.Location.Y, flyoverScene.InitialViewpoint.Camera.Location.X, 200, 0, 90, 0);
                 _arSceneView.OriginCamera = originCamera;
 
                 // set the translation factor to enable rapid movement through the scene.
@@ -99,14 +95,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
                 // Enable atmosphere and space effects for a more immersive experience.
                 _arSceneView.SpaceEffect = SpaceEffect.Stars;
                 _arSceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
-
-                // Display the scene.
-                await flyoverScene.LoadAsync();
-                _arSceneView.Scene = flyoverScene;
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", "Failed to start AR", (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }

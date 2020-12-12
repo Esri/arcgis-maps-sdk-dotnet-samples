@@ -15,10 +15,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Explore scenes in flyover AR",
-        "Augmented reality",
-        "Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.",
-        "")]
+        name: "Explore scenes in flyover AR",
+        category: "Augmented reality",
+        description: "Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.",
+        instructions: "When you open the sample, you'll be viewing the scene from above. You can walk around, using your device as a window into the scene. Try moving vertically to get closer to the ground.",
+        tags: new[] { "augmented reality", "bird's eye", "birds-eye-view", "fly over", "flyover", "mixed reality", "translation factor" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ExploreScenesInFlyoverAR : ContentPage, IARSample
     {

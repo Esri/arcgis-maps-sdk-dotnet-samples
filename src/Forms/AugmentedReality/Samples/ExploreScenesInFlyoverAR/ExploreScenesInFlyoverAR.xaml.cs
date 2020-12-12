@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
@@ -31,23 +30,17 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
 
         private async void Initialize()
         {
-            // Create the scene with a basemap.
-            Scene flyoverScene = new Scene(Basemap.CreateImagery());
-
-            // Create the integrated mesh layer and add it to the scene.
-            IntegratedMeshLayer meshLayer =
-                new IntegratedMeshLayer(
-                    new Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
-            flyoverScene.OperationalLayers.Add(meshLayer);
+            // Create the scene.
+            Scene flyoverScene = new Scene(new Uri("https://www.arcgis.com/home/item.html?id=76ffb1a9e26b4602a04c209146bf2cd3"));
 
             try
             {
-                // Wait for the layer to load so that extent is available.
-                await meshLayer.LoadAsync();
+                // Display the scene.
+                await flyoverScene.LoadAsync();
+                MyARSceneView.Scene = flyoverScene;
 
-                // Start with the camera at the center of the mesh layer.
-                Envelope layerExtent = meshLayer.FullExtent;
-                Camera originCamera = new Camera(layerExtent.GetCenter().Y, layerExtent.GetCenter().X, 600, 0, 90, 0);
+                // Start with the camera at the scenes initial viewpoint.
+                Camera originCamera = new Camera(flyoverScene.InitialViewpoint.Camera.Location.Y, flyoverScene.InitialViewpoint.Camera.Location.X, 200, 0, 90, 0);
                 MyARSceneView.OriginCamera = originCamera;
 
                 // Set the translation factor to enable rapid movement through the scene.
@@ -56,10 +49,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
                 // Enable atmosphere and space effects for a more immersive experience.
                 MyARSceneView.SpaceEffect = SpaceEffect.Stars;
                 MyARSceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
-
-                // Display the scene.
-                await flyoverScene.LoadAsync();
-                MyARSceneView.Scene = flyoverScene;
             }
             catch (Exception ex)
             {

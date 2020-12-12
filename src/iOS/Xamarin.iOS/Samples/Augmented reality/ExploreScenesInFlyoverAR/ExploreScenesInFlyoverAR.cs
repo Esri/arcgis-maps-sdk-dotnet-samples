@@ -75,7 +75,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
 
         private async void Initialize()
         {
-            // Create the scene with a basemap.
+            // Create the scene.
             Scene flyoverScene = new Scene(new Uri("https://www.arcgis.com/home/item.html?id=76ffb1a9e26b4602a04c209146bf2cd3"));
 
             try
@@ -85,7 +85,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
                 _arSceneView.Scene = flyoverScene;
 
                 // Start with the camera at the scenes initial viewpoint.
-                Envelope layerExtent = flyoverScene.OperationalLayers.Last().FullExtent;
                 Camera originCamera = new Camera(flyoverScene.InitialViewpoint.Camera.Location.Y, flyoverScene.InitialViewpoint.Camera.Location.X, 200, 0, 90, 0);
                 _arSceneView.OriginCamera = originCamera;
 

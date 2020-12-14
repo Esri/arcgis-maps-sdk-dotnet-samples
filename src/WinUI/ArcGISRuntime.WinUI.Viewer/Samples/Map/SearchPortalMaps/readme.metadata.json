@@ -1,0 +1,34 @@
+{
+    "category": "Map",
+    "description": "Find webmap portal items by using a search term.",
+    "formal_name": "SearchPortalMaps",
+    "ignore": false,
+    "images": [
+        "SearchPortalMaps.jpg"
+    ],
+    "keywords": [
+        "keyword",
+        "query",
+        "search",
+        "webmap"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/searchportalmaps.htm"
+    ],
+    "relevant_apis": [
+        "Portal",
+        "PortalItem",
+        "PortalQueryParameters",
+        "PortalQueryResultSet"
+    ],
+    "snippets": [
+        "SearchPortalMaps.xaml",
+        "SearchPortalMaps.xaml.cs"
+    ],
+    "title": "Search for webmap"
+}

@@ -1,0 +1,36 @@
+{
+    "category": "Layers",
+    "description": "Create and use a raster layer made from a local raster file.",
+    "formal_name": "RasterLayerFile",
+    "ignore": false,
+    "images": [
+        "RasterLayerFile.jpg"
+    ],
+    "keywords": [
+        "data",
+        "image",
+        "import",
+        "layer",
+        "raster",
+        "visualization"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [
+        "7c4c679ab06a4df19dc497f577f111bd"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/rasterlayerfile.htm"
+    ],
+    "relevant_apis": [
+        "Raster",
+        "RasterLayer"
+    ],
+    "snippets": [
+        "RasterLayerFile.xaml",
+        "RasterLayerFile.xaml.cs"
+    ],
+    "title": "Raster layer (file)"
+}

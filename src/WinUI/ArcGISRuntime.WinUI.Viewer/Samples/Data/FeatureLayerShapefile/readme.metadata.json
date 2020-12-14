@@ -1,0 +1,34 @@
+{
+    "category": "Data",
+    "description": "Open a shapefile stored on the device and display it as a feature layer with default symbology.",
+    "formal_name": "FeatureLayerShapefile",
+    "ignore": false,
+    "images": [
+        "FeatureLayerShapefile.jpg"
+    ],
+    "keywords": [
+        "layers",
+        "shapefile",
+        "shp",
+        "vector"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [
+        "d98b3e5293834c5f852f13c569930caa"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurelayershapefile.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "ShapefileFeatureTable"
+    ],
+    "snippets": [
+        "FeatureLayerShapefile.xaml",
+        "FeatureLayerShapefile.xaml.cs"
+    ],
+    "title": "Feature layer (shapefile)"
+}

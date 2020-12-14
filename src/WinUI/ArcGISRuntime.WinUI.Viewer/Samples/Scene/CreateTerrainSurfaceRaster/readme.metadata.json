@@ -1,0 +1,33 @@
+{
+    "category": "Scene",
+    "description": "Set the terrain surface with elevation described by a raster file.",
+    "formal_name": "CreateTerrainSurfaceRaster",
+    "ignore": false,
+    "images": [
+        "CreateTerrainSurfaceRaster.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "elevation",
+        "raster",
+        "surface",
+        "terrain"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/createterrainsurfaceraster.htm"
+    ],
+    "relevant_apis": [
+        "RasterElevationSource",
+        "Surface"
+    ],
+    "snippets": [
+        "CreateTerrainSurfaceRaster.xaml",
+        "CreateTerrainSurfaceRaster.xaml.cs"
+    ],
+    "title": "Create terrain surface from a local raster"
+}

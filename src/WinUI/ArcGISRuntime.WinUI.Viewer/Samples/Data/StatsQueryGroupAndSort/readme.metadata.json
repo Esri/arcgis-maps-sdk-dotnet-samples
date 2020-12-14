@@ -1,0 +1,43 @@
+{
+    "category": "Data",
+    "description": "Query a feature table for statistics, grouping and sorting by different fields.",
+    "formal_name": "StatsQueryGroupAndSort",
+    "ignore": false,
+    "images": [
+        "StatsQueryGroupAndSort.jpg"
+    ],
+    "keywords": [
+        "correlation",
+        "data",
+        "fields",
+        "filter",
+        "group",
+        "sort",
+        "statistics",
+        "table"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/statsquerygroupandsort.htm"
+    ],
+    "relevant_apis": [
+        "Field",
+        "OrderBy",
+        "QueryParameters",
+        "ServiceFeatureTable",
+        "StatisticDefinition",
+        "StatisticRecord",
+        "StatisticType",
+        "StatisticsQueryParameters",
+        "StatisticsQueryResult"
+    ],
+    "snippets": [
+        "StatsQueryGroupAndSort.xaml",
+        "StatsQueryGroupAndSort.xaml.cs"
+    ],
+    "title": "Statistical query group and sort"
+}

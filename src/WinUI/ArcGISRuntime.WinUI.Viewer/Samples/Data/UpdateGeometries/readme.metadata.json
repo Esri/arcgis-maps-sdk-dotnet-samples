@@ -1,0 +1,35 @@
+{
+    "category": "Data",
+    "description": "Update a feature's location in an online feature service.",
+    "formal_name": "UpdateGeometries",
+    "ignore": false,
+    "images": [
+        "UpdateGeometries.jpg"
+    ],
+    "keywords": [
+        "editing",
+        "feature layer",
+        "feature table",
+        "moving",
+        "service",
+        "updating"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/updategeometries.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureLayer",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "UpdateGeometries.xaml",
+        "UpdateGeometries.xaml.cs"
+    ],
+    "title": "Update geometries (feature service)"
+}

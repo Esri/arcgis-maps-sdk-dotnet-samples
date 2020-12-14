@@ -1,0 +1,35 @@
+{
+    "category": "Layers",
+    "description": "Load an ArcGIS tiled layer from a URL.",
+    "formal_name": "ArcGISTiledLayerUrl",
+    "ignore": false,
+    "images": [
+        "ArcGISTiledLayerUrl.jpg"
+    ],
+    "keywords": [
+        "basemap",
+        "layers",
+        "raster tiles",
+        "tiled layer",
+        "visualization"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/arcgistiledlayerurl.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISTiledLayer",
+        "Basemap",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "ArcGISTiledLayerUrl.xaml",
+        "ArcGISTiledLayerUrl.xaml.cs"
+    ],
+    "title": "ArcGIS tiled layer"
+}

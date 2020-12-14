@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Select features in a feature layer.",
+    "formal_name": "FeatureLayerSelection",
+    "ignore": false,
+    "images": [
+        "FeatureLayerSelection.jpg"
+    ],
+    "keywords": [
+        "features",
+        "layers",
+        "select",
+        "selection",
+        "tolerance"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurelayerselection.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureLayer",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "FeatureLayerSelection.xaml",
+        "FeatureLayerSelection.xaml.cs"
+    ],
+    "title": "Feature layer selection"
+}

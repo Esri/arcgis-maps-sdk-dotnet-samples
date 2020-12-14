@@ -1,0 +1,40 @@
+{
+    "category": "Search",
+    "description": "Find places of interest near a location or within a specific area.",
+    "formal_name": "FindPlace",
+    "ignore": false,
+    "images": [
+        "FindPlace.jpg"
+    ],
+    "keywords": [
+        "POI",
+        "businesses",
+        "geocode",
+        "locations",
+        "locator",
+        "places of interest",
+        "point of interest",
+        "search",
+        "suggestions"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/findplace.htm"
+    ],
+    "relevant_apis": [
+        "GeocodeParameters",
+        "GeocodeResult",
+        "LocatorTask",
+        "SuggestParameters",
+        "SuggestResult"
+    ],
+    "snippets": [
+        "FindPlace.xaml",
+        "FindPlace.xaml.cs"
+    ],
+    "title": "Find place"
+}

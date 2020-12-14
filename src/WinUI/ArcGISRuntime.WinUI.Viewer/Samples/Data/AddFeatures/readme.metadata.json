@@ -1,0 +1,33 @@
+{
+    "category": "Data",
+    "description": "Add features to a feature layer.",
+    "formal_name": "AddFeatures",
+    "ignore": false,
+    "images": [
+        "AddFeatures.jpg"
+    ],
+    "keywords": [
+        "edit",
+        "feature",
+        "online service"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/addfeatures.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureEditResult",
+        "FeatureLayer",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "AddFeatures.xaml",
+        "AddFeatures.xaml.cs"
+    ],
+    "title": "Add features"
+}

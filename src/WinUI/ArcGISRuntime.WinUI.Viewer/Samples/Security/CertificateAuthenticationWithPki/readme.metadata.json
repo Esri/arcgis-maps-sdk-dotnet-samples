@@ -1,0 +1,35 @@
+{
+    "category": "Security",
+    "description": "Access secured portals using a certificate.",
+    "formal_name": "CertificateAuthenticationWithPki",
+    "ignore": false,
+    "images": [
+        "CertificateAuthenticationWithPKI.jpg"
+    ],
+    "keywords": [
+        "PKI",
+        "X509",
+        "authentication",
+        "certificate",
+        "login",
+        "passwordless",
+        "smartcard",
+        "store"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/certificateauthenticationwithpki.htm"
+    ],
+    "relevant_apis": [
+        "CertificateCredential"
+    ],
+    "snippets": [
+        "CertificateAuthenticationWithPKI.xaml",
+        "CertificateAuthenticationWithPKI.xaml.cs"
+    ],
+    "title": "Certificate authentication with PKI"
+}

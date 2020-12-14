@@ -1,0 +1,32 @@
+{
+    "category": "Data",
+    "description": "Find features in a feature table which match an SQL query.",
+    "formal_name": "FeatureLayerQuery",
+    "ignore": false,
+    "images": [
+        "FeatureLayerQuery.jpg"
+    ],
+    "keywords": [
+        "query",
+        "search"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurelayerquery.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureQueryResult",
+        "QueryParameters",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "FeatureLayerQuery.xaml",
+        "FeatureLayerQuery.xaml.cs"
+    ],
+    "title": "Feature layer query"
+}

@@ -1,0 +1,34 @@
+{
+    "category": "MapView",
+    "description": "Filter data in layers by applying a time extent to a MapView.",
+    "formal_name": "ChangeTimeExtent",
+    "ignore": false,
+    "images": [
+        "ChangeTimeExtent.jpg"
+    ],
+    "keywords": [
+        "data",
+        "filter",
+        "time",
+        "time frame",
+        "time span"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/changetimeextent.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView",
+        "TimeExtent"
+    ],
+    "snippets": [
+        "ChangeTimeExtent.xaml",
+        "ChangeTimeExtent.xaml.cs"
+    ],
+    "title": "Change time extent"
+}

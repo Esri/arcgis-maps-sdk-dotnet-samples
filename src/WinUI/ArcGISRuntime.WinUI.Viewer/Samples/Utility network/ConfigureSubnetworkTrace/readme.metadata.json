@@ -1,0 +1,57 @@
+{
+    "category": "Utility network",
+    "description": "Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.",
+    "formal_name": "ConfigureSubnetworkTrace",
+    "ignore": false,
+    "images": [
+        "ConfigureSubnetworkTrace.jpg"
+    ],
+    "keywords": [
+        "category comparison",
+        "condition barriers",
+        "network analysis",
+        "network attribute comparison",
+        "subnetwork trace",
+        "trace configuration",
+        "traversability",
+        "utility network",
+        "validate consistency"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/configuresubnetworktrace.htm"
+    ],
+    "relevant_apis": [
+        "CodedValueDomain",
+        "UtilityAssetType",
+        "UtilityAttributeComparisonOperator",
+        "UtilityCategory",
+        "UtilityCategoryComparison",
+        "UtilityCategoryComparisonOperator",
+        "UtilityDomainNetwork",
+        "UtilityElement",
+        "UtilityElementTraceResult",
+        "UtilityNetwork",
+        "UtilityNetworkAttribute",
+        "UtilityNetworkAttributeComparison",
+        "UtilityNetworkDefinition",
+        "UtilityTerminal",
+        "UtilityTier",
+        "UtilityTraceAndCondition",
+        "UtilityTraceConfiguration",
+        "UtilityTraceOrCondition",
+        "UtilityTraceParameters",
+        "UtilityTraceResult",
+        "UtilityTraceType",
+        "UtilityTraversability"
+    ],
+    "snippets": [
+        "ConfigureSubnetworkTrace.xaml",
+        "ConfigureSubnetworkTrace.xaml.cs"
+    ],
+    "title": "Configure subnetwork trace"
+}

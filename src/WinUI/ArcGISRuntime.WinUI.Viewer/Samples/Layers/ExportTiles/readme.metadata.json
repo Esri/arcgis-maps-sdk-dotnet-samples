@@ -1,0 +1,38 @@
+{
+    "category": "Layers",
+    "description": "Download tiles to a local tile cache file stored on the device.",
+    "formal_name": "ExportTiles",
+    "ignore": false,
+    "images": [
+        "ExportTiles.jpg"
+    ],
+    "keywords": [
+        "cache",
+        "download",
+        "export",
+        "local",
+        "offline",
+        "package",
+        "tiles"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/exporttiles.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISTiledLayer",
+        "ExportTileCacheJob",
+        "ExportTileCacheParameters",
+        "ExportTileCacheTask",
+        "TileCache"
+    ],
+    "snippets": [
+        "ExportTiles.xaml",
+        "ExportTiles.xaml.cs"
+    ],
+    "title": "Export tiles"
+}

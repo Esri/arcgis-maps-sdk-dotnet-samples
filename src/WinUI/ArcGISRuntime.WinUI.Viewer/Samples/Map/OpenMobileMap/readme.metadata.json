@@ -1,0 +1,31 @@
+{
+    "category": "Map",
+    "description": "Display a map from a mobile map package.",
+    "formal_name": "OpenMobileMap",
+    "ignore": false,
+    "images": [
+        "OpenMobileMap.jpg"
+    ],
+    "keywords": [
+        "mmpk",
+        "mobile map package",
+        "offline"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/openmobilemap.htm"
+    ],
+    "relevant_apis": [
+        "MapView",
+        "MobileMapPackage"
+    ],
+    "snippets": [
+        "OpenMobileMap.xaml",
+        "OpenMobileMap.xaml.cs"
+    ],
+    "title": "Open mobile map package"
+}

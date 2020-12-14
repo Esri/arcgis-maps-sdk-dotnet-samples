@@ -1,0 +1,38 @@
+{
+    "category": "Layers",
+    "description": "Display a file with a KML network link, including displaying any network link control messages at launch.",
+    "formal_name": "DisplayKmlNetworkLinks",
+    "ignore": false,
+    "images": [
+        "DisplayKmlNetworkLinks.jpg"
+    ],
+    "keywords": [
+        "KML",
+        "KMZ",
+        "Keyhole",
+        "Network Link",
+        "Network Link Control",
+        "OGC"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [
+        "600748d4464442288f6db8a4ba27dc95"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/displaykmlnetworklinks.htm"
+    ],
+    "relevant_apis": [
+        "KmlDataset",
+        "KmlDataset.NetworkLinkControlMessage",
+        "KmlLayer",
+        "KmlNetworkLinkControlMessageEventArgs"
+    ],
+    "snippets": [
+        "DisplayKmlNetworkLinks.xaml",
+        "DisplayKmlNetworkLinks.xaml.cs"
+    ],
+    "title": "Display KML network links"
+}

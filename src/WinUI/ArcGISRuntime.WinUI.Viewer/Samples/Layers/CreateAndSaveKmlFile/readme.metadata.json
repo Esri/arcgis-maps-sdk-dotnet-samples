@@ -1,0 +1,39 @@
+{
+    "category": "Layers",
+    "description": "Construct a KML document and save it as a KMZ file.",
+    "formal_name": "CreateAndSaveKmlFile",
+    "ignore": false,
+    "images": [
+        "CreateAndSaveKmlFile.jpg"
+    ],
+    "keywords": [
+        "KML",
+        "KMZ",
+        "Keyhole",
+        "OGC"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/createandsavekmlfile.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine.Project",
+        "KmlDataset",
+        "KmlDocument",
+        "KmlGeometry",
+        "KmlLayer",
+        "KmlNode.SaveAsASync",
+        "KmlPlacemark",
+        "KmlStyle",
+        "SketchEditor"
+    ],
+    "snippets": [
+        "CreateAndSaveKmlFile.xaml",
+        "CreateAndSaveKmlFile.xaml.cs"
+    ],
+    "title": "Create and save KML file"
+}

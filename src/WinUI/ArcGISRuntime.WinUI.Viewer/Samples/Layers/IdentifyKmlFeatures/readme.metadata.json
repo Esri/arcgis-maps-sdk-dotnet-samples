@@ -1,0 +1,38 @@
+{
+    "category": "Layers",
+    "description": "Show a callout with formatted content for a KML feature.",
+    "formal_name": "IdentifyKmlFeatures",
+    "ignore": false,
+    "images": [
+        "IdentifyKmlFeatures.jpg"
+    ],
+    "keywords": [
+        "KML",
+        "KMZ",
+        "Keyhole",
+        "NOAA",
+        "NWS",
+        "OGC",
+        "weather"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/identifykmlfeatures.htm"
+    ],
+    "relevant_apis": [
+        "GeoView.IdentifyLayerAsync",
+        "IdentifyLayerResult",
+        "KmlLayer",
+        "KmlPlacemark",
+        "KmlPlacemark.BalloonContent"
+    ],
+    "snippets": [
+        "IdentifyKmlFeatures.xaml",
+        "IdentifyKmlFeatures.xaml.cs"
+    ],
+    "title": "Identify KML features"
+}

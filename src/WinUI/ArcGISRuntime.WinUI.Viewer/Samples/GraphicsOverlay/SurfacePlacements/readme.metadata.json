@@ -1,0 +1,41 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Position graphics relative to a surface using different surface placement modes.",
+    "formal_name": "SurfacePlacements",
+    "ignore": false,
+    "images": [
+        "SurfacePlacements.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "absolute",
+        "altitude",
+        "draped",
+        "elevation",
+        "floating",
+        "relative",
+        "scenes",
+        "sea level",
+        "surface placement"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/surfaceplacements.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "SceneProperties",
+        "SceneProperties.SurfacePlacement",
+        "Surface"
+    ],
+    "snippets": [
+        "SurfacePlacements.xaml",
+        "SurfacePlacements.xaml.cs"
+    ],
+    "title": "Surface placement"
+}

@@ -1,0 +1,39 @@
+{
+    "category": "Layers",
+    "description": "Apply a colormap renderer to a raster.",
+    "formal_name": "RasterColormapRenderer",
+    "ignore": false,
+    "images": [
+        "RasterColormapRenderer.jpg"
+    ],
+    "keywords": [
+        "colormap",
+        "data",
+        "raster",
+        "renderer",
+        "visualization"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [
+        "cc68728b5904403ba637e1f1cd2995ae"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/rastercolormaprenderer.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "ColormapRenderer",
+        "Map",
+        "MapView",
+        "Raster",
+        "RasterLayer"
+    ],
+    "snippets": [
+        "RasterColormapRenderer.xaml",
+        "RasterColormapRenderer.xaml.cs"
+    ],
+    "title": "Colormap renderer"
+}

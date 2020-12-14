@@ -1,0 +1,34 @@
+{
+    "category": "Geoprocessing",
+    "description": "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",
+    "formal_name": "AnalyzeHotspots",
+    "ignore": false,
+    "images": [
+        "AnalyzeHotspots.jpg"
+    ],
+    "keywords": [
+        "Geoprocessing",
+        "GeoprocessingJob",
+        "GeoprocessingParameters",
+        "GeoprocessingResult"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/analyzehotspots.htm"
+    ],
+    "relevant_apis": [
+        "GeoprocessingJob",
+        "GeoprocessingParameters",
+        "GeoprocessingResult",
+        "GeoprocessingTask"
+    ],
+    "snippets": [
+        "AnalyzeHotspots.xaml",
+        "AnalyzeHotspots.xaml.cs"
+    ],
+    "title": "Analyze hotspots"
+}

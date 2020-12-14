@@ -1,0 +1,32 @@
+{
+    "category": "Map",
+    "description": "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",
+    "formal_name": "AccessLoadStatus",
+    "ignore": false,
+    "images": [
+        "AccessLoadStatus.jpg"
+    ],
+    "keywords": [
+        "LoadStatus",
+        "Loadable pattern",
+        "Map"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/accessloadstatus.htm"
+    ],
+    "relevant_apis": [
+        "ILoadable",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "AccessLoadStatus.xaml",
+        "AccessLoadStatus.xaml.cs"
+    ],
+    "title": "Access load status"
+}

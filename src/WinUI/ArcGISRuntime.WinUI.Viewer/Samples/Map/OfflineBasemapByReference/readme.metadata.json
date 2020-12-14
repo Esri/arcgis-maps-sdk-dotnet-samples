@@ -1,0 +1,33 @@
+{
+    "category": "Map",
+    "description": "Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.",
+    "formal_name": "OfflineBasemapByReference",
+    "ignore": false,
+    "images": [
+        "OfflineBasemapByReference.jpg"
+    ],
+    "keywords": [
+        "Offline"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [
+        "628e8e3521cf45e9a28a12fe10c02c4d"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/offlinebasemapbyreference.htm"
+    ],
+    "relevant_apis": [
+        "GenerateOfflineMapJob",
+        "GenerateOfflineMapParameters",
+        "GenerateOfflineMapResult",
+        "OfflineMapTask"
+    ],
+    "snippets": [
+        "OfflineBasemapByReference.xaml",
+        "OfflineBasemapByReference.xaml.cs"
+    ],
+    "title": "Generate offline map with local basemap"
+}

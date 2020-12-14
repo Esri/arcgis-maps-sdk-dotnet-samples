@@ -1,0 +1,35 @@
+{
+    "category": "Layers",
+    "description": "Show features from an online feature service.",
+    "formal_name": "FeatureLayerUrl",
+    "ignore": false,
+    "images": [
+        "FeatureLayerUrl.jpg"
+    ],
+    "keywords": [
+        "feature table",
+        "layer",
+        "layers",
+        "service"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurelayerurl.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "FeatureLayer",
+        "Map",
+        "MapView",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "FeatureLayerUrl.xaml",
+        "FeatureLayerUrl.xaml.cs"
+    ],
+    "title": "Feature layer (feature service)"
+}

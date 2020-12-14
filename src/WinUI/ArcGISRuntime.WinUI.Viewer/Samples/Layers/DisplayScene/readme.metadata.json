@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Display a scene with a terrain surface and some imagery.",
+    "formal_name": "DisplayScene",
+    "ignore": false,
+    "images": [
+        "DisplayScene.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "basemap",
+        "elevation",
+        "scene",
+        "surface"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/displayscene.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISTiledElevationSource",
+        "Scene",
+        "SceneView"
+    ],
+    "snippets": [
+        "DisplayScene.xaml",
+        "DisplayScene.xaml.cs"
+    ],
+    "title": "Display a scene"
+}

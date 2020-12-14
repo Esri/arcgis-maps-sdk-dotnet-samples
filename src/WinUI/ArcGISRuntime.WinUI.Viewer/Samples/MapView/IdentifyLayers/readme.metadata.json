@@ -1,0 +1,34 @@
+{
+    "category": "MapView",
+    "description": "Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.",
+    "formal_name": "IdentifyLayers",
+    "ignore": false,
+    "images": [
+        "IdentifyLayers.jpg"
+    ],
+    "keywords": [
+        "identify",
+        "recursion",
+        "recursive",
+        "sublayers"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/identifylayers.htm"
+    ],
+    "relevant_apis": [
+        "IdentifyLayerResult",
+        "IdentifyLayerResult.LayerContent.Name",
+        "IdentifyLayerResult.SublayerResults",
+        "MapView.IdentifyLayersAsync"
+    ],
+    "snippets": [
+        "IdentifyLayers.xaml",
+        "IdentifyLayers.xaml.cs"
+    ],
+    "title": "Identify layers"
+}

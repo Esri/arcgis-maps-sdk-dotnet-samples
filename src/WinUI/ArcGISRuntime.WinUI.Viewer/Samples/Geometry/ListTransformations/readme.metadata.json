@@ -1,0 +1,37 @@
+{
+    "category": "Geometry",
+    "description": "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",
+    "formal_name": "ListTransformations",
+    "ignore": false,
+    "images": [
+        "ListTransformations.jpg"
+    ],
+    "keywords": [
+        "datum",
+        "geodesy",
+        "projection",
+        "spatial reference",
+        "transformation"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/listtransformations.htm"
+    ],
+    "relevant_apis": [
+        "DatumTransformation",
+        "GeographicTransformation",
+        "GeographicTransformationStep",
+        "GeometryEngine",
+        "GeometryEngine.Project",
+        "TransformationCatalog"
+    ],
+    "snippets": [
+        "ListTransformations.xaml",
+        "ListTransformations.xaml.cs"
+    ],
+    "title": "List transformations by suitability"
+}

@@ -1,0 +1,38 @@
+{
+    "category": "Network analysis",
+    "description": "Find routes from several locations to the respective closest facility.",
+    "formal_name": "ClosestFacilityStatic",
+    "ignore": false,
+    "images": [
+        "ClosestFacilityStatic.jpg"
+    ],
+    "keywords": [
+        "incident",
+        "network analysis",
+        "route",
+        "search"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/closestfacilitystatic.htm"
+    ],
+    "relevant_apis": [
+        "ClosestFacilityParameters",
+        "ClosestFacilityResult",
+        "ClosestFacilityRoute",
+        "ClosestFacilityTask",
+        "Facility",
+        "Graphic",
+        "GraphicsOverlay",
+        "Incident"
+    ],
+    "snippets": [
+        "ClosestFacilityStatic.xaml",
+        "ClosestFacilityStatic.xaml.cs"
+    ],
+    "title": "Find closest facility to multiple incidents (service)"
+}

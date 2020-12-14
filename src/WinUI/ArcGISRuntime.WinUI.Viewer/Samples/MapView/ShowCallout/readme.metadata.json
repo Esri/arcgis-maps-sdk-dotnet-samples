@@ -1,0 +1,39 @@
+{
+    "category": "MapView",
+    "description": "Show a callout with the latitude and longitude of user-tapped points.",
+    "formal_name": "ShowCallout",
+    "ignore": false,
+    "images": [
+        "ShowCallout.jpg"
+    ],
+    "keywords": [
+        "balloon",
+        "bubble",
+        "callout",
+        "flyout",
+        "flyover",
+        "info window",
+        "popup",
+        "tap"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/showcallout.htm"
+    ],
+    "relevant_apis": [
+        "CalloutDefinition",
+        "GeoViewTappedEventArgs",
+        "GeometryEngine.Project",
+        "MapView.GeoViewTapped",
+        "MapView.ShowCalloutAt"
+    ],
+    "snippets": [
+        "ShowCallout.xaml",
+        "ShowCallout.xaml.cs"
+    ],
+    "title": "Show callout"
+}

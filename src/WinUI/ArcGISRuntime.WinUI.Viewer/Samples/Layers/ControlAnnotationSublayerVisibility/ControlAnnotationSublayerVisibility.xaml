@@ -1,0 +1,46 @@
+﻿<UserControl
+    x:Class="ArcGISRuntime.WinUI.Samples.ControlAnnotationSublayerVisibility.ControlAnnotationSublayerVisibility"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <CheckBox
+                    x:Name="OpenCheckBox"
+                    Grid.Row="0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Checked="OpenCheckBoxChanged"
+                    IsChecked="True"
+                    IsEnabled="False"
+                    Unchecked="OpenCheckBoxChanged">
+                    <TextBlock x:Name="OpenLabel" Text="Open" />
+                </CheckBox>
+                <CheckBox
+                    x:Name="ClosedCheckBox"
+                    Grid.Row="1"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Checked="ClosedCheckBoxChanged"
+                    IsChecked="True"
+                    IsEnabled="False"
+                    Unchecked="ClosedCheckBoxChanged">
+                    <TextBlock x:Name="ClosedLabel" Text="Closed" />
+                </CheckBox>
+                <TextBlock
+                    x:Name="ScaleLabel"
+                    Grid.Row="2"
+                    HorizontalAlignment="Center"
+                    Text="Current map scale: 1:" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
+

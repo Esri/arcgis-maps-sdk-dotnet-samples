@@ -1,0 +1,34 @@
+{
+    "category": "MapView",
+    "description": "Determine if a layer is currently being viewed.",
+    "formal_name": "DisplayLayerViewState",
+    "ignore": false,
+    "images": [
+        "DisplayLayerViewState.jpg"
+    ],
+    "keywords": [
+        "layer",
+        "map",
+        "status",
+        "view"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/displaylayerviewstate.htm"
+    ],
+    "relevant_apis": [
+        "LayerViewStateChanged",
+        "LayerViewStateChangedEventArgs",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "DisplayLayerViewState.xaml",
+        "DisplayLayerViewState.xaml.cs"
+    ],
+    "title": "Display layer view state"
+}

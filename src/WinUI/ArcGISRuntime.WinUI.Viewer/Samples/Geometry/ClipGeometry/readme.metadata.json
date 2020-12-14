@@ -1,0 +1,34 @@
+{
+    "category": "Geometry",
+    "description": "Clip a geometry with another geometry.",
+    "formal_name": "ClipGeometry",
+    "ignore": false,
+    "images": [
+        "ClipGeometry.jpg"
+    ],
+    "keywords": [
+        "analysis",
+        "clip",
+        "geometry"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/clipgeometry.htm"
+    ],
+    "relevant_apis": [
+        "Envelope",
+        "Geometry",
+        "GeometryEngine.Clip",
+        "Graphic",
+        "GraphicsOverlay"
+    ],
+    "snippets": [
+        "ClipGeometry.xaml",
+        "ClipGeometry.xaml.cs"
+    ],
+    "title": "Clip geometry"
+}

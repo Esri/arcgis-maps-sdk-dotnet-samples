@@ -1,0 +1,43 @@
+{
+    "category": "Network analysis",
+    "description": "Use a routing service to navigate between points.",
+    "formal_name": "NavigateRoute",
+    "ignore": false,
+    "images": [
+        "NavigateRoute.jpg"
+    ],
+    "keywords": [
+        "directions",
+        "maneuver",
+        "navigation",
+        "route",
+        "turn-by-turn",
+        "voice"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/navigateroute.htm"
+    ],
+    "relevant_apis": [
+        "DestinationStatus",
+        "DirectionManeuver",
+        "Location",
+        "LocationDataSource",
+        "ReroutingStrategy",
+        "Route",
+        "RouteParameters",
+        "RouteTask",
+        "RouteTracker",
+        "Stop",
+        "VoiceGuidance"
+    ],
+    "snippets": [
+        "NavigateRoute.xaml",
+        "NavigateRoute.xaml.cs"
+    ],
+    "title": "Navigate route"
+}

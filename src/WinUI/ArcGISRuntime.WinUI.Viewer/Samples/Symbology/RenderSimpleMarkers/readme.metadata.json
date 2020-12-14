@@ -1,0 +1,32 @@
+{
+    "category": "Symbology",
+    "description": "Show a simple marker symbol on a map.",
+    "formal_name": "RenderSimpleMarkers",
+    "ignore": false,
+    "images": [
+        "RenderSimpleMarkers.jpg"
+    ],
+    "keywords": [
+        "SimpleMarkerSymbol",
+        "symbol"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/rendersimplemarkers.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "Point",
+        "SimpleMarkerSymbol"
+    ],
+    "snippets": [
+        "RenderSimpleMarkers.xaml",
+        "RenderSimpleMarkers.xaml.cs"
+    ],
+    "title": "Simple marker symbol"
+}

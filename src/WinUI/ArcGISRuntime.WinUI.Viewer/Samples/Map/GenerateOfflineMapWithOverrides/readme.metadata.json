@@ -1,0 +1,46 @@
+{
+    "category": "Map",
+    "description": "Take a web map offline with additional options for each layer.",
+    "formal_name": "GenerateOfflineMapWithOverrides",
+    "ignore": false,
+    "images": [
+        "GenerateOfflineMapWithOverrides.jpg"
+    ],
+    "keywords": [
+        "LOD",
+        "adjust",
+        "download",
+        "extent",
+        "filter",
+        "offline",
+        "override",
+        "parameters",
+        "reduce",
+        "scale range",
+        "setting"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/generateofflinemapwithoverrides.htm"
+    ],
+    "relevant_apis": [
+        "ExportTileCacheParameters",
+        "GenerateGeodatabaseParameters",
+        "GenerateLayerOption",
+        "GenerateOfflineMapJob",
+        "GenerateOfflineMapParameterOverrides",
+        "GenerateOfflineMapParameters",
+        "GenerateOfflineMapResult",
+        "OfflineMapParametersKey",
+        "OfflineMapTask"
+    ],
+    "snippets": [
+        "GenerateOfflineMapWithOverrides.xaml",
+        "GenerateOfflineMapWithOverrides.xaml.cs"
+    ],
+    "title": "Generate offline map (overrides)"
+}

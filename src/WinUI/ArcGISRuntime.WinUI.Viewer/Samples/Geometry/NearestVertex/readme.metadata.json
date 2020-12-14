@@ -1,0 +1,34 @@
+{
+    "category": "Geometry",
+    "description": "Find the closest vertex and coordinate of a geometry to a point.",
+    "formal_name": "NearestVertex",
+    "ignore": false,
+    "images": [
+        "NearestVertex.jpg"
+    ],
+    "keywords": [
+        "analysis",
+        "coordinate",
+        "geometry",
+        "nearest",
+        "proximity",
+        "vertex"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.9.0",
+        "Esri.ArcGISRuntime.UWP": "100.9.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/nearestvertex.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine",
+        "ProximityResult"
+    ],
+    "snippets": [
+        "NearestVertex.xaml",
+        "NearestVertex.xaml.cs"
+    ],
+    "title": "Nearest vertex"
+}

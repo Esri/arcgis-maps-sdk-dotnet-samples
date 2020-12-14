@@ -16,6 +16,7 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using Google.AR.Core;
+using Google.AR.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace ArcGISRuntime
         private List<SearchableTreeNode> _sampleCategories;
         private List<SearchableTreeNode> _filteredSampleCategories;
         private ExpandableListView _categoriesListView;
+
+        private bool _arCompatible;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -42,14 +45,18 @@ namespace ArcGISRuntime
                 _sampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
 
                 // Remove AR category if device does not support AR.
-                var arSession = new Session(this);
-                var arConfig = new Config(arSession);
-#pragma warning disable CS0618 // Type or member is obsolete
-                if (!arSession.IsSupported(arConfig))
+                try
                 {
-                    _sampleCategories.RemoveAll(category => category.Name == "Augmented reality");
+                    var arSession = new Session(this);
+                    _arCompatible = true;
                 }
-#pragma warning restore CS0618 // Type or member is obsolete
+                catch (UnavailableException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    _arCompatible = false;
+                }
+
+                if (!_arCompatible) _sampleCategories.RemoveAll(category => category.Name == "Augmented reality");
 
                 _filteredSampleCategories = _sampleCategories;
 
@@ -87,6 +94,7 @@ namespace ArcGISRuntime
             if (stnResult != null)
             {
                 _filteredSampleCategories = stnResult.Items.OfType<SearchableTreeNode>().ToList();
+                if (!_arCompatible) _filteredSampleCategories.RemoveAll(category => category.Name == "Augmented reality");
             }
             else
             {

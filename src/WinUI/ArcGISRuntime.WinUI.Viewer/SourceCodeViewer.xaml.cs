@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.WinUI.Samples.ArcGISVectorTiledLayerUrl;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.IO;
@@ -47,14 +48,23 @@ namespace ArcGISRuntime.WinUI.Viewer
 
                 // Set the tab text to the file name.
                 newTab.Header = Path.GetFileName(filepath);
-                /* TODO
+                /* TODO: Monaco.CodeEditor not available for WinUI yet. See https://github.com/hawkerm/monaco-editor-uwp/pull/32
                 // Create the code viewer.
                 Monaco.CodeEditor viewer = new Monaco.CodeEditor();
                 viewer.Options.ReadOnly = true;
                 viewer.Text = source;
-
-                // Change Monaco language for C# files.
+                
+                 // Change Monaco language for C# files.
                 if (filepath.EndsWith(".cs")) { viewer.CodeLanguage = "csharp"; }
+
+                */
+                // Instead use textbox for now
+                TextBox viewer = new TextBox();
+                viewer.IsReadOnly = true;
+                viewer.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Courier New");
+                viewer.AcceptsReturn = true;
+                viewer.VerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment.Stretch;
+                viewer.Text = source;
 
                 // Adjust tabs for dark mode.
                 if (App.Current.RequestedTheme == Microsoft.UI.Xaml.ApplicationTheme.Dark)
@@ -65,7 +75,7 @@ namespace ArcGISRuntime.WinUI.Viewer
 
                 // Set the tabs content to the code viewer.
                 newTab.Content = viewer;
-                */
+
                 // Add the tab to the beginning of the list.
                 tabs.Insert(0, newTab);
             }

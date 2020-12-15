@@ -7,13 +7,16 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;arm64</Platforms>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
-    <!--<ProjectPriFileName>resources.pri</ProjectPriFileName>-->
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Resources\*.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\*.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\**\*.png" />
   </ItemGroup>
 
   <!-- Link resource files, to include them in the output directory and application manifest. -->

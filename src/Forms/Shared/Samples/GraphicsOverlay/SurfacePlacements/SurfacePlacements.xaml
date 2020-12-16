@@ -30,7 +30,9 @@
                 Grid.Row="3"
                 Margin="5"
                 Maximum="140"
+                MaximumTrackColor="CadetBlue"
                 Minimum="0"
+                MinimumTrackColor="CadetBlue"
                 ValueChanged="ZSlider_ValueChanged"
                 Value="70" />
             <Label

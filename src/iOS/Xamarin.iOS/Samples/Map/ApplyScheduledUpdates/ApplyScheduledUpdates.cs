@@ -252,9 +252,8 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
             // Unsubscribe from events, per best practice.
             _applyButton.Clicked -= ApplyUpdatesClicked;
 
-            // Check if sample is being popped.
-            var vControllers = this.NavigationController?.ViewControllers;
-            if (vControllers == null || (vControllers.Count() > 1 && vControllers.GetValue(vControllers.Count() - 2) != this))
+            // Check if sample is being closed.
+            if (NavigationController?.ViewControllers == null)
             {
                 // Close the mobile map package when the sample closes.
                 _mobileMapPackage?.Close();

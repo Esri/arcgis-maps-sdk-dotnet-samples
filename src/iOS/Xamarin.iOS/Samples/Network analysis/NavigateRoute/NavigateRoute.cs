@@ -321,9 +321,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         {
             base.ViewDidDisappear(animated);
 
-            // Check if sample is being popped.
-            var vControllers = this.NavigationController?.ViewControllers;
-            if (vControllers == null || (vControllers.Count() > 1 && vControllers.GetValue(vControllers.Count() - 2) != this))
+            // Check if sample is being closed.
+            if (NavigationController?.ViewControllers == null)
             {
                 // Stop the location data source.
                 _myMapView.LocationDisplay?.DataSource?.StopAsync();

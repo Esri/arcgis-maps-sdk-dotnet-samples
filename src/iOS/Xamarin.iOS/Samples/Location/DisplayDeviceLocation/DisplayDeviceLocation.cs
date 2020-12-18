@@ -152,9 +152,8 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             _startButton.Clicked -= OnStartButtonClicked;
             _stopButton.Clicked -= OnStopButtonClicked;
 
-            // Check if sample is being popped.
-            var vControllers = NavigationController?.ViewControllers;
-            if (vControllers == null || (vControllers.Count() > 1 && vControllers.GetValue(vControllers.Count() - 2) != this))
+            // Check if sample is being closed.
+            if (NavigationController?.ViewControllers == null)
             {
                 // Stop the location data source.
                 _myMapView.LocationDisplay?.DataSource?.StopAsync();

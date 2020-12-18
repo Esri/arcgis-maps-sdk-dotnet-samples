@@ -249,11 +249,16 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
         {
             base.ViewDidDisappear(animated);
 
-            // Close the mobile map package when the sample closes.
-            _mobileMapPackage?.Close();
-
             // Unsubscribe from events, per best practice.
             _applyButton.Clicked -= ApplyUpdatesClicked;
+
+            // Check if sample is being popped.
+            var vControllers = this.NavigationController?.ViewControllers;
+            if (vControllers == null || (vControllers.Count() > 1 && vControllers.GetValue(vControllers.Count() - 2) != this))
+            {
+                // Close the mobile map package when the sample closes.
+                _mobileMapPackage?.Close();
+            }
         }
     }
 }

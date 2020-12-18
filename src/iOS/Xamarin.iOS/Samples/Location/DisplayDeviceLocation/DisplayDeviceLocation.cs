@@ -3,15 +3,16 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
@@ -97,7 +98,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -151,8 +152,13 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             _startButton.Clicked -= OnStartButtonClicked;
             _stopButton.Clicked -= OnStopButtonClicked;
 
-            // Stop the location data source.
-            _myMapView.LocationDisplay?.DataSource?.StopAsync();
+            // Check if sample is being popped.
+            var vControllers = NavigationController?.ViewControllers;
+            if (vControllers == null || (vControllers.Count() > 1 && vControllers.GetValue(vControllers.Count() - 2) != this))
+            {
+                // Stop the location data source.
+                _myMapView.LocationDisplay?.DataSource?.StopAsync();
+            }
         }
     }
 }

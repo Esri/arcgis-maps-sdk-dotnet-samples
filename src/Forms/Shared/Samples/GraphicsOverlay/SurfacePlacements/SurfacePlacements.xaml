@@ -28,9 +28,11 @@
             <Slider
                 x:Name="ZSlider"
                 Grid.Row="3"
-                Margin="5,0,5,0"
+                Margin="5"
                 Maximum="140"
+                MaximumTrackColor="CadetBlue"
                 Minimum="0"
+                MinimumTrackColor="CadetBlue"
                 ValueChanged="ZSlider_ValueChanged"
                 Value="70" />
             <Label

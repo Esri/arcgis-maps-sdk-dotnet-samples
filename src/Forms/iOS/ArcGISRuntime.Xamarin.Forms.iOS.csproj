@@ -217,7 +217,7 @@
       <Version>2.1.4</Version>
     </PackageReference>
     <PackageReference Include="PInvoke.BCrypt">
-      <Version>0.6.49</Version>
+      <Version>0.7.78</Version>
     </PackageReference>
     <PackageReference Include="Validation">
       <Version>2.4.22</Version>
@@ -229,7 +229,7 @@
       <Version>1.5.3.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>4.8.0.1269</Version>
+      <Version>4.8.0.1687</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Plugin.FilePicker">
       <Version>2.1.41</Version>

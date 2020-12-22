@@ -129,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
 
                 // Zoom to the extent of the selected layer.
-                await MyMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent, 50);
+                await MyMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent);
             }
             catch (Exception ex)
             {

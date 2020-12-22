@@ -203,7 +203,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         {
             // Start the process of requesting an image. Will be completed in OnActivityResult.
             Intent = new Intent();
-            Intent.SetType("image/*.jpg");
+            Intent.SetType("image/*");
             Intent.SetAction(Intent.ActionGetContent);
             StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), 1000);
         }

@@ -174,8 +174,13 @@ namespace ArcGISRuntime.WPF.Samples.PlayKmlTours
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            _tourController?.Pause();
-            _tourController?.Reset();
+            try
+            {
+                _tourController?.Pause();
+            }
+            catch
+            {
+            }
         }
     }
 }

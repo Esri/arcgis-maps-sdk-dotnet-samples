@@ -90,7 +90,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             try
             {
                 // Define the selection tolerance.
-                double tolerance = 15;
+                double tolerance = 30;
 
                 // Convert the tolerance to map units.
                 double mapTolerance = tolerance * MyMapView.UnitsPerPixel;

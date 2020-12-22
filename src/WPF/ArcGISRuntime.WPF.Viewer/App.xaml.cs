@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
+using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.IO;
 using System.Windows;
@@ -16,7 +18,8 @@ namespace ArcGISRuntime.WPF.Viewer
     public partial class App
     {
         public static string ResourcePath => System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        private void Application_Startup(object sender, StartupEventArgs e)
+
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
             try
             {
@@ -29,6 +32,30 @@ namespace ArcGISRuntime.WPF.Viewer
 
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+
+                
+                string apiKey = ApiKeyManager.ArcGISDeveloperApiKey;
+
+                // Check if key is null.
+                if (apiKey == null) PromptForKey();
+                else
+                {
+                    try
+                    {
+                        Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = apiKey;
+
+                        // Check that key is valid.
+                        await new Map(BasemapStyle.ArcGISTopographic).LoadAsync();
+                    }
+                    catch(Exception ex)
+                    {
+                        if (ex.Message == "The provided APIKey is invalid, expired or does not have access to the resource.") PromptForKey();
+                        else
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -37,5 +64,11 @@ namespace ArcGISRuntime.WPF.Viewer
                 Current.Shutdown();
             }
         }
+        private void PromptForKey()
+        {
+            Console.WriteLine("No developer API key set.");
+        }
     }
+
+    
 }

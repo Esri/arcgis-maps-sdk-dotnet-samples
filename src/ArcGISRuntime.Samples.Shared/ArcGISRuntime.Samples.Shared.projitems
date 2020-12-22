@@ -12,6 +12,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\AdditionalFilesAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\OfflineDataAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\SampleAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Managers\ApiKeyManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleInfo.cs" />

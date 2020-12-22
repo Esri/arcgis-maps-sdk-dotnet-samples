@@ -16,8 +16,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
-using System.Threading.Tasks;
 using Xamarin.Forms;
+
+#if XAMARIN_ANDROID
+using Google.AR.Core;
+using Google.AR.Core.Exceptions;
+#endif
 
 namespace ArcGISRuntime
 {
@@ -130,6 +134,27 @@ namespace ArcGISRuntime
         {
             SampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
             _allSamples = SampleManager.Current.AllSamples.ToList();
+
+#if XAMARIN_ANDROID
+            // Remove AR category if device does not support AR.
+            bool arCompatible;
+            try
+            {
+                var arSession = new Session(Android.App.Application.Context);
+                arCompatible = true;
+            }
+            catch (UnavailableException ex)
+            {
+                Console.WriteLine(ex.Message);
+                arCompatible = false;
+            }
+
+            if (!arCompatible)
+            {
+                SampleCategories.RemoveAll(category => category.Name == "Augmented reality");
+                _allSamples.RemoveAll(sample => sample.Category == "Augmented reality");
+            }
+#endif
         }
 
         public string SearchQuery
@@ -148,8 +173,8 @@ namespace ArcGISRuntime
             }
         }
 
-        public bool IsSearchOpen => !String.IsNullOrWhiteSpace(_query);
-        public bool IsCategoriesOpen => String.IsNullOrWhiteSpace(_query);
+        public bool IsSearchOpen => !string.IsNullOrWhiteSpace(_query);
+        public bool IsCategoriesOpen => string.IsNullOrWhiteSpace(_query);
 
         private bool SearchFunction(SampleInfo sample)
         {

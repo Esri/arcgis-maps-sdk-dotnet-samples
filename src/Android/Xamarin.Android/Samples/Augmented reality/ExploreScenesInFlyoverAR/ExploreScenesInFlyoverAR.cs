@@ -12,7 +12,6 @@ using Android.OS;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using Esri.ArcGISRuntime.ARToolkit;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
@@ -44,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         private void CreateLayout()
         {
             // Create the layout.
-            LinearLayout layout = new LinearLayout(this) {Orientation = Orientation.Vertical};
+            LinearLayout layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
 
             // Add the AR scene view.
             _arSceneView = new ARSceneView(this);
@@ -58,39 +57,29 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
 
         private async void Initialize()
         {
-            // Create the scene with a basemap.
-            Scene flyoverScene = new Scene(Basemap.CreateImagery());
-
-            // Create the integrated mesh layer and add it to the scene.
-            IntegratedMeshLayer meshLayer =
-                new IntegratedMeshLayer(
-                    new Uri("https://www.arcgis.com/home/item.html?id=dbc72b3ebb024c848d89a42fe6387a1b"));
-            flyoverScene.OperationalLayers.Add(meshLayer);
+            // Create the scene.
+            Scene flyoverScene = new Scene(new Uri("https://www.arcgis.com/home/item.html?id=76ffb1a9e26b4602a04c209146bf2cd3"));
 
             try
             {
-                // Wait for the layer to load so that extent is available.
-                await meshLayer.LoadAsync();
+                // Display the scene.
+                await flyoverScene.LoadAsync();
+                _arSceneView.Scene = flyoverScene;
 
-                // Start with the camera at the center of the mesh layer.
-                Envelope layerExtent = meshLayer.FullExtent;
-                Camera originCamera = new Camera(layerExtent.GetCenter().Y, layerExtent.GetCenter().X, 600, 0, 90, 0);
+                // Start with the camera at the scenes initial viewpoint.
+                Camera originCamera = new Camera(flyoverScene.InitialViewpoint.Camera.Location.Y, flyoverScene.InitialViewpoint.Camera.Location.X, 200, 0, 90, 0);
                 _arSceneView.OriginCamera = originCamera;
 
-                // Set the translation factor to enable rapid movement through the scene.
+                // set the translation factor to enable rapid movement through the scene.
                 _arSceneView.TranslationFactor = 1000;
 
                 // Enable atmosphere and space effects for a more immersive experience.
                 _arSceneView.SpaceEffect = SpaceEffect.Stars;
                 _arSceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
-
-                // Display the scene.
-                await flyoverScene.LoadAsync();
-                _arSceneView.Scene = flyoverScene;
             }
             catch (Exception ex)
             {
-                new Android.App.AlertDialog.Builder(this).SetMessage("Failed to start AR").SetTitle("Error").Show();
+                new Android.App.AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle("Error").Show();
                 System.Diagnostics.Debug.WriteLine(ex);
             }
         }

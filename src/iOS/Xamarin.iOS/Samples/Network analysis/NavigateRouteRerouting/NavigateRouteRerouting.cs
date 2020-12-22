@@ -22,6 +22,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
@@ -339,21 +340,25 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
         {
             base.ViewDidDisappear(animated);
 
-            // Stop the location data source.
-            _myMapView.LocationDisplay?.DataSource?.StopAsync();
-
-            // Stop the speech synthesizer.
-            _speechSynthesizer.StopSpeaking(AVSpeechBoundary.Word);
-            _speechSynthesizer.Dispose();
-
-            // Stop the tracker.
-            if (_tracker != null)
+            // Check if sample is being closed.
+            if (NavigationController?.ViewControllers == null)
             {
-                _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
-                _tracker.NewVoiceGuidance -= SpeakDirection;
-                _tracker.RerouteStarted -= RerouteStarted;
-                _tracker.RerouteCompleted -= RerouteCompleted;
-                _tracker = null;
+                // Stop the location data source.
+                _myMapView.LocationDisplay?.DataSource?.StopAsync();
+
+                // Stop the speech synthesizer.
+                _speechSynthesizer.StopSpeaking(AVSpeechBoundary.Word);
+                _speechSynthesizer.Dispose();
+
+                // Stop the tracker.
+                if (_tracker != null)
+                {
+                    _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
+                    _tracker.NewVoiceGuidance -= SpeakDirection;
+                    _tracker.RerouteStarted -= RerouteStarted;
+                    _tracker.RerouteCompleted -= RerouteCompleted;
+                    _tracker = null;
+                }
             }
 
             // Unsubscribe from events, per best practice.

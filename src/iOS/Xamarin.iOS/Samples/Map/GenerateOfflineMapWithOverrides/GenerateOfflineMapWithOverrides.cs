@@ -3,31 +3,31 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime;
+using CoreGraphics;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Tasks;
+using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using CoreGraphics;
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
 using UIKit;
 using Xamarin.Auth;
-using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 {
@@ -139,7 +139,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             UIPopoverPresentationController pc = controller.PopoverPresentationController;
             if (pc != null)
             {
-                pc.BarButtonItem = (UIBarButtonItem) _takeMapOfflineButton;
+                pc.BarButtonItem = (UIBarButtonItem)_takeMapOfflineButton;
                 pc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
                 pc.Delegate = new ppDelegate();
             }
@@ -312,7 +312,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -535,9 +535,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             return _taskCompletionSource.Task;
         }
 
-        #endregion
+        #endregion IOAuthAuthorizationHandler implementation
 
-        #endregion
+        #endregion Authentication
 
         // Force popover to display on iPhone.
         private class ppDelegate : UIPopoverPresentationControllerDelegate
@@ -559,10 +559,10 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
         // Hold state from UI selections.
-        private int _minScale;
-        private int _maxScale;
-        private int _bufferExtent;
-        private int _flowRate;
+        private int _minScale = 0;
+        private int _maxScale = 23;
+        private int _bufferExtent = 0;
+        private int _flowRate = 500;
         private bool _includeServiceConn;
         private bool _includeSystemValues;
         private bool _cropWaterPipes;
@@ -703,7 +703,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         private long GetServiceLayerId(FeatureLayer layer)
         {
             // Find the service feature table for the layer; this assumes the layer is backed by a service feature table.
-            ServiceFeatureTable serviceTable = (ServiceFeatureTable) layer.FeatureTable;
+            ServiceFeatureTable serviceTable = (ServiceFeatureTable)layer.FeatureTable;
 
             // Return the layer ID.
             return serviceTable.LayerInfo.ServiceLayerId;
@@ -722,7 +722,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             UIScrollView outerScroller = new UIScrollView();
             outerScroller.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -743,11 +743,11 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
             innerStackView.AddArrangedSubview(getLabel("Configure basemap"));
 
-            innerStackView.AddArrangedSubview(getSliderRow("Min scale: ", 0, 23, 0, "", (sender, args) => { _minScale = (int) ((UISlider) sender).Value; }));
+            innerStackView.AddArrangedSubview(getSliderRow("Min scale: ", 0, 23, _minScale, "", (sender, args) => { _minScale = (int)((UISlider)sender).Value; }));
 
-            innerStackView.AddArrangedSubview(getSliderRow("Max scale: ", 0, 23, 23, "", (sender, args) => { _maxScale = (int) ((UISlider) sender).Value; }));
+            innerStackView.AddArrangedSubview(getSliderRow("Max scale: ", 0, 23, _maxScale, "", (sender, args) => { _maxScale = (int)((UISlider)sender).Value; }));
 
-            innerStackView.AddArrangedSubview(getSliderRow("Buffer dist.: ", 0, 500, 0, "m", (sender, args) => { _bufferExtent = (int) ((UISlider) sender).Value; }));
+            innerStackView.AddArrangedSubview(getSliderRow("Buffer dist.: ", 0, 500, _bufferExtent, "m", (sender, args) => { _bufferExtent = (int)((UISlider)sender).Value; }));
 
             innerStackView.AddArrangedSubview(getLabel("Include layers"));
 
@@ -757,7 +757,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
             innerStackView.AddArrangedSubview(getLabel("Filter feature layer"));
 
-            innerStackView.AddArrangedSubview(getSliderRow("Min. flow: ", 0, 1000, 500, "", (sender, args) => { _flowRate = (int) ((UISlider) sender).Value; }));
+            innerStackView.AddArrangedSubview(getSliderRow("Min. flow: ", 0, 1000, _flowRate, "", (sender, args) => { _flowRate = (int)((UISlider)sender).Value; }));
 
             innerStackView.AddArrangedSubview(getLabel("Crop layer to extent"));
 
@@ -813,7 +813,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             descriptionLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             descriptionLabel.Text = label;
             descriptionLabel.WidthAnchor.ConstraintGreaterThanOrEqualTo(140).Active = true;
-            descriptionLabel.SetContentCompressionResistancePriority((float) UILayoutPriority.Required, UILayoutConstraintAxis.Horizontal);
+            descriptionLabel.SetContentCompressionResistancePriority((float)UILayoutPriority.Required, UILayoutConstraintAxis.Horizontal);
             rowView.AddArrangedSubview(descriptionLabel);
 
             UILabel valueLabel = new UILabel();
@@ -827,9 +827,9 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             sliderView.MaxValue = max;
             sliderView.Value = startingValue;
             sliderView.WidthAnchor.ConstraintGreaterThanOrEqualTo(100).Active = true;
-            sliderView.SetContentCompressionResistancePriority((float) UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
+            sliderView.SetContentCompressionResistancePriority((float)UILayoutPriority.DefaultLow, UILayoutConstraintAxis.Horizontal);
             sliderView.ValueChanged += sliderChangeAction;
-            sliderView.ValueChanged += (sender, args) => { valueLabel.Text = $"{(int) sliderView.Value}{units}"; };
+            sliderView.ValueChanged += (sender, args) => { valueLabel.Text = $"{(int)sliderView.Value}{units}"; };
             rowView.AddArrangedSubview(sliderView);
 
             rowView.AddArrangedSubview(valueLabel);

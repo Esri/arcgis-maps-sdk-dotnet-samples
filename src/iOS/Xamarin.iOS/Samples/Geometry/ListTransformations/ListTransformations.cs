@@ -410,15 +410,15 @@ namespace ArcGISRuntime.Samples.ListTransformations
             bool isNotAvailable = thisTransform.IsMissingProjectionEngineFiles;
 
             // Create the correct color for the transform type (available=black, default=blue, or unavailable=gray).
-            UIColor labelColor = UIColor.Black;
+            UIColor labelColor = ApplicationTheme.ForegroundColor;
             if (isNotAvailable)
             {
-                labelColor = UIColor.Gray;
+                labelColor = UIColor.LightGray;
             }
 
             if (isDefault)
             {
-                labelColor = UIColor.Black;
+                labelColor = ApplicationTheme.ForegroundColor;
             }
 
             // Create a label to display the transform.

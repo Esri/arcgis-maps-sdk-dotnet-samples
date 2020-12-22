@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
 using System;
 using System.Drawing;
+using System.Linq;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
@@ -228,8 +229,12 @@ namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
             // Unsubscribe from events, per best practice.
             _trackingToggleButton.Clicked -= TrackingToggleButtonOnClicked;
 
-            // Stop the location data source.
-            _myMapView.LocationDisplay?.DataSource?.StopAsync();
+            // Check if sample is being closed.
+            if (NavigationController?.ViewControllers == null)
+            {
+                // Stop the location data source.
+                _myMapView.LocationDisplay?.DataSource?.StopAsync();
+            }
         }
 
         private void ShowMessage(string title, string detail)

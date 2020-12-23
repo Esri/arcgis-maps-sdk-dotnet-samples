@@ -1,0 +1,26 @@
+﻿<Window
+    x:Class="ArcGISRuntime.ApiKeyPrompt"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:ArcGISRuntime"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Edit API key"
+    Width="800"
+    Height="450"
+    mc:Ignorable="d">
+    <StackPanel Orientation="Vertical">
+        <TextBlock x:Name="Instructions" Text="blah blah blah put in your key" />
+        <TextBlock x:Name="CurrentKeyText" />
+        <TextBox x:Name="KeyEntryBox" />
+        <Button
+            x:Name="SetKeyButton"
+            Click="SetKeyButton_Click"
+            Content="Set API key" />
+        <Button
+            x:Name="DeleteKeyButton"
+            Click="DeleteKeyButton_Click"
+            Content="Delete API key" />
+        <TextBlock x:Name="Status" />
+    </StackPanel>
+</Window>

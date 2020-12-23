@@ -34,12 +34,9 @@ namespace ArcGISRuntime.WPF.Viewer
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
 
                 // Set the developer Api key.
+                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
                 ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
-                if(status == ApiKeyStatus.Valid)
-                {
-                    Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
-                }
-                else
+                if(status != ApiKeyStatus.Valid)
                 {
                     PromptForKey();
                 }
@@ -54,8 +51,8 @@ namespace ArcGISRuntime.WPF.Viewer
 
         private void PromptForKey()
         {
-            // TODO
-            Console.WriteLine("No developer API key set.");
+            ApiKeyPrompt keyPrompt = new  ApiKeyPrompt();
+            keyPrompt.Show();
         }
     }
 

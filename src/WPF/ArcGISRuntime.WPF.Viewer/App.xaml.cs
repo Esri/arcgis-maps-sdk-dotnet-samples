@@ -33,28 +33,15 @@ namespace ArcGISRuntime.WPF.Viewer
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
 
-                
-                string apiKey = ApiKeyManager.ArcGISDeveloperApiKey;
-
-                // Check if key is null.
-                if (apiKey == null) PromptForKey();
+                // Set the developer Api key.
+                ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+                if(status == ApiKeyStatus.Valid)
+                {
+                    Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
+                }
                 else
                 {
-                    try
-                    {
-                        Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = apiKey;
-
-                        // Check that key is valid.
-                        await new Map(BasemapStyle.ArcGISTopographic).LoadAsync();
-                    }
-                    catch(Exception ex)
-                    {
-                        if (ex.Message == "The provided APIKey is invalid, expired or does not have access to the resource.") PromptForKey();
-                        else
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
-                    }
+                    PromptForKey();
                 }
             }
             catch (Exception ex)
@@ -64,8 +51,10 @@ namespace ArcGISRuntime.WPF.Viewer
                 Current.Shutdown();
             }
         }
+
         private void PromptForKey()
         {
+            // TODO
             Console.WriteLine("No developer API key set.");
         }
     }

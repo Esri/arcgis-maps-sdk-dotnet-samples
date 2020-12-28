@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Managers;
+using System.Diagnostics;
 using System.Windows;
 
 namespace ArcGISRuntime
@@ -32,11 +33,11 @@ namespace ArcGISRuntime
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)
             {
-                Status.Text = "Valid key";
+                Status.Text = "API key is valid";
             }
             else
             {
-                Status.Text = "Invalid key";
+                Status.Text = "API key is invalid";
             }
             CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
         }
@@ -45,6 +46,12 @@ namespace ArcGISRuntime
         {
             CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey = null;
             Status.Text = "API key removed";
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
+            e.Handled = true;
         }
     }
 }

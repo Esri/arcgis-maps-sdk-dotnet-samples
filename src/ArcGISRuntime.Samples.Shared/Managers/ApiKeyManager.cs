@@ -9,6 +9,10 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Diagnostics;
+using System.IO;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.Shared.Managers
@@ -53,6 +57,93 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 return ApiKeyStatus.Invalid;
             }
         }
+
+        public static string GetLocalKey()
+        {
+            return File.ReadAllText(Path.Combine(GetDataFolder(), "key.txt")); ;
+        }
+
+        public static bool StoreCurrentKey()
+        {
+            try
+            {
+                var encryptedKey = Protect(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey));
+                File.WriteAllText(Path.Combine(GetDataFolder(), "key.txt"), Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        internal static string GetDataFolder()
+        {
+#if NETFX_CORE
+            string appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+#elif XAMARIN
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+#else
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+#endif
+            string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISRuntimeSampleData", "APIResources");
+
+            if (!Directory.Exists(sampleDataFolder)) { Directory.CreateDirectory(sampleDataFolder); }
+
+            return sampleDataFolder;
+        }
+
+        #region Data Protection
+
+        private const int EntropySize = 16;
+
+        // Generates a cryptographically random IV
+        private static byte[] GenerateEntropy()
+        {
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                var entropy = new byte[EntropySize];
+                rng.GetBytes(entropy);
+                return entropy;
+            }
+        }
+
+        // Handles encrypting an array of bytes.
+        private static byte[] Protect(byte[] bytes)
+        {
+            // Generate a random initialization vector
+            var entropy = GenerateEntropy();
+
+            // Use the DPAPI to encrypt "bytes"
+            var protectedBytes = ProtectedData.Protect(bytes, entropy, DataProtectionScope.CurrentUser);
+
+            // Return the combines IV + protected data
+            var result = new byte[entropy.Length + protectedBytes.Length];
+            Buffer.BlockCopy(entropy, 0, result, 0, entropy.Length);
+            Buffer.BlockCopy(protectedBytes, 0, result, entropy.Length, protectedBytes.Length);
+            return result;
+        }
+
+        // Handles decrypting an array of bytes.
+        private static byte[] Unprotect(byte[] bytes)
+        {
+            if (bytes?.Length < EntropySize)
+                throw new InvalidDataException(); // data too small, likely invalid
+
+            // Copy IV from "bytes"
+            var entropy = new byte[EntropySize];
+            Buffer.BlockCopy(bytes, 0, entropy, 0, entropy.Length);
+
+            // Copy protected data
+            var protectedBytes = new byte[bytes.Length - EntropySize];
+            Buffer.BlockCopy(bytes, EntropySize, protectedBytes, 0, protectedBytes.Length);
+
+            // Return the unprotected data
+            return ProtectedData.Unprotect(protectedBytes, entropy, DataProtectionScope.CurrentUser);
+        }
+
+        #endregion
     }
 
     public enum ApiKeyStatus

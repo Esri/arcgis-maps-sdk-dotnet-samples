@@ -53,5 +53,11 @@ namespace ArcGISRuntime
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
         }
+
+        private void StoreClick(object sender, RoutedEventArgs e)
+        {
+            bool stored = ApiKeyManager.StoreCurrentKey();
+            Status.Text = stored ? "Current API key stored on device" : "API key could not be stored locally";
+        }
     }
 }

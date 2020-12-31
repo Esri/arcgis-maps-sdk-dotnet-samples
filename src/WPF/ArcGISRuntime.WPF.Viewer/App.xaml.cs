@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Managers;
-using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.IO;
 using System.Windows;
@@ -17,7 +16,7 @@ namespace ArcGISRuntime.WPF.Viewer
 {
     public partial class App
     {
-        public static string ResourcePath => System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+        public static string ResourcePath => Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
 
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
@@ -34,9 +33,24 @@ namespace ArcGISRuntime.WPF.Viewer
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
 
                 // Set the developer Api key.
-                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
+                try
+                {
+                    // Set the key using the file stored on the device.
+                    ApiKeyManager.ArcGISDeveloperApiKey = ApiKeyManager.GetLocalKey();
+                }
+                catch(Exception)
+                {
+                    // If the file cant be opened, try and use the key hardcoded in the ApiKeyManager class.
+                    Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
+                }
+                
+                
                 ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
                 if(status != ApiKeyStatus.Valid)
+                {
+                    PromptForKey();
+                }
+                else
                 {
                     PromptForKey();
                 }

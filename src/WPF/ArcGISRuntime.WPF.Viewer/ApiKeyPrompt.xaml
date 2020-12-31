@@ -46,6 +46,7 @@
                 Margin="5"
                 Click="DeleteKeyButton_Click"
                 Content="Delete API key" />
+            <Button Content="Store key on device" Click="StoreClick" Margin="5"/>
         </StackPanel>
         <TextBlock x:Name="Status" Margin="5,0,0,0"/>
         <TextBlock x:Name="CodeInstructions" Margin="5" TextWrapping="Wrap">

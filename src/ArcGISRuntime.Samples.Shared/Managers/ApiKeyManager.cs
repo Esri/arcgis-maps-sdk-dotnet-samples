@@ -20,6 +20,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
     public static class ApiKeyManager
     {
         private static string _key;
+        private const string _apiKeyFileName = "agolResource";
 
         public static string ArcGISDeveloperApiKey
         {
@@ -60,15 +61,14 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
         public static string GetLocalKey()
         {
-            return File.ReadAllText(Path.Combine(GetDataFolder(), "key.txt")); ;
+            return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
         }
 
         public static bool StoreCurrentKey()
         {
             try
             {
-                var encryptedKey = Protect(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey));
-                File.WriteAllText(Path.Combine(GetDataFolder(), "key.txt"), Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey);
+                File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Protect(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
                 return true;
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 #else
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 #endif
-            string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISRuntimeSampleData", "APIResources");
+            string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISRuntimeSampleData");
 
             if (!Directory.Exists(sampleDataFolder)) { Directory.CreateDirectory(sampleDataFolder); }
 
@@ -143,7 +143,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return ProtectedData.Unprotect(protectedBytes, entropy, DataProtectionScope.CurrentUser);
         }
 
-        #endregion
+        #endregion Data Protection
     }
 
     public enum ApiKeyStatus

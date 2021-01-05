@@ -1,36 +1,25 @@
-﻿using System;
+﻿using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISRuntime.WPF.Viewer;
+using Esri.ArcGISRuntime;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ArcGISRuntime.Converters;
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
-using ArcGISRuntime.WPF.Viewer;
-using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime
 {
-    /// <summary>
-    /// Interaction logic for SettingsWindow.xaml
-    /// </summary>
     public partial class SettingsWindow : Window
     {
         private static string _runtimeVersion = "";
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
-        CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
+        private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private List<SampleInfo> OfflineDataSamples;
 
@@ -39,7 +28,7 @@ namespace ArcGISRuntime
             InitializeComponent();
 
             // Set up version info.
-            if (String.IsNullOrWhiteSpace(_runtimeVersion))
+            if (string.IsNullOrWhiteSpace(_runtimeVersion))
             {
                 var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
                 var rtVersion = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location);
@@ -48,9 +37,9 @@ namespace ArcGISRuntime
             VersionTextField.Text = _runtimeVersion;
 
             // Set up license info.
-            string markdownPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "licenses.md");
-            string cssPath = System.IO.Path.Combine(App.ResourcePath, "Resources", "github-markdown.css");
-            string licenseContent = System.IO.File.ReadAllText(markdownPath);
+            string markdownPath = Path.Combine(App.ResourcePath, "Resources", "licenses.md");
+            string cssPath = Path.Combine(App.ResourcePath, "Resources", "github-markdown.css");
+            string licenseContent = File.ReadAllText(markdownPath);
             licenseContent = _markdownRenderer.Parse(licenseContent);
             string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + licenseContent + "</body>";
             LicenseView.NavigateToString(htmlString);
@@ -63,13 +52,13 @@ namespace ArcGISRuntime
 
         private void OpenInAgol_Clicked(object sender, RoutedEventArgs e)
         {
-            SampleInfo sample = (SampleInfo) ((Button) sender).Tag;
+            SampleInfo sample = (SampleInfo)((Button)sender).Tag;
 
             foreach (var offlineItem in sample.OfflineDataItems)
             {
                 string onlinePath = $"https://www.arcgis.com/home/item.html?id={offlineItem}";
 
-                System.Diagnostics.Process.Start(onlinePath);
+                Process.Start(onlinePath);
             }
         }
 
@@ -78,13 +67,13 @@ namespace ArcGISRuntime
             try
             {
                 SetStatusMessage("Downloading sample data", true);
-                SampleInfo sample = (SampleInfo) ((Button) sender).Tag;
+                SampleInfo sample = (SampleInfo)((Button)sender).Tag;
 
                 await DataManager.EnsureSampleDataPresent(sample);
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception);
+                Debug.WriteLine(exception);
                 MessageBox.Show("Couldn't download data for that sample");
             }
             finally
@@ -150,7 +139,7 @@ namespace ArcGISRuntime
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception);
+                Debug.WriteLine(exception);
                 MessageBox.Show("Couldn't delete the offline data folder");
             }
             finally
@@ -163,7 +152,7 @@ namespace ArcGISRuntime
         {
             // Button for this was removed because it doesn't work with
             // folder redirection when packaged with desktop bridge.
-            System.Diagnostics.Process.Start(DataManager.GetDataFolder());
+            Process.Start(DataManager.GetDataFolder());
         }
 
         private void DeleteData_Click(object sender, RoutedEventArgs e)
@@ -172,7 +161,7 @@ namespace ArcGISRuntime
             {
                 SetStatusMessage("Deleting sample data", true);
 
-                SampleInfo sample = (SampleInfo) ((Button) sender).Tag;
+                SampleInfo sample = (SampleInfo)((Button)sender).Tag;
 
                 foreach (string offlineItemId in sample.OfflineDataItems)
                 {
@@ -185,7 +174,7 @@ namespace ArcGISRuntime
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception);
+                Debug.WriteLine(exception);
                 MessageBox.Show($"Couldn't delete offline data.");
             }
             finally
@@ -213,12 +202,6 @@ namespace ArcGISRuntime
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             _cancellationTokenSource.Cancel(true);
-        }
-
-        private void ApiKey_Click(object sender, RoutedEventArgs e)
-        {
-            ApiKeyPrompt keyPrompt = new ApiKeyPrompt();
-            keyPrompt.Show();
         }
     }
 }

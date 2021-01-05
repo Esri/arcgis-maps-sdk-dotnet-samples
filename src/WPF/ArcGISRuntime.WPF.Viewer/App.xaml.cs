@@ -52,7 +52,8 @@ namespace ArcGISRuntime.WPF.Viewer
 
         private void PromptForKey()
         {
-            ApiKeyPrompt keyPrompt = new  ApiKeyPrompt();
+            var keyPrompt = new Window() { Width = 500, Height = 220, Title = "Edit API key"};
+            keyPrompt.Content = new ApiKeyPrompt();
             keyPrompt.Show();
         }
     }

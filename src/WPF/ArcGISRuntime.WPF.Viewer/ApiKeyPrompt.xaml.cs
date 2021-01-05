@@ -10,10 +10,11 @@
 using ArcGISRuntime.Samples.Shared.Managers;
 using System.Diagnostics;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ArcGISRuntime
 {
-    public partial class ApiKeyPrompt : Window
+    public partial class ApiKeyPrompt : UserControl
     {
         public ApiKeyPrompt()
         {

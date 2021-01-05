@@ -214,5 +214,11 @@ namespace ArcGISRuntime
         {
             _cancellationTokenSource.Cancel(true);
         }
+
+        private void ApiKey_Click(object sender, RoutedEventArgs e)
+        {
+            ApiKeyPrompt keyPrompt = new ApiKeyPrompt();
+            keyPrompt.Show();
+        }
     }
 }

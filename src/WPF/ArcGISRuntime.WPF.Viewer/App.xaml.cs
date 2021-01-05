@@ -41,10 +41,6 @@ namespace ArcGISRuntime.WPF.Viewer
                 {
                     PromptForKey();
                 }
-                else
-                {
-                    PromptForKey();
-                }
             }
             catch (Exception ex)
             {
@@ -60,6 +56,4 @@ namespace ArcGISRuntime.WPF.Viewer
             keyPrompt.Show();
         }
     }
-
-    
 }

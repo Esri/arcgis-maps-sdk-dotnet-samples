@@ -24,12 +24,18 @@ namespace ArcGISRuntime
         private void Initialize()
         {
             CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
+            UpdateValidiyText();
         }
 
         private async void SetKeyButton_Click(object sender, RoutedEventArgs e)
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = KeyEntryBox.Text;
+            UpdateValidiyText();
+        }
+
+        private async void UpdateValidiyText()
+        {
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)
             {

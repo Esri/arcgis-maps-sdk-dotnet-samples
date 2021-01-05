@@ -32,19 +32,10 @@ namespace ArcGISRuntime.WPF.Viewer
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
 
-                // Set the developer Api key.
-                try
-                {
-                    // Set the key using the file stored on the device.
-                    ApiKeyManager.ArcGISDeveloperApiKey = ApiKeyManager.GetLocalKey();
-                }
-                catch(Exception)
-                {
-                    // If the file cant be opened, try and use the key hardcoded in the ApiKeyManager class.
-                    Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
-                }
-                
-                
+                // Set the API key using the key manager.
+                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
+
+                // Check that the current API key is valid.
                 ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
                 if(status != ApiKeyStatus.Valid)
                 {

@@ -29,9 +29,19 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 // An Application programming interface key (API key) is a unique identifier used to authenticate a user, developer, or calling program with a server portal.
                 // Typically, API keys are used to authenticate a calling program within the API rather than an individual user.
                 // Go to https://citra.sites.afd.arcgis.com/documentation/security-and-authentication/api-keys/ to learn how to obtain a developer API key for ArcGIS Online.
-                // You can use your developer API key here and it will work in all of the .NET sample viewers.
-                string userAPIkey = null;
-                if (_key == null) _key = userAPIkey;
+
+                // Check for a local key if a key is not already set.
+                if (_key == null)
+                {
+                    try
+                    {
+                        _key = GetLocalKey();
+                    }
+                    catch(Exception)
+                    {
+                    }
+                    
+                }
 
                 return _key;
             }

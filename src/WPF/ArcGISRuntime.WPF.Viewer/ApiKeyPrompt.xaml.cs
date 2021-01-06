@@ -28,7 +28,7 @@ namespace ArcGISRuntime
             UpdateValidiyText();
         }
 
-        private async void SetKeyButton_Click(object sender, RoutedEventArgs e)
+        private void SetKeyButton_Click(object sender, RoutedEventArgs e)
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = KeyEntryBox.Text;

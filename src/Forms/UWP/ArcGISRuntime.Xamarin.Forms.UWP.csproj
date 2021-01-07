@@ -49,7 +49,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>..\..\..\output\Forms\UWP\x64\debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;WINDOWS_UWP;CODE_ANALYSIS;XAMARIN</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
@@ -189,16 +189,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.9.0</Version>
+      <Version>100.10.0-daily3002</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Xamarin.Forms">
-      <Version>100.9.0</Version>
+      <Version>100.10.0-daily3002</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.9.0</Version>
+      <Version>100.10.0-daily3002</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.Forms">
-      <Version>100.9.0</Version>
+      <Version>100.10.0-daily3002</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>

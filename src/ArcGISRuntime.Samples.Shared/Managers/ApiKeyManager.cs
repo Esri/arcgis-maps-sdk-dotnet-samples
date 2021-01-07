@@ -11,9 +11,17 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Diagnostics;
 using System.IO;
+
+using System.Threading.Tasks;
+
+#if XAMARIN
+using Xamarin.Essentials;
+#else
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
+#endif
+
+using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGISRuntime.Samples.Shared.Managers
 {
@@ -37,10 +45,9 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                     {
                         _key = GetLocalKey();
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                     }
-                    
                 }
 
                 return _key;
@@ -71,11 +78,28 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
         public static string GetLocalKey()
         {
+#if XAMARIN
+            var key = SecureStorage.GetAsync(_apiKeyFileName).Result;
+            return key;
+#else
             return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
+#endif
         }
 
         public static bool StoreCurrentKey()
         {
+#if XAMARIN
+            try
+            {
+                SecureStorage.SetAsync(_apiKeyFileName, Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+#else
             try
             {
                 File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Protect(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
@@ -86,12 +110,13 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 Debug.WriteLine(ex.Message);
                 return false;
             }
+#endif
         }
 
         internal static string GetDataFolder()
         {
 #if NETFX_CORE
-            string appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+            string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #elif XAMARIN
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #else
@@ -103,6 +128,9 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
             return sampleDataFolder;
         }
+
+# if XAMARIN
+# else
 
         #region Data Protection
 
@@ -154,6 +182,8 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         }
 
         #endregion Data Protection
+
+#endif
     }
 
     public enum ApiKeyStatus

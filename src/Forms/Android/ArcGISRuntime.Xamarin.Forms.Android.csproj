@@ -33,7 +33,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\output\Forms\android\debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;XAMARIN_ANDROID</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;XAMARIN_ANDROID;XAMARIN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>

@@ -52,7 +52,8 @@ namespace ArcGISRuntime
 
         private void DeleteKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey = null;
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey = null;
+            CurrentKeyText.Text = string.Empty;
             Status.Text = "API key removed";
         }
 

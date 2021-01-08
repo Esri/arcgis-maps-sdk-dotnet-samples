@@ -79,8 +79,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         public static string GetLocalKey()
         {
 #if XAMARIN
-            var key = SecureStorage.GetAsync(_apiKeyFileName).Result;
-            return key;
+            return SecureStorage.GetAsync(_apiKeyFileName).Result;
 #else
             return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
 #endif

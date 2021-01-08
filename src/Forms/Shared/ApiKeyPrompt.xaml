@@ -23,7 +23,7 @@
                 </Label.FormattedText>
             </Label>
             <StackLayout Orientation="Horizontal">
-                <Label Text="Current Api Key:" />
+                <Label Text="Current API key:" />
                 <Label x:Name="CurrentKeyText" Margin="5,0,0,0" />
             </StackLayout>
             <Entry

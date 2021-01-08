@@ -3,11 +3,12 @@
     x:Class="ArcGISRuntime.SettingsPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:arcgisruntime="clr-namespace:ArcGISRuntime"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
-    mc:Ignorable="d"
-    Title="Settings">
+    Title="Settings"
+    mc:Ignorable="d">
     <TabbedPage.Children>
         <ContentPage Title="About" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.infogrey.png}, iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.info.png}, UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.info.png}}">
             <ContentPage.Content>
@@ -40,9 +41,13 @@
                         <Button
                             Grid.Column="1"
                             Clicked="DeleteAllClicked"
-                            Text="Delete all"
-                            IsEnabled="{x:OnPlatform Android=True, iOS=True, UWP=False}"
-                            IsVisible="{x:OnPlatform Android=True, iOS=True, UWP=False}"/>
+                            IsEnabled="{x:OnPlatform Android=True,
+                                                     iOS=True,
+                                                     UWP=False}"
+                            IsVisible="{x:OnPlatform Android=True,
+                                                     iOS=True,
+                                                     UWP=False}"
+                            Text="Delete all" />
                         <Button
                             x:Name="CancelButton"
                             Grid.Column="2"
@@ -97,13 +102,17 @@
                                             Clicked="DeleteClicked"
                                             CommandParameter="{Binding .}"
                                             HeightRequest="25"
+                                            IsEnabled="{x:OnPlatform Android=True,
+                                                                     iOS=True,
+                                                                     UWP=False}"
+                                            IsVisible="{x:OnPlatform Android=True,
+                                                                     iOS=True,
+                                                                     UWP=False}"
                                             Source="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.deletegrey.png},
                                                                   iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png},
                                                                   UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.delete.png}}"
                                             VerticalOptions="CenterAndExpand"
-                                            WidthRequest="25"
-                                            IsEnabled="{x:OnPlatform Android=True, iOS=True, UWP=False}"
-                                            IsVisible="{x:OnPlatform Android=True, iOS=True, UWP=False}"/>
+                                            WidthRequest="25" />
                                     </Grid>
                                 </ViewCell>
                             </DataTemplate>
@@ -137,5 +146,6 @@
                 </Grid>
             </ContentPage.Content>
         </ContentPage>
+        <arcgisruntime:ApiKeyPrompt Title="API Key" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.keygrey.png}, iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.key.png}, UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.key.png}}" />
     </TabbedPage.Children>
 </TabbedPage>

@@ -1545,4 +1545,8 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\key.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\keygrey.png" />
+  </ItemGroup>
 </Project>

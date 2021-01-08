@@ -274,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="ApiKeyPrompt.cs" />
     <Compile Include="Samples\Layers\ShowPopup\ShowPopup.cs" />
     <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.cs" />
     <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.cs" />
@@ -759,6 +760,11 @@
     <AndroidResource Include="Resources\layout\ShowPopup.xml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ApiKeyPrompt.xml">
+      <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
   <!-- Imports -->

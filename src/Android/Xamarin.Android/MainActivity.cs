@@ -70,11 +70,21 @@ namespace ArcGISRuntime
                 // Set up the search filtering.
                 SearchView searchBox = FindViewById<SearchView>(Resource.Id.categorySearchView);
                 searchBox.QueryTextChange += SearchBoxOnQueryTextChange;
+
+                Button settingsButton = FindViewById<Button>(Resource.Id.settingsButton);
+                settingsButton.Click += SettingsClicked;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private void SettingsClicked(object sender, EventArgs e)
+        {
+            // Bring up API Key prompt screen.
+            var newActivity = new Intent(this, typeof(ApiKeyPrompt));
+            StartActivity(newActivity);
         }
 
         protected override void OnResume()

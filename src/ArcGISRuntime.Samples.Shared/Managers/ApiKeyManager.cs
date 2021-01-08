@@ -64,6 +64,23 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             }
         }
 
+        public static async Task<bool> TrySetLocalKey()
+        {
+            // Check for a local key if a key is not already set.
+            if (ApiKeyManager.ArcGISDeveloperApiKey == null)
+            {
+                try
+                {
+                    ApiKeyManager.ArcGISDeveloperApiKey = await GetLocalKey();
+                    return true;
+                }
+                catch (Exception)
+                {
+                }
+            }
+            return false;
+        }
+
         public static async Task<string> GetLocalKey()
         {
 #if XAMARIN

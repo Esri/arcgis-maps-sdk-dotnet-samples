@@ -52,17 +52,7 @@ namespace ArcGISRuntime
         {
             this.Appearing -= CheckForKey;
 
-            // Check for a local key if a key is not already set.
-            if (ApiKeyManager.ArcGISDeveloperApiKey == null)
-            {
-                try
-                {
-                    ApiKeyManager.ArcGISDeveloperApiKey = await ApiKeyManager.GetLocalKey();
-                }
-                catch (Exception)
-                {
-                }
-            }
+            await ApiKeyManager.TrySetLocalKey();
 
             // Set the API key using the key manager.
             Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;

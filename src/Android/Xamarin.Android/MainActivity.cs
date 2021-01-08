@@ -12,6 +12,7 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using Google.AR.Core;
@@ -71,8 +72,12 @@ namespace ArcGISRuntime
                 SearchView searchBox = FindViewById<SearchView>(Resource.Id.categorySearchView);
                 searchBox.QueryTextChange += SearchBoxOnQueryTextChange;
 
+                // Add a button that brings up settings.
                 Button settingsButton = FindViewById<Button>(Resource.Id.settingsButton);
-                settingsButton.Click += SettingsClicked;
+                settingsButton.Click += (s, e) => PromptForKey();
+
+                // Check the existing API key for validity.
+                CheckApiKey();
             }
             catch (Exception ex)
             {
@@ -80,11 +85,26 @@ namespace ArcGISRuntime
             }
         }
 
-        private void SettingsClicked(object sender, EventArgs e)
+        private async void CheckApiKey()
+        {
+            await ApiKeyManager.TrySetLocalKey();
+
+            // Set the API key using the key manager.
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
+
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
+            {
+                PromptForKey();
+            }
+        }
+
+        private void PromptForKey()
         {
             // Bring up API Key prompt screen.
-            var newActivity = new Intent(this, typeof(ApiKeyPrompt));
-            StartActivity(newActivity);
+            var keyActivity = new Intent(this, typeof(ApiKeyPrompt));
+            StartActivity(keyActivity);
         }
 
         protected override void OnResume()

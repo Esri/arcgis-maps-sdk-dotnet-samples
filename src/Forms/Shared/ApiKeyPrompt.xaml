@@ -2,19 +2,29 @@
 <ContentPage
     x:Class="ArcGISRuntime.ApiKeyPrompt"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Manage API key">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <Label x:Name="Instructions" Margin="5">
-                Some content used in the samples requires a developer API key for access. Go to
-                the developer documentation
-                to learn how to obtain a developer API key for ArcGIS Online.
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Some content used in the samples requires a developer API key for access. Go to " />
+                        <Span
+                            Text="the developer documentation"
+                            TextColor="Blue"
+                            TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="LinkTapped" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                        <Span Text=" to learn how to obtain a developer API key for ArcGIS Online." />
+                    </FormattedString>
+                </Label.FormattedText>
             </Label>
             <StackLayout Orientation="Horizontal">
                 <Label Text="Current Api Key:" />
-                <Label
-                    x:Name="CurrentKeyText"
-                    Margin="5,0,0,0" />
+                <Label x:Name="CurrentKeyText" Margin="5,0,0,0" />
             </StackLayout>
             <Entry
                 x:Name="KeyEntryBox"

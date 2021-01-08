@@ -9,7 +9,8 @@
 
 using ArcGISRuntime.Samples.Shared.Managers;
 using System;
-
+using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -62,6 +63,11 @@ namespace ArcGISRuntime
         {
             bool stored = ApiKeyManager.StoreCurrentKey();
             Status.Text = stored ? "Current API key stored on device" : "API key could not be stored locally";
+        }
+
+        private void LinkTapped(object sender, EventArgs e)
+        {
+            Launcher.OpenAsync(new Uri("https://citra.sites.afd.arcgis.com/documentation/security-and-authentication/api-keys/"));
         }
     }
 }

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
@@ -36,6 +37,8 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
+            this.Appearing += CheckForKey;
+
             // Initialize the sample manager.
             SampleManager.Current.Initialize();
 
@@ -43,6 +46,33 @@ namespace ArcGISRuntime
 
             // Update the binding.
             BindingContext = ViewModel;
+        }
+
+        private async void CheckForKey(object sender, EventArgs e)
+        {
+            this.Appearing -= CheckForKey;
+
+            // Check for a local key if a key is not already set.
+            if (ApiKeyManager.ArcGISDeveloperApiKey == null)
+            {
+                try
+                {
+                    ApiKeyManager.ArcGISDeveloperApiKey = await ApiKeyManager.GetLocalKey();
+                }
+                catch (Exception)
+                {
+                }
+            }
+
+            // Set the API key using the key manager.
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
+
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
+            {
+                await Navigation.PushAsync(new ApiKeyPrompt(), true);
+            }
         }
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)

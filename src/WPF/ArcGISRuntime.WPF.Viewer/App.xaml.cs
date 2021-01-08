@@ -32,12 +32,24 @@ namespace ArcGISRuntime.WPF.Viewer
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
 
+                // Check for a local key if a key is not already set.
+                if (ApiKeyManager.ArcGISDeveloperApiKey == null)
+                {
+                    try
+                    {
+                        ApiKeyManager.ArcGISDeveloperApiKey = await ApiKeyManager.GetLocalKey();
+                    }
+                    catch (Exception)
+                    {
+                    }
+                }
+
                 // Set the API key using the key manager.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
 
                 // Check that the current API key is valid.
                 ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
-                if(status != ApiKeyStatus.Valid)
+                if (status != ApiKeyStatus.Valid)
                 {
                     PromptForKey();
                 }
@@ -52,7 +64,7 @@ namespace ArcGISRuntime.WPF.Viewer
 
         private void PromptForKey()
         {
-            var keyPrompt = new Window() { Width = 500, Height = 220, Title = "Edit API key"};
+            var keyPrompt = new Window() { Width = 500, Height = 220, Title = "Edit API key" };
             keyPrompt.Content = new ApiKeyPrompt();
             keyPrompt.Show();
         }

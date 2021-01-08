@@ -38,18 +38,6 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 // Typically, API keys are used to authenticate a calling program within the API rather than an individual user.
                 // Go to https://citra.sites.afd.arcgis.com/documentation/security-and-authentication/api-keys/ to learn how to obtain a developer API key for ArcGIS Online.
 
-                // Check for a local key if a key is not already set.
-                if (_key == null)
-                {
-                    try
-                    {
-                        _key = GetLocalKey();
-                    }
-                    catch (Exception)
-                    {
-                    }
-                }
-
                 return _key;
             }
 
@@ -76,10 +64,18 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             }
         }
 
-        public static string GetLocalKey()
+        public static async Task<string> GetLocalKey()
         {
 #if XAMARIN
-            return SecureStorage.GetAsync(_apiKeyFileName).Result;
+            try
+            {
+                return await SecureStorage.GetAsync(_apiKeyFileName);
+            }
+            catch(Exception ex)
+            {
+                return null;
+            }
+            
 #else
             return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
 #endif

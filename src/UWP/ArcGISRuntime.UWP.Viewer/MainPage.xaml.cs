@@ -65,6 +65,19 @@ namespace ArcGISRuntime.UWP.Viewer
         private async void PromptForKey(object sender, RoutedEventArgs e)
         {
             this.Loaded -= PromptForKey;
+
+            // Check for a local key if a key is not already set.
+            if (ApiKeyManager.ArcGISDeveloperApiKey == null)
+            {
+                try
+                {
+                    ApiKeyManager.ArcGISDeveloperApiKey = await ApiKeyManager.GetLocalKey();
+                }
+                catch (Exception)
+                {
+                }
+            }
+
             // Set the API key using the key manager.
             Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
 

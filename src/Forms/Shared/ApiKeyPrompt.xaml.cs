@@ -66,7 +66,7 @@ namespace ArcGISRuntime
 
         private void LinkTapped(object sender, EventArgs e)
         {
-            Launcher.OpenAsync(new Uri("https://citra.sites.afd.arcgis.com/documentation/security-and-authentication/api-keys/"));
+            Launcher.OpenAsync(new Uri("https://www.google.com/"));
         }
     }
 }

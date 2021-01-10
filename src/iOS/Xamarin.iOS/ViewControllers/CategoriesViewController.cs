@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Foundation;
 using System;
@@ -66,6 +67,33 @@ namespace ArcGISRuntime
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(UIImage.FromBundle("Settings"), UIBarButtonItemStyle.Plain, ViewSettingsPage);
 
             DefinesPresentationContext = true;
+
+            CheckForKey();
+        }
+
+        private async void CheckForKey()
+        {
+            try
+            {
+
+
+                await ApiKeyManager.TrySetLocalKey();
+
+                // Set the API key using the key manager.
+                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
+
+                // Check that the current API key is valid.
+                ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+                if (status != ApiKeyStatus.Valid)
+                {
+                    var control = new ApiKeyPrompt();
+                    NavigationController.PushViewController(control, true);
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
 
         private void ViewSettingsPage(object sender, EventArgs e)

@@ -96,7 +96,8 @@ namespace ArcGISRuntime
                 //stackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
             });
 
-            UILabel instructionsLabel = new UILabel() { Text = "blah blah blah keys", TranslatesAutoresizingMaskIntoConstraints = false };
+            string info = "Some content used in the samples requires a developer API key for access. Go to the developer documentation to learn how to obtain a developer API key for ArcGIS Online.";
+            UILabel instructionsLabel = new UILabel() { Text = info, TranslatesAutoresizingMaskIntoConstraints = false };
             stackView.AddArrangedSubview(instructionsLabel);
 
             UILabel currentKeyPre = new UILabel() { Text = "Current key: ", TranslatesAutoresizingMaskIntoConstraints = false };

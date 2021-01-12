@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         public async static Task<ApiKeyStatus> CheckKeyValidity()
         {
             // Check that a key has been set.
-            if (Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey == null || Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey == string.Empty) return ApiKeyStatus.Missing;
+            if (string.IsNullOrEmpty(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)) return ApiKeyStatus.Missing;
 
             // Check that key is valid for loading a basemap.
             try

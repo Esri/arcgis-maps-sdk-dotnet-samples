@@ -141,8 +141,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return sampleDataFolder;
         }
 
-# if XAMARIN
-# else
+# if !XAMARIN
 
         #region Data Protection
 

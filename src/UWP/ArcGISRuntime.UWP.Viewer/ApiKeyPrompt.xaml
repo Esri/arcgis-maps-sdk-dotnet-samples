@@ -14,7 +14,7 @@
             Margin="5"
             TextWrapping="Wrap">
             Some content used in the samples requires a developer API key for access. Go to
-            <Hyperlink NavigateUri="https://www.google.com/">
+            <Hyperlink NavigateUri="https://links.esri.com/arcgis-runtime-security-auth">
                 the developer documentation
             </Hyperlink>
             to learn how to obtain a developer API key for ArcGIS Online.</TextBlock>

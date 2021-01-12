@@ -66,7 +66,7 @@ namespace ArcGISRuntime
 
         private void LinkTapped(object sender, EventArgs e)
         {
-            Launcher.OpenAsync(new Uri("https://www.google.com/"));
+            Launcher.OpenAsync(new Uri("https://links.esri.com/arcgis-runtime-security-auth"));
         }
     }
 }

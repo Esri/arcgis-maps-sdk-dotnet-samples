@@ -260,6 +260,9 @@
     <BundleResource Include="Resources\licenses.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
+    <BundleResource Include="Resources\ApiKeyInfo.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
     <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
     <None Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg" />
     <None Include="Samples\Security\IntegratedWindowsAuth\readme.md" />
@@ -462,6 +465,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="HTMLHelpers.cs" />
     <Compile Include="ViewControllers\ApiKeyPrompt.cs" />
     <Compile Include="Samples\Layers\ShowPopup\ShowPopup.cs" />
     <Compile Include="ApplicationTheme.cs" />

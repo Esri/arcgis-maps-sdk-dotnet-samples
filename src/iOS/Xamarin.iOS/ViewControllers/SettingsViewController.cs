@@ -54,11 +54,6 @@ namespace ArcGISRuntime
         // Directory for loading HTML locally.
         private string _contentDirectoryPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Content/");
 
-        private const string _lightMarkdownFile = "github-markdown.css";
-        private const string _darkMarkdownFile = "github-markdown-dark.css";
-
-        private bool _darkMode = false;
-
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
@@ -81,46 +76,16 @@ namespace ArcGISRuntime
             var rtVersionString = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
             string aboutPath = Path.Combine(NSBundle.MainBundle.BundlePath, "about.md");
             string aboutContent = File.ReadAllText(aboutPath) + rtVersionString;
-            string aboutHTML = MarkdownToHTML(aboutContent);
+            string aboutHTML = HTMLHelpers.MarkdownToHTML(aboutContent, TraitCollection);
 
             _aboutView.LoadHtmlString(aboutHTML, new NSUrl(_contentDirectoryPath, true));
 
             // Create the licenses page.
             string licensePath = Path.Combine(NSBundle.MainBundle.BundlePath, "licenses.md");
             string licenseContent = File.ReadAllText(licensePath);
-            string licenseHTML = MarkdownToHTML(licenseContent);
+            string licenseHTML = HTMLHelpers.MarkdownToHTML(licenseContent, TraitCollection);
 
             _licensesView.LoadHtmlString(licenseHTML, new NSUrl(_contentDirectoryPath, true));
-        }
-
-        private void CheckDarkMode()
-        {
-            _darkMode = UIDevice.CurrentDevice.CheckSystemVersion(12, 0) && TraitCollection.UserInterfaceStyle == UIUserInterfaceStyle.Dark;
-        }
-
-        private string MarkdownToHTML(string rawMarkdown)
-        {
-            CheckDarkMode();
-
-            string markdownFile = _darkMode ? _darkMarkdownFile : _lightMarkdownFile;
-
-            string markdownCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{markdownFile}");
-            string parsedMarkdown = new MarkedNet.Marked().Parse(rawMarkdown);
-
-            string markdowntHTML = "<!doctype html>" +
-                "<head>" +
-                "<link rel=\"stylesheet\" href=\"" +
-                markdownCSSPath +
-                "\" />" +
-                "<meta name=\"viewport\" content=\"width=" +
-                UIScreen.MainScreen.Bounds.Width.ToString() +
-                ", shrink-to-fit=YES\">" +
-                "</head>" +
-                "<body class=\"markdown-body\">" +
-                parsedMarkdown +
-                "</body>";
-
-            return markdowntHTML;
         }
 
         private async void DownloadAll(object sender, EventArgs e)
@@ -225,6 +190,7 @@ namespace ArcGISRuntime
                     _downloadView.Hidden = _buttonToolbar.Hidden = false;
                     _apiKeyView.Hidden = _aboutView.Hidden = _licensesView.Hidden = true;
                     break;
+
                 case 3:
                     _apiKeyView.Hidden = false;
                     _licensesView.Hidden = _aboutView.Hidden = _downloadView.Hidden = _buttonToolbar.Hidden = true;

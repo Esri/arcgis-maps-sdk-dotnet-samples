@@ -11,7 +11,9 @@ using ArcGISRuntime.Samples.Shared.Managers;
 using CoreGraphics;
 using Foundation;
 using System;
+using System.IO;
 using UIKit;
+using WebKit;
 
 namespace ArcGISRuntime
 {
@@ -25,6 +27,11 @@ namespace ArcGISRuntime
         private UILabel _currentKeyLabel;
         private UILabel _statusLabel;
 
+        private WKWebView _infoText;
+
+        // Directory for loading HTML locally.
+        private string _contentDirectoryPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Content/");
+
         private UITextField _keyEntry;
 
         public ApiKeyPrompt()
@@ -37,6 +44,24 @@ namespace ArcGISRuntime
 
             _currentKeyLabel.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
             UpdateValidiyText();
+
+            LoadHTML();
+        }
+
+        private void LoadHTML()
+        {
+            // Create the API key info section.
+            string keyInfoPath = Path.Combine(NSBundle.MainBundle.BundlePath, "ApiKeyInfo.md");
+            string keyInfoContent = File.ReadAllText(keyInfoPath);
+            string keyInfoHTML = HTMLHelpers.MarkdownToHTML(keyInfoContent, TraitCollection);
+
+            _infoText.LoadHtmlString(keyInfoHTML, new NSUrl(_contentDirectoryPath, true));
+        }
+
+        public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
+        {
+            // Reload the html pages when switching to and from dark mode.
+            if (previousTraitCollection.UserInterfaceStyle != TraitCollection.UserInterfaceStyle) LoadHTML();
         }
 
         private async void UpdateValidiyText()
@@ -84,21 +109,15 @@ namespace ArcGISRuntime
             stackView.Alignment = UIStackViewAlignment.Top;
             stackView.Spacing = 5;
             stackView.LayoutMarginsRelativeArrangement = true;
-            stackView.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 0);
+            //stackView.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 0);
+            stackView.LayoutMargins = new UIEdgeInsets(10, 10, 10, 10);
 
             View.AddSubviews(stackView);
 
-            NSLayoutConstraint.ActivateConstraints(new[]
-            {
-                stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                stackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                stackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
-                //stackView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-            });
-
-            string info = "Some content used in the samples requires a developer API key for access. Go to the developer documentation to learn how to obtain a developer API key for ArcGIS Online.";
-            UILabel instructionsLabel = new UILabel() { Text = info, TranslatesAutoresizingMaskIntoConstraints = false };
-            stackView.AddArrangedSubview(instructionsLabel);
+            _infoText = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false };
+            _infoText.TranslatesAutoresizingMaskIntoConstraints = false;
+            _infoText.NavigationDelegate = new BrowserLinksNavigationDelegate();
+            stackView.AddArrangedSubview(_infoText);
 
             UILabel currentKeyPre = new UILabel() { Text = "Current key: ", TranslatesAutoresizingMaskIntoConstraints = false };
             _currentKeyLabel = new UILabel() { Text = string.Empty, TranslatesAutoresizingMaskIntoConstraints = false };
@@ -125,6 +144,18 @@ namespace ArcGISRuntime
 
             _statusLabel = new UILabel() { Text = string.Empty, TranslatesAutoresizingMaskIntoConstraints = false };
             stackView.AddArrangedSubview(_statusLabel);
+
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                stackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                stackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+
+                _infoText.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                _infoText.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _infoText.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                _infoText.HeightAnchor.ConstraintEqualTo(100),
+            });
         }
 
         private UIStackView GetRowStackView(UIView[] views)

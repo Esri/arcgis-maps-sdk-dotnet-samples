@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -42,6 +42,8 @@ namespace ArcGISRuntime
         private UIBarButtonItem _deleteAllButton;
         private UIBarButtonItem _cancelButton;
         private UITableView _downloadTable;
+        private UIStackView _apiKeyView;
+        private UIButton _apiKeyButton;
 
         // Cancellation token for downloading items.
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
@@ -83,7 +85,7 @@ namespace ArcGISRuntime
 
             _aboutView.LoadHtmlString(aboutHTML, new NSUrl(_contentDirectoryPath, true));
 
-            // Create the licesnes page.
+            // Create the licenses page.
             string licensePath = Path.Combine(NSBundle.MainBundle.BundlePath, "licenses.md");
             string licenseContent = File.ReadAllText(licensePath);
             string licenseHTML = MarkdownToHTML(licenseContent);
@@ -211,19 +213,28 @@ namespace ArcGISRuntime
             {
                 case 0:
                     _aboutView.Hidden = false;
-                    _licensesView.Hidden = _downloadView.Hidden = _buttonToolbar.Hidden = true;
+                    _apiKeyView.Hidden = _licensesView.Hidden = _downloadView.Hidden = _buttonToolbar.Hidden = true;
                     break;
 
                 case 1:
                     _licensesView.Hidden = false;
-                    _aboutView.Hidden = _downloadView.Hidden = _buttonToolbar.Hidden = true;
+                    _apiKeyView.Hidden = _aboutView.Hidden = _downloadView.Hidden = _buttonToolbar.Hidden = true;
                     break;
 
                 case 2:
                     _downloadView.Hidden = _buttonToolbar.Hidden = false;
-                    _aboutView.Hidden = _licensesView.Hidden = true;
+                    _apiKeyView.Hidden = _aboutView.Hidden = _licensesView.Hidden = true;
+                    break;
+                case 3:
+                    _apiKeyView.Hidden = false;
+                    _licensesView.Hidden = _aboutView.Hidden = _downloadView.Hidden = _buttonToolbar.Hidden = true;
                     break;
             }
+        }
+
+        private void OpenApiKeyPrompt(object sender, EventArgs e)
+        {
+            NavigationController.PushViewController(new ApiKeyPrompt(), true);
         }
 
         public override void LoadView()
@@ -232,7 +243,7 @@ namespace ArcGISRuntime
             View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             // Used to switch between the different views.
-            _switcher = new UISegmentedControl(new string[] { "About", "Licenses", "Offline data" }) { SelectedSegment = 0 };
+            _switcher = new UISegmentedControl(new string[] { "About", "Licenses", "Offline data", "API key" }) { SelectedSegment = 0 };
 
             // Displays the about.md in a web view.
             _aboutView = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false };
@@ -278,8 +289,23 @@ namespace ArcGISRuntime
             _downloadView.AddArrangedSubview(_statusLabel);
             _downloadView.AddArrangedSubview(_downloadTable);
 
+            // Create the API key management elements.
+            _apiKeyButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _apiKeyButton.SetTitle("Manage API key", UIControlState.Normal);
+            _apiKeyButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+
+            _apiKeyView = new UIStackView() { Hidden = true };
+            _apiKeyView.Axis = UILayoutConstraintAxis.Vertical;
+            _apiKeyView.TranslatesAutoresizingMaskIntoConstraints = false;
+            _apiKeyView.Distribution = UIStackViewDistribution.Fill;
+            _apiKeyView.Alignment = UIStackViewAlignment.Top;
+            _apiKeyView.Spacing = 5;
+            _apiKeyView.LayoutMarginsRelativeArrangement = true;
+            _apiKeyView.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 10);
+            _apiKeyView.AddArrangedSubview(_apiKeyButton);
+
             // Add sub views to main view.
-            View.AddSubviews(_aboutView, _licensesView, _downloadView, _buttonToolbar);
+            View.AddSubviews(_aboutView, _licensesView, _downloadView, _buttonToolbar, _apiKeyView);
 
             NSLayoutConstraint.ActivateConstraints(new[]
             {
@@ -304,6 +330,10 @@ namespace ArcGISRuntime
                  _buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                  _buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                  _buttonToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                 _apiKeyView.TopAnchor.ConstraintEqualTo(View.TopAnchor),
+                 _apiKeyView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                 _apiKeyView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
         }
 
@@ -315,6 +345,7 @@ namespace ArcGISRuntime
             _downloadAllButton.Clicked += DownloadAll;
             _deleteAllButton.Clicked += DeleteAll;
             _cancelButton.Clicked += CancelDownloadAll;
+            _apiKeyButton.TouchUpInside += OpenApiKeyPrompt;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -325,6 +356,7 @@ namespace ArcGISRuntime
             _downloadAllButton.Clicked -= DownloadAll;
             _deleteAllButton.Clicked -= DeleteAll;
             _cancelButton.Clicked -= CancelDownloadAll;
+            _apiKeyButton.TouchUpInside -= OpenApiKeyPrompt;
         }
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)

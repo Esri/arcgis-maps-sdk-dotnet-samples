@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -75,8 +75,6 @@ namespace ArcGISRuntime
         {
             try
             {
-
-
                 await ApiKeyManager.TrySetLocalKey();
 
                 // Set the API key using the key manager.
@@ -86,14 +84,13 @@ namespace ArcGISRuntime
                 ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
                 if (status != ApiKeyStatus.Valid)
                 {
-                    var control = new ApiKeyPrompt();
-                    NavigationController.PushViewController(control, true);
+                    NavigationController.PushViewController(new ApiKeyPrompt(), true);
                 }
             }
             catch(Exception ex)
             {
-
             }
+                
         }
 
         private void ViewSettingsPage(object sender, EventArgs e)

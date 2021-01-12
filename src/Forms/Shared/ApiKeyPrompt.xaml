@@ -44,7 +44,7 @@
                 <Button
                     Margin="5"
                     Clicked="StoreClicked"
-                    Text="Store key on device" />
+                    Text="Remember key" />
             </StackLayout>
             <Label x:Name="Status" Margin="5,0,0,0" />
         </StackLayout>

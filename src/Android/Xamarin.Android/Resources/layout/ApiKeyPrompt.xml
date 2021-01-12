@@ -38,12 +38,12 @@
             android:id="@+id/deleteKeyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="delete key"/>
+            android:text="Delete key"/>
         <Button
             android:id="@+id/storeKeyButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="store key"/>
+            android:text="Remember key"/>
     </LinearLayout>
     <TextView
         android:id="@+id/statusText"

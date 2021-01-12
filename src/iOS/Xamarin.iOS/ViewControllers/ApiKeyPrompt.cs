@@ -118,7 +118,7 @@ namespace ArcGISRuntime
             _deleteKeyButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             _storeKeyButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
-            _storeKeyButton.SetTitle("Store key", UIControlState.Normal);
+            _storeKeyButton.SetTitle("Remember key", UIControlState.Normal);
             _storeKeyButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             stackView.AddArrangedSubview(GetRowStackView(new UIView[] { _setKeyButton, _deleteKeyButton, _storeKeyButton }));

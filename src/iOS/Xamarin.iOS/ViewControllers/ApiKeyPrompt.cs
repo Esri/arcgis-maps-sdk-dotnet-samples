@@ -43,7 +43,7 @@ namespace ArcGISRuntime
             base.ViewDidLoad();
 
             _currentKeyLabel.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-            UpdateValidiyText();
+            UpdateValidityText();
 
             LoadHTML();
         }
@@ -64,7 +64,7 @@ namespace ArcGISRuntime
             if (previousTraitCollection.UserInterfaceStyle != TraitCollection.UserInterfaceStyle) LoadHTML();
         }
 
-        private async void UpdateValidiyText()
+        private async void UpdateValidityText()
         {
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)
@@ -82,7 +82,7 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = _keyEntry.Text;
-            UpdateValidiyText();
+            UpdateValidityText();
         }
 
         private void DeleteKey(object sender, EventArgs e)

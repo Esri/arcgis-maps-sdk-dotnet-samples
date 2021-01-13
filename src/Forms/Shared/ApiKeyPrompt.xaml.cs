@@ -27,10 +27,10 @@ namespace ArcGISRuntime
         private void Initialize()
         {
             CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-            UpdateValidiyText();
+            UpdateValidityText();
         }
 
-        private async void UpdateValidiyText()
+        private async void UpdateValidityText()
         {
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)
@@ -48,7 +48,7 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = KeyEntryBox.Text;
-            UpdateValidiyText();
+            UpdateValidityText();
         }
 
         private void DeleteKeyButton_Clicked(object sender, EventArgs e)

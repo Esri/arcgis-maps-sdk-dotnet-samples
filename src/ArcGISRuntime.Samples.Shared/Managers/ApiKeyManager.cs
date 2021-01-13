@@ -86,24 +86,13 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return false;
         }
 
-        public static async Task<string> GetLocalKey()
+        private static async Task<string> GetLocalKey()
         {
 #if XAMARIN
-            try
-            {
-                return await SecureStorage.GetAsync(_apiKeyFileName);
-            }
+            return await SecureStorage.GetAsync(_apiKeyFileName);
 #else
-            try
-            {
-                return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
-            }
+            return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
 #endif
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return null;
-            }
         }
 
         public static bool StoreCurrentKey()

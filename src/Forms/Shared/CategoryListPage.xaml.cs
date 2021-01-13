@@ -52,6 +52,7 @@ namespace ArcGISRuntime
         {
             this.Appearing -= CheckForKey;
 
+            // Attempt to load a locally stored API key.
             await ApiKeyManager.TrySetLocalKey();
 
             // Check that the current API key is valid.

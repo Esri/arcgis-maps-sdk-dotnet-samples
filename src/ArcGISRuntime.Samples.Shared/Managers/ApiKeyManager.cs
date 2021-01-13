@@ -28,6 +28,8 @@ namespace ArcGISRuntime.Samples.Shared.Managers
     public static class ApiKeyManager
     {
         private static string _key;
+
+        // Name for file on windows systems. / Name for key in Xamarin SecureStorage.
         private const string _apiKeyFileName = "agolResource";
 
         public static string ArcGISDeveloperApiKey
@@ -37,29 +39,31 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 // An Application programming interface key (API key) is a unique identifier used to authenticate a user, developer, or calling program with a server portal.
                 // Typically, API keys are used to authenticate a calling program within the API rather than an individual user.
                 // Go to https://links.esri.com/arcgis-runtime-security-auth to learn how to obtain a developer API key for ArcGIS Online.
-
                 return _key;
             }
 
             set
             {
+                // Set the environment key when the manager key is changed.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = _key = value;
             }
         }
 
         public async static Task<ApiKeyStatus> CheckKeyValidity()
         {
-            // Check that a key has been set.
-            if (string.IsNullOrEmpty(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)) return ApiKeyStatus.Missing;
-
-            // Check that key is valid for loading a basemap.
             try
             {
+                // Check that a key has been set.
+                if (string.IsNullOrEmpty(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)) return ApiKeyStatus.Missing;
+
+                // Check that key is valid for loading a basemap.
                 await new Map(BasemapStyle.ArcGISTopographic).LoadAsync();
                 return ApiKeyStatus.Valid;
             }
-            catch (Exception)
+            // An exception will be thrown when a Map using a BasemapStyle is created with an invalid API key.
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
                 return ApiKeyStatus.Invalid;
             }
         }
@@ -74,8 +78,9 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                     ApiKeyManager.ArcGISDeveloperApiKey = await GetLocalKey();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Debug.WriteLine(ex.Message);
                 }
             }
             return false;
@@ -88,14 +93,17 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             {
                 return await SecureStorage.GetAsync(_apiKeyFileName);
             }
-            catch(Exception ex)
+#else
+            try
             {
+                return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
+            }
+#endif
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
                 return null;
             }
-            
-#else
-            return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
-#endif
         }
 
         public static bool StoreCurrentKey()
@@ -106,23 +114,18 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 SecureStorage.SetAsync(_apiKeyFileName, Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey);
                 return true;
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-                return false;
-            }
 #else
             try
             {
                 File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Protect(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
                 return true;
             }
+#endif
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
                 return false;
             }
-#endif
         }
 
         internal static string GetDataFolder()

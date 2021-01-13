@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Shared.Managers;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -27,10 +28,10 @@ namespace ArcGISRuntime
         private void Initialize()
         {
             CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-            UpdateValidityText();
+            _ = UpdateValidityText();
         }
 
-        private async void UpdateValidityText()
+        private async Task UpdateValidityText()
         {
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)
@@ -48,7 +49,7 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = KeyEntryBox.Text;
-            UpdateValidityText();
+            _ = UpdateValidityText();
         }
 
         private void DeleteKeyButton_Clicked(object sender, EventArgs e)

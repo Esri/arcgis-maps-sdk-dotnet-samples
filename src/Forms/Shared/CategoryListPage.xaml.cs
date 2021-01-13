@@ -37,7 +37,7 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
-            this.Appearing += CheckApiKey;
+            this.Appearing += FirstLoaded;
 
             // Initialize the sample manager.
             SampleManager.Current.Initialize();
@@ -48,10 +48,15 @@ namespace ArcGISRuntime
             BindingContext = ViewModel;
         }
 
-        private async void CheckApiKey(object sender, EventArgs e)
+        private void FirstLoaded(object sender, EventArgs e)
         {
-            this.Appearing -= CheckApiKey;
+            this.Appearing -= FirstLoaded;
 
+            _ = CheckApiKey();
+        }
+
+        private async Task CheckApiKey()
+        {
             // Attempt to load a locally stored API key.
             await ApiKeyManager.TrySetLocalKey();
 

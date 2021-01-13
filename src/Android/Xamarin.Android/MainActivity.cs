@@ -20,6 +20,7 @@ using Google.AR.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime
 {
@@ -77,7 +78,7 @@ namespace ArcGISRuntime
                 settingsButton.Click += (s, e) => PromptForKey();
 
                 // Check the existing API key for validity.
-                CheckApiKey();
+                _ = CheckApiKey();
             }
             catch (Exception ex)
             {
@@ -85,7 +86,7 @@ namespace ArcGISRuntime
             }
         }
 
-        private async void CheckApiKey()
+        private async Task CheckApiKey()
         {
             // Attempt to load a locally stored API key.
             await ApiKeyManager.TrySetLocalKey();

@@ -14,6 +14,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -68,10 +69,10 @@ namespace ArcGISRuntime
 
             DefinesPresentationContext = true;
 
-            CheckApiKey();
+            _ = CheckApiKey();
         }
 
-        private async void CheckApiKey()
+        private async Task CheckApiKey()
         {
             // Attempt to load a locally stored API key.
             await ApiKeyManager.TrySetLocalKey();

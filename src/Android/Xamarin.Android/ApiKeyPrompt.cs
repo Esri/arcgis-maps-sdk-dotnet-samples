@@ -13,6 +13,7 @@ using Android.Text.Method;
 using Android.Widget;
 using ArcGISRuntime.Samples.Shared.Managers;
 using System;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime
 {
@@ -51,10 +52,10 @@ namespace ArcGISRuntime
 
             _keyEntry = FindViewById<EditText>(Resource.Id.keyEntry);
 
-            UpdateValidityText();
+            _ = UpdateValidityText();
         }
 
-        private async void UpdateValidityText()
+        private async Task UpdateValidityText()
         {
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)
@@ -72,7 +73,7 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = _keyEntry.Text;
-            UpdateValidityText();
+            _ = UpdateValidityText();
         }
 
         private void DeleteKey(object sender, EventArgs e)

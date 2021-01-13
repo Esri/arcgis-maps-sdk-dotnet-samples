@@ -12,6 +12,7 @@ using CoreGraphics;
 using Foundation;
 using System;
 using System.IO;
+using System.Threading.Tasks;
 using UIKit;
 using WebKit;
 
@@ -43,7 +44,7 @@ namespace ArcGISRuntime
             base.ViewDidLoad();
 
             _currentKeyLabel.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-            UpdateValidityText();
+            _ = UpdateValidityText();
 
             LoadHTML();
         }
@@ -64,7 +65,7 @@ namespace ArcGISRuntime
             if (previousTraitCollection.UserInterfaceStyle != TraitCollection.UserInterfaceStyle) LoadHTML();
         }
 
-        private async void UpdateValidityText()
+        private async Task UpdateValidityText()
         {
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)
@@ -82,7 +83,7 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = _keyEntry.Text;
-            UpdateValidityText();
+            _ = UpdateValidityText();
         }
 
         private void DeleteKey(object sender, EventArgs e)

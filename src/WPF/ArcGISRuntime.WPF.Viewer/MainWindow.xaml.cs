@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Select the first item
                 samples.First().IsSelected = true;
 
-                Loaded += CheckApiKey;
+                Loaded += FirstLoaded;
             }
             catch (Exception ex)
             {
@@ -52,10 +52,15 @@ namespace ArcGISRuntime.Samples.Desktop
             }
         }
 
-        private async void CheckApiKey(object sender, RoutedEventArgs e)
+        private void FirstLoaded(object sender, RoutedEventArgs e)
         {
-            Loaded -= CheckApiKey;
+            Loaded -= FirstLoaded;
 
+            _ = CheckApiKey();
+        }
+
+        private async Task CheckApiKey()
+        {
             // Attempt to load a locally stored API key.
             await ApiKeyManager.TrySetLocalKey();
 

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Managers;
+using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,17 +27,17 @@ namespace ArcGISRuntime
         private void Initialize()
         {
             CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-            UpdateValidityText();
+            _ = UpdateValidityText();
         }
 
         private void SetKeyButton_Click(object sender, RoutedEventArgs e)
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = KeyEntryBox.Text;
-            UpdateValidityText();
+            _ = UpdateValidityText();
         }
 
-        private async void UpdateValidityText()
+        private async Task UpdateValidityText()
         {
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)

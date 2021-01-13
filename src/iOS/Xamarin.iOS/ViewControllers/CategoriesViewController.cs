@@ -73,21 +73,15 @@ namespace ArcGISRuntime
 
         private async void CheckForKey()
         {
-            try
-            {
-                await ApiKeyManager.TrySetLocalKey();
+            // Attempt to load a locally stored API key.
+            await ApiKeyManager.TrySetLocalKey();
 
-                // Check that the current API key is valid.
-                ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
-                if (status != ApiKeyStatus.Valid)
-                {
-                    NavigationController.PushViewController(new ApiKeyPrompt(), true);
-                }
-            }
-            catch(Exception ex)
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
             {
+                NavigationController.PushViewController(new ApiKeyPrompt(), true);
             }
-                
         }
 
         private void ViewSettingsPage(object sender, EventArgs e)

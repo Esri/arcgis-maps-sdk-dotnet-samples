@@ -37,7 +37,7 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
-            this.Appearing += CheckForKey;
+            this.Appearing += CheckApiKey;
 
             // Initialize the sample manager.
             SampleManager.Current.Initialize();
@@ -48,9 +48,9 @@ namespace ArcGISRuntime
             BindingContext = ViewModel;
         }
 
-        private async void CheckForKey(object sender, EventArgs e)
+        private async void CheckApiKey(object sender, EventArgs e)
         {
-            this.Appearing -= CheckForKey;
+            this.Appearing -= CheckApiKey;
 
             // Attempt to load a locally stored API key.
             await ApiKeyManager.TrySetLocalKey();

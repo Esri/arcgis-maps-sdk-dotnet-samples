@@ -68,10 +68,10 @@ namespace ArcGISRuntime
 
             DefinesPresentationContext = true;
 
-            CheckForKey();
+            CheckApiKey();
         }
 
-        private async void CheckForKey()
+        private async void CheckApiKey()
         {
             // Attempt to load a locally stored API key.
             await ApiKeyManager.TrySetLocalKey();

@@ -35,7 +35,7 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             InitializeComponent();
 
-            this.Loaded += PromptForKey;
+            this.Loaded += CheckApiKey;
 
             // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
@@ -62,9 +62,9 @@ namespace ArcGISRuntime.UWP.Viewer
             SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
         }
 
-        private async void PromptForKey(object sender, RoutedEventArgs e)
+        private async void CheckApiKey(object sender, RoutedEventArgs e)
         {
-            this.Loaded -= PromptForKey;
+            this.Loaded -= CheckApiKey;
 
             // Attempt to load a locally stored API key.
             await ApiKeyManager.TrySetLocalKey();

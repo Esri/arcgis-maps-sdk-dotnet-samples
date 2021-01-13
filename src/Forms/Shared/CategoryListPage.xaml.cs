@@ -54,9 +54,6 @@ namespace ArcGISRuntime
 
             await ApiKeyManager.TrySetLocalKey();
 
-            // Set the API key using the key manager.
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey;
-
             // Check that the current API key is valid.
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status != ApiKeyStatus.Valid)

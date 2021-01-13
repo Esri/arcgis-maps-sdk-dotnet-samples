@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Shared.Managers;
 using System;
 using System.IO;
 using System.Windows;
@@ -31,16 +30,6 @@ namespace ArcGISRuntime.WPF.Viewer
 
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
-
-                // Attempt to load a locally stored API key.
-                await ApiKeyManager.TrySetLocalKey();
-
-                // Check that the current API key is valid.
-                ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
-                if (status != ApiKeyStatus.Valid)
-                {
-                    PromptForKey();
-                }
             }
             catch (Exception ex)
             {
@@ -48,13 +37,6 @@ namespace ArcGISRuntime.WPF.Viewer
                 MessageBox.Show(string.Format("There was an error that prevented initializing the runtime. {0}", ex.Message));
                 Current.Shutdown();
             }
-        }
-
-        private void PromptForKey()
-        {
-            var keyPrompt = new Window() { Width = 500, Height = 220, Title = "Edit API key" };
-            keyPrompt.Content = new ApiKeyPrompt();
-            keyPrompt.Show();
         }
     }
 }

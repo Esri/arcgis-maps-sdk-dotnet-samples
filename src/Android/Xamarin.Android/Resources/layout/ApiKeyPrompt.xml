@@ -39,11 +39,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Delete key"/>
-        <Button
-            android:id="@+id/storeKeyButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Remember key"/>
     </LinearLayout>
     <TextView
         android:id="@+id/statusText"

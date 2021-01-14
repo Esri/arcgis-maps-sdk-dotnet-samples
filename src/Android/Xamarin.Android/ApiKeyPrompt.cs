@@ -22,7 +22,6 @@ namespace ArcGISRuntime
     {
         private Button _setKeyButton;
         private Button _deleteKeyButton;
-        private Button _storeKeyButton;
 
         private TextView _currentKeyText;
         private TextView _statusText;
@@ -41,10 +40,8 @@ namespace ArcGISRuntime
 
             _setKeyButton = FindViewById<Button>(Resource.Id.setKeyButton);
             _deleteKeyButton = FindViewById<Button>(Resource.Id.deleteKeyButton);
-            _storeKeyButton = FindViewById<Button>(Resource.Id.storeKeyButton);
 
             _setKeyButton.Click += SetKey;
-            _storeKeyButton.Click += StoreKey;
             _deleteKeyButton.Click += DeleteKey;
 
             _currentKeyText = FindViewById<TextView>(Resource.Id.currentKeyText);
@@ -73,20 +70,16 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = _keyEntry.Text;
+            ApiKeyManager.StoreCurrentKey();
             _ = UpdateValidityText();
         }
 
         private void DeleteKey(object sender, EventArgs e)
         {
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey = null;
+            ApiKeyManager.ArcGISDeveloperApiKey = null;
             _currentKeyText.Text = string.Empty;
+            ApiKeyManager.StoreCurrentKey();
             _statusText.Text = "API key removed";
-        }
-
-        private void StoreKey(object sender, EventArgs e)
-        {
-            bool stored = ApiKeyManager.StoreCurrentKey();
-            _statusText.Text = stored ? "Current API key stored on device" : "API key could not be stored locally";
         }
 
         protected override void OnDestroy()
@@ -94,7 +87,6 @@ namespace ArcGISRuntime
             base.OnDestroy();
 
             _setKeyButton.Click -= SetKey;
-            _storeKeyButton.Click -= StoreKey;
             _deleteKeyButton.Click -= DeleteKey;
         }
     }

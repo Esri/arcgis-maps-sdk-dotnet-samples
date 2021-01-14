@@ -33,6 +33,7 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = KeyEntryBox.Text;
+            ApiKeyManager.StoreCurrentKey();
             _ = UpdateValidityText();
         }
 
@@ -52,7 +53,8 @@ namespace ArcGISRuntime
 
         private void DeleteKeyButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey = null;
+            CurrentKeyText.Text = ApiKeyManager.ArcGISDeveloperApiKey = null;
+            ApiKeyManager.StoreCurrentKey();
             Status.Text = "API key removed";
         }
 
@@ -60,12 +62,6 @@ namespace ArcGISRuntime
         {
             Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri));
             e.Handled = true;
-        }
-
-        private void StoreClick(object sender, RoutedEventArgs e)
-        {
-            bool stored = ApiKeyManager.StoreCurrentKey();
-            Status.Text = stored ? "Current API key stored on device" : "API key could not be stored locally";
         }
     }
 }

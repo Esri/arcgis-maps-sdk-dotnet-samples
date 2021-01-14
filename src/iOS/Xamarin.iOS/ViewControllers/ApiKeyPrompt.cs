@@ -23,7 +23,6 @@ namespace ArcGISRuntime
     {
         private UIButton _setKeyButton;
         private UIButton _deleteKeyButton;
-        private UIButton _storeKeyButton;
 
         private UILabel _currentKeyLabel;
         private UILabel _statusLabel;
@@ -83,19 +82,15 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = _keyEntry.Text;
+            ApiKeyManager.StoreCurrentKey();
             _ = UpdateValidityText();
         }
 
         private void DeleteKey(object sender, EventArgs e)
         {
-            _currentKeyLabel.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey = null;
+            _currentKeyLabel.Text = ApiKeyManager.ArcGISDeveloperApiKey = null;
+            ApiKeyManager.StoreCurrentKey();
             _statusLabel.Text = "API key removed";
-        }
-
-        private void StoreKey(object sender, EventArgs e)
-        {
-            bool stored = ApiKeyManager.StoreCurrentKey();
-            _statusLabel.Text = stored ? "Current API key stored on device" : "API key could not be stored locally";
         }
 
         public override void LoadView()
@@ -137,11 +132,7 @@ namespace ArcGISRuntime
             _deleteKeyButton.SetTitle("Delete key", UIControlState.Normal);
             _deleteKeyButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            _storeKeyButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
-            _storeKeyButton.SetTitle("Remember key", UIControlState.Normal);
-            _storeKeyButton.SetTitleColor(View.TintColor, UIControlState.Normal);
-
-            stackView.AddArrangedSubview(GetRowStackView(new UIView[] { _setKeyButton, _deleteKeyButton, _storeKeyButton }));
+            stackView.AddArrangedSubview(GetRowStackView(new UIView[] { _setKeyButton, _deleteKeyButton }));
 
             _statusLabel = new UILabel() { Text = string.Empty, TranslatesAutoresizingMaskIntoConstraints = false };
             stackView.AddArrangedSubview(_statusLabel);
@@ -174,7 +165,6 @@ namespace ArcGISRuntime
             base.ViewWillAppear(animated);
 
             // Subscribe to events.
-            _storeKeyButton.TouchUpInside += StoreKey;
             _deleteKeyButton.TouchUpInside += DeleteKey;
             _setKeyButton.TouchUpInside += SetKey;
         }
@@ -184,7 +174,6 @@ namespace ArcGISRuntime
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, per best practice.
-            _storeKeyButton.TouchUpInside -= StoreKey;
             _deleteKeyButton.TouchUpInside -= DeleteKey;
             _setKeyButton.TouchUpInside -= SetKey;
         }

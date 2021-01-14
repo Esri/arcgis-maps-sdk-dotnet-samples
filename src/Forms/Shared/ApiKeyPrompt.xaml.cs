@@ -28,6 +28,7 @@ namespace ArcGISRuntime
         private void Initialize()
         {
             CurrentKeyText.Text = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
+            ApiKeyManager.StoreCurrentKey();
             _ = UpdateValidityText();
         }
 
@@ -54,15 +55,10 @@ namespace ArcGISRuntime
 
         private void DeleteKeyButton_Clicked(object sender, EventArgs e)
         {
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = ApiKeyManager.ArcGISDeveloperApiKey = null;
+            ApiKeyManager.ArcGISDeveloperApiKey = null;
             CurrentKeyText.Text = string.Empty;
+            ApiKeyManager.StoreCurrentKey();
             Status.Text = "API key removed";
-        }
-
-        private void StoreClicked(object sender, EventArgs e)
-        {
-            bool stored = ApiKeyManager.StoreCurrentKey();
-            Status.Text = stored ? "Current API key stored on device" : "API key could not be stored locally";
         }
 
         private void LinkTapped(object sender, EventArgs e)

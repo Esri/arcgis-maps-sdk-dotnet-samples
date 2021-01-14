@@ -44,10 +44,6 @@
                 Margin="5"
                 Click="DeleteKeyButton_Click"
                 Content="Delete API key" />
-            <Button
-                Margin="5"
-                Click="StoreClick"
-                Content="Remember key" />
         </StackPanel>
         <TextBlock x:Name="Status" Margin="5,0,0,0" />
     </StackPanel>

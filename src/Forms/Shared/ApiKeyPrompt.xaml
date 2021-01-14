@@ -41,10 +41,6 @@
                     Margin="5"
                     Clicked="DeleteKeyButton_Clicked"
                     Text="Delete API key" />
-                <Button
-                    Margin="5"
-                    Clicked="StoreClicked"
-                    Text="Remember key" />
             </StackLayout>
             <Label x:Name="Status" Margin="5,0,0,0" />
         </StackLayout>

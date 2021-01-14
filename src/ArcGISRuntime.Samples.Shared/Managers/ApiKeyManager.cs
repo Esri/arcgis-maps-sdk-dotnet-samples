@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Diagnostics;
 using System.IO;
-
 using System.Threading.Tasks;
 
 #if XAMARIN
@@ -88,6 +87,9 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
         private static async Task<string> GetLocalKey()
         {
+            // Uncomment the following line of code, and replace the string with your developer API key. Doing this here will work on all .NET sample viewers.
+            // return "YOUR_API_KEY_HERE";
+
 #if XAMARIN
             return await SecureStorage.GetAsync(_apiKeyFileName);
 #else
@@ -135,7 +137,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
 # if !XAMARIN
 
-        #region Data Protection
+        #region Windows Data Protection
 
         private const int EntropySize = 16;
 
@@ -184,7 +186,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return ProtectedData.Unprotect(protectedBytes, entropy, DataProtectionScope.CurrentUser);
         }
 
-        #endregion Data Protection
+        #endregion Windows Data Protection
 
 #endif
     }

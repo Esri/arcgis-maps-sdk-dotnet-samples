@@ -17,15 +17,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 #if XAMARIN_ANDROID
 using Google.AR.Core;
 using Google.AR.Core.Exceptions;
-#endif
-
-#if WINDOWS_UWP
-using System.Threading.Tasks;
 #endif
 
 namespace ArcGISRuntime

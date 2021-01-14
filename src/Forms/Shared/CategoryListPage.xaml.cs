@@ -25,6 +25,10 @@ using Google.AR.Core;
 using Google.AR.Core.Exceptions;
 #endif
 
+#if WINDOWS_UWP
+using System.Threading.Tasks;
+#endif
+
 namespace ArcGISRuntime
 {
     public partial class CategoryListPage

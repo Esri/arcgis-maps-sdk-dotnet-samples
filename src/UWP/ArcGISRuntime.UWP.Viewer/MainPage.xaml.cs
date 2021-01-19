@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
@@ -34,6 +35,8 @@ namespace ArcGISRuntime.UWP.Viewer
         {
             InitializeComponent();
 
+            this.Loaded += FirstLoaded;
+
             // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
 
@@ -57,6 +60,26 @@ namespace ArcGISRuntime.UWP.Viewer
 
             // Set the ItemsSource for the grid from the first category.
             SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+        }
+
+        private async void FirstLoaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= FirstLoaded;
+
+            _ = CheckApiKey();
+        }
+
+        private async Task CheckApiKey()
+        {
+            // Attempt to load a locally stored API key.
+            await ApiKeyManager.TrySetLocalKey();
+
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
+            {
+                Frame.Navigate(typeof(ApiKeyPrompt));
+            }
         }
 
         private void LoadTreeView(SearchableTreeNode fullTree)

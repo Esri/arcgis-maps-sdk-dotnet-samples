@@ -7,12 +7,26 @@
     android:minWidth="25px"
     android:minHeight="25px"
     tools:actionBarNavMode="tabs">
-    <SearchView
+    <LinearLayout
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/categorySearchView" />
+        android:orientation="horizontal">
+        <SearchView
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="0px"
+            android:layout_weight="9"
+            android:layout_height="wrap_content"
+            android:id="@+id/categorySearchView" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&#9881;"
+            android:layout_weight="1"
+            android:id="@+id/settingsButton"/>
+    </LinearLayout>
     <ExpandableListView
         android:minWidth="25px"
         android:minHeight="25px"

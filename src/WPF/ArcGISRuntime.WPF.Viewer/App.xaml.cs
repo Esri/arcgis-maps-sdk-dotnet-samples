@@ -1,4 +1,4 @@
-﻿// Copyright 2016 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -15,8 +15,9 @@ namespace ArcGISRuntime.WPF.Viewer
 {
     public partial class App
     {
-        public static string ResourcePath => System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-        private void Application_Startup(object sender, StartupEventArgs e)
+        public static string ResourcePath => Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+        private async void Application_Startup(object sender, StartupEventArgs e)
         {
             try
             {

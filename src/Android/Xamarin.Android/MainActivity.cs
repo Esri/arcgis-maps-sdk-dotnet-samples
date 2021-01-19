@@ -12,6 +12,7 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using Google.AR.Core;
@@ -19,6 +20,7 @@ using Google.AR.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime
 {
@@ -70,11 +72,38 @@ namespace ArcGISRuntime
                 // Set up the search filtering.
                 SearchView searchBox = FindViewById<SearchView>(Resource.Id.categorySearchView);
                 searchBox.QueryTextChange += SearchBoxOnQueryTextChange;
+
+                // Add a button that brings up settings.
+                Button settingsButton = FindViewById<Button>(Resource.Id.settingsButton);
+                settingsButton.Click += (s, e) => PromptForKey();
+
+                // Check the existing API key for validity.
+                _ = CheckApiKey();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private async Task CheckApiKey()
+        {
+            // Attempt to load a locally stored API key.
+            await ApiKeyManager.TrySetLocalKey();
+
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
+            {
+                PromptForKey();
+            }
+        }
+
+        private void PromptForKey()
+        {
+            // Bring up API Key prompt screen.
+            var keyActivity = new Intent(this, typeof(ApiKeyPrompt));
+            StartActivity(keyActivity);
         }
 
         protected override void OnResume()

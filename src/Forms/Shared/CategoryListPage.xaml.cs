@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
@@ -16,15 +17,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 #if XAMARIN_ANDROID
 using Google.AR.Core;
 using Google.AR.Core.Exceptions;
-#endif
-
-#if WINDOWS_UWP
-using System.Threading.Tasks;
 #endif
 
 namespace ArcGISRuntime
@@ -39,6 +37,8 @@ namespace ArcGISRuntime
 
         private void Initialize()
         {
+            this.Appearing += FirstLoaded;
+
             // Initialize the sample manager.
             SampleManager.Current.Initialize();
 
@@ -46,6 +46,26 @@ namespace ArcGISRuntime
 
             // Update the binding.
             BindingContext = ViewModel;
+        }
+
+        private void FirstLoaded(object sender, EventArgs e)
+        {
+            this.Appearing -= FirstLoaded;
+
+            _ = CheckApiKey();
+        }
+
+        private async Task CheckApiKey()
+        {
+            // Attempt to load a locally stored API key.
+            await ApiKeyManager.TrySetLocalKey();
+
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
+            {
+                await Navigation.PushAsync(new ApiKeyPrompt(), true);
+            }
         }
 
         private async void OnItemTapped(object sender, ItemTappedEventArgs e)

@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\debug\</OutputPath>
-    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;__UNIFIED__;ENABLE_TEST_CLOUD;XAMARIN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -54,7 +54,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\..\output\iOS\iPhone\debug\</OutputPath>
-    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__;__MOBILE__;__UNIFIED__;ENABLE_TEST_CLOUD;XAMARIN</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -256,6 +256,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
     <BundleResource Include="Resources\licenses.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\ApiKeyInfo.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </BundleResource>
     <None Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg" />
@@ -460,6 +463,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="HTMLHelpers.cs" />
+    <Compile Include="ViewControllers\ApiKeyPrompt.cs" />
     <Compile Include="Samples\Layers\ShowPopup\ShowPopup.cs" />
     <Compile Include="ApplicationTheme.cs" />
     <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.cs" />
@@ -702,13 +707,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.9.0</Version>
+      <Version>100.10.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit">
-      <Version>100.9.0</Version>
+      <Version>100.10.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
-      <Version>100.9.0</Version>
+      <Version>100.10.0</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>
@@ -723,7 +728,10 @@
       <Version>1.7.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.ARToolkit">
-      <Version>100.9.0</Version>
+      <Version>100.10.0</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>1.6.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

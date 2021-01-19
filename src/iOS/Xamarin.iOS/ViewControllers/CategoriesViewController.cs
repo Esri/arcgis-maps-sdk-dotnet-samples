@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -8,11 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -66,6 +68,21 @@ namespace ArcGISRuntime
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(UIImage.FromBundle("Settings"), UIBarButtonItemStyle.Plain, ViewSettingsPage);
 
             DefinesPresentationContext = true;
+
+            _ = CheckApiKey();
+        }
+
+        private async Task CheckApiKey()
+        {
+            // Attempt to load a locally stored API key.
+            await ApiKeyManager.TrySetLocalKey();
+
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
+            {
+                NavigationController.PushViewController(new ApiKeyPrompt(), true);
+            }
         }
 
         private void ViewSettingsPage(object sender, EventArgs e)

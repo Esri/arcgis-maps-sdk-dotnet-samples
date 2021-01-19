@@ -93,7 +93,17 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             // return "YOUR_API_KEY_HERE";
 
 #if __IOS__
-            return Encoding.Default.GetString(Decrypt(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
+            try
+            {
+                var beans = Encoding.Default.GetString(Decrypt(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
+                Debug.WriteLine(beans);
+                return beans;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return null;
+            }
 #elif XAMARIN
             return await SecureStorage.GetAsync(_apiKeyFileName);
 #else
@@ -107,6 +117,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             {
 #if __IOS__
                 File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Encrypt(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
+                Debug.WriteLine(File.ReadAllText(Path.Combine(GetDataFolder(), _apiKeyFileName)));
                 return true;
 #elif XAMARIN
 
@@ -114,10 +125,10 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 return true;
 
 #else
-            
+
                 File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Protect(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
                 return true;
-            
+
 #endif
             }
             catch (Exception ex)
@@ -158,18 +169,18 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
 #if !XAMARIN
 
-#region Windows Data Protection
+        #region Windows Data Protection
 
         // Handles encrypting an array of bytes.
         private static byte[] Protect(byte[] bytes)
         {
-            // Generate a random initialization vector
+            // Generate a random initialization vector.
             var entropy = GenerateEntropy();
 
-            // Use the DPAPI to encrypt "bytes"
+            // Use the DPAPI to encrypt "bytes".
             var protectedBytes = ProtectedData.Protect(bytes, entropy, DataProtectionScope.CurrentUser);
 
-            // Return the combines IV + protected data
+            // Return the combined IV + protected data.
             var result = new byte[entropy.Length + protectedBytes.Length];
             Buffer.BlockCopy(entropy, 0, result, 0, entropy.Length);
             Buffer.BlockCopy(protectedBytes, 0, result, entropy.Length, protectedBytes.Length);
@@ -182,25 +193,28 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             if (bytes?.Length < EntropySize)
                 throw new InvalidDataException(); // data too small, likely invalid
 
-            // Copy IV from "bytes"
+            // Copy IV from "bytes".
             var entropy = new byte[EntropySize];
             Buffer.BlockCopy(bytes, 0, entropy, 0, entropy.Length);
 
-            // Copy protected data
+            // Copy protected data.
             var protectedBytes = new byte[bytes.Length - EntropySize];
             Buffer.BlockCopy(bytes, EntropySize, protectedBytes, 0, protectedBytes.Length);
 
-            // Return the unprotected data
+            // Return the unprotected data.
             return ProtectedData.Unprotect(protectedBytes, entropy, DataProtectionScope.CurrentUser);
         }
 
-#endregion Windows Data Protection
+        #endregion Windows Data Protection
 
 #endif
 
 #if __IOS__
 
-#region iOS Data Protection
+        #region iOS Data Protection
+
+        // NOTE: Because iOS entitlements complicate provisioning, we are not using the iOS keychain in our .NET sample viewers. The keychain entitlement is required for Xamarin.Essentials Secure Storage.
+        // For production applications, we recommend using the Xamarin.Essentials Secure Storage library. https://docs.microsoft.com/en-us/xamarin/essentials/secure-storage?tabs=ios
 
         // This is a randomly generated key used to encrypt ArcGIS API keys. Please replace this with your own randomly generated key.
         private const string iOSKey = "JHaq1bGgU1I9BVySrS33N8uNZxzo3Kug";
@@ -208,53 +222,42 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         // Handles encrypting an array of bytes.
         private static byte[] Encrypt(byte[] bytes)
         {
-            byte[] array;
-
             // Create the encryptor.
             Aes aes = Aes.Create();
             aes.Key = Encoding.UTF8.GetBytes(iOSKey);
             aes.GenerateIV();
             ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
 
-            // Create a CryptoStream to write the encrypted data.
-            MemoryStream memoryStream = new MemoryStream();
-            CryptoStream cryptStream = new CryptoStream(
-                memoryStream,
-                encryptor,
-                CryptoStreamMode.Write);
-            StreamWriter streamWriter = new StreamWriter(cryptStream);
+            // Encrypt the input bytes.
+            byte[] protectedBytes = encryptor.TransformFinalBlock(bytes, 0, bytes.Length);
 
-            // Write the stream.
-            streamWriter.Write(bytes);
-            array = memoryStream.ToArray();
-            return array;
+            // Return the combined IV + protected data.
+            var result = new byte[aes.IV.Length + protectedBytes.Length];
+            System.Buffer.BlockCopy(aes.IV, 0, result, 0, aes.IV.Length);
+            System.Buffer.BlockCopy(protectedBytes, 0, result, aes.IV.Length, protectedBytes.Length);
+            return result;
         }
 
         private static byte[] Decrypt(byte[] bytes)
         {
-            byte[] array;
-
-            //Create a new instance of the default Aes implementation class
+            // Create the decryptor.
             Aes aes = Aes.Create();
+            aes.Key = Encoding.UTF8.GetBytes(iOSKey);
+            aes.GenerateIV();
+            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
 
-            //Reads IV value from beginning of the file.
-            byte[] iv = new byte[aes.IV.Length];
+            // Decrypt the input bytes.
+            byte[] decryptedBytes = decryptor.TransformFinalBlock(bytes, 0, bytes.Length);
 
-            // Create a CryptoStream to read the encrypted data.
-            MemoryStream memoryStream = new MemoryStream(bytes);
-            CryptoStream cryptStream = new CryptoStream(
-               memoryStream,
-               aes.CreateDecryptor(Encoding.UTF8.GetBytes(iOSKey), iv),
-               CryptoStreamMode.Read);
-            StreamWriter streamWriter = new StreamWriter(cryptStream);
-            
-            // Read the stream.
-            streamWriter.Write(bytes);
-            array = memoryStream.ToArray();
-            return array;
+            // Copy the decrypted data.
+            var decryptedData = new byte[decryptedBytes.Length - aes.IV.Length];
+            System.Buffer.BlockCopy(decryptedBytes, aes.IV.Length, decryptedData, 0, decryptedData.Length);
+
+            // Return the decrypted data.
+            return decryptedData;
         }
 
-#endregion iOS Data Protection
+        #endregion iOS Data Protection
 
 #endif
     }

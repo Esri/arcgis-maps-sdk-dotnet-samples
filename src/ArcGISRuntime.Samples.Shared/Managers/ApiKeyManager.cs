@@ -11,11 +11,12 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
 
-#if XAMARIN
+#if __IOS__
+using System.Security.Cryptography;
+using System.Text;
+#elif XAMARIN
 using Xamarin.Essentials;
 #else
 using System.Security.Cryptography;
@@ -91,13 +92,10 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         {
             // Uncomment the following line of code, and replace the string with your developer API key. Doing this here will work on all .NET sample viewers.
             // return "YOUR_API_KEY_HERE";
-
 #if __IOS__
             try
             {
-                var beans = Encoding.Default.GetString(Decrypt(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
-                Debug.WriteLine(beans);
-                return beans;
+                return Encoding.Default.GetString(Decrypt(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName)))); ;
             }
             catch (Exception ex)
             {
@@ -117,7 +115,6 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             {
 #if __IOS__
                 File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Encrypt(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
-                Debug.WriteLine(File.ReadAllText(Path.Combine(GetDataFolder(), _apiKeyFileName)));
                 return true;
 #elif XAMARIN
 
@@ -154,6 +151,10 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return sampleDataFolder;
         }
 
+#if !XAMARIN
+
+        #region Windows Data Protection
+
         private const int EntropySize = 16;
 
         // Generates a cryptographically random IV
@@ -166,10 +167,6 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 return entropy;
             }
         }
-
-#if !XAMARIN
-
-        #region Windows Data Protection
 
         // Handles encrypting an array of bytes.
         private static byte[] Protect(byte[] bytes)

@@ -157,7 +157,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
         private const int EntropySize = 16;
 
-        // Generates a cryptographically random IV
+        // Generates a cryptographically random IV.
         private static byte[] GenerateEntropy()
         {
             using (var rng = RandomNumberGenerator.Create())
@@ -235,6 +235,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return result;
         }
 
+        // Handles decrypting an array of bytes.
         private static byte[] Decrypt(byte[] bytes)
         {
             // Create the decryptor.

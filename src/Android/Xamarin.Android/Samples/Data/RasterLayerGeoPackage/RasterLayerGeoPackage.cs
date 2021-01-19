@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
         private async void Initialize()
         {
             // Create a new map
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Get the full path
             string geoPackagePath = GetGeoPackagePath();

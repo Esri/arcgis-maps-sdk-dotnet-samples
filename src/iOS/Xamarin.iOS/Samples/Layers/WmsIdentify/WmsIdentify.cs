@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
         private async void Initialize()
         {
             // Show an imagery basemap.
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Create a new WMS layer displaying the specified layers from the service.
             _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);

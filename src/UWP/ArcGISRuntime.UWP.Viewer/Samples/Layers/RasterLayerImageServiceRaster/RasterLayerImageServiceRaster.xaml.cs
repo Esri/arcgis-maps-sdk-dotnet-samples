@@ -31,7 +31,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterLayerImageServiceRaster
         private void Initialize()
         {
             // Create new map with the dark gray canvas basemap.
-            Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
+            Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create a Uri to the image service raster.
             Uri myUri = new Uri("https://gis.ngdc.noaa.gov/arcgis/rest/services/bag_hillshades/ImageServer");

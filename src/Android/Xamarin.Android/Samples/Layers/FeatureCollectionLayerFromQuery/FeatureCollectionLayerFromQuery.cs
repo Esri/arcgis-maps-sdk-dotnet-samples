@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery
         private void Initialize()
         {
             // Create a new map with the oceans basemap and add it to the map view
-            Map myMap = new Map(Basemap.CreateOceans());
+            Map myMap = new Map(BasemapStyle.ArcGISOceans);
             _myMapView.Map = myMap;
 
             // Call a function that will create a new feature collection layer from a service query

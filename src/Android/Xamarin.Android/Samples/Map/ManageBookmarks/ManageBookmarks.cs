@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void Initialize()
         {
             // Create a new map with a World Imagery base map
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Add the map to the MapView
             _myMapView.Map = myMap;

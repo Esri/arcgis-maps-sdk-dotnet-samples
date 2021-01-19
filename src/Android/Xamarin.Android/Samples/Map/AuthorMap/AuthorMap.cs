@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Provide used Map to the MapView
             _myMapView.Map = myMap;
@@ -166,7 +166,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void OnNewMapClicked(object sender, EventArgs e)
         {
             // Create a new map for the map view (can make changes and save as a new portal item)
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
         }
 
         private void OnSaveMapClicked(object sender, EventArgs e)
@@ -312,19 +312,19 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 case "Topographic":
                     // Set the basemap to Topographic
-                    _myMapView.Map.Basemap = Basemap.CreateTopographic();
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
                     break;
                 case "Streets":
                     // Set the basemap to Streets
-                    _myMapView.Map.Basemap = Basemap.CreateStreets();
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
                     break;
                 case "Imagery":
                     // Set the basemap to Imagery
-                    _myMapView.Map.Basemap = Basemap.CreateImagery();
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard);
                     break;
                 case "Oceans":
                     // Set the basemap to Oceans
-                    _myMapView.Map.Basemap = Basemap.CreateOceans();
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
         }

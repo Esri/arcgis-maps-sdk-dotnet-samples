@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.ConvexHull
         private void Initialize()
         {
             // Create and show a map with a topographic basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create an overlay to hold the lines of the hull.
             _graphicsOverlay = new GraphicsOverlay();

@@ -93,7 +93,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
         private void Initialize()
         {
             // Create new Map with a topographic basemap.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Display the map in the map view.
             _myMapView.Map = myMap;

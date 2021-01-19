@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap.
-            Map streetMap = new Map(Basemap.CreateStreetsVector());
+            Map streetMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the path to the downloaded shapefile.
             string filepath = DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "TrailBikeNetwork.shp");

@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private void Initialize()
         {
             // Show an imagery basemap.
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
         }
 
         private void OnStopButtonClicked(object sender, EventArgs e)

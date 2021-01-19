@@ -40,7 +40,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
         private async void Initialize()
         {
             // Create new Map
-            Map myMap = new Map(Basemap.CreateOceans());
+            Map myMap = new Map(BasemapStyle.ArcGISOceans);
 
             // Create the hurricanes feature layer once
             FeatureLayer noOffsetLayer = new FeatureLayer(_featureLayerUri);

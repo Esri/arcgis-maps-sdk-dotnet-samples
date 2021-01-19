@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
 
         private void Initialize()
         {
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Create the graphics overlay and add it to the map view.
             GraphicsOverlay graphicsOverlay = new GraphicsOverlay();

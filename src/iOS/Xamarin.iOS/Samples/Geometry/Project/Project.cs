@@ -39,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.Project
         private async void Initialize()
         {
             // Show a map in the default WebMercator spatial reference.
-            _myMapView.Map = new Map(Basemap.CreateNationalGeographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Add a graphics overlay for showing the tapped point.
             GraphicsOverlay overlay = new GraphicsOverlay();

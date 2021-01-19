@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerUrl
         private void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateTerrainWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISTerrain);
 
             // Create and set initial map location.
             MapPoint initialLocation = new MapPoint(-13176752, 4090404, SpatialReferences.WebMercator);

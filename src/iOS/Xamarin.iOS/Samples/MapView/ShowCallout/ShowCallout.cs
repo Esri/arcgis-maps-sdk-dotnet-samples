@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
         private void Initialize()
         {
             // Show a streets basemap.
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
         }
 
         private void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)

@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerShapefile
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the path to the downloaded shapefile
             string filepath = GetShapefilePath();

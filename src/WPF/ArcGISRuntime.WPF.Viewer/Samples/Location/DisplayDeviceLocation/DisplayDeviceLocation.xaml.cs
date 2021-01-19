@@ -39,7 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
             Unloaded += SampleUnloaded;
 
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Provide used Map to the MapView
             MyMapView.Map = myMap;

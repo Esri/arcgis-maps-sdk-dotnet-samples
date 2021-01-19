@@ -81,7 +81,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
                 Unloaded += SampleUnloaded;
 
                 // Create the map view.
-                MyMapView.Map = new Map(Basemap.CreateNavigationVector());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
                 // Create the route task, using the online routing service.
                 RouteTask routeTask = await RouteTask.CreateAsync(_routingUri);

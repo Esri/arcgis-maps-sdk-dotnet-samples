@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         private void Initialize()
         {
             // Show a streets basemap.
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
         }
 
         private void RotationSlider_Changed(object sender, EventArgs e)

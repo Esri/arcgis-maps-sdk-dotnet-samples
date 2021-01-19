@@ -61,7 +61,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
         private void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
+            Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Display the map.
             _myMapView.Map = myMap;

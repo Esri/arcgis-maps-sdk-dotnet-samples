@@ -32,7 +32,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeAtmosphereEffect
         private void Initialize()
         {
             // Create the scene with a basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
             
             // Add an elevation source to the scene.
             Surface elevationSurface = new Surface();

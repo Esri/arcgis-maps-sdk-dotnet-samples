@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         private void Initialize()
         {
             // Set a basemap.
-            _myMapView.Map = new Map(Basemap.CreateImageryWithLabelsVector());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
             // Apply a grid by default.
             ApplyCurrentSettings();

@@ -49,7 +49,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create and set initial map location
             MapPoint initialLocation = new MapPoint(

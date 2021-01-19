@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServerUrl));
 
                 // Create the map.
-                MyMapView.Map = new Map(Basemap.CreateTopographicVector());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
                 // Get all of the edges and junctions in the network.
                 IEnumerable<UtilityNetworkSource> edges = _utilityNetwork.Definition.NetworkSources.Where(n => n.SourceType == UtilityNetworkSourceType.Edge);

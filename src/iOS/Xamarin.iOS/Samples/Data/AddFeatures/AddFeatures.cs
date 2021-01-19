@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
         private void Initialize()
         {
             // Create the map with streets basemap.
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Create the feature table, referring to the Damage Assessment feature service.
             _damageFeatureTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));

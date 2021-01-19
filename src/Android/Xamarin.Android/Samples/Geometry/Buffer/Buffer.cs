@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.Buffer
         private void Initialize()
         {
             // Create a map with a topographic basemap and add it to the map view.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Handle the MapView's GeoViewTapped event to create buffers.
             _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;

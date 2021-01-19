@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
         private async void Initialize()
         {
             // Create a map and add it to the view
-            MyMapView.Map = new Map(Basemap.CreateStreetsWithReliefVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsRelief);
 
             try
             {

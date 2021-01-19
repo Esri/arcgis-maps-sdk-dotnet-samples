@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         private void Initialize()
         {
             // Create a new map with the oceans basemap and add it to the map view.
-            _myMapView.Map = new Map(Basemap.CreateOceans());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISOceans);
 
             // Call a function that will create a new feature collection layer and zoom to it.
             CreateNewFeatureCollection();

@@ -60,7 +60,7 @@ namespace ArcGISRuntime.UWP.Samples.FindServiceAreasForMultipleFacilities
             try
             {
                 // Create the map and show it in the view.
-                Map newMap = new Map(Basemap.CreateLightGrayCanvas());
+                Map newMap = new Map(BasemapStyle.ArcGISLightGray);
                 MyMapView.Map = newMap;
 
                 // Create the table containing the facilities.

@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
         private void Initialize()
         {
             // Create a new Map with a vector streets basemap.
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create and set the map's initial view point.
             MapPoint initialLocation = new MapPoint(-12716000.00, 4170400.00, SpatialReferences.WebMercator);

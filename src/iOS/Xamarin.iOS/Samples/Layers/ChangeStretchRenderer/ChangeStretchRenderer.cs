@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         private async void Initialize()
         {
             // Add an imagery basemap.
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Get the file name.
             string filepath = DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");

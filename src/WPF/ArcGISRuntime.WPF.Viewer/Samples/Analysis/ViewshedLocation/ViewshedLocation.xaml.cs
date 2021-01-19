@@ -66,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
             _viewHeight = HeightSlider.Value;
 
             // Create the scene with the imagery basemap.
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
             MySceneView.Scene = myScene;
 
             // Add the surface elevation.

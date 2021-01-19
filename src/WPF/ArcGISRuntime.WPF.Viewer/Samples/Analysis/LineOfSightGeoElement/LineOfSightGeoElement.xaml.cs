@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         private async void Initialize()
         {
             // Create scene
-            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
+            Scene myScene = new Scene(BasemapStyle.ArcGISImagery)
             {
                 // Set initial viewpoint
                 InitialViewpoint = new Viewpoint(_observerPoint, 1600)

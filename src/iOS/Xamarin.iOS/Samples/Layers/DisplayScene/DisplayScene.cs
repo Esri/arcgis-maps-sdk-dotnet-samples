@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.DisplayScene
         private void Initialize()
         {
             // Create a new basemap.
-            Basemap imageryBasemap = Basemap.CreateImagery();
+            Basemap imageryBasemap = new Basemap(BasemapStyle.ArcGISImageryStandard);
 
             // Create and show a new scene with imagery basemap.
             _mySceneView.Scene = new Scene(imageryBasemap);

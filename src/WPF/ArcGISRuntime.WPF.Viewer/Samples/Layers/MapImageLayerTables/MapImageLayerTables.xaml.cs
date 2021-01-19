@@ -43,7 +43,7 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
         private async void Initialize()
         {
             // Create a new Map with a vector streets basemap.
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create the URI to the Service Requests map service.
             Uri serviceRequestUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer");

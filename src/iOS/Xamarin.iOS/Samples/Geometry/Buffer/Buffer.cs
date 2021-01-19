@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.Buffer
         private void Initialize()
         {
             // Create a map with a topographic basemap and add it to the map view.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create a fill symbol for geodesic buffer polygons.            
             Colors geodesicBufferColor = Colors.FromArgb(120, 255, 0, 0);

@@ -30,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.MapRotation
         private void Initialize()
         {
             // Assign the map to the MapView
-            MyMapView.Map = new Map(Basemap.CreateStreets());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
         }
 
         private void MySlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)

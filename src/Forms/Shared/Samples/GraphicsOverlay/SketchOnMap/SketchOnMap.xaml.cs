@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void Initialize()
         {
             // Create a light gray canvas map
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Create graphics overlay to display sketch geometry
             _sketchOverlay = new GraphicsOverlay();

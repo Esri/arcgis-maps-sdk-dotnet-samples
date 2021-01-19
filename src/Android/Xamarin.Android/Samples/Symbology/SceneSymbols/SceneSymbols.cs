@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
         private void Initialize()
         {
             // Configure the scene with an imagery basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add a surface to the scene for elevation.
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));

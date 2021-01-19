@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             MapPoint point = new MapPoint(-11662054, 4818336, SpatialReference.Create(3857));
 
             // Create and show a map with topographic basemap.
-            Map myMap = new Map(Basemap.CreateTopographic())
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic)
             {
                 InitialViewpoint = new Viewpoint(point, 200000)
             };

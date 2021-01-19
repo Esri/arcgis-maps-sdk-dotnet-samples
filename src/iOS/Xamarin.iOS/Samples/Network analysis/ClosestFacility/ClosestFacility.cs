@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         private async void Initialize()
         {
             // Construct the map and set the MapView.Map property.
-            Map map = new Map(Basemap.CreateLightGrayCanvasVector());
+            Map map = new Map(BasemapStyle.ArcGISLightGray);
             _myMapView.Map = map;
 
             try

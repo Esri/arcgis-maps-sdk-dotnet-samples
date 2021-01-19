@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
         private void Initialize()
         {
             // Show a topographic basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
         }
 
         private async void ViewpointButton_ValueChanged(object sender, EventArgs e)

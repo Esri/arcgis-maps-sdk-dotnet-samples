@@ -34,7 +34,7 @@ namespace ArcGISRuntime.UWP.Samples.ViewPointCloudDataOffline
         private async void Initialize()
         {
             // Create the scene with basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create a surface and add the elevation service to it.
             Surface groundSurface = new Surface();

@@ -46,7 +46,7 @@ namespace ArcGISRuntime.UWP.Samples.AnalyzeHotspots
         private async void Initialize()
         {
             // Create a map with a topographic basemap
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Set the initial start date for the DatePicker defined in xaml
             DateTimeOffset myFromDate = new DateTimeOffset(new DateTime(1998, 1, 1));

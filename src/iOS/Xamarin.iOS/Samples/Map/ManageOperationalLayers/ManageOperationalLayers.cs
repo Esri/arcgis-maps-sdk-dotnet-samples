@@ -47,7 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
 
         private void Initialize()
         {
-            _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
+            _viewModel = new MapViewModel(new Map(BasemapStyle.ArcGISStreets));
             _myMapView.Map = _viewModel.Map;
 
             // Add the layers.

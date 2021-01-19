@@ -55,7 +55,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             Unloaded += SampleUnloaded;
 
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateStreets());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Subscribe to location changed event so that map can zoom to location
             MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;

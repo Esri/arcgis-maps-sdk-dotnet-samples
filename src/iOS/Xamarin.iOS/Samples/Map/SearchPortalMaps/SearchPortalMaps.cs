@@ -62,7 +62,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void Initialize()
         {
             // Show a map with basemap by default.
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Update the authentication settings.
             UpdateAuthenticationManager();

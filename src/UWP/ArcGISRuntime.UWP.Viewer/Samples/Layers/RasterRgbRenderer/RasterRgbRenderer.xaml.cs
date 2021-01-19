@@ -40,7 +40,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterRgbRenderer
         private async void Initialize()
         {
             // Create a map with a streets basemap.
-            Map map = new Map(Basemap.CreateStreets());
+            Map map = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the file name for the local raster dataset.
             string filepath = GetRasterPath();

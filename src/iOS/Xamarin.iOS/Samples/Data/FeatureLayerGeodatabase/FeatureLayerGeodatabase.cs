@@ -38,7 +38,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap.
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the path to the downloaded mobile geodatabase (.geodatabase file).
             string mobileGeodatabaseFilePath = DataManager.GetDataFolder("2b0f9e17105847809dfeb04e3cad69e0", "LA_Trails.geodatabase");

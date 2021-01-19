@@ -38,7 +38,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
         private async void Initialize()
         {
             // Create new map with the streets basemap.
-            Map myMap = new Map(Basemap.CreateStreets());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create a URI to the image service raster.
             Uri rasterUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer");

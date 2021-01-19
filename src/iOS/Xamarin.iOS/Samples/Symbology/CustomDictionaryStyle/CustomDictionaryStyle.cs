@@ -47,7 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
             try
             {
                 // Create a new map with a streets basemap.
-                Map map = new Map(Basemap.CreateStreetsVector());
+                Map map = new Map(BasemapStyle.ArcGISStreets);
 
                 // Create the restaurants layer and add it to the map.
                 FeatureLayer restaurantLayer = new FeatureLayer(_restaurantUri);

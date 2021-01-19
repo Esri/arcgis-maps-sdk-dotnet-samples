@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.RenderUniqueValues
         private void Initialize()
         {
             // Create new Map with a topographic basemap.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create URI pointing to the feature service.
             Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer/3");

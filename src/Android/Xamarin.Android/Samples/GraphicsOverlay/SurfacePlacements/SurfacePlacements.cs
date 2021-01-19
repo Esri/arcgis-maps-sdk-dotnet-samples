@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             Scene myScene = new Scene
             {
                 // Set the Scene's basemap property.
-                Basemap = Basemap.CreateImagery()
+                Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard)
             };
 
             // Create a camera with coordinates showing layer data.

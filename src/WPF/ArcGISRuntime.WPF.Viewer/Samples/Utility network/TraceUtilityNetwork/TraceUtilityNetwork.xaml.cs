@@ -65,7 +65,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
                 Status.Text = "Loading Utility Network...";
 
                 // Create a map.
-                MyMapView.Map = new Map(Basemap.CreateStreetsNightVector())
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight)
                 {
                     InitialViewpoint = _startingViewpoint
                 };

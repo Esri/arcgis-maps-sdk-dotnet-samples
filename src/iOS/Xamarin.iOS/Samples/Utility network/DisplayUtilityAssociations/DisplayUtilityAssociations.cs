@@ -66,7 +66,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServerUrl));
 
                 // Create the map.
-                _myMapView.Map = new Map(Basemap.CreateTopographicVector());
+                _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
                 // Get all of the edges and junctions in the network.
                 IEnumerable<UtilityNetworkSource> edges = _utilityNetwork.Definition.NetworkSources.Where(n => n.SourceType == UtilityNetworkSourceType.Edge);

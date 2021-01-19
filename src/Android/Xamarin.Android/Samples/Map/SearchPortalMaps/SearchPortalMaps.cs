@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void Initialize()
         {
             // Create a new Map instance
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Provide default Map to the MapView
             _myMapView.Map = myMap;

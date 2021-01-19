@@ -98,6 +98,19 @@ namespace ArcGISRuntime
             // Create the views.
             View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
+            UIScrollView scrollView = new UIScrollView();
+            scrollView.TranslatesAutoresizingMaskIntoConstraints = false;
+
+            View.AddSubviews(scrollView);
+
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                scrollView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                scrollView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                scrollView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                scrollView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+            });
+
             UIStackView stackView = new UIStackView();
             stackView.Axis = UILayoutConstraintAxis.Vertical;
             stackView.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -105,10 +118,7 @@ namespace ArcGISRuntime
             stackView.Alignment = UIStackViewAlignment.Top;
             stackView.Spacing = 5;
             stackView.LayoutMarginsRelativeArrangement = true;
-            //stackView.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 0);
-            stackView.LayoutMargins = new UIEdgeInsets(10, 10, 10, 10);
-
-            View.AddSubviews(stackView);
+            stackView.DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 0);
 
             _infoText = new WKWebView(new CGRect(), new WKWebViewConfiguration()) { BackgroundColor = UIColor.Clear, Opaque = false };
             _infoText.TranslatesAutoresizingMaskIntoConstraints = false;
@@ -137,14 +147,20 @@ namespace ArcGISRuntime
             _statusLabel = new UILabel() { Text = string.Empty, TranslatesAutoresizingMaskIntoConstraints = false };
             stackView.AddArrangedSubview(_statusLabel);
 
+            scrollView.AddSubview(stackView);
+
             NSLayoutConstraint.ActivateConstraints(new[]
             {
-                stackView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                stackView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                stackView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                stackView.TopAnchor.ConstraintEqualTo(scrollView.TopAnchor),
+                stackView.LeadingAnchor.ConstraintEqualTo(scrollView.LeadingAnchor),
+                stackView.TrailingAnchor.ConstraintEqualTo(scrollView.TrailingAnchor),
+                stackView.BottomAnchor.ConstraintEqualTo(scrollView.BottomAnchor),
+                stackView.WidthAnchor.ConstraintEqualTo(scrollView.WidthAnchor),
+            });
 
-                _infoText.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                _infoText.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                _infoText.WidthAnchor.ConstraintEqualTo(stackView.WidthAnchor),
                 _infoText.HeightAnchor.ConstraintEqualTo(100),
             });
         }

@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,20 +22,17 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBasemap
         tags: new[] { "basemap", "map" })]
     public partial class ChangeBasemap
     {
-        // Dictionary that associates names with basemaps
+        // Dictionary that associates names with basemaps.
         private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
         {
-            {"Streets (Raster)", Basemap.CreateStreets()},
-            {"Streets (Vector)", Basemap.CreateStreetsVector()},
-            {"Streets - Night (Vector)", Basemap.CreateStreetsNightVector()},
-            {"Imagery (Raster)", Basemap.CreateImagery()},
-            {"Imagery with Labels (Raster)", Basemap.CreateImageryWithLabels()},
-            {"Imagery with Labels (Vector)", Basemap.CreateImageryWithLabelsVector()},
-            {"Dark Gray Canvas (Vector)", Basemap.CreateDarkGrayCanvasVector()},
-            {"Light Gray Canvas (Raster)", Basemap.CreateLightGrayCanvas()},
-            {"Light Gray Canvas (Vector)", Basemap.CreateLightGrayCanvasVector()},
-            {"Navigation (Vector)", Basemap.CreateNavigationVector()},
-            {"OpenStreetMap (Raster)", Basemap.CreateOpenStreetMap()}
+            {"Streets", new Basemap(BasemapStyle.ArcGISStreets)},
+            {"Streets - Night", new Basemap(BasemapStyle.ArcGISStreetsNight)},
+            {"Imagery", new Basemap(BasemapStyle.ArcGISImageryStandard)},
+            {"Imagery with Labels", new Basemap(BasemapStyle.ArcGISImagery)},
+            {"Dark Gray Canvas", new Basemap(BasemapStyle.ArcGISDarkGray)},
+            {"Light Gray Canvas", new Basemap(BasemapStyle.ArcGISLightGray)},
+            {"Navigation", new Basemap(BasemapStyle.ArcGISNavigation)},
+            {"OpenStreetMap", new Basemap(BasemapStyle.OSMStandard)}
         };
 
         public ChangeBasemap()

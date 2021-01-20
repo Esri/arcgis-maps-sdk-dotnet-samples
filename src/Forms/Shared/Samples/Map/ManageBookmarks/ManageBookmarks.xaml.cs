@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void Initialize()
         {
             // Create new map with a base map
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Add the map to the mapview
             MyMapView.Map = myMap;

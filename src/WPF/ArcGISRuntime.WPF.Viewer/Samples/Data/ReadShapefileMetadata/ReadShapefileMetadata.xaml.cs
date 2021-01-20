@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.ReadShapefileMetadata
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            Map streetMap = new Map(Basemap.CreateStreetsVector());
+            Map streetMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the path to the downloaded shapefile
             string filepath = GetShapefilePath();

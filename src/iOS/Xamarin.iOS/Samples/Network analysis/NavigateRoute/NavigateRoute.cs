@@ -82,7 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             try
             {
                 // Create the map view.
-                _myMapView.Map = new Map(Basemap.CreateNavigationVector());
+                _myMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
                 // Create the route task, using the online routing service.
                 RouteTask routeTask = await RouteTask.CreateAsync(_routingUri);

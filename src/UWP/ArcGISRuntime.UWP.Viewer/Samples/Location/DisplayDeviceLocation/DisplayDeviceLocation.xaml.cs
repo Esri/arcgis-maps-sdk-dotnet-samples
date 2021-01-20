@@ -45,7 +45,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayDeviceLocation
             Unloaded += SampleUnloaded;
 
             // Assign the map to the MapView.
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Populate the list of options and select a default.
             LocationModes.ItemsSource = _navigationTypes;

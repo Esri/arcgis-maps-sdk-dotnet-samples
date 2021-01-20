@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         private void Initialize()
         {
             // Create and show a topographic basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create graphics overlay with graphics.
             CreateOverlay();

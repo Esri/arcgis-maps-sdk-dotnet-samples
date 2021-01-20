@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateStreets());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Assign the map to the MapView.
             MyMapView.Map = myMap;

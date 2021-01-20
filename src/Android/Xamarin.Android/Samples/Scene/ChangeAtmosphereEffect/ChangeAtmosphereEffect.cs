@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         private void Initialize()
         {
             // Create the scene with a basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
             
             // Add an elevation source to the scene.
             Surface elevationSurface = new Surface();

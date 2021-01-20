@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void Initialize()
         {
             // Show a light gray canvas basemap by default.
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
         }
 
         private void ShowBasemapClicked(object sender, EventArgs e)
@@ -100,13 +100,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Add actions to apply each basemap type.
             basemapsActionSheet.AddAction(UIAlertAction.Create("Topographic", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = Basemap.CreateTopographic()));
+                action => _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic)));
             basemapsActionSheet.AddAction(UIAlertAction.Create("Streets", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = Basemap.CreateStreets()));
+                action => _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets)));
             basemapsActionSheet.AddAction(UIAlertAction.Create("Imagery", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = Basemap.CreateImagery()));
+                action => _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard)));
             basemapsActionSheet.AddAction(UIAlertAction.Create("Oceans", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = Basemap.CreateOceans()));
+                action => _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans)));
             basemapsActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel,
                 action => Console.WriteLine("Canceled")));
 
@@ -326,7 +326,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void NewMapClicked(object sender, EventArgs e)
         {
             // Clear the map from the map view (allow the user to start over and save as a new portal item).
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
         }
 
         public override void ViewDidLoad()

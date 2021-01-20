@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         private void Initialize()
         {
             // Create and show a light gray canvas basemap.
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Create graphics overlay to display sketch geometry.
             _sketchOverlay = new GraphicsOverlay();

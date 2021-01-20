@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayScene
             Scene myScene = new Scene();
 
             // Crate a new base map using the static/shared create imagery method
-            Basemap myBaseMap = Basemap.CreateImagery();
+            Basemap myBaseMap = new Basemap(BasemapStyle.ArcGISImageryStandard);
 
             // Add the imagery basemap to the scene's base map property
             myScene.Basemap = myBaseMap;

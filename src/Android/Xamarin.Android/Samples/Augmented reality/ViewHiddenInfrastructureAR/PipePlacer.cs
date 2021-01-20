@@ -53,7 +53,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         private async void Initialize()
         {
             // Create and add the map.
-            _mapView.Map = new Map(Basemap.CreateImagery());
+            _mapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Configure location display.
             _mapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;

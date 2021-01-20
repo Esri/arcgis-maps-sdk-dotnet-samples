@@ -117,7 +117,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private async void Initialize()
         {
             // Create and add the map.
-            _mapView.Map = new Map(Basemap.CreateImagery());
+            _mapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             try
             {

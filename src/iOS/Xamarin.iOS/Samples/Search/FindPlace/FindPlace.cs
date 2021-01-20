@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.FindPlace
         private async void Initialize()
         {
             // Show a new map with streets basemap.
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Initialize the geocoder with the provided service URL
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);

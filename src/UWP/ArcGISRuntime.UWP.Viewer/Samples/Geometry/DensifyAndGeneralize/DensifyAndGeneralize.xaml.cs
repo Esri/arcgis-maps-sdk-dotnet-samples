@@ -36,7 +36,7 @@ namespace ArcGISRuntime.UWP.Samples.DensifyAndGeneralize
             InitializeComponent();
 
             // Create the map with a default basemap.
-            MyMapView.Map = new Map(Basemap.CreateStreetsNightVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight);
 
             // Create and add a graphics overlay.
             GraphicsOverlay overlay = new GraphicsOverlay();

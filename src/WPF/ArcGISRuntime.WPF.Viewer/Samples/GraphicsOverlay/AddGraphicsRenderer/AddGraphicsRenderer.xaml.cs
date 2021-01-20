@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
         private void Initialize()
         {
             // Create a map with 'Imagery with Labels' basemap.
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Assign the map to the MapView.
             MyMapView.Map = myMap;

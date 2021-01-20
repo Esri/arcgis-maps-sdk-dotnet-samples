@@ -45,7 +45,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddPointSceneLayer
         private void Initialize()
         {
             // Create the scene.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create the layer.
             ArcGISSceneLayer pointSceneLayer = new ArcGISSceneLayer(new Uri(PointSceneServiceUri));

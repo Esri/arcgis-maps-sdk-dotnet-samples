@@ -164,7 +164,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
 
             // Show a default map (light gray canvas).
-            Map defaultMap = new Map(Basemap.CreateLightGrayCanvasVector())
+            Map defaultMap = new Map(BasemapStyle.ArcGISLightGray)
             {
                 InitialViewpoint = new Viewpoint(0.0, 0.0, 200000000)
             };

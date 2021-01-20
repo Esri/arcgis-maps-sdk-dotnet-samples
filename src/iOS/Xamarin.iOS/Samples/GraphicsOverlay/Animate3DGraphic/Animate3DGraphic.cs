@@ -98,9 +98,9 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             _statsVC = new StatsDisplayViewController();
 
             // Apply appropriate maps to the scene and the inset map view.
-            _insetMapView.Map = new Map(Basemap.CreateImagery());
+            _insetMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
             _insetMapView.IsAttributionTextVisible = false;
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Apply the elevation source.
             Surface surface = new Surface();

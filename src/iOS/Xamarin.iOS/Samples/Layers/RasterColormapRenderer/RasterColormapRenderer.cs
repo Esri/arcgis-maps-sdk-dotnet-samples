@@ -46,7 +46,7 @@ namespace ArcGISRuntimeXamarin.Samples.RasterColormapRenderer
         private async void Initialize()
         {
             // Add an imagery basemap.
-            Map map = new Map(Basemap.CreateImagery());
+            Map map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Load the raster file.
             Raster rasterFile = new Raster(_rasterPath);

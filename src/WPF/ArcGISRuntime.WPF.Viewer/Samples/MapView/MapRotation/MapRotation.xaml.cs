@@ -30,7 +30,7 @@ namespace ArcGISRuntime.WPF.Samples.MapRotation
         private void Initialize()
         {
             // Show a new map with a streets basemap.
-            MyMapView.Map = new Map(Basemap.CreateStreets());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
         }
 
         private void MySlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

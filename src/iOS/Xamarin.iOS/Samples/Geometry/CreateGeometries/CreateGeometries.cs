@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.CreateGeometries
         private void Initialize()
         {
             // Create and show a map with a topographic basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create a simple fill symbol - used to render a polygon covering Colorado.
             SimpleFillSymbol theSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, System.Drawing.Color.Blue, null);

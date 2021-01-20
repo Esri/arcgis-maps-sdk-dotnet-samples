@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
         private void Initialize()
         {
             // Configure the basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create the graphics overlay and set the selection color.
             _graphicsOverlay = new GraphicsOverlay();

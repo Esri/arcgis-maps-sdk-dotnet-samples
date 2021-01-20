@@ -42,7 +42,7 @@ namespace ArcGISRuntime.UWP.Samples.IdentifyKmlFeatures
         private void Initialize()
         {
             // Set up the basemap.
-            MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the dataset.
             KmlDataset dataset = new KmlDataset(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));

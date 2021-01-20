@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         private async void Initialize()
         {
             // Create a new map with the oceans basemap and add it to the map view
-            _myMapView.Map = new Map(Basemap.CreateOceans());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISOceans);
 
             try
             {

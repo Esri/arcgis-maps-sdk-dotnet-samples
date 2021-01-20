@@ -36,7 +36,7 @@ namespace ArcGISRuntime.UWP.Samples.AddAnIntegratedMeshLayer
         private void Initialize()
         {
             // Create the scene with basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create and use an elevation surface to show terrain.
             Surface baseSurface = new Surface();

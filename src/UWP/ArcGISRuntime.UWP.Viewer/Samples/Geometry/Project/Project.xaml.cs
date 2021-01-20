@@ -33,7 +33,7 @@ namespace ArcGISRuntime.UWP.Samples.Project
         private async void Initialize()
         {
             // Show a map in the default WebMercator spatial reference.
-            MyMapView.Map = new Map(Basemap.CreateNationalGeographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Add a graphics overlay for showing the tapped point.
             GraphicsOverlay overlay = new GraphicsOverlay();

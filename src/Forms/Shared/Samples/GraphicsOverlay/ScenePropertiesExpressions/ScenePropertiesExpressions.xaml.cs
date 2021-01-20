@@ -33,7 +33,7 @@ namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
         private void Initialize()
         {
             // Set up the scene with an imagery basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Set the initial viewpoint for the scene.
             MapPoint point = new MapPoint(83.9, 28.4, 1000, SpatialReferences.Wgs84);

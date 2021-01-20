@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map map = new Map(Basemap.CreateTopographic());
+            Map map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create a point the map should zoom to.
             MapPoint mapPoint = new MapPoint(-13630484, 4545415, SpatialReferences.WebMercator);

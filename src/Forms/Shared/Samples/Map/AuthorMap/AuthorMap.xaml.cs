@@ -293,7 +293,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void CreateNewMap()
         {
             // Create new Map with a light gray canvas basemap
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Add the Map to the MapView
             MyMapView.Map = myMap;
@@ -306,19 +306,19 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 case "Topographic":
                     // Set the basemap to Topographic
-                    MyMapView.Map.Basemap = Basemap.CreateTopographic();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
                     break;
                 case "Streets":
                     // Set the basemap to Streets
-                    MyMapView.Map.Basemap = Basemap.CreateStreets();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
                     break;
                 case "Imagery":
                     // Set the basemap to Imagery
-                    MyMapView.Map.Basemap = Basemap.CreateImagery();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard);
                     break;
                 case "Oceans":
                     // Set the basemap to Oceans
-                    MyMapView.Map.Basemap = Basemap.CreateOceans();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
         }

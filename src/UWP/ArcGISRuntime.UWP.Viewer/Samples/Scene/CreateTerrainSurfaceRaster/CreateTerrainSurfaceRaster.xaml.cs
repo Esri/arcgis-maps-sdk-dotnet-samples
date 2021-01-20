@@ -30,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateTerrainSurfaceRaster
         private void Initialize()
         {
             // Create the scene.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Get the path to the elevation raster.
             string packagePath = DataManager.GetDataFolder("98092369c4ae4d549bbbd45dba993ebc", "MontereyElevation.dt2");

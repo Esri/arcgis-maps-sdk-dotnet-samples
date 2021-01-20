@@ -34,7 +34,7 @@ namespace ArcGISRuntime.UWP.Samples.RenderUniqueValues
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create uri to the feature service
             Uri serviceUri = new Uri(

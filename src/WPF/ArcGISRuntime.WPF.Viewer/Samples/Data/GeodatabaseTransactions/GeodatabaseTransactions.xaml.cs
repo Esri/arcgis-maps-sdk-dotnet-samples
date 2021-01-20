@@ -48,7 +48,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
             MyMapView.Loaded += (s, e) =>
             {
                 // Create a new map with the oceans basemap and add it to the map view
-                MyMapView.Map = new Map(Basemap.CreateOceans());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISOceans);
             };
 
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers

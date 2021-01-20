@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.SimpleRenderers
         private void Initialize()
         {
             // Create new map with basemap layer.
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Create several map points using the WGS84 coordinates (latitude and longitude).
             MapPoint oldFaithfulPoint = new MapPoint(-110.828140, 44.460458, SpatialReferences.Wgs84);

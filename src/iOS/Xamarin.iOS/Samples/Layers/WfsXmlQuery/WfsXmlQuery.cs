@@ -62,7 +62,7 @@ namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
         private async void Initialize()
         {
             // Create the map with basemap.
-            _myMapView.Map = new Map(Basemap.CreateNavigationVector());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
             try
             {

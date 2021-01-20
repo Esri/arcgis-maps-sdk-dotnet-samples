@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
         private async void Initialize()
         {
             // Initialize the map with an oceans basemap
-            _myMapView.Map = new Map(Basemap.CreateOceans());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISOceans);
 
             // Get the path to the ENC Exchange Set
             string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates", "ENC_ROOT", "CATALOG.031");

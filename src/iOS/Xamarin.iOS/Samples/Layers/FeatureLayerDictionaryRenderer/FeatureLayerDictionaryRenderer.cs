@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDictionaryRenderer
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map map = new Map(Basemap.CreateTopographic());
+            Map map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Provide Map to the MapView.
             _myMapView.Map = map;

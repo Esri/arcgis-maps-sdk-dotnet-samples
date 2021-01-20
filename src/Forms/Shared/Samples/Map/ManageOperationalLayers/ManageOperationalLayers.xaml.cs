@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
         private void Initialize()
         {
             // Set up the view model and bindings.
-            _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
+            _viewModel = new MapViewModel(new Map(BasemapStyle.ArcGISStreets));
             MyMapView.Map = _viewModel.Map;
             IncludedListView.ItemsSource = _viewModel.IncludedLayers;
             ExcludedListView.ItemsSource = _viewModel.ExcludedLayers;

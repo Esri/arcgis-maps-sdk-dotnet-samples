@@ -41,7 +41,7 @@ namespace ArcGISRuntime.WPF.Samples.DeleteFeatures
         private void Initialize()
         {
             // Create the map with streets basemap.
-            MyMapView.Map = new Map(Basemap.CreateStreets());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Create the feature table, referring to the Damage Assessment feature service.
             ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));

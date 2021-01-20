@@ -59,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.GroupLayers
             gLayer.Layers.Add(devThree);
 
             // Create the scene with a basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add the top-level layers to the scene.
             _mySceneView.Scene.OperationalLayers.Add(gLayer);

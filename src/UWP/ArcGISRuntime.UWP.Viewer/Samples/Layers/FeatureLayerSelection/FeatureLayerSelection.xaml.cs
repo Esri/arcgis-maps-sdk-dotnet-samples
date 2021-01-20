@@ -38,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Create envelope to be used as a target extent for map's initial viewpoint.
             Envelope myEnvelope = new Envelope(-6603299.491810, 1679677.742046, 9002253.947487, 8691318.054732, SpatialReferences.WebMercator);

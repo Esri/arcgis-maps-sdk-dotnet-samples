@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
             try
             {
                 // Create a new Scene with an imagery basemap.
-                Scene myScene = new Scene(Basemap.CreateImagery());
+                Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
                 // Add the Scene to the SceneView.
                 MySceneView.Scene = myScene;

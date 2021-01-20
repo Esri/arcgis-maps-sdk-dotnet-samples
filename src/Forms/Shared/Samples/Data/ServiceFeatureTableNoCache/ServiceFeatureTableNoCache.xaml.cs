@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.ServiceFeatureTableNoCache
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create and set initial map area
             Envelope initialLocation = new Envelope(

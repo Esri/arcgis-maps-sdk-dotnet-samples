@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         private void Initialize()
         {
             // Set up the map view with a basemap.
-            _myMapView.Map = new Map(Basemap.CreateImageryWithLabels());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
             // Configure the UI options.
             _gridTypeSpinner.Adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, new[] { "LatLong", "MGRS", "UTM", "USNG" });

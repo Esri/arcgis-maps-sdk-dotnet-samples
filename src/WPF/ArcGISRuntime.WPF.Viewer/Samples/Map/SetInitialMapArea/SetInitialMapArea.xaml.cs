@@ -33,7 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.SetInitialMapArea
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Create and set initial map area
             Envelope initialLocation = new Envelope(

@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         private async void Initialize()
         {
             // Create a map with a topographic basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             try
             {

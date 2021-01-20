@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         private async void Initialize()
         {
             // Set up the map with basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Load the rendering rules for the raster.
             await LoadRenderingRules();

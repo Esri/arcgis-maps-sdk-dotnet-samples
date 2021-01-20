@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private void Initialize()
         {
             // Show a plain gray map in the map view
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Fill the basemap combo box with basemap names
             BasemapListBox.ItemsSource = _basemapNames;
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private void ClearMapClicked(object sender, RoutedEventArgs e)
         {
             // Create a new map (will not have an associated PortalItem)
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Reset UI to be consistent with map
             BasemapListBox.SelectedIndex = 0;
@@ -200,23 +200,23 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             {
                 case "Light Gray":
                     // Set the basemap to Light Gray Canvas
-                    myMap.Basemap = Basemap.CreateLightGrayCanvas();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISLightGray);
                     break;
                 case "Topographic":
                     // Set the basemap to Topographic
-                    myMap.Basemap = Basemap.CreateTopographic();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
                     break;
                 case "Streets":
                     // Set the basemap to Streets
-                    myMap.Basemap = Basemap.CreateStreets();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
                     break;
                 case "Imagery":
                     // Set the basemap to Imagery
-                    myMap.Basemap = Basemap.CreateImagery();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard);
                     break;
                 case "Ocean":
                     // Set the basemap to Oceans
-                    myMap.Basemap = Basemap.CreateOceans();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
         }

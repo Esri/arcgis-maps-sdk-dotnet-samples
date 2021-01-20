@@ -142,7 +142,7 @@ namespace ArcGISRuntimeXamarin.Samples.CollectDataAR
         private void Initialize()
         {
             // Create and add the scene.
-            _arView.Scene = new Scene(Basemap.CreateImagery());
+            _arView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add the location data source to the AR view.
             _arView.LocationDataSource = _locationSource;

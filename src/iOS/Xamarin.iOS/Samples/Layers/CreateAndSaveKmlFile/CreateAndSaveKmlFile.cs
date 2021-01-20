@@ -57,7 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
         private void Initialize()
         {
             // Create the map.
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Load the KML document.
             ResetKml();

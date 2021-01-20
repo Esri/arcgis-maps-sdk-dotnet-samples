@@ -38,7 +38,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
         private async void Initialize()
         {
             // Create a new map with imagery basemap.
-            Map map = new Map(Basemap.CreateImagery());
+            Map map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Get the file name.
             string filepath = DataManager.GetDataFolder("7c4c679ab06a4df19dc497f577f111bd", "raster-file", "Shasta.tif");

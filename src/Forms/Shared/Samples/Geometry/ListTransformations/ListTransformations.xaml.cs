@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private async void Initialize()
         {
             // Create the map.
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Create a point in the Greenwich observatory courtyard in London, UK, the location of the prime meridian.
             _originalPoint = new MapPoint(538985.355, 177329.516, SpatialReference.Create(27700));

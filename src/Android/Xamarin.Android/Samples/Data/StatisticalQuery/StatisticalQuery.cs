@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         private void Initialize()
         {
             // Create a new Map with the world streets basemap
-            Map myMap = new Map(Basemap.CreateStreets());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create feature table using the world cities URI
             _worldCitiesTable = new ServiceFeatureTable(_worldCitiesServiceUri);

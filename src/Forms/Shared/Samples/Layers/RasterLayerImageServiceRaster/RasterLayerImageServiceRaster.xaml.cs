@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
         private void Initialize()
         {
             // Create new map with the dark gray canvas basemap.
-            Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
+            Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create a Uri to the image service raster. (NOTE: iOS applications require the use of Uri's to be https:// and not http://)
             Uri myUri = new Uri("https://gis.ngdc.noaa.gov/arcgis/rest/services/bag_hillshades/ImageServer");
@@ -45,12 +45,12 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);
 
             // Add the raster layer to the maps layer collection.
-            myMap.Basemap.BaseLayers.Add(myRasterLayer);
+            myMap.OperationalLayers.Add(myRasterLayer);
 
             // Assign the map to the map view.
             MyMapView.Map = myMap;
 
-            // zoom in to the San Francisco Bay.
+            // Zoom in to the San Francisco Bay.
             MyMapView.SetViewpointCenterAsync(new MapPoint(-13643095.660131, 4550009.846004, SpatialReferences.WebMercator), 100000);
         }
     }

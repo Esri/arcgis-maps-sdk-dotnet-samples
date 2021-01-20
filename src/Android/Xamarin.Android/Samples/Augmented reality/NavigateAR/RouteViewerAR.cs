@@ -178,7 +178,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 ToastLength.Long).Show();
 
             // Create the scene and show it.
-            _scene = new Scene(Basemap.CreateImagery());
+            _scene = new Scene(BasemapStyle.ArcGISImageryStandard);
             _arSceneView.Scene = _scene;
 
             // Create and add the elevation surface.

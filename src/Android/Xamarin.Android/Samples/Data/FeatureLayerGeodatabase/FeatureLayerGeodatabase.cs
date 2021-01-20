@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap.
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the path to the downloaded mobile geodatabase (.geodatabase file).
             string mobileGeodatabaseFilePath = GetMobileGeodatabasePath();

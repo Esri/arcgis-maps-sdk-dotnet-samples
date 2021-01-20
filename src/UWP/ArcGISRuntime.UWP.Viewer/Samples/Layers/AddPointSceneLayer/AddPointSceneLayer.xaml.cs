@@ -32,7 +32,7 @@ namespace ArcGISRuntime.UWP.Samples.AddPointSceneLayer
         private void Initialize()
         {
             // Create the scene.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create the layer.
             ArcGISSceneLayer pointSceneLayer = new ArcGISSceneLayer(new Uri(PointSceneServiceUri));

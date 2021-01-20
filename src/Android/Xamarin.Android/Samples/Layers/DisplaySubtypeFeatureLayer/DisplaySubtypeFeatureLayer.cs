@@ -65,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
                 Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9812691.11079696, 5128687.20710657, -9812377.9447607, 5128865.36767282, SpatialReferences.WebMercator));
 
                 // Create the map.
-                _myMapView.Map = new Map(Basemap.CreateStreetsNightVector()) { InitialViewpoint = _startingViewpoint };
+                _myMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight) { InitialViewpoint = _startingViewpoint };
 
                 // NOTE: This layer supports any ArcGIS Feature Table that define subtypes.
                 SubtypeFeatureLayer subtypeFeatureLayer = new SubtypeFeatureLayer(new ServiceFeatureTable(new Uri("https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer/100")));

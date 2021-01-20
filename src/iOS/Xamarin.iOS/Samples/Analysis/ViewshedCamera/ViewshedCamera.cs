@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         private void Initialize()
         {
             // Create a new Scene with an imagery basemap.
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create a scene layer to show buildings in the Scene.
             myScene.OperationalLayers.Add(new ArcGISSceneLayer(new Uri(BuildingsServiceUrl)));

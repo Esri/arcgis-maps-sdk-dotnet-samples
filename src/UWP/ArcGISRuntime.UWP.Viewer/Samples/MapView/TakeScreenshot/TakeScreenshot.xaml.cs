@@ -36,7 +36,7 @@ namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
         private void Initialize()
         {
             // Show an imagery basemap.
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
         }
 
         private async void OnTakeScreenshotButtonClicked(object sender, RoutedEventArgs e)

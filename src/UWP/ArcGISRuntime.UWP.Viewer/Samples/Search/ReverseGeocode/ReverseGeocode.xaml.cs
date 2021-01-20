@@ -47,7 +47,7 @@ namespace ArcGISRuntime.UWP.Samples.ReverseGeocode
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Provide used Map to the MapView.
             MyMapView.Map = myMap;

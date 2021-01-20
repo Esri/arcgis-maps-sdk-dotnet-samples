@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;

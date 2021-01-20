@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.TimeBasedQuery
         private void Initialize()
         {
             // Create a new map with oceans basemap
-            Map myMap = new Map(Basemap.CreateOceans());
+            Map myMap = new Map(BasemapStyle.ArcGISOceans);
 
             // Create feature table for the hurricane feature service
             _myFeatureTable = new ServiceFeatureTable(_serviceUri)

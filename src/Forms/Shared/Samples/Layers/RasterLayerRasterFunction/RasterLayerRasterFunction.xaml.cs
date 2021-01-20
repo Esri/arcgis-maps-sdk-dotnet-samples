@@ -104,7 +104,7 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
                 RasterLayer myRasterLayer = new RasterLayer(myRaster);
 
                 // Add the raster layer to the maps layer collection
-                myMap.Basemap.BaseLayers.Add(myRasterLayer);
+                myMap.OperationalLayers.Add(myRasterLayer);
 
                 // Assign the map to the map view
                 MyMapView.Map = myMap;

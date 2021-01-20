@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -42,6 +43,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         //       Note - this must be a URL configured as a valid Redirect URI with your app
         private string _oAuthRedirectUrl = "my-ags-app://auth";
 
+        private string _apiKeyHold;
+
         // String array to store names of the available basemaps
         private readonly string[] _basemapNames = 
         {
@@ -70,8 +73,14 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
         private void Initialize()
         {
+            _apiKeyHold = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
+
+            ApiKeyManager.ArcGISDeveloperApiKey = null;
+
+            this.Unloaded += Sample_Unloaded;
+
             // Show a plain gray map in the map view
-            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
             // Fill the basemap combo box with basemap names
             BasemapListBox.ItemsSource = _basemapNames;
@@ -88,6 +97,11 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
+        }
+
+        private void Sample_Unloaded(object sender, RoutedEventArgs e)
+        {
+            ApiKeyManager.ArcGISDeveloperApiKey = _apiKeyHold;
         }
 
         #region UI event handlers
@@ -200,23 +214,23 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             {
                 case "Light Gray":
                     // Set the basemap to Light Gray Canvas
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISLightGray);
+                    myMap.Basemap = Basemap.CreateLightGrayCanvas();
                     break;
                 case "Topographic":
                     // Set the basemap to Topographic
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
+                    myMap.Basemap = Basemap.CreateTopographic();
                     break;
                 case "Streets":
                     // Set the basemap to Streets
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
+                    myMap.Basemap = Basemap.CreateStreets();
                     break;
                 case "Imagery":
                     // Set the basemap to Imagery
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard);
+                    myMap.Basemap = Basemap.CreateImagery();
                     break;
                 case "Ocean":
                     // Set the basemap to Oceans
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
+                    myMap.Basemap = Basemap.CreateOceans();
                     break;
             }
         }

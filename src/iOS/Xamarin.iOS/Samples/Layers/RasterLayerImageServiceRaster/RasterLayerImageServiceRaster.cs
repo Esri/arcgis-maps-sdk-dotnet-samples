@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             RasterLayer rasterLayer = new RasterLayer(imageServiceRaster);
 
             // Add the raster layer to the maps layer collection.
-            myMap.OperationalLayers.Add(myRasterLayer);
+            myMap.OperationalLayers.Add(rasterLayer);
 
             // Assign the map to the map view.
             _myMapView.Map = myMap;

@@ -37,7 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
         private void Initialize()
         {
             // Set up the basemap.
-            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
+            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
             // Update the UI.
             LayerPicker.IsEnabled = true;

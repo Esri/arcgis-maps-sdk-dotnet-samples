@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WPF.Samples.ChooseCameraController
         private async void Initialize()
         {
             // Create a scene.
-            Scene myScene = new Scene(BasemapStyle.ArcGISImagery);
+            Scene myScene = new Scene(Basemap.CreateImageryWithLabels());
 
             // Create a surface for elevation data.
             Surface surface = new Surface();

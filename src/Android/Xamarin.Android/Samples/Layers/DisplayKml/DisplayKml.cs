@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
         private void Initialize()
         {
             // Set up the basemap.
-            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
+            _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
         }
 
         private void CreateLayout()

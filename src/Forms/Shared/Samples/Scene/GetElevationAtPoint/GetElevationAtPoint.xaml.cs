@@ -59,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
             Camera camera = new Camera(_observerPoint, 20000.0, 10.0, 70.0, 0.0);
 
             // Create a scene.
-            Scene myScene = new Scene(BasemapStyle.ArcGISImagery)
+            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
             {
                 // Set the initial viewpoint.
                 InitialViewpoint = new Viewpoint(_observerPoint, 1000000, camera)

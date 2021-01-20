@@ -33,7 +33,7 @@ namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
         private void Initialize()
         {
             // Configure the scene with National Geographic basemap.
-            MySceneView.Scene = new Scene(BasemapStyle.ArcGISTopographic);
+            MySceneView.Scene = new Scene(Basemap.CreateTopographic());
 
             // Add the base surface for elevation data.
             Surface elevationSurface = new Surface();

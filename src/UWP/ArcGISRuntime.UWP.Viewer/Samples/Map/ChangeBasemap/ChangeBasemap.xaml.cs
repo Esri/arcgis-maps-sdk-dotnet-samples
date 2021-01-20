@@ -62,10 +62,10 @@ namespace ArcGISRuntime.UWP.Samples.ChangeBasemap
         private void OnBasemapListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the title of the selected basemap
-            string selectedBasemapTtile = e.AddedItems[0].ToString();
+            string selectedBasemapTitle = e.AddedItems[0].ToString();
 
             // Retrieve the basemap from the dictionary
-            MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTtile];
+            MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTitle];
         }
     }
 }

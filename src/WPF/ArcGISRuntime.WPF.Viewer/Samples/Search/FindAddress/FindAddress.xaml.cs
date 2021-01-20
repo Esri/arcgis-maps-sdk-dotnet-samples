@@ -61,7 +61,7 @@ namespace ArcGISRuntime.WPF.Samples.FindAddress
         private async void Initialize()
         {
             // Create new Map with basemap
-            = new Map(BasemapStyle.ArcGISImagery);
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Provide used Map to the MapView
             MyMapView.Map = myMap;

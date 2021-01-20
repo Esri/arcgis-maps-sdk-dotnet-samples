@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void Initialize()
         {
             // Show a labeled imagery basemap.
-            _myMapView.Map = new Map(Basemap.CreateImageryWithLabels());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
             try
             {

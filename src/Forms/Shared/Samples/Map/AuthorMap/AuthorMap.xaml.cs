@@ -336,7 +336,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     MyMapView.Map.Basemap = Basemap.CreateImagery();
                     break;
 
-                case "Ocean":
+                case "Oceans":
                     // Set the basemap to Oceans
                     MyMapView.Map.Basemap = Basemap.CreateOceans();
                     break;

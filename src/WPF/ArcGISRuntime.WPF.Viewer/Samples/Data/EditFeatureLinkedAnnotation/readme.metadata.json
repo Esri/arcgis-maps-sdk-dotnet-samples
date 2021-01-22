@@ -1,0 +1,22 @@
+{
+    "category": "Data",
+    "description": "Edit feature attributes which are linked to annotation through an expression.",
+    "formal_name": "EditFeatureLinkedAnnotation",
+    "ignore": false,
+    "images": [
+        "EditFeatureLinkedAnnotation.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.6.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/EditFeatureLinkedAnnotation.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Edit features with feature-linked annotation"
+}

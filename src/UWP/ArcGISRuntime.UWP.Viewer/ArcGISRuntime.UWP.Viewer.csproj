@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
     <Content Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <Content Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <Content Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
@@ -376,6 +377,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml.cs">
+      <DependentUpon>EditFeatureLinkedAnnotation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ApiKeyPrompt.xaml.cs">
       <DependentUpon>ApiKeyPrompt.xaml</DependentUpon>
     </Compile>
@@ -962,6 +966,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ApiKeyPrompt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

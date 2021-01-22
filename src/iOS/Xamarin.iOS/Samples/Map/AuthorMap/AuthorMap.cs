@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
@@ -78,6 +79,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
         // URL used by the server for authorization.
         private const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";
 
+        // Variable for holding the API key while using the Create and save map sample.
+        private string _keyHold;
+
         // Hold a reference to the authenticator.
         private OAuth2Authenticator _auth;
 
@@ -88,8 +92,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void Initialize()
         {
+            // Remove the API key.
+            _keyHold = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
+            ApiKeyManager.ArcGISDeveloperApiKey = null;
+
             // Show a light gray canvas basemap by default.
-            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
         }
 
         private void ShowBasemapClicked(object sender, EventArgs e)
@@ -100,13 +108,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Add actions to apply each basemap type.
             basemapsActionSheet.AddAction(UIAlertAction.Create("Topographic", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic)));
+                action => _myMapView.Map.Basemap = Basemap.CreateTopographic()));
             basemapsActionSheet.AddAction(UIAlertAction.Create("Streets", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets)));
+                action => _myMapView.Map.Basemap = Basemap.CreateStreets()));
             basemapsActionSheet.AddAction(UIAlertAction.Create("Imagery", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard)));
+                action => _myMapView.Map.Basemap = Basemap.CreateImagery()));
             basemapsActionSheet.AddAction(UIAlertAction.Create("Oceans", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans)));
+                action => _myMapView.Map.Basemap = Basemap.CreateOceans()));
             basemapsActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel,
                 action => Console.WriteLine("Canceled")));
 
@@ -326,7 +334,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void NewMapClicked(object sender, EventArgs e)
         {
             // Clear the map from the map view (allow the user to start over and save as a new portal item).
-            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
         }
 
         public override void ViewDidLoad()
@@ -418,6 +426,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _basemapButton.Clicked -= ShowBasemapClicked;
             _layersButton.Clicked -= ShowLayerListClicked;
             _saveButton.Clicked -= SaveMapClicked;
+
+            // Restore API key if leaving Create and save map sample.
+            if (_keyHold != null)
+            {
+                ApiKeyManager.ArcGISDeveloperApiKey = _keyHold;
+                _keyHold = null;
+            }
         }
 
         #region OAuth helpers

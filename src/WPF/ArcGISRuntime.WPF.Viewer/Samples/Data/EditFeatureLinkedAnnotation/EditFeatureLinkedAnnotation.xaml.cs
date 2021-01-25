@@ -28,7 +28,6 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
     public partial class EditFeatureLinkedAnnotation
     {
         private Feature _selectedFeature;
-        private bool _selectedPolyline;
 
         public EditFeatureLinkedAnnotation()
         {
@@ -107,17 +106,14 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
                 var projPoint = GeometryEngine.Project(e.Location, _selectedFeature.Geometry.SpatialReference) as MapPoint;
                 if (_selectedFeature.Geometry is Polyline line)
                 {
-                    
                     var nearestVertex = GeometryEngine.NearestVertex(line, projPoint);
                     var polylineBuilder = new PolylineBuilder(line);
 
                     var part = polylineBuilder.Parts[nearestVertex.PartIndex];
-                    part.RemovePoint(nearestVertex.PointIndex);
-                    part.AddPoint(projPoint);
+                    part.SetPoint(nearestVertex.PointIndex, projPoint);
 
                     _selectedFeature.Geometry = GeometryEngine.Project(polylineBuilder.ToGeometry(), _selectedFeature.Geometry.SpatialReference);
                     await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
-
                 }
                 else if (_selectedFeature.Geometry is MapPoint point)
                 {

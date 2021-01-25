@@ -24,10 +24,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Edit features with feature-linked annotation",
-        "Data",
-        "Edit feature attributes which are linked to annotation through an expression.",
-        "")]
+        name: "Edit features with feature-linked annotation",
+        category: "Data",
+        description: "Edit feature attributes which are linked to annotation through an expression.",
+        instructions: "Pan and zoom the map to see that the text on the map is annotation, not labels. Tap one of the address points to update the house number (AD_ADDRESS) and street name (ST_STR_NAM). Tap one of the dashed parcel polylines and tap another location to change its geometry. NOTE: Selection is only enabled for points and straight (single segment) polylines.",
+        tags: new[] { "annotation", "attributes", "feature-linked annotation", "features", "fields" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("74c0c9fa80f4498c9739cc42531e9948")]
     public class EditFeatureLinkedAnnotation : Activity
     {

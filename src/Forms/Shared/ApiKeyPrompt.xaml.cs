@@ -50,6 +50,7 @@ namespace ArcGISRuntime
         {
             // Set the developer Api key.
             ApiKeyManager.ArcGISDeveloperApiKey = KeyEntryBox.Text;
+            ApiKeyManager.StoreCurrentKey();
             _ = UpdateValidityText();
         }
 

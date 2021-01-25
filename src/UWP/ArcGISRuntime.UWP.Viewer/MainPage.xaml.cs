@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -118,6 +118,21 @@ namespace ArcGISRuntime.UWP.Viewer
 
         private async Task SelectSample(SampleInfo selectedSample)
         {
+            // The following code removes the API key when using the Create and save map sample.
+            if (nameof(SampleManager.Current.SelectedSample) != nameof(selectedSample))
+            {
+                // Remove API key if opening Create and save map sample.
+                if (selectedSample.FormalName == "AuthorMap")
+                {
+                    ApiKeyManager.DisableKey();
+                }
+                // Restore API key if leaving Create and save map sample.
+                else if (SampleManager.Current?.SelectedSample?.FormalName == "AuthorMap")
+                {
+                    ApiKeyManager.EnableKey();
+                }
+            }
+
             // Call a function to clear existing credentials
             ClearCredentials();
 
@@ -191,7 +206,7 @@ namespace ArcGISRuntime.UWP.Viewer
                 // Set the items source of the grid to the first category from the search.
                 SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
 
-                if (!String.IsNullOrWhiteSpace(searchBox.Text))
+                if (!string.IsNullOrWhiteSpace(searchBox.Text))
                 {
                     foreach (muxc.TreeViewNode node in CategoriesTree.RootNodes)
                     {

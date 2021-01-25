@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
@@ -32,10 +33,10 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
         public EditFeatureLinkedAnnotation()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // NOTE: to be a writable geodatabase, this geodatabase must be generated from a service with a GeodatabaseSyncTask. See the "generate geodatabase" sample.
             try
@@ -66,65 +67,88 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
             }
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // Check if there is already a selected feature.
             if (_selectedFeature == null)
             {
-                try
-                {
-                    // Select the features based on query parameters defined above.
-                    var identifyResults = await MyMapView.IdentifyLayersAsync(e.Position, 10.0, false);
-                    foreach (IdentifyLayerResult result in identifyResults)
-                    {
-                        if (result.LayerContent is FeatureLayer layer)
-                        {
-                            _selectedFeature = result.GeoElements.FirstOrDefault() as Feature;
-                            if (_selectedFeature.Geometry is Polyline line)
-                            {
-                                // No support for curved lines.
-                                if (line.Parts.Count > 1)
-                                {
-                                    _selectedFeature = null;
-                                    return;
-                                }
-                            }
-                            else if (_selectedFeature.Geometry is MapPoint point)
-                            {
-                                ShowEditableAttributes();
-                            }
-                            layer.SelectFeature(_selectedFeature);
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString(), "Error");
-                }
+                _ = SelectFeature(e.Position);
             }
             else
             {
-                var projPoint = GeometryEngine.Project(e.Location, _selectedFeature.Geometry.SpatialReference) as MapPoint;
-                if (_selectedFeature.Geometry is Polyline line)
-                {
-                    var nearestVertex = GeometryEngine.NearestVertex(line, projPoint);
-                    var polylineBuilder = new PolylineBuilder(line);
+                // Project the user selected point.
+                MapPoint projPoint = GeometryEngine.Project(e.Location, _selectedFeature.Geometry.SpatialReference) as MapPoint;
 
-                    var part = polylineBuilder.Parts[nearestVertex.PartIndex];
-                    part.SetPoint(nearestVertex.PointIndex, projPoint);
-
-                    _selectedFeature.Geometry = GeometryEngine.Project(polylineBuilder.ToGeometry(), _selectedFeature.Geometry.SpatialReference);
-                    await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
-                }
-                else if (_selectedFeature.Geometry is MapPoint point)
-                {
-                    // Change the geometry of the feature.
-                    _selectedFeature.Geometry = projPoint;
-                    await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
-                }
-                // Clear the selection.
-                (_selectedFeature.FeatureTable.Layer as FeatureLayer).ClearSelection();
-                _selectedFeature = null;
+                // Update the geometry of the selected feature.
+                _ = UpdateGeometry(projPoint);
             }
+        }
+
+        private async Task SelectFeature(Point clickedPoint)
+        {
+            try
+            {
+                // Identify across all layers.
+                IReadOnlyList<IdentifyLayerResult> identifyResults = await MyMapView.IdentifyLayersAsync(clickedPoint, 10.0, false);
+                foreach (IdentifyLayerResult result in identifyResults)
+                {
+                    if (result.LayerContent is FeatureLayer layer)
+                    {
+                        _selectedFeature = result.GeoElements.FirstOrDefault() as Feature;
+                        if (_selectedFeature.Geometry is Polyline line)
+                        {
+                            // No support for curved lines.
+                            if (line.Parts.Count > 1)
+                            {
+                                _selectedFeature = null;
+                                return;
+                            }
+                        }
+                        else if (_selectedFeature.Geometry is MapPoint)
+                        {
+                            // Open attribute editor for point features.
+                            ShowEditableAttributes();
+                        }
+
+                        // Select the feature.
+                        layer.SelectFeature(_selectedFeature);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        private async Task UpdateGeometry(MapPoint point)
+        {
+            if (_selectedFeature.Geometry is Polyline line)
+            {
+                // Get the nearest point on the selected line.
+                ProximityResult nearestVertex = GeometryEngine.NearestVertex(line, point);
+
+                // Create a new polyline.
+                PolylineBuilder polylineBuilder = new PolylineBuilder(line);
+                Part part = polylineBuilder.Parts[nearestVertex.PartIndex];
+
+                // Replace the nearest point with the new point.
+                part.SetPoint(nearestVertex.PointIndex, point);
+
+                // Update the geometry of the feature.
+                _selectedFeature.Geometry = GeometryEngine.Project(polylineBuilder.ToGeometry(), _selectedFeature.Geometry.SpatialReference);
+                await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
+            }
+            else if (_selectedFeature.Geometry is MapPoint)
+            {
+                // Update the geometry of the feature.
+                _selectedFeature.Geometry = point;
+                await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
+            }
+
+            // Clear the selection.
+            (_selectedFeature.FeatureTable.Layer as FeatureLayer).ClearSelection();
+            _selectedFeature = null;
         }
 
         private void ShowEditableAttributes()
@@ -149,13 +173,14 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
         {
             try
             {
+                // Update the feature attributes with the user input.
                 _selectedFeature.Attributes["AD_ADDRESS"] = int.Parse(AdressBox.Text);
                 _selectedFeature.Attributes["ST_STR_NAM"] = StreetNameBox.Text;
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                MessageBox.Show(ex.Message, "Error");
             }
             finally
             {

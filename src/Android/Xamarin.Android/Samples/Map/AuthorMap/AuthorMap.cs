@@ -78,9 +78,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
         //       Note - this must be a URL configured as a valid Redirect URI with your app
         private string _oAuthRedirectUrl = "my-ags-app://auth";
 
-        // Variable for holding the API key while using the sample.
-        private string _keyHold;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -97,29 +94,24 @@ namespace ArcGISRuntime.Samples.AuthorMap
             Initialize();
         }
 
-        protected override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            if (_keyHold != null)
-            {
-                // Restore API key if leaving sample.
-                ApiKeyManager.ArcGISDeveloperApiKey = _keyHold;
-                _keyHold = null;
-            }
-        }
-
         private void Initialize()
         {
             // Remove API key.
-            _keyHold = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-            ApiKeyManager.ArcGISDeveloperApiKey = null;
+            ApiKeyManager.StartIgnoring();
 
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateLightGrayCanvas());
 
             // Provide used Map to the MapView
             _myMapView.Map = myMap;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Restore API key if leaving sample.
+            ApiKeyManager.StopIgnoring();
         }
 
         private void CreateLayout()

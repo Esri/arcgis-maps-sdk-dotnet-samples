@@ -116,25 +116,20 @@ namespace ArcGISRuntime.UWP.Viewer
             await SelectSample(selectedSample);
         }
 
-        // Variable for holding the API key while using the Create and save map sample.
-        private string _keyHold;
-
         private async Task SelectSample(SampleInfo selectedSample)
         {
             // The following code removes the API key when using the Create and save map sample.
-            if (SampleManager.Current?.SelectedSample?.FormalName != selectedSample?.FormalName)
+            if (nameof(SampleManager.Current.SelectedSample) != nameof(selectedSample))
             {
                 // Remove API key if opening Create and save map sample.
                 if (selectedSample.FormalName == "AuthorMap")
                 {
-                    _keyHold = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-                    ApiKeyManager.ArcGISDeveloperApiKey = null;
+                    ApiKeyManager.StartIgnoring();
                 }
                 // Restore API key if leaving Create and save map sample.
                 else if (SampleManager.Current?.SelectedSample?.FormalName == "AuthorMap")
                 {
-                    ApiKeyManager.ArcGISDeveloperApiKey = _keyHold;
-                    _keyHold = null;
+                    ApiKeyManager.StopIgnoring();
                 }
             }
 

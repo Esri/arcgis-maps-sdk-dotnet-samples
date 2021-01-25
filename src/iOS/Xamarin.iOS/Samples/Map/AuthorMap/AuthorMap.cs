@@ -79,9 +79,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
         // URL used by the server for authorization.
         private const string AuthorizeUrl = "https://www.arcgis.com/sharing/oauth2/authorize";
 
-        // Variable for holding the API key while using the Create and save map sample.
-        private string _keyHold;
-
         // Hold a reference to the authenticator.
         private OAuth2Authenticator _auth;
 
@@ -93,8 +90,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void Initialize()
         {
             // Remove the API key.
-            _keyHold = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-            ApiKeyManager.ArcGISDeveloperApiKey = null;
+            ApiKeyManager.StartIgnoring();
 
             // Show a light gray canvas basemap by default.
             _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
@@ -428,11 +424,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _saveButton.Clicked -= SaveMapClicked;
 
             // Restore API key if leaving Create and save map sample.
-            if (_keyHold != null)
-            {
-                ApiKeyManager.ArcGISDeveloperApiKey = _keyHold;
-                _keyHold = null;
-            }
+            ApiKeyManager.StopIgnoring();
         }
 
         #region OAuth helpers

@@ -53,9 +53,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
         // Redirect URL after a successful authorization (configured for the Portal Maps application)
         private string _oAuthRedirectUrl = "forms-samples-app://auth";
 
-        // Variable for holding the API key while using the Create and save map sample.
-        private string _keyHold;
-
         // String array to store basemap constructor types
         private string[] _basemapTypes = {
             "Topographic",
@@ -83,8 +80,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void Initialize()
         {
             // Remove API key if opening Create and save map sample.
-            _keyHold = Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey;
-            ApiKeyManager.ArcGISDeveloperApiKey = null;
+            ApiKeyManager.StartIgnoring();
 
             // Call a function to create a new map with a light gray canvas basemap
             CreateNewMap();
@@ -111,11 +107,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         public void Dispose()
         {
             // Restore API key if leaving Create and save map sample.
-            if (_keyHold != null)
-            {
-                ApiKeyManager.ArcGISDeveloperApiKey = _keyHold;
-                _keyHold = null;
-            }
+            ApiKeyManager.StopIgnoring();
         }
 
         private void OAuthSettingsCancel(object sender, EventArgs e)

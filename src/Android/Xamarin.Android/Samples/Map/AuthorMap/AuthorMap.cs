@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void Initialize()
         {
             // Remove API key.
-            ApiKeyManager.StartIgnoring();
+            ApiKeyManager.DisableKey();
 
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateLightGrayCanvas());
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             base.OnDestroy();
 
             // Restore API key if leaving sample.
-            ApiKeyManager.StopIgnoring();
+            ApiKeyManager.EnableKey();
         }
 
         private void CreateLayout()

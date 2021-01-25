@@ -90,7 +90,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void Initialize()
         {
             // Remove the API key.
-            ApiKeyManager.StartIgnoring();
+            ApiKeyManager.DisableKey();
 
             // Show a light gray canvas basemap by default.
             _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
@@ -424,7 +424,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             _saveButton.Clicked -= SaveMapClicked;
 
             // Restore API key if leaving Create and save map sample.
-            ApiKeyManager.StopIgnoring();
+            ApiKeyManager.EnableKey();
         }
 
         #region OAuth helpers

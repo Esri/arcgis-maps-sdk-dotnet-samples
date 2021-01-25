@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void Initialize()
         {
             // Remove API key if opening Create and save map sample.
-            ApiKeyManager.StartIgnoring();
+            ApiKeyManager.DisableKey();
 
             // Call a function to create a new map with a light gray canvas basemap
             CreateNewMap();
@@ -107,7 +107,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         public void Dispose()
         {
             // Restore API key if leaving Create and save map sample.
-            ApiKeyManager.StopIgnoring();
+            ApiKeyManager.EnableKey();
         }
 
         private void OAuthSettingsCancel(object sender, EventArgs e)

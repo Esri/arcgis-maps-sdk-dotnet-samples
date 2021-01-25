@@ -124,12 +124,12 @@ namespace ArcGISRuntime.UWP.Viewer
                 // Remove API key if opening Create and save map sample.
                 if (selectedSample.FormalName == "AuthorMap")
                 {
-                    ApiKeyManager.StartIgnoring();
+                    ApiKeyManager.DisableKey();
                 }
                 // Restore API key if leaving Create and save map sample.
                 else if (SampleManager.Current?.SelectedSample?.FormalName == "AuthorMap")
                 {
-                    ApiKeyManager.StopIgnoring();
+                    ApiKeyManager.EnableKey();
                 }
             }
 

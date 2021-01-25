@@ -38,7 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
 
         private async Task Initialize()
         {
-            // NOTE: to be a writable geodatabase, this geodatabase must be generated from a service with a GeodatabaseSyncTask. See the "generate geodatabase" sample.
+            // NOTE: to be a writable geodatabase, this geodatabase must be generated from a service with a GeodatabaseSyncTask. See the "Generate geodatabase" sample.
             try
             {
                 // Create and load geodatabase.

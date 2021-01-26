@@ -113,6 +113,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
 
                         // Select the feature.
                         layer.SelectFeature(_selectedFeature);
+                        break;
                     }
                 }
             }

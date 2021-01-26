@@ -59,11 +59,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
 
                 // Create annotation layers from tables in the geodatabase.
                 AnnotationLayer addressAnnotationLayer = new AnnotationLayer(geodatabase.GeodatabaseAnnotationTable("Loudoun_Address_PointsAnno_1"));
-                AnnotationLayer parceAnnotationLayer = new AnnotationLayer(geodatabase.GeodatabaseAnnotationTable("ParcelLinesAnno_1"));
+                AnnotationLayer parcelAnnotationLayer = new AnnotationLayer(geodatabase.GeodatabaseAnnotationTable("ParcelLinesAnno_1"));
 
                 // Create a map with the layers.
                 _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
-                _myMapView.Map.OperationalLayers.AddRange(new List<Layer> { addressFeatureLayer, parcelFeatureLayer, addressAnnotationLayer, parceAnnotationLayer });
+                _myMapView.Map.OperationalLayers.AddRange(new List<Layer> { addressFeatureLayer, parcelFeatureLayer, addressAnnotationLayer, parcelAnnotationLayer });
 
                 // Zoom to the extent of the parcels.
                 await parcelFeatureLayer.LoadAsync();

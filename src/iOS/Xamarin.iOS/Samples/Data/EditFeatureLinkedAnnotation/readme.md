@@ -35,11 +35,9 @@ Both expressions were defined by the data author in ArcGIS Pro using [the Arcade
 
 ## Offline data
 
-1. Download the data from [ArcGIS Online](https://arcgisruntime.maps.arcgis.com/home/item.html?id=74c0c9fa80f4498c9739cc42531e9948).
-2. Extract the contents of the downloaded zip file to disk.
-3. Open your command prompt and navigate to the folder where you extracted the contents of the data from step 1.
-4. Push the data into the scoped storage of the sample app:
-`adb push loudoun_anno.geodatabase /Android/data/com.esri.arcgisruntime.sample.editfeatureswithfeaturelinkedannotation/files/loudoun_anno.geodatabase`
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [loudoun_anno geodatabase](https://www.arcgis.com/home/item.html?id=74c0c9fa80f4498c9739cc42531e9948)
 
 ## About the data
 

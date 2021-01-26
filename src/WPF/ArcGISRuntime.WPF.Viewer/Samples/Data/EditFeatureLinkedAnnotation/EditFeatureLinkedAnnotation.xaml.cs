@@ -95,7 +95,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
                 {
                     if (result.LayerContent is FeatureLayer layer)
                     {
-                        _selectedFeature = result.GeoElements.FirstOrDefault() as Feature;
+                        _selectedFeature = result.GeoElements.First() as Feature;
                         if (_selectedFeature.Geometry is Polyline line)
                         {
                             // No support for curved lines.

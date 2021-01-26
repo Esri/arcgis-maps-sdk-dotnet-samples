@@ -64,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureLinkedAnnotation
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 

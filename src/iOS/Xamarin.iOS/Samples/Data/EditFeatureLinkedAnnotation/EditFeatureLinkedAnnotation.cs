@@ -205,15 +205,32 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
 
             _myMapView = new MapView() { TranslatesAutoresizingMaskIntoConstraints = false };
 
+            UILabel helpLabel = new UILabel
+            {
+                Text = "1. Tap to select a feature.\n2. For MapPoint features, edit the feature attributes.\n3. Tap again to move the feature.",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Left,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+                TextColor = ApplicationTheme.ForegroundColor,
+                Lines = 3,
+                TranslatesAutoresizingMaskIntoConstraints = false,
+            };
+
             // Add the views.
-            View.AddSubviews(_myMapView);
+            View.AddSubviews(_myMapView, helpLabel);
 
             // Lay out the views.
-            NSLayoutConstraint.ActivateConstraints(new[]{
-                _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor)
+            NSLayoutConstraint.ActivateConstraints(new[]
+            {
+                helpLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                helpLabel.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                helpLabel.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                helpLabel.HeightAnchor.ConstraintEqualTo(80),
+
+                _myMapView.TopAnchor.ConstraintEqualTo(helpLabel.BottomAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
             });
         }
 

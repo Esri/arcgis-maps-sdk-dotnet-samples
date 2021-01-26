@@ -156,7 +156,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
         {
             // Show entry UI.
             MyMapView.IsEnabled = false;
-            ResponsiveFormContainer.IsVisible = true;
+            InstructionsText.IsVisible = false;
+            AttributesGrid.IsVisible = true;
 
             // Populate entry fields with data from feature.
             AdressBox.Text = _selectedFeature.Attributes["AD_ADDRESS"].ToString();
@@ -180,7 +181,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
             {
                 // Hide entry UI.
                 MyMapView.IsEnabled = true;
-                ResponsiveFormContainer.IsVisible = false;
+                InstructionsText.IsVisible = true;
+                AttributesGrid.IsVisible = false;
             }
         }
 
@@ -188,7 +190,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
         {
             // Hide entry UI.
             MyMapView.IsEnabled = true;
-            ResponsiveFormContainer.IsVisible = false;
+            InstructionsText.IsVisible = true;
+            AttributesGrid.IsVisible = false;
         }
     }
 }

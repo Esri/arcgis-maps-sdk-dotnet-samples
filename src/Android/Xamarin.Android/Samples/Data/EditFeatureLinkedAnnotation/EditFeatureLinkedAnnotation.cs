@@ -10,6 +10,7 @@
 using Android.App;
 using Android.Graphics;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
@@ -206,6 +207,15 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
         {
             // Create a new vertical layout for the app.
             var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Create the help label.
+            TextView helpLabel = new TextView(this);
+            helpLabel.Text = "1. Tap to select a feature.\n2. For MapPoint features, edit the feature attributes.\n3. Tap again to move the feature.";
+            helpLabel.TextAlignment = TextAlignment.TextStart;
+            helpLabel.Gravity = GravityFlags.Center;
+
+            // Add the help label to the layout.
+            layout.AddView(helpLabel);
 
             // Add the map view to the layout.
             _myMapView = new MapView(this);

@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         private void Initialize()
         {
             // Create the scene with a basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
             
             // Add an elevation source to the scene.
             Surface elevationSurface = new Surface();
@@ -108,6 +108,16 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

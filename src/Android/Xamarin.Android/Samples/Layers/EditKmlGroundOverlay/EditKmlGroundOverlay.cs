@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using ArcGISRuntime;
 using ArcGISRuntime.Samples.Managers;
@@ -51,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
         private void Initialize()
         {
             // Create a scene for the sceneview.
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
             _mySceneView.Scene = myScene;
 
             // Create a geometry for the ground overlay.
@@ -98,6 +99,16 @@ namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
             _mySceneView = FindViewById<SceneView>(Resource.Id.SceneView);
             _slider = FindViewById<SeekBar>(Resource.Id.Slider);
             _valueLabel = FindViewById<TextView>(Resource.Id.ValueLabel);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

@@ -51,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
             MyMapView.Loaded += (s, e) =>
             {
                 // Create a new map with the oceans basemap and add it to the map view
-                Map map = new Map(Basemap.CreateOceans());
+                Map map = new Map(BasemapStyle.ArcGISOceans);
                 MyMapView.Map = map;
             };
 

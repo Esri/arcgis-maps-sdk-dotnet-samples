@@ -82,7 +82,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
             base.ViewWillAppear(animated);
 
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Register to handle loading status changes.
             myMap.LoadStatusChanged += OnMapsLoadStatusChanged;

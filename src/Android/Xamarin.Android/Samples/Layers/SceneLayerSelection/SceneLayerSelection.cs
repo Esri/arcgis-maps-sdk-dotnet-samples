@@ -17,6 +17,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
+using Android.Views;
+using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntime.Samples.SceneLayerSelection
 {
@@ -45,7 +47,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         private async void Initialize()
         {
             // Create a new Scene with an imagery basemap.
-            Scene scene = new Scene(Basemap.CreateImagery());
+            Scene scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add a base surface with elevation data.
             Surface elevationSurface = new Surface();
@@ -132,6 +134,16 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

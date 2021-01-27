@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -57,7 +58,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             Scene myScene = new Scene
             {
                 // Set the Scene's basemap property.
-                Basemap = Basemap.CreateImagery()
+                Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard)
             };
 
             // Create a camera with coordinates showing layer data.
@@ -190,6 +191,16 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             _billboardedButton.Click += SetBillboarded;
             _flatButton.Click += SetFlat;
             _zSlider.ProgressChanged += ZValueChanged;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

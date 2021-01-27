@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
         private async void Initialize()
         {
             // Create a new Scene with an imagery basemap.
-            Scene scene = new Scene(Basemap.CreateImagery());
+            Scene scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add a base surface with elevation data.
             Surface elevationSurface = new Surface();

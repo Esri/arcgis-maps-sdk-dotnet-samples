@@ -87,7 +87,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         private async void Initialize()
         {
             // Apply an imagery basemap to the map
-            _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the WMS Service
             WmsService service = new WmsService(_wmsUrl);

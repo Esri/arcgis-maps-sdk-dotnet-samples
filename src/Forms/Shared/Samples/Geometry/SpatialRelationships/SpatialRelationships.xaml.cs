@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
         private void Initialize()
         {
             // Configure the basemap
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create the graphics overlay
             _graphicsOverlay = new GraphicsOverlay();

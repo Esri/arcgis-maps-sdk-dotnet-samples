@@ -7,16 +7,40 @@
         "NavigateAR.jpg"
     ],
     "keywords": [
+        "augmented reality",
+        "directions",
+        "full-scale",
+        "guidance",
+        "mixed reality",
+        "navigate",
+        "navigation",
+        "real-scale",
+        "route",
+        "routing",
+        "world-scale"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.ARToolkit": "100.10.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/NavigateAR.htm"
+        "/net/latest/formsar/sample-code/navigatear.htm"
     ],
     "relevant_apis": [
+        "ARSceneView",
+        "GeometryEngine",
+        "LocationDataSource",
+        "RouteResult",
+        "RouteTask",
+        "RouteTracker",
+        "Surface"
     ],
     "snippets": [
+        "RoutePlanner.xaml",
+        "RoutePlanner.xaml.cs",
+        "RouteViewer.xaml",
+        "RouteViewer.xaml.cs"
     ],
     "title": "Navigate in AR"
 }

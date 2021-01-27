@@ -48,7 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
         {
             try
             {
-                _myMapView.Map = new Map(Basemap.CreateTopographic());
+                _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
                 // Create an overlay for visualizing tactical messages and add it to the map.
                 _tacticalMessageOverlay = new GraphicsOverlay();

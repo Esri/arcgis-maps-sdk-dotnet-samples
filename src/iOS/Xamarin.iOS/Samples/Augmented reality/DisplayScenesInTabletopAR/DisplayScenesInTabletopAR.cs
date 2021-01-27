@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -8,12 +8,11 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime;
-using ArcGISRuntime.Samples.Managers;
 using ARKit;
 using Esri.ArcGISRuntime.ARToolkit;
 using Esri.ArcGISRuntime.Mapping;
 using Foundation;
-using System.Linq;
+using System;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
@@ -25,7 +24,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         description: "Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.",
         instructions: "You'll see a feed from the camera when you open the sample. Tap on any flat, horizontal surface (like a desk or table) to place the scene. With the scene placed, you can move the camera around the scene to explore. You can also pan and zoom with touch to adjust the position of the scene.",
         tags: new[] { "augmented reality", "drop", "mixed reality", "model", "pin", "place", "table-top", "tabletop" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
     public class DisplayScenesInTabletopAR : UIViewController
     {
         // Hold references to UI controls.
@@ -91,7 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
         private void Initialize()
         {
             // Display an empty scene to enable tap-to-place.
-            _arSceneView.Scene = new Scene(SceneViewTilingScheme.Geographic);
+            _arSceneView.Scene = new Scene(SceneViewTilingScheme.WebMercator);
 
             // Render the scene invisible to start.
             _arSceneView.Scene.BaseSurface.Opacity = 0;
@@ -138,16 +136,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
             if (_tabletopScene == null)
             {
-                // Get the downloaded mobile scene package.
-                MobileScenePackage package =
-                    await MobileScenePackage.OpenAsync(DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d",
-                        "philadelphia.mspk"));
-
-                // Load the package.
-                await package.LoadAsync();
-
-                // Get the first scene.
-                _tabletopScene = package.Scenes.First();
+                // Load a scene from ArcGIS Online.
+                _tabletopScene = new Scene(new Uri("https://www.arcgis.com/home/item.html?id=31874da8a16d45bfbc1273422f772270"));
+                await _tabletopScene.LoadAsync();
 
                 // Set the clipping distance for the scene.
                 _arSceneView.ClippingDistance = 400;
@@ -160,10 +151,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayScenesInTabletopAR
 
             // Create a camera at the bottom and center of the scene.
             //    This camera is the point at which the scene is pinned to the real-world surface.
-            Camera originCamera = new Camera(39.95787000283599,
-                -75.16996728256345,
-                8.813445091247559,
-                0, 90, 0);
+            Camera originCamera = new Camera(52.52083, 13.40944, 8.813445091247559, 0, 90, 0);
 
             // Set the origin camera.
             _arSceneView.OriginCamera = originCamera;

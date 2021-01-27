@@ -99,7 +99,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private async void Initialize()
         {
             // Create and show a map.
-            _mapView.Map = new Map(Basemap.CreateImagery());
+            _mapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             try
             {

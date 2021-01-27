@@ -37,7 +37,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
         private async void Initialize()
         {
             // Initialize the map with an oceans basemap
-            MyMapView.Map = new Map(Basemap.CreateOceans());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISOceans);
 
             // Get the path to the ENC Exchange Set
             string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates", "ENC_ROOT",

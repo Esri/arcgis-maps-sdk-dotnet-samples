@@ -34,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         private async void Initialize()
         {
             // Create a map with an initial viewpoint.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
             myMap.InitialViewpoint = new Viewpoint(new MapPoint(-10977012.785807, 4514257.550369, SpatialReference.Create(3857)), 68015210);
             MyMapView.Map = myMap;
 

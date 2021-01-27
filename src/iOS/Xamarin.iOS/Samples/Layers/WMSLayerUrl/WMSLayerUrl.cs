@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         private void Initialize()
         {
             // Create a map with basemap and initial viewpoint.
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas())
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray)
             {
                 // Set the initial viewpoint.
                 InitialViewpoint = new Viewpoint(

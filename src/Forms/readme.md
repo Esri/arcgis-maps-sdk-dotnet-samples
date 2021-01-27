@@ -16,6 +16,7 @@
 * [Delete features (feature service)](Shared/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
 * [Edit and sync features](Shared/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
 * [Edit feature attachments](Shared/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
+* [Edit features with feature-linked annotation](Shared/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
 * [Feature layer (geodatabase)](Shared/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.
 * [Feature layer (GeoPackage)](Shared/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](Shared/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.

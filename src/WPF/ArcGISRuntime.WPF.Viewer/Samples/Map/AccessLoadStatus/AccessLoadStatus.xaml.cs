@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.AccessLoadStatus
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Register to handle loading status changes
             myMap.LoadStatusChanged += OnMapsLoadStatusChanged;

@@ -33,7 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.GeoViewSync
         private void Initialize()
         {
             // Initialize the MapView and SceneView with a basemap
-            MyMapView.Map = new Map(Basemap.CreateImageryWithLabels());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
             MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
             // Disable 'flick' gesture - this is the most straightforward way to prevent the 'flick'

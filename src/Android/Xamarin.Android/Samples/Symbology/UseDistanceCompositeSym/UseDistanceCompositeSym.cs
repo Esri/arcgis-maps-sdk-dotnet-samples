@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
@@ -52,7 +53,7 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
             try
             {
                 // Create a new Scene with an imagery basemap.
-                Scene myScene = new Scene(Basemap.CreateImagery());
+                Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
                 // Add the Scene to the SceneView.
                 _mySceneView.Scene = myScene;
@@ -138,6 +139,16 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
 
             // Show the layout in the app
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

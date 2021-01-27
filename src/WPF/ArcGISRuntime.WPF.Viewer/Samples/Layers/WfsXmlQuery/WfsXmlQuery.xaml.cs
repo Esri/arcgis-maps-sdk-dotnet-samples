@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WPF.Samples.WfsXmlQuery
         private async void Initialize()
         {
             // Create the map with basemap.
-            MyMapView.Map = new Map(Basemap.CreateNavigationVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
             try
             {

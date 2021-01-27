@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.ClipGeometry
             Map newMap = new Map(SpatialReferences.WebMercator)
             {
                 // Set the basemap of the map to be a topographic layer.
-                Basemap = Basemap.CreateTopographic()
+                Basemap = new Basemap(BasemapStyle.ArcGISTopographic)
             };
 
             // Create a graphics overlay to hold the input geometries for the clip operation.

@@ -30,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.CreateTerrainSurfaceTilePackage
         private void Initialize()
         {
             // Create the scene.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Get the path to the elevation tile package.
             string packagePath = DataManager.GetDataFolder("cce37043eb0440c7a5c109cf8aad5500", "MontereyElevation.tpk");

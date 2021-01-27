@@ -9,11 +9,13 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer
 {
@@ -48,7 +50,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer
         private void Initialize()
         {
             // Create the scene with basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create and use an elevation surface to show terrain.
             Surface baseSurface = new Surface();
@@ -76,6 +78,16 @@ namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

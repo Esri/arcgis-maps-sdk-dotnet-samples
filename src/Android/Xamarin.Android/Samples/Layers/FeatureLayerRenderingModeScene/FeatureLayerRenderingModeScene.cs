@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -113,6 +114,20 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
             // Subscribe to zoom button events
             zoomButton.Click += ZoomButton_Click;
 
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneviews
+            (_myStaticSceneView.Parent as ViewGroup).RemoveView(_myStaticSceneView);
+            _myStaticSceneView.Dispose();
+            _myStaticSceneView = null;
+
+            (_myDynamicSceneView.Parent as ViewGroup).RemoveView(_myDynamicSceneView);
+            _myDynamicSceneView.Dispose();
+            _myDynamicSceneView = null;
         }
 
         private void ZoomButton_Click(object sender, System.EventArgs e)

@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Samples.SetMinMaxScale
         private void Initialize()
         {
             // Create new Map with Streets basemap 
-            Map myMap = new Map(Basemap.CreateStreets())
+            Map myMap = new Map(BasemapStyle.ArcGISStreets)
             {
 
                 // Set the scale at which this layer can be viewed

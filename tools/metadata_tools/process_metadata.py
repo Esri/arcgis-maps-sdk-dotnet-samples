@@ -17,7 +17,9 @@ def get_platform_samples_root(platform, sample_root):
     if (platform == "iOS"):
         return os.path.join(sample_root, "iOS", "Xamarin.iOS", "Samples")
     if (platform == "Forms" or platform in ["XFA", "XFI", "XFU"]):
-        return os.path.join(sample_root, "Forms", "Shared", "Samples")    
+        return os.path.join(sample_root, "Forms", "Shared", "Samples")
+    if (platform == "FormsAR"):
+        return os.path.join(sample_root, "Forms", "AugmentedReality")        
     raise AssertionError(None, None)
 
 def get_relative_path_to_samples_from_platform_root(platform):
@@ -35,6 +37,8 @@ def get_relative_path_to_samples_from_platform_root(platform):
         return "Xamarin.iOS/Samples"
     if (platform == "Forms" or platform in ["XFA", "XFI", "XFU"]):
         return "Shared/Samples"
+    if (platform == "FormsAR"):
+        return "AugmentedReality"
     raise AssertionError(None, None)
 
 def plat_to_msbuild_string(platform):
@@ -206,7 +210,7 @@ def main():
             return
         common_dir_path = sys.argv[3]
 
-    for platform in ["UWP", "WPF", "Android", "Forms", "iOS"]:
+    for platform in ["UWP", "WPF", "Android", "Forms", "iOS", "FormsAR"]:
         # make a list of samples, so that build_all_csproj.bat can be produced
         list_of_sample_dirs = []
         list_of_samples = {}
@@ -223,6 +227,8 @@ def main():
                     print(f"skipping path; does not exist: {path_to_readme}")
                     continue
                 sample.populate_from_readme(platform, path_to_readme)
+                if platform == "FormsAR":
+                    sample.category = "Augmented reality"
                 sample.populate_snippets_from_folder(platform, path_to_readme)
                 if operation == "improve":
                     sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
@@ -244,7 +250,7 @@ def main():
                 else:
                     list_of_samples[sample.category] = [sample]
         # write out samples TOC
-        if operation in ["toc", "improve", "sync"]:
+        if operation in ["toc", "improve", "sync"] and platform != "FormsAR":
             write_samples_toc(get_platform_samples_root(platform, sample_root), get_relative_path_to_samples_from_platform_root(platform), list_of_samples)
     return
 

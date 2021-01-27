@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
         private async void Initialize()
         {
             // Create a new map.
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Get the GeoPackage path.
             string geoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");

@@ -46,7 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
 
         private void Initialize()
         {
-            _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
+            _viewModel = new MapViewModel(new Map(BasemapStyle.ArcGISStreets));
 
             // Configure bindings to point to the view model.
             this.DataContext = _viewModel;

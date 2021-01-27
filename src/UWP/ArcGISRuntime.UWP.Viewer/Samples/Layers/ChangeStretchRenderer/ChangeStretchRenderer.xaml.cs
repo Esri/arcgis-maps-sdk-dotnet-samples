@@ -43,7 +43,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeStretchRenderer
             RendererTypes.SelectedIndex = 0;
 
             // Add an imagery basemap
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Get the file name
             string filepath = GetRasterPath();

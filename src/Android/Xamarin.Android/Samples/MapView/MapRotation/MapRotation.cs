@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         private void Initialize()
         {
             // Create a new Map instance with the basemap
-            Basemap myBasemap = Basemap.CreateStreets();
+            Basemap myBasemap = new Basemap(BasemapStyle.ArcGISStreets);
 
             _myMapView.Map = new Map(myBasemap);
         }

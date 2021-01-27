@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             {
 
                 // Set the basemap to Streets
-                Basemap = Basemap.CreateStreets()
+                Basemap = new Basemap(BasemapStyle.ArcGISStreets)
             };
 
             // Create a new image service raster from the Uri

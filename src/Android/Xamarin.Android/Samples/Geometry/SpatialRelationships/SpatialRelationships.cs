@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
         private void Initialize()
         {
             // Configure the basemap
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create the graphics overlay
             _graphicsOverlay = new GraphicsOverlay();

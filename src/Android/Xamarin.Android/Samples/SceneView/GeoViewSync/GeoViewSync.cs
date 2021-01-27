@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -45,7 +46,7 @@ namespace ArcGISRuntime.Samples.GeoViewSync
         private void Initialize()
         {
             // Initialize the MapView and SceneView with a basemap
-            _myMapView.Map = new Map(Basemap.CreateImageryWithLabels());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImagery);
             _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
 
             // Disable 'flick' gesture - this is the most straightforward way to prevent the 'flick'
@@ -119,6 +120,16 @@ namespace ArcGISRuntime.Samples.GeoViewSync
             // Create the mapviews and sceneviews
             _myMapView = FindViewById<MapView>(Resource.Id.GeoViewSync_MyMapView);
             _mySceneView = FindViewById<SceneView>(Resource.Id.GeoViewSync_MySceneView);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

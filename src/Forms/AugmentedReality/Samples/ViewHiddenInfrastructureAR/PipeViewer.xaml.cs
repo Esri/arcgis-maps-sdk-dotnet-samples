@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         private void Initialize()
         {
             // Create and add the scene.
-            MyARSceneView.Scene = new Scene(Basemap.CreateImagery());
+            MyARSceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create the custom location data source and configure the AR scene view to use it.
 #if XAMARIN_ANDROID

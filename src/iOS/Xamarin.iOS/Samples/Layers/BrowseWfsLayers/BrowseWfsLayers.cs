@@ -55,7 +55,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             _loadServiceButton.Title = ServiceUrl;
 
             // Create the map with imagery basemap.
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             LoadService();
         }

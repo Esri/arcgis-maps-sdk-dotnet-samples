@@ -50,7 +50,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
         private async void Initialize()
         {
             // Create a map and add it to the view
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Load the tiled layer and get the path
             string rasterPath = GetRasterPath();

@@ -49,7 +49,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolsFromMobileStyle
         private async void Initialize()
         {
             // Create a new topographic basemap and assign it to the map view.
-            Map map = new Map(Basemap.CreateTopographic());
+            Map map = new Map(BasemapStyle.ArcGISTopographic);
             MyMapView.Map = map;
 
             // Create a graphics overlay for showing point graphics and add it to the map view.

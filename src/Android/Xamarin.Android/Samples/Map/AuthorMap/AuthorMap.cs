@@ -1,16 +1,18 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using ArcGISRuntime.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
@@ -21,13 +23,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Android.Content;
 using Xamarin.Auth;
 using ContextThemeWrapper = AndroidX.AppCompat.View.ContextThemeWrapper;
 
 namespace ArcGISRuntime.Samples.AuthorMap
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create and save map",
         category: "Map",
@@ -83,7 +84,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             Title = "Author and save a map";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
 
             // Set up AuthenticationManager (prompt user for OAuth config first)
@@ -95,11 +96,22 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void Initialize()
         {
+            // Remove API key.
+            ApiKeyManager.DisableKey();
+
             // Create new Map with basemap
             Map myMap = new Map(Basemap.CreateLightGrayCanvas());
 
             // Provide used Map to the MapView
             _myMapView.Map = myMap;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Restore API key if leaving sample.
+            ApiKeyManager.EnableKey();
         }
 
         private void CreateLayout()
@@ -166,7 +178,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void OnNewMapClicked(object sender, EventArgs e)
         {
             // Create a new map for the map view (can make changes and save as a new portal item)
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
         }
 
         private void OnSaveMapClicked(object sender, EventArgs e)
@@ -218,7 +230,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 {
                     // This is not the initial save, call SaveAsync to save changes to the existing portal item
                     await myMap.SaveAsync();
-                    
+
                     // Get the file stream from the new thumbnail image
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
@@ -234,7 +246,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             }
             catch (Exception ex)
             {
-                // Show the exception message 
+                // Show the exception message
                 alertBuilder.SetTitle("Unable to save map");
                 alertBuilder.SetMessage(ex.Message);
                 alertBuilder.Show();
@@ -251,7 +263,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-
                 // Use the OAuth implicit grant flow
                 GenerateTokenOptions = new GenerateTokenOptions
                 {
@@ -284,6 +295,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         }
 
         #region Basemap Button
+
         private void OnBasemapsClicked(object sender, EventArgs e)
         {
             Button mapsButton = (Button)sender;
@@ -291,7 +303,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Create a menu to show basemaps
             PopupMenu mapsMenu = new PopupMenu(mapsButton.Context, mapsButton);
             mapsMenu.MenuItemClick += OnBasemapsMenuItemClicked;
-            
+
             // Create a menu option for each basemap type
             foreach (string basemapType in _basemapTypes)
             {
@@ -314,23 +326,28 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     // Set the basemap to Topographic
                     _myMapView.Map.Basemap = Basemap.CreateTopographic();
                     break;
+
                 case "Streets":
                     // Set the basemap to Streets
                     _myMapView.Map.Basemap = Basemap.CreateStreets();
                     break;
+
                 case "Imagery":
                     // Set the basemap to Imagery
                     _myMapView.Map.Basemap = Basemap.CreateImagery();
                     break;
+
                 case "Oceans":
                     // Set the basemap to Oceans
                     _myMapView.Map.Basemap = Basemap.CreateOceans();
                     break;
             }
         }
-        #endregion
+
+        #endregion Basemap Button
 
         #region Layers Button
+
         private void OnLayersClicked(object sender, EventArgs e)
         {
             Button layerButton = (Button)sender;
@@ -379,11 +396,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 _myMapView.Map.OperationalLayers.Add(layer);
             }
         }
-        #endregion
+
+        #endregion Layers Button
 
         #region OAuth helpers
 
-        // Prompt for portal item information 
+        // Prompt for portal item information
         private void ShowOAuthConfigDialog()
         {
             // Create a dialog to get OAuth information (client id, redirect url, etc.)
@@ -414,7 +432,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 Orientation = Orientation.Horizontal
             };
-            
+
             TextView redirectUrlLabel = new TextView(this)
             {
                 Text = "Redirect:"
@@ -633,7 +651,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             }
 
             // Parse parameters into key / value pairs
-            Dictionary<string,string> keyValueDictionary = new Dictionary<string, string>();
+            Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
             string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string kvString in keysAndValues)
             {
@@ -651,7 +669,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Return the dictionary of string keys/values
             return keyValueDictionary;
         }
-        #endregion
+
+        #endregion OAuth helpers
     }
 
     // A custom DialogFragment class to show input controls for saving a web map
@@ -694,7 +713,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 {
                     Orientation = Orientation.Vertical
                 };
-                dialogView.SetPadding(10,0,10,10);
+                dialogView.SetPadding(10, 0, 10, 10);
 
                 // Add a text box for entering a title for the new web map
                 _mapTitleTextbox = new EditText(ctxWrapper)
@@ -744,7 +763,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             }
             catch (Exception ex)
             {
-                // Show the exception message 
+                // Show the exception message
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(Activity);
                 alertBuilder.SetTitle("Error");
                 alertBuilder.SetMessage(ex.Message);

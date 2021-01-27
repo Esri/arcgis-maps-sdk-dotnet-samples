@@ -69,7 +69,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
                 UpdateInterfaceState(SampleState.NotReady);
 
                 // Create the map with a basemap.
-                Map sampleMap = new Map(Basemap.CreateTopographicVector());
+                Map sampleMap = new Map(BasemapStyle.ArcGISTopographic);
                 sampleMap.InitialViewpoint = new Viewpoint(32.7157, -117.1611, 1e5);
                 MyMapView.Map = sampleMap;
 

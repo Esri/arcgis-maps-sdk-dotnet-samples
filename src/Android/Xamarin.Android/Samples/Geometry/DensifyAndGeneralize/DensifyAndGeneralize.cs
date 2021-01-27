@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
         private void Initialize()
         {
             // Create the map with a default basemap.
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Create and add a graphics overlay.
             GraphicsOverlay overlay = new GraphicsOverlay();

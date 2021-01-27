@@ -350,7 +350,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private async void Initialize()
         {
             // Create a map with a streets basemap.
-            Map myMap = new Map(Basemap.CreateStreets());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the file name for the local raster dataset.
             string filepath = GetRasterPath();

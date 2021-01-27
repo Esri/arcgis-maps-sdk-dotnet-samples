@@ -46,7 +46,7 @@ namespace ArcGISRuntime.UWP.Samples.ConvexHullList
         private void Initialize()
         {
             // Create a map with a topographic basemap.
-            Map newMap = new Map(Basemap.CreateTopographic());
+            Map newMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Assign the map to the MapView.
             MyMapView.Map = newMap;

@@ -9,6 +9,7 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
@@ -17,6 +18,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using Debug = System.Diagnostics.Debug;
+using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
 {
@@ -64,7 +66,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            Scene myScene = new Scene(Basemap.CreateImagery())
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard)
             {
                 BaseSurface = sceneSurface
             };
@@ -145,6 +147,16 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _verticalLabel = FindViewById<TextView>(Resource.Id.distanceMeasurement_verticalLabel);
             _horizontalLabel = FindViewById<TextView>(Resource.Id.distanceMeasurement_horizontalLabel);
             _unitSpinner = FindViewById<Spinner>(Resource.Id.distanceMeasurement_unitSpinner);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

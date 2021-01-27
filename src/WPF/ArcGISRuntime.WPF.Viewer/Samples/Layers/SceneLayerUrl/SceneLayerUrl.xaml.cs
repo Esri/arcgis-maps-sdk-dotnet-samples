@@ -39,7 +39,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerUrl
         private async void Initialize()
         {
             // Create new Scene.
-            Scene myScene = new Scene {Basemap = Basemap.CreateImagery()};
+            Scene myScene = new Scene {Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard)};
 
             // Create and add an elevation source for the Scene.
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(_elevationSourceUrl);

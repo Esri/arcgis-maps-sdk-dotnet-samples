@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Timers;
 using ArcGISRuntime.Samples.Managers;
+using Android.Views;
 
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 {
@@ -284,6 +285,16 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
 
             // Apply the updated geometry to the observer point
             _observerGraphic.Geometry = newPoint;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

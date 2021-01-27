@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         private void Initialize()
         {
             // Create new Map with basemap.
-            Map map = new Map(Basemap.CreateTopographic());
+            Map map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create and set initial map area.
             Envelope initialLocation = new Envelope(-1.30758164047166E7, 4014771.46954516, -1.30730056797177E7,

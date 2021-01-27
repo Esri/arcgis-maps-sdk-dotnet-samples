@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
         private void Initialize()
         {
             // Show an imagery basemap.
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
         }
 
         private async void OnScreenshotButtonClicked(object sender, RoutedEventArgs e)

@@ -42,7 +42,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         private async void Initialize()
         {
             // Create new Map with topographic basemap.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create and set initial map area.
             Envelope initialLocation = new Envelope(-229835, 6550763, -222560, 6552021, SpatialReferences.WebMercator);

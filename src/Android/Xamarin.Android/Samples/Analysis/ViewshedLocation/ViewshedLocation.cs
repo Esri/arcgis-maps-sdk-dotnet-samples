@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
         private void Initialize()
         {
             // Create the scene with the imagery basemap.
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
             _mySceneView.Scene = myScene;
 
             // Add the surface elevation.
@@ -250,6 +250,16 @@ namespace ArcGISRuntime.Samples.ViewshedLocation
             _maximumDistanceSlider.ProgressChanged += HandleSettingsChange;
             _analysisVisibilitySwitch.Click += HandleSettingsChange;
             _frustumVisibilitySwitch.Click += HandleSettingsChange;
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

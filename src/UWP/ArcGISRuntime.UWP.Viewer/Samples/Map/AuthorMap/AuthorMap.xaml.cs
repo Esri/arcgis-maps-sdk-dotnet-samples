@@ -1,10 +1,10 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -62,7 +62,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -79,12 +79,13 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             // Show the OAuth settings in the page
             ClientIdTextBox.Text = _appClientId;
             RedirectUrlTextBox.Text = _oAuthRedirectUrl;
-            
+
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
         }
 
         #region UI event handlers
+
         private void LayerSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Call a function to add operational layers to the map
@@ -96,7 +97,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             try
             {
                 // Don't attempt to save if the OAuth settings weren't provided
-                if(String.IsNullOrEmpty(_appClientId) || String.IsNullOrEmpty(_oAuthRedirectUrl))
+                if (String.IsNullOrEmpty(_appClientId) || String.IsNullOrEmpty(_oAuthRedirectUrl))
                 {
                     MessageDialog dialog = new MessageDialog("OAuth settings were not provided.", "Cannot Save");
                     await dialog.ShowAsync();
@@ -145,7 +146,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    ((PortalItem)myMap.Item).SetThumbnail(imageStream);                    
+                    ((PortalItem)myMap.Item).SetThumbnail(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
@@ -169,7 +170,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         private void ClearMapClicked(object sender, RoutedEventArgs e)
         {
             // Create a new map (will not have an associated PortalItem)
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             // Reset the basemap selection in the UI
             BasemapListBox.SelectedIndex = 0;
@@ -180,7 +181,8 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             // Reset the extent labels
             UpdateViewExtentLabels();
         }
-        #endregion
+
+        #endregion UI event handlers
 
         private void ApplyBasemap(string basemapName)
         {
@@ -194,18 +196,22 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
                     // Set the basemap to Light Gray Canvas
                     myMap.Basemap = Basemap.CreateLightGrayCanvas();
                     break;
+
                 case "Topographic":
                     // Set the basemap to Topographic
                     myMap.Basemap = Basemap.CreateTopographic();
                     break;
+
                 case "Streets":
                     // Set the basemap to Streets
                     myMap.Basemap = Basemap.CreateStreets();
                     break;
+
                 case "Imagery":
                     // Set the basemap to Imagery
                     myMap.Basemap = Basemap.CreateImagery();
                     break;
+
                 case "Ocean":
                     // Set the basemap to Oceans
                     myMap.Basemap = Basemap.CreateOceans();
@@ -222,7 +228,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             // Loop through the selected items in the operational layers list box
             foreach (KeyValuePair<string, string> item in OperationalLayerListBox.SelectedItems)
             {
-                // Get the service uri for each selected item 
+                // Get the service uri for each selected item
                 KeyValuePair<string, string> layerInfo = item;
                 Uri layerUri = new Uri(layerInfo.Value);
 
@@ -240,7 +246,6 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-
                 // Use the OAuth implicit grant flow
                 GenerateTokenOptions = new GenerateTokenOptions
                 {
@@ -362,11 +367,12 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
             return credential;
         }
-        #endregion
+
+        #endregion OAuth helpers
 
         private void BasemapListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Get the name of the desired basemap 
+            // Get the name of the desired basemap
             string name = e.AddedItems[0].ToString();
 
             // Apply the basemap to the current map

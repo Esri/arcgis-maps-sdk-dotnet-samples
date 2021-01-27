@@ -9,10 +9,12 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
+using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceTilePackage
 {
@@ -42,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceTilePackage
         private void Initialize()
         {
             // Create the scene.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Get the path to the elevation tile package.
             string packagePath = DataManager.GetDataFolder("cce37043eb0440c7a5c109cf8aad5500", "MontereyElevation.tpk");
@@ -76,6 +78,16 @@ namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceTilePackage
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

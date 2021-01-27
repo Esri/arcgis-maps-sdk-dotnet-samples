@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.DisplayMap
         private void Initialize()
         {
             // Show an imagery basemap
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
         }
 
         public override void ViewDidLoad()

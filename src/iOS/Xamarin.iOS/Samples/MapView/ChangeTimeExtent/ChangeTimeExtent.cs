@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         private void Initialize()
         {
             // Show a topographic basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Load the layers from the corresponding URIs.
             ArcGISMapImageLayer imageryLayer = new ArcGISMapImageLayer(_mapServerUri);

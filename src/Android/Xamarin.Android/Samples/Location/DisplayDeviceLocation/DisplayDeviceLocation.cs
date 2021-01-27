@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Provide used Map to the MapView
             _myMapView.Map = myMap;

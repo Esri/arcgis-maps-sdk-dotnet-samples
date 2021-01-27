@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Create envelope to be used as a target extent for map's initial viewpoint.
             Envelope myEnvelope = new Envelope(-6603299.491810, 1679677.742046, 9002253.947487, 8691318.054732, SpatialReferences.WebMercator);
@@ -90,7 +90,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
             try
             {
                 // Define the selection tolerance.
-                double tolerance = 15;
+                double tolerance = 30;
 
                 // Convert the tolerance to map units.
                 double mapTolerance = tolerance * MyMapView.UnitsPerPixel;

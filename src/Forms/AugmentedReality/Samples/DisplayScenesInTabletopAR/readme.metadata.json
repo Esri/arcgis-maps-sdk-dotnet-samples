@@ -7,16 +7,32 @@
         "DisplayScenesInTabletopAR.jpg"
     ],
     "keywords": [
+        "augmented reality",
+        "drop",
+        "mixed reality",
+        "model",
+        "pin",
+        "place",
+        "table-top",
+        "tabletop"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.ARToolkit": "100.10.0"
     },
+    "offline_data": [
+        "7dd2f97bb007466ea939160d0de96a9d"
+    ],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/DisplayScenesInTabletopAR.htm"
+        "/net/latest/formsar/sample-code/displayscenesintabletopar.htm"
     ],
     "relevant_apis": [
+        "ARSceneView",
+        "Surface"
     ],
     "snippets": [
+        "DisplayScenesInTabletopAR.xaml",
+        "DisplayScenesInTabletopAR.xaml.cs"
     ],
     "title": "Display scenes in tabletop AR"
 }

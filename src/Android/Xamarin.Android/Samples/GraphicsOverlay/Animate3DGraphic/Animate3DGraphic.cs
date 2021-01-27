@@ -107,8 +107,8 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
         private async void Initialize()
         {
             // Apply appropriate maps to the scene and the inset map view
-            _insetMapView.Map = new Map(Basemap.CreateImagery());
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _insetMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Apply the elevation source
             Surface surface = new Surface();
@@ -432,6 +432,16 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                     statsLayout.Visibility = ViewStates.Visible;
                 }
             };
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
 
         /// <summary>

@@ -7,16 +7,39 @@
         "ViewHiddenInfrastructureAR.jpg"
     ],
     "keywords": [
+        "augmented reality",
+        "full-scale",
+        "infrastructure",
+        "lines",
+        "mixed reality",
+        "pipes",
+        "real-scale",
+        "underground",
+        "visualization",
+        "visualize",
+        "world-scale"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.6.0"
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.ARToolkit": "100.10.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/ViewHiddenInfrastructureAR.htm"
+        "/net/latest/formsar/sample-code/viewhiddeninfrastructurear.htm"
     ],
     "relevant_apis": [
+        "ARSceneView",
+        "GraphicsOverlay",
+        "MultilayerPolylineSymbol",
+        "SketchEditor",
+        "SolidStrokeSymbolLayer",
+        "Surface"
     ],
     "snippets": [
+        "PipePlacer.xaml",
+        "PipePlacer.xaml.cs",
+        "PipeViewer.xaml",
+        "PipeViewer.xaml.cs"
     ],
     "title": "View hidden infrastructure in AR"
 }

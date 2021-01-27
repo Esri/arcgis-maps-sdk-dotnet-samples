@@ -43,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer
         private void Initialize()
         {
             // Create the scene with basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create and use an elevation surface to show terrain.
             Surface baseSurface = new Surface();

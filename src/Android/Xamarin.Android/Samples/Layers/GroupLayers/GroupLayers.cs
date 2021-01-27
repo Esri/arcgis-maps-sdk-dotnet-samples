@@ -59,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.GroupLayers
             gLayer.Layers.Add(devThree);
 
             // Create the scene with a basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add the top-level layers to the scene.
             _mySceneView.Scene.OperationalLayers.Add(gLayer);
@@ -134,6 +134,16 @@ namespace ArcGISRuntimeXamarin.Samples.GroupLayers
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneSymbols
         private void Initialize()
         {
             // Configure the scene with an imagery basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add a surface to the scene for elevation.
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));

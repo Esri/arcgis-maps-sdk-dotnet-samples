@@ -9,11 +9,13 @@
 
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
 {
@@ -46,7 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
         private async void Initialize()
         {
             // Create the scene with basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create a surface and add the elevation service to it.
             Surface groundSurface = new Surface();
@@ -82,6 +84,16 @@ namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
 
             // Show the layout in the app.
             SetContentView(layout);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
     }
 }

@@ -21,6 +21,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using ArcGISRuntime;
+using Android.Views;
 
 namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
 {
@@ -113,6 +114,16 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             // Get the views
             _myDisplayList = FindViewById<ListView>(Resource.Id.ListKmlContents_ContentList);
             _mySceneView = FindViewById<SceneView>(Resource.Id.ListKmlContents_MySceneView);
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            // Remove the sceneview
+            (_mySceneView.Parent as ViewGroup).RemoveView(_mySceneView);
+            _mySceneView.Dispose();
+            _mySceneView = null;
         }
 
         #region viewpoint_conversion

@@ -1,0 +1,37 @@
+{
+    "category": "Data",
+    "description": "Edit feature attributes which are linked to annotation through an expression.",
+    "formal_name": "EditFeatureLinkedAnnotation",
+    "ignore": false,
+    "images": [
+        "EditFeatureLinkedAnnotation.jpg"
+    ],
+    "keywords": [
+        "annotation",
+        "attributes",
+        "feature-linked annotation",
+        "features",
+        "fields"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WPF": "100.10.0"
+    },
+    "offline_data": [
+        "74c0c9fa80f4498c9739cc42531e9948"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/editfeaturelinkedannotation.htm"
+    ],
+    "relevant_apis": [
+        "AnnotationLayer",
+        "Feature",
+        "FeatureLayer",
+        "Geodatabase"
+    ],
+    "snippets": [
+        "EditFeatureLinkedAnnotation.xaml",
+        "EditFeatureLinkedAnnotation.xaml.cs"
+    ],
+    "title": "Edit features with feature-linked annotation"
+}

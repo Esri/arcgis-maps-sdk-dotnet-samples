@@ -272,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
     <None Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <None Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <None Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
@@ -463,6 +464,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.cs" />
     <Compile Include="HTMLHelpers.cs" />
     <Compile Include="ViewControllers\ApiKeyPrompt.cs" />
     <Compile Include="Samples\Layers\ShowPopup\ShowPopup.cs" />

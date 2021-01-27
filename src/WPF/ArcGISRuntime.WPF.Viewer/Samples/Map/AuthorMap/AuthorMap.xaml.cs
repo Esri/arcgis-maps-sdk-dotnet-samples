@@ -1,10 +1,10 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -43,7 +43,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         private string _oAuthRedirectUrl = "my-ags-app://auth";
 
         // String array to store names of the available basemaps
-        private readonly string[] _basemapNames = 
+        private readonly string[] _basemapNames =
         {
             "Light Gray",
             "Topographic",
@@ -64,14 +64,14 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
             // Show a plain gray map in the map view
-            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
             // Fill the basemap combo box with basemap names
             BasemapListBox.ItemsSource = _basemapNames;
@@ -91,6 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         }
 
         #region UI event handlers
+
         private void BasemapSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Call a function to set the basemap to the one selected
@@ -188,9 +189,10 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             {
                 // Hide the progress bar
                 SaveProgressBar.Visibility = Visibility.Hidden;
-            }            
+            }
         }
-        #endregion
+
+        #endregion UI event handlers
 
         private void ApplyBasemap(string basemapName)
         {
@@ -200,23 +202,27 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             {
                 case "Light Gray":
                     // Set the basemap to Light Gray Canvas
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISLightGray);
+                    myMap.Basemap = Basemap.CreateLightGrayCanvas();
                     break;
+
                 case "Topographic":
                     // Set the basemap to Topographic
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
+                    myMap.Basemap = Basemap.CreateTopographic();
                     break;
+
                 case "Streets":
                     // Set the basemap to Streets
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
+                    myMap.Basemap = Basemap.CreateStreets();
                     break;
+
                 case "Imagery":
                     // Set the basemap to Imagery
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard);
+                    myMap.Basemap = Basemap.CreateImagery();
                     break;
+
                 case "Ocean":
                     // Set the basemap to Oceans
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
+                    myMap.Basemap = Basemap.CreateOceans();
                     break;
             }
         }
@@ -230,7 +236,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             // Loop through the selected items in the operational layers list box
             foreach (KeyValuePair<string, string> item in OperationalLayerListBox.SelectedItems)
             {
-                // Get the service uri for each selected item 
+                // Get the service uri for each selected item
                 KeyValuePair<string, string> layerInfo = item;
                 Uri layerUri = new Uri(layerInfo.Value);
 
@@ -248,7 +254,6 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-
                 // Use the OAuth implicit grant flow
                 GenerateTokenOptions = new GenerateTokenOptions
                 {
@@ -275,9 +280,9 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
             // Get the ArcGIS Online portal (will use credential from login above)
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
-            
+
             // Save the current state of the map as a portal item in the user's default folder
-            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumb);                      
+            await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumb);
         }
 
         private void UpdateViewExtentLabels()
@@ -300,6 +305,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         }
 
         #region OAuth helpers
+
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
@@ -328,7 +334,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
         }
-        
+
         // ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
         // resource is attempted
         public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
@@ -348,10 +354,12 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
             return credential;
         }
-        #endregion
+
+        #endregion OAuth helpers
     }
 
     #region Helper class to display the OAuth authorization challenge
+
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
         // Window to contain the OAuth UI
@@ -406,7 +414,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             // Handle the navigation event for the browser to check for a response to the redirect URL
             webBrowser.Navigating += WebBrowserOnNavigating;
 
-            // Display the web browser in a new window 
+            // Display the web browser in a new window
             _window = new Window
             {
                 Content = webBrowser,
@@ -469,7 +477,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             if (isRedirected)
             {
                 // If the web browser is redirected to the callbackUrl:
-                //    -close the window 
+                //    -close the window
                 //    -decode the parameters (returned as fragments or query)
                 //    -return these parameters as result of the Task
                 e.Cancel = true;
@@ -481,7 +489,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 }
 
                 // Call a helper function to decode the response parameters
-                IDictionary<string,string> authResponse = DecodeParameters(uri);
+                IDictionary<string, string> authResponse = DecodeParameters(uri);
 
                 // Set the result for the task completion source
                 tcs.SetResult(authResponse);
@@ -507,7 +515,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             }
 
             // Parse parameters into key / value pairs
-            Dictionary<string,string> keyValueDictionary = new Dictionary<string, string>();
+            Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
             string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string kvString in keysAndValues)
             {
@@ -526,5 +534,6 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             return keyValueDictionary;
         }
     }
-    #endregion
+
+    #endregion Helper class to display the OAuth authorization challenge
 }

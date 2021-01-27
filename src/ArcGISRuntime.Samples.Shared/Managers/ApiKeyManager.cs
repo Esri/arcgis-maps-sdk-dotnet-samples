@@ -30,6 +30,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
     public static class ApiKeyManager
     {
         private static string _key;
+        private static bool __keyDisabled;
 
         // Name for file on windows systems. / Name for key in Xamarin SecureStorage.
         private const string _apiKeyFileName = "agolResource";
@@ -46,9 +47,24 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
             set
             {
-                // Set the environment key when the manager key is changed.
-                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = _key = value;
+                if (!__keyDisabled)
+                {
+                    // Set the environment key when the manager key is changed.
+                    Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = _key = value;
+                }
             }
+        }
+
+        public static void DisableKey()
+        {
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = null;
+            __keyDisabled = true;
+        }
+
+        public static void EnableKey()
+        {
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = _key;
+            __keyDisabled = false;
         }
 
         public async static Task<ApiKeyStatus> CheckKeyValidity()

@@ -1,12 +1,13 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
@@ -17,7 +18,6 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Esri.ArcGISRuntime.UI;
 using System.IO;
-
 
 #if __IOS__
 using Xamarin.Forms.Platform.iOS;
@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs")]
     [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
-    public partial class AuthorMap : ContentPage, IOAuthAuthorizeHandler
+    public partial class AuthorMap : ContentPage, IOAuthAuthorizeHandler, IDisposable
     {
         // OAuth-related values ...
         // URL of the server to authenticate with (ArcGIS Online)
@@ -79,6 +79,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void Initialize()
         {
+            // Remove API key if opening Create and save map sample.
+            ApiKeyManager.DisableKey();
+
             // Call a function to create a new map with a light gray canvas basemap
             CreateNewMap();
 
@@ -93,11 +96,18 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     LayersList.BackgroundColor = Color.Black;
                     OAuthSettingsGrid.BackgroundColor = Color.Gray;
                     break;
+
                 case Device.UWP:
                     LayersList.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
                     LayersList.Margin = new Thickness(50);
                     break;
             }
+        }
+
+        public void Dispose()
+        {
+            // Restore API key if leaving Create and save map sample.
+            ApiKeyManager.EnableKey();
         }
 
         private void OAuthSettingsCancel(object sender, EventArgs e)
@@ -130,7 +140,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Handle the event when a layer item is selected (tapped) in the layer list
             string selectedItem = e.Item.ToString();
 
-            // See if this is one of the layers in the operational layers list 
+            // See if this is one of the layers in the operational layers list
             if (_operationalLayerUrls.ContainsKey(selectedItem))
             {
                 // Get the service URL from the operational layers dictionary
@@ -177,7 +187,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             Item mapItem = MyMapView.Map.Item;
             if (mapItem != null)
             {
-                mapInputForm.ShowForUpdate(mapItem.Title,mapItem.Description, mapItem.Tags.ToArray());
+                mapInputForm.ShowForUpdate(mapItem.Title, mapItem.Description, mapItem.Tags.ToArray());
             }
 
             // Handle the save button click event on the page
@@ -259,7 +269,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             Credential cred = null;
             CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-
                 // Use the OAuth implicit grant flow
                 GenerateTokenOptions = new GenerateTokenOptions
                 {
@@ -275,7 +284,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 // Get the users credentials for ArcGIS Online (should have logged in when launching the page)
                 cred = await AuthenticationManager.Current.GetCredentialAsync(loginInfo, false);
             }
-            catch (System.OperationCanceledException)
+            catch (OperationCanceledException)
             {
                 // user canceled the login
                 throw new Exception("Portal log in was canceled.");
@@ -293,7 +302,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void CreateNewMap()
         {
             // Create new Map with a light gray canvas basemap
-            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
+            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
 
             // Add the Map to the MapView
             MyMapView.Map = myMap;
@@ -306,19 +315,22 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {
                 case "Topographic":
                     // Set the basemap to Topographic
-                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
+                    MyMapView.Map.Basemap = Basemap.CreateTopographic();
                     break;
+
                 case "Streets":
                     // Set the basemap to Streets
-                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
+                    MyMapView.Map.Basemap = Basemap.CreateStreets();
                     break;
+
                 case "Imagery":
                     // Set the basemap to Imagery
-                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard);
+                    MyMapView.Map.Basemap = Basemap.CreateImagery();
                     break;
+
                 case "Oceans":
                     // Set the basemap to Oceans
-                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
+                    MyMapView.Map.Basemap = Basemap.CreateOceans();
                     break;
             }
         }
@@ -344,6 +356,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         }
 
         #region OAuth
+
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
@@ -399,6 +412,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         }
 
         #region IOAuthAuthorizationHandler implementation
+
         // Use a TaskCompletionSource to track the completion of the authorization
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
@@ -469,7 +483,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     // Cancel authentication
                     authenticator.OnCancelled();
                 }
-#if __ANDROID__ 
+#if __ANDROID__
                 finally
                 {
                     // Dismiss the OAuth login
@@ -492,7 +506,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-#if __ANDROID__ 
+#if __ANDROID__
                         activity.FinishActivity(99);
 #endif
                     }
@@ -516,12 +530,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
             });
 #endif
 
-#endif 
+#endif
             // Return completion source task so the caller can await completion
             return _taskCompletionSource.Task;
         }
-#endregion 
-#endregion 
 
+        #endregion IOAuthAuthorizationHandler implementation
+
+        #endregion OAuth
     }
 }

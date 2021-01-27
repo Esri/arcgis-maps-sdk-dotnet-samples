@@ -120,6 +120,21 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             if (selectedSample == null) return;
 
+            // The following code removes the API key when using the Create and save map sample.
+            if (nameof(SampleManager.Current.SelectedSample) != nameof(selectedSample))
+            {
+                // Remove API key if opening Create and save map sample.
+                if (selectedSample.FormalName == "AuthorMap")
+                {
+                    ApiKeyManager.DisableKey();
+                }
+                // Restore API key if leaving Create and save map sample.
+                else if (SampleManager.Current?.SelectedSample?.FormalName == "AuthorMap")
+                {
+                    ApiKeyManager.EnableKey();
+                }
+            }
+
             SampleTitleBlock.Text = selectedSample.SampleName;
             SampleManager.Current.SelectedSample = selectedSample;
             DescriptionContainer.SetSample(selectedSample);

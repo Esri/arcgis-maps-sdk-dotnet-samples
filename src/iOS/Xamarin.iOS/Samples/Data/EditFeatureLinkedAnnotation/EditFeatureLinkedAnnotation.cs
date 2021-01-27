@@ -228,9 +228,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
                 helpLabel.HeightAnchor.ConstraintEqualTo(80),
 
                 _myMapView.TopAnchor.ConstraintEqualTo(helpLabel.BottomAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                _myMapView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                _myMapView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
+                _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
         }
 

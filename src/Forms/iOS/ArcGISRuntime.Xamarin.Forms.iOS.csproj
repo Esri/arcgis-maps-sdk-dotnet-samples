@@ -61,6 +61,7 @@
     <MtouchFloat32>False</MtouchFloat32>
     <MtouchExtraArgs>--linkskip=ArcGISRuntimeXamarin</MtouchExtraArgs>
     <LangVersion>7</LangVersion>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;XAMARIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -113,6 +114,7 @@
     <MtouchFloat32>False</MtouchFloat32>
     <MtouchExtraArgs>--linkskip=ArcGISRuntimeXamarin</MtouchExtraArgs>
     <LangVersion>7</LangVersion>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;XAMARIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -128,6 +130,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <LangVersion>7</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;XAMARIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -142,18 +145,21 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <LangVersion>7</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;XAMARIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
     <OutputPath>..\..\..\output\Forms\iPhoneSimulator\Ad-Hoc\</OutputPath>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <LangVersion>7</LangVersion>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;XAMARIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
     <OutputPath>..\..\..\output\Forms\iPhoneSimulator\AppStore\</OutputPath>
     <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <LangVersion>7</LangVersion>
+    <DefineConstants>__IOS__;__MOBILE__;__UNIFIED__;XAMARIN</DefineConstants>
   </PropertyGroup>
   <!-- /Build Configurations -->
   <ItemGroup>

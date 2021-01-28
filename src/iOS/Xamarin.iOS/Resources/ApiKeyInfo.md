@@ -1,1 +1,1 @@
-﻿Some content used in the samples requires a developer API key for access. Go to the [developer documentation](https://links.esri.com/arcgis-runtime-security-auth) to learn how to obtain a developer API key for ArcGIS Online.
+﻿Some content used in the samples requires a developer API key for access. Go to the [developer documentation](https://links.esri.com/arcgis-api-keys) to learn how to obtain a developer API key for ArcGIS Online.

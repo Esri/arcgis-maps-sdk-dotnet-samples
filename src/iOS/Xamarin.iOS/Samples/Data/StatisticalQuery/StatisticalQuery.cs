@@ -9,7 +9,6 @@
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
@@ -47,7 +46,7 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
         private void Initialize()
         {
             // Create a new Map with the world streets vector basemap.
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create feature table using the world cities URI.
             _worldCitiesTable = new ServiceFeatureTable(_worldCitiesServiceUri);
@@ -79,54 +78,54 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
 
         private async void QueryStatistics(bool onlyInExtent, bool onlyLargePop)
         {
-            // Create definitions for each statistic to calculate.
-            StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");
-            StatisticDefinition statDefinitionMinPop = new StatisticDefinition("POP", StatisticType.Minimum, "");
-            StatisticDefinition statDefinitionMaxPop = new StatisticDefinition("POP", StatisticType.Maximum, "");
-            StatisticDefinition statDefinitionSumPop = new StatisticDefinition("POP", StatisticType.Sum, "");
-            StatisticDefinition statDefinitionStdDevPop = new StatisticDefinition("POP", StatisticType.StandardDeviation, "");
-            StatisticDefinition statDefinitionVarPop = new StatisticDefinition("POP", StatisticType.Variance, "");
-
-            // Create a definition for count that includes an alias for the output.
-            StatisticDefinition statDefinitionCount = new StatisticDefinition("POP", StatisticType.Count, "CityCount");
-
-            // Add the statistics definitions to a list.
-            List<StatisticDefinition> statDefinitions = new List<StatisticDefinition>
-            {
-                statDefinitionAvgPop,
-                statDefinitionCount,
-                statDefinitionMinPop,
-                statDefinitionMaxPop,
-                statDefinitionSumPop,
-                statDefinitionStdDevPop,
-                statDefinitionVarPop
-            };
-
-            // Create the statistics query parameters, pass in the list of definitions.
-            StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(statDefinitions);
-
-            // If only using features in the current extent, set up the spatial filter for the statistics query parameters.
-            if (onlyInExtent)
-            {
-                // Get the current extent (envelope) from the map view.
-                Envelope currentExtent = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
-
-                // Set the statistics query parameters geometry with the current extent.
-                statQueryParams.Geometry = currentExtent;
-
-                // Set the spatial relationship to Intersects (which is the default).
-                statQueryParams.SpatialRelationship = SpatialRelationship.Intersects;
-            }
-
-            // If only evaluating the largest cities (over 5 million in population), set up an attribute filter.
-            if (onlyLargePop)
-            {
-                // Set a where clause to get the largest cities (could also use "POP_CLASS = '5,000,000 and greater'").
-                statQueryParams.WhereClause = "POP_RANK = 1";
-            }
-
             try
             {
+                // Create definitions for each statistic to calculate.
+                StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");
+                StatisticDefinition statDefinitionMinPop = new StatisticDefinition("POP", StatisticType.Minimum, "");
+                StatisticDefinition statDefinitionMaxPop = new StatisticDefinition("POP", StatisticType.Maximum, "");
+                StatisticDefinition statDefinitionSumPop = new StatisticDefinition("POP", StatisticType.Sum, "");
+                StatisticDefinition statDefinitionStdDevPop = new StatisticDefinition("POP", StatisticType.StandardDeviation, "");
+                StatisticDefinition statDefinitionVarPop = new StatisticDefinition("POP", StatisticType.Variance, "");
+
+                // Create a definition for count that includes an alias for the output.
+                StatisticDefinition statDefinitionCount = new StatisticDefinition("POP", StatisticType.Count, "CityCount");
+
+                // Add the statistics definitions to a list.
+                List<StatisticDefinition> statDefinitions = new List<StatisticDefinition>
+                {
+                    statDefinitionAvgPop,
+                    statDefinitionCount,
+                    statDefinitionMinPop,
+                    statDefinitionMaxPop,
+                    statDefinitionSumPop,
+                    statDefinitionStdDevPop,
+                    statDefinitionVarPop
+                };
+
+                // Create the statistics query parameters, pass in the list of definitions.
+                StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(statDefinitions);
+
+                // If only using features in the current extent, set up the spatial filter for the statistics query parameters.
+                if (onlyInExtent)
+                {
+                    // Get the current extent (envelope) from the map view.
+                    Envelope currentExtent = _myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
+
+                    // Set the statistics query parameters geometry with the current extent.
+                    statQueryParams.Geometry = currentExtent;
+
+                    // Set the spatial relationship to Intersects (which is the default).
+                    statQueryParams.SpatialRelationship = SpatialRelationship.Intersects;
+                }
+
+                // If only evaluating the largest cities (over 5 million in population), set up an attribute filter.
+                if (onlyLargePop)
+                {
+                    // Set a where clause to get the largest cities (could also use "POP_CLASS = '5,000,000 and greater'").
+                    statQueryParams.WhereClause = "POP_RANK = 1";
+                }
+
                 // Execute the statistical query with these parameters and await the results.
                 StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
@@ -143,9 +142,9 @@ namespace ArcGISRuntime.Samples.StatisticalQuery
                 // Display results.
                 ShowStatsList(record.Statistics);
             }
-            catch (ArcGISWebException exception)
+            catch (Exception ex)
             {
-                ShowMessage("There was a problem running the query.", exception.Message);
+                ShowMessage("There was a problem running the query.", ex.Message);
             }
         }
 

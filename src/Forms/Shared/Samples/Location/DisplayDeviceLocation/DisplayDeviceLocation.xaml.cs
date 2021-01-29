@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         private void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Assign the map to the MapView.
             MyMapView.Map = myMap;

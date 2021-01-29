@@ -66,7 +66,7 @@ namespace ArcGISRuntime.UWP.Samples.ClosestFacility
             MyMapView.DrawStatusChanged += OnDrawStatusChanged;
 
             // Construct the map and set the MapView.Map property.
-            Map map = new Map(Basemap.CreateLightGrayCanvasVector());
+            Map map = new Map(BasemapStyle.ArcGISLightGray);
             MyMapView.Map = map;
 
             try

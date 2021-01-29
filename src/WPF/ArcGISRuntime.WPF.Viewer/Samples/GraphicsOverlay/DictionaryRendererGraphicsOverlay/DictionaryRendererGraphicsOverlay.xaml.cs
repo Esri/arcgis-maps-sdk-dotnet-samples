@@ -43,7 +43,7 @@ namespace ArcGISRuntime.WPF.Samples.DictionaryRendererGraphicsOverlay
         {
             try
             {
-                MyMapView.Map = new Map(Basemap.CreateTopographic());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
                 // Create an overlay for visualizing tactical messages and add it to the map.
                 _tacticalMessageOverlay = new GraphicsOverlay();

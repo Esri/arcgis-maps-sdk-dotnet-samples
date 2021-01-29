@@ -30,7 +30,7 @@ To avoid the need to project from mercator coordinates to WGS 84, this sample us
 
 ## Additional information
 
-See [Coordinate systems and transformations](https://developers.arcgis.com/net/latest/wpf/guide/coordinate-systems-and-transformations.htm) in the *ArcGIS Runtime SDK for .NET* guide for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems.
+See [Spatial references](https://developers.arcgis.com/net/spatial-and-data-analysis/spatial-references/) in the *ArcGIS Runtime SDK for .NET* guide for more information about geographic coordinate systems, geographic transformations, and projected coordinate systems.
 
 ## Tags
 

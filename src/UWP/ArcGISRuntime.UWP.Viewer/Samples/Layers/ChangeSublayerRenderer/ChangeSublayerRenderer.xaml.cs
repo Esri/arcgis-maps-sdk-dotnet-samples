@@ -38,7 +38,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeSublayerRenderer
         private void Initialize()
         {
             // Create a new map based on the streets base map.
-            Map newMap = new Map(Basemap.CreateStreets());
+            Map newMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create an envelope that covers the continental US in the web Mercator spatial reference.
             Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925 , SpatialReferences.WebMercator);

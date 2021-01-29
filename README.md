@@ -37,7 +37,11 @@ See each platform's TOC:
   
 Notes:
 
-When compiling Universal Windows Platform samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
+* Authentication: Use of Esri location services, including basemaps and geocoding, requires either an ArcGIS identity or an API key.
+For more information see https://links.esri.com/arcgis-runtime-security-auth.
+The .NET sample viewers have a prompt for setting an API key. You can also hardcode your API key in the [`GetLocalKey() method`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGISRuntime.Samples.Shared/Managers/ApiKeyManager.cs#L89) of the [`ApiKeyManager class`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGISRuntime.Samples.Shared/Managers/ApiKeyManager.cs).
+
+* When compiling Universal Windows Platform samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
 
 ## Requirements
 

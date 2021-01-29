@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             // Create a new Map instance with the basemap.
             Map map = new Map(SpatialReferences.Wgs84)
             {
-                Basemap = Basemap.CreateTopographic()
+                Basemap = new Basemap(BasemapStyle.ArcGISTopographic)
             };
 
             // Create a new ArcGISMapImageLayer instance and pass a URL to the service.

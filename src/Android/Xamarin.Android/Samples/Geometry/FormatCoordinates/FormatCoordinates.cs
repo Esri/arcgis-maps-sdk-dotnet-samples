@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
         private void Initialize()
         {
             // Create the map
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Add the graphics overlay to the map
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());

@@ -1,22 +1,26 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2020 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Android.App;
-using Android.Widget;
-using Android.OS;
-using System.Collections.Generic;
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
 using Android.Content;
-using System.Linq;
+using Android.OS;
+using Android.Widget;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
+using Google.AR.Core;
+using Google.AR.Core.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime
 {
@@ -26,6 +30,8 @@ namespace ArcGISRuntime
         private List<SearchableTreeNode> _sampleCategories;
         private List<SearchableTreeNode> _filteredSampleCategories;
         private ExpandableListView _categoriesListView;
+
+        private bool _arCompatible;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -38,6 +44,21 @@ namespace ArcGISRuntime
                 // Initialize the SampleManager and create the Sample Categories.
                 SampleManager.Current.Initialize();
                 _sampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
+
+                // Remove AR category if device does not support AR.
+                try
+                {
+                    var arSession = new Session(this);
+                    _arCompatible = true;
+                }
+                catch (UnavailableException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    _arCompatible = false;
+                }
+
+                if (!_arCompatible) _sampleCategories.RemoveAll(category => category.Name == "Augmented reality");
+
                 _filteredSampleCategories = _sampleCategories;
 
                 // Set up the custom ArrayAdapter for displaying the Categories.
@@ -51,11 +72,38 @@ namespace ArcGISRuntime
                 // Set up the search filtering.
                 SearchView searchBox = FindViewById<SearchView>(Resource.Id.categorySearchView);
                 searchBox.QueryTextChange += SearchBoxOnQueryTextChange;
+
+                // Add a button that brings up settings.
+                Button settingsButton = FindViewById<Button>(Resource.Id.settingsButton);
+                settingsButton.Click += (s, e) => PromptForKey();
+
+                // Check the existing API key for validity.
+                _ = CheckApiKey();
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        private async Task CheckApiKey()
+        {
+            // Attempt to load a locally stored API key.
+            await ApiKeyManager.TrySetLocalKey();
+
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
+            {
+                PromptForKey();
+            }
+        }
+
+        private void PromptForKey()
+        {
+            // Bring up API Key prompt screen.
+            var keyActivity = new Intent(this, typeof(ApiKeyPrompt));
+            StartActivity(keyActivity);
         }
 
         protected override void OnResume()
@@ -74,12 +122,13 @@ namespace ArcGISRuntime
             if (stnResult != null)
             {
                 _filteredSampleCategories = stnResult.Items.OfType<SearchableTreeNode>().ToList();
+                if (!_arCompatible) _filteredSampleCategories.RemoveAll(category => category.Name == "Augmented reality");
             }
             else
             {
                 _filteredSampleCategories = new List<SearchableTreeNode>();
             }
-                
+
             _categoriesListView.SetAdapter(new CategoriesAdapter(this, _filteredSampleCategories));
 
             // Expand all entries; makes it easier to see search results.
@@ -152,4 +201,3 @@ namespace ArcGISRuntime
         }
     }
 }
-

@@ -218,7 +218,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             };
 
             // Create a new map with the oceans basemap and add it to the map view
-            _mapView.Map = new Map(Basemap.CreateOceans());
+            _mapView.Map = new Map(BasemapStyle.ArcGISOceans);
         }
 
         private async Task GetLocalGeodatabase()

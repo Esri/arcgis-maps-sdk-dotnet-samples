@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             _RendererTypes.Adapter = myArrayAdapter_LayerNamesInTheMap;
 
             // Add an imagery basemap
-            _myMapView.Map = new Map(Basemap.CreateImagery());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Get the file name
             string filepath = GetRasterPath();

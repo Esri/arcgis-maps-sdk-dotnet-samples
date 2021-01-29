@@ -83,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
                     // Check if the sublayer is visible at the current map scale.
                     if (_openSublayer.IsVisibleAtScale(_myMapView.MapScale))
                     {
-                        _openLabel.TextColor = UIColor.Black;
+                        _openLabel.TextColor = ApplicationTheme.ForegroundColor;
                     }
                     else
                     {

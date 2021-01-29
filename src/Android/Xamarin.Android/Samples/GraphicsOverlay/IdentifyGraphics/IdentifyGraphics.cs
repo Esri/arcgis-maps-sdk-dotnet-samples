@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         private void Initialize()
         {
             // Create a map with 'Imagery with Labels' basemap and an initial location
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create graphics overlay with graphics
             CreateOverlay();

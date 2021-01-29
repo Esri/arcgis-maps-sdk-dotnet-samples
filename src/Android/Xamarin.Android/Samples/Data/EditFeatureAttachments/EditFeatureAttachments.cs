@@ -62,7 +62,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         private void Initialize()
         {
             // Create the map with streets basemap.
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Create the feature table, referring to the Damage Assessment feature service.
             ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
@@ -203,7 +203,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
         {
             // Start the process of requesting an image. Will be completed in OnActivityResult.
             Intent = new Intent();
-            Intent.SetType("image/*.jpg");
+            Intent.SetType("image/*");
             Intent.SetAction(Intent.ActionGetContent);
             StartActivityForResult(Intent.CreateChooser(Intent, "Select Picture"), 1000);
         }

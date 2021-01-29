@@ -24,6 +24,7 @@
 * [Delete features (feature service)](Xamarin.Android/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
 * [Edit and sync features](Xamarin.Android/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
 * [Edit feature attachments](Xamarin.Android/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
+* [Edit features with feature-linked annotation](Xamarin.Android/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
 * [Feature layer (geodatabase)](Xamarin.Android/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.
 * [Feature layer (GeoPackage)](Xamarin.Android/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](Xamarin.Android/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.

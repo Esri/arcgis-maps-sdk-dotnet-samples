@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.ChangeTimeExtent
         private void Initialize()
         {
             // Create new Map with basemap and initial location.
-            Map map = new Map(Basemap.CreateTopographic());
+            Map map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Assign the map to the MapView.
             _myMapView.Map = map;

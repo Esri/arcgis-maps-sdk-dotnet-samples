@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.ShowCallout
         private void Initialize()
         {
             // Create a new basemap using the streets base layer
-            Basemap myBasemap = Basemap.CreateStreets();
+            Basemap myBasemap = new Basemap(BasemapStyle.ArcGISStreets);
 
             // Create a new map based on the streets basemap
             Map myMap = new Map(myBasemap);

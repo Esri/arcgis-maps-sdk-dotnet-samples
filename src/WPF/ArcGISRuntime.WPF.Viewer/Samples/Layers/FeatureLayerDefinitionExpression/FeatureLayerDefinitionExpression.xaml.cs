@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDefinitionExpression
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create a MapPoint the map should zoom to
             MapPoint mapPoint = new MapPoint(

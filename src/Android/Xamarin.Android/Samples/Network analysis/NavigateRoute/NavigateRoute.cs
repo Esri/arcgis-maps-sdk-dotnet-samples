@@ -89,7 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             try
             {
                 // Create the map view.
-                _myMapView.Map = new Map(Basemap.CreateStreets());
+                _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
                 // Create the text to speech object.
                 _textToSpeech = new TextToSpeech(this, this, "com.google.android.tts");

@@ -122,7 +122,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             try
             {
                 // Construct the map and set the MapView.Map property.
-                _myMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
+                _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
                 // Add a graphics overlay to MyMapView. (Will be used later to display routes)
                 _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());

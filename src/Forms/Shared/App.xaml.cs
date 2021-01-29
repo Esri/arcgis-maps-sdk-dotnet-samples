@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime
@@ -28,6 +29,7 @@ namespace ArcGISRuntime
         protected override void OnStart ()
         {
             // Handle when your app starts
+
         }
 
         protected override void OnSleep ()

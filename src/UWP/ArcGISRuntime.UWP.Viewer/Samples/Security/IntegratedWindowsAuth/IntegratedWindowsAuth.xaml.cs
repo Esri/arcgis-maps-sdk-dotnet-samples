@@ -51,7 +51,7 @@ namespace ArcGISRuntime.UWP.Samples.IntegratedWindowsAuth
             InitializeComponent();
 
             // Show the light gray canvas basemap.
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
         }
 
         // Search the public portal for web maps and display the results in a list.

@@ -74,7 +74,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         private async void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Provide Map to the MapView
             _myMapView.Map = myMap;

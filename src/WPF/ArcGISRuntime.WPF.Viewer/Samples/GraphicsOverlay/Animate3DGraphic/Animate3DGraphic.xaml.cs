@@ -84,8 +84,8 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
         private async void Initialize()
         {
             // Apply appropriate maps to the scene and the inset map view
-            InsetMapView.Map = new Map(Basemap.CreateImagery());
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            InsetMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Update the mission selection UI
             MissionSelectionBox.ItemsSource = _missionToItemId.Keys;

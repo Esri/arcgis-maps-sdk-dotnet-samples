@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             _portalItemIdEditText.Text = FeatureCollectionItemId;
 
             // Create a new map with the oceans basemap and add it to the map view.
-            _myMapView.Map = new Map(Basemap.CreateOceans());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISOceans);
         }
 
         private async void OpenFeaturesFromArcGISOnline(string itemId)

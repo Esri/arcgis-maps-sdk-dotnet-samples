@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             try
             {
                 // Create a new Map with a streets basemap.
-                Map myMap = new Map(Basemap.CreateStreets());
+                Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
                 // Create the URI to the Service Requests map service.
                 Uri serviceRequestUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer");

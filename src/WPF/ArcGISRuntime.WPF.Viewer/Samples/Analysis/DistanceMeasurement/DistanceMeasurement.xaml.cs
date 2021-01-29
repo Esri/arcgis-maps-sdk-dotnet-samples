@@ -50,7 +50,7 @@ namespace ArcGISRuntime.WPF.Samples.DistanceMeasurement
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            Scene myScene = new Scene(Basemap.CreateImagery())
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard)
             {
                 BaseSurface = sceneSurface
             };

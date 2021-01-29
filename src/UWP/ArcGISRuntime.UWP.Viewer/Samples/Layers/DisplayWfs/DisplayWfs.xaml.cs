@@ -44,7 +44,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayWfs
         private async void Initialize()
         {
             // Create the map with topographic basemap.
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             try
             {

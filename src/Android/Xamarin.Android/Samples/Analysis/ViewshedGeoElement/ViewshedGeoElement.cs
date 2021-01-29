@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         private async Task Initialize()
         {
             // Create the scene with an imagery basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImagery());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add the elevation surface.
             ArcGISTiledElevationSource tiledElevationSource = new ArcGISTiledElevationSource(_elevationUri);

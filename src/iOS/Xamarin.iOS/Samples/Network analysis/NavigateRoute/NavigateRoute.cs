@@ -21,6 +21,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
 
@@ -81,7 +82,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             try
             {
                 // Create the map view.
-                _myMapView.Map = new Map(Basemap.CreateNavigationVector());
+                _myMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
                 // Create the route task, using the online routing service.
                 RouteTask routeTask = await RouteTask.CreateAsync(_routingUri);
@@ -320,19 +321,23 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         {
             base.ViewDidDisappear(animated);
 
-            // Stop the location data source.
-            _myMapView.LocationDisplay?.DataSource?.StopAsync();
-
-            // Stop the speech synthesizer.
-            _speechSynthesizer.StopSpeaking(AVSpeechBoundary.Word);
-            _speechSynthesizer.Dispose();
-
-            // Stop the tracker.
-            if (_tracker != null)
+            // Check if sample is being closed.
+            if (NavigationController?.ViewControllers == null)
             {
-                _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
-                _tracker.NewVoiceGuidance -= SpeakDirection;
-                _tracker = null;
+                // Stop the location data source.
+                _myMapView.LocationDisplay?.DataSource?.StopAsync();
+
+                // Stop the speech synthesizer.
+                _speechSynthesizer.StopSpeaking(AVSpeechBoundary.Word);
+                _speechSynthesizer.Dispose();
+
+                // Stop the tracker.
+                if (_tracker != null)
+                {
+                    _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
+                    _tracker.NewVoiceGuidance -= SpeakDirection;
+                    _tracker = null;
+                }
             }
 
             // Unsubscribe from events, per best practice.

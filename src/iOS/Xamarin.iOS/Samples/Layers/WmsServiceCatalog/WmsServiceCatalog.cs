@@ -47,7 +47,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         private async void Initialize()
         {
             // Show dark gray canvas basemap.
-            _myMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the WMS Service.
             WmsService service = new WmsService(_wmsUrl);

@@ -45,7 +45,7 @@ namespace ArcGISRuntime.WPF.Samples.GroupLayers
             gLayer.Layers.Add(devThree);
 
             // Create the scene with a basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Add the top-level layers to the scene.
             MySceneView.Scene.OperationalLayers.Add(gLayer);

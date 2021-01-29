@@ -56,7 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
         private async void Initialize()
         {
             // Create the map with topographic basemap.
-            _myMapView.Map = new Map(Basemap.CreateTopographic());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             try
             {

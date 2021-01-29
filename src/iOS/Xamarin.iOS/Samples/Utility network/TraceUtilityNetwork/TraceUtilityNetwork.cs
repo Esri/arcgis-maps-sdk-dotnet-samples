@@ -79,7 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 _statusLabel.Text = "Loading Utility Network...";
 
                 // Create a map.
-                _myMapView.Map = new Map(Basemap.CreateStreetsNightVector())
+                _myMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight)
                 {
                     InitialViewpoint = _startingViewpoint
                 };

@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             ServiceTextBox.Text = ServiceUrl;
 
             // Create the map with imagery basemap.
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             LoadService();
         }
@@ -129,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
                 MyMapView.Map.OperationalLayers.Add(wfsFeatureLayer);
 
                 // Zoom to the extent of the selected layer.
-                await MyMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent, 50);
+                await MyMapView.SetViewpointGeometryAsync(selectedLayerInfo.Extent);
             }
             catch (Exception ex)
             {

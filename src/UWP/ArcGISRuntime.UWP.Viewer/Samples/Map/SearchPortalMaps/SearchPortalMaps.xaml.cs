@@ -54,7 +54,7 @@ namespace ArcGISRuntime.UWP.Samples.SearchPortalMaps
         private void DisplayDefaultMap()
         {
             // Create a new Map instance
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Provide Map to the MapView
             MyMapView.Map = myMap;

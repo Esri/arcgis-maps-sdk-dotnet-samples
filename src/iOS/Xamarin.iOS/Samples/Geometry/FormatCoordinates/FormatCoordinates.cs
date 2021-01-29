@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             _selectedField = _ddEntry;
 
             // Create the map.
-            _myMapView.Map = new Map(Basemap.CreateStreets());
+            _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Add the graphics overlay to the map.
             _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());

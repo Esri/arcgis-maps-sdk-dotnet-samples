@@ -35,7 +35,7 @@ namespace ArcGISRuntime.Samples.SetInitialMapArea
         private void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Create and set initial map area.
             Envelope initialLocation = new Envelope(-12211308.778729, 4645116.003309, -12208257.879667, 4650542.535773, SpatialReferences.WebMercator);

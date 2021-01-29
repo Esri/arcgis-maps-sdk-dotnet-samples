@@ -148,7 +148,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _locationDataSource.LocationChanged += LocationDataSource_LocationChanged;
 
             // Create the scene and show it.
-            _scene = new Scene(Basemap.CreateImagery());
+            _scene = new Scene(BasemapStyle.ArcGISImageryStandard);
             MyARSceneView.Scene = _scene;
 
             // Create and add the elevation surface.

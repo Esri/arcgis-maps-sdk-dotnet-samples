@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
         private async void Initialize()
         {
             // Add an imagery basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Get the file name
             string filepath = GetRasterPath();

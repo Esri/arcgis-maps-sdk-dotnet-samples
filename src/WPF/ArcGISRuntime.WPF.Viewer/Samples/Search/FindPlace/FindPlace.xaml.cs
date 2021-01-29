@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             Unloaded += SampleUnloaded;
 
             // Show a map with a streets basemap.
-            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Subscribe to location changed events (to support zooming to current location).
             MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;

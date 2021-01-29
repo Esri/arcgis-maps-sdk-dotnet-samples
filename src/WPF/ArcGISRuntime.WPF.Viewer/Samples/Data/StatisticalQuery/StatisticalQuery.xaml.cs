@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
         private void Initialize()
         {
             // Create a new Map with the world streets vector basemap
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create feature table using the world cities URI
             _worldCitiesTable = new ServiceFeatureTable(_worldCitiesServiceUri);

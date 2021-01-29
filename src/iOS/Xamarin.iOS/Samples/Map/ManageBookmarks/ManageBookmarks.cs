@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         private void Initialize()
         {
             // Create a map with labeled imagery basemap.
-            Map map = new Map(Basemap.CreateImageryWithLabels());
+            Map map = new Map(BasemapStyle.ArcGISImagery);
 
             // Add default bookmarks.
             AddDefaultBookmarks(map);

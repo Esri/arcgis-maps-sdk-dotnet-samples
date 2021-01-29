@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
         private void Initialize()
         {
             // Set up the map view with a basemap.
-            MyMapView.Map = new Map(Basemap.CreateImageryWithLabels());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
             // Configure the UI options.
             gridTypePicker.ItemsSource = new[] {"LatLong", "MGRS", "UTM", "USNG"};

@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.RenderSimpleMarkers
         private void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Create initial map location and reuse the location for graphic
             MapPoint centralLocation = new MapPoint(-226773, 6550477, SpatialReferences.WebMercator);

@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
         private void Initialize()
         {
             // Create new Map with basemap.
-            Map map = new Map(Basemap.CreateTopographic());
+            Map map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create and set initial map location.
             MapPoint initialLocation = new MapPoint(-11000000, 5000000, SpatialReferences.WebMercator);

@@ -44,7 +44,7 @@ namespace ArcGISRuntime.Samples.CreateGeometries
         private void Initialize()
         {
             // Create a map with a topographic basemap.
-            Map theMap = new Map(Basemap.CreateTopographic());
+            Map theMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Assign the map to the MapView.
             _myMapView.Map = theMap;

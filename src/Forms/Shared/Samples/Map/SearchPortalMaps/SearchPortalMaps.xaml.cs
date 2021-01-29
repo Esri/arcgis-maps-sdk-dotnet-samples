@@ -77,7 +77,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void DisplayDefaultMap()
         {
             // Create a new Map instance
-            Map myMap = new Map(Basemap.CreateStreets());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Provide Map to the MapView
             MyMapView.Map = myMap;

@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
         private void Initialize()
         {
             // Create the map and add it to the map view control.
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Create a point in the Greenwich observatory courtyard in London, UK, the location of the prime meridian. 
             _originalPoint = new MapPoint(538985.355, 177329.516, SpatialReference.Create(27700));
@@ -410,15 +410,15 @@ namespace ArcGISRuntime.Samples.ListTransformations
             bool isNotAvailable = thisTransform.IsMissingProjectionEngineFiles;
 
             // Create the correct color for the transform type (available=black, default=blue, or unavailable=gray).
-            UIColor labelColor = UIColor.Black;
+            UIColor labelColor = ApplicationTheme.ForegroundColor;
             if (isNotAvailable)
             {
-                labelColor = UIColor.Gray;
+                labelColor = UIColor.LightGray;
             }
 
             if (isDefault)
             {
-                labelColor = UIColor.Black;
+                labelColor = ApplicationTheme.ForegroundColor;
             }
 
             // Create a label to display the transform.

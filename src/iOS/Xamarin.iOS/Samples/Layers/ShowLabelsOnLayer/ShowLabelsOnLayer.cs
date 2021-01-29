@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         private async void Initialize()
         {
             // Create a map with a light gray canvas basemap.
-            Map sampleMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map sampleMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Assign the map to the MapView.
             _myMapView.Map = sampleMap;

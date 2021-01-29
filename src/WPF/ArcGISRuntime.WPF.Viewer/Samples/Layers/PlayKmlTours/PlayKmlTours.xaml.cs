@@ -40,7 +40,7 @@ namespace ArcGISRuntime.WPF.Samples.PlayKmlTours
         private async void Initialize()
         {
             // Load the scene with a basemap and a terrain surface.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
             MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
             // Get the URL to the data.
@@ -174,8 +174,13 @@ namespace ArcGISRuntime.WPF.Samples.PlayKmlTours
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            _tourController?.Pause();
-            _tourController?.Reset();
+            try
+            {
+                _tourController?.Pause();
+            }
+            catch
+            {
+            }
         }
     }
 }

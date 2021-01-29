@@ -74,7 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             try
             {
                 // Create the map view.
-                MyMapView.Map = new Map(Basemap.CreateStreets());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
                 // Create the route task, using the routing service.
                 _routeTask = await RouteTask.CreateAsync(_networkGeodatabasePath, "Streets_ND");

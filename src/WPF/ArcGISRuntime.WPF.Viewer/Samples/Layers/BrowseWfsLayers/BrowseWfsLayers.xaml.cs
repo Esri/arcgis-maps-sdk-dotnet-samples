@@ -44,7 +44,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             ServiceTextBox.Text = ServiceUrl;
 
             // Create the map with imagery basemap.
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             LoadService();
         }

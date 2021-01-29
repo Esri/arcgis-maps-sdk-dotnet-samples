@@ -35,7 +35,7 @@ namespace ArcGISRuntime.UWP.Samples.EditKmlGroundOverlay
         private void Initialize()
         {
             // Create a scene for the sceneview.
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
             MySceneView.Scene = myScene;
 
             // Create a geometry for the ground overlay.

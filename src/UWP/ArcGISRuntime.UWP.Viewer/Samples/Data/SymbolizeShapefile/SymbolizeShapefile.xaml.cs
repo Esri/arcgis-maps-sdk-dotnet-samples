@@ -47,7 +47,7 @@ namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
         private async void Initialize()
         {
             // Create the map with topographic basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create the point for the map's initial viewpoint
             MapPoint point = new MapPoint(-11662054, 4818336, SpatialReference.Create(3857));

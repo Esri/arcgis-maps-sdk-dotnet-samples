@@ -40,7 +40,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
         private async void Initialize()
         {
             // Create the map with a basemap.
-            Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
+            Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the feature table from the service URL.
             _featureTable = new ServiceFeatureTable(_medicareHospitalSpendLayer);

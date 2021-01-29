@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             _myMapView.DrawStatusChanged += OnDrawStatusChanged;
 
             // Construct the map and set the MapView.Map property.
-            Map map = new Map(Basemap.CreateLightGrayCanvasVector());
+            Map map = new Map(BasemapStyle.ArcGISLightGray);
             _myMapView.Map = map;
 
             // Create a ClosestFacilityTask using the San Diego Uri.

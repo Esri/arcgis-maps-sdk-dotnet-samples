@@ -1,0 +1,50 @@
+﻿<Page
+    x:Class="ArcGISRuntime.ApiKeyPrompt"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ArcGISRuntime"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Width="500"
+    Height="220" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <StackPanel Orientation="Vertical">
+        <TextBlock
+            x:Name="Instructions"
+            Margin="5"
+            TextWrapping="Wrap">
+            Some content used in the samples requires a developer API key for access. Go to
+            <Hyperlink NavigateUri="https://links.esri.com/arcgis-api-keys">
+                the developer documentation
+            </Hyperlink>
+            to learn how to obtain a developer API key for ArcGIS Online.</TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Current Api Key:" Margin="5" />
+            <TextBox
+                x:Name="CurrentKeyText"
+                Width="375"
+                Margin="5,0,0,0"
+                IsReadOnly="True" />
+        </StackPanel>
+        <TextBox
+            x:Name="KeyEntryBox"
+            Width="475"
+            Height="35"
+            Margin="5"
+            HorizontalAlignment="Left"
+            Text="" />
+        <StackPanel Orientation="Horizontal">
+            <Button
+                x:Name="SetKeyButton"
+                Margin="5"
+                Click="SetKeyButton_Click"
+                Content="Set API key" />
+            <Button
+                x:Name="DeleteKeyButton"
+                Margin="5"
+                Click="DeleteKeyButton_Click"
+                Content="Delete API key" />
+        </StackPanel>
+        <TextBlock x:Name="Status" Margin="5,0,0,0" />
+    </StackPanel>
+</Page>

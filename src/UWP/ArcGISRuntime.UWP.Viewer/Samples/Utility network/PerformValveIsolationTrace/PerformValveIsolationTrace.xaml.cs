@@ -64,7 +64,7 @@ namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Create a map with layers in this utility network.
-                MyMapView.Map = new Map(Basemap.CreateStreetsNightVector());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight);
                 MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{LineLayerId}")));
                 MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{DeviceLayerId}")));
 

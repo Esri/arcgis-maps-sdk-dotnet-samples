@@ -1,3 +1,10 @@
+## Preview of the ArcGISRuntime WinUI Support
+
+This is an early sample app preview based on `Esri.ArcGISRuntime v100.10-preview1` and `Microsoft.WinUI v3.0.0-preview3.201113.0`.
+
+### Known Issues
+- When switching between samples, the previous sample will show. Use the upper-right tab-control to switch to description and back to update the view. See issue https://github.com/microsoft/microsoft-ui-xaml/issues/2942
+
 # Table of contents
 
 ## Analysis

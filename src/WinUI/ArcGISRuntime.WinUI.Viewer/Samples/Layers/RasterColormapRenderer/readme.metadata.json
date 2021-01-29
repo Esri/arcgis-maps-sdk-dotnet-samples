@@ -14,8 +14,8 @@
         "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.9.0",
-        "Esri.ArcGISRuntime.UWP": "100.9.0"
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
     },
     "offline_data": [
         "cc68728b5904403ba637e1f1cd2995ae"

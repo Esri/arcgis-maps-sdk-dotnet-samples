@@ -13,8 +13,8 @@
         "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.9.0",
-        "Esri.ArcGISRuntime.UWP": "100.9.0"
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
     },
     "offline_data": [],
     "redirect_from": [

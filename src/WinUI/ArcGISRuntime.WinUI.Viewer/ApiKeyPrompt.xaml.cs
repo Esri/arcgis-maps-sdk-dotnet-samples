@@ -14,13 +14,16 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
+
 namespace ArcGISRuntime
 {
-    public sealed partial class ApiKeyPrompt : Page
+    public sealed partial class ApiKeyPrompt : UserControl
     {
         public ApiKeyPrompt()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             Initialize();
         }
 
@@ -58,17 +61,6 @@ namespace ArcGISRuntime
             CurrentKeyText.Text = string.Empty;
             ApiKeyManager.StoreCurrentKey();
             Status.Text = "API key removed";
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-        }
-
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
         }
     }
 }

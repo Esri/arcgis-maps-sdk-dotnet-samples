@@ -23,6 +23,8 @@ using Microsoft.UI.Xaml.Input;
 using muxc = Microsoft.UI.Xaml.Controls;
 using Navigation = Microsoft.UI.Xaml.Navigation;
 using ArcGISRuntime.Samples.Shared.Managers;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Windows.UI.WebUI;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
@@ -77,8 +79,8 @@ namespace ArcGISRuntime.WinUI.Viewer
             // Check that the current API key is valid.
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status != ApiKeyStatus.Valid)
-            {
-                Frame.Navigate(typeof(ApiKeyPrompt));
+            {   
+                await ApiKeyDialog.ShowAsync();
             }
         }
 

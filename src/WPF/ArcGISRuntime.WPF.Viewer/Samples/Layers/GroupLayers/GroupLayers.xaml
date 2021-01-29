@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.GroupLayers.GroupLayers"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">
@@ -16,7 +17,7 @@
                 <TreeView Grid.Row="1"
                           ItemsSource="{Binding ElementName=MySceneView,Path=Scene.OperationalLayers,Mode=OneWay}">
                     <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type esri:ILayerContent}"
+                        <HierarchicalDataTemplate DataType="{x:Type mapping:ILayerContent}"
                                                   ItemsSource="{Binding SublayerContents}">
                             <!-- These are explicitly one-way bindings - because layers are loaded by MapView, these values do change. -->
                             <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}"

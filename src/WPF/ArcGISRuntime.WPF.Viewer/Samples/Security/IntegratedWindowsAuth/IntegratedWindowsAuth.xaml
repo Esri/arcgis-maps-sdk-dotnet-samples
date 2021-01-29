@@ -1,4 +1,8 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth.IntegratedWindowsAuth" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth.IntegratedWindowsAuth" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350" />
@@ -93,9 +97,11 @@
 
         <Grid x:Name="MyMapGrid" Grid.Column="1">
             <esri:MapView>
-                <esri:Map>
-                    <esri:ArcGISTiledLayer Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-                </esri:Map>
+                <mapping:Map>
+                    <mapping:Map.OperationalLayers>
+                        <mapping:ArcGISTiledLayer Source="http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
+                    </mapping:Map.OperationalLayers>
+                </mapping:Map>
             </esri:MapView>
         </Grid>
     </Grid>

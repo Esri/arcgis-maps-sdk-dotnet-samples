@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,6 +22,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using muxc = Microsoft.UI.Xaml.Controls;
 using Navigation = Microsoft.UI.Xaml.Navigation;
+using ArcGISRuntime.Samples.Shared.Managers;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
@@ -33,6 +34,8 @@ namespace ArcGISRuntime.WinUI.Viewer
         public MainPage()
         {
             InitializeComponent();
+
+            this.Loaded += FirstLoaded;
 
             // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
@@ -57,6 +60,26 @@ namespace ArcGISRuntime.WinUI.Viewer
 
             // Set the ItemsSource for the grid from the first category.
             SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
+        }
+
+        private void FirstLoaded(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= FirstLoaded;
+
+            _ = CheckApiKey();
+        }
+
+        private async Task CheckApiKey()
+        {
+            // Attempt to load a locally stored API key.
+            await ApiKeyManager.TrySetLocalKey();
+
+            // Check that the current API key is valid.
+            ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
+            if (status != ApiKeyStatus.Valid)
+            {
+                Frame.Navigate(typeof(ApiKeyPrompt));
+            }
         }
 
         private void LoadTreeView(SearchableTreeNode fullTree)
@@ -95,6 +118,21 @@ namespace ArcGISRuntime.WinUI.Viewer
 
         private async Task SelectSample(SampleInfo selectedSample)
         {
+            // The following code removes the API key when using the Create and save map sample.
+            if (nameof(SampleManager.Current.SelectedSample) != nameof(selectedSample))
+            {
+                // Remove API key if opening Create and save map sample.
+                if (selectedSample.FormalName == "AuthorMap")
+                {
+                    ApiKeyManager.DisableKey();
+                }
+                // Restore API key if leaving Create and save map sample.
+                else if (SampleManager.Current?.SelectedSample?.FormalName == "AuthorMap")
+                {
+                    ApiKeyManager.EnableKey();
+                }
+            }
+
             // Call a function to clear existing credentials
             ClearCredentials();
 
@@ -168,7 +206,7 @@ namespace ArcGISRuntime.WinUI.Viewer
                 // Set the items source of the grid to the first category from the search.
                 SamplesGridView.ItemsSource = CategoriesTree.RootNodes[0].Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
 
-                if (!String.IsNullOrWhiteSpace(searchBox.Text))
+                if (!string.IsNullOrWhiteSpace(searchBox.Text))
                 {
                     foreach (muxc.TreeViewNode node in CategoriesTree.RootNodes)
                     {

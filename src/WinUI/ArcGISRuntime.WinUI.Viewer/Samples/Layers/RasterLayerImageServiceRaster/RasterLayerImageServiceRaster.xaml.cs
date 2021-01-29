@@ -43,12 +43,12 @@ namespace ArcGISRuntime.WinUI.Samples.RasterLayerImageServiceRaster
             RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);
 
             // Add the raster layer to the maps layer collection.
-            myMap.Basemap.BaseLayers.Add(myRasterLayer);
+            myMap.OperationalLayers.Add(myRasterLayer);
 
             // Assign the map to the map view.
             MyMapView.Map = myMap;
 
-            // zoom in to the San Francisco Bay.
+            // Zoom in to the San Francisco Bay.
             MyMapView.SetViewpointCenterAsync(new MapPoint(-13643095.660131, 4550009.846004, SpatialReferences.WebMercator), 100000);
         }
     }

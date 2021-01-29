@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,7 +22,7 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBasemap
         tags: new[] { "basemap", "map" })]
     public partial class ChangeBasemap
     {
-        // Dictionary that associates names with basemaps
+        // Dictionary that associates names with basemaps.
         private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
         {
             {"Streets (Raster)", Basemap.CreateStreets()},
@@ -62,10 +62,10 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBasemap
         private void OnBasemapListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the title of the selected basemap
-            string selectedBasemapTtile = e.AddedItems[0].ToString();
+            string selectedBasemapTitle = e.AddedItems[0].ToString();
 
             // Retrieve the basemap from the dictionary
-            MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTtile];
+            MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTitle];
         }
     }
 }

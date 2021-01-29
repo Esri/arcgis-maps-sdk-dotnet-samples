@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -180,7 +180,8 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
             // Reset the extent labels
             UpdateViewExtentLabels();
         }
-        #endregion
+
+        #endregion UI event handlers
 
         private void ApplyBasemap(string basemapName)
         {
@@ -362,7 +363,8 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
 
             return credential;
         }
-        #endregion
+
+        #endregion OAuth helpers
 
         private void BasemapListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

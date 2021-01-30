@@ -22,6 +22,7 @@ using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
+using System.Reflection;
 
 namespace ArcGISRuntime
 {
@@ -45,38 +46,21 @@ namespace ArcGISRuntime
             {
                 if (string.IsNullOrWhiteSpace(_runtimeVersion))
                 {
-                    var rtVersion = FileVersionInfo.GetVersionInfo(Path.Combine(Windows.ApplicationModel.Package.Current.Installed­Location.Path, "RuntimeCoreNet.dll"));
-                    _runtimeVersion = rtVersion.FileVersion;
+                    var version = typeof(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment).Assembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
+                    _runtimeVersion = version.Version.ToLower();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Debug.WriteLine(ex);
                 _runtimeVersion = "Couldn't find ArcGIS Runtime version.";
             }
 
             // Set up markdown tabs.
-            string cssPath = "";
-            if (Application.Current.RequestedTheme != ApplicationTheme.Dark)
-            {
-                cssPath = "Resources/github-markdown.css";
-            }
-            else
-            {
-                cssPath = "Resources/github-markdown-dark.css";
-            }
-
-            var root = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-            string aboutPath = Path.Combine(root, "Resources", "about.md");
-
-            string aboutHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + Path.Combine(root, cssPath) + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(aboutPath)) + _runtimeVersion + "</body>";
-
-            //AboutBlock.NavigateToString(aboutHTML);
-
-            string licensePath = Path.Combine(root, "Resources", "licenses.md");
-            string licenseHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + Path.Combine(root, cssPath) + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(licensePath)) + "</body>";
-            //LicensesBlock.NavigateToString(licenseHTML);
-
+            var root = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            AboutBlock.Text = File.ReadAllText(Path.Combine(root, "Resources", "about.md")) + _runtimeVersion;
+            LicensesBlock.Text = File.ReadAllText(Path.Combine(root, "Resources", "licenses.md"));
+            
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
             SampleDataListView.ItemsSource = OfflineDataSamples;

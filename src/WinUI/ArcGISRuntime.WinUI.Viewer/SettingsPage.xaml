@@ -8,19 +8,22 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     Loaded="UserControl_Loaded"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
     <TabView x:Name="Tabs" Height="500" IsAddTabButtonVisible="False" Background="Transparent">
         <TabViewItem Header="About" IsClosable="False">
-            <WebView2
+            <toolkit:MarkdownTextBlock
                 x:Name="AboutBlock"
-                Margin="5"
+                Margin="5" Background="Transparent"
                 />
         </TabViewItem>
         <TabViewItem Header="Third party software" IsClosable="False">
-            <WebView2
-                x:Name="LicensesBlock"
-                Margin="5"
-                />
+            <ScrollViewer>
+                <toolkit:MarkdownTextBlock
+                    x:Name="LicensesBlock"
+                    Margin="5" Background="Transparent"
+                    />
+            </ScrollViewer>
         </TabViewItem>
         <TabViewItem Header="Offline data" IsClosable="False">
             <Grid>

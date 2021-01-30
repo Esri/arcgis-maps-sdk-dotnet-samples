@@ -24,6 +24,10 @@ namespace ArcGISRuntime
         public ApiKeyPrompt()
         {
             this.InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
             Initialize();
         }
 
@@ -43,6 +47,7 @@ namespace ArcGISRuntime
 
         private async Task UpdateValidityText()
         {
+            Status.Text = "Verifying API Key...";
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status == ApiKeyStatus.Valid)
             {

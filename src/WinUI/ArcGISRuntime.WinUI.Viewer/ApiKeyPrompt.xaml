@@ -5,6 +5,7 @@
     xmlns:local="using:ArcGISRuntime"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
     <StackPanel Grid.Row="1" Orientation="Vertical" Height="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
         <TextBlock
@@ -20,7 +21,6 @@
             <TextBlock Text="Current Api Key:" Margin="5" />
             <TextBox BorderThickness="0"
                 x:Name="CurrentKeyText"
-                Width="375"
                 Margin="5,0,0,0"
                 IsReadOnly="True" />
         </StackPanel>

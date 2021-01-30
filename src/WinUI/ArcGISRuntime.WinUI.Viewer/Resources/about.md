@@ -1,6 +1,6 @@
-﻿# ArcGIS Runtime SDK Samples (UWP)
+﻿# ArcGIS Runtime SDK Samples (WinUI)
 
-This sample viewer shows how different features of the ArcGIS runtime can be implemented on the .NET framework. 
+This sample viewer shows how different features of the ArcGIS Runtime can be implemented with WinUI on .NET. 
 
 ----
 

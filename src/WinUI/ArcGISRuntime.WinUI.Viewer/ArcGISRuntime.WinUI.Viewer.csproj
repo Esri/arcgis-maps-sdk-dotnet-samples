@@ -46,9 +46,6 @@
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.Markdown" Version="8.0.0-preview3" />
     <PackageReference Include="Microsoft.VCRTForwarders.140" Version="1.0.6" />
     <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview3.201113.0" />
-    <PackageReference Include="MarkedNet">
-      <Version>2.1.4</Version>
-    </PackageReference>
     <!--<PackageReference Include="Monaco.Editor">
       <Version>0.8.1-alpha</Version>
     </PackageReference>-->

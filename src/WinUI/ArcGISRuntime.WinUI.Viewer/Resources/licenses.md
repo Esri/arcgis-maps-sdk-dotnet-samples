@@ -12,14 +12,6 @@ This app uses github-markdown-css under the MIT license.
 
 ----
 
-## MarkedNET
-
-This app uses MarkedNET under the MIT license. It is used to render the content on the sample description page.
-
-[Project on GitHub](https://github.com/T-Alex/MarkedNet) | [Project on NuGet](https://www.nuget.org/packages/MarkedNet/) | [License](https://github.com/T-Alex/MarkedNet/blob/master/LICENSE.md)
-
-----
-
 ## Monaco Editor UWP
 
 This app uses Monaco Editor UWP under the MIT license to provide syntax highlighting on the sample source code pages.

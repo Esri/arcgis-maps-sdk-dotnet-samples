@@ -17,11 +17,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.System;
-using Windows.UI.Core;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
 using System.Reflection;
 
 namespace ArcGISRuntime
@@ -31,7 +29,6 @@ namespace ArcGISRuntime
         private static string _runtimeVersion = "";
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
-        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
 
         public SettingsPage()
         {

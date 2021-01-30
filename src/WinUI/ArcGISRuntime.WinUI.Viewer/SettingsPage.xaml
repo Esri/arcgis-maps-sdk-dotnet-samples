@@ -13,14 +13,14 @@
     <TabView x:Name="Tabs" Height="500" IsAddTabButtonVisible="False" Background="Transparent">
         <TabViewItem Header="About" IsClosable="False">
             <toolkit:MarkdownTextBlock
-                x:Name="AboutBlock"
+                x:Name="AboutBlock"  LinkClicked="MarkdownText_LinkClicked"
                 Margin="5" Background="Transparent"
                 />
         </TabViewItem>
         <TabViewItem Header="Third party software" IsClosable="False">
             <ScrollViewer>
                 <toolkit:MarkdownTextBlock
-                    x:Name="LicensesBlock"
+                    x:Name="LicensesBlock" LinkClicked="MarkdownText_LinkClicked"
                     Margin="5" Background="Transparent"
                     />
             </ScrollViewer>

@@ -25,17 +25,21 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace ArcGISRuntime
 {
-    public sealed partial class SettingsWindow
+    public sealed partial class SettingsPage : UserControl
     {
         private static string _runtimeVersion = "";
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
         private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
 
-        public SettingsWindow()
+        public SettingsPage()
         {
             this.InitializeComponent();
+        }
 
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
             // Set up version info and About section.
             try
             {
@@ -62,20 +66,22 @@ namespace ArcGISRuntime
                 cssPath = "Resources/github-markdown-dark.css";
             }
 
-            string aboutPath = "Resources\\about.md";
-            string aboutHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(aboutPath)) + _runtimeVersion + "</body>";
-            AboutBlock.NavigateToString(aboutHTML);
+            var root = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            string aboutPath = Path.Combine(root, "Resources", "about.md");
 
-            string licensePath = "Resources\\licenses.md";
-            string licenseHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(licensePath)) + "</body>";
-            LicensesBlock.NavigateToString(licenseHTML);
+            string aboutHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + Path.Combine(root, cssPath) + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(aboutPath)) + _runtimeVersion + "</body>";
+
+            //AboutBlock.NavigateToString(aboutHTML);
+
+            string licensePath = Path.Combine(root, "Resources", "licenses.md");
+            string licenseHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + Path.Combine(root, cssPath) + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(licensePath)) + "</body>";
+            //LicensesBlock.NavigateToString(licenseHTML);
 
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
             SampleDataListView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
         }
-
         private async void Download_All_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -240,15 +246,15 @@ namespace ArcGISRuntime
             await Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            base.OnNavigatedTo(e);
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-        }
+        //protected override void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    base.OnNavigatedTo(e);
+        //    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+        //}
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
-            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-        }
+        //protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        //{
+        //    SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
+        //}
     }
 }

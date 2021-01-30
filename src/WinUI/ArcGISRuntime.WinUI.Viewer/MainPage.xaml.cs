@@ -248,7 +248,7 @@ namespace ArcGISRuntime.WinUI.Viewer
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SettingsWindow));
+            _ = settingsDialog.ShowAsync();
         }
 
         private void OnFrameNavigationRequested(object sender, BackRequestedEventArgs e)

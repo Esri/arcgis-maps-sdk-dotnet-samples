@@ -1,5 +1,5 @@
-﻿<Page
-    x:Class="ArcGISRuntime.SettingsWindow"
+﻿<UserControl
+    x:Class="ArcGISRuntime.SettingsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:arcgisruntime="using:ArcGISRuntime"
@@ -7,21 +7,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
-    <TabView x:Name="Tabs">
-        <TabViewItem Header="About">
+    <TabView x:Name="Tabs" Height="500" IsAddTabButtonVisible="False" Background="Transparent">
+        <TabViewItem Header="About" IsClosable="False">
             <WebView2
                 x:Name="AboutBlock"
                 Margin="5"
                 />
         </TabViewItem>
-        <TabViewItem Header="Third party software">
+        <TabViewItem Header="Third party software" IsClosable="False">
             <WebView2
                 x:Name="LicensesBlock"
                 Margin="5"
                 />
         </TabViewItem>
-        <TabViewItem Header="Offline data">
+        <TabViewItem Header="Offline data" IsClosable="False">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -126,8 +127,8 @@
                 </Grid>
             </Grid>
         </TabViewItem>
-        <TabViewItem Header="API Key">
+        <TabViewItem Header="API Key" IsClosable="False">
             <arcgisruntime:ApiKeyPrompt />
         </TabViewItem>
     </TabView>
-</Page>
+</UserControl>

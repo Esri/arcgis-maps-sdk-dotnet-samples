@@ -170,11 +170,12 @@
                 </GridView>
             </Grid>
         </Grid>
-        <ContentDialog x:Name="ApiKeyDialog" CloseButtonText="Close">
-            <Grid>
-                <arcgisruntime:ApiKeyPrompt />
-            </Grid>
+        <ContentDialog x:Name="ApiKeyDialog" CloseButtonText="Close" Grid.RowSpan="2">
+            <arcgisruntime:ApiKeyPrompt />
         </ContentDialog>
-        
+
+        <ContentDialog x:Name="settingsDialog" CloseButtonText="Close" Grid.RowSpan="2">
+            <arcgisruntime:SettingsPage />
+        </ContentDialog>
     </Grid>
 </Page>

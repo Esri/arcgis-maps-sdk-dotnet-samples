@@ -4,5 +4,5 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
     Background="{StaticResource PrimaryBackgroundColor}">
-    <TabView x:Name="Tabs" />
+    <TabView x:Name="Tabs"  IsAddTabButtonVisible="False" />
 </UserControl>

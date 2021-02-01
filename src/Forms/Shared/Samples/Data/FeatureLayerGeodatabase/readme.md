@@ -33,7 +33,7 @@ One of the ArcGIS Runtime data set types that can be accessed via the local stor
 
 In ArcMap, choose File > Share As > ArcGIS Runtime Content from the menu items to create the .geodatabase file (see the document: http://desktop.arcgis.com/en/arcmap/latest/map/working-with-arcmap/creating-arcgis-runtime-content.htm). 
 
-Note: You could also use the 'Services Pattern' and access the Geodatabase class via a Feature Service served up via ArcGIS Online or ArcGIS Enterprise. Instead of using the Geodatabase class to access the .geodatabase file on disk, you would use GeodatabaseSyncTask point to a Uri instead. For more information review the document: https://developers.arcgis.com/net/latest/uwp/guide/take-a-layer-offline.htm.
+Note: You could also use the 'Services Pattern' and access the `Geodatabase` class via a Feature Service served up via ArcGIS Online or ArcGIS Enterprise. Instead of using the `Geodatabase` class to access the .geodatabase file on disk, you would use `GeodatabaseSyncTask` point to a Uri instead. For more information about offline workflows, see [Offline maps, scenes, and data](https://developers.arcgis.com/documentation/mapping-apis-and-location-services/offline-maps-scenes-and-data/) in the *ArcGIS Developers* guide.
 
 ## Tags
 

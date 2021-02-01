@@ -2,8 +2,8 @@
 
 The WPF sample viewer includes samples that depend on Local Server. 
 If you would like to use those samples, you must install Local Server. 
-See https://developers.arcgis.com/net/latest/wpf/guide/local-server.htm 
-for details and instructions.
+See the [Local Server](https://developers.arcgis.com/net/local-server/)
+topic in the developers guide for more information.
 
 If you do not want to install Local Server, you may proceed without it. 
 When you try to build the project, you will get a build error:

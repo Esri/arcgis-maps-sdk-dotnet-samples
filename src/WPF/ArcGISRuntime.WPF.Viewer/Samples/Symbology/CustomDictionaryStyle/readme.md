@@ -36,7 +36,7 @@ The data used in this sample is from a feature layer showing a subset of [restau
 
 ## Additional information
 
-To learn more about how styles in dictionary renderers work, see the topic [Display symbols from a style with a dictionary renderer](https://developers.arcgis.com/net/latest/wpf/guide/display-military-symbols-with-a-dictionary-renderer.htm) in the *ArcGIS Runtime SDK for Java* guide. For information about creating your own custom dictionary style, see the open source [dictionary renderer toolkit](https://esriurl.com/DictionaryToolkit) on *GitHub*.
+For information about creating your own custom dictionary style, see the open source [dictionary renderer toolkit](https://esriurl.com/DictionaryToolkit) on *GitHub*.
 
 ## Tags
 

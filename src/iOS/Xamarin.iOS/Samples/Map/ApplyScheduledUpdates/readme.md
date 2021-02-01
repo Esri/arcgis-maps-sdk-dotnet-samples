@@ -46,7 +46,7 @@ The data in this sample shows the roads and trails in the Canyonlands National P
 
 ## Additional information
 
-**Note:** preplanned areas using the Scheduled Updates workflow are read-only. For preplanned areas that can be edited on the end-user device, see [Take a map offline (preplanned)](https://developers.arcgis.com/net/latest/uwp/guide/take-map-offline-preplanned.htm) in the *ArcGIS Runtime SDK for .NET* guide.
+**Note:** preplanned areas using the Scheduled Updates workflow are read-only. For preplanned areas that can be edited on the end-user device, see the [Download preplanned map area](https://developers.arcgis.com/net/ios/sample-code/download-preplanned-map-area/) sample. For more information about offline workflows, see [Offline maps, scenes, and data](https://developers.arcgis.com/documentation/mapping-apis-and-location-services/offline-maps-scenes-and-data/) in the *ArcGIS Developers* guide.
 
 ## Tags
 

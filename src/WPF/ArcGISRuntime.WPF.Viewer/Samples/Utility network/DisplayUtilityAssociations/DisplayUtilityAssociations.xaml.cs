@@ -10,11 +10,13 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
@@ -30,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
     public partial class DisplayUtilityAssociations
     {
         // Feature server for the utility network.
-        private const string FeatureServerUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
+        private const string FeatureServerUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
         // This viewpoint shows several associations clearly in the utility network.
         private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-9812698.37297436, 5131928.33743317, SpatialReferences.WebMercator), 22d);
@@ -52,6 +54,24 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityAssociations
 
         private async void Initialize()
         {
+            // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
+            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
+            {
+                try
+                {
+                    // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
+                    string sampleServer7User = "viewer01";
+                    string sampleServer7Pass = "I68VGU^nMurF";
+
+                    return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            });
+
             try
             {
                 // Create the utility network.

@@ -9,6 +9,7 @@
     "keywords": [
         "category comparison",
         "condition barriers",
+        "filter barriers",
         "isolated features",
         "network analysis",
         "subnetwork trace",
@@ -40,7 +41,7 @@
         "UtilityTraceType"
     ],
     "snippets": [
-        "../../../Resources/layout/PerformValveIsolationTrace.axml",
+        "../../../Resources/layout/PerformValveIsolationTrace.xml",
         "PerformValveIsolationTrace.cs"
     ],
     "title": "Perform valve isolation trace"

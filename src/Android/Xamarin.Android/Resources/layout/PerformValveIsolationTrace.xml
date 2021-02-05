@@ -18,8 +18,8 @@
             <Esri.ArcGISRuntime.UI.Controls.MapView
                 android:id="@+id/MapView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_height="match_parent" 
+                android:layout_weight="1"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -60,6 +60,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Trace" />
+             <Button
+                android:id="@+id/resetButton"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Reset" />
         </TableRow>
     </TableLayout>
     <ProgressBar

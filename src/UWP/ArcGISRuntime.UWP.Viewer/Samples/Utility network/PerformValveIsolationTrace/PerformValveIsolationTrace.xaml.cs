@@ -166,15 +166,16 @@ namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
                             Barriers = categoryComparison
                         };
                     }
+
+                    // Set the include isolated features property.
+                    _parameters.TraceConfiguration.IncludeIsolatedFeatures = IncludeIsolatedFeatures.IsChecked == true;
                 }
                 else
                 {
                     // Reset the trace configuration filter.
                     _parameters.TraceConfiguration.Filter = new UtilityTraceFilter();
+                    _parameters.TraceConfiguration.IncludeIsolatedFeatures = false;
                 }
-
-                // Set the include isolated features property.
-                _parameters.TraceConfiguration.IncludeIsolatedFeatures = IncludeIsolatedFeatures.IsChecked == true;
 
                 // Get the trace result from trace.
                 IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(_parameters);
@@ -241,6 +242,10 @@ namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
                 // Add a graphic for the new utility element.
                 Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, _barrierPointSymbol);
                 MyMapView.GraphicsOverlays["FilterBarriers"]?.Graphics.Add(traceLocationGraphic);
+
+                // Disable UI not used for filter barriers.
+                Categories.IsEnabled = false;
+                IncludeIsolatedFeatures.IsEnabled = false;
             }
             catch (Exception ex)
             {
@@ -281,6 +286,10 @@ namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
         {
             _parameters.FilterBarriers.Clear();
             MyMapView.GraphicsOverlays["FilterBarriers"]?.Graphics.Clear();
+
+            // Re-enable the UI.
+            Categories.IsEnabled = true;
+            IncludeIsolatedFeatures.IsEnabled = true;
         }
     }
 }

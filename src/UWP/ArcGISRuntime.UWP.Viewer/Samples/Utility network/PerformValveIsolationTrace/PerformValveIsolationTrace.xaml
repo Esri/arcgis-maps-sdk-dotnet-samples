@@ -4,6 +4,11 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" GeoViewTapped="OnGeoViewTapped" />
+        <ProgressBar
+            x:Name="LoadingBar"
+            Width="200" Height="25"
+            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+            IsIndeterminate="True" Visibility="Visible" />
         <Border
             HorizontalAlignment="Right" VerticalAlignment="Top"
             Style="{StaticResource BorderStyle}">
@@ -75,14 +80,10 @@
                 <Button
                     Grid.Row="2"
                     Margin="0,5,0,0" HorizontalAlignment="Stretch"
-                    Click="OnReset" Content="Select" />
+                    Click="OnTerminalSelected" Content="Select" />
             </Grid>
         </Border>
-        <ProgressBar
-            x:Name="LoadingBar"
-            Width="200" Height="25"
-            HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-            IsIndeterminate="True" Visibility="Visible" />
+        
     </Grid>
 </UserControl>
 

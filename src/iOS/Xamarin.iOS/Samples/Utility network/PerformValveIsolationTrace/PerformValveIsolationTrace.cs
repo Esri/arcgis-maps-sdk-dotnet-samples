@@ -11,6 +11,7 @@ using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -18,6 +19,7 @@ using Esri.ArcGISRuntime.UtilityNetworks;
 using Foundation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
@@ -43,7 +45,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         private UIToolbar _buttonToolbar;
 
         // Feature service for an electric utility network in Naperville, Illinois.
-        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
+        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
         private const int LineLayerId = 3;
         private const int DeviceLayerId = 0;
         private UtilityNetwork _utilityNetwork;
@@ -70,6 +72,24 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
 
         private async void Initialize()
         {
+            // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
+            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
+            {
+                try
+                {
+                    // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
+                    string sampleServer7User = "viewer01";
+                    string sampleServer7Pass = "I68VGU^nMurF";
+
+                    return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            });
+
             try
             {
                 _loadingView.StartAnimating();

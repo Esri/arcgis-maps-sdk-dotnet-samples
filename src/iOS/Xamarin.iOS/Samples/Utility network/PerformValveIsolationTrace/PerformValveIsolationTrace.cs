@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,6 +19,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
@@ -37,7 +38,9 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         private UIBarButtonItem _categoryButton;
         private UISwitch _featuresSwitch;
         private UIBarButtonItem _traceButton;
+        private UIBarButtonItem _resetButton;
         private UIActivityIndicatorView _loadingView;
+        private UIToolbar _buttonToolbar;
 
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
@@ -48,16 +51,17 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         // For creating the default trace configuration.
         private const string DomainNetworkName = "Pipeline";
         private const string TierName = "Pipe Distribution System";
-        private UtilityTraceConfiguration _configuration;
 
         // For creating the default starting location.
         private const string NetworkSourceName = "Gas Device";
         private const string AssetGroupName = "Meter";
         private const string AssetTypeName = "Customer";
         private const string GlobalId = "{98A06E95-70BE-43E7-91B7-E34C9D3CB9FF}";
-        private UtilityElement _startingLocation;
 
         private UtilityCategory _selectedCategory;
+        private UtilityTraceParameters _parameters;
+        private TaskCompletionSource<string> _terminalCompletionSource = null;
+        private SimpleMarkerSymbol _barrierPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.OrangeRed, 25d);
 
         public PerformValveIsolationTrace()
         {
@@ -84,24 +88,29 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 // Get a trace configuration from a tier.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName) ?? throw new ArgumentException(DomainNetworkName);
                 UtilityTier tier = domainNetwork.GetTier(TierName) ?? throw new ArgumentException(TierName);
-                _configuration = tier.TraceConfiguration;
+                UtilityTraceConfiguration configuration = tier.TraceConfiguration;
 
                 // Create a trace filter.
-                _configuration.Filter = new UtilityTraceFilter();
+                configuration.Filter = new UtilityTraceFilter();
 
                 // Get a default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(NetworkSourceName) ?? throw new ArgumentException(NetworkSourceName);
                 UtilityAssetGroup assetGroup = networkSource.GetAssetGroup(AssetGroupName) ?? throw new ArgumentException(AssetGroupName);
                 UtilityAssetType assetType = assetGroup.GetAssetType(AssetTypeName) ?? throw new ArgumentException(AssetTypeName);
                 Guid globalId = Guid.Parse(GlobalId);
-                _startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
+                UtilityElement startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
+
+                // Build parameters for isolation trace.
+                _parameters = new UtilityTraceParameters(UtilityTraceType.Isolation, new[] { startingLocation });
+                _parameters.TraceConfiguration = tier.TraceConfiguration;
 
                 // Create a graphics overlay.
                 GraphicsOverlay overlay = new GraphicsOverlay();
                 _myMapView.GraphicsOverlays.Add(overlay);
+                _myMapView.GraphicsOverlays.Add(new GraphicsOverlay() { Id = "FilterBarriers" });
 
                 // Display starting location.
-                IEnumerable<ArcGISFeature> elementFeatures = await _utilityNetwork.GetFeaturesForElementsAsync(new List<UtilityElement> { _startingLocation });
+                IEnumerable<ArcGISFeature> elementFeatures = await _utilityNetwork.GetFeaturesForElementsAsync(new List<UtilityElement> { startingLocation });
                 MapPoint startingLocationGeometry = elementFeatures.FirstOrDefault().Geometry as MapPoint;
                 Symbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.LimeGreen, 25d);
                 Graphic graphic = new Graphic(startingLocationGeometry, symbol);
@@ -154,25 +163,34 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 // Clear previous selection from the layers.
                 _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
 
-                if (_selectedCategory != null)
+                // Check if any filter barriers have been placed.
+                if (_parameters.FilterBarriers.Count == 0)
                 {
-                    // NOTE: UtilityNetworkAttributeComparison or UtilityCategoryComparison with Operator.DoesNotExists
-                    // can also be used. These conditions can be joined with either UtilityTraceOrCondition or UtilityTraceAndCondition.
-                    UtilityCategoryComparison categoryComparison = new UtilityCategoryComparison(_selectedCategory, UtilityCategoryComparisonOperator.Exists);
+                    if (_selectedCategory is UtilityCategory category)
+                    {
+                        // NOTE: UtilityNetworkAttributeComparison or UtilityCategoryComparison with Operator.DoesNotExists
+                        // can also be used. These conditions can be joined with either UtilityTraceOrCondition or UtilityTraceAndCondition.
+                        UtilityCategoryComparison categoryComparison = new UtilityCategoryComparison(category, UtilityCategoryComparisonOperator.Exists);
 
-                    // Add the filter barrier.
-                    _configuration.Filter.Barriers = categoryComparison;
+                        // Add the filter barrier.
+                        _parameters.TraceConfiguration.Filter = new UtilityTraceFilter()
+                        {
+                            Barriers = categoryComparison
+                        };
+                    }
+
+                    // Set the include isolated features property.
+                    _parameters.TraceConfiguration.IncludeIsolatedFeatures = _featuresSwitch.On;
+                }
+                else
+                {
+                    // Reset the trace configuration filter.
+                    _parameters.TraceConfiguration.Filter = new UtilityTraceFilter();
+                    _parameters.TraceConfiguration.IncludeIsolatedFeatures = false;
                 }
 
-                // Set the include isolated features property.
-                _configuration.IncludeIsolatedFeatures = _featuresSwitch.On;
-
-                // Build parameters for isolation trace.
-                UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Isolation, new[] { _startingLocation });
-                parameters.TraceConfiguration = _configuration;
-
                 // Get the trace result from trace.
-                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(parameters);
+                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(_parameters);
                 UtilityElementTraceResult elementTraceResult = traceResult?.FirstOrDefault() as UtilityElementTraceResult;
 
                 // Select all the features from the result.
@@ -196,6 +214,116 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             }
         }
 
+        private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            try
+            {
+                _loadingView.StartAnimating();
+
+                // Identify the feature to be used.
+                IEnumerable<IdentifyLayerResult> identifyResult = await _myMapView.IdentifyLayersAsync(e.Position, 10.0, false);
+                ArcGISFeature feature = identifyResult?.FirstOrDefault()?.GeoElements?.FirstOrDefault() as ArcGISFeature;
+                if (feature == null) { return; }
+
+                // Create element from the identified feature.
+                UtilityElement element = _utilityNetwork.CreateElement(feature);
+
+                if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Junction)
+                {
+                    // Select terminal for junction feature.
+                    IEnumerable<UtilityTerminal> terminals = element.AssetType.TerminalConfiguration?.Terminals;
+                    if (terminals?.Count() > 1)
+                    {
+                        element.Terminal = await WaitForTerminal(terminals);
+                    }
+                }
+                else if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Edge)
+                {
+                    // Compute how far tapped location is along the edge feature.
+                    if (feature.Geometry is Polyline line)
+                    {
+                        line = GeometryEngine.RemoveZ(line) as Polyline;
+                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        if (double.IsNaN(fraction)) { return; }
+                        element.FractionAlongEdge = fraction;
+                    }
+                }
+
+                _parameters.FilterBarriers.Add(element);
+
+                // Add a graphic for the new utility element.
+                Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, _barrierPointSymbol);
+                _myMapView.GraphicsOverlays["FilterBarriers"]?.Graphics.Add(traceLocationGraphic);
+
+                // Disable UI not used for filter barriers.
+                _categoryButton.Enabled = _featuresSwitch.Enabled = false;
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
+            }
+            finally
+            {
+                _loadingView.StopAnimating();
+            }
+        }
+
+        #region TerminalSelection
+
+        private async Task<UtilityTerminal> WaitForTerminal(IEnumerable<UtilityTerminal> terminals)
+        {
+            try
+            {
+                // Prevent user from tapping map while selecting terminal.
+                _myMapView.GeoViewTapped -= OnGeoViewTapped;
+
+                // Start the UI for the user choosing the junction.
+                UIAlertController prompt = UIAlertController.Create(null, "Choose terminal", UIAlertControllerStyle.ActionSheet);
+
+                foreach (UtilityTerminal terminal in terminals)
+                {
+                    prompt.AddAction(UIAlertAction.Create(terminal.Name, UIAlertActionStyle.Default, Choose_Click));
+                }
+
+                // Needed to prevent crash on iPad.
+                UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+                if (ppc != null)
+                {
+                    ppc.SourceView = _buttonToolbar;
+                    ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                    ppc.DidDismiss += (s, e) => _terminalCompletionSource.TrySetCanceled();
+                }
+
+                PresentViewController(prompt, true, null);
+
+                // Wait for the user to select a terminal.
+                _terminalCompletionSource = new TaskCompletionSource<string>();
+                string selectedName = await _terminalCompletionSource.Task;
+                return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
+            }
+            finally
+            {
+                // Enable the main UI again.
+                _myMapView.GeoViewTapped += OnGeoViewTapped;
+            }
+        }
+
+        private void Choose_Click(UIAlertAction action)
+        {
+            _terminalCompletionSource.TrySetResult(action.Title);
+        }
+
+        #endregion TerminalSelection
+
+        private void OnReset(object sender, EventArgs e)
+        {
+            _parameters.FilterBarriers.Clear();
+            _myMapView.GraphicsOverlays["FilterBarriers"]?.Graphics.Clear();
+
+            // Disable UI not used for filter barriers.
+            _categoryButton.Enabled = _featuresSwitch.Enabled = true;
+        }
+
         public override void LoadView()
         {
             // Create the views.
@@ -203,7 +331,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
 
             _myMapView = new MapView() { TranslatesAutoresizingMaskIntoConstraints = false };
             var switchToolbar = new UIToolbar() { TranslatesAutoresizingMaskIntoConstraints = false };
-            var buttonToolbar = new UIToolbar() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _buttonToolbar = new UIToolbar() { TranslatesAutoresizingMaskIntoConstraints = false };
 
             var switchLabel = new UILabel() { TranslatesAutoresizingMaskIntoConstraints = false };
             switchLabel.Text = "Include isolated features";
@@ -216,11 +344,14 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
 
             _categoryButton = new UIBarButtonItem() { Title = "Filter Barrier Category" };
             _traceButton = new UIBarButtonItem() { Title = "Trace" };
+            _resetButton = new UIBarButtonItem() { Title = "Reset" };
 
-            buttonToolbar.Items = new UIBarButtonItem[] {
+            _buttonToolbar.Items = new UIBarButtonItem[] {
                 _categoryButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _traceButton
+                _traceButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _resetButton,
             };
 
             _loadingView = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
@@ -231,7 +362,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             };
 
             // Add the views.
-            View.AddSubviews(_myMapView, switchToolbar, buttonToolbar, _loadingView);
+            View.AddSubviews(_myMapView, switchToolbar, _buttonToolbar, _loadingView);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]{
@@ -241,14 +372,14 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
 
                 switchToolbar.TopAnchor.ConstraintEqualTo(_myMapView.BottomAnchor),
-                switchToolbar.BottomAnchor.ConstraintEqualTo(buttonToolbar.TopAnchor),
+                switchToolbar.BottomAnchor.ConstraintEqualTo(_buttonToolbar.TopAnchor),
                 switchToolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
                 switchToolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
 
-                buttonToolbar.TopAnchor.ConstraintEqualTo(switchToolbar.BottomAnchor),
-                buttonToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
-                buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
+                _buttonToolbar.TopAnchor.ConstraintEqualTo(switchToolbar.BottomAnchor),
+                _buttonToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _buttonToolbar.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
+                _buttonToolbar.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
 
                 _loadingView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _loadingView.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
@@ -264,6 +395,8 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             // Subscribe to events.
             _traceButton.Clicked += OnTrace;
             _categoryButton.Clicked += CategoryClicked;
+            _resetButton.Clicked += OnReset;
+            _myMapView.GeoViewTapped += OnGeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

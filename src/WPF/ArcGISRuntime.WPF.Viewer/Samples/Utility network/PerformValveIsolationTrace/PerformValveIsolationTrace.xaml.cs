@@ -49,7 +49,6 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
 
         private UtilityTraceParameters _parameters;
         private TaskCompletionSource<UtilityTerminal> _terminalCompletionSource;
-
         private SimpleMarkerSymbol _barrierPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.OrangeRed, 25d);
 
         public PerformValveIsolationTrace()
@@ -94,20 +93,20 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
                 // Get a trace configuration from a tier.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName) ?? throw new ArgumentException(DomainNetworkName);
                 UtilityTier tier = domainNetwork.GetTier(TierName) ?? throw new ArgumentException(TierName);
-                UtilityTraceConfiguration _configuration = tier.TraceConfiguration;
+                UtilityTraceConfiguration configuration = tier.TraceConfiguration;
 
                 // Create a trace filter.
-                _configuration.Filter = new UtilityTraceFilter();
+                configuration.Filter = new UtilityTraceFilter();
 
                 // Get a default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(NetworkSourceName) ?? throw new ArgumentException(NetworkSourceName);
                 UtilityAssetGroup assetGroup = networkSource.GetAssetGroup(AssetGroupName) ?? throw new ArgumentException(AssetGroupName);
                 UtilityAssetType assetType = assetGroup.GetAssetType(AssetTypeName) ?? throw new ArgumentException(AssetTypeName);
                 Guid globalId = Guid.Parse(GlobalId);
-                UtilityElement _startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
+                UtilityElement startingLocation = _utilityNetwork.CreateElement(assetType, globalId);
 
                 // Build parameters for isolation trace.
-                _parameters = new UtilityTraceParameters(UtilityTraceType.Isolation, new[] { _startingLocation });
+                _parameters = new UtilityTraceParameters(UtilityTraceType.Isolation, new[] { startingLocation });
                 _parameters.TraceConfiguration = tier.TraceConfiguration;
 
                 // Create a graphics overlay.
@@ -116,7 +115,7 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
                 MyMapView.GraphicsOverlays.Add(new GraphicsOverlay() { Id = "FilterBarriers" });
 
                 // Display starting location.
-                IEnumerable<ArcGISFeature> elementFeatures = await _utilityNetwork.GetFeaturesForElementsAsync(new List<UtilityElement> { _startingLocation });
+                IEnumerable<ArcGISFeature> elementFeatures = await _utilityNetwork.GetFeaturesForElementsAsync(new List<UtilityElement> { startingLocation });
                 MapPoint startingLocationGeometry = elementFeatures.FirstOrDefault().Geometry as MapPoint;
                 Symbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.LimeGreen, 25d);
                 Graphic graphic = new Graphic(startingLocationGeometry, symbol);

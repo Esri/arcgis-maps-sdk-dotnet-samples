@@ -14,20 +14,21 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 
 ## How it works
 
-1.  Create a `MapView` and subscribe to its `GeoViewTapped` event.
-2.  Create and load a `Map` that contains `FeatureLayer`(s) that are part of a utility network.
-3.  Create and load a `UtilityNetwork` using the utility network feature service URL and the map created in step 2.
-4.  Add a `GraphicsOverlay` with symbology that distinguishes starting locations from barriers.
-5.  Identify features on the map and add a `Graphic` that represents its purpose (starting location or barrier) at the tapped location.
-6.  Create a `UtilityElement` for the identified feature.
-7.  Determine the type of this element using its `NetworkSource.SourceType` property.
-8.  If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `Terminal` property with the selected terminal.
-9.  If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.
-10. Add this `UtilityElement` to a collection of starting locations or barriers.
-11. Create `TraceParameters` with the selected trace type along with the collected starting locations and barriers (if applicable). 
-12. Set the `TraceParameters.TraceConfiguration` with the utility tier's `TraceConfiguration` property.
-13. Run a `UtilityNetwork.TraceAsync` with the specified parameters.
-14. For every `FeatureLayer` in the map, select the features using the `UtilityElement.ObjectId` from the filtered list of `UtilityElementTraceResult.Elements`.
+1. Create a `MapView` and subscribe to its `GeoViewTapped` event.
+2. Create and load a `ServiceGeodatabase` with a feature service URL and get tables by their layer IDs.
+3. Create a `Map` that contains `FeatureLayer`(s) created from the `ServiceGeodatabase`'s tables.
+4. Create and load a `UtilityNetwork` with the same feature service URL and this `Map`.
+5. Add a `GraphicsOverlay` with symbology that distinguishes starting locations from barriers.
+6. Identify features on the map and add a `Graphic` that represents its purpose (starting location or barrier) at the tapped location.
+7. Create a `UtilityElement` for the identified feature.
+8. Determine the type of this element using its `UtilityNetworkSource.sourceType` property.
+9. If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `UtilityTerminal` property with the selected terminal.
+10. If an edge, set its `FractionAlongLine` property using `GeometryEngine.fractionAlong`.
+11. Add this `UtilityElement` to a collection of starting locations or barriers.
+12. Create `UtilityTraceParameters` with the selected trace type along with the collected starting locations and barriers (if applicable).
+13. Set the `UtilityTraceParameters.traceConfiguration` with the tier's `UtilityTier.traceConfiguration` property.
+14. Run a `UtilityNetwork.traceAsync` with the specified parameters.
+15. For every `FeatureLayer` in the map, select the features returned with `GetFeaturesForElementsAsync` from the elements matching their `UtilityNetworkSource.featureTable` with the layer's `FeatureTable`.
 
 ## Relevant API
 
@@ -49,7 +50,11 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 
 ## About the data
 
-The [Naperville electrical](https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer)  network feature service, hosted on ArcGIS Online, contains a utility network used to run the subnetwork-based trace shown in this sample.
+The [Naperville electrical](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer)  network feature service, hosted on ArcGIS Online, contains a utility network used to run the subnetwork-based trace shown in this sample.
+
+## Additional information
+
+Using utility network on ArcGIS Enterprise 10.8 requires an ArcGIS Enterprise member account licensed with the [Utility Network user type extension](https://enterprise.arcgis.com/en/portal/latest/administer/windows/license-user-type-extensions.htm#ESRI_SECTION1_41D78AD9691B42E0A8C227C113C0C0BF). Please refer to the [utility network services documentation](https://enterprise.arcgis.com/en/server/latest/publish-services/windows/utility-network-services.htm).
 
 ## Tags
 

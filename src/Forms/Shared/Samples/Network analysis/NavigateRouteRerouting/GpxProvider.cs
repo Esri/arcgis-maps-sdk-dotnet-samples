@@ -91,7 +91,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             XmlNamespaceManager namespaceManager = new XmlNamespaceManager(gpxDoc.NameTable);
 
             // Get the schema information for GPX.
-            namespaceManager.AddNamespace("x", "http://www.topografix.com/GPX/1/1");
+            namespaceManager.AddNamespace("x", "https://www.topografix.com/GPX/1/1");
 
             // Get the tracking points from the GPX data.
             XmlNodeList xmlNodes;

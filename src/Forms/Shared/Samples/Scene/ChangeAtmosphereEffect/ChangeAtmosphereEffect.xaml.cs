@@ -22,7 +22,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         tags: new[] { "atmosphere", "horizon", "sky" })]
     public partial class ChangeAtmosphereEffect : ContentPage
     {
-        private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private readonly string _elevationServiceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         public ChangeAtmosphereEffect()
         {

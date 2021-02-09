@@ -1,0 +1,22 @@
+{
+    "category": "Layers",
+    "description": "Apply mosaic rule to a mosaic dataset of rasters.",
+    "formal_name": "ApplyMosaicRule",
+    "ignore": false,
+    "images": [
+        "ApplyMosaicRule.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/ApplyMosaicRule.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Apply mosaic rule to rasters"
+}

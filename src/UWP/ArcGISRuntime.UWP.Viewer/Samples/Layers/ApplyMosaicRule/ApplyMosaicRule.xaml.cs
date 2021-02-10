@@ -19,6 +19,9 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
+using System.Threading.Tasks;
+using Esri.ArcGISRuntime.Rasters;
+using System.Collections.Generic;
 
 namespace ArcGISRuntime.UWP.Samples.ApplyMosaicRule
 {
@@ -28,17 +31,47 @@ namespace ArcGISRuntime.UWP.Samples.ApplyMosaicRule
         description: "Apply mosaic rule to a mosaic dataset of rasters.",
         instructions: "When the rasters are loaded, choose from a list of preset mosaic rules to apply to the rasters.",
         tags: new[] { "image service", "mosaic method", "mosaic rule", "raster" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ApplyMosaicRule
     {
+        private ImageServiceRaster _imageServiceRaster;
+
+        // Different mosaic rules to use with the image service raster.
+        private Dictionary<string, MosaicRule> _mosaicRules = new Dictionary<string, MosaicRule>
+        {
+            { "None", new MosaicRule() { MosaicMethod = MosaicMethod.None} },
+            { "Northwest", new MosaicRule() { MosaicMethod = MosaicMethod.Northwest, MosaicOperation = MosaicOperation.First} },
+            { "Center", new MosaicRule() { MosaicMethod = MosaicMethod.Center, MosaicOperation = MosaicOperation.Blend} },
+            { "ByAttribute", new MosaicRule() { MosaicMethod = MosaicMethod.Attribute, SortField = "OBJECTID"} },
+            { "LockRaster", new MosaicRule() { MosaicMethod = MosaicMethod.LockRaster, LockRasterIds = { 1, 7, 12 } } },
+        };
+
         public ApplyMosaicRule()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
+            // Create a raster layer using an image service.
+            _imageServiceRaster = new ImageServiceRaster(new Uri("https://sampleserver7.arcgisonline.com/arcgis/rest/services/amberg_germany/ImageServer"));
+            RasterLayer rasterLayer = new RasterLayer(_imageServiceRaster);
+            await rasterLayer.LoadAsync();
+
+            // Create a map with the raster layer.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+            MyMapView.Map.OperationalLayers.Add(rasterLayer);
+            await MyMapView.SetViewpointAsync(new Viewpoint(rasterLayer.FullExtent));
+
+            // Populate the combo box.
+            MosaicRulesBox.ItemsSource = _mosaicRules.Keys;
+            MosaicRulesBox.SelectedIndex = 0;
+        }
+
+        private void MosaicRulesBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Change the mosaic rule used for the image service raster.
+            _imageServiceRaster.MosaicRule = _mosaicRules[MosaicRulesBox.SelectedItem as string];
         }
     }
 }

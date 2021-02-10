@@ -23,10 +23,11 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyMosaicRule
 {
     [Register("ApplyMosaicRule")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Apply mosaic rule to rasters",
-        "Layers",
-        "Apply mosaic rule to a mosaic dataset of rasters.",
-        "")]
+        name: "Apply mosaic rule to rasters",
+        category: "Layers",
+        description: "Apply mosaic rule to a mosaic dataset of rasters.",
+        instructions: "When the rasters are loaded, choose from a list of preset mosaic rules to apply to the rasters.",
+        tags: new[] { "image service", "mosaic method", "mosaic rule", "raster" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class ApplyMosaicRule : UIViewController
     {

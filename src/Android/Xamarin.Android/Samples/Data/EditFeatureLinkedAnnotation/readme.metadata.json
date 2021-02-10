@@ -30,6 +30,7 @@
         "Geodatabase"
     ],
     "snippets": [
+        "../../../Resources/layout/EditAttributeLayout.xml",
         "EditFeatureLinkedAnnotation.cs"
     ],
     "title": "Edit features with feature-linked annotation"

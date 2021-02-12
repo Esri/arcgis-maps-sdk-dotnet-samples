@@ -188,7 +188,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceAreasForMultipleFacilities
 
         private async void ShowMessage(string title, string detail)
         {
-            await new MessageDialog(detail, title).ShowAsync();
+            await new MessageDialog2(detail, title).ShowAsync();
         }
     }
 }

@@ -253,7 +253,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
         private async void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            await new MessageDialog(message).ShowAsync();
+            await new MessageDialog2(message).ShowAsync();
         }
 
         private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
@@ -281,11 +281,11 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
             UpdateMapExtent();
         }
 
-        private async void UpdateProgressBar()
+        private void UpdateProgressBar()
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Update the progress bar value.
                 GenerateProgressBar.Value = _generateGdbJob.Progress;

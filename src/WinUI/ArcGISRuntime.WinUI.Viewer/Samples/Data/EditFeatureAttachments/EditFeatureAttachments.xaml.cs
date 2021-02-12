@@ -111,7 +111,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error loading feature").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error loading feature").ShowAsync();
             }
         }
 
@@ -166,11 +166,11 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
                 _selectedFeature.Refresh();
                 AttachmentsListBox.ItemsSource = await _selectedFeature.GetAttachmentsAsync();
 
-                await new MessageDialog("Successfully added attachment", "Success!").ShowAsync();
+                await new MessageDialog2("Successfully added attachment", "Success!").ShowAsync();
             }
             catch (Exception exception)
             {
-                await new MessageDialog(exception.ToString(), "Error adding attachment").ShowAsync();
+                await new MessageDialog2(exception.ToString(), "Error adding attachment").ShowAsync();
             }
             finally
             {
@@ -206,11 +206,11 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
                 AttachmentsListBox.ItemsSource = await _selectedFeature.GetAttachmentsAsync();
 
                 // Show success message.
-                await new MessageDialog("Successfully deleted attachment", "Success!").ShowAsync();
+                await new MessageDialog2("Successfully deleted attachment", "Success!").ShowAsync();
             }
             catch (Exception exception)
             {
-                await new MessageDialog(exception.ToString(), "Error deleting attachment").ShowAsync();
+                await new MessageDialog2(exception.ToString(), "Error deleting attachment").ShowAsync();
             }
             finally
             {
@@ -258,7 +258,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
             }
             catch (Exception exception)
             {
-                await new MessageDialog(exception.ToString(), "Error reading attachment").ShowAsync();
+                await new MessageDialog2(exception.ToString(), "Error reading attachment").ShowAsync();
             }
         }
     }

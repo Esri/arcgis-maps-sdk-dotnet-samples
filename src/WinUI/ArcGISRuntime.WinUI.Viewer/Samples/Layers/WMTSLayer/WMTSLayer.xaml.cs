@@ -103,7 +103,7 @@ namespace ArcGISRuntime.WinUI.Samples.WMTSLayer
             }
             catch (Exception ex)
             {
-                MessageDialog messageDlg = new MessageDialog(ex.ToString(), "Error");
+                var messageDlg = new MessageDialog2(ex.ToString(), "Error");
                 await messageDlg.ShowAsync();
             }
         }

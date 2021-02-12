@@ -52,7 +52,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            Scene myScene = new Scene(Basemap.CreateImagery())
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard)
             {
                 BaseSurface = sceneSurface
             };
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             _distanceMeasurement.MeasurementChanged += async (o, e) =>
             {
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
                 {
                     // Update the labels with new values in the format {value} {unit system}.
                     DirectMeasureTextBlock.Text = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";

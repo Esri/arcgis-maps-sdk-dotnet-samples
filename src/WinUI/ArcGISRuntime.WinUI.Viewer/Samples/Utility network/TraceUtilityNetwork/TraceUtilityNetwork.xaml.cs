@@ -114,7 +114,7 @@ namespace ArcGISRuntime.WinUI.Samples.TraceUtilityNetwork
             catch (Exception ex)
             {
                 Status.Text = "Loading Utility Network failed...";
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
@@ -181,7 +181,7 @@ namespace ArcGISRuntime.WinUI.Samples.TraceUtilityNetwork
             catch (Exception ex)
             {
                 Status.Text = "Identifying locations failed.";
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
@@ -279,11 +279,11 @@ namespace ArcGISRuntime.WinUI.Samples.TraceUtilityNetwork
                 Status.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    await new MessageDialog("Trace failed.", ex.GetType().Name).ShowAsync();
+                    await new MessageDialog2("Trace failed.", ex.GetType().Name).ShowAsync();
                 }
                 else
                 {
-                    await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                    await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
                 }
             }
             finally

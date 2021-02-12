@@ -485,7 +485,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
         private async void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            await new MessageDialog(message).ShowAsync();
+            await new MessageDialog2(message).ShowAsync();
         }
 
         private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
@@ -514,12 +514,12 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             UpdateMapExtent();
         }
 
-        private async void UpdateProgressBar(int progress)
+        private void UpdateProgressBar(int progress)
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
             // The dispatcher takes an Action, provided here as a lambda function.
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Update the progress bar value.
                 GenerateSyncProgressBar.Value = progress;

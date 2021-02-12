@@ -69,7 +69,7 @@ namespace ArcGISRuntime.WinUI.Samples.UseDistanceCompositeSym
             }
             catch (Exception e)
             {
-                MessageDialog dialog = new MessageDialog(e.ToString(), "Error");
+                var dialog = new MessageDialog2(e.ToString(), "Error");
                 await dialog.ShowAsync();
             }
         }

@@ -70,7 +70,7 @@ namespace ArcGISRuntime.WinUI.Samples.DictionaryRendererGraphicsOverlay
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                await new MessageDialog(e.ToString()).ShowAsync();
+                await new MessageDialog2(e.ToString()).ShowAsync();
             }
         }
 

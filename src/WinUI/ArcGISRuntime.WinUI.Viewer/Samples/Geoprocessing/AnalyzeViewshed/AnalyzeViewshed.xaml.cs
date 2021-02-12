@@ -103,7 +103,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeViewshed
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -163,12 +163,12 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeViewshed
                 // Display an error message if there is a problem
                 if (myViewshedJob.Status == JobStatus.Failed && myViewshedJob.Error != null)
                 {
-                    MessageDialog message = new MessageDialog("Executing geoprocessing failed. " + myViewshedJob.Error.Message, "Geoprocessing error");
+                    var message = new MessageDialog2("Executing geoprocessing failed. " + myViewshedJob.Error.Message, "Geoprocessing error");
                     await message.ShowAsync();
                 }
                 else
                 {
-                    MessageDialog message = new MessageDialog("An error occurred. " + ex, "Sample error");
+                    var message = new MessageDialog2("An error occurred. " + ex, "Sample error");
                     await message.ShowAsync();
                 }
             }

@@ -169,7 +169,7 @@ namespace ArcGISRuntime.WinUI.Samples.ShowLocationHistory
 
         private async void ShowMessage(string title, string detail)
         {
-            await new MessageDialog(detail, title).ShowAsync();
+            await new MessageDialog2(detail, title).ShowAsync();
         }
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)

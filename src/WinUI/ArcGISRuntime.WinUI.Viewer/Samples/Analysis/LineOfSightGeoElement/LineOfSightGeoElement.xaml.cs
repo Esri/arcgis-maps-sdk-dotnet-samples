@@ -140,7 +140,7 @@ namespace ArcGISRuntime.WinUI.Samples.LineOfSightGeoElement
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -194,10 +194,10 @@ namespace ArcGISRuntime.WinUI.Samples.LineOfSightGeoElement
             return new MapPoint(firstPoint.X + scaled.X, firstPoint.Y + scaled.Y, firstPoint.Z + scaled.Z);
         }
 
-        private async void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
+        private void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
         {
             // This is needed because Runtime delivers notifications from a different thread that doesn't have access to UI controls.
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, UpdateUiAndSelection);
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, UpdateUiAndSelection);
         }
 
         private void UpdateUiAndSelection()

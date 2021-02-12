@@ -113,7 +113,7 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeViewpoint
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
     }

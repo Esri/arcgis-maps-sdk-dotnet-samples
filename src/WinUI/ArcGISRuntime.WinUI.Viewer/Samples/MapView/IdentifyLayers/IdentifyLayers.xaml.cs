@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyLayers
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -77,12 +77,12 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyLayers
 
                 if (!String.IsNullOrEmpty(result))
                 {
-                    await new MessageDialog(result).ShowAsync();
+                    await new MessageDialog2(result).ShowAsync();
                 }
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
 

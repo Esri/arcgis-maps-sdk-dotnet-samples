@@ -69,13 +69,13 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromPortal
                 }
                 else
                 {
-                    MessageDialog messageDlg = new MessageDialog("Portal item with ID '" + itemId + "' is not a feature collection.", "Feature Collection");
+                    var messageDlg = new MessageDialog2("Portal item with ID '" + itemId + "' is not a feature collection.", "Feature Collection");
                     await messageDlg.ShowAsync();
                 }
             }
             catch (Exception ex)
             {
-                MessageDialog messageDlg = new MessageDialog("Unable to open item with ID '" + itemId + "': " + ex.Message, "Error");
+                var messageDlg = new MessageDialog2("Unable to open item with ID '" + itemId + "': " + ex.Message, "Error");
                 await messageDlg.ShowAsync();
             }
         }
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromPortal
             // Make sure an Id was entered.
             if (String.IsNullOrEmpty(collectionItemId))
             {
-                MessageDialog messageDlg = new MessageDialog("Please enter a portal item ID", "Feature Collection ID");
+                var messageDlg = new MessageDialog2("Please enter a portal item ID", "Feature Collection ID");
                 await messageDlg.ShowAsync();
                 return;
             }

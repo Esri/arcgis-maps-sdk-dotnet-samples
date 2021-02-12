@@ -96,7 +96,7 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString()).ShowAsync();
+                await new MessageDialog2(ex.ToString()).ShowAsync();
             }
         }
 
@@ -134,11 +134,11 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
                 await serviceTable.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
-                await new MessageDialog($"Deleted feature with ID {featureToDelete.Attributes["objectid"]}", "Success!").ShowAsync();
+                await new MessageDialog2($"Deleted feature with ID {featureToDelete.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Couldn't delete feature.").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Couldn't delete feature.").ShowAsync();
             }
         }
     }

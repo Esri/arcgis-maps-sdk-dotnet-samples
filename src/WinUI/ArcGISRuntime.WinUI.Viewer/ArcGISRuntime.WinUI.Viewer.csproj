@@ -39,18 +39,19 @@
 
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.10.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.10.0-preview1" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.9.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.10.0-preview2" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.10.0" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="8.0.0-preview3" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.Markdown" Version="8.0.0-preview3" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="8.0.0-preview4" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.Markdown" Version="8.0.0-preview4" />
     <PackageReference Include="Microsoft.VCRTForwarders.140" Version="1.0.6" />
-    <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview3.201113.0" />
+    <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview4.210210.4" />
     <!--<PackageReference Include="Monaco.Editor">
       <Version>0.8.1-alpha</Version>
     </PackageReference>-->
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
+
 
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   

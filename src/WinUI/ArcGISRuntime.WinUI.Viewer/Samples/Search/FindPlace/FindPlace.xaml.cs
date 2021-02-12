@@ -79,7 +79,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             SearchViewButton.IsEnabled = true;
         }
 
-        private async void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
+        private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
         {
             // Return if position is null; event is raised with null location after
             if (e.Position == null) { return; }
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
             // Need to use the dispatcher to interact with UI elements because this function is called from a background thread
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 MyMapView.SetViewpoint(new Viewpoint(e.Position, 100000));
             });
@@ -315,7 +315,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         private async void ShowStatusMessage(string message)
         {
             // Display the message to the user
-            MessageDialog dialog = new MessageDialog(message);
+            var dialog = new MessageDialog2(message);
             await dialog.ShowAsync();
         }
 

@@ -52,7 +52,7 @@ namespace ArcGISRuntime.WinUI.Samples.LineOfSightLocation
         private void Initialize()
         {
             // Create a new Scene with an imagery basemap
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create an elevation source for the Scene
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl));

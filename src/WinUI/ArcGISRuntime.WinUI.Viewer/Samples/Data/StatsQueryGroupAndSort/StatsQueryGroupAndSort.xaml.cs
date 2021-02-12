@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -120,14 +120,14 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
         
         // Helper function to show a message
         private async void ShowMessage(string message, string title)
         {
-            MessageDialog messageDialog = new MessageDialog(message, title);
+            var messageDialog = new MessageDialog2(message, title);
             await messageDialog.ShowAsync();
         }
 

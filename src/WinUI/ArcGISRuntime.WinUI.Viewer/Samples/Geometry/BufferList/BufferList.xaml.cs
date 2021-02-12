@@ -114,7 +114,7 @@ namespace ArcGISRuntime.WinUI.Samples.BufferList
                 // If the input point is not within the valid extent for the spatial reference, warn the user and return.
                 if (!withinValidExent)
                 {
-                    MessageDialog dialog = new MessageDialog("Location is not valid to buffer using the defined spatial reference.", "Out of bounds");
+                    var dialog = new MessageDialog2("Location is not valid to buffer using the defined spatial reference.", "Out of bounds");
                     await dialog.ShowAsync();
                     return;
                 }
@@ -144,7 +144,7 @@ namespace ArcGISRuntime.WinUI.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message.
-                await new MessageDialog(ex.Message, "Error creating buffer point").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error creating buffer point").ShowAsync();
             }
         }
 
@@ -208,7 +208,7 @@ namespace ArcGISRuntime.WinUI.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffers.
-                await new MessageDialog(ex.Message, "Unable to create buffer polygons").ShowAsync();
+                await new MessageDialog2(ex.Message, "Unable to create buffer polygons").ShowAsync();
             }
         }
 

@@ -136,7 +136,7 @@ namespace ArcGISRuntime.WinUI.Samples.ClosestFacilityStatic
             }
             catch (Exception exception)
             {
-                await new MessageDialog("An exception has occurred.\n" + exception.Message, "Sample error").ShowAsync();
+                await new MessageDialog2("An exception has occurred.\n" + exception.Message, "Sample error").ShowAsync();
             }
         }
 
@@ -196,7 +196,7 @@ namespace ArcGISRuntime.WinUI.Samples.ClosestFacilityStatic
             }
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
-                await new MessageDialog("An ArcGIS web exception occurred.\n" + exception.Message, "Sample error").ShowAsync();
+                await new MessageDialog2("An ArcGIS web exception occurred.\n" + exception.Message, "Sample error").ShowAsync();
             }
         }
 

@@ -117,7 +117,7 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -140,9 +140,9 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
             MyMapView.Map = webMap;
         }
 
-        private async void WebMapLoadStatusChanged(object sender, LoadStatusEventArgs e)
+        private void WebMapLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Report errors if map failed to load
                 if (e.Status == LoadStatus.FailedToLoad)
@@ -151,7 +151,7 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
                     Exception err = map.LoadError;
                     if (err != null)
                     {
-                        await new MessageDialog(err.Message, "Map load error").ShowAsync();
+                        _ = new MessageDialog2(err.Message, "Map load error").ShowAsync();
                     }
                 }
             });
@@ -221,7 +221,7 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
         {
             // Warn that browsing user's ArcGIS Online maps won't be available without OAuth settings
             string warning = "Without OAuth settings, you will not be able to browse maps from your ArcGIS Online account.";
-            await new MessageDialog(warning, "No OAuth settings").ShowAsync();
+            await new MessageDialog2(warning, "No OAuth settings").ShowAsync();
 
             // Disable browsing maps from your ArcGIS Online account
             BrowseMyMaps.IsEnabled = false;

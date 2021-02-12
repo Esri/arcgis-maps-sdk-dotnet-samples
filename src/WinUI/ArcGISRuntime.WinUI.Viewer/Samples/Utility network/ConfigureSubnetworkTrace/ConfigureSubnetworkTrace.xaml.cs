@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.ConfigureSubnetworkTrace
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.Message.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.Message.GetType().Name).ShowAsync();
             }
         }
 
@@ -144,7 +144,7 @@ namespace ArcGISRuntime.WinUI.Samples.ConfigureSubnetworkTrace
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.Message.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.Message.GetType().Name).ShowAsync();
             }
         }
 
@@ -222,11 +222,11 @@ namespace ArcGISRuntime.WinUI.Samples.ConfigureSubnetworkTrace
                 UtilityElementTraceResult elementResult = results?.FirstOrDefault() as UtilityElementTraceResult;
 
                 // Display the number of elements found by the trace.
-                await new MessageDialog($"`{elementResult?.Elements?.Count ?? 0}` elements found.", "Trace Result").ShowAsync();
+                await new MessageDialog2($"`{elementResult?.Elements?.Count ?? 0}` elements found.", "Trace Result").ShowAsync();
             }
             catch (Exception ex)
             {
-                await new MessageDialog($"{ex.Message}\nFor a working barrier condition, try \"Transformer Load\" Equal \"15\".", ex.GetType().Name).ShowAsync();
+                await new MessageDialog2($"{ex.Message}\nFor a working barrier condition, try \"Transformer Load\" Equal \"15\".", ex.GetType().Name).ShowAsync();
             }
         }
 

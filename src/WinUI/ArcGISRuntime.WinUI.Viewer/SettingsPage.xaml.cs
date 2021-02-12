@@ -21,6 +21,7 @@ using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System.Reflection;
+using ArcGISRuntime.WinUI;
 
 namespace ArcGISRuntime
 {
@@ -95,16 +96,16 @@ namespace ArcGISRuntime
 
                 await Task.WhenAll(downloadTasks);
 
-                await new MessageDialog("All data downloaded").ShowAsync();
+                await new MessageDialog2("All data downloaded").ShowAsync();
             }
             catch (OperationCanceledException)
             {
-                await new MessageDialog("Download canceled").ShowAsync();
+                await new MessageDialog2("Download canceled").ShowAsync();
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await new MessageDialog("Download canceled", "Error").ShowAsync();
+                await new MessageDialog2("Download canceled", "Error").ShowAsync();
             }
             finally
             {
@@ -124,18 +125,18 @@ namespace ArcGISRuntime
 
                 Directory.Delete(offlineDataPath, true);
 
-                await new MessageDialog("All data deleted").ShowAsync();
+                await new MessageDialog2("All data deleted").ShowAsync();
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
                 if (exception.Message.Contains("used by another process"))
                 {
-                    await new MessageDialog("Couldn't delete offline data. Data is being used by a sample. Restart the sample viewer and try again.", "Error").ShowAsync();
+                    await new MessageDialog2("Couldn't delete offline data. Data is being used by a sample. Restart the sample viewer and try again.", "Error").ShowAsync();
                 }
                 else
                 {
-                    await new MessageDialog("Couldn't delete the offline data folder", "Error").ShowAsync();
+                    await new MessageDialog2("Couldn't delete the offline data folder", "Error").ShowAsync();
                 }
             }
             finally
@@ -173,7 +174,7 @@ namespace ArcGISRuntime
             catch (Exception exception)
             {
                 System.Diagnostics.Debug.WriteLine(exception);
-                await new MessageDialog("Couldn't download data for that sample", "Error").ShowAsync();
+                await new MessageDialog2("Couldn't download data for that sample", "Error").ShowAsync();
             }
             finally
             {
@@ -195,18 +196,18 @@ namespace ArcGISRuntime
 
                     Directory.Delete(offlineDataPath, true);
                 }
-                await new MessageDialog($"Offline data deleted for {sample.SampleName}").ShowAsync();
+                await new MessageDialog2($"Offline data deleted for {sample.SampleName}").ShowAsync();
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
                 if (exception.Message.Contains("used by another process"))
                 {
-                    await new MessageDialog("Couldn't delete offline data. Data is being used by a sample. Restart the sample viewer and try again.", "Error").ShowAsync();
+                    await new MessageDialog2("Couldn't delete offline data. Data is being used by a sample. Restart the sample viewer and try again.", "Error").ShowAsync();
                 }
                 else
                 {
-                    await new MessageDialog("Couldn't delete the offline data folder", "Error").ShowAsync();
+                    await new MessageDialog2("Couldn't delete the offline data folder", "Error").ShowAsync();
                 }
             }
             finally

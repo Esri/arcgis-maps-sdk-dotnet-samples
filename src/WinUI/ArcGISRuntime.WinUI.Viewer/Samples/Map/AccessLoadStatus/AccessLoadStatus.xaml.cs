@@ -42,10 +42,10 @@ namespace ArcGISRuntime.WinUI.Samples.AccessLoadStatus
             MyMapView.Map = myMap;
         }
 
-        private async void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
+        private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
             // Update the load status information
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
                  {
                      LoadStatusTextBlock.Text = string.Format("Map's load status : {0}", e.Status.ToString());
                  });

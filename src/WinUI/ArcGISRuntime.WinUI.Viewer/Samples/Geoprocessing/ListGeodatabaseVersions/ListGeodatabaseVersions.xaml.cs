@@ -79,7 +79,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListGeodatabaseVersions
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
 
             // Set the UI to indicate that the geoprocessing is not running
@@ -115,13 +115,13 @@ namespace ArcGISRuntime.WinUI.Samples.ListGeodatabaseVersions
                 // Error handling if something goes wrong
                 if (listVersionsJob.Status == JobStatus.Failed && listVersionsJob.Error != null)
                 {
-                    MessageDialog message = new MessageDialog("Executing geoprocessing failed. " + listVersionsJob.Error.Message, "Geoprocessing error");
+                    var message = new MessageDialog2("Executing geoprocessing failed. " + listVersionsJob.Error.Message, "Geoprocessing error");
                     await message.ShowAsync();
                 }
 
                 else
                 {
-                    MessageDialog message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    var message = new MessageDialog2("An error occurred. " + ex.ToString(), "Sample error");
                     await message.ShowAsync();
                 }
             }

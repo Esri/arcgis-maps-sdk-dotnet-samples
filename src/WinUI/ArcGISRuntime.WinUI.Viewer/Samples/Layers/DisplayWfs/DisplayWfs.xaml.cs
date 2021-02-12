@@ -77,7 +77,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayWfs
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Couldn't load sample.").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Couldn't load sample.").ShowAsync();
                 Debug.WriteLine(e);
             }
         }
@@ -103,7 +103,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayWfs
             }
             catch (Exception exception)
             {
-                await new MessageDialog(exception.ToString(), "Couldn't populate table.").ShowAsync();
+                await new MessageDialog2(exception.ToString(), "Couldn't populate table.").ShowAsync();
                 Debug.WriteLine(exception);
             }
             finally

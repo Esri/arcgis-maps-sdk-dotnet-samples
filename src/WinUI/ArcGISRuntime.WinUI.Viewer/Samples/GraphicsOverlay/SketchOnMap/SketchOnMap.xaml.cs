@@ -159,7 +159,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                MessageDialog dialog = new MessageDialog("Error drawing graphic shape: " + ex.Message);
+                var dialog = new MessageDialog2("Error drawing graphic shape: " + ex.Message);
                 await dialog.ShowAsync();
             }
         }
@@ -204,7 +204,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                MessageDialog dialog = new MessageDialog("Error editing shape: " + ex.Message);
+                var dialog = new MessageDialog2("Error editing shape: " + ex.Message);
                 await dialog.ShowAsync();
             }
         }

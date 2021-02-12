@@ -81,7 +81,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -134,7 +134,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -197,7 +197,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
 

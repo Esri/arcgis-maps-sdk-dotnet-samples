@@ -118,7 +118,7 @@ namespace ArcGISRuntime.WinUI.Samples.ClosestFacility
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -172,11 +172,11 @@ namespace ArcGISRuntime.WinUI.Samples.ClosestFacility
             {
                 if (exception.Message.Equals("Unable to complete operation."))
                 {
-                    await new MessageDialog("Incident not within San Diego area!", "Sample error").ShowAsync();
+                    await new MessageDialog2("Incident not within San Diego area!", "Sample error").ShowAsync();
                 }
                 else
                 {
-                    await new MessageDialog("An ArcGIS web exception occurred. \n" + exception.Message, "Sample error").ShowAsync();
+                    await new MessageDialog2("An ArcGIS web exception occurred. \n" + exception.Message, "Sample error").ShowAsync();
                 }
             }
         }

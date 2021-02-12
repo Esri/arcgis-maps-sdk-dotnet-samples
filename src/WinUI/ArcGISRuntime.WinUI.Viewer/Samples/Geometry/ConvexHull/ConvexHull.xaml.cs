@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHull
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem adding user tapped graphics.
-                MessageDialog theMessageDialog = new MessageDialog("Can't add user tapped graphic!" + ex.Message);
+                var theMessageDialog = new MessageDialog2("Can't add user tapped graphic!" + ex.Message);
                 await theMessageDialog.ShowAsync();
             }
         }
@@ -141,7 +141,7 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHull
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating convex hull operation.
-                MessageDialog theMessageDialog = new MessageDialog("Geometry Engine Failed: " + ex.Message);
+                var theMessageDialog = new MessageDialog2("Geometry Engine Failed: " + ex.Message);
                 await theMessageDialog.ShowAsync();
             }
         }

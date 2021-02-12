@@ -177,7 +177,7 @@ namespace ArcGISRuntime.WinUI.Samples.Animate3DGraphic
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -238,7 +238,7 @@ namespace ArcGISRuntime.WinUI.Samples.Animate3DGraphic
             return DataManager.GetDataFolder(itemId, filename);
         }
 
-        private async void AnimatePlane(object sender, object elapsedEventArgs)
+        private void AnimatePlane(object sender, object elapsedEventArgs)
         {
             // Get the next position; % prevents going out of bounds even if the keyframe value is
             //     changed unexpectedly (e.g. due to user interaction with the progress slider).
@@ -248,7 +248,7 @@ namespace ArcGISRuntime.WinUI.Samples.Animate3DGraphic
             double missionProgress = _keyframe / (double)_frameCount;
 
             // This is needed because the event could be running on a non-UI thread
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Update the progress slider
                 MissionProgressBar.Value = missionProgress;

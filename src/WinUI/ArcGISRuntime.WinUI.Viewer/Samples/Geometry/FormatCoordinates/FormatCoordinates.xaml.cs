@@ -151,7 +151,7 @@ namespace ArcGISRuntime.WinUI.Samples.FormatCoordinates
             catch (Exception ex)
             {
                 // The coordinate is malformed, warn and return
-                await new MessageDialog(ex.Message, "Invalid format").ShowAsync();
+                await new MessageDialog2(ex.Message, "Invalid format").ShowAsync();
                 return;
             }
 

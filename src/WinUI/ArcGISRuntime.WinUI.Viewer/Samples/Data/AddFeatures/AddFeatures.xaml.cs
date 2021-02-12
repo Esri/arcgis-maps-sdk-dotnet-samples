@@ -82,11 +82,11 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeatures
                 feature.Refresh();
 
                 // Confirm feature addition.
-                await new MessageDialog($"Created feature {feature.Attributes["objectid"]}", "Success!").ShowAsync();
+                await new MessageDialog2($"Created feature {feature.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error adding feature").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error adding feature").ShowAsync();
             }
         }
     }

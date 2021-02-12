@@ -117,7 +117,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayUtilityAssociations
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
         }
 
@@ -167,7 +167,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayUtilityAssociations
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
         }
     }

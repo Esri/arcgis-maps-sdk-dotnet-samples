@@ -277,7 +277,7 @@ namespace ArcGISRuntime.WinUI.Samples.ExportTiles
         private async void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            await new MessageDialog(message).ShowAsync();
+            await new MessageDialog2(message).ShowAsync();
         }
 
         private void ClosePreview_Click(object sender, RoutedEventArgs e)

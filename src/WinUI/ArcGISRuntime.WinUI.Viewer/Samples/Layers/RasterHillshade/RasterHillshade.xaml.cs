@@ -83,7 +83,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterHillshade
                 // Add slope type values to the combo box
                 foreach (object slope in Enum.GetValues(typeof(SlopeType)))
                 {
-                    SlopeTypeCombo.Items.Add(slope);
+                    SlopeTypeCombo.Items.Add(slope.ToString());
                 }
 
                 // Select the "Scaled" slope type enum
@@ -100,7 +100,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterHillshade
             // Get the current parameter values
             double altitude = AltitudeSlider.Value;
             double azimuth = AzimuthSlider.Value;
-            SlopeType typeOfSlope = (SlopeType)SlopeTypeCombo.SelectedItem;
+            SlopeType typeOfSlope = Enum.Parse<SlopeType>(SlopeTypeCombo.SelectedItem as string);
 
             // Create a hillshade renderer that uses the values selected by the user
             HillshadeRenderer hillshadeRenderer = new HillshadeRenderer(altitude, azimuth, ZFactor, typeOfSlope, PixelSizeFactor, PixelSizePower, PixelBitDepth);

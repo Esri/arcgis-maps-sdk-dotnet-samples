@@ -64,7 +64,7 @@ namespace ArcGISRuntime.WinUI.Samples.ConfigureSubnetworkTrace
 
                 // Build the choice lists for network attribute comparison.
                 Attributes.ItemsSource = _utilityNetwork.Definition.NetworkAttributes.Where(netattr => !netattr.IsSystemDefined);
-                Operators.ItemsSource = Enum.GetValues(typeof(UtilityAttributeComparisonOperator));
+                Operators.ItemsSource = Enum.GetValues(typeof(UtilityAttributeComparisonOperator)).OfType<UtilityAttributeComparisonOperator>().Select(e => e.ToString());
 
                 // Create a default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
@@ -117,9 +117,10 @@ namespace ArcGISRuntime.WinUI.Samples.ConfigureSubnetworkTrace
 
                 // NOTE: You may also create a UtilityCategoryComparison with UtilityNetworkDefinition.Categories and UtilityCategoryComparisonOperator.
                 if (Attributes.SelectedItem is UtilityNetworkAttribute attribute
-                    && Operators.SelectedItem is UtilityAttributeComparisonOperator attributeOperator)
+                    && Operators.SelectedItem is string attributeOperatorStr)
                 {
                     object selectedValue;
+                    UtilityAttributeComparisonOperator attributeOperator = Enum.Parse<UtilityAttributeComparisonOperator>(attributeOperatorStr);
 
                     // If the value is a coded value.
                     if (attribute.Domain is CodedValueDomain && ValueSelection.SelectedItem is CodedValue codedValue)

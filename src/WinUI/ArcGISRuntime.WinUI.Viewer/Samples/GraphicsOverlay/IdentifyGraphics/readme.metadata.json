@@ -1,0 +1,31 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Display an alert message when a graphic is clicked.",
+    "formal_name": "IdentifyGraphics",
+    "ignore": false,
+    "images": [
+        "IdentifyGraphics.jpg"
+    ],
+    "keywords": [
+        "graphics",
+        "identify"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/identifygraphics.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "MapView"
+    ],
+    "snippets": [
+        "IdentifyGraphics.xaml",
+        "IdentifyGraphics.xaml.cs"
+    ],
+    "title": "Identify graphics"
+}

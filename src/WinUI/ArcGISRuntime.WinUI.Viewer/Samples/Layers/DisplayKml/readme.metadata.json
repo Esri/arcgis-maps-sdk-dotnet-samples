@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Display KML from a URL, portal item, or local KML file.",
+    "formal_name": "DisplayKml",
+    "ignore": false,
+    "images": [
+        "DisplayKml.jpg"
+    ],
+    "keywords": [
+        "KML",
+        "KMZ",
+        "OGC",
+        "keyhole"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [
+        "324e4742820e46cfbe5029ff2c32cb1f"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/displaykml.htm"
+    ],
+    "relevant_apis": [
+        "KmlDataset",
+        "KmlLayer"
+    ],
+    "snippets": [
+        "DisplayKml.xaml",
+        "DisplayKml.xaml.cs"
+    ],
+    "title": "Display KML"
+}

@@ -1,0 +1,37 @@
+{
+    "category": "Symbology",
+    "description": "Display common symbols for all graphics in a graphics overlay with a renderer.",
+    "formal_name": "SimpleRenderers",
+    "ignore": false,
+    "images": [
+        "SimpleRenderers.jpg"
+    ],
+    "keywords": [
+        "graphics",
+        "marker",
+        "renderer",
+        "symbol",
+        "symbolize",
+        "symbology"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/simplerenderers.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "Point",
+        "SimpleMarkerSymbol",
+        "SimpleRenderer"
+    ],
+    "snippets": [
+        "SimpleRenderers.xaml",
+        "SimpleRenderers.xaml.cs"
+    ],
+    "title": "Simple renderer"
+}

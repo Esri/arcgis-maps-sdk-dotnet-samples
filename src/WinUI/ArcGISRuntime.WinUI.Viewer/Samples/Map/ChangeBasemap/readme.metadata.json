@@ -1,0 +1,31 @@
+{
+    "category": "Map",
+    "description": "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
+    "formal_name": "ChangeBasemap",
+    "ignore": false,
+    "images": [
+        "ChangeBasemap.jpg"
+    ],
+    "keywords": [
+        "basemap",
+        "map"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/changebasemap.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "ChangeBasemap.xaml",
+        "ChangeBasemap.xaml.cs"
+    ],
+    "title": "Change basemap"
+}

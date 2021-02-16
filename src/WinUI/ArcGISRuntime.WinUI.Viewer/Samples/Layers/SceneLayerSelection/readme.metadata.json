@@ -1,0 +1,37 @@
+{
+    "category": "Layers",
+    "description": "Identify features in a scene to select.",
+    "formal_name": "SceneLayerSelection",
+    "ignore": false,
+    "images": [
+        "SceneLayerSelection.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "Berlin",
+        "buildings",
+        "identify",
+        "model",
+        "query",
+        "search",
+        "select"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/scenelayerselection.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISSceneLayer",
+        "Scene",
+        "SceneView"
+    ],
+    "snippets": [
+        "SceneLayerSelection.xaml",
+        "SceneLayerSelection.xaml.cs"
+    ],
+    "title": "Scene layer selection"
+}

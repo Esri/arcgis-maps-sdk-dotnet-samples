@@ -1,0 +1,36 @@
+{
+    "category": "Network analysis",
+    "description": "Find the service area within a network from a given point.",
+    "formal_name": "FindServiceArea",
+    "ignore": false,
+    "images": [
+        "FindServiceArea.jpg"
+    ],
+    "keywords": [
+        "Routing and Logistics",
+        "barriers",
+        "facilities",
+        "impedance"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/findservicearea.htm"
+    ],
+    "relevant_apis": [
+        "PolylineBarrier",
+        "ServiceAreaFacility",
+        "ServiceAreaParameters",
+        "ServiceAreaPolygon",
+        "ServiceAreaResult",
+        "ServiceAreaTask"
+    ],
+    "snippets": [
+        "FindServiceArea.xaml",
+        "FindServiceArea.xaml.cs"
+    ],
+    "title": "Find service area"
+}

@@ -1,0 +1,34 @@
+{
+    "category": "Data",
+    "description": "Display a feature layer from a service using the **manual cache** feature request mode.",
+    "formal_name": "ServiceFeatureTableManualCache",
+    "ignore": false,
+    "images": [
+        "ServiceFeatureTableManualCache.jpg"
+    ],
+    "keywords": [
+        "cache",
+        "feature request mode",
+        "performance"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/servicefeaturetablemanualcache.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureRequestMode.ManualCache",
+        "ServiceFeatureTable",
+        "ServiceFeatureTable.FeatureRequestMode",
+        "ServiceFeatureTable.PopulateFromServiceAsync"
+    ],
+    "snippets": [
+        "ServiceFeatureTableManualCache.xaml",
+        "ServiceFeatureTableManualCache.xaml.cs"
+    ],
+    "title": "Service feature table (manual cache)"
+}

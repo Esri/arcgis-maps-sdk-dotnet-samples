@@ -1,0 +1,36 @@
+{
+    "category": "Location",
+    "description": "Display your current position on the map, as well as switch between different types of auto pan Modes.",
+    "formal_name": "DisplayDeviceLocation",
+    "ignore": false,
+    "images": [
+        "DisplayDeviceLocation.jpg"
+    ],
+    "keywords": [
+        "GPS",
+        "compass",
+        "location",
+        "map",
+        "mobile",
+        "navigation"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/displaydevicelocation.htm"
+    ],
+    "relevant_apis": [
+        "LocationDisplay",
+        "LocationDisplay.AutoPanMode",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "DisplayDeviceLocation.xaml",
+        "DisplayDeviceLocation.xaml.cs"
+    ],
+    "title": "Display device location"
+}

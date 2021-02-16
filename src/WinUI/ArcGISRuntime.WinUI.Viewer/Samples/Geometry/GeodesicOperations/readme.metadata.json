@@ -1,0 +1,32 @@
+{
+    "category": "Geometry",
+    "description": "Calculate a geodesic path between two points and measure its distance.",
+    "formal_name": "GeodesicOperations",
+    "ignore": false,
+    "images": [
+        "GeodesicOperations.jpg"
+    ],
+    "keywords": [
+        "densify",
+        "distance",
+        "geodesic",
+        "geodetic"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/geodesicoperations.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine.DensifyGeodetic",
+        "GeometryEngine.LengthGeodetic"
+    ],
+    "snippets": [
+        "GeodesicOperations.xaml",
+        "GeodesicOperations.xaml.cs"
+    ],
+    "title": "Geodesic operations"
+}

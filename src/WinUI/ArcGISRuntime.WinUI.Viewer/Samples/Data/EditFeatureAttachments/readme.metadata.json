@@ -1,0 +1,40 @@
+{
+    "category": "Data",
+    "description": "Add, delete, and download attachments for features from a service.",
+    "formal_name": "EditFeatureAttachments",
+    "ignore": false,
+    "images": [
+        "EditFeatureAttachments.jpg"
+    ],
+    "keywords": [
+        "JPEG",
+        "PDF",
+        "PNG",
+        "TXT",
+        "data",
+        "image",
+        "picture"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/editfeatureattachments.htm"
+    ],
+    "relevant_apis": [
+        "ApplyEditsAsync",
+        "DeleteAttachmentAsync",
+        "FeatureLayer",
+        "FetchAttachmentsAsync",
+        "FetchDataAsync",
+        "ServiceFeatureTable",
+        "UpdateFeatureAsync"
+    ],
+    "snippets": [
+        "EditFeatureAttachments.xaml",
+        "EditFeatureAttachments.xaml.cs"
+    ],
+    "title": "Edit feature attachments"
+}

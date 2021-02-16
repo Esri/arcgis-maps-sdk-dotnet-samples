@@ -1,0 +1,36 @@
+{
+    "category": "Layers",
+    "description": "Use annotation sublayers to gain finer control of annotation layer subtypes.",
+    "formal_name": "ControlAnnotationSublayerVisibility",
+    "ignore": false,
+    "images": [
+        "ControlAnnotationSublayerVisibility.jpg"
+    ],
+    "keywords": [
+        "annotation",
+        "scale",
+        "text",
+        "utilities",
+        "visualization"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [
+        "b87307dcfb26411eb2e92e1627cb615b"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/controlannotationsublayervisibility.htm"
+    ],
+    "relevant_apis": [
+        "AnnotationLayer",
+        "AnnotationSublayer",
+        "LayerContent"
+    ],
+    "snippets": [
+        "ControlAnnotationSublayerVisibility.xaml",
+        "ControlAnnotationSublayerVisibility.xaml.cs"
+    ],
+    "title": "Control annotation sublayer visibility"
+}

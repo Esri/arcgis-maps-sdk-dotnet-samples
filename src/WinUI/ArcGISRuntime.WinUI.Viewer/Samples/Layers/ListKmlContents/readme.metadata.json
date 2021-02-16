@@ -1,0 +1,41 @@
+{
+    "category": "Layers",
+    "description": "List the contents of a KML file.",
+    "formal_name": "ListKmlContents",
+    "ignore": false,
+    "images": [
+        "ListKmlContents.jpg"
+    ],
+    "keywords": [
+        "KML",
+        "KMZ",
+        "Keyhole",
+        "OGC",
+        "layers"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/listkmlcontents.htm"
+    ],
+    "relevant_apis": [
+        "KmlContainer",
+        "KmlDataset",
+        "KmlDocument",
+        "KmlFolder",
+        "KmlGroundOverlay",
+        "KmlLayer",
+        "KmlNetworkLink",
+        "KmlNode",
+        "KmlPlacemark",
+        "KmlScreenOverlay"
+    ],
+    "snippets": [
+        "ListKmlContents.xaml",
+        "ListKmlContents.xaml.cs"
+    ],
+    "title": "List KML contents"
+}

@@ -1,0 +1,34 @@
+{
+    "category": "Data",
+    "description": "Generate a local geodatabase from an online feature service.",
+    "formal_name": "GenerateGeodatabase",
+    "ignore": false,
+    "images": [
+        "GenerateGeodatabase.jpg"
+    ],
+    "keywords": [
+        "disconnected",
+        "local geodatabase",
+        "offline",
+        "sync"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/generategeodatabase.htm"
+    ],
+    "relevant_apis": [
+        "GenerateGeodatabaseJob",
+        "GenerateGeodatabaseParameters",
+        "Geodatabase",
+        "GeodatabaseSyncTask"
+    ],
+    "snippets": [
+        "GenerateGeodatabase.xaml",
+        "GenerateGeodatabase.xaml.cs"
+    ],
+    "title": "Generate geodatabase"
+}

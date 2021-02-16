@@ -1,0 +1,36 @@
+{
+    "category": "Data",
+    "description": "Update feature attributes in an online feature service.",
+    "formal_name": "UpdateAttributes",
+    "ignore": false,
+    "images": [
+        "UpdateAttributes.jpg"
+    ],
+    "keywords": [
+        "amend",
+        "attribute",
+        "details",
+        "edit",
+        "editing",
+        "information",
+        "value"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/updateattributes.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISFeature",
+        "FeatureLayer",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "UpdateAttributes.xaml",
+        "UpdateAttributes.xaml.cs"
+    ],
+    "title": "Update attributes (feature service)"
+}

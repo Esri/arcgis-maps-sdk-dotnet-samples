@@ -1,0 +1,34 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",
+    "formal_name": "SketchOnMap",
+    "ignore": false,
+    "images": [
+        "SketchOnMap.jpg"
+    ],
+    "keywords": [
+        "draw",
+        "edit"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/sketchonmap.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "Graphic",
+        "GraphicsOverlay",
+        "MapView",
+        "SketchCreationMode",
+        "SketchEditor"
+    ],
+    "snippets": [
+        "SketchOnMap.xaml",
+        "SketchOnMap.xaml.cs"
+    ],
+    "title": "Sketch on map"
+}

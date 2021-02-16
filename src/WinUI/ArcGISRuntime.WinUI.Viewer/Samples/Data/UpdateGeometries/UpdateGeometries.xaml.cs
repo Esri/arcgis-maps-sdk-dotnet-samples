@@ -98,11 +98,11 @@ namespace ArcGISRuntime.WinUI.Samples.UpdateGeometries
                 // Push the update to the service.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
                 await serviceTable.ApplyEditsAsync();
-                await new MessageDialog($"Moved feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
+                await new MessageDialog2($"Moved feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error when moving feature.").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error when moving feature.").ShowAsync();
             }
             finally
             {
@@ -133,7 +133,7 @@ namespace ArcGISRuntime.WinUI.Samples.UpdateGeometries
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "There was a problem.").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "There was a problem.").ShowAsync();
             }
         }
     }

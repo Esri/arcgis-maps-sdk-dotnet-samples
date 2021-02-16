@@ -99,7 +99,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                await new MessageDialog("Error drawing facility:\n" + ex.Message, "Sample error").ShowAsync();
+                await new MessageDialog2("Error drawing facility:\n" + ex.Message, "Sample error").ShowAsync();
             }
         }
 
@@ -141,7 +141,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                await new MessageDialog("Error drawing barrier:\n" + ex.Message, "Sample error").ShowAsync();
+                await new MessageDialog2("Error drawing barrier:\n" + ex.Message, "Sample error").ShowAsync();
             }
         }
 
@@ -167,7 +167,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceArea
             // Check that there is at least 1 facility to find a service area for.
             if (!serviceAreaFacilities.Any())
             {
-                await new MessageDialog("Must have at least one Facility!", "Sample error").ShowAsync();
+                await new MessageDialog2("Must have at least one Facility!", "Sample error").ShowAsync();
                 return;
             }
 
@@ -242,11 +242,11 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceArea
             {
                 if (exception.Message.ToString().Equals("Unable to complete operation."))
                 {
-                    await new MessageDialog("Facility not within San Diego area!", "Sample error").ShowAsync();
+                    await new MessageDialog2("Facility not within San Diego area!", "Sample error").ShowAsync();
                 }
                 else
                 {
-                    await new MessageDialog("An ArcGIS web exception occurred. \n", "Sample error").ShowAsync();
+                    await new MessageDialog2("An ArcGIS web exception occurred. \n", "Sample error").ShowAsync();
                 }
             }
         }

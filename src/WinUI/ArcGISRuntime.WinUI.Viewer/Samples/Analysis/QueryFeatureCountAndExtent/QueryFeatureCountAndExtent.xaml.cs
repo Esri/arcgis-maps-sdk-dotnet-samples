@@ -40,7 +40,7 @@ namespace ArcGISRuntime.WinUI.Samples.QueryFeatureCountAndExtent
         private async void Initialize()
         {
             // Create the map with a basemap.
-            Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
+            Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the feature table from the service URL.
             _featureTable = new ServiceFeatureTable(_medicareHospitalSpendLayer);
@@ -64,7 +64,7 @@ namespace ArcGISRuntime.WinUI.Samples.QueryFeatureCountAndExtent
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.WinUI.Samples.QueryFeatureCountAndExtent
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -124,7 +124,7 @@ namespace ArcGISRuntime.WinUI.Samples.QueryFeatureCountAndExtent
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
     }

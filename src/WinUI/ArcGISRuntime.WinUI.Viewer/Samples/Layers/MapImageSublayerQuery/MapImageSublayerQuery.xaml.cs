@@ -73,7 +73,7 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageSublayerQuery
             double populationNumber = 0.0;
             if (!double.TryParse(PopulationTextBox.Text.Trim(), out populationNumber))
             {
-                MessageDialog dialog = new MessageDialog("The population value must be numeric.", "Query error");
+                var dialog = new MessageDialog2("The population value must be numeric.", "Query error");
                 await dialog.ShowAsync();
 
                 return;
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageSublayerQuery
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
     }

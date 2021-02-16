@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
                 // Don't attempt to save if the OAuth settings weren't provided
                 if(String.IsNullOrEmpty(_appClientId) || String.IsNullOrEmpty(_oAuthRedirectUrl))
                 {
-                    MessageDialog dialog = new MessageDialog("OAuth settings were not provided.", "Cannot Save");
+                    var dialog = new MessageDialog2("OAuth settings were not provided.", "Cannot Save");
                     await dialog.ShowAsync();
                     return;
                 }
@@ -133,7 +133,7 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
                     await SaveNewMapAsync(MyMapView.Map, title, description, tagText.Split(','), thumbnailImg);
 
                     // Report a successful save
-                    MessageDialog messageDialog = new MessageDialog("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
+                    var messageDialog = new MessageDialog2("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
                     await messageDialog.ShowAsync();
                 }
                 else
@@ -149,14 +149,14 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    MessageDialog messageDialog = new MessageDialog("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");
+                    var messageDialog = new MessageDialog2("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");
                     await messageDialog.ShowAsync();
                 }
             }
             catch (Exception ex)
             {
                 // Report error message
-                MessageDialog messageDialog = new MessageDialog("Error saving map to ArcGIS Online: " + ex.Message);
+                var messageDialog = new MessageDialog2("Error saving map to ArcGIS Online: " + ex.Message);
                 await messageDialog.ShowAsync();
             }
             finally

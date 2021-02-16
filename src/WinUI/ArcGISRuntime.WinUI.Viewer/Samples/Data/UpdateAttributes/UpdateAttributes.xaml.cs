@@ -68,10 +68,10 @@ namespace ArcGISRuntime.WinUI.Samples.UpdateAttributes
             MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
 
-        private async void DamageTable_Loaded(object sender, EventArgs e)
+        private void DamageTable_Loaded(object sender, EventArgs e)
         {
             // This code needs to work with the UI, so it needs to run on the UI thread.
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Get the relevant field from the table.
                 ServiceFeatureTable table = (ServiceFeatureTable) sender;
@@ -119,7 +119,7 @@ namespace ArcGISRuntime.WinUI.Samples.UpdateAttributes
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error selecting feature.").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error selecting feature.").ShowAsync();
             }
         }
 
@@ -163,11 +163,11 @@ namespace ArcGISRuntime.WinUI.Samples.UpdateAttributes
                 ServiceFeatureTable table = (ServiceFeatureTable) _selectedFeature.FeatureTable;
                 await table.ApplyEditsAsync();
 
-                await new MessageDialog($"Edited feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
+                await new MessageDialog2($"Edited feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Failed to edit feature.").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Failed to edit feature.").ShowAsync();
             }
             finally
             {

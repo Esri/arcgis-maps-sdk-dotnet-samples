@@ -80,7 +80,7 @@ namespace ArcGISRuntime.WinUI.Samples.ChooseCameraController
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                await new MessageDialog("Loading plane model failed. Sample failed to initialize.", "Sample error").ShowAsync();
+                await new MessageDialog2("Loading plane model failed. Sample failed to initialize.", "Sample error").ShowAsync();
                 return;
             }
 

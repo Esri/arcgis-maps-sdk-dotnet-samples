@@ -42,20 +42,6 @@ namespace ArcGISRuntime.WinUI.Viewer
             // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
 
-            // Get current view that provides access to the back button.
-            _currentView = SystemNavigationManager.GetForCurrentView();
-            _currentView.BackRequested += OnFrameNavigationRequested;
-
-            // Set the preffered minimum size of the window.
-            Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().SetPreferredMinSize(
-                new Windows.Foundation.Size(650, 650));
-
-            // Use required cache mode so we create only one page.
-            NavigationCacheMode = Navigation.NavigationCacheMode.Required;
-
-            // Get current view that provides access to the back button.
-            _currentView = SystemNavigationManager.GetForCurrentView();
-
             Initialize();
 
             LoadTreeView(SampleManager.Current.FullTree);
@@ -166,7 +152,7 @@ namespace ArcGISRuntime.WinUI.Viewer
                 SamplePageContainer.Visibility = Visibility.Collapsed;
                 SampleSelectionGrid.Visibility = Visibility.Visible;
                 CategoriesTree.SelectionMode = muxc.TreeViewSelectionMode.None;
-                await new MessageDialog(exception.Message).ShowAsync();
+                await new MessageDialog2(exception.Message).ShowAsync();
                 CategoriesTree.SelectionMode = muxc.TreeViewSelectionMode.Single;
             }
         }

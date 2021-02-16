@@ -54,7 +54,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
             MyMapView.Map = myMap;
 
             // Fill the combo box with choices for the sketch modes (shapes)
-            SketchModeComboBox.ItemsSource = System.Enum.GetValues(typeof(SketchCreationMode));
+            SketchModeComboBox.ItemsSource = System.Enum.GetValues(typeof(SketchCreationMode)).OfType<SketchCreationMode>().Select(e => e.ToString());
             SketchModeComboBox.SelectedIndex = 0;
 
             // Set the sketch editor as the page's data context
@@ -141,7 +141,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
                 DrawToolsFlyout.Hide();
 
                 // Let the user draw on the map view using the chosen sketch mode
-                SketchCreationMode creationMode = (SketchCreationMode)SketchModeComboBox.SelectedItem;
+                SketchCreationMode creationMode = Enum.Parse<SketchCreationMode>(SketchModeComboBox.SelectedItem as string);
                 Esri.ArcGISRuntime.Geometry.Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Create and add a graphic from the geometry the user drew
@@ -159,7 +159,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                MessageDialog dialog = new MessageDialog("Error drawing graphic shape: " + ex.Message);
+                var dialog = new MessageDialog2("Error drawing graphic shape: " + ex.Message);
                 await dialog.ShowAsync();
             }
         }
@@ -204,7 +204,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                MessageDialog dialog = new MessageDialog("Error editing shape: " + ex.Message);
+                var dialog = new MessageDialog2("Error editing shape: " + ex.Message);
                 await dialog.ShowAsync();
             }
         }

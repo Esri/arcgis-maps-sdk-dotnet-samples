@@ -91,7 +91,7 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerMapImageLayer
                 var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
                 var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
 
-                var dlg = new MessageDialog($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
+                var dlg = new MessageDialog2($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
                 _ = dlg.ShowAsync();
             }
         }

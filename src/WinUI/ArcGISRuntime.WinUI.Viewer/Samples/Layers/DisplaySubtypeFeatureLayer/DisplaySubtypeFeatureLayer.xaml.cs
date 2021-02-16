@@ -90,7 +90,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
         }
 

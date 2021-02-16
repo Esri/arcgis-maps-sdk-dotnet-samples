@@ -90,7 +90,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -117,7 +117,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
                 // Stop if there are no suggestions.
                 if (!geocodeResults.Any())
                 {
-                    await new MessageDialog("No results found.").ShowAsync();
+                    await new MessageDialog2("No results found.").ShowAsync();
                     return;
                 }
 
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
                 // Skip if there are no results.
                 if (!addresses.Any())
                 {
-                    await new MessageDialog("No results found.", "No results").ShowAsync();
+                    await new MessageDialog2("No results found.", "No results").ShowAsync();
                     return;
                 }
 
@@ -141,7 +141,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -178,7 +178,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
 

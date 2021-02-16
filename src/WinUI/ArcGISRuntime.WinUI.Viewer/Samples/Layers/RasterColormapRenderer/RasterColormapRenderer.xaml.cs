@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterColormapRenderer
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                await new MessageDialog(e.Message, "Sample error").ShowAsync();
+                await new MessageDialog2(e.Message, "Sample error").ShowAsync();
             }
         }
     }

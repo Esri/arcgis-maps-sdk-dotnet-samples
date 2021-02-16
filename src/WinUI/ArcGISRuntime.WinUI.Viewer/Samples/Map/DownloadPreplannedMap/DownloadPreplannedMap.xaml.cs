@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
             {
                 // Something unexpected happened, show the error message.
                 Debug.WriteLine(ex);
-                await new MessageDialog(ex.Message, "There was an error.").ShowAsync();
+                await new MessageDialog2(ex.Message, "There was an error.").ShowAsync();
             }
         }
 
@@ -145,7 +145,7 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    await new MessageDialog(e.Message, "Couldn't open offline area. Proceeding to take area offline.").ShowAsync();
+                    await new MessageDialog2(e.Message, "Couldn't open offline area. Proceeding to take area offline.").ShowAsync();
                 }
             }
 
@@ -186,7 +186,7 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
                     }
 
                     // Show the message.
-                    await new MessageDialog(errors, "Warning!").ShowAsync();
+                    await new MessageDialog2(errors, "Warning!").ShowAsync();
                 }
 
                 // Show the downloaded map.
@@ -201,7 +201,7 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
             {
                 // Report any errors.
                 Debug.WriteLine(ex);
-                await new MessageDialog(ex.Message, "Downloading map area failed.").ShowAsync();
+                await new MessageDialog2(ex.Message, "Downloading map area failed.").ShowAsync();
             }
             finally
             {
@@ -210,11 +210,11 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
             }
         }
 
-        private async void OnJobProgressChanged(object sender, EventArgs e)
+        private void OnJobProgressChanged(object sender, EventArgs e)
         {
             // Because the event is raised on a background thread, the dispatcher must be used to
             // ensure that UI updates happen on the UI thread.
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Update the UI with the progress.
                 DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;
@@ -259,7 +259,7 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
             catch (Exception ex)
             {
                 // Report the error.
-                await new MessageDialog(ex.Message, "Deleting map areas failed.").ShowAsync();
+                await new MessageDialog2(ex.Message, "Deleting map areas failed.").ShowAsync();
             }
             finally
             {

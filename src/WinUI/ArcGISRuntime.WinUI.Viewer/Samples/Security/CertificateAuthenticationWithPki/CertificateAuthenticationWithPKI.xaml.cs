@@ -115,28 +115,28 @@ namespace ArcGISRuntime.WinUI.Samples.CertificateAuthenticationWithPKI
             }
             catch (UriFormatException)
             {
-                await new MessageDialog("Couldn't authenticate. Enter a valid URL first.").ShowAsync();
+                await new MessageDialog2("Couldn't authenticate. Enter a valid URL first.").ShowAsync();
             }
             catch (HttpRequestException ex)
             {
                 if (ex.Message.Contains("404"))
                 {
-                    await new MessageDialog("404: Not Found").ShowAsync();
+                    await new MessageDialog2("404: Not Found").ShowAsync();
                 }
                 else if (ex.Message.Contains("403"))
                 {
-                    await new MessageDialog("403: Not authorized; did you use the right certificate?").ShowAsync();
+                    await new MessageDialog2("403: Not authorized; did you use the right certificate?").ShowAsync();
                 }
                 else
                 {
                     System.Diagnostics.Debug.WriteLine(ex);
-                    await new MessageDialog("Couldn't authenticate. See debug output for details").ShowAsync();
+                    await new MessageDialog2("Couldn't authenticate. See debug output for details").ShowAsync();
                 }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex);
-                await new MessageDialog("Error authenticating; see debug output for details.").ShowAsync();
+                await new MessageDialog2("Error authenticating; see debug output for details.").ShowAsync();
             }
         }
     }

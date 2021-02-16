@@ -51,14 +51,14 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayKmlNetworkLinks
             MySceneView.SetViewpoint(new Viewpoint(new MapPoint(8.150526, 50.472421, SpatialReferences.Wgs84), 20000000));
         }
 
-        private async void Dataset_NetworkLinkControlMessage(object sender, KmlNetworkLinkControlMessageEventArgs e)
+        private void Dataset_NetworkLinkControlMessage(object sender, KmlNetworkLinkControlMessageEventArgs e)
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
             // The dispatcher takes an Action, provided here as a lambda function.
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
-                await new MessageDialog(e.Message, "KML layer message").ShowAsync();
+                _ = new MessageDialog2(e.Message, "KML layer message").ShowAsync();
             });
         }
     }

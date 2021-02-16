@@ -65,7 +65,7 @@ namespace ArcGISRuntime.WinUI.Samples.ReverseGeocode
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error configuring geocoder").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error configuring geocoder").ShowAsync();
             }
 
             // Set the initial viewpoint.
@@ -110,7 +110,7 @@ namespace ArcGISRuntime.WinUI.Samples.ReverseGeocode
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await new MessageDialog("No results found.", "No results").ShowAsync();
+                await new MessageDialog2("No results found.", "No results").ShowAsync();
             }
         }
 

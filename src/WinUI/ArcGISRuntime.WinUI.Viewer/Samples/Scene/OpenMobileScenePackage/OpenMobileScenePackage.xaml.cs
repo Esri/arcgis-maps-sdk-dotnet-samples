@@ -49,7 +49,7 @@ namespace ArcGISRuntime.WinUI.Samples.OpenMobileScenePackage
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.Message, "Couldn't open scene").ShowAsync();
+                await new MessageDialog2(e.Message, "Couldn't open scene").ShowAsync();
                 Debug.WriteLine(e);
             }
         }

@@ -121,7 +121,7 @@ namespace ArcGISRuntime.WinUI.Samples.Buffer
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating the buffers.
-                await new MessageDialog(ex.Message, "Error creating buffers").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error creating buffers").ShowAsync();
             }
         }
 

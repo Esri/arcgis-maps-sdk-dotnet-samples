@@ -84,7 +84,7 @@ namespace ArcGISRuntime.WinUI.Samples.PlayKmlTours
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 

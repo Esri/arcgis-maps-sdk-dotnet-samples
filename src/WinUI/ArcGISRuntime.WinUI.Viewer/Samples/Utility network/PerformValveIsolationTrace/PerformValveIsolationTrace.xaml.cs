@@ -106,7 +106,7 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
@@ -157,7 +157,7 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {

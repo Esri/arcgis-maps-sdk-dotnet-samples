@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -93,7 +93,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
             if (myToDate <= myFromDate.AddDays(1))
             {
                 // Show error message
-                MessageDialog message = new MessageDialog("Please select valid time range. There has to be at least one day in between To and From dates.", 
+                var message = new MessageDialog2("Please select valid time range. There has to be at least one day in between To and From dates.", 
                     "Invalid date range");
                 await message.ShowAsync();
 
@@ -137,12 +137,12 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
                 // Display error messages if the geoprocessing task fails
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                 {
-                    MessageDialog message = new MessageDialog("Executing geoprocessing failed. " + _hotspotJob.Error.Message, "Geoprocessing error");
+                    var message = new MessageDialog2("Executing geoprocessing failed. " + _hotspotJob.Error.Message, "Geoprocessing error");
                     await message.ShowAsync();
                 }
                 else
                 {
-                    MessageDialog message = new MessageDialog("An error occurred. " + ex.ToString(), "Sample error");
+                    var message = new MessageDialog2("An error occurred. " + ex.ToString(), "Sample error");
                     await message.ShowAsync();
                 }
             }

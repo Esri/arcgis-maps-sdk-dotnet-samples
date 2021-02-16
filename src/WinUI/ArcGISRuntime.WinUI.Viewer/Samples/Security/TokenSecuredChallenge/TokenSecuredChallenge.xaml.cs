@@ -19,6 +19,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
+using Microsoft.System;
 
 namespace ArcGISRuntime.WinUI.Samples.TokenSecuredChallenge
 {
@@ -92,7 +93,8 @@ namespace ArcGISRuntime.WinUI.Samples.TokenSecuredChallenge
             else
             {
                 // Use the dispatcher to invoke the challenge UI.
-                await this.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+                this.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, async () =>
                 {
                     try
                     {
@@ -102,7 +104,9 @@ namespace ArcGISRuntime.WinUI.Samples.TokenSecuredChallenge
                     {
                         // Login was canceled or unsuccessful, dialog will close.
                     }
+                    tcs.SetResult(null);
                 });
+                await tcs.Task;
             }
 
             // Use the task completion source to return the results.

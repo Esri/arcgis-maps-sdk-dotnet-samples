@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnimateImageOverlay
             // This sample is only supported in x64 on UWP.
             if (!Environment.Is64BitProcess)
             {
-                await new MessageDialog("This sample is only supported for UWP in x64. Run the sample viewer in x64 to use this sample.", "Error").ShowAsync();
+                await new MessageDialog2("This sample is only supported for UWP in x64. Run the sample viewer in x64 to use this sample.", "Error").ShowAsync();
                 return;
             }
 

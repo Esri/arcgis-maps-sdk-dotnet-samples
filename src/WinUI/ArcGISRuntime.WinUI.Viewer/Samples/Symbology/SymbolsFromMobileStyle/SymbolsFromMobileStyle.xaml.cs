@@ -147,7 +147,7 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolsFromMobileStyle
             catch (Exception ex)
             {
                 // Report the exception.
-                MessageDialog dialog = new MessageDialog("Error reading symbols from style: " + ex.Message);
+                var dialog = new MessageDialog2("Error reading symbols from style: " + ex.Message);
                 await dialog.ShowAsync();
             }
         }
@@ -224,7 +224,7 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolsFromMobileStyle
             catch (Exception ex)
             {
                 // Report the exception.
-                MessageDialog dialog = new MessageDialog("Error creating the symbol: " + ex.Message);
+                var dialog = new MessageDialog2("Error creating the symbol: " + ex.Message);
                 await dialog.ShowAsync();
             }
 

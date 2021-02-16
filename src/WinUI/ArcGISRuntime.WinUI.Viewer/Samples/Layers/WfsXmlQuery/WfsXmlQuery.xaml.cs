@@ -86,7 +86,7 @@ namespace ArcGISRuntime.WinUI.Samples.WfsXmlQuery
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                await new MessageDialog(e.ToString(), "Couldn't populate table with XML query.").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Couldn't populate table with XML query.").ShowAsync();
             }
         }
     }

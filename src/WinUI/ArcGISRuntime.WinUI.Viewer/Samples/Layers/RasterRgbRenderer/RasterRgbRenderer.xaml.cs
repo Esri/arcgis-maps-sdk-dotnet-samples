@@ -106,7 +106,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRgbRenderer
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 

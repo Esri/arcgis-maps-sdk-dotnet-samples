@@ -150,7 +150,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
             }
             catch (ArgumentException)
             {
-                await new MessageDialog("Unsupported Geometry", "Error").ShowAsync();
+                await new MessageDialog2("Unsupported Geometry", "Error").ShowAsync();
             }
             finally
             {
@@ -235,11 +235,11 @@ namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
                         // Write the KML document to the stream of the file.
                         await _kmlDocument.WriteToAsync(stream);
                     }
-                    await new MessageDialog("Item saved.").ShowAsync();
+                    await new MessageDialog2("Item saved.").ShowAsync();
                 }
                 catch
                 {
-                    await new MessageDialog("File not saved.").ShowAsync();
+                    await new MessageDialog2("File not saved.").ShowAsync();
                 }
             }
         }

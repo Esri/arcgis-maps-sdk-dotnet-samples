@@ -121,7 +121,7 @@ namespace ArcGISRuntime.WinUI.Samples.GetElevationAtPoint
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
-                await new MessageDialog(ex.Message, "Sample error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Sample error").ShowAsync();
             }
             finally
             {

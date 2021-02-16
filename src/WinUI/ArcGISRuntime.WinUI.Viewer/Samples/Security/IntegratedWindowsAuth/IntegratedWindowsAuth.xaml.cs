@@ -87,7 +87,7 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
                 // Make sure a portal URL has been entered in the text box.
                 if (string.IsNullOrEmpty(securedPortalUrl))
                 {
-                    MessageDialog dialog = new MessageDialog("Please enter the URL of the secured portal.", "Missing URL");
+                    var dialog = new MessageDialog2("Please enter the URL of the secured portal.", "Missing URL");
                     await dialog.ShowAsync();
                     return;
                 }
@@ -168,7 +168,7 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
             // Get a web map from the selected portal item and display it in the map view.
             if (MapItemListBox.SelectedItem == null)
             {
-                MessageDialog dialog = new MessageDialog("No web map item is selected.");
+                var dialog = new MessageDialog2("No web map item is selected.");
                 await dialog.ShowAsync();
                 return;
             }

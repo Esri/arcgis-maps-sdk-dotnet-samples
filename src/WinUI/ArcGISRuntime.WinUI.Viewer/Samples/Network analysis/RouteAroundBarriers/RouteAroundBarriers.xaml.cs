@@ -354,7 +354,7 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
 
         private async void ShowMessage(string title, string detail)
         {
-            await new MessageDialog(detail, title).ShowAsync();
+            await new MessageDialog2(detail, title).ShowAsync();
         }
     }
 }

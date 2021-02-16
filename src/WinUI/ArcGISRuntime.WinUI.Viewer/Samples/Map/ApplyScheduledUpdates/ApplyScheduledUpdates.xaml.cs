@@ -93,7 +93,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -123,7 +123,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -167,7 +167,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
                         }
                         else
                         {
-                            await new MessageDialog("Failed to load the mobile map package.", "Error").ShowAsync();
+                            await new MessageDialog2("Failed to load the mobile map package.", "Error").ShowAsync();
                         }
                     }
 
@@ -176,12 +176,12 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
                 }
                 else
                 {
-                    await new MessageDialog("Error syncing the offline map.", "Error").ShowAsync();
+                    await new MessageDialog2("Error syncing the offline map.", "Error").ShowAsync();
                 }
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
     }

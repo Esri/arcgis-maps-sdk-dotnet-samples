@@ -123,13 +123,13 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerQuery
                 }
                 else
                 {
-                    MessageDialog message = new MessageDialog("State Not Found!", "Add a valid state name.");
+                    var message = new MessageDialog2("State Not Found!", "Add a valid state name.");
                     await message.ShowAsync();
                 }
             }
             catch (Exception ex)
             {
-                MessageDialog message = new MessageDialog("Sample error: " + ex, "An error occurred");
+                var message = new MessageDialog2("Sample error: " + ex, "An error occurred");
                 await message.ShowAsync();
             }
         }

@@ -9,7 +9,7 @@
 
 using System;
 using System.Diagnostics;
-using Windows.UI.Core;
+using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 using Esri.ArcGISRuntime;
@@ -52,7 +52,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            Scene myScene = new Scene(Basemap.CreateImagery())
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard)
             {
                 BaseSurface = sceneSurface
             };
@@ -70,12 +70,12 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
-
+            
             // Keep the UI updated.
             _distanceMeasurement.MeasurementChanged += async (o, e) =>
             {
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
-                await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
                 {
                     // Update the labels with new values in the format {value} {unit system}.
                     DirectMeasureTextBlock.Text = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";
@@ -83,21 +83,21 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
                     HorizontalMeasureTextBlock.Text = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
                 });
             };
-
+            
             // Configure the unit system selection box.
-            UnitSystemCombo.ItemsSource = Enum.GetValues(typeof(UnitSystem));
+            UnitSystemCombo.ItemsSource = Enum.GetValues(typeof(UnitSystem)).OfType<UnitSystem>().Select(e => e.ToString());
             UnitSystemCombo.SelectedItem = _distanceMeasurement.UnitSystem;
 
             // Update the unit system selection.
             UnitSystemCombo.SelectionChanged += (sender, args) =>
             {
-                _distanceMeasurement.UnitSystem = (UnitSystem) UnitSystemCombo.SelectedItem;
+                _distanceMeasurement.UnitSystem = Enum.Parse<UnitSystem>(UnitSystemCombo.SelectedItem as string);
             };
-
+            
             // Show the scene in the view.
             MySceneView.Scene = myScene;
             MySceneView.SetViewpointCamera(new Camera(start, 200, 0, 45, 0));
-
+            
             // Enable the 'New measurement' button.
             NewMeasureButton.IsEnabled = true;
         }

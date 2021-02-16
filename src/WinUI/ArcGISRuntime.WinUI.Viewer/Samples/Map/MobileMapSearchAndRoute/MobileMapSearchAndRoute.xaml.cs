@@ -113,7 +113,7 @@ namespace ArcGISRuntime.WinUI.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                await new MessageDialog("Couldn't geocode or route.", "Error").ShowAsync();
+                await new MessageDialog2("Couldn't geocode or route.", "Error").ShowAsync();
             }
         }
 
@@ -210,7 +210,7 @@ namespace ArcGISRuntime.WinUI.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                await new MessageDialog(exception.ToString(), "Couldn't select map").ShowAsync();
+                await new MessageDialog2(exception.ToString(), "Couldn't select map").ShowAsync();
             }
         }
 

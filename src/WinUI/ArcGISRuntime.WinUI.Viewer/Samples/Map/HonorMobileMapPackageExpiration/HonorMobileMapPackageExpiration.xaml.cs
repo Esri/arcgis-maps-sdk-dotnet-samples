@@ -66,7 +66,7 @@ namespace ArcGISRuntime.WinUI.Samples.HonorMobileMapPackageExpiration
                     }
                     else if (expiration.Type == ExpirationType.PreventExpiredAccess)
                     {
-                        await new MessageDialog("The author of this mobile map package has disallowed access after the expiration date.", "Error").ShowAsync();
+                        await new MessageDialog2("The author of this mobile map package has disallowed access after the expiration date.", "Error").ShowAsync();
                     }
                 }
                 else if (mobileMapPackage.Maps.Any())
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.WinUI.Samples.HonorMobileMapPackageExpiration
                 }
                 else
                 {
-                    await new MessageDialog("Failed to load the mobile map package.", "Error").ShowAsync();
+                    await new MessageDialog2("Failed to load the mobile map package.", "Error").ShowAsync();
                 }
             }
             catch (Exception e)

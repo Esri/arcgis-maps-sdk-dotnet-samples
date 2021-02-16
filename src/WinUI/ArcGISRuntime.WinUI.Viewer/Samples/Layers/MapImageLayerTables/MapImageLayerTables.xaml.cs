@@ -87,7 +87,7 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageLayerTables
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageLayerTables
                 ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
                 if (serviceRequestFeature == null)
                 {
-                    MessageDialog message = new MessageDialog("Related feature not found.", "No Feature");
+                    var message = new MessageDialog2("Related feature not found.", "No Feature");
                     await message.ShowAsync();
 
                     return;
@@ -152,7 +152,7 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageLayerTables
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
     }

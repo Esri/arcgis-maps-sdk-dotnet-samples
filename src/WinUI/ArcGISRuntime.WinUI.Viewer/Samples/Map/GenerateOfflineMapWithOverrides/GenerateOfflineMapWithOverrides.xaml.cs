@@ -117,7 +117,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMapWithOverrides
             }
             catch (Exception ex)
             {
-                MessageDialog dialog = new MessageDialog(ex.ToString(), "Error loading map");
+                var dialog = new MessageDialog2(ex.ToString(), "Error loading map");
                 await dialog.ShowAsync();
             }
         }
@@ -172,7 +172,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMapWithOverrides
                 // Check for job failure (writing the output was denied, e.g.).
                 if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                 {
-                    MessageDialog dialog = new MessageDialog("Generate offline map package failed.", "Job status");
+                    var dialog = new MessageDialog2("Generate offline map package failed.", "Job status");
                     await dialog.ShowAsync();
                     BusyIndicator.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
                 }
@@ -189,7 +189,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMapWithOverrides
 
                     // Show layer errors.
                     string errorText = errorBuilder.ToString();
-                    MessageDialog dialog = new MessageDialog(errorText, "Layer errors");
+                    var dialog = new MessageDialog2(errorText, "Layer errors");
                     await dialog.ShowAsync();
                 }
 
@@ -211,13 +211,13 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMapWithOverrides
             catch (TaskCanceledException)
             {
                 // Generate offline map task was canceled.
-                MessageDialog dialog = new MessageDialog("Taking map offline was canceled");
+                var dialog = new MessageDialog2("Taking map offline was canceled");
                 await dialog.ShowAsync();
             }
             catch (Exception ex)
             {
                 // Exception while taking the map offline.
-                MessageDialog dialog = new MessageDialog(ex.Message, "Offline map error");
+                var dialog = new MessageDialog2(ex.Message, "Offline map error");
                 await dialog.ShowAsync();
             }
             finally
@@ -362,13 +362,13 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMapWithOverrides
         #endregion overrides
 
         // Show changes in job progress.
-        private async void OfflineMapJob_ProgressChanged(object sender, EventArgs e)
+        private void OfflineMapJob_ProgressChanged(object sender, EventArgs e)
         {
             // Get the job.
             GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
 
             // Dispatch to the UI thread.
-            await Dispatcher.RunAsync( Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Show the percent complete and update the progress bar.
                 Percentage.Text = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;

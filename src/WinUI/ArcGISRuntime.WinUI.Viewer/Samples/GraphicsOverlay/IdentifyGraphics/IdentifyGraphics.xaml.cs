@@ -102,12 +102,12 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyGraphics
                 if (identifyResults.Graphics.Count > 0)
                 { 
                     //  Display to the user the identify worked.
-                    await new MessageDialog("Tapped on graphic", "").ShowAsync();
+                    await new MessageDialog2("Tapped on graphic", "").ShowAsync();
                 }
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
     }

@@ -48,7 +48,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
 
         // Speech synthesizer to play voice guidance audio.
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
-        private MediaElement _mediaElement = new MediaElement();
+        // private MediaElement _mediaElement = new MediaElement();
 
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
@@ -132,7 +132,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.Message, "Error").ShowAsync();
+                await new MessageDialog2(e.Message, "Error").ShowAsync();
             }
         }
 
@@ -235,7 +235,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
                 statusMessageBuilder.AppendLine("Off route!");
             }
 
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Show the status information in the UI.
                 MessagesTextBlock.Text = statusMessageBuilder.ToString();
@@ -247,11 +247,11 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             // Generate the audio stream for the voice guidance.
             SpeechSynthesisStream stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);
 
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
             {
                 // Play the audio stream.
-                _mediaElement.SetSource(stream, stream.ContentType);
-                _mediaElement.Play();
+                // _mediaElement.SetSource(stream, stream.ContentType);
+                // _mediaElement.Play();
             });
         }
 
@@ -270,7 +270,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
         private void SampleUnloaded(object sender, RoutedEventArgs e)
         {
             // Stop the speech synthesizer.
-            _mediaElement.Stop();
+            //_mediaElement.Stop();
             _speechSynthesizer.Dispose();
 
             // Stop the tracker.

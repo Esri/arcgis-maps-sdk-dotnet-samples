@@ -68,14 +68,14 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
                 OrderByFieldsListBox.ItemsSource = _orderByFields;
 
                 // Fill the statistics type combo with values from the StatisticType enum
-                StatTypeComboBox.ItemsSource = Enum.GetValues(typeof(StatisticType));
+                StatTypeComboBox.ItemsSource = Enum.GetValues(typeof(StatisticType)).OfType<StatisticType>().Select(e => e.ToString());
 
                 // Set the (initially empty) collection of statistic definitions as the statistics list box data source
                 StatFieldsListBox.ItemsSource = _statDefinitions;
             }
             catch (Exception e)
             {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
         }
 
@@ -120,14 +120,14 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
         
         // Helper function to show a message
         private async void ShowMessage(string message, string title)
         {
-            MessageDialog messageDialog = new MessageDialog(message, title);
+            var messageDialog = new MessageDialog2(message, title);
             await messageDialog.ShowAsync();
         }
 
@@ -179,7 +179,7 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
 
             // Get the chosen field name and statistic type from the combo boxes
             string fieldName = FieldsComboBox.SelectedValue.ToString();
-            StatisticType statType = (StatisticType)StatTypeComboBox.SelectedValue;
+            StatisticType statType = Enum.Parse<StatisticType>(StatTypeComboBox.SelectedValue as string);
 
             // Check if this statistic definition has already be created (same field name and statistic type)
             StatisticDefinition existingStatDefinition = _statDefinitions.FirstOrDefault(def => def.OnFieldName == fieldName && def.StatisticType == statType);

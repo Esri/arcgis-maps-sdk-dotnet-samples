@@ -76,7 +76,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseWfsLayers
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await new MessageDialog(ex.Message, "Error loading service").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error loading service").ShowAsync();
             }
             finally
             {
@@ -141,7 +141,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseWfsLayers
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await new MessageDialog(ex.ToString(), "Failed to load layer.").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Failed to load layer.").ShowAsync();
             }
             finally
             {

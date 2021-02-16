@@ -65,7 +65,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureLinkedAnnotation
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -120,7 +120,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureLinkedAnnotation
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -183,7 +183,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureLinkedAnnotation
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
             finally
             {

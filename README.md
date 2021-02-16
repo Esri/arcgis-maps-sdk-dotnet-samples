@@ -11,6 +11,7 @@ See each platform's TOC:
 * [Xamarin.Android](src/Android)
 * [Xamarin.iOS](src/iOS)
 * [Xamarin.Forms](src/Forms)
+* [WinUI](src/WinUI) (Preview)
 
 ## Instructions
 
@@ -28,7 +29,8 @@ See each platform's TOC:
     * Xamarin.Android: `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`  
     * Xamarin.iOS: `src\iOS\ArcGISRuntime.Xamari.Samples.iOS.sln`  
     * Xamarin.Forms: `src\Windows\ArcGISRuntime.Xamarin.Samples.Forms.sln`  
-  
+    * WinUI: `\src\WinUI\ArcGISRuntime.WinUI.Viewer.sln` (Preview)
+    
     or
   
     * All: `src\ArcGISRuntime.Viewers.All.sln`

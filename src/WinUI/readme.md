@@ -4,9 +4,6 @@ ArcGIS Runtime sample viewer for WinUI is a preview intended for evaluation purp
 - [ArcGIS Runtime SDK for .NET - WinUI Preview 1 `Esri.ArcGISRuntime.WinUI.100.10.0-preview1`](https://community.esri.com/t5/arcgis-runtime-sdks-blog/announcing-arcgis-runtime-sdk-for-net-100-10/ba-p/1019490#toc-hId-1734174535)
 - [Windows UI Library 3 Preview 3 `Microsoft.WinUI.3.0.0-preview3.201113.0`](https://docs.microsoft.com/en-us/windows/apps/winui/winui3/).
 
-### Known Issues
-- When switching between samples, the previous sample will show. Use the upper-right tab-control to switch to description and back to update the view. See issue https://github.com/microsoft/microsoft-ui-xaml/issues/2942
-
 # Table of contents
 
 ## Analysis

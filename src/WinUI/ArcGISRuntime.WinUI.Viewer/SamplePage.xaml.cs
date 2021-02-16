@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,8 +14,6 @@ using Windows.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
-using ArcGISRuntime.WinUI.Viewer;
-using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
@@ -36,7 +34,7 @@ namespace ArcGISRuntime.WinUI.Viewer
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
 
             // Change UI elements to be dark.
-            if (App.Current.RequestedTheme == ApplicationTheme.Dark)
+            if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
             {
                 DescriptionBlock.RequestedTheme = ElementTheme.Dark;
             }
@@ -58,36 +56,10 @@ namespace ArcGISRuntime.WinUI.Viewer
             DescriptionBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
             // Set the appropriate backgrounds.
-            ContentArea.RequestedTheme = SampleContainer.RequestedTheme;
-            ContentArea.Background = Tabs.Background;
             DescriptionContainer.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
 
             // Load the source code files.
             SourceCodeContainer.LoadSourceCode();
-        }
-
-        private void TabChanged(object sender, Microsoft.UI.Xaml.Controls.SelectionChangedEventArgs e)
-        {
-            switch (((TabViewItem)Tabs.SelectedItem).Header.ToString())
-            {
-                case "Live Sample":
-                    SampleGrid.Visibility = Visibility.Visible;
-                    DescriptionContainer.Visibility = Visibility.Collapsed;
-                    SourceCodeContainer.Visibility = Visibility.Collapsed;
-                    break;
-
-                case "Description":
-                    SampleGrid.Visibility = Visibility.Collapsed;
-                    DescriptionContainer.Visibility = Visibility.Visible;
-                    SourceCodeContainer.Visibility = Visibility.Collapsed;
-                    break;
-
-                case "Source Code":
-                    SampleGrid.Visibility = Visibility.Collapsed;
-                    DescriptionContainer.Visibility = Visibility.Collapsed;
-                    SourceCodeContainer.Visibility = Visibility.Visible;
-                    break;
-            }
         }
 
         private void MarkDownBlock_ImageResolving(object sender, ImageResolvingEventArgs e)
@@ -98,13 +70,11 @@ namespace ArcGISRuntime.WinUI.Viewer
 
         private void SamplePage_Loaded(object sender, RoutedEventArgs e)
         {
-            Tabs.SelectionChanged += TabChanged;
             DescriptionBlock.ImageResolving += MarkDownBlock_ImageResolving;
         }
 
         private void SamplePage_Unloaded(object sender, RoutedEventArgs e)
         {
-            Tabs.SelectionChanged -= TabChanged;
             DescriptionBlock.ImageResolving -= MarkDownBlock_ImageResolving;
         }
 

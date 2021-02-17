@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
     <Content Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
     <Content Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <Content Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
@@ -377,6 +378,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml.cs">
+      <DependentUpon>EditBranchVersioning.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml.cs">
       <DependentUpon>EditFeatureLinkedAnnotation.xaml</DependentUpon>
     </Compile>
@@ -966,6 +970,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
@@ -200,6 +201,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml.cs">
+      <DependentUpon>EditBranchVersioning.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml.cs">
       <DependentUpon>EditFeatureLinkedAnnotation.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -862,6 +867,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

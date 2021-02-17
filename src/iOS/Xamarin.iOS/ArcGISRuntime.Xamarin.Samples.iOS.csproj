@@ -278,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
     <None Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
     <None Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <None Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
@@ -470,6 +471,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.cs" />
     <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.cs" />
     <Compile Include="HTMLHelpers.cs" />
     <Compile Include="ViewControllers\ApiKeyPrompt.cs" />

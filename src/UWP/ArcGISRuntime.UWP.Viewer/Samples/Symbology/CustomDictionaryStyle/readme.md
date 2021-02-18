@@ -36,7 +36,7 @@ The data used in this sample is from a feature layer showing a subset of [restau
 
 ## Additional information
 
-For information about creating your own custom dictionary style, see the open source [dictionary renderer toolkit](https://esriurl.com/DictionaryToolkit) on *GitHub*.
+For information about creating your own custom dictionary style, see the open source [dictionary renderer toolkit](https://github.com/Esri/dictionary-renderer-toolkit) on *GitHub*.
 
 ## Tags
 

@@ -1,0 +1,30 @@
+{
+    "category": "Layers",
+    "description": "View a point scene layer from a scene service.",
+    "formal_name": "AddPointSceneLayer",
+    "ignore": false,
+    "images": [
+        "AddPointSceneLayer.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "layers",
+        "point scene layer"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/addpointscenelayer.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISSceneLayer"
+    ],
+    "snippets": [
+        "AddPointSceneLayer.xaml",
+        "AddPointSceneLayer.xaml.cs"
+    ],
+    "title": "Add a point scene layer"
+}

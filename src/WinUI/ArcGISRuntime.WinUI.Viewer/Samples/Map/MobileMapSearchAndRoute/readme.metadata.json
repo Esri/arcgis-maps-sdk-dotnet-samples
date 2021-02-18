@@ -1,0 +1,45 @@
+{
+    "category": "Map",
+    "description": "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
+    "formal_name": "MobileMapSearchAndRoute",
+    "ignore": false,
+    "images": [
+        "MobileMapSearchAndRoute.jpg"
+    ],
+    "keywords": [
+        "disconnected",
+        "field mobility",
+        "geocode",
+        "network",
+        "network analysis",
+        "offline",
+        "routing",
+        "search",
+        "transportation"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/mobilemapsearchandroute.htm"
+    ],
+    "relevant_apis": [
+        "GeocodeResult",
+        "MobileMapPackage",
+        "ReverseGeocodeParameters",
+        "Route",
+        "RouteParameters",
+        "RouteResult",
+        "RouteTask",
+        "TransportationNetworkDataset"
+    ],
+    "snippets": [
+        "ItemToImageSourceConverter.cs",
+        "MobileMapSearchAndRoute.xaml",
+        "MobileMapSearchAndRoute.xaml.cs",
+        "NullOrEmptyToVisibilityConverter.cs"
+    ],
+    "title": "Mobile map (search and route)"
+}

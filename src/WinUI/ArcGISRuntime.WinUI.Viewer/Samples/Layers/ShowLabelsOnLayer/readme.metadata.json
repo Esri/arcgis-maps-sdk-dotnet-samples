@@ -1,0 +1,37 @@
+{
+    "category": "Layers",
+    "description": "Display custom labels on a feature layer.",
+    "formal_name": "ShowLabelsOnLayer",
+    "ignore": false,
+    "images": [
+        "ShowLabelsOnLayer.jpg"
+    ],
+    "keywords": [
+        "attribute",
+        "deconfliction",
+        "label",
+        "labeling",
+        "string",
+        "symbol",
+        "text",
+        "visualization"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/showlabelsonlayer.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "LabelDefinition",
+        "TextSymbol"
+    ],
+    "snippets": [
+        "ShowLabelsOnLayer.xaml",
+        "ShowLabelsOnLayer.xaml.cs"
+    ],
+    "title": "Show labels on layers"
+}

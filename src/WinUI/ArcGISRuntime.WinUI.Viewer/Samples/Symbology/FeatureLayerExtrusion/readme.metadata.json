@@ -1,0 +1,39 @@
+{
+    "category": "Symbology",
+    "description": "Extrude features based on their attributes.",
+    "formal_name": "FeatureLayerExtrusion",
+    "ignore": false,
+    "images": [
+        "FeatureLayerExtrusion.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "extrude",
+        "extrusion",
+        "extrusion expression",
+        "height",
+        "renderer",
+        "scene"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurelayerextrusion.htm"
+    ],
+    "relevant_apis": [
+        "ExtrusionExpression",
+        "ExtrusionMode",
+        "FeatureLayer",
+        "SceneProperties",
+        "ServiceFeatureTable",
+        "SimpleRenderer"
+    ],
+    "snippets": [
+        "FeatureLayerExtrusion.xaml",
+        "FeatureLayerExtrusion.xaml.cs"
+    ],
+    "title": "Feature layer extrusion"
+}

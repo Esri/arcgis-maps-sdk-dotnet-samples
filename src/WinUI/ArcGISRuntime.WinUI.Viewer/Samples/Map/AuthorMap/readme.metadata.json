@@ -1,0 +1,39 @@
+{
+    "category": "Map",
+    "description": "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
+    "formal_name": "AuthorMap",
+    "ignore": false,
+    "images": [
+        "AuthorMap.jpg"
+    ],
+    "keywords": [
+        "ArcGIS Online",
+        "OAuth",
+        "portal",
+        "publish",
+        "share",
+        "web map"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/authormap.htm"
+    ],
+    "relevant_apis": [
+        "AuthenticationManager",
+        "ChallengeHandler",
+        "GenerateCredentialAsync",
+        "IOAuthAuthorizeHandler",
+        "Map",
+        "Map.SaveAsAsync",
+        "Portal"
+    ],
+    "snippets": [
+        "AuthorMap.xaml",
+        "AuthorMap.xaml.cs"
+    ],
+    "title": "Create and save map"
+}

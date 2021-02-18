@@ -1,0 +1,40 @@
+{
+    "category": "Data",
+    "description": "Synchronize offline edits with a feature service.",
+    "formal_name": "EditAndSyncFeatures",
+    "ignore": false,
+    "images": [
+        "EditAndSyncFeatures.jpg"
+    ],
+    "keywords": [
+        "feature service",
+        "geodatabase",
+        "offline",
+        "synchronize"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [
+        "3f1bbf0ec70b409a975f5c91f363fe7d"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/editandsyncfeatures.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureTable",
+        "GenerateGeodatabaseJob",
+        "GenerateGeodatabaseParameters",
+        "GeodatabaseSyncTask",
+        "SyncGeodatabaseJob",
+        "SyncGeodatabaseParameters",
+        "SyncLayerOption"
+    ],
+    "snippets": [
+        "EditAndSyncFeatures.xaml",
+        "EditAndSyncFeatures.xaml.cs"
+    ],
+    "title": "Edit and sync features"
+}

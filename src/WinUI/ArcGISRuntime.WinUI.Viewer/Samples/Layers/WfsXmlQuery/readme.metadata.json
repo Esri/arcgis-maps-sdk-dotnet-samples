@@ -1,0 +1,37 @@
+{
+    "category": "Layers",
+    "description": "Load a WFS feature table using an XML query.",
+    "formal_name": "WfsXmlQuery",
+    "ignore": false,
+    "images": [
+        "WfsXmlQuery.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "WFS",
+        "XML",
+        "feature",
+        "query",
+        "service",
+        "web"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/wfsxmlquery.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "WfsFeatureTable",
+        "WfsFeatureTable.AxisOrder",
+        "WfsFeatureTable.PopulateFromServiceAsync"
+    ],
+    "snippets": [
+        "WfsXmlQuery.xaml",
+        "WfsXmlQuery.xaml.cs"
+    ],
+    "title": "Load WFS with XML query"
+}

@@ -1,0 +1,32 @@
+{
+    "category": "Layers",
+    "description": "Use a hillshade renderer on a raster.",
+    "formal_name": "RasterHillshade",
+    "ignore": false,
+    "images": [
+        "RasterHillshade.jpg"
+    ],
+    "keywords": [
+        "Visualization",
+        "hillshade",
+        "raster",
+        "shadow",
+        "slope"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [
+        "134d60f50e184e8fa56365f44e5ce3fb"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/rasterhillshade.htm"
+    ],
+    "relevant_apis": [],
+    "snippets": [
+        "RasterHillshade.xaml",
+        "RasterHillshade.xaml.cs"
+    ],
+    "title": "Raster hillshade renderer"
+}

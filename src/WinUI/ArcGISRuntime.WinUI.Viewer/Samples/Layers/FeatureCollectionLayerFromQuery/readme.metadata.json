@@ -1,0 +1,38 @@
+{
+    "category": "Layers",
+    "description": "Create a feature collection layer to show a query result from a service feature table.",
+    "formal_name": "FeatureCollectionLayerFromQuery",
+    "ignore": false,
+    "images": [
+        "FeatureCollectionLayerFromQuery.jpg"
+    ],
+    "keywords": [
+        "layer",
+        "query",
+        "search",
+        "table"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurecollectionlayerfromquery.htm"
+    ],
+    "relevant_apis": [
+        "FeatureCollection",
+        "FeatureCollectionLayer",
+        "FeatureCollectionTable",
+        "FeatureLayer",
+        "FeatureQueryResult",
+        "FeatureTable",
+        "QueryParameters",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "FeatureCollectionLayerFromQuery.xaml",
+        "FeatureCollectionLayerFromQuery.xaml.cs"
+    ],
+    "title": "Feature collection layer (query)"
+}

@@ -1,0 +1,36 @@
+{
+    "category": "Analysis",
+    "description": "Perform a viewshed analysis from a defined vantage point. ",
+    "formal_name": "ViewshedLocation",
+    "ignore": false,
+    "images": [
+        "ViewshedLocation.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "frustum",
+        "scene",
+        "viewshed",
+        "visibility analysis"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/viewshedlocation.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "ArcGISSceneLayer",
+        "ArcGISTiledElevationSource",
+        "LocationViewshed",
+        "Viewshed"
+    ],
+    "snippets": [
+        "ViewshedLocation.xaml",
+        "ViewshedLocation.xaml.cs"
+    ],
+    "title": "Viewshed (location)"
+}

@@ -1,0 +1,60 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows10.0.18362.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+    <RootNamespace>ArcGISRuntime.WinUI.Viewer</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x86;x64;arm64</Platforms>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\*.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\*.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\**\*.png" />
+  </ItemGroup>
+
+  <!-- Link resource files, to include them in the output directory and application manifest. -->
+  <!-- Readmes -->
+  <ItemGroup>
+    <Content Include="Samples\**\*.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <!-- Sample Code Viewer .cs Files -->
+    <Content Include="Samples\**\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <!-- Sample Code Viewer .xaml Files -->
+    <Content Include="Samples\**\*.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\**\*.jpg" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.10.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.10.0-preview2" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.9.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="8.0.0-preview4" />
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.Markdown" Version="8.0.0-preview4" />
+    <PackageReference Include="Microsoft.VCRTForwarders.140" Version="1.0.6" />
+    <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview4.210210.4" />
+    <!--<PackageReference Include="Monaco.Editor">
+      <Version>0.8.1-alpha</Version>
+    </PackageReference>-->
+    <Manifest Include="$(ApplicationManifest)" />
+  </ItemGroup>
+
+
+  <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
+  
+</Project>

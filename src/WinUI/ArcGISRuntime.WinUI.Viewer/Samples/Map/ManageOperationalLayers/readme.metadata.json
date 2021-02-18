@@ -1,0 +1,35 @@
+{
+    "category": "Map",
+    "description": "Add, remove, and reorder operational layers in a map.",
+    "formal_name": "ManageOperationalLayers",
+    "ignore": false,
+    "images": [
+        "ManageOperationalLayers.jpg"
+    ],
+    "keywords": [
+        "add",
+        "delete",
+        "layer",
+        "map",
+        "remove"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/manageoperationallayers.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "Map",
+        "MapView",
+        "MapView.OperationalLayers"
+    ],
+    "snippets": [
+        "ManageOperationalLayers.xaml",
+        "ManageOperationalLayers.xaml.cs"
+    ],
+    "title": "Manage operational layers"
+}

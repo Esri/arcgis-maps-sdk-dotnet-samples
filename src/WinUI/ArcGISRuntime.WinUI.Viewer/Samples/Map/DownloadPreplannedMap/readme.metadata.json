@@ -1,0 +1,35 @@
+{
+    "category": "Map",
+    "description": "Take a map offline using a preplanned map area.",
+    "formal_name": "DownloadPreplannedMap",
+    "ignore": false,
+    "images": [
+        "DownloadPreplannedMap.jpg"
+    ],
+    "keywords": [
+        "map area",
+        "offline",
+        "pre-planned",
+        "preplanned"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/downloadpreplannedmap.htm"
+    ],
+    "relevant_apis": [
+        "DownloadPreplannedOfflineMapJob",
+        "DownloadPreplannedOfflineMapParameters",
+        "DownloadPreplannedOfflineMapResult",
+        "OfflineMapTask",
+        "PreplannedMapArea"
+    ],
+    "snippets": [
+        "DownloadPreplannedMap.xaml",
+        "DownloadPreplannedMap.xaml.cs"
+    ],
+    "title": "Download preplanned map area"
+}

@@ -1,0 +1,36 @@
+{
+    "category": "Layers",
+    "description": "Limit the features displayed on a map with a definition expression.",
+    "formal_name": "FeatureLayerDefinitionExpression",
+    "ignore": false,
+    "images": [
+        "FeatureLayerDefinitionExpression.jpg"
+    ],
+    "keywords": [
+        "SQL",
+        "definition expression",
+        "filter",
+        "limit data",
+        "query",
+        "restrict data",
+        "where clause"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/featurelayerdefinitionexpression.htm"
+    ],
+    "relevant_apis": [
+        "DefinitionExpression",
+        "FeatureLayer",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "FeatureLayerDefinitionExpression.xaml",
+        "FeatureLayerDefinitionExpression.xaml.cs"
+    ],
+    "title": "Feature layer definition expression"
+}

@@ -1,0 +1,29 @@
+﻿<UserControl
+    x:Class="ArcGISRuntime.WinUI.Samples.ChooseCameraController.ChooseCameraController"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:SceneView x:Name="MySceneView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel Orientation="Vertical">
+                <RadioButton x:Name="OrbitPlaneButton"
+                                 GroupName="ColorScheme"
+                                 Content="Orbit camera around plane"
+                                 Checked="Setting_Checked"
+                                 IsEnabled="False"
+                                 IsChecked="True" />
+                <RadioButton x:Name="OrbitCraterButton"
+                                 GroupName="ColorScheme"
+                                 Content="Orbit camera around crater"
+                                 Checked="Setting_Checked"
+                                 IsEnabled="False" />
+                <RadioButton x:Name="FreePanButton"
+                                 GroupName="ColorScheme"
+                                 Content="Free pan around the globe"
+                                 Checked="Setting_Checked"
+                                 IsEnabled="False" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -28,11 +28,11 @@ namespace ArcGISRuntime.WPF.Samples.ApplyMosaicRule
         // Different mosaic rules to use with the image service raster.
         private Dictionary<string, MosaicRule> _mosaicRules = new Dictionary<string, MosaicRule>
         {
-            { "None", new MosaicRule() { MosaicMethod = MosaicMethod.None} },
-            { "Northwest", new MosaicRule() { MosaicMethod = MosaicMethod.Northwest, MosaicOperation = MosaicOperation.First} },
-            { "Center", new MosaicRule() { MosaicMethod = MosaicMethod.Center, MosaicOperation = MosaicOperation.Blend} },
-            { "ByAttribute", new MosaicRule() { MosaicMethod = MosaicMethod.Attribute, SortField = "OBJECTID"} },
-            { "LockRaster", new MosaicRule() { MosaicMethod = MosaicMethod.LockRaster, LockRasterIds = { 1, 7, 12 } } },
+            { "None", new MosaicRule { MosaicMethod = MosaicMethod.None} },
+            { "Northwest", new MosaicRule { MosaicMethod = MosaicMethod.Northwest, MosaicOperation = MosaicOperation.First} },
+            { "Center", new MosaicRule { MosaicMethod = MosaicMethod.Center, MosaicOperation = MosaicOperation.Blend} },
+            { "ByAttribute", new MosaicRule { MosaicMethod = MosaicMethod.Attribute, SortField = "OBJECTID"} },
+            { "LockRaster", new MosaicRule { MosaicMethod = MosaicMethod.LockRaster, LockRasterIds = { 1, 7, 12 } } },
         };
 
         public ApplyMosaicRule()

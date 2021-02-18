@@ -5,8 +5,8 @@
     <RelativeLayout>
         <esriUI:MapView
             x:Name="MyMapView"
-            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-            Style="{StaticResource MapWithFormStyle}" />
+            Style="{StaticResource MapWithFormStyle}"
+            BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout Orientation="Vertical">
                 <Label Text="Choose a mosaic rule to apply to the image service." />

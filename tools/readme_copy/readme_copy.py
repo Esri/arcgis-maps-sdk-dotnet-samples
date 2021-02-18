@@ -36,11 +36,7 @@ def replace_readmes(category, formal_name, sample_root):
             platformcontent = copy.copy(wpfcontent)
 
             # Fix the guide doc url for the platform
-            platformcontent = platformcontent.replace("wpf/guide", str.lower(platform)+"/guide")
-            platformcontent = platformcontent.replace("wpf/sample-code/", str.lower(platform)+"/sample-code/")
-            platformcontent = platformcontent.replace("https://developers.arcgis.com/documentation/mapping-apis-and-location-services/offline-maps-scenes-and-data/", "https://developers.arcgis.com/documentation/mapping-apis-and-location-services/offline/")
-            platformcontent = platformcontent.replace("https://developers.arcgis.com/documentation/mapping-apis-and-location-services/geocode-and-search/services/geocoding-service/", "https://developers.arcgis.com/documentation/mapping-apis-and-location-services/search/services/geocoding-service/")
-            platformcontent = platformcontent.replace("https://esriurl.com/DictionaryToolkit/", "https://github.com/Esri/dictionary-renderer-toolkit")
+            #platformcontent = platformcontent.replace("oldlink", "newlink")
 
             # Change `click` to `tap` for mobile platforms
             if  not platform == "UWP" and not platform == "WinUI":

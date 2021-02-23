@@ -36,9 +36,9 @@ The [world elevation service](https://elevation3d.arcgis.com/arcgis/rest/service
 
 This sample requires a device that is compatible with ARKit.
 
-**Flyover AR** is one of three main patterns for working with geographic information in augmented reality. See the [Display scenes in augmented reality](https://developers.arcgis.com/net/latest/forms/guide/display-scenes-in-augmented-reality.htm) for more information.
+**Flyover AR** is one of three main patterns for working with geographic information in augmented reality. See the [Display scenes in augmented reality](https://developers.arcgis.com/net/scenes-3d/display-scenes-in-augmented-reality/) for more information.
 
-This sample uses the ArcGIS Runtime Toolkit. See [Display scenes in augmented reality](https://developers.arcgis.com/net/latest/forms/guide/display-scenes-in-augmented-reality.htm) in the guide to learn about the toolkit and how to add it to your app.
+This sample uses the ArcGIS Runtime Toolkit. See [Display scenes in augmented reality](https://developers.arcgis.com/net/scenes-3d/display-scenes-in-augmented-reality/) in the guide to learn about the toolkit and how to add it to your app.
 
 ## Tags
 

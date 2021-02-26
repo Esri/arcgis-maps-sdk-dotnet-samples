@@ -4,16 +4,17 @@
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
-
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Label Content="Click to select a feature, then change its damage type." FontWeight="SemiBold" />
                 <Label x:Name="CurrentVersionLabel" Content="Current version:" />
-                <Button Click="SwitchVersion" Content="Switch version" />
+                <Button
+                    x:Name="CreateVersionButton"
+                    Click="VersionButtonPressed" Content="Create version" />
             </StackPanel>
         </Border>
         <Border
-            Name="VersionPicker"
+            Name="VersionCreator"
             Style="{StaticResource BorderStyle}"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Visibility="Collapsed">
@@ -52,11 +53,11 @@
                 <Button
                     Grid.Row="3" Grid.Column="0"
                     Margin="5"
-                    Content="Create" Click="ConfirmClick"/>
+                    Click="ConfirmClick" Content="Create" />
                 <Button
                     Grid.Row="3" Grid.Column="1"
                     Margin="5"
-                    Content="Cancel" Click="CancelClick"/>
+                    Click="CancelClick" Content="Cancel" />
             </Grid>
         </Border>
         <Border
@@ -65,8 +66,15 @@
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Visibility="Collapsed">
             <StackPanel>
-                <Label Content="Edit feature attributes" />
-                <ComboBox x:Name="DamageBox" SelectionChanged="DamageBox_SelectionChanged"/>
+                <Label Margin="5" Content="Edit feature attributes:" />
+                <ComboBox
+                    x:Name="DamageBox"
+                    Margin="5"
+                    SelectionChanged="DamageBox_SelectionChanged" />
+                <Button
+                    x:Name="CloseButton"
+                    Margin="5"
+                    Click="CloseButton_Click" Content="Close" />
             </StackPanel>
         </Border>
     </Grid>

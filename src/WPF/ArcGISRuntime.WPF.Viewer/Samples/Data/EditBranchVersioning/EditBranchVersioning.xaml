@@ -63,14 +63,17 @@
         <Border
             Name="AttributePicker"
             Style="{StaticResource BorderStyle}"
-            HorizontalAlignment="Center" VerticalAlignment="Center"
+            HorizontalAlignment="Left"
             Visibility="Collapsed">
             <StackPanel>
-                <Label Margin="5" Content="Edit feature attributes:" />
-                <ComboBox
-                    x:Name="DamageBox"
-                    Margin="5"
-                    SelectionChanged="DamageBox_SelectionChanged" />
+                <Label Margin="5" Content="Click to move feature." />
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="5" Content="Damage:" />
+                    <ComboBox
+                        x:Name="DamageBox"
+                        Margin="5"
+                        SelectionChanged="DamageBox_SelectionChanged" />
+                </StackPanel>
                 <Button
                     x:Name="CloseButton"
                     Margin="5"

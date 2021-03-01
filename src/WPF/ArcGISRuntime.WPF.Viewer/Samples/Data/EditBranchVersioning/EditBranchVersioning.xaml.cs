@@ -110,6 +110,12 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             {
                 VersionCreator.Visibility = Visibility.Visible;
             }
+
+            AttributePicker.Visibility = Visibility.Collapsed;
+
+            // Clear the selection.
+            _featureLayer.ClearSelection();
+            _selectedFeature = null;
         }
 
         private async void SwitchVersion()
@@ -175,45 +181,66 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Clear any existing selection.
-            _featureLayer.ClearSelection();
-
-            // Dismiss any existing callouts.
-            MyMapView.DismissCallout();
-
-            try
+            if ((_selectedFeature is ArcGISFeature) && _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
             {
-                // Perform an identify to determine if a user tapped on a feature.
-                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_featureLayer, e.Position, 2, false);
-
-                // Do nothing if there are no results.
-                if (!identifyResult.GeoElements.Any())
+                try
                 {
-                    return;
+                    // Load the feature.
+                    await _selectedFeature.LoadAsync();
+
+                    // Update the feature geometry.
+                    _selectedFeature.Geometry = e.Location;//GeometryEngine.Project(e.Location, _featureLayer.SpatialReference);
+
+                    // Update the table.
+                    await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
+
+                    // Update the service.
+                    ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
+                    await table.ApplyEditsAsync();
+
+                    ShowAlert("Moved feature " + _selectedFeature.Attributes["objectid"]);
                 }
-
-                // Get the tapped feature.
-                _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
-
-                // Select the feature.
-                _featureLayer.SelectFeature(_selectedFeature);
-
-                // Get the current value.
-                string currentAttributeValue = _selectedFeature.Attributes[_attributeFieldName].ToString();
-
-                // Update the combobox selection without triggering the event.
-                DamageBox.SelectionChanged -= DamageBox_SelectionChanged;
-                DamageBox.SelectedValue = currentAttributeValue;
-                DamageBox.SelectionChanged += DamageBox_SelectionChanged;
-
-                // Update the UI for the selection.
-                AttributePicker.Visibility = Visibility.Visible;
-
-                DamageBox.IsEnabled = _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName;
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString(), "Failed to edit feature");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    // Perform an identify to determine if a user tapped on a feature.
+                    IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_featureLayer, e.Position, 2, false);
+
+                    // Do nothing if there are no results.
+                    if (!identifyResult.GeoElements.Any())
+                    {
+                        return;
+                    }
+
+                    // Get the tapped feature.
+                    _selectedFeature = (ArcGISFeature)identifyResult.GeoElements.First();
+
+                    // Select the feature.
+                    _featureLayer.SelectFeature(_selectedFeature);
+
+                    // Get the current value.
+                    string currentAttributeValue = _selectedFeature.Attributes[_attributeFieldName].ToString();
+
+                    // Update the combobox selection without triggering the event.
+                    DamageBox.SelectionChanged -= DamageBox_SelectionChanged;
+                    DamageBox.SelectedValue = currentAttributeValue;
+                    DamageBox.SelectionChanged += DamageBox_SelectionChanged;
+
+                    // Update the UI for the selection.
+                    AttributePicker.Visibility = Visibility.Visible;
+
+                    DamageBox.IsEnabled = _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -237,20 +264,16 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                 ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await table.ApplyEditsAsync();
 
-                //ShowAlert("Edited feature " + _selectedFeature.Attributes["objectid"]);
+                AttributePicker.Visibility = Visibility.Collapsed;
+                ShowAlert("Edited feature " + _selectedFeature.Attributes["objectid"]);
+
+                // Clear the selection.
+                _featureLayer.ClearSelection();
+                _selectedFeature = null;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Failed to edit feature");
-            }
-            finally
-            {
-                // Clear the selection.
-                //_featureLayer.ClearSelection();
-                //_selectedFeature = null;
-
-                // Update the UI.
-                //AttributePicker.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -291,18 +314,16 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
 
         private void CancelClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-            }
-            finally
-            {
-                VersionCreator.Visibility = Visibility.Collapsed;
-            }
+            VersionCreator.Visibility = Visibility.Collapsed;
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             AttributePicker.Visibility = Visibility.Collapsed;
+
+            // Clear the selection.
+            _featureLayer.ClearSelection();
+            _selectedFeature = null;
         }
     }
 }

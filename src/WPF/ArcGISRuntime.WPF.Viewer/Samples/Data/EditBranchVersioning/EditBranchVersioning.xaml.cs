@@ -208,7 +208,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.ToString(), "Failed to edit feature");
+                    MessageBox.Show(ex.Message, "Failed to edit feature");
                 }
             }
             else

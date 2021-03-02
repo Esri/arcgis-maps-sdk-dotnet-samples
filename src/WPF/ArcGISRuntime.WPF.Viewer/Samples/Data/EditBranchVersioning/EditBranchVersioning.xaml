@@ -53,11 +53,11 @@
                 <Button
                     Grid.Row="3" Grid.Column="0"
                     Margin="5"
-                    Click="ConfirmClick" Content="Create" />
+                    Click="ConfirmVersionClick" Content="Create" />
                 <Button
                     Grid.Row="3" Grid.Column="1"
                     Margin="5"
-                    Click="CancelClick" Content="Cancel" />
+                    Click="CancelVersionClick" Content="Cancel" />
             </Grid>
         </Border>
         <Border
@@ -77,7 +77,7 @@
                 <Button
                     x:Name="CloseButton"
                     Margin="5"
-                    Click="CloseButton_Click" Content="Close" />
+                    Click="CloseAttributeClick" Content="Close" />
             </StackPanel>
         </Border>
     </Grid>

@@ -29,14 +29,11 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class EditBranchVersioning
     {
-        //https://sampleserver7.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0
-
         private ArcGISFeature _selectedFeature;
         private FeatureLayer _featureLayer;
         private ServiceFeatureTable _featureTable;
         private ServiceGeodatabase _serviceGeodatabase;
 
-        //private string _defaultVersionName;
         private string _userCreatedVersionName;
         private string _attributeFieldName = "TYPDAMAGE";
 
@@ -104,13 +101,15 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             // Check if user version has been created.
             if (_userCreatedVersionName != null)
             {
-                SwitchVersion();
+                _ = SwitchVersion();
             }
             else
             {
+                // Display UI for creating a new version.
                 VersionCreator.Visibility = Visibility.Visible;
             }
 
+            // Ensure the attribute picker is closed.
             AttributePicker.Visibility = Visibility.Collapsed;
 
             // Clear the selection.
@@ -118,10 +117,12 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             _selectedFeature = null;
         }
 
-        private async void SwitchVersion()
+        private async Task SwitchVersion()
         {
+            // Check if the default version is loaded.
             if (_serviceGeodatabase.VersionName == _serviceGeodatabase.DefaultVersionName)
             {
+                // Switch to the user created version.
                 await _serviceGeodatabase.SwitchVersionAsync(_userCreatedVersionName);
                 CurrentVersionLabel.Content = $"Current version: {_serviceGeodatabase.VersionName}";
             }
@@ -129,9 +130,11 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             {
                 if (_serviceGeodatabase.HasLocalEdits())
                 {
-                    var edits = await _serviceGeodatabase.ApplyEditsAsync();
+                    // Apply the edits made to the service geodatabase.
+                    IReadOnlyList<FeatureTableEditResult> edits = await _serviceGeodatabase.ApplyEditsAsync();
                     if (!(edits?.Count > 0))
                     {
+                        // Verify that there were no errors when applying edits.
                         if (!edits.ToArray()[0].EditResults[0].CompletedWithErrors)
                         {
                             ShowAlert("Applied edits successfully on the server");
@@ -144,29 +147,31 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                     }
                 }
 
+                // Switch to the default version.
                 await _serviceGeodatabase.SwitchVersionAsync(_serviceGeodatabase.DefaultVersionName);
                 CurrentVersionLabel.Content = $"Current version: {_serviceGeodatabase.VersionName}";
             }
         }
 
-        private bool TextInputValid(string inputText)
+        private bool VersionNameValid(string versionName)
         {
-            if (inputText.Contains(".") || inputText.Contains(";") || inputText.Contains("'") || inputText.Contains("\""))
+            // Verify that the version name is valid.
+            if (versionName.Contains(".") || versionName.Contains(";") || versionName.Contains("'") || versionName.Contains("\""))
             {
                 ShowAlert("Please enter a valid version name.\nThe name cannot contain the following characters:\n. ; ' \" ");
                 return false;
             }
-            else if (inputText.Length > 0 && inputText.StartsWith(" "))
+            else if (versionName.Length > 0 && versionName.StartsWith(" "))
             {
                 ShowAlert("Version name cannot begin with a space");
                 return false;
             }
-            else if (inputText.Length > 62)
+            else if (versionName.Length > 62)
             {
                 ShowAlert("Version name must not exceed 62 characters");
                 return false;
             }
-            else if (inputText.Length == 0)
+            else if (versionName.Length == 0)
             {
                 ShowAlert("Please enter a version name");
                 return false;
@@ -181,6 +186,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // Check if a feature is selected and the service geodatabase is not on the default version.
             if ((_selectedFeature is ArcGISFeature) && _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
             {
                 try
@@ -277,12 +283,12 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             }
         }
 
-        private async void ConfirmClick(object sender, RoutedEventArgs e)
+        private async void ConfirmVersionClick(object sender, RoutedEventArgs e)
         {
             try
             {
                 // Validate name and access input.
-                if (!TextInputValid(NameEntryBox.Text)) return;
+                if (!VersionNameValid(NameEntryBox.Text)) return;
 
                 if (!(AccessBox.SelectedItem is VersionAccess))
                 {
@@ -298,7 +304,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
 
                 ServiceVersionInfo newVersion = await _serviceGeodatabase.CreateVersionAsync(newVersionParameters);
                 _userCreatedVersionName = newVersion.Name;
-                SwitchVersion();
+                _ = SwitchVersion();
 
                 CreateVersionButton.Content = "Switch version";
             }
@@ -312,12 +318,9 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             }
         }
 
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            VersionCreator.Visibility = Visibility.Collapsed;
-        }
+        private void CancelVersionClick(object sender, RoutedEventArgs e) => VersionCreator.Visibility = Visibility.Collapsed;
 
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        private void CloseAttributeClick(object sender, RoutedEventArgs e)
         {
             AttributePicker.Visibility = Visibility.Collapsed;
 

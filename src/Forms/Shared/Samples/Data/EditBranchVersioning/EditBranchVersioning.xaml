@@ -1,9 +1,78 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.EditBranchVersioning.EditBranchVersioning">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+﻿<ContentPage
+    x:Class="ArcGISRuntimeXamarin.Samples.EditBranchVersioning.EditBranchVersioning"
+    xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms" xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" xmlns:resources="clr-namespace:Forms.Resources">
+    <RelativeLayout>
+        <esriUI:MapView
+            x:Name="MyMapView"
+            Style="{StaticResource MapWithFormStyle}"
+            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+            GeoViewTapped="MyMapView_GeoViewTapped" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <StackLayout x:Name="DefaultView">
+                    <Label Text="Click to select a feature, then change its damage type." />
+                    <Label x:Name="CurrentVersionLabel" Text="Current version:" />
+                    <Button
+                        x:Name="CreateVersionButton"
+                        Clicked="VersionButtonPressed" Text="Create version" />
+                </StackLayout>
+                <Grid x:Name="VersionView">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        Grid.Row="0" Grid.Column="0"
+                        Text="Name:" />
+                    <Entry
+                        x:Name="NameEntryBox"
+                        Grid.Row="0" Grid.Column="1"
+                        Margin="5" />
+                    <Label
+                        Grid.Row="1" Grid.Column="0"
+                        Text="Access:" />
+                    <Picker
+                        x:Name="AccessBox"
+                        Grid.Row="1" Grid.Column="1"
+                        Margin="5" />
+                    <Label
+                        Grid.Row="2" Grid.Column="0"
+                        Text="Description:" />
+                    <Entry
+                        x:Name="DescriptionBox"
+                        Grid.Row="2" Grid.Column="1"
+                        Margin="5" />
+                    <Button
+                        Grid.Row="3" Grid.Column="0"
+                        Margin="5"
+                        Clicked="ConfirmVersionClick" Text="Create" />
+                    <Button
+                        Grid.Row="3" Grid.Column="1"
+                        Margin="5"
+                        Clicked="CancelVersionClick" Text="Cancel" />
+                </Grid>
+                <StackLayout x:Name="AttributeView">
+                    <Label Margin="5" Text="Click to move feature." />
+                    <StackLayout Orientation="Horizontal">
+                        <Label Margin="5" Text="Damage:" />
+                        <Picker
+                            x:Name="DamageBox"
+                            Margin="5"
+                            SelectedIndexChanged="DamageBox_SelectionChanged" />
+                    </StackLayout>
+                    <Button
+                        x:Name="CloseButton"
+                        Margin="5"
+                        Clicked="CloseAttributeClick" Text="Close" />
+                </StackLayout>
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
 </ContentPage>

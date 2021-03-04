@@ -11,13 +11,13 @@
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <StackLayout x:Name="DefaultView">
-                    <Label Text="Click to select a feature, then change its damage type." />
+                    <Label Text="Tap to select a feature." />
                     <Label x:Name="CurrentVersionLabel" Text="Current version:" />
                     <Button
                         x:Name="CreateVersionButton"
-                        Clicked="VersionButtonPressed" Text="Create version" />
+                        Clicked="VersionButtonClicked" Text="Create version" />
                 </StackLayout>
-                <Grid x:Name="VersionView">
+                <Grid x:Name="VersionView" IsVisible="false">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -58,14 +58,17 @@
                         Margin="5"
                         Clicked="CancelVersionClick" Text="Cancel" />
                 </Grid>
-                <StackLayout x:Name="AttributeView">
-                    <Label Margin="5" Text="Click to move feature." />
+                <StackLayout x:Name="AttributeView" IsVisible="false">
+                    <Label
+                        x:Name="MoveText"
+                        Margin="5"
+                        Text="Tap to move feature." />
                     <StackLayout Orientation="Horizontal">
                         <Label Margin="5" Text="Damage:" />
                         <Picker
                             x:Name="DamageBox"
                             Margin="5"
-                            SelectedIndexChanged="DamageBox_SelectionChanged" />
+                            SelectedIndexChanged="DamageBox_SelectedIndexChanged" />
                     </StackLayout>
                     <Button
                         x:Name="CloseButton"

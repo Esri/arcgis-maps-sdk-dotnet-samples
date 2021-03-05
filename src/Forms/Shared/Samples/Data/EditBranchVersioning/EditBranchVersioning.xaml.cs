@@ -232,9 +232,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                     string currentAttributeValue = _selectedFeature.Attributes[_attributeFieldName].ToString();
 
                     // Update the combobox selection without triggering the event.
-                    DamageBox.SelectedIndexChanged -= DamageBox_SelectedIndexChanged;
                     DamageBox.SelectedItem = currentAttributeValue;
-                    DamageBox.SelectedIndexChanged += DamageBox_SelectedIndexChanged;
 
                     MoveText.IsVisible = DamageBox.IsEnabled = _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName;
                 }
@@ -250,12 +248,18 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
         }
 
-        private async void DamageBox_SelectedIndexChanged(object sender, EventArgs e)
+        private async Task ApplyDamageChange()
         {
             try
             {
-                // Get the new value.
+                // Get the value from the UI.
                 string selectedAttributeValue = DamageBox.SelectedItem.ToString();
+
+                // Check if the new value is the same as the existing value.
+                if (_selectedFeature.Attributes[_attributeFieldName].ToString() == selectedAttributeValue)
+                {
+                    return;
+                }
 
                 // Load the feature.
                 await _selectedFeature.LoadAsync();
@@ -320,9 +324,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
         private void CancelVersionClick(object sender, EventArgs e) => SwitchView(DefaultView);
 
-        private void CloseAttributeClick(object sender, EventArgs e)
+        private async void CloseAttributeClick(object sender, EventArgs e)
         {
             SwitchView(DefaultView);
+
+            if (_serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
+            {
+                await ApplyDamageChange();
+            }
 
             // Clear the selection.
             _featureLayer.ClearSelection();

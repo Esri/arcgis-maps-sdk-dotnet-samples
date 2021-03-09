@@ -34,11 +34,21 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         // Hold references to UI controls.
         private MapView _myMapView;
         private UIAlertController _alertController;
-        private UIView _editorView;
-        private UIView _defaultView;
-        private UIView _createVersionView;
+
+        private UIStackView _damageView;
+        private UIStackView _defaultView;
+        private UIStackView _versionView;
         private UIView _topView;
+
         private UILabel _versionLabel;
+        private UIButton _versionButton;
+
+        private UITextField _nameField;
+        private UIButton _proButton;
+        private UITextField _desField;
+        private UIButton _confirmButton;
+        private UIButton _cancelButton;
+
         private UILabel _moveText;
 
         private ArcGISFeature _selectedFeature;
@@ -47,6 +57,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         private ServiceGeodatabase _serviceGeodatabase;
 
         private string _userCreatedVersionName;
+        private VersionAccess _userVersionAccess;
         private string _attributeFieldName = "typdamage";
 
         private List<VersionAccess> _accessLevels = new List<VersionAccess> { VersionAccess.Public, VersionAccess.Protected, VersionAccess.Private };
@@ -55,7 +66,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         public EditBranchVersioning()
         {
             Title = "Edit with branch versioning";
-            _ = Initialize();
         }
 
         private async Task Initialize()
@@ -83,7 +93,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
                 // Populate the combo boxes.
-                //AccessBox.ItemsSource = _accessLevels;
                 //DamageBox.ItemsSource = _damageLevels;
 
                 // Create and load a service geodatabase.
@@ -91,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 await _serviceGeodatabase.LoadAsync();
 
                 // When the service geodatabase has loaded get the default version name.
-                //CurrentVersionLabel.Text = $"Current version: {_serviceGeodatabase.DefaultVersionName}";
+                _versionLabel.Text = $"Current version: {_serviceGeodatabase.DefaultVersionName}";
 
                 // Get the service feature table from the service geodatabase.
                 _featureTable = _serviceGeodatabase.GetTable(0);
@@ -103,7 +112,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
                 // When the feature layer has loaded set the viewpoint and update the UI.
                 await _myMapView.SetViewpointAsync(new Viewpoint(_featureLayer.FullExtent));
-                //CurrentVersionLabel.Text = $"Current version: {_serviceGeodatabase.VersionName}";
             }
             catch (Exception ex)
             {
@@ -111,7 +119,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
         }
 
-        private void VersionButtonClicked(object sender, EventArgs e)
+        private void VersionButtonClick(object sender, EventArgs e)
         {
             // Check if user version has been created.
             if (_userCreatedVersionName != null)
@@ -121,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             else
             {
                 // Display UI for creating a new version.
-                //SwitchView(VersionView);
+                SwitchView(_versionView);
             }
 
             // Clear the selection.
@@ -136,7 +144,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             {
                 // Switch to the user created version.
                 await _serviceGeodatabase.SwitchVersionAsync(_userCreatedVersionName);
-                //CurrentVersionLabel.Text = $"Current version: {_serviceGeodatabase.VersionName}";
+                _versionLabel.Text = $"Current version: {_serviceGeodatabase.VersionName}";
             }
             else
             {
@@ -161,7 +169,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
                 // Switch to the default version.
                 await _serviceGeodatabase.SwitchVersionAsync(_serviceGeodatabase.DefaultVersionName);
-                //CurrentVersionLabel.Text = $"Current version: {_serviceGeodatabase.VersionName}";
+                _versionLabel.Text = $"Current version: {_serviceGeodatabase.VersionName}";
             }
         }
 
@@ -207,7 +215,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                     await _selectedFeature.LoadAsync();
 
                     // Update the feature geometry.
-                    _selectedFeature.Geometry = e.Location;//GeometryEngine.Project(e.Location, _featureLayer.SpatialReference);
+                    _selectedFeature.Geometry = e.Location;
 
                     // Update the table.
                     await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
@@ -257,7 +265,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 finally
                 {
                     // Update the UI for the selection.
-                    //SwitchView(AttributeView);
+                    SwitchView(_damageView);
                 }
             }
         }
@@ -301,30 +309,30 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
         }
 
-        private async void ConfirmVersionClick(object sender, EventArgs e)
+        private async void ConfirmButtonClick(object sender, EventArgs e)
         {
             try
             {
                 // Validate name and access input.
-                //if (!VersionNameValid(NameEntryBox.Text)) return;
+                if (!VersionNameValid(_nameField.Text)) return;
 
-                //if (!(AccessBox.SelectedItem is VersionAccess))
-                //{
-                //    ShowAlert("Please select an access level");
-                //    return;
-                //}
+                if (_userVersionAccess == null)
+                {
+                    ShowAlert("Please select an access level");
+                    return;
+                }
 
-                //// Set the user defined name, access level and description as service version parameters
-                //ServiceVersionParameters newVersionParameters = new ServiceVersionParameters();
-                //newVersionParameters.Name = NameEntryBox.Text;
-                //newVersionParameters.Access = (VersionAccess)AccessBox.SelectedItem;
-                //newVersionParameters.Description = DescriptionBox.Text;
+                // Set the user defined name, access level and description as service version parameters
+                ServiceVersionParameters newVersionParameters = new ServiceVersionParameters();
+                newVersionParameters.Name = _nameField.Text;
+                newVersionParameters.Access = _userVersionAccess;
+                newVersionParameters.Description = _desField.Text;
 
-                //ServiceVersionInfo newVersion = await _serviceGeodatabase.CreateVersionAsync(newVersionParameters);
-                //_userCreatedVersionName = newVersion.Name;
-                //_ = SwitchVersion();
+                ServiceVersionInfo newVersion = await _serviceGeodatabase.CreateVersionAsync(newVersionParameters);
+                _userCreatedVersionName = newVersion.Name;
+                _ = SwitchVersion();
 
-                //CreateVersionButton.Text = "Switch version";
+                _versionButton.SetTitle("Switch version", UIControlState.Normal);
             }
             catch (Exception ex)
             {
@@ -332,15 +340,42 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
             finally
             {
-                //SwitchView(DefaultView);
+                SwitchView(_defaultView);
             }
         }
 
-        //private void CancelVersionClick(object sender, EventArgs e) => SwitchView(DefaultView);
+        private void CancelButtonClick(object sender, EventArgs e) => SwitchView(_defaultView);
+
+        private void ProtectionButtonClick(object sender, EventArgs e)
+        {
+            // Create prompt for the protection level.
+            UIAlertController prompt = UIAlertController.Create("Choose protection level", string.Empty, UIAlertControllerStyle.ActionSheet);
+            prompt.AddAction(UIAlertAction.Create("Public", UIAlertActionStyle.Default, (o) => SetVersionAccess(VersionAccess.Public)));
+            prompt.AddAction(UIAlertAction.Create("Protected", UIAlertActionStyle.Default, (o) => SetVersionAccess(VersionAccess.Protected)));
+            prompt.AddAction(UIAlertAction.Create("Private", UIAlertActionStyle.Default, (o) => SetVersionAccess(VersionAccess.Private)));
+            prompt.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                ppc.SourceView = _proButton;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+            }
+
+            // Present the prompt to the user.
+            PresentViewController(prompt, true, null);
+        }
+
+        private void SetVersionAccess(VersionAccess access)
+        {
+            _userVersionAccess = access;
+            _proButton.SetTitle($"Protection: {access}", UIControlState.Normal);
+        }
 
         private async void CloseAttributeClick(object sender, EventArgs e)
         {
-            //SwitchView(DefaultView);
+            SwitchView(_defaultView);
 
             if (_serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
             {
@@ -352,19 +387,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             _selectedFeature = null;
         }
 
-        //private void SwitchView(View view)
-        //{
-        //    DefaultView.IsVisible = false;
-        //    VersionView.IsVisible = false;
-        //    AttributeView.IsVisible = false;
-
-        //    view.IsVisible = true;
-        //}
-
         private void SwitchView(UIView view)
         {
-            _topView.WillRemoveSubview(_topView.Subviews.First());
-            _topView.AddSubview(view);
+            foreach (var sv in _topView.Subviews) sv.Hidden = true;
+            view.Hidden = false;
         }
 
         public override void LoadView()
@@ -381,13 +407,72 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
-            _defaultView = new UIView
+            _defaultView = new UIStackView
             {
-                BackgroundColor = UIColor.Black,
-                TranslatesAutoresizingMaskIntoConstraints = false
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Spacing = 8,
+                LayoutMarginsRelativeArrangement = true,
+                Alignment = UIStackViewAlignment.Top,
+                LayoutMargins = new UIEdgeInsets(8, 8, 8, 8),
+                Axis = UILayoutConstraintAxis.Vertical,
             };
 
-            _topView.AddSubview(_defaultView);
+            UILabel instructions = new UILabel { TranslatesAutoresizingMaskIntoConstraints = false, Text = "Tap to select a feature." };
+
+            _versionLabel = new UILabel { TranslatesAutoresizingMaskIntoConstraints = false, };
+
+            _versionButton = new UIButton { TranslatesAutoresizingMaskIntoConstraints = false, };
+            _versionButton.SetTitle("Create version", UIControlState.Normal);
+            _versionButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+
+            _defaultView.AddArrangedSubview(instructions);
+            _defaultView.AddArrangedSubview(_versionLabel);
+            _defaultView.AddArrangedSubview(_versionButton);
+
+            _versionView = new UIStackView
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Spacing = 8,
+                LayoutMarginsRelativeArrangement = true,
+                Alignment = UIStackViewAlignment.Top,
+                LayoutMargins = new UIEdgeInsets(8, 8, 8, 8),
+                Axis = UILayoutConstraintAxis.Vertical,
+                Hidden = true,
+            };
+
+            _nameField = new UITextField { Placeholder = "Name", };
+
+            _proButton = new UIButton { };
+            _proButton.SetTitle("Protection:", UIControlState.Normal);
+            _proButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+
+            _desField = new UITextField { Placeholder = "Description" };
+
+            _confirmButton = new UIButton { };
+            _confirmButton.SetTitle("Confirm", UIControlState.Normal);
+            _confirmButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+
+            _cancelButton = new UIButton { };
+            _cancelButton.SetTitle("Cancel", UIControlState.Normal);
+            _cancelButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
+
+            _versionView.AddArrangedSubview(_nameField);
+            _versionView.AddArrangedSubview(_proButton);
+            _versionView.AddArrangedSubview(_desField);
+            _versionView.AddArrangedSubview(getRowStackView(new UIView[] { _confirmButton, _cancelButton }));
+
+            _damageView = new UIStackView
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Spacing = 8,
+                LayoutMarginsRelativeArrangement = true,
+                Alignment = UIStackViewAlignment.Top,
+                LayoutMargins = new UIEdgeInsets(8, 8, 8, 8),
+                Axis = UILayoutConstraintAxis.Vertical,
+                Hidden = true,
+            };
+
+            _topView.AddSubviews(_defaultView, _versionView, _damageView);
 
             // Add the views.
             View.AddSubviews(_myMapView, _topView);
@@ -398,12 +483,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 _topView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _topView.LeadingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.LeadingAnchor),
                 _topView.TrailingAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TrailingAnchor),
-                _topView.HeightAnchor.ConstraintEqualTo(200),
-
-                _defaultView.TopAnchor.ConstraintEqualTo(_topView.TopAnchor),
-                _defaultView.BottomAnchor.ConstraintEqualTo(_topView.BottomAnchor),
-                _defaultView.LeadingAnchor.ConstraintEqualTo(_topView.LeadingAnchor),
-                _defaultView.TrailingAnchor.ConstraintEqualTo(_topView.TrailingAnchor),
+                _topView.HeightAnchor.ConstraintEqualTo(150),
 
                 _myMapView.TopAnchor.ConstraintEqualTo(_topView.BottomAnchor),
                 _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
@@ -412,10 +492,42 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             });
         }
 
+        private UIStackView getRowStackView(UIView[] views)
+        {
+            UIStackView row = new UIStackView(views);
+            row.TranslatesAutoresizingMaskIntoConstraints = false;
+            row.Spacing = 8;
+            row.Axis = UILayoutConstraintAxis.Horizontal;
+            row.Distribution = UIStackViewDistribution.FillEqually;
+            return row;
+        }
+
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            Initialize();
+            _ = Initialize();
+        }
+
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+
+            // Subscribe to events.
+            _versionButton.TouchUpInside += VersionButtonClick;
+            _proButton.TouchUpInside += ProtectionButtonClick;
+            _confirmButton.TouchUpInside += ConfirmButtonClick;
+            _cancelButton.TouchUpInside += CancelButtonClick;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _versionButton.TouchUpInside -= VersionButtonClick;
+            _proButton.TouchUpInside -= ProtectionButtonClick;
+            _confirmButton.TouchUpInside -= ConfirmButtonClick;
+            _cancelButton.TouchUpInside -= CancelButtonClick;
         }
     }
 }

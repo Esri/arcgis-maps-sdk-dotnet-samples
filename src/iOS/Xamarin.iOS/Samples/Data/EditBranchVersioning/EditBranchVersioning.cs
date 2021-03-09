@@ -33,7 +33,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-        private UIAlertController _alertController;
 
         private UIStackView _damageView;
         private UIStackView _defaultView;
@@ -45,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
         private UITextField _nameField;
         private UIButton _proButton;
-        private UITextField _desField;
+        private UITextField _descriptionField;
         private UIButton _confirmButton;
         private UIButton _cancelButton;
 
@@ -58,12 +57,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         private ServiceFeatureTable _featureTable;
         private ServiceGeodatabase _serviceGeodatabase;
 
+        // Object is null by default, will be set to VersionAccess.
+        private object _userVersionAccess;
+
         private string _userCreatedVersionName;
-        private VersionAccess _userVersionAccess;
         private string _userDamageLevel;
         private string _attributeFieldName = "typdamage";
 
-        //private List<VersionAccess> _accessLevels = new List<VersionAccess> { VersionAccess.Public, VersionAccess.Protected, VersionAccess.Private };
+        private List<VersionAccess> _accessLevels = new List<VersionAccess> { VersionAccess.Public, VersionAccess.Protected, VersionAccess.Private };
         private List<string> _damageLevels = new List<string> { "Destroyed", "Inaccessible", "Major", "Minor", "Affected" };
 
         public EditBranchVersioning()
@@ -112,6 +113,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
                 // When the feature layer has loaded set the viewpoint and update the UI.
                 await _myMapView.SetViewpointAsync(new Viewpoint(_featureLayer.FullExtent));
+
+                // Enable the UI.
+                _versionButton.Enabled = true;
+                _myMapView.GeoViewTapped += MapView_GeoViewTapped;
             }
             catch (Exception ex)
             {
@@ -235,12 +240,17 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             {
                 try
                 {
+                    // Clear the selection.
+                    _featureLayer.ClearSelection();
+                    _selectedFeature = null;
+
                     // Perform an identify to determine if a user tapped on a feature.
                     IdentifyLayerResult identifyResult = await _myMapView.IdentifyLayerAsync(_featureLayer, e.Position, 2, false);
 
                     // Do nothing if there are no results.
                     if (!identifyResult.GeoElements.Any())
                     {
+                        SwitchView(_defaultView);
                         return;
                     }
 
@@ -256,17 +266,15 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                     // Update the damage button.
                     _damageButton.SetTitle($"Damage: {currentAttributeValue}", UIControlState.Normal);
 
-                    _moveText.Hidden =  _serviceGeodatabase.VersionName == _serviceGeodatabase.DefaultVersionName;
+                    _moveText.Hidden = _serviceGeodatabase.VersionName == _serviceGeodatabase.DefaultVersionName;
                     _damageButton.Enabled = !_moveText.Hidden;
+
+                    // Update the UI for the selection.
+                    SwitchView(_damageView);
                 }
                 catch (Exception ex)
                 {
                     new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "Ok", null).Show();
-                }
-                finally
-                {
-                    // Update the UI for the selection.
-                    SwitchView(_damageView);
                 }
             }
         }
@@ -297,7 +305,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await table.ApplyEditsAsync();
 
-                //SwitchView(DefaultView);
                 ShowAlert("Edited feature " + _selectedFeature.Attributes["objectid"]);
 
                 // Clear the selection.
@@ -317,23 +324,25 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 // Validate name and access input.
                 if (!VersionNameValid(_nameField.Text)) return;
 
-                if (_userVersionAccess == null)
+                if (_userVersionAccess is VersionAccess access)
+                {
+                    // Set the user defined name, access level and description as service version parameters
+                    ServiceVersionParameters newVersionParameters = new ServiceVersionParameters();
+                    newVersionParameters.Name = _nameField.Text;
+                    newVersionParameters.Access = access;
+                    newVersionParameters.Description = _descriptionField.Text;
+
+                    ServiceVersionInfo newVersion = await _serviceGeodatabase.CreateVersionAsync(newVersionParameters);
+                    _userCreatedVersionName = newVersion.Name;
+                    _ = SwitchVersion();
+
+                    _versionButton.SetTitle("Switch version", UIControlState.Normal);
+                }
+                else
                 {
                     ShowAlert("Please select an access level");
                     return;
                 }
-
-                // Set the user defined name, access level and description as service version parameters
-                ServiceVersionParameters newVersionParameters = new ServiceVersionParameters();
-                newVersionParameters.Name = _nameField.Text;
-                newVersionParameters.Access = _userVersionAccess;
-                newVersionParameters.Description = _desField.Text;
-
-                ServiceVersionInfo newVersion = await _serviceGeodatabase.CreateVersionAsync(newVersionParameters);
-                _userCreatedVersionName = newVersion.Name;
-                _ = SwitchVersion();
-
-                _versionButton.SetTitle("Switch version", UIControlState.Normal);
             }
             catch (Exception ex)
             {
@@ -351,9 +360,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         {
             // Create prompt for the protection level.
             UIAlertController prompt = UIAlertController.Create("Choose protection level", string.Empty, UIAlertControllerStyle.ActionSheet);
-            prompt.AddAction(UIAlertAction.Create("Public", UIAlertActionStyle.Default, (o) => SetVersionAccess(VersionAccess.Public)));
-            prompt.AddAction(UIAlertAction.Create("Protected", UIAlertActionStyle.Default, (o) => SetVersionAccess(VersionAccess.Protected)));
-            prompt.AddAction(UIAlertAction.Create("Private", UIAlertActionStyle.Default, (o) => SetVersionAccess(VersionAccess.Private)));
+            foreach (VersionAccess access in _accessLevels) prompt.AddAction(UIAlertAction.Create(Enum.GetName(typeof(VersionAccess), access), UIAlertActionStyle.Default, (o) => SetVersionAccess(access)));
             prompt.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
 
             // Needed to prevent crash on iPad.
@@ -447,9 +454,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
             _versionLabel = new UILabel { TranslatesAutoresizingMaskIntoConstraints = false, };
 
-            _versionButton = new UIButton { TranslatesAutoresizingMaskIntoConstraints = false, };
+            _versionButton = new UIButton { TranslatesAutoresizingMaskIntoConstraints = false, Enabled = false };
             _versionButton.SetTitle("Create version", UIControlState.Normal);
-            _versionButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _versionButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             _defaultView.AddArrangedSubview(instructions);
             _defaultView.AddArrangedSubview(_versionLabel);
@@ -470,13 +477,13 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
             _proButton = new UIButton { };
             _proButton.SetTitle("Protection:", UIControlState.Normal);
-            _proButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _proButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
-            _desField = new UITextField { Placeholder = "Description" };
+            _descriptionField = new UITextField { Placeholder = "Description" };
 
             _confirmButton = new UIButton { };
             _confirmButton.SetTitle("Confirm", UIControlState.Normal);
-            _confirmButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _confirmButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             _cancelButton = new UIButton { };
             _cancelButton.SetTitle("Cancel", UIControlState.Normal);
@@ -484,7 +491,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
             _versionView.AddArrangedSubview(_nameField);
             _versionView.AddArrangedSubview(_proButton);
-            _versionView.AddArrangedSubview(_desField);
+            _versionView.AddArrangedSubview(_descriptionField);
             _versionView.AddArrangedSubview(getRowStackView(new UIView[] { _confirmButton, _cancelButton }));
 
             _damageView = new UIStackView
@@ -502,7 +509,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
             _damageButton = new UIButton { };
             _damageButton.SetTitle("Damage:", UIControlState.Normal);
-            _damageButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+            _damageButton.SetTitleColor(View.TintColor, UIControlState.Normal);
 
             _closeButton = new UIButton { };
             _closeButton.SetTitle("Close", UIControlState.Normal);
@@ -559,7 +566,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             _cancelButton.TouchUpInside += CancelButtonClick;
             _damageButton.TouchUpInside += ChangeDamage;
             _closeButton.TouchUpInside += CloseDamage;
-            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)

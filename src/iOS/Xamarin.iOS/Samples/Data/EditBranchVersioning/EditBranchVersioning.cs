@@ -50,6 +50,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         private UIButton _cancelButton;
 
         private UILabel _moveText;
+        private UIButton _damageButton;
+        private UIButton _closeButton;
 
         private ArcGISFeature _selectedFeature;
         private FeatureLayer _featureLayer;
@@ -58,9 +60,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
         private string _userCreatedVersionName;
         private VersionAccess _userVersionAccess;
+        private string _userDamageLevel;
         private string _attributeFieldName = "typdamage";
 
-        private List<VersionAccess> _accessLevels = new List<VersionAccess> { VersionAccess.Public, VersionAccess.Protected, VersionAccess.Private };
+        //private List<VersionAccess> _accessLevels = new List<VersionAccess> { VersionAccess.Public, VersionAccess.Protected, VersionAccess.Private };
         private List<string> _damageLevels = new List<string> { "Destroyed", "Inaccessible", "Major", "Minor", "Affected" };
 
         public EditBranchVersioning()
@@ -91,9 +94,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             {
                 // Create a map.
                 _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
-
-                // Populate the combo boxes.
-                //DamageBox.ItemsSource = _damageLevels;
 
                 // Create and load a service geodatabase.
                 _serviceGeodatabase = new ServiceGeodatabase(new Uri("https://sampleserver7.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0"));
@@ -253,10 +253,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                     // Get the current value.
                     string currentAttributeValue = _selectedFeature.Attributes[_attributeFieldName].ToString();
 
-                    // Update the combobox selection without triggering the event.
-                    //DamageBox.SelectedItem = currentAttributeValue;
+                    // Update the damage button.
+                    _damageButton.SetTitle($"Damage: {currentAttributeValue}", UIControlState.Normal);
 
-                    //MoveText.IsVisible = DamageBox.IsEnabled = _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName;
+                    _moveText.Hidden =  _serviceGeodatabase.VersionName == _serviceGeodatabase.DefaultVersionName;
+                    _damageButton.Enabled = !_moveText.Hidden;
                 }
                 catch (Exception ex)
                 {
@@ -275,7 +276,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             try
             {
                 // Get the value from the UI.
-                string selectedAttributeValue = null;
+                string selectedAttributeValue = _userDamageLevel;
 
                 // Check if the new value is the same as the existing value.
                 if (_selectedFeature.Attributes[_attributeFieldName].ToString() == selectedAttributeValue)
@@ -373,7 +374,32 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             _proButton.SetTitle($"Protection: {access}", UIControlState.Normal);
         }
 
-        private async void CloseAttributeClick(object sender, EventArgs e)
+        private void ChangeDamage(object sender, EventArgs e)
+        {
+            // Create prompt for the damage level.
+            UIAlertController prompt = UIAlertController.Create("Change damage level", string.Empty, UIAlertControllerStyle.ActionSheet);
+            foreach (string damageLevel in _damageLevels) prompt.AddAction(UIAlertAction.Create(damageLevel, UIAlertActionStyle.Default, (o) => ChangeUserDamage(damageLevel)));
+            prompt.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null));
+
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                ppc.SourceView = _proButton;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Up;
+            }
+
+            // Present the prompt to the user.
+            PresentViewController(prompt, true, null);
+        }
+
+        private void ChangeUserDamage(string damageLevel)
+        {
+            _userDamageLevel = damageLevel;
+            _damageButton.SetTitle($"Damage: {damageLevel}", UIControlState.Normal);
+        }
+
+        private async void CloseDamage(object sender, EventArgs e)
         {
             SwitchView(_defaultView);
 
@@ -472,6 +498,20 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 Hidden = true,
             };
 
+            _moveText = new UILabel { TranslatesAutoresizingMaskIntoConstraints = false, Text = "Tap to move feature." };
+
+            _damageButton = new UIButton { };
+            _damageButton.SetTitle("Damage:", UIControlState.Normal);
+            _damageButton.SetTitleColor(UIColor.Blue, UIControlState.Normal);
+
+            _closeButton = new UIButton { };
+            _closeButton.SetTitle("Close", UIControlState.Normal);
+            _closeButton.SetTitleColor(UIColor.Red, UIControlState.Normal);
+
+            _damageView.AddArrangedSubview(_moveText);
+            _damageView.AddArrangedSubview(_damageButton);
+            _damageView.AddArrangedSubview(_closeButton);
+
             _topView.AddSubviews(_defaultView, _versionView, _damageView);
 
             // Add the views.
@@ -517,6 +557,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             _proButton.TouchUpInside += ProtectionButtonClick;
             _confirmButton.TouchUpInside += ConfirmButtonClick;
             _cancelButton.TouchUpInside += CancelButtonClick;
+            _damageButton.TouchUpInside += ChangeDamage;
+            _closeButton.TouchUpInside += CloseDamage;
+            _myMapView.GeoViewTapped += MapView_GeoViewTapped;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -528,6 +571,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             _proButton.TouchUpInside -= ProtectionButtonClick;
             _confirmButton.TouchUpInside -= ConfirmButtonClick;
             _cancelButton.TouchUpInside -= CancelButtonClick;
+            _damageButton.TouchUpInside -= ChangeDamage;
+            _closeButton.TouchUpInside -= CloseDamage;
+            _myMapView.GeoViewTapped -= MapView_GeoViewTapped;
         }
     }
 }

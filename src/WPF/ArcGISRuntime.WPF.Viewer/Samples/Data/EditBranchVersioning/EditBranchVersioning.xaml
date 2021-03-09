@@ -3,14 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Label Content="Click to select a feature, then change its damage type." FontWeight="SemiBold" />
                 <Label x:Name="CurrentVersionLabel" Content="Current version:" />
                 <Button
                     x:Name="CreateVersionButton"
-                    Click="VersionButtonPressed" Content="Create version" />
+                    Click="VersionButtonPressed" Content="Create version" IsEnabled="False" />
             </StackPanel>
         </Border>
         <Border

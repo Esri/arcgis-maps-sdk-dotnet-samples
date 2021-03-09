@@ -90,7 +90,10 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
 
                 // When the feature layer has loaded set the viewpoint and update the UI.
                 await MyMapView.SetViewpointAsync(new Viewpoint(_featureLayer.FullExtent));
-                CurrentVersionLabel.Text = $"Current version: {_serviceGeodatabase.VersionName}";
+
+                // Enable the UI.
+                CreateVersionButton.IsEnabled = true;
+                MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
             catch (Exception ex)
             {

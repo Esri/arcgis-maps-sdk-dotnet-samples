@@ -6,8 +6,7 @@
         <esriUI:MapView
             x:Name="MyMapView"
             Style="{StaticResource MapWithFormStyle}"
-            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-            GeoViewTapped="MyMapView_GeoViewTapped" />
+            BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <StackLayout x:Name="DefaultView">
@@ -15,7 +14,7 @@
                     <Label x:Name="CurrentVersionLabel" Text="Current version:" />
                     <Button
                         x:Name="CreateVersionButton"
-                        Clicked="VersionButtonClicked" Text="Create version" />
+                        Clicked="VersionButtonClicked" IsEnabled="False" Text="Create version" />
                 </StackLayout>
                 <Grid x:Name="VersionView" IsVisible="false">
                     <Grid.RowDefinitions>

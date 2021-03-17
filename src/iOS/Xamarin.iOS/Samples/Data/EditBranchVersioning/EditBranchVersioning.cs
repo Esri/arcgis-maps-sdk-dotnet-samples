@@ -25,10 +25,11 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 {
     [Register("EditBranchVersioning")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Edit with branch versioning",
-        "Data",
-        "Create, query and edit a specific server version using service geodatabase.",
-        "")]
+        name: "Edit with branch versioning",
+        category: "Data",
+        description: "Create, query and edit a specific server version using service geodatabase.",
+        instructions: "Once loaded, the map will zoom to the extent of the feature layer. The current version is indicated at the top of the map. Tap \"Create Version\" to open a dialog to specify the version information (name, access, and description). See the *Additional information* section for restrictions on the version name.",
+        tags: new[] { "branch versioning", "edit", "version control", "version management server" })]
     public class EditBranchVersioning : UIViewController
     {
         // Hold references to UI controls.

@@ -24,10 +24,11 @@ using Windows.UI.Xaml.Controls;
 namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Edit with branch versioning",
-        "Data",
-        "Create, query and edit a specific server version using service geodatabase.",
-        "")]
+        name: "Edit with branch versioning",
+        category: "Data",
+        description: "Create, query and edit a specific server version using service geodatabase.",
+        instructions: "Once loaded, the map will zoom to the extent of the feature layer. The current version is indicated at the top of the map. Click \"Create Version\" to open a dialog to specify the version information (name, access, and description). See the *Additional information* section for restrictions on the version name.",
+        tags: new[] { "branch versioning", "edit", "version control", "version management server" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class EditBranchVersioning
     {

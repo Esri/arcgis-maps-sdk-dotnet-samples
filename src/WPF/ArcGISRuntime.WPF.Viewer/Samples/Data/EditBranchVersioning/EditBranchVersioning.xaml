@@ -14,7 +14,7 @@
             </StackPanel>
         </Border>
         <Border
-            Name="VersionCreator"
+            x:Name="VersionCreator"
             Style="{StaticResource BorderStyle}"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Visibility="Collapsed">
@@ -61,7 +61,7 @@
             </Grid>
         </Border>
         <Border
-            Name="AttributePicker"
+            x:Name="AttributePicker"
             Style="{StaticResource BorderStyle}"
             HorizontalAlignment="Left"
             Visibility="Collapsed">

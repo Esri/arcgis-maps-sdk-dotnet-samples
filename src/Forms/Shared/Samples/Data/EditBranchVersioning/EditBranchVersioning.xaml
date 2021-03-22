@@ -63,8 +63,13 @@
                         Margin="5"
                         Text="Tap to move feature." />
                     <StackLayout Orientation="Horizontal">
-                        <Label Margin="5" Text="Damage:" />
-                        <Picker x:Name="DamageBox" Margin="5" />
+                        <Label
+                            Margin="5"
+                            Text="Damage:" VerticalOptions="Center" />
+                        <Picker
+                            x:Name="DamageBox"
+                            Margin="5"
+                            VerticalOptions="Center" />
                     </StackLayout>
                     <Button
                         x:Name="CloseButton"

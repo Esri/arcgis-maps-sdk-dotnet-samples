@@ -158,7 +158,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         private bool VersionNameValid(string versionName)
         {
             // Verify that the version name is valid.
-            if (versionName.Contains(".") || versionName.Contains(";") || versionName.Contains("'") || versionName.Contains("\""))
+            if (versionName.Contains('.') || versionName.Contains(';') || versionName.Contains('\'') || versionName.Contains('\"'))
             {
                 _ = ShowAlert("Please enter a valid version name.\nThe name cannot contain the following characters:\n. ; ' \" ");
                 return false;
@@ -178,7 +178,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 _ = ShowAlert("Please enter a version name");
                 return false;
             }
-            else return true;
+            return true;
         }
 
         private async Task ShowAlert(string alertText)
@@ -189,7 +189,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Check if a feature is selected and the service geodatabase is not on the default version.
-            if ((_selectedFeature is ArcGISFeature) && _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
+            if (_selectedFeature is ArcGISFeature && _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
             {
                 try
                 {
@@ -197,14 +197,13 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                     await _selectedFeature.LoadAsync();
 
                     // Update the feature geometry.
-                    _selectedFeature.Geometry = e.Location;//GeometryEngine.Project(e.Location, _featureLayer.SpatialReference);
+                    _selectedFeature.Geometry = e.Location;
 
                     // Update the table.
                     await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
                     // Update the service.
-                    ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
-                    await table.ApplyEditsAsync();
+                    await ((ServiceFeatureTable)_selectedFeature.FeatureTable).ApplyEditsAsync();
 
                     _ = ShowAlert("Moved feature " + _selectedFeature.Attributes["objectid"]);
                 }
@@ -275,8 +274,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
                 // Update the service.
-                ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
-                await table.ApplyEditsAsync();
+                await ((ServiceFeatureTable)_selectedFeature.FeatureTable).ApplyEditsAsync();
 
                 SwitchView(DefaultView);
                 _ = ShowAlert("Edited feature " + _selectedFeature.Attributes["objectid"]);
@@ -296,7 +294,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             try
             {
                 // Validate name and access input.
-                if (!VersionNameValid(NameEntryBox.Text)) return;
+                if (!VersionNameValid(NameEntryBox.Text))
+                {
+                    return;
+                }
 
                 if (!(AccessBox.SelectedItem is VersionAccess))
                 {

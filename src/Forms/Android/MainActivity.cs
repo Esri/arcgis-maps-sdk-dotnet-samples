@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Droid
                 RequestPermissions(new[] { Manifest.Permission.AccessFineLocation }, LocationRequesNoMap);
                 return await _permissionTCS.Task;
             }
-            else return true;
+            return true;
         }
 
         public async void AskForLocationPermission(Esri.ArcGISRuntime.Xamarin.Forms.MapView myMapView)

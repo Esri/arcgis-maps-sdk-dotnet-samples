@@ -8,13 +8,11 @@
             <StackPanel>
                 <Label Content="Click to select a feature, then change its damage type." FontWeight="SemiBold" />
                 <Label x:Name="CurrentVersionLabel" Content="Current version:" />
-                <Button
-                    x:Name="CreateVersionButton"
+                <Button x:Name="CreateVersionButton"
                     Click="VersionButtonPressed" Content="Create version" IsEnabled="False" />
             </StackPanel>
         </Border>
-        <Border
-            x:Name="VersionCreator"
+        <Border x:Name="VersionCreator"
             Style="{StaticResource BorderStyle}"
             HorizontalAlignment="Center" VerticalAlignment="Center"
             Visibility="Collapsed">
@@ -32,22 +30,19 @@
                 <Label
                     Grid.Row="0" Grid.Column="0"
                     Content="Name:" />
-                <TextBox
-                    x:Name="NameEntryBox"
+                <TextBox x:Name="NameEntryBox"
                     Grid.Row="0" Grid.Column="1"
                     Margin="5" />
                 <Label
                     Grid.Row="1" Grid.Column="0"
                     Content="Access:" />
-                <ComboBox
-                    x:Name="AccessBox"
+                <ComboBox x:Name="AccessBox"
                     Grid.Row="1" Grid.Column="1"
                     Margin="5" />
                 <Label
                     Grid.Row="2" Grid.Column="0"
                     Content="Description:" />
-                <TextBox
-                    x:Name="DescriptionBox"
+                <TextBox x:Name="DescriptionBox"
                     Grid.Row="2" Grid.Column="1"
                     Margin="5" />
                 <Button
@@ -60,8 +55,7 @@
                     Click="CancelVersionClick" Content="Cancel" />
             </Grid>
         </Border>
-        <Border
-            x:Name="AttributePicker"
+        <Border x:Name="AttributePicker"
             Style="{StaticResource BorderStyle}"
             HorizontalAlignment="Left"
             Visibility="Collapsed">
@@ -69,13 +63,11 @@
                 <Label Margin="5" Content="Click to move feature." />
                 <StackPanel Orientation="Horizontal">
                     <Label Margin="5" Content="Damage:" />
-                    <ComboBox
-                        x:Name="DamageBox"
+                    <ComboBox x:Name="DamageBox"
                         Margin="5"
                         SelectionChanged="DamageBox_SelectionChanged" />
                 </StackPanel>
-                <Button
-                    x:Name="CloseButton"
+                <Button x:Name="CloseButton"
                     Margin="5"
                     Click="CloseAttributeClick" Content="Close" />
             </StackPanel>

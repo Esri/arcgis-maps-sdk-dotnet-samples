@@ -3,8 +3,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms" xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" xmlns:resources="clr-namespace:Forms.Resources">
     <RelativeLayout>
-        <esriUI:MapView
-            x:Name="MyMapView"
+        <esriUI:MapView x:Name="MyMapView"
             Style="{StaticResource MapWithFormStyle}"
             BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
@@ -12,8 +11,7 @@
                 <StackLayout x:Name="DefaultView">
                     <Label Text="Tap to select a feature." />
                     <Label x:Name="CurrentVersionLabel" Text="Current version:" />
-                    <Button
-                        x:Name="CreateVersionButton"
+                    <Button x:Name="CreateVersionButton"
                         Clicked="VersionButtonClicked" IsEnabled="False" Text="Create version" />
                 </StackLayout>
                 <Grid x:Name="VersionView" IsVisible="false">
@@ -30,22 +28,19 @@
                     <Label
                         Grid.Row="0" Grid.Column="0"
                         Text="Name:" />
-                    <Entry
-                        x:Name="NameEntryBox"
+                    <Entry x:Name="NameEntryBox"
                         Grid.Row="0" Grid.Column="1"
-                        Margin="5" />
+                        Margin="5" />W
                     <Label
                         Grid.Row="1" Grid.Column="0"
                         Text="Access:" />
-                    <Picker
-                        x:Name="AccessBox"
+                    <Picker x:Name="AccessBox"
                         Grid.Row="1" Grid.Column="1"
                         Margin="5" />
                     <Label
                         Grid.Row="2" Grid.Column="0"
                         Text="Description:" />
-                    <Entry
-                        x:Name="DescriptionBox"
+                    <Entry x:Name="DescriptionBox"
                         Grid.Row="2" Grid.Column="1"
                         Margin="5" />
                     <Button
@@ -58,21 +53,18 @@
                         Clicked="CancelVersionClick" Text="Cancel" />
                 </Grid>
                 <StackLayout x:Name="AttributeView" IsVisible="false">
-                    <Label
-                        x:Name="MoveText"
+                    <Label x:Name="MoveText"
                         Margin="5"
                         Text="Tap to move feature." />
                     <StackLayout Orientation="Horizontal">
                         <Label
                             Margin="5"
                             Text="Damage:" VerticalOptions="Center" />
-                        <Picker
-                            x:Name="DamageBox"
+                        <Picker x:Name="DamageBox"
                             Margin="5"
                             VerticalOptions="Center" />
                     </StackLayout>
-                    <Button
-                        x:Name="CloseButton"
+                    <Button x:Name="CloseButton"
                         Margin="5"
                         Clicked="CloseAttributeClick" Text="Close" />
                 </StackLayout>

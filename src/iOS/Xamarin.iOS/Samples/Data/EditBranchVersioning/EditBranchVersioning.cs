@@ -121,7 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "Ok", null).Show();
+                ShowAlert(ex.Message, ex.GetType().Name);
             }
         }
 
@@ -205,9 +205,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             return true;
         }
 
-        private void ShowAlert(string alertText)
+        private void ShowAlert(string alertText, string titleText = "Alert")
         {
-            new UIAlertView("Alert", alertText, (IUIAlertViewDelegate)null, "Ok", null).Show();
+            new UIAlertView(titleText, alertText, (IUIAlertViewDelegate)null, "Ok", null).Show();
         }
 
         private async void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -233,7 +233,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 }
                 catch (Exception ex)
                 {
-                    new UIAlertView("Failed to edit feature", ex.Message, (IUIAlertViewDelegate)null, "Ok", null).Show();
+                    ShowAlert(ex.Message, "Failed to edit feature");
                 }
             }
             else
@@ -274,7 +274,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 }
                 catch (Exception ex)
                 {
-                    new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "Ok", null).Show();
+                    ShowAlert(ex.Message, ex.GetType().Name);
                 }
             }
         }
@@ -312,7 +312,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                new UIAlertView("Failed to edit feature", ex.Message, (IUIAlertViewDelegate)null, "Ok", null).Show();
+                ShowAlert(ex.Message, "Failed to edit feature");
             }
         }
 
@@ -348,7 +348,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "Ok", null).Show();
+                ShowAlert(ex.Message, ex.GetType().Name);
             }
             finally
             {

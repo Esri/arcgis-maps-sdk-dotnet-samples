@@ -123,7 +123,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
+                ShowAlert(ex.Message, ex.GetType().Name);
             }
         }
 
@@ -207,9 +207,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             return true;
         }
 
-        private void ShowAlert(string alertText)
+        private void ShowAlert(string alertText, string titleText = "Alert")
         {
-            new AlertDialog.Builder(this).SetMessage(alertText).SetTitle("Alert").Show();
+            new AlertDialog.Builder(this).SetMessage(alertText).SetTitle(titleText).Show();
         }
 
         private async void MapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -235,7 +235,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 }
                 catch (Exception ex)
                 {
-                    new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle("Failed to edit feature").Show();
+                    ShowAlert(ex.Message, "Failed to edit feature");
                 }
             }
             else
@@ -274,7 +274,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 }
                 catch (Exception ex)
                 {
-                    new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
+                    ShowAlert(ex.Message, ex.GetType().Name);
                 }
             }
         }
@@ -312,7 +312,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle("Failed to edit feature").Show();
+                ShowAlert(ex.Message, "Failed to edit feature");
             }
         }
 
@@ -350,7 +350,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle(ex.GetType().Name).Show();
+                ShowAlert(ex.Message, ex.GetType().Name);
             }
             finally
             {

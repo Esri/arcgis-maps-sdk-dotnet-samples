@@ -96,7 +96,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowAlert(ex.Message, ex.GetType().Name);
             }
         }
 
@@ -183,9 +183,9 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             return true;
         }
 
-        private void ShowAlert(string alertText)
+        private void ShowAlert(string alertText, string titleText = "Alert")
         {
-            MessageBox.Show(alertText, "Alert", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBox.Show(alertText, titleText, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -211,7 +211,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Failed to edit feature");
+                    ShowAlert(ex.Message, "Failed to edit feature");
                 }
             }
             else
@@ -248,7 +248,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                    ShowAlert(ex.Message, ex.GetType().Name);
                 }
             }
         }
@@ -281,7 +281,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Failed to edit feature");
+                ShowAlert(ex.Message, "Failed to edit feature");
             }
         }
 
@@ -290,7 +290,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             try
             {
                 // Validate name and access input.
-                if (!VersionNameValid(NameEntryBox.Text)) 
+                if (!VersionNameValid(NameEntryBox.Text))
                 {
                     return;
                 }
@@ -315,7 +315,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                ShowAlert(ex.Message, ex.GetType().Name);
             }
             finally
             {

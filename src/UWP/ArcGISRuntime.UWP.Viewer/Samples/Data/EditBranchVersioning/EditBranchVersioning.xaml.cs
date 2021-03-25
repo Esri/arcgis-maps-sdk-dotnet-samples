@@ -98,7 +98,7 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                ShowAlert(ex.Message, ex.GetType().Name);
             }
         }
 
@@ -143,11 +143,11 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
                         // Verify that there were no errors when applying edits.
                         if (!edits.ToArray()[0].EditResults[0].CompletedWithErrors)
                         {
-                            _ = ShowAlert("Applied edits successfully on the server");
+                            ShowAlert("Applied edits successfully on the server");
                         }
                         else
                         {
-                            _ = ShowAlert(edits.ToArray()[0].EditResults[0].Error.Message);
+                            ShowAlert(edits.ToArray()[0].EditResults[0].Error.Message);
                             return;
                         }
                     }
@@ -164,30 +164,36 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
             // Verify that the version name is valid.
             if (versionName.Contains('.') || versionName.Contains(';') || versionName.Contains('\'') || versionName.Contains('\"'))
             {
-                _ = ShowAlert("Please enter a valid version name.\nThe name cannot contain the following characters:\n. ; ' \" ");
+                ShowAlert("Please enter a valid version name.\nThe name cannot contain the following characters:\n. ; ' \" ");
                 return false;
             }
             else if (versionName.Length > 0 && versionName.StartsWith(" "))
             {
-                _ = ShowAlert("Version name cannot begin with a space");
+                ShowAlert("Version name cannot begin with a space");
                 return false;
             }
             else if (versionName.Length > 62)
             {
-                _ = ShowAlert("Version name must not exceed 62 characters");
+                ShowAlert("Version name must not exceed 62 characters");
                 return false;
             }
             else if (versionName.Length == 0)
             {
-                _ = ShowAlert("Please enter a version name");
+                ShowAlert("Please enter a version name");
                 return false;
             }
             return true;
         }
 
-        private async Task ShowAlert(string alertText)
+        private async void ShowAlert(string alertText, string titleText = "Alert")
         {
-            await new MessageDialog(alertText, "Alert").ShowAsync();
+            try
+            {
+                await new MessageDialog(alertText, titleText).ShowAsync();
+            }
+            catch
+            {
+            }
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -209,11 +215,11 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
                     // Update the service.
                     await ((ServiceFeatureTable)_selectedFeature.FeatureTable).ApplyEditsAsync();
 
-                    _ = ShowAlert("Moved feature " + _selectedFeature.Attributes["objectid"]);
+                    ShowAlert("Moved feature " + _selectedFeature.Attributes["objectid"]);
                 }
                 catch (Exception ex)
                 {
-                    await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                    ShowAlert(ex.Message, ex.GetType().Name);
                 }
             }
             else
@@ -250,7 +256,7 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
                 }
                 catch (Exception ex)
                 {
-                    await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                    ShowAlert(ex.Message, ex.GetType().Name);
                 }
             }
         }
@@ -275,7 +281,7 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
                 await ((ServiceFeatureTable)_selectedFeature.FeatureTable).ApplyEditsAsync();
 
                 AttributePicker.Visibility = Visibility.Collapsed;
-                _ = ShowAlert("Edited feature " + _selectedFeature.Attributes["objectid"]);
+                ShowAlert("Edited feature " + _selectedFeature.Attributes["objectid"]);
 
                 // Clear the selection.
                 _featureLayer.ClearSelection();
@@ -283,7 +289,7 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, "Failed to edit feature").ShowAsync();
+                ShowAlert(ex.Message, "Failed to edit feature");
             }
         }
 
@@ -299,7 +305,7 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
 
                 if (!(AccessBox.SelectedItem is VersionAccess))
                 {
-                    _ = ShowAlert("Please select an access level");
+                    ShowAlert("Please select an access level");
                     return;
                 }
 
@@ -317,7 +323,7 @@ namespace ArcGISRuntime.UWP.Samples.EditBranchVersioning
             }
             catch (Exception ex)
             {
-                await new MessageDialog(ex.Message, ex.GetType().Name).ShowAsync();
+                ShowAlert(ex.Message, ex.GetType().Name);
             }
             finally
             {

@@ -10,11 +10,14 @@
             <Grid>
                 <StackLayout x:Name="DefaultView">
                     <Label Text="Tap to select a feature." />
-                    <Label x:Name="CurrentVersionLabel" Text="Current version:" />
+                    <Label x:Name="CurrentVersionLabel"
+                        Text="Current version:" />
                     <Button x:Name="CreateVersionButton"
-                        Clicked="VersionButtonClicked" IsEnabled="False" Text="Create version" />
+                        IsEnabled="False" Text="Create version"
+                        Clicked="VersionButtonClicked" />
                 </StackLayout>
-                <Grid x:Name="VersionView" IsVisible="false">
+                <Grid x:Name="VersionView"
+                    IsVisible="false">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -30,7 +33,7 @@
                         Text="Name:" />
                     <Entry x:Name="NameEntryBox"
                         Grid.Row="0" Grid.Column="1"
-                        Margin="5" />W
+                        Margin="5" />
                     <Label
                         Grid.Row="1" Grid.Column="0"
                         Text="Access:" />
@@ -46,13 +49,16 @@
                     <Button
                         Grid.Row="3" Grid.Column="0"
                         Margin="5"
-                        Clicked="ConfirmVersionClick" Text="Create" />
+                        Text="Create"
+                        Clicked="ConfirmVersionClick" />
                     <Button
                         Grid.Row="3" Grid.Column="1"
                         Margin="5"
-                        Clicked="CancelVersionClick" Text="Cancel" />
+                        Text="Cancel"
+                        Clicked="CancelVersionClick" />
                 </Grid>
-                <StackLayout x:Name="AttributeView" IsVisible="false">
+                <StackLayout x:Name="AttributeView"
+                    IsVisible="false">
                     <Label x:Name="MoveText"
                         Margin="5"
                         Text="Tap to move feature." />
@@ -66,7 +72,8 @@
                     </StackLayout>
                     <Button x:Name="CloseButton"
                         Margin="5"
-                        Clicked="CloseAttributeClick" Text="Close" />
+                        Text="Close"
+                        Clicked="CloseAttributeClick" />
                 </StackLayout>
             </Grid>
         </resources:ResponsiveFormContainer>

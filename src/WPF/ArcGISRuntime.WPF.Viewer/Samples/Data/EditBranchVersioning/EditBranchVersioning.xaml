@@ -6,10 +6,13 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <Label Content="Click to select a feature, then change its damage type." FontWeight="SemiBold" />
-                <Label x:Name="CurrentVersionLabel" Content="Current version:" />
+                <Label
+                    Content="Click to select a feature, then change its damage type." FontWeight="SemiBold" />
+                <Label x:Name="CurrentVersionLabel"
+                    Content="Current version:" />
                 <Button x:Name="CreateVersionButton"
-                    Click="VersionButtonPressed" Content="Create version" IsEnabled="False" />
+                    Content="Create version" IsEnabled="False"
+                    Click="VersionButtonPressed" />
             </StackPanel>
         </Border>
         <Border x:Name="VersionCreator"
@@ -48,11 +51,13 @@
                 <Button
                     Grid.Row="3" Grid.Column="0"
                     Margin="5"
-                    Click="ConfirmVersionClick" Content="Create" />
+                    Content="Create"
+                    Click="ConfirmVersionClick" />
                 <Button
                     Grid.Row="3" Grid.Column="1"
                     Margin="5"
-                    Click="CancelVersionClick" Content="Cancel" />
+                    Content="Cancel"
+                    Click="CancelVersionClick" />
             </Grid>
         </Border>
         <Border x:Name="AttributePicker"
@@ -60,16 +65,21 @@
             HorizontalAlignment="Left"
             Visibility="Collapsed">
             <StackPanel>
-                <Label Margin="5" Content="Click to move feature." />
+                <Label
+                    Margin="5"
+                    Content="Click to move feature." />
                 <StackPanel Orientation="Horizontal">
-                    <Label Margin="5" Content="Damage:" />
+                    <Label
+                        Margin="5"
+                        Content="Damage:" />
                     <ComboBox x:Name="DamageBox"
                         Margin="5"
                         SelectionChanged="DamageBox_SelectionChanged" />
                 </StackPanel>
                 <Button x:Name="CloseButton"
                     Margin="5"
-                    Click="CloseAttributeClick" Content="Close" />
+                    Content="Close"
+                    Click="CloseAttributeClick" />
             </StackPanel>
         </Border>
     </Grid>

@@ -12,7 +12,8 @@
                     Margin="5"
                     Text="Current version:" />
                 <Button x:Name="CreateVersionButton"
-                    Click="VersionButtonPressed" Content="Create version" IsEnabled="False" />
+                    Content="Create version" IsEnabled="False"
+                    Click="VersionButtonPressed" />
             </StackPanel>
         </Border>
         <Border x:Name="VersionCreator"
@@ -51,11 +52,13 @@
                 <Button
                     Grid.Row="3" Grid.Column="0"
                     Margin="5"
-                    Click="ConfirmVersionClick" Content="Create" />
+                    Content="Create"
+                    Click="ConfirmVersionClick" />
                 <Button
                     Grid.Row="3" Grid.Column="1"
                     Margin="5"
-                    Click="CancelVersionClick" Content="Cancel" />
+                    Content="Cancel"
+                    Click="CancelVersionClick" />
             </Grid>
         </Border>
         <Border x:Name="AttributePicker"
@@ -63,16 +66,21 @@
             HorizontalAlignment="Left"
             Visibility="Collapsed">
             <StackPanel>
-                <TextBlock Margin="5" Text="Click to move feature." />
+                <TextBlock
+                    Margin="5"
+                    Text="Click to move feature." />
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="5" Text="Damage:" />
+                    <TextBlock
+                        Margin="5"
+                        Text="Damage:" />
                     <ComboBox x:Name="DamageBox"
                         Margin="5"
                         SelectionChanged="DamageBox_SelectionChanged" />
                 </StackPanel>
                 <Button x:Name="CloseButton"
                     Margin="5"
-                    Click="CloseAttributeClick" Content="Close" />
+                    Content="Close"
+                    Click="CloseAttributeClick" />
             </StackPanel>
         </Border>
     </Grid>

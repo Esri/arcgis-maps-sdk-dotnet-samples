@@ -376,7 +376,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
         private void SwitchView(View view)
         {
-            _defaultView.Visibility = _versionView.Visibility = _damageView.Visibility = ViewStates.Invisible;
+            _defaultView.Visibility = _versionView.Visibility = _damageView.Visibility = ViewStates.Gone;
             view.Visibility = ViewStates.Visible;
         }
 

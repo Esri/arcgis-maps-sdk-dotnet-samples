@@ -3,11 +3,10 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/viewContainer"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
         <LinearLayout 
             android:id="@+id/defaultView"
             android:orientation="vertical"
@@ -34,7 +33,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible">
+            android:visibility="gone">
             <EditText
                 android:id="@+id/nameEditText"
                 android:layout_width="match_parent"
@@ -68,12 +67,13 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible">
+            android:visibility="gone">
             <TextView
                 android:id="@+id/moveLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tap to move feature."/>
+                android:text="Tap to move feature."
+                android:visibility="invisible"/>
             <Spinner
                 android:id="@+id/damageSpinner"
                 android:layout_width="match_parent"
@@ -84,10 +84,10 @@
                 android:layout_height="wrap_content"
                 android:text="Close"/>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
     <Esri.ArcGISRuntime.UI.Controls.MapView
         android:id="@+id/MapView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"/>
+        android:layout_height="match_parent"
+        />
 </LinearLayout>

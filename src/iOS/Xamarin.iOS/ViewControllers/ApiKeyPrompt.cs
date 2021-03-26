@@ -60,8 +60,9 @@ namespace ArcGISRuntime
 
         public override void TraitCollectionDidChange(UITraitCollection previousTraitCollection)
         {
+            base.TraitCollectionDidChange(previousTraitCollection);
             // Reload the html pages when switching to and from dark mode.
-            if (previousTraitCollection.UserInterfaceStyle != TraitCollection.UserInterfaceStyle) LoadHTML();
+            if (previousTraitCollection?.UserInterfaceStyle != TraitCollection.UserInterfaceStyle) LoadHTML();
         }
 
         private async Task UpdateValidityText()

@@ -68,7 +68,8 @@
             <StackPanel>
                 <TextBlock
                     Margin="5"
-                    Text="Click to move feature." />
+                    Text="Click to move feature."
+                    Visibility="Collapsed"/>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         Margin="5"

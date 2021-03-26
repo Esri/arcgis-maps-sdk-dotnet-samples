@@ -16,7 +16,9 @@ def get_platform_samples_root(platform, sample_root):
     if (platform == "iOS"):
         return os.path.join(sample_root, "iOS", "Xamarin.iOS", "Samples")
     if (platform == "Forms" or platform in ["XFA", "XFI", "XFU"]):
-        return os.path.join(sample_root, "Forms", "Shared", "Samples")    
+        return os.path.join(sample_root, "Forms", "Shared", "Samples")
+    if (platform == "WinUI"):
+        return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
     raise AssertionError(None, None)
 def replace_readmes(category, formal_name, sample_root):
     try:
@@ -28,17 +30,16 @@ def replace_readmes(category, formal_name, sample_root):
         print(f"{formal_name} read from WPF")
 
         # Loop through the other platforms.
-        plats = ["UWP", "Android", "iOS", "Forms"]
+        plats = ["UWP", "Android", "iOS", "Forms", "WinUI"]
         for platform in plats:
             # Copy the original WPF text into a new string
             platformcontent = copy.copy(wpfcontent)
 
             # Fix the guide doc url for the platform
-            platformcontent = platformcontent.replace("wpf/guide", str.lower(platform)+"/guide")
-            platformcontent = platformcontent.replace("wpf/sample-code/", str.lower(platform)+"/sample-code/")
+            #platformcontent = platformcontent.replace("oldlink", "newlink")
 
             # Change `click` to `tap` for mobile platforms
-            if  not platform == "UWP":
+            if  not platform == "UWP" and not platform == "WinUI":
                 platformcontent = platformcontent.replace("click ", "tap ")
                 platformcontent = platformcontent.replace("Click ", "Tap ")
 

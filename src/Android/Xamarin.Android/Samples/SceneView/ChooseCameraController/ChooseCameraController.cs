@@ -38,7 +38,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
         private SceneView _mySceneView;
 
         // Path for elevation data.
-        private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Path for the plane model.
         private readonly Uri _modelUri = new Uri(DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae"));

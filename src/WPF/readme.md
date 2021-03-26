@@ -84,6 +84,7 @@
 
 * [Add an integrated mesh layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/AddAnIntegratedMeshLayer/readme.md) - View an integrated mesh layer from a scene service.
 * [Add a point scene layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/AddPointSceneLayer/readme.md) - View a point scene layer from a scene service.
+* [Apply mosaic rule to rasters](ArcGISRuntime.WPF.Viewer/Samples/Layers/ApplyMosaicRule/readme.md) - Apply mosaic rule to a mosaic dataset of rasters.
 * [ArcGIS map image layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](ArcGISRuntime.WPF.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.

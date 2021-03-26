@@ -84,6 +84,7 @@
 
 * [Add an integrated mesh layer](Shared/Samples/Layers/AddAnIntegratedMeshLayer/readme.md) - View an integrated mesh layer from a scene service.
 * [Add a point scene layer](Shared/Samples/Layers/AddPointSceneLayer/readme.md) - View a point scene layer from a scene service.
+* [Apply mosaic rule to rasters](Shared/Samples/Layers/ApplyMosaicRule/readme.md) - Apply mosaic rule to a mosaic dataset of rasters.
 * [ArcGIS map image layer](Shared/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](Shared/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](Shared/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.

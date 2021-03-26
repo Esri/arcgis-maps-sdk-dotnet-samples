@@ -11,6 +11,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
@@ -203,6 +204,10 @@
     <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml.cs">
       <DependentUpon>EditBranchVersioning.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.xaml.cs">
+      <DependentUpon>ApplyMosaicRule.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml.cs">
@@ -868,6 +873,9 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml">

@@ -15,6 +15,7 @@
 * [Add features](ArcGISRuntime.UWP.Viewer/Samples/Data/AddFeatures/readme.md) - Add features to a feature layer.
 * [Delete features (feature service)](ArcGISRuntime.UWP.Viewer/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
 * [Edit and sync features](ArcGISRuntime.UWP.Viewer/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
+* [Edit with branch versioning](ArcGISRuntime.UWP.Viewer/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](ArcGISRuntime.UWP.Viewer/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](ArcGISRuntime.UWP.Viewer/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
 * [Feature layer (geodatabase)](ArcGISRuntime.UWP.Viewer/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.

@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
     <None Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.jpg" />
     <None Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
     <None Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
@@ -276,6 +277,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.cs" />
     <Compile Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.cs" />
     <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.cs" />
     <Compile Include="ApiKeyPrompt.cs" />
@@ -773,6 +775,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\EditAttributeLayout.xml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\EditBranchVersioning.xml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>

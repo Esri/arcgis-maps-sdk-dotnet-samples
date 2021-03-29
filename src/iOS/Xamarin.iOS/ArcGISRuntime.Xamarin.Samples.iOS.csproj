@@ -278,6 +278,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
     <None Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.jpg" />
     <None Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
     <None Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
@@ -471,6 +472,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.cs" />
     <Compile Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.cs" />
     <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.cs" />
     <Compile Include="HTMLHelpers.cs" />

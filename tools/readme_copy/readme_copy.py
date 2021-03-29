@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import os
+import copy
 
 def get_platform_samples_root(platform, sample_root):
     '''
@@ -15,7 +16,9 @@ def get_platform_samples_root(platform, sample_root):
     if (platform == "iOS"):
         return os.path.join(sample_root, "iOS", "Xamarin.iOS", "Samples")
     if (platform == "Forms" or platform in ["XFA", "XFI", "XFU"]):
-        return os.path.join(sample_root, "Forms", "Shared", "Samples")    
+        return os.path.join(sample_root, "Forms", "Shared", "Samples")
+    if (platform == "WinUI"):
+        return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
     raise AssertionError(None, None)
 def replace_readmes(category, formal_name, sample_root):
     try:
@@ -27,21 +30,24 @@ def replace_readmes(category, formal_name, sample_root):
         print(f"{formal_name} read from WPF")
 
         # Loop through the other platforms.
-        plats = ["UWP", "Android", "iOS", "Forms"]
+        plats = ["UWP", "Android", "iOS", "Forms", "WinUI"]
         for platform in plats:
+            # Copy the original WPF text into a new string
+            platformcontent = copy.copy(wpfcontent)
+
             # Fix the guide doc url for the platform
-            wpfcontent = wpfcontent.replace("wpf/guide", str.lower(platform)+"/guide")
+            #platformcontent = platformcontent.replace("oldlink", "newlink")
 
             # Change `click` to `tap` for mobile platforms
-            if  not platform == "UWP":
-                wpfcontent = wpfcontent.replace("click ", "tap ")
-                wpfcontent = wpfcontent.replace("Click ", "Tap ")
+            if  not platform == "UWP" and not platform == "WinUI":
+                platformcontent = platformcontent.replace("click ", "tap ")
+                platformcontent = platformcontent.replace("Click ", "Tap ")
 
             # Write the WPF readme to other platform
             platform_path = os.path.join(get_platform_samples_root(platform, sample_root), category, formal_name, ("readme.md"))
             with open(platform_path, "r+") as file:
                 file.seek(0)
-                file.write(wpfcontent)
+                file.write(platformcontent)
                 file.truncate()
                 print(f"{formal_name} written to {platform}")
     except OSError as e:

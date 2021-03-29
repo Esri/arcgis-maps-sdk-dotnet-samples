@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
     public partial class GetElevationAtPoint : ContentPage
     {
         // URL of the elevation service - provides elevation component of the scene.
-        private readonly Uri _elevationUri = new Uri("http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _elevationUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Starting point of the observer.
         private readonly MapPoint _observerPoint = new MapPoint(83.9, 28.42, SpatialReferences.Wgs84);

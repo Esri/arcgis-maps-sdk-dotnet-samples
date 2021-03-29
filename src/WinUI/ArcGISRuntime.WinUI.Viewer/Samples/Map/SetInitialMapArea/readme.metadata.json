@@ -1,0 +1,36 @@
+{
+    "category": "Map",
+    "description": "Display the map at an initial viewpoint representing a bounding geometry.",
+    "formal_name": "SetInitialMapArea",
+    "ignore": false,
+    "images": [
+        "SetInitialMapArea.jpg"
+    ],
+    "keywords": [
+        "envelope",
+        "extent",
+        "initial",
+        "viewpoint",
+        "zoom"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/setinitialmaparea.htm"
+    ],
+    "relevant_apis": [
+        "Envelope",
+        "Map",
+        "MapView",
+        "Point",
+        "Viewpoint"
+    ],
+    "snippets": [
+        "SetInitialMapArea.xaml",
+        "SetInitialMapArea.xaml.cs"
+    ],
+    "title": "Map initial extent"
+}

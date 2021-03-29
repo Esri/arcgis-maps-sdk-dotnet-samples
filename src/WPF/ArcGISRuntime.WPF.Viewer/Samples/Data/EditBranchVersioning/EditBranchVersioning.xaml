@@ -1,0 +1,86 @@
+﻿<UserControl
+    x:Class="ArcGISRuntime.WPF.Samples.EditBranchVersioning.EditBranchVersioning"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label
+                    Content="Click to select a feature, then change its damage type." FontWeight="SemiBold" />
+                <Label x:Name="CurrentVersionLabel"
+                    Content="Current version:" />
+                <Button x:Name="CreateVersionButton"
+                    Content="Create version" IsEnabled="False"
+                    Click="VersionButtonPressed" />
+            </StackPanel>
+        </Border>
+        <Border x:Name="VersionCreator"
+            Style="{StaticResource BorderStyle}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0" Grid.Column="0"
+                    Content="Name:" />
+                <TextBox x:Name="NameEntryBox"
+                    Grid.Row="0" Grid.Column="1"
+                    Margin="5" />
+                <Label
+                    Grid.Row="1" Grid.Column="0"
+                    Content="Access:" />
+                <ComboBox x:Name="AccessBox"
+                    Grid.Row="1" Grid.Column="1"
+                    Margin="5" />
+                <Label
+                    Grid.Row="2" Grid.Column="0"
+                    Content="Description:" />
+                <TextBox x:Name="DescriptionBox"
+                    Grid.Row="2" Grid.Column="1"
+                    Margin="5" />
+                <Button
+                    Grid.Row="3" Grid.Column="0"
+                    Margin="5"
+                    Content="Create"
+                    Click="ConfirmVersionClick" />
+                <Button
+                    Grid.Row="3" Grid.Column="1"
+                    Margin="5"
+                    Content="Cancel"
+                    Click="CancelVersionClick" />
+            </Grid>
+        </Border>
+        <Border x:Name="AttributePicker"
+            Style="{StaticResource BorderStyle}"
+            HorizontalAlignment="Left"
+            Visibility="Collapsed">
+            <StackPanel>
+                <Label
+                    Margin="5"
+                    Content="Click to move feature." Visibility="Hidden" />
+                <StackPanel Orientation="Horizontal">
+                    <Label
+                        Margin="5"
+                        Content="Damage:" />
+                    <ComboBox x:Name="DamageBox"
+                        Margin="5"
+                        SelectionChanged="DamageBox_SelectionChanged" />
+                </StackPanel>
+                <Button x:Name="CloseButton"
+                    Margin="5"
+                    Content="Close"
+                    Click="CloseAttributeClick" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

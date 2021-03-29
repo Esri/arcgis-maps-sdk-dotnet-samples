@@ -23,6 +23,7 @@
 * [Add features](Xamarin.Android/Samples/Data/AddFeatures/readme.md) - Add features to a feature layer.
 * [Delete features (feature service)](Xamarin.Android/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
 * [Edit and sync features](Xamarin.Android/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
+* [Edit with branch versioning](Xamarin.Android/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](Xamarin.Android/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](Xamarin.Android/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
 * [Feature layer (geodatabase)](Xamarin.Android/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.
@@ -91,6 +92,7 @@
 
 * [Add an integrated mesh layer](Xamarin.Android/Samples/Layers/AddAnIntegratedMeshLayer/readme.md) - View an integrated mesh layer from a scene service.
 * [Add a point scene layer](Xamarin.Android/Samples/Layers/AddPointSceneLayer/readme.md) - View a point scene layer from a scene service.
+* [Apply mosaic rule to rasters](Xamarin.Android/Samples/Layers/ApplyMosaicRule/readme.md) - Apply mosaic rule to a mosaic dataset of rasters.
 * [ArcGIS map image layer](Xamarin.Android/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](Xamarin.Android/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](Xamarin.Android/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.

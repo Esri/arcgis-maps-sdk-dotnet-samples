@@ -11,30 +11,28 @@ See each platform's TOC:
 * [Xamarin.Android](src/Android)
 * [Xamarin.iOS](src/iOS)
 * [Xamarin.Forms](src/Forms)
+* [WinUI](src/WinUI) (Preview)
 
 ## Instructions
 
-1. Fork and then clone the repo or download the .zip file. 
+1. Fork and then clone the repo or download the .zip file.
 2. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
-    * [WPF](https://developers.arcgis.com/net/latest/wpf/guide/system-requirements.htm)
-    * [UWP](https://developers.arcgis.com/net/latest/uwp/guide/system-requirements.htm)
-    * [Xamarin.Android](https://developers.arcgis.com/net/latest/android/guide/system-requirements.htm)
-    * [Xamarin.iOS](https://developers.arcgis.com/net/latest/ios/guide/system-requirements.htm)
-    * [Xamarin.Forms](https://developers.arcgis.com/net/latest/forms/guide/system-requirements.htm)
+    * [System requirements for ArcGIS Runtime API for .NET](https://developers.arcgis.com/net/reference/system-requirements/)
 3. For the platform you want to view: open the solution, restore NuGet packages, build, and run the application
     * WPF (.NET Framework): `src\WPF\ArcGISRuntime.WPF.Viewer.sln`
-    * WPF (.NET Core) **PREVIEW**: `src\WPF\ArcGISRuntime.WPF.Viewer.NetCore.sln`
+    * WPF (.NET Core): `src\WPF\ArcGISRuntime.WPF.Viewer.NetCore.sln`
     * UWP: `src\Windows\ArcGISRuntime.UWP.Viewer.sln`  
     * Xamarin.Android: `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`  
     * Xamarin.iOS: `src\iOS\ArcGISRuntime.Xamari.Samples.iOS.sln`  
     * Xamarin.Forms: `src\Windows\ArcGISRuntime.Xamarin.Samples.Forms.sln`  
-  
+    * WinUI: `\src\WinUI\ArcGISRuntime.WinUI.Viewer.sln` (Preview)
+
     or
   
     * All: `src\ArcGISRuntime.Viewers.All.sln`
     * Windows ( WPF / UWP ): `src\ArcGISRuntime.Viewers.Windows.sln`
     * Xamarin (iOS, Android, Forms): `src\ArcGISRuntime.Viewers.Xamarin.sln`  
-  
+
 Notes:
 
 * Authentication: Use of Esri location services, including basemaps and geocoding, requires either an ArcGIS identity or an API key.
@@ -45,12 +43,7 @@ The .NET sample viewers have a prompt for setting an API key. You can also hardc
 
 ## Requirements
 
-* Supported system configurations for:
-  * [WPF](https://developers.arcgis.com/net/latest/wpf/guide/system-requirements.htm)
-  * [UWP](https://developers.arcgis.com/net/latest/uwp/guide/system-requirements.htm)
-  * [Xamarin.Android](https://developers.arcgis.com/net/latest/android/guide/system-requirements.htm)
-  * [Xamarin.iOS](https://developers.arcgis.com/net/latest/ios/guide/system-requirements.htm)
-  * [Xamarin.Forms](https://developers.arcgis.com/net/latest/forms/guide/system-requirements.htm)
+* [Supported system configurations for ArcGIS Runtime API for .NET](https://developers.arcgis.com/net/reference/system-requirements/)
 
 ## Resources
 
@@ -82,13 +75,13 @@ Esri uses several tools to more efficiently manage the content in this repo. See
 
 ## Licensing
 
-Copyright 2019 Esri
+Copyright 2021 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-   http://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,

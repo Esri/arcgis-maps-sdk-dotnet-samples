@@ -37,7 +37,7 @@ namespace ArcGISRuntime.UWP.Samples.IntegratedWindowsAuth
         //       You do not need to surface your own UI to prompt the user for username, password, and domain.
 
         // The ArcGIS Online URL for searching public web maps.
-        private string _publicPortalUrl = "http://www.arcgis.com";
+        private string _publicPortalUrl = "https://www.arcgis.com";
 
         // The public and secured portals.
         ArcGISPortal _iwaSecuredPortal = null;

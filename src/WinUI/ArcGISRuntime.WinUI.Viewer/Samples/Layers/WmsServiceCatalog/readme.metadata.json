@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Connect to a WMS service and show the available layers and sublayers. ",
+    "formal_name": "WmsServiceCatalog",
+    "ignore": false,
+    "images": [
+        "WmsServiceCatalog.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "WMS",
+        "catalog",
+        "web map service"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/wmsservicecatalog.htm"
+    ],
+    "relevant_apis": [
+        "WmsLayer(List<WmsLayerInfo>)",
+        "WmsLayerInfo",
+        "WmsService",
+        "WmsServiceInfo"
+    ],
+    "snippets": [
+        "WmsServiceCatalog.xaml",
+        "WmsServiceCatalog.xaml.cs"
+    ],
+    "title": "WMS service catalog"
+}

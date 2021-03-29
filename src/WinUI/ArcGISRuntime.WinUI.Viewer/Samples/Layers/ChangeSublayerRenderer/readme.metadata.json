@@ -1,0 +1,37 @@
+{
+    "category": "Layers",
+    "description": "Apply a renderer to a sublayer.",
+    "formal_name": "ChangeSublayerRenderer",
+    "ignore": false,
+    "images": [
+        "ChangeSublayerRenderer.jpg"
+    ],
+    "keywords": [
+        "class breaks",
+        "dynamic layer",
+        "dynamic rendering",
+        "renderer",
+        "sublayer",
+        "symbology",
+        "visualization"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/changesublayerrenderer.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "ArcGISMapImageSubLayer",
+        "ClassBreaksRenderer",
+        "ClassBreaksRenderer.ClassBreak"
+    ],
+    "snippets": [
+        "ChangeSublayerRenderer.xaml",
+        "ChangeSublayerRenderer.xaml.cs"
+    ],
+    "title": "Change sublayer renderer"
+}

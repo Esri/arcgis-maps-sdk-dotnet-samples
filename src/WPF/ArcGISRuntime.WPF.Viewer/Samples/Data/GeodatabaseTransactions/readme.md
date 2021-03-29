@@ -32,10 +32,6 @@ When the sample loads, a feature service is taken offline as a geodatabase. When
 
 The sample uses a publicly-editable, sync-enabled [feature service](https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer) demonstrating a schema for recording wildlife sightings.
 
-## Additional information
-
-You can learn more about geodatabase transactions in the [Use geodatabase transactions](https://developers.arcgis.com/net/latest/wpf/guide/use-geodatabase-transactions.htm) guide topic.
-
 ## Tags
 
 commit, database, geodatabase, transact, transactions

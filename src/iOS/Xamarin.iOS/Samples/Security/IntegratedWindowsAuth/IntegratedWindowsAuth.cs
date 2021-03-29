@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
         private LoginOverlay _loginUI;
 
         // The ArcGIS Online URL for searching public web maps.
-        private const string PublicPortalUrl = "http://www.arcgis.com";
+        private const string PublicPortalUrl = "https://www.arcgis.com";
 
         public IntegratedWindowsAuth()
         {

@@ -1,0 +1,22 @@
+﻿<UserControl
+    x:Class="ArcGISRuntime.WinUI.Samples.FindServiceAreasForMultipleFacilities.FindServiceAreasForMultipleFacilities"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Button x:Name="ServiceAreaButton"
+                        IsEnabled="False"
+                        HorizontalAlignment="Stretch"
+                        Content="Find service area"
+                        Click="FindServiceArea_Clicked" />
+                <ProgressBar x:Name="ProgressView"
+                             IsIndeterminate="True"
+                             MinHeight="10"
+                             Visibility="Collapsed" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

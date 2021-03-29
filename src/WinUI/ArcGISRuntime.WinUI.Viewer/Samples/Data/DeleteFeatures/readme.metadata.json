@@ -1,0 +1,34 @@
+{
+    "category": "Data",
+    "description": "Delete features from an online feature service.",
+    "formal_name": "DeleteFeatures",
+    "ignore": false,
+    "images": [
+        "DeleteFeatures.jpg"
+    ],
+    "keywords": [
+        "Service",
+        "deletion",
+        "feature",
+        "online",
+        "table"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/deletefeatures.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureLayer",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "DeleteFeatures.xaml",
+        "DeleteFeatures.xaml.cs"
+    ],
+    "title": "Delete features (feature service)"
+}

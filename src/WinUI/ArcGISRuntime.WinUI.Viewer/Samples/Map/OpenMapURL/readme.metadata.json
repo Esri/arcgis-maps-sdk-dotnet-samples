@@ -1,0 +1,32 @@
+{
+    "category": "Map",
+    "description": "Display a web map.",
+    "formal_name": "OpenMapURL",
+    "ignore": false,
+    "images": [
+        "OpenMapURL.jpg"
+    ],
+    "keywords": [
+        "portal item",
+        "web map"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/openmapurl.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView",
+        "Portal",
+        "PortalItem"
+    ],
+    "snippets": [
+        "OpenMapURL.xaml",
+        "OpenMapURL.xaml.cs"
+    ],
+    "title": "Open map URL"
+}

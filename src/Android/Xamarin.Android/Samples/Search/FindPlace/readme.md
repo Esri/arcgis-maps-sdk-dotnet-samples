@@ -33,7 +33,7 @@ Choose a type of place in the first field and an area to search within in the se
 
 ## About the data  
 
-This sample uses the [Geocoding service](https://developers.arcgis.com/documentation/mapping-apis-and-location-services/geocode-and-search/services/geocoding-service/).
+This sample uses the [Geocoding service](https://developers.arcgis.com/documentation/mapping-apis-and-location-services/search/services/geocoding-service/).
 
 ## Relevant API
 

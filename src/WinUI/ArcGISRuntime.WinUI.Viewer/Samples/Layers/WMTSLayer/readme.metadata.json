@@ -1,0 +1,35 @@
+{
+    "category": "Layers",
+    "description": "Display a layer from a Web Map Tile Service.",
+    "formal_name": "WMTSLayer",
+    "ignore": false,
+    "images": [
+        "WMTSLayer.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "layer",
+        "raster",
+        "tiled",
+        "web map tile service"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/wmtslayer.htm"
+    ],
+    "relevant_apis": [
+        "WmtsLayer",
+        "WmtsLayerInfo",
+        "WmtsService",
+        "WmtsServiceInfo"
+    ],
+    "snippets": [
+        "WMTSLayer.xaml",
+        "WMTSLayer.xaml.cs"
+    ],
+    "title": "WMTS layer"
+}

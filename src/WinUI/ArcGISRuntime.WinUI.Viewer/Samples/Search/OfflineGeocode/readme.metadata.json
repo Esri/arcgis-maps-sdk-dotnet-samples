@@ -1,0 +1,40 @@
+{
+    "category": "Search",
+    "description": "Geocode addresses to locations and reverse geocode locations to addresses offline.",
+    "formal_name": "OfflineGeocode",
+    "ignore": false,
+    "images": [
+        "OfflineGeocode.jpg"
+    ],
+    "keywords": [
+        "geocode",
+        "geocoder",
+        "locator",
+        "offline",
+        "package",
+        "query",
+        "search"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [
+        "1330ab96ac9c40a49e59650557f2cd63",
+        "344e3b12368543ef84045ef9aa3c32ba"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/offlinegeocode.htm"
+    ],
+    "relevant_apis": [
+        "GeocodeParameters",
+        "GeocodeResult",
+        "LocatorTask",
+        "ReverseGeocodeParameters"
+    ],
+    "snippets": [
+        "OfflineGeocode.xaml",
+        "OfflineGeocode.xaml.cs"
+    ],
+    "title": "Offline geocode"
+}

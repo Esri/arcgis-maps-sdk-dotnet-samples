@@ -24,7 +24,7 @@ namespace ArcGISRuntime.UWP.Samples.SceneSymbols
         tags: new[] { "3D", "cone", "cube", "cylinder", "diamond", "geometry", "graphic", "graphics overlay", "pyramid", "scene", "shape", "sphere", "symbol", "tetrahedron", "tube", "visualization" })]
     public partial class SceneSymbols
     {
-        private readonly string _elevationServiceUrl = "http://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
+        private readonly string _elevationServiceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         public SceneSymbols()
         {

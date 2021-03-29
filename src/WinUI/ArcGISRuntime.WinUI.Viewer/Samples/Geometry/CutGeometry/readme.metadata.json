@@ -1,0 +1,32 @@
+{
+    "category": "Geometry",
+    "description": "Cut a geometry along a polyline.",
+    "formal_name": "CutGeometry",
+    "ignore": false,
+    "images": [
+        "CutGeometry.jpg"
+    ],
+    "keywords": [
+        "cut",
+        "geometry",
+        "split"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/cutgeometry.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine.Cut",
+        "Polygon",
+        "Polyline"
+    ],
+    "snippets": [
+        "CutGeometry.xaml",
+        "CutGeometry.xaml.cs"
+    ],
+    "title": "Cut geometry"
+}

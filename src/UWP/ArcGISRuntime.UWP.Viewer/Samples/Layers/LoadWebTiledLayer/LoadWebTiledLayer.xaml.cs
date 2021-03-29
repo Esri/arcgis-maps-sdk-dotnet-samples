@@ -27,10 +27,7 @@ namespace ArcGISRuntime.UWP.Samples.LoadWebTiledLayer
         private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
 
         // Attribution string for the Stamen service
-        private readonly string _attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," +
-                                               "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." +
-                                               "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
-                                               "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
+        private readonly string _attribution = "Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.";
 
         public LoadWebTiledLayer()
         {

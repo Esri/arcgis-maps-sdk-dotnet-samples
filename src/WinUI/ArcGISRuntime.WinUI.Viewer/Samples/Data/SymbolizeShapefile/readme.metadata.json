@@ -1,0 +1,38 @@
+{
+    "category": "Data",
+    "description": "Display a shapefile with custom symbology.",
+    "formal_name": "SymbolizeShapefile",
+    "ignore": false,
+    "images": [
+        "SymbolizeShapefile.jpg"
+    ],
+    "keywords": [
+        "package",
+        "shape file",
+        "shapefile",
+        "symbology",
+        "visualization"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [
+        "d98b3e5293834c5f852f13c569930caa"
+    ],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/symbolizeshapefile.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "ShapefileFeatureTable",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleRenderer"
+    ],
+    "snippets": [
+        "SymbolizeShapefile.xaml",
+        "SymbolizeShapefile.xaml.cs"
+    ],
+    "title": "Symbolize shapefile"
+}

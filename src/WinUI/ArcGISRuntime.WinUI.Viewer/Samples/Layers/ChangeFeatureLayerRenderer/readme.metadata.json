@@ -1,0 +1,32 @@
+{
+    "category": "Layers",
+    "description": "Change the appearance of a feature layer with a renderer.",
+    "formal_name": "ChangeFeatureLayerRenderer",
+    "ignore": false,
+    "images": [
+        "ChangeFeatureLayerRenderer.jpg"
+    ],
+    "keywords": [
+        "feature layer",
+        "renderer",
+        "visualization"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/changefeaturelayerrenderer.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer.Renderer",
+        "ServiceFeatureTable",
+        "SimpleRenderer"
+    ],
+    "snippets": [
+        "ChangeFeatureLayerRenderer.xaml",
+        "ChangeFeatureLayerRenderer.xaml.cs"
+    ],
+    "title": "Change feature layer renderer"
+}

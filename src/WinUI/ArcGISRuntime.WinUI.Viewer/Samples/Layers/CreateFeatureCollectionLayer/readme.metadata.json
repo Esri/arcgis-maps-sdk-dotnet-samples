@@ -1,0 +1,34 @@
+{
+    "category": "Layers",
+    "description": "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
+    "formal_name": "CreateFeatureCollectionLayer",
+    "ignore": false,
+    "images": [
+        "CreateFeatureCollectionLayer.jpg"
+    ],
+    "keywords": [
+        "Layers",
+        "feature collection"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0",
+        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/createfeaturecollectionlayer.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureCollection",
+        "FeatureCollectionLayer",
+        "FeatureCollectionTable",
+        "Field",
+        "SimpleRenderer"
+    ],
+    "snippets": [
+        "CreateFeatureCollectionLayer.xaml",
+        "CreateFeatureCollectionLayer.xaml.cs"
+    ],
+    "title": "Feature collection layer"
+}

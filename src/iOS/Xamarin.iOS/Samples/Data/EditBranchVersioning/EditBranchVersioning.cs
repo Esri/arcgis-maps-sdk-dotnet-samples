@@ -58,7 +58,6 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
         private ServiceFeatureTable _featureTable;
         private ServiceGeodatabase _serviceGeodatabase;
 
-        // Object is null by default, will be set to VersionAccess.
         private VersionAccess? _userVersionAccess;
 
         private string _userCreatedVersionName;
@@ -332,7 +331,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                     ServiceVersionParameters newVersionParameters = new ServiceVersionParameters();
                     newVersionParameters.Name = _nameField.Text;
                     newVersionParameters.Access = access;
-                    newVersionParameters.Description = _descriptionField.Text;
+                    newVersionParameters.Description = _descriptionField.Text ?? "";
 
                     ServiceVersionInfo newVersion = await _serviceGeodatabase.CreateVersionAsync(newVersionParameters);
                     _userCreatedVersionName = newVersion.Name;

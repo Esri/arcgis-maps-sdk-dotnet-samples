@@ -315,7 +315,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                 ServiceVersionParameters newVersionParameters = new ServiceVersionParameters();
                 newVersionParameters.Name = NameEntryBox.Text;
                 newVersionParameters.Access = (VersionAccess)AccessBox.SelectedItem;
-                newVersionParameters.Description = DescriptionBox.Text;
+                newVersionParameters.Description = DescriptionBox.Text ?? "";
 
                 ServiceVersionInfo newVersion = await _serviceGeodatabase.CreateVersionAsync(newVersionParameters);
                 _userCreatedVersionName = newVersion.Name;

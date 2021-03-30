@@ -40,7 +40,7 @@
         "UtilityTraceType"
     ],
     "snippets": [
-        "../../../Resources/layout/PerformValveIsolationTrace.axml",
+        "../../../Resources/layout/PerformValveIsolationTrace.xml",
         "PerformValveIsolationTrace.cs"
     ],
     "title": "Perform valve isolation trace"

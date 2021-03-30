@@ -53,7 +53,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                 {
                     // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
                     string sampleServer7User = "editor01";
-                    string sampleServer7Pass = "editor01.password";
+                    string sampleServer7Pass = "S7#i2LWmYH75";
                     return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
                 }
                 catch (Exception ex)
@@ -73,7 +73,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                 DamageBox.ItemsSource = new List<string> { "Destroyed", "Inaccessible", "Major", "Minor", "Affected" };
 
                 // Create and load a service geodatabase.
-                _serviceGeodatabase = new ServiceGeodatabase(new Uri("https://sampleserver7.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0"));
+                _serviceGeodatabase = new ServiceGeodatabase(new Uri("https://sampleserver7.arcgisonline.com/server/rest/services/DamageAssessment/FeatureServer/0"));
                 await _serviceGeodatabase.LoadAsync();
 
                 // When the service geodatabase has loaded get the default version name.

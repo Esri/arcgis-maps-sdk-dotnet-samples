@@ -41,7 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         private UIActivityIndicatorView _loadingView;
 
         // Feature service for an electric utility network in Naperville, Illinois.
-        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
+        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
         private const int LineLayerId = 3;
         private const int DeviceLayerId = 0;
         private UtilityNetwork _utilityNetwork;

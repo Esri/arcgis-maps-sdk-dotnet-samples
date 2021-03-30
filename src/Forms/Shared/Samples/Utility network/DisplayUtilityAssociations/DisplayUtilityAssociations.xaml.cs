@@ -32,7 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
     public partial class DisplayUtilityAssociations : ContentPage
     {
         // Feature server for the utility network.
-        private const string FeatureServerUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
+        private const string FeatureServerUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
         // This viewpoint shows several associations clearly in the utility network.
         private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-9812697.41544719, 5131928.28213524, SpatialReferences.WebMercator), 73.4352610787649);

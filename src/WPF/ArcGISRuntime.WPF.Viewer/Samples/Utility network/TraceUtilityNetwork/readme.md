@@ -21,14 +21,14 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 5. Add a `GraphicsOverlay` with symbology that distinguishes starting locations from barriers.
 6. Identify features on the map and add a `Graphic` that represents its purpose (starting location or barrier) at the tapped location.
 7. Create a `UtilityElement` for the identified feature.
-8. Determine the type of this element using its `UtilityNetworkSource.sourceType` property.
+8. Determine the type of this element using its `UtilityNetworkSource.SourceType` property.
 9. If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `UtilityTerminal` property with the selected terminal.
-10. If an edge, set its `FractionAlongLine` property using `GeometryEngine.fractionAlong`.
+10. If an edge, set its `FractionAlongEdge` property using `GeometryEngine.FractionAlong`.
 11. Add this `UtilityElement` to a collection of starting locations or barriers.
 12. Create `UtilityTraceParameters` with the selected trace type along with the collected starting locations and barriers (if applicable).
-13. Set the `UtilityTraceParameters.traceConfiguration` with the tier's `UtilityTier.traceConfiguration` property.
-14. Run a `UtilityNetwork.traceAsync` with the specified parameters.
-15. For every `FeatureLayer` in the map, select the features returned with `GetFeaturesForElementsAsync` from the elements matching their `UtilityNetworkSource.featureTable` with the layer's `FeatureTable`.
+13. Set the `UtilityTraceParameters.TraceConfiguration` with the tier's `UtilityTier.TraceConfiguration` property.
+14. Run a `UtilityNetwork.TraceAsync` with the specified parameters.
+15. For every `FeatureLayer` in the map, select the features returned with `GetFeaturesForElementsAsync` from the elements matching their `UtilityNetworkSource.FeatureTable` with the layer's `FeatureTable`.
 
 ## Relevant API
 
@@ -50,7 +50,7 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 
 ## About the data
 
-The [Naperville electrical](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer)  network feature service, hosted on ArcGIS Online, contains a utility network used to run the subnetwork-based trace shown in this sample.
+The [Naperville electrical](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer) network feature service, hosted on ArcGIS Online, contains a utility network used to run the subnetwork-based trace shown in this sample.
 
 ## Additional information
 

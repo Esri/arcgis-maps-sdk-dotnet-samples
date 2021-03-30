@@ -52,7 +52,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyMosaicRule
         private async Task Initialize()
         {
             // Create a raster layer using an image service.
-            _imageServiceRaster = new ImageServiceRaster(new Uri("https://sampleserver7.arcgisonline.com/arcgis/rest/services/amberg_germany/ImageServer"));
+            _imageServiceRaster = new ImageServiceRaster(new Uri("https://sampleserver7.arcgisonline.com/server/rest/services/amberg_germany/ImageServer"));
             RasterLayer rasterLayer = new RasterLayer(_imageServiceRaster);
             await rasterLayer.LoadAsync();
 

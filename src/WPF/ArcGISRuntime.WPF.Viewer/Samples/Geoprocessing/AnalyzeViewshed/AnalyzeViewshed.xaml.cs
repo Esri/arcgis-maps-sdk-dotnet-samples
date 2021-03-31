@@ -17,9 +17,9 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Drawing;
 
 namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
 {
@@ -131,7 +131,6 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             GeoprocessingParameters myViewshedParameters =
                 new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
                 {
-
                     // Request the output features to use the same SpatialReference as the map view
                     OutputSpatialReference = MyMapView.SpatialReference
                 };

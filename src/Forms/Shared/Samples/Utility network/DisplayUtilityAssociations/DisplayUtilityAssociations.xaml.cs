@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,11 +10,13 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
@@ -30,7 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
     public partial class DisplayUtilityAssociations : ContentPage
     {
         // Feature server for the utility network.
-        private const string FeatureServerUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
+        private const string FeatureServerUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
         // This viewpoint shows several associations clearly in the utility network.
         private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-9812697.41544719, 5131928.28213524, SpatialReferences.WebMercator), 73.4352610787649);
@@ -52,6 +54,24 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
 
         private async void Initialize()
         {
+            // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
+            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
+            {
+                try
+                {
+                    // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
+                    string sampleServer7User = "viewer01";
+                    string sampleServer7Pass = "I68VGU^nMurF";
+
+                    return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            });
+
             try
             {
                 // Create the utility network.
@@ -95,11 +115,10 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
                 var connectivityValue = new UniqueValue("Connectivity", string.Empty, connectivitySymbol, UtilityAssociationType.Connectivity.ToString());
                 _associationsOverlay.Renderer = new UniqueValueRenderer(new List<string> { "AssociationType" }, new List<UniqueValue> { attachmentValue, connectivityValue }, string.Empty, null);
 
-
                 // Populate the legend in the UI.
                 RuntimeImage attachmentSwatch = await attachmentSymbol.CreateSwatchAsync();
                 AttachmentImage.Source = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(attachmentSwatch);
-                
+
                 RuntimeImage connectSwatch = await connectivitySymbol.CreateSwatchAsync();
                 ConnectivityImage.Source = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(connectSwatch);
 

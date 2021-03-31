@@ -36,6 +36,8 @@ def replace_readmes(category, formal_name, sample_root):
             platformcontent = copy.copy(wpfcontent)
 
             # Fix the guide doc url for the platform
+            platformcontent = platformcontent.replace("wpf/guide", str.lower(platform)+"/guide")
+            platformcontent = platformcontent.replace("wpf/sample-code/", str.lower(platform)+"/sample-code/")
             #platformcontent = platformcontent.replace("oldlink", "newlink")
 
             # Change `click` to `tap` for mobile platforms

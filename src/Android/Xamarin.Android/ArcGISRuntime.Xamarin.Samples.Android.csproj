@@ -718,7 +718,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\PerformValveIsolationTrace.axml">
+    <AndroidResource Include="Resources\layout\PerformValveIsolationTrace.xml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>

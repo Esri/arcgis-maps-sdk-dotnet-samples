@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net5.0-windows10.0.18362.0</TargetFramework>
-    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+    <TargetFramework>net5.0-windows10.0.19041.0</TargetFramework>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <RootNamespace>ArcGISRuntime.WinUI.Viewer</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;arm64</Platforms>
@@ -40,14 +40,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.10.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.10.0-preview2" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.9.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.11-daily3108" />
+    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.11.0-daily3108" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.11.0-daily3108" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="8.0.0-preview4" />
-    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls.Markdown" Version="8.0.0-preview4" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.0.1" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.0.1" />
     <PackageReference Include="Microsoft.VCRTForwarders.140" Version="1.0.6" />
-    <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview4.210210.4" />
+    <PackageReference Include="Microsoft.ProjectReunion" Version="0.5.0" />
+    <PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.5.0" />
+    <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.5.0" />
     <!--<PackageReference Include="Monaco.Editor">
       <Version>0.8.1-alpha</Version>
     </PackageReference>-->

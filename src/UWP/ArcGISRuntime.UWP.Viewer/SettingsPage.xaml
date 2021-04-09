@@ -1,27 +1,21 @@
 ﻿<Page
     x:Class="ArcGISRuntime.SettingsWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:arcgisruntime="using:ArcGISRuntime"
-    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:arcgisruntime="using:ArcGISRuntime" xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:tabControls="using:Microsoft.UI.Xaml.Controls"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
-    <controls:TabView x:Name="Tabs">
-        <controls:TabViewItem Header="About">
-            <WebView
-                x:Name="AboutBlock"
+    <tabControls:TabView x:Name="Tabs">
+        <tabControls:TabViewItem Header="About">
+            <WebView x:Name="AboutBlock"
                 Margin="5"
                 DefaultBackgroundColor="Transparent" />
-        </controls:TabViewItem>
-        <controls:TabViewItem Header="Third party software">
-            <WebView
-                x:Name="LicensesBlock"
+        </tabControls:TabViewItem>
+        <tabControls:TabViewItem Header="Third party software">
+            <WebView x:Name="LicensesBlock"
                 Margin="5"
                 DefaultBackgroundColor="Transparent" />
-        </controls:TabViewItem>
-        <controls:TabViewItem Header="Offline data">
+        </tabControls:TabViewItem>
+        <tabControls:TabViewItem Header="Offline data">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -36,29 +30,26 @@
                 <TextBlock
                     Grid.Row="0"
                     Margin="5"
-                    Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
-                    TextWrapping="Wrap" />
-                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future." TextWrapping="Wrap" />
+                <StackPanel
+                    Grid.Row="1"
+                    Orientation="Horizontal">
                     <Button
                         Margin="5"
-                        Click="Download_All_Click"
-                        Content="Download all" />
+                        Content="Download all"
+                        Click="Download_All_Click" />
                     <Button
                         Margin="5"
-                        Click="Delete_All_Click"
-                        Content="Delete all" />
-                    <Button
-                        x:Name="CancelButton"
+                        Content="Delete all"
+                        Click="Delete_All_Click" />
+                    <Button x:Name="CancelButton"
                         Margin="5"
-                        Click="CancelButton_Click"
-                        Content="Cancel"
-                        Visibility="Collapsed" />
+                        Content="Cancel" Visibility="Collapsed"
+                        Click="CancelButton_Click" />
                 </StackPanel>
-                <ListView
-                    x:Name="SampleDataListView"
+                <ListView x:Name="SampleDataListView"
                     Grid.Row="2"
-                    HorizontalAlignment="Stretch"
-                    HorizontalContentAlignment="Stretch"
+                    HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"
                     SelectionMode="Single">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -68,7 +59,8 @@
                     </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid x:Name="ListViewGrid" HorizontalAlignment="Stretch">
+                            <Grid x:Name="ListViewGrid"
+                                HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
@@ -83,51 +75,45 @@
                                 <Button
                                     Grid.Column="1"
                                     Margin="5,0,5,0"
-                                    Click="Open_AGOL_Click"
                                     Content="Open in ArcGIS Online"
-                                    Tag="{Binding}" />
+                                    Tag="{Binding}"
+                                    Click="Open_AGOL_Click" />
                                 <Button
                                     Grid.Column="2"
                                     Margin="5,0,5,0"
-                                    Click="Download_Now_Click"
                                     Content="Download now"
-                                    Tag="{Binding}" />
+                                    Tag="{Binding}"
+                                    Click="Download_Now_Click" />
                                 <Button
                                     Grid.Column="3"
                                     Margin="5,0,5,0"
-                                    Click="Delete_Click"
                                     Content="Delete"
-                                    Tag="{Binding}" />
+                                    Tag="{Binding}"
+                                    Click="Delete_Click" />
                             </Grid>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
                 <Grid
                     Grid.Row="3"
-                    Width="auto"
-                    Height="50">
+                    Width="auto" Height="50">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock
-                        x:Name="StatusLabel"
-                        Margin="5"
-                        VerticalAlignment="Center"
+                    <TextBlock x:Name="StatusLabel"
+                        Margin="5" VerticalAlignment="Center"
                         Text="Ready" />
-                    <ProgressBar
-                        x:Name="StatusSpinner"
+                    <ProgressBar x:Name="StatusSpinner"
                         Width="300"
-                        HorizontalAlignment="Right"
-                        HorizontalContentAlignment="Right"
-                        IsIndeterminate="True"
-                        Visibility="Collapsed" />
+                        HorizontalAlignment="Right" HorizontalContentAlignment="Right"
+                        IsIndeterminate="True" Visibility="Collapsed" />
                 </Grid>
             </Grid>
-        </controls:TabViewItem>
-        <controls:TabViewItem Header="API Key">
+        </tabControls:TabViewItem>
+        <tabControls:TabViewItem Header="API Key">
             <arcgisruntime:ApiKeyPrompt />
-        </controls:TabViewItem>
-    </controls:TabView>
+        </tabControls:TabViewItem>
+    </tabControls:TabView>
 </Page>

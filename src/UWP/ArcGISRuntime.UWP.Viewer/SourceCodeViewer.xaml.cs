@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using Microsoft.Toolkit.Uwp.UI.Controls;
+using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.UWP.Viewer
             }
 
             // Set the Tab source to the list of tabs.
-            Tabs.ItemsSource = tabs;
+            Tabs.TabItemsSource = tabs;
         }
     }
 }

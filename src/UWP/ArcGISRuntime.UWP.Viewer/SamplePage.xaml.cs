@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Microsoft.Toolkit.Uwp.UI.Controls;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using Windows.System;
 using Windows.UI.Xaml;

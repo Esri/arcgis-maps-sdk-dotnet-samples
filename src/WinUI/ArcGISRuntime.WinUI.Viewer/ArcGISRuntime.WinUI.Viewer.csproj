@@ -40,9 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.11" />
     <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.11.0" />
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.11.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.11.0" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.0.1" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.0.1" />
@@ -57,6 +57,11 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <!--Workaround for https://github.com/microsoft/microsoft-ui-xaml/issues/4414-->
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.13" />
+  </ItemGroup>
+  
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   
 </Project>

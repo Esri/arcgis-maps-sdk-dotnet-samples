@@ -14,7 +14,6 @@
             <SolidColorBrush x:Name="PrimaryColor" Color="#005e95" />
             <SolidColorBrush x:Name="PrimaryDarkModeColor" Color="#FF8DD5FF" />
             <SolidColorBrush x:Name="SecondaryColor" Color="#0079C1" />
-            <SolidColorBrush x:Name="SecondaryBackgroundColor" Color="#FFD3CFCF" />
             <SolidColorBrush x:Name="SecondaryTextColor" Color="#595959" />
             <SolidColorBrush x:Name="OverlayColor" Color="#8C000000" />
             <SolidColorBrush x:Name="PrimaryTextColor" Color="#323232" />
@@ -27,6 +26,7 @@
                         ImageSource="Assets/banner-background-black.png"
                         Stretch="UniformToFill" />
                     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#FF4B4B4B" />
+                    <SolidColorBrush x:Key="SecondaryBackgroundColor" Color="#FF343434" />
                     <SolidColorBrush x:Key="InlineCodeColor" Color="White" />
                     <Style x:Key="PrimaryTextBlock" TargetType="TextBlock">
                         <Setter Property="Foreground" Value="{StaticResource DarkModeTextColor}" />
@@ -47,6 +47,7 @@
                         ImageSource="Assets/banner-background-purple.png"
                         Stretch="UniformToFill" />
                     <SolidColorBrush x:Key="PrimaryBackgroundColor" Color="#f8f8f8" />
+                    <SolidColorBrush x:Key="SecondaryBackgroundColor" Color="#FFD3CFCF" />
                     <SolidColorBrush x:Key="InlineCodeColor" Color="Black" />
                     <Style x:Key="PrimaryTextBlock" TargetType="TextBlock">
                         <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />

@@ -40,16 +40,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.11.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.11.0" />
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.11.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.11.0-preview3" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.11.0" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.0.1" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.0.1" />
     <PackageReference Include="Microsoft.VCRTForwarders.140" Version="1.0.6" />
-    <PackageReference Include="Microsoft.ProjectReunion" Version="0.5.0" />
-    <PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.5.0" />
-    <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.5.0" />
+    <PackageReference Include="Microsoft.ProjectReunion" Version="0.5.5" />
+    <PackageReference Include="Microsoft.ProjectReunion.Foundation" Version="0.5.5" />
+    <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="0.5.5" />
     <!--<PackageReference Include="Monaco.Editor">
       <Version>0.8.1-alpha</Version>
     </PackageReference>-->
@@ -58,8 +58,9 @@
 
 
   <ItemGroup>
-    <!--Workaround for https://github.com/microsoft/microsoft-ui-xaml/issues/4414-->
-    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.13" />
+    <!-- These two are temporary until .NET 5.0.6 ships -->
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" RuntimeFrameworkVersion="10.0.19041.16" />
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref" TargetingPackVersion="10.0.19041.16" />
   </ItemGroup>
   
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

@@ -223,7 +223,7 @@ namespace ArcGISRuntime
             StatusSpinner.Visibility = isRunning ? Visibility.Visible : Visibility.Collapsed;
         }
 
-        private async void MarkdownText_LinkClicked(object sender, Microsoft.Toolkit.Uwp.UI.Controls.LinkClickedEventArgs e)
+        private async void MarkdownText_LinkClicked(object sender, CommunityToolkit.WinUI.UI.Controls.LinkClickedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri(e.Link));
         }

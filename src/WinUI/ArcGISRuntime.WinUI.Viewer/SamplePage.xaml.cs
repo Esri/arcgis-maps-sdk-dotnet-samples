@@ -8,12 +8,12 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using Windows.System;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
+using CommunityToolkit.WinUI.UI.Controls;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {

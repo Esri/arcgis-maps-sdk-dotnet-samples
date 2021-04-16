@@ -7,6 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.OS;
+using Android.Views;
+using Android.Widget;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
+using System;
 using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer

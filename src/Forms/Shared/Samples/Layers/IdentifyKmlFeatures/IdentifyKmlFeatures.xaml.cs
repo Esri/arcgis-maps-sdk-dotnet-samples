@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -43,7 +43,7 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the dataset.
-            KmlDataset dataset = new KmlDataset(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
+            KmlDataset dataset = new KmlDataset(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx_latest.kml"));
 
             // Create the layer from the dataset.
             _forecastLayer = new KmlLayer(dataset);
@@ -76,6 +76,11 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
 
                 // Get the first identified feature that is a KML placemark
                 KmlNode firstIdentifiedPlacemark = identifyResult.GeoElements.OfType<KmlGeoElement>().First().KmlNode;
+
+                if (string.IsNullOrEmpty(firstIdentifiedPlacemark.Description))
+                {
+                    firstIdentifiedPlacemark.Description = "Weather condition";
+                }
 
                 // Show a page with the HTML content
                 await Navigation.PushAsync(new KmlIdentifyResultDisplayPage(firstIdentifiedPlacemark.BalloonContent));

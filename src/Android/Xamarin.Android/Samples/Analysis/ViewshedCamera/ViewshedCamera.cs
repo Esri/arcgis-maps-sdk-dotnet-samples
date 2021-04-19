@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         category: "Analysis",
         description: "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
         instructions: "The sample will start with a viewshed created from the initial camera location, so only the visible (green) portion of the viewshed will be visible. Move around the scene to see the obstructed (red) portions. Tap the button to update the viewshed to the current camera position.",
-        tags: new[] { "3D", "Scene", "viewshed", "visibility analysis" })]
+        tags: new[] { "3D", "Scene", "integrated mesh", "viewshed", "visibility analysis" })]
     public class ViewshedCamera : Activity
     {
         // Hold a reference to the scene view

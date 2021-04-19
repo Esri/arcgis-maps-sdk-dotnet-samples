@@ -1,18 +1,18 @@
-// Copyright 2017 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Foundation;
+using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ViewshedCamera
@@ -30,15 +30,14 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         private SceneView _mySceneView;
         private UIBarButtonItem _updateViewshedButton;
 
-        // URL for a scene service of buildings in Brest, France.
-        private const string BuildingsServiceUrl = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
+        // URL for a scene service of buildings in Girona.
+        private string _gironaMeshUrl = "https://tiles.arcgis.com/tiles/z2tnIkrLQ2BRzr6P/arcgis/rest/services/Girona_Spain/SceneServer";
 
         // URL for an image service to use as an elevation source.
-        private const string ElevationSourceUrl = "https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
+        private string _elevationSourceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         // Location viewshed analysis to show visible and obstructed areas from the camera.
         private LocationViewshed _viewshedForCamera;
-
 
         public ViewshedCamera()
         {
@@ -50,17 +49,18 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
             // Create a new Scene with an imagery basemap.
             Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
-            // Create a scene layer to show buildings in the Scene.
-            myScene.OperationalLayers.Add(new ArcGISSceneLayer(new Uri(BuildingsServiceUrl)));
+            // Create a scene layer to show buildings in the Scene
+            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new Uri(_gironaMeshUrl));
+            myScene.OperationalLayers.Add(meshLayer);
 
             // Create an elevation source for the Scene.
-            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(ElevationSourceUrl)));
+            myScene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl))); ;
 
             // Add the Scene to the SceneView.
             _mySceneView.Scene = myScene;
 
-            // Set the viewpoint with a new camera focused on the castle in Brest.
-            Camera observerCamera = new Camera(new MapPoint(-4.49492, 48.3808, 48.2511, SpatialReferences.Wgs84), 344.488, 74.1212, 0.0);
+            // Set the viewpoint with a new camera focused on the cathedral in Girona.
+            Camera observerCamera = new Camera(new MapPoint(2.82691, 41.985, 124.987, SpatialReferences.Wgs84), 332.131, 82.4732, 0.0);
             _mySceneView.SetViewpointCameraAsync(observerCamera);
 
             // Create a LocationViewshed analysis using the camera as the observer.
@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _mySceneView = new SceneView();
             _mySceneView.TranslatesAutoresizingMaskIntoConstraints = false;

@@ -12,8 +12,8 @@
         "spatial analysis"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.10.0",
-        "Esri.ArcGISRuntime.Xamarin.iOS": "100.10.0"
+        "Esri.ArcGISRuntime": "100.11.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.11.0"
     },
     "offline_data": [],
     "redirect_from": [

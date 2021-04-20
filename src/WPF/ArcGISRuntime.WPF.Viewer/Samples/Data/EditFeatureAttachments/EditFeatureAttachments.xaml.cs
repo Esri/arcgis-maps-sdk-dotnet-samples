@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -266,7 +267,12 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 fs.Close();
 
                 // Launch the file.
-                System.Diagnostics.Process.Start(dlg.FileName);
+                ProcessStartInfo info = new ProcessStartInfo
+                {
+                    FileName = dlg.FileName,
+                    UseShellExecute = true
+                };
+                Process.Start(info);
             }
             catch (Exception exception)
             {

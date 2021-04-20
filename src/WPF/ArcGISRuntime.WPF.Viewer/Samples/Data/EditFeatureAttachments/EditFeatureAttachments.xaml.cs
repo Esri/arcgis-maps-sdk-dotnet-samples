@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -90,7 +90,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
 
                 // Get the selected feature as an ArcGISFeature. It is assumed that all GeoElements in the result are of type ArcGISFeature.
                 GeoElement tappedElement = identifyResult.GeoElements.First();
-                ArcGISFeature tappedFeature = (ArcGISFeature) tappedElement;
+                ArcGISFeature tappedFeature = (ArcGISFeature)tappedElement;
 
                 // Select the feature in the UI and hold a reference to the tapped feature in a field.
                 _damageLayer.SelectFeature(tappedFeature);
@@ -101,7 +101,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
 
                 // Get the attachments.
                 IReadOnlyList<Attachment> attachments = await tappedFeature.GetAttachmentsAsync();
-                
+
                 // Populate the UI with a list of attachments that have a content type of image/jpeg.
                 AttachmentsListBox.ItemsSource = attachments.Where(attachment => attachment.ContentType == "image/jpeg");
                 AttachmentsListBox.IsEnabled = true;
@@ -157,7 +157,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
 
                 // Populate the attachment data with the binary content.
                 long numBytes = new FileInfo(dlg.FileName).Length;
-                byte[] attachmentData = br.ReadBytes((int) numBytes);
+                byte[] attachmentData = br.ReadBytes((int)numBytes);
 
                 // Close the stream.
                 fs.Close();
@@ -167,7 +167,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 await _selectedFeature.AddAttachmentAsync(filename, "image/jpeg", attachmentData);
 
                 // Get a reference to the feature's service feature table.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
 
                 // Apply the edits to the service feature table.
                 await serviceTable.ApplyEditsAsync();
@@ -197,16 +197,16 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
             try
             {
                 // Get a reference to the button that raised the event.
-                Button sendingButton = (Button) sender;
+                Button sendingButton = (Button)sender;
 
                 // Get the attachment from the button's DataContext. The button's DataContext is set by the list view.
-                Attachment selectedAttachment = (Attachment) sendingButton.DataContext;
+                Attachment selectedAttachment = (Attachment)sendingButton.DataContext;
 
                 // Delete the attachment.
                 await _selectedFeature.DeleteAttachmentAsync(selectedAttachment);
 
                 // Get a reference to the feature's service feature table.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
 
                 // Apply the edits to the service feature table.
                 await serviceTable.ApplyEditsAsync();
@@ -233,8 +233,8 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
             try
             {
                 // Get the attachment that should be downloaded.
-                Button sendingButton = (Button) sender;
-                Attachment selectedAttachment = (Attachment) sendingButton.DataContext;
+                Button sendingButton = (Button)sender;
+                Attachment selectedAttachment = (Attachment)sendingButton.DataContext;
 
                 // Show a file dialog.
                 // Allow the user to specify a file path - create the dialog.
@@ -267,12 +267,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
                 fs.Close();
 
                 // Launch the file.
-                ProcessStartInfo info = new ProcessStartInfo
-                {
-                    FileName = dlg.FileName,
-                    UseShellExecute = true
-                };
-                Process.Start(info);
+                Process.Start(new ProcessStartInfo(dlg.FileName) { UseShellExecute = true });
             }
             catch (Exception exception)
             {

@@ -272,7 +272,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
                 string serviceUri = strFullName.Split(splitChars, 2)[1].Trim();
 
                 // Navigate to the service
-                Process.Start(serviceUri);
+                Process.Start(new ProcessStartInfo(serviceUri) { UseShellExecute = true });
             }
             catch (Exception ex)
             {

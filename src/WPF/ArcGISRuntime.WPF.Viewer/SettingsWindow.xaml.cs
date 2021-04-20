@@ -58,7 +58,7 @@ namespace ArcGISRuntime
             {
                 string onlinePath = $"https://www.arcgis.com/home/item.html?id={offlineItem}";
 
-                Process.Start(onlinePath);
+                Process.Start(new ProcessStartInfo(onlinePath) { UseShellExecute = true });
             }
         }
 
@@ -152,7 +152,7 @@ namespace ArcGISRuntime
         {
             // Button for this was removed because it doesn't work with
             // folder redirection when packaged with desktop bridge.
-            Process.Start(DataManager.GetDataFolder());
+            Process.Start(new ProcessStartInfo(DataManager.GetDataFolder()) { UseShellExecute = true });
         }
 
         private void DeleteData_Click(object sender, RoutedEventArgs e)

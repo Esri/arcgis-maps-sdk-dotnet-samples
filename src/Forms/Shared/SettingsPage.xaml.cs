@@ -50,7 +50,7 @@ namespace ArcGISRuntime
             // Precise version number cant be used while running in release mode.
             catch(Exception)
             {
-                versionNumber = "100.10.0";
+                versionNumber = "100.11.0";
             }
 
 

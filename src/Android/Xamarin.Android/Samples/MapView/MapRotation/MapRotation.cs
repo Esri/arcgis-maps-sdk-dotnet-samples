@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.MapRotation
             SeekBar angleSlider = new SeekBar(this)
             {
                 // Set a maximum slider value of 180 and a current value of 90 (minimum is always 0)
-                Max = 180,
+                Max = 360,
                 Progress = 0
             };
 

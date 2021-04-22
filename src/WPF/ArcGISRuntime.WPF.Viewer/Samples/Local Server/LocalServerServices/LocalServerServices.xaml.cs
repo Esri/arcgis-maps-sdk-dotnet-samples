@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
         description: "Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.",
         instructions: "Click `Start Local Server` to start the Local Server. Click `Stop Local Server` to stop the Local Server.",
         tags: new[] { "feature", "geoprocessing", "local services", "map", "server", "service" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b", "4e94fec734434d1288e6ebe36c3c461f", "da9e565a52ca41c1937cff1a01017068")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("85c34847bbe1402fa115a1b9b87561ce", "92ca5cdb3ff1461384bf80dc008e297b", "a680362d6a7447e8afe2b1eb85fcde30")]
     public partial class LocalServerServices
     {
         // Hold references to the individual services
@@ -189,17 +189,17 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
 
         private static string GetMpkPath()
         {
-            return DataManager.GetDataFolder("dee5d8060a6048a4b063484199a9546b", "RelationshipID.mpk");
+            return DataManager.GetDataFolder("85c34847bbe1402fa115a1b9b87561ce", "RelationshipID.mpkx");
         }
 
         private static string GetFeatureLayerPath()
         {
-            return DataManager.GetDataFolder("4e94fec734434d1288e6ebe36c3c461f", "PointsOfInterest.mpk");
+            return DataManager.GetDataFolder("92ca5cdb3ff1461384bf80dc008e297b", "PointsOfInterest.mpkx");
         }
 
         private static string GetGpPath()
         {
-            return DataManager.GetDataFolder("da9e565a52ca41c1937cff1a01017068", "Contour.gpk");
+            return DataManager.GetDataFolder("a680362d6a7447e8afe2b1eb85fcde30", "Contour.gpkx");
         }
 
         private async void StartServerButtonClicked(object sender, RoutedEventArgs e)

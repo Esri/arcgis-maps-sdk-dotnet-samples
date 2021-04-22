@@ -38,7 +38,7 @@ A Local Server and Local Feature Service will automatically be started. Once sta
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [PointsofInterest.mpk](https://www.arcgis.com/home/item.html?id=4e94fec734434d1288e6ebe36c3c461f) - This map package is included in the ArcGIS Runtime sample data.
+* [PointsofInterest.mpkx](https://www.arcgis.com/home/item.html?id=92ca5cdb3ff1461384bf80dc008e297b) - This map package is included in the ArcGIS Runtime sample data.
 
 
 ## Additional information

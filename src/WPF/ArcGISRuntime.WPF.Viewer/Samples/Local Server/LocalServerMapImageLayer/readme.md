@@ -36,7 +36,7 @@ The Local Server and local map service will automatically be started and, once r
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [RelationshipID.mpk](https://www.arcgis.com/home/item.html?id=dee5d8060a6048a4b063484199a9546b) - This map package is included in the ArcGIS Runtime sample data.
+* [RelationshipID.mpkx](https://www.arcgis.com/home/item.html?id=85c34847bbe1402fa115a1b9b87561ce) - This map package is included in the ArcGIS Runtime sample data.
 
 ## Additional information
 

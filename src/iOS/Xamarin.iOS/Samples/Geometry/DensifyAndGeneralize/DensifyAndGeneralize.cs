@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             overlay.Graphics.Add(_resultPolylineGraphic);
 
             // Center the map.
-            _myMapView.SetViewpointGeometryAsync(_originalPolyline.Extent, 100);
+            _myMapView.SetViewpointGeometryAsync(_originalPolyline.Extent, 100.0F);
         }
 
         private void OnUIChanged(object sender, EventArgs e)
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
             Polyline polyline = _originalPolyline;
 
             // Reset the slider if the operation is changed.
-            if (sender is UISegmentedControl) _slider.Value = 100;
+            if (sender is UISegmentedControl) _slider.Value = 100.0F;
 
             // Apply the selected operation.
             if (_operationPicker.SelectedSegment == 0)
@@ -175,8 +175,9 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
 
             _slider = new UISlider();
             _slider.TranslatesAutoresizingMaskIntoConstraints = false;
-            _slider.MinValue = 100;
-            _slider.MaxValue = 500;
+            _slider.MinValue = 100.0F;
+            _slider.MaxValue = 500.0F;
+            _slider.Value = 100.0F;
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;

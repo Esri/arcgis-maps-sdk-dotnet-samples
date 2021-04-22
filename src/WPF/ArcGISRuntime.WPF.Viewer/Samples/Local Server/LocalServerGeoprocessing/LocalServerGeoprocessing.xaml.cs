@@ -27,7 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
         description: "Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.",
         instructions: "Contour Line Controls (Top Left):",
         tags: new[] { "geoprocessing", "local", "offline", "parameters", "processing", "service" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f7c7b4a30fb9415896ba0d1921fe014b", "da9e565a52ca41c1937cff1a01017068")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f7c7b4a30fb9415896ba0d1921fe014b", "a680362d6a7447e8afe2b1eb85fcde30")]
     public partial class LocalServerGeoprocessing
     {
         // Hold a reference to the local geoprocessing service
@@ -192,6 +192,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 
             // Create a map image layer to show the results
             ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(new Uri(gpServiceResultUrl));
+            //ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(_gpService.Url);
 
             // Load the layer
             await myMapImageLayer.LoadAsync();
@@ -220,7 +221,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 
         private static string GetGpPath()
         {
-            return DataManager.GetDataFolder("da9e565a52ca41c1937cff1a01017068", "Contour.gpk");
+            return DataManager.GetDataFolder("a680362d6a7447e8afe2b1eb85fcde30", "Contour.gpkx");
         }
 
         private void MyResetButton_OnClick(object sender, RoutedEventArgs e)

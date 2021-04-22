@@ -52,7 +52,8 @@ Contour Line Controls (Top Left):
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [Contour.gpk](https://www.arcgis.com/home/item.html?id=da9e565a52ca41c1937cff1a01017068) - A Geoprocessing Package for generating contour lines.
+* [Contour.gpkx](https://www.arcgis.com/home/item.html?id=a680362d6a7447e8afe2b1eb85fcde30) - A Geoprocessing Package for generating contour lines.
+* [RasterHillshade.tpk](https://www.arcgis.com/home/item.html?id=f7c7b4a30fb9415896ba0d1921fe014b) - A tile package for the hillshade.
 
 ## Additional information
 

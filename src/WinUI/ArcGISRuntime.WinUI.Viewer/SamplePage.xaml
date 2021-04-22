@@ -33,7 +33,7 @@
                     <controls:MarkdownTextBlock
                         x:Name="DescriptionBlock"
                         Margin="5"
-                        ImageResolving="MarkDownBlock_ImageResolving" InlineCodeFontFamily="Consolas"
+                        ImageResolving="MarkDownBlock_ImageResolving"
                         InlineCodeForeground="{StaticResource InlineCodeColor}"
                         InlineCodeMargin="0" InlineCodePadding="0" LinkClicked="MarkdownText_LinkClicked" />
                 </ScrollViewer>

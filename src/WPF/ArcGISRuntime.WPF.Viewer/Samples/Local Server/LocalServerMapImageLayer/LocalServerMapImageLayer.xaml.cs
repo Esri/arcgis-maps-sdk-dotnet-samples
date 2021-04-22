@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -24,7 +24,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
         description: "Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.",
         instructions: "The Local Server and local map service will automatically be started and, once running, a map image layer will be created and added to the map.",
         tags: new[] { "image", "layer", "local", "offline", "server" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("85c34847bbe1402fa115a1b9b87561ce")]
     public partial class LocalServerMapImageLayer
     {
         // Hold a reference to the local map service
@@ -96,7 +96,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerMapImageLayer
 
         private static string GetDataPath()
         {
-            return DataManager.GetDataFolder("dee5d8060a6048a4b063484199a9546b", "RelationshipID.mpk");
+            return DataManager.GetDataFolder("85c34847bbe1402fa115a1b9b87561ce", "RelationshipID.mpkx");
         }
     }
 }

@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -55,8 +55,8 @@ namespace ArcGISRuntime.Samples.MapRotation
             // Create a slider (SeekBar) control for selecting an angle
             SeekBar angleSlider = new SeekBar(this)
             {
-                // Set a maximum slider value of 180 and a current value of 90 (minimum is always 0)
-                Max = 180,
+                // Set a maximum slider value (minimum is always 0)
+                Max = 360,
                 Progress = 0
             };
 

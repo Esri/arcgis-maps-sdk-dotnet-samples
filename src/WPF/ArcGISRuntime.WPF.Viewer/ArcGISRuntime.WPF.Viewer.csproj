@@ -113,7 +113,7 @@
   </ItemGroup>
   <!-- Resources -->
   <ItemGroup>
-    <None Include="ArcGISLocalServer_100.9.AGSDeployment" />
+    <None Include="ArcGISLocalServer_100.10.AGSDeployment" />
     <None Include="Readme.md" />
     <Resource Include="Assets\banner-background-purple.png" />
     <Content Include="Resources\hide-header.css">

@@ -141,7 +141,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             }
             catch (Exception ex)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {

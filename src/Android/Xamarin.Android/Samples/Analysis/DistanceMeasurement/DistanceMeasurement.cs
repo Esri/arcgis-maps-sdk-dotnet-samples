@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -22,7 +22,7 @@ using Surface = Esri.ArcGISRuntime.Mapping.Surface;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Distance measurement analysis",
         category: "Analysis",
@@ -66,7 +66,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard)
+            Scene myScene = new Scene(Basemap.CreateTopographic())
             {
                 BaseSurface = sceneSurface
             };
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
                 Enum.GetNames(typeof(UnitSystem)));
             _unitSpinner.ItemSelected += (sender, args) =>
             {
-                UnitSystem[] values = (UnitSystem[]) Enum.GetValues(typeof(UnitSystem));
+                UnitSystem[] values = (UnitSystem[])Enum.GetValues(typeof(UnitSystem));
                 _distanceMeasurement.UnitSystem = values[args.Position];
             };
 

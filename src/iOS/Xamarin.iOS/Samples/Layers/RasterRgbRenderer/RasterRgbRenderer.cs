@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using ArcGISRuntime.Samples.Managers;
 using CoreGraphics;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.RasterRgbRenderer
@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
@@ -89,17 +89,17 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
 
         private void MinMax_Clicked(object sender, EventArgs e)
         {
-            ShowPopover(_minMaxController, (UIBarButtonItem) sender);
+            ShowPopover(_minMaxController, (UIBarButtonItem)sender);
         }
 
         private void PercentClip_Clicked(object sender, EventArgs e)
         {
-            ShowPopover(_percentClipController, (UIBarButtonItem) sender);
+            ShowPopover(_percentClipController, (UIBarButtonItem)sender);
         }
 
         private void StdDev_Clicked(object sender, EventArgs e)
         {
-            ShowPopover(_stdDevController, (UIBarButtonItem) sender);
+            ShowPopover(_stdDevController, (UIBarButtonItem)sender);
         }
 
         private void ShowPopover(UIViewController controller, UIBarButtonItem sender)
@@ -126,7 +126,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _minMaxButton = new UIBarButtonItem();
             _minMaxButton.Title = "Min/Max";
@@ -215,12 +215,12 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private void ApplyButton_Clicked(object sender, EventArgs e)
         {
             double[] minValues =
-                {_minPickerModel.SelectedRed, _minPickerModel.SelectedBlue, _minPickerModel.SelectedGreen};
+                {_minPickerModel.SelectedRed, _minPickerModel.SelectedGreen, _minPickerModel.SelectedBlue};
             double[] maxValues =
-                {_maxPickerModel.SelectedRed, _maxPickerModel.SelectedBlue, _maxPickerModel.SelectedGreen};
+                {_maxPickerModel.SelectedRed, _maxPickerModel.SelectedGreen, _maxPickerModel.SelectedBlue};
             MinMaxStretchParameters parameters = new MinMaxStretchParameters(minValues, maxValues);
 
-            int[] bands = {0, 1, 2};
+            int[] bands = { 0, 1, 2 };
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
@@ -336,9 +336,9 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             public override void Selected(UIPickerView pickerView, nint row, nint component)
             {
                 // Get the selected RGB values.
-                SelectedRed = (int) pickerView.SelectedRowInComponent(0);
-                SelectedGreen = (int) pickerView.SelectedRowInComponent(1);
-                SelectedBlue = (int) pickerView.SelectedRowInComponent(2);
+                SelectedRed = (int)pickerView.SelectedRowInComponent(0);
+                SelectedGreen = (int)pickerView.SelectedRowInComponent(1);
+                SelectedBlue = (int)pickerView.SelectedRowInComponent(2);
             }
 
             // Return the desired width for each component in the picker.
@@ -376,7 +376,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             PercentClipStretchParameters parameters =
                 new PercentClipStretchParameters(_minSlider.Value, _maxSlider.Value);
 
-            int[] bands = {0, 1, 2};
+            int[] bands = { 0, 1, 2 };
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
@@ -416,7 +416,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _minSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             _minSlider.MinValue = 0;
             _minSlider.MaxValue = 100;
-            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {minLabel, _minSlider}));
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] { minLabel, _minSlider }));
             UILabel maxLabel = new UILabel();
             maxLabel.TranslatesAutoresizingMaskIntoConstraints = false;
             maxLabel.Text = "Maximum:";
@@ -424,7 +424,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
             _maxSlider.TranslatesAutoresizingMaskIntoConstraints = false;
             _maxSlider.MinValue = 0;
             _maxSlider.MaxValue = 100;
-            formContainer.AddArrangedSubview(getRowStackView(new UIView[] {maxLabel, _maxSlider}));
+            formContainer.AddArrangedSubview(getRowStackView(new UIView[] { maxLabel, _maxSlider }));
 
             NavigationItem.RightBarButtonItem = new UIBarButtonItem("Apply", UIBarButtonItemStyle.Plain, ApplyButton_Clicked);
 
@@ -463,7 +463,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         {
             StandardDeviationStretchParameters parameters = new StandardDeviationStretchParameters(_pickerModel.SelectedFactor);
 
-            int[] bands = {0, 1, 2};
+            int[] bands = { 0, 1, 2 };
             _rasterLayer.Renderer = new RgbRenderer(parameters, bands, null, true);
         }
 
@@ -523,7 +523,7 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private class StdDevFactorPickerModel : UIPickerViewModel
         {
             // Array of available factor values.
-            private readonly double[] _factorValues = {0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5};
+            private readonly double[] _factorValues = { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5 };
 
             // Property to expose the currently selected factor value in the picker.
             public double SelectedFactor { get; private set; } = 0.5;

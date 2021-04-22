@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
         description: "Start a local feature service and display its features in a map.",
         instructions: "A Local Server and Local Feature Service will automatically be started. Once started then a `FeatureLayer` will be created and added to the map.",
         tags: new[] { "feature service", "local", "offline", "server", "service" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("4e94fec734434d1288e6ebe36c3c461f")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("92ca5cdb3ff1461384bf80dc008e297b")]
     public partial class LocalServerFeatureLayer
     {
         // Hold a reference to the local feature service; the ServiceFeatureTable will be loaded from this service
@@ -125,7 +125,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
 
         private static string GetFeatureLayerPath()
         {
-            return DataManager.GetDataFolder("4e94fec734434d1288e6ebe36c3c461f", "PointsOfInterest.mpk");
+            return DataManager.GetDataFolder("92ca5cdb3ff1461384bf80dc008e297b", "PointsOfInterest.mpkx");
         }
     }
 }

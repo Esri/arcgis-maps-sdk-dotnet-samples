@@ -185,7 +185,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             }
             catch (Exception ex)
             {
-                ShowMessage("Failed to edit feature", ex.ToString());
+                ShowMessage("Failed to edit feature", ex.Message);
             }
             finally
             {

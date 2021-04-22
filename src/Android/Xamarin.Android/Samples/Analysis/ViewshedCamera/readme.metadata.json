@@ -9,12 +9,13 @@
     "keywords": [
         "3D",
         "Scene",
+        "integrated mesh",
         "viewshed",
         "visibility analysis"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.10.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.10.0"
+        "Esri.ArcGISRuntime": "100.11.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.11.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -22,9 +23,9 @@
     ],
     "relevant_apis": [
         "AnalysisOverlay",
-        "ArcGISSceneLayer",
         "ArcGISTiledElevationSource",
         "Camera",
+        "IntegratedMeshLayer",
         "LocationViewshed",
         "Scene",
         "SceneView"

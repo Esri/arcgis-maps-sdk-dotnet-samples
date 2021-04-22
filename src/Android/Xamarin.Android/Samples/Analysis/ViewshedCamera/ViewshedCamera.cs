@@ -1,10 +1,10 @@
-// Copyright 2017 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -19,23 +19,23 @@ using System;
 
 namespace ArcGISRuntime.Samples.ViewshedCamera
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Viewshed for camera",
         category: "Analysis",
         description: "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
         instructions: "The sample will start with a viewshed created from the initial camera location, so only the visible (green) portion of the viewshed will be visible. Move around the scene to see the obstructed (red) portions. Tap the button to update the viewshed to the current camera position.",
-        tags: new[] { "3D", "Scene", "viewshed", "visibility analysis" })]
+        tags: new[] { "3D", "Scene", "integrated mesh", "viewshed", "visibility analysis" })]
     public class ViewshedCamera : Activity
     {
         // Hold a reference to the scene view
         private SceneView _mySceneView;
 
-        // URL for a scene service of buildings in Brest, France
-        private string _buildingsServiceUrl = @"https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
+        // URL for a scene service of buildings in Girona.
+        private string _gironaMeshUrl = "https://tiles.arcgis.com/tiles/z2tnIkrLQ2BRzr6P/arcgis/rest/services/Girona_Spain/SceneServer";
 
-        // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
+        // URL for an image service to use as an elevation source.
+        private string _elevationSourceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         // Location viewshed analysis to show visible and obstructed areas from the camera
         private LocationViewshed _viewshedForCamera;
@@ -59,8 +59,8 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
             Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create a scene layer to show buildings in the Scene
-            ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(new Uri(_buildingsServiceUrl));
-            myScene.OperationalLayers.Add(buildingsLayer);
+            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new Uri(_gironaMeshUrl));
+            myScene.OperationalLayers.Add(meshLayer);
 
             // Create an elevation source for the Scene
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl));
@@ -69,8 +69,8 @@ namespace ArcGISRuntime.Samples.ViewshedCamera
             // Add the Scene to the SceneView
             _mySceneView.Scene = myScene;
 
-            // Set the viewpoint with a new camera focused on the castle in Brest
-            Camera observerCamera = new Camera(new MapPoint(-4.49492, 48.3808, 48.2511, SpatialReferences.Wgs84), 344.488, 74.1212, 0.0);
+            // Set the viewpoint with a new camera focused on the cathedral in Girona.
+            Camera observerCamera = new Camera(new MapPoint(2.82691, 41.985, 124.987, SpatialReferences.Wgs84), 332.131, 82.4732, 0.0);
             _mySceneView.SetViewpointCameraAsync(observerCamera);
 
             // Create a LocationViewshed analysis using the camera as the observer

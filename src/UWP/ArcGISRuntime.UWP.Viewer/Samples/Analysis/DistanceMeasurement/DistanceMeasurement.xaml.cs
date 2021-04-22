@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,16 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Diagnostics;
-using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Input;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
+using System;
+using System.Diagnostics;
+using Windows.UI.Core;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Input;
 
 namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
 {
@@ -52,7 +52,7 @@ namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard)
+            Scene myScene = new Scene(Basemap.CreateTopographic())
             {
                 BaseSurface = sceneSurface
             };
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
             // Update the unit system selection.
             UnitSystemCombo.SelectionChanged += (sender, args) =>
             {
-                _distanceMeasurement.UnitSystem = (UnitSystem) UnitSystemCombo.SelectedItem;
+                _distanceMeasurement.UnitSystem = (UnitSystem)UnitSystemCombo.SelectedItem;
             };
 
             // Show the scene in the view.

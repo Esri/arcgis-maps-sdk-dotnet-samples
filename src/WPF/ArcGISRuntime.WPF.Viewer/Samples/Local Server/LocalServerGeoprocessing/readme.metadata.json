@@ -20,7 +20,8 @@
         "Esri.ArcGISRuntime.WPF": "100.11.0"
     },
     "offline_data": [
-        "da9e565a52ca41c1937cff1a01017068"
+        "a680362d6a7447e8afe2b1eb85fcde30",
+        "f7c7b4a30fb9415896ba0d1921fe014b"
     ],
     "redirect_from": [
         "/net/latest/wpf/sample-code/localservergeoprocessing.htm"

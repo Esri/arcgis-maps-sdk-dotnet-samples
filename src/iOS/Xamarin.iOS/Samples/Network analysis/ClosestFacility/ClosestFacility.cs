@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,10 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -18,6 +14,11 @@ using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ClosestFacility
@@ -119,30 +120,43 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             }
             catch (Exception e)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Clear any prior incident and routes from the graphics.
-            _incidentGraphicsOverlay.Graphics.Clear();
+            try
+            {
+                _myMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
 
-            // Get the tapped point.
-            _incidentPoint = e.Location;
+                // Clear any prior incident and routes from the graphics.
+                _incidentGraphicsOverlay.Graphics.Clear();
 
-            // Populate the facility parameters than solve using the task.
-            PopulateParametersAndSolveRouteAsync();
+                // Get the tapped point.
+                _incidentPoint = e.Location;
+
+                // Populate the facility parameters than solve using the task.
+                await PopulateParametersAndSolveRouteAsync();
+            }
+            catch (Exception ex)
+            {
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
+            }
+            finally
+            {
+                _myMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            }
         }
 
-        private async void PopulateParametersAndSolveRouteAsync()
+        private async Task PopulateParametersAndSolveRouteAsync()
         {
             try
             {
                 // Set facilities and incident in parameters.
                 ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
                 closestFacilityParameters.SetFacilities(_facilities);
-                closestFacilityParameters.SetIncidents(new List<Incident> {new Incident(_incidentPoint)});
+                closestFacilityParameters.SetIncidents(new List<Incident> { new Incident(_incidentPoint) });
 
                 // Use the task to solve for the closest facility.
                 ClosestFacilityResult result = await _task.SolveClosestFacilityAsync(closestFacilityParameters);

@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerMapImageLayer
         description: "Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.",
         instructions: "The Local Server and local map service will automatically be started and, once running, a map image layer will be created and added to the map.",
         tags: new[] { "image", "layer", "local", "offline", "server" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("dee5d8060a6048a4b063484199a9546b")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("85c34847bbe1402fa115a1b9b87561ce")]
     public partial class LocalServerMapImageLayer
     {
         // Hold a reference to the local map service
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerMapImageLayer
         private async void Initialize()
         {
             // Create a map and add it to the view
-            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
 
             try
             {
@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerMapImageLayer
 
         private static string GetDataPath()
         {
-            return DataManager.GetDataFolder("dee5d8060a6048a4b063484199a9546b", "RelationshipID.mpk");
+            return DataManager.GetDataFolder("85c34847bbe1402fa115a1b9b87561ce", "RelationshipID.mpkx");
         }
     }
 }

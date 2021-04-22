@@ -215,9 +215,9 @@ namespace ArcGISRuntime.Samples.RasterRgbRenderer
         private void ApplyButton_Clicked(object sender, EventArgs e)
         {
             double[] minValues =
-                {_minPickerModel.SelectedRed, _minPickerModel.SelectedBlue, _minPickerModel.SelectedGreen};
+                {_minPickerModel.SelectedRed, _minPickerModel.SelectedGreen, _minPickerModel.SelectedBlue};
             double[] maxValues =
-                {_maxPickerModel.SelectedRed, _maxPickerModel.SelectedBlue, _maxPickerModel.SelectedGreen};
+                {_maxPickerModel.SelectedRed, _maxPickerModel.SelectedGreen, _maxPickerModel.SelectedBlue};
             MinMaxStretchParameters parameters = new MinMaxStretchParameters(minValues, maxValues);
 
             int[] bands = {0, 1, 2};

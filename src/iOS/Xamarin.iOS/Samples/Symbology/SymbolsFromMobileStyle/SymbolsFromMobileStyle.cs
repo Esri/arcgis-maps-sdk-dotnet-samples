@@ -318,7 +318,7 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolsFromMobileStyle
             foreach (SymbolStyleSearchResult result in styleResults)
             {
                 // Get the symbol from the result.
-                MultilayerPointSymbol multiLayerSym = result.Symbol as MultilayerPointSymbol;
+                MultilayerPointSymbol multiLayerSym = await result.GetSymbolAsync() as MultilayerPointSymbol;
 
                 // Create an image from the symbol swatch.
                 RuntimeImage swatch = await multiLayerSym.CreateSwatchAsync();

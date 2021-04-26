@@ -103,7 +103,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
                 foreach (SymbolStyleSearchResult result in styleResults)
                 {
                     // Get the symbol for this result.
-                    MultilayerPointSymbol multiLayerSym = result.Symbol as MultilayerPointSymbol;
+                    MultilayerPointSymbol multiLayerSym = await result.GetSymbolAsync() as MultilayerPointSymbol;
 
                     // Create a swatch image from the symbol.
                     RuntimeImage swatch = await multiLayerSym.CreateSwatchAsync(30, 30, 96, Color.White);

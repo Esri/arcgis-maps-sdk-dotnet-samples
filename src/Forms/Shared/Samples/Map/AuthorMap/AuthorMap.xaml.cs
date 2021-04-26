@@ -360,21 +360,14 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo
+            ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
             {
-                // ArcGIS Online URI
-                ServerUri = new Uri(ArcGISOnlineUrl),
-                // Type of token authentication to use
+                OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(_oAuthRedirectUrl)),
+
+                // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
+                // Otherwise, use OAuthImplicit
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
             };
-
-            // Define the OAuth information
-            OAuthClientInfo oAuthInfo = new OAuthClientInfo
-            {
-                ClientId = AppClientId,
-                RedirectUri = new Uri(_oAuthRedirectUrl)
-            };
-            portalServerInfo.OAuthClientInfo = oAuthInfo;
 
             // Get a reference to the (singleton) AuthenticationManager for the app
             AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;

@@ -150,7 +150,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             _directionsList = _route.DirectionManeuvers;
 
             // Create a route tracker.
-            _tracker = new RouteTracker(_routeResult, 0);
+            _tracker = new RouteTracker(_routeResult, 0, true);
             _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.
@@ -160,7 +160,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             if (_routeTask.RouteTaskInfo.SupportsRerouting)
             {
                 // Enable automatic re-routing.
-                await _tracker.EnableReroutingAsync(_routeTask, _routeParams, ReroutingStrategy.ToNextWaypoint, false);
+                await _tracker.EnableReroutingAsync(new ReroutingParameters(_routeTask, _routeParams) { Strategy = ReroutingStrategy.ToNextWaypoint, VisitFirstStopOnStart = false });
 
                 // Handle re-routing completion to display updated route graphic and report new status.
                 _tracker.RerouteStarted += RerouteStarted;

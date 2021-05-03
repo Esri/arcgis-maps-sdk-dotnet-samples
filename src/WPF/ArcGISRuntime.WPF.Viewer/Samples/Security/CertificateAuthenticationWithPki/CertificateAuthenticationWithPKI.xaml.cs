@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
         private async Task<Credential> CreateCertCredential(CredentialRequestInfo info)
         {
             // Handle challenges for a secured resource by prompting for a client certificate.
-            Credential credential = null;
+            Esri.ArcGISRuntime.Security.Credential credential = null;
 
             try
             {
@@ -57,7 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
                 if (selection.Count > 0)
                 {
                     // Create a new CertificateCredential using the chosen certificate.
-                    credential = new Esri.ArcGISRuntime.Security.CertificateCredential(selection[0])
+                    credential = new CertificateCredential(selection[0])
                     {
                         ServiceUri = new Uri(_serverUrl)
                     };
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
             }
 
             // Return the CertificateCredential for the secured portal.
-            return credential;
+            return await Task.FromResult(credential);
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)

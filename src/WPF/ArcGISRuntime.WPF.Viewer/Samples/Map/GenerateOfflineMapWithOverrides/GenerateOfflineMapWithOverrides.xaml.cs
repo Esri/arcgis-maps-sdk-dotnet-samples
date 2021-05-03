@@ -390,15 +390,10 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager, including the OAuth settings.
-            ServerInfo serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo(new Uri(ServerUrl))
             {
-                ServerUri = new Uri(ServerUrl),
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
-                }
+                OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 
             // Register this server with AuthenticationManager.

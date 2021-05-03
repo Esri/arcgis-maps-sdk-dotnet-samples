@@ -89,11 +89,11 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         public static async Task<bool> TrySetLocalKey()
         {
             // Check for a local key if a key is not already set.
-            if (ApiKeyManager.ArcGISDeveloperApiKey == null)
+            if (ArcGISDeveloperApiKey == null)
             {
                 try
                 {
-                    ApiKeyManager.ArcGISDeveloperApiKey = await GetLocalKey();
+                    ArcGISDeveloperApiKey = await GetLocalKey();
                     return true;
                 }
                 catch (Exception ex)
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 #if __IOS__
             try
             {
-                return Encoding.Default.GetString(Decrypt(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName)))); ;
+                return await Task.FromResult(Encoding.Default.GetString(Decrypt(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName)))));
             }
             catch (Exception ex)
             {
@@ -121,7 +121,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 #elif XAMARIN
             return await SecureStorage.GetAsync(_apiKeyFileName);
 #else
-            return Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName))));
+            return await Task.FromResult(Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName)))));
 #endif
         }
 

@@ -108,7 +108,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
             AuthenticationManager.Current.AddCredential(credential);
 
             // Return the credential.
-            return credential;
+            return await Task.FromResult(credential);
         }
 
         // Search the public portal for web maps and display the results in a list.

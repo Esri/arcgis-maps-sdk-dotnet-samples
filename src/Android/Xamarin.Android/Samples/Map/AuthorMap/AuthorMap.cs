@@ -490,14 +490,10 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
-            ServerInfo portalServerInfo = new ServerInfo
+            ServerInfo portalServerInfo = new ServerInfo(new Uri(_serverUrl))
             {
-                ServerUri = new Uri(_serverUrl),
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = _appClientId,
-                    RedirectUri = new Uri(_oAuthRedirectUrl)
-                },
+                OAuthClientInfo = new OAuthClientInfo(_appClientId, new Uri(_oAuthRedirectUrl)),
+
                 // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
                 // Otherwise, use OAuthImplicit
                 TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit

@@ -12,6 +12,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishTrimmed>true</PublishTrimmed>
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
+    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
    </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -57,7 +58,6 @@
     <Page Update="Samples\**\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <!--<Compile Remove="obj\**\*.*" />-->
     
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +80,6 @@
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="xcopy.exe $(ProjectDir)*.xaml $(OutDir) /y /c /s" />
+    <Exec Command="xcopy.exe $(ProjectDir)*.xaml $(OutDir) /y /c /s /q" />
   </Target>
 </Project>

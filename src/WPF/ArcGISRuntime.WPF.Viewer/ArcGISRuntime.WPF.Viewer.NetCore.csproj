@@ -79,5 +79,7 @@
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
-
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy.exe $(ProjectDir)*.xaml $(OutDir) /y /c /s" />
+  </Target>
 </Project>

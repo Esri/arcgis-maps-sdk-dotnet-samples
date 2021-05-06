@@ -21,12 +21,6 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
 
-#if !NET_CORE_3
-
-using System.Speech.Synthesis;
-
-#endif
-
 namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -47,12 +41,6 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 
         // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
-
-#if !NET_CORE_3
-
-        // Speech synthesizer to play voice guidance audio.
-        private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
-#endif
 
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
@@ -150,7 +138,6 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 
             // Create a route tracker.
             _tracker = new RouteTracker(_routeResult, 0, true);
-            _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
@@ -182,7 +169,6 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
         private void RerouteStarted(object sender, EventArgs e)
         {
             // Remove the event listeners for tracking status changes while the route tracker recalculates.
-            _tracker.NewVoiceGuidance -= SpeakDirection;
             _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
         }
 
@@ -192,7 +178,6 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
             _directionsList = e.TrackingStatus.RouteResult.Routes[0].DirectionManeuvers;
 
             // Re-add the event listeners for tracking status changes.
-            _tracker.NewVoiceGuidance += SpeakDirection;
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
         }
 
@@ -246,15 +231,6 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
             });
         }
 
-        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
-        {
-#if !NET_CORE_3
-            // Say the direction using voice synthesis.
-            _speechSynthesizer.SpeakAsyncCancelAll();
-            _speechSynthesizer.SpeakAsync(e.VoiceGuidance.Text);
-#endif
-        }
-
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
         {
             // Turn the recenter button on or off when the location display changes to or from navigation mode.
@@ -269,17 +245,10 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)
         {
-#if !NET_CORE_3
-            // Stop the speech synthesizer.
-            _speechSynthesizer.SpeakAsyncCancelAll();
-            _speechSynthesizer.Dispose();
-#endif
-
             // Stop the tracker.
             if (_tracker != null)
             {
                 _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
-                _tracker.NewVoiceGuidance -= SpeakDirection;
                 _tracker.RerouteStarted -= RerouteStarted;
                 _tracker.RerouteCompleted -= RerouteCompleted;
                 _tracker = null;

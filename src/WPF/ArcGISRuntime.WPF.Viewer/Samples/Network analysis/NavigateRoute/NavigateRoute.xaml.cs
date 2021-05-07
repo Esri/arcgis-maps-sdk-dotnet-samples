@@ -20,6 +20,12 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
 
+#if !NET_CORE_3
+
+using System.Speech.Synthesis;
+
+#endif
+
 namespace ArcGISRuntime.WPF.Samples.NavigateRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -38,6 +44,12 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
 
         // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
+
+#if !NET_CORE_3
+
+        // Speech synthesizer to play voice guidance audio.
+        private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
+#endif
 
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
@@ -137,6 +149,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
 
             // Create a route tracker.
             _tracker = new RouteTracker(_routeResult, 0, true);
+            _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
@@ -214,6 +227,15 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
             });
         }
 
+        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        {
+#if !NET_CORE_3
+            // Say the direction using voice synthesis.
+            _speechSynthesizer.SpeakAsyncCancelAll();
+            _speechSynthesizer.SpeakAsync(e.VoiceGuidance.Text);
+#endif
+        }
+
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
         {
             // Turn the recenter button on or off when the location display changes to or from navigation mode.
@@ -228,10 +250,17 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)
         {
+#if !NET_CORE_3
+            // Stop the speech synthesizer.
+            _speechSynthesizer.SpeakAsyncCancelAll();
+            _speechSynthesizer.Dispose();
+#endif
+
             // Stop the tracker.
             if (_tracker != null)
             {
                 _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
+                _tracker.NewVoiceGuidance -= SpeakDirection;
                 _tracker = null;
             }
 

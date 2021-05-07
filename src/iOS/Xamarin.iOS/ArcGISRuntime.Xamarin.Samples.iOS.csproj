@@ -76,7 +76,8 @@
     <IpaIncludeArtwork>False</IpaIncludeArtwork>
     <DeviceSpecificBuild>False</DeviceSpecificBuild>
     <LangVersion>7</LangVersion>
-    <CodesignProvision />
+    <CodesignProvision>
+    </CodesignProvision>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
   </PropertyGroup>
@@ -719,13 +720,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.11.0</Version>
+      <Version>100.12.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit">
       <Version>100.11.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.iOS">
-      <Version>100.11.0</Version>
+      <Version>100.12.0</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>

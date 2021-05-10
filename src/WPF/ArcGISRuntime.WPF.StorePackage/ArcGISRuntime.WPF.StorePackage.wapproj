@@ -76,7 +76,9 @@
     <None Include="ArcGISRuntime.WPF.StorePackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.NetCore.csproj" />
+    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.NetCore.csproj">
+      <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\LargeTile.scale-100.png" />

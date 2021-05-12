@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.SetMapSpatialReference
         category: "Map",
         description: "Specify a map's spatial reference.",
         instructions: "Pan and zoom around the map. Observe how the map is displayed using the World Bonne spatial reference.",
-        tags: new[] { "SpatialReference", "WKID", "project" })]
+        tags: new[] { "WKID", "project" })]
     public class SetMapSpatialReference : Activity
     {
         // Hold a reference to the map view

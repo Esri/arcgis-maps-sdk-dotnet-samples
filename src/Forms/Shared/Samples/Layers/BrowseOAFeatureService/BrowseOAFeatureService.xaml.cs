@@ -21,10 +21,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Browse OGC API feature service",
-        "Layers",
-        "Browse an OGC API feature service for layers and add them to the map.",
-        "")]
+        name: "Browse OGC API feature service",
+        category: "Layers",
+        description: "Browse an OGC API feature service for layers and add them to the map.",
+        instructions: "Select a layer to display from the list of layers shown in an OGC API service.",
+        tags: new[] { "OGC", "OGC API", "browse", "catalog", "feature", "layers", "service", "web" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class BrowseOAFeatureService : ContentPage
     {

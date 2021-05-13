@@ -6,7 +6,7 @@ Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry o
 
 ## Use case
 
-A field worker could annotate features of interest on a map (via the GUI) such as location of dwellings (marked as points), geological features (polylines), or areas of glaciation (polygons). 
+A field worker could annotate features of interest on a map (via the GUI) such as location of dwellings (marked as points), geological features (polylines), or areas of glaciation (polygons).
 
 ## How to use the sample
 

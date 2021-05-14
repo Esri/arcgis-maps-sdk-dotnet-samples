@@ -151,7 +151,7 @@
 
 ## Location
 
-* [Display device location](Xamarin.Android/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
+* [Display device location with autopan modes](Xamarin.Android/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
 * [Show location history](Xamarin.Android/Samples/Location/ShowLocationHistory/readme.md) - Display your location history on the map.
 
 ## Map

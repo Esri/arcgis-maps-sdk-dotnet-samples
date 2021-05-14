@@ -32,5 +32,5 @@
         "DisplayDeviceLocation.xaml",
         "DisplayDeviceLocation.xaml.cs"
     ],
-    "title": "Display device location"
+    "title": "Display device location with autopan modes"
 }

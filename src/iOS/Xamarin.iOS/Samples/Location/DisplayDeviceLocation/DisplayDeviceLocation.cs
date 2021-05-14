@@ -19,7 +19,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
     [Register("DisplayDeviceLocation")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Display device location",
+        name: "Display device location with autopan modes",
         category: "Location",
         description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
         instructions: "Select an autopan mode, then use the buttons to start and stop location display.",

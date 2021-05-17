@@ -44,7 +44,7 @@
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxPackageDir>C:\</AppxPackageDir>
-    <EntryPointProjectUniqueName>..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.NetCore.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
     <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
@@ -76,7 +76,7 @@
     <None Include="ArcGISRuntime.WPF.StorePackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.NetCore.csproj">
+    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
     </ProjectReference>
   </ItemGroup>

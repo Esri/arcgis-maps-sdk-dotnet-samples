@@ -11,7 +11,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Samples.Share
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{ED5DD83B-D6E9-4378-A0AF-81EC86014846}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISRuntime.WPF.Viewer.NetCore", "WPF\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.NetCore.csproj", "{9D3B7B59-D56F-42C2-B2BD-757EBBEBB3D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISRuntime.WPF.Viewer.Net", "WPF\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj", "{9D3B7B59-D56F-42C2-B2BD-757EBBEBB3D7}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

@@ -33,7 +33,7 @@ Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ArcGISRuntime.WPF.StorePack
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Xamarin.Forms.AR", "Forms\AugmentedReality\ArcGISRuntime.Xamarin.Forms.AR.shproj", "{5A1BABD8-28A6-488F-B2BE-F5A219ACCEDC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISRuntime.WPF.Viewer.NetCore", "WPF\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.NetCore.csproj", "{FE1B81E3-59BE-4632-A1EB-12FF19F4B59A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISRuntime.WPF.Viewer.Net", "WPF\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj", "{FE1B81E3-59BE-4632-A1EB-12FF19F4B59A}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

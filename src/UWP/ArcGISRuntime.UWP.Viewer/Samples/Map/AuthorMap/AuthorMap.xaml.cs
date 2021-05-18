@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -68,13 +69,20 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
         private void Initialize()
         {
-            // Create the map
-            MyMapView.Map = new Map();
+            // For this sample, the viewer wide API key is removed from the `ArcGISRuntimeEnvironment`. This lets the user login to their AGOL portal independent of API key authentication.
+            // When the API key is not set in the `ArcGISRuntimeEnvironment`, each basemap must have the key set.
+            Basemap basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+            basemap.LoadAsync();
+
+            // Show map with the light gray basemap in the mapview.
+            MyMapView.Map = new Map(basemap);
 
             // Update the UI with basemaps and layers
             BasemapListBox.ItemsSource = _basemapNames;
             BasemapListBox.SelectedIndex = 0;
             OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
+
+            BasemapListBox.SelectionChanged += BasemapSelectionChanged;
 
             // Show the OAuth settings in the page
             ClientIdTextBox.Text = _appClientId;
@@ -170,7 +178,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         private void ClearMapClicked(object sender, RoutedEventArgs e)
         {
             // Create a new map (will not have an associated PortalItem)
-            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            MyMapView.Map = new Map();
 
             // Reset the basemap selection in the UI
             BasemapListBox.SelectedIndex = 0;
@@ -186,37 +194,36 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
         private void ApplyBasemap(string basemapName)
         {
-            // Get the current map
-            Map myMap = MyMapView.Map;
-
             // Set the basemap for the map according to the user's choice in the list box
+            Map myMap = MyMapView.Map;
             switch (basemapName)
             {
                 case "Light Gray":
                     // Set the basemap to Light Gray Canvas
-                    myMap.Basemap = Basemap.CreateLightGrayCanvas();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Topographic":
                     // Set the basemap to Topographic
-                    myMap.Basemap = Basemap.CreateTopographic();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISTopographic) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Streets":
                     // Set the basemap to Streets
-                    myMap.Basemap = Basemap.CreateStreets();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISStreets) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Imagery":
                     // Set the basemap to Imagery
-                    myMap.Basemap = Basemap.CreateImagery();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISImagery) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Ocean":
                     // Set the basemap to Oceans
-                    myMap.Basemap = Basemap.CreateOceans();
+                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISOceans) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
             }
+            myMap.Basemap.LoadAsync();
         }
 
         private void AddOperationalLayers()
@@ -366,7 +373,7 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
 
         #endregion OAuth helpers
 
-        private void BasemapListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BasemapSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the name of the desired basemap
             string name = e.AddedItems[0].ToString();

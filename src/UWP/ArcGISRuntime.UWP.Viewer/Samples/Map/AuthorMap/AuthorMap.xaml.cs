@@ -195,35 +195,34 @@ namespace ArcGISRuntime.UWP.Samples.AuthorMap
         private void ApplyBasemap(string basemapName)
         {
             // Set the basemap for the map according to the user's choice in the list box
-            Map myMap = MyMapView.Map;
             switch (basemapName)
             {
                 case "Light Gray":
                     // Set the basemap to Light Gray Canvas
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Topographic":
                     // Set the basemap to Topographic
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISTopographic) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Streets":
                     // Set the basemap to Streets
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISStreets) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Imagery":
                     // Set the basemap to Imagery
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISImagery) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImagery) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Ocean":
                     // Set the basemap to Oceans
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISOceans) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
             }
-            myMap.Basemap.LoadAsync();
+            MyMapView.Map.Basemap.LoadAsync();
         }
 
         private void AddOperationalLayers()

@@ -181,7 +181,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void OnNewMapClicked(object sender, EventArgs e)
         {
             // Create a new map for the map view (can make changes and save as a new portal item)
-            _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+            Basemap basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+            basemap.LoadAsync();
+            _myMapView.Map = new Map(basemap);
         }
 
         private void OnSaveMapClicked(object sender, EventArgs e)

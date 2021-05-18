@@ -59,6 +59,15 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {"US Census Data", "https://sampleserver5.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
         };
 
+        // String array to store basemap constructor types
+        private string[] _basemapNames = {
+            "Light Gray",
+            "Topographic",
+            "Streets",
+            "Imagery",
+            "Ocean"
+        };
+
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
@@ -92,8 +101,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Remove the API key.
             ApiKeyManager.DisableKey();
 
-            // Show a light gray canvas basemap by default.
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            // For this sample, the viewer wide API key is removed from the `ArcGISRuntimeEnvironment`. This lets the user login to their AGOL portal independent of API key authentication.
+            // When the API key is not set in the `ArcGISRuntimeEnvironment`, each basemap must have the key set.
+            Basemap basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+            basemap.LoadAsync();
+
+            // Show map with the light gray basemap in the mapview.
+            _myMapView.Map = new Map(basemap);
         }
 
         private void ShowBasemapClicked(object sender, EventArgs e)
@@ -102,15 +116,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
             UIAlertController basemapsActionSheet =
                 UIAlertController.Create("Basemaps", "Choose a basemap", UIAlertControllerStyle.ActionSheet);
 
-            // Add actions to apply each basemap type.
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Topographic", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = Basemap.CreateTopographic()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Streets", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = Basemap.CreateStreets()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Imagery", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = Basemap.CreateImagery()));
-            basemapsActionSheet.AddAction(UIAlertAction.Create("Oceans", UIAlertActionStyle.Default,
-                action => _myMapView.Map.Basemap = Basemap.CreateOceans()));
+            foreach (string basemapName in _basemapNames)
+            {
+                // Add actions to apply each basemap type.
+                basemapsActionSheet.AddAction(UIAlertAction.Create(basemapName, UIAlertActionStyle.Default,
+                    action => SwitchBasemap(basemapName)));
+            }
             basemapsActionSheet.AddAction(UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel,
                 action => Console.WriteLine("Canceled")));
 
@@ -124,6 +135,39 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             // Display the list of basemaps.
             PresentViewController(basemapsActionSheet, true, null);
+        }
+
+        private void SwitchBasemap(string basemapName)
+        {
+            // Set the basemap for the map according to the user's choice.
+            switch (basemapName)
+            {
+                case "Light Gray":
+                    // Set the basemap to Light Gray Canvas
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    break;
+
+                case "Topographic":
+                    // Set the basemap to Topographic
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    break;
+
+                case "Streets":
+                    // Set the basemap to Streets
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    break;
+
+                case "Imagery":
+                    // Set the basemap to Imagery
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImagery) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    break;
+
+                case "Ocean":
+                    // Set the basemap to Oceans
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    break;
+            }
+            _myMapView.Map.Basemap.LoadAsync();
         }
 
         private void ShowLayerListClicked(object sender, EventArgs e)
@@ -330,7 +374,9 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void NewMapClicked(object sender, EventArgs e)
         {
             // Clear the map from the map view (allow the user to start over and save as a new portal item).
-            _myMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            Basemap basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+            basemap.LoadAsync();
+            _myMapView.Map = new Map(basemap);
         }
 
         public override void ViewDidLoad()

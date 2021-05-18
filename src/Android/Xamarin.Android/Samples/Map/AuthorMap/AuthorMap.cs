@@ -53,10 +53,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         // String array to store basemap constructor types
         private string[] _basemapTypes = {
+            "Light Gray",
             "Topographic",
             "Streets",
             "Imagery",
-            "Oceans"
+            "Ocean"
         };
 
         // Dictionary of operational layer names and URLs
@@ -99,11 +100,13 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Remove API key.
             ApiKeyManager.DisableKey();
 
-            // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            // For this sample, the viewer wide API key is removed from the `ArcGISRuntimeEnvironment`. This lets the user login to their AGOL portal independent of API key authentication.
+            // When the API key is not set in the `ArcGISRuntimeEnvironment`, each basemap must have the key set.
+            Basemap basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+            basemap.LoadAsync();
 
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
+            // Show map with the light gray basemap in the mapview.
+            _myMapView.Map = new Map(basemap);
         }
 
         protected override void OnDestroy()
@@ -178,7 +181,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void OnNewMapClicked(object sender, EventArgs e)
         {
             // Create a new map for the map view (can make changes and save as a new portal item)
-            _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
         }
 
         private void OnSaveMapClicked(object sender, EventArgs e)
@@ -317,31 +320,37 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void OnBasemapsMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
         {
             // Get the title of the selected item
-            string selectedBasemapType = e.Item.TitleCondensedFormatted.ToString();
+            string basemapName = e.Item.TitleCondensedFormatted.ToString();
 
-            // Apply the chosen basemap
-            switch (selectedBasemapType)
+            // Set the basemap for the map according to the user's choice.
+            switch (basemapName)
             {
+                case "Light Gray":
+                    // Set the basemap to Light Gray Canvas
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
+                    break;
+
                 case "Topographic":
                     // Set the basemap to Topographic
-                    _myMapView.Map.Basemap = Basemap.CreateTopographic();
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Streets":
                     // Set the basemap to Streets
-                    _myMapView.Map.Basemap = Basemap.CreateStreets();
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
                 case "Imagery":
                     // Set the basemap to Imagery
-                    _myMapView.Map.Basemap = Basemap.CreateImagery();
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImagery) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
 
-                case "Oceans":
+                case "Ocean":
                     // Set the basemap to Oceans
-                    _myMapView.Map.Basemap = Basemap.CreateOceans();
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans) { ApiKey = ApiKeyManager.ArcGISDeveloperApiKey };
                     break;
             }
+            _myMapView.Map.Basemap.LoadAsync();
         }
 
         #endregion Basemap Button

@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,14 +18,9 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows;
-
-#if !NET_CORE_3
-
-using System.Speech.Synthesis;
-
-#endif
 
 namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 {
@@ -48,11 +43,8 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
         // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
 
-#if !NET_CORE_3
-
         // Speech synthesizer to play voice guidance audio.
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
-#endif
 
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
@@ -248,11 +240,9 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 
         private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
-#if !NET_CORE_3
             // Say the direction using voice synthesis.
             _speechSynthesizer.SpeakAsyncCancelAll();
             _speechSynthesizer.SpeakAsync(e.VoiceGuidance.Text);
-#endif
         }
 
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
@@ -269,11 +259,9 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)
         {
-#if !NET_CORE_3
             // Stop the speech synthesizer.
             _speechSynthesizer.SpeakAsyncCancelAll();
             _speechSynthesizer.Dispose();
-#endif
 
             // Stop the tracker.
             if (_tracker != null)

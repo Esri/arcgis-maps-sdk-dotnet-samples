@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISRuntime.WPF.Viewer.NetCore", "ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.NetCore.csproj", "{5278F66E-D41F-45D2-8327-25EA13A11618}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGISRuntime.WPF.Viewer.NetFramework", "ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.NetFramework.csproj", "{5278F66E-D41F-45D2-8327-25EA13A11618}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Samples.Shared", "..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
-		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{5278f66e-d41f-45d2-8327-25ea13a11618}*SharedItemsImports = 5
+		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{5278f66e-d41f-45d2-8327-25ea13a11618}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,16 +23,16 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x64.Build.0 = Debug|Any CPU
-		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x86.Build.0 = Debug|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x64.ActiveCfg = Debug|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x64.Build.0 = Debug|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x86.ActiveCfg = Debug|x86
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x86.Build.0 = Debug|x86
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.ActiveCfg = Release|Any CPU
-		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.Build.0 = Release|Any CPU
-		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.ActiveCfg = Release|Any CPU
-		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.Build.0 = Release|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.ActiveCfg = Release|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.Build.0 = Release|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.ActiveCfg = Release|x86
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

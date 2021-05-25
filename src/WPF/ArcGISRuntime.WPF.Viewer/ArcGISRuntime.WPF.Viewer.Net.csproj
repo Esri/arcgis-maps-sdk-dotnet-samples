@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0-windows10.0.18362.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <RootNamespace>ArcGISRuntime</RootNamespace>
@@ -12,14 +12,38 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishTrimmed>true</PublishTrimmed>
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
+    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
+    <Platforms>AnyCPU;x64;x86</Platforms>
    </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
+    <NoWarn>1701;1702;CA1416</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
+    <NoWarn>1701;1702;CA1416</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
+    <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
+    <NoWarn>1701;1702;CA1416</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
+    <NoWarn>1701;1702;CA1416</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
+    <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,7 +52,7 @@
     </Content>
     <Content Include="Resources\hide-header.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>    
+    </Content>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -57,7 +81,6 @@
     <Page Update="Samples\**\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <!--<Compile Remove="obj\**\*.*" />-->
     
   </ItemGroup>
   <ItemGroup>
@@ -76,8 +99,11 @@
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>
     </PackageReference>
+    <PackageReference Include="System.Speech" Version="5.0.0" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
-
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="xcopy.exe $(ProjectDir)*.xaml $(OutDir) /y /c /s /q" />
+  </Target>
 </Project>

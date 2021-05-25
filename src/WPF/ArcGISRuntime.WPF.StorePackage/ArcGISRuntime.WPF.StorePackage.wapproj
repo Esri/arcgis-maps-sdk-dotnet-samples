@@ -39,12 +39,17 @@
     <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
     <PackageCertificateKeyFile>ArcGISRuntime.WPF.StorePackage_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <EntryPointProjectUniqueName>..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.csproj</EntryPointProjectUniqueName>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppInstallerUpdateFrequency>1</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
-    <AppxPackageDir>C:\Users\nath9278\Desktop\publish_output\</AppxPackageDir>
+    <AppxPackageDir>C:\</AppxPackageDir>
+    <EntryPointProjectUniqueName>..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
+    <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AppxBundle>Never</AppxBundle>
@@ -71,7 +76,9 @@
     <None Include="ArcGISRuntime.WPF.StorePackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.csproj" />
+    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj">
+      <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\LargeTile.scale-100.png" />

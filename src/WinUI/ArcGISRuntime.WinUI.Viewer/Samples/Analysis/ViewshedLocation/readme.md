@@ -1,6 +1,6 @@
 # Viewshed (location)
 
-Perform a viewshed analysis from a defined vantage point. 
+Perform a viewshed analysis from a defined vantage point.
 
 ![Image of viewshed location](ViewshedLocation.jpg)
 

@@ -1,8 +1,8 @@
-# Display device location
+# Display device location with autopan modes
 
 Display your current position on the map, as well as switch between different types of auto pan Modes.
 
-![Image of display device location](DisplayDeviceLocation.jpg)
+![Image of display device location with autopan modes](DisplayDeviceLocation.jpg)
 
 ## Use case
 

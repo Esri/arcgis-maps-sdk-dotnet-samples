@@ -28,7 +28,6 @@ namespace ArcGISRuntime.WPF.Samples.BrowseOAFeatureService
         tags: new[] { "OGC", "OGC API", "browse", "catalog", "feature", "layers", "service", "web" })]
     public partial class BrowseOAFeatureService
     {
-        
         // Landing URL to the OAFeat service.
         private const string ServiceUrl = "https://demo.ldproxy.net/daraa";
 

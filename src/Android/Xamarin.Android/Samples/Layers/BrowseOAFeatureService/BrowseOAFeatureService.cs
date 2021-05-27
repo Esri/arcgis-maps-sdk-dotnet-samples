@@ -39,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
         private Button _loadServiceButton;
         private EditText _urlEntry;
 
-        // Landing URL to the OAFeat service.
+        // URL for the OGC feature service.
         private const string ServiceUrl = "https://demo.ldproxy.net/daraa";
 
         private OgcFeatureServiceInfo _serviceInfo;

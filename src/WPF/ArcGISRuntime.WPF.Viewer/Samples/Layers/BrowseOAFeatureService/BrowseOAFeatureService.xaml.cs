@@ -28,7 +28,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseOAFeatureService
         tags: new[] { "OGC", "OGC API", "browse", "catalog", "feature", "layers", "service", "web" })]
     public partial class BrowseOAFeatureService
     {
-        // Landing URL to the OAFeat service.
+        // URL for the OGC feature service.
         private const string ServiceUrl = "https://demo.ldproxy.net/daraa";
 
         public BrowseOAFeatureService()
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseOAFeatureService
             // Init the UI.
             ServiceTextBox.Text = ServiceUrl;
             // Create the map with topographic basemap.
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
             LoadService();
         }
 

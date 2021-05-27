@@ -30,7 +30,7 @@ namespace ArcGISRuntime.UWP.Samples.BrowseOAFeatureService
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class BrowseOAFeatureService
     {
-        // Landing URL to the OAFeat service.
+        // URL for the OGC feature service.
         private const string ServiceUrl = "https://demo.ldproxy.net/daraa";
 
         public BrowseOAFeatureService()
@@ -44,7 +44,7 @@ namespace ArcGISRuntime.UWP.Samples.BrowseOAFeatureService
             // Init the UI.
             ServiceTextBox.Text = ServiceUrl;
             // Create the map with topographic basemap.
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
             LoadService();
         }
 

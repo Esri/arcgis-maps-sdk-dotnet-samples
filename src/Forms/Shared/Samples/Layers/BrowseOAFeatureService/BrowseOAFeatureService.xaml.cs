@@ -40,6 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
         {
             // Init the UI.
             ServiceTextBox.Text = ServiceUrl;
+
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
             LoadService();

@@ -53,7 +53,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
             // Update the UI.
             _loadServiceButton.Title = ServiceUrl;
 
-            // Create the map with imagery basemap.
+            // Create the map with topographic basemap.
             _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             LoadService();

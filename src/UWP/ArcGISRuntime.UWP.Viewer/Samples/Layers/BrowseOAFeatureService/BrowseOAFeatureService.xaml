@@ -47,6 +47,7 @@
                 <Button x:Name="LoadLayersButton"
                     Grid.Row="5" Grid.ColumnSpan="2"
                     Content="Load selected layer"
+                    HorizontalAlignment="Stretch"
                     Click="LoadLayers_Clicked" />
             </Grid>
         </Border>

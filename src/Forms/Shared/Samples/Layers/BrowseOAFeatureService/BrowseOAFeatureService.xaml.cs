@@ -118,8 +118,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
                 MyMapView.Map.OperationalLayers.Add(ogcFeatureLayer);
 
                 // Zoom to the extent of the selected collection.
-                Envelope collectionExtent = selectedCollectionInfo.Extent;
-                if (collectionExtent != null && !collectionExtent.IsEmpty)
+                if (selectedCollectionInfo.Extent is Envelope collectionExtent && !collectionExtent.IsEmpty)
                 {
                     await MyMapView.SetViewpointGeometryAsync(collectionExtent, 100);
                 }

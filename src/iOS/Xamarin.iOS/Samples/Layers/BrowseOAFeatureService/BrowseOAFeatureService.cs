@@ -41,7 +41,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
         private OgcFeatureServiceInfo _serviceInfo;
 
         // URL for the OGC feature service.
-        private const string ServiceUrl = "https://demo.ldproxy.net/daraa";
+        private const string _serviceUrl = "https://demo.ldproxy.net/daraa";
 
         public BrowseOAFeatureService()
         {
@@ -50,16 +50,13 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
 
         private void Initialize()
         {
-            // Update the UI.
-            _loadServiceButton.Title = ServiceUrl;
-
             // Create the map with topographic basemap.
             _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
-            LoadService();
+            LoadService(_serviceUrl);
         }
 
-        private async void LoadService()
+        private async void LoadService(string serviceUrl)
         {
             try
             {
@@ -68,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
                 _chooseLayersButton.Enabled = false;
 
                 // Create the OGC API - Features service using the landing URL.
-                OgcFeatureService service = new OgcFeatureService(new Uri(_loadServiceButton.Title));
+                OgcFeatureService service = new OgcFeatureService(new Uri(serviceUrl));
 
                 // Load the service.
                 await service.LoadAsync();
@@ -193,19 +190,14 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
             _chooseLayersButton.Title = "Choose layer";
             _chooseLayersButton.Enabled = false;
 
-            _loadServiceButton = new UIBarButtonItem();
-
-            UIToolbar loadBar = new UIToolbar();
-            loadBar.TranslatesAutoresizingMaskIntoConstraints = false;
-            loadBar.Items = new[]
-            {
-                _loadServiceButton
-            };
+            _loadServiceButton = new UIBarButtonItem { Title = "Load service" };
 
             UIToolbar toolbar = new UIToolbar();
             toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
             toolbar.Items = new[]
             {
+                _loadServiceButton,
+                UIBarButtonItem.FlexibleSpaceItem,
                 _chooseLayersButton
             };
 
@@ -215,22 +207,17 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
             _loadingProgressBar.BackgroundColor = UIColor.FromWhiteAlpha(0, .6f);
 
             // Add the views.
-            View.AddSubviews(_myMapView, loadBar, toolbar, _loadingProgressBar);
+            View.AddSubviews(_myMapView, toolbar, _loadingProgressBar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(loadBar.TopAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-                loadBar.TopAnchor.ConstraintEqualTo(_myMapView.BottomAnchor),
-                loadBar.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
-                loadBar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                loadBar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-
-                toolbar.TopAnchor.ConstraintEqualTo(loadBar.BottomAnchor),
+                toolbar.TopAnchor.ConstraintEqualTo(_myMapView.BottomAnchor),
                 toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                 toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
@@ -265,7 +252,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
                 AlertViewStyle = UIAlertViewStyle.PlainTextInput,
                 CancelButtonIndex = 1
             };
-            alert.GetTextField(0).Text = _loadServiceButton.Title;
             alert.AddButton("Load");
             alert.AddButton("Cancel");
 
@@ -273,8 +259,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
             {
                 if (a.ButtonIndex != alert.CancelButtonIndex)
                 {
-                    _loadServiceButton.Title = alert.GetTextField(0).Text;
-                    LoadService();
+                    LoadService(alert.GetTextField(0).Text);
                 }
             };
             alert.Show();

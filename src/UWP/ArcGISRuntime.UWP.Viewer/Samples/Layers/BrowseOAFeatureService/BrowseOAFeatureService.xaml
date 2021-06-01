@@ -37,17 +37,11 @@
                     IsEnabled="True" IsIndeterminate="True" Visibility="Visible" />
                 <ListView x:Name="OgcFeatureCollectionList"
                     Grid.Row="3" Grid.ColumnSpan="2"
-                    SelectionMode="Single">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Title}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    DisplayMemberPath="Title" SelectionMode="Single" />
                 <Button x:Name="LoadLayersButton"
                     Grid.Row="5" Grid.ColumnSpan="2"
-                    Content="Load selected layer"
                     HorizontalAlignment="Stretch"
+                    Content="Load selected layer"
                     Click="LoadLayers_Clicked" />
             </Grid>
         </Border>

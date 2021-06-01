@@ -76,7 +76,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
                 // Create the OGC API - Features service using the landing URL.
                 OgcFeatureService service = new OgcFeatureService(new Uri(_loadServiceButton.Text));
 
-                // Load the OAFeat service.
+                // Load the service.
                 await service.LoadAsync();
 
                 // Get the service metadata.

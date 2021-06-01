@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
         private EditText _urlEntry;
 
         // URL for the OGC feature service.
-        private const string ServiceUrl = "https://demo.ldproxy.net/daraa";
+        private const string _serviceUrl = "https://demo.ldproxy.net/daraa";
 
         private OgcFeatureServiceInfo _serviceInfo;
 
@@ -56,16 +56,13 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
 
         private void Initialize()
         {
-            // Update the UI.
-            _loadServiceButton.Text = ServiceUrl;
-
             // Create the map with topographic basemap.
             _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
-            LoadService();
+            LoadService(_serviceUrl);
         }
 
-        private async void LoadService()
+        private async void LoadService(string serviceUrl)
         {
             try
             {
@@ -74,7 +71,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
                 _loadServiceButton.Enabled = false;
 
                 // Create the OGC API - Features service using the landing URL.
-                OgcFeatureService service = new OgcFeatureService(new Uri(_loadServiceButton.Text));
+                OgcFeatureService service = new OgcFeatureService(new Uri(serviceUrl));
 
                 // Load the service.
                 await service.LoadAsync();
@@ -176,7 +173,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
 
             // Create the text entry.
             _urlEntry = new EditText(this);
-            _urlEntry.Text = _loadServiceButton.Text;
+            _urlEntry.Text = string.Empty;
             _urlEntry.InputType = Android.Text.InputTypes.TextVariationUri;
             builder.SetView(_urlEntry);
 
@@ -188,8 +185,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
 
         private void ServicePressed(object sender, DialogClickEventArgs e)
         {
-            _loadServiceButton.Text = _urlEntry.Text;
-            LoadService();
+            LoadService(_urlEntry.Text);
         }
 
         private Renderer GetRendererForTable(FeatureTable table)
@@ -218,7 +214,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
 
             // Add the button.
             _loadServiceButton = new Button(this);
-            _loadServiceButton.Text = string.Empty;
+            _loadServiceButton.Text = "Load service";
             _loadServiceButton.Click += ServiceClicked;
             _loadServiceButton.Enabled = false;
             layout.AddView(_loadServiceButton);

@@ -23,10 +23,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayOACollection
 {
     [Register("DisplayOACollection")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display OGC API collection",
-        "Layers",
-        "Display an OGC API feature collection and query features while navigating the map view.",
-        "")]
+        name: "Display OGC API collection",
+        category: "Layers",
+        description: "Display an OGC API feature collection and query features while navigating the map view.",
+        instructions: "Pan the map and observe how new features are loaded from the OGC API feature service.",
+        tags: new[] { "OGC", "OGC API", "feature", "feature layer", "feature table", "service", "table", "web" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public class DisplayOACollection : UIViewController
     {

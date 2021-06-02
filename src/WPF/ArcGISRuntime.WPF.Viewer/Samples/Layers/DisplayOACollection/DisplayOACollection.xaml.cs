@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Diagnostics;
 using System.Windows;
 using Color = System.Drawing.Color;
 
@@ -24,7 +23,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOACollection
         description: "Display an OGC API feature collection and query features while navigating the map view.",
         instructions: "Pan the map and observe how new features are loaded from the OGC API feature service.",
         tags: new[] { "OGC", "OGC API", "feature", "feature layer", "feature table", "service", "table", "web" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayOACollection
     {
         // Hold a reference to the OGC feature collection table.
@@ -109,7 +107,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOACollection
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.Message, "Couldn't populate table.");  
+                MessageBox.Show(exception.Message, "Couldn't populate table.");
             }
             finally
             {

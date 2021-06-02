@@ -80,8 +80,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOACollection
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString(), "Couldn't load sample.");
-                Debug.WriteLine(e);
+                MessageBox.Show(e.Message, "Error");
             }
         }
 
@@ -110,7 +109,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOACollection
             }
             catch (Exception exception)
             {
-                MessageBox.Show(exception.ToString(), "Couldn't populate table.");  
+                MessageBox.Show(exception.Message, "Couldn't populate table.");  
             }
             finally
             {

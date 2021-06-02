@@ -118,7 +118,6 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
-    <Content Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
     <Content Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
     <Content Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.jpg" />
     <Content Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
@@ -381,9 +380,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml.cs">
-      <DependentUpon>DisplayOACollection.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml.cs">
       <DependentUpon>DisplayOACollection.xaml</DependentUpon>
     </Compile>
@@ -982,10 +978,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <Page Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -106,7 +106,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayOACollection
                 // Setting outFields to null requests all fields.
                 await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, false, null);
             }
-            catch (Exception exx)
+            catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Couldn't populate table.", ex.Message, "OK");
             }

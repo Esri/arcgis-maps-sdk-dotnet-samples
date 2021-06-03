@@ -83,9 +83,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayOACollection
                     await _myMapView.SetViewpointGeometryAsync(new Envelope(datasetExtent.GetCenter(), datasetExtent.Width / 3, datasetExtent.Height / 3));
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                new UIAlertView("Error.", e.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView("Error.", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
         }
 
@@ -114,9 +114,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayOACollection
                 // Setting outFields to null requests all fields.
                 await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, false, null);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                new UIAlertView("Couldn't populate table.", exception.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
+                new UIAlertView("Couldn't populate table.", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {

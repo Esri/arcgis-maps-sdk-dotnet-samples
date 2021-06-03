@@ -76,9 +76,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOACollection
                     await MyMapView.SetViewpointGeometryAsync(new Envelope(datasetExtent.GetCenter(), datasetExtent.Width / 3, datasetExtent.Height / 3));
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                MessageBox.Show(e.Message, "Error");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 
@@ -105,9 +105,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOACollection
                 // Setting outFields to null requests all fields.
                 await _featureTable.PopulateFromServiceAsync(visibleExtentQuery, false, null);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                MessageBox.Show(exception.Message, "Couldn't populate table.");
+                MessageBox.Show(ex.Message, "Couldn't populate table.");
             }
             finally
             {

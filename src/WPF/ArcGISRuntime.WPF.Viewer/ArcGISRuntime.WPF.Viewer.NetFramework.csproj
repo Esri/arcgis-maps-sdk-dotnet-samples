@@ -149,6 +149,9 @@
     <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml.cs">
       <DependentUpon>DisplayOACollection.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.xaml.cs">
+      <DependentUpon>BrowseOAFeatureService.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml.cs">
       <DependentUpon>EditBranchVersioning.xaml</DependentUpon>
     </Compile>
@@ -760,6 +763,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1579,6 +1586,9 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg">

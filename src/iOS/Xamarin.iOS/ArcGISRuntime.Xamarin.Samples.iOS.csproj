@@ -279,6 +279,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
+    <None Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.jpg" />
     <None Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
     <None Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.jpg" />
     <None Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
@@ -474,6 +475,7 @@
   <ItemGroup>
     <!-- Sample Code -->
     <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.cs" />
+    <Compile Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.cs" />
     <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.cs" />
     <Compile Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.cs" />
     <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.cs" />

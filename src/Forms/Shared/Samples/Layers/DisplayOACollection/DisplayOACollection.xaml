@@ -1,0 +1,21 @@
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.DisplayOACollection.DisplayOACollection"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources">
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout>
+                <Label Grid.Row="1"
+                       Margin="5"
+                       Text="Pan and zoom to see features." />
+                <ActivityIndicator x:Name="LoadingProgressBar"
+                                   Margin="5"
+                                   IsRunning="True" />
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
+</ContentPage>

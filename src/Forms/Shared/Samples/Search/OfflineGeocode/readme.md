@@ -28,7 +28,7 @@ Type the address in the Search menu option or select from the list to `Geocode` 
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [San Diego Streets Tile Package](https://www.arcgis.com/home/item.html?id=1330ab96ac9c40a49e59650557f2cd63) - Streets Tile Package (tpk) for the City of San Diego.
+* [San Diego Streets Tile Package](https://www.arcgis.com/home/item.html?id=22c3083d4fa74e3e9b25adfc9f8c0496) - Streets Tile Package (tpkx) for the City of San Diego.
 * [San Diego Offline Locator](https://www.arcgis.com/home/item.html?id=344e3b12368543ef84045ef9aa3c32ba) - Includes San Diego Locator Offline Dataset.
 
 ## Tags

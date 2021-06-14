@@ -48,7 +48,7 @@ When the `GenerateOfflineMapJob` is started it will check whether `GenerateOffli
 
 ## Offline data
 
-This sample uses [naperville_imagery.tpkx](https://arcgisruntime.maps.arcgis.com/home/item.html?id=85282f2aaa2844d8935cdb8722e22a93). It is downloaded from ArcGIS Online automatically before the sample runs.
+This sample uses [naperville_imagery.tpkx](https://arcgis.com/home/item.html?id=85282f2aaa2844d8935cdb8722e22a93). It is downloaded from ArcGIS Online automatically before the sample runs.
 
 ## Tags
 

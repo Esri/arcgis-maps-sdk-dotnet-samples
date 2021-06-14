@@ -39,10 +39,12 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
 
         private async Task Initialize()
         {
-            await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
+            ArcGISLoginPrompt.SetChallengeHandler();
+
+            bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
 
             // Display a default map
-            DisplayDefaultMap();
+            if (loggedIn) DisplayDefaultMap();
         }
 
         private void DisplayDefaultMap() => MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);

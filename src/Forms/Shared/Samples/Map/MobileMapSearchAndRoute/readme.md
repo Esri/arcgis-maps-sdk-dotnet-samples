@@ -32,6 +32,10 @@ A list of maps from a mobile map package will be displayed. If the map contains 
 * RouteTask
 * TransportationNetworkDataset
 
+## Offline data
+
+This sample uses the [San Francisco](https://www.arcgis.com/home/item.html?id=260eb6535c824209964cf281766ebe43) mobile map package.
+
 ## Tags
 
 disconnected, field mobility, geocode, network, network analysis, offline, routing, search, transportation

@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.FindPlace
 
         // Service URI to be provided to the LocatorTask (geocoder).
         private readonly Uri _serviceUri =
-            new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+            new Uri("https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         // Hold a suggestion source for the suggestion list view.
         private SuggestionSource _mySuggestionSource;

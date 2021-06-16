@@ -19,6 +19,10 @@ Tap the map to see the nearest address displayed in a callout.
 3. Get the matching results from the `GeocodeResult` using  `LocatorTask.reverseGeocodeAsync`.
 4. Show the results using a `PictureMarkerSymbol` and add the symbol to a `Graphic` in the `GraphicsOverlay`.
 
+## Additional information
+
+This sample uses the World Geocoding Service. For more information, see the [Geocoding service](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/services/geocoding-service/) help topic on the ArcGIS Developer website.
+
 ## Relevant API
 
 * GeocodeParameters

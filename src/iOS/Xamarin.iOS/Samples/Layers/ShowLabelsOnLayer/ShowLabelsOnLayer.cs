@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
         category: "Layers",
         description: "Display custom labels on a feature layer.",
         instructions: "Pan and zoom around the United States. Labels for congressional districts will be shown in red for Republican districts and blue for Democrat districts. Notice how labels pop into view as you zoom in.",
-        tags: new[] { "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization" })]
+        tags: new[] { "arcade", "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization" })]
     public class ShowLabelsOnLayer : UIViewController
     {
         // Hold references to UI controls.

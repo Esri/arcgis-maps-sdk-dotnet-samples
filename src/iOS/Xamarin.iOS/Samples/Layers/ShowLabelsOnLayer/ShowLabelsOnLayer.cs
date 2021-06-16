@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,12 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Labeling;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
+using System.Drawing;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
@@ -28,68 +31,6 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-
-        // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:
-        // https://developers.arcgis.com/web-map-specification/objects/labelingInfo/
-        private const string RedLabelJson =
-            @"{
-                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
-                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
-                    ""where"":""PARTY = 'Republican'"",
-                    ""symbol"":
-                        { 
-                            ""angle"":0,
-                            ""backgroundColor"":[0,0,0,0],
-                            ""borderLineColor"":[0,0,0,0],
-                            ""borderLineSize"":0,
-                            ""color"":[255,0,0,255],
-                            ""font"":
-                                {
-                                    ""decoration"":""none"",
-                                    ""size"":10,
-                                    ""style"":""normal"",
-                                    ""weight"":""normal""
-                                },
-                            ""haloColor"":[255,255,255,255],
-                            ""haloSize"":2,
-                            ""horizontalAlignment"":""center"",
-                            ""kerning"":false,
-                            ""type"":""esriTS"",
-                            ""verticalAlignment"":""middle"",
-                            ""xoffset"":0,
-                            ""yoffset"":0
-                        }
-               }";
-
-        private const string BlueLabelJson =
-            @"{
-                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
-                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
-                    ""where"":""PARTY = 'Democrat'"",
-                    ""symbol"":
-                        { 
-                            ""angle"":0,
-                            ""backgroundColor"":[0,0,0,0],
-                            ""borderLineColor"":[0,0,0,0],
-                            ""borderLineSize"":0,
-                            ""color"":[0,0,255,255],
-                            ""font"":
-                                {
-                                    ""decoration"":""none"",
-                                    ""size"":10,
-                                    ""style"":""normal"",
-                                    ""weight"":""normal""
-                                },
-                            ""haloColor"":[255,255,255,255],
-                            ""haloSize"":2,
-                            ""horizontalAlignment"":""center"",
-                            ""kerning"":false,
-                            ""type"":""esriTS"",
-                            ""verticalAlignment"":""middle"",
-                            ""xoffset"":0,
-                            ""yoffset"":0
-                        }
-               }";
 
         public ShowLabelsOnLayer()
         {
@@ -124,21 +65,42 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
                 // Zoom the map view to the extent of the feature layer.
                 await _myMapView.SetViewpointCenterAsync(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000);
 
-                // Create a label definition from the JSON string. 
-                LabelDefinition redLabelDefinition = LabelDefinition.FromJson(RedLabelJson);
-                LabelDefinition blueLabelDefinition = LabelDefinition.FromJson(BlueLabelJson);
+                // create label definitions for each party.
+                LabelDefinition republicanLabelDefinition = MakeLabelDefinition("Republican", Color.Red);
+                LabelDefinition democratLabelDefinition = MakeLabelDefinition("Democrat", Color.Blue);
 
                 // Add the label definition to the feature layer's label definition collection.
-                districtFeatureLabel.LabelDefinitions.Add(redLabelDefinition);
-                districtFeatureLabel.LabelDefinitions.Add(blueLabelDefinition);
+                districtFeatureLabel.LabelDefinitions.Add(republicanLabelDefinition);
+                districtFeatureLabel.LabelDefinitions.Add(democratLabelDefinition);
 
                 // Enable the visibility of labels to be seen.
                 districtFeatureLabel.LabelsEnabled = true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                new UIAlertView("Error", e.ToString(), (IUIAlertViewDelegate) null, "OK", null).Show();
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
+        }
+
+        private LabelDefinition MakeLabelDefinition(string partyName, Color color)
+        {
+            // Create a text symbol for styling the label.
+            TextSymbol textSymbol = new TextSymbol
+            {
+                Size = 12,
+                Color = color,
+                HaloColor = Color.White,
+                HaloWidth = 2,
+            };
+
+            // Create a label expression using an Arcade expression script.
+            LabelExpression arcadeLabelExpression = new ArcadeLabelExpression("$feature.NAME + \" (\" + left($feature.PARTY,1) + \")\\nDistrict \" + $feature.CDFIPS");
+
+            return new LabelDefinition(arcadeLabelExpression, textSymbol)
+            {
+                Placement = Esri.ArcGISRuntime.ArcGISServices.LabelingPlacement.PolygonAlwaysHorizontal,
+                WhereClause = $"PARTY = '{partyName}'",
+            };
         }
 
         public override void ViewDidLoad()

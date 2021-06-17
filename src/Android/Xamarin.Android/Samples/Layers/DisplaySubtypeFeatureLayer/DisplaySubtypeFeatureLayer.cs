@@ -93,6 +93,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 
                 // Select the sublayer of street lights by name.
                 _sublayer = subtypeFeatureLayer.GetSublayerBySubtypeName("Street Light");
+                
                 // Create a text symbol for styling the sublayer label definition.
                 TextSymbol textSymbol = new TextSymbol
                 {

@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Helpers
                     // Use the OAuth implicit grant flow
                     GenerateTokenOptions = new GenerateTokenOptions
                     {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
                     },
 
                     // Indicate the url (portal) to authenticate with (ArcGIS Online)
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Helpers
             // Define the server information for ArcGIS Online
             ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
             {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
+                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
                 OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 

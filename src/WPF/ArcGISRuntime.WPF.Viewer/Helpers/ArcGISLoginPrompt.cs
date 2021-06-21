@@ -25,6 +25,9 @@ namespace ArcGISRuntime.Helpers
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = "lgAdHkYZYlwwfAhC";
 
+        // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
+        private const string ClientSecret = "";
+
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = "my-ags-app://auth";
 
@@ -91,6 +94,14 @@ namespace ArcGISRuntime.Helpers
                 TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
                 OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
+
+            // If a client secret has been configured, set the authentication type to OAuth client credentials.
+            if (!string.IsNullOrEmpty(ClientSecret))
+            {
+                // Use OAuthClientCredentials if you need a refresh token (and have specified a valid client secret).
+                portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthClientCredentials;
+                portalServerInfo.OAuthClientInfo.ClientSecret = ClientSecret;
+            }
 
             // Get a reference to the (singleton) AuthenticationManager for the app
             AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;

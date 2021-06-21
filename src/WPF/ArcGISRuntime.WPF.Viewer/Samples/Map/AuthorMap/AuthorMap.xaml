@@ -39,8 +39,7 @@
             <ListBox x:Name="BasemapListBox"
                      Grid.Row="0"
                      Grid.Column="1"
-                     HorizontalAlignment="Stretch"
-                     SelectionChanged="BasemapSelectionChanged" />
+                     HorizontalAlignment="Stretch" />
             <TextBlock Grid.Row="1"
                        Grid.Column="0"
                        Margin="10,10,0,0"

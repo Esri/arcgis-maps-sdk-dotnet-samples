@@ -11,7 +11,6 @@ using ArcGISRuntime.Helpers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
@@ -19,8 +18,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Navigation;
-using System.Windows.Threading;
 
 namespace ArcGISRuntime.WPF.Samples.AuthorMap
 {
@@ -75,8 +72,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             // Fill the basemap combo box with basemap names
             BasemapListBox.ItemsSource = _basemapNames;
 
-            // Select the first basemap in the list by default
-            BasemapListBox.SelectedIndex = 0;
+            // Add a listener for changes in the selected basemap.
+            BasemapListBox.SelectionChanged += BasemapSelectionChanged;
 
             // Fill the operational layers list box with layer names
             OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
@@ -134,7 +131,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                     string[] tags = TagsTextBox.Text.Split(',');
 
                     // Make sure all required info was entered
-                    if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
+                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
                     {
                         throw new Exception("Please enter a title, description, and some tags to describe the map.");
                     }
@@ -233,34 +230,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage thumb)
         {
-            //// Challenge the user for portal credentials (OAuth credential request for arcgis.com)
-            //CredentialRequestInfo loginInfo = new CredentialRequestInfo
-            //{
-            //    // Use the OAuth implicit grant flow
-            //    GenerateTokenOptions = new GenerateTokenOptions
-            //    {
-            //        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-            //    },
-
-            //    // Indicate the url (portal) to authenticate with (ArcGIS Online)
-            //    ServiceUri = new Uri("https://www.arcgis.com/sharing/rest")
-            //};
-
-            //try
-            //{
-            //    // Get a reference to the (singleton) AuthenticationManager for the app
-            //    AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
-
-            //    // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-            //    await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
-            //}
-            //catch (OperationCanceledException)
-            //{
-            //    // user canceled the login
-            //    throw new Exception("Portal log in was canceled.");
-            //}
-
-            bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
+            await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
 
             // Get the ArcGIS Online portal (will use credential from login above)
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();

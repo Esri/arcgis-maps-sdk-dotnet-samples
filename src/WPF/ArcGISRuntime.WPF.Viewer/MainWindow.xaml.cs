@@ -140,13 +140,13 @@ namespace ArcGISRuntime.Samples.Desktop
                 ApiKeyManager.DisableKey();
             }
 
+            // Call a function to clear any existing credentials from AuthenticationManager
+            ClearCredentials();
+
             SampleTitleBlock.Text = selectedSample.SampleName;
             SampleManager.Current.SelectedSample = selectedSample;
             DescriptionContainer.SetSample(selectedSample);
             ShowSampleTab();
-
-            // Call a function to clear any existing credentials from AuthenticationManager
-            ClearCredentials();
 
             try
             {
@@ -191,6 +191,9 @@ namespace ArcGISRuntime.Samples.Desktop
                     AuthenticationManager.Current.RemoveCredential(cred);
                 }
             }
+
+            // Clear the challenge handler.
+            AuthenticationManager.Current.ChallengeHandler = null;
         }
 
         private void OpenCategoryLeaves()

@@ -34,6 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
         instructions: "1. Use the button to start taking the map offline.",
         tags: new[] { "Offline" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class OfflineBasemapByReference
     {
         // The job to generate an offline map.

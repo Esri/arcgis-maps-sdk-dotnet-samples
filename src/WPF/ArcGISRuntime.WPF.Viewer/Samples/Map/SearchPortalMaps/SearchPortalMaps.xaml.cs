@@ -25,6 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         description: "Find webmap portal items by using a search term.",
         instructions: "Enter search terms into the search bar. Once the search is complete, a list is populated with the resultant webmaps. Tap on a webmap to set it to the map view. Scrolling to the bottom of the webmap recycler view will get more results.",
         tags: new[] { "keyword", "query", "search", "webmap" })]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class SearchPortalMaps
     {
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";

@@ -33,6 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         description: "Take a web map offline with additional options for each layer.",
         instructions: "Modify the overrides parameters:",
         tags: new[] { "LOD", "adjust", "download", "extent", "filter", "offline", "override", "parameters", "reduce", "scale range", "setting" })]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class GenerateOfflineMapWithOverrides
     {
         // The job to generate an offline map.

@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Helpers;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -34,7 +33,6 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
         instructions: "1. Use the button to start taking the map offline.",
         tags: new[] { "Offline" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class OfflineBasemapByReference
     {
         // The job to generate an offline map.
@@ -91,9 +89,6 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
         {
             try
             {
-                // Call a function to set up the AuthenticationManager for OAuth.
-                ArcGISLoginPrompt.SetChallengeHandler();
-
                 // Create the ArcGIS Online portal.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 

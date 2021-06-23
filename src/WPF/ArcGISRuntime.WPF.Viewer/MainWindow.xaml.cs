@@ -27,9 +27,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
-            "GenerateOfflineMap",
-            "GenerateOfflineMapWithOverrides",
-            "OfflineBasemapByReference",
             "SearchPortalMaps",
             "OAuth" };
 

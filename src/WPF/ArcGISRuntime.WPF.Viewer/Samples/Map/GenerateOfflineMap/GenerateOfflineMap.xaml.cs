@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Helpers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -31,7 +30,6 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
         description: "Take a web map offline.",
         instructions: "When the app starts, you will be prompted to sign in using a free ArcGIS Online account. Once the map loads, zoom to the extent you want to take offline. The red border shows the extent that will be downloaded. Click the \"Take Map Offline\" button to start the offline map job. The progress bar will show the job's progress. When complete, the offline map will replace the online map in the map view.",
         tags: new[] { "download", "offline", "save", "web map" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class GenerateOfflineMap
     {
         // The job to generate an offline map.
@@ -55,9 +53,6 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
         {
             try
             {
-                // Call a function to set up the AuthenticationManager for OAuth.
-                ArcGISLoginPrompt.SetChallengeHandler();
-
                 // Create the ArcGIS Online portal.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 

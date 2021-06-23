@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Helpers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -33,7 +32,6 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         description: "Take a web map offline with additional options for each layer.",
         instructions: "Modify the overrides parameters:",
         tags: new[] { "LOD", "adjust", "download", "extent", "filter", "offline", "override", "parameters", "reduce", "scale range", "setting" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class GenerateOfflineMapWithOverrides
     {
         // The job to generate an offline map.
@@ -55,9 +53,6 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         {
             try
             {
-                // Call a function to set up the AuthenticationManager for OAuth.
-                ArcGISLoginPrompt.SetChallengeHandler();
-
                 // Create the ArcGIS Online portal.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 

@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Helpers
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = "lgAdHkYZYlwwfAhC";
 
-        // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
+        // - An optional client secret for the app (only needed for the OAuthClientCredentials authorization type).
         private const string ClientSecret = "";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).

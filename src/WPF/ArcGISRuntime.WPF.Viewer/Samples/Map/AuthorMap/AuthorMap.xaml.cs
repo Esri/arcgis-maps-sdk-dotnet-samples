@@ -177,6 +177,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
         {
             // Set the basemap for the map according to the user's choice in the list box
             Map myMap = MyMapView.Map;
+
             switch (basemapName)
             {
                 case "Light Gray":
@@ -204,6 +205,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                     myMap.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
+
             myMap.Basemap.LoadAsync();
         }
 

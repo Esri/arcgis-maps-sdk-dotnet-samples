@@ -381,7 +381,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Helpers\ArcGISLoginPrompt.cs" />
+    <Compile Include="Helpers\ArcGISLoginPrompt.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml.cs">
       <DependentUpon>DisplayOACollection.xaml</DependentUpon>
     </Compile>

@@ -77,10 +77,9 @@ namespace ArcGISRuntime.Helpers
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (Exception)
+            catch (OperationCanceledException)
             {
-                // Exception will be reported in calling function
-                throw;
+                // OAuth login was canceled, no need to display error to user.
             }
 
             return credential;

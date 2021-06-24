@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayKmlNetworkLinks
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
             // The dispatcher takes an Action, provided here as a lambda function.
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 _ = new MessageDialog2(e.Message, "KML layer message").ShowAsync();
             });

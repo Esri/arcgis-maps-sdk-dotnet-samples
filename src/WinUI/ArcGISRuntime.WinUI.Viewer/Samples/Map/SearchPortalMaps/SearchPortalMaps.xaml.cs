@@ -142,7 +142,7 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Report errors if map failed to load
                 if (e.Status == LoadStatus.FailedToLoad)

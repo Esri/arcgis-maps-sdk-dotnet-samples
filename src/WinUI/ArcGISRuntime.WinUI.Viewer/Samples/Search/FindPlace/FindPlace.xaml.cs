@@ -88,7 +88,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
             // Need to use the dispatcher to interact with UI elements because this function is called from a background thread
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 MyMapView.SetViewpoint(new Viewpoint(e.Position, 100000));
             });

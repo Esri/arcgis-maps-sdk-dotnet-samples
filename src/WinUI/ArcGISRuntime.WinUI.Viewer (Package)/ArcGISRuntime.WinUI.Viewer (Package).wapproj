@@ -32,13 +32,13 @@
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
     <PathToXAMLWinRTImplementations>ArcGISRuntime.WinUI.Viewer\</PathToXAMLWinRTImplementations>
-    <AssetTargetFallback>net5.0-windows$(TargetPlatformVersion);$(AssetTargetFallback)</AssetTargetFallback>
   </PropertyGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
     <ProjectGuid>e2a65d79-327d-46ee-bc48-bfe3a73cce93</ProjectGuid>
     <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <AssetTargetFallback>net5.0-windows$(TargetPlatformVersion);$(AssetTargetFallback)</AssetTargetFallback>
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
     <EntryPointProjectUniqueName>..\ArcGISRuntime.WinUI.Viewer\ArcGISRuntime.WinUI.Viewer.csproj</EntryPointProjectUniqueName>
@@ -110,7 +110,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.ProjectReunion" Version="[0.5.5]">
+    <PackageReference Include="Microsoft.ProjectReunion" Version="[0.8.0]">
+      <IncludeAssets>build</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.ProjectReunion.WinUI" Version="[0.8.0]">
       <IncludeAssets>build</IncludeAssets>
     </PackageReference>
   </ItemGroup>

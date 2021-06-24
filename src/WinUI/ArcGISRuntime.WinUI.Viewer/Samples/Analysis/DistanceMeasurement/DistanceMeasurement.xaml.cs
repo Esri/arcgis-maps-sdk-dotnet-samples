@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             _distanceMeasurement.MeasurementChanged += async (o, e) =>
             {
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
-                DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+                DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
                 {
                     // Update the labels with new values in the format {value} {unit system}.
                     DirectMeasureTextBlock.Text = $"{_distanceMeasurement.DirectDistance.Value:F} {_distanceMeasurement.DirectDistance.Unit.Abbreviation}";

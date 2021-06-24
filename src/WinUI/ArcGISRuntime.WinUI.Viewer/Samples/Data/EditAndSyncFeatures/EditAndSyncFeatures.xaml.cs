@@ -519,7 +519,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
             // The dispatcher takes an Action, provided here as a lambda function.
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Update the progress bar value.
                 GenerateSyncProgressBar.Value = progress;

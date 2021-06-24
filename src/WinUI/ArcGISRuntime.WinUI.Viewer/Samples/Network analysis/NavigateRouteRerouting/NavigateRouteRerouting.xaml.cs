@@ -235,7 +235,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
                 statusMessageBuilder.AppendLine("Off route!");
             }
 
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Show the status information in the UI.
                 MessagesTextBlock.Text = statusMessageBuilder.ToString();
@@ -247,7 +247,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             // Generate the audio stream for the voice guidance.
             SpeechSynthesisStream stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);
 
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Play the audio stream.
                 // _mediaElement.SetSource(stream, stream.ContentType);

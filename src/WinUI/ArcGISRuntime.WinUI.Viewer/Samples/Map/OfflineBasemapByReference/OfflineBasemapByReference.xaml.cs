@@ -257,7 +257,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
             GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
 
             // Dispatch to the UI thread.
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Show the percent complete and update the progress bar.
                 Percentage.Text = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;

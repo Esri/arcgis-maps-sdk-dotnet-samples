@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using ArcGISRuntime.Samples.Shared.Managers;
 
 namespace ArcGISRuntime.WinUI.Samples.FindPlace
 {
@@ -39,7 +40,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         private LocatorTask _geocoder;
 
         // Service Uri to be provided to the LocatorTask (geocoder)
-        private Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private Uri _serviceUri = new Uri("https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         public FindPlace()
         {
@@ -51,6 +52,12 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
 
         private async void Initialize()
         {
+            if (await ApiKeyManager.CheckKeyValidity() != ApiKeyStatus.Valid)
+            {
+                await new MessageDialog2("Please use the settings dialog to configure an API Key.", "Error").ShowAsync();
+                return;
+            }
+
             // Add event handler for when this sample is unloaded.
             Unloaded += SampleUnloaded;
 
@@ -120,7 +127,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             else
             {
                 // Get the current device location
-                return MyMapView.LocationDisplay.Location.Position;
+                return MyMapView.LocationDisplay.Location?.Position;
             }
         }
 

@@ -234,22 +234,12 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
         private void UpdateAuthenticationManager()
         {
             // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo
+            ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
             {
-                // ArcGIS Online URI
-                ServerUri = new Uri(ArcGISOnlineUrl),
-
                 // Type of token authentication to use
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
+                OAuthClientInfo = new OAuthClientInfo(_appClientId, new Uri(_oAuthRedirectUrl))
             };
-
-            // Define the OAuth information
-            OAuthClientInfo oAuthInfo = new OAuthClientInfo
-            {
-                ClientId = _appClientId,
-                RedirectUri = new Uri(_oAuthRedirectUrl)
-            };
-            portalServerInfo.OAuthClientInfo = oAuthInfo;
 
             // Get a reference to the (singleton) AuthenticationManager for the app
             AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;

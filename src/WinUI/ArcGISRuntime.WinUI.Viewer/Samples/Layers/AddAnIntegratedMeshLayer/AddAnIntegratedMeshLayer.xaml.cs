@@ -22,8 +22,7 @@ namespace ArcGISRuntime.WinUI.Samples.AddAnIntegratedMeshLayer
     public partial class AddAnIntegratedMeshLayer
     {
         // URLs for the services used by this sample.
-        private const string IntegratedMeshLayerUrl =
-            "https://tiles.arcgis.com/tiles/FQD0rKU8X5sAQfh8/arcgis/rest/services/VRICON_Yosemite_Sample_Integrated_Mesh_scene_layer/SceneServer";
+        private const string IntegratedMeshLayerUrl = "https://tiles.arcgis.com/tiles/z2tnIkrLQ2BRzr6P/arcgis/rest/services/Girona_Spain/SceneServer";
 
         private const string ElevationServiceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
@@ -35,8 +34,8 @@ namespace ArcGISRuntime.WinUI.Samples.AddAnIntegratedMeshLayer
 
         private void Initialize()
         {
-            // Create the scene with basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+             // Create the scene with basemap.
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Create and use an elevation surface to show terrain.
             Surface baseSurface = new Surface();
@@ -49,8 +48,8 @@ namespace ArcGISRuntime.WinUI.Samples.AddAnIntegratedMeshLayer
             // Add the layer to the scene's operational layers.
             MySceneView.Scene.OperationalLayers.Add(meshLayer);
 
-            // Start with camera pointing at El Capitan.
-            MySceneView.SetViewpointCamera(new Camera(new MapPoint(-119.622075, 37.720650, 2104.901239), 315.50368761552056, 78.09465920130114, 0));
+            // Start with camera pointing at the scene.
+            MySceneView.SetViewpointCamera(new Camera(new MapPoint(2.8259, 41.9906, 200.0), 190, 65, 0));
         }
     }
 }

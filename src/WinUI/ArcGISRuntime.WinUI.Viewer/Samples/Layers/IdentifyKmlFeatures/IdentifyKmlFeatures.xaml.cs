@@ -45,7 +45,7 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyKmlFeatures
             MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
 
             // Create the dataset.
-            KmlDataset dataset = new KmlDataset(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
+            KmlDataset dataset = new KmlDataset(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx_latest.kml"));
 
             // Create the layer from the dataset.
             _forecastLayer = new KmlLayer(dataset);
@@ -75,8 +75,14 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyKmlFeatures
                     return;
                 }
 
-                // Get the first identified feature that is a KML placemark
+                // Get the first identified feature that is a KML placemark.
                 KmlNode firstIdentifiedPlacemark = identifyResult.GeoElements.OfType<KmlGeoElement>().First().KmlNode;
+
+                // Populate the Description if empty.
+                if (string.IsNullOrEmpty(firstIdentifiedPlacemark.Description))
+                {
+                    firstIdentifiedPlacemark.Description = "Weather condition";
+                }
 
                 // Create a browser to show the feature popup HTML.
                 WebView2 browser = new WebView2
@@ -84,6 +90,11 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyKmlFeatures
                     Width = 400,
                     Height = 100
                 };
+
+                // Ensure the CoreWebView2 has been created.
+                await browser.EnsureCoreWebView2Async();
+
+                // Initiate the navigation to the BalloonContent HTML.
                 browser.NavigateToString(firstIdentifiedPlacemark.BalloonContent);
 
                 // Create and show the callout.

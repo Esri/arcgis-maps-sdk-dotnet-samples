@@ -37,7 +37,7 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
         //       You do not need to surface your own UI to prompt the user for username, password, and domain.
 
         // The ArcGIS Online URL for searching public web maps.
-        private string _publicPortalUrl = "http://www.arcgis.com";
+        private string _publicPortalUrl = "https://www.arcgis.com";
 
         // The public and secured portals.
         ArcGISPortal _iwaSecuredPortal = null;
@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
             InitializeComponent();
 
             // Show the light gray canvas basemap.
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
         }
 
         // Search the public portal for web maps and display the results in a list.

@@ -145,7 +145,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
             _directionsList = _route.DirectionManeuvers;
 
             // Create a route tracker.
-            _tracker = new RouteTracker(_routeResult, 0);
+            _tracker = new RouteTracker(_routeResult, 0, true);
             _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.
@@ -209,7 +209,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
                 }
                 else
                 {
-                    DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+                    DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
                     {
                         // Stop the simulated location data source.
                         MyMapView.LocationDisplay.DataSource.StopAsync();
@@ -217,7 +217,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
                 }
             }
 
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Show the status information in the UI.
                 MessagesTextBlock.Text = statusMessageBuilder.ToString();
@@ -229,7 +229,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
             // Generate the audio stream for the voice guidance.
             SpeechSynthesisStream stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);
 
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Play the audio stream.
                 // _mediaElement.SetSource(stream, stream.ContentType);

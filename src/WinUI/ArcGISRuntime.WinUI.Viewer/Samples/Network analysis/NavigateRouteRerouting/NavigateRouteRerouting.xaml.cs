@@ -145,7 +145,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             _directionsList = _route.DirectionManeuvers;
 
             // Create a route tracker.
-            _tracker = new RouteTracker(_routeResult, 0);
+            _tracker = new RouteTracker(_routeResult, 0, true);
             _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.
@@ -155,7 +155,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             if (_routeTask.RouteTaskInfo.SupportsRerouting)
             {
                 // Enable automatic re-routing.
-                await _tracker.EnableReroutingAsync(_routeTask, _routeParams, ReroutingStrategy.ToNextWaypoint, false);
+                await _tracker.EnableReroutingAsync(new ReroutingParameters(_routeTask, _routeParams) { Strategy = ReroutingStrategy.ToNextWaypoint, VisitFirstStopOnStart = false });
 
                 // Handle re-routing completion to display updated route graphic and report new status.
                 _tracker.RerouteStarted += RerouteStarted;
@@ -235,7 +235,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
                 statusMessageBuilder.AppendLine("Off route!");
             }
 
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Show the status information in the UI.
                 MessagesTextBlock.Text = statusMessageBuilder.ToString();
@@ -247,7 +247,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             // Generate the audio stream for the voice guidance.
             SpeechSynthesisStream stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);
 
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Play the audio stream.
                 // _mediaElement.SetSource(stream, stream.ContentType);

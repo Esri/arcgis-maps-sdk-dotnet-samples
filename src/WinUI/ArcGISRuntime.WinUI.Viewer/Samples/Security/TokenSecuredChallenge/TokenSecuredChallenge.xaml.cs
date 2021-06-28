@@ -19,7 +19,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI;
-using Microsoft.System;
+using Microsoft.UI.Dispatching;
 
 namespace ArcGISRuntime.WinUI.Samples.TokenSecuredChallenge
 {

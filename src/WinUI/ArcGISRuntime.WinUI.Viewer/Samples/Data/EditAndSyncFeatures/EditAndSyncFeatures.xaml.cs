@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
         description: "Synchronize offline edits with a feature service.",
         instructions: "Pan and zoom to position the red rectangle around the area you want to take offline. Click \"Generate geodatabase\" to take the area offline. When complete, the map will update to only show the offline area. To edit features, click to select a feature, and click again anywhere else on the map to move the selected feature to the clicked location. To sync the edits with the feature service, click the \"Sync geodatabase\" button.",
         tags: new[] { "feature service", "geodatabase", "offline", "synchronize" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
     public partial class EditAndSyncFeatures
     {
         // Enumeration to track which phase of the workflow the sample is in.
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
         private async void Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk.
-            TileCache tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
+            TileCache tileCache = new TileCache(DataManager.GetDataFolder("e4a398afe9a945f3b0f4dca1e4faccb5", "SanFrancisco.tpkx"));
 
             // Create the corresponding layer based on the tile cache.
             ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
@@ -519,7 +519,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
             // The dispatcher takes an Action, provided here as a lambda function.
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Update the progress bar value.
                 GenerateSyncProgressBar.Value = progress;

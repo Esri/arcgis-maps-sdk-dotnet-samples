@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,6 +12,11 @@ using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Labeling;
+using Esri.ArcGISRuntime.Symbology;
+using System;
+using System.Drawing;
+using System.Windows;
 
 namespace ArcGISRuntime.WinUI.Samples.ShowLabelsOnLayer
 {
@@ -20,71 +25,9 @@ namespace ArcGISRuntime.WinUI.Samples.ShowLabelsOnLayer
         category: "Layers",
         description: "Display custom labels on a feature layer.",
         instructions: "Pan and zoom around the United States. Labels for congressional districts will be shown in red for Republican districts and blue for Democrat districts. Notice how labels pop into view as you zoom in.",
-        tags: new[] { "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization" })]
+        tags: new[] { "arcade", "attribute", "deconfliction", "label", "labeling", "string", "symbol", "text", "visualization" })]
     public partial class ShowLabelsOnLayer
     {
-        // Help regarding the Json syntax for defining the LabelDefinition.FromJson syntax can be found here:
-        // https://developers.arcgis.com/web-map-specification/objects/labelingInfo/
-        private const string RedLabelJson =
-            @"{
-                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
-                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
-                    ""where"":""PARTY = 'Republican'"",
-                    ""symbol"":
-                        { 
-                            ""angle"":0,
-                            ""backgroundColor"":[0,0,0,0],
-                            ""borderLineColor"":[0,0,0,0],
-                            ""borderLineSize"":0,
-                            ""color"":[255,0,0,255],
-                            ""font"":
-                                {
-                                    ""decoration"":""none"",
-                                    ""size"":10,
-                                    ""style"":""normal"",
-                                    ""weight"":""normal""
-                                },
-                            ""haloColor"":[255,255,255,255],
-                            ""haloSize"":2,
-                            ""horizontalAlignment"":""center"",
-                            ""kerning"":false,
-                            ""type"":""esriTS"",
-                            ""verticalAlignment"":""middle"",
-                            ""xoffset"":0,
-                            ""yoffset"":0
-                        }
-               }";
-
-        private const string BlueLabelJson =
-            @"{
-                    ""labelExpressionInfo"":{""expression"":""$feature.NAME + ' (' + left($feature.PARTY,1) + ')\\nDistrict' + $feature.CDFIPS""},
-                    ""labelPlacement"":""esriServerPolygonPlacementAlwaysHorizontal"",
-                    ""where"":""PARTY = 'Democrat'"",
-                    ""symbol"":
-                        { 
-                            ""angle"":0,
-                            ""backgroundColor"":[0,0,0,0],
-                            ""borderLineColor"":[0,0,0,0],
-                            ""borderLineSize"":0,
-                            ""color"":[0,0,255,255],
-                            ""font"":
-                                {
-                                    ""decoration"":""none"",
-                                    ""size"":10,
-                                    ""style"":""normal"",
-                                    ""weight"":""normal""
-                                },
-                            ""haloColor"":[255,255,255,255],
-                            ""haloSize"":2,
-                            ""horizontalAlignment"":""center"",
-                            ""kerning"":false,
-                            ""type"":""esriTS"",
-                            ""verticalAlignment"":""middle"",
-                            ""xoffset"":0,
-                            ""yoffset"":0
-                        }
-               }";
-
         public ShowLabelsOnLayer()
         {
             InitializeComponent();
@@ -103,7 +46,7 @@ namespace ArcGISRuntime.WinUI.Samples.ShowLabelsOnLayer
             string layerUrl = "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_115th_Congressional_Districts/FeatureServer/0";
 
             // Create a service feature table from the URL.
-            ServiceFeatureTable featureTable = new ServiceFeatureTable(new System.Uri(layerUrl));
+            ServiceFeatureTable featureTable = new ServiceFeatureTable(new Uri(layerUrl));
 
             // Create a feature layer from the service feature table.
             FeatureLayer districtFeatureLabel = new FeatureLayer(featureTable);
@@ -119,21 +62,42 @@ namespace ArcGISRuntime.WinUI.Samples.ShowLabelsOnLayer
                 // Zoom the map view to the extent of the feature layer.
                 await MyMapView.SetViewpointCenterAsync(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000);
 
-                // Create a label definition from the JSON string. 
-                LabelDefinition redLabelDefinition = LabelDefinition.FromJson(RedLabelJson);
-                LabelDefinition blueLabelDefinition = LabelDefinition.FromJson(BlueLabelJson);
+                // create label definitions for each party.
+                LabelDefinition republicanLabelDefinition = MakeLabelDefinition("Republican", Color.Red);
+                LabelDefinition democratLabelDefinition = MakeLabelDefinition("Democrat", Color.Blue);
 
                 // Add the label definition to the feature layer's label definition collection.
-                districtFeatureLabel.LabelDefinitions.Add(redLabelDefinition);
-                districtFeatureLabel.LabelDefinitions.Add(blueLabelDefinition);
+                districtFeatureLabel.LabelDefinitions.Add(republicanLabelDefinition);
+                districtFeatureLabel.LabelDefinitions.Add(democratLabelDefinition);
 
                 // Enable the visibility of labels to be seen.
                 districtFeatureLabel.LabelsEnabled = true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
+        }
+
+        private LabelDefinition MakeLabelDefinition(string partyName, Color color)
+        {
+            // Create a text symbol for styling the label.
+            TextSymbol textSymbol = new TextSymbol
+            {
+                Size = 12,
+                Color = color,
+                HaloColor = Color.White,
+                HaloWidth = 2,
+            };
+
+            // Create a label expression using an Arcade expression script.
+            LabelExpression arcadeLabelExpression = new ArcadeLabelExpression("$feature.NAME + \" (\" + left($feature.PARTY,1) + \")\\nDistrict \" + $feature.CDFIPS");
+
+            return new LabelDefinition(arcadeLabelExpression, textSymbol)
+            {
+                Placement = Esri.ArcGISRuntime.ArcGISServices.LabelingPlacement.PolygonAlwaysHorizontal,
+                WhereClause = $"PARTY = '{partyName}'",
+            };
         }
     }
 }

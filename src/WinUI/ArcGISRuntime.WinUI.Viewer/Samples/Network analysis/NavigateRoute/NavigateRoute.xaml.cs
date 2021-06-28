@@ -145,7 +145,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
             _directionsList = _route.DirectionManeuvers;
 
             // Create a route tracker.
-            _tracker = new RouteTracker(_routeResult, 0);
+            _tracker = new RouteTracker(_routeResult, 0, true);
             _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.

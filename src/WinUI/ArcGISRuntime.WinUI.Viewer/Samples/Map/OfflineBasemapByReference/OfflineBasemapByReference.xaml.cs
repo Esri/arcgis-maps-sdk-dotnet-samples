@@ -30,8 +30,8 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
         category: "Map",
         description: "Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.",
         instructions: "1. Use the button to start taking the map offline.",
-        tags: new[] { "Offline" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
+        tags: new[] { "basemap", "download", "local", "offline", "save", "web map" })]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("85282f2aaa2844d8935cdb8722e22a93")]
     public partial class OfflineBasemapByReference
     {
         // The job to generate an offline map.
@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
             }
 
             // Get the path to the basemap directory.
-            string basemapBasePath = DataManager.GetDataFolder("628e8e3521cf45e9a28a12fe10c02c4d");
+            string basemapBasePath = DataManager.GetDataFolder("85282f2aaa2844d8935cdb8722e22a93");
 
             // Get the full path to the basemap by combining the name specified in the web map (ReferenceBasemapFilename)
             //  with the offline basemap directory.
@@ -282,7 +282,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
 
-        // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
+        // - An optional client secret for the app (only used with TokenAuthenticationType.OAuthClientCredentials).
         private const string ClientSecret = "";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
@@ -291,15 +291,10 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager.
-            ServerInfo serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo(new Uri(ServerUrl))
             {
-                ServerUri = new Uri(ServerUrl),
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
-                }
+                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
+                OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 
             // Register this server with AuthenticationManager.

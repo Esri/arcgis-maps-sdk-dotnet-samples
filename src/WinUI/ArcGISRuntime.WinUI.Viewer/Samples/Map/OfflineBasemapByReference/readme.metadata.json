@@ -7,14 +7,20 @@
         "OfflineBasemapByReference.jpg"
     ],
     "keywords": [
-        "Offline"
+        "Offline",
+        "basemap",
+        "download",
+        "local",
+        "offline",
+        "save",
+        "web map"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.10.0",
         "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
     },
     "offline_data": [
-        "628e8e3521cf45e9a28a12fe10c02c4d"
+        "85282f2aaa2844d8935cdb8722e22a93"
     ],
     "redirect_from": [
         "/net/latest/uwp/sample-code/offlinebasemapbyreference.htm"

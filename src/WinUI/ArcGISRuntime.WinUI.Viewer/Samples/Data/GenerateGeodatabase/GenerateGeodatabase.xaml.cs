@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
         description: "Generate a local geodatabase from an online feature service.",
         instructions: "Zoom to any extent. Then click the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
         tags: new[] { "disconnected", "local geodatabase", "offline", "sync" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
     public partial class GenerateGeodatabase
     {
         // URL for a feature service that supports geodatabase generation.
@@ -60,7 +60,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
             try
             {
                 // Create a tile cache and load it with the SanFrancisco streets tpk.
-                TileCache _tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
+                TileCache _tileCache = new TileCache(DataManager.GetDataFolder("e4a398afe9a945f3b0f4dca1e4faccb5", "SanFrancisco.tpkx"));
 
                 // Create the corresponding layer based on the tile cache.
                 ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);

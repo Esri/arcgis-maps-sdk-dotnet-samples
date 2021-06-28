@@ -241,11 +241,10 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
             // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
             CredentialRequestInfo loginInfo = new CredentialRequestInfo
             {
-
                 // Use the OAuth implicit grant flow
                 GenerateTokenOptions = new GenerateTokenOptions
                 {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                    TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
                 },
 
                 // Indicate the url (portal) to authenticate with (ArcGIS Online)
@@ -311,17 +310,10 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
         private void UpdateAuthenticationManager()
         {
             // Register the server information with the AuthenticationManager
-            ServerInfo portalServerInfo = new ServerInfo
+            ServerInfo portalServerInfo = new ServerInfo(new Uri(ServerUrl))
             {
-                ServerUri = new Uri(ServerUrl),
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = _appClientId,
-                    RedirectUri = new Uri(_oAuthRedirectUrl)
-                },
-                // Specify OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret)
-                // Otherwise, use OAuthImplicit
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                OAuthClientInfo = new OAuthClientInfo(_appClientId, new Uri(_oAuthRedirectUrl)),
+                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
             };
 
             // Get a reference to the (singleton) AuthenticationManager for the app

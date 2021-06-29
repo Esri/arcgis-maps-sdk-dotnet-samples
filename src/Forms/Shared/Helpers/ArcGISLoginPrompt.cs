@@ -68,7 +68,6 @@ namespace Forms.Helpers
             }
             catch (Exception ex)
             {
-                // Login failure
                 await Application.Current.MainPage.DisplayAlert("Login failed", ex.Message, "OK");
             }
 

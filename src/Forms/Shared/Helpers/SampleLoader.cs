@@ -7,36 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
-using Esri.ArcGISRuntime.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using Xamarin.Forms;
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
-using Esri.ArcGISRuntime.Security;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
-using Xamarin.Forms;
 using ArcGISRuntime;
+using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
+using Esri.ArcGISRuntime.Security;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace Forms.Helpers
 {
@@ -47,6 +27,7 @@ namespace Forms.Helpers
             "SearchPortalMaps",
             "OAuth" };
 
+        // Used to load a sample from the search or list in a category.
         public static async Task LoadSample(SampleInfo sampleInfo, NavigableElement nav)
         {
             try
@@ -63,8 +44,14 @@ namespace Forms.Helpers
                     ApiKeyManager.DisableKey();
                 }
 
-                // Call a function to clear any existing credentials from AuthenticationManager
-                ClearCredentials();
+                // Clear any existing credentials from AuthenticationManager.
+                foreach (Credential cred in AuthenticationManager.Current.Credentials)
+                {
+                    AuthenticationManager.Current.RemoveCredential(cred);
+                }
+
+                // Clear the challenge handler.
+                AuthenticationManager.Current.ChallengeHandler = null;
 
                 // Load offline data before showing the sample.
                 if (sampleInfo.OfflineDataItems != null)
@@ -107,19 +94,8 @@ namespace Forms.Helpers
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine("Exception occurred on OnItemTapped. Exception = " + ex);
+                System.Diagnostics.Debug.WriteLine($"Error loading sample: {ex.Message}");
             }
-        }
-
-        private static void ClearCredentials()
-        {
-            foreach (Credential cred in AuthenticationManager.Current.Credentials)
-            {
-                AuthenticationManager.Current.RemoveCredential(cred);
-            }
-
-            // Clear the challenge handler.
-            AuthenticationManager.Current.ChallengeHandler = null;
         }
     }
 }

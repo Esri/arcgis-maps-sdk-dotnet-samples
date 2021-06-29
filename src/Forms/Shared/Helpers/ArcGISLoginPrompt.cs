@@ -116,11 +116,9 @@ namespace Forms.Helpers
                 // IOAuthAuthorizeHandler will challenge the user for OAuth credentials.
                 credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
             }
-            catch (TaskCanceledException) { return credential; }
-            catch (OperationCanceledException)
-            {
-                // OAuth login was canceled, no need to display error to user.
-            }
+            // OAuth login was canceled, no need to display error to user.
+            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
 
             return credential;
         }

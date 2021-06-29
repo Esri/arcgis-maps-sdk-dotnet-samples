@@ -17,11 +17,8 @@ using System;
 using System.Linq;
 using System.Diagnostics;
 using Esri.ArcGISRuntime.Xamarin.Forms;
-
-#if __IOS__
-using Xamarin.Forms.Platform.iOS;
-using UIKit;
-#endif
+using Forms.Helpers;
+using System.Threading.Tasks;
 
 #if __ANDROID__
 using Application = Xamarin.Forms.Application;
@@ -57,10 +54,10 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         public RoutePlanner()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create and add the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
@@ -70,6 +67,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 // Start the location display on the mapview.
                 try
                 {
+
                     // Permission request only needed on Android.
                     if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
                     {
@@ -96,6 +94,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
 
             try
             {
+                // Login is needed to use the routing service.
+                ArcGISLoginPrompt.SetChallengeHandler();
+
                 // Create the route task.
                 _routeTask = await RouteTask.CreateAsync(_routingUri);
             }

@@ -15,7 +15,6 @@ using Xamarin.Forms;
 
 #if __IOS__
 using Xamarin.Auth;
-using Xamarin.Forms.Platform.iOS;
 using UIKit;
 #endif
 
@@ -23,7 +22,6 @@ using UIKit;
 using Android.App;
 using Application = Xamarin.Forms.Application;
 using Xamarin.Auth;
-using System.IO;
 #endif
 
 namespace Forms.Helpers
@@ -53,7 +51,7 @@ namespace Forms.Helpers
                     // Use the OAuth implicit grant flow
                     GenerateTokenOptions = new GenerateTokenOptions
                     {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
                     },
 
                     // Indicate the url (portal) to authenticate with (ArcGIS Online)
@@ -71,7 +69,7 @@ namespace Forms.Helpers
             catch (Exception ex)
             {
                 // Login failure
-                //MessageBox.Show("Login failed: " + ex.Message);
+                await Application.Current.MainPage.DisplayAlert("Login failed", ex.Message, "OK");
             }
 
             return loggedIn;
@@ -82,7 +80,7 @@ namespace Forms.Helpers
             // Define the server information for ArcGIS Online
             ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
             {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
+                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
                 OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 
@@ -124,10 +122,11 @@ namespace Forms.Helpers
         }
     }
 
+    #region IOAuthAuthorizationHandler implementation
+
+#if __ANDROID__ || __IOS__
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
-        #region IOAuthAuthorizationHandler implementation
-
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
@@ -143,7 +142,6 @@ namespace Forms.Helpers
 
             // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
-#if __ANDROID__ || __IOS__
 
 #if __ANDROID__
             // Get the current Android Activity.
@@ -247,11 +245,11 @@ namespace Forms.Helpers
             });
 #endif
 
-#endif // (If Android or iOS)
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
-
-        #endregion IOAuthAuthorizationHandler implementation
     }
+#endif // (If Android or iOS)
+
+    #endregion IOAuthAuthorizationHandler implementation
 }

@@ -101,7 +101,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Failed to start sample", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
                 Debug.WriteLine(ex.Message);
             }
 

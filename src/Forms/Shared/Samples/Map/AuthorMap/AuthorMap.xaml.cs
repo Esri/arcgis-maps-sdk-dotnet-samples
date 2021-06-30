@@ -9,14 +9,14 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.UI;
+using Forms.Helpers;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using Esri.ArcGISRuntime.UI;
-using System.IO;
-using Forms.Helpers;
 
 #if __ANDROID__
 using Application = Xamarin.Forms.Application;

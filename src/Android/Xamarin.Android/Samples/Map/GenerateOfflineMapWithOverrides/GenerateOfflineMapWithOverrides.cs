@@ -14,7 +14,6 @@ using ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
@@ -25,7 +24,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Auth;
 using AlertDialog = Android.App.AlertDialog;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides

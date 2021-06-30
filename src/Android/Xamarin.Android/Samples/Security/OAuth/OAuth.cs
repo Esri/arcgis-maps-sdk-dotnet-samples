@@ -16,8 +16,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.OAuth
 {

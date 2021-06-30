@@ -63,8 +63,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private readonly Uri _routingUri =
             new Uri("https://route.arcgis.com/arcgis/rest/services/World/Route/NAServer/Route_World");
 
-        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
-
         // Permissions and permission request.
         private readonly string[] _requestedPermissions = { Manifest.Permission.AccessFineLocation };
         private const int RequestCode = 35;

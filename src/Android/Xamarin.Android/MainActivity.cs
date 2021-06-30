@@ -198,6 +198,9 @@ namespace ArcGISRuntime
             {
                 AuthenticationManager.Current.RemoveCredential(cred);
             }
+
+            // Clear the challenge handler.
+            AuthenticationManager.Current.ChallengeHandler = null;
         }
     }
 }

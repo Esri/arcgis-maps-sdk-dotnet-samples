@@ -279,6 +279,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Helpers\ArcGISLoginPrompt.cs" />
     <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.cs" />
     <Compile Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.cs" />
     <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.cs" />

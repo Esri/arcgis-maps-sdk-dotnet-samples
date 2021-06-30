@@ -117,6 +117,9 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                 // Get the current map
                 Map myMap = MyMapView.Map;
 
+                // Load the current map before saving to portal.
+                await myMap.LoadAsync();
+
                 // Apply the current extent as the map's initial extent
                 myMap.InitialViewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 

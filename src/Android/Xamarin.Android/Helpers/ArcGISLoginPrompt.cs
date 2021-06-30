@@ -121,12 +121,6 @@ namespace ArcGISRuntime.Helpers
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
-        //// URL for the authorization callback result (the redirect URI configured for your application).
-        //private string _callbackUrl;
-
-        //// URL that handles the OAuth request.
-        //private string _authorizeUrl;
-
         private Activity _activity;
 
         public OAuthAuthorize(Activity activity)
@@ -210,43 +204,5 @@ namespace ArcGISRuntime.Helpers
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;
         }
-
-        //private static IDictionary<string, string> DecodeParameters(Uri uri)
-        //{
-        //    // Create a dictionary of key value pairs returned in an OAuth authorization response URI query string.
-        //    string answer = "";
-
-        //    // Get the values from the URI fragment or query string.
-        //    if (!string.IsNullOrEmpty(uri.Fragment))
-        //    {
-        //        answer = uri.Fragment.Substring(1);
-        //    }
-        //    else
-        //    {
-        //        if (!string.IsNullOrEmpty(uri.Query))
-        //        {
-        //            answer = uri.Query.Substring(1);
-        //        }
-        //    }
-
-        //    // Parse parameters into key / value pairs.
-        //    Dictionary<string, string> keyValueDictionary = new Dictionary<string, string>();
-        //    string[] keysAndValues = answer.Split(new[] { '&' }, StringSplitOptions.RemoveEmptyEntries);
-        //    foreach (string kvString in keysAndValues)
-        //    {
-        //        string[] pair = kvString.Split('=');
-        //        string key = pair[0];
-        //        string value = string.Empty;
-        //        if (key.Length > 1)
-        //        {
-        //            value = Uri.UnescapeDataString(pair[1]);
-        //        }
-
-        //        keyValueDictionary.Add(key, value);
-        //    }
-
-        //    // Return the dictionary of string keys/values.
-        //    return keyValueDictionary;
-        //}
     }
 }

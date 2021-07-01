@@ -14,8 +14,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 #if __IOS__
-using Xamarin.Auth;
 using UIKit;
+using Xamarin.Essentials;
 #endif
 
 #if __ANDROID__
@@ -123,7 +123,39 @@ namespace Forms.Helpers
 
     #region IOAuthAuthorizationHandler implementation
 
-#if __ANDROID__ || __IOS__
+#if __IOS__
+    public class OAuthAuthorize : IOAuthAuthorizeHandler
+    {
+        // Use a TaskCompletionSource to track the completion of the authorization.
+        private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
+
+        // IOAuthAuthorizeHandler.AuthorizeAsync implementation.
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            try
+            {
+                _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
+                Device.BeginInvokeOnMainThread(async () =>
+                {
+                    try
+                    {
+                        var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+                        _taskCompletionSource.SetResult(result.Properties);
+                    }
+                    catch (Exception ex)
+                    {
+                        _taskCompletionSource.TrySetException(ex);
+                    }
+                });
+                return await _taskCompletionSource.Task;
+            }
+            catch (Exception) { }
+            return null;
+        }
+    }
+#endif
+
+#if __ANDROID__
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
         // Use a TaskCompletionSource to track the completion of the authorization.
@@ -142,18 +174,9 @@ namespace Forms.Helpers
             // Create a task completion source.
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-#if __ANDROID__
             // Get the current Android Activity.
             Activity activity = (Activity)ArcGISRuntime.Droid.MainActivity.Instance;
-#endif
-#if __IOS__
-            // Get the current iOS ViewController.
-            UIViewController viewController = null;
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                viewController = UIApplication.SharedApplication.KeyWindow.RootViewController;
-            });
-#endif
+
             // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
             OAuth2Authenticator authenticator = new OAuth2Authenticator(
                 clientId: ArcGISLoginPrompt.AppClientId,
@@ -171,11 +194,6 @@ namespace Forms.Helpers
             {
                 try
                 {
-#if __IOS__
-                    // Dismiss the OAuth UI when complete.
-                    viewController.DismissViewController(true, null);
-#endif
-
                     // Check if the user is authenticated.
                     if (authArgs.IsAuthenticated)
                     {
@@ -201,9 +219,7 @@ namespace Forms.Helpers
                 finally
                 {
                     // Dismiss the OAuth login.
-#if __ANDROID__
                     activity.FinishActivity(99);
-#endif
                 }
             };
 
@@ -221,9 +237,7 @@ namespace Forms.Helpers
                     if (_taskCompletionSource != null)
                     {
                         _taskCompletionSource.TrySetCanceled();
-#if __ANDROID__
                         activity.FinishActivity(99);
-#endif
                     }
                 }
 
@@ -232,17 +246,9 @@ namespace Forms.Helpers
             };
 
             // Present the OAuth UI so the user can enter user name and password.
-#if __ANDROID__
+
             var intent = authenticator.GetUI(activity);
             activity.StartActivityForResult(intent, 99);
-#endif
-#if __IOS__
-            // Present the OAuth UI (on the app's UI thread) so the user can enter user name and password.
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                viewController.PresentViewController(authenticator.GetUI(), true, null);
-            });
-#endif
 
             // Return completion source task so the caller can await completion.
             return _taskCompletionSource.Task;

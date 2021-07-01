@@ -474,6 +474,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Helpers\ArcGISLoginPrompt.cs" />
     <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.cs" />
     <Compile Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.cs" />
     <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.cs" />
@@ -783,6 +784,7 @@
   <ItemGroup>
     <BundleResource Include="Samples\Augmented reality\CollectDataAR\CollectDataAR.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

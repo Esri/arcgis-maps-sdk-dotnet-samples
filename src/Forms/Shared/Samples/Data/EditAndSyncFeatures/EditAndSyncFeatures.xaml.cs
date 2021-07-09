@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         description: "Synchronize offline edits with a feature service.",
         instructions: "Pan and zoom to position the red rectangle around the area you want to take offline. Tap \"Generate geodatabase\" to take the area offline. When complete, the map will update to only show the offline area. To edit features, tap to select a feature, and tap again anywhere else on the map to move the selected feature to the clicked location. To sync the edits with the feature service, tap the \"Sync geodatabase\" button.",
         tags: new[] { "feature service", "geodatabase", "offline", "synchronize" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
     public partial class EditAndSyncFeatures : ContentPage
     {
         // Enumeration to track which phase of the workflow the sample is in.
@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Create a tile cache and load it with the SanFrancisco streets tpk.
             try
             {
-                TileCache tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
+                TileCache tileCache = new TileCache(DataManager.GetDataFolder("e4a398afe9a945f3b0f4dca1e4faccb5", "SanFrancisco.tpkx"));
 
                 // Create the corresponding layer based on the tile cache.
                 ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);

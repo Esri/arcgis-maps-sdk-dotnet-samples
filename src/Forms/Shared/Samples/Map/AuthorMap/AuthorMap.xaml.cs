@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
@@ -41,7 +40,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs")]
     [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
-    public partial class AuthorMap : ContentPage, IOAuthAuthorizeHandler, IDisposable
+    public partial class AuthorMap : ContentPage, IOAuthAuthorizeHandler
     {
         // OAuth-related values ...
         // URL of the server to authenticate with (ArcGIS Online)
@@ -79,9 +78,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void Initialize()
         {
-            // Remove API key if opening Create and save map sample.
-            ApiKeyManager.DisableKey();
-
             // Call a function to create a new map with a light gray canvas basemap
             CreateNewMap();
 
@@ -104,12 +100,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             }
         }
 
-        public void Dispose()
-        {
-            // Restore API key if leaving Create and save map sample.
-            ApiKeyManager.EnableKey();
-        }
-
         private void OAuthSettingsCancel(object sender, EventArgs e)
         {
             OAuthSettingsGrid.IsVisible = false;
@@ -120,7 +110,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             var appClientId = ClientIDEntry.Text.Trim();
             var oAuthRedirectUrl = RedirectUrlEntry.Text.Trim();
 
-            if (!String.IsNullOrWhiteSpace(appClientId) && !String.IsNullOrWhiteSpace(oAuthRedirectUrl))
+            if (!string.IsNullOrWhiteSpace(appClientId) && !string.IsNullOrWhiteSpace(oAuthRedirectUrl))
             {
                 AppClientId = appClientId;
                 _oAuthRedirectUrl = oAuthRedirectUrl;

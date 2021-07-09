@@ -31,7 +31,7 @@ def get_proj_file(platform, sample_root):
     if (platform == "UWP"):
         return os.path.join(basepath, "ArcGISRuntime.UWP.Viewer.csproj")
     if (platform == "WPF"):
-        return os.path.join(basepath, "ArcGISRuntime.WPF.Viewer.csproj")
+        return os.path.join(basepath, "ArcGISRuntime.WPF.Viewer.NetFramework.csproj")
     if (platform == "Android"):
         return os.path.join(basepath, "ArcGISRuntime.Xamarin.Samples.Android.csproj")
     if (platform == "iOS"):

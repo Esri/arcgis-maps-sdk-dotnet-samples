@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
         description: "Geocode addresses to locations and reverse geocode locations to addresses offline.",
         instructions: "Type the address in the Search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. Tap the pin to see the full address.",
         tags: new[] { "geocode", "geocoder", "locator", "offline", "package", "query", "search" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1330ab96ac9c40a49e59650557f2cd63", "344e3b12368543ef84045ef9aa3c32ba")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("22c3083d4fa74e3e9b25adfc9f8c0496", "344e3b12368543ef84045ef9aa3c32ba")]
     public partial class OfflineGeocode
     {
         // Addresses for suggestion.
@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
         private async void Initialize()
         {
             // Get the offline tile package and use it as a basemap.
-            string basemapPath = DataManager.GetDataFolder("1330ab96ac9c40a49e59650557f2cd63", "streetmap_SD.tpk");
+            string basemapPath = DataManager.GetDataFolder("22c3083d4fa74e3e9b25adfc9f8c0496", "streetmap_SD.tpkx");
             ArcGISTiledLayer tiledBasemapLayer = new ArcGISTiledLayer(new TileCache(basemapPath));
 
             // Create new Map with basemap.

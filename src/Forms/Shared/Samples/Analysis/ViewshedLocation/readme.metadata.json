@@ -1,6 +1,6 @@
 {
     "category": "Analysis",
-    "description": "Perform a viewshed analysis from a defined vantage point. ",
+    "description": "Perform a viewshed analysis from a defined vantage point.",
     "formal_name": "ViewshedLocation",
     "ignore": false,
     "images": [

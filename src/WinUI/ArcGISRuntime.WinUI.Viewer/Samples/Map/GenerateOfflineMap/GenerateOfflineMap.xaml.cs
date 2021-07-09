@@ -216,7 +216,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMap
             GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
 
             // Dispatch to the UI thread.
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Show the percent complete and update the progress bar.
                 Percentage.Text = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;
@@ -236,7 +236,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMap
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
         private const string AppClientId = @"lgAdHkYZYlwwfAhC";
-        // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
+        // - An optional client secret for the app (only used with TokenAuthenticationType.OAuthClientCredentials).
         private const string ClientSecret = "";
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = @"my-ags-app://auth";
@@ -244,15 +244,10 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMap
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager.
-            ServerInfo serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo(new Uri(ServerUrl))
             {
-                ServerUri = new Uri(ServerUrl),
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
-                }
+                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
+                OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 
             // Register this server with AuthenticationManager.

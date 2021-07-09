@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WinUI.Samples.UpdateAttributes
         private void DamageTable_Loaded(object sender, EventArgs e)
         {
             // This code needs to work with the UI, so it needs to run on the UI thread.
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Get the relevant field from the table.
                 ServiceFeatureTable table = (ServiceFeatureTable) sender;

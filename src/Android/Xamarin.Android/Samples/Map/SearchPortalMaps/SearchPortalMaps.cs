@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             // Remove API key.
             ApiKeyManager.DisableKey();
 
-            ArcGISLoginPrompt.SetChallengeHandler(this);
+            ArcGISLoginPrompt.SetChallengeHandler();
 
             bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
 

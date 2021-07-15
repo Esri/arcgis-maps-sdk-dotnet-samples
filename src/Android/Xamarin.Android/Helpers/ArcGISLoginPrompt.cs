@@ -9,11 +9,12 @@
 
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Xamarin.Auth;
+using Xamarin.Essentials;
 using OperationCanceledException = System.OperationCanceledException;
 
 namespace ArcGISRuntime.Helpers
@@ -43,7 +44,7 @@ namespace ArcGISRuntime.Helpers
                     // Use the OAuth implicit grant flow
                     GenerateTokenOptions = new GenerateTokenOptions
                     {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
                     },
 
                     // Indicate the url (portal) to authenticate with (ArcGIS Online)
@@ -85,12 +86,12 @@ namespace ArcGISRuntime.Helpers
             return credential;
         }
 
-        public static void SetChallengeHandler(Activity activity)
+        public static void SetChallengeHandler()
         {
             // Define the server information for ArcGIS Online
             ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
             {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
+                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
                 OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 
@@ -109,7 +110,7 @@ namespace ArcGISRuntime.Helpers
             thisAuthenticationManager.RegisterServer(portalServerInfo);
 
             // Use the OAuthAuthorize class in this project to create a new web view to show the login UI
-            thisAuthenticationManager.OAuthAuthorizeHandler = new OAuthAuthorize(activity);
+            thisAuthenticationManager.OAuthAuthorizeHandler = new OAuthAuthorize();
 
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
             thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
@@ -121,88 +122,38 @@ namespace ArcGISRuntime.Helpers
         // Use a TaskCompletionSource to track the completion of the authorization.
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
-        private Activity _activity;
-
-        public OAuthAuthorize(Activity activity)
+        // IOAuthAuthorizeHandler.AuthorizeAsync implementation.
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            _activity = activity;
-        }
-
-        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
-        {
-            // If the TaskCompletionSource is not null, authorization is in progress.
-            if (_taskCompletionSource != null)
+            try
             {
-                // Allow only one authorization process at a time.
-                throw new Exception();
-            }
+                // Create a task completion source.
+                _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-            // Create a task completion source.
-            _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
-
-            // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            OAuth2Authenticator authenticator = new OAuth2Authenticator(
-                clientId: ArcGISLoginPrompt.AppClientId,
-                scope: "",
-                authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri)
-            {
-                // Allow the user to cancel the OAuth attempt.
-                AllowCancel = true
-            };
-
-            // Define a handler for the OAuth2Authenticator.Completed event.
-            authenticator.Completed += (sender, authArgs) =>
-            {
                 try
                 {
-                    // Check if the user is authenticated.
-                    if (authArgs.IsAuthenticated)
-                    {
-                        // If authorization was successful, get the user's account.
-                        Account authenticatedAccount = authArgs.Account;
-
-                        // Set the result (Credential) for the TaskCompletionSource.
-                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
-                    }
+                    var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+                    _taskCompletionSource.SetResult(result.Properties);
                 }
                 catch (Exception ex)
                 {
-                    // If authentication failed, set the exception on the TaskCompletionSource.
-                    _taskCompletionSource.SetException(ex);
+                    _taskCompletionSource.TrySetException(ex);
                 }
-                finally
-                {
-                    // End the OAuth login activity.
-                    _activity.FinishActivity(99);
-                }
-            };
 
-            // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            authenticator.Error += (sndr, errArgs) =>
-            {
-                // If the user cancels, the Error event is raised but there is no exception ... best to check first.
-                if (errArgs.Exception != null)
-                {
-                    _taskCompletionSource.SetException(errArgs.Exception);
-                }
-                else
-                {
-                    // Login canceled: end the OAuth login activity.
-                    if (_taskCompletionSource != null)
-                    {
-                        _taskCompletionSource.TrySetCanceled();
-                        _activity.FinishActivity(99);
-                    }
-                }
-            };
+                return await _taskCompletionSource.Task;
+            }
+            catch (Exception) { }
 
-            // Present the OAuth UI (Activity) so the user can enter user name and password.
-            Intent intent = authenticator.GetUI(_activity);
-            _activity.StartActivityForResult(intent, 99);
-
-            // Return completion source task so the caller can await completion.
-            return _taskCompletionSource.Task;
+            // Return null if anything goes wrong with authentication.
+            return null;
         }
+    }
+
+    [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [IntentFilter(new[] { Intent.ActionView },
+       Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+       DataScheme = "my-ags-app", DataHost = "auth")]
+    public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
+    {
     }
 }

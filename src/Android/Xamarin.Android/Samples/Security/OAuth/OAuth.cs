@@ -58,7 +58,7 @@ namespace ArcGISRuntimeXamarin.Samples.OAuth
             try
             {
                 // Set up the AuthenticationManager to use OAuth for secure ArcGIS Online requests.
-                ArcGISLoginPrompt.SetChallengeHandler(this);
+                ArcGISLoginPrompt.SetChallengeHandler();
 
                 // Connect to the portal (ArcGIS Online, for example).
                 ArcGISPortal arcgisPortal = await ArcGISPortal.CreateAsync(new Uri(ServerUrl));

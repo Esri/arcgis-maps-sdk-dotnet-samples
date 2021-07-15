@@ -102,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 _mapView.LocationDisplay.IsEnabled = true;
 
                 // Configure authentication.
-                ArcGISLoginPrompt.SetChallengeHandler(this);
+                ArcGISLoginPrompt.SetChallengeHandler();
 
                 // Create the route task.
                 _routeTask = await RouteTask.CreateAsync(_routingUri);

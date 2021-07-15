@@ -79,7 +79,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Remove API key.
             ApiKeyManager.DisableKey();
 
-            ArcGISLoginPrompt.SetChallengeHandler(this);
+            ArcGISLoginPrompt.SetChallengeHandler();
 
             bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
 

@@ -480,10 +480,10 @@
     <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.cs" />
     <Compile Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.cs" />
     <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.cs" />
-    <Compile Include="HTMLHelpers.cs" />
+    <Compile Include="Helpers\HTMLHelpers.cs" />
     <Compile Include="ViewControllers\ApiKeyPrompt.cs" />
     <Compile Include="Samples\Layers\ShowPopup\ShowPopup.cs" />
-    <Compile Include="ApplicationTheme.cs" />
+    <Compile Include="Helpers\ApplicationTheme.cs" />
     <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.cs" />
     <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.cs" />
     <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.cs" />

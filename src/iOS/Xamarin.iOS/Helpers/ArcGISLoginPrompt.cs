@@ -21,13 +21,19 @@ namespace ArcGISRuntime.Helpers
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
-        public const string AppClientId = @"6wMAmbUEX1rvsOb4";
+        public const string AppClientId = @"IBkBd7YYFHOzPIIO";
 
         // - An optional client secret for the app (only needed for the OAuthClientCredentials authorization type).
         private const string ClientSecret = "";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"forms-samples-app://auth";
+        // NOTE: to use a custom URL scheme like the one below, you need to add it to CFBundleURLSchemes in info.plist.
+        // For example -
+        //  <key>CFBundleURLSchemes</key>
+        //  <array>
+        //  	<string>my-ags-app</string>
+        //  </array>
+        private const string OAuthRedirectUrl = @"xamarin-ios-app://auth";
 
         public static async Task<bool> EnsureAGOLCredentialAsync()
         {
@@ -41,7 +47,7 @@ namespace ArcGISRuntime.Helpers
                     // Use the OAuth implicit grant flow
                     GenerateTokenOptions = new GenerateTokenOptions
                     {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
                     },
 
                     // Indicate the url (portal) to authenticate with (ArcGIS Online)
@@ -69,7 +75,7 @@ namespace ArcGISRuntime.Helpers
             // Define the server information for ArcGIS Online
             ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
             {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
+                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
                 OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 

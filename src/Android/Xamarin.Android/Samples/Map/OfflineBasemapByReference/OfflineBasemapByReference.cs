@@ -34,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
         category: "Map",
         description: "Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.",
         instructions: "1. Use the button to start taking the map offline.",
-        tags: new[] { "Offline" })]
+        tags: new[] { "basemap", "download", "local", "offline", "save", "web map" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
     public class OfflineBasemapByReference : Activity
     {
@@ -70,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
             }
 
             // Get the path to the basemap directory.
-            string basemapBasePath = DataManager.GetDataFolder("628e8e3521cf45e9a28a12fe10c02c4d");
+            string basemapBasePath = DataManager.GetDataFolder("85282f2aaa2844d8935cdb8722e22a93");
 
             // Get the full path to the basemap by combining the name specified in the web map (ReferenceBasemapFilename)
             //  with the offline basemap directory.

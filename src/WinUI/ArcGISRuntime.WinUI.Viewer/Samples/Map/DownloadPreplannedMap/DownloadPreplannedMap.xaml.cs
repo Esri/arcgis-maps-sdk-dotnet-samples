@@ -214,7 +214,7 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
         {
             // Because the event is raised on a background thread, the dispatcher must be used to
             // ensure that UI updates happen on the UI thread.
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Update the UI with the progress.
                 DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;

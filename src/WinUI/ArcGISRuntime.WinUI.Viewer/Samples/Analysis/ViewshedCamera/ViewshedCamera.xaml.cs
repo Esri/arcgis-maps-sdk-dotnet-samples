@@ -19,60 +19,61 @@ namespace ArcGISRuntime.WinUI.Samples.ViewshedCamera
         category: "Analysis",
         description: "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
         instructions: "The sample will start with a viewshed created from the initial camera location, so only the visible (green) portion of the viewshed will be visible. Move around the scene to see the obstructed (red) portions. Click the button to update the viewshed to the current camera position.",
-        tags: new[] { "3D", "Scene", "viewshed", "visibility analysis" })]
+        tags: new[] { "3D", "Scene", "integrated mesh", "viewshed", "visibility analysis" })]
     public sealed partial class ViewshedCamera
     {
-        // URL for a scene service of buildings in Brest, France
-        private string _buildingsServiceUrl = @"https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0";
+        // URL for a scene service of buildings in Girona.
+        private string _gironaMeshUrl = "https://tiles.arcgis.com/tiles/z2tnIkrLQ2BRzr6P/arcgis/rest/services/Girona_Spain/SceneServer";
 
-        // URL for an image service to use as an elevation source
-        private string _elevationSourceUrl = @"https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer";
+        // URL for an image service to use as an elevation source.
+        private string _elevationSourceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
-        // Location viewshed analysis to show visible and obstructed areas from the camera
+        // Location viewshed analysis to show visible and obstructed areas from the camera.
         private LocationViewshed _viewshedForCamera;
 
         public ViewshedCamera()
         {
             InitializeComponent();
 
-            // Create the Scene, basemap, camera, and location viewshed analysis
+            // Create the Scene, basemap, camera, and location viewshed analysis.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create a new Scene with an imagery basemap
-            Scene myScene = new Scene(Basemap.CreateImagery());
+            // Create a new Scene with an imagery basemap.
+            Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
-            // Create a scene layer to show buildings in the Scene
-            ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(new Uri(_buildingsServiceUrl));
-            myScene.OperationalLayers.Add(buildingsLayer);
 
-            // Create an elevation source for the Scene
+            // Create a scene layer to show buildings in the Scene.
+            IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new Uri(_gironaMeshUrl));
+            myScene.OperationalLayers.Add(meshLayer);
+
+            // Create an elevation source for the Scene.
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(new Uri(_elevationSourceUrl));
             myScene.BaseSurface.ElevationSources.Add(elevationSrc);
 
-            // Add the Scene to the SceneView
+            // Add the Scene to the SceneView.
             MySceneView.Scene = myScene;
 
-            // Set the viewpoint with a new camera focused on the castle in Brest
-            Camera observerCamera = new Camera(new MapPoint(-4.49492, 48.3808, 48.2511, SpatialReferences.Wgs84), 344.488, 74.1212, 0.0);
+            // Set the viewpoint with a new camera focused on the cathedral in Girona.
+            Camera observerCamera = new Camera(new MapPoint(2.82691, 41.985, 124.987, SpatialReferences.Wgs84), 332.131, 82.4732, 0.0);
             MySceneView.SetViewpointCameraAsync(observerCamera);
 
-            // Create a LocationViewshed analysis using the camera as the observer
+            // Create a LocationViewshed analysis using the camera as the observer.
             _viewshedForCamera = new LocationViewshed(observerCamera, 1, 1000);
 
-            // Create an analysis overlay to contain the viewshed analysis results
+            // Create an analysis overlay to contain the viewshed analysis results.
             AnalysisOverlay viewshedOverlay = new AnalysisOverlay();
 
-            // Add the location viewshed analysis to the analysis overlay, then add the overlay to the scene view
+            // Add the location viewshed analysis to the analysis overlay, then add the overlay to the scene view.
             viewshedOverlay.Analyses.Add(_viewshedForCamera);
             MySceneView.AnalysisOverlays.Add(viewshedOverlay);
         }
 
         private void UpdateObserverWithCamera(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            // Use the current camera to update the observer for the location viewshed analysis
+            // Use the current camera to update the observer for the location viewshed analysis.
             _viewshedForCamera.UpdateFromCamera(MySceneView.Camera);
         }
     }

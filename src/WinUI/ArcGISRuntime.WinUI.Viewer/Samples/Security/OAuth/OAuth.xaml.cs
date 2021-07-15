@@ -72,27 +72,25 @@ namespace ArcGISRuntime.WinUI.Samples.OAuth
         private void SetOAuthInfo()
         {
             // Register the server information with the AuthenticationManager.
-            ServerInfo serverInfo = new ServerInfo
+            ServerInfo serverInfo = new ServerInfo(new Uri(ServerUrl))
             {
-                ServerUri = new Uri(ServerUrl),
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
-                OAuthClientInfo = new OAuthClientInfo
-                {
-                    ClientId = AppClientId,
-                    RedirectUri = new Uri(OAuthRedirectUrl)
-                }
+                OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 
-            // If a client secret has been configured, set the authentication type to OAuthAuthorizationCode.
-            if (!String.IsNullOrEmpty(ClientSecret))
+            // Set the authentication type to OAuthAuthorizationCode or use OAuthClientCredentials if a client secret has been specified.
+            if (string.IsNullOrEmpty(ClientSecret))
             {
-                // Use OAuthAuthorizationCode if you need a refresh token (and have specified a valid client secret).
                 serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode;
+            }
+            else
+            {
+                // Use OAuthClientCredentials.
+                serverInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthClientCredentials;
                 serverInfo.OAuthClientInfo.ClientSecret = ClientSecret;
             }
 
             // Register this server with AuthenticationManager.
-            AuthenticationManager.Current.RegisterServer(serverInfo);            
+            AuthenticationManager.Current.RegisterServer(serverInfo);
 
             // Use a function in this class to challenge for credentials.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);

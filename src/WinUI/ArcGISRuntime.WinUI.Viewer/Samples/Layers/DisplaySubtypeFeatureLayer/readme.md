@@ -16,7 +16,7 @@ The sample loads with the sublayer visible on the map. Change the sublayer's vis
 
 1. Create a `SubtypeFeatureLayer` from a `ServiceFeatureTable` that defines a subtype, and add it to the `Map`.
 2. Get a `SubtypeSublayer` from the subtype feature using its name.
-3. Enable the sublayer's labels and define them with `LabelDefinitions`.
+3. Enable the sublayer's labels and define them with a `LabelDefinition`.
 4. Set the visibility status using this sublayer's `IsVisible` property.
 5. Change the sublayer's symbology using this sublayer's `Renderer` property.
 6. Update the sublayer's minimum scale value using the using the mapview's current scale.
@@ -25,6 +25,7 @@ The sample loads with the sublayer visible on the map. Change the sublayer's vis
 
 * LabelDefinition
 * ServiceFeatureTable
+* SimpleLabelExpression
 * SubtypeFeatureLayer
 * SubtypeSublayer
 

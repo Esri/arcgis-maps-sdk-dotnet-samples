@@ -14,11 +14,12 @@ using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Diagnostics;
+using System.Drawing;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 {
@@ -41,9 +42,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 
         // Reference to a sublayer.
         private SubtypeSublayer _sublayer;
-
-        // JSON for labeling features from the sublayer.
-        private const string _labelJSON = "{ \"labelExpression\":\"[nominalvoltage]\",\"labelPlacement\":\"esriServerPointLabelPlacementAboveRight\",\"useCodedValues\":true,\"symbol\":{\"angle\":0,\"backgroundColor\":[0,0,0,0],\"borderLineColor\":[0,0,0,0],\"borderLineSize\":0,\"color\":[0,0,255,255],\"font\":{\"decoration\":\"none\",\"size\":10.5,\"style\":\"normal\",\"weight\":\"normal\"},\"haloColor\":[255,255,255,255],\"haloSize\":2,\"horizontalAlignment\":\"center\",\"kerning\":false,\"type\":\"esriTS\",\"verticalAlignment\":\"middle\",\"xoffset\":0,\"yoffset\":0}}";
 
         // Renderers for the sublayer.
         private Renderer _defaultRenderer;
@@ -95,9 +93,27 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
 
                 // Select the sublayer of street lights by name.
                 _sublayer = subtypeFeatureLayer.GetSublayerBySubtypeName("Street Light");
+                
+                // Create a text symbol for styling the sublayer label definition.
+                TextSymbol textSymbol = new TextSymbol
+                {
+                    Size = 12,
+                    OutlineColor = Color.White,
+                    Color = Color.Blue,
+                    HaloColor = Color.White,
+                    HaloWidth = 3,
+                };
 
-                // Set the label definitions using the JSON.
-                _sublayer.LabelDefinitions.Add(LabelDefinition.FromJson(_labelJSON));
+                // Create a label definition with a simple label expression.
+                LabelExpression simpleLabelExpression = new SimpleLabelExpression("[nominalvoltage]");
+                LabelDefinition labelDefinition = new LabelDefinition(simpleLabelExpression, textSymbol)
+                {
+                    Placement = Esri.ArcGISRuntime.ArcGISServices.LabelingPlacement.PointAboveRight,
+                    UseCodedValues = true,
+                };
+
+                // Add the label definition to the sublayer.
+                _sublayer.LabelDefinitions.Add(labelDefinition);
 
                 // Enable labels for the sub layer.
                 _sublayer.LabelsEnabled = true;

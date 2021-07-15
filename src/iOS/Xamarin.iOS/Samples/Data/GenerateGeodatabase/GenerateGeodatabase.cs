@@ -29,7 +29,7 @@ using UIKit;
 namespace ArcGISRuntime.Samples.GenerateGeodatabase
 {
     [Register("GenerateGeodatabase")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3f1bbf0ec70b409a975f5c91f363fe7d")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Generate geodatabase",
         category: "Data",
@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             try
             {
                 // Create a tile cache and load it with the SanFrancisco streets tpk.
-                TileCache tileCache = new TileCache(DataManager.GetDataFolder("3f1bbf0ec70b409a975f5c91f363fe7d", "SanFrancisco.tpk"));
+                TileCache tileCache = new TileCache(DataManager.GetDataFolder("e4a398afe9a945f3b0f4dca1e4faccb5", "SanFrancisco.tpkx"));
 
                 // Create the corresponding layer based on the tile cache.
                 ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);

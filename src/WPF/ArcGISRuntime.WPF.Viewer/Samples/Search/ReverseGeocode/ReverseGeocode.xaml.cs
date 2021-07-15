@@ -33,7 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.ReverseGeocode
     public partial class ReverseGeocode
     {
         // Service Uri to be provided to the LocatorTask (geocoder).
-        private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri = new Uri("https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         // The LocatorTask provides geocoding services.
         private LocatorTask _geocoder;

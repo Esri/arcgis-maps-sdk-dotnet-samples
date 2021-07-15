@@ -22,6 +22,7 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Microsoft.UI.Xaml.Controls;
+using ArcGISRuntime.Samples.Shared.Managers;
 
 namespace ArcGISRuntime.WinUI.Samples.FindAddress
 {
@@ -49,7 +50,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
 
         // Service Uri to be provided to the LocatorTask (geocoder).
         private readonly Uri _serviceUri =
-            new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+            new Uri("https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         public FindAddress()
         {
@@ -61,6 +62,12 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
 
         private async void Initialize()
         {
+            if (await ApiKeyManager.CheckKeyValidity() != ApiKeyStatus.Valid)
+            {
+                await new MessageDialog2("Please use the settings dialog to configure an API Key.", "Error").ShowAsync();
+                return;
+            }
+
             // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 
@@ -94,7 +101,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
             MyMapView.GraphicsOverlays.Clear();
 
             // Return gracefully if the textbox is empty or the geocoder isn't ready.
-            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
             {
                 return;
             }

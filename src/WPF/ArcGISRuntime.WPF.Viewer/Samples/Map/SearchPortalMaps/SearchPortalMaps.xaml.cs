@@ -78,7 +78,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
                 }
                 else
                 {
-                    // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
+                    // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already).
                     bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
                     if (!loggedIn) { return; }
 

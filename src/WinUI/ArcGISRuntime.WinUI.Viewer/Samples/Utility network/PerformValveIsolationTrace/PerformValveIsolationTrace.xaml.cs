@@ -1,4 +1,4 @@
-﻿// Copyright 2020 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using Esri.ArcGISRuntime.Security;
 
 namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
 {
@@ -30,7 +31,7 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
     public partial class PerformValveIsolationTrace
     {
         // Feature service for an electric utility network in Naperville, Illinois.
-        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
+        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
         private const int LineLayerId = 3;
         private const int DeviceLayerId = 0;
         private UtilityNetwork _utilityNetwork;
@@ -55,6 +56,23 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
 
         private async void Initialize()
         {
+            // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
+            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
+            {
+                try
+                {
+                    // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
+                    string sampleServer7User = "viewer01";
+                    string sampleServer7Pass = "I68VGU^nMurF";
+                    return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
+                }
+                catch (Exception ex)
+                {
+                    await new MessageDialog2(ex.Message, ex.Message.GetType().Name).ShowAsync();
+                    return null;
+                }
+            });
+
             try
             {
                 // Disable the UI.

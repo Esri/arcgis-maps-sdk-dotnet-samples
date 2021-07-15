@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -10,11 +10,13 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Drawing;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using Esri.ArcGISRuntime.Security;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
 {
@@ -29,9 +31,6 @@ namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
         // Reference to a sublayer.
         private SubtypeSublayer _sublayer;
 
-        // JSON for labeling features from the sublayer.
-        private const string _labelJSON = "{ \"labelExpression\":\"[nominalvoltage]\",\"labelPlacement\":\"esriServerPointLabelPlacementAboveRight\",\"useCodedValues\":true,\"symbol\":{\"angle\":0,\"backgroundColor\":[0,0,0,0],\"borderLineColor\":[0,0,0,0],\"borderLineSize\":0,\"color\":[0,0,255,255],\"font\":{\"decoration\":\"none\",\"size\":10.5,\"style\":\"normal\",\"weight\":\"normal\"},\"haloColor\":[255,255,255,255],\"haloSize\":2,\"horizontalAlignment\":\"center\",\"kerning\":false,\"type\":\"esriTS\",\"verticalAlignment\":\"middle\",\"xoffset\":0,\"yoffset\":0}}";
-
         // Renderers for the sublayer.
         private Renderer _defaultRenderer;
         private Renderer _customRenderer;
@@ -44,6 +43,24 @@ namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
 
         private async void Initialize()
         {
+
+            // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
+            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
+            {
+                try
+                {
+                    // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
+                    string sampleServer7User = "viewer01";
+                    string sampleServer7Pass = "I68VGU^nMurF";
+                    return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
+                }
+                catch (Exception ex)
+                {
+                    await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
+                    return null;
+                }
+            });
+
             try
             {
                 // Starting viewpoint for the map view.
@@ -53,7 +70,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
                 MyMapView.Map = new Map(Basemap.CreateStreetsNightVector()) { InitialViewpoint = _startingViewpoint };
 
                 // NOTE: This layer supports any ArcGIS Feature Table that define subtypes.
-                SubtypeFeatureLayer subtypeFeatureLayer = new SubtypeFeatureLayer(new ServiceFeatureTable(new Uri("https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer/100")));
+                SubtypeFeatureLayer subtypeFeatureLayer = new SubtypeFeatureLayer(new ServiceFeatureTable(new Uri("https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer/0")));
                 MyMapView.Map.OperationalLayers.Add(subtypeFeatureLayer);
 
                 // Select sublayer to control.
@@ -62,8 +79,26 @@ namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
                 // Select the sublayer of street lights by name.
                 _sublayer = subtypeFeatureLayer.GetSublayerBySubtypeName("Street Light");
 
-                // Set the label definitions using the JSON.
-                _sublayer.LabelDefinitions.Add(LabelDefinition.FromJson(_labelJSON));
+                // Create a text symbol for styling the sublayer label definition.
+                TextSymbol textSymbol = new TextSymbol
+                {
+                    Size = 12,
+                    OutlineColor = Color.White,
+                    Color = Color.Blue,
+                    HaloColor = Color.White,
+                    HaloWidth = 3,
+                };
+
+                // Create a label definition with a simple label expression.
+                LabelExpression simpleLabelExpression = new SimpleLabelExpression("[nominalvoltage]");
+                LabelDefinition labelDefinition = new LabelDefinition(simpleLabelExpression, textSymbol)
+                {
+                    Placement = Esri.ArcGISRuntime.ArcGISServices.LabelingPlacement.PointAboveRight,
+                    UseCodedValues = true,
+                };
+
+                // Add the label definition to the sublayer.
+                _sublayer.LabelDefinitions.Add(labelDefinition);
 
                 // Enable labels for the sub layer.
                 _sublayer.LabelsEnabled = true;

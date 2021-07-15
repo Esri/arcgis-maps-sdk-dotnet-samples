@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -33,7 +34,7 @@ namespace ArcGISRuntime.WinUI.Samples.ReverseGeocode
     public partial class ReverseGeocode
     {
         // Service Uri to be provided to the LocatorTask (geocoder).
-        private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri = new Uri("https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         // The LocatorTask provides geocoding services.
         private LocatorTask _geocoder;
@@ -46,6 +47,12 @@ namespace ArcGISRuntime.WinUI.Samples.ReverseGeocode
 
         private async void Initialize()
         {
+            if (await ApiKeyManager.CheckKeyValidity() != ApiKeyStatus.Valid)
+            {
+                await new MessageDialog2("Please use the settings dialog to configure an API Key.", "Error").ShowAsync();
+                return;
+            }
+
             // Create new Map with basemap.
             Map myMap = new Map(Basemap.CreateImageryWithLabels());
 

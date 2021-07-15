@@ -66,7 +66,7 @@ namespace ArcGISRuntime.UWP.Samples.OfflineRouting
             try
             {
                 // Get the paths to resources used by the sample.
-                string basemapTilePath = DataManager.GetDataFolder("567e14f3420d40c5a206e5c0284cf8fc", "streetmap_SD.tpk");
+                string basemapTilePath = DataManager.GetDataFolder("567e14f3420d40c5a206e5c0284cf8fc", "streetmap_SD.tpkx");
                 string networkGeodatabasePath = DataManager.GetDataFolder("567e14f3420d40c5a206e5c0284cf8fc", "sandiego.geodatabase");
 
                 // Create the tile cache representing the offline basemap.

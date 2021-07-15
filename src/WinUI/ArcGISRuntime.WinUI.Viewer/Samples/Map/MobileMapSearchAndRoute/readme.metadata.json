@@ -21,7 +21,9 @@
         "Esri.ArcGISRuntime": "100.10.0",
         "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
     },
-    "offline_data": [],
+    "offline_data": [
+        "260eb6535c824209964cf281766ebe43"
+    ],
     "redirect_from": [
         "/net/latest/uwp/sample-code/mobilemapsearchandroute.htm"
     ],

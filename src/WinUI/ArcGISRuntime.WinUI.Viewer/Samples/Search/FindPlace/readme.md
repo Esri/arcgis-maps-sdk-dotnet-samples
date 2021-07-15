@@ -31,9 +31,9 @@ Choose a type of place in the first field and an area to search within in the se
     * Call `locatorTask.GeocodeAsync(suggestionLabelOrPlaceQueryString, geocodeParameters)` to get a list of `GeocodeResult`s.
     * Display the places of interest using the results' `DisplayLocation`s.
 
-## About the data  
+## Additional information
 
-This sample uses the [Geocoding service](https://developers.arcgis.com/documentation/mapping-apis-and-location-services/search/services/geocoding-service/).
+This sample uses the World Geocoding Service. For more information, see the [Geocoding service](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/services/geocoding-service/) help topic on the ArcGIS Developer website.
 
 ## Relevant API
 

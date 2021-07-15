@@ -248,7 +248,7 @@ namespace ArcGISRuntime.WinUI.Samples.Animate3DGraphic
             double missionProgress = _keyframe / (double)_frameCount;
 
             // This is needed because the event could be running on a non-UI thread
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Update the progress slider
                 MissionProgressBar.Value = missionProgress;

@@ -104,7 +104,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
                         // See if the job succeeded
                         if (generateGdbJob.Status == JobStatus.Succeeded)
                         {
-                            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+                            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
                             {
                                 // Hide the progress control and update the message
                                 LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -113,7 +113,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
                         }
                         else if (generateGdbJob.Status == JobStatus.Failed)
                         {
-                            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+                            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
                             {
                                 // Hide the progress control and report the exception
                                 LoadingProgressBar.Visibility = Visibility.Collapsed;
@@ -129,7 +129,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Show a message for the exception encountered
-                DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () => 
+                DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => 
                 {
                     _ = new MessageDialog2("Unable to create offline database: " + ex.Message).ShowAsync();
                 });
@@ -163,7 +163,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
 
                     // Create a new feature layer to show the table in the map
                     FeatureLayer layer = new FeatureLayer(table);
-                    DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () => MyMapView.Map.OperationalLayers.Add(layer));
+                    DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MyMapView.Map.OperationalLayers.Add(layer));
                 }
                 catch (Exception e)
                 {
@@ -175,7 +175,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
 
             // Zoom the map view to the extent of the generated local datasets
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 MyMapView.SetViewpoint(new Viewpoint(_marineTable.Extent));
                 StartEditingButton.IsEnabled = true;
@@ -185,7 +185,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
         private async void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
         {
             // Update UI controls based on whether the geodatabase has a current transaction
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // These buttons should be enabled when there IS a transaction
                 AddBirdButton.IsEnabled = e.IsInTransaction;
@@ -363,17 +363,17 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
                     if (job.Status == JobStatus.Succeeded)
                     {
                         // Report success ...
-                        DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
+                        DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
                     }
                     else if (job.Status == JobStatus.Failed)
                     {
                         // Report failure ...
-                        DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
+                        DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
                     }
                     else
                     {
                         // Report that the job is in progress ...
-                        DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
+                        DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
                     }
                 };
 

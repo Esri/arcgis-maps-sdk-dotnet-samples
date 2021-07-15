@@ -1,0 +1,38 @@
+{
+    "category": "Layers",
+    "description": "Browse an OGC API feature service for layers and add them to the map.",
+    "formal_name": "BrowseOAFeatureService",
+    "ignore": false,
+    "images": [
+        "BrowseOAFeatureService.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "OGC API",
+        "browse",
+        "catalog",
+        "feature",
+        "layers",
+        "service",
+        "web"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.11.0",
+        "Esri.ArcGISRuntime.UWP": "100.11.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/browseoafeatureservice.htm"
+    ],
+    "relevant_apis": [
+        "OgcFeatureCollectionInfo",
+        "OgcFeatureCollectionTable",
+        "OgcFeatureService",
+        "OgcFeatureServiceInfo"
+    ],
+    "snippets": [
+        "BrowseOAFeatureService.xaml",
+        "BrowseOAFeatureService.xaml.cs"
+    ],
+    "title": "Browse OGC API feature service"
+}

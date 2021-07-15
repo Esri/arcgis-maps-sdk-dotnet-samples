@@ -8,7 +8,7 @@
 * [Query feature count and extent](Xamarin.iOS/Samples/Analysis/QueryFeatureCountAndExtent/readme.md) - Zoom to features matching a query and count the features in the current visible extent.
 * [Viewshed for camera](Xamarin.iOS/Samples/Analysis/ViewshedCamera/readme.md) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. 
 * [Viewshed for GeoElement](Xamarin.iOS/Samples/Analysis/ViewshedGeoElement/readme.md) - Analyze the viewshed for an object (GeoElement) in a scene.
-* [Viewshed (location)](Xamarin.iOS/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point. 
+* [Viewshed (location)](Xamarin.iOS/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point.
 
 ## Augmented reality
 
@@ -96,6 +96,7 @@
 * [ArcGIS map image layer](Xamarin.iOS/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](Xamarin.iOS/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](Xamarin.iOS/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.
+* [Browse OGC API feature service](Xamarin.iOS/Samples/Layers/BrowseOAFeatureService/readme.md) - Browse an OGC API feature service for layers and add them to the map.
 * [Browse WFS layers](Xamarin.iOS/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers and add them to the map.
 * [Blend renderer](Xamarin.iOS/Samples/Layers/ChangeBlendRenderer/readme.md) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Change feature layer renderer](Xamarin.iOS/Samples/Layers/ChangeFeatureLayerRenderer/readme.md) - Change the appearance of a feature layer with a renderer.
@@ -108,6 +109,7 @@
 * [Display annotation](Xamarin.iOS/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display KML](Xamarin.iOS/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](Xamarin.iOS/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
+* [Display OGC API collection](Xamarin.iOS/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.
 * [Display a scene](Xamarin.iOS/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
 * [Display subtype feature layer](Xamarin.iOS/Samples/Layers/DisplaySubtypeFeatureLayer/readme.md) - Displays a composite layer of all the subtype values in a feature class.
 * [Display WFS layer](Xamarin.iOS/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
@@ -151,7 +153,7 @@
 
 ## Location
 
-* [Display device location](Xamarin.iOS/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
+* [Display device location with autopan modes](Xamarin.iOS/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
 * [Show location history](Xamarin.iOS/Samples/Location/ShowLocationHistory/readme.md) - Display your location history on the map.
 
 ## Map

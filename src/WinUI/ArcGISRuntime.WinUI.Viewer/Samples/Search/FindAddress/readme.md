@@ -20,6 +20,10 @@ For simplicity, the sample comes loaded with a set of suggested addresses. Choos
 4. Create a `Graphic` with the geocode result's location and store the geocode result's attributes in the graphic's attributes.
 5. Show the graphic in a `GraphicsOverlay`.
 
+## Additional information
+
+This sample uses the World Geocoding Service. For more information, see the [Geocoding service](https://developers.arcgis.com/documentation/mapping-apis-and-services/search/services/geocoding-service/) help topic on the ArcGIS Developer website.
+
 ## Relevant API
 
 * GeocodeParameters

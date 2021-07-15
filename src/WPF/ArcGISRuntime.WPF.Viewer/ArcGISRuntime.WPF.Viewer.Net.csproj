@@ -73,6 +73,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Remove="readme.md" />
+    <None Remove="App.config" />
     <None Remove="Resources\github-markdown.css" />
     
     <Compile Update="Samples\**\*.cs">

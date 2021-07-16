@@ -21,7 +21,9 @@ using Xamarin.Essentials;
 #if __ANDROID__
 using Android.App;
 using Application = Xamarin.Forms.Application;
-using Xamarin.Auth;
+using Xamarin.Essentials;
+using Android.Content;
+using Android.Content.PM;
 #endif
 
 namespace Forms.Helpers
@@ -51,7 +53,7 @@ namespace Forms.Helpers
                     // Use the OAuth implicit grant flow
                     GenerateTokenOptions = new GenerateTokenOptions
                     {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
+                        TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
                     },
 
                     // Indicate the url (portal) to authenticate with (ArcGIS Online)
@@ -79,7 +81,7 @@ namespace Forms.Helpers
             // Define the server information for ArcGIS Online
             ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
             {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit,
+                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
                 OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
             };
 
@@ -162,97 +164,38 @@ namespace Forms.Helpers
         private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 
         // IOAuthAuthorizeHandler.AuthorizeAsync implementation.
-        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            // If the TaskCompletionSource is not null, authorization may already be in progress and should be canceled.
-            if (_taskCompletionSource != null)
+            try
             {
-                // Try to cancel any existing authentication task.
-                _taskCompletionSource.TrySetCanceled();
-            }
+                // Create a task completion source.
+                _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-            // Create a task completion source.
-            _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
-
-            // Get the current Android Activity.
-            Activity activity = (Activity)ArcGISRuntime.Droid.MainActivity.Instance;
-
-            // Create a new Xamarin.Auth.OAuth2Authenticator using the information passed in.
-            OAuth2Authenticator authenticator = new OAuth2Authenticator(
-                clientId: ArcGISLoginPrompt.AppClientId,
-                scope: "",
-                authorizeUrl: authorizeUri,
-                redirectUrl: callbackUri)
-            {
-                ShowErrors = false,
-                // Allow the user to cancel the OAuth attempt.
-                AllowCancel = true
-            };
-
-            // Define a handler for the OAuth2Authenticator.Completed event.
-            authenticator.Completed += (sender, authArgs) =>
-            {
                 try
                 {
-                    // Check if the user is authenticated.
-                    if (authArgs.IsAuthenticated)
-                    {
-                        // If authorization was successful, get the user's account.
-                        Xamarin.Auth.Account authenticatedAccount = authArgs.Account;
-
-                        // Set the result (Credential) for the TaskCompletionSource.
-                        _taskCompletionSource.SetResult(authenticatedAccount.Properties);
-                    }
-                    else
-                    {
-                        throw new Exception("Unable to authenticate user.");
-                    }
+                    var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+                    _taskCompletionSource.SetResult(result.Properties);
                 }
                 catch (Exception ex)
                 {
-                    // If authentication failed, set the exception on the TaskCompletionSource.
                     _taskCompletionSource.TrySetException(ex);
-
-                    // Cancel authentication.
-                    authenticator.OnCancelled();
-                }
-                finally
-                {
-                    // Dismiss the OAuth login.
-                    activity.FinishActivity(99);
-                }
-            };
-
-            // If an error was encountered when authenticating, set the exception on the TaskCompletionSource.
-            authenticator.Error += (sndr, errArgs) =>
-            {
-                // If the user cancels, the Error event is raised but there is no exception ... best to check first.
-                if (errArgs.Exception != null)
-                {
-                    _taskCompletionSource.TrySetException(errArgs.Exception);
-                }
-                else
-                {
-                    // Login canceled: dismiss the OAuth login.
-                    if (_taskCompletionSource != null)
-                    {
-                        _taskCompletionSource.TrySetCanceled();
-                        activity.FinishActivity(99);
-                    }
                 }
 
-                // Cancel authentication.
-                authenticator.OnCancelled();
-            };
+                return await _taskCompletionSource.Task;
+            }
+            catch (Exception) { }
 
-            // Present the OAuth UI so the user can enter user name and password.
-
-            var intent = authenticator.GetUI(activity);
-            activity.StartActivityForResult(intent, 99);
-
-            // Return completion source task so the caller can await completion.
-            return _taskCompletionSource.Task;
+            // Return null if anything goes wrong with authentication.
+            return null;
         }
+    }
+
+    [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [IntentFilter(new[] { Intent.ActionView },
+       Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
+       DataScheme = "forms-samples-app", DataHost = "auth")]
+    public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
+    {
     }
 #endif // (If Android or iOS)
 

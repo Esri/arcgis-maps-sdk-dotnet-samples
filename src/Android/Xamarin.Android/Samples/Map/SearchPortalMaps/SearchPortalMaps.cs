@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
             ArcGISLoginPrompt.SetChallengeHandler();
 
-            bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
+            bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync(this);
 
             // Display a default map
             if (loggedIn) DisplayDefaultMap();
@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 IEnumerable<PortalItem> mapItems = null;
 
                 // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-                bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
+                bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync(this);
                 if (!loggedIn) { return; }
 
                 // Connect to the portal (will connect using the provided credentials)

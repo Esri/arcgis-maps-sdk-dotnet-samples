@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
             ArcGISLoginPrompt.SetChallengeHandler();
 
-            bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
+            bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync(this);
 
             // Show a plain gray map in the map view
             if (loggedIn)
@@ -246,7 +246,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
         {
-            await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
+            await ArcGISLoginPrompt.EnsureAGOLCredentialAsync(this);
 
             // Get the ArcGIS Online portal (will use credential from login above)
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();

@@ -32,7 +32,7 @@ namespace ArcGISRuntime.Helpers
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
         private const string OAuthRedirectUrl = "my-ags-app://auth";
 
-        public static async Task<bool> EnsureAGOLCredentialAsync()
+        public static async Task<bool> EnsureAGOLCredentialAsync(Activity activity)
         {
             bool loggedIn = false;
 
@@ -62,7 +62,7 @@ namespace ArcGISRuntime.Helpers
             catch (Exception ex)
             {
                 // Login failure
-                //MessageBox.Show("Login failed: " + ex.Message);
+                new AlertDialog.Builder(activity).SetMessage(ex.Message).SetTitle("Error").Show();
             }
 
             return loggedIn;

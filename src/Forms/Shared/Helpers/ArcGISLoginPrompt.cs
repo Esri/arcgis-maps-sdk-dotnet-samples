@@ -9,19 +9,17 @@
 
 using Esri.ArcGISRuntime.Security;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-#if __IOS__
-using UIKit;
+#if __ANDROID__ || __IOS__
 using Xamarin.Essentials;
+using System.Collections.Generic;
 #endif
 
 #if __ANDROID__
 using Android.App;
 using Application = Xamarin.Forms.Application;
-using Xamarin.Essentials;
 using Android.Content;
 using Android.Content.PM;
 #endif
@@ -125,7 +123,7 @@ namespace Forms.Helpers
 
     #region IOAuthAuthorizationHandler implementation
 
-#if __IOS__
+#if __ANDROID__ || __IOS__
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
         // Use a TaskCompletionSource to track the completion of the authorization.
@@ -137,40 +135,11 @@ namespace Forms.Helpers
             try
             {
                 _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
+
+#if __IOS__
                 Device.BeginInvokeOnMainThread(async () =>
                 {
-                    try
-                    {
-                        var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
-                        _taskCompletionSource.SetResult(result.Properties);
-                    }
-                    catch (Exception ex)
-                    {
-                        _taskCompletionSource.TrySetException(ex);
-                    }
-                });
-                return await _taskCompletionSource.Task;
-            }
-            catch (Exception) { }
-            return null;
-        }
-    }
 #endif
-
-#if __ANDROID__
-    public class OAuthAuthorize : IOAuthAuthorizeHandler
-    {
-        // Use a TaskCompletionSource to track the completion of the authorization.
-        private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
-
-        // IOAuthAuthorizeHandler.AuthorizeAsync implementation.
-        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
-        {
-            try
-            {
-                // Create a task completion source.
-                _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
-
                 try
                 {
                     var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
@@ -180,15 +149,18 @@ namespace Forms.Helpers
                 {
                     _taskCompletionSource.TrySetException(ex);
                 }
-
+#if __IOS__
+                });
+#endif
                 return await _taskCompletionSource.Task;
             }
             catch (Exception) { }
-
-            // Return null if anything goes wrong with authentication.
             return null;
         }
     }
+#endif
+
+#if __ANDROID__
 
     [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(new[] { Intent.ActionView },
@@ -197,7 +169,7 @@ namespace Forms.Helpers
     public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
     {
     }
-#endif // (If Android or iOS)
+#endif
 
     #endregion IOAuthAuthorizationHandler implementation
 }

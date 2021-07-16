@@ -9,24 +9,12 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
 using Forms.Helpers;
 using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
-#if __IOS__
-using Xamarin.Auth;
-using Xamarin.Forms.Platform.iOS;
-using UIKit;
-#endif
-
 #if __ANDROID__
-using Android.App;
 using Application = Xamarin.Forms.Application;
-using Xamarin.Auth;
-using System.IO;
 #endif
 
 namespace ArcGISRuntime.Samples.OAuth
@@ -40,15 +28,9 @@ namespace ArcGISRuntime.Samples.OAuth
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class OAuth : ContentPage
     {
-        // Constants for OAuth-related values.
         // - The URL of the portal to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
-        // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
-        private const string AppClientId = @"6wMAmbUEX1rvsOb4";
-        // - An optional client secret for the app (only needed for the OAuthAuthorizationCode authorization type).
-        private const string ClientSecret = "";
-        // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"forms-samples-app://auth";
+
         // - The ID for a web map item hosted on the server (the ID below is for a traffic map of Paris).
         private const string WebMapId = "e5039444ef3c48b8a8fdc9227f9be7c1";
 
@@ -84,6 +66,5 @@ namespace ArcGISRuntime.Samples.OAuth
                 await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
-
     }
 }

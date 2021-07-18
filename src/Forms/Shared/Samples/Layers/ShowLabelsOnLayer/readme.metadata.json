@@ -7,6 +7,7 @@
         "ShowLabelsOnLayer.jpg"
     ],
     "keywords": [
+        "arcade",
         "attribute",
         "deconfliction",
         "label",
@@ -28,6 +29,7 @@
         "/net/latest/forms/sample-code/showlabelsonlayer.htm"
     ],
     "relevant_apis": [
+        "ArcadeLabelExpression",
         "FeatureLayer",
         "LabelDefinition",
         "TextSymbol"

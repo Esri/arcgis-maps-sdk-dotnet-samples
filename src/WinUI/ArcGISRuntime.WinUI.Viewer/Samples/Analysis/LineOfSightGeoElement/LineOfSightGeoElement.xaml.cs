@@ -197,7 +197,7 @@ namespace ArcGISRuntime.WinUI.Samples.LineOfSightGeoElement
         private void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
         {
             // This is needed because Runtime delivers notifications from a different thread that doesn't have access to UI controls.
-            DispatcherQueue.TryEnqueue(Microsoft.System.DispatcherQueuePriority.Normal, UpdateUiAndSelection);
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, UpdateUiAndSelection);
         }
 
         private void UpdateUiAndSelection()

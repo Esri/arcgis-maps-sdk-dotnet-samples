@@ -93,6 +93,17 @@ namespace ArcGISRuntime
                 AuthenticationManager.Current.RemoveCredential(cred);
             }
 
+            if (item.FormalName == "AuthorMap")
+            {
+                // Remove API key if opening Create and save map sample.
+                ApiKeyManager.DisableKey();
+            }
+            else
+            {
+                // Ensure API key is set in ArcGIS Runtime environment.
+                ApiKeyManager.EnableKey();
+            }
+
             try
             {
                 // Load offline data before showing the sample.
@@ -139,6 +150,7 @@ namespace ArcGISRuntime
                 System.Diagnostics.Debug.WriteLine("Exception occurred on OnItemTapped. Exception = " + ex);
             }
         }
+
         public SamplesSearchViewModel ViewModel { get; set; }
 
         private async void SettingsClicked(object sender, EventArgs e)

@@ -27,6 +27,7 @@
     "relevant_apis": [
         "LabelDefinition",
         "ServiceFeatureTable",
+        "SimpleLabelExpression",
         "SubtypeFeatureLayer",
         "SubtypeSublayer"
     ],

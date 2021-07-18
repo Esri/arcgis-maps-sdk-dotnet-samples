@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
@@ -62,6 +63,17 @@ namespace ArcGISRuntime
             {
                 // Get the selected sample.
                 SampleInfo item = (SampleInfo)e.Item;
+
+                if (item.FormalName == "AuthorMap")
+                {
+                    // Remove API key if opening Create and save map sample.
+                    ApiKeyManager.DisableKey();
+                }
+                else
+                {
+                    // Ensure API key is set in ArcGIS Runtime environment.
+                    ApiKeyManager.EnableKey();
+                }
 
                 // Load offline data before showing the sample.
                 if (item.OfflineDataItems != null)

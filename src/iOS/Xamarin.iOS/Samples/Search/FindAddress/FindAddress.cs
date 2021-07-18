@@ -53,7 +53,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         private LocatorTask _geocoder;
 
         // Service URI to be provided to the LocatorTask (geocoder).
-        private readonly Uri _serviceUri = new Uri("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer");
+        private readonly Uri _serviceUri = new Uri("https://geocode-api.arcgis.com/arcgis/rest/services/World/GeocodeServer");
 
         public FindAddress()
         {

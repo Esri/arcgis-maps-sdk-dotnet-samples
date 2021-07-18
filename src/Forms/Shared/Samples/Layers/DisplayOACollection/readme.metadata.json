@@ -1,0 +1,39 @@
+{
+    "category": "Layers",
+    "description": "Display an OGC API feature collection and query features while navigating the map view.",
+    "formal_name": "DisplayOACollection",
+    "ignore": false,
+    "images": [
+        "DisplayOACollection.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "OGC API",
+        "feature",
+        "feature layer",
+        "feature table",
+        "service",
+        "table",
+        "web"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.11.0",
+        "Esri.ArcGISRuntime.UWP": "100.11.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.11.0",
+        "Esri.ArcGISRuntime.Xamarin.Forms": "100.11.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.11.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/displayoacollection.htm"
+    ],
+    "relevant_apis": [
+        "OgcFeatureCollectionTable",
+        "QueryParameters"
+    ],
+    "snippets": [
+        "DisplayOACollection.xaml",
+        "DisplayOACollection.xaml.cs"
+    ],
+    "title": "Display OGC API collection"
+}

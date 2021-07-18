@@ -8,7 +8,7 @@
 * [Query feature count and extent](ArcGISRuntime.UWP.Viewer/Samples/Analysis/QueryFeatureCountAndExtent/readme.md) - Zoom to features matching a query and count the features in the current visible extent.
 * [Viewshed for camera](ArcGISRuntime.UWP.Viewer/Samples/Analysis/ViewshedCamera/readme.md) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. 
 * [Viewshed for GeoElement](ArcGISRuntime.UWP.Viewer/Samples/Analysis/ViewshedGeoElement/readme.md) - Analyze the viewshed for an object (GeoElement) in a scene.
-* [Viewshed (location)](ArcGISRuntime.UWP.Viewer/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point. 
+* [Viewshed (location)](ArcGISRuntime.UWP.Viewer/Samples/Analysis/ViewshedLocation/readme.md) - Perform a viewshed analysis from a defined vantage point.
 
 ## Data
 
@@ -88,6 +88,7 @@
 * [ArcGIS map image layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](ArcGISRuntime.UWP.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.
+* [Browse OGC API feature service](ArcGISRuntime.UWP.Viewer/Samples/Layers/BrowseOAFeatureService/readme.md) - Browse an OGC API feature service for layers and add them to the map.
 * [Browse WFS layers](ArcGISRuntime.UWP.Viewer/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers and add them to the map.
 * [Blend renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeBlendRenderer/readme.md) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Change feature layer renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeFeatureLayerRenderer/readme.md) - Change the appearance of a feature layer with a renderer.
@@ -100,6 +101,7 @@
 * [Display annotation](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display KML](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
+* [Display OGC API collection](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.
 * [Display a scene](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
 * [Display subtype feature layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer/readme.md) - Displays a composite layer of all the subtype values in a feature class.
 * [Display WFS layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.

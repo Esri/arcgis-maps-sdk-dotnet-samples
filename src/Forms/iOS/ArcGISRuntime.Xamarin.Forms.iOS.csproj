@@ -14,7 +14,6 @@
     <AssemblyName>ArcGISRuntime</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ProvisioningType>automatic</ProvisioningType>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -38,7 +37,6 @@
     <MtouchI18n />
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <LangVersion>7</LangVersion>
-    <CodesignKey>Apple Development: Zack Allen (H3TP7QX4B5)</CodesignKey>
     <CodesignProvision>VS: WildCard Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">

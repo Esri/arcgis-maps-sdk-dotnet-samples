@@ -275,43 +275,33 @@ namespace ArcGISRuntime.Samples.AuthorMap
             mapsMenu.Show();
         }
 
-        private void OnBasemapsMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e)
+        private void OnBasemapsMenuItemClicked(object sender, PopupMenu.MenuItemClickEventArgs e) => ApplyBasemap(e.Item.TitleCondensedFormatted.ToString());
+
+        private void ApplyBasemap(string basemapName)
         {
-            // Get the title of the selected item
-            string basemapName = e.Item.TitleCondensedFormatted.ToString();
-
-            // Set the basemap for the map according to the user's choice in the list box
-            Map myMap = _myMapView.Map;
-
+            // Set the basemap for the map according to the user's choice in the list box.
             switch (basemapName)
             {
                 case "Light Gray":
-                    // Set the basemap to Light Gray Canvas
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISLightGray);
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray);
                     break;
 
                 case "Topographic":
-                    // Set the basemap to Topographic
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
                     break;
 
                 case "Streets":
-                    // Set the basemap to Streets
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
                     break;
 
                 case "Imagery":
-                    // Set the basemap to Imagery
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISImagery);
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImagery);
                     break;
 
                 case "Ocean":
-                    // Set the basemap to Oceans
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
+                    _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
-
-            myMap.Basemap.LoadAsync();
         }
 
         #endregion Basemap Button

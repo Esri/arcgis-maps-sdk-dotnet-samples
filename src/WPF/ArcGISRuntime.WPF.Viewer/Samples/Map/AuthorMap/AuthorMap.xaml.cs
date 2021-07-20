@@ -62,11 +62,10 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
             bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
 
-            // Show a plain gray map in the map view
+            // Show a plain gray map in the map view.
             if (loggedIn)
             {
                 MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
-                _ = MyMapView.Map.Basemap.LoadAsync();
             }
             else MyMapView.Map = new Map();
 
@@ -178,38 +177,29 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
         private void ApplyBasemap(string basemapName)
         {
-            // Set the basemap for the map according to the user's choice in the list box
-            Map myMap = MyMapView.Map;
-
+            // Set the basemap for the map according to the user's choice in the list box.
             switch (basemapName)
             {
                 case "Light Gray":
-                    // Set the basemap to Light Gray Canvas
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISLightGray);
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray);
                     break;
 
                 case "Topographic":
-                    // Set the basemap to Topographic
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
                     break;
 
                 case "Streets":
-                    // Set the basemap to Streets
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
                     break;
 
                 case "Imagery":
-                    // Set the basemap to Imagery
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISImagery);
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImagery);
                     break;
 
                 case "Ocean":
-                    // Set the basemap to Oceans
-                    myMap.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
-
-            myMap.Basemap.LoadAsync();
         }
 
         private void AddOperationalLayers()

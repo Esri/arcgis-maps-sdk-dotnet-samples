@@ -98,14 +98,11 @@ namespace ArcGISRuntime.Helpers
                 portalServerInfo.OAuthClientInfo.ClientSecret = ClientSecret;
             }
 
-            // Get a reference to the (singleton) AuthenticationManager for the app
-            AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
-
             // Register the ArcGIS Online server information with the AuthenticationManager
-            thisAuthenticationManager.RegisterServer(portalServerInfo);
+            AuthenticationManager.Current.RegisterServer(portalServerInfo);
 
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
-            thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
+            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
 
             // Note: In a WPF app, you need to associate a custom IOAuthAuthorizeHandler component with the AuthenticationManager to
             //     handle showing OAuth login controls (AuthenticationManager.Current.OAuthAuthorizeHandler = new MyOAuthAuthorize();).

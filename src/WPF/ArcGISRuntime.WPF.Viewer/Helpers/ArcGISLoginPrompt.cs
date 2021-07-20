@@ -102,17 +102,14 @@ namespace ArcGISRuntime.Helpers
                 portalServerInfo.OAuthClientInfo.ClientSecret = ClientSecret;
             }
 
-            // Get a reference to the (singleton) AuthenticationManager for the app
-            AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
-
             // Register the ArcGIS Online server information with the AuthenticationManager
-            thisAuthenticationManager.RegisterServer(portalServerInfo);
+            AuthenticationManager.Current.RegisterServer(portalServerInfo);
 
             // Use the OAuthAuthorize class in this project to create a new web view to show the login UI
-            thisAuthenticationManager.OAuthAuthorizeHandler = new OAuthAuthorize();
+            AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
 
             // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
-            thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
+            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
         }
 
         #region OAuth handler

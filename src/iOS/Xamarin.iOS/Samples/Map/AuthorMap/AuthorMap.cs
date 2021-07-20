@@ -88,7 +88,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             if (loggedIn)
             {
                 _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
-                _ = _myMapView.Map.Basemap.LoadAsync();
             }
             else _myMapView.Map = new Map();
         }

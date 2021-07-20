@@ -21,10 +21,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Query with CQL filters",
-        "Layers",
-        "Query data from an OGC API feature service using CQL filters.",
-        "")]
+        name: "Query with CQL filters",
+        category: "Layers",
+        description: "Query data from an OGC API feature service using CQL filters.",
+        instructions: "Enter a CQL query. Press the \"Apply query\" button to see the query applied to the OGC API features shown on the map.",
+        tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class QueryCQLFilters : ContentPage
     {

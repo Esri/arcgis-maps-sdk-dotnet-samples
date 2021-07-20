@@ -7,16 +7,37 @@
         "QueryCQLFilters.jpg"
     ],
     "keywords": [
+        "CQL",
+        "OGC",
+        "OGC API",
+        "browse",
+        "catalog",
+        "common query language",
+        "feature table",
+        "filter",
+        "query",
+        "service",
+        "web"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.10.0"
+        "Esri.ArcGISRuntime": "100.11.0",
+        "Esri.ArcGISRuntime.UWP": "100.11.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.11.0",
+        "Esri.ArcGISRuntime.Xamarin.Forms": "100.11.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.11.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/QueryCQLFilters.htm"
+        "/net/latest/forms/sample-code/querycqlfilters.htm"
     ],
     "relevant_apis": [
+        "OgcFeatureCollectionTable",
+        "QueryParameters",
+        "TimeExtent"
     ],
     "snippets": [
+        "QueryCQLFilters.xaml",
+        "QueryCQLFilters.xaml.cs"
     ],
     "title": "Query with CQL filters"
 }

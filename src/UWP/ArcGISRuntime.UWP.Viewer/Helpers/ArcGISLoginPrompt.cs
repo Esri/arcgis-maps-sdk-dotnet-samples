@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Helpers
                 // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
                 CredentialRequestInfo challengeRequest = new CredentialRequestInfo
                 {
-                    // Use the OAuth implicit grant flow
+                    // Use the OAuth authorization code workflow.
                     GenerateTokenOptions = new GenerateTokenOptions
                     {
                         TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
@@ -93,7 +93,7 @@ namespace ArcGISRuntime.Helpers
             // If a client secret has been configured, set the authentication type to OAuth client credentials.
             if (!string.IsNullOrEmpty(ClientSecret))
             {
-                // Use OAuthClientCredentials if you need a refresh token (and have specified a valid client secret).
+                // If a client secret is specified then use the TokenAuthenticationType.OAuthClientCredentials type.
                 portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthClientCredentials;
                 portalServerInfo.OAuthClientInfo.ClientSecret = ClientSecret;
             }

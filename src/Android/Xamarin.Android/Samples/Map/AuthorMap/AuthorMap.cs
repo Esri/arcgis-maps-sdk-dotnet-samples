@@ -60,8 +60,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {"US Census Data", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
         };
 
-        private string _serverUrl = "https://www.arcgis.com/sharing/rest";
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);

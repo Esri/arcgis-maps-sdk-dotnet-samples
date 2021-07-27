@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using Color = System.Drawing.Color;
@@ -25,7 +24,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
         category: "Layers",
         description: "Query data from an OGC API feature service using CQL filters.",
         instructions: "Enter a CQL query. Press the \"Apply query\" button to see the query applied to the OGC API features shown on the map.",
-        tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web" })]
+        tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web", "Featured" })]
     public partial class QueryCQLFilters
     {
         public IReadOnlyList<string> DefaultWhereClause { get; } = new[]
@@ -37,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
             // Sample Query 2: Query for features with an F_CODE attribute property similar to "AQ".
             "F_CODE LIKE 'AQ%'", // cql-text query
 
-            // Sample Query 3: use cql-json to combine "before" and "eq" operators with the logical "and" operator
+            // Sample Query 3: use cql-json to combine "before" and "eq" operators with the logical "and" operator.
            "{\"and\":[{\"eq\":[{ \"property\" : \"F_CODE\" }, \"AP010\"]},{ \"before\":[{ \"property\" : \"ZI001_SDV\"},\"2013-01-01\"]}]}"
         };
 
@@ -109,7 +108,6 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
                 MessageBox.Show(ex.Message, "Error loading/populating service");
             }
             finally
@@ -140,25 +138,25 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
 
         public QueryParameters CreateQueryParameters()
         {
-            // Create new QueryParameters and assign its WhereClause property
-            // to the content of the WhereClauseBox
-            var queryParameters = new QueryParameters
-            {
-                WhereClause = WhereClauseBox.Text ?? ""
-            };
+            // Create new query parameters.
+            var queryParameters = new QueryParameters();
 
-            // Set the MaxFeatures property to MaxFeaturesBox content
+            // Assign the where clause if one is provided.
+            if (!string.IsNullOrEmpty(WhereClauseBox.Text)) queryParameters.WhereClause = WhereClauseBox.Text;
+
+            // Set the MaxFeatures property to MaxFeaturesBox content.
             if (int.TryParse(MaxFeaturesBox.Text, out int parsedMaxFeatures))
                 queryParameters.MaxFeatures = parsedMaxFeatures;
 
-            // Set a TimeExtent variable to match the inputted DateTime content.
-
             // Set user date times if provided.
-            DateTime startDate = (StartDateBox.IsChecked == true && StartDatePicker.SelectedDate is DateTime userStart) ? userStart : DateTime.MinValue;
-            DateTime endDate = (EndDateBox.IsChecked == true && EndDatePicker.SelectedDate is DateTime userEnd) ? userEnd : new DateTime(9999, 12, 31);
+            if (DateBox.IsChecked == true)
+            {
+                DateTime startDate = (StartDatePicker.SelectedDate is DateTime userStart) ? userStart : DateTime.MinValue;
+                DateTime endDate = (EndDatePicker.SelectedDate is DateTime userEnd) ? userEnd : new DateTime(9999, 12, 31);
 
-            // Use the newly created startDate and endDate to create the TimeExtent.
-            queryParameters.TimeExtent = new Esri.ArcGISRuntime.TimeExtent(startDate, endDate);
+                // Use the newly created startDate and endDate to create the TimeExtent.
+                queryParameters.TimeExtent = new Esri.ArcGISRuntime.TimeExtent(startDate, endDate);
+            }
 
             return queryParameters;
         }
@@ -177,7 +175,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
 
             try
             {
-                QueryingProgressBar.Visibility = Visibility.Visible;
+                LoadingProgressBar.Visibility = Visibility.Visible;
 
                 // Set queryParameters to the user's input
                 var queryParameters = CreateQueryParameters();
@@ -203,7 +201,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
             finally
             {
                 // Update the UI.
-                QueryingProgressBar.Visibility = Visibility.Hidden;
+                LoadingProgressBar.Visibility = Visibility.Hidden;
             }
         }
     }

@@ -15,27 +15,16 @@
                 <ComboBox x:Name="WhereClauseBox" IsEditable="True" />
                 <Label Content="Max features:" />
                 <TextBox x:Name="MaxFeaturesBox" />
-                <Label Content="Time extent:" />
-                <StackPanel Orientation="Horizontal">
-                    <CheckBox x:Name="StartDateBox"
-                              Margin="5"
-                              Content="Start"
-                              IsChecked="{Binding ElementName=StartDatePicker, Path=IsEnabled}" />
-                    <DatePicker x:Name="StartDatePicker" />
-                    <CheckBox x:Name="EndDateBox"
-                              Margin="5"
-                              Content="End"
-                              IsChecked="{Binding ElementName=EndDatePicker, Path=IsEnabled}" />
-                    <DatePicker x:Name="EndDatePicker" />
+                <CheckBox x:Name="DateBox"
+                          Margin="5"
+                          Content="Time extent:"
+                          IsChecked="{Binding ElementName=DatePickers, Path=IsEnabled}" />
+                <StackPanel x:Name="DatePickers" Orientation="Horizontal">
+                    <DatePicker x:Name="StartDatePicker" Margin="5" />
+                    <DatePicker x:Name="EndDatePicker" Margin="5" />
                 </StackPanel>
-                <ProgressBar x:Name="QueryingProgressBar"
-                             Height="10"
-                             Margin="5"
-                             IsEnabled="True"
-                             IsIndeterminate="True"
-                             Visibility="Hidden" />
                 <Button x:Name="ApplyQuery"
-                        Margin="5,20,5,5"
+                        Margin="5"
                         Click="ApplyQuery_Click"
                         Content="Apply query" />
                 <Label x:Name="NumberOfReturnedFeatures" />

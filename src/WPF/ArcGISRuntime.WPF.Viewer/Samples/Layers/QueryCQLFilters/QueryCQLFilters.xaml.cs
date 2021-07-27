@@ -184,7 +184,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
                 NumberOfReturnedFeatures.Content = $"Query returned {result.Count()} features.";
 
                 // Zoom to the extent of the returned features.
-                Envelope tableExtent = _featureTable.Extent;
+                Envelope tableExtent = GeometryEngine.CombineExtents(result.Select(feature => feature.Geometry));
                 if (tableExtent != null && !tableExtent.IsEmpty)
                 {
                     await MyMapView.SetViewpointGeometryAsync(tableExtent, 20);

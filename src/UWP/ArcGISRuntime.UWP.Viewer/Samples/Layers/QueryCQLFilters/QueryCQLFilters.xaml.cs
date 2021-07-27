@@ -185,7 +185,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
                 NumberOfReturnedFeatures.Text = $"Query returned {result.Count()} features.";
 
                 // Zoom to the extent of the returned features.
-                Envelope tableExtent = _featureTable.Extent;
+                Envelope tableExtent = GeometryEngine.CombineExtents(result.Select(feature => feature.Geometry));
                 if (tableExtent != null && !tableExtent.IsEmpty)
                 {
                     await MyMapView.SetViewpointGeometryAsync(tableExtent, 20);
@@ -204,7 +204,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
 
         private void DateBox_Checked(object sender, RoutedEventArgs e)
         {
-            if(StartDatePicker != null && EndDatePicker != null)
+            if (StartDatePicker != null && EndDatePicker != null)
             {
                 StartDatePicker.IsEnabled = EndDatePicker.IsEnabled = DateBox.IsChecked == true;
             }

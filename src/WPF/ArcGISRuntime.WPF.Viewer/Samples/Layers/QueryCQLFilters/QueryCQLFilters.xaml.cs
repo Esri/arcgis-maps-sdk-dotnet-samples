@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using Color = System.Drawing.Color;
 
@@ -65,10 +66,10 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
 
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(Basemap.CreateTopographic());
-            LoadService();
+            _ = LoadService();
         }
 
-        private async void LoadService()
+        private async Task LoadService()
         {
             try
             {
@@ -159,11 +160,6 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
             }
 
             return queryParameters;
-        }
-
-        private void LoadServiceButton_Click(object sender, RoutedEventArgs e)
-        {
-            LoadService();
         }
 
         private async void ApplyQuery_Click(object sender, RoutedEventArgs e)

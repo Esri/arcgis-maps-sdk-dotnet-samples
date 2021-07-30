@@ -214,6 +214,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
         {
             WhereClauseBox.SelectedItem = null;
             MaxFeaturesBox.Text = "3000";
+            DateBox.IsChecked = true;
             StartDatePicker.Date = new DateTime(2011, 6, 13);
             EndDatePicker.Date = new DateTime(2012, 1, 7);
         }

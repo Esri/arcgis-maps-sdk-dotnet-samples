@@ -1,9 +1,84 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.QueryCQLFilters.QueryCQLFilters"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.QueryCQLFilters.QueryCQLFilters">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <ActivityIndicator x:Name="LoadingProgressBar"
+                           BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                           HorizontalOptions="Center"
+                           IsRunning="True"
+                           Style="{StaticResource MapWithFormStyle}"
+                           VerticalOptions="Center" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="Where clause:" />
+                <Picker x:Name="WhereClausePicker"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="FillAndExpand" />
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Max features:" />
+                <Entry x:Name="MaxFeaturesBox"
+                       Grid.Row="2"
+                       Grid.Column="1" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Time extent" />
+                <Switch x:Name="DateSwitch"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Margin="5"
+                        HorizontalOptions="Start"
+                        IsToggled="True"
+                        Toggled="DateSwitch_Toggled" />
+                <DatePicker x:Name="StartDatePicker"
+                            Grid.Row="4"
+                            Grid.Column="0" />
+                <DatePicker x:Name="EndDatePicker"
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Margin="5" />
+                <Button x:Name="ApplyQuery"
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Margin="5"
+                        Pressed="ApplyQuery_Pressed"
+                        Text="Apply query" />
+                <Button x:Name="ResetQuery"
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        Margin="5"
+                        Pressed="ResetQuery_Pressed"
+                        Text="Reset" />
+                <Label x:Name="NumberOfReturnedFeatures"
+                       Grid.Row="7"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2" />
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
 </ContentPage>

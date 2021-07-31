@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using ArcGISRuntime;
 
 namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
 {
@@ -34,6 +35,8 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
     {
         // Hold references to the UI controls.
         private MapView _myMapView;
+        private Spinner _spinner;
+        private EditText _maxFeatures;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -51,15 +54,12 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
 
         private void CreateLayout()
         {
-            // Create a new vertical layout for the app.
-            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+            // Load the layout from the axml resource. (This sample has the same interface as the navigation sample without rerouting)
+            SetContentView(Resource.Layout.QueryCQLFilters);
 
-            // Add the map view to the layout.
-            _myMapView = new MapView(this);
-            layout.AddView(_myMapView);
-
-            // Show the layout in the app.
-            SetContentView(layout);
+            _myMapView = FindViewById<MapView>(Resource.Id.MapView);
+            _spinner = FindViewById<Spinner>(Resource.Id.whereClauseSpinner);
+            _maxFeatures = FindViewById<EditText>(Resource.Id.maxFeatures);
         }
     }
 }

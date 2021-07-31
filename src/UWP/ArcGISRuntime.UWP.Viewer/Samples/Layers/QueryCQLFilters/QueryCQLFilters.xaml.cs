@@ -66,7 +66,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
             EndDatePicker.Date = new DateTime(2012, 1, 7);
 
             // Create the map with topographic basemap.
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             try
             {

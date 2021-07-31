@@ -26,7 +26,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using UIKit;
-using Xamarin.Auth;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 {
@@ -45,7 +44,6 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         private UIBarButtonItem _takeMapOfflineButton;
         private UILabel _statusLabel;
         private ConfigureOverridesViewController _overridesVC;
-        private OAuth2Authenticator _auth;
 
         // Class-scope variables needed because job continues after configuration by separate class.
         private OfflineMapTask _takeMapOfflineTask;

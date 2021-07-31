@@ -29,7 +29,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
         tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web", "Featured" })]
     public partial class QueryCQLFilters
     {
-        public IReadOnlyList<string> DefaultWhereClause { get; } = new[]
+        private IReadOnlyList<string> DefaultWhereClause = new[]
         {
             // Sample Query 1: Query for features with an F_CODE attribute property of "AP010".
             "F_CODE = 'AP010'", // cql-text query
@@ -54,10 +54,10 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
         public QueryCQLFilters()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
             // Populate the UI.
             WhereClauseBox.ItemsSource = DefaultWhereClause;
@@ -67,11 +67,7 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
 
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(Basemap.CreateTopographic());
-            _ = LoadService();
-        }
 
-        private async Task LoadService()
-        {
             try
             {
                 LoadingProgressBar.Visibility = Visibility.Visible;

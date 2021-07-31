@@ -28,7 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web" })]
     public partial class QueryCQLFilters : ContentPage
     {
-        public List<string> DefaultWhereClause { get; } = new List<string>
+        private List<string> DefaultWhereClause = new List<string>
         {
             // Sample Query 1: Query for features with an F_CODE attribute property of "AP010".
             "F_CODE = 'AP010'", // cql-text query
@@ -53,10 +53,10 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         public QueryCQLFilters()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
             // Populate the UI.
             WhereClausePicker.ItemsSource = DefaultWhereClause;
@@ -66,11 +66,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
 
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(Basemap.CreateTopographic());
-            _ = LoadService();
-        }
 
-        private async Task LoadService()
-        {
             try
             {
                 LoadingProgressBar.IsVisible = true;

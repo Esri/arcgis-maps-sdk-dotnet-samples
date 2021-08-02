@@ -33,9 +33,8 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
         // Constructor for sample class
         public SearchPortalMaps()
         {
+            this.Loaded += (s, e) => { _ = Initialize(); };
             InitializeComponent();
-
-            _ = Initialize();
         }
 
         private async Task Initialize()

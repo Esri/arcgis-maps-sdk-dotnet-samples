@@ -50,10 +50,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
 
         public AuthorMap()
         {
+            this.Loaded += (s, e) => { _ = Initialize(); };
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization
-            _ = Initialize();
         }
 
         private async Task Initialize()

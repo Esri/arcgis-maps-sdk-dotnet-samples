@@ -11,6 +11,7 @@ using ArcGISRuntime.Helpers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.OAuth
@@ -33,13 +34,11 @@ namespace ArcGISRuntime.WPF.Samples.OAuth
 
         public OAuth()
         {
+            this.Loaded += (s, e) => { _ = Initialize(); };
             InitializeComponent();
-
-            // Call a function to initialize the app and request a web map (with a secured layer).
-            Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

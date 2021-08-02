@@ -173,8 +173,8 @@ namespace ArcGISRuntime.Helpers
                 _authWindow = new Window
                 {
                     Content = webBrowser,
-                    Width = 430,
-                    Height = 395,
+                    Width = 450,
+                    Height = 450,
                     WindowStartupLocation = WindowStartupLocation.CenterOwner
                 };
 

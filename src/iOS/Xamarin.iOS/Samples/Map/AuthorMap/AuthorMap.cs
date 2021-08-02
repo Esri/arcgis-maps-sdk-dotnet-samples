@@ -144,6 +144,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
+
+            _myMapView.Map.Basemap.LoadAsync();
         }
 
         private void ShowLayerListClicked(object sender, EventArgs e)
@@ -309,6 +311,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         {
             // Clear the map from the map view (allow the user to start over and save as a new portal item).
             _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            _myMapView.Map.Basemap.LoadAsync();
         }
 
         public override void ViewDidLoad()

@@ -162,6 +162,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         {
             // Create a new map for the map view (can make changes and save as a new portal item)
             _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            _myMapView.Map.Basemap.LoadAsync();
         }
 
         private void OnSaveMapClicked(object sender, EventArgs e)
@@ -299,6 +300,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     _myMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
+
+            _myMapView.Map.Basemap.LoadAsync();
         }
 
         #endregion Basemap Button

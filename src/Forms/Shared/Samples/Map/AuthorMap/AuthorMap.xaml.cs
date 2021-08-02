@@ -226,6 +226,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         {
             // Create a new map (will not have an associated PortalItem)
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            MyMapView.Map.Basemap.LoadAsync();
         }
 
         private void ApplyBasemap(string basemapName)
@@ -253,6 +254,8 @@ namespace ArcGISRuntime.Samples.AuthorMap
                     MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
+
+            MyMapView.Map.Basemap.LoadAsync();
         }
 
         private void AddLayer(string layerName, string url)

@@ -94,10 +94,11 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             AddOperationalLayers();
         }
 
-        private void ClearMapClicked(object sender, RoutedEventArgs e)
+        private void NewMapClicked(object sender, RoutedEventArgs e)
         {
             // Create a new map (will not have an associated PortalItem)
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            MyMapView.Map.Basemap.LoadAsync();
 
             // Reset UI to be consistent with map
             BasemapListBox.SelectedIndex = 0;
@@ -198,6 +199,8 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
                     MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
+
+            MyMapView.Map.Basemap.LoadAsync();
         }
 
         private void AddOperationalLayers()

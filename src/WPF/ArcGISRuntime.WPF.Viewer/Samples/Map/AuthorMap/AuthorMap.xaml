@@ -119,7 +119,7 @@
                     Padding="5"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
-                    Click="ClearMapClicked"
+                    Click="NewMapClicked"
                     Content="New Map" />
             <Grid x:Name="SaveMapGrid"
                   Grid.Row="4"

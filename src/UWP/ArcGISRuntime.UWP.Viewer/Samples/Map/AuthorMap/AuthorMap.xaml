@@ -99,7 +99,7 @@
                              IsReadOnly="True" />
                 </Grid>
                 <Button Grid.Row="6"
-                        Click="ClearMapClicked"
+                        Click="NewMapClicked"
                         Content="New map" />
                 <Grid x:Name="SaveMapGrid"
                       Grid.Row="7"

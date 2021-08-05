@@ -305,7 +305,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
                 else
                 {
                     _endTime = null;
-                    _endDateButton.Text = "Start date";
+                    _endDateButton.Text = "End date";
                 }
             }
             catch (Exception)

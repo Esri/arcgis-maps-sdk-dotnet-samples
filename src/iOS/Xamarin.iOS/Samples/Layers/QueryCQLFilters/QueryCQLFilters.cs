@@ -9,22 +9,16 @@
 
 using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.UI.Controls;
-using Foundation;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using UIKit;
-using ArcGISRuntime;
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI.Controls;
+using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using UIKit;
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
@@ -46,14 +40,12 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         private UIButton _clauseButton;
         private UIBarButtonItem _applyButton;
         private UIBarButtonItem _resetButton;
-        private UIBarButtonItem _startDateButton;
-        private UIBarButtonItem _endDateButton;
+        private UIDatePicker _startDatePicker;
+        private UIDatePicker _endDatePicker;
+        private UIToolbar _applyToolbar;
 
         private List<string> _whereClauses { get; } = new List<string>
         {
-            // Empty query.
-            "",
-
             // Sample Query 1: Query for features with an F_CODE attribute property of "AP010".
             "F_CODE = 'AP010'", // cql-text query
             "{ \"eq\" : [ { \"property\" : \"F_CODE\" }, \"AP010\" ] }", // cql-json query
@@ -74,12 +66,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         // Note that the service defines the collection id which can be accessed via OgcFeatureCollectionInfo.CollectionId.
         private const string CollectionId = "TransportationGroundCrv";
 
-        private DateTime? _startTime = new DateTime(2011, 6, 13);
-        private DateTime? _endTime = new DateTime(2012, 1, 7);
-
         private string _whereClause;
-
-        private TaskCompletionSource<DateTime> _dateTimeTCS;
 
         public QueryCQLFilters()
         {
@@ -88,16 +75,16 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
 
         private async Task Initialize()
         {
-            // Populate the UI.
-            _maxFeaturesEntry.Text = "3000";
-            _startDateButton.Title = ((DateTime)_startTime).ToShortDateString();
-            _endDateButton.Title = ((DateTime)_endTime).ToShortDateString();
-
-            // Create the map with topographic basemap.
-            _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
-
             try
             {
+                // Populate the UI.
+                _maxFeaturesEntry.Text = "3000";
+                _startDatePicker.Date = (NSDate)new DateTime(2011, 6, 13).ToUniversalTime();
+                _endDatePicker.Date = (NSDate)new DateTime(2012, 1, 7).ToUniversalTime();
+
+                // Create the map with topographic basemap.
+                _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+
                 _activityIndicator.StartAnimating();
 
                 // Create the feature table from URI and collection id.
@@ -177,8 +164,8 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             // Set user date times if provided.
             if (_dateSwitch.On)
             {
-                DateTime startDate = (_startTime is DateTime userStart) ? userStart : DateTime.MinValue;
-                DateTime endDate = (_endTime is DateTime userEnd) ? userEnd : new DateTime(9999, 12, 31);
+                DateTime startDate = (_startDatePicker.Date != null) ? (DateTime)_startDatePicker.Date : DateTime.MinValue;
+                DateTime endDate = (_endDatePicker.Date != null) ? (DateTime)_endDatePicker.Date : new DateTime(9999, 12, 31);
 
                 // Use the newly created startDate and endDate to create the TimeExtent.
                 queryParameters.TimeExtent = new Esri.ArcGISRuntime.TimeExtent(startDate, endDate);
@@ -193,11 +180,8 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             _clauseButton.SetTitle("Select Clause", UIControlState.Normal);
             _maxFeaturesEntry.Text = "3000";
             _dateSwitch.On = true;
-            _startTime = new DateTime(2011, 6, 13);
-            _endTime = new DateTime(2012, 1, 7);
-            
-            _startDateButton.Title = ((DateTime)_startTime).ToShortDateString();
-            _endDateButton.Title = ((DateTime)_endTime).ToShortDateString();
+            _startDatePicker.Date = (NSDate)new DateTime(2011, 6, 13).ToUniversalTime();
+            _endDatePicker.Date = (NSDate)new DateTime(2012, 1, 7).ToUniversalTime();
         }
 
         private async void ApplyClicked(object sender, EventArgs e)
@@ -239,77 +223,36 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             }
         }
 
-        
-
-        private async void StartDateClick(object sender, EventArgs e)
+        private void DateSwitched(object sender, EventArgs e)
         {
-            try
-            {
-                DateTime promptDate = new DateTime(2011, 6, 13);
-                if (_startTime is DateTime validStart) promptDate = validStart;
-
-                DateTime? newTime = await PromptForDate(promptDate);
-                if (newTime is DateTime time)
-                {
-                    _startTime = time;
-                    _startDateButton.Title = time.ToShortDateString();
-                }
-                else
-                {
-                    _startTime = null;
-                    _startDateButton.Title = "Start date";
-                }
-            }
-            catch (Exception)
-            {
-            }
+            _startDatePicker.Enabled = _endDatePicker.Enabled = _dateSwitch.On;
         }
 
-        private async void EndDateClick(object sender, EventArgs e)
+        private void ClauseClick(object sender, EventArgs ev)
         {
-            try
-            {
-                DateTime promptDate = new DateTime(2011, 6, 13);
-                if (_endTime is DateTime validEnd) promptDate = validEnd;
+            // Start the UI for the user choosing the clause.
+            UIAlertController prompt = UIAlertController.Create(null, "Choose clause", UIAlertControllerStyle.ActionSheet);
 
-                DateTime? newTime = await PromptForDate(promptDate);
-                if (newTime is DateTime time)
-                {
-                    _endTime = time;
-                    _endDateButton.Title = time.ToShortDateString();
-                }
-                else
-                {
-                    _endTime = null;
-                    _endDateButton.Title = "End date";
-                }
-            }
-            catch (Exception)
+            foreach (string clause in _whereClauses)
             {
+                prompt.AddAction(UIAlertAction.Create(clause, UIAlertActionStyle.Default, ClauseSelected));
             }
-        }
 
-        private async Task<DateTime?> PromptForDate(DateTime promptDate)
-        {
-            return null;
-            
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                ppc.SourceView = _applyToolbar;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            PresentViewController(prompt, true, null);
         }
 
         private void ClauseSelected(UIAlertAction obj)
         {
-            throw new NotImplementedException();
-        }
-
-        
-
-        private void DateSwitched(object sender, EventArgs e)
-        {
-            _startDateButton.Enabled = _endDateButton.Enabled = _dateSwitch.On;
-        }
-
-        private void ClauseClick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
+            _whereClause = obj.Title;
+            _clauseButton.SetTitle(obj.Title, UIControlState.Normal);
         }
 
         public override void LoadView()
@@ -334,29 +277,22 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             var clauseStack = GetRowStackView(new UIView[] { clauseLabel, _clauseButton });
 
             UILabel maxLabel = new UILabel { Text = "Maximum features:", TranslatesAutoresizingMaskIntoConstraints = false };
-            _maxFeaturesEntry = new UITextField { TranslatesAutoresizingMaskIntoConstraints = false, Text = "3000", KeyboardType = UIKeyboardType.NumberPad };
+            _maxFeaturesEntry = new UITextField { TranslatesAutoresizingMaskIntoConstraints = false, Text = "3000" };
             var maxFeaturesStack = GetRowStackView(new UIView[] { maxLabel, _maxFeaturesEntry });
 
             UILabel dateLabel = new UILabel { Text = "Time extent:", TranslatesAutoresizingMaskIntoConstraints = false };
             _dateSwitch = new UISwitch { TranslatesAutoresizingMaskIntoConstraints = false, On = true };
             var dateSwitchStack = GetRowStackView(new UIView[] { dateLabel, _dateSwitch });
 
-            _startDateButton = new UIBarButtonItem { Title = "Start Date" };
-            _endDateButton = new UIBarButtonItem { Title = "End Date" };
-
-            var dateToolbar = new UIToolbar { TranslatesAutoresizingMaskIntoConstraints = false };
-            dateToolbar.Items = new[]
-            {
-                _startDateButton,
-                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _endDateButton
-            };
+            _startDatePicker = new UIDatePicker { PreferredDatePickerStyle = UIDatePickerStyle.Compact, Mode = UIDatePickerMode.Date };
+            _endDatePicker = new UIDatePicker { PreferredDatePickerStyle = UIDatePickerStyle.Compact, Mode = UIDatePickerMode.Date };
+            var datesStack = GetRowStackView(new UIView[] { _startDatePicker, _endDatePicker });
 
             _applyButton = new UIBarButtonItem { Title = "Apply" };
             _resetButton = new UIBarButtonItem { Title = "Reset" };
 
-            var applyToolbar = new UIToolbar { TranslatesAutoresizingMaskIntoConstraints = false };
-            applyToolbar.Items = new[]
+            _applyToolbar = new UIToolbar { TranslatesAutoresizingMaskIntoConstraints = false };
+            _applyToolbar.Items = new[]
             {
                 _applyButton,
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
@@ -364,7 +300,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             };
 
             // Add the views.
-            View.AddSubviews(_myMapView, _activityIndicator, dateSwitchStack, maxFeaturesStack, clauseStack, dateToolbar, applyToolbar);
+            View.AddSubviews(_myMapView, _activityIndicator, dateSwitchStack, maxFeaturesStack, clauseStack, datesStack, _applyToolbar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]{
@@ -384,19 +320,21 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
                 maxFeaturesStack.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
                 dateSwitchStack.TopAnchor.ConstraintEqualTo(maxFeaturesStack.BottomAnchor),
-                dateSwitchStack.BottomAnchor.ConstraintEqualTo(dateToolbar.TopAnchor),
+                dateSwitchStack.BottomAnchor.ConstraintEqualTo(datesStack.TopAnchor),
                 dateSwitchStack.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 dateSwitchStack.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-                dateToolbar.TopAnchor.ConstraintEqualTo(dateSwitchStack.BottomAnchor),
-                dateToolbar.BottomAnchor.ConstraintEqualTo(applyToolbar.TopAnchor),
-                dateToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                dateToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                datesStack.TopAnchor.ConstraintEqualTo(dateSwitchStack.BottomAnchor),
+                datesStack.BottomAnchor.ConstraintEqualTo(_applyToolbar.TopAnchor),
+                datesStack.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                datesStack.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
-                applyToolbar.TopAnchor.ConstraintEqualTo(dateToolbar.BottomAnchor),
-                applyToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
-                applyToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                applyToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                datesStack.HeightAnchor.ConstraintEqualTo(45),
+
+                _applyToolbar.TopAnchor.ConstraintEqualTo(datesStack.BottomAnchor),
+                _applyToolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                _applyToolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                _applyToolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
 
                 _activityIndicator.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
                 _activityIndicator.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
@@ -431,13 +369,9 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             // Subscribe to events.
             _clauseButton.TouchUpInside += ClauseClick;
             _dateSwitch.ValueChanged += DateSwitched;
-            _startDateButton.Clicked += StartDateClick;
-            _endDateButton.Clicked += EndDateClick;
             _applyButton.Clicked += ApplyClicked;
             _resetButton.Clicked += ResetClicked;
         }
-
-        
 
         public override void ViewDidDisappear(bool animated)
         {
@@ -446,8 +380,6 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             // Unsubscribe from events, per best practice.
             _clauseButton.TouchUpInside -= ClauseClick;
             _dateSwitch.ValueChanged -= DateSwitched;
-            _startDateButton.Clicked -= StartDateClick;
-            _endDateButton.Clicked -= EndDateClick;
             _applyButton.Clicked -= ApplyClicked;
             _resetButton.Clicked -= ResetClicked;
         }

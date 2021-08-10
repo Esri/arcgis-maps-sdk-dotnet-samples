@@ -37,10 +37,10 @@ namespace ArcGISRuntime.WPF.Samples.sample_name
         public sample_name()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
         }
     }

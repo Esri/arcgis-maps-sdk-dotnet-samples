@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 
@@ -34,10 +35,10 @@ namespace ArcGISRuntime.WinUI.Samples.sample_name
         public sample_name()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
         }
     }

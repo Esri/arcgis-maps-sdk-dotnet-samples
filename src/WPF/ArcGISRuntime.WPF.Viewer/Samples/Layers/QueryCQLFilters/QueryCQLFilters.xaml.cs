@@ -177,5 +177,13 @@ namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
                 LoadingProgressBar.Visibility = Visibility.Hidden;
             }
         }
+
+        private void DateBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (StartDatePicker != null && EndDatePicker != null)
+            {
+                StartDatePicker.IsEnabled = EndDatePicker.IsEnabled = DateBox.IsChecked == true;
+            }
+        }
     }
 }

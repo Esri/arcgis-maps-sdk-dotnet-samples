@@ -5,36 +5,75 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" Margin="5" />
         <Border Style="{StaticResource BorderStyle}">
-            <StackPanel Grid.Row="1"
-                        Margin="5"
-                        Orientation="Vertical">
-                <Label Content="Populate query parameters"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.ColumnSpan="2"
+                       Content="Populate query parameters"
                        FontWeight="Bold"
                        Foreground="Black" />
-                <Label Content="Where clause:" />
-                <ComboBox x:Name="WhereClauseBox" IsEditable="True" />
-                <Label Content="Max features:" />
-                <TextBox x:Name="MaxFeaturesBox" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Content="Where clause:" />
+                <ComboBox x:Name="WhereClauseBox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          IsEditable="True" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Content="Max features:" />
+                <TextBox x:Name="MaxFeaturesBox"
+                         Grid.Row="3"
+                         Grid.Column="1"
+                         Margin="5" />
                 <CheckBox x:Name="DateBox"
+                          Grid.Row="4"
+                          Grid.ColumnSpan="2"
                           Margin="5"
+                          Checked="DateBox_Checked"
                           Content="Time extent:"
-                          IsChecked="{Binding ElementName=DatePickers, Path=IsEnabled}" />
-                <StackPanel x:Name="DatePickers" Orientation="Horizontal">
-                    <DatePicker x:Name="StartDatePicker" Margin="5" />
-                    <DatePicker x:Name="EndDatePicker" Margin="5" />
-                </StackPanel>
+                          IsChecked="True"
+                          Unchecked="DateBox_Checked" />
+                <DatePicker x:Name="StartDatePicker"
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Margin="5" />
+                <DatePicker x:Name="EndDatePicker"
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Margin="5" />
                 <Button x:Name="ApplyQuery"
+                        Grid.Row="6"
+                        Grid.ColumnSpan="2"
                         Margin="5"
                         Click="ApplyQuery_Click"
                         Content="Apply query" />
-                <Label x:Name="NumberOfReturnedFeatures" />
+                <Label x:Name="NumberOfReturnedFeatures"
+                       Grid.Row="7"
+                       Grid.ColumnSpan="2" />
                 <ProgressBar x:Name="LoadingProgressBar"
+                             Grid.Row="8"
+                             Grid.ColumnSpan="2"
                              Height="10"
                              Margin="5"
                              IsEnabled="True"
                              IsIndeterminate="True"
                              Visibility="Visible" />
-            </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

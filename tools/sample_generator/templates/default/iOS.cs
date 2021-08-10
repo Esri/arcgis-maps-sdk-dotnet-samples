@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System.Threading.Tasks;
 using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.sample_name
@@ -38,7 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.sample_name
             Title = "friendly_name";
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
         }
 
@@ -65,7 +66,7 @@ namespace ArcGISRuntimeXamarin.Samples.sample_name
         public override void ViewDidLoad()
         {
             base.ViewDidLoad();
-            Initialize();
+            _ = Initialize();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         category: "Layers",
         description: "Query data from an OGC API feature service using CQL filters.",
         instructions: "Enter a CQL query. Press the \"Apply query\" button to see the query applied to the OGC API features shown on the map.",
-        tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web" })]
+        tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web", "Featured" })]
     public partial class QueryCQLFilters : ContentPage
     {
         private List<string> DefaultWhereClause = new List<string>
@@ -90,8 +90,8 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
                 // table to visualize the OAFeat features.
                 FeatureLayer ogcFeatureLayer = new FeatureLayer(_featureTable);
 
-                // Choose a renderer for the layer based on the table.
-                ogcFeatureLayer.Renderer = GetRendererForTable(_featureTable) ?? ogcFeatureLayer.Renderer;
+                // Set a renderer for the layer.
+                ogcFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 1.5));
 
                 // Add the layer to the map.
                 MyMapView.Map.OperationalLayers.Add(ogcFeatureLayer);
@@ -112,25 +112,6 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
                 // Update the UI.
                 LoadingProgressBar.IsVisible = false;
             }
-        }
-
-        private Renderer GetRendererForTable(FeatureTable table)
-        {
-            switch (table.GeometryType)
-            {
-                case GeometryType.Point:
-                case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 4));
-
-                case GeometryType.Polygon:
-                case GeometryType.Envelope:
-                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Green, null));
-
-                case GeometryType.Polyline:
-                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 1.5));
-            }
-
-            return null;
         }
 
         public QueryParameters CreateQueryParameters()

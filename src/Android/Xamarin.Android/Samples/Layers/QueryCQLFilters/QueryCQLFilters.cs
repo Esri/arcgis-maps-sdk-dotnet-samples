@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Widget;
 using ArcGISRuntime;
@@ -30,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         category: "Layers",
         description: "Query data from an OGC API feature service using CQL filters.",
         instructions: "Enter a CQL query. Press the \"Apply query\" button to see the query applied to the OGC API features shown on the map.",
-        tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web" })]
+        tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web", "Featured" })]
     public class QueryCQLFilters : Activity
     {
         // Hold references to the UI controls.
@@ -120,8 +121,8 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
                 // table to visualize the OAFeat features.
                 FeatureLayer ogcFeatureLayer = new FeatureLayer(_featureTable);
 
-                // Choose a renderer for the layer based on the table.
-                ogcFeatureLayer.Renderer = GetRendererForTable(_featureTable) ?? ogcFeatureLayer.Renderer;
+                // Set a renderer for the layer.
+                ogcFeatureLayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 1.5));
 
                 // Add the layer to the map.
                 _myMapView.Map.OperationalLayers.Add(ogcFeatureLayer);
@@ -144,36 +145,22 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             }
         }
 
-        private Renderer GetRendererForTable(FeatureTable table)
-        {
-            switch (table.GeometryType)
-            {
-                case GeometryType.Point:
-                case GeometryType.Multipoint:
-                    return new SimpleRenderer(new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 4));
-
-                case GeometryType.Polygon:
-                case GeometryType.Envelope:
-                    return new SimpleRenderer(new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Green, null));
-
-                case GeometryType.Polyline:
-                    return new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 1.5));
-            }
-
-            return null;
-        }
-
         public QueryParameters CreateQueryParameters()
         {
             // Create new query parameters.
             var queryParameters = new QueryParameters();
 
             // Assign the where clause if one is provided.
-            if (_whereClauseSpinner.SelectedItem?.ToString() is string selectedClause) queryParameters.WhereClause = selectedClause;
+            if (_whereClauseSpinner.SelectedItem?.ToString() is string selectedClause)
+            {
+                queryParameters.WhereClause = selectedClause;
+            }
 
             // Set the MaxFeatures property to MaxFeaturesBox content.
             if (int.TryParse(_maxFeatures.Text, out int parsedMaxFeatures))
+            {
                 queryParameters.MaxFeatures = parsedMaxFeatures;
+            }
 
             // Set user date times if provided.
             if (_dateSwitch.Checked)
@@ -252,7 +239,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
                 }
 
                 // Report the number of returned features by the query.
-                new AlertDialog.Builder(this).SetMessage($"Query returned {result.Count()} features.").SetTitle("Query Completed").Show();
+                new AlertDialog.Builder(this).SetMessage($"Query returned {result.Count()} features.").SetTitle("Query Completed").SetPositiveButton("OK", (EventHandler<DialogClickEventArgs>)null).Show();
             }
             catch (Exception ex)
             {
@@ -269,9 +256,14 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         {
             try
             {
+                // Prompt the user with the default time or currently set time.
                 DateTime promptDate = new DateTime(2011, 6, 13);
-                if (_startTime is DateTime validStart) promptDate = validStart;
+                if (_startTime is DateTime validStart)
+                {
+                    promptDate = validStart;
+                }
 
+                // Await the user selecting a date.
                 DateTime? newTime = await PromptForDate(promptDate);
                 if (newTime is DateTime time)
                 {
@@ -293,9 +285,14 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         {
             try
             {
+                // Prompt the user with the default time or currently set time.
                 DateTime promptDate = new DateTime(2011, 6, 13);
-                if (_endTime is DateTime validEnd) promptDate = validEnd;
+                if (_endTime is DateTime validEnd)
+                {
+                    promptDate = validEnd;
+                }
 
+                // Await the user selecting a date.
                 DateTime? newTime = await PromptForDate(promptDate);
                 if (newTime is DateTime time)
                 {
@@ -321,7 +318,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
                 _dateTimeTCS = new TaskCompletionSource<DateTime>();
 
                 // Prompt the user for a datetime.
-                DatePickerDialog dialog = new DatePickerDialog(this, callback, initialTime.Year, initialTime.Month, initialTime.Day);
+                DatePickerDialog dialog = new DatePickerDialog(this, DatePromptCallback, initialTime.Year, initialTime.Month, initialTime.Day);
                 dialog.CancelEvent += (s, e) => { _dateTimeTCS.SetCanceled(); };
                 dialog.Show();
 
@@ -334,10 +331,11 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             }
         }
 
-        private void callback(object sender, DatePickerDialog.DateSetEventArgs e)
+        private void DatePromptCallback(object sender, DatePickerDialog.DateSetEventArgs e)
         {
             try
             {
+                // Set the result of the task completion source using the date the user selected via the control.
                 _dateTimeTCS.SetResult(e.Date);
             }
             catch (Exception)

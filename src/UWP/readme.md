@@ -124,6 +124,7 @@
 * [Query map image sublayer](ArcGISRuntime.UWP.Viewer/Samples/Layers/MapImageSublayerQuery/readme.md) - Find features in a sublayer based on attributes and location.
 * [OpenStreetMap layer](ArcGISRuntime.UWP.Viewer/Samples/Layers/OpenStreetMapLayer/readme.md) - Add OpenStreetMap as a basemap layer.
 * [Play KML Tour](ArcGISRuntime.UWP.Viewer/Samples/Layers/PlayKmlTours/readme.md) - Play tours in KML files.
+* [Query with CQL filters](ArcGISRuntime.UWP.Viewer/Samples/Layers/QueryCQLFilters/readme.md) - Query data from an OGC API feature service using CQL filters.
 * [Colormap renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterColormapRenderer/readme.md) - Apply a colormap renderer to a raster.
 * [Raster hillshade renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterHillshade/readme.md) - Use a hillshade renderer on a raster.
 * [Raster layer (file)](ArcGISRuntime.UWP.Viewer/Samples/Layers/RasterLayerFile/readme.md) - Create and use a raster layer made from a local raster file.

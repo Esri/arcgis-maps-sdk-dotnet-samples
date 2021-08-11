@@ -20,9 +20,9 @@
         "world-scale"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.11.0",
-        "Esri.ArcGISRuntime.ARToolkit": "100.11.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.11.0",
+        "Esri.ArcGISRuntime": "100.12.0",
+        "Esri.ArcGISRuntime.ARToolkit": "100.12.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.12.0",
         "Xamarin.Auth": "1.7.0"
     },
     "offline_data": [],
@@ -40,6 +40,7 @@
     ],
     "snippets": [
         "../../../Controls/JoystickSeekBar.cs",
+        "../../../Helpers/ArcGISLoginPrompt.cs",
         "../../../Resources/layout/NavigateARNavigator.axml",
         "../../../Resources/layout/NavigateARRoutePlanner.axml",
         "../../../Resources/values/Attrs.xml",

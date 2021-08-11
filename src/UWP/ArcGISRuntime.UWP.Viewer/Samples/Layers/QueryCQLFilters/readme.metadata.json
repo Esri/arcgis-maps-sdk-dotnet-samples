@@ -1,0 +1,40 @@
+{
+    "category": "Layers",
+    "description": "Query data from an OGC API feature service using CQL filters.",
+    "formal_name": "QueryCQLFilters",
+    "ignore": false,
+    "images": [
+        "QueryCQLFilters.jpg"
+    ],
+    "keywords": [
+        "CQL",
+        "OGC",
+        "OGC API",
+        "browse",
+        "catalog",
+        "common query language",
+        "feature table",
+        "filter",
+        "query",
+        "service",
+        "web"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.11.0",
+        "Esri.ArcGISRuntime.UWP": "100.11.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/uwp/sample-code/querycqlfilters.htm"
+    ],
+    "relevant_apis": [
+        "OgcFeatureCollectionTable",
+        "QueryParameters",
+        "TimeExtent"
+    ],
+    "snippets": [
+        "QueryCQLFilters.xaml",
+        "QueryCQLFilters.xaml.cs"
+    ],
+    "title": "Query with CQL filters"
+}

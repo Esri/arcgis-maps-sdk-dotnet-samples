@@ -124,6 +124,7 @@
 * [Query map image sublayer](Shared/Samples/Layers/MapImageSublayerQuery/readme.md) - Find features in a sublayer based on attributes and location.
 * [OpenStreetMap layer](Shared/Samples/Layers/OpenStreetMapLayer/readme.md) - Add OpenStreetMap as a basemap layer.
 * [Play KML Tour](Shared/Samples/Layers/PlayKmlTours/readme.md) - Play tours in KML files.
+* [Query with CQL filters](Shared/Samples/Layers/QueryCQLFilters/readme.md) - Query data from an OGC API feature service using CQL filters.
 * [Colormap renderer](Shared/Samples/Layers/RasterColormapRenderer/readme.md) - Apply a colormap renderer to a raster.
 * [Raster hillshade renderer](Shared/Samples/Layers/RasterHillshade/readme.md) - Use a hillshade renderer on a raster.
 * [Raster layer (file)](Shared/Samples/Layers/RasterLayerFile/readme.md) - Create and use a raster layer made from a local raster file.

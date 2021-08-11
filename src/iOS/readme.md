@@ -132,6 +132,7 @@
 * [Query map image sublayer](Xamarin.iOS/Samples/Layers/MapImageSublayerQuery/readme.md) - Find features in a sublayer based on attributes and location.
 * [OpenStreetMap layer](Xamarin.iOS/Samples/Layers/OpenStreetMapLayer/readme.md) - Add OpenStreetMap as a basemap layer.
 * [Play KML Tour](Xamarin.iOS/Samples/Layers/PlayKmlTours/readme.md) - Play tours in KML files.
+* [Query with CQL filters](Xamarin.iOS/Samples/Layers/QueryCQLFilters/readme.md) - Query data from an OGC API feature service using CQL filters.
 * [Colormap renderer](Xamarin.iOS/Samples/Layers/RasterColormapRenderer/readme.md) - Apply a colormap renderer to a raster.
 * [Raster hillshade renderer](Xamarin.iOS/Samples/Layers/RasterHillshade/readme.md) - Use a hillshade renderer on a raster.
 * [Raster layer (file)](Xamarin.iOS/Samples/Layers/RasterLayerFile/readme.md) - Create and use a raster layer made from a local raster file.

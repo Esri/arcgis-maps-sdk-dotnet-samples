@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.UWP.Samples.sample_name
@@ -33,10 +34,10 @@ namespace ArcGISRuntime.UWP.Samples.sample_name
         public sample_name()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
         }
     }

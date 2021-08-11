@@ -19,6 +19,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntimeXamarin.Samples.sample_name
 {
@@ -41,10 +42,10 @@ namespace ArcGISRuntimeXamarin.Samples.sample_name
             Title = "friendly_name";
 
             CreateLayout();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
         }
 

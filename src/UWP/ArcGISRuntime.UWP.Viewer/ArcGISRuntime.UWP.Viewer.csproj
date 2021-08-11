@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg" />
     <Content Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
     <Content Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.jpg" />
     <Content Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
@@ -381,6 +382,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml.cs">
+      <DependentUpon>QueryCQLFilters.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ArcGISLoginPrompt.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -985,6 +989,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -11,7 +11,7 @@
                            TextAlignment="Center" FontWeight="SemiBold" />
                 <ComboBox x:Name="MapList" 
                           HorizontalAlignment="Stretch"
-                          SelectionChanged="OnMapsChooseSelectionChanged" />
+                          SelectionChanged="MapSelectionChanged" />
             </StackPanel>
         </Border>
     </Grid>

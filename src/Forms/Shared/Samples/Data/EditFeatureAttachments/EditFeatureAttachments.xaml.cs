@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,8 +21,8 @@ using Xamarin.Forms;
 using Foundation;
 using UIKit;
 #else
-using Plugin.FilePicker;
-using Plugin.FilePicker.Abstractions;
+using Xamarin.Essentials;
+using Map = Esri.ArcGISRuntime.Mapping.Map; // avoid ambiguity with Xamarin.Essentials.Map
 #endif
 
 namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
@@ -151,7 +151,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 filename = _filename ?? "file1.jpeg";
 #else
                 // Show a file picker - this uses the Xamarin.Plugin.FilePicker NuGet package.
-                FileData fileData = await CrossFilePicker.Current.PickFile(new[] {".jpg", ".jpeg"});
+                FileResult fileData = await FilePicker.PickAsync(new PickOptions { FileTypes = FilePickerFileType.Jpeg });
                 if (fileData == null)
                 {
                     return;
@@ -163,7 +163,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                     return;
                 }
 
-                attachmentData = fileData.DataArray;
+                using (Stream fileStream = await fileData.OpenReadAsync())
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await fileStream.CopyToAsync(memoryStream);
+                        attachmentData = memoryStream.ToArray();
+                    }
+                }
                 filename = fileData.FileName;
 #endif
                 // Add the attachment.

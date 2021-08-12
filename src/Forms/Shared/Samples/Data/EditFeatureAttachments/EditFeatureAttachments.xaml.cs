@@ -1,4 +1,4 @@
-// Copyright 2019 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -104,11 +104,8 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 // Load the feature.
                 await tappedFeature.LoadAsync();
 
-                // Get the attachments.
-                IReadOnlyList<Attachment> attachments = await tappedFeature.GetAttachmentsAsync();
-
                 // Populate the UI with a list of attachments that have a content type of image/jpeg.
-                AttachmentsListBox.ItemsSource = attachments.Where(attachment => attachment.ContentType == "image/jpeg");
+                AttachmentsListBox.ItemsSource = await GetJpegAttachmentsAsync(tappedFeature);
                 AttachmentsListBox.IsEnabled = true;
                 AddAttachmentButton.IsEnabled = true;
             }
@@ -185,7 +182,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
                 // Update UI.
                 _selectedFeature.Refresh();
-                AttachmentsListBox.ItemsSource = await _selectedFeature.GetAttachmentsAsync();
+                AttachmentsListBox.ItemsSource = await GetJpegAttachmentsAsync(_selectedFeature);
 
                 await Application.Current.MainPage.DisplayAlert("Success!", "Successfully added attachment", "OK");
             }
@@ -222,7 +219,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
                 // Update UI.
                 _selectedFeature.Refresh();
-                AttachmentsListBox.ItemsSource = await _selectedFeature.GetAttachmentsAsync();
+                AttachmentsListBox.ItemsSource = await GetJpegAttachmentsAsync(_selectedFeature);
 
                 // Show success message.
                 await Application.Current.MainPage.DisplayAlert("Success!", "Successfully deleted attachment", "OK");
@@ -267,6 +264,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             {
                 await Application.Current.MainPage.DisplayAlert("Error reading attachment", exception.ToString(), "OK");
             }
+        }
+
+        private static async Task<IEnumerable<Attachment>> GetJpegAttachmentsAsync(ArcGISFeature feature)
+        {
+            IReadOnlyList<Attachment> attachments = await feature.GetAttachmentsAsync();
+            return attachments.Where(attachment => attachment.ContentType == "image/jpeg").ToList();
         }
 
         // Image picker implementation.

@@ -22,7 +22,7 @@ namespace ArcGISRuntime.WinUI.Samples.ViewshedLocation
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Viewshed (location)",
         category: "Analysis",
-        description: "Perform a viewshed analysis from a defined vantage point. ",
+        description: "Perform a viewshed analysis from a defined vantage point.",
         instructions: "Use the sliders to change the properties (heading, pitch, etc.), of the viewshed and see them updated in real time.",
         tags: new[] { "3D", "frustum", "scene", "viewshed", "visibility analysis" })]
     public partial class ViewshedLocation

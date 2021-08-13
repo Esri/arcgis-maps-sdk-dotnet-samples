@@ -17,11 +17,11 @@
         <ListView Grid.Row="1" x:Name="RendererTypes" ItemSelected="RendererTypes_SelectionChanged"/>
         <StackLayout Orientation="Horizontal" Grid.Row="2">
             <Label x:Name="Label_Parameter1" Text="Parameter1" />
-            <Entry x:Name="Input_Parameter1" Text="EnterValue1" />
+            <Entry x:Name="Input_Parameter1" Text="EnterValue1" Keyboard="Numeric" />
         </StackLayout>
         <StackLayout Orientation="Horizontal" Grid.Row="3">
             <Label x:Name="Label_Parameter2" Text="Parameter2" />
-            <Entry x:Name="Input_Parameter2" Text="EnterValue2" />
+            <Entry x:Name="Input_Parameter2" Text="EnterValue2" Keyboard="Numeric" />
         </StackLayout>
         <Button Grid.Row="4" x:Name="UpdateRenderer" Clicked="OnUpdateRendererClicked" Text="Update Renderer" />
         <esriUI:MapView Grid.Row="5" x:Name="MyMapView" />

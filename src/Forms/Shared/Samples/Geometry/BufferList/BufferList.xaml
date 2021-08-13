@@ -25,7 +25,7 @@
                 Text="Tap the map to add points. Each point uses the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffers with this map's spatial reference." />
             <StackLayout Grid.Row="1" Orientation="Horizontal">
                 <Label Text="Buffer distance (miles):" VerticalOptions="Center" />
-                <Entry x:Name="BufferDistanceMilesEntry" Text="10" />
+                <Entry x:Name="BufferDistanceMilesEntry" Text="10" Keyboard="Numeric" />
             </StackLayout>
             <StackLayout Grid.Row="2" Orientation="Horizontal">
                 <Label Text="Union the buffers:" VerticalOptions="Center" />

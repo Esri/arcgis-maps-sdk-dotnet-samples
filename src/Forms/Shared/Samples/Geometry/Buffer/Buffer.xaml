@@ -39,6 +39,7 @@
                    Margin="5,0,0,0"/>
             <Entry x:Name="BufferDistanceMilesEntry" 
                    Grid.Row="1" Grid.Column="1"
+                   Keyboard="Numeric"
                    HorizontalTextAlignment="Start"
                    Margin="0,5"
                    Text="1000"/>

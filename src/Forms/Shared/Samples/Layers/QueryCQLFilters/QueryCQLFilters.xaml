@@ -44,7 +44,8 @@
                        Text="Max features:" />
                 <Entry x:Name="MaxFeaturesBox"
                        Grid.Row="2"
-                       Grid.Column="1" />
+                       Grid.Column="1"
+                       Keyboard="Numeric" />
                 <Label Grid.Row="3"
                        Grid.Column="0"
                        Text="Time extent" />

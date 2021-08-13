@@ -1,10 +1,10 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Android.App;
@@ -18,7 +18,7 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.OpenMapURL
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Open map URL",
         category: "Map",
@@ -30,18 +30,18 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         // Hold a reference to the map view
         private MapView _myMapView;
 
-        // String array to hold urls to publicly available web maps
-        private string[] itemURLs = {
-            "https://www.arcgis.com/home/item.html?id=392451c381ad4109bf04f7bd442bc038",
-            "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
-            "https://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
+        // String array to hold urls to publicly available web maps.
+        private string[] _itemUrls = {
+            "https://arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd",
+            "https://arcgis.com/home/item.html?id=5be0bc3ee36c4e058f7b3cebc21c74e6",
+            "https://arcgis.com/home/item.html?id=064f2e898b094a17b84e4a4cd5e5f549"
         };
 
-        // String array to store titles for the webmaps specified above. These titles are in the same order as the urls above
-        private string[] titles = {
-            "Population Pressure",
-            "USA Tapestry Segmentation",
-            "Geology of United States"
+        // String array to store titles for the webmaps specified above.
+        private string[] _titles = {
+            "Geology for United States",
+            "Terrestrial Ecosystems of the World",
+            "Recent Hurricanes, Cyclones and Typhoons"
         };
 
         protected override void OnCreate(Bundle bundle)
@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 
             Title = "Open map (URL)";
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             CreateLayout();
             Initialize();
         }
@@ -58,10 +58,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         private void Initialize()
         {
             // Create a new Map instance with url of the webmap that is displayed by default
-            Map myMap = new Map(new Uri(itemURLs[0]));
-
-            // Provide used Map to the MapView
-            _myMapView.Map = myMap;
+            _myMapView.Map = new Map(new Uri(_itemUrls[0]));
         }
 
         private void OnMapsClicked(object sender, EventArgs e)
@@ -73,7 +70,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             mapsMenu.MenuItemClick += OnMapsMenuItemClicked;
 
             // Create menu options
-            foreach (string title in titles)
+            foreach (string title in _titles)
                 mapsMenu.Menu.Add(title);
 
             // Show menu in the view
@@ -86,10 +83,10 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             string selectedMapTitle = e.Item.TitleCondensedFormatted.ToString();
 
             // Get index that is used to get the selected url
-            int selectedIndex = titles.ToList().IndexOf(selectedMapTitle);
+            int selectedIndex = _titles.ToList().IndexOf(selectedMapTitle);
 
             // Create a new Map instance with url of the webmap that selected
-            _myMapView.Map = new Map(new Uri(itemURLs[selectedIndex]));
+            _myMapView.Map = new Map(new Uri(_itemUrls[selectedIndex]));
         }
 
         private void CreateLayout()

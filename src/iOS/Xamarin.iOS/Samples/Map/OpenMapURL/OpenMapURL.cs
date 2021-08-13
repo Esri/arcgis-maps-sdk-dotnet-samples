@@ -1,16 +1,16 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
 using UIKit;
 
 namespace ArcGISRuntime.Samples.OpenMapURL
@@ -28,20 +28,18 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         private MapView _myMapView;
         private UIBarButtonItem _selectMapButton;
 
-        // String array to hold URLs to publicly available web maps.
-        private readonly string[] _itemUrLs =
-        {
-            "https://www.arcgis.com/home/item.html?id=6c55717376ff4faaa18ea75e0388e4b2",
-            "https://www.arcgis.com/home/item.html?id=01f052c8995e4b9e889d73c3e210ebe3",
-            "https://www.arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd"
+        // String array to hold urls to publicly available web maps.
+        private string[] _itemURLs = {
+            "https://arcgis.com/home/item.html?id=92ad152b9da94dee89b9e387dfe21acd",
+            "https://arcgis.com/home/item.html?id=5be0bc3ee36c4e058f7b3cebc21c74e6",
+            "https://arcgis.com/home/item.html?id=064f2e898b094a17b84e4a4cd5e5f549"
         };
 
-        // String array to store titles for the webmaps specified above. These titles are in the same order as the URLs above.
-        private readonly string[] _titles =
-        {
-            "Kilauea volcanic eruption",
-            "USA Tapestry Segmentation",
-            "Geology of the United States"
+        // String array to store titles for the webmaps specified above.
+        private string[] _titles = {
+            "Geology for United States",
+            "Terrestrial Ecosystems of the World",
+            "Recent Hurricanes, Cyclones and Typhoons"
         };
 
         public OpenMapURL()
@@ -52,7 +50,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         private void Initialize()
         {
             // Show the first webmap by default.
-            _myMapView.Map = new Map(new Uri(_itemUrLs[0]));
+            _myMapView.Map = new Map(new Uri(_itemURLs[0]));
         }
 
         private void OnMapsButtonTouch(object sender, EventArgs e)
@@ -63,11 +61,11 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             // Add actions to alert. Selecting an option re-initializes the Map
             // with selected webmap URL and assigns it to MapView.
             actionSheetAlert.AddAction(UIAlertAction.Create(_titles[0], UIAlertActionStyle.Default,
-                action => _myMapView.Map = new Map(new Uri(_itemUrLs[0]))));
+                action => _myMapView.Map = new Map(new Uri(_itemURLs[0]))));
             actionSheetAlert.AddAction(UIAlertAction.Create(_titles[1], UIAlertActionStyle.Default,
-                action => _myMapView.Map = new Map(new Uri(_itemUrLs[1]))));
+                action => _myMapView.Map = new Map(new Uri(_itemURLs[1]))));
             actionSheetAlert.AddAction(UIAlertAction.Create(_titles[2], UIAlertActionStyle.Default,
-                action => _myMapView.Map = new Map(new Uri(_itemUrLs[2]))));
+                action => _myMapView.Map = new Map(new Uri(_itemURLs[2]))));
             PresentViewController(actionSheetAlert, true, null);
         }
 
@@ -80,7 +78,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView {BackgroundColor = ApplicationTheme.BackgroundColor};
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;

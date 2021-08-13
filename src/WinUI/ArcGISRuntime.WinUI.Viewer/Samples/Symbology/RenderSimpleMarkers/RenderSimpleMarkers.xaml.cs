@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WinUI.Samples.RenderSimpleMarkers
         category: "Symbology",
         description: "Show a simple marker symbol on a map.",
         instructions: "The sample loads with a predefined simple marker symbol, set as a red circle.",
-        tags: new[] { "SimpleMarkerSymbol", "symbol" })]
+        tags: new[] { "symbol" })]
     public sealed partial class RenderSimpleMarkers
     {
         public RenderSimpleMarkers()

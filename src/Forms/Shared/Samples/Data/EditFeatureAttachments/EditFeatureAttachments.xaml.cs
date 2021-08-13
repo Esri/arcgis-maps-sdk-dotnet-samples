@@ -1,10 +1,10 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+
 // Custom code is needed for presenting the image picker on iOS.
 #if __IOS__
 using Foundation;
@@ -95,7 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
 
                 // Get the selected feature as an ArcGISFeature. It is assumed that all GeoElements in the result are of type ArcGISFeature.
                 GeoElement tappedElement = identifyResult.GeoElements.First();
-                ArcGISFeature tappedFeature = (ArcGISFeature) tappedElement;
+                ArcGISFeature tappedFeature = (ArcGISFeature)tappedElement;
 
                 // Select the feature in the UI and hold a reference to the tapped feature in a field.
                 _damageLayer.SelectFeature(tappedFeature);
@@ -175,7 +176,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
                 await _selectedFeature.AddAttachmentAsync(filename, contentType, attachmentData);
 
                 // Get a reference to the feature's service feature table.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
 
                 // Apply the edits to the service feature table.
                 await serviceTable.ApplyEditsAsync();
@@ -205,14 +206,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             try
             {
                 // Get the attachment that should be deleted.
-                Button sendingButton = (Button) sender;
-                Attachment selectedAttachment = (Attachment) sendingButton.BindingContext;
+                Button sendingButton = (Button)sender;
+                Attachment selectedAttachment = (Attachment)sendingButton.BindingContext;
 
                 // Delete the attachment.
                 await _selectedFeature.DeleteAttachmentAsync(selectedAttachment);
 
                 // Get a reference to the feature's service feature table.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
 
                 // Apply the edits to the service feature table.
                 await serviceTable.ApplyEditsAsync();
@@ -239,10 +240,10 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             try
             {
                 // Get a reference to the button that raised the event.
-                Button sendingButton = (Button) sender;
+                Button sendingButton = (Button)sender;
 
                 // Get the attachment from the button's DataContext. The button's DataContext is set by the list view.
-                Attachment selectedAttachment = (Attachment) sendingButton.BindingContext;
+                Attachment selectedAttachment = (Attachment)sendingButton.BindingContext;
 
                 if (selectedAttachment.ContentType.Contains("image"))
                 {

@@ -58,7 +58,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 await GetLocalGeodatabase();
 
                 // Once the local geodatabase is available, load the tables as layers to the map
-                LoadLocalGeodatabaseTables();
+                await LoadLocalGeodatabaseTables();
             };
             
             // Create a new map with the oceans basemap and add it to the map view
@@ -131,13 +131,13 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 // Show a message for the exception encountered
                 Device.BeginInvokeOnMainThread(() =>
                 {
-                    Application.Current.MainPage.DisplayAlert("Generate Geodatabase","Unable to create offline database: " + ex.Message,"OK");
+                    Application.Current.MainPage.DisplayAlert("Generate Geodatabase", "Unable to create offline database: " + ex.Message, "OK");
                 });
             }
         }
 
         // Function that loads the two point tables from the local geodatabase and displays them as feature layers
-        private async void LoadLocalGeodatabaseTables()
+        private async Task LoadLocalGeodatabaseTables()
         {
             if (_localGeodatabase == null) { return; }
 
@@ -179,6 +179,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             {
                 MyMapView.SetViewpoint(new Viewpoint(_marineTable.Extent));
                 StartEditingButton.IsEnabled = true;
+                SyncEditsButton.IsEnabled = true;
             });
         }
 

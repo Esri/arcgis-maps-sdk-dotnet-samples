@@ -220,6 +220,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
             else
             {
+                _featureLayer.ClearSelection();
                 try
                 {
                     // Perform an identify to determine if a user tapped on a feature.
@@ -244,15 +245,13 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
                     DamageBox.SelectedItem = currentAttributeValue;
 
                     MoveText.IsVisible = DamageBox.IsEnabled = _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName;
+
+                    // Update the UI for the selection.
+                    SwitchView(AttributeView);
                 }
                 catch (Exception ex)
                 {
                     ShowAlert(ex.Message, ex.GetType().Name);
-                }
-                finally
-                {
-                    // Update the UI for the selection.
-                    SwitchView(AttributeView);
                 }
             }
         }

@@ -117,6 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Location\Geotriggers\Geotriggers.jpg" />
     <Content Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg" />
     <Content Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
     <Content Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.jpg" />
@@ -382,6 +383,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Location\Geotriggers\Geotriggers.xaml.cs">
+      <DependentUpon>Geotriggers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml.cs">
       <DependentUpon>QueryCQLFilters.xaml</DependentUpon>
     </Compile>
@@ -989,6 +993,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Location\Geotriggers\Geotriggers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

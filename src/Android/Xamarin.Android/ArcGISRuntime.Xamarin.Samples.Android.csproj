@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="Samples\Location\Geotriggers\Geotriggers.jpg" />
     <None Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg" />
     <None Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
     <None Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.jpg" />
@@ -280,6 +281,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Location\Geotriggers\Geotriggers.cs" />
     <Compile Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.cs" />
     <Compile Include="Helpers\ArcGISLoginPrompt.cs" />
     <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.cs" />

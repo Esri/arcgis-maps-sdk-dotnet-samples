@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Location\Geotriggers\Geotriggers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.jpg" />
@@ -205,6 +206,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\Geotriggers\Geotriggers.xaml.cs">
+      <DependentUpon>Geotriggers.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml.cs">
       <DependentUpon>QueryCQLFilters.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -889,6 +894,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\Geotriggers\Geotriggers.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

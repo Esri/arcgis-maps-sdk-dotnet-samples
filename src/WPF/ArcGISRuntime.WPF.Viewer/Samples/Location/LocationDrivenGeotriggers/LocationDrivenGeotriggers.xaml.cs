@@ -24,17 +24,17 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.WPF.Samples.Geotriggers
+namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set up location-driven Geotriggers",
+        "Set up location-driven LocationDrivenGeotriggers",
         "Location",
         "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public partial class Geotriggers
+    public partial class LocationDrivenGeotriggers
     {
-        public Geotriggers()
+        public LocationDrivenGeotriggers()
         {
             InitializeComponent();
             _ = Initialize();

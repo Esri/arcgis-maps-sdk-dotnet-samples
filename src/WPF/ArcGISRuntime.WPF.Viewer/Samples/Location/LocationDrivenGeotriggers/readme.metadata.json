@@ -1,10 +1,10 @@
 {
     "category": "Location",
     "description": "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",
-    "formal_name": "Geotriggers",
+    "formal_name": "LocationDrivenGeotriggers",
     "ignore": false,
     "images": [
-        "Geotriggers.jpg"
+        "LocationDrivenGeotriggers.jpg"
     ],
     "keywords": [
     ],
@@ -12,11 +12,11 @@
         "Esri.ArcGISRuntime": "100.10.0"
     },
     "redirect_from": [
-        "/net/latest/wpf/sample-code/Geotriggers.htm"
+        "/net/latest/wpf/sample-code/LocationDrivenGeotriggers.htm"
     ],
     "relevant_apis": [
     ],
     "snippets": [
     ],
-    "title": "Set up location-driven Geotriggers"
+    "title": "Set up location-driven LocationDrivenGeotriggers"
 }

@@ -1,4 +1,4 @@
-﻿// Copyright 2021 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,6 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using Android.App;
+using Android.OS;
+using Android.Widget;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -16,29 +19,47 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.Geotriggers
+namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
 {
+    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set up location-driven Geotriggers",
+        "Set up location-driven LocationDrivenGeotriggers",
         "Location",
         "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public partial class Geotriggers
+    public class LocationDrivenGeotriggers : Activity
     {
-        public Geotriggers()
+        // Hold references to the UI controls.
+        private MapView _myMapView;
+
+        protected override void OnCreate(Bundle bundle)
         {
-            InitializeComponent();
+            base.OnCreate(bundle);
+
+            Title = "Set up location-driven LocationDrivenGeotriggers";
+
+            CreateLayout();
             _ = Initialize();
         }
 
         private async Task Initialize()
         {
+        }
+
+        private void CreateLayout()
+        {
+            // Create a new vertical layout for the app.
+            var layout = new LinearLayout(this) { Orientation = Orientation.Vertical };
+
+            // Add the map view to the layout.
+            _myMapView = new MapView(this);
+            layout.AddView(_myMapView);
+
+            // Show the layout in the app.
+            SetContentView(layout);
         }
     }
 }

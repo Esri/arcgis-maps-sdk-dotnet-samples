@@ -117,7 +117,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <Content Include="Samples\Location\Geotriggers\Geotriggers.jpg" />
+    <Content Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.jpg" />
     <Content Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg" />
     <Content Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
     <Content Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.jpg" />
@@ -383,8 +383,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="Samples\Location\Geotriggers\Geotriggers.xaml.cs">
-      <DependentUpon>Geotriggers.xaml</DependentUpon>
+    <Compile Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.xaml.cs">
+      <DependentUpon>LocationDrivenGeotriggers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml.cs">
       <DependentUpon>QueryCQLFilters.xaml</DependentUpon>
@@ -993,7 +993,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <Page Include="Samples\Location\Geotriggers\Geotriggers.xaml">
+    <Page Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,4 +1,4 @@
-﻿// Copyright 2021 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -16,20 +16,23 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Input;
 
-namespace ArcGISRuntimeXamarin.Samples.Geotriggers
+namespace ArcGISRuntime.WinUI.Samples.LocationDrivenGeotriggers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set up location-driven Geotriggers",
+        "Set up location-driven LocationDrivenGeotriggers",
         "Location",
         "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public partial class Geotriggers : ContentPage
+    public partial class LocationDrivenGeotriggers
     {
-        public Geotriggers()
+        public LocationDrivenGeotriggers()
         {
             InitializeComponent();
             _ = Initialize();

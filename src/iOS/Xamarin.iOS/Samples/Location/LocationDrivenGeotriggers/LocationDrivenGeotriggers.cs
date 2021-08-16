@@ -20,23 +20,23 @@ using Foundation;
 using System.Threading.Tasks;
 using UIKit;
 
-namespace ArcGISRuntimeXamarin.Samples.Geotriggers
+namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
 {
-    [Register("Geotriggers")]
+    [Register("LocationDrivenGeotriggers")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Set up location-driven Geotriggers",
+        "Set up location-driven LocationDrivenGeotriggers",
         "Location",
         "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public class Geotriggers : UIViewController
+    public class LocationDrivenGeotriggers : UIViewController
     {
         // Hold references to UI controls.
         private MapView _myMapView;
 
-        public Geotriggers()
+        public LocationDrivenGeotriggers()
         {
-            Title = "Set up location-driven Geotriggers";
+            Title = "Set up location-driven LocationDrivenGeotriggers";
         }
 
         private async Task Initialize()

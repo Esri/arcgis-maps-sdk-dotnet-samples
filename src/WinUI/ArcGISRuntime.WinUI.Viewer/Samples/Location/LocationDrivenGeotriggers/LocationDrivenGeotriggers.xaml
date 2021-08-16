@@ -1,5 +1,5 @@
 <UserControl 
-    x:Class="ArcGISRuntime.WinUI.Samples.Geotriggers.Geotriggers"
+    x:Class="ArcGISRuntime.WinUI.Samples.LocationDrivenGeotriggers.LocationDrivenGeotriggers"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="using:Esri.ArcGISRuntime"

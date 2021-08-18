@@ -3,6 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label x:Name="NameLabel" FontWeight="ExtraBold" />
+                <Image x:Name="LocationImage"
+                       Height="150"
+                       Margin="5" />
+                <ScrollViewer Height="150">
+                    <TextBlock x:Name="Description" TextWrapping="Wrap" />
+                </ScrollViewer>
+                <ListView x:Name="LocationList"
+                          Height="150"
+                          SelectionChanged="LocationList_SelectionChanged"
+                          SelectionMode="Single" />
+                <Button x:Name="PlayPauseButton"
+                        Margin="5"
+                        Click="PlayPauseClicked"
+                        Content="Pause" />
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

@@ -17,10 +17,13 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
@@ -37,13 +40,16 @@ namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
         private SimulatedLocationDataSource _simulatedSource;
         private LocationGeotriggerFeed _geotriggerFeed;
 
-        private ServiceFeatureTable gardenSections;
-        private ServiceFeatureTable gardenPoints;
+        private ServiceFeatureTable _gardenSections;
+        private ServiceFeatureTable _gardenPoints;
 
         private GeotriggerMonitor _sectionMonitor;
         private GeotriggerMonitor _pointsMonitor;
 
-        private Dictionary<string, Tuple<ArcGISFeature, string, string>> _featureMap = new Dictionary<string, Tuple<ArcGISFeature, string, string>>();
+        private List<GeotriggerFeature> _features = new List<GeotriggerFeature>();
+        private ObservableCollection<GeotriggerFeature> _displayedFeatures = new ObservableCollection<GeotriggerFeature>();
+
+        private const string ImageFolderName = "GeotriggerImages";
 
         public LocationDrivenGeotriggers()
         {
@@ -55,16 +61,15 @@ namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
         {
             try
             {
-                // This sample uses a web map with a predefined tile basemap, feature styles, and labels
+                // This sample uses a web map with a predefined tile basemap, feature styles, and labels.
                 MyMapView.Map = new Map(new Uri("https://www.arcgis.com/home/item.html?id=6ab0e91dc39e478cae4f408e1a36a308"));
+                await MyMapView.Map.LoadAsync();
 
-                // Instantiate the service feature tables to later create GeotriggerMonitors for.
-                gardenSections = new ServiceFeatureTable(new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/garden_sections/FeatureServer/0"));
-                gardenPoints = new ServiceFeatureTable(new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Santa_Barbara_Botanic_Garden_Points_of_Interest/FeatureServer/0"));
+                // Get service feature tables from the map to create GeotriggerMonitors for.
+                _gardenSections = ((FeatureLayer)MyMapView.Map.OperationalLayers.ToArray()[0]).FeatureTable as ServiceFeatureTable;
+                _gardenPoints = ((FeatureLayer)MyMapView.Map.OperationalLayers.ToArray()[2]).FeatureTable as ServiceFeatureTable;
 
-                await gardenSections.LoadAsync();
-                await gardenPoints.LoadAsync();
-
+                // Create a simulated location data source for simulating a path through the data.
                 _simulatedSource = new SimulatedLocationDataSource();
 
                 // Create SimulationParameters starting at the current time, velocity, and horizontal and vertical accuracy.
@@ -73,18 +78,26 @@ namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
                 // Use the polyline as defined above or from this AGOL GeoJSON to define the path. Retrieved from https://https://arcgisruntime.maps.arcgis.com/home/item.html?id=2a346cf1668d4564b8413382ae98a956
                 _simulatedSource.SetLocationsWithPolyline(Geometry.FromJson(_tourPolylineJSON) as Polyline, simulationParameters);
 
+                // Set up the location display.
                 MyMapView.LocationDisplay.DataSource = _simulatedSource;
                 MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
                 MyMapView.LocationDisplay.InitialZoomScale = 1000;
                 await _simulatedSource?.StartAsync();
 
+                // Set the list view items source.
+                LocationList.ItemsSource = _displayedFeatures;
+
+                // Create a group description to distinguish features in the list view.
+                CollectionViewSource.GetDefaultView(LocationList.ItemsSource).GroupDescriptions.Add(new PropertyGroupDescription("Source"));
+
                 // LocationGeotriggerFeed will be used in instantiating a FenceGeotrigger.
                 _geotriggerFeed = new LocationGeotriggerFeed(_simulatedSource);
 
                 // Create monitors for sections and points of interest.
-                _sectionMonitor = CreateGeotriggerMonitor(gardenSections, 0.0, "Section Geotrigger");
-                _pointsMonitor = CreateGeotriggerMonitor(gardenPoints, 10.0, "POI Geotrigger");
+                _sectionMonitor = CreateGeotriggerMonitor(_gardenSections, 0.0, "Section Geotrigger");
+                _pointsMonitor = CreateGeotriggerMonitor(_gardenPoints, 10.0, "POI Geotrigger");
 
+                // Start both Geotrigger monitors.
                 await _sectionMonitor?.StartAsync();
                 await _pointsMonitor?.StartAsync();
             }
@@ -103,7 +116,9 @@ namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
 
                 // The ArcadeExpression defined in the following FenceGeotrigger returns the value for the "name" field of the feature that triggered the monitor.
                 FenceGeotrigger fenceTrigger = new FenceGeotrigger(_geotriggerFeed, FenceRuleType.EnterOrExit, fenceParameters, new ArcadeExpression("$fenceFeature.name"), triggerName);
-                var geotriggerMonitor = new GeotriggerMonitor(fenceTrigger);
+
+                // Create the monitor and set its event handler for notifications.
+                GeotriggerMonitor geotriggerMonitor = new GeotriggerMonitor(fenceTrigger);
                 geotriggerMonitor.Notification += HandleGeotriggerNotification;
 
                 return geotriggerMonitor;
@@ -118,75 +133,99 @@ namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
 
         private void HandleGeotriggerNotification(object sender, GeotriggerNotificationInfo info)
         {
+            // The collection used for the list view is changed, and must be modified on a UI thread.
             Application.Current.Dispatcher.Invoke(new Action(async () =>
             {
                 if (info is FenceGeotriggerNotificationInfo fenceInfo)
                 {
                     if (fenceInfo.FenceNotificationType == FenceNotificationType.Entered)
                     {
-                        LocationList.Items.Add(fenceInfo.Message);
-
-                        if (!_featureMap.ContainsKey(fenceInfo.Message))
+                        if (!_features.Any(f => f.Name == fenceInfo.Message))
                         {
-                            var feature = fenceInfo.FenceGeoElement as ArcGISFeature;
+                            try
+                            {
+                                // Get the feature that's fence has been entered.
+                                ArcGISFeature feature = fenceInfo.FenceGeoElement as ArcGISFeature;
 
-                            string description = feature.Attributes["description"].ToString();
+                                // Get the description for the feature.
+                                string description = feature.Attributes["description"].ToString();
+                                description = Regex.Replace(description, "<.*?>", string.Empty);
 
-                            var attach = await feature.GetAttachmentsAsync();
+                                // Get the attachments for the feature.
+                                IReadOnlyList<Attachment> attach = await feature.GetAttachmentsAsync();
 
-                            // Load the data into a byte array.
-                            Stream attachmentDataStream = await attach.First().GetDataAsync();
-                            byte[] attachmentData = new byte[attachmentDataStream.Length];
-                            attachmentDataStream.Read(attachmentData, 0, attachmentData.Length);
+                                // Load the attachment data into a byte array.
+                                Stream attachmentDataStream = await attach.First().GetDataAsync();
+                                byte[] attachmentData = new byte[attachmentDataStream.Length];
+                                attachmentDataStream.Read(attachmentData, 0, attachmentData.Length);
 
-                            Directory.CreateDirectory(Path.Combine(DataManager.GetDataFolder(), "GeotriggerImages"));
-                            string imagePath = Path.Combine(DataManager.GetDataFolder(), "GeotriggerImages", attach.First().Name);
+                                // Set the path for the image to be written to.
+                                Directory.CreateDirectory(Path.Combine(DataManager.GetDataFolder(), ImageFolderName));
+                                string imagePath = Path.Combine(DataManager.GetDataFolder(), ImageFolderName, attach.First().Name);
 
-                            // Write out the file.
-                            FileStream fs = new FileStream(imagePath,
-                                FileMode.OpenOrCreate,
-                                FileAccess.Write);
-                            fs.Write(attachmentData, 0, attachmentData.Length);
-                            fs.Close();
+                                // Write the attachment image to a file.
+                                FileStream fileStream = new FileStream(imagePath,
+                                    FileMode.OpenOrCreate,
+                                    FileAccess.Write);
+                                fileStream.Write(attachmentData, 0, attachmentData.Length);
+                                fileStream.Close();
 
-                            _featureMap[fenceInfo.Message] = new Tuple<ArcGISFeature, string, string>(feature, description, imagePath);
+                                // Determine which geotriggermonitor the notification came from.
+                                MonitorSource source = (info.GeotriggerMonitor == _sectionMonitor) ? MonitorSource.Section : MonitorSource.PointOfInterest;
+
+                                // Create an object to group the information together for interface use.
+                                GeotriggerFeature geotriggerFeature = new GeotriggerFeature
+                                {
+                                    Name = fenceInfo.Message,
+                                    Description = description,
+                                    ImageUri = new Uri(imagePath),
+                                    Feature = feature,
+                                    Source = source,
+                                };
+
+                                // Add the object to the list of known feature information.
+                                _features.Add(geotriggerFeature);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                            }
                         }
+
+                        // Add the feature to the list view.
+                        _displayedFeatures.Add(_features.First(f => f.Name == fenceInfo.Message));
                     }
                     else
                     {
-                        LocationList.Items.Remove(fenceInfo.Message);
+                        // Remove the feature from the list view.
+                        if (_displayedFeatures.FirstOrDefault(f => f.Name == fenceInfo.Message) is GeotriggerFeature feature)
+                        {
+                            _displayedFeatures.Remove(feature);
+                        }
                     }
                 }
             }));
         }
 
-        private void DisplayData(string featureName)
+        private void DisplayData(GeotriggerFeature geotriggerFeature)
         {
-            if (_featureMap.ContainsKey(featureName))
-            {
-                // Get the tuple of data for the feature.
-                var tuple = _featureMap[featureName];
-
-                // Update the UI with data about the feature.
-                NameLabel.Content = featureName;
-                Description.Text = tuple.Item2;
-                LocationImage.Source = new BitmapImage(new Uri(tuple.Item3));
-            }
+            // Update the UI with data about the selected feature.
+            NameLabel.Content = geotriggerFeature.Name;
+            Description.Text = geotriggerFeature.Description;
+            LocationImage.Source = new BitmapImage(geotriggerFeature.ImageUri);
         }
 
         private void LocationList_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(new Action(() =>
-           {
-               if (LocationList.SelectedItem is string name)
-               {
-                   DisplayData(name);
-               }
-           }));
+            if (LocationList.SelectedItem is GeotriggerFeature feature)
+            {
+                DisplayData(feature);
+            }
         }
 
         private void PlayPauseClicked(object sender, RoutedEventArgs e)
         {
+            // Start and stop the simulated location on a button press.
             if (_simulatedSource.Status == LocationDataSourceStatus.Started)
             {
                 _simulatedSource.StopAsync();
@@ -198,5 +237,21 @@ namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
                 PlayPauseButton.Content = "Pause";
             }
         }
+    }
+
+    public enum MonitorSource { Section, PointOfInterest };
+
+    // Class to store attributes of features together.
+    public class GeotriggerFeature
+    {
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public Uri ImageUri { get; set; }
+
+        public ArcGISFeature Feature { get; set; }
+
+        public MonitorSource Source { get; set; }
     }
 }

@@ -110,26 +110,17 @@ namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
 
         private GeotriggerMonitor CreateGeotriggerMonitor(ServiceFeatureTable table, double bufferSize, string triggerName)
         {
-            try
-            {
-                // Create parameters for the fence.
-                FeatureFenceParameters fenceParameters = new FeatureFenceParameters(table, bufferSize);
+            // Create parameters for the fence.
+            FeatureFenceParameters fenceParameters = new FeatureFenceParameters(table, bufferSize);
 
-                // The ArcadeExpression defined in the following FenceGeotrigger returns the value for the "name" field of the feature that triggered the monitor.
-                FenceGeotrigger fenceTrigger = new FenceGeotrigger(_geotriggerFeed, FenceRuleType.EnterOrExit, fenceParameters, new ArcadeExpression("$fenceFeature.name"), triggerName);
+            // The ArcadeExpression defined in the following FenceGeotrigger returns the value for the "name" field of the feature that triggered the monitor.
+            FenceGeotrigger fenceTrigger = new FenceGeotrigger(_geotriggerFeed, FenceRuleType.EnterOrExit, fenceParameters, new ArcadeExpression("$fenceFeature.name"), triggerName);
 
-                // Create the monitor and set its event handler for notifications.
-                GeotriggerMonitor geotriggerMonitor = new GeotriggerMonitor(fenceTrigger);
-                geotriggerMonitor.Notification += HandleGeotriggerNotification;
+            // Create the monitor and set its event handler for notifications.
+            GeotriggerMonitor geotriggerMonitor = new GeotriggerMonitor(fenceTrigger);
+            geotriggerMonitor.Notification += HandleGeotriggerNotification;
 
-                return geotriggerMonitor;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            return null;
+            return geotriggerMonitor;
         }
 
         private void HandleGeotriggerNotification(object sender, GeotriggerNotificationInfo info)

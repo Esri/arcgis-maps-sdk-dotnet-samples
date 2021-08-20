@@ -20,7 +20,8 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/displaydevicelocation.htm"
+        "/net/latest/wpf/sample-code/displaydevicelocation.htm",
+        "/net/wpf/sample-code/display-device-location/"
     ],
     "relevant_apis": [
         "LocationDisplay",

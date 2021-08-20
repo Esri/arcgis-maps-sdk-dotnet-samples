@@ -20,7 +20,8 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/uwp/sample-code/displaydevicelocation.htm"
+        "/net/latest/uwp/sample-code/displaydevicelocation.htm",
+        "/net/uwp/sample-code/display-device-location/"
     ],
     "relevant_apis": [
         "LocationDisplay",

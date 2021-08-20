@@ -20,7 +20,8 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/ios/sample-code/displaydevicelocation.htm"
+        "/net/latest/ios/sample-code/displaydevicelocation.htm",
+        "/net/ios/sample-code/display-device-location/"
     ],
     "relevant_apis": [
         "LocationDisplay",

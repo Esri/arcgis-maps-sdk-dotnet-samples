@@ -23,7 +23,8 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/displaydevicelocation.htm"
+        "/net/latest/forms/sample-code/displaydevicelocation.htm",
+        "/net/forms/sample-code/display-device-location/"
     ],
     "relevant_apis": [
         "LocationDisplay",

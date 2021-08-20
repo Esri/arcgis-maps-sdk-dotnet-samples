@@ -241,12 +241,12 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
             if (_simulatedSource.Status == LocationDataSourceStatus.Started)
             {
                 _simulatedSource.StopAsync();
-                _playPauseButton.Text = "Play";
+                _playPauseButton.Text = "\u25B6";
             }
             else
             {
                 _simulatedSource.StartAsync();
-                _playPauseButton.Text = "Pause";
+                _playPauseButton.Text = "\u23F8";
             }
         }
 

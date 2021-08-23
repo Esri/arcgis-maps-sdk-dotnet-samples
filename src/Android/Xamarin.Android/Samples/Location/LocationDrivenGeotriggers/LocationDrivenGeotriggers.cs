@@ -265,10 +265,10 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
             SetContentView(Resource.Layout.LocationDrivenGeotriggers);
 
             _myMapView = FindViewById<MapView>(Resource.Id.MapView);
-            _statusLabel= FindViewById<TextView>(Resource.Id.statusLabel);
-            _poiLabel= FindViewById<TextView>(Resource.Id.poiLabel);
-            _playPauseButton= FindViewById<Button>(Resource.Id.playPauseButton);
-            _sectionButton =  FindViewById<Button>(Resource.Id.sectionButton);
+            _statusLabel = FindViewById<TextView>(Resource.Id.statusLabel);
+            _poiLabel = FindViewById<TextView>(Resource.Id.poiLabel);
+            _playPauseButton = FindViewById<Button>(Resource.Id.playPauseButton);
+            _sectionButton = FindViewById<Button>(Resource.Id.sectionButton);
 
             _sectionButton.Click += SectionButton_Clicked;
             _playPauseButton.Click += PlayPauseButton_Clicked;
@@ -284,7 +284,6 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
 
             base.OnDestroy();
         }
-
     }
 
     // Class to store attributes of features together.

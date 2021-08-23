@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Popups;
@@ -135,8 +134,7 @@ namespace ArcGISRuntime.UWP.Samples.LocationDrivenGeotriggers
                                 ArcGISFeature feature = fenceInfo.FenceGeoElement as ArcGISFeature;
 
                                 // Get the description for the feature.
-                                string description = feature.Attributes["description"].ToString();
-                                description = Regex.Replace(description, "<.*?>", string.Empty);
+                                string description = feature.Attributes["desc_raw"].ToString();
 
                                 // Get the attachments for the feature.
                                 IReadOnlyList<Attachment> attach = await feature.GetAttachmentsAsync();

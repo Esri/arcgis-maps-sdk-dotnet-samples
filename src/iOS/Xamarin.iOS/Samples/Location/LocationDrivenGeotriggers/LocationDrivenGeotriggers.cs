@@ -41,6 +41,11 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
         private UIBarButtonItem _playPauseButton;
         private UIBarButtonItem _sectionButton;
         private UILabel _statusLabel;
+        private UIStackView _overlayView;
+        private UILabel _nameLabel;
+        private UILabel _description;
+        private UIImageView _imageView;
+        private UIButton _closeButton;
 
         private UILabel _pointsLabel;
 
@@ -204,47 +209,18 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
                }
                else
                {
-                   _pointsLabel.Text = $"Points of interest:";
+                   _pointsLabel.Text = $"  Points of interest:";
                }
            });
         }
 
         private void DisplayData(GeotriggerFeature feature)
         {
-            UIAlertController prompt = UIAlertController.Create(feature.Name, null, UIAlertControllerStyle.Alert);
-
-            UIStackView stackView = new UIStackView { Axis = UILayoutConstraintAxis.Vertical, Alignment = UIStackViewAlignment.Top };
-
-            var imageView = new UIImageView
-            {
-                Frame = new CoreGraphics.CGRect(0, 0, 120, 100),
-                Image = feature.ImageSource,
-            };
-
-            stackView.Add(imageView);
-
-            var description = new UITextView
-            {
-                Text = feature.Description,
-            };
-
-            stackView.Add(description);
-
-            prompt.Add(stackView);
-            prompt.View.AddConstraint(NSLayoutConstraint.Create(prompt.View, NSLayoutAttribute.Height, NSLayoutRelation.Equal, 1, 520));
-            //prompt.View.AddConstraint(NSLayoutConstraint.Create(prompt.View, NSLayoutAttribute.Width, NSLayoutRelation.Equal, 1, 320));
-
-            prompt.AddAction(UIAlertAction.Create("Ok", UIAlertActionStyle.Default, null));
-
-            // Needed to prevent crash on iPad.
-            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
-            if (ppc != null)
-            {
-                ppc.SourceView = _toolbar;
-                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
-            }
-
-            PresentViewController(prompt, true, null);
+            // Update the UI with data about the selected feature.
+            _nameLabel.Text = feature.Name;
+            _description.Text = feature.Description;
+            _imageView.Image = feature.ImageSource;
+            _overlayView.Hidden = false;
         }
 
         private void PlayPauseButton_Pressed(object sender, EventArgs e)
@@ -292,12 +268,13 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
 
             _pointsLabel = new UILabel
             {
-                Text = "POIs:",
+                Text = "  Points of interest:",
                 AdjustsFontSizeToFitWidth = true,
                 TextAlignment = UITextAlignment.Left,
                 BackgroundColor = ApplicationTheme.BackgroundColor,
                 TextColor = ApplicationTheme.ForegroundColor,
                 Lines = 1,
+                DirectionalLayoutMargins = new NSDirectionalEdgeInsets(0, 10, 0, 10),
                 TranslatesAutoresizingMaskIntoConstraints = false
             };
 
@@ -316,8 +293,35 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
                 _playPauseButton
             };
 
+            _overlayView = new UIStackView
+            {
+                Axis = UILayoutConstraintAxis.Vertical,
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                Distribution = UIStackViewDistribution.EqualSpacing,
+                Alignment = UIStackViewAlignment.Leading,
+                Spacing = 5,
+                LayoutMarginsRelativeArrangement = true,
+                DirectionalLayoutMargins = new NSDirectionalEdgeInsets(10, 10, 10, 0),
+                Hidden = true,
+                BackgroundColor = ApplicationTheme.BackgroundColor,
+            };
+
+            _nameLabel = new UILabel() { TranslatesAutoresizingMaskIntoConstraints = false, Lines = 0 };
+            _overlayView.AddArrangedSubview(_nameLabel);
+
+            _imageView = new UIImageView() { TranslatesAutoresizingMaskIntoConstraints = false, };
+            _overlayView.AddArrangedSubview(_imageView);
+
+            _description = new UILabel() { TranslatesAutoresizingMaskIntoConstraints = false, Lines = 15 };
+            _overlayView.AddArrangedSubview(_description);
+
+            _closeButton = new UIButton() { TranslatesAutoresizingMaskIntoConstraints = false };
+            _closeButton.SetTitle("Close", UIControlState.Normal);
+            _closeButton.SetTitleColor(View.TintColor, UIControlState.Normal);
+            _overlayView.AddArrangedSubview(_closeButton);
+
             // Add the views.
-            View.AddSubviews(_myMapView, _statusLabel, _pointsLabel, _toolbar);
+            View.AddSubviews(_myMapView, _statusLabel, _pointsLabel, _toolbar, _overlayView);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
@@ -336,12 +340,25 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
                     _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                     _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
 
+                    _overlayView.WidthAnchor.ConstraintEqualTo(View.WidthAnchor, 0.9f),
+                    _overlayView.HeightAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.HeightAnchor, 0.8f),
+                    _overlayView.CenterXAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.CenterXAnchor),
+                    _overlayView.CenterYAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.CenterYAnchor),
+
                     _statusLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
                     _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                     _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                     _statusLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                    _imageView.HeightAnchor.ConstraintEqualTo(165),
+                    _imageView.WidthAnchor.ConstraintEqualTo(115),
                 }
             );
+        }
+
+        private void CloseButton_Pressed(object sender, EventArgs e)
+        {
+            _overlayView.Hidden = true;
         }
 
         public override void ViewDidLoad()
@@ -357,6 +374,7 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
             // Subscribe to events.
             _playPauseButton.Clicked += PlayPauseButton_Pressed;
             _sectionButton.Clicked += SectionButton_Clicked;
+            _closeButton.TouchUpInside += CloseButton_Pressed;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -366,12 +384,16 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
             // Unsubscribe from events, per best practice.
             _playPauseButton.Clicked -= PlayPauseButton_Pressed;
             _sectionButton.Clicked -= SectionButton_Clicked;
+            _closeButton.TouchUpInside -= CloseButton_Pressed;
 
             // Dispose of images.
             foreach (UIImage image in _features.Select(f => f.ImageSource))
             {
                 image?.Dispose();
             }
+
+            // Stop the location data source.
+            _myMapView?.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 

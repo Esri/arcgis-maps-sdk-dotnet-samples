@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -49,8 +48,6 @@ namespace ArcGISRuntime.UWP.Samples.LocationDrivenGeotriggers
 
         private List<GeotriggerFeature> _features = new List<GeotriggerFeature>();
         public ObservableCollection<GeotriggerFeature> _displayedFeatures = new ObservableCollection<GeotriggerFeature>();
-
-        private const string ImageFolderName = "GeotriggerImages";
 
         public LocationDrivenGeotriggers()
         {
@@ -139,21 +136,10 @@ namespace ArcGISRuntime.UWP.Samples.LocationDrivenGeotriggers
                                 // Get the attachments for the feature.
                                 IReadOnlyList<Attachment> attach = await feature.GetAttachmentsAsync();
 
-                                // Load the attachment data into a byte array.
+                                // Load the attachment data into a bitmap image.
                                 Stream attachmentDataStream = await attach.First().GetDataAsync();
-                                byte[] attachmentData = new byte[attachmentDataStream.Length];
-                                attachmentDataStream.Read(attachmentData, 0, attachmentData.Length);
-
-                                // Set the path for the image to be written to.
-                                Directory.CreateDirectory(Path.Combine(DataManager.GetDataFolder(), ImageFolderName));
-                                string imagePath = Path.Combine(DataManager.GetDataFolder(), ImageFolderName, attach.First().Name);
-
-                                // Write the attachment image to a file.
-                                FileStream fileStream = new FileStream(imagePath,
-                                    FileMode.OpenOrCreate,
-                                    FileAccess.Write);
-                                fileStream.Write(attachmentData, 0, attachmentData.Length);
-                                fileStream.Close();
+                                BitmapImage bitmapImage = new BitmapImage();
+                                await bitmapImage.SetSourceAsync(attachmentDataStream.AsRandomAccessStream());
 
                                 // Determine which geotriggermonitor the notification came from.
                                 MonitorSource source = (info.GeotriggerMonitor == _sectionMonitor) ? MonitorSource.Section : MonitorSource.PointOfInterest;
@@ -163,8 +149,7 @@ namespace ArcGISRuntime.UWP.Samples.LocationDrivenGeotriggers
                                 {
                                     Name = fenceInfo.Message,
                                     Description = description,
-                                    ImageUri = new Uri(imagePath),
-                                    Feature = feature,
+                                    Image = bitmapImage,
                                     Source = source,
                                 };
 
@@ -199,7 +184,7 @@ namespace ArcGISRuntime.UWP.Samples.LocationDrivenGeotriggers
             // Update the UI with data about the selected feature.
             NameLabel.Text = geotriggerFeature.Name;
             Description.Text = geotriggerFeature.Description;
-            LocationImage.Source = new BitmapImage(geotriggerFeature.ImageUri);
+            LocationImage.Source = geotriggerFeature.Image;
         }
 
         private void LocationList_ItemClick(object sender, ItemClickEventArgs e)
@@ -235,9 +220,7 @@ namespace ArcGISRuntime.UWP.Samples.LocationDrivenGeotriggers
 
         public string Description { get; set; }
 
-        public Uri ImageUri { get; set; }
-
-        public ArcGISFeature Feature { get; set; }
+        public BitmapImage Image { get; set; }
 
         public MonitorSource Source { get; set; }
     }

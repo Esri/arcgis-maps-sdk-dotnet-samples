@@ -13,11 +13,12 @@
             <StackPanel>
                 <TextBlock x:Name="NameLabel" FontWeight="ExtraBold" />
                 <Image x:Name="LocationImage"
-                       Height="150"
+                       Height="125"
                        Margin="5" />
-                <ScrollViewer Height="150" Margin="5">
+                <ScrollViewer Height="125" Margin="5">
                     <TextBlock x:Name="Description" TextWrapping="Wrap" />
                 </ScrollViewer>
+                <TextBlock Text="Click on features in list to see information." />
                 <ListView x:Name="LocationList"
                           Height="200"
                           Margin="5"
@@ -40,6 +41,7 @@
                 </ListView>
                 <Button x:Name="PlayPauseButton"
                         Margin="5"
+                        HorizontalAlignment="Stretch"
                         Click="PlayPauseButton_Click"
                         Content="Pause" />
             </StackPanel>

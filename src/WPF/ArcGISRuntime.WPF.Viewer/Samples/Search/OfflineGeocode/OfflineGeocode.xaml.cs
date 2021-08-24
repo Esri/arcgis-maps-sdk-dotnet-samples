@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
         description: "Geocode addresses to locations and reverse geocode locations to addresses offline.",
         instructions: "Type the address in the Search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. Tap the pin to see the full address.",
         tags: new[] { "geocode", "geocoder", "locator", "offline", "package", "query", "search" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("22c3083d4fa74e3e9b25adfc9f8c0496", "344e3b12368543ef84045ef9aa3c32ba")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("22c3083d4fa74e3e9b25adfc9f8c0496", "3424d442ebe54f3cbf34462382d3aebe")]
     public partial class OfflineGeocode
     {
         // Addresses for suggestion.
@@ -80,7 +80,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
             try
             {
                 // Get the path to the locator.
-                string locatorPath = DataManager.GetDataFolder("344e3b12368543ef84045ef9aa3c32ba", "san-diego-locator.loc");
+                string locatorPath = DataManager.GetDataFolder("3424d442ebe54f3cbf34462382d3aebe", "SanDiego_StreetAddress.loc");
 
                 // Load the geocoder.
                 _geocoder = await LocatorTask.CreateAsync(new Uri(locatorPath));

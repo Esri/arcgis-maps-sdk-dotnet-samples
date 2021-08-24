@@ -64,8 +64,8 @@ namespace ArcGISRuntime.UWP.Samples.LocationDrivenGeotriggers
                 await MyMapView.Map.LoadAsync();
 
                 // Get service feature tables from the map to create GeotriggerMonitors for.
-                _gardenSections = ((FeatureLayer)MyMapView.Map.OperationalLayers.ToArray()[0]).FeatureTable as ServiceFeatureTable;
-                _gardenPoints = ((FeatureLayer)MyMapView.Map.OperationalLayers.ToArray()[2]).FeatureTable as ServiceFeatureTable;
+                _gardenSections = ((FeatureLayer)MyMapView.Map.OperationalLayers[0]).FeatureTable as ServiceFeatureTable;
+                _gardenPoints = ((FeatureLayer)MyMapView.Map.OperationalLayers[2]).FeatureTable as ServiceFeatureTable;
 
                 // Create a simulated location data source for simulating a path through the data.
                 _simulatedSource = new SimulatedLocationDataSource();

@@ -15,6 +15,7 @@
                               Margin="5">
                     <TextBlock x:Name="Description" TextWrapping="Wrap" />
                 </ScrollViewer>
+                <Label Content="Click on features in list to see information."/>
                 <ListView x:Name="LocationList"
                           Height="125"
                           Margin="5"

@@ -65,7 +65,7 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
         {
             base.OnCreate(bundle);
 
-            Title = "Set up location-driven LocationDrivenGeotriggers";
+            Title = "Set up location-driven Geotriggers";
 
             CreateLayout();
             _ = Initialize();

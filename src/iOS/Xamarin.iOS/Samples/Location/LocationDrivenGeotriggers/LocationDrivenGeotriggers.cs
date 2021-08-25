@@ -350,8 +350,11 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
                     _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
                     _statusLabel.HeightAnchor.ConstraintEqualTo(40),
 
-                    _imageView.HeightAnchor.ConstraintEqualTo(165),
-                    _imageView.WidthAnchor.ConstraintEqualTo(115),
+                    _imageView.HeightAnchor.ConstraintEqualTo(115),
+                    _imageView.WidthAnchor.ConstraintEqualTo(165),
+
+                    _nameLabel.HeightAnchor.ConstraintEqualTo(15),
+                    _closeButton.HeightAnchor.ConstraintEqualTo(15),
                 }
             );
         }

@@ -147,6 +147,7 @@
 ## Location
 
 * [Display device location with autopan modes](ArcGISRuntime.UWP.Viewer/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
+* [Set up location-driven Geotriggers](ArcGISRuntime.UWP.Viewer/Samples/Location/LocationDrivenGeotriggers/readme.md) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
 * [Show location history](ArcGISRuntime.UWP.Viewer/Samples/Location/ShowLocationHistory/readme.md) - Display your location history on the map.
 
 ## Map

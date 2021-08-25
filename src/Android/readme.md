@@ -155,6 +155,7 @@
 ## Location
 
 * [Display device location with autopan modes](Xamarin.Android/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
+* [Set up location-driven Geotriggers](Xamarin.Android/Samples/Location/LocationDrivenGeotriggers/readme.md) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
 * [Show location history](Xamarin.Android/Samples/Location/ShowLocationHistory/readme.md) - Display your location history on the map.
 
 ## Map

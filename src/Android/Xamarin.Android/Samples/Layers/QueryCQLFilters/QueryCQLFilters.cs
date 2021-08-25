@@ -177,7 +177,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
 
         private void CreateLayout()
         {
-            // Load the layout from the axml resource. (This sample has the same interface as the navigation sample without rerouting)
+            // Load the layout from the xml resource.
             SetContentView(Resource.Layout.QueryCQLFilters);
 
             _myMapView = FindViewById<MapView>(Resource.Id.MapView);

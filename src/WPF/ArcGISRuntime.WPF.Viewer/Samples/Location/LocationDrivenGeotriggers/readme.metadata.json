@@ -1,0 +1,49 @@
+{
+    "category": "Location",
+    "description": "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",
+    "formal_name": "LocationDrivenGeotriggers",
+    "ignore": false,
+    "images": [
+        "LocationDrivenGeotriggers.jpg"
+    ],
+    "keywords": [
+        "alert",
+        "arcade",
+        "fence",
+        "geofence",
+        "geotrigger",
+        "location",
+        "navigation",
+        "notification",
+        "notify",
+        "routing",
+        "trigger"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.12.0",
+        "Esri.ArcGISRuntime.WPF": "100.12.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/locationdrivengeotriggers.htm"
+    ],
+    "relevant_apis": [
+        "ArcadeExpression",
+        "FeatureFenceParameters",
+        "FenceGeotrigger",
+        "FenceGeotriggerNotificationInfo",
+        "FenceRuleType",
+        "GeoElement",
+        "Geotrigger",
+        "GeotriggerFeed",
+        "GeotriggerMonitor",
+        "GeotriggerNotificationInfo",
+        "ServiceFeatureTable",
+        "SimulatedLocationDataSource"
+    ],
+    "snippets": [
+        "LocationDrivenGeotriggers.xaml",
+        "LocationDrivenGeotriggers.xaml.cs"
+    ],
+    "title": "Set up location-driven Geotriggers"
+}

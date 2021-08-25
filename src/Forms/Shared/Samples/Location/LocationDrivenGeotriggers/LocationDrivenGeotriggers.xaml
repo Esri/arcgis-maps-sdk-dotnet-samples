@@ -1,0 +1,57 @@
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers.LocationDrivenGeotriggers"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
+             xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Toolkit.Xamarin.Forms">
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout>
+                <Label x:Name="EventLabel" />
+                <Button x:Name="SectionButton" Clicked="SectionButton_Clicked" />
+                <Label x:Name="POILabel" />
+                <Button x:Name="PlayPauseButton"
+                        Pressed="PlayPauseButton_Pressed"
+                        Text="Pause" />
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+        <Frame x:Name="PopupPage"
+               Padding="0"
+               BackgroundColor="White"
+               CornerRadius="0"
+               IsVisible="False"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant,
+                                                                      Constant=335,
+                                                                      Property=Height}"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                     Factor=.9,
+                                                                     Property=Width}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                 Factor=.05,
+                                                                 Property=Width}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                 Factor=.05,
+                                                                 Property=Height}">
+            <StackLayout>
+                <Label x:Name="FeatureName"
+                       Margin="5"
+                       HeightRequest="15" />
+                <Image x:Name="FeatureImage"
+                       Margin="5"
+                       HeightRequest="150" />
+                <ScrollView Margin="5" HeightRequest="100">
+                    <Label x:Name="FeatureDescription" LineBreakMode="WordWrap" />
+                </ScrollView>
+                <Button x:Name="PopupCloseButton"
+                        Margin="5"
+                        Clicked="PopupCloseButton_Clicked"
+                        HeightRequest="30"
+                        Text="Close" />
+            </StackLayout>
+        </Frame>
+    </RelativeLayout>
+</ContentPage>

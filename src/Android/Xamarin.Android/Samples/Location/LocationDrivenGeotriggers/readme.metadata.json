@@ -42,6 +42,7 @@
         "SimulatedLocationDataSource"
     ],
     "snippets": [
+        "../../../Resources/layout/LocationDrivenGeotriggers.xml",
         "LocationDrivenGeotriggers.cs"
     ],
     "title": "Set up location-driven Geotriggers"

@@ -190,7 +190,7 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
                 }
                 else
                 {
-                    POILabel.Text = $"Points of interest:";
+                    POILabel.Text = "Points of interest:";
                 }
             });
         }

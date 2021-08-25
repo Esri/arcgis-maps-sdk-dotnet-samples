@@ -209,7 +209,7 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
                }
                else
                {
-                   _pointsLabel.Text = $"  Points of interest:";
+                   _pointsLabel.Text = "  Points of interest:";
                }
            });
         }

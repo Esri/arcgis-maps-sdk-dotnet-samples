@@ -1,4 +1,4 @@
-// Copyright 2019 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System;
 using System.Drawing;
 
 namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
@@ -20,7 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
         category: "GraphicsOverlay",
         description: "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style.",
         instructions: "Run the sample and view graphics for points, lines, and polygons, which are stylized using renderers.",
-        tags: new[] { "GraphicsOverlay", "SimpleMarkerSymbol", "SimpleRenderer" })]
+        tags: new[] { "GraphicsOverlay", "SimpleMarkerSymbol", "SimpleRenderer", "Featured" })]
     public partial class AddGraphicsRenderer
     {
         public AddGraphicsRenderer()
@@ -31,56 +32,148 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
 
         private void Initialize()
         {
-            // Create a map with 'Imagery with Labels' basemap.
-            Map myMap = new Map(BasemapStyle.ArcGISImagery);
+            // Create a map for the map view.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
-
-            // Create a center point for the graphics.
-            MapPoint centerPoint = new MapPoint(-117.195800, 34.056295, SpatialReferences.Wgs84);
-
-            // Create an envelope from that center point.
-            Envelope pointExtent = new Envelope(centerPoint, .07, .035);
-
-            // Create a collection of points on the corners of the envelope.
-            PointCollection points = new PointCollection(SpatialReferences.Wgs84)
+            // Add graphics overlays to the map view.
+            MyMapView.GraphicsOverlays.AddRange(new[]
             {
-                new MapPoint(pointExtent.XMax, pointExtent.YMax),
-                new MapPoint(pointExtent.XMax, pointExtent.YMin),
-                new MapPoint(pointExtent.XMin, pointExtent.YMax),
-                new MapPoint(pointExtent.XMin, pointExtent.YMin),
-            };
+                MakePointGraphicsOverlay(),
+                MakeLineGraphicsOverlay(),
+                MakeSquareGraphicsOverlay(),
+                MakeCurvedGraphicsOverlay(),
+            });
+        }
 
-            // Create overlay to where graphics are shown.
-            GraphicsOverlay overlay = new GraphicsOverlay();
+        private GraphicsOverlay MakePointGraphicsOverlay()
+        {
+            // Create a simple marker symbol.
+            SimpleMarkerSymbol pointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, Color.Green, 10);
 
-            // Add points to the graphics overlay.
-            foreach (MapPoint point in points)
+            // Create a graphics overlay for the points.
+            GraphicsOverlay pointGraphicsOverlay = new GraphicsOverlay();
+
+            // Create and assign a simple renderer to the graphics overlay.
+            pointGraphicsOverlay.Renderer = new SimpleRenderer(pointSymbol);
+
+            // Create a point graphic with `AGSPoint` geometry.
+            MapPoint pointGeometry = new MapPoint(x: 40e5, y: 40e5, SpatialReferences.WebMercator);
+            Graphic pointGraphic = new Graphic(pointGeometry);
+
+            // Add the graphic to the overlay.
+            pointGraphicsOverlay.Graphics.Add(pointGraphic);
+            return pointGraphicsOverlay;
+        }
+
+        private GraphicsOverlay MakeLineGraphicsOverlay()
+        {
+            // Create a simple line symbol.
+            SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 5);
+
+            // Create a graphics overlay for the polylines.
+            GraphicsOverlay lineGraphicsOverlay = new GraphicsOverlay();
+
+            // Create and assign a simple renderer to the graphics overlay.
+            lineGraphicsOverlay.Renderer = new SimpleRenderer(lineSymbol);
+
+            // Create a line graphic with `new Polyline` geometry.
+            PolylineBuilder lineBuilder = new PolylineBuilder(SpatialReferences.WebMercator);
+            lineBuilder.AddPoint(x: -10e5, y: 40e5);
+            lineBuilder.AddPoint(x: 20e5, y: 50e5);
+            Graphic lineGraphic = new Graphic(lineBuilder.ToGeometry());
+
+            // Add the graphic to the overlay.
+            lineGraphicsOverlay.Graphics.Add(lineGraphic);
+            return lineGraphicsOverlay;
+        }
+
+        private GraphicsOverlay MakeSquareGraphicsOverlay()
+        {
+            // Create a simple fill symbol.
+            SimpleFillSymbol squareSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Yellow, null);
+
+            // Create a graphics overlay for the square polygons.
+            GraphicsOverlay squareGraphicsOverlay = new GraphicsOverlay();
+
+            // Create and assign a simple renderer to the graphics overlay.
+            squareGraphicsOverlay.Renderer = new SimpleRenderer(squareSymbol);
+
+            // Create a polygon graphic with `new Polygon` geometry.
+            PolygonBuilder polygonBuilder = new PolygonBuilder(SpatialReferences.WebMercator);
+            polygonBuilder.AddPoint(x: -20e5, y: 20e5);
+            polygonBuilder.AddPoint(x: 20e5, y: 20e5);
+            polygonBuilder.AddPoint(x: 20e5, y: -20e5);
+            polygonBuilder.AddPoint(x: -20e5, y: -20e5);
+            Graphic polygonGraphic = new Graphic(polygonBuilder.ToGeometry());
+
+            // Add the graphic to the overlay.
+            squareGraphicsOverlay.Graphics.Add(polygonGraphic);
+            return squareGraphicsOverlay;
+        }
+
+        private GraphicsOverlay MakeCurvedGraphicsOverlay()
+        {
+            // Create a simple fill symbol with outline.
+            SimpleLineSymbol curvedLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Black, 1);
+            SimpleFillSymbol curvedFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Red, curvedLineSymbol);
+
+            // Create a graphics overlay for the polygons with curve segments.
+            GraphicsOverlay curvedGraphicsOverlay = new GraphicsOverlay();
+
+            // Create and assign a simple renderer to the graphics overlay.
+            curvedGraphicsOverlay.Renderer = new SimpleRenderer(curvedFillSymbol);
+
+            // Create a heart-shape graphic from `new Segment`s.
+            MapPoint origin = new MapPoint(x: 40e5, y: 5e5, SpatialReferences.WebMercator);
+            Geometry heartGeometry = MakeHeartGeometry(origin, 10e5);
+            Graphic heartGraphic = new Graphic(heartGeometry);
+            curvedGraphicsOverlay.Graphics.Add(heartGraphic);
+            return curvedGraphicsOverlay;
+        }
+
+        private Geometry MakeHeartGeometry(MapPoint center, double sideLength)
+        {
+            if (sideLength <= 0) return null;
+
+            SpatialReference spatialReference = center.SpatialReference;
+
+            // The x and y coordinates to simplify the calculation.
+            double minX = center.X - 0.5 * sideLength;
+            double minY = center.Y - 0.5 * sideLength;
+
+            // The radius of the arcs.
+            double arcRadius = sideLength * 0.25;
+
+            // Bottom left curve.
+            MapPoint leftCurveStart = new MapPoint(center.X, minY, spatialReference);
+            MapPoint leftCurveEnd = new MapPoint(minX, minY + 0.75 * sideLength, spatialReference);
+            MapPoint leftControlMapPoint1 = new MapPoint(center.X, minY + 0.25 * sideLength, spatialReference);
+            MapPoint leftControlMapPoint2 = new MapPoint(minX, center.Y, spatialReference: spatialReference);
+            CubicBezierSegment leftCurve = new CubicBezierSegment(leftCurveStart, leftControlMapPoint1, leftControlMapPoint2, leftCurveEnd, spatialReference);
+
+            // Top left arc.
+            MapPoint leftArcCenter = new MapPoint(minX + 0.25 * sideLength, minY + 0.75 * sideLength, spatialReference);
+            EllipticArcSegment leftArc = EllipticArcSegment.CreateCircularEllipticArc(leftArcCenter, arcRadius, Math.PI, centralAngle: -Math.PI / 2, spatialReference);
+
+            // Top right arc.
+            MapPoint rightArcCenter = new MapPoint(minX + 0.75 * sideLength, minY + 0.75 * sideLength, spatialReference);
+            EllipticArcSegment rightArc = EllipticArcSegment.CreateCircularEllipticArc(rightArcCenter, arcRadius, Math.PI, centralAngle: -Math.PI / 2, spatialReference);
+
+            // Bottom right curve.
+            MapPoint rightCurveStart = new MapPoint(minX + sideLength, minY + 0.75 * sideLength, spatialReference);
+            MapPoint rightCurveEnd = leftCurveStart;
+            MapPoint rightControlMapPoint1 = new MapPoint(minX + sideLength, center.Y, spatialReference);
+            MapPoint rightControlMapPoint2 = leftControlMapPoint1;
+            CubicBezierSegment rightCurve = new CubicBezierSegment(rightCurveStart, rightControlMapPoint1, rightControlMapPoint2, rightCurveEnd, spatialReference);
+
+            // Create the heart polygon.
+            return new Polygon(new Segment[]
             {
-                // Create new graphic and add it to the overlay.
-                overlay.Graphics.Add(new Graphic(point));
-            }
-
-            // Create symbol for points.
-            SimpleMarkerSymbol pointSymbol = new SimpleMarkerSymbol()
-            {
-                Color = Color.Yellow,
-                Size = 30,
-                Style = SimpleMarkerSymbolStyle.Square
-            };
-
-            // Create simple renderer with symbol.
-            SimpleRenderer renderer = new SimpleRenderer(pointSymbol);
-
-            // Set renderer to graphics overlay.
-            overlay.Renderer = renderer;
-
-            // Add created overlay to the MapView.
-            MyMapView.GraphicsOverlays.Add(overlay);
-
-            // Center the MapView on the points.
-            MyMapView.SetViewpointGeometryAsync(pointExtent, 50);
+                leftCurve,
+                leftArc,
+                rightArc,
+                rightCurve
+            }, spatialReference);
         }
     }
 }

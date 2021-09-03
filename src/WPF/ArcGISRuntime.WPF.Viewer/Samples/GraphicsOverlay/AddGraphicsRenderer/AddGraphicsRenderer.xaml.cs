@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
             // Create and assign a simple renderer to the graphics overlay.
             pointGraphicsOverlay.Renderer = new SimpleRenderer(pointSymbol);
 
-            // Create a point graphic with `AGSPoint` geometry.
+            // Create a graphic with the map point geometry.
             MapPoint pointGeometry = new MapPoint(x: 40e5, y: 40e5, SpatialReferences.WebMercator);
             Graphic pointGraphic = new Graphic(pointGeometry);
 
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
             // Create and assign a simple renderer to the graphics overlay.
             lineGraphicsOverlay.Renderer = new SimpleRenderer(lineSymbol);
 
-            // Create a line graphic with `new Polyline` geometry.
+            // Create a line graphic with new Polyline geometry.
             PolylineBuilder lineBuilder = new PolylineBuilder(SpatialReferences.WebMercator);
             lineBuilder.AddPoint(x: -10e5, y: 40e5);
             lineBuilder.AddPoint(x: 20e5, y: 50e5);
@@ -123,7 +123,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
             // Create and assign a simple renderer to the graphics overlay.
             curvedGraphicsOverlay.Renderer = new SimpleRenderer(curvedFillSymbol);
 
-            // Create a heart-shape graphic from `new Segment`s.
+            // Create a heart-shaped graphic.
             MapPoint origin = new MapPoint(x: 40e5, y: 5e5, SpatialReferences.WebMercator);
             Geometry heartGeometry = MakeHeartGeometry(origin, 10e5);
             Graphic heartGraphic = new Graphic(heartGeometry);
@@ -153,11 +153,11 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
 
             // Top left arc.
             MapPoint leftArcCenter = new MapPoint(minX + 0.25 * sideLength, minY + 0.75 * sideLength, spatialReference);
-            EllipticArcSegment leftArc = EllipticArcSegment.CreateCircularEllipticArc(leftArcCenter, arcRadius, Math.PI, centralAngle: -Math.PI / 2, spatialReference);
+            EllipticArcSegment leftArc = EllipticArcSegment.CreateCircularEllipticArc(leftArcCenter, arcRadius, Math.PI, centralAngle: -Math.PI, spatialReference);
 
             // Top right arc.
             MapPoint rightArcCenter = new MapPoint(minX + 0.75 * sideLength, minY + 0.75 * sideLength, spatialReference);
-            EllipticArcSegment rightArc = EllipticArcSegment.CreateCircularEllipticArc(rightArcCenter, arcRadius, Math.PI, centralAngle: -Math.PI / 2, spatialReference);
+            EllipticArcSegment rightArc = EllipticArcSegment.CreateCircularEllipticArc(rightArcCenter, arcRadius, Math.PI, centralAngle: -Math.PI, spatialReference);
 
             // Bottom right curve.
             MapPoint rightCurveStart = new MapPoint(minX + sideLength, minY + 0.75 * sideLength, spatialReference);
@@ -167,13 +167,16 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
             CubicBezierSegment rightCurve = new CubicBezierSegment(rightCurveStart, rightControlMapPoint1, rightControlMapPoint2, rightCurveEnd, spatialReference);
 
             // Create the heart polygon.
-            return new Polygon(new Segment[]
+            Part newPart = new Part(new Segment[]
             {
                 leftCurve,
                 leftArc,
                 rightArc,
                 rightCurve
             }, spatialReference);
+            PolygonBuilder builder = new PolygonBuilder(spatialReference);
+            builder.AddPart(newPart);
+            return builder.ToGeometry();
         }
     }
 }

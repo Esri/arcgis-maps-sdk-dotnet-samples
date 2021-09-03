@@ -19,9 +19,9 @@ namespace ArcGISRuntime.Samples.AddGraphicsRenderer
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add graphics with renderer",
         category: "GraphicsOverlay",
-        description: "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style.",
-        instructions: "Run the sample and view graphics for points, lines, and polygons, which are stylized using renderers.",
-        tags: new[] { "GraphicsOverlay", "SimpleMarkerSymbol", "SimpleRenderer" })]
+        description: "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.",
+        instructions: "Pan and zoom on the map to view graphics for points, lines, and polygons (including polygons with curve segments) which are stylized using renderers.",
+        tags: new[] { "arc", "bezier", "curve", "display", "graphics", "marker", "overlay", "renderer", "segment", "symbol", "true curve" })]
     public partial class AddGraphicsRenderer : ContentPage
     {
         public AddGraphicsRenderer()

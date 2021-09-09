@@ -90,7 +90,7 @@ namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
                 // Get a trace configuration from a tier.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName) ?? throw new ArgumentException(DomainNetworkName);
                 UtilityTier tier = domainNetwork.GetTier(TierName) ?? throw new ArgumentException(TierName);
-                _configuration = tier.TraceConfiguration;
+                _configuration = tier.GetDefaultTraceConfiguration();
 
                 // Create a trace filter.
                 _configuration.Filter = new UtilityTraceFilter();

@@ -101,10 +101,10 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
                 UtilityTier sourceTier = domainNetwork.GetTier(TierName);
 
                 // Set the trace configuration.
-                _configuration = sourceTier.TraceConfiguration;
+                _configuration = sourceTier.GetDefaultTraceConfiguration();
 
                 // Set the default expression (if provided).
-                if (sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
+                if (sourceTier.GetDefaultTraceConfiguration().Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
                     ConditionBarrierExpression.Text = ExpressionToString(expression);
                     _initialExpression = expression;
@@ -114,7 +114,7 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
                 Configuration.DataContext = _configuration;
 
                 // Set the traversability scope.
-                sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
+                sourceTier.GetDefaultTraceConfiguration().Traversability.Scope = UtilityTraversabilityScope.Junctions;
             }
             catch (Exception ex)
             {

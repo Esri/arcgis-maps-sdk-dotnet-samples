@@ -58,7 +58,7 @@ namespace ArcGISRuntime
             // Add an event handler for hyperlink clicks.
             LicenseBrowser.Document.Click += HyperlinkClick;
 
-            // Create an event handler for cancelling the default hyperlink behavior.
+            // Create an event handler for canceling the default hyperlink behavior.
             LicenseBrowser.NewWindow += (s, e) => { e.Cancel = true; };
 
             // Set up offline data.

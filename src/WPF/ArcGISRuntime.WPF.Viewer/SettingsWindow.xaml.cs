@@ -51,12 +51,36 @@ namespace ArcGISRuntime
             string licenseContent = File.ReadAllText(markdownPath);
             licenseContent = _markdownRenderer.Parse(licenseContent);
             string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + licenseContent + "</body>";
-            LicenseView.NavigateToString(htmlString);
+
+            // Set the html in web browser.
+            LicenseBrowser.DocumentText = htmlString;
+
+            // Add an event handler for hyperlink clicks.
+            LicenseBrowser.Document.Click += HyperlinkClick;
+
+            // Create an event handler for cancelling the default hyperlink behavior.
+            LicenseBrowser.NewWindow += (s, e) => { e.Cancel = true; };
 
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
 
             SampleDataListView.ItemsSource = OfflineDataSamples;
+        }
+
+        private void HyperlinkClick(object sender, System.Windows.Forms.HtmlElementEventArgs e)
+        {
+            // Get the html element that the user clicked on.
+            System.Windows.Forms.HtmlElement src = LicenseBrowser.Document?.GetElementFromPoint(e.ClientMousePosition);
+
+            // Check if the element is a hyperlink.
+            if (src?.OuterHtml.Contains("http") == true)
+            {
+                // Parse the url from the hyperlink html.
+                string url = src.OuterHtml.Split('\"')[1];
+
+                // Open the url.
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
         }
 
         private void OpenInAgol_Clicked(object sender, RoutedEventArgs e)

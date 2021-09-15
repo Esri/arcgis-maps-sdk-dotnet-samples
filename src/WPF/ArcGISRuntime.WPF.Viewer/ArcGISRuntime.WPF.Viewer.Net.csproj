@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows10.0.18362.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <RootNamespace>ArcGISRuntime</RootNamespace>
     <AssemblyName>ArcGISRuntime</AssemblyName>
@@ -100,7 +101,6 @@
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>
     </PackageReference>
-    <PackageReference Include="MdXaml" Version="1.11.0" />
     <PackageReference Include="System.Speech" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>

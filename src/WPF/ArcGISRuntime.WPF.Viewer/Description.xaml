@@ -1,6 +1,9 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Viewer.Description"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
              Background="{StaticResource PrimaryBackgroundColor}">
-            <WebBrowser x:Name="DescriptionView" />
+    <WindowsFormsHost>
+        <wf:WebBrowser x:Name="DescriptionView" />
+    </WindowsFormsHost>
 </UserControl>

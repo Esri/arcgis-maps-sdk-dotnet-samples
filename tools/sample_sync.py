@@ -13,8 +13,10 @@ def main():
     metadata_script_folder = os.path.abspath(os.path.join(script_location, "metadata_tools"))
     metadata_script_path = os.path.join(metadata_script_folder, "process_metadata.py")
 
-
+    print("Copying readmes")
     subprocess.run(["python", readme_script_path])
+
+    print("Updating metadata")
     subprocess.run(["python", metadata_script_path])
 
     return

@@ -55,13 +55,13 @@ def replace_readmes(category, formal_name, sample_root):
     except OSError as e:
         print(e.errno)
 def main():
-    if len(sys.argv) is 4:
+    if len(sys.argv) == 4:
         # Get the user arguments.
         category = sys.argv[1]
         formal_name = sys.argv[2]        
         sample_root = sys.argv[3]
         replace_readmes(category, formal_name, sample_root)
-    elif len(sys.argv) is 2:
+    elif len(sys.argv) == 2:
         sample_root = sys.argv[1]
         for category in os.listdir(get_platform_samples_root("WPF", sample_root)):
             for sample in os.listdir( os.path.join(get_platform_samples_root("WPF", sample_root), category) ):

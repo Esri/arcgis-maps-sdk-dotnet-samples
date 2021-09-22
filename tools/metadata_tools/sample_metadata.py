@@ -108,6 +108,9 @@ class sample_metadata:
         redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{self.formal_name.lower()}.htm"
         self.redirect_from.append(redirect_string)
 
+        if self.formal_name == "DisplayDeviceLocation":
+            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/display-device-location/")
+
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 

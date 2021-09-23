@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -43,40 +43,35 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
 
         private void Initialize()
         {
-            // Create new Map with basemap.
-            Map map = new Map(BasemapStyle.ArcGISTopographic);
+            // Create new Map with basemap
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
-            // Create and set initial map area.
-            Envelope initialLocation = new Envelope(-1.30758164047166E7, 4014771.46954516, -1.30730056797177E7,
-                4016869.78617381, SpatialReferences.WebMercator);
+            // Create and set initial map area
+            Envelope initialLocation = new Envelope(
+                -9177811, 4247000, -9176791, 4247784,
+                SpatialReferences.WebMercator);
 
-            // Set the initial viewpoint for map.
-            map.InitialViewpoint = new Viewpoint(initialLocation);
+            // Set the initial viewpoint for map
+            myMap.InitialViewpoint = new Viewpoint(initialLocation);
 
-            // Provide used Map to the MapView.
-            _myMapView.Map = map;
+            // Provide used Map to the MapView
+            _myMapView.Map = myMap;
 
-            // Create URI to the used feature service.
-            Uri serviceUri =
-                new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
+            // Create uri to the used feature service
+            Uri serviceUri = new Uri("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0");
 
-            // Initialize feature table using a URL to a feature service.
+            // Initialize feature table using a url to feature server url
             ServiceFeatureTable featureTable = new ServiceFeatureTable(serviceUri);
 
-            // Initialize a new feature layer based on the feature table.
+            // Initialize a new feature layer based on the feature table
             _featureLayer = new FeatureLayer(featureTable);
-            map.OperationalLayers.Add(_featureLayer);
+            myMap.OperationalLayers.Add(_featureLayer);
         }
 
         private void OnOverrideButtonClicked(object sender, EventArgs e)
         {
             // Create a symbol to be used in the renderer.
-            SimpleLineSymbol symbol = new SimpleLineSymbol
-            {
-                Color = Color.Blue,
-                Width = 2,
-                Style = SimpleLineSymbolStyle.Solid
-            };
+            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 5);
 
             // Create and apply a new renderer using the symbol just created.
             _featureLayer.Renderer = new SimpleRenderer(symbol);

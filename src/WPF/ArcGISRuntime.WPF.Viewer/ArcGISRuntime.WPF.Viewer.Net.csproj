@@ -11,7 +11,7 @@
     <OutputPath>..\..\..\output\WPFCore\$(Configuration)\</OutputPath>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <PublishTrimmed>true</PublishTrimmed>
+    <PublishTrimmed>false</PublishTrimmed>
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
     <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
     <Platforms>AnyCPU;x64;x86</Platforms>

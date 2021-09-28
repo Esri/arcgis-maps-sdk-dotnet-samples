@@ -20,7 +20,8 @@
     },
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/android/sample-code/displaydevicelocation.htm"
+        "/net/latest/android/sample-code/displaydevicelocation.htm",
+        "/net/android/sample-code/display-device-location/"
     ],
     "relevant_apis": [
         "LocationDisplay",

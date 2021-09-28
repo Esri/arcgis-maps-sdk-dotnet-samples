@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         name: "Change feature layer renderer",
         category: "Layers",
         description: "Change the appearance of a feature layer with a renderer.",
-        instructions: "Use the buttons to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.",
+        instructions: "Use the button in the control panel to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.",
         tags: new[] { "feature layer", "renderer", "visualization" })]
     public class ChangeFeatureLayerRenderer : UIViewController
     {

@@ -24,16 +24,16 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
     public partial class ChangeBasemap : ContentPage
     {
         // Dictionary that associates names with basemaps.
-        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
+        private readonly Dictionary<string, BasemapStyle> _basemapOptions = new Dictionary<string, BasemapStyle>()
         {
-            {"Streets", new Basemap(BasemapStyle.ArcGISStreets)},
-            {"Streets - Night", new Basemap(BasemapStyle.ArcGISStreetsNight)},
-            {"Imagery", new Basemap(BasemapStyle.ArcGISImageryStandard)},
-            {"Imagery with Labels", new Basemap(BasemapStyle.ArcGISImagery)},
-            {"Dark Gray Canvas", new Basemap(BasemapStyle.ArcGISDarkGray)},
-            {"Light Gray Canvas", new Basemap(BasemapStyle.ArcGISLightGray)},
-            {"Navigation", new Basemap(BasemapStyle.ArcGISNavigation)},
-            {"OpenStreetMap", new Basemap(BasemapStyle.OSMStandard)}
+            {"Streets", BasemapStyle.ArcGISStreets},
+            {"Streets - Night", BasemapStyle.ArcGISStreetsNight},
+            {"Imagery", BasemapStyle.ArcGISImageryStandard},
+            {"Imagery with Labels", BasemapStyle.ArcGISImagery},
+            {"Dark Gray Canvas", BasemapStyle.ArcGISDarkGray},
+            {"Light Gray Canvas", BasemapStyle.ArcGISLightGray},
+            {"Navigation", BasemapStyle.ArcGISNavigation},
+            {"OpenStreetMap", BasemapStyle.OSMStandard}
         };
 
         public ChangeBasemap()
@@ -54,17 +54,14 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             if (!selectedBasemap.ToLower().Equals("cancel"))
             {
                 // Retrieve the basemap from the dictionary
-                MyMapView.Map.Basemap = _basemapOptions[selectedBasemap];
+                MyMapView.Map.Basemap = new Basemap(_basemapOptions[selectedBasemap]);
             }
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
-
             // Assign the map to the MapView
-            MyMapView.Map = myMap;
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
         }
     }
 }

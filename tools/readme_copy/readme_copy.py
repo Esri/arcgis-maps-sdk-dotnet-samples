@@ -27,42 +27,55 @@ def replace_readmes(category, formal_name, sample_root):
         wpf_file = open(wpf_path, "r")
         wpfcontent = wpf_file.read()
         wpf_file.close()
-        print(f"{formal_name} read from WPF")
+    except OSError as e:
+        print(f"File: {formal_name} Error: {e.strerror} WPF read error")
 
-        # Loop through the other platforms.
-        plats = ["UWP", "Android", "iOS", "Forms", "WinUI"]
-        for platform in plats:
-            # Copy the original WPF text into a new string
-            platformcontent = copy.copy(wpfcontent)
+    # Loop through the other platforms.
+    plats = ["UWP", "Android", "iOS", "Forms", "WinUI"]
+    for platform in plats:
+        # Skip local server for non WinUI platforms.
+        if not platform == "WinUI" and category == "Local Server":
+            continue
 
-            # Fix the guide doc url for the platform
-            platformcontent = platformcontent.replace("wpf/guide", str.lower(platform)+"/guide")
-            platformcontent = platformcontent.replace("wpf/sample-code/", str.lower(platform)+"/sample-code/")
-            #platformcontent = platformcontent.replace("oldlink", "newlink")
+        # Copy the original WPF text into a new string
+        platformcontent = copy.copy(wpfcontent)
 
-            # Change `click` to `tap` for mobile platforms
-            if  not platform == "UWP" and not platform == "WinUI":
-                platformcontent = platformcontent.replace("click ", "tap ")
-                platformcontent = platformcontent.replace("Click ", "Tap ")
+        # Fix the guide doc url for the platform
+        platformcontent = platformcontent.replace("wpf/guide", str.lower(platform)+"/guide")
+        platformcontent = platformcontent.replace("wpf/sample-code/", str.lower(platform)+"/sample-code/")
 
+        # For other changes that need to be made.
+        #platformcontent = platformcontent.replace("oldlink", "newlink")
+
+        # Change `click` to `tap` for mobile platforms
+        if  not platform == "UWP" and not platform == "WinUI":
+            platformcontent = platformcontent.replace("click ", "tap ")
+            platformcontent = platformcontent.replace("Click ", "Tap ")
+
+        try:
             # Write the WPF readme to other platform
             platform_path = os.path.join(get_platform_samples_root(platform, sample_root), category, formal_name, ("readme.md"))
             with open(platform_path, "r+") as file:
                 file.seek(0)
                 file.write(platformcontent)
                 file.truncate()
-                print(f"{formal_name} written to {platform}")
-    except OSError as e:
-        print(e.errno)
+        except OSError as e:
+            print(f"File: {formal_name} Error: {e.strerror} Platform: {platform}")
 def main():
-    if len(sys.argv) is 4:
+    if len(sys.argv) == 4:
         # Get the user arguments.
         category = sys.argv[1]
         formal_name = sys.argv[2]        
         sample_root = sys.argv[3]
         replace_readmes(category, formal_name, sample_root)
-    elif len(sys.argv) is 2:
-        sample_root = sys.argv[1]
+    elif len(sys.argv) <= 2:
+
+        if len(sys.argv) == 1:
+            # get the location of the samples relative to this script in the tools folder
+            script_location = os.path.dirname(os.path.realpath(__file__))
+            sample_root = os.path.abspath(os.path.join(script_location, "..", "..", "src"))
+        else:
+            sample_root = sys.argv[1]
         for category in os.listdir(get_platform_samples_root("WPF", sample_root)):
             for sample in os.listdir( os.path.join(get_platform_samples_root("WPF", sample_root), category) ):
                 replace_readmes(category, sample, sample_root)
@@ -70,7 +83,6 @@ def main():
         print("Usage for single sample: python readme_copy.py {category} {formal name of sample} {path_to_samples (ends in src)}")
         print("Usage for all samples: python readme_copy.py {path_to_samples (ends in src)}")
         return
-
 
 if __name__=="__main__":
     main()

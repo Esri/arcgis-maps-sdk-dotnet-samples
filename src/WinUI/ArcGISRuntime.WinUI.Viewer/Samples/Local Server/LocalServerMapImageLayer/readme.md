@@ -23,7 +23,7 @@ The Local Server and local map service will automatically be started and, once r
    1. Create a `ArcGISMapImageLayer(Url)` from local map service url provided by the `LocalMapService.Url` property.
    2. Add the layer to the map's operational layers. 
    3. Wait for the layer to load with `await myImageLayer.LoadAsync()`
-   4. Set the map view extent to the layer full extent.
+   4. Set the map view's extent to the layer's full extent.
 
 ## Relevant API
 

@@ -50,7 +50,6 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
         private UtilityElement _startingLocation;
 
         private UtilityTraceParameters _parameters;
-
         private GraphicsOverlay _barrierOverlay;
 
         // Task completion source for the user selected terminal.
@@ -205,7 +204,6 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
             {
                 layer.ClearSelection();
             }
-
         }
 
         private async Task<UtilityTerminal> GetTerminalAsync(IEnumerable<UtilityTerminal> terminals)
@@ -240,7 +238,6 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
             try
             {
                 LoadingBar.Visibility = Visibility.Visible;
-                //Status.Text = "Identifying trace locations...";
 
                 // Identify the feature to be used.
                 IEnumerable<IdentifyLayerResult> identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 10.0, false);
@@ -258,7 +255,6 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
                     {
                         element.Terminal = await GetTerminalAsync(terminals);
                     }
-                    //Status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                 }
                 else if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Edge)
                 {
@@ -269,7 +265,6 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
                         double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
                         if (double.IsNaN(fraction)) { return; }
                         element.FractionAlongEdge = fraction;
-                       // Status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
 
@@ -283,12 +278,10 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
             }
             catch (Exception ex)
             {
-                //Status.Text = "Identifying locations failed.";
                 MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
-                //if (Status.Text.Equals("Identifying trace locations...")) { Status.Text = "Could not identify location."; }
                 LoadingBar.Visibility = Visibility.Hidden;
             }
         }

@@ -193,26 +193,16 @@ def update_attribute(sample, sample_dir):
 
 def main():
     '''
-    Usage: python process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}
-    Operations: toc; secondary path is empty
-                improve; secondary path is common readme
-                attributes; keep attributes in code in sync with readme
-                sync; keep metadata in sync with readme
+    Usage: python process_metadata.py {path_to_samples (ends in src)} (optional)
+        Location of script being run will be used for a relative path if path to samples is not specified.
     '''
 
-    if len(sys.argv) < 3:
-        print("Usage: python process_metadata.py {operation} {path_to_samples (ends in src)} {path_to_secondary}")
-        print("Operations are toc, improve, attributes, and sync; secondary path is path to common readme source for the improve operation.")
-        return
-
-    operation = sys.argv[1]        
-    sample_root = sys.argv[2]
-    common_dir_path = ""
-    if operation == "improve":
-        if len(sys.argv) < 4:
-            print("Usage: python process_metadata.py improve {path_to_samples (ends in src)} {path_to_readme_source}")
-            return
-        common_dir_path = sys.argv[3]
+    if len(sys.argv) < 2:
+        # get the location of the samples relative to this script in the tools folder
+        script_location = os.path.dirname(os.path.realpath(__file__))
+        sample_root = os.path.abspath(os.path.join(script_location, "..", "..", "src"))
+    else:
+        sample_root = sys.argv[1]
 
     for platform in ["UWP", "WPF", "Android", "Forms", "iOS", "FormsAR", "WinUI"]:
         # make a list of samples, so that build_all_csproj.bat can be produced
@@ -234,27 +224,28 @@ def main():
                 if platform == "FormsAR":
                     sample.category = "Augmented reality"
                 sample.populate_snippets_from_folder(platform, path_to_readme)
-                if operation == "improve":
-                    sample.try_replace_with_common_readme(platform, common_dir_path, path_to_readme)
-                if operation in ["improve", "sync"]:
-                    # read existing packages from metadata
-                    path_to_json = os.path.join(r, sample_dir, "readme.metadata.json")
-                    if os.path.exists(path_to_json):
-                        metadata_based_sample = sample_metadata()
-                        metadata_based_sample.populate_from_json(path_to_json)
-                        sample.nuget_packages = metadata_based_sample.nuget_packages
-                    sample.resync_nuget_packages(platform)
-                    sample.flush_to_json(path_to_json)
-                if operation == "attributes":
-                    update_attribute(sample, os.path.join(r, sample_dir))
+
+                # read existing packages from metadata
+                path_to_json = os.path.join(r, sample_dir, "readme.metadata.json")
+                if os.path.exists(path_to_json):
+                    metadata_based_sample = sample_metadata()
+                    metadata_based_sample.populate_from_json(path_to_json)
+                    sample.nuget_packages = metadata_based_sample.nuget_packages
+                sample.resync_nuget_packages(platform)
+                sample.flush_to_json(path_to_json)
+
+                # update attributes in the sample code files
+                update_attribute(sample, os.path.join(r, sample_dir))
+
                 list_of_sample_dirs.append(sample_dir)
+
                 # track samples in each category to enable TOC generation
                 if sample.category in list_of_samples.keys():
                     list_of_samples[sample.category].append(sample)
                 else:
                     list_of_samples[sample.category] = [sample]
         # write out samples TOC
-        if operation in ["toc", "improve", "sync"] and platform != "FormsAR":
+        if platform != "FormsAR":
             write_samples_toc(get_platform_samples_root(platform, sample_root), get_relative_path_to_samples_from_platform_root(platform), list_of_samples)
     return
 

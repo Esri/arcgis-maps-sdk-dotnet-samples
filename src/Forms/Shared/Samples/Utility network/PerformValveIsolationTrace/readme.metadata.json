@@ -9,6 +9,7 @@
     "keywords": [
         "category comparison",
         "condition barriers",
+        "filter barriers",
         "isolated features",
         "network analysis",
         "subnetwork trace",
@@ -28,6 +29,8 @@
         "/net/latest/forms/sample-code/performvalveisolationtrace.htm"
     ],
     "relevant_apis": [
+        "FractionAlong",
+        "ServiceGeodatabase",
         "UtilityCategory",
         "UtilityCategoryComparison",
         "UtilityCategoryComparisonOperator",
@@ -36,6 +39,7 @@
         "UtilityElementTraceResult",
         "UtilityNetwork",
         "UtilityNetworkDefinition",
+        "UtilityTerminal",
         "UtilityTier",
         "UtilityTraceFilter",
         "UtilityTraceParameters",

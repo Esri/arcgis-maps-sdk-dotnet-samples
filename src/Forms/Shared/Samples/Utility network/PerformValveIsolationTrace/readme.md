@@ -10,43 +10,54 @@ Determine the set of operable features required to stop a network's resource, ef
 
 ## How to use the sample
 
-Create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Tap 'Trace' to run a subnetwork-based isolation trace.
+Tap on one or more features to use as filter barriers or create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Tap 'Trace' to run a subnetwork-based isolation trace. Tap 'Reset' to clear filter barriers.
 
 ## How it works
 
-1.  Create a `MapView`.
-2.  Create and load a `UtilityNetwork` with a feature service URL.
-3.  Create a `Map` that contains `FeatureLayer`(s) that are part of this utility network.
-4.  Create a default starting location from a given asset type and global id.
-5.  Add a `GraphicsOverlay` with a `Graphic` that represents this starting location.
-6.  Populate the choice list for the 'Filter Barrier: Category exists' from `UtilityNetworkDefinition.Categories`.
-7.  Get a default `UtilityTraceConfiguration` from a given tier in a domain network. Set it's `Filter` with a new `UtilityTraceFilter`.
-8.  When 'Trace' is clicked,
-    - Create a new `UtilityCategoryComparison` with the selected category and `UtilityCategoryComparisonOperator.Exists`. 
-    - Assign this condition to `TraceFilter.Barriers` from the default configuration from step 7. Update this configuration's `IncludeIsolatedFeatures` property. 
-    - Create a `UtilityTraceParameters` with `UtilityTraceType.Isolation` and default starting location from step 4. 
-    - Set its `TraceConfiguration` with this configuration and then, run a `UtilityNetwork.TraceAsync`.
-11. For every `FeatureLayer` in the map, select the features returned by `GetFeaturesForElementsAsync` from the elements matching their `NetworkSource.Name` with the layer's `FeatureTable.Name`.
+1. Create a `MapView` and subscribe to its `GeoViewTapped` event.
+2. Create and load a `ServiceGeodatabase` with a feature service URL and get tables by their layer IDs.
+3. Create a `Map` that contains `FeatureLayer`(s) created from the `ServiceGeodatabase`'s tables.
+4. Create and load a `UtilityNetwork` with the same feature service URL and this `Map`.
+5. Create `UtilityTraceParameters` with `UtilityTraceType.Isolation` and a starting location from a given asset type and global ID.
+6. Get a default `UtilityTraceConfiguration` from a given tier in a domain network to set `UtilityTraceParameters.TraceConfiguration`.
+7. Add a `GraphicsOverlay` with a `Graphic` that represents this starting location; and another `GraphicsOverlay` for filter barriers.
+8. Populate the choice list for the 'Filter Barrier: Category exists' from `UtilityNetworkDefinition.Categories`.
+9. When the MapView is tapped, identify which features are at the tap location and add a `Graphic` that represents a filter barrier.
+10. Create a `UtilityElement` for the identified feature and add this `UtilityElement` to a collection of filter barriers.
+      - If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `Terminal` property with the selected terminal.
+      - If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.  
+11. If 'Trace' is clicked without filter barriers:
+      - Create a new `UtilityCategoryComparison` with the selected category and `UtilityCategoryComparisonOperator.Exists`.
+      - Create a new `UtilityTraceFilter` with this condition as `Barriers` to set `Filter` and update `IncludeIsolatedFeatures` properties of the default configuration from step 5.
+      - Run a `UtilityNetwork.TraceAsync`.
+  
+    If 'Trace' is clicked with filter barriers:
+      - Update `IncludeIsolatedFeatures` property of the default configuration from step 5.
+      - Run a `UtilityNetwork.TraceAsync`.
+12. For every `FeatureLayer` in the map, select the features returned with `GetFeaturesForElementsAsync` from the elements matching their `NetworkSource.FeatureTable` with the layer's `FeatureTable`.
 
 ## Relevant API
 
-* UtilityCategory
-* UtilityCategoryComparison
-* UtilityCategoryComparisonOperator
-* UtilityDomainNetwork
-* UtilityElement
-* UtilityElementTraceResult
-* UtilityNetwork
-* UtilityNetworkDefinition
-* UtilityTier
-* UtilityTraceFilter
-* UtilityTraceParameters
-* UtilityTraceResult
-* UtilityTraceType
+*FractionAlong
+*ServiceGeodatabase
+*UtilityCategory
+*UtilityCategoryComparison
+*UtilityCategoryComparisonOperator
+*UtilityDomainNetwork
+*UtilityElement
+*UtilityElementTraceResult
+*UtilityNetwork
+*UtilityNetworkDefinition
+*UtilityTerminal
+*UtilityTier
+*UtilityTraceFilter
+*UtilityTraceParameters
+*UtilityTraceResult
+*UtilityTraceType
 
 ## About the data
 
-The [Naperville gas network feature service](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleGas/FeatureServer), hosted on ArcGIS Online, contains a utility network used to run the isolation trace shown in this sample.
+The [Naperville gas network feature service](https://sampleserver7.arcgisonline.com/arcgis/rest/services/UtilityNetwork/NapervilleGas/FeatureServer), hosted on ArcGIS Online, contains a utility network used to run the isolation trace shown in this sample.
 
 ## Additional information
 
@@ -54,4 +65,4 @@ Using utility network on ArcGIS Enterprise 10.8 requires an ArcGIS Enterprise me
 
 ## Tags
 
-category comparison, condition barriers, isolated features, network analysis, subnetwork trace, trace configuration, trace filter, utility network
+category comparison, condition barriers, filter barriers, isolated features, network analysis, subnetwork trace, trace configuration, trace filter, utility network

@@ -121,6 +121,7 @@ namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
                 Graphic graphic = new Graphic(startingLocationGeometry, symbol);
                 overlay.Graphics.Add(graphic);
 
+                // Create a graphics overlay for barriers.
                 _barrierOverlay = new GraphicsOverlay();
                 MyMapView.GraphicsOverlays.Add(_barrierOverlay);
 

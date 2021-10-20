@@ -24,36 +24,36 @@ Tap on one or more features to use as filter barriers or create and set the conf
 8. Populate the choice list for the 'Filter Barrier: Category exists' from `UtilityNetworkDefinition.Categories`.
 9. When the MapView is tapped, identify which features are at the tap location and add a `Graphic` that represents a filter barrier.
 10. Create a `UtilityElement` for the identified feature and add this `UtilityElement` to a collection of filter barriers.
-      - If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `Terminal` property with the selected terminal.
-      - If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.  
+      * If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `Terminal` property with the selected terminal.
+      * If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.  
 11. If 'Trace' is clicked without filter barriers:
-      - Create a new `UtilityCategoryComparison` with the selected category and `UtilityCategoryComparisonOperator.Exists`.
-      - Create a new `UtilityTraceFilter` with this condition as `Barriers` to set `Filter` and update `IncludeIsolatedFeatures` properties of the default configuration from step 5.
-      - Run a `UtilityNetwork.TraceAsync`.
+      * Create a new `UtilityCategoryComparison` with the selected category and `UtilityCategoryComparisonOperator.Exists`.
+      * Create a new `UtilityTraceFilter` with this condition as `Barriers` to set `Filter` and update `IncludeIsolatedFeatures` properties of the default configuration from step 5.
+      * Run a `UtilityNetwork.TraceAsync`.
   
     If 'Trace' is clicked with filter barriers:
-      - Update `IncludeIsolatedFeatures` property of the default configuration from step 5.
-      - Run a `UtilityNetwork.TraceAsync`.
+      * Update `IncludeIsolatedFeatures` property of the default configuration from step 5.
+      * Run a `UtilityNetwork.TraceAsync`.
 12. For every `FeatureLayer` in the map, select the features returned with `GetFeaturesForElementsAsync` from the elements matching their `NetworkSource.FeatureTable` with the layer's `FeatureTable`.
 
 ## Relevant API
 
-*FractionAlong
-*ServiceGeodatabase
-*UtilityCategory
-*UtilityCategoryComparison
-*UtilityCategoryComparisonOperator
-*UtilityDomainNetwork
-*UtilityElement
-*UtilityElementTraceResult
-*UtilityNetwork
-*UtilityNetworkDefinition
-*UtilityTerminal
-*UtilityTier
-*UtilityTraceFilter
-*UtilityTraceParameters
-*UtilityTraceResult
-*UtilityTraceType
+* FractionAlong
+* ServiceGeodatabase
+* UtilityCategory
+* UtilityCategoryComparison
+* UtilityCategoryComparisonOperator
+* UtilityDomainNetwork
+* UtilityElement
+* UtilityElementTraceResult
+* UtilityNetwork
+* UtilityNetworkDefinition
+* UtilityTerminal
+* UtilityTier
+* UtilityTraceFilter
+* UtilityTraceParameters
+* UtilityTraceResult
+* UtilityTraceType
 
 ## About the data
 

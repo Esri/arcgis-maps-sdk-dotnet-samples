@@ -262,9 +262,14 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
                     // Compute how far tapped location is along the edge feature.
                     if (feature.Geometry is Polyline line)
                     {
+                        // Remove elevation data, FractionAlong only supports 2D lines.
                         line = GeometryEngine.RemoveZ(line) as Polyline;
                         double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+
+                        // Check for rare edge case where the fraction is invalid.
                         if (double.IsNaN(fraction)) { return; }
+
+                        // Set the fraction of the utility element.
                         element.FractionAlongEdge = fraction;
                     }
                 }

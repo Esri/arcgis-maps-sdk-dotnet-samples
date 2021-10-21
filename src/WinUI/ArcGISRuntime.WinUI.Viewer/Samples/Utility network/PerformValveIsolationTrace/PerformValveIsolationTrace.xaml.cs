@@ -10,15 +10,16 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UtilityNetworks;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Esri.ArcGISRuntime.Security;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
 {
@@ -26,8 +27,8 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
         name: "Perform valve isolation trace",
         category: "Utility network",
         description: "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",
-        instructions: "Create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Click 'Trace' to run a subnetwork-based isolation trace.",
-        tags: new[] { "category comparison", "condition barriers", "isolated features", "network analysis", "subnetwork trace", "trace configuration", "trace filter", "utility network" })]
+        instructions: "Tap on one or more features to use as filter barriers or create and set the configuration's filter barriers by selecting a category. Check or uncheck 'Include Isolated Features'. Click 'Trace' to run a subnetwork-based isolation trace. Click 'Reset' to clear filter barriers.",
+        tags: new[] { "category comparison", "condition barriers", "filter barriers", "isolated features", "network analysis", "subnetwork trace", "trace configuration", "trace filter", "utility network" })]
     public partial class PerformValveIsolationTrace
     {
         // Feature service for an electric utility network in Naperville, Illinois.
@@ -48,13 +49,19 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
         private const string GlobalId = "{98A06E95-70BE-43E7-91B7-E34C9D3CB9FF}";
         private UtilityElement _startingLocation;
 
+        private UtilityTraceParameters _parameters;
+        private GraphicsOverlay _barrierOverlay;
+
+        // Task completion source for the user selected terminal.
+        private TaskCompletionSource<UtilityTerminal> _terminalCompletionSource = null;
+
         public PerformValveIsolationTrace()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
@@ -64,11 +71,12 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
                     // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
                     string sampleServer7User = "viewer01";
                     string sampleServer7Pass = "I68VGU^nMurF";
+
                     return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
                 }
                 catch (Exception ex)
                 {
-                    await new MessageDialog2(ex.Message, ex.Message.GetType().Name).ShowAsync();
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
                     return null;
                 }
             });
@@ -82,7 +90,7 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Create a map with layers in this utility network.
-                MyMapView.Map = new Map(Basemap.CreateStreetsNightVector());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight);
                 MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{LineLayerId}")));
                 MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{DeviceLayerId}")));
 
@@ -111,6 +119,13 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
                 Symbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.LimeGreen, 25d);
                 Graphic graphic = new Graphic(startingLocationGeometry, symbol);
                 overlay.Graphics.Add(graphic);
+
+                // Create a graphics overlay for barriers.
+                _barrierOverlay = new GraphicsOverlay();
+                MyMapView.GraphicsOverlays.Add(_barrierOverlay);
+
+                // Create the utility trace parameters.
+                _parameters = new UtilityTraceParameters(UtilityTraceType.Isolation, new[] { _startingLocation });
 
                 // Set the starting viewpoint.
                 await MyMapView.SetViewpointAsync(new Viewpoint(startingLocationGeometry, 3000));
@@ -148,18 +163,17 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
                     UtilityCategoryComparison categoryComparison = new UtilityCategoryComparison(category, UtilityCategoryComparisonOperator.Exists);
 
                     // Add the filter barrier.
-                    _configuration.Filter.Barriers = categoryComparison;
+                    _configuration.Filter = new UtilityTraceFilter() { Barriers = categoryComparison };
                 }
 
                 // Set the include isolated features property.
                 _configuration.IncludeIsolatedFeatures = IncludeIsolatedFeatures.IsChecked == true;
 
                 // Build parameters for isolation trace.
-                UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Isolation, new[] { _startingLocation });
-                parameters.TraceConfiguration = _configuration;
+                _parameters.TraceConfiguration = _configuration;
 
                 // Get the trace result from trace.
-                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(parameters);
+                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(_parameters);
                 UtilityElementTraceResult elementTraceResult = traceResult?.FirstOrDefault() as UtilityElementTraceResult;
 
                 // Select all the features from the result.
@@ -172,6 +186,101 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
                         layer.SelectFeatures(features);
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
+            }
+            finally
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void OnReset(object sender, RoutedEventArgs e)
+        {
+            _parameters.Barriers.Clear();
+            _barrierOverlay.Graphics.Clear();
+            foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers.OfType<FeatureLayer>())
+            {
+                layer.ClearSelection();
+            }
+        }
+
+        private async Task<UtilityTerminal> GetTerminalAsync(IEnumerable<UtilityTerminal> terminals)
+        {
+            try
+            {
+                MyMapView.GeoViewTapped -= OnGeoViewTapped;
+                TerminalPicker.Visibility = Visibility.Visible;
+                MainUI.Visibility = Visibility.Collapsed;
+                Picker.ItemsSource = terminals;
+                Picker.SelectedIndex = 1;
+
+                // Waits for user to select a terminal.
+                _terminalCompletionSource = new TaskCompletionSource<UtilityTerminal>();
+                return await _terminalCompletionSource.Task;
+            }
+            finally
+            {
+                TerminalPicker.Visibility = Visibility.Collapsed;
+                MainUI.Visibility = Visibility.Visible;
+                MyMapView.GeoViewTapped += OnGeoViewTapped;
+            }
+        }
+
+        private void OnTerminalSelected(object sender, RoutedEventArgs e)
+        {
+            _terminalCompletionSource.TrySetResult(Picker.SelectedItem as UtilityTerminal);
+        }
+
+        private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            try
+            {
+                LoadingBar.Visibility = Visibility.Visible;
+
+                // Identify the feature to be used.
+                IEnumerable<IdentifyLayerResult> identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 10.0, false);
+                ArcGISFeature feature = identifyResult?.FirstOrDefault()?.GeoElements?.FirstOrDefault() as ArcGISFeature;
+                if (feature == null) { return; }
+
+                // Create element from the identified feature.
+                UtilityElement element = _utilityNetwork.CreateElement(feature);
+
+                if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Junction)
+                {
+                    // Select terminal for junction feature.
+                    IEnumerable<UtilityTerminal> terminals = element.AssetType.TerminalConfiguration?.Terminals;
+                    if (terminals?.Count() > 1)
+                    {
+                        element.Terminal = await GetTerminalAsync(terminals);
+                    }
+                }
+                else if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Edge)
+                {
+                    // Compute how far tapped location is along the edge feature.
+                    if (feature.Geometry is Polyline line)
+                    {
+                        // Remove elevation data, FractionAlong only supports 2D lines.
+                        line = GeometryEngine.RemoveZ(line) as Polyline;
+                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+
+                        // Check for rare edge case where the fraction is invalid.
+                        if (double.IsNaN(fraction)) { return; }
+
+                        // Set the fraction of the utility element.
+                        element.FractionAlongEdge = fraction;
+                    }
+                }
+
+                // Check whether starting location or barrier is added to update the right collection and symbology.
+                _parameters.Barriers.Add(element);
+                Symbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.OrangeRed, 25d);
+
+                // Add a graphic for the new utility element.
+                Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, symbol);
+                _barrierOverlay.Graphics.Add(traceLocationGraphic);
             }
             catch (Exception ex)
             {

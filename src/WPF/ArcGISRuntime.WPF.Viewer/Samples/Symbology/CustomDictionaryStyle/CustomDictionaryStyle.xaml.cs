@@ -15,7 +15,7 @@ using System;
 namespace ArcGISRuntime.WPF.Samples.CustomDictionaryStyle
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Custom dictionary style",
+        name: "Renderer - Dictionary (custom style)",
         category: "Symbology",
         description: "Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.",
         instructions: "Pan and zoom the map to see the symbology from the custom dictionary style.",

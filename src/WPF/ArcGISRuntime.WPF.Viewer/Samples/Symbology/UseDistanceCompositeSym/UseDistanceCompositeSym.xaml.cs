@@ -20,7 +20,7 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.UseDistanceCompositeSym
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Distance composite scene symbol",
+        name: "Symbols - Distance composite scene symbol",
         category: "Symbology",
         description: "Change a graphic's symbol based on the camera's proximity to it.",
         instructions: "The sample starts looking at a plane. Zoom out from the plane to see it turn into a cone. Keeping zooming out and it will turn into a point.",

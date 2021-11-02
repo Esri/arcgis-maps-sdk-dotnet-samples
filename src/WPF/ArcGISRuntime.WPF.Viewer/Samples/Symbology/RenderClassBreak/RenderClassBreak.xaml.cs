@@ -13,17 +13,17 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntime.WPF.Samples.RenderUniqueValues
+namespace ArcGISRuntime.WPF.Samples.RenderClassBreak
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Renderer - Unique value",
+        name: "Renderer - Class break",
         category: "Symbology",
-        description: "Render features in a layer using a distinct symbol for each unique attribute value.",
+        description: "Render features in a layer using a distinct symbol for each class range.",
         instructions: "The map with the symbolized feature layer will be shown automatically when the sample loads.",
-        tags: new[] { "draw", "renderer", "symbol", "symbology", "values" })]
-    public partial class RenderUniqueValues
+        tags: new[] { "draw", "renderer", "symbol", "symbology", "classes", "classbreak" })]
+    public partial class RenderClassBreak
     {
-        public RenderUniqueValues()
+        public RenderClassBreak()
         {
             InitializeComponent();
 
@@ -46,39 +46,39 @@ namespace ArcGISRuntime.WPF.Samples.RenderUniqueValues
             // Create a new feature layer using the service feature table.
             FeatureLayer statesLayer = new FeatureLayer(statesFeatureTable);
 
-            // Create a new unique value renderer.
-            UniqueValueRenderer regionRenderer = new UniqueValueRenderer();
+            // Create a new class break renderer.
+            ClassBreaksRenderer pop2000Renderer = new ClassBreaksRenderer();
 
-            // Add the "SUB_REGION" field to the renderer.
-            regionRenderer.FieldNames.Add("SUB_REGION");
+            // Add the "POP2000" field to the renderer.
+            pop2000Renderer.FieldName = "POP2000";
 
-            // Define a line symbol to use for the region fill symbols.
+            // Define a line symbol to use for the fill symbols.
             SimpleLineSymbol stateOutlineSymbol = new SimpleLineSymbol(
                 SimpleLineSymbolStyle.Solid, Color.White, 0.7);
 
-            // Define distinct fill symbols for a few regions (use the same outline symbol).
-            SimpleFillSymbol pacificFillSymbol = new SimpleFillSymbol(
+            // Define distinct fill symbols for each class range (use the same outline symbol).
+            SimpleFillSymbol clasbreak1 = new SimpleFillSymbol(
                 SimpleFillSymbolStyle.Solid, Color.Blue, stateOutlineSymbol);
-            SimpleFillSymbol mountainFillSymbol = new SimpleFillSymbol(
+            SimpleFillSymbol clasbreak2 = new SimpleFillSymbol(
                 SimpleFillSymbolStyle.Solid, Color.LawnGreen, stateOutlineSymbol);
-            SimpleFillSymbol westSouthCentralFillSymbol = new SimpleFillSymbol(
+            SimpleFillSymbol clasbreak3 = new SimpleFillSymbol(
                 SimpleFillSymbolStyle.Solid, Color.SandyBrown, stateOutlineSymbol);
 
-            // Add values to the renderer: define the label, description, symbol, and attribute value for each.
-            regionRenderer.UniqueValues.Add(
-                new UniqueValue("Pacific", "Pacific Region", pacificFillSymbol, "Pacific"));
-            regionRenderer.UniqueValues.Add(
-                new UniqueValue("Mountain", "Rocky Mountain Region", mountainFillSymbol, "Mountain"));
-            regionRenderer.UniqueValues.Add(
-                new UniqueValue("West South Central", "West South Central Region", westSouthCentralFillSymbol, "West South Central"));
+            // Add values to the renderer: define the label, description, symbol, and attribute value for each.            
+            pop2000Renderer.ClassBreaks.Add(
+                new ClassBreak("500000 - 2000000", "500000 - 2000000", 500000, 2000000, clasbreak1));
+            pop2000Renderer.ClassBreaks.Add(
+                new ClassBreak("2000000 - 6000000", "2000000 - 6000000", 2000000, 6000000, clasbreak2));
+            pop2000Renderer.ClassBreaks.Add(
+               new ClassBreak("6000000 - 30000000", "6000000 - 30000000", 6000000, 30000000, clasbreak3));
 
             // Set the default region fill symbol for regions not explicitly defined in the renderer.
             SimpleFillSymbol defaultFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Cross, Color.Gray, null);
-            regionRenderer.DefaultSymbol = defaultFillSymbol;
-            regionRenderer.DefaultLabel = "Other";
+            pop2000Renderer.DefaultSymbol = defaultFillSymbol;
+            pop2000Renderer.DefaultLabel = "Other";
 
             // Apply the unique value renderer to the states layer.
-            statesLayer.Renderer = regionRenderer;
+            statesLayer.Renderer = pop2000Renderer;
 
             // Add created layer to the map.
             myMap.OperationalLayers.Add(statesLayer);

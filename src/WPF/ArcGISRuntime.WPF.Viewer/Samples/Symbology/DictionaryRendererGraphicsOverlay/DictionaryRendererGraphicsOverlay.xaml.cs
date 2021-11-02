@@ -22,8 +22,8 @@ using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 namespace ArcGISRuntime.WPF.Samples.DictionaryRendererGraphicsOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Graphics overlay (dictionary renderer)",
-        category: "GraphicsOverlay",
+        name: "Renderer - Dictionary (military style)",
+        category: "Symbology",
         description: "This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.",
         instructions: "Pan and zoom to explore military symbols on the map.",
         tags: new[] { "defense", "military", "situational awareness", "tactical", "visualization" })]

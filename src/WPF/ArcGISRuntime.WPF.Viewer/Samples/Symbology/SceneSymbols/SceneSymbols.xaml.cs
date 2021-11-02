@@ -17,7 +17,7 @@ using Color = System.Drawing.Color;
 namespace ArcGISRuntime.WPF.Samples.SceneSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Scene symbols",
+        name: "Symbols - 3D marker symbols",
         category: "Symbology",
         description: "Show various kinds of 3D symbols in a scene.",
         instructions: "When the scene loads, note the different types of 3D symbols that you can create.",

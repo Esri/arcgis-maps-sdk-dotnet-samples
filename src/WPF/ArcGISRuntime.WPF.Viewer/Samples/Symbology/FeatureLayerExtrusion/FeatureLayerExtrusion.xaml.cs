@@ -18,7 +18,7 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerExtrusion
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Feature layer extrusion",
+        name: "3D - Extrude Features",
         category: "Symbology",
         description: "Extrude features based on their attributes.",
         instructions: "Press the button to switch between using population density and total population for extrusion. Higher extrusion directly corresponds to higher attribute values.",

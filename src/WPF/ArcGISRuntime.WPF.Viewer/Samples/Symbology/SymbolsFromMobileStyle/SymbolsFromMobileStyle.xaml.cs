@@ -24,7 +24,7 @@ using WinMedia = System.Windows.Media;
 namespace ArcGISRuntime.WPF.Samples.SymbolsFromMobileStyle
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Read symbols from mobile style",
+        name: "Multilayer Symbols: From style file",
         category: "Symbology",
         description: "Combine multiple symbols from a mobile style file into a single symbol.",
         instructions: "Select a symbol and a color from each of the category lists to create an emoji. A preview of the symbol is updated as selections are made. The size of the symbol can be set using the slider. Click the map to create a point graphic using the customized emoji symbol, and click \"Reset\" to clear all graphics from the display.",

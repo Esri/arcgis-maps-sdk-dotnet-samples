@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeSublayerRenderer
         name: "Change sublayer renderer",
         category: "Layers",
         description: "Apply a renderer to a sublayer.",
-        instructions: "Wait for the map image layer to load. Click the button to apply a unique value renderer to see different population ranges in the counties sub-layer data.",
+        instructions: "Wait for the map image layer to load. Click the button to apply a class break renderer to see different population ranges in the counties sub-layer data.",
         tags: new[] { "class breaks", "dynamic layer", "dynamic rendering", "renderer", "sublayer", "symbology", "visualization" })]
     public partial class ChangeSublayerRenderer
     {

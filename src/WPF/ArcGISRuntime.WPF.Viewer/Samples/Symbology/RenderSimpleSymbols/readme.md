@@ -1,22 +1,22 @@
-# Simple marker symbol
+# Render Simple symbols
 
-Show a simple marker symbol on a map.
+Show simple 2D symbols on a map.
 
-![Image of simple marker symbol](RenderSimpleMarkers.jpg)
+![Image of simple symbol](RenderSimpleSymbols.jpg)
 
 ## Use case
 
-Customize the appearance of a point suitable for the data. For example, a point on the map styled with a circle could represent a drilled borehole location, whereas a cross could represent the location of an old coal mine shaft.
+Display all pre-defined 2D simple symbols on map.
 
 ## How to use the sample
 
-The sample loads with a predefined simple marker symbol, set as a red circle.
+The sample loads with graphics that are symbolized with predefined 2D symbols for points, line , polygons and text.
 
 ## How it works
 
-1. Create a `SimpleMarkerSymbol(SimpleMarkerSymbol.Style, color, size)`.
-2. Create a `Graphic` passing in a `Point` and the simple marker symbol as parameters.
-3. Add the graphic to the graphics overlay with `graphicsOverlay.Graphics.Add(graphic)`.
+1. Create simple symbols for each predefined style for line, point and polygons.
+2. Create graphics passing in a geometry and the associated symbol.
+3. Add graphics to the graphics overlay with `graphicsOverlay.Graphics.Add(graphic)`.
 
 ## Relevant API
 
@@ -24,6 +24,9 @@ The sample loads with a predefined simple marker symbol, set as a red circle.
 * GraphicsOverlay
 * Point
 * SimpleMarkerSymbol
+* PictureMarkerSymbol
+* SimpleLineSymbol
+* SimpleFillSymbol
 
 ## Tags
 

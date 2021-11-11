@@ -21,7 +21,7 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.RenderSimpleSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Symbols - 2D simple symbols",
+        name: "Symbols - 2D Simple symbols",
         category: "Symbology",
         description: "Shows simple 2D symbols on a map.",
         instructions: "The sample loads graphics with a predefined simple 2d symbols on a map",

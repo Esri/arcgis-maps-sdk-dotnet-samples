@@ -179,6 +179,12 @@
     <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml.cs">
       <DependentUpon>IdentifyRasterCell.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\RenderClassBreak\RenderClassBreak.xaml.cs">
+      <DependentUpon>RenderClassBreak.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml.cs">
+      <DependentUpon>RenderMultilayerSymbols.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
       <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
     </Compile>
@@ -299,7 +305,7 @@
     <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.xaml.cs">
       <DependentUpon>AddAnIntegratedMeshLayer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml.cs">
+    <Compile Include="Samples\Symbology\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml.cs">
       <DependentUpon>DictionaryRendererGraphicsOverlay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ItemToImageSourceConverter.cs" />
@@ -750,11 +756,8 @@
     <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
       <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
-      <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
-      <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
+    <Compile Include="Samples\Symbology\RenderSimpleSymbols\RenderSimpleSymbols.xaml.cs">
+      <DependentUpon>RenderSimpleSymbols.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs">
       <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
@@ -808,6 +811,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\RenderClassBreak\RenderClassBreak.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -967,7 +978,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml">
+    <Page Include="Samples\Symbology\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1567,11 +1578,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
+    <Page Include="Samples\Symbology\RenderSimpleSymbols\RenderSimpleSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1749,7 +1756,7 @@
     <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg">
+    <Content Include="Samples\Symbology\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\routingSymbol.png" />
@@ -2201,12 +2208,6 @@
     <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2310,16 +2311,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.12.0</Version>
+      <Version>100.13.0-daily3311</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices">
-      <Version>100.12.0</Version>
+      <Version>100.13.0-daily3311</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit">
-      <Version>100.12.0</Version>
+      <Version>100.13.0-daily3255</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.WPF">
-      <Version>100.12.0</Version>
+      <Version>100.13.0-daily3311</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>

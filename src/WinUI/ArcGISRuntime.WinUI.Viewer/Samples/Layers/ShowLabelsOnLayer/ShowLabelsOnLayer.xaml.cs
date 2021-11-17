@@ -8,15 +8,12 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using Windows.UI.Popups;
+using System.Drawing;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Drawing;
-using System.Windows;
 
 namespace ArcGISRuntime.WinUI.Samples.ShowLabelsOnLayer
 {

@@ -182,7 +182,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             });
         }
 
-        private async void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
+        private void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
         {
             // Update UI controls based on whether the geodatabase has a current transaction
             DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>

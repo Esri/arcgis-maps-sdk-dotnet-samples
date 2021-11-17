@@ -30,7 +30,6 @@ namespace ArcGISRuntime.WinUI.Viewer
 {
     public sealed partial class MainPage
     {
-        private readonly SystemNavigationManager _currentView;
         private bool _waitFlag;
 
         public MainPage()
@@ -41,7 +40,7 @@ namespace ArcGISRuntime.WinUI.Viewer
 
             // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
-
+            
             Initialize();
 
             LoadTreeView(SampleManager.Current.FullTree);
@@ -235,24 +234,6 @@ namespace ArcGISRuntime.WinUI.Viewer
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
             _ = settingsDialog.ShowAsync();
-        }
-
-        private void OnFrameNavigationRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (Frame.CanGoBack && e.Handled == false)
-            {
-                e.Handled = true;
-                Frame.GoBack();
-            }
-            _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Collapsed;
-        }
-
-        private void OnFrameNavigated(object sender, Navigation.NavigationEventArgs e)
-        {
-            if (Frame.CanGoBack)
-            {
-                _currentView.AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
-            }
         }
     }
 

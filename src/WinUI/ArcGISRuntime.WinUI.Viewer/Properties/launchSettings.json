@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ArcGISRuntime.WinUI.Viewer (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ArcGISRuntime.WinUI.Viewer (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

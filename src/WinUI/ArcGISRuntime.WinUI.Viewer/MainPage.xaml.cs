@@ -132,12 +132,17 @@ namespace ArcGISRuntime.WinUI.Viewer
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show the waiting page
-                    SamplePageContainer.Content = new WaitPage(cancellationSource);
+                    var waitPage = new WaitPage(cancellationSource);
+                    SamplePageContainer.Content = waitPage;
                     SamplePageContainer.Visibility = Visibility.Visible;
                     SampleSelectionGrid.Visibility = Visibility.Collapsed;
 
                     // Wait for offline data to complete
-                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
+                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token,
+                        (info) =>
+                        {
+                            waitPage.SetProgress(info.Percentage);
+                        });
                 }
 
                 // Show the sample

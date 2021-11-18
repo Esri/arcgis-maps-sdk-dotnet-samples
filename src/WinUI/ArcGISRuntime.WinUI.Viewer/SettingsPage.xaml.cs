@@ -89,12 +89,16 @@ namespace ArcGISRuntime
                     }
                 }
 
-                foreach (var item in itemIds)
+                StatusSpinner.IsIndeterminate = false;
+                StatusSpinner.Minimum = 0;
+                StatusSpinner.MaxHeight = 100;
+                await DataManager.EnsureSampleDataPresent(itemIds, token, (info) =>
                 {
-                    downloadTasks.Add(DataManager.DownloadDataItem(item, token));
-                }
-
-                await Task.WhenAll(downloadTasks);
+                    DispatcherQueue.TryEnqueue(() =>
+                    {
+                        StatusSpinner.Value = info.Percentage;
+                    });
+                });
 
                 await new MessageDialog2("All data downloaded").ShowAsync();
             }
@@ -109,6 +113,7 @@ namespace ArcGISRuntime
             }
             finally
             {
+                StatusSpinner.IsIndeterminate = true;
                 _cancellationTokenSource = new CancellationTokenSource();
                 SetStatusMessage("Ready", false);
                 CancelButton.Visibility = Visibility.Collapsed;
@@ -162,15 +167,36 @@ namespace ArcGISRuntime
             }
         }
 
+        private Dictionary<SampleInfo, CancellationTokenSource> Downloads = new Dictionary<SampleInfo, CancellationTokenSource>();
+
         private async void Download_Now_Click(object sender, RoutedEventArgs e)
         {
+            ProgressBar progress = null;
+            SampleInfo sample = ((Button)sender).Tag as SampleInfo;
             try
             {
-                SetStatusMessage("Downloading sample data", true);
-                SampleInfo sample = (SampleInfo)((Button)sender).Tag;
-
-                await DataManager.EnsureSampleDataPresent(sample);
+                if(Downloads.ContainsKey(sample))
+                {
+                    Downloads[sample].Cancel();
+                    return;
+                }
+                CancellationTokenSource tcs = new CancellationTokenSource();
+                Downloads[sample] = tcs;
+                var elm = (sender as Button)?.Content;
+                Action<ProgressInfo> onProgress = null;
+                if (elm is Grid grid && grid.Children.Count == 2 && grid.Children[1] is ProgressBar bar)
+                {
+                    progress = bar;
+                    progress.Value = 0;
+                    progress.Visibility = Visibility.Visible;
+                    onProgress = (info) =>
+                    {
+                        DispatcherQueue.TryEnqueue(() => { progress.Value = info.Percentage; });
+                    };
+                }
+                await DataManager.EnsureSampleDataPresent(sample, tcs.Token, onProgress);
             }
+            catch (OperationCanceledException) { }
             catch (Exception exception)
             {
                 System.Diagnostics.Debug.WriteLine(exception);
@@ -178,7 +204,9 @@ namespace ArcGISRuntime
             }
             finally
             {
-                SetStatusMessage("Ready", false);
+                Downloads.Remove(sample);
+                if (progress != null)
+                    progress.Visibility = Visibility.Collapsed;
             }
         }
 

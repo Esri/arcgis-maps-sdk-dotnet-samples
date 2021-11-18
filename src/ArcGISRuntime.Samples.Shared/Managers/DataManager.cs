@@ -21,9 +21,9 @@ namespace ArcGISRuntime.Samples.Managers
 {
     public static class DataManager
     {
-        private static Task DownloadItem(PortalItem item)
+        private static Task DownloadItem(PortalItem item, Action<ProgressInfo> onProgress = null)
         {
-            return DownloadItem(item, CancellationToken.None);
+            return DownloadItem(item, CancellationToken.None, onProgress);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.Managers
         /// </summary>
         /// <param name="item">Portal item to download.</param>
         /// <param name="cancellationToken">Cancellation token</param>
-        private static async Task DownloadItem(PortalItem item, CancellationToken cancellationToken)
+        private static async Task DownloadItem(PortalItem item, CancellationToken cancellationToken, Action<ProgressInfo> onProgress = null)
         {
             // Get sample data directory.
             string dataDir = Path.Combine(GetDataFolder(), item.ItemId);
@@ -41,21 +41,20 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 Directory.CreateDirectory(dataDir);
             }
-
             // Get the download task.
-            Task<Stream> downloadTask = item.GetDataAsync(cancellationToken);
+            //Task<Stream> downloadTask = item.GetDataAsync(cancellationToken);
 
             // Get the path to the destination file.
             string tempFile = Path.Combine(dataDir, item.Name);
-
+            
             // Download the file.
-            using (var s = await downloadTask.ConfigureAwait(false))
-            {
-                using (var f = File.Create(tempFile))
-                {
-                    await s.CopyToAsync(f).WithCancellation(cancellationToken).ConfigureAwait(false);
-                }
-            }
+            var downloadTask = await FileDownloadTask.StartDownload(tempFile, item);
+
+            if (cancellationToken.CanBeCanceled)
+                cancellationToken.Register(() => _ = downloadTask.CancelAsync());
+            if (onProgress != null)
+                downloadTask.Progress += (s, e) => onProgress(e);
+            await downloadTask.DownloadAsync();
 
             // Unzip the file if it is a zip archive.
             if (tempFile.EndsWith(".zip"))
@@ -86,24 +85,43 @@ namespace ArcGISRuntime.Samples.Managers
             return downloadDate >= item.Modified;
         }
 
-        public static async Task EnsureSampleDataPresent(SampleInfo info)
+        public static async Task EnsureSampleDataPresent(SampleInfo info, Action<ProgressInfo> onProgress = null)
         {
-            await EnsureSampleDataPresent(info, CancellationToken.None);
+            await EnsureSampleDataPresent(info, CancellationToken.None, onProgress);
         }
 
         /// <summary>
         /// Ensures that data needed for a sample has been downloaded and is up-to-date.
         /// </summary>
         /// <param name="sample">The sample to ensure data is present for.</param>
-        public static async Task EnsureSampleDataPresent(SampleInfo sample, CancellationToken token)
+        public static Task EnsureSampleDataPresent(SampleInfo sample, CancellationToken token, Action<ProgressInfo> onProgress = null)
+        {
+            return EnsureSampleDataPresent(sample.OfflineDataItems, token, onProgress);
+        }
+
+        public static async Task EnsureSampleDataPresent(IEnumerable<string> itemIds, CancellationToken token, Action<ProgressInfo> onProgress = null)
         {
             // Return if there's nothing to do.
-            if (sample.OfflineDataItems == null || !sample.OfflineDataItems.Any()) { return; }
+            if (itemIds == null || !itemIds.Any()) { return; }
 
             // Hold a list of download tasks (to enable parallel download).
             List<Task> downloads = new List<Task>();
+            Action<ProgressInfo, int> combinedProgress = null;
+            if (onProgress != null)
+            {
+                
+                var count = itemIds.Count();
+                ProgressInfo[] totalProgress = new ProgressInfo[count];
+                int total = count * 100;
+                combinedProgress = (info, id) =>
+                {
+                    totalProgress[id] = info;
+                    onProgress(new ProgressInfo() { TotalBytes = totalProgress.Sum(t => t is null ? 0 : t.TotalBytes), TotalLength = totalProgress.Sum(t => t is null ? 0 : t.TotalLength) });
+                };
+            }
 
-            foreach (string itemId in sample.OfflineDataItems)
+            int id = 0;
+            foreach (string itemId in itemIds)
             {
                 // Create ArcGIS portal item
                 var portal = await ArcGISPortal.CreateAsync(token).ConfigureAwait(false);
@@ -111,9 +129,11 @@ namespace ArcGISRuntime.Samples.Managers
                 // Download item if not already present
                 if (!IsDataPresent(item))
                 {
-                    Task downloadTask = DownloadItem(item, token);
+                    var index = id;
+                    Task downloadTask = DownloadItem(item, token, combinedProgress is null ? null : (info) => combinedProgress(info, index));
                     downloads.Add(downloadTask);
                 }
+                id++;
             }
             // Wait for all downloads to complete
             await Task.WhenAll(downloads).WithCancellation(token);

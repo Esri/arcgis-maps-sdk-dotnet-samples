@@ -28,11 +28,23 @@ namespace ArcGISRuntime.WinUI.Viewer
         {
             InitializeComponent();
             _cancellationTokenSource = cancellation;
+            this.Visibility = Visibility.Collapsed;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             _cancellationTokenSource.Cancel(true);
+        }
+
+        public void SetProgress(int percentage)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                if (percentage > 0)
+                    this.Visibility = Visibility.Visible;
+                progress.Value = percentage;
+            }
+            );
         }
     }
 }

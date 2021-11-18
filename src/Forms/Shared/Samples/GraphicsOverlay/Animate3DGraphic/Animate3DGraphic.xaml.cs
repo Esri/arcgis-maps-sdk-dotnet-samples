@@ -10,6 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -390,12 +391,12 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
                 }
 
                 // Populate the object's properties from the array of parameters
-                Longitude = Convert.ToDouble(missionFrameParameters[0]);
-                Latitude = Convert.ToDouble(missionFrameParameters[1]);
-                Elevation = Convert.ToDouble(missionFrameParameters[2]);
-                Heading = Convert.ToDouble(missionFrameParameters[3]);
-                Pitch = Convert.ToDouble(missionFrameParameters[4]);
-                Roll = Convert.ToDouble(missionFrameParameters[5]);
+                Longitude = Convert.ToDouble(missionFrameParameters[0], CultureInfo.InvariantCulture);
+                Latitude = Convert.ToDouble(missionFrameParameters[1], CultureInfo.InvariantCulture);
+                Elevation = Convert.ToDouble(missionFrameParameters[2], CultureInfo.InvariantCulture);
+                Heading = Convert.ToDouble(missionFrameParameters[3], CultureInfo.InvariantCulture);
+                Pitch = Convert.ToDouble(missionFrameParameters[4], CultureInfo.InvariantCulture);
+                Roll = Convert.ToDouble(missionFrameParameters[5], CultureInfo.InvariantCulture);
             }
 
             /// <summary>

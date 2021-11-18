@@ -72,7 +72,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
             
             // Keep the UI updated.
-            _distanceMeasurement.MeasurementChanged += async (o, e) =>
+            _distanceMeasurement.MeasurementChanged += (o, e) =>
             {
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
                 DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>

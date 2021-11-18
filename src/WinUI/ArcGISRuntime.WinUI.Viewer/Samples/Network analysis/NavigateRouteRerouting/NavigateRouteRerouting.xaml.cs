@@ -192,7 +192,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
         }
 
-        private async void TrackingStatusUpdated(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
+        private void TrackingStatusUpdated(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
         {
             TrackingStatus status = e.TrackingStatus;
 

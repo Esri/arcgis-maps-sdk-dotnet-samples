@@ -12,7 +12,7 @@
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>ArcGISRuntime.WinUI.Viewer (Package)</DisplayName>
+    <DisplayName>ArcGIS Runtime SDK for .NET Samples (WinUI)</DisplayName>
     <PublisherDisplayName>Esri Inc.</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -31,12 +31,12 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="ArcGIS Runtime SDK for .NET Samples (WinUI Desktop)"
-        Description="Sample viewer for the ArcGIS Runtime SDK for .NET, implemented with WinUI for Desktop."
+        DisplayName="ArcGIS Runtime SDK for .NET Samples (WinUI)"
+        Description="Sample viewer for the ArcGIS Runtime SDK for .NET, implemented with WinUI."
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
-        <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Assets\BadgeLogo.png" />
+        <uap:LockScreen Notification="badgeAndTileText" BadgeLogo="Images\BadgeLogo.png" />
         <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" Square71x71Logo="Images\square-71-400.png" Square310x310Logo="Images\square-310-400.png" ShortName="ArcGIS .NET Samples">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="wide310x150Logo" />

@@ -128,7 +128,7 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
 
             #region "Add Polygon Symbols"
             //Graphic for labeling line marker symbols column
-            x = 50.0;
+            x = 40.0;
             y = 50.0;
             Graphic textGraphic4fillSymbols = new Graphic(new MapPoint(x, y, SpatialReferences.Wgs84),
                 new TextSymbol()
@@ -146,6 +146,24 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             AddPolygonGraphicsWithMarkerSymbols(overlay);
             #endregion "Add Polygon Symbols"
 
+            #region "Add more complex multilayer symbols"
+            //Graphic for labeling line marker symbols column
+            x = 100.0;
+            y = 50.0;
+            Graphic textGraphic4advancedSymbols = new Graphic(new MapPoint(x, y, SpatialReferences.Wgs84),
+               new TextSymbol()
+               {
+                   Text = "More Multilayer Symbols",
+                   HorizontalAlignment = Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left,
+                   Color = System.Drawing.Color.Yellow,
+                   BackgroundColor = System.Drawing.Color.Black,
+                   Size = 25,
+                   HaloColor = Color.Green,
+                   HaloWidth = 1.5
+               });
+            overlay.Graphics.Add(textGraphic4advancedSymbols);
+            AddSomeAdvancedSymbolsForPointLinePolygon(overlay);
+            #endregion "Add more complex multilayer symbols"
         }
 
         private void AddPointGraphicsWithMarkerSymbols(GraphicsOverlay overlay)
@@ -608,6 +626,104 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
                 y -= 9;
 
             }
+        }
+
+        private void AddSomeAdvancedSymbolsForPointLinePolygon(GraphicsOverlay overlay)
+        {
+            y = 40;
+            MultilayerPointSymbol ml_pointSymbol;
+            MultilayerPolylineSymbol ml_polylineSymbol;
+            MultilayerPolygonSymbol ml_polygonSymbol;
+
+            //Symbol layers for Multilayerpoint
+
+            //0th layer with three marker elements and three vector marker layers
+
+            //Orange envelope with Redish outline
+            SolidFillSymbolLayer orange_Fill_Layer = new SolidFillSymbolLayer(Color.Orange);
+            SolidStrokeSymbolLayer pink_outline = new SolidStrokeSymbolLayer(2, Color.Blue);
+            var orange_Square_Geometry = new Envelope(new MapPoint(-0.5, -0.5, SpatialReferences.Wgs84), new MapPoint(0.5, 0.5, SpatialReferences.Wgs84));
+            VectorMarkerSymbolElement orange_Square_Vector_Element = new VectorMarkerSymbolElement(orange_Square_Geometry, new MultilayerPolygonSymbol(new List<SymbolLayer>() { orange_Fill_Layer, pink_outline }));
+            VectorMarkerSymbolLayer orange_Square_VectorMarkerLayer = new VectorMarkerSymbolLayer(new[] { orange_Square_Vector_Element });
+            orange_Square_VectorMarkerLayer.Size = 11;
+            orange_Square_VectorMarkerLayer.Anchor = new SymbolAnchor(-4, -6, SymbolAnchorPlacementMode.Absolute);
+
+            // black envelope
+            SolidFillSymbolLayer black_Fill_Layer = new SolidFillSymbolLayer(Color.Black);
+            SolidStrokeSymbolLayer orange_outline = new SolidStrokeSymbolLayer(2, Color.OrangeRed);
+            var black_Square_Geometry = new Envelope(new MapPoint(-0.5, -0.5, SpatialReferences.Wgs84), new MapPoint(0.5, 0.5, SpatialReferences.Wgs84));
+            VectorMarkerSymbolElement black_Square_Vector_Element = new VectorMarkerSymbolElement(black_Square_Geometry, new MultilayerPolygonSymbol(new List<SymbolLayer>() { black_Fill_Layer, orange_outline }));
+            VectorMarkerSymbolLayer black_Square_VectorMarkerLayer = new VectorMarkerSymbolLayer(new[] { black_Square_Vector_Element });
+            black_Square_VectorMarkerLayer.Size = 6;
+            black_Square_VectorMarkerLayer.Anchor = new SymbolAnchor(2, 1, SymbolAnchorPlacementMode.Absolute);
+
+            // envelope with no purple outline
+            SolidFillSymbolLayer transparent_Fill_Layer = new SolidFillSymbolLayer(Color.Transparent);
+            SolidStrokeSymbolLayer purple_Outline = new SolidStrokeSymbolLayer(2, Color.Purple);
+            var purple_Square_Geometry = new Envelope(new MapPoint(-0.5, -0.5, SpatialReferences.Wgs84), new MapPoint(0.5, 0.5, SpatialReferences.Wgs84));
+            VectorMarkerSymbolElement purple_Square_Vector_Element = new VectorMarkerSymbolElement(purple_Square_Geometry, new MultilayerPolygonSymbol(new List<SymbolLayer>() { transparent_Fill_Layer, purple_Outline }));
+            VectorMarkerSymbolLayer purple_Square_VectorMarkerLayer = new VectorMarkerSymbolLayer(new[] { purple_Square_Vector_Element });
+            purple_Square_VectorMarkerLayer.Size = 14;
+            purple_Square_VectorMarkerLayer.Anchor = new SymbolAnchor(4, 2, SymbolAnchorPlacementMode.Absolute);
+
+
+            //1st layer with it's marker graphics and nested symbol layers
+            var hexagon_Element_Geometry = Geometry.FromJson("{\"rings\":[[[-2.89,5.0],[2.89,5.0],[5.77,0.0],[2.89,-5.0],[-2.89,-5.0],[-5.77,0.0],[-2.89,5.0]]]}");
+            SolidFillSymbolLayer yellow_Fill_Layer = new SolidFillSymbolLayer(Color.Yellow);
+            SolidStrokeSymbolLayer black_Outline = new SolidStrokeSymbolLayer(2, Color.Black);
+            VectorMarkerSymbolElement hexagon_Vector_Element = new VectorMarkerSymbolElement(hexagon_Element_Geometry, new MultilayerPolygonSymbol(new List<SymbolLayer>() { yellow_Fill_Layer, black_Outline }));
+            VectorMarkerSymbolLayer hexagon_VectorMarkerLayer = new VectorMarkerSymbolLayer(new[] { hexagon_Vector_Element });
+            hexagon_VectorMarkerLayer.Size = 35;
+
+            ml_pointSymbol = new MultilayerPointSymbol(new List<SymbolLayer> { hexagon_VectorMarkerLayer, orange_Square_VectorMarkerLayer, black_Square_VectorMarkerLayer, purple_Square_VectorMarkerLayer });
+
+            Graphic advanced_point_graphic = new Graphic(new MapPoint(x + 25, y, SpatialReferences.Wgs84), ml_pointSymbol);
+
+            overlay.Graphics.Add(advanced_point_graphic);
+
+            // decrement both y so all lines appear in one column
+            y -= 10.0;
+
+            //Symbol layers for Multilayerpolyline
+            SolidStrokeSymbolLayer black_dashes = new SolidStrokeSymbolLayer(1, Color.Black);
+            GeometricEffect dash_Effect = new DashGeometricEffect(new double[] { 5, 3 });
+            black_dashes.GeometricEffects.Add(dash_Effect);
+            black_dashes.CapStyle = StrokeSymbolLayerCapStyle.Square;
+
+            //yellow stroke inside
+            SolidStrokeSymbolLayer yellow_stroke = new SolidStrokeSymbolLayer(5, Color.Yellow);
+            yellow_stroke.CapStyle = StrokeSymbolLayerCapStyle.Round;
+
+            //black outline
+            SolidStrokeSymbolLayer black_outline = new SolidStrokeSymbolLayer(7, Color.Black);
+            black_outline.CapStyle = StrokeSymbolLayerCapStyle.Round;
+
+            ml_polylineSymbol = new MultilayerPolylineSymbol(new List<SymbolLayer>() { black_outline, yellow_stroke, black_dashes });
+            PolylineBuilder polylineBuilder = new PolylineBuilder(SpatialReferences.Wgs84);
+            polylineBuilder.AddPoint(new MapPoint(x + 40, y, SpatialReferences.Wgs84));
+            polylineBuilder.AddPoint(new MapPoint(x + 10, y, SpatialReferences.Wgs84));
+
+            // Create a polyline graphic with geometry and symbol                        
+            Graphic advanced_line_graphic = new Graphic(polylineBuilder.ToGeometry(), ml_polylineSymbol);
+
+            // Add new graphic to overlay
+            overlay.Graphics.Add(advanced_line_graphic);
+
+            // decrement both y so all lines appear in one column
+            y -= 10.0;
+
+            SolidFillSymbolLayer red_Fill_Layer = new SolidFillSymbolLayer(Color.Red);
+            ml_polygonSymbol = new MultilayerPolygonSymbol(new List<SymbolLayer>() { red_Fill_Layer, black_outline, yellow_stroke, black_dashes });
+            PolygonBuilder polygonBuilder = new PolygonBuilder(SpatialReferences.Wgs84);
+            polygonBuilder.AddPoint(new MapPoint(x + 20, y, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(x + 30, y, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(x + 30, y - 5, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(x + 20, y - 5, SpatialReferences.Wgs84));
+            // Create a polyline graphic with geometry and symbol                        
+            Graphic advanced_polygon_graphic = new Graphic(polygonBuilder.ToGeometry(), ml_polygonSymbol);
+
+            // Add new graphic to overlay
+            overlay.Graphics.Add(advanced_polygon_graphic);
         }
     }
 }

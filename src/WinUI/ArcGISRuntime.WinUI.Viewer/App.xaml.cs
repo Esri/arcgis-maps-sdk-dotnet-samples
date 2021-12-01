@@ -81,6 +81,6 @@ namespace ArcGISRuntime.WinUI.Viewer
 
         private Window m_window;
 
-        public static Window CurrentWindow => ((App)Current).m_window;
+        public static IntPtr CurrentWindowHandle => WinRT.Interop.WindowNative.GetWindowHandle(((App)Current).m_window);
     }
 }

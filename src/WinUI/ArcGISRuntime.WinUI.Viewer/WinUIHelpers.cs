@@ -1,10 +1,7 @@
 ﻿using ArcGISRuntime.WinUI.Viewer;
-using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Windows.Foundation;
 using Windows.UI.Popups;
-using WinRT;
 
 namespace ArcGISRuntime.WinUI
 {
@@ -33,20 +30,8 @@ namespace ArcGISRuntime.WinUI
 
         public IAsyncOperation<IUICommand> ShowAsync()
         {
-            var handle = WinRT.Interop.WindowNative.GetWindowHandle(App.CurrentWindow);
-            dialog.As<IInitializeWithWindow>().Initialize(handle);
+            WinRT.Interop.InitializeWithWindow.Initialize(dialog, App.CurrentWindowHandle);
             return dialog.ShowAsync();
         }
-
-        [ComImport]
-        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-        [Guid("3E68D4BD-7135-4D10-8018-9FB6D9F33FA1")]
-        private interface IInitializeWithWindow
-        {
-            void Initialize(IntPtr hwnd);
-        }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetActiveWindow();
     }
 }

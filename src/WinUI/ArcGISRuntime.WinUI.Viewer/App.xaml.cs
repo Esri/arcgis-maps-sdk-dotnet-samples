@@ -35,8 +35,6 @@ namespace ArcGISRuntime.WinUI.Viewer
             this.InitializeComponent();
         }
 
-        public static IntPtr CurrentWindowHandle { get; private set; }
-
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
@@ -46,8 +44,6 @@ namespace ArcGISRuntime.WinUI.Viewer
         {
             m_window = new MainWindow();
             Frame rootFrame = m_window.Content as Frame;
-
-            CurrentWindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(m_window);
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
@@ -84,5 +80,7 @@ namespace ArcGISRuntime.WinUI.Viewer
         }
 
         private Window m_window;
+
+        public static Window CurrentWindow => ((App)Current).m_window;
     }
 }

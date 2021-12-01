@@ -33,7 +33,7 @@ namespace ArcGISRuntime.WinUI
 
         public IAsyncOperation<IUICommand> ShowAsync()
         {
-            var handle = App.CurrentWindowHandle;
+            var handle = WinRT.Interop.WindowNative.GetWindowHandle(App.CurrentWindow);
             dialog.As<IInitializeWithWindow>().Initialize(handle);
             return dialog.ShowAsync();
         }

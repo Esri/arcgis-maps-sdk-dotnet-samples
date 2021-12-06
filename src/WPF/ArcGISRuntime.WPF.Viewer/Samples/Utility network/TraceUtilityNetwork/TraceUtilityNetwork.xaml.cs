@@ -274,7 +274,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
                 }
 
                 // Set the trace configuration using the tier from the utility domain network.
-                parameters.TraceConfiguration = _mediumVoltageTier.TraceConfiguration;
+                parameters.TraceConfiguration = _mediumVoltageTier.GetDefaultTraceConfiguration();
 
                 //  Get the trace result from the utility network.
                 IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(parameters);

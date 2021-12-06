@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Xml.Linq;
@@ -112,7 +113,7 @@ namespace ArcGISRuntime.WPF.Samples.DictionaryRendererGraphicsOverlay
             foreach (string pointString in pointStrings)
             {
                 var coords = pointString.Split(',');
-                graphicPoints.Add(Convert.ToDouble(coords[0]), Convert.ToDouble(coords[1]));
+                graphicPoints.Add(Convert.ToDouble(coords[0], CultureInfo.InvariantCulture), Convert.ToDouble(coords[1], CultureInfo.InvariantCulture));
             }
 
             // Create a multipoint from the point collection.

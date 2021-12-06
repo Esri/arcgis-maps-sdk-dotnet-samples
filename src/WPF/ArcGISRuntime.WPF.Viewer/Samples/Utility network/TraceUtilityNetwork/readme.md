@@ -26,7 +26,7 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 10. If an edge, set its `FractionAlongEdge` property using `GeometryEngine.FractionAlong`.
 11. Add this `UtilityElement` to a collection of starting locations or barriers.
 12. Create `UtilityTraceParameters` with the selected trace type along with the collected starting locations and barriers (if applicable).
-13. Set the `UtilityTraceParameters.TraceConfiguration` with the tier's `UtilityTier.TraceConfiguration` property.
+13. Set the `UtilityTraceParameters.TraceConfiguration` with the tier's `UtilityTier.GetDefaultTraceConfiguration()` result.
 14. Run a `UtilityNetwork.TraceAsync` with the specified parameters.
 15. For every `FeatureLayer` in the map, select the features returned with `GetFeaturesForElementsAsync` from the elements matching their `UtilityNetworkSource.FeatureTable` with the layer's `FeatureTable`.
 

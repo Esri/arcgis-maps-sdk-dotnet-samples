@@ -108,6 +108,9 @@ class sample_metadata:
         redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{self.formal_name.lower()}.htm"
         self.redirect_from.append(redirect_string)
 
+        if self.formal_name == "DisplayDeviceLocation":
+            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/display-device-location/")
+
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 
@@ -424,7 +427,7 @@ class sample_metadata:
         # populate files in the directory
         sample_dir = os.path.split(path_to_readme)[0]
         for file in os.listdir(sample_dir):
-            if os.path.splitext(file)[1] in [".axml", ".xaml", ".cs"]:
+            if os.path.splitext(file)[1] in [".axml", ".xaml", ".cs", ".xml"]:
                 self.source_files.append(file)        
             # populate AXML layouts for Android
             if platform == "Android" and os.path.splitext(file)[1] == ".cs":
@@ -444,10 +447,13 @@ class sample_metadata:
                         layout_name = line.split("Layout.")[1].strip().strip(";").strip(", null)")
                     if layout_name is not None:
                         # determine if the file ending is .xml
-                        if (os.path.exists(os.path.join("..", "..", "src", "Android", "Xamarin.Android", "Resources", "layout", f"{layout_name}.xml"))):
+                        if (os.path.exists(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "src", "Android", "Xamarin.Android", "Resources", "layout", f"{layout_name}.xml"))):
                             ending = ".xml"
-                        else:
+                        elif (os.path.exists(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "src", "Android", "Xamarin.Android", "Resources", "layout", f"{layout_name}.axml"))):
                             ending = ".axml"
+                        else:
+                            print(f"Couldnt find layout file for sample {layout_name}")
+                            continue
                         # add the file path to the snippets list
                         self.source_files.append(f"../../../Resources/layout/{layout_name}{ending}")
         # Manually add JoystickSeekBar control on Android for AR only
@@ -469,7 +475,7 @@ class sample_metadata:
             for sample_file_name in f:
                 sample_file_fullpath = os.path.join(r, sample_file_name)
                 extension = os.path.splitext(sample_file_fullpath)[1]
-                if extension in [".cs", ".xaml", ".sln", ".slntemplate", ".md", ".csproj", ".shproj", ".axml"]:
+                if extension in [".cs", ".xaml", ".sln", ".slntemplate", ".md", ".csproj", ".shproj", ".axml", ".xml"]:
                     # open file, read into string
                     original_contents = safe_read_contents(sample_file_fullpath)
                     # make replacements

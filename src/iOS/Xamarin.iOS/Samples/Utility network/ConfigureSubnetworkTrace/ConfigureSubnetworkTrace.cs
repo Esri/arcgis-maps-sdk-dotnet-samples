@@ -119,17 +119,17 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 _sourceTier = domainNetwork.GetTier(TierName);
 
                 // Set the trace configuration.
-                _configuration = _sourceTier.TraceConfiguration;
+                _configuration = _sourceTier.GetDefaultTraceConfiguration();
 
                 // Set the default expression (if provided).
-                if (_sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
+                if (_sourceTier.GetDefaultTraceConfiguration().Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
                     _expressionLabel.Text = ExpressionToString(expression);
                     _initialExpression = expression;
                 }
 
                 // Set the traversability scope.
-                _sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
+                _sourceTier.GetDefaultTraceConfiguration().Traversability.Scope = UtilityTraversabilityScope.Junctions;
             }
             catch (Exception ex)
             {
@@ -143,12 +143,12 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
         private void BarrierChanged(object sender, EventArgs e)
         {
-            _sourceTier.TraceConfiguration.IncludeBarriers = _barrierSwitch.On;
+            _sourceTier.GetDefaultTraceConfiguration().IncludeBarriers = _barrierSwitch.On;
         }
 
         private void ContainerChanged(object sender, EventArgs e)
         {
-            _sourceTier.TraceConfiguration.IncludeContainers = _containerSwitch.On;
+            _sourceTier.GetDefaultTraceConfiguration().IncludeContainers = _containerSwitch.On;
         }
 
         private void AttributeClick(object sender, EventArgs e)

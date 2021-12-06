@@ -128,10 +128,8 @@ namespace ArcGISRuntime.WPF.Viewer
                 {
                     string baseContent = File.ReadAllText(_path);
 
-                    if (_path.EndsWith(".xaml"))
-                    {
-                        baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
-                    }
+                    // > and < characters will be incorrectly parsed by the html.
+                    baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
 
                     // Build the html.
                     _fullContent =

@@ -1,15 +1,12 @@
-﻿<Window
-    x:Class="ArcGISRuntime.SettingsWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:ArcGISRuntime"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Settings"
-    Width="800"
-    Height="450"
-    WindowStartupLocation="CenterOwner"
-    mc:Ignorable="d">
+﻿<Window x:Class="ArcGISRuntime.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ArcGISRuntime"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        Title="Settings"
+        Width="800"
+        Height="450"
+        WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Padding" Value="5" />
@@ -22,17 +19,18 @@
         <TabControl>
             <TabItem Header="About">
                 <Grid Margin="5">
-                    <TextBlock
-                        Grid.Row="0"
-                        FontSize="18"
-                        FontWeight="SemiBold">
+                    <TextBlock Grid.Row="0"
+                               FontSize="18"
+                               FontWeight="SemiBold">
                         <Run Text="Built with ArcGIS Runtime SDK for .NET version" />
                         <Run x:Name="VersionTextField" />
                     </TextBlock>
                 </Grid>
             </TabItem>
             <TabItem Header="Third-party software">
-                <WebBrowser x:Name="LicenseView" />
+                <WindowsFormsHost>
+                    <wf:WebBrowser x:Name="LicenseBrowser" />
+                </WindowsFormsHost>
             </TabItem>
             <TabItem Header="Offline data">
                 <Grid>
@@ -42,32 +40,26 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
-                    <TextBlock
-                        Grid.Row="0"
-                        Margin="5"
-                        Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
-                        TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="0"
+                               Margin="5"
+                               Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
+                               TextWrapping="Wrap" />
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
-                        <Button
-                            Margin="5"
-                            Click="DownloadAll_Clicked"
-                            Content="Download all" />
-                        <Button
-                            Margin="5"
-                            Click="DeleteAll_Click"
-                            Content="Delete all" />
-                        <Button
-                            x:Name="CancelButton"
-                            Margin="5"
-                            Click="Cancel_Click"
-                            Content="Cancel"
-                            Visibility="Collapsed" />
+                        <Button Margin="5"
+                                Click="DownloadAll_Clicked"
+                                Content="Download all" />
+                        <Button Margin="5"
+                                Click="DeleteAll_Click"
+                                Content="Delete all" />
+                        <Button x:Name="CancelButton"
+                                Margin="5"
+                                Click="Cancel_Click"
+                                Content="Cancel"
+                                Visibility="Collapsed" />
                     </StackPanel>
-                    <ListView
-                        x:Name="SampleDataListView"
-                        Grid.Row="2"
-                        HorizontalContentAlignment="Stretch">
+                    <ListView x:Name="SampleDataListView"
+                              Grid.Row="2"
+                              HorizontalContentAlignment="Stretch">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -79,26 +71,22 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock
-                                        Grid.Column="0"
-                                        VerticalAlignment="Center"
-                                        Text="{Binding SampleName}" />
-                                    <Button
-                                        Grid.Column="2"
-                                        Click="OpenInAgol_Clicked"
-                                        Content="Open in ArcGIS Online"
-                                        Tag="{Binding}" />
-                                    <Button
-                                        Grid.Column="3"
-                                        Margin="5,0,5,0"
-                                        Click="DownloadNow_Clicked"
-                                        Content="Download now"
-                                        Tag="{Binding}" />
-                                    <Button
-                                        Grid.Column="4"
-                                        Click="DeleteData_Click"
-                                        Content="Delete"
-                                        Tag="{Binding}" />
+                                    <TextBlock Grid.Column="0"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding SampleName}" />
+                                    <Button Grid.Column="2"
+                                            Click="OpenInAgol_Clicked"
+                                            Content="Open in ArcGIS Online"
+                                            Tag="{Binding}" />
+                                    <Button Grid.Column="3"
+                                            Margin="5,0,5,0"
+                                            Click="DownloadNow_Clicked"
+                                            Content="Download now"
+                                            Tag="{Binding}" />
+                                    <Button Grid.Column="4"
+                                            Click="DeleteData_Click"
+                                            Content="Delete"
+                                            Tag="{Binding}" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>
@@ -108,12 +96,11 @@
                             <TextBlock x:Name="StatusLabel" Text="Ready" />
                         </StatusBarItem>
                         <StatusBarItem HorizontalAlignment="Right">
-                            <ProgressBar
-                                x:Name="StatusSpinner"
-                                Width="200"
-                                Height="14"
-                                IsIndeterminate="True"
-                                Visibility="Collapsed" />
+                            <ProgressBar x:Name="StatusSpinner"
+                                         Width="200"
+                                         Height="14"
+                                         IsIndeterminate="True"
+                                         Visibility="Collapsed" />
                         </StatusBarItem>
                     </StatusBar>
                 </Grid>

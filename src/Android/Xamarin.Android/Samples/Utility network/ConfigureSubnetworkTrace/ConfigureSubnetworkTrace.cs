@@ -134,17 +134,17 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 _sourceTier = domainNetwork.GetTier(TierName);
 
                 // Set the trace configuration.
-                _configuration = _sourceTier.TraceConfiguration;
+                _configuration = _sourceTier.GetDefaultTraceConfiguration();
 
                 // Set the default expression (if provided).
-                if (_sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
+                if (_sourceTier.GetDefaultTraceConfiguration().Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
                     _initialExpression = expression;
                     _expressionLabel.Text = ExpressionToString(_initialExpression);
                 }
 
                 // Set the traversability scope.
-                _sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
+                _sourceTier.GetDefaultTraceConfiguration().Traversability.Scope = UtilityTraversabilityScope.Junctions;
             }
             catch (Exception ex)
             {
@@ -385,8 +385,8 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             _mainView = FindViewById<View>(Resource.Id.ConfigureSubnetworkTraceView);
 
             // Add event handlers for all of the controls.
-            _barrierSwitch.CheckedChange += (s, e) => _sourceTier.TraceConfiguration.IncludeBarriers = e.IsChecked;
-            _containerSwitch.CheckedChange += (s, e) => _sourceTier.TraceConfiguration.IncludeContainers = e.IsChecked;
+            _barrierSwitch.CheckedChange += (s, e) => _sourceTier.GetDefaultTraceConfiguration().IncludeBarriers = e.IsChecked;
+            _containerSwitch.CheckedChange += (s, e) => _sourceTier.GetDefaultTraceConfiguration().IncludeContainers = e.IsChecked;
             _attributeButton.Click += AttributeClicked;
             _comparisonButton.Click += ComparisonClicked;
             _valueButton.Click += ValueClicked;

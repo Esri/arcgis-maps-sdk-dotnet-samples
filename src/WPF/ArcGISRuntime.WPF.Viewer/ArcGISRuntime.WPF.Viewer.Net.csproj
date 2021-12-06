@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net6.0-windows10.0.18362.0</TargetFramework>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <RootNamespace>ArcGISRuntime</RootNamespace>
     <AssemblyName>ArcGISRuntime</AssemblyName>

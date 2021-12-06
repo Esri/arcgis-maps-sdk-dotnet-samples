@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -21,7 +21,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
         name: "Change feature layer renderer",
         category: "Layers",
         description: "Change the appearance of a feature layer with a renderer.",
-        instructions: "Use the buttons to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.",
+        instructions: "Use the button in the control panel to change the renderer on the feature layer. The original renderer displays orange circles, the diameters of which are proportional to carbon storage of each tree. When the blue renderer in this sample is applied, it displays the location of the trees simply as blue points.",
         tags: new[] { "feature layer", "renderer", "visualization" })]
     public partial class ChangeFeatureLayerRenderer
     {
@@ -43,7 +43,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
 
             // Create and set initial map area
             Envelope initialLocation = new Envelope(
-                -1.30758164047166E7, 4014771.46954516, -1.30730056797177E7, 4016869.78617381,
+                -9177811, 4247000, -9176791, 4247784,
                 SpatialReferences.WebMercator);
 
             // Set the initial viewpoint for map
@@ -53,8 +53,7 @@ namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
             MyMapView.Map = myMap;
 
             // Create uri to the used feature service
-            Uri serviceUri = new Uri(
-               "https://sampleserver6.arcgisonline.com/arcgis/rest/services/PoolPermits/FeatureServer/0");
+            Uri serviceUri = new Uri("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/Landscape_Trees/FeatureServer/0");
 
             // Initialize feature table using a url to feature server url
             ServiceFeatureTable featureTable = new ServiceFeatureTable(serviceUri);
@@ -66,19 +65,11 @@ namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
 
         private void OnOverrideButtonClicked(object sender, RoutedEventArgs e)
         {
-            // Create a symbol to be used in the renderer
-            SimpleLineSymbol symbol = new SimpleLineSymbol()
-            {
-                Color = Color.Blue,
-                Width = 2,
-                Style = SimpleLineSymbolStyle.Solid
-            };
+            // Create a symbol to be used in the renderer.
+            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 5);
 
-            // Create a new renderer using the symbol just created
-            SimpleRenderer renderer = new SimpleRenderer(symbol);
-
-            // Assign the new renderer to the feature layer
-            _featureLayer.Renderer = renderer;
+            // Create and apply a new renderer using the symbol just created.
+            _featureLayer.Renderer = new SimpleRenderer(symbol);
         }
 
         private void OnResetButtonClicked(object sender, RoutedEventArgs e)

@@ -18,6 +18,7 @@ using System.IO;
 using System.Linq;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
+using ArcGISRuntime.WinUI.Viewer;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
@@ -222,6 +223,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
         {
             // Open a save dialog for the user.
             FileSavePicker savePicker = new FileSavePicker();
+            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, App.CurrentWindowHandle);
             savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
             savePicker.FileTypeChoices.Add("KMZ file", new List<string>() { ".kmz" });
             Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();

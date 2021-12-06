@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -122,7 +123,7 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
             foreach (string pointString in pointStrings)
             {
                 var coords = pointString.Split(',');
-                graphicPoints.Add(Convert.ToDouble(coords[0]), Convert.ToDouble(coords[1]));
+                graphicPoints.Add(Convert.ToDouble(coords[0], CultureInfo.InvariantCulture), Convert.ToDouble(coords[1], CultureInfo.InvariantCulture));
             }
 
             // Create a multipoint from the point collection.

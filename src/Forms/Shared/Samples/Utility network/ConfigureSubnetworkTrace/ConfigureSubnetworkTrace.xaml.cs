@@ -95,14 +95,14 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);
                 _sourceTier = domainNetwork.GetTier(TierName);
 
-                if (_sourceTier.TraceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
+                if (_sourceTier.GetDefaultTraceConfiguration().Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
                     ConditionBarrierExpression.Text = ExpressionToString(expression);
                     _initialExpression = expression;
                 }
 
                 // Set the traversability scope.
-                _sourceTier.TraceConfiguration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
+                _sourceTier.GetDefaultTraceConfiguration().Traversability.Scope = UtilityTraversabilityScope.Junctions;
             }
             catch (Exception ex)
             {
@@ -199,7 +199,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             {
                 // Create utility trace parameters for the starting location.
                 UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Subnetwork, new[] { _startingLocation });
-                parameters.TraceConfiguration = _sourceTier.TraceConfiguration;
+                parameters.TraceConfiguration = _sourceTier.GetDefaultTraceConfiguration();
 
                 // Trace the utility network.
                 IEnumerable<UtilityTraceResult> results = await _utilityNetwork.TraceAsync(parameters);
@@ -219,7 +219,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         private void OnReset(object sender, System.EventArgs e)
         {
             // Reset the barrier condition to the initial value.
-            UtilityTraceConfiguration traceConfiguration = _sourceTier.TraceConfiguration;
+            UtilityTraceConfiguration traceConfiguration = _sourceTier.GetDefaultTraceConfiguration();
             traceConfiguration.Traversability.Barriers = _initialExpression;
             ConditionBarrierExpression.Text = ExpressionToString(_initialExpression);
         }
@@ -228,7 +228,7 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
         {
             try
             {
-                UtilityTraceConfiguration traceConfiguration = _sourceTier.TraceConfiguration;
+                UtilityTraceConfiguration traceConfiguration = _sourceTier.GetDefaultTraceConfiguration();
                 if (traceConfiguration == null)
                 {
                     traceConfiguration = new UtilityTraceConfiguration();
@@ -272,12 +272,12 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
 
         private void IncludeBarriersChanged(object sender, ToggledEventArgs e)
         {
-            _sourceTier.TraceConfiguration.IncludeBarriers = e.Value;
+            _sourceTier.GetDefaultTraceConfiguration().IncludeBarriers = e.Value;
         }
 
         private void IncludContainersChanged(object sender, ToggledEventArgs e)
         {
-            _sourceTier.TraceConfiguration.IncludeContainers = e.Value;
+            _sourceTier.GetDefaultTraceConfiguration().IncludeContainers = e.Value;
         }
     }
 }

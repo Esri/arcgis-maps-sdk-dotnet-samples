@@ -1,15 +1,23 @@
 {
     "category": "GraphicsOverlay",
-    "description": "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style.",
+    "description": "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.",
     "formal_name": "AddGraphicsRenderer",
     "ignore": false,
     "images": [
         "AddGraphicsRenderer.jpg"
     ],
     "keywords": [
-        "GraphicsOverlay",
-        "SimpleMarkerSymbol",
-        "SimpleRenderer"
+        "arc",
+        "bezier",
+        "curve",
+        "display",
+        "graphics",
+        "marker",
+        "overlay",
+        "renderer",
+        "segment",
+        "symbol",
+        "true curve"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.12.0",
@@ -20,9 +28,14 @@
         "/net/latest/winui/sample-code/addgraphicsrenderer.htm"
     ],
     "relevant_apis": [
+        "CubicBezierSegment",
+        "EllipticArcSegment",
         "Geometry",
         "Graphic",
         "GraphicsOverlay",
+        "Part",
+        "PolygonBuilder",
+        "PolylineBuilder",
         "SimpleFillSymbol",
         "SimpleLineSymbol",
         "SimpleMarkerSymbol",

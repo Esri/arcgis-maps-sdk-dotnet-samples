@@ -64,7 +64,7 @@
 
 ## GraphicsOverlay
 
-* [Add graphics with renderer](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/AddGraphicsRenderer/readme.md) - A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style.
+* [Add graphics with renderer](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/AddGraphicsRenderer/readme.md) - A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.
 * [Add graphics with symbols](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/AddGraphicsWithSymbols/readme.md) - Use a symbol style to display a graphic on a graphics overlay.
 * [Animate 3D graphic](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/Animate3DGraphic/readme.md) - An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
 * [Graphics overlay (dictionary renderer)](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/DictionaryRendererGraphicsOverlay/readme.md) - This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.

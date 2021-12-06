@@ -31,7 +31,7 @@
     <MtouchUseLlvm>False</MtouchUseLlvm>
     <MtouchUseThumb>False</MtouchUseThumb>
     <MtouchOptimizePNGs>True</MtouchOptimizePNGs>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <MtouchI18n />
     <CodesignKey>iPhone Developer</CodesignKey>
     <CodesignProvision />
@@ -46,7 +46,7 @@
     <MtouchArch>x86_64</MtouchArch>
     <ConsolePause>false</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <DefineConstants>XAMARIN</DefineConstants>
   </PropertyGroup>
@@ -75,7 +75,7 @@
     <BuildIpa>True</BuildIpa>
     <IpaIncludeArtwork>False</IpaIncludeArtwork>
     <DeviceSpecificBuild>False</DeviceSpecificBuild>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <CodesignProvision>
     </CodesignProvision>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
@@ -100,7 +100,7 @@
     <MtouchEnableBitcode>False</MtouchEnableBitcode>
     <OptimizePNGs>True</OptimizePNGs>
     <MtouchFloat32>False</MtouchFloat32>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <DefineConstants>XAMARIN</DefineConstants>
   </PropertyGroup>
@@ -116,7 +116,7 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
     <CodesignProvision>Automatic:AdHoc</CodesignProvision>
     <BuildIpa>true</BuildIpa>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <DefineConstants>XAMARIN</DefineConstants>
   </PropertyGroup>
@@ -130,21 +130,21 @@
     <MtouchArch>ARM64</MtouchArch>
     <CodesignProvision>Automatic:AppStore</CodesignProvision>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <DefineConstants>XAMARIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\Ad-Hoc\</OutputPath>
     <MtouchArch>x86_64</MtouchArch>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <DefineConstants>XAMARIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|iPhoneSimulator'">
     <OutputPath>..\..\..\output\iOS\iPhoneSimulator\AppStore\</OutputPath>
     <MtouchArch>x86_64</MtouchArch>
-    <LangVersion>7</LangVersion>
+    <LangVersion>7.2</LangVersion>
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <DefineConstants>XAMARIN</DefineConstants>
   </PropertyGroup>

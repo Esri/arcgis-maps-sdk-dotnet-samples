@@ -25,10 +25,11 @@ using Microsoft.UI.Xaml.Input;
 namespace ArcGISRuntime.WinUI.Samples.ShowPopup
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show popup",
-        "Layers",
-        "Show predefined popups from a web map.",
-        "")]
+        name: "Show popup",
+        category: "Layers",
+        description: "Show predefined popups from a web map.",
+        instructions: "Click on the features to prompt a popup that displays information about the feature.",
+        tags: new[] { "feature", "feature layer", "popup", "toolkit", "web map" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ShowPopup
     {

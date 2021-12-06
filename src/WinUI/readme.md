@@ -15,6 +15,7 @@
 * [Add features](ArcGISRuntime.WinUI.Viewer/Samples/Data/AddFeatures/readme.md) - Add features to a feature layer.
 * [Delete features (feature service)](ArcGISRuntime.WinUI.Viewer/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
 * [Edit and sync features](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
+* [Edit with branch versioning](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
 * [Feature layer (geodatabase)](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.
@@ -83,9 +84,11 @@
 
 * [Add an integrated mesh layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer/readme.md) - View an integrated mesh layer from a scene service.
 * [Add a point scene layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/AddPointSceneLayer/readme.md) - View a point scene layer from a scene service.
+* [Apply mosaic rule to rasters](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ApplyMosaicRule/readme.md) - Apply mosaic rule to a mosaic dataset of rasters.
 * [ArcGIS map image layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ArcGISMapImageLayerUrl/readme.md) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ArcGISTiledLayerUrl/readme.md) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl/readme.md) - Load an ArcGIS Vector Tiled Layer from a URL.
+* [Browse OGC API feature service](ArcGISRuntime.WinUI.Viewer/Samples/Layers/BrowseOAFeatureService/readme.md) - Browse an OGC API feature service for layers and add them to the map.
 * [Browse WFS layers](ArcGISRuntime.WinUI.Viewer/Samples/Layers/BrowseWfsLayers/readme.md) - Browse a WFS service for layers and add them to the map.
 * [Blend renderer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ChangeBlendRenderer/readme.md) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Change feature layer renderer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ChangeFeatureLayerRenderer/readme.md) - Change the appearance of a feature layer with a renderer.
@@ -98,6 +101,7 @@
 * [Display annotation](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display KML](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
+* [Display OGC API collection](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.
 * [Display a scene](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayScene/readme.md) - Display a scene with a terrain surface and some imagery.
 * [Display subtype feature layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer/readme.md) - Displays a composite layer of all the subtype values in a feature class.
 * [Display WFS layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
@@ -120,6 +124,7 @@
 * [Query map image sublayer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/MapImageSublayerQuery/readme.md) - Find features in a sublayer based on attributes and location.
 * [OpenStreetMap layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/OpenStreetMapLayer/readme.md) - Add OpenStreetMap as a basemap layer.
 * [Play KML Tour](ArcGISRuntime.WinUI.Viewer/Samples/Layers/PlayKmlTours/readme.md) - Play tours in KML files.
+* [Query with CQL filters](ArcGISRuntime.WinUI.Viewer/Samples/Layers/QueryCQLFilters/readme.md) - Query data from an OGC API feature service using CQL filters.
 * [Colormap renderer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterColormapRenderer/readme.md) - Apply a colormap renderer to a raster.
 * [Raster hillshade renderer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterHillshade/readme.md) - Use a hillshade renderer on a raster.
 * [Raster layer (file)](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterLayerFile/readme.md) - Create and use a raster layer made from a local raster file.
@@ -130,6 +135,7 @@
 * [Scene layer selection](ArcGISRuntime.WinUI.Viewer/Samples/Layers/SceneLayerSelection/readme.md) - Identify features in a scene to select.
 * [Scene layer (URL)](ArcGISRuntime.WinUI.Viewer/Samples/Layers/SceneLayerUrl/readme.md) - Display an ArcGIS scene layer from a URL.
 * [Show labels on layers](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ShowLabelsOnLayer/readme.md) - Display custom labels on a feature layer.
+* [Show popup](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ShowPopup/readme.md) - Show predefined popups from a web map.
 * [Style WMS layers](ArcGISRuntime.WinUI.Viewer/Samples/Layers/StyleWmsLayer/readme.md) - Change the style of a Web Map Service (WMS) layer.
 * [Time-based query](ArcGISRuntime.WinUI.Viewer/Samples/Layers/TimeBasedQuery/readme.md) - Query data using a time extent. 
 * [Load WFS with XML query](ArcGISRuntime.WinUI.Viewer/Samples/Layers/WfsXmlQuery/readme.md) - Load a WFS feature table using an XML query.

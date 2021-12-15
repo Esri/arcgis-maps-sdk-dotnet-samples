@@ -168,8 +168,8 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
                 GeocodeResult address = addresses.First();
 
                 // Use the address as the callout title.
-                string calloutTitle = address.Attributes["Street"].ToString();
-                string calloutDetail = address.Attributes["City"] + ", " + address.Attributes["State"] + " " + address.Attributes["ZIP"];
+                string calloutTitle = address.Attributes["StAddr"].ToString();
+                string calloutDetail = address.Attributes["City"].ToString() + ", " + address.Attributes["RegionAbbr"] + " " + address.Attributes["Postal"];
 
                 // Define the callout.
                 CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);

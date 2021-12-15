@@ -14,6 +14,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Helpers
@@ -150,7 +151,7 @@ namespace ArcGISRuntime.Helpers
             // Call a function to show the login controls, make sure it runs on the UI thread for this app.
             sample.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, () =>
             {
-                AuthorizeOnUIThread(authorizeUri);
+                _ = AuthorizeOnUIThread(authorizeUri);
             });
 
             // Return the task associated with the TaskCompletionSource.
@@ -158,21 +159,18 @@ namespace ArcGISRuntime.Helpers
         }
 
         // Challenge for OAuth credentials on the UI thread.
-        private async void AuthorizeOnUIThread(Uri authorizeUri)
+        private async Task AuthorizeOnUIThread(Uri authorizeUri)
         {
             // Create a WebBrowser control to display the authorize page.
-            WebView2 webBrowser = new WebView2();
+            WebView2 webBrowser = new WebView2 { Width = 500, Height = 500, RequestedTheme = Microsoft.UI.Xaml.ElementTheme.Light };
 
             // Handle the navigation event for the browser to check for a response to the redirect URL.
             webBrowser.NavigationStarting += NavigationStarted;
-            webBrowser.Width = webBrowser.Height = 500;
 
             // Display the web browser in a new window.
-            _authWindow = new ContentDialog()
+            _authWindow = new ContentDialog
             {
                 Content = webBrowser,
-                MinHeight = 700,
-                MinWidth = 700,
                 XamlRoot = sample.XamlRoot,
                 CloseButtonText = "Close",
             };
@@ -180,20 +178,27 @@ namespace ArcGISRuntime.Helpers
             // Handle the window closed event then navigate to the authorize url.
             _authWindow.Closed += OnWindowClosed2;
 
-            await webBrowser.EnsureCoreWebView2Async();
-            webBrowser.Source = authorizeUri;
+            try
+            {
+                // Load the web view and navigate to the Uri.
+                await webBrowser.EnsureCoreWebView2Async();
+                webBrowser.Source = authorizeUri;
 
-            // Display the window.
-            await _authWindow.ShowAsync();
+                // Display the window.
+                await _authWindow.ShowAsync();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                _tcs.SetCanceled();
+            }
         }
 
-        
-    
         // Handle browser navigation (content changing).
         private void NavigationStarted(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
         {
-        // Check for a response to the callback url.
-        const string portalApprovalMarker = "/oauth2/approval";
+            // Check for a response to the callback url.
+            const string portalApprovalMarker = "/oauth2/approval";
 
             Uri uri = new Uri(args.Uri);
 

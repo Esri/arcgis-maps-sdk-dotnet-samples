@@ -1,10 +1,10 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -14,14 +14,13 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
 {
@@ -31,7 +30,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
         description: "Geocode addresses to locations and reverse geocode locations to addresses offline.",
         instructions: "Type the address in the Search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. Tap the pin to see the full address.",
         tags: new[] { "geocode", "geocoder", "locator", "offline", "package", "query", "search" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("22c3083d4fa74e3e9b25adfc9f8c0496", "344e3b12368543ef84045ef9aa3c32ba")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("22c3083d4fa74e3e9b25adfc9f8c0496", "3424d442ebe54f3cbf34462382d3aebe")]
     public partial class OfflineGeocode
     {
         // Addresses for suggestion.
@@ -80,7 +79,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             try
             {
                 // Get the path to the locator.
-                string locatorPath = DataManager.GetDataFolder("344e3b12368543ef84045ef9aa3c32ba", "san-diego-locator.loc");
+                string locatorPath = DataManager.GetDataFolder("3424d442ebe54f3cbf34462382d3aebe", "SanDiego_StreetAddress.loc");
 
                 // Load the geocoder.
                 _geocoder = await LocatorTask.CreateAsync(new Uri(locatorPath));
@@ -167,8 +166,8 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
                 GeocodeResult address = addresses.First();
 
                 // Use the address as the callout title.
-                string calloutTitle = address.Attributes["Street"].ToString();
-                string calloutDetail = address.Attributes["City"] + ", " + address.Attributes["State"] + " " + address.Attributes["ZIP"];
+                string calloutTitle = address.Attributes["StAddr"].ToString();
+                string calloutDetail = address.Attributes["City"].ToString() + ", " + address.Attributes["RegionAbbr"] + " " + address.Attributes["Postal"];
 
                 // Define the callout.
                 CalloutDefinition calloutBody = new CalloutDefinition(calloutTitle, calloutDetail);

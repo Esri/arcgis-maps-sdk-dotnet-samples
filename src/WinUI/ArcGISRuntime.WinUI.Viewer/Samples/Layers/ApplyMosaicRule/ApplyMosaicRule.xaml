@@ -8,9 +8,9 @@
         <Border
             Style="{StaticResource BorderStyle}"
             HorizontalAlignment="Right" VerticalAlignment="Top">
-            <StackPanel>
-                <TextBlock Text="Choose a mosaic rule to apply to the image service." />
-                <ComboBox x:Name="MosaicRulesBox" SelectionChanged="MosaicRulesBox_SelectionChanged" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Mosaic rule:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="MosaicRulesBox" SelectionChanged="MosaicRulesBox_SelectionChanged" Background="White" Margin="5" />
             </StackPanel>
         </Border>
     </Grid>

@@ -56,6 +56,12 @@
     </PackageReference>-->
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Helpers\ArcGISLoginPrompt.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
   
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 

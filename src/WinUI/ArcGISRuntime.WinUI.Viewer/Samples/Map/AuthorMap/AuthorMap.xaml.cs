@@ -3,22 +3,21 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Helpers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.AuthorMap
 {
@@ -28,19 +27,9 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
         description: "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
         instructions: "1. Select the basemap and layers you'd like to add to your map.",
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class AuthorMap
     {
-        // Constants for OAuth-related values ...
-        // URL of the server to authenticate with
-        private string ServerUrl = "https://www.arcgis.com/sharing/rest";
-
-        // TODO: Add Client ID for an app registered with the server
-        private string _appClientId = "lgAdHkYZYlwwfAhC";
-
-        // TODO: Add URL for redirecting after a successful authorization
-        //       Note - this must be a URL configured as a valid Redirect URI with your app
-        private string _oAuthRedirectUrl = "my-ags-app://auth";
-
         // String array to store names of the available basemaps
         private readonly string[] _basemapNames = {
             "Light Gray",
@@ -62,29 +51,37 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
-            Initialize();
+            // Create the UI, setup the control references and execute initialization
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
-            // Create the map
-            MyMapView.Map = new Map();
+            ArcGISLoginPrompt.SetChallengeHandler(this);
+
+            bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
+
+            // Show a plain gray map in the map view
+            if (loggedIn)
+            {
+                MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            }
+            else MyMapView.Map = new Map();
 
             // Update the UI with basemaps and layers
             BasemapListBox.ItemsSource = _basemapNames;
-            BasemapListBox.SelectedIndex = 0;
+
             OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
 
-            // Show the OAuth settings in the page
-            ClientIdTextBox.Text = _appClientId;
-            RedirectUrlTextBox.Text = _oAuthRedirectUrl;
-            
+            // Add a listener for changes in the selected basemap.
+            BasemapListBox.SelectionChanged += BasemapSelectionChanged;
+
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
         }
 
         #region UI event handlers
+
         private void LayerSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Call a function to add operational layers to the map
@@ -95,14 +92,6 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
         {
             try
             {
-                // Don't attempt to save if the OAuth settings weren't provided
-                if(String.IsNullOrEmpty(_appClientId) || String.IsNullOrEmpty(_oAuthRedirectUrl))
-                {
-                    var dialog = new MessageDialog2("OAuth settings were not provided.", "Cannot Save");
-                    await dialog.ShowAsync();
-                    return;
-                }
-
                 // Show the progress bar so the user knows work is happening
                 SaveProgressBar.Visibility = Visibility.Visible;
 
@@ -124,7 +113,7 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
                     string tagText = TagsTextBox.Text;
 
                     // Make sure all required info was entered
-                    if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || String.IsNullOrEmpty(tagText))
+                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(tagText))
                     {
                         throw new Exception("Please enter a title, description, and some tags to describe the map.");
                     }
@@ -133,8 +122,7 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
                     await SaveNewMapAsync(MyMapView.Map, title, description, tagText.Split(','), thumbnailImg);
 
                     // Report a successful save
-                    var messageDialog = new MessageDialog2("Saved '" + title + "' to ArcGIS Online!", "Map Saved");
-                    await messageDialog.ShowAsync();
+                    await new MessageDialog2("Saved '" + title + "' to ArcGIS Online!", "Map Saved").ShowAsync();
                 }
                 else
                 {
@@ -145,19 +133,17 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
                     Stream imageStream = await thumbnailImg.GetEncodedBufferAsync();
 
                     // Update the item thumbnail
-                    ((PortalItem)myMap.Item).SetThumbnail(imageStream);                    
+                    ((PortalItem)myMap.Item).SetThumbnail(imageStream);
                     await myMap.SaveAsync();
 
                     // Report update was successful
-                    var messageDialog = new MessageDialog2("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved");
-                    await messageDialog.ShowAsync();
+                    await new MessageDialog2("Saved changes to '" + myMap.Item.Title + "'", "Updates Saved").ShowAsync();
                 }
             }
             catch (Exception ex)
             {
                 // Report error message
-                var messageDialog = new MessageDialog2("Error saving map to ArcGIS Online: " + ex.Message);
-                await messageDialog.ShowAsync();
+                await new MessageDialog2("Error saving map to ArcGIS Online: " + ex.Message).ShowAsync();
             }
             finally
             {
@@ -166,10 +152,11 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
             }
         }
 
-        private void ClearMapClicked(object sender, RoutedEventArgs e)
+        private void NewMapClicked(object sender, RoutedEventArgs e)
         {
             // Create a new map (will not have an associated PortalItem)
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            MyMapView.Map.Basemap.LoadAsync();
 
             // Reset the basemap selection in the UI
             BasemapListBox.SelectedIndex = 0;
@@ -185,33 +172,31 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
 
         private void ApplyBasemap(string basemapName)
         {
-            // Get the current map
-            Map myMap = MyMapView.Map;
-
-            // Set the basemap for the map according to the user's choice in the list box
+            // Set the basemap for the map according to the user's choice in the list box.
             switch (basemapName)
             {
                 case "Light Gray":
-                    // Set the basemap to Light Gray Canvas
-                    myMap.Basemap = Basemap.CreateLightGrayCanvas();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray);
                     break;
+
                 case "Topographic":
-                    // Set the basemap to Topographic
-                    myMap.Basemap = Basemap.CreateTopographic();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISTopographic);
                     break;
+
                 case "Streets":
-                    // Set the basemap to Streets
-                    myMap.Basemap = Basemap.CreateStreets();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISStreets);
                     break;
+
                 case "Imagery":
-                    // Set the basemap to Imagery
-                    myMap.Basemap = Basemap.CreateImagery();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISImagery);
                     break;
+
                 case "Ocean":
-                    // Set the basemap to Oceans
-                    myMap.Basemap = Basemap.CreateOceans();
+                    MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISOceans);
                     break;
             }
+
+            MyMapView.Map.Basemap.LoadAsync();
         }
 
         private void AddOperationalLayers()
@@ -223,7 +208,7 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
             // Loop through the selected items in the operational layers list box
             foreach (KeyValuePair<string, string> item in OperationalLayerListBox.SelectedItems)
             {
-                // Get the service uri for each selected item 
+                // Get the service uri for each selected item
                 KeyValuePair<string, string> layerInfo = item;
                 Uri layerUri = new Uri(layerInfo.Value);
 
@@ -238,32 +223,7 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
 
         private async Task SaveNewMapAsync(Map myMap, string title, string description, string[] tags, RuntimeImage img)
         {
-            // Challenge the user for portal credentials (OAuth credential request for arcgis.com)
-            CredentialRequestInfo loginInfo = new CredentialRequestInfo
-            {
-                // Use the OAuth implicit grant flow
-                GenerateTokenOptions = new GenerateTokenOptions
-                {
-                    TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
-                },
-
-                // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                ServiceUri = new Uri("https://www.arcgis.com/sharing/rest")
-            };
-
-            try
-            {
-                // Get a reference to the (singleton) AuthenticationManager for the app
-                AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
-
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                await thisAuthenticationManager.GetCredentialAsync(loginInfo, false);
-            }
-            catch (OperationCanceledException)
-            {
-                // user canceled the login
-                throw new Exception("Portal log in was canceled.");
-            }
+            await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
 
             // Get the ArcGIS Online portal (will use credential from login above)
             ArcGISPortal agsOnline = await ArcGISPortal.CreateAsync();
@@ -291,76 +251,9 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
             YMaxTextBox.Text = currentGeoExtent.YMax.ToString("0.####");
         }
 
-        #region OAuth helpers
-
-        private void SaveOAuthSettingsClicked(object sender, RoutedEventArgs e)
+        private void BasemapSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Settings were provided, update the configuration settings for OAuth authorization
-            _appClientId = ClientIdTextBox.Text.Trim();
-            _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
-
-            // Update authentication manager with the OAuth settings
-            UpdateAuthenticationManager();
-
-            // Update the UI
-            SaveMapGrid.Visibility = Visibility.Visible;
-            OAuthSettingsGrid.Visibility = Visibility.Collapsed;
-        }
-
-        private void UpdateAuthenticationManager()
-        {
-            // Register the server information with the AuthenticationManager
-            ServerInfo portalServerInfo = new ServerInfo(new Uri(ServerUrl))
-            {
-                OAuthClientInfo = new OAuthClientInfo(_appClientId, new Uri(_oAuthRedirectUrl)),
-                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
-            };
-
-            // Get a reference to the (singleton) AuthenticationManager for the app
-            AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
-
-            // Register the server information
-            thisAuthenticationManager.RegisterServer(portalServerInfo);
-
-            // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
-            thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
-        }
-
-        // ChallengeHandler function for AuthenticationManager that will be called whenever access to a secured
-        // resource is attempted
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
-        {
-            OAuthTokenCredential credential = null;
-
-            try
-            {
-                // Create generate token options if necessary
-                if (info.GenerateTokenOptions == null)
-                {
-                    info.GenerateTokenOptions = new GenerateTokenOptions();
-                }
-
-                // IOAuthAuthorizeHandler will challenge the user for credentials
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync
-                    (
-                            info.ServiceUri,
-                            info.GenerateTokenOptions
-                    ) as OAuthTokenCredential;
-            }
-            catch (Exception)
-            {
-                // Exception will be reported in calling function
-                throw;
-            }
-
-            return credential;
-        }
-
-        #endregion OAuth helpers
-
-        private void BasemapListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Get the name of the desired basemap 
+            // Get the name of the desired basemap
             string name = e.AddedItems[0].ToString();
 
             // Apply the basemap to the current map

@@ -8,29 +8,32 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.UI.Core;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
+
 using muxc = Microsoft.UI.Xaml.Controls;
+
 using Navigation = Microsoft.UI.Xaml.Navigation;
-using ArcGISRuntime.Samples.Shared.Managers;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Windows.UI.WebUI;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
     public sealed partial class MainPage
     {
         private bool _waitFlag;
+
+        private List<string> _namedUserSamples = new List<string> {
+            "AuthorMap",
+            "SearchPortalMaps",
+            "OAuth" };
 
         public MainPage()
         {
@@ -40,7 +43,7 @@ namespace ArcGISRuntime.WinUI.Viewer
 
             // Use required cache mode so we create only one page.
             NavigationCacheMode = Navigation.NavigationCacheMode.Required;
-            
+
             Initialize();
 
             LoadTreeView(SampleManager.Current.FullTree);
@@ -64,7 +67,7 @@ namespace ArcGISRuntime.WinUI.Viewer
             // Check that the current API key is valid.
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status != ApiKeyStatus.Valid)
-            {   
+            {
                 await ApiKeyDialog.ShowAsync();
             }
         }
@@ -105,22 +108,19 @@ namespace ArcGISRuntime.WinUI.Viewer
 
         private async Task SelectSample(SampleInfo selectedSample)
         {
-            // The following code removes the API key when using the Create and save map sample.
-            if (nameof(SampleManager.Current.SelectedSample) != nameof(selectedSample))
+            // Restore API key if leaving named user sample.
+            if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
             {
-                // Remove API key if opening Create and save map sample.
-                if (selectedSample.FormalName == "AuthorMap")
-                {
-                    ApiKeyManager.DisableKey();
-                }
-                // Restore API key if leaving Create and save map sample.
-                else if (SampleManager.Current?.SelectedSample?.FormalName == "AuthorMap")
-                {
-                    ApiKeyManager.EnableKey();
-                }
+                ApiKeyManager.EnableKey();
             }
 
-            // Call a function to clear existing credentials
+            // Remove API key if opening named user sample.
+            if (_namedUserSamples.Contains(selectedSample.FormalName))
+            {
+                ApiKeyManager.DisableKey();
+            }
+
+            // Call a function to clear any existing credentials from AuthenticationManager
             ClearCredentials();
 
             SampleManager.Current.SelectedSample = selectedSample;
@@ -166,6 +166,9 @@ namespace ArcGISRuntime.WinUI.Viewer
                     AuthenticationManager.Current.RemoveCredential(cred);
                 }
             }
+
+            // Clear the challenge handler.
+            AuthenticationManager.Current.ChallengeHandler = null;
         }
 
         private async void OnSearchQuerySubmitted(AutoSuggestBox searchBox, AutoSuggestBoxTextChangedEventArgs searchBoxQueryChangedEventArgs)

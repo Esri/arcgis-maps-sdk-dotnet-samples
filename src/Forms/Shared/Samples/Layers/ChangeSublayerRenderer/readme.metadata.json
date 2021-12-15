@@ -16,11 +16,11 @@
         "visualization"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.12.0",
-        "Esri.ArcGISRuntime.UWP": "100.12.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.12.0",
-        "Esri.ArcGISRuntime.Xamarin.Forms": "100.12.0",
-        "Esri.ArcGISRuntime.Xamarin.iOS": "100.12.0"
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.UWP": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Forms": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0"
     },
     "offline_data": [],
     "redirect_from": [

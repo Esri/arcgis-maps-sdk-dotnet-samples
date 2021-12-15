@@ -17,8 +17,8 @@
         "table"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.12.0",
-        "Esri.ArcGISRuntime.Xamarin.iOS": "100.12.0"
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0"
     },
     "offline_data": [
         "68ec42517cdd439e81b036210483e8e7"

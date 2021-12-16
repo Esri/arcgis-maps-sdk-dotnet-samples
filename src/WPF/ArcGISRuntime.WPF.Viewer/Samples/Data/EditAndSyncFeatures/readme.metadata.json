@@ -13,8 +13,8 @@
         "synchronize"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.12.0",
-        "Esri.ArcGISRuntime.WPF": "100.12.0"
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.WPF": "100.13.0"
     },
     "offline_data": [
         "e4a398afe9a945f3b0f4dca1e4faccb5"

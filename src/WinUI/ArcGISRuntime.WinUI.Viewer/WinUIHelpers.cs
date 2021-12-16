@@ -1,11 +1,7 @@
-﻿using System;
+﻿using ArcGISRuntime.WinUI.Viewer;
 using System.Collections.Generic;
-using System.Net.Mime;
-using System.Runtime.InteropServices;
-using Windows.ApplicationModel.Appointments.DataProvider;
 using Windows.Foundation;
 using Windows.UI.Popups;
-using WinRT;
 
 namespace ArcGISRuntime.WinUI
 {
@@ -16,6 +12,7 @@ namespace ArcGISRuntime.WinUI
     public class MessageDialog2
     {
         private readonly MessageDialog dialog;
+
         public MessageDialog2(string content) : this(content, string.Empty) { }
 
         public MessageDialog2(string content, string title)
@@ -33,22 +30,8 @@ namespace ArcGISRuntime.WinUI
 
         public IAsyncOperation<IUICommand> ShowAsync()
         {
-            var handle = GetActiveWindow();
-            if (handle == IntPtr.Zero)
-                throw new InvalidOperationException();
-            dialog.As<IInitializeWithWindow>().Initialize(handle);
+            WinRT.Interop.InitializeWithWindow.Initialize(dialog, App.CurrentWindowHandle);
             return dialog.ShowAsync();
         }
-
-        [ComImport]
-        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-        [Guid("3E68D4BD-7135-4D10-8018-9FB6D9F33FA1")]
-        internal interface IInitializeWithWindow
-        {
-            void Initialize(IntPtr hwnd);
-        }
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr GetActiveWindow();
     }
 }

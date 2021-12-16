@@ -182,7 +182,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             });
         }
 
-        private async void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
+        private void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
         {
             // Update UI controls based on whether the geodatabase has a current transaction
             DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
@@ -289,7 +289,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
             IUICommand cmd = await promptDialog.ShowAsync();
 
-            if (cmd == commitCommand)
+            if (cmd.Label == commitCommand.Label)
             {
                 // See if there is a transaction active for the geodatabase
                 if (_localGeodatabase.IsInTransaction)
@@ -299,7 +299,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
                     MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
                 }
             }
-            else if (cmd == rollbackCommand)
+            else if (cmd.Label == rollbackCommand.Label)
             {
                 // See if there is a transaction active for the geodatabase
                 if (_localGeodatabase.IsInTransaction)

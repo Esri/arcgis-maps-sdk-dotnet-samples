@@ -1,17 +1,16 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
@@ -71,7 +70,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
             }
 
             // Create a dialog for getting the user's basemap choice.
-            var dialog = new MessageDialog2("Use the offline basemap?", "Basemap choice");
+            MessageDialog2 dialog = new MessageDialog2("Use the offline basemap?", "Basemap choice");
 
             // If the user selects OK, parameters.ReferenceBasemapDirectory will be set.
             dialog.Commands.Add(new UICommand("Yes", command => parameters.ReferenceBasemapDirectory = basemapBasePath));
@@ -91,9 +90,6 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
         {
             try
             {
-                // Call a function to set up the AuthenticationManager for OAuth.
-                SetOAuthInfo();
-
                 // Create the ArcGIS Online portal.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
@@ -150,7 +146,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
             }
             catch (Exception ex)
             {
-                var dialog = new MessageDialog2(ex.ToString(), "Error loading map");
+                MessageDialog2 dialog = new MessageDialog2(ex.ToString(), "Error loading map");
                 await dialog.ShowAsync();
             }
         }
@@ -195,7 +191,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
                 // Check for job failure (writing the output was denied, e.g.).
                 if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                 {
-                    var dialog = new MessageDialog2("Generate offline map package failed.", "Job status");
+                    MessageDialog2 dialog = new MessageDialog2("Generate offline map package failed.", "Job status");
                     await dialog.ShowAsync();
                     BusyIndicator.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
                 }
@@ -212,7 +208,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
 
                     // Show layer errors.
                     string errorText = errorBuilder.ToString();
-                    var dialog = new MessageDialog2(errorText, "Layer errors");
+                    MessageDialog2 dialog = new MessageDialog2(errorText, "Layer errors");
                     await dialog.ShowAsync();
                 }
 
@@ -234,13 +230,13 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
             catch (TaskCanceledException)
             {
                 // Generate offline map task was canceled.
-                var dialog = new MessageDialog2("Taking map offline was canceled");
+                MessageDialog2 dialog = new MessageDialog2("Taking map offline was canceled");
                 await dialog.ShowAsync();
             }
             catch (Exception ex)
             {
                 // Exception while taking the map offline.
-                var dialog = new MessageDialog2(ex.Message, "Offline map error");
+                MessageDialog2 dialog = new MessageDialog2(ex.Message, "Offline map error");
                 await dialog.ShowAsync();
             }
             finally
@@ -272,61 +268,5 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineBasemapByReference
         }
 
         #endregion Generate offline map
-
-        #region Authentication
-
-        // Constants for OAuth-related values.
-        // - The URL of the portal to authenticate with (ArcGIS Online).
-        private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
-
-        // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
-        private const string AppClientId = @"lgAdHkYZYlwwfAhC";
-
-        // - An optional client secret for the app (only used with TokenAuthenticationType.OAuthClientCredentials).
-        private const string ClientSecret = "";
-
-        // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"my-ags-app://auth";
-
-        private void SetOAuthInfo()
-        {
-            // Register the server information with the AuthenticationManager.
-            ServerInfo serverInfo = new ServerInfo(new Uri(ServerUrl))
-            {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
-                OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
-            };
-
-            // Register this server with AuthenticationManager.
-            AuthenticationManager.Current.RegisterServer(serverInfo);
-
-            // Use a function in this class to challenge for credentials.
-            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
-
-            // Note: In a WPF app, you need to associate a custom IOAuthAuthorizeHandler component with the AuthenticationManager to 
-            //     handle showing OAuth login controls (AuthenticationManager.Current.OAuthAuthorizeHandler = new MyOAuthAuthorize();).
-            //     The UWP AuthenticationManager, however, uses a built-in IOAuthAuthorizeHandler (based on WebAuthenticationBroker).
-        }
-
-        private async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
-        {
-            // ChallengeHandler function for AuthenticationManager that will be called whenever a secured resource is accessed.
-            Credential credential = null;
-
-            try
-            {
-                // AuthenticationManager will handle challenging the user for credentials.
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
-            }
-            catch (Exception)
-            {
-                // Exception will be reported in calling function.
-                throw;
-            }
-
-            return credential;
-        }
     }
-
-    #endregion
 }

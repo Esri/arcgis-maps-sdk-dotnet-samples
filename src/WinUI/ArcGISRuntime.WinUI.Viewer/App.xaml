@@ -15,7 +15,6 @@
             <!-- Other app resources here -->
         <x:Double x:Key="ContentDialogMaxWidth">800</x:Double>
         <x:Double x:Key="ContentDialogMaxHeight">756</x:Double>
-        <converters:SampleToBitmapConverter x:Key="sampleToBitmapConverter" />
 
         <SolidColorBrush x:Name="PrimaryColor" Color="#005e95" />
         <SolidColorBrush x:Name="PrimaryDarkModeColor" Color="#FF8DD5FF" />

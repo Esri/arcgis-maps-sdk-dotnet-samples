@@ -11,7 +11,7 @@ See each platform's TOC:
 * [Xamarin.Android](src/Android)
 * [Xamarin.iOS](src/iOS)
 * [Xamarin.Forms](src/Forms)
-* [WinUI](src/WinUI) (Preview)
+* [WinUI](src/WinUI)
 
 ## Instructions
 
@@ -20,7 +20,7 @@ See each platform's TOC:
     * [System requirements for ArcGIS Runtime API for .NET](https://developers.arcgis.com/net/reference/system-requirements/)
 3. For the platform you want to view: open the solution, restore NuGet packages, build, and run the application
     * WPF (.NET Framework): `src\WPF\ArcGISRuntime.WPF.Viewer.NetFramework.sln`
-    * WPF (.NET 5): `src\WPF\ArcGISRuntime.WPF.Viewer.Net.sln`
+    * WPF (.NET 6): `src\WPF\ArcGISRuntime.WPF.Viewer.Net.sln`
     * UWP: `src\Windows\ArcGISRuntime.UWP.Viewer.sln`  
     * Xamarin.Android: `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`  
     * Xamarin.iOS: `src\iOS\ArcGISRuntime.Xamari.Samples.iOS.sln`  

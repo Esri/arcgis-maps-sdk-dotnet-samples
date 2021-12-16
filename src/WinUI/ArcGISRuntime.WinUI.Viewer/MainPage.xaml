@@ -27,8 +27,12 @@
                         Width="300"
                         Height="250"
                         HorizontalAlignment="Center"
-                        Source="{Binding SampleImageName, Converter={StaticResource sampleToBitmapConverter}}"
-                        Stretch="Uniform" />
+                        
+                        Stretch="Uniform" >
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding SampleImageName}" />
+                        </Image.Source>
+                    </Image>
                     <Border
                         Grid.Row="0"
                         VerticalAlignment="Bottom"

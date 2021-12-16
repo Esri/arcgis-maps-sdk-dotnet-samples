@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.WinUI.Samples.ArcGISVectorTiledLayerUrl;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.IO;
@@ -28,32 +27,46 @@ namespace ArcGISRuntime.WinUI.Viewer
 
         public void LoadSourceCode()
         {
-            string folderPath = SampleManager.Current.SelectedSample.Path;
-
-            // Source code of the file.
-            string source;
-
             // Create a new list of TabViewItems.
             tabs = new List<TabViewItem>();
 
-            // Loop through all .cs and .xaml files.
-            foreach (string filepath in Directory.GetFiles(folderPath)
+            // Create a list of source files for the sample.
+            var sourcePaths = new List<string>();
+
+            foreach (string filepath in Directory.GetFiles(SampleManager.Current.SelectedSample.Path)
                 .Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
             {
+                sourcePaths.Add(filepath);
+            }
+
+            // Add additional class files from the sample.
+            if (SampleManager.Current.SelectedSample.ClassFiles != null)
+            {
+                foreach (string additionalPath in SampleManager.Current.SelectedSample.ClassFiles)
+                {
+                    string actualPath = Path.Combine(SampleManager.Current.SelectedSample.Path, "..", "..", "..", additionalPath);
+                    sourcePaths.Add(actualPath);
+                }
+            }
+
+            // Loop through all .cs and .xaml files.
+            foreach (string filepath in sourcePaths)
+            {
                 // Get the source text from the file.
-                source = File.ReadAllText(filepath);
+                string source = File.ReadAllText(filepath);
 
                 // Create a new tab.
                 TabViewItem newTab = new TabViewItem() { IsClosable = false };
 
                 // Set the tab text to the file name.
                 newTab.Header = Path.GetFileName(filepath);
+
                 /* TODO: Monaco.CodeEditor not available for WinUI yet. See https://github.com/hawkerm/monaco-editor-uwp/pull/32
                 // Create the code viewer.
                 Monaco.CodeEditor viewer = new Monaco.CodeEditor();
                 viewer.Options.ReadOnly = true;
                 viewer.Text = source;
-                
+
                  // Change Monaco language for C# files.
                 if (filepath.EndsWith(".cs")) { viewer.CodeLanguage = "csharp"; }
 

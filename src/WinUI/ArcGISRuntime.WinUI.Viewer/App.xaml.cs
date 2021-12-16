@@ -73,11 +73,14 @@ namespace ArcGISRuntime.WinUI.Viewer
             // Ensure the current window is active
             m_window.Activate();
         }
+
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
 
         private Window m_window;
+
+        public static IntPtr CurrentWindowHandle => WinRT.Interop.WindowNative.GetWindowHandle(((App)Current).m_window);
     }
 }

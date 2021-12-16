@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp rescap">
-  <Identity Name="Esri.ArcGISRuntimeSDKfor.NETSamplesWPF" Publisher="CN=Environmental Systems Research Institute Inc" Version="100.11.0.0" />
+  <Identity Name="Esri.ArcGISRuntimeSDKfor.NETSamplesWPF" Publisher="CN=Environmental Systems Research Institute Inc" Version="100.13.0.0" />
   <Properties>
     <DisplayName>ArcGIS Runtime SDK for .NET Samples (WPF)</DisplayName>
     <PublisherDisplayName>Esri, Inc.</PublisherDisplayName>

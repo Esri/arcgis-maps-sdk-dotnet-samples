@@ -15,9 +15,9 @@
         "nautical chart"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.12.0",
-        "Esri.ArcGISRuntime.Hydrography": "100.12.0",
-        "Esri.ArcGISRuntime.WPF": "100.12.0"
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.Hydrography": "100.13.0",
+        "Esri.ArcGISRuntime.WPF": "100.13.0"
     },
     "offline_data": [
         "9d2987a825c646468b3ce7512fb76e2d"

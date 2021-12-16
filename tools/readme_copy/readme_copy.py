@@ -31,7 +31,7 @@ def replace_readmes(category, formal_name, sample_root):
         print(f"File: {formal_name} Error: {e.strerror} WPF read error")
 
     # Loop through the other platforms.
-    plats = ["UWP", "Android", "iOS", "Forms", "WinUI"]
+    plats = ["UWP", "Forms", "WinUI"] # "Android", "iOS",
     for platform in plats:
         # Skip local server for non WinUI platforms.
         if not platform == "WinUI" and category == "Local Server":

@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Esri.ArcGISRuntime;
+using ArcGISRuntime.Helpers;
 
 namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
 {
@@ -26,39 +27,31 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
         description: "Find webmap portal items by using a search term.",
         instructions: "Enter search terms into the search bar. Once the search is complete, a list is populated with the resultant webmaps. Tap on a webmap to set it to the map view. Scrolling to the bottom of the webmap recycler view will get more results.",
         tags: new[] { "keyword", "query", "search", "webmap" })]
+    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class SearchPortalMaps
     {
-        // Variables for OAuth with default values ...
         // URL of the server to authenticate with (ArcGIS Online)
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
-
-        // Client ID for the app registered with the server (Portal Maps)
-        private string _appClientId = "2Gh53JRzkPtOENQq";
-
-        // Redirect URL after a successful authorization (configured for the Portal Maps application)
-        private string _oAuthRedirectUrl = "https://developers.arcgis.com";
 
         // Constructor for sample class
         public SearchPortalMaps()
         {
             InitializeComponent();
 
-            // Show the OAuth settings in the page
-            ClientIdTextBox.Text = _appClientId;
-            RedirectUrlTextBox.Text = _oAuthRedirectUrl;
+            _ = Initialize();
+        }
+
+        private async Task Initialize()
+        {
+            ArcGISLoginPrompt.SetChallengeHandler(this);
+
+            bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
 
             // Display a default map
-            DisplayDefaultMap();
+            if (loggedIn) DisplayDefaultMap();
         }
 
-        private void DisplayDefaultMap()
-        {
-            // Create a new Map instance
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
-
-            // Provide Map to the MapView
-            MyMapView.Map = myMap;
-        }
+        private void DisplayDefaultMap() => MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
@@ -89,11 +82,8 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
                 else
                 {
                     // Call a sub that will force the user to log in to ArcGIS Online (if they haven't already)
-                    bool loggedIn = await EnsureLoggedInAsync();
-                    if (!loggedIn)
-                    {
-                        return;
-                    }
+                    bool loggedIn = await ArcGISLoginPrompt.EnsureAGOLCredentialAsync();
+                    if (!loggedIn) { return; }
 
                     // Connect to the portal (will connect using the provided credentials)
                     portal = await ArcGISPortal.CreateAsync(new Uri(ArcGISOnlineUrl));
@@ -142,132 +132,19 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
 
         private void WebMapLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
-            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, async () =>
             {
                 // Report errors if map failed to load
                 if (e.Status == LoadStatus.FailedToLoad)
                 {
-                    Map map = (Map) sender;
+                    Map map = (Map)sender;
                     Exception err = map.LoadError;
                     if (err != null)
                     {
-                        _ = new MessageDialog2(err.Message, "Map load error").ShowAsync();
+                        await new MessageDialog2(err.Message, "Map load error").ShowAsync();
                     }
                 }
             });
-        }
-
-        private void RadioButtonUnchecked(object sender, RoutedEventArgs e)
-        {
-            // When the search/user radio buttons are unchecked, clear the list box
-            MapListBox.ItemsSource = null;
-
-            // Set the map to the default (if necessary)
-            if (MyMapView.Map.Item != null)
-            {
-                DisplayDefaultMap();
-            }
-        }
-
-        private async Task<bool> EnsureLoggedInAsync()
-        {
-            bool loggedIn = false;
-            try
-            {
-                // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
-                {
-                    // Use the OAuth implicit grant flow
-                    GenerateTokenOptions = new GenerateTokenOptions
-                    {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthImplicit
-                    },
-
-                    // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                    ServiceUri = new Uri(ArcGISOnlineUrl)
-                };
-
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
-                loggedIn = cred != null;
-            }
-            catch (OperationCanceledException)
-            {
-                // TODO: handle login canceled
-            }
-            catch (Exception)
-            {
-                // TODO: handle login failure
-            }
-
-            return loggedIn;
-        }
-
-        private void SaveOAuthSettingsClicked(object sender, RoutedEventArgs e)
-        {
-            // Settings were provided, update the configuration settings for OAuth authorization
-            _appClientId = ClientIdTextBox.Text.Trim();
-            _oAuthRedirectUrl = RedirectUrlTextBox.Text.Trim();
-
-            // Update authentication manager with the OAuth settings
-            UpdateAuthenticationManager();
-
-            // Hide the OAuth input, show the search UI
-            OAuthSettingsGrid.Visibility = Visibility.Collapsed;
-            SearchUI.Visibility = Visibility.Visible;
-        }
-
-        private async void CancelOAuthSettingsClicked(object sender, RoutedEventArgs e)
-        {
-            // Warn that browsing user's ArcGIS Online maps won't be available without OAuth settings
-            string warning = "Without OAuth settings, you will not be able to browse maps from your ArcGIS Online account.";
-            await new MessageDialog2(warning, "No OAuth settings").ShowAsync();
-
-            // Disable browsing maps from your ArcGIS Online account
-            BrowseMyMaps.IsEnabled = false;
-
-            // Hide the OAuth input, show the search UI
-            OAuthSettingsGrid.Visibility = Visibility.Collapsed;
-            SearchUI.Visibility = Visibility.Visible;
-        }
-
-        private void UpdateAuthenticationManager()
-        {
-            // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
-            {
-                // Type of token authentication to use
-                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
-                OAuthClientInfo = new OAuthClientInfo(_appClientId, new Uri(_oAuthRedirectUrl))
-            };
-
-            // Get a reference to the (singleton) AuthenticationManager for the app
-            AuthenticationManager thisAuthenticationManager = AuthenticationManager.Current;
-
-            // Register the ArcGIS Online server information with the AuthenticationManager
-            thisAuthenticationManager.RegisterServer(portalServerInfo);
-
-            // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
-            thisAuthenticationManager.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
-        }
-
-        // ChallengeHandler function that will be called whenever access to a secured resource is attempted
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
-        {
-            Credential credential = null;
-
-            try
-            {
-                // User will be challenged for OAuth credentials
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
-            }
-            catch (Exception)
-            {
-                // Exception will be reported in calling function
-                throw;
-            }
-
-            return credential;
         }
     }
 }

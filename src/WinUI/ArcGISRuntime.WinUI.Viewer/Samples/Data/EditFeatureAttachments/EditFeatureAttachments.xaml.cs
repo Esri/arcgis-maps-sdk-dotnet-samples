@@ -19,6 +19,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.UI.Popups;
+using ArcGISRuntime.WinUI.Viewer;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
@@ -135,6 +136,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
                 // Show a file picker.
                 // Allow the user to specify a file path - create the picker.
                 FileOpenPicker openPicker = new FileOpenPicker();
+                WinRT.Interop.InitializeWithWindow.Initialize(openPicker, App.CurrentWindowHandle);
                 openPicker.FileTypeFilter.Add(".jpg");
 
                 // Show the picker.
@@ -229,6 +231,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
                 // Show a file dialog.
                 // Allow the user to specify a file path - create the dialog.
                 var savePicker = new FileSavePicker();
+                WinRT.Interop.InitializeWithWindow.Initialize(savePicker, App.CurrentWindowHandle);
                 savePicker.SuggestedStartLocation = PickerLocationId.Downloads;
                 savePicker.FileTypeChoices.Add(selectedAttachment.ContentType, new List<string> {".jpeg", ".jpg"});
                 savePicker.SuggestedFileName = selectedAttachment.Name;

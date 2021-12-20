@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Limit the features displayed on a map with a definition expression.",
+    "description": "Filter features displayed on a map using a definition expression or a display filter.",
     "formal_name": "FeatureLayerDefinitionExpression",
     "ignore": false,
     "images": [
@@ -9,6 +9,7 @@
     "keywords": [
         "SQL",
         "definition expression",
+        "display filter",
         "filter",
         "limit data",
         "query",
@@ -32,5 +33,5 @@
         "FeatureLayerDefinitionExpression.xaml",
         "FeatureLayerDefinitionExpression.xaml.cs"
     ],
-    "title": "Feature layer definition expression"
+    "title": "Filter by definition expression or display filter"
 }

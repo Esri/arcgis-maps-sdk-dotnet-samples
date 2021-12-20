@@ -16,11 +16,11 @@ using Microsoft.UI.Xaml;
 namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDefinitionExpression
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Feature layer definition expression",
+        name: "Filter by definition expression or display filter",
         category: "Layers",
-        description: "Limit the features displayed on a map with a definition expression.",
-        instructions: "Press the 'Apply Expression' button to limit the features requested from the feature layer to those specified by the SQL query definition expression. Click the 'Reset Expression' button to remove the definition expression on the feature layer, which returns all the records.",
-        tags: new[] { "SQL", "definition expression", "filter", "limit data", "query", "restrict data", "where clause" })]
+        description: "Filter features displayed on a map using a definition expression or a display filter.",
+        instructions: "Press the apply expression button to limit the features requested from the feature layer to those specified by the SQL query definition expression. This option not only narrows down the results that are drawn, but also removes those features from the layer's attribute table. To filter the results being drawn without modifying the attribute table, hit the button to apply the filter instead. Click the reset button to remove the definition expression or display filter on the feature layer, which returns all the records.",
+        tags: new[] { "SQL", "definition expression", "display filter", "filter", "limit data", "query", "restrict data", "where clause" })]
     public partial class FeatureLayerDefinitionExpression
     {
         // Create and hold reference to the feature layer

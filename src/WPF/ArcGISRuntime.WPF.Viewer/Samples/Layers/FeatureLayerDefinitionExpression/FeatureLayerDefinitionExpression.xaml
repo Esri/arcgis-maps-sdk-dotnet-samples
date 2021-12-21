@@ -4,7 +4,7 @@
     xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
-        <esri:MapView x:Name="MyMapView" ViewpointChanged="OnViewpointChanged" />
+        <esri:MapView x:Name="MyMapView" NavigationCompleted="OnNavigationCompleted" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical">
                 <TextBlock x:Name="IncidentReportSummary" />

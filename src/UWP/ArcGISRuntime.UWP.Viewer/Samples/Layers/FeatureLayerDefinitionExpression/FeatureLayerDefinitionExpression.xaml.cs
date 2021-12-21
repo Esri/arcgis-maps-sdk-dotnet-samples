@@ -91,7 +91,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerDefinitionExpression
             CountFeatures();
         }
 
-        private void OnViewpointChanged(object sender, EventArgs e)
+        private void OnNavigationCompleted(object sender, EventArgs e)
         {
             CountFeatures();
         }

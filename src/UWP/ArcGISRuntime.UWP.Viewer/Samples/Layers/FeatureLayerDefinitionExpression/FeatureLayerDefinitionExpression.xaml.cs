@@ -29,7 +29,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerDefinitionExpression
     {
         private const string FeatureServerURL = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0";
 
-        private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-13631120.6360946, 4547818.37250828, SpatialReferences.WebMercator), 3344.9299901836021);
+        private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-122.45044007080793, 37.775915492745874, SpatialReferences.Wgs84), 3350);
 
         private ManualDisplayFilterDefinition _definition;
 

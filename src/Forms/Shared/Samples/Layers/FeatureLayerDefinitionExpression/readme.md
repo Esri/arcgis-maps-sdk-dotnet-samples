@@ -14,7 +14,7 @@ In this sample you can filter a dataset of tree quality selecting for only those
 
 ## How to use the sample
 
-Press the apply expression button to limit the features requested from the feature layer to those specified by the SQL query definition expression. This option not only narrows down the results that are drawn, but also removes those features from the layer's attribute table. To filter the results being drawn without modifying the attribute table, hit the button to apply the filter instead. Tap the reset button to remove the definition expression or display filter on the feature layer, which returns all the records.
+Use a definition expression to limit the features requested from the feature layer to those specified by a SQL query. This narrows down the results that are drawn, and removes those features from the layer's attribute table. To filter the results being drawn without modifying the attribute table, hit the button to apply the display filter instead.
 
 The feature count value shows the current number of features in the current map view extent. When a definition expression is applied to narrow down the list of features being drawn, the count is updated to reflect this change. However if a display filter is applied, the features which are not visible on the map will still be included in the total feature count.
 

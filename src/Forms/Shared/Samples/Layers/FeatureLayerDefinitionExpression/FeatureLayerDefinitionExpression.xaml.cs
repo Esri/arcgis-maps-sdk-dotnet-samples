@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
         name: "Filter by definition expression or display filter",
         category: "Layers",
         description: "Filter features displayed on a map using a definition expression or a display filter.",
-        instructions: "Press the apply expression button to limit the features requested from the feature layer to those specified by the SQL query definition expression. This option not only narrows down the results that are drawn, but also removes those features from the layer's attribute table. To filter the results being drawn without modifying the attribute table, hit the button to apply the filter instead. Tap the reset button to remove the definition expression or display filter on the feature layer, which returns all the records.",
+        instructions: "Use a definition expression to limit the features requested from the feature layer to those specified by a SQL query. This narrows down the results that are drawn, and removes those features from the layer's attribute table. To filter the results being drawn without modifying the attribute table, hit the button to apply the display filter instead.",
         tags: new[] { "SQL", "definition expression", "display filter", "filter", "limit data", "query", "restrict data", "where clause", "Featured" })]
     public partial class FeatureLayerDefinitionExpression : ContentPage
     {

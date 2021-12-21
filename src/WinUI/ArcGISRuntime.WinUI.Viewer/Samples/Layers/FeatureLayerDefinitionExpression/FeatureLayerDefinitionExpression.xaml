@@ -4,24 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <esriUI:MapView x:Name="MyMapView" ViewpointChanged="OnViewpointChanged" />
         <Border Style="{StaticResource BorderStyle}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Content="Apply expression"
-                        Grid.Column="0"
-                        HorizontalAlignment="Stretch"
-                        Margin="0,0,2.5,0"
-                        Click="OnApplyExpressionClicked" />
-                <Button Content="Reset expression"
-                        Grid.Column="1"
-                        HorizontalAlignment="Stretch"
-                        Margin="2.5,0,0,0"
-                        Click="OnResetButtonClicked" />
-            </Grid>
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="IncidentReportSummary" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Click="Expression_Click" Margin="5" Content="Apply expression" />
+                    <Button Click="Filter_Click" Margin="5" Content="Apply filter" />
+                    <Button Click="Reset_Click" Margin="5" Content="Reset" />
+                </StackPanel>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

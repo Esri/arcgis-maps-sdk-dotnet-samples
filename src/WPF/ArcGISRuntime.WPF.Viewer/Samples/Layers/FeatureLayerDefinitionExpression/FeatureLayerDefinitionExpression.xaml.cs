@@ -52,8 +52,8 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDefinitionExpression
 
             // Create a display filter and display filter definition.
             // req_type here is one of the published fields
-            DisplayFilter damagedTrees = new DisplayFilter($"Damaged Trees", "req_type LIKE '%Tree Maintenance%'");
-            _definition = new ManualDisplayFilterDefinition(damagedTrees, new[] { damagedTrees });
+            DisplayFilter damagedTrees = new DisplayFilter(name: $"Damaged Trees", whereClause: "req_type LIKE '%Tree Maintenance%'");
+            _definition = new ManualDisplayFilterDefinition(activeFilter: damagedTrees, availableFilters: new[] { damagedTrees });
         }
 
         private void Expression_Click(object sender, RoutedEventArgs e)

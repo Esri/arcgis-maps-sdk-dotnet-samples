@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -61,8 +62,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 
             // Set the definition expression to show specific features only.
             _featureLayer.DefinitionExpression = "req_Type = 'Tree Maintenance or Damage'";
-
-            CountFeatures();
         }
 
         private void Filter_Click(object sender, EventArgs e)
@@ -72,8 +71,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 
             // Set the display filter definition on the layer.
             _featureLayer.DisplayFilterDefinition = _definition;
-
-            CountFeatures();
         }
 
         private void Reset_Click(object sender, EventArgs e)
@@ -83,47 +80,14 @@ namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 
             // Reset the display filter definition.
             _featureLayer.DisplayFilterDefinition = null;
-
-            CountFeatures();
         }
 
-        private void OnNavigationCompleted(object sender, EventArgs e)
+        private void MapDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
-            CountFeatures();
+            _ = CountFeatures();
         }
 
-        private Task _featureCountTask;
-        private bool _nextTask = false;
-
-        private async void CountFeatures()
-        {
-            try
-            {
-                // Check if an async feature count is currently running.
-                if (_featureCountTask != null && !_featureCountTask.IsCompleted)
-                {
-                    // Set a boolean that signifies another task will need to be run after the current one completes.
-                    _nextTask = true;
-                    return;
-                }
-
-                _featureCountTask = QueryFeatureCountAsync();
-                await _featureCountTask;
-
-                // Check if another run is necessary.
-                if (_nextTask)
-                {
-                    _nextTask = false;
-                    CountFeatures();
-                }
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-            }
-        }
-
-        private async Task QueryFeatureCountAsync()
+        private async Task CountFeatures()
         {
             try
             {

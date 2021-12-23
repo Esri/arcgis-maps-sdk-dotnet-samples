@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using Microsoft.UI.Xaml;
 using System;
 using System.Threading.Tasks;
@@ -31,7 +32,6 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDefinitionExpression
         private ManualDisplayFilterDefinition _definition;
 
         private FeatureLayer _featureLayer;
-        private DispatcherTimer _timer;
 
         public FeatureLayerDefinitionExpression()
         {
@@ -62,8 +62,6 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDefinitionExpression
 
             // Set the definition expression to show specific features only.
             _featureLayer.DefinitionExpression = "req_Type = 'Tree Maintenance or Damage'";
-
-            CountFeatures();
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
@@ -73,8 +71,6 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDefinitionExpression
 
             // Set the display filter definition on the layer.
             _featureLayer.DisplayFilterDefinition = _definition;
-
-            CountFeatures();
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)
@@ -84,44 +80,14 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDefinitionExpression
 
             // Reset the display filter definition.
             _featureLayer.DisplayFilterDefinition = null;
-
-            CountFeatures();
         }
 
-        private void OnViewpointChanged(object sender, EventArgs e)
+        private void MapDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
-            CountFeatures();
+            _ = CountFeatures();
         }
 
-        private void CountFeatures()
-        {
-            // Use a DispatcherTimer to prevent concurrent feature counts.
-            try
-            {
-                if (_timer == null || !_timer.IsEnabled)
-                {
-                    if (_timer == null)
-                    {
-                        _timer = new DispatcherTimer
-                        {
-                            Interval = TimeSpan.FromSeconds(1),
-                        };
-                        _timer.Tick += (a, b) =>
-                        {
-                            _ = QueryFeatureCountAsync();
-                            _timer.Stop();
-                        };
-                    }
-                    _timer.Start();
-                }
-            }
-            catch (Exception ex)
-            {
-                _ = new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
-            }
-        }
-
-        private async Task QueryFeatureCountAsync()
+        private async Task CountFeatures()
         {
             try
             {

@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,7 +33,6 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDefinitionExpression
         private ManualDisplayFilterDefinition _definition;
 
         private FeatureLayer _featureLayer;
-        private DispatcherTimer _timer;
 
         public FeatureLayerDefinitionExpression()
         {
@@ -63,62 +63,32 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDefinitionExpression
 
             // Set the definition expression to show specific features only.
             _featureLayer.DefinitionExpression = "req_Type = 'Tree Maintenance or Damage'";
-
-            CountFeatures();
         }
 
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
-            // Disable the feature layer definition expression
-            _featureLayer.DefinitionExpression = "";
-
             // Set the display filter definition on the layer.
             _featureLayer.DisplayFilterDefinition = _definition;
 
-            CountFeatures();
+            // Disable the feature layer definition expression
+            _featureLayer.DefinitionExpression = string.Empty;
         }
 
         private void Reset_Click(object sender, RoutedEventArgs e)
         {
-            // Disable the feature layer definition expression
-            _featureLayer.DefinitionExpression = "";
-
             // Reset the display filter definition.
             _featureLayer.DisplayFilterDefinition = null;
 
-            CountFeatures();
+            // Disable the feature layer definition expression
+            _featureLayer.DefinitionExpression = string.Empty;
         }
 
-        private void OnNavigationCompleted(object sender, EventArgs e)
+        private void MapDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
-            CountFeatures();
+            _ = CountFeatures();
         }
 
-        private void CountFeatures()
-        {
-            // Use a DispatcherTimer to prevent concurrent feature counts.
-            try
-            {
-                if (_timer == null || !_timer.IsEnabled)
-                {
-                    if (_timer == null)
-                    {
-                        _timer = new DispatcherTimer(TimeSpan.FromSeconds(1), DispatcherPriority.Normal, (a, b) =>
-                        {
-                            _ = QueryFeatureCountAsync();
-                            _timer.Stop();
-                        }, Application.Current.Dispatcher);
-                    }
-                    _timer.Start();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
-
-        private async Task QueryFeatureCountAsync()
+        private async Task CountFeatures()
         {
             try
             {

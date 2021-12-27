@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,7 +19,7 @@ using System;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FeatureLayerRenderingModeScene.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (scene)",
@@ -76,7 +76,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 InitialViewpoint = new Viewpoint(_zoomedOutPoint, _zoomedOutCamera)
             };
 
-            foreach (string identifier in new[] {"8", "9", "0"})
+            foreach (string identifier in new[] { "8", "9", "0" })
             {
                 // Create the table.
                 ServiceFeatureTable serviceTable = new ServiceFeatureTable(new Uri(_featureService + identifier));
@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
                 staticScene.OperationalLayers.Add(staticLayer);
 
                 // Create and add the dynamic layer.
-                FeatureLayer dynamicLayer = (FeatureLayer)staticLayer.Clone();
+                FeatureLayer dynamicLayer = new FeatureLayer(new ServiceFeatureTable(serviceTable.Source));
                 dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
                 dynamicScene.OperationalLayers.Add(dynamicLayer);
             }
@@ -113,7 +113,6 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 
             // Subscribe to zoom button events
             zoomButton.Click += ZoomButton_Click;
-
         }
 
         protected override void OnDestroy()

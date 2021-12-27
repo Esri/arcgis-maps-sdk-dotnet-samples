@@ -30,7 +30,7 @@ The second list shows layers that have been removed from the map. Tap one to add
 
 ## Additional information
 
-You cannot add the same layer to the map multiple times or add the same layer to multiple maps. Instead, clone the layer with `layer.Clone()` before duplicating.
+You cannot add the same layer to the map multiple times or add the same layer to multiple maps. Instead, create a new layer using the `FeatureTable`.
 
 ## Tags
 

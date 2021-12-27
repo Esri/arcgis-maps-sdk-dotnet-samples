@@ -1,19 +1,18 @@
-// Copyright 2017 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.FeatureLayerRenderingModeMap
 {
@@ -33,7 +32,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerRenderingModeMap
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization. 
+            // Setup the control references and execute initialization.
             Initialize();
         }
 
@@ -71,9 +70,12 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerRenderingModeMap
                 MyStaticMapView.Map.OperationalLayers.Add(layer);
 
                 // Add the dynamic layer to the bottom map view
-                FeatureLayer dynamicLayer = (FeatureLayer)layer.Clone();
-                dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
-                MyDynamicMapView.Map.OperationalLayers.Add(dynamicLayer);
+                if (layer.FeatureTable is ServiceFeatureTable table)
+                {
+                    FeatureLayer dynamicLayer = new FeatureLayer(new ServiceFeatureTable(table.Source));
+                    dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
+                    MyDynamicMapView.Map.OperationalLayers.Add(dynamicLayer);
+                }
             }
 
             // Set the view point of both MapViews.
@@ -85,7 +87,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerRenderingModeMap
         {
             try
             {
-                // Initiate task to zoom both map views in.  
+                // Initiate task to zoom both map views in.
                 Task t1 = MyStaticMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
                 Task t2 = MyDynamicMapView.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t1, t2);
@@ -93,7 +95,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerRenderingModeMap
                 // Delay start of next set of zoom tasks.
                 await Task.Delay(2000);
 
-                // Initiate task to zoom both map views out. 
+                // Initiate task to zoom both map views out.
                 Task t3 = MyStaticMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
                 Task t4 = MyDynamicMapView.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t3, t4);

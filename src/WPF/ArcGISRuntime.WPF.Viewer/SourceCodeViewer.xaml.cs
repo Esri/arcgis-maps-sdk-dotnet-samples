@@ -57,7 +57,7 @@ namespace ArcGISRuntime.WPF.Viewer
             foreach (string filepath in Directory.GetFiles(folderPath)
                 .Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
             {
-                SourceFiles.Add(new SourceCodeFile(filepath));
+                SourceFiles.Insert(0, new SourceCodeFile(filepath));
             }
 
             // Add additional class files from the sample.
@@ -65,7 +65,7 @@ namespace ArcGISRuntime.WPF.Viewer
             {
                 foreach (string additionalPath in SampleManager.Current.SelectedSample.ClassFiles)
                 {
-                    SourceFiles.Add(new SourceCodeFile(additionalPath));
+                    SourceFiles.Insert(0, new SourceCodeFile(additionalPath));
                 }
             }
 
@@ -128,13 +128,16 @@ namespace ArcGISRuntime.WPF.Viewer
                 {
                     string baseContent = File.ReadAllText(_path);
 
+                    // Set the type of highlighting for the source file.
+                    string codeClass = _path.EndsWith(".xaml") ? "xml" : "csharp";
+
                     // > and < characters will be incorrectly parsed by the html.
                     baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
 
                     // Build the html.
                     _fullContent =
                         htmlStart.Replace("{csspath}", cssPath).Replace("{jspath}", jsPath) +
-                        "<code class=\"csharp\">" +
+                        $"<code class=\"{codeClass}\">" +
                         baseContent +
                         "</code>" +
                         htmlEnd;

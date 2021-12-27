@@ -103,7 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
                 _sublayer.LabelsEnabled = true;
 
                 // Get the default renderer for the sublayer.
-                _defaultRenderer = _sublayer.Renderer.Clone();
+                _defaultRenderer = Renderer.FromJson(_sublayer.Renderer.ToJson());
 
                 // Create a custom renderer for the sublayer.
                 _customRenderer = new SimpleRenderer()

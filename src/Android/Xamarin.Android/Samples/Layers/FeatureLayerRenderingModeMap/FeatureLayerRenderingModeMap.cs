@@ -1,4 +1,4 @@
-// Copyright 2017 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("FeatureLayerRenderingModeMapLayout.axml")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (map)",
@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         tags: new[] { "dynamic", "feature layer", "features", "rendering", "static" })]
     public class FeatureLayerRenderingModeMap : Activity
     {
-        // Create variables to hold MapView instances  
+        // Create variables to hold MapView instances
         private MapView _myMapViewTop;
         private MapView _myMapViewBottom;
 
@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         }
 
         private void CreateLayout()
-        { 
+        {
             // Show the layout in the app
             SetContentView(Resource.Layout.FeatureLayerRenderingModeMapLayout);
 
@@ -61,7 +61,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
             // Create the Zoom button
             Button zoomButton = FindViewById<Button>(Resource.Id.ZoomButton);
 
-            // Set Zoom method to run on button click 
+            // Set Zoom method to run on button click
             zoomButton.Click += OnZoomClick;
         }
 
@@ -92,9 +92,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
                 _myMapViewTop.Map.OperationalLayers.Add(layer);
 
                 // Add the dynamic layer to the bottom map view
-                FeatureLayer dynamicLayer = (FeatureLayer)layer.Clone();
-                dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
-                _myMapViewBottom.Map.OperationalLayers.Add(dynamicLayer);
+                if (layer.FeatureTable is ServiceFeatureTable table)
+                {
+                    FeatureLayer dynamicLayer = new FeatureLayer(new ServiceFeatureTable(table.Source));
+                    dynamicLayer.RenderingMode = FeatureRenderingMode.Dynamic;
+                    _myMapViewBottom.Map.OperationalLayers.Add(dynamicLayer);
+                }
             }
 
             // Set the view point of both MapViews.
@@ -106,7 +109,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
         {
             try
             {
-                // Initiate task to zoom both map views in.  
+                // Initiate task to zoom both map views in.
                 Task t1 = _myMapViewTop.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
                 Task t2 = _myMapViewBottom.SetViewpointAsync(_zoomInPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t1, t2);
@@ -114,7 +117,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeMap
                 // Delay start of next set of zoom tasks.
                 await Task.Delay(2000);
 
-                // Initiate task to zoom both map views out. 
+                // Initiate task to zoom both map views out.
                 Task t3 = _myMapViewTop.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
                 Task t4 = _myMapViewBottom.SetViewpointAsync(_zoomOutPoint, TimeSpan.FromSeconds(5));
                 await Task.WhenAll(t3, t4);

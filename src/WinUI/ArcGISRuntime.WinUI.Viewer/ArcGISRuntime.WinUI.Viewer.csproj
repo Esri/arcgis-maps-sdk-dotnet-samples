@@ -41,6 +41,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\SyntaxHighlighting\highlight.css" />
+    <None Remove="Resources\SyntaxHighlighting\highlight.pack.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\SyntaxHighlighting\highlight.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SyntaxHighlighting\highlight.pack.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.13.0" />

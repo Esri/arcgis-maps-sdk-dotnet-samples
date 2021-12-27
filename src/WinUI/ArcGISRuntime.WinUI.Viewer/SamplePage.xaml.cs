@@ -59,7 +59,7 @@ namespace ArcGISRuntime.WinUI.Viewer
             DescriptionContainer.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
 
             // Load the source code files.
-            SourceCodeContainer.LoadSourceCode();
+            _ = SourceCodeContainer.LoadSourceCodeAsync();
         }
 
         private void MarkDownBlock_ImageResolving(object sender, ImageResolvingEventArgs e)

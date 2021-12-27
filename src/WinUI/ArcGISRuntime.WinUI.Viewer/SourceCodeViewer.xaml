@@ -4,5 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
     Background="{StaticResource PrimaryBackgroundColor}">
-    <TabView x:Name="Tabs"  IsAddTabButtonVisible="False" />
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TabView x:Name="Tabs"  IsAddTabButtonVisible="False" Grid.Row="0" />
+        <WebView2 x:Name="WebView" Grid.Row="1"/>
+    </Grid>
+    
 </UserControl>

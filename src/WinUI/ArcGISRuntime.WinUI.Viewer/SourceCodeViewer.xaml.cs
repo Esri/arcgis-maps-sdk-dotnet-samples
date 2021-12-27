@@ -158,13 +158,16 @@ namespace ArcGISRuntime.WinUI.Viewer
                 {
                     string baseContent = File.ReadAllText(_path);
 
+                    // Set the type of highlighting for the source file.
+                    string codeClass = _path.EndsWith(".xaml") ? "xml" : "csharp";
+
                     // > and < characters will be incorrectly parsed by the html.
                     baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
 
                     // Build the html.
                     _fullContent =
                         htmlStart.Replace("{csspath}", cssPath).Replace("{jspath}", jsPath) +
-                        "<code class=\"csharp\">" +
+                        $"<code class=\"{codeClass}\">" +
                         baseContent +
                         "</code>" +
                         htmlEnd;

@@ -12,19 +12,20 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
     public partial class SourceCode
     {
-        // List of all of the tabs that will load.
-        private List<TabViewItem> tabs;
-
+        // Pattern for mapping a local folder to a url host name.
         private const string FolderMapping = "arcgisruntime.viewer";
 
+        // List of source code files relevant to the selected sample.
         private List<SourceCodeFile> _sourceFiles;
 
         public SourceCode()
@@ -35,7 +36,7 @@ namespace ArcGISRuntime.WinUI.Viewer
         public async Task LoadSourceCodeAsync()
         {
             // Create a new list of TabViewItems.
-            tabs = new List<TabViewItem>();
+            var _tabs = new List<TabViewItem>();
 
             // Create a list of source files for the sample.
             _sourceFiles = new List<SourceCodeFile>();
@@ -66,27 +67,39 @@ namespace ArcGISRuntime.WinUI.Viewer
                 newTab.Header = Path.GetFileName(file.FilePath);
 
                 // Add the tab to the beginning of the list.
-                tabs.Insert(0, newTab);
+                _tabs.Insert(0, newTab);
             }
 
             // Set the Tab source to the list of tabs.
-            Tabs.TabItemsSource = tabs;
+            Tabs.TabItemsSource = _tabs;
 
-            // Set up web view to display syntax-highlighted code.
-            await WebView.EnsureCoreWebView2Async();
+            try
+            {
+                // Load web view.
+                await WebView.EnsureCoreWebView2Async();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return;
+            }
 
-            string applicationPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+            // Set up folder mapping for local syntax highlighting resources.
+            string applicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             WebView.CoreWebView2.SetVirtualHostNameToFolderMapping(FolderMapping, applicationPath, CoreWebView2HostResourceAccessKind.Allow);
 
+            // Enable selection events on the tab control.
             Tabs.SelectionChanged += TabChanged;
             Tabs.SelectedIndex = 0;
-            
         }
 
         private void TabChanged(object sender, SelectionChangedEventArgs e)
         {
-            var item = Tabs.SelectedItem as TabViewItem;
-            string content = _sourceFiles.FirstOrDefault(x => x.Name == item.Header.ToString()).HtmlContent;
+            // Get the html content for the tab.
+            var selected = Tabs.SelectedItem as TabViewItem;
+            string content = _sourceFiles.FirstOrDefault(x => x.Name == selected.Header.ToString()).HtmlContent;
+
+            // Display the html content in the web view.
             WebView.NavigateToString(content);
         }
 
@@ -114,7 +127,7 @@ namespace ArcGISRuntime.WinUI.Viewer
 
             public string FilePath => _path;
 
-            public string Name => System.IO.Path.GetFileName(_path);
+            public string Name => Path.GetFileName(_path);
 
             public string HtmlContent
             {
@@ -158,7 +171,7 @@ namespace ArcGISRuntime.WinUI.Viewer
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine(ex);
+                    Debug.WriteLine(ex);
                 }
             }
         }

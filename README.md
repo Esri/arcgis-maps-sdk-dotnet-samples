@@ -18,6 +18,7 @@ See each platform's TOC:
 1. Fork and then clone the repo or download the .zip file.
 2. Confirm the supported system configuration for the API of interest in the ArcGIS Runtime SDK for .NET:
     * [System requirements for ArcGIS Runtime API for .NET](https://developers.arcgis.com/net/reference/system-requirements/)
+    * WPF (.NET 6) and WinUI require Visual Studio 2022.
 3. For the platform you want to view: open the solution, restore NuGet packages, build, and run the application
     * WPF (.NET Framework): `src\WPF\ArcGISRuntime.WPF.Viewer.NetFramework.sln`
     * WPF (.NET 6): `src\WPF\ArcGISRuntime.WPF.Viewer.Net.sln`

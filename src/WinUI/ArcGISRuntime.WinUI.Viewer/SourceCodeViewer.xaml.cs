@@ -9,34 +9,42 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
     public partial class SourceCode
     {
-        // List of all of the tabs that will load.
-        private List<TabViewItem> tabs;
+        // Pattern for mapping a local folder to a url host name.
+        private const string FolderMapping = "arcgisruntime.viewer";
+
+        // List of source code files relevant to the selected sample.
+        private List<SourceCodeFile> _sourceFiles;
 
         public SourceCode()
         {
             InitializeComponent();
         }
 
-        public void LoadSourceCode()
+        public async Task LoadSourceCodeAsync()
         {
             // Create a new list of TabViewItems.
-            tabs = new List<TabViewItem>();
+            var _tabs = new List<TabViewItem>();
 
             // Create a list of source files for the sample.
-            var sourcePaths = new List<string>();
+            _sourceFiles = new List<SourceCodeFile>();
 
             foreach (string filepath in Directory.GetFiles(SampleManager.Current.SelectedSample.Path)
                 .Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
             {
-                sourcePaths.Add(filepath);
+                _sourceFiles.Add(new SourceCodeFile(filepath));
             }
 
             // Add additional class files from the sample.
@@ -45,56 +53,130 @@ namespace ArcGISRuntime.WinUI.Viewer
                 foreach (string additionalPath in SampleManager.Current.SelectedSample.ClassFiles)
                 {
                     string actualPath = Path.Combine(SampleManager.Current.SelectedSample.Path, "..", "..", "..", additionalPath);
-                    sourcePaths.Add(actualPath);
+                    _sourceFiles.Add(new SourceCodeFile(actualPath));
                 }
             }
 
-            // Loop through all .cs and .xaml files.
-            foreach (string filepath in sourcePaths)
+            // Set up the tabs.
+            foreach (SourceCodeFile file in _sourceFiles)
             {
-                // Get the source text from the file.
-                string source = File.ReadAllText(filepath);
-
                 // Create a new tab.
                 TabViewItem newTab = new TabViewItem() { IsClosable = false };
 
                 // Set the tab text to the file name.
-                newTab.Header = Path.GetFileName(filepath);
-
-                /* TODO: Monaco.CodeEditor not available for WinUI yet. See https://github.com/hawkerm/monaco-editor-uwp/pull/32
-                // Create the code viewer.
-                Monaco.CodeEditor viewer = new Monaco.CodeEditor();
-                viewer.Options.ReadOnly = true;
-                viewer.Text = source;
-
-                 // Change Monaco language for C# files.
-                if (filepath.EndsWith(".cs")) { viewer.CodeLanguage = "csharp"; }
-
-                */
-                // Instead use textbox for now
-                TextBox viewer = new TextBox();
-                viewer.IsReadOnly = true;
-                viewer.FontFamily = new Microsoft.UI.Xaml.Media.FontFamily("Courier New");
-                viewer.AcceptsReturn = true;
-                viewer.VerticalAlignment = Microsoft.UI.Xaml.VerticalAlignment.Stretch;
-                viewer.Text = source;
-
-                // Adjust tabs for dark mode.
-                if (App.Current.RequestedTheme == Microsoft.UI.Xaml.ApplicationTheme.Dark)
-                {
-                    Tabs.RequestedTheme = Microsoft.UI.Xaml.ElementTheme.Dark;
-                    newTab.RequestedTheme = Microsoft.UI.Xaml.ElementTheme.Dark;
-                }
-
-                // Set the tabs content to the code viewer.
-                newTab.Content = viewer;
+                newTab.Header = Path.GetFileName(file.FilePath);
 
                 // Add the tab to the beginning of the list.
-                tabs.Insert(0, newTab);
+                _tabs.Insert(0, newTab);
             }
 
             // Set the Tab source to the list of tabs.
-            Tabs.TabItemsSource = tabs;
+            Tabs.TabItemsSource = _tabs;
+
+            try
+            {
+                // Load web view.
+                await WebView.EnsureCoreWebView2Async();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                return;
+            }
+
+            // Set up folder mapping for local syntax highlighting resources.
+            string applicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            WebView.CoreWebView2.SetVirtualHostNameToFolderMapping(FolderMapping, applicationPath, CoreWebView2HostResourceAccessKind.Allow);
+
+            // Enable selection events on the tab control.
+            Tabs.SelectionChanged += TabChanged;
+            Tabs.SelectedIndex = 0;
+        }
+
+        private void TabChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Get the html content for the tab.
+            var selected = Tabs.SelectedItem as TabViewItem;
+            string content = _sourceFiles.FirstOrDefault(x => x.Name == selected.Header.ToString()).HtmlContent;
+
+            // Display the html content in the web view.
+            WebView.NavigateToString(content);
+        }
+
+        public class SourceCodeFile
+        {
+            // Start of each html string.
+            private const string htmlStart =
+                "<html>" +
+                "<head>" +
+                "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=11\">" +
+                "<link rel=\"stylesheet\" href=\"{csspath}\">" +
+                "<script type=\"text/javascript\" src=\"{jspath}\"></script>" +
+                "<script>hljs.initHighlightingOnLoad();</script>" +
+                "</head>" +
+                "<body>" +
+                "<pre>";
+
+            private const string htmlEnd =
+                "</pre>" +
+                "</body>" +
+                "</html>";
+
+            private string _path;
+            private string _fullContent;
+
+            public string FilePath => _path;
+
+            public string Name => Path.GetFileName(_path);
+
+            public string HtmlContent
+            {
+                get
+                {
+                    if (_fullContent == null)
+                    {
+                        LoadContent();
+                    }
+
+                    return _fullContent;
+                }
+            }
+
+            public SourceCodeFile(string sourceFilePath)
+            {
+                _path = sourceFilePath;
+            }
+
+            private void LoadContent()
+            {
+                // Filepaths for the css and js files used for syntax highlighting.
+                string cssPath = Path.Combine($"https://{FolderMapping}", "Resources", "SyntaxHighlighting", "highlight.css");
+                string jsPath = Path.Combine($"https://{FolderMapping}", "Resources", "SyntaxHighlighting", "highlight.pack.js");
+
+                // Source code of the file.
+                try
+                {
+                    string baseContent = File.ReadAllText(_path);
+
+                    // Set the type of highlighting for the source file.
+                    string codeClass = _path.EndsWith(".xaml") ? "xml" : "csharp";
+
+                    // > and < characters will be incorrectly parsed by the html.
+                    baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
+
+                    // Build the html.
+                    _fullContent =
+                        htmlStart.Replace("{csspath}", cssPath).Replace("{jspath}", jsPath) +
+                        $"<code class=\"{codeClass}\">" +
+                        baseContent +
+                        "</code>" +
+                        htmlEnd;
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            }
         }
     }
 }

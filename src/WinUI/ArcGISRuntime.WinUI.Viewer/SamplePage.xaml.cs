@@ -8,12 +8,12 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using System;
-using Windows.System;
+using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
-using CommunityToolkit.WinUI.UI.Controls;
+using System;
+using Windows.System;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
@@ -59,7 +59,7 @@ namespace ArcGISRuntime.WinUI.Viewer
             DescriptionContainer.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
 
             // Load the source code files.
-            SourceCodeContainer.LoadSourceCode();
+            _ = SourceCodeContainer.LoadSourceCodeAsync();
         }
 
         private void MarkDownBlock_ImageResolving(object sender, ImageResolvingEventArgs e)

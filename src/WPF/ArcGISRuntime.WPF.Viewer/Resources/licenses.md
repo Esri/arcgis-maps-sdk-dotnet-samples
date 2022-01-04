@@ -1,6 +1,6 @@
 ﻿# Licenses for 3rd-party software packages
 
-The ArcGIS Runtime SDK for .NET sample viewer (WPF version) was built using several free and open source software libraries and resources. 
+The ArcGIS Runtime SDK for .NET sample viewer (WPF version) was built using several free and open source software libraries and resources.
 
 ## MarkedNET
 
@@ -34,7 +34,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-----
+------
 
 ## Highlight.JS
 
@@ -44,7 +44,7 @@ This app uses highlight.js under the BSD license to provide syntax highlighting 
 
 BSD license reproduced in full:
 
----
+------
 
 Copyright (c) 2006, Ivan Sagalaev
 All rights reserved.
@@ -56,8 +56,8 @@ modification, are permitted provided that the following conditions are met:
 * Redistributions in binary form must reproduce the above copyright
     notice, this list of conditions and the following disclaimer in the
     documentation and/or other materials provided with the distribution.
-* Neither the name of highlight.js nor the names of its contributors 
-    may be used to endorse or promote products derived from this software 
+* Neither the name of highlight.js nor the names of its contributors
+    may be used to endorse or promote products derived from this software
     without specific prior written permission.
 
 THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND ANY
@@ -71,8 +71,7 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
----
-
+------
 
 ## github-markdown-css
 
@@ -82,7 +81,7 @@ This app uses github-markdown-css under the MIT license to display rendered mark
 
 MIT license reproduced in full:
 
------
+------
 MIT License
 
 Copyright (c) Sindre Sorhus sindresorhus@gmail.com (sindresorhus.com)
@@ -93,4 +92,4 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
------
+------

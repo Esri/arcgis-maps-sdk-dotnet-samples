@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -36,6 +36,9 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
     {
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
+
+        private const int LineLayerId = 3;
+        private const int DeviceLayerId = 0;
 
         // Viewpoint in the utility network area.
         private Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9812980.8041217551, 5128523.87694709, -9812798.4363710005, 5128627.6261982173, SpatialReferences.WebMercator));
@@ -90,15 +93,18 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
                     InitialViewpoint = _startingViewpoint
                 };
 
+                // Create and load a service geodatabase that matches utility network.
+                ServiceGeodatabase serviceGeodatabase = await ServiceGeodatabase.CreateAsync(new Uri(FeatureServiceUrl));
+
                 // Add the layer with electric distribution lines.
-                FeatureLayer lineLayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/3"));
+                FeatureLayer lineLayer = new FeatureLayer(serviceGeodatabase.GetTable(LineLayerId));
                 UniqueValue mediumVoltageValue = new UniqueValue("N/A", "Medium Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3), 5);
                 UniqueValue lowVoltageValue = new UniqueValue("N/A", "Low Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.DarkCyan, 3), 3);
                 lineLayer.Renderer = new UniqueValueRenderer(new List<string>() { "ASSETGROUP" }, new List<UniqueValue>() { mediumVoltageValue, lowVoltageValue }, "", new SimpleLineSymbol());
                 MyMapView.Map.OperationalLayers.Add(lineLayer);
 
                 // Add the layer with electric devices.
-                FeatureLayer electricDevicelayer = new FeatureLayer(new Uri($"{FeatureServiceUrl}/0"));
+                FeatureLayer electricDevicelayer = new FeatureLayer(serviceGeodatabase.GetTable(DeviceLayerId));
                 MyMapView.Map.OperationalLayers.Add(electricDevicelayer);
 
                 // Set the selection color for features in the map view.

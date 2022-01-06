@@ -86,13 +86,16 @@ namespace ArcGISRuntime.WPF.Samples.PerformValveIsolationTrace
                 // Disable the UI.
                 FilterOptions.IsEnabled = false;
 
-                // Create and load the utility network.
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
+                // Create and load a service geodatabase that matches utility network.
+                ServiceGeodatabase serviceGeodatabase = await ServiceGeodatabase.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Create a map with layers in this utility network.
                 MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight);
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{LineLayerId}")));
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{DeviceLayerId}")));
+                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(serviceGeodatabase.GetTable(LineLayerId)));
+                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(serviceGeodatabase.GetTable(DeviceLayerId)));
+
+                // Create and load the utility network.
+                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
                 // Get a trace configuration from a tier.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName) ?? throw new ArgumentException(DomainNetworkName);

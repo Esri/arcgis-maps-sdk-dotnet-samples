@@ -86,13 +86,16 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
                 // Disable the UI.
                 FilterOptions.IsVisible = false;
 
-                // Create and load the utility network.
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
+                // Create and load a service geodatabase that matches utility network.
+                ServiceGeodatabase serviceGeodatabase = await ServiceGeodatabase.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Create a map with layers in this utility network.
-                MyMapView.Map = new Map(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")));
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{LineLayerId}")));
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(new Uri($"{FeatureServiceUrl}/{DeviceLayerId}")));
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight);
+                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(serviceGeodatabase.GetTable(LineLayerId)));
+                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(serviceGeodatabase.GetTable(DeviceLayerId)));
+
+                // Create and load the utility network.
+                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
                 // Get a trace configuration from a tier.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName) ?? throw new ArgumentException(DomainNetworkName);

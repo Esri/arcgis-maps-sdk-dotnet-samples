@@ -21,7 +21,7 @@
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.ARToolkit": "100.12.0",
+        "Esri.ArcGISRuntime.ARToolkit": "100.13.0",
         "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0",
         "Xamarin.Auth": "1.7.0"
     },

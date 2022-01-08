@@ -23,12 +23,14 @@ If you're on Windows, the easiest way to get started is to download the viewer f
 
 Or, you can browse a searchable list of samples on the ArcGIS for developers website:
 
-[![Link: Xamarin.Android](https://img.shields.io/badge/Xamarin.Android-3ddc84?style=flat-square&labelColor=gray&logo=android)](https://developers.arcgis.com/net/android/sample-code/)
-[![Link: Xamarin.iOS](https://img.shields.io/badge/Xamarin.iOS-black?style=flat-square&labelColor=gray&logo=ios)](https://developers.arcgis.com/net/ios/sample-code/)
 [![Link: Xamarin.Forms](https://img.shields.io/badge/Xamarin.Forms-3498db?style=flat-square&labelColor=gray&logo=Xamarin)](https://developers.arcgis.com/net/forms/sample-code/)
 [![Link: WPF](https://img.shields.io/badge/WPF-0078d6?style=flat-square&labelColor=gray&logo=windowsxp)](https://developers.arcgis.com/net/wpf/sample-code/)
-[![Link: UWP](https://img.shields.io/badge/UWP-0078d6?style=flat-square&labelColor=gray&logo=windows)](https://developers.arcgis.com/net/uwp/sample-code/)
 [![Link: WinUI](https://img.shields.io/badge/WinUI-0E53BD?style=flat-square&labelColor=gray&logo=windows)](https://developers.arcgis.com/net/winui/sample-code/)
+[![Link: UWP](https://img.shields.io/badge/UWP-(Legacy)-202020?style=flat-square&labelColor=gray&logo=windows)](https://developers.arcgis.com/net/uwp/sample-code/)
+[![Link: Xamarin.Android](https://img.shields.io/badge/Xamarin.Android-(Legacy)-202020?style=flat-square&labelColor=gray&logo=android)](https://developers.arcgis.com/net/android/sample-code/)
+[![Link: Xamarin.iOS](https://img.shields.io/badge/Xamarin.iOS-(Legacy)-202020?style=flat-square&labelColor=gray&logo=ios)](https://developers.arcgis.com/net/ios/sample-code/)
+
+> **NOTE**: Samples exist but are no longer being updated for iOS, Android, and UWP. If a sample doesn't exist on your desired platform, you can refer to the implementations on Xamarin.Forms for mobile, or WPF for Windows desktop.
 
 ### Build the samples locally
 
@@ -42,11 +44,14 @@ If you are only interested in one platform, you can open a platform-specific sol
 
 - [WPF (.NET Framework)](src/WPF/readme.md): `src\WPF\ArcGISRuntime.WPF.Viewer.NetFramework.sln`
 - [WPF (.NET 6)](src/WPF/readme.md): `src\WPF\ArcGISRuntime.WPF.Viewer.Net.sln`
+- [Xamarin.Forms](src/Forms/readme.md): `src\Windows\ArcGISRuntime.Xamarin.Samples.Forms.sln`
+- [WinUI](src/WinUI/readme.md): `\src\WinUI\ArcGISRuntime.WinUI.Viewer.sln (Preview)`
+
+The following platforms are being kept for reference, but no new sample implementations are being added:
+
 - [UWP](src/UWP/readme.md): `src\Windows\ArcGISRuntime.UWP.Viewer.sln`
 - [Xamarin.Android](src/Android/readme.md): `src\Android\ArcGISRuntime.Xamarin.Samples.Android.sln`
 - [Xamarin.iOS](src/iOS/readme.md): `src\iOS\ArcGISRuntime.Xamari.Samples.iOS.sln`
-- [Xamarin.Forms](src/Forms/readme.md): `src\Windows\ArcGISRuntime.Xamarin.Samples.Forms.sln`
-- [WinUI](src/WinUI/readme.md): `\src\WinUI\ArcGISRuntime.WinUI.Viewer.sln (Preview)`
 
 ## Notes
 

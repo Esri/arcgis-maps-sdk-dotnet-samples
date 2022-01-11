@@ -10,7 +10,7 @@
 
 # ArcGIS Runtime SDK for .NET - Samples
 
-<img src="./samples_screenshot.png" width="500px" />
+<a href="//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge"><img src="./samples_screenshot.png" title="Get the viewer from Microsoft" alt="Screenshot of the sample viewer for WPF" width="500px" /></a>
 <hr />
 
 **Interactive samples demonstrate the ArcGIS Runtime API**
@@ -19,7 +19,7 @@
 
 If you're on Windows, the easiest way to get started is to download the viewer from the Microsoft Store:
 
-<a href='//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png' alt='English badge' width="125" /></a>
+<a href='//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png' alt='Get it from Microsoft badge' width="125" /></a>
 
 Or, you can browse a searchable list of samples on the ArcGIS for developers website:
 
@@ -30,7 +30,7 @@ Or, you can browse a searchable list of samples on the ArcGIS for developers web
 [![Link: Xamarin.Android](https://img.shields.io/badge/Xamarin.Android-(Legacy)-202020?style=flat-square&labelColor=gray&logo=android)](https://developers.arcgis.com/net/android/sample-code/)
 [![Link: Xamarin.iOS](https://img.shields.io/badge/Xamarin.iOS-(Legacy)-202020?style=flat-square&labelColor=gray&logo=ios)](https://developers.arcgis.com/net/ios/sample-code/)
 
-> **NOTE**: Samples exist but are no longer being updated for iOS, Android, and UWP. If a sample doesn't exist on your desired platform, you can refer to the implementations on Xamarin.Forms for mobile, or WPF for Windows desktop.
+> **NOTE**: Samples exist but are no longer being updated for iOS, Android, and UWP. If a sample doesn't exist on your desired platform, you can refer to the implementation on Xamarin.Forms for mobile or WPF for Windows desktop.
 
 ### Build the samples locally
 

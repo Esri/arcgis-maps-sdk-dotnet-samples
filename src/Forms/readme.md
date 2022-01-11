@@ -109,7 +109,7 @@
 * [Export tiles](Shared/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.
 * [Create feature collection layer (Portal item)](Shared/Samples/Layers/FeatureCollectionLayerFromPortal/readme.md) - Create a feature collection layer from a portal item.
 * [Feature collection layer (query)](Shared/Samples/Layers/FeatureCollectionLayerFromQuery/readme.md) - Create a feature collection layer to show a query result from a service feature table.
-* [Feature layer definition expression](Shared/Samples/Layers/FeatureLayerDefinitionExpression/readme.md) - Limit the features displayed on a map with a definition expression.
+* [Filter by definition expression or display filter](Shared/Samples/Layers/FeatureLayerDefinitionExpression/readme.md) - Filter features displayed on a map using a definition expression or a display filter.
 * [Dictionary renderer with feature layer](Shared/Samples/Layers/FeatureLayerDictionaryRenderer/readme.md) - Convert features into graphics to show them with mil2525d symbols.
 * [Feature layer rendering mode (map)](Shared/Samples/Layers/FeatureLayerRenderingModeMap/readme.md) - Render features statically or dynamically by setting the feature layer rendering mode.
 * [Feature layer rendering mode (scene)](Shared/Samples/Layers/FeatureLayerRenderingModeScene/readme.md) - Render features in a scene statically or dynamically by setting the feature layer rendering mode.

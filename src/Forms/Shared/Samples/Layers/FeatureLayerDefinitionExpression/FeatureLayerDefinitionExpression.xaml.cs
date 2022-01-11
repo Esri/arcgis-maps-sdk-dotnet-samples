@@ -1,79 +1,110 @@
-// Copyright 2016 Esri.
+// Copyright 2021 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
-
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.FeatureLayerDefinitionExpression
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Feature layer definition expression",
+        name: "Filter by definition expression or display filter",
         category: "Layers",
-        description: "Limit the features displayed on a map with a definition expression.",
-        instructions: "Press the 'Apply Expression' button to limit the features requested from the feature layer to those specified by the SQL query definition expression. Tap the 'Reset Expression' button to remove the definition expression on the feature layer, which returns all the records.",
-        tags: new[] { "SQL", "definition expression", "filter", "limit data", "query", "restrict data", "where clause" })]
+        description: "Filter features displayed on a map using a definition expression or a display filter.",
+        instructions: "Use a definition expression to limit the features requested from the feature layer to those specified by a SQL query. This narrows down the results that are drawn, and removes those features from the layer's attribute table. To filter the results being drawn without modifying the attribute table, hit the button to apply the display filter instead.",
+        tags: new[] { "SQL", "definition expression", "display filter", "filter", "limit data", "query", "restrict data", "where clause", "Featured" })]
     public partial class FeatureLayerDefinitionExpression : ContentPage
     {
-        //Create and hold reference to the feature layer
+        private const string FeatureServerURL = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0";
+
+        private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-122.45044007080793, 37.775915492745874, SpatialReferences.Wgs84), 3350);
+
+        private ManualDisplayFilterDefinition _definition;
+
         private FeatureLayer _featureLayer;
 
         public FeatureLayerDefinitionExpression()
         {
-            InitializeComponent ();
-
-            //setup the control references and execute initialization 
+            InitializeComponent();
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
+            // Create the map.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic) { InitialViewpoint = InitialViewpoint };
 
-            // Create a MapPoint the map should zoom to
-            MapPoint mapPoint = new MapPoint(
-                -13630484, 4545415, SpatialReferences.WebMercator);
+            // Add a feature layer to the map.
+            ServiceFeatureTable table = new ServiceFeatureTable(new Uri(FeatureServerURL));
+            _featureLayer = new FeatureLayer(table);
+            MyMapView.Map.OperationalLayers.Add(_featureLayer);
 
-            // Set the initial viewpoint for map
-            myMap.InitialViewpoint = new Viewpoint(mapPoint, 90000);
-
-            // Provide used Map to the MapView
-            MyMapView.Map = myMap;
-
-            // Create the uri for the feature service
-            Uri featureServiceUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
-
-            // Initialize feature table using a url to feature server url
-            ServiceFeatureTable featureTable = new ServiceFeatureTable(featureServiceUri);
-
-            // Initialize a new feature layer based on the feature table
-            _featureLayer = new FeatureLayer(featureTable);
-
-            //Add the feature layer to the map
-            myMap.OperationalLayers.Add(_featureLayer);
+            // Create a display filter and display filter definition.
+            // req_type here is one of the published fields
+            DisplayFilter damagedTrees = new DisplayFilter(name: $"Damaged Trees", whereClause: "req_type LIKE '%Tree Maintenance%'");
+            _definition = new ManualDisplayFilterDefinition(activeFilter: damagedTrees, availableFilters: new[] { damagedTrees });
         }
 
-        private void OnApplyExpressionClicked(object sender, EventArgs e)
+        private void Expression_Click(object sender, EventArgs e)
         {
-            // Adding definition expression to show specific features only
+            // Reset the display filter definition.
+            _featureLayer.DisplayFilterDefinition = null;
+
+            // Set the definition expression to show specific features only.
             _featureLayer.DefinitionExpression = "req_Type = 'Tree Maintenance or Damage'";
         }
 
-        private void OnResetButtonClicked(object sender, EventArgs e)
+        private void Filter_Click(object sender, EventArgs e)
         {
-            // Reset the definition expression to see all features again
+            // Disable the feature layer definition expression
             _featureLayer.DefinitionExpression = "";
+
+            // Set the display filter definition on the layer.
+            _featureLayer.DisplayFilterDefinition = _definition;
+        }
+
+        private void Reset_Click(object sender, EventArgs e)
+        {
+            // Disable the feature layer definition expression
+            _featureLayer.DefinitionExpression = "";
+
+            // Reset the display filter definition.
+            _featureLayer.DisplayFilterDefinition = null;
+        }
+
+        private void MapDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
+        {
+            _ = CountFeatures();
+        }
+
+        private async Task CountFeatures()
+        {
+            try
+            {
+                // Get the extent of the current viewpoint.
+                Envelope extent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)?.TargetGeometry?.Extent;
+
+                // Return if no valid extent.
+                if (extent == null) return;
+
+                // Update the UI with the count of features in the extent
+                long totalIncidentReported = await _featureLayer.FeatureTable.QueryFeatureCountAsync(new QueryParameters() { Geometry = extent });
+                IncidentReportSummary.Text = $"Current feature count: {totalIncidentReported}";
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
     }
 }

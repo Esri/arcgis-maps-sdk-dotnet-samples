@@ -2,18 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources"
              x:Class="ArcGISRuntime.Samples.FeatureLayerDefinitionExpression.FeatureLayerDefinitionExpression">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Button Clicked="OnApplyExpressionClicked" Text="Apply Expression" Grid.Row="0" Grid.Column="0" />
-        <Button Clicked="OnResetButtonClicked" Text="Reset" Grid.Row="0" Grid.Column="1" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" Grid.ColumnSpan="2" />
-    </Grid>
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView" DrawStatusChanged='MapDrawStatusChanged' Style="{StaticResource MapWithFormStyle}"
+                          BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout Orientation="Vertical">
+                <Label x:Name="IncidentReportSummary" />
+                <StackLayout Orientation="Horizontal">
+                    <Button Clicked="Expression_Click" Margin="5" Text="Expression" />
+                    <Button Clicked="Filter_Click" Margin="5" Text="Filter" />
+                    <Button Clicked="Reset_Click" Margin="5" Text="Reset" />
+                </StackLayout>
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
 </ContentPage>

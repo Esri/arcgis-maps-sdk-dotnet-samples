@@ -1,0 +1,22 @@
+{
+    "category": "Location",
+    "description": "Parse NMEA sentences and use the results to show device location on the map.",
+    "formal_name": "LocationWithNMEA",
+    "ignore": false,
+    "images": [
+        "LocationWithNMEA.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/LocationWithNMEA.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Display device location with NMEA data sources"
+}

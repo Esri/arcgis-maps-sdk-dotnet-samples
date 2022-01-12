@@ -1,8 +1,18 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.LocationWithNMEA.LocationWithNMEA"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label x:Name="InfoLabel" Content="Info:" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Start" Margin="5" Click="StartClick"/>
+                    <Button Content="Recenter" Margin="5" Click="RecenterClick"/>
+                    <Button Content="Reset" Margin="5" Click="ResetClick"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

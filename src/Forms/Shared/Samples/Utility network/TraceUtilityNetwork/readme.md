@@ -33,6 +33,7 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 ## Relevant API
 
 * FractionAlong
+* ServiceGeodatabase
 * UtilityAssetType
 * UtilityDomainNetwork
 * UtilityElement
@@ -50,7 +51,7 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 
 ## About the data
 
-The [Naperville electrical](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer) network feature service, hosted on ArcGIS Online, contains a utility network used to run the subnetwork-based trace shown in this sample.
+The [Naperville electrical](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer) network feature service contains a utility network used to run the subnetwork-based trace shown in this sample. Authentication is required and handled within the sample code.
 
 ## Additional information
 

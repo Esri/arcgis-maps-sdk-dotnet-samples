@@ -27,6 +27,7 @@
     ],
     "relevant_apis": [
         "FractionAlong",
+        "ServiceGeodatabase",
         "UtilityAssetType",
         "UtilityDomainNetwork",
         "UtilityElement",

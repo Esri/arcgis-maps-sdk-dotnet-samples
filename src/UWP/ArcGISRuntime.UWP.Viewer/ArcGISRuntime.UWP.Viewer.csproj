@@ -123,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.jpg" />
     <Content Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.jpg" />
     <Content Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg" />
     <Content Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
@@ -389,6 +390,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml.cs">
+      <DependentUpon>BrowseBuildingFloors.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.xaml.cs">
       <DependentUpon>LocationDrivenGeotriggers.xaml</DependentUpon>
     </Compile>
@@ -999,6 +1003,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

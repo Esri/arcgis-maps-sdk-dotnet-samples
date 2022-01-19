@@ -33,10 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
         private readonly Dictionary<string, FloorLevel> _floorOptions = new Dictionary<string, FloorLevel>();
 
         public BrowseBuildingFloors()
-        {
-            // Remember to remove this
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = "AAPK2be10d7a490a4d1cb013b94b7b4a5f22h0MUZl45b6OsSUTAt1ZOFVADT0SOtuCcL7f3--xPfdnuLAHS6mQ-Ej_6XcwV83Ar";
-
+        {            
             InitializeComponent();
             _ = Initialize();
         }

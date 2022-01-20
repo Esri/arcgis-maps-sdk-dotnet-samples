@@ -19,10 +19,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Browse building floors",
-        "Map",
-        " Display and browse through building floors from a floor-aware web map.",
-        "")]
+        name: "Browse building floors",
+        category: "Map",
+        description: "Display and browse through building floors from a floor-aware web map.",
+        instructions: "Use the spinner to browse different floor levels in the facility. Only the selected floor will be displayed.",
+        tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class BrowseBuildingFloors : ContentPage
     {

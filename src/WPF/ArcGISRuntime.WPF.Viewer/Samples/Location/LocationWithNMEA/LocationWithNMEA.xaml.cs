@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
     {
         private NmeaLocationDataSource _nmeaSource;
 
-        private SimulatedNMEADataSource _simulatedNMEADataSource;
+        private NMEAStreamSimulator _simulatedNMEADataSource;
 
         public LocationWithNMEA()
         {
@@ -50,33 +49,57 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-117.191, 34.0306, SpatialReferences.Wgs84), 100000));
 
-            // Create the simulated data.
-            string nmeaPath = DataManager.GetDataFolder("d5bad9f4fee9483791e405880fb466da", "Redlands.nmea");
-            _simulatedNMEADataSource = new SimulatedNMEADataSource(nmeaPath, 2.0);
+            // Create the data simulation using stored mock data.
+            string nmeaMockDataPath = DataManager.GetDataFolder("d5bad9f4fee9483791e405880fb466da", "Redlands.nmea");
+            _simulatedNMEADataSource = new NMEAStreamSimulator(nmeaMockDataPath, 4.0);
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
-            _nmeaSource.NmeaDataStream = _simulatedNMEADataSource.DataStream;
+            _nmeaSource.NmeaDataStream = _simulatedNMEADataSource.MessageStream;
+
+            // Create an event handler to update the UI when the location changes.
             _nmeaSource.SatellitesChanged += SatellitesChanged;
+            _nmeaSource.LocationChanged += LocationChanged;
 
-            MyMapView.LocationDisplay.DataSource = _nmeaSource;
-
-            await _nmeaSource.StartAsync();
+            // Start the location data source.
+            try
+            {
+                MyMapView.LocationDisplay.DataSource = _nmeaSource;
+                await _nmeaSource.StartAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void SatellitesChanged(object sender, IReadOnlyList<NmeaSatelliteInfo> infos)
         {
+            // Check for any satellite info.
             if (infos.Count == 0) return;
+
+            // Get all of the satellite Id's from the satellite infos.
             SortedSet<int> uniqueSatelliteIds = new SortedSet<int>();
             foreach (var info in infos)
             {
                 uniqueSatelliteIds.Add(info.Id);
             }
 
-            Dispatcher.BeginInvoke((Action)delegate ()
+            Dispatcher.BeginInvoke(delegate ()
             {
                 // Show the status information in the UI.
-                InfoLabel.Content = $"Satellite count: {infos.Count} Satellites: {string.Join(", ", uniqueSatelliteIds)} System: {infos.First().System} ";
+                CountLabel.Content = $"Satellite count: {infos.Count}";
+                SatellitesLabel.Content = $"Satellites: {string.Join(", ", uniqueSatelliteIds)}";
+                SystemLabel.Content = $"System: {infos.First().System}";
+            });
+        }
+
+        private void LocationChanged(object sender, Location loc)
+        {
+            Dispatcher.BeginInvoke(delegate ()
+            {
+                // Show the status information in the UI.
+                AccuracyLabel.Content = $"Accuracy: Horizontal {string.Format("{0:0.00}", loc.HorizontalAccuracy)} meters, Vertical  {string.Format("{0:0.00}", loc.VerticalAccuracy)} meters";
             });
         }
 
@@ -104,24 +127,26 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
         }
     }
 
-    public class SimulatedNMEADataSource : IDisposable
+    public class NMEAStreamSimulator : IDisposable
     {
         private Timer _timer;
 
-        public Stream DataStream;
+        public Stream MessageStream;
 
-        private int _count = 0;
+        private int _lineCounter = 0;
         private const int DefaultInterval = 1000;
 
         private string[] _nmeaStrings;
 
-        public SimulatedNMEADataSource(string nmeaSourceFilePath, double speed = 1.0)
+        public NMEAStreamSimulator(string nmeaSourceFilePath, double speed = 1.0)
         {
             _timer = new Timer(DefaultInterval / speed);
 
+            // Populate an array with all of the mock NMEA data.
             _nmeaStrings = File.ReadAllText(nmeaSourceFilePath).Split('\n');
 
-            DataStream = new MemoryStream();
+            // Create a data stream for the `NmeaLocationDataSource` to use.
+            MessageStream = new MemoryStream();
 
             _timer.Elapsed += TimerElapsed;
         }
@@ -139,51 +164,35 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
         public void Reset()
         {
             _timer.Stop();
-            _count = 0;
+            _lineCounter = 0;
         }
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            // Single line for each message
-            DataStream.Flush();
-            int starts = 0;
-            while (starts < 2)
+            // Get the next NMEA string and append return and newline characters to it.
+            string nmeaString = $"{_nmeaStrings[_lineCounter]}\r\n";
+
+            // Check if the start of a new location message.
+            if (nmeaString.StartsWith("GPGGA"))
             {
-                string nmeaString = $"{_nmeaStrings[_count]}\r\n";
-                if (nmeaString.StartsWith("$GPRMC"))
-                {
-                    starts++;
-                }
-                if (starts > 1)
-                {
-                    Debug.WriteLine(_count);
-                    return;
-                }
-
-                byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
-                DataStream.Write(data, 0, data.Length);
-
-                _count = (_count + 1) % _nmeaStrings.Length;
+                // Flush any existing NMEA data from the stream.
+                MessageStream.Flush();
             }
 
+            // Write the string to the stream.
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
+            MessageStream.Write(data, 0, data.Length);
 
-            // Line by line
-            //DataStream.Flush();
-
-            //string nmeaString = $"{_nmeaStrings[_count]}\r\n";
-
-            //byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
-            //DataStream.Write(data, 0, data.Length);
-            //Debug.WriteLine(_count);
-            //_count = (_count + 1) % _nmeaStrings.Length;
-
+            // Increment the line counter.
+            _lineCounter = (_lineCounter + 1) % _nmeaStrings.Length;
         }
 
         public void Dispose()
         {
+            // Dispose of the timer and stream.
             _timer.Stop();
             _timer.Dispose();
-            DataStream.Dispose();
+            MessageStream.Dispose();
         }
     }
 }

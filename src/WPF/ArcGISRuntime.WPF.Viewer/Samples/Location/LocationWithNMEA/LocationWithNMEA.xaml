@@ -6,11 +6,14 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <Label x:Name="InfoLabel"  />
+                <Label x:Name="AccuracyLabel" />
+                <Label x:Name="CountLabel" />
+                <Label x:Name="SatellitesLabel" />
+                <Label x:Name="SystemLabel" />
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Start" Margin="5" Click="StartClick"/>
-                    <Button Content="Recenter" Margin="5" Click="RecenterClick"/>
-                    <Button Content="Reset" Margin="5" Click="ResetClick"/>
+                    <Button Content="Start" Margin="5" Click="StartClick" />
+                    <Button Content="Recenter" Margin="5" Click="RecenterClick" />
+                    <Button Content="Reset" Margin="5" Click="ResetClick" />
                 </StackPanel>
             </StackPanel>
         </Border>

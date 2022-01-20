@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <Label x:Name="InfoLabel" Content="Info:" />
+                <Label x:Name="InfoLabel"  />
                 <StackPanel Orientation="Horizontal">
                     <Button Content="Start" Margin="5" Click="StartClick"/>
                     <Button Content="Recenter" Margin="5" Click="RecenterClick"/>

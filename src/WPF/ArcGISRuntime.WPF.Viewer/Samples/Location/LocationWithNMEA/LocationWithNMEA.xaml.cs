@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,15 +26,14 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
         "Display device location with NMEA data sources",
         "Location",
         "Parse NMEA sentences and use the results to show device location on the map.",
-        "")]
+        "",
+        "Featured")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d5bad9f4fee9483791e405880fb466da")]
     public partial class LocationWithNMEA
     {
         private NmeaLocationDataSource _nmeaSource;
 
         private SimulatedNMEADataSource _simulatedNMEADataSource;
-
-        private Location[] _mockLocations;
 
         public LocationWithNMEA()
         {
@@ -43,13 +43,16 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
 
         private async Task Initialize()
         {
+            // Add event handler for when this sample is unloaded.
+            Unloaded += SampleUnloaded;
+
             // Create the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-117.191, 34.0306, SpatialReferences.Wgs84), 100000));
 
             // Create the simulated data.
             string nmeaPath = DataManager.GetDataFolder("d5bad9f4fee9483791e405880fb466da", "Redlands.nmea");
-            _simulatedNMEADataSource = new SimulatedNMEADataSource(nmeaPath);
+            _simulatedNMEADataSource = new SimulatedNMEADataSource(nmeaPath, 2.0);
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
@@ -74,7 +77,6 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             {
                 // Show the status information in the UI.
                 InfoLabel.Content = $"Satellite count: {infos.Count} Satellites: {string.Join(", ", uniqueSatelliteIds)} System: {infos.First().System} ";
-
             });
         }
 
@@ -93,6 +95,13 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             _simulatedNMEADataSource.Stop();
             _simulatedNMEADataSource.Reset();
         }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
+            _simulatedNMEADataSource?.Dispose();
+        }
     }
 
     public class SimulatedNMEADataSource : IDisposable
@@ -102,13 +111,13 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
         public Stream DataStream;
 
         private int _count = 0;
-        private const int DefaultInterval = 100;
+        private const int DefaultInterval = 1000;
 
         private string[] _nmeaStrings;
 
         public SimulatedNMEADataSource(string nmeaSourceFilePath, double speed = 1.0)
         {
-            _timer = new Timer((int)(DefaultInterval * speed));
+            _timer = new Timer(DefaultInterval / speed);
 
             _nmeaStrings = File.ReadAllText(nmeaSourceFilePath).Split('\n');
 
@@ -135,15 +144,44 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            string nmeaString = $"{_nmeaStrings[_count]}\n";
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
-            DataStream.Write(data, 0, data.Length);
+            // Single line for each message
+            DataStream.Flush();
+            int starts = 0;
+            while (starts < 2)
+            {
+                string nmeaString = $"{_nmeaStrings[_count]}\r\n";
+                if (nmeaString.StartsWith("$GPRMC"))
+                {
+                    starts++;
+                }
+                if (starts > 1)
+                {
+                    Debug.WriteLine(_count);
+                    return;
+                }
 
-            _count = (_count + 1) % _nmeaStrings.Length;
+                byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
+                DataStream.Write(data, 0, data.Length);
+
+                _count = (_count + 1) % _nmeaStrings.Length;
+            }
+
+
+            // Line by line
+            //DataStream.Flush();
+
+            //string nmeaString = $"{_nmeaStrings[_count]}\r\n";
+
+            //byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
+            //DataStream.Write(data, 0, data.Length);
+            //Debug.WriteLine(_count);
+            //_count = (_count + 1) % _nmeaStrings.Length;
+
         }
 
         public void Dispose()
         {
+            _timer.Stop();
             _timer.Dispose();
             DataStream.Dispose();
         }

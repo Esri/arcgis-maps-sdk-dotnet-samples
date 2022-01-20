@@ -5,7 +5,8 @@ import os
 import sys
 
 # Platforms
-Platforms = ["UWP", "WPF", "Forms", "Android", "iOS", "WinUI"]
+# iOS, Android, UWP can be added when needed
+Platforms = ["WPF", "Forms", "WinUI"]
 
 def get_platform_root(platform, sample_root):
     '''

@@ -3,27 +3,21 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using System.Threading.Tasks;
-using Xamarin.Forms;
-using Esri.ArcGISRuntime.Location;
 using ArcGISRuntime.Samples.Managers;
-using System.Collections.Generic;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Location;
+using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Timers;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Timers;
+using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
 {
@@ -33,11 +27,11 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
         "Parse NMEA sentences and use the results to show device location on the map.",
         "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d5bad9f4fee9483791e405880fb466da")]
-    public partial class LocationWithNMEA : ContentPage
+    public partial class LocationWithNMEA : ContentPage, IDisposable
     {
         private NmeaLocationDataSource _nmeaSource;
 
-        private SimulatedNMEADataSource _simulatedNMEADataSource;
+        private NMEAStreamSimulator _simulatedNMEADataSource;
 
         public LocationWithNMEA()
         {
@@ -51,35 +45,59 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-117.191, 34.0306, SpatialReferences.Wgs84), 100000));
 
-            // Create the simulated data.
-            string nmeaPath = DataManager.GetDataFolder("d5bad9f4fee9483791e405880fb466da", "Redlands.nmea");
-            _simulatedNMEADataSource = new SimulatedNMEADataSource(nmeaPath);
+            // Create the data simulation using stored mock data.
+            string nmeaMockDataPath = DataManager.GetDataFolder("d5bad9f4fee9483791e405880fb466da", "Redlands.nmea");
+            _simulatedNMEADataSource = new NMEAStreamSimulator(nmeaMockDataPath, 4.0);
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
-            _nmeaSource.NmeaDataStream = _simulatedNMEADataSource.DataStream;
+            _nmeaSource.NmeaDataStream = _simulatedNMEADataSource.MessageStream;
+
+            // Create an event handler to update the UI when the location changes.
             _nmeaSource.SatellitesChanged += SatellitesChanged;
+            _nmeaSource.LocationChanged += LocationChanged;
 
-            MyMapView.LocationDisplay.DataSource = _nmeaSource;
-
-            await _nmeaSource.StartAsync();
+            // Start the location data source.
+            try
+            {
+                await MyMapView.Map.LoadAsync();
+                MyMapView.LocationDisplay.DataSource = _nmeaSource;
+                await _nmeaSource.StartAsync();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert(ex.Message.GetType().Name, ex.Message, "OK");
+            }
         }
 
         private void SatellitesChanged(object sender, IReadOnlyList<NmeaSatelliteInfo> infos)
         {
+            // Check for any satellite info.
             if (infos.Count == 0) return;
+
+            // Get all of the satellite Id's from the satellite infos.
             SortedSet<int> uniqueSatelliteIds = new SortedSet<int>();
             foreach (var info in infos)
             {
                 uniqueSatelliteIds.Add(info.Id);
             }
 
-            //Dispatcher.BeginInvoke((Action)delegate ()
-            //{
-            //    // Show the status information in the UI.
-            //    InfoLabel.Content = $"Satellite count: {infos.Count} Satellites: {string.Join(", ", uniqueSatelliteIds)} System: {infos.First().System} ";
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                // Show the status information in the UI.
+                CountLabel.Text = $"Satellite count: {infos.Count}";
+                SatellitesLabel.Text = $"Satellites: {string.Join(", ", uniqueSatelliteIds)}";
+                SystemLabel.Text = $"System: {infos.First().System}";
+            });
+        }
 
-            //});
+        private void LocationChanged(object sender, Location loc)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                // Show the status information in the UI.
+                AccuracyLabel.Text = $"Accuracy: Horizontal {string.Format("{0:0.00}", loc.HorizontalAccuracy)} meters, Vertical  {string.Format("{0:0.00}", loc.VerticalAccuracy)} meters";
+            });
         }
 
         private void StartClick(object sender, EventArgs e)
@@ -97,26 +115,35 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             _simulatedNMEADataSource.Stop();
             _simulatedNMEADataSource.Reset();
         }
+
+        public void Dispose()
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
+            _simulatedNMEADataSource?.Dispose();
+        }
     }
 
-    public class SimulatedNMEADataSource : IDisposable
+    public class NMEAStreamSimulator : IDisposable
     {
         private Timer _timer;
 
-        public Stream DataStream;
+        public Stream MessageStream;
 
-        private int _count = 0;
-        private const int DefaultInterval = 100;
+        private int _lineCounter = 0;
+        private const int DefaultInterval = 1000;
 
         private string[] _nmeaStrings;
 
-        public SimulatedNMEADataSource(string nmeaSourceFilePath, double speed = 1.0)
+        public NMEAStreamSimulator(string nmeaSourceFilePath, double speed = 1.0)
         {
-            _timer = new Timer((int)(DefaultInterval * speed));
+            _timer = new Timer(DefaultInterval / speed);
 
+            // Populate an array with all of the mock NMEA data.
             _nmeaStrings = File.ReadAllText(nmeaSourceFilePath).Split('\n');
 
-            DataStream = new MemoryStream();
+            // Create a data stream for the `NmeaLocationDataSource` to use.
+            MessageStream = new MemoryStream();
 
             _timer.Elapsed += TimerElapsed;
         }
@@ -134,22 +161,35 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
         public void Reset()
         {
             _timer.Stop();
-            _count = 0;
+            _lineCounter = 0;
         }
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            string nmeaString = $"{_nmeaStrings[_count]}\n";
-            byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
-            DataStream.Write(data, 0, data.Length);
+            // Get the next NMEA string and append return and newline characters to it.
+            string nmeaString = $"{_nmeaStrings[_lineCounter]}\r\n";
 
-            _count = (_count + 1) % _nmeaStrings.Length;
+            // Check if the start of a new location message.
+            if (nmeaString.StartsWith("$GPGGA"))
+            {
+                // Flush any existing NMEA data from the stream.
+                MessageStream.Flush();
+            }
+
+            // Write the string to the stream.
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
+            MessageStream.Write(data, 0, data.Length);
+
+            // Increment the line counter.
+            _lineCounter = (_lineCounter + 1) % _nmeaStrings.Length;
         }
 
         public void Dispose()
         {
+            // Dispose of the timer and stream.
+            _timer.Stop();
             _timer.Dispose();
-            DataStream.Dispose();
+            MessageStream.Dispose();
         }
     }
 }

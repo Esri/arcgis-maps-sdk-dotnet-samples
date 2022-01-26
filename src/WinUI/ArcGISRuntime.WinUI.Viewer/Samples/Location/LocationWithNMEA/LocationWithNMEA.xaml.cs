@@ -23,10 +23,11 @@ using System.Timers;
 namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display device location with NMEA data sources",
-        "Location",
-        "Parse NMEA sentences and use the results to show device location on the map.",
-        "")]
+        name: "Display device location with NMEA data sources",
+        category: "Location",
+        description: "This sample demonstrates how to parse NMEA sentences and use the results to show device location on the map.",
+        instructions: "Tap \"Start\" to parse the NMEA sentences into a simulated location data source, and initiate the location display. Tap \"Reset\" to reset the location display.",
+        tags: new[] { "GPS", "NMEA", "history", "navigation", "real-time", "trace" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d5bad9f4fee9483791e405880fb466da")]
     public partial class LocationWithNMEA : IDisposable
     {

@@ -151,6 +151,7 @@
 
 * [Display device location with autopan modes](ArcGISRuntime.WinUI.Viewer/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
 * [Set up location-driven Geotriggers](ArcGISRuntime.WinUI.Viewer/Samples/Location/LocationDrivenGeotriggers/readme.md) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
+* [Display device location with NMEA data sources](ArcGISRuntime.WinUI.Viewer/Samples/Location/LocationWithNMEA/readme.md) - This sample demonstrates how to parse NMEA sentences and use the results to show device location on the map.
 * [Show location history](ArcGISRuntime.WinUI.Viewer/Samples/Location/ShowLocationHistory/readme.md) - Display your location history on the map.
 
 ## Map

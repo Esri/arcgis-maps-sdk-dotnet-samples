@@ -1,22 +1,37 @@
 {
     "category": "Location",
-    "description": "Parse NMEA sentences and use the results to show device location on the map.",
+    "description": "This sample demonstrates how to parse NMEA sentences and use the results to show device location on the map.",
     "formal_name": "LocationWithNMEA",
     "ignore": false,
     "images": [
         "LocationWithNMEA.jpg"
     ],
     "keywords": [
+        "GPS",
+        "NMEA",
+        "history",
+        "navigation",
+        "real-time",
+        "trace"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.10.0"
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.UWP": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Forms": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/LocationWithNMEA.htm"
+        "/net/latest/forms/sample-code/locationwithnmea.htm"
     ],
     "relevant_apis": [
+        "LocationDisplay",
+        "NmeaLocationDataSource"
     ],
     "snippets": [
+        "LocationWithNMEA.xaml",
+        "LocationWithNMEA.xaml.cs"
     ],
     "title": "Display device location with NMEA data sources"
 }

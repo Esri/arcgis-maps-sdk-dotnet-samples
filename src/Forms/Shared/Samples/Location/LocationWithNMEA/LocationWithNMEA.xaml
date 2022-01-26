@@ -15,6 +15,7 @@
                 <Label x:Name="SatellitesLabel" />
                 <Label x:Name="SystemLabel" />
                 <StackLayout Orientation="Horizontal">
+                    <Button x:Name="SimulationButton" Text="Use real GPS" Clicked="SimulationButton_Clicked" Margin="5"/>
                     <Button Text="Start" Margin="5" Clicked="StartClick" />
                     <Button Text="Recenter" Margin="5" Clicked="RecenterClick" />
                     <Button Text="Reset" Margin="5" Clicked="ResetClick" />

@@ -123,15 +123,6 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             MyMapView.LocationDisplay?.DataSource?.StopAsync();
             _simulatedNMEADataSource?.Dispose();
         }
-
-        private void SimulationButton_Clicked(object sender, EventArgs e)
-        {
-#if __ANDROID__
-#endif
-
-#if __IOS__
-#endif
-        }
     }
 
     public class NMEAStreamSimulator : IDisposable

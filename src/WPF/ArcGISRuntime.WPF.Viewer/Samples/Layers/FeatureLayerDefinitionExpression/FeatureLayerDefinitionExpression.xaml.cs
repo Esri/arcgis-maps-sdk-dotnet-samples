@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerDefinitionExpression
 {
@@ -26,9 +25,9 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDefinitionExpression
         tags: new[] { "SQL", "definition expression", "display filter", "filter", "limit data", "query", "restrict data", "where clause", "Featured" })]
     public partial class FeatureLayerDefinitionExpression
     {
-        private const string FeatureServerURL = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0";
+        private const string FeatureServerURL = "https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/SF_311_Incidents/FeatureServer/0";
 
-        private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-122.45044007080793, 37.775915492745874, SpatialReferences.Wgs84), 3350);
+        private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-122.44014487516885, 37.772296660953138, SpatialReferences.Wgs84), 3350);
 
         private ManualDisplayFilterDefinition _definition;
 

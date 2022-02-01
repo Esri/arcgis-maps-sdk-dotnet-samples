@@ -53,6 +53,7 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
             _nmeaSource.NmeaDataStream = _simulatedNMEADataSource.MessageStream;
+            // When using an NMEA device on iOS, use the `NmeaLocationDataSource.FromAccessory` constructor. https://developers.arcgis.com/net/api-reference/api/ios/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromAccessory.html
 
             // Create an event handler to update the UI when the location changes.
             _nmeaSource.SatellitesChanged += SatellitesChanged;

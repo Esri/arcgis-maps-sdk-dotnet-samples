@@ -38,21 +38,25 @@ namespace ArcGISRuntime.Droid
             LoadApplication(new App());
         }
 
-        #region LocationDisplay
+        #region Permissions
 
         private const int LocationPermissionRequestCode = 99;
         private const int LocationRequesNoMap = 97;
 
+        private const int CameraPermissionRequestCode = 100;
+
         private Esri.ArcGISRuntime.Xamarin.Forms.MapView _lastUsedMapView;
-        private TaskCompletionSource<bool> _permissionTCS;
+        private TaskCompletionSource<bool> _locationPermissionTCS;
+
+        private TaskCompletionSource<bool> _cameraPermissionTCS;
 
         public async Task<bool> AskForLocationPermission()
         {
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
-                _permissionTCS = new TaskCompletionSource<bool>();
+                _locationPermissionTCS = new TaskCompletionSource<bool>();
                 RequestPermissions(new[] { Manifest.Permission.AccessFineLocation }, LocationRequesNoMap);
-                return await _permissionTCS.Task;
+                return await _locationPermissionTCS.Task;
             }
             return true;
         }
@@ -85,6 +89,17 @@ namespace ArcGISRuntime.Droid
             }
         }
 
+        public async Task<bool> AskForCameraPermission()
+        {
+            if (ContextCompat.CheckSelfPermission(this, CameraService) != Permission.Granted)
+            {
+                _cameraPermissionTCS = new TaskCompletionSource<bool>();
+                RequestPermissions(new[] { Manifest.Permission.Camera }, CameraPermissionRequestCode);
+                return await _cameraPermissionTCS.Task;
+            }
+            return true;
+        }
+
         public override async void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             if (requestCode == LocationPermissionRequestCode)
@@ -115,13 +130,17 @@ namespace ArcGISRuntime.Droid
             }
             else if (requestCode == LocationRequesNoMap)
             {
-                _permissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
+                _locationPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
+            }
+            else if(requestCode == CameraPermissionRequestCode)
+            {
+                _cameraPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
             }
         }
 
-        private void ShowMessage(string message, string title = "Error") => new AlertDialog.Builder(this).SetTitle(title).SetMessage(message).Show();
+        #endregion Permissions
 
-        #endregion LocationDisplay
+        private void ShowMessage(string message, string title = "Error") => new AlertDialog.Builder(this).SetTitle(title).SetMessage(message).Show();
 
         public static void SyncAssets(string assetFolder, string targetDir)
         {

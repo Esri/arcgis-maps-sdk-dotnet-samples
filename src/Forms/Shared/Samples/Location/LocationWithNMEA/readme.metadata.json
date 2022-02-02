@@ -1,6 +1,6 @@
 {
     "category": "Location",
-    "description": "This sample demonstrates how to parse NMEA sentences and use the results to show device location on the map.",
+    "description": "Parse NMEA sentences and use the results to show device location on the map.",
     "formal_name": "LocationWithNMEA",
     "ignore": false,
     "images": [
@@ -9,6 +9,7 @@
     "keywords": [
         "GPS",
         "NMEA",
+        "dongle",
         "history",
         "navigation",
         "real-time",
@@ -26,8 +27,10 @@
         "/net/latest/forms/sample-code/locationwithnmea.htm"
     ],
     "relevant_apis": [
+        "Location",
         "LocationDisplay",
-        "NmeaLocationDataSource"
+        "NmeaLocationDataSource",
+        "NmeaSatelliteInfo"
     ],
     "snippets": [
         "LocationWithNMEA.xaml",

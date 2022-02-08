@@ -155,6 +155,7 @@
 * [Access load status](Shared/Samples/Map/AccessLoadStatus/readme.md) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Apply scheduled updates to preplanned map area](Shared/Samples/Map/ApplyScheduledUpdates/readme.md) - Apply scheduled updates to a downloaded preplanned map area.
 * [Create and save map](Shared/Samples/Map/AuthorMap/readme.md) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
+* [Browse building floors](Shared/Samples/Map/BrowseBuildingFloors/readme.md) - Display and browse through building floors from a floor-aware web map.
 * [Change basemap](Shared/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Display map](Shared/Samples/Map/DisplayMap/readme.md) - Display a map with an imagery basemap.
 * [Download preplanned map area](Shared/Samples/Map/DownloadPreplannedMap/readme.md) - Take a map offline using a preplanned map area.

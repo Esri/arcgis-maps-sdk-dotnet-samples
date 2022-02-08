@@ -158,6 +158,7 @@
 * [Access load status](ArcGISRuntime.WinUI.Viewer/Samples/Map/AccessLoadStatus/readme.md) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Apply scheduled updates to preplanned map area](ArcGISRuntime.WinUI.Viewer/Samples/Map/ApplyScheduledUpdates/readme.md) - Apply scheduled updates to a downloaded preplanned map area.
 * [Create and save map](ArcGISRuntime.WinUI.Viewer/Samples/Map/AuthorMap/readme.md) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
+* [Browse building floors](ArcGISRuntime.WinUI.Viewer/Samples/Map/BrowseBuildingFloors/readme.md) - Display and browse through building floors from a floor-aware web map.
 * [Change basemap](ArcGISRuntime.WinUI.Viewer/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Display map](ArcGISRuntime.WinUI.Viewer/Samples/Map/DisplayMap/readme.md) - Display a map with an imagery basemap.
 * [Download preplanned map area](ArcGISRuntime.WinUI.Viewer/Samples/Map/DownloadPreplannedMap/readme.md) - Take a map offline using a preplanned map area.

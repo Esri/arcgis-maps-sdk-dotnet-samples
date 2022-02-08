@@ -1,0 +1,40 @@
+{
+    "category": "Map",
+    "description": "Display and browse through building floors from a floor-aware web map.",
+    "formal_name": "BrowseBuildingFloors",
+    "ignore": false,
+    "images": [
+        "browse-building-floors.png"
+    ],
+    "keywords": [
+        "building",
+        "facility",
+        "floor",
+        "floor-aware",
+        "floors",
+        "ground floor",
+        "indoor",
+        "level",
+        "site",
+        "story"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.WPF": "100.13.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/browsebuildingfloors.htm"
+    ],
+    "relevant_apis": [
+        "FloorLevel",
+        "FloorManager",
+        "Map",
+        "PortalItem"
+    ],
+    "snippets": [
+        "BrowseBuildingFloors.xaml",
+        "BrowseBuildingFloors.xaml.cs"
+    ],
+    "title": "Browse building floors"
+}

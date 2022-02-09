@@ -7,16 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Android;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
 using Android.Widget;
+using AndroidX.Core.Content;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using Google.AR.Core;
-using Google.AR.Core.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,8 +32,6 @@ namespace ArcGISRuntime
         private List<SearchableTreeNode> _sampleCategories;
         private List<SearchableTreeNode> _filteredSampleCategories;
         private ExpandableListView _categoriesListView;
-
-        private bool _arCompatible;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -48,26 +48,13 @@ namespace ArcGISRuntime
                 SampleManager.Current.Initialize();
                 _sampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
 
-                // Remove AR category if device does not support AR.
-                try
-                {
-                    var arSession = new Session(this);
-                    _arCompatible = true;
-                }
-                catch (UnavailableException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    _arCompatible = false;
-                }
-
-                if (!_arCompatible) _sampleCategories.RemoveAll(category => category.Name == "Augmented reality");
-
                 _filteredSampleCategories = _sampleCategories;
 
                 // Set up the custom ArrayAdapter for displaying the Categories.
                 var categoriesAdapter = new CategoriesAdapter(this, _sampleCategories);
                 _categoriesListView = FindViewById<ExpandableListView>(Resource.Id.categoriesListView);
                 _categoriesListView.SetAdapter(categoriesAdapter);
+
                 _categoriesListView.ChildClick += CategoriesListViewOnChildClick;
                 _categoriesListView.DividerHeight = 2;
                 _categoriesListView.SetGroupIndicator(null);
@@ -125,7 +112,6 @@ namespace ArcGISRuntime
             if (stnResult != null)
             {
                 _filteredSampleCategories = stnResult.Items.OfType<SearchableTreeNode>().ToList();
-                if (!_arCompatible) _filteredSampleCategories.RemoveAll(category => category.Name == "Augmented reality");
             }
             else
             {
@@ -152,6 +138,23 @@ namespace ArcGISRuntime
 
                 // Get the clicked item.
                 SampleInfo item = (SampleInfo)_filteredSampleCategories[childClickEventArgs.GroupPosition].Items[childClickEventArgs.ChildPosition];
+
+                // Check for AR compatiblity.
+                if (item.Category == "Augmented reality")
+                {
+                    try
+                    {
+                        // Get camera permission, then try to create an AR session.
+                        await AskForCameraPermission();
+                        var arSession = new Session(this);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"{ex.GetType().Name} {ex.Message}");
+                        new AlertDialog.Builder(this).SetMessage(ex.Message).SetTitle("Augmented reality not supported").Show();
+                        return;
+                    }
+                }
 
                 // Download any offline data before showing the sample.
                 if (item.OfflineDataItems != null)
@@ -193,6 +196,33 @@ namespace ArcGISRuntime
                 dialog.Show();
             }
         }
+
+        #region Permissions
+
+        // Permissions and permission request.
+        private const int CameraPermissionRequestCode = 100;
+        private TaskCompletionSource<bool> _cameraPermissionTCS;
+
+        public async Task<bool> AskForCameraPermission()
+        {
+            if (ContextCompat.CheckSelfPermission(this, CameraService) != Permission.Granted)
+            {
+                _cameraPermissionTCS = new TaskCompletionSource<bool>();
+                RequestPermissions(new[] { Manifest.Permission.Camera }, CameraPermissionRequestCode);
+                return await _cameraPermissionTCS.Task;
+            }
+            return true;
+        }
+
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            if (requestCode == CameraPermissionRequestCode)
+            {
+                _cameraPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
+            }
+        }
+
+        #endregion Permissions
 
         private static void ClearCredentials()
         {

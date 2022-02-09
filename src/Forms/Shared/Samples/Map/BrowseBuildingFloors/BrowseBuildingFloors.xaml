@@ -1,7 +1,6 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
              x:Class="ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors.BrowseBuildingFloors">
     <Grid>
         <Grid.RowDefinitions>
@@ -10,20 +9,21 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="200" />
-                <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Label
                 Grid.Column="0"
                 HorizontalTextAlignment="Center"
                 Text="Select floor:"
-                VerticalTextAlignment="Center" />
+                VerticalTextAlignment="Center"
+                Margin="5" />
             <Picker
                 x:Name="FloorChooser"
                 Grid.Column="1"
                 SelectedIndexChanged="OnFloorChooserSelectionChanged"
-                VerticalOptions="CenterAndExpand" />
+                VerticalOptions="CenterAndExpand"
+                Margin="5" />
         </Grid>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>

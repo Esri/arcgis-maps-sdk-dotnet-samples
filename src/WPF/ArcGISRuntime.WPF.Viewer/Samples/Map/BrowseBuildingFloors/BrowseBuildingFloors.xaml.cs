@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
         private readonly Dictionary<string, FloorLevel> _floorOptions = new Dictionary<string, FloorLevel>();
 
         public BrowseBuildingFloors()
-        {            
+        {
             InitializeComponent();
             _ = Initialize();
         }
@@ -55,12 +55,14 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
                 await MyMapView.Map.LoadAsync();
                 await MyMapView.Map.FloorManager.LoadAsync();
 
-                if (MyMapView.Map.FloorManager.LoadStatus.Equals(LoadStatus.Loaded))
+                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
-                    foreach (FloorLevel floors in _floorManager.Levels)
+
+                    // Use the dictionary to add the level's name as the key and the FloorLevel object with the associated level's name.
+                    foreach (FloorLevel level in _floorManager.Levels)
                     {
-                        _floorOptions.Add(floors.ShortName, floors);
+                        _floorOptions.Add(level.ShortName, level);
                     }
                 }
 
@@ -69,7 +71,15 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                // Provides an error message if the floor manager failed to load.
+                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
+                {
+                    MessageBox.Show("Floor manager failed to load: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

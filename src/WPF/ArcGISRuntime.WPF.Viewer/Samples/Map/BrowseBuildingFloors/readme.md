@@ -2,7 +2,7 @@
 
 Display and browse through building floors from a floor-aware web map.
 
-![BrowseBuildingFloorsApp](browse-building-floors.png)
+![BrowseBuildingFloorsApp](BrowseBuildingFloors.jpg)
 
 ## Use case
 
@@ -18,7 +18,7 @@ Use the spinner to browse different floor levels in the facility. Only the selec
 2. Create a map using the portal item.
 3. Create a map view and assign the map to it.
 4. Wait for the map to load and retrieve the map's `FloorManager` property.
-5. Wait for the floor manager to load and retrieve the floor-aware data.6 
+5. Wait for the floor manager to load and retrieve the floor-aware data. 
 6. Set all floors to not visible.
 7. Set only the selected `FloorLevel` to visible using the `isVisible` property of the floor level.
 * **Note:** Manually set the default floor level to the first floor.

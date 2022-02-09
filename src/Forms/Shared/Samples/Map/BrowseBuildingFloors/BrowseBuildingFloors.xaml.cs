@@ -24,7 +24,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
         description: "Display and browse through building floors from a floor-aware web map.",
         instructions: "Use the spinner to browse different floor levels in the facility. Only the selected floor will be displayed.",
         tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class BrowseBuildingFloors : ContentPage
     {
         private const string _portalItem = "f133a698536f44c8884ad81f80b6cfc7";
@@ -55,13 +54,15 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
                 await MyMapView.Map.LoadAsync();
                 await MyMapView.Map.FloorManager.LoadAsync();
                 List<string> floorName = new List<string>();
-                if (MyMapView.Map.FloorManager.LoadStatus.Equals(LoadStatus.Loaded))
+                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
-                    foreach (FloorLevel floors in _floorManager.Levels)
+
+                    // Use the dictionary to add the level's name as the key and the FloorLevel object with the associated level's name.
+                    foreach (FloorLevel level in _floorManager.Levels)
                     {
-                        _floorOptions.Add(floors.ShortName, floors);
-                        floorName.Add(floors.ShortName);
+                        _floorOptions.Add(level.ShortName, level);
+                        floorName.Add(level.ShortName);
                     }
                 }
 
@@ -70,7 +71,15 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
+                // Provides an error message if the floor manager failed to load.
+                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Floor manager failed to load: " + ex.Message, "OK");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
+                }
             }
         }
 

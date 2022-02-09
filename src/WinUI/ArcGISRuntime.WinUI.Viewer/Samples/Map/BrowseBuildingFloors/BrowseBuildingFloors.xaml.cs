@@ -3,29 +3,18 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
-using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Mapping.Floor;
-using System.Collections.Generic;
 using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Floor;
+using Esri.ArcGISRuntime.Portal;
 using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
 {
@@ -35,7 +24,6 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
         description: "Display and browse through building floors from a floor-aware web map.",
         instructions: "Use the spinner to browse different floor levels in the facility. Only the selected floor will be displayed.",
         tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class BrowseBuildingFloors
     {
         private const string _portalItem = "f133a698536f44c8884ad81f80b6cfc7";
@@ -66,12 +54,14 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
                 await MyMapView.Map.LoadAsync();
                 await MyMapView.Map.FloorManager.LoadAsync();
 
-                if (MyMapView.Map.FloorManager.LoadStatus.Equals(LoadStatus.Loaded))
+                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
-                    foreach (FloorLevel floors in _floorManager.Levels)
+
+                    // Use the dictionary to add the level's name as the key and the FloorLevel object with the associated level's name.
+                    foreach (FloorLevel level in _floorManager.Levels)
                     {
-                        _floorOptions.Add(floors.ShortName, floors);
+                        _floorOptions.Add(level.ShortName, level);
                     }
                 }
 
@@ -80,7 +70,15 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(ex.Message, "Error").ShowAsync();
+                // Provides an error message if the floor manager failed to load.
+                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
+                {
+                    await new MessageDialog2("Floor manager failed to load: " + ex.Message, "Error").ShowAsync();
+                }
+                else
+                {
+                    await new MessageDialog2(ex.Message, "Error").ShowAsync();
+                }
             }
         }
 

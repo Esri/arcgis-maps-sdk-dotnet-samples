@@ -47,7 +47,7 @@ namespace ArcGISRuntime.WinUI.Samples.ServiceFeatureTableManualCache
 
             // Create uri to the used feature service
             Uri serviceUri = new Uri(
-               "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0");
+               "https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/SF_311_Incidents/FeatureServer/0");
 
             // Create feature table for the incident feature service
             _incidentsFeatureTable = new ServiceFeatureTable(serviceUri)

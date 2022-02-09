@@ -78,8 +78,8 @@ namespace ArcGISRuntime
                 // Check if Android device is AR compatible.
                 if (category.Name == "Augmented reality")
                 {
-                    await ViewModel.CheckARAndroid();
-                    if (!ViewModel.SampleCategories.Contains(category))
+                    bool arCompatible = await ViewModel.CheckARAndroid();
+                    if (!arCompatible)
                     {
                         // Inform user AR is not supported.
                         await Application.Current.MainPage.DisplayAlert("Augmented reality not supported", "Camera permissions are required for use of augmented reality.", "OK");
@@ -124,7 +124,7 @@ namespace ArcGISRuntime
         }
 
 #if XAMARIN_ANDROID
-        public async Task CheckARAndroid()
+        public async Task<bool> CheckARAndroid()
         {
             // Remove AR category if device does not support AR.
             bool arCompatible;
@@ -147,6 +147,7 @@ namespace ArcGISRuntime
                 _allSamples.RemoveAll(sample => sample.Category == "Augmented reality");
                 OnPropertyChanged(nameof(SampleCategories));
             }
+            return arCompatible;    
         }
 #endif
 

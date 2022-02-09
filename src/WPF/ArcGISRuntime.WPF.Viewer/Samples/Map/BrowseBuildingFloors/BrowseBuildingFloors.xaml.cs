@@ -65,21 +65,19 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
                         _floorOptions.Add(level.ShortName, level);
                     }
                 }
+                // Provides an error message if the floor manager failed to load.
+                else if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
+                {
+                    MessageBox.Show("Floor manager failed to load.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 FloorChooser.ItemsSource = _floorOptions.Keys;
                 FloorChooser.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
-                // Provides an error message if the floor manager failed to load.
-                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
-                {
-                    MessageBox.Show("Floor manager failed to load: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-                else
-                {
-                    MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

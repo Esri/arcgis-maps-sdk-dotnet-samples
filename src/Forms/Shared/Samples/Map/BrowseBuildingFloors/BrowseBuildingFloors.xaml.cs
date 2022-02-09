@@ -65,21 +65,19 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
                         floorName.Add(level.ShortName);
                     }
                 }
+                // Provides an error message if the floor manager failed to load.
+                else if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Floor manager failed to load.", "OK");
+                    return;
+                }
 
                 FloorChooser.ItemsSource = floorName;
                 FloorChooser.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
-                // Provides an error message if the floor manager failed to load.
-                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Alert", "Floor manager failed to load: " + ex.Message, "OK");
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
-                }
+                await Application.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
             }
         }
 

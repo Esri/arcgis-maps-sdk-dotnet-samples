@@ -17,13 +17,13 @@
                 HorizontalTextAlignment="Center"
                 Text="Select floor:"
                 VerticalTextAlignment="Center"
-                Margin="5" />
+                Margin="10" />
             <Picker
                 x:Name="FloorChooser"
                 Grid.Column="1"
                 SelectedIndexChanged="OnFloorChooserSelectionChanged"
                 VerticalOptions="CenterAndExpand"
-                Margin="5" />
+                Margin="10" />
         </Grid>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>

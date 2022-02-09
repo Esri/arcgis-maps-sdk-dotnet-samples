@@ -128,10 +128,10 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
                 // The Fine location permission will be requested.
-                var requiredPermissions = new[] { Manifest.Permission.AccessFineLocation };
+                var requiredPermissions = new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation };
 
                 // Only prompt the user first if the system says to.
-                if (ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.AccessFineLocation))
+                if (ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.AccessFineLocation) || ActivityCompat.ShouldShowRequestPermissionRationale(this, Manifest.Permission.AccessCoarseLocation))
                 {
                     // A snackbar is a small notice that shows on the bottom of the view.
                     Snackbar.Make(_myMapView,
@@ -178,7 +178,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             }
 
             // If the permissions were granted, enable location.
-            if (grantResults.Length == 1 && grantResults[0] == Permission.Granted)
+            if (grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted))
             {
                 System.Diagnostics.Debug.WriteLine("User affirmatively gave permission to use location. Enabling location.");
                 try

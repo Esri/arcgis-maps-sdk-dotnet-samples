@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Droid
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
                 _locationPermissionTCS = new TaskCompletionSource<bool>();
-                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation }, LocationRequesNoMap);
+                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation }, LocationRequesNoMap);
                 return await _locationPermissionTCS.Task;
             }
             return true;
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Droid
             {
                 // Show the standard permission dialog.
                 // Once the user has accepted or denied, OnRequestPermissionsResult is called with the result.
-                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation }, LocationPermissionRequestCode);
+                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation }, LocationPermissionRequestCode);
             }
             else
             {
@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Droid
             if (requestCode == LocationPermissionRequestCode)
             {
                 // If the permissions were granted, enable location.
-                if (grantResults.Length == 1 && grantResults[0] == Permission.Granted && _lastUsedMapView != null)
+                if ((grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted)) && _lastUsedMapView != null)
                 {
                     System.Diagnostics.Debug.WriteLine("User affirmatively gave permission to use location. Enabling location.");
                     try
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Droid
             }
             else if (requestCode == LocationRequesNoMap)
             {
-                _locationPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
+                _locationPermissionTCS.TrySetResult(grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted));
             }
             else if(requestCode == CameraPermissionRequestCode)
             {

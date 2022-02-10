@@ -54,7 +54,6 @@ namespace ArcGISRuntime
                 var categoriesAdapter = new CategoriesAdapter(this, _sampleCategories);
                 _categoriesListView = FindViewById<ExpandableListView>(Resource.Id.categoriesListView);
                 _categoriesListView.SetAdapter(categoriesAdapter);
-
                 _categoriesListView.ChildClick += CategoriesListViewOnChildClick;
                 _categoriesListView.DividerHeight = 2;
                 _categoriesListView.SetGroupIndicator(null);

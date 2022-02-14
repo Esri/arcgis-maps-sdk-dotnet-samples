@@ -24,10 +24,10 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
 {
     [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display dimensions",
-        "Layers",
-        "Display dimension features from a mobile map package",
-        "")]
+        name: "Basic readme template",
+        category: "Layers",
+        description: "",
+        instructions: "")]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public class DisplayDimensions : Activity
     {

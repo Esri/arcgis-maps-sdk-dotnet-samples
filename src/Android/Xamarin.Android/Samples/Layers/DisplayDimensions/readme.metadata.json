@@ -1,0 +1,21 @@
+{
+    "category": "Layers",
+    "description": "",
+    "formal_name": "DisplayDimensions",
+    "ignore": false,
+    "images": [],
+    "keywords": [],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/android/sample-code/displaydimensions.htm"
+    ],
+    "relevant_apis": [],
+    "snippets": [
+        "DisplayDimensions.cs"
+    ],
+    "title": "Basic readme template"
+}

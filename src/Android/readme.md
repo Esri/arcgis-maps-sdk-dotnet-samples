@@ -107,6 +107,7 @@
 * [Create and save KML file](Xamarin.Android/Samples/Layers/CreateAndSaveKmlFile/readme.md) - Construct a KML document and save it as a KMZ file.
 * [Feature collection layer](Xamarin.Android/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display annotation](Xamarin.Android/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
+* [Basic readme template](Xamarin.Android/Samples/Layers/DisplayDimensions/readme.md) - 
 * [Display KML](Xamarin.Android/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](Xamarin.Android/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](Xamarin.Android/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.

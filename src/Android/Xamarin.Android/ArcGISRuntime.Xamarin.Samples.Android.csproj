@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+	<None Include="Samples\Layers\DisplayDimensions\DisplayDimensions.jpg" />
     <None Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.jpg" />
     <None Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg" />
     <None Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg" />
@@ -281,6 +282,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+	<Compile Include="Samples\Layers\DisplayDimensions\DisplayDimensions.cs" />
     <Compile Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.cs" />
     <Compile Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.cs" />
     <Compile Include="Helpers\ArcGISLoginPrompt.cs" />

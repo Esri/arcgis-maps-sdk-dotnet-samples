@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
         tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
     public partial class BrowseBuildingFloors : ContentPage
     {
-        private const string _portalItem = "f133a698536f44c8884ad81f80b6cfc7";
+        private const string _floorData = @"https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
         private FloorManager _floorManager;
 
         // Collection of floors.
@@ -42,11 +42,8 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
         {
             try
             {
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
-
-                // Get the portal item for a web map using its unique item id.
-                PortalItem mapItem = await PortalItem.CreateAsync(portal, _portalItem);
-                Map map = new Map(mapItem);
+                // Gets the floor data from ArcGIS Online and creates a map with it.
+                Map map = new Map(new Uri(_floorData));
 
                 MyMapView.Map = map;
 
@@ -95,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
             // Set the selected floor visibility to true.
             _floorOptions[selectedFloorName].IsVisible = true;
 
-            MyMapView.SetViewpoint(MyMapView.Map.InitialViewpoint);
+            MyMapView.SetViewpoint(new Viewpoint(_floorOptions[selectedFloorName].Facility.Geometry));
         }
     }
 }

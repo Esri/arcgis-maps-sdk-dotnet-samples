@@ -58,10 +58,13 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
             // Create and assign a simple renderer to the graphics overlay.
             ellipseGraphicsOverlay.Renderer = new SimpleRenderer(curvedFillSymbol);
 
-            //Makes ellipse graphic
+            // Create the polygon geometry, then create a graphic using that polygon.
             Polygon ellipse = MakeEllipseGeometry();
             Graphic ellipseGraphic = new Graphic(ellipse);
+
+            // Add the graphic to the graphics overlay.
             ellipseGraphicsOverlay.Graphics.Add(ellipseGraphic);
+
             return ellipseGraphicsOverlay;
         }
 
@@ -201,19 +204,21 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
 
         private Polygon MakeEllipseGeometry()
         {
-            // create parameters and set all the parameters
-            GeodesicEllipseParameters parameters = new GeodesicEllipseParameters();
-            parameters.Center = new MapPoint(70e5, 10e5, SpatialReferences.WebMercator);
-            parameters.GeometryType = GeometryType.Polygon;
-            parameters.SemiAxis1Length = 1000;
-            parameters.SemiAxis2Length = 2000;
-            parameters.AxisDirection = 45;
-            parameters.MaxPointCount = 100;
-            //If no angular unit then it is assume to be degrees. Use AngularUnits to change units.
-            parameters.AngularUnit = AngularUnits.Degrees;
-            //If no linear unit set, we will get meters. Use LinearUnits to change units.
-            parameters.LinearUnit = LinearUnits.Kilometers;
-            parameters.MaxSegmentLength = 20;
+            // Creates a GeodesicEllipseParameters object to use for GeometryEngine.EllipseGeodesic method.
+            GeodesicEllipseParameters parameters = new GeodesicEllipseParameters
+            {
+                Center = new MapPoint(70e5, 10e5, SpatialReferences.WebMercator),
+                GeometryType = GeometryType.Polygon,
+                SemiAxis1Length = 1000,
+                SemiAxis2Length = 2000,
+                AxisDirection = 45,
+                MaxPointCount = 100,
+                // Angular unit is degrees by default.
+                AngularUnit = AngularUnits.Degrees,
+                // Linear unit is meters by default.
+                LinearUnit = LinearUnits.Kilometers,
+                MaxSegmentLength = 20
+            };
 
             Polygon ellipsePoly = (Polygon)GeometryEngine.EllipseGeodesic(parameters);
             return ellipsePoly;

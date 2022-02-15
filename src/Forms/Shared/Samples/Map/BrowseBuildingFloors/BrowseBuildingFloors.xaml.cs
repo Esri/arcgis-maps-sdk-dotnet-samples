@@ -22,7 +22,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
         name: "Browse building floors",
         category: "Map",
         description: "Display and browse through building floors from a floor-aware web map.",
-        instructions: "Use the spinner to browse different floor levels in the facility. Only the selected floor will be displayed.",
+        instructions: "Use the combo box to browse different floor levels in the facility. Only the selected floor will be displayed.",
         tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
     public partial class BrowseBuildingFloors : ContentPage
     {

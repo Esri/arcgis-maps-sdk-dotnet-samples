@@ -27,6 +27,7 @@
         "/net/latest/wpf/sample-code/browsebuildingfloors.htm"
     ],
     "relevant_apis": [
+        "FloorAware",
         "FloorLevel",
         "FloorManager",
         "Map",

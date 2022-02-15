@@ -10,7 +10,7 @@ Having map data to aid indoor navigation in buildings with multiple floors such 
 
 ## How to use the sample
 
-Use the spinner to browse different floor levels in the facility. Only the selected floor will be displayed.
+Use the combo box to browse different floor levels in the facility. Only the selected floor will be displayed.
 
 ## How it works
 
@@ -20,11 +20,14 @@ Use the spinner to browse different floor levels in the facility. Only the selec
 4. Wait for the map to load and retrieve the map's `FloorManager` property.
 5. Wait for the floor manager to load and retrieve the floor-aware data. 
 6. Set all floors to not visible.
-7. Set only the selected `FloorLevel` to visible using the `isVisible` property of the floor level.
+7. Select the ground floor by default. The ground floor is the entry in a facility's level collection that has `VerticalOrder` of zero. Vertical order can be negative for underground floors.
+8. Set the selected level's `isVisible` property to true. 
+9. When the selected floor changes, set the old selection's `isVisible` property to false, and the new selection's `isVisible` property to true.
 * **Note:** Manually set the default floor level to the first floor.
 
 ## Relevant API
 
+* FloorAware
 * FloorManager
 * FloorLevel
 * Map

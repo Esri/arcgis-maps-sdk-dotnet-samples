@@ -17,6 +17,9 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using Xamarin.Forms;
+using ArcGISRuntime.Samples.Managers;
+using System.Linq;
+using System;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
 {
@@ -29,14 +32,63 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public partial class DisplayDimensions : ContentPage
     {
+        // Mobile map package that contains dimension layers.
+        private MobileMapPackage _mobileMapPackage;
+
+        // Dimension layer, the operational layer. 
+        private DimensionLayer _dimensionLayer;
+
         public DisplayDimensions()
         {
             InitializeComponent();
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
+            try
+            {
+                // Load the mobile map package.
+                _mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk"));
+                await _mobileMapPackage.LoadAsync();
+
+                // Set the mapview to display the map from the package.
+                MyMapView.Map = _mobileMapPackage.Maps.First();
+
+                // Set the minimum scale range of the sample to maintain readability of dimension features.
+                MyMapView.Map.MinScale = 35000;
+
+                // Get the dimension layer from the MapView operational layers.
+                _dimensionLayer = (DimensionLayer)MyMapView.Map.OperationalLayers.Where(layer => layer is DimensionLayer).First();
+
+                // Load the dimension layer.
+                await _dimensionLayer.LoadAsync();
+
+                // Enable the switches.
+                DimensionLayerSwitch.IsEnabled = true;
+                DefinitionExpressionSwitch.IsEnabled = true;
+
+                // Set the label content.
+                PylonLabel.Text = _dimensionLayer.Name;
+            }
+            catch (Exception e)
+            {
+                Console.Write(e.Message);
+            }
+        }
+
+        private void DimensionLayerSwitchChanged(object sender, ToggledEventArgs e)
+        {
+            // Set the visibility of the dimension layer.
+            if (_dimensionLayer != null) _dimensionLayer.IsVisible = DimensionLayerSwitch.IsToggled == true;
+        }
+
+        private void DefinitionExpressionSwitchChanged(object sender, ToggledEventArgs e)
+        {
+            // Set a definition expression to show dimension lengths of greater than or equal to 450m when the checkbox is selected,
+            // or to reset the definition expression to show all dimension lengths when unselected.
+            string definitionExpression = DefinitionExpressionSwitch.IsToggled == true ? "DIMLENGTH >= 450" : "";
+            if (_dimensionLayer != null) _dimensionLayer.DefinitionExpression = definitionExpression;
         }
     }
 }

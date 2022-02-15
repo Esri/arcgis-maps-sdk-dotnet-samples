@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
-        <Border Style="{StaticResource BorderStyle}" Margin="0,30,30,0" Width="144">
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Text="Select floor"
                            FontWeight="SemiBold"
@@ -12,7 +12,8 @@
                            Margin="0,0,0,5"
                            TextWrapping="Wrap" />
                 <ComboBox x:Name="FloorChooser"
-                          SelectionChanged="OnFloorChooserSelectionChanged" />
+                          SelectionChanged="OnFloorChooserSelectionChanged"
+                          DisplayMemberPath="ShortName" />
             </StackPanel>
         </Border>
     </Grid>

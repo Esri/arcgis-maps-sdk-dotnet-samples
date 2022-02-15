@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
                 await MyMapView.Map.LoadAsync();
                 await MyMapView.Map.FloorManager.LoadAsync();
 
-                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded)
+                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
 

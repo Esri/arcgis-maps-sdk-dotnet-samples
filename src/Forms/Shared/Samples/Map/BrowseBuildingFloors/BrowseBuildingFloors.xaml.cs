@@ -51,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
                 await MyMapView.Map.LoadAsync();
                 await MyMapView.Map.FloorManager.LoadAsync();
                 List<string> floorName = new List<string>();
-                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded)
+                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
 

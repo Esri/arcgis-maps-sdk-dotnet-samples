@@ -17,7 +17,7 @@ When the sample loads, it will automatically display the map containing dimensio
 1. Load a `MobileMapPackage` that contains `DimensionLayer`
 2. After it successfully loads, get the map from the mmpk and add it to the map view: `mobileMapPackage.Maps.First()`.
 3. Get the `DimensionLayer` from the map view and set the name of the layer to the UI with `dimensionLayer.Name`.
-4. Control the dimension layer's visibility with `dimensionLayer.IsVisible` and set a definition expression with `dimensionLayer.setDefinitionExpression(String)`.
+4. Control the dimension layer's visibility with `dimensionLayer.IsVisible` and set a definition expression with `dimensionLayer.DefinitionExpression`.
 
 ## Relevant API
 

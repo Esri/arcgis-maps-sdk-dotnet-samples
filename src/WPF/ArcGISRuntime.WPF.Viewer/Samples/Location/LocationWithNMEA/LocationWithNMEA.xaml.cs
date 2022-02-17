@@ -54,7 +54,10 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
-            _nmeaSource.NmeaDataStream = _simulatedNMEADataSource.MessageStream;
+
+            // Set the location data source to use the stream from our simulator.
+            Stream messageStream = _simulatedNMEADataSource.MessageStream;
+            _nmeaSource.NmeaDataStream = messageStream;
 
             // Create an event handler to update the UI when the location changes.
             _nmeaSource.SatellitesChanged += SatellitesChanged;

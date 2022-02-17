@@ -50,8 +50,7 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-117.191, 34.0306, SpatialReferences.Wgs84), 100000));
 
             // Create the data simulation using stored mock data.
-            string nmeaMockDataPath = DataManager.GetDataFolder("d5bad9f4fee9483791e405880fb466da", "Redlands.nmea");
-            _simulatedNMEADataSource = new NMEAStreamSimulator(nmeaMockDataPath, 4.0);
+            _simulatedNMEADataSource = new NMEAStreamSimulator(4.0);
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
@@ -138,12 +137,13 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
 
         private string[] _nmeaStrings;
 
-        public NMEAStreamSimulator(string nmeaSourceFilePath, double speed = 1.0)
+        public NMEAStreamSimulator(double speed = 1.0)
         {
             _timer = new Timer(DefaultInterval / speed);
 
             // Populate an array with all of the mock NMEA data.
-            _nmeaStrings = File.ReadAllText(nmeaSourceFilePath).Split('\n');
+            string nmeaMockDataPath = DataManager.GetDataFolder("d5bad9f4fee9483791e405880fb466da", "Redlands.nmea");
+            _nmeaStrings = File.ReadAllText(nmeaMockDataPath).Split('\n');
 
             // Create a data stream for the `NmeaLocationDataSource` to use.
             MessageStream = new MemoryStream();

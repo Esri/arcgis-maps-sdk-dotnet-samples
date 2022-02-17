@@ -7,19 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using Xamarin.Forms;
 using ArcGISRuntime.Samples.Managers;
-using System.Linq;
+using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Linq;
+using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
 {
@@ -32,9 +24,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public partial class DisplayDimensions : ContentPage
     {
-        // Mobile map package that contains dimension layers.
-        private MobileMapPackage _mobileMapPackage;
-
         // Dimension layer, the operational layer. 
         private DimensionLayer _dimensionLayer;
 
@@ -49,11 +38,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
             try
             {
                 // Load the mobile map package.
-                _mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk"));
-                await _mobileMapPackage.LoadAsync();
+                MobileMapPackage mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk"));
+                await mobileMapPackage.LoadAsync();
 
                 // Set the mapview to display the map from the package.
-                MyMapView.Map = _mobileMapPackage.Maps.First();
+                MyMapView.Map = mobileMapPackage.Maps.First();
 
                 // Set the minimum scale range of the sample to maintain readability of dimension features.
                 MyMapView.Map.MinScale = 35000;
@@ -71,9 +60,9 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
                 // Set the label content.
                 PylonLabel.Text = _dimensionLayer.Name;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.Write(e.Message);
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

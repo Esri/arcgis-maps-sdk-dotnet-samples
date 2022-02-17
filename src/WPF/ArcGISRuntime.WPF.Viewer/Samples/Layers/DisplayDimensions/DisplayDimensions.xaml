@@ -4,55 +4,56 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView"/>
-        <Border Style="{StaticResource BorderStyle}" MaxWidth="240">
-            <StackPanel>
+        <Border Style="{StaticResource BorderStyle}" MaxWidth="220">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
                 <Label 
                     x:Name="PylonLabel"
                     HorizontalAlignment="Center"
                     FontWeight="SemiBold"
-                    Margin="0,0,0,0" />
-                <Grid Grid.Row="1" HorizontalAlignment="Left">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    
-                    <CheckBox
-                        x:Name="DimensionLayerCheckBox"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Checked="DimensionLayerCheckBoxChanged"
-                        IsChecked="True"
-                        IsEnabled="False"
-                        Unchecked="DimensionLayerCheckBoxChanged">
-                        <Label
-                            x:Name="DimensionLayerLabel"
-                            Grid.Column="1"
-                            Content="Dimension Layer visibility"/>
-                    </CheckBox>
-                </Grid>
-                <Grid Grid.Row="2" HorizontalAlignment="Left">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <CheckBox
-                        x:Name="DefinitionExpressionCheckBox"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Checked="DefinitionExpressionCheckBoxChanged"
-                        IsChecked="False"
-                        IsEnabled="False"
-                        Unchecked="DefinitionExpressionCheckBoxChanged">
-                        <Label
-                            x:Name="DefinitionExpressionLabel"
-                            Grid.Column="1"
-                            Content="Definition Expression: &#x0a;Dimensions >= 450m"/>
-                    </CheckBox>
-                </Grid>
-            </StackPanel>
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"/>
+                <CheckBox
+                    x:Name="DimensionLayerCheckBox"
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="DimensionLayerCheckBoxChanged"
+                    IsChecked="True"
+                    IsEnabled="False"
+                    Unchecked="DimensionLayerCheckBoxChanged">
+                    <Label
+                        x:Name="DimensionLayerLabel"
+                        Grid.Column="1"
+                        Grid.Row="1"
+                        Content="Dimension Layer visibility"/>
+                </CheckBox>
+                <CheckBox
+                    x:Name="DefinitionExpressionCheckBox"
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Checked="DefinitionExpressionCheckBoxChanged"
+                    IsChecked="False"
+                    IsEnabled="False"
+                    Unchecked="DefinitionExpressionCheckBoxChanged">
+                    <Label
+                        x:Name="DefinitionExpressionLabel"
+                        Grid.Column="1"
+                        Grid.Row="2"
+                        Content="Definition Expression: &#x0a;Dimensions >= 450m"/>
+                </CheckBox>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

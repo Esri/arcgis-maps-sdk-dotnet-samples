@@ -8,45 +8,49 @@
         <esriUI:MapView x:Name="MyMapView" DrawStatusChanged='MapDrawStatusChanged' Style="{StaticResource MapWithFormStyle}"
                           BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout>
-                <Label x:Name="PylonLabel"/>
-                <Grid >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Switch
-                        x:Name="DimensionLayerSwitch"
-                        Grid.Column="0"
-                        IsToggled="True"
-                        IsEnabled="False"
-                        Toggled="DimensionLayerSwitchChanged"
-                        WidthRequest="50"/>
-                    <Label
-                        x:Name="DimensionLayerLabel"
-                        Grid.Column="1"
-                        Text="Dimension Layer visibility"
-                        VerticalTextAlignment="Center"/>
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Switch
-                        x:Name="DefinitionExpressionSwitch"
-                        Grid.Column="0"
-                        IsToggled="False"
-                        IsEnabled="False"
-                        Toggled="DefinitionExpressionSwitchChanged"
-                        WidthRequest="50"/>
-                    <Label
-                        x:Name="DefinitionExpressionLabel"
-                        Grid.Column="1"
-                        Text="Definition Expression: Dimensions >= 450m"
-                        VerticalTextAlignment="Center"/>
-                </Grid>
-            </StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label 
+                    x:Name="PylonLabel" 
+                    Grid.Row="0" 
+                    Grid.ColumnSpan="2"/>
+                <Switch
+                    x:Name="DimensionLayerSwitch"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    IsToggled="True"
+                    IsEnabled="False"
+                    Toggled="DimensionLayerSwitchChanged"
+                    WidthRequest="50"/>
+                <Label
+                    x:Name="DimensionLayerLabel"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Text="Dimension Layer visibility"
+                    VerticalTextAlignment="Center"/>
+                <Switch
+                    x:Name="DefinitionExpressionSwitch"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    IsToggled="False"
+                    IsEnabled="False"
+                    Toggled="DefinitionExpressionSwitchChanged"
+                    WidthRequest="50"/>
+                <Label
+                    x:Name="DefinitionExpressionLabel"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Text="Definition Expression: Dimensions >= 450m"
+                    VerticalTextAlignment="Center"/>
+            </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>
 </ContentPage>

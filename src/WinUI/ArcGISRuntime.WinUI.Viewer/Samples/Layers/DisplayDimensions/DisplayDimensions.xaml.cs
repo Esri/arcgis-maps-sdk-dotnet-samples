@@ -11,8 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
-using Microsoft.UI;
-using Microsoft.UI.Xaml.Media;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayDimensions
 {
@@ -25,9 +24,6 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDimensions
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public partial class DisplayDimensions
     {
-        // Mobile map package that contains dimension layers.
-        private MobileMapPackage _mobileMapPackage;
-
         // Dimension layer, the operational layer. 
         private DimensionLayer _dimensionLayer;
 
@@ -37,16 +33,16 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDimensions
             Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
                 // Load the mobile map package.
-                _mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk"));
-                await _mobileMapPackage.LoadAsync();
+                MobileMapPackage mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk"));
+                await mobileMapPackage.LoadAsync();
 
                 // Set the mapview to display the map from the package.
-                MyMapView.Map = _mobileMapPackage.Maps.First();
+                MyMapView.Map = mobileMapPackage.Maps.First();
 
                 // Set the minimum scale range of the sample to maintain readability of dimension features.
                 MyMapView.Map.MinScale = 35000;
@@ -64,9 +60,9 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDimensions
                 // Set the label content.
                 PylonLabel.Text = _dimensionLayer.Name;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.Write(e.Message);
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
         }
 

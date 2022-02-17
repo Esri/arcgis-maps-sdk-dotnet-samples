@@ -11,6 +11,8 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayDimensions
 {
@@ -23,9 +25,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDimensions
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public partial class DisplayDimensions
     {
-        // Mobile map package that contains dimension layers.
-        private MobileMapPackage _mobileMapPackage;
-
         // Dimension layer, the operational layer. 
         private DimensionLayer _dimensionLayer;
 
@@ -35,16 +34,16 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDimensions
             Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
                 // Load the mobile map package.
-                _mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk"));
-                await _mobileMapPackage.LoadAsync();
+                MobileMapPackage mobileMapPackage = new MobileMapPackage(DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk"));
+                await mobileMapPackage.LoadAsync();
 
                 // Set the mapview to display the map from the package.
-                MyMapView.Map = _mobileMapPackage.Maps.First();
+                MyMapView.Map = mobileMapPackage.Maps.First();
 
                 // Set the minimum scale range of the sample to maintain readability of dimension features.
                 MyMapView.Map.MinScale = 35000;
@@ -62,9 +61,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDimensions
                 // Set the label content.
                 PylonLabel.Content = _dimensionLayer.Name;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.Write(e.Message);
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

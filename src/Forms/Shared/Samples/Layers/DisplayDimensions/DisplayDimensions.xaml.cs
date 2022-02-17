@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
@@ -20,7 +21,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
         category: "Layers",
         description: "Display dimension features from a mobile map package.",
         instructions: "When the sample loads, it will automatically display the map containing dimension features from the mobile map package. The name of the dimension layer containing the dimension features is displayed in the controls box. Control the visibility of the dimension layer with the \"Dimension Layer visibility\" check box, and apply a definition expression to show dimensions of greater than or equal to 450m in length using the \"Definition Expression\" checkbox.",
-        tags: new[] { "dimension", "layer", "mmpk", "mobile map package", "utility" })]
+        tags: new[] { "Featured", "dimension", "layer", "mmpk", "mobile map package", "utility" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public partial class DisplayDimensions : ContentPage
     {
@@ -33,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
             Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

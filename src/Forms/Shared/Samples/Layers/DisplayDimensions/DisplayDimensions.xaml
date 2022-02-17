@@ -2,64 +2,51 @@
     x:Class="ArcGISRuntimeXamarin.Samples.DisplayDimensions.DisplayDimensions"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView 
-            x:Name="MyMapView"
-            Grid.Row="0"
-            Grid.RowSpan="2" />
-        <Grid Grid.Row="0" BackgroundColor="#CC000000">
-            <Label 
-                x:Name="PylonLabel"
-                Grid.Row="0"
-                Margin="5"
-                HorizontalOptions="FillAndExpand"
-                HorizontalTextAlignment="Center"
-                TextColor="White"/>
-        </Grid>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Switch
-                x:Name="DimensionLayerSwitch"
-                Grid.Column="0"
-                IsToggled="True"
-                IsEnabled="False"
-                Margin="5"
-                Toggled="DimensionLayerSwitchChanged"
-                WidthRequest="50"/>
-            <Label
-                x:Name="DimensionLayerLabel"
-                Grid.Column="1"
-                Text="Dimension Layer visibility"
-                VerticalTextAlignment="Center"/>
-        </Grid>
-        <Grid Grid.Row="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Switch
-                x:Name="DefinitionExpressionSwitch"
-                Grid.Column="0"
-                IsToggled="False"
-                IsEnabled="False"
-                Margin="5"
-                Toggled="DefinitionExpressionSwitchChanged"
-                WidthRequest="50"/>
-            <Label
-                x:Name="DefinitionExpressionLabel"
-                Grid.Column="1"
-                Text="Definition Expression: &#x0a;Dimensions >= 450m"
-                VerticalTextAlignment="Center"/>
-        </Grid>
-    </Grid>
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+    xmlns:resources="clr-namespace:Forms.Resources">
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView" DrawStatusChanged='MapDrawStatusChanged' Style="{StaticResource MapWithFormStyle}"
+                          BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout>
+                <Label x:Name="PylonLabel"/>
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Switch
+                        x:Name="DimensionLayerSwitch"
+                        Grid.Column="0"
+                        IsToggled="True"
+                        IsEnabled="False"
+                        Toggled="DimensionLayerSwitchChanged"
+                        WidthRequest="50"/>
+                    <Label
+                        x:Name="DimensionLayerLabel"
+                        Grid.Column="1"
+                        Text="Dimension Layer visibility"
+                        VerticalTextAlignment="Center"/>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Switch
+                        x:Name="DefinitionExpressionSwitch"
+                        Grid.Column="0"
+                        IsToggled="False"
+                        IsEnabled="False"
+                        Toggled="DefinitionExpressionSwitchChanged"
+                        WidthRequest="50"/>
+                    <Label
+                        x:Name="DefinitionExpressionLabel"
+                        Grid.Column="1"
+                        Text="Definition Expression: Dimensions >= 450m"
+                        VerticalTextAlignment="Center"/>
+                </Grid>
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
 </ContentPage>

@@ -7,8 +7,10 @@
         "LocationWithNMEA.jpg"
     ],
     "keywords": [
+        "GNSS",
         "GPS",
         "NMEA",
+        "RTK",
         "dongle",
         "history",
         "navigation",

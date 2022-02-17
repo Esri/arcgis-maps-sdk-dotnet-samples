@@ -58,4 +58,4 @@ Below is a list of protocol strings for commonly used GNSS external accessories.
 
 ## Tags
 
-dongle, GPS, history, navigation, NMEA, real-time, trace
+dongle, GNSS, GPS, history, navigation, NMEA, real-time, RTK, trace

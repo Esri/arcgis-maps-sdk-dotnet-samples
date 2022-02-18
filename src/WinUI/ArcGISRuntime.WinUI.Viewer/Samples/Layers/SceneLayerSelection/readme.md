@@ -32,4 +32,4 @@ This sample shows a [Brest, France Scene](https://www.arcgis.com/home/item.html?
 
 ## Tags
 
-3D, Berlin, buildings, identify, model, query, search, select
+3D, Brest, buildings, identify, model, query, search, select

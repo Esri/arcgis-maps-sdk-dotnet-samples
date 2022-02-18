@@ -12,8 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Windows.UI.Popups;
-using Esri.ArcGISRuntime.Geometry;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.SceneLayerSelection
 {
@@ -22,19 +21,19 @@ namespace ArcGISRuntime.WinUI.Samples.SceneLayerSelection
         category: "Layers",
         description: "Identify features in a scene to select.",
         instructions: "Click on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.",
-        tags: new[] { "3D", "Berlin", "buildings", "identify", "model", "query", "search", "select" })]
+        tags: new[] { "3D", "Brest", "buildings", "identify", "model", "query", "search", "select" })]
     public partial class SceneLayerSelection
     {
         public SceneLayerSelection()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
-            // Create a new Scene with an imagery basemap.
-            Scene scene = new Scene(Basemap.CreateImagery());
+            // Create a new Scene with a topographic basemap.
+            Scene scene = new Scene(BasemapStyle.ArcGISTopographic);
 
             // Add a base surface with elevation data.
             Surface elevationSurface = new Surface();
@@ -43,19 +42,17 @@ namespace ArcGISRuntime.WinUI.Samples.SceneLayerSelection
             scene.BaseSurface = elevationSurface;
 
             // Add a scene layer.
-            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Berlin/SceneServer");
+            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(buildingsService);
             scene.OperationalLayers.Add(buildingsLayer);
 
+            // Assign the Scene to the SceneView.
+            MySceneView.Scene = scene;
+
             try
             {
-                // Assign the Scene to the SceneView.
-                MySceneView.Scene = scene;
-
                 // Create a camera with an interesting view.
-                await buildingsLayer.LoadAsync();
-                MapPoint center = (MapPoint)GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
-                Camera viewCamera = new Camera(center.Y, center.X, 600, 120, 60, 0);
+                Camera viewCamera = new Camera(48.378, -4.494, 200, 345, 65, 0);
 
                 // Set the viewpoint with the camera.
                 MySceneView.SetViewpointCamera(viewCamera);

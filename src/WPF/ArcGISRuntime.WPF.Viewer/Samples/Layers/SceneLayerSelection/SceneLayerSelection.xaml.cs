@@ -13,8 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Esri.ArcGISRuntime.Geometry;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
 {
@@ -23,7 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
         category: "Layers",
         description: "Identify features in a scene to select.",
         instructions: "Click on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.",
-        tags: new[] { "3D", "Berlin", "buildings", "identify", "model", "query", "search", "select" })]
+        tags: new[] { "3D", "Brest", "buildings", "identify", "model", "query", "search", "select" })]
     public partial class SceneLayerSelection
     {
         public SceneLayerSelection()
@@ -32,9 +30,9 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
-            // Create a new Scene with an imagery basemap.
+            // Create a new Scene with a topographic basemap.
             Scene scene = new Scene(BasemapStyle.ArcGISTopographic);
 
             // Add a base surface with elevation data.
@@ -68,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
         private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
-            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer) MySceneView.Scene.OperationalLayers.First();
+            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer)MySceneView.Scene.OperationalLayers.First();
 
             // Clear any existing selection.
             sceneLayer.ClearSelection();
@@ -89,7 +87,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
                     if (geoElement != null)
                     {
                         // Select the feature to highlight it in the scene view.
-                        sceneLayer.SelectFeature((Feature) geoElement);
+                        sceneLayer.SelectFeature((Feature)geoElement);
                     }
                 }
             }

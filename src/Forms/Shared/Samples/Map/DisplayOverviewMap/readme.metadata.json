@@ -1,0 +1,22 @@
+{
+    "category": "Map",
+    "description": "Include an overview or inset map as an additional map view to show the wider context of the primary view.",
+    "formal_name": "DisplayOverviewMap",
+    "ignore": false,
+    "images": [
+        "DisplayOverviewMap.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/DisplayOverviewMap.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Display Overview Map"
+}

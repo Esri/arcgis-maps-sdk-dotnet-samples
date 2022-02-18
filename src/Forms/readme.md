@@ -157,6 +157,7 @@
 * [Create and save map](Shared/Samples/Map/AuthorMap/readme.md) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Change basemap](Shared/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Display map](Shared/Samples/Map/DisplayMap/readme.md) - Display a map with an imagery basemap.
+* [Display overview map](Shared/Samples/Map/DisplayOverviewMap/readme.md) - Include an overview or inset map as an additional map view to show the wider context of the primary view. 
 * [Download preplanned map area](Shared/Samples/Map/DownloadPreplannedMap/readme.md) - Take a map offline using a preplanned map area.
 * [Generate offline map](Shared/Samples/Map/GenerateOfflineMap/readme.md) - Take a web map offline.
 * [Generate offline map (overrides)](Shared/Samples/Map/GenerateOfflineMapWithOverrides/readme.md) - Take a web map offline with additional options for each layer.

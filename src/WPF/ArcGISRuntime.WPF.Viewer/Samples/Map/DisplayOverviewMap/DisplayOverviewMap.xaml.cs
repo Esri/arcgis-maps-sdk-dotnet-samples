@@ -8,21 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayOverviewMap
 {
@@ -35,14 +23,40 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOverviewMap
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("97ceed5cfc984b4399e23888f6252856")]
     public partial class DisplayOverviewMap
     {
+        // URL to the feature service.
+        private const string FeatureServiceUrl = "https://services6.arcgis.com/Do88DoK2xjTUCXd1/arcgis/rest/services/OSM_Tourism_NA/FeatureServer/0";
+
+        // Hold a reference to the feature table.
+        private ServiceFeatureTable _featureTable;
+
         public DisplayOverviewMap()
         {
             InitializeComponent();
-            _ = Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
+            // Create new Map with basemap
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+
+            // Set the initial map location
+            MyMapView.Map.InitialViewpoint = new Viewpoint(49.28299, -123.12052, 70000);
+
+            // Create the feature table, referring to the feature service.
+            _featureTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+
+            // Create a feature layer to visualize the features in the table.
+            FeatureLayer featureLayer = new FeatureLayer(_featureTable);
+
+            // Add the layer to the map.
+            MyMapView.Map.OperationalLayers.Add(featureLayer);
+
+            // Link the overview map to the map.
+            MyOverviewMap.GeoView = MyMapView;
+
+            // Set the scale of the overview map compared to the basemap layer. 
+            MyOverviewMap.ScaleFactor = 10;
         }
     }
 }

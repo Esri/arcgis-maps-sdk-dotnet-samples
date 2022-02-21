@@ -2,7 +2,7 @@
 
 Include an overview or inset map as an additional map view to show the wider context of the primary view. 
 
-![](screenshot.png)
+![Image of display overview map](DisplayOverviewMap.jpg)
 
 ## Use case
 
@@ -17,7 +17,8 @@ Pan or zoom across the map view to browse through the tourist attractions featur
 1. Create a `Map` with the `ArcGISTopographic` basemap style and add it to the `MapView`.
 2. Instantiate a `FeatureLayer` from a `ServiceFeatureTable` and append it to the `Map`'s operational layers.
 3. In the user-interface, declare an `OverviewMap` object from the ArcGIS Runtime Toolkit.
-4. Assign the `MapView` to the `geoView` property of the `OverviewMap` to connect the `MapView` with the `OverviewMap`.
+4. Assign the `MapView` to the `MyOverviewMap.GeoView` property of the `OverviewMap` to connect the `MapView` with the `OverviewMap`.
+5. Set the scale factor of the `OverviewMap` with the `MyOverviewMap.ScaleFactor`.
 
 ## Relevant API
 

@@ -3,6 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <esri:MapView 
+            x:Name="MyMapView"
+            Grid.Row="0"
+            Grid.RowSpan="2"/>
+        <esri:OverviewMap 
+            x:Name="MyOverviewMap"
+            Margin="5, 20"
+            Height="220"
+            Width="220"
+            Grid.Row="1"
+            HorizontalAlignment="Left"/>
     </Grid>
 </UserControl>

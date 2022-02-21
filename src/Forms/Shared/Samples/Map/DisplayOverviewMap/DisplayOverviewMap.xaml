@@ -1,9 +1,25 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.DisplayOverviewMap.DisplayOverviewMap">
+             x:Class="ArcGISRuntimeXamarin.Samples.DisplayOverviewMap.DisplayOverviewMap"
+             xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Toolkit.Xamarin.Forms">
   <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+    <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="auto"/>
+    </Grid.RowDefinitions>
+    <esriUI:MapView 
+        x:Name="MyMapView"
+        Grid.Row="0"
+        Grid.RowSpan="2"/>
+    <toolkit:OverviewMap 
+        x:Name="MyOverviewMap"
+        Grid.Row="1"
+        Padding="1"
+        WidthRequest="180" 
+        HeightRequest="180"
+        BackgroundColor="Black"
+        HorizontalOptions="Start"
+        Margin="5, 25"/>
+    </Grid>
 </ContentPage>

@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayOverviewMap
 {
@@ -52,7 +51,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOverviewMap
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(featureLayer);
 
-            // Link the overview map to the map.
+            // Connect the overview map to the map.
             MyOverviewMap.GeoView = MyMapView;
 
             // Set the scale of the overview map compared to the basemap layer. 

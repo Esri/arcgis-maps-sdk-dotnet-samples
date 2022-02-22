@@ -80,7 +80,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
                 level.IsVisible = false;
             }
 
-            // Get the selected floor to make visible.
+            // Set the selected floor to visible.
             FloorLevel selectedFloor = (FloorLevel)FloorChooser.SelectedItem;
             selectedFloor.IsVisible = true;
 

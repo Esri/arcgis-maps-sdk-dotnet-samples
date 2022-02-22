@@ -54,7 +54,7 @@ Below is a list of protocol strings for commonly used GNSS external accessories.
 * com.searanllc.serial
 * com.trimble.correction, com.trimble.command (1)
 
-(1) Some Trimble models requires a proprietary SDK for NMEA output.
+(1) Some Trimble models require a proprietary SDK for NMEA output.
 
 ## Tags
 

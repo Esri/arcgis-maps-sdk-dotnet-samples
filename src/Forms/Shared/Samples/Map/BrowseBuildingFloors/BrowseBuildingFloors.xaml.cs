@@ -28,6 +28,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
     {
         private const string _floorData = @"https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
         private FloorManager _floorManager;
+        private FloorFacility _selectedFacilities;
 
         // Collection of floors.
         private readonly Dictionary<string, FloorLevel> _floorOptions = new Dictionary<string, FloorLevel>();
@@ -54,12 +55,12 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
                 if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
+                    _selectedFacilities = _floorManager.Facilities[0];
 
                     // Use the dictionary to add the level's name as the key and the FloorLevel object with the associated level's name.
-                    foreach (FloorLevel level in _floorManager.Levels)
+                    foreach (FloorLevel level in _floorManager.Facilities[0].Levels)
                     {
                         _floorOptions.Add(level.ShortName, level);
-                        floorName.Add(level.ShortName);
                     }
                 }
                 // Provides an error message if the floor manager failed to load.
@@ -69,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
                     return;
                 }
 
-                FloorChooser.ItemsSource = floorName;
+                FloorChooser.ItemsSource = (System.Collections.IList)_selectedFacilities.Levels;
                 FloorChooser.SelectedIndex = 0;
             }
             catch (Exception ex)

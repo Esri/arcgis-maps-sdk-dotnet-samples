@@ -29,9 +29,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
     {
         private const string _floorData = @"https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
         private FloorManager _floorManager;
-
-        // Collection of floors.
-        private readonly Dictionary<string, FloorLevel> _floorOptions = new Dictionary<string, FloorLevel>();
+        private FloorFacility _selectedFacilities;
 
         public BrowseBuildingFloors()
         {
@@ -55,22 +53,16 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
                 if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
-
-                    // Use the dictionary to add the level's name as the key and the FloorLevel object with the associated level's name.
-                    foreach (FloorLevel level in _floorManager.Levels)
-                    {
-                        _floorOptions.Add(level.ShortName, level);
-                    }
+                    _selectedFacilities = _floorManager.Facilities[0];
+                    FloorChooser.ItemsSource = _selectedFacilities.Levels;
                 }
+
                 // Provides an error message if the floor manager failed to load.
                 else if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
                 {
                     MessageBox.Show("Floor manager failed to load.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
-                FloorChooser.ItemsSource = _floorOptions.Keys;
-                FloorChooser.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -80,19 +72,17 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
 
         private void OnFloorChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Get the name of the selected floor.
-            string selectedFloorName = e.AddedItems[0].ToString();
-
             // Set all existing floors visibility to false.
-            foreach (FloorLevel level in _floorManager.Levels)
+            foreach (FloorLevel level in _floorManager.Facilities[0].Levels)
             {
                 level.IsVisible = false;
             }
 
-            // Set the selected floor visibility to true.
-            _floorOptions[selectedFloorName].IsVisible = true;
+            // Get the selected floor to make visible.
+            FloorLevel selectedFloor = (FloorLevel)FloorChooser.SelectedItem;
+            selectedFloor.IsVisible = true;
 
-            MyMapView.SetViewpoint(new Viewpoint(_floorOptions[selectedFloorName].Facility.Geometry));
+            MyMapView.SetViewpoint(new Viewpoint(selectedFloor.Geometry));
         }
     }
 }

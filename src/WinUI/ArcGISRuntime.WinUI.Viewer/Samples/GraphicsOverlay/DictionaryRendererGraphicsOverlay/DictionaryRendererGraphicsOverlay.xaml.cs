@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WinUI.Samples.DictionaryRendererGraphicsOverlay
                 // Prevent graphics from showing up when zoomed too far out.
                 _tacticalMessageOverlay.MinScale = 1000000;
 
-                // create the dictionary symbol style from the Joint Military Symbology MIL-STD-2525D portal item.
+                // Create the dictionary symbol style from the Joint Military Symbology MIL-STD-2525D portal item.
                 var symbolStyleUri = new Uri("https://www.arcgis.com/home/item.html?id=d815f3bdf6e6452bb8fd153b654c94ca");
                 DictionarySymbolStyle dictionarySymbolStyle = await DictionarySymbolStyle.OpenAsync(symbolStyleUri);
 

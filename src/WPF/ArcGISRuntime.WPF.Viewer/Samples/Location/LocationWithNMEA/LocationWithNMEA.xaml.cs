@@ -184,7 +184,7 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             string nmeaString = $"{_nmeaStrings[_lineCounter]}\r\n";
 
             // Check if the start of a new location message.
-            if (nmeaString.StartsWith("GPGGA"))
+            if (nmeaString.StartsWith("$GPGGA"))
             {
                 // Flush any existing NMEA data from the stream.
                 MessageStream.Flush();

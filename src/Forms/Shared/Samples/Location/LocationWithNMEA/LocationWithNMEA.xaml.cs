@@ -113,6 +113,8 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
         private void StartClick(object sender, EventArgs e)
         {
             _simulatedNMEADataSource.Start();
+
+            AccuracyLabel.Text = string.Empty;
         }
 
         private void RecenterClick(object sender, EventArgs e)

@@ -108,6 +108,8 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
         private void StartClick(object sender, RoutedEventArgs e)
         {
             _simulatedNMEADataSource.Start();
+
+            AccuracyLabel.Text = string.Empty;
         }
 
         private void RecenterClick(object sender, RoutedEventArgs e)

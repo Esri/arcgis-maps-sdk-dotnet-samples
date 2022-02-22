@@ -10,7 +10,7 @@
             Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
-                <Label x:Name="AccuracyLabel" />
+                <Label x:Name="AccuracyLabel" Text="Press start to begin."/>
                 <Label x:Name="CountLabel" />
                 <Label x:Name="SatellitesLabel" />
                 <Label x:Name="SystemLabel" />

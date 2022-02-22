@@ -7,7 +7,7 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock x:Name="AccuracyLabel" />
+                <TextBlock x:Name="AccuracyLabel" Text="Press start to begin."/>
                 <TextBlock x:Name="CountLabel" />
                 <TextBlock x:Name="SatellitesLabel" />
                 <TextBlock x:Name="SystemLabel" />

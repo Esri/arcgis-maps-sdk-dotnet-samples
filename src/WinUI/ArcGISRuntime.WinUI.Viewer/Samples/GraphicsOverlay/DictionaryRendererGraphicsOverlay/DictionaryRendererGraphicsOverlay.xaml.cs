@@ -21,9 +21,9 @@ using System.Xml.Linq;
 namespace ArcGISRuntime.WinUI.Samples.DictionaryRendererGraphicsOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Graphics overlay (dictionary renderer)",
+        name: "Dictionary renderer with graphics overlay",
         category: "GraphicsOverlay",
-        description: "This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.",
+        description: "Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.",
         instructions: "Pan and zoom to explore military symbols on the map.",
         tags: new[] { "defense", "military", "situational awareness", "tactical", "visualization" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1e4ea99af4b440c092e7959cf3957bfa")]

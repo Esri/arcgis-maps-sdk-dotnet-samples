@@ -55,7 +55,7 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
             // To create a NmeaLocationDataSource for a bluetooth device, use the `FromBluetooth` constructor. https://developers.arcgis.com/net/api-reference/api/uwp/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromBluetooth.html
             // To create a NmeaLocationDataSource from a serial port, use the `FromSerialPort` constructor. https://developers.arcgis.com/net/api-reference/api/uwp/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromSerialPort.html
 
-            // Set the location data source to use the stream from our simulator.
+            // Set the location data source to use the stream from the simulator.
             Stream messageStream = _simulatedNMEADataSource.MessageStream;
             _nmeaSource.NmeaDataStream = messageStream;
 

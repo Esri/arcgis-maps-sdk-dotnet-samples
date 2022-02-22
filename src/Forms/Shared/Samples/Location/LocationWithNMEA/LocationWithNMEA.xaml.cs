@@ -59,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             // iOS:
             // When using an NMEA device on iOS, use the `NmeaLocationDataSource.FromAccessory` constructor. https://developers.arcgis.com/net/api-reference/api/ios/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromAccessory.html
 
-            // Set the location data source to use the stream from our simulator.
+            // Set the location data source to use the stream from the simulator.
             Stream messageStream = _simulatedNMEADataSource.MessageStream;
             _nmeaSource.NmeaDataStream = messageStream;
             

@@ -31,7 +31,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
         public DisplayDimensions()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
         private async Task Initialize()

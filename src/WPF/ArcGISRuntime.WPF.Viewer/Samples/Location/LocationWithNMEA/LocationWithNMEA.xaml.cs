@@ -54,6 +54,8 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
+            // To create a NmeaLocationDataSource for a bluetooth device, use the `FromBluetooth` constructor. https://developers.arcgis.com/net/api-reference/api/netwin/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromBluetooth.html
+            // To create a NmeaLocationDataSource from a serial port, use the `FromSerialPort` constructor. https://developers.arcgis.com/net/api-reference/api/netwin/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromSerialPort.html
 
             // Set the location data source to use the stream from our simulator.
             Stream messageStream = _simulatedNMEADataSource.MessageStream;
@@ -128,6 +130,12 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             _simulatedNMEADataSource?.Dispose();
         }
     }
+
+    /*
+     * This class uses mock data (an edited recording of a real NMEA data stream) to simulate live NMEA data and create a stream.
+     * For NMEA location data sources created from a Bluetooth device or serial input, you may not need to create your own stream.
+     * For any other case, you can write the data to a memory stream like below.
+     */
 
     public class NMEAStreamSimulator : IDisposable
     {

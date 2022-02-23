@@ -40,7 +40,7 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
         private async void Initialize()
         {
             // Add a basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
             MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
             // Get the URL to the data.
@@ -78,7 +78,7 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
         private void LayerTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             // Get the KML node.
-            LayerDisplayVM selectedItem = (LayerDisplayVM) e.NewValue;
+            LayerDisplayVM selectedItem = (LayerDisplayVM)e.NewValue;
 
             NavigateToNode(selectedItem.Node);
         }
@@ -122,9 +122,11 @@ namespace ArcGISRuntime.WPF.Samples.ListKmlContents
                     case KmlViewpointType.LookAt:
                         return new Viewpoint(kvp.Location,
                             new Camera(kvp.Location, kvp.Range, kvp.Heading, kvp.Pitch, kvp.Roll));
+
                     case KmlViewpointType.Camera:
                         return new Viewpoint(kvp.Location,
                             new Camera(kvp.Location, kvp.Heading, kvp.Pitch, kvp.Roll));
+
                     default:
                         throw new InvalidOperationException("Unexpected KmlViewPointType: " + kvp.Type);
                 }

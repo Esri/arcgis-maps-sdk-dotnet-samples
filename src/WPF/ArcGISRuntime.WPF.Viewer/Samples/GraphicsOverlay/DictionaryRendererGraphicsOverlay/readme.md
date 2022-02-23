@@ -1,8 +1,8 @@
-﻿# Graphics overlay (dictionary renderer)
+﻿# Dictionary renderer with graphics overlay
 
-This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.
+Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 
-![Image of graphics overlay dictionary renderer](DictionaryRendererGraphicsOverlay.jpg)
+![Image of dictionary renderer graphics overlay](DictionaryRendererGraphicsOverlay.jpg)
 
 ## Use case
 
@@ -14,9 +14,9 @@ Pan and zoom to explore military symbols on the map.
 
 ## How it works
 
-1. Create a new `DictionarySymbolStyle(dictionaryPath)`.
-2. Create a new `DictionaryRenderer(symbolDictionary)`.
-3. Create a new `GraphicsOverlay`
+1. Create a new `DictionarySymbolStyle` using a MIL-STD-2525D dictionary web style.
+2. Create a new `DictionaryRenderer` from the dictionary symbol style.
+3. Create a new `GraphicsOverlay`.
 4. Set the  dictionary renderer to the graphics overlay.
 5. Parse through the XML and create a graphic for each element.
 6. Use the `_wkid` key to get the geometry's spatial reference.
@@ -33,11 +33,11 @@ Pan and zoom to explore military symbols on the map.
 
 ## Offline data
 
-This sample uses the [Mil2525d Stylx File](https://www.arcgis.com/home/item.html?id=e34835bf5ec5430da7cf16bb8c0b075c) and the [MIL-STD-2525D XML Message File](https://arcgisruntime.maps.arcgis.com/home/item.html?id=3db12175479147ea9c89ebaaf3b89996) hosted on ArcGIS Online.
+This sample uses the [MIL-STD-2525D XML Message File](https://arcgisruntime.maps.arcgis.com/home/item.html?id=1e4ea99af4b440c092e7959cf3957bfa) hosted on ArcGIS Online.
 
 ## About the data
 
-The sample opens to a view of the county Wiltshire, United Kingdom. It displays military symbols illustrating a simulated combat situation in the area.
+The dictionary symbol style in this sample is constructed from a portal item containing a [MIL-STD-2525D symbol dictionary web style](https://arcgis.com/home/item.html?id=d815f3bdf6e6452bb8fd153b654c94ca). This ArcGIS Web Style is used to build custom applications that incorporate the MIL-STD-2525D symbol dictionary. This style supports a configuration for modeling locations as ordered anchor points or full geometries.
 
 ## Tags
 

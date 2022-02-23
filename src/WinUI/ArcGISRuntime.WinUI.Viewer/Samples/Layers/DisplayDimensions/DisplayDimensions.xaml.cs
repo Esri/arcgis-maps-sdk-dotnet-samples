@@ -24,7 +24,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDimensions
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public partial class DisplayDimensions
     {
-        // Dimension layer, the operational layer. 
+        // Hold a reference to the Dimension layer for use in event handlers
         private DimensionLayer _dimensionLayer;
 
         public DisplayDimensions()
@@ -48,10 +48,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDimensions
                 MyMapView.Map.MinScale = 35000;
 
                 // Get the dimension layer from the MapView operational layers.
-                _dimensionLayer = (DimensionLayer)MyMapView.Map.OperationalLayers.Where(layer => layer is DimensionLayer).First();
-
-                // Load the dimension layer.
-                await _dimensionLayer.LoadAsync();
+                _dimensionLayer = MyMapView.Map.OperationalLayers.OfType<DimensionLayer>().First();
 
                 // Enable the check boxes.
                 DimensionLayerCheckBox.IsEnabled = true;

@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDimensions
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public partial class DisplayDimensions
     {
-        // Dimension layer, the operational layer. 
+        // Hold a reference to the Dimension layer for use in event handlers
         private DimensionLayer _dimensionLayer;
 
         public DisplayDimensions()

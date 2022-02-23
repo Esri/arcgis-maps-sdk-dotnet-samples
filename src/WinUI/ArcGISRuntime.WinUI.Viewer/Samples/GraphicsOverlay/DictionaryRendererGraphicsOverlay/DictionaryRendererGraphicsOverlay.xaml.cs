@@ -56,14 +56,13 @@ namespace ArcGISRuntime.WinUI.Samples.DictionaryRendererGraphicsOverlay
                 DictionarySymbolStyle dictionarySymbolStyle = await DictionarySymbolStyle.OpenAsync(symbolStyleUri);
 
                 // Find the first configuration setting which has the property name "model", and set its value to "ORDERED ANCHOR POINT".
-                if (dictionarySymbolStyle?.Configurations?.Where(config => config.Name == "model").FirstOrDefault() is DictionarySymbolStyleConfiguration configuration)
+                if (dictionarySymbolStyle?.Configurations?.FirstOrDefault(config => config.Name == "model") is DictionarySymbolStyleConfiguration configuration)
                 {
                     configuration.Value = "ORDERED ANCHOR POINT";
                 }
 
                 // Create a new dictionary renderer from the dictionary symbol style to render graphics with symbol dictionary attributes and set it to the graphics overlay renderer.
-                var dictionaryRenderer = new DictionaryRenderer(dictionarySymbolStyle);
-                _tacticalMessageOverlay.Renderer = dictionaryRenderer;
+                _tacticalMessageOverlay.Renderer = new DictionaryRenderer(dictionarySymbolStyle);
 
                 // Parse graphic attributes from an XML file following the mil2525d specification.
                 LoadMilitaryMessages();

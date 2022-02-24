@@ -6,14 +6,14 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Select floor"
-                           FontWeight="SemiBold"
+                <TextBlock Margin="0,0,0,5"
                            HorizontalAlignment="Center"
-                           Margin="0,0,0,5"
+                           FontWeight="SemiBold"
+                           Text="Select floor"
                            TextWrapping="Wrap" />
                 <ComboBox x:Name="FloorChooser"
-                          SelectionChanged="OnFloorChooserSelectionChanged"
-                          DisplayMemberPath="ShortName" />
+                          DisplayMemberPath="ShortName"
+                          SelectionChanged="OnFloorChooserSelectionChanged" />
             </StackPanel>
         </Border>
     </Grid>

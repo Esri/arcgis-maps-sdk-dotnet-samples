@@ -28,7 +28,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
     {
         private const string _floorData = @"https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
         private FloorManager _floorManager;
-        private FloorFacility _selectedFacilities;
+        private FloorFacility _selectedFacility;
 
         // Collection of floors.
         private readonly Dictionary<string, FloorLevel> _floorOptions = new Dictionary<string, FloorLevel>();
@@ -55,8 +55,8 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
                 if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
-                    _selectedFacilities = _floorManager.Facilities[0];
-                    FloorChooser.ItemsSource = _selectedFacilities.Levels;
+                    _selectedFacility = _floorManager.Facilities[0];
+                    FloorChooser.ItemsSource = _selectedFacility.Levels;
                 }
 
                 // Provides an error message if the floor manager failed to load.

@@ -4,19 +4,17 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <esri:MapView 
-            x:Name="MyMapView"
-            Grid.Row="0"
-            Grid.RowSpan="2"/>
-        <esri:OverviewMap 
-            x:Name="MyOverviewMap"
-            Margin="5, 20"
-            Height="220"
-            Width="220"
-            Grid.Row="1"
-            HorizontalAlignment="Left"/>
+        <esri:MapView x:Name="MyMapView"
+                      Grid.Row="0"
+                      Grid.RowSpan="2" />
+        <esri:OverviewMap x:Name="MyOverviewMap"
+                          Grid.Row="1"
+                          Width="220"
+                          Height="220"
+                          Margin="5,20"
+                          HorizontalAlignment="Left" />
     </Grid>
 </UserControl>

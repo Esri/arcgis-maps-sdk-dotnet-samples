@@ -36,10 +36,10 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOverviewMap
 
         private void Initialize()
         {
-            // Create new Map with basemap
+            // Create new Map with basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
-            // Set the initial map location
+            // Set the initial map location.
             MyMapView.Map.InitialViewpoint = new Viewpoint(49.28299, -123.12052, 70000);
 
             // Create the feature table, referring to the feature service.
@@ -54,7 +54,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayOverviewMap
             // Connect the overview map to the map.
             MyOverviewMap.GeoView = MyMapView;
 
-            // Set the scale of the overview map compared to the basemap layer. 
+            // Set the scale of the overview map relatve to the basemap. 
             MyOverviewMap.ScaleFactor = 10;
         }
     }

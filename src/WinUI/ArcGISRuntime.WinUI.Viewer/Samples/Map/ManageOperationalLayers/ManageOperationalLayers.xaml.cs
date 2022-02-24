@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -48,7 +48,7 @@ namespace ArcGISRuntime.WinUI.Samples.ManageOperationalLayers
 
         private void Initialize()
         {
-            _viewModel = new MapViewModel(new Map(Basemap.CreateStreets()));
+            _viewModel = new MapViewModel(new Map(BasemapStyle.ArcGISStreets));
 
             // Configure the bindings to point to the view model.
             this.DataContext = _viewModel;
@@ -85,8 +85,8 @@ namespace ArcGISRuntime.WinUI.Samples.ManageOperationalLayers
                     ListView sourceList = _originListView;
 
                     // Remove the layer and re-add it.
-                    ((LayerCollection) sourceList.ItemsSource).Remove(draggedLayer);
-                    ((LayerCollection) destinationList.ItemsSource).Add(draggedLayer);
+                    ((LayerCollection)sourceList.ItemsSource).Remove(draggedLayer);
+                    ((LayerCollection)destinationList.ItemsSource).Add(draggedLayer);
 
                     // Finish the drop.
                     deferral.Complete();
@@ -119,7 +119,7 @@ namespace ArcGISRuntime.WinUI.Samples.ManageOperationalLayers
         }
     }
 
-    class MapViewModel
+    internal class MapViewModel
     {
         public Map Map { get; }
         public LayerCollection IncludedLayers => Map.OperationalLayers;

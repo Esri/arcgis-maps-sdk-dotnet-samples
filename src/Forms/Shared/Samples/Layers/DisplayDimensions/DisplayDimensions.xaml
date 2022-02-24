@@ -4,10 +4,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:resources="clr-namespace:Forms.Resources">
     <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        DrawStatusChanged="MapDrawStatusChanged"
-                        Style="{StaticResource MapWithFormStyle}" />
+        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <Grid.RowDefinitions>

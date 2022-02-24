@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2022 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -65,16 +65,26 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDimensions
 
         private void DimensionLayerCheckBoxChanged(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            // Set the visibility of the dimension layer.
-            if (_dimensionLayer != null) _dimensionLayer.IsVisible = DimensionLayerCheckBox.IsChecked == true;
+            // Check if dimension layer has been instantiated.
+            if (_dimensionLayer != null)
+            {
+                // Set the visibility of the dimension layer.
+                _dimensionLayer.IsVisible = DimensionLayerCheckBox.IsChecked == true;
+            }
         }
 
         private void DefinitionExpressionCheckBoxChanged(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            // Set a definition expression to show dimension lengths of greater than or equal to 450m when the checkbox is selected,
+            // Create a definition expression to show dimension lengths of greater than or equal to 450m when the checkbox is selected,
             // or to reset the definition expression to show all dimension lengths when unselected.
             string definitionExpression = DefinitionExpressionCheckBox.IsChecked == true ? "DIMLENGTH >= 450" : "";
-            if (_dimensionLayer != null) _dimensionLayer.DefinitionExpression = definitionExpression;
+
+            // Check if dimension layer has been instantiated.
+            if (_dimensionLayer != null)
+            {
+                // Set the definition expression of the dimension layer.
+                _dimensionLayer.DefinitionExpression = definitionExpression;
+            }
         }
     }
 }

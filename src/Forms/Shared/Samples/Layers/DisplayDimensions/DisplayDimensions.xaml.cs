@@ -49,10 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
                 MyMapView.Map.MinScale = 35000;
 
                 // Get the dimension layer from the MapView operational layers.
-                _dimensionLayer = (DimensionLayer)MyMapView.Map.OperationalLayers.Where(layer => layer is DimensionLayer).First();
-
-                // Load the dimension layer.
-                await _dimensionLayer.LoadAsync();
+                _dimensionLayer = MyMapView.Map.OperationalLayers.OfType<DimensionLayer>().First();
 
                 // Enable the switches.
                 DimensionLayerSwitch.IsEnabled = true;
@@ -69,16 +66,26 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
 
         private void DimensionLayerSwitchChanged(object sender, ToggledEventArgs e)
         {
-            // Set the visibility of the dimension layer.
-            if (_dimensionLayer != null) _dimensionLayer.IsVisible = DimensionLayerSwitch.IsToggled == true;
+            // Check if dimension layer has been instantiated.
+            if (_dimensionLayer != null)
+            {
+                // Set the visibility of the dimension layer.
+                _dimensionLayer.IsVisible = DimensionLayerSwitch.IsToggled == true;
+            }
         }
 
         private void DefinitionExpressionSwitchChanged(object sender, ToggledEventArgs e)
         {
-            // Set a definition expression to show dimension lengths of greater than or equal to 450m when the checkbox is selected,
+            // Create a definition expression to show dimension lengths of greater than or equal to 450m when the checkbox is selected,
             // or to reset the definition expression to show all dimension lengths when unselected.
             string definitionExpression = DefinitionExpressionSwitch.IsToggled == true ? "DIMLENGTH >= 450" : "";
-            if (_dimensionLayer != null) _dimensionLayer.DefinitionExpression = definitionExpression;
+
+            // Check if dimension layer has been instantiated.
+            if (_dimensionLayer != null)
+            {
+                // Set the definition expression of the dimension layer.
+                _dimensionLayer.DefinitionExpression = definitionExpression;
+            }
         }
     }
 }

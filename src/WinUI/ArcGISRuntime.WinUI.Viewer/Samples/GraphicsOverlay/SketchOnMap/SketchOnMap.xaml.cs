@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -37,14 +37,14 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
         {
             InitializeComponent();
 
-            // Call a function to set up the map and sketch editor 
+            // Call a function to set up the map and sketch editor
             Initialize();
         }
 
         private void Initialize()
         {
             // Create a light gray canvas map
-            Map myMap = new Map(Basemap.CreateLightGrayCanvas());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
 
             // Create graphics overlay to display sketch geometry
             _sketchOverlay = new GraphicsOverlay();
@@ -62,6 +62,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
         }
 
         #region Graphic and symbol helpers
+
         private Graphic CreateGraphic(Esri.ArcGISRuntime.Geometry.Geometry geometry)
         {
             // Create a graphic to display the specified geometry
@@ -94,7 +95,6 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
                 case GeometryType.Point:
                 case GeometryType.Multipoint:
                     {
-
                         symbol = new SimpleMarkerSymbol()
                         {
                             Color = Color.Red,
@@ -131,7 +131,8 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
             // Return the graphic (or null if none were found)
             return graphic;
         }
-        #endregion
+
+        #endregion Graphic and symbol helpers
 
         private async void DrawButtonClick(object sender, RoutedEventArgs e)
         {

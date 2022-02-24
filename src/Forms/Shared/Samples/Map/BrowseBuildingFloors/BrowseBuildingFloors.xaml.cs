@@ -26,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
         tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
     public partial class BrowseBuildingFloors : ContentPage
     {
-        private const string _floorData = @"https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
+        private const string _floorData = "https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
         private FloorManager _floorManager;
 
         // Collection of floors.

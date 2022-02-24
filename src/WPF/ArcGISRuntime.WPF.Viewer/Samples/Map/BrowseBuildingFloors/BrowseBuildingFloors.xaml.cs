@@ -27,9 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
         tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
     public partial class BrowseBuildingFloors
     {
-        private const string _floorData = @"https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
-        private FloorManager _floorManager;
-        private FloorFacility _selectedFacility;
+        private const string _floorData = "https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
 
         public BrowseBuildingFloors()
         {
@@ -52,9 +50,8 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
 
                 if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
                 {
-                    _floorManager = MyMapView.Map.FloorManager;
-                    _selectedFacility = _floorManager.Facilities[0];
-                    FloorChooser.ItemsSource = _selectedFacility.Levels;
+                    FloorFacility selectedFacility = MyMapView.Map.FloorManager.Facilities[0];
+                    FloorChooser.ItemsSource = selectedFacility.Levels;
                 }
 
                 // Provides an error message if the floor manager failed to load.
@@ -73,7 +70,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
         private void OnFloorChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Set all existing floors visibility to false.
-            foreach (FloorLevel level in _floorManager.Facilities[0].Levels)
+            foreach (FloorLevel level in MyMapView.Map.FloorManager.Facilities[0].Levels)
             {
                 level.IsVisible = false;
             }

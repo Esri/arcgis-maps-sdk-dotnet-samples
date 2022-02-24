@@ -43,7 +43,7 @@ namespace ArcGISRuntime.WinUI.Samples.FormatCoordinates
             _selectedTextField = DecimalDegreesTextField;
 
             // Create the map
-            MyMapView.Map = new Map(Basemap.CreateNavigationVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
             // Add the graphics overlay to the map
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());

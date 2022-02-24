@@ -45,8 +45,17 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
 
                 // Map needs to be loaded in order for floormanager to be used.
                 await MyMapView.Map.LoadAsync();
+
+                // Checks to see if the layer is floor aware.
+                if (MyMapView.Map.FloorDefinition != null)
+                {
+                    await new MessageDialog2("The layer is not floor aware.", "Error").ShowAsync();
+                    return;
+                }
+
                 await MyMapView.Map.FloorManager.LoadAsync();
 
+                // Checks to see if the floormanager loaded and check to see if there is a floormanager.
                 if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
                 {
                     FloorFacility selectedFacility = MyMapView.Map.FloorManager.Facilities[0];

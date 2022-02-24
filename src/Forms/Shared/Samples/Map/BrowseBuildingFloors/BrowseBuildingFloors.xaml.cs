@@ -49,8 +49,18 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
 
                 // Map needs to be loaded in order for floormanager to be used.
                 await MyMapView.Map.LoadAsync();
-                await MyMapView.Map.FloorManager.LoadAsync();
                 List<string> floorName = new List<string>();
+
+                // Checks to see if the layer is floor aware.
+                if (MyMapView.Map.FloorDefinition != null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Alert", "The layer is not floor aware.", "OK");
+                    return;
+                }
+
+                await MyMapView.Map.FloorManager.LoadAsync();
+
+                // Checks to see if the floormanager loaded and check to see if there is a floormanager.
                 if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
@@ -64,6 +74,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
 
                     FloorChooser.ItemsSource = floorName;
                 }
+
                 // Provides an error message if the floor manager failed to load.
                 else if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
                 {

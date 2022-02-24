@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             MyMapView.Loaded += (s, e) =>
             {
                 // Create a new map with the oceans basemap and add it to the map view
-                Map map = new Map(Basemap.CreateOceans());
+                Map map = new Map(BasemapStyle.ArcGISOceans);
                 MyMapView.Map = map;
             };
 
@@ -129,7 +129,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Show a message for the exception encountered
-                DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => 
+                DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
                 {
                     _ = new MessageDialog2("Unable to create offline database: " + ex.Message).ShowAsync();
                 });
@@ -139,7 +139,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
         // Function that loads the two point tables from the local geodatabase and displays them as feature layers
         private async void LoadLocalGeodatabaseTables()
         {
-            if(_localGeodatabase == null) { return; }
+            if (_localGeodatabase == null) { return; }
 
             // Read the geodatabase tables and add them as layers
             foreach (GeodatabaseFeatureTable table in _localGeodatabase.GeodatabaseFeatureTables)

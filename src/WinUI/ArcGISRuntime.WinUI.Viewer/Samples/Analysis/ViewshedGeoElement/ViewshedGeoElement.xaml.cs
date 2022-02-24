@@ -27,7 +27,7 @@ namespace ArcGISRuntime.WinUI.Samples.ViewshedGeoElement
         description: "Analyze the viewshed for an object (GeoElement) in a scene.",
         instructions: "Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive' towards the tapped location. The viewshed analysis will update as the vehicle moves.",
         tags: new[] { "3D", "analysis", "buildings", "model", "scene", "viewshed", "visibility analysis" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     public partial class ViewshedGeoElement
     {
         // URLs to the scene layer with buildings and the elevation source
@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.ViewshedGeoElement
         private async void Initialize()
         {
             // Create the scene with an imagery basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
 
             // Add the elevation surface.
             ArcGISTiledElevationSource tiledElevationSource = new ArcGISTiledElevationSource(_elevationUri);

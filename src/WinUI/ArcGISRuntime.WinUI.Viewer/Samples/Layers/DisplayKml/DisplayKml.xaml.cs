@@ -37,11 +37,11 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayKml
         private void Initialize()
         {
             // Set up the basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
 
             // Update the UI.
             LayerPicker.IsEnabled = true;
-            LayerPicker.ItemsSource = new[] {"URL", "Local file", "Portal item"};
+            LayerPicker.ItemsSource = new[] { "URL", "Local file", "Portal item" };
             LayerPicker.SelectionChanged += LayerPicker_SelectionChanged;
             LayerPicker.SelectedIndex = 0;
         }
@@ -64,10 +64,12 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayKml
                     default:
                         layer = new KmlLayer(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
                         break;
+
                     case "Local file":
                         string filePath = DataManager.GetDataFolder("324e4742820e46cfbe5029ff2c32cb1f", "US_State_Capitals.kml");
                         layer = new KmlLayer(new Uri(filePath));
                         break;
+
                     case "Portal item":
                         ArcGISPortal portal = await ArcGISPortal.CreateAsync();
                         PortalItem item = await PortalItem.CreateAsync(portal, "9fe0b1bfdcd64c83bd77ea0452c76253");

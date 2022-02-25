@@ -1,20 +1,25 @@
-<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.LocationWithNMEA.LocationWithNMEA"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+<UserControl x:Class="ArcGISRuntime.WinUI.Samples.LocationWithNMEA.LocationWithNMEA"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock x:Name="AccuracyLabel" Text="Press start to begin."/>
+                <TextBlock x:Name="AccuracyLabel" Text="Press start to begin." />
                 <TextBlock x:Name="CountLabel" />
                 <TextBlock x:Name="SatellitesLabel" />
                 <TextBlock x:Name="SystemLabel" />
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Start" Margin="5" Click="StartClick" />
-                    <Button Content="Recenter" Margin="5" Click="RecenterClick" />
-                    <Button Content="Reset" Margin="5" Click="ResetClick" />
+                    <Button Margin="5"
+                            Click="StartClick"
+                            Content="Start" />
+                    <Button Margin="5"
+                            Click="RecenterClick"
+                            Content="Recenter" />
+                    <Button Margin="5"
+                            Click="ResetClick"
+                            Content="Reset" />
                 </StackPanel>
             </StackPanel>
         </Border>

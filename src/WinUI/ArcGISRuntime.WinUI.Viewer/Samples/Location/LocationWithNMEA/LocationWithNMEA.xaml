@@ -10,13 +10,11 @@
                 <TextBlock x:Name="CountLabel" />
                 <TextBlock x:Name="SatellitesLabel" />
                 <TextBlock x:Name="SystemLabel" />
+                <TextBlock x:Name="NmeaMessageLabel" />
                 <StackPanel Orientation="Horizontal">
                     <Button Margin="5"
                             Click="StartClick"
                             Content="Start" />
-                    <Button Margin="5"
-                            Click="RecenterClick"
-                            Content="Recenter" />
                     <Button Margin="5"
                             Click="ResetClick"
                             Content="Reset" />

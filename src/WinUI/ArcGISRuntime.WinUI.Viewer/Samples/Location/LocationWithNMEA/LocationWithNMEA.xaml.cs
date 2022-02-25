@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml;
 using System;
@@ -47,8 +48,13 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-117.191, 34.0306, SpatialReferences.Wgs84), 100000));
 
+            // Lock the mapview to recenter.
+            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+            MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
+
             // Create the data simulation using stored mock data.
-            _simulatedNMEADataSource = new NMEAStreamSimulator(4.0);
+            _simulatedNMEADataSource = new NMEAStreamSimulator(6.0);
+            _simulatedNMEADataSource.NmeaMessageChanged += UpdateNmeaMessageLabel;
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
@@ -73,6 +79,14 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
             {
                 await new MessageDialog2(ex.Message, ex.Message.GetType().Name).ShowAsync();
             }
+        }
+
+        private void UpdateNmeaMessageLabel(object sender, NmeaMessageEventArgs e)
+        {
+            DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, () =>
+            {
+                NmeaMessageLabel.Text = e.NmeaMessage;
+            });
         }
 
         private void SatellitesChanged(object sender, IReadOnlyList<NmeaSatelliteInfo> infos)
@@ -108,19 +122,20 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
         private void StartClick(object sender, RoutedEventArgs e)
         {
             _simulatedNMEADataSource.Start();
-
             AccuracyLabel.Text = string.Empty;
-        }
-
-        private void RecenterClick(object sender, RoutedEventArgs e)
-        {
-            MyMapView.LocationDisplay.AutoPanMode = Esri.ArcGISRuntime.UI.LocationDisplayAutoPanMode.Recenter;
         }
 
         private void ResetClick(object sender, RoutedEventArgs e)
         {
             _simulatedNMEADataSource.Stop();
             _simulatedNMEADataSource.Reset();
+
+            // Reset the labels.
+            AccuracyLabel.Text = "Simulation reset.";
+            CountLabel.Text = string.Empty;
+            SatellitesLabel.Text = string.Empty;
+            SystemLabel.Text = string.Empty;
+            NmeaMessageLabel.Text = string.Empty;
         }
 
         public void Dispose()
@@ -133,9 +148,10 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
 
     /*
      * This class uses mock data (an edited recording of a real NMEA data stream) to simulate live NMEA data and create a stream.
-     * For NMEA location data sources created from a Bluetooth device or serial input, you may not need to create your own stream. 
+     * For NMEA location data sources created from a Bluetooth device or serial input, you may not need to create your own stream.
      * For any other case, you can write the data to a memory stream like below.
      */
+
     public class NMEAStreamSimulator : IDisposable
     {
         private Timer _timer;
@@ -146,6 +162,8 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
         private const int DefaultInterval = 1000;
 
         private string[] _nmeaStrings;
+
+        public event EventHandler<NmeaMessageEventArgs> NmeaMessageChanged;
 
         public NMEAStreamSimulator(double speed = 1.0)
         {
@@ -182,6 +200,8 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
             // Get the next NMEA string and append return and newline characters to it.
             string nmeaString = $"{_nmeaStrings[_lineCounter]}\r\n";
 
+            NmeaMessageChanged?.Invoke(this, new NmeaMessageEventArgs { NmeaMessage = nmeaString });
+
             // Check if the start of a new location message.
             if (nmeaString.StartsWith("$GPGGA"))
             {
@@ -191,7 +211,6 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
 
             // Write the string to the stream.
             byte[] data = System.Text.Encoding.UTF8.GetBytes(nmeaString);
-            MessageStream.Write(data, 0, data.Length);
             MessageStream.Write(data, 0, data.Length);
 
             // Increment the line counter.
@@ -205,5 +224,10 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
             _timer.Dispose();
             MessageStream.Dispose();
         }
+    }
+
+    public class NmeaMessageEventArgs : EventArgs
+    {
+        public string NmeaMessage { get; set; }
     }
 }

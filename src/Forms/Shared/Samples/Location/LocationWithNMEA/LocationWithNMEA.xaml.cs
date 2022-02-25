@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -47,7 +48,8 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-117.191, 34.0306, SpatialReferences.Wgs84), 100000));
 
             // Create the data simulation using stored mock data.
-            _simulatedNMEADataSource = new NMEAStreamSimulator(4.0);
+            _simulatedNMEADataSource = new NMEAStreamSimulator(6.0);
+            _simulatedNMEADataSource.NmeaMessageChanged += UpdateNmeaMessageLabel;
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
@@ -73,11 +75,23 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
                 await MyMapView.Map.LoadAsync();
                 MyMapView.LocationDisplay.DataSource = _nmeaSource;
                 await _nmeaSource.StartAsync();
+
+                // Lock the mapview to recenter.
+                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+                MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert(ex.Message.GetType().Name, ex.Message, "OK");
             }
+        }
+
+        private void UpdateNmeaMessageLabel(object sender, NmeaMessageEventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                NmeaMessageLabel.Text = e.NmeaMessage;
+            });
         }
 
         private void SatellitesChanged(object sender, IReadOnlyList<NmeaSatelliteInfo> infos)
@@ -113,7 +127,6 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
         private void StartClick(object sender, EventArgs e)
         {
             _simulatedNMEADataSource.Start();
-
             AccuracyLabel.Text = string.Empty;
         }
 
@@ -126,6 +139,13 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
         {
             _simulatedNMEADataSource.Stop();
             _simulatedNMEADataSource.Reset();
+
+            // Reset the labels.
+            AccuracyLabel.Text = "Simulation reset.";
+            CountLabel.Text = string.Empty;
+            SatellitesLabel.Text = string.Empty;
+            SystemLabel.Text = string.Empty;
+            NmeaMessageLabel.Text = string.Empty;
         }
 
         public void Dispose()
@@ -138,9 +158,10 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
 
     /*
      * This class uses mock data (an edited recording of a real NMEA data stream) to simulate live NMEA data and create a stream.
-     * For NMEA location data sources created from a Bluetooth device or serial input, you may not need to create your own stream. 
+     * For NMEA location data sources created from a Bluetooth device or serial input, you may not need to create your own stream.
      * For any other case, you can write the data to a memory stream like below.
      */
+
     public class NMEAStreamSimulator : IDisposable
     {
         private Timer _timer;
@@ -151,6 +172,8 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
         private const int DefaultInterval = 1000;
 
         private string[] _nmeaStrings;
+
+        public event EventHandler<NmeaMessageEventArgs> NmeaMessageChanged;
 
         public NMEAStreamSimulator(double speed = 1.0)
         {
@@ -187,6 +210,8 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             // Get the next NMEA string and append return and newline characters to it.
             string nmeaString = $"{_nmeaStrings[_lineCounter]}\r\n";
 
+            NmeaMessageChanged?.Invoke(this, new NmeaMessageEventArgs { NmeaMessage = nmeaString });
+
             // Check if the start of a new location message.
             if (nmeaString.StartsWith("$GPGGA"))
             {
@@ -209,5 +234,10 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             _timer.Dispose();
             MessageStream.Dispose();
         }
+    }
+
+    public class NmeaMessageEventArgs : EventArgs
+    {
+        public string NmeaMessage { get; set; }
     }
 }

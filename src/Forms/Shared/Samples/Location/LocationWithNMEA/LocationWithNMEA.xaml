@@ -13,13 +13,11 @@
                 <Label x:Name="CountLabel" />
                 <Label x:Name="SatellitesLabel" />
                 <Label x:Name="SystemLabel" />
+                <Label x:Name="NmeaMessageLabel" />
                 <StackLayout Orientation="Horizontal">
                     <Button Margin="5"
                             Clicked="StartClick"
                             Text="Start" />
-                    <Button Margin="5"
-                            Clicked="RecenterClick"
-                            Text="Recenter" />
                     <Button Margin="5"
                             Clicked="ResetClick"
                             Text="Reset" />

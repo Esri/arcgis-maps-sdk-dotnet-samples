@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,8 +50,13 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-117.191, 34.0306, SpatialReferences.Wgs84), 100000));
 
+            // Lock the mapview to recenter.
+            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
+            MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
+
             // Create the data simulation using stored mock data.
-            _simulatedNMEADataSource = new NMEAStreamSimulator(4.0);
+            _simulatedNMEADataSource = new NMEAStreamSimulator(6.0);
+            _simulatedNMEADataSource.NmeaMessageChanged += UpdateNmeaMessageLabel;
 
             // Create the NMEA data source.
             _nmeaSource = new NmeaLocationDataSource(SpatialReferences.Wgs84);
@@ -75,6 +81,14 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             {
                 MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void UpdateNmeaMessageLabel(object sender, NmeaMessageEventArgs e)
+        {
+            Dispatcher.BeginInvoke(delegate ()
+            {
+                NmeaMessageLabel.Content = e.NmeaMessage;
+            });
         }
 
         private void SatellitesChanged(object sender, IReadOnlyList<NmeaSatelliteInfo> infos)
@@ -110,19 +124,20 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
         private void StartClick(object sender, RoutedEventArgs e)
         {
             _simulatedNMEADataSource.Start();
-
             AccuracyLabel.Content = string.Empty;
-        }
-
-        private void RecenterClick(object sender, RoutedEventArgs e)
-        {
-            MyMapView.LocationDisplay.AutoPanMode = Esri.ArcGISRuntime.UI.LocationDisplayAutoPanMode.Recenter;
         }
 
         private void ResetClick(object sender, RoutedEventArgs e)
         {
             _simulatedNMEADataSource.Stop();
             _simulatedNMEADataSource.Reset();
+
+            // Reset the labels.
+            AccuracyLabel.Content = "Simulation reset.";
+            CountLabel.Content = string.Empty;
+            SatellitesLabel.Content = string.Empty;
+            SystemLabel.Content = string.Empty;
+            NmeaMessageLabel.Content = string.Empty;
         }
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)
@@ -149,6 +164,8 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
         private const int DefaultInterval = 1000;
 
         private string[] _nmeaStrings;
+
+        public event EventHandler<NmeaMessageEventArgs> NmeaMessageChanged;
 
         public NMEAStreamSimulator(double speed = 1.0)
         {
@@ -185,6 +202,8 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             // Get the next NMEA string and append return and newline characters to it.
             string nmeaString = $"{_nmeaStrings[_lineCounter]}\r\n";
 
+            NmeaMessageChanged?.Invoke(this, new NmeaMessageEventArgs { NmeaMessage = nmeaString });
+
             // Check if the start of a new location message.
             if (nmeaString.StartsWith("$GPGGA"))
             {
@@ -207,5 +226,10 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
             _timer.Dispose();
             MessageStream.Dispose();
         }
+    }
+
+    public class NmeaMessageEventArgs : EventArgs
+    {
+        public string NmeaMessage { get; set; }
     }
 }

@@ -69,7 +69,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
             }
 
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
             // Enable tap-for-info pattern on results.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;

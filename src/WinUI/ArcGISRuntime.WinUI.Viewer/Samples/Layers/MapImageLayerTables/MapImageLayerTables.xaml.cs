@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.ArcGISServices;
@@ -43,7 +43,7 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageLayerTables
         private async void Initialize()
         {
             // Create a new Map with a vector streets basemap.
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create the URI to the Service Requests map service.
             Uri serviceRequestUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer");
@@ -121,7 +121,7 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageLayerTables
                 // Query the comments table to get the related service request feature for the selected comment.
                 IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
 
-                // Get the first result. 
+                // Get the first result.
                 RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
 
                 // Get the first feature from the result. If it's null, warn the user and return.

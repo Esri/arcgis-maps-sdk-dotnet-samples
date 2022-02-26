@@ -52,7 +52,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             // Create a scene with elevation.
             Surface sceneSurface = new Surface();
             sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
-            Scene myScene = new Scene(Basemap.CreateTopographic())
+            Scene myScene = new Scene(BasemapStyle.ArcGISTopographic)
             {
                 BaseSurface = sceneSurface
             };
@@ -70,7 +70,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
             _distanceMeasurement = new LocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
-            
+
             // Keep the UI updated.
             _distanceMeasurement.MeasurementChanged += (o, e) =>
             {
@@ -83,7 +83,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
                     HorizontalMeasureTextBlock.Text = $"{_distanceMeasurement.HorizontalDistance.Value:F} {_distanceMeasurement.HorizontalDistance.Unit.Abbreviation}";
                 });
             };
-            
+
             // Configure the unit system selection box.
             UnitSystemCombo.ItemsSource = Enum.GetValues(typeof(UnitSystem)).OfType<UnitSystem>().Select(e => e.ToString());
             UnitSystemCombo.SelectedItem = _distanceMeasurement.UnitSystem;
@@ -93,11 +93,11 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             {
                 _distanceMeasurement.UnitSystem = Enum.Parse<UnitSystem>(UnitSystemCombo.SelectedItem as string);
             };
-            
+
             // Show the scene in the view.
             MySceneView.Scene = myScene;
             MySceneView.SetViewpointCamera(new Camera(start, 200, 0, 45, 0));
-            
+
             // Enable the 'New measurement' button.
             NewMeasureButton.IsEnabled = true;
         }

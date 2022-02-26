@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -24,7 +24,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayScene
         {
             InitializeComponent();
 
-            // Execute initialization 
+            // Execute initialization
             Initialize();
         }
 
@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayScene
             Scene myScene = new Scene();
 
             // Crate a new base map using the static/shared create imagery method
-            Basemap myBaseMap = Basemap.CreateImagery();
+            Basemap myBaseMap = new Basemap(BasemapStyle.ArcGISImageryStandard);
 
             // Add the imagery basemap to the scene's base map property
             myScene.Basemap = myBaseMap;
@@ -51,10 +51,9 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayScene
             // Create a Uri from the elevation image service string
             Uri myUri = new Uri(myElevationImageService);
 
-            // Create an ArcGIS tiled elevation 
+            // Create an ArcGIS tiled elevation
             ArcGISTiledElevationSource myArcGISTiledElevationSource = new ArcGISTiledElevationSource
             {
-
                 // Set the ArcGIS tiled elevation sources property to the Uri of the elevation image service
                 Source = myUri
             };

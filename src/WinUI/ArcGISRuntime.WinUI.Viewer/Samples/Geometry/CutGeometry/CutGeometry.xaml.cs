@@ -39,7 +39,7 @@ namespace ArcGISRuntime.WinUI.Samples.CutGeometry
             InitializeComponent();
 
             // Create a map with a topographic basemap.
-            Map newMap = new Map(Basemap.CreateTopographic());
+            Map newMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Assign the map to the MapView.
             MyMapView.Map = newMap;
@@ -118,7 +118,6 @@ namespace ArcGISRuntime.WinUI.Samples.CutGeometry
                 var theMessageDialog = new MessageDialog2("Geometry Engine Failed: " + ex.Message);
                 await theMessageDialog.ShowAsync();
             }
-
         }
 
         private Polyline CreateBorder()

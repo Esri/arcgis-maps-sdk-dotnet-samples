@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -32,8 +32,8 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeAtmosphereEffect
         private void Initialize()
         {
             // Create the scene with a basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
-            
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
+
             // Add an elevation source to the scene.
             Surface elevationSurface = new Surface();
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));
@@ -52,9 +52,11 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeAtmosphereEffect
                     case 0:
                         MySceneView.AtmosphereEffect = AtmosphereEffect.Realistic;
                         break;
+
                     case 1:
                         MySceneView.AtmosphereEffect = AtmosphereEffect.HorizonOnly;
                         break;
+
                     case 2:
                         MySceneView.AtmosphereEffect = AtmosphereEffect.None;
                         break;

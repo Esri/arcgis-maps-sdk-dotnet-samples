@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
         private void Initialize()
         {
             // Create the map with streets basemap.
-            MyMapView.Map = new Map(Basemap.CreateStreets());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Create the feature table, referring to the Damage Assessment feature service.
             ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
@@ -80,7 +80,7 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
                 }
 
                 // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
+                long featureId = (long)identifyResult.GeoElements.First().Attributes["objectid"];
 
                 // Get the feature by constructing a query and running it.
                 QueryParameters qp = new QueryParameters();
@@ -112,7 +112,7 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
             deleteButton.Click += DeleteButton_Click;
 
             // Show the callout.
-            MyMapView.ShowCalloutAt((MapPoint) tappedFeature.Geometry, deleteButton);
+            MyMapView.ShowCalloutAt((MapPoint)tappedFeature.Geometry, deleteButton);
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -123,14 +123,14 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
             try
             {
                 // Get the feature to delete from the layer.
-                Button deleteButton = (Button) sender;
-                Feature featureToDelete = (Feature) deleteButton.Tag;
+                Button deleteButton = (Button)sender;
+                Feature featureToDelete = (Feature)deleteButton.Tag;
 
                 // Delete the feature.
                 await _damageLayer.FeatureTable.DeleteFeatureAsync(featureToDelete);
 
                 // Sync the change with the service.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _damageLayer.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_damageLayer.FeatureTable;
                 await serviceTable.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.

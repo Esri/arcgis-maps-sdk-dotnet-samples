@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerMapImageLayer
         private async void Initialize()
         {
             // Create a map and add it to the view
-            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
             try
             {

@@ -43,7 +43,6 @@ namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
 
         private async void Initialize()
         {
-
             // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
             {
@@ -67,7 +66,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
                 Viewpoint _startingViewpoint = new Viewpoint(new Envelope(-9812691.11079696, 5128687.20710657, -9812377.9447607, 5128865.36767282, SpatialReferences.WebMercator));
 
                 // Create the map.
-                MyMapView.Map = new Map(Basemap.CreateStreetsNightVector()) { InitialViewpoint = _startingViewpoint };
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight) { InitialViewpoint = _startingViewpoint };
 
                 // NOTE: This layer supports any ArcGIS Feature Table that define subtypes.
                 SubtypeFeatureLayer subtypeFeatureLayer = new SubtypeFeatureLayer(new ServiceFeatureTable(new Uri("https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer/0")));

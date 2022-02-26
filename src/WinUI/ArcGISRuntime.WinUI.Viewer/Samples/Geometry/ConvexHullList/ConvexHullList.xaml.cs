@@ -46,7 +46,7 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHullList
         private void Initialize()
         {
             // Create a map with a topographic basemap.
-            Map newMap = new Map(Basemap.CreateTopographic());
+            Map newMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Assign the map to the MapView.
             MyMapView.Map = newMap;
@@ -72,7 +72,6 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHullList
             // Create the graphic for polygon1 - comprised of a polygon shape and fill symbol.
             _polygonGraphic1 = new Graphic(CreatePolygon1(), polygonsSimpleFillSymbol)
             {
-
                 // Set the Z index for the polygon1 graphic so that it appears above the convex hull graphic(s) added later.
                 ZIndex = 1
             };
@@ -83,7 +82,6 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHullList
             // Create the graphic for polygon2 - comprised of a polygon shape and fill symbol.
             _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol)
             {
-
                 // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
                 ZIndex = 1
             };
@@ -173,7 +171,6 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHullList
                     // Create the graphic for the convex hull(s) - comprised of a polygon shape and fill symbol.
                     Graphic convexHullGraphic = new Graphic(oneGeometry, convexHullSimpleFillSymbol)
                     {
-
                         // Set the Z index for the convex hull graphic(s) so that they appear below the initial input graphics
                         // added earlier (polygon1 and polygon2).
                         ZIndex = 0

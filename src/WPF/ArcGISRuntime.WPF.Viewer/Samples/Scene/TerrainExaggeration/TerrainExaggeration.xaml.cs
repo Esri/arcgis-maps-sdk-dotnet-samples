@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.TerrainExaggeration
         private void Initialize()
         {
             // Configure the scene with National Geographic basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateTopographic());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISTopographic);
 
             // Add the base surface for elevation data.
             Surface elevationSurface = new Surface();

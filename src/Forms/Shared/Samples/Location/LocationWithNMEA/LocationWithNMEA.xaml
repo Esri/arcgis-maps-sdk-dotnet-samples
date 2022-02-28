@@ -13,7 +13,7 @@
                 <Label x:Name="CountLabel" />
                 <Label x:Name="SatellitesLabel" />
                 <Label x:Name="SystemLabel" />
-                <Label x:Name="NmeaMessageLabel" />
+                <Label x:Name="NmeaMessageLabel" LineBreakMode="TailTruncation" />
                 <StackLayout Orientation="Horizontal">
                     <Button Margin="5"
                             Clicked="StartClick"

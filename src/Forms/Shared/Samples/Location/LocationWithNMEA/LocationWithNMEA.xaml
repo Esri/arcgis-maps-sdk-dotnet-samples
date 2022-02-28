@@ -1,0 +1,28 @@
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.LocationWithNMEA.LocationWithNMEA"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources">
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout>
+                <Label x:Name="AccuracyLabel" Text="Press start to begin." />
+                <Label x:Name="CountLabel" />
+                <Label x:Name="SatellitesLabel" />
+                <Label x:Name="SystemLabel" />
+                <Label x:Name="NmeaMessageLabel" LineBreakMode="TailTruncation" />
+                <StackLayout Orientation="Horizontal">
+                    <Button Margin="5"
+                            Clicked="StartClick"
+                            Text="Start" />
+                    <Button Margin="5"
+                            Clicked="ResetClick"
+                            Text="Reset" />
+                </StackLayout>
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
+</ContentPage>

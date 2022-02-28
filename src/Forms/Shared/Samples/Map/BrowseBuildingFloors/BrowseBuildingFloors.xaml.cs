@@ -26,7 +26,6 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
         tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
     public partial class BrowseBuildingFloors : ContentPage
     {
-        private const string _floorData = "https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
         private FloorManager _floorManager;
 
         // Collection of floors.
@@ -43,7 +42,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
             try
             {
                 // Gets the floor data from ArcGIS Online and creates a map with it.
-                Map map = new Map(new Uri(_floorData));
+                Map map = new Map(new Uri("https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7"));
 
                 MyMapView.Map = map;
 
@@ -52,7 +51,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
                 List<string> floorName = new List<string>();
 
                 // Checks to see if the layer is floor aware.
-                if (MyMapView.Map.FloorDefinition != null)
+                if (MyMapView.Map.FloorDefinition == null)
                 {
                     await Application.Current.MainPage.DisplayAlert("Alert", "The layer is not floor aware.", "OK");
                     return;
@@ -61,7 +60,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
                 await MyMapView.Map.FloorManager.LoadAsync();
 
                 // Checks to see if the floormanager loaded and check to see if there is a floormanager.
-                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
+                if (MyMapView.Map.FloorManager != null)
                 {
                     _floorManager = MyMapView.Map.FloorManager;
 

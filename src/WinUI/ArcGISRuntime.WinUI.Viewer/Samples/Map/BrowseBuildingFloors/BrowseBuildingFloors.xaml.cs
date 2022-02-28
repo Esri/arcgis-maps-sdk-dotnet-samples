@@ -26,8 +26,6 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
         tags: new[] { "building", "facility", "floor", "floor-aware", "floors", "ground floor", "indoor", "level", "site", "story" })]
     public partial class BrowseBuildingFloors
     {
-        private const string _floorData = "https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7";
-
         public BrowseBuildingFloors()
         {
             InitializeComponent();
@@ -39,7 +37,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
             try
             {
                 // Gets the floor data from ArcGIS Online and creates a map with it.
-                Map map = new Map(new Uri(_floorData));
+                Map map = new Map(new Uri("https://ess.maps.arcgis.com/home/item.html?id=f133a698536f44c8884ad81f80b6cfc7"));
 
                 MyMapView.Map = map;
 
@@ -47,7 +45,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
                 await MyMapView.Map.LoadAsync();
 
                 // Checks to see if the layer is floor aware.
-                if (MyMapView.Map.FloorDefinition != null)
+                if (MyMapView.Map.FloorDefinition == null)
                 {
                     await new MessageDialog2("The layer is not floor aware.", "Error").ShowAsync();
                     return;
@@ -56,7 +54,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
                 await MyMapView.Map.FloorManager.LoadAsync();
 
                 // Checks to see if the floormanager loaded and check to see if there is a floormanager.
-                if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.Loaded && MyMapView.Map.FloorManager != null)
+                if (MyMapView.Map.FloorManager != null)
                 {
                     FloorFacility selectedFacility = MyMapView.Map.FloorManager.Facilities[0];
                     FloorChooser.ItemsSource = selectedFacility.Levels;

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\LocationWithNMEA\LocationWithNMEA.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg" />
@@ -122,8 +123,8 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\GraphicsOverlay\SketchOnMap\SketchOnMap.jpg" />
@@ -207,6 +208,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml.cs">
+      <DependentUpon>BrowseBuildingFloors.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\LocationWithNMEA\LocationWithNMEA.xaml.cs">
       <DependentUpon>LocationWithNMEA.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -899,6 +904,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\LocationWithNMEA\LocationWithNMEA.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

@@ -48,10 +48,6 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(-117.191, 34.0306, SpatialReferences.Wgs84), 100000));
 
-            // Lock the mapview to recenter.
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-            MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
-
             // Create the data simulation using stored mock data.
             _simulatedNMEADataSource = new NMEAStreamSimulator(6.0);
             _simulatedNMEADataSource.NmeaMessageChanged += UpdateNmeaMessageLabel;
@@ -116,6 +112,9 @@ namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
             {
                 // Show the status information in the UI.
                 AccuracyLabel.Text = $"Accuracy: H {string.Format("{0:0.00}", loc.HorizontalAccuracy)} meters, V {string.Format("{0:0.00}", loc.VerticalAccuracy)} meters";
+
+                // Recenter on the new location.
+                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
             });
         }
 

@@ -64,7 +64,7 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             // Set the location data source to use the stream from the simulator.
             Stream messageStream = _simulatedNMEADataSource.MessageStream;
             _nmeaSource.NmeaDataStream = messageStream;
-            
+
             // Create an event handler to update the UI when the location changes.
             _nmeaSource.SatellitesChanged += SatellitesChanged;
             _nmeaSource.LocationChanged += LocationChanged;
@@ -75,10 +75,6 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
                 await MyMapView.Map.LoadAsync();
                 MyMapView.LocationDisplay.DataSource = _nmeaSource;
                 await _nmeaSource.StartAsync();
-
-                // Lock the mapview to recenter.
-                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-                MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
             }
             catch (Exception ex)
             {
@@ -121,6 +117,9 @@ namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
             {
                 // Show the status information in the UI.
                 AccuracyLabel.Text = $"Accuracy: Horizontal {string.Format("{0:0.00}", loc.HorizontalAccuracy)} meters, Vertical  {string.Format("{0:0.00}", loc.VerticalAccuracy)} meters";
+
+                // Recenter on the new location.
+                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
             });
         }
 

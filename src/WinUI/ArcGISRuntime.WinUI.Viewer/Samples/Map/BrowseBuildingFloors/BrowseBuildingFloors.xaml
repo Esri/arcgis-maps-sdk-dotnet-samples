@@ -5,7 +5,7 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border Width="150" Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Margin="0,0,0,5"
                            HorizontalAlignment="Center"
@@ -13,6 +13,7 @@
                            Text="Select floor"
                            TextWrapping="Wrap" />
                 <ComboBox x:Name="FloorChooser"
+                          HorizontalAlignment="Center"
                           DisplayMemberPath="ShortName"
                           SelectionChanged="OnFloorChooserSelectionChanged" />
             </StackPanel>

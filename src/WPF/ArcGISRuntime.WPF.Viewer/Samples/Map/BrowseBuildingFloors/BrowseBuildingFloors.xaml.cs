@@ -7,12 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Floor;
-using Esri.ArcGISRuntime.Portal;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,20 +50,8 @@ namespace ArcGISRuntime.WPF.Samples.BrowseBuildingFloors
                 }
 
                 await MyMapView.Map.FloorManager.LoadAsync();
-
-                // Checks to see if the floormanager loaded and check to see if there is a floormanager.
-                if (MyMapView.Map.FloorManager != null)
-                {
-                    FloorFacility selectedFacility = MyMapView.Map.FloorManager.Facilities[0];
-                    FloorChooser.ItemsSource = selectedFacility.Levels;
-                }
-
-                // Provides an error message if the floor manager failed to load.
-                else if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
-                {
-                    MessageBox.Show("Floor manager failed to load.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                FloorFacility selectedFacility = MyMapView.Map.FloorManager.Facilities[0];
+                FloorChooser.ItemsSource = selectedFacility.Levels;
             }
             catch (Exception ex)
             {

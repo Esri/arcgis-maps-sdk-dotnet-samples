@@ -58,28 +58,16 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
                 }
 
                 await MyMapView.Map.FloorManager.LoadAsync();
+                _floorManager = MyMapView.Map.FloorManager;
 
-                // Checks to see if the floormanager loaded and check to see if there is a floormanager.
-                if (MyMapView.Map.FloorManager != null)
+                // Use the dictionary to add the level's name as the key and the FloorLevel object with the associated level's name.
+                foreach (FloorLevel level in _floorManager.Facilities[0].Levels)
                 {
-                    _floorManager = MyMapView.Map.FloorManager;
-
-                    // Use the dictionary to add the level's name as the key and the FloorLevel object with the associated level's name.
-                    foreach (FloorLevel level in _floorManager.Facilities[0].Levels)
-                    {
-                        _floorOptions.Add(level.ShortName, level);
-                        floorName.Add(level.ShortName);
-                    }
-
-                    FloorChooser.ItemsSource = floorName;
+                    _floorOptions.Add(level.ShortName, level);
+                    floorName.Add(level.ShortName);
                 }
 
-                // Provides an error message if the floor manager failed to load.
-                else if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Alert", "Floor manager failed to load.", "OK");
-                    return;
-                }
+                FloorChooser.ItemsSource = floorName;
             }
             catch (Exception ex)
             {

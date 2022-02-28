@@ -10,10 +10,8 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Floor;
-using Esri.ArcGISRuntime.Portal;
 using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
@@ -52,20 +50,8 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseBuildingFloors
                 }
 
                 await MyMapView.Map.FloorManager.LoadAsync();
-
-                // Checks to see if the floormanager loaded and check to see if there is a floormanager.
-                if (MyMapView.Map.FloorManager != null)
-                {
-                    FloorFacility selectedFacility = MyMapView.Map.FloorManager.Facilities[0];
-                    FloorChooser.ItemsSource = selectedFacility.Levels;
-                }
-
-                // Provides an error message if the floor manager failed to load.
-                else if (MyMapView.Map.FloorManager.LoadStatus == LoadStatus.FailedToLoad)
-                {
-                    await new MessageDialog2("Floor manager failed to load.", "Error").ShowAsync();
-                    return;
-                }
+                FloorFacility selectedFacility = MyMapView.Map.FloorManager.Facilities[0];
+                FloorChooser.ItemsSource = selectedFacility.Levels;
             }
             catch (Exception ex)
             {

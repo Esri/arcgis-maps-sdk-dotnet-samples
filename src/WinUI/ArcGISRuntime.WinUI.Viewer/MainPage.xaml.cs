@@ -1,4 +1,4 @@
-﻿// Copyright 2021 Esri.
+﻿// Copyright 2022 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -19,8 +19,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-
-using muxc = Microsoft.UI.Xaml.Controls;
 
 using Navigation = Microsoft.UI.Xaml.Navigation;
 
@@ -81,12 +79,12 @@ namespace ArcGISRuntime.WinUI.Viewer
             }
             CategoriesTree.RootNodes.Clear();
 
-            muxc.TreeViewNode rootNode;
+            TreeViewNode rootNode;
 
             foreach (SearchableTreeNode category in fullTree.Items)
             {
-                rootNode = new muxc.TreeViewNode() { Content = category };
-                category.Items.ForEach(info => rootNode.Children.Add(new muxc.TreeViewNode() { Content = info }));
+                rootNode = new TreeViewNode() { Content = category };
+                category.Items.ForEach(info => rootNode.Children.Add(new TreeViewNode() { Content = info }));
 
                 CategoriesTree.RootNodes.Add(rootNode);
             }
@@ -120,6 +118,12 @@ namespace ArcGISRuntime.WinUI.Viewer
                 ApiKeyManager.DisableKey();
             }
 
+            // Call disposable on currently selected sample.
+            if (SampleManager.Current?.SelectedSample is IDisposable disposableSample)
+            {
+                disposableSample.Dispose();
+            }
+
             // Call a function to clear any existing credentials from AuthenticationManager
             ClearCredentials();
 
@@ -150,9 +154,9 @@ namespace ArcGISRuntime.WinUI.Viewer
                 // Failed to create new instance of the sample.
                 SamplePageContainer.Visibility = Visibility.Collapsed;
                 SampleSelectionGrid.Visibility = Visibility.Visible;
-                CategoriesTree.SelectionMode = muxc.TreeViewSelectionMode.None;
+                CategoriesTree.SelectionMode = TreeViewSelectionMode.None;
                 await new MessageDialog2(exception.Message).ShowAsync();
-                CategoriesTree.SelectionMode = muxc.TreeViewSelectionMode.Single;
+                CategoriesTree.SelectionMode = TreeViewSelectionMode.Single;
             }
         }
 
@@ -198,7 +202,7 @@ namespace ArcGISRuntime.WinUI.Viewer
 
                 if (!string.IsNullOrWhiteSpace(searchBox.Text))
                 {
-                    foreach (muxc.TreeViewNode node in CategoriesTree.RootNodes)
+                    foreach (TreeViewNode node in CategoriesTree.RootNodes)
                     {
                         node.IsExpanded = true;
                     }
@@ -216,9 +220,9 @@ namespace ArcGISRuntime.WinUI.Viewer
             return SampleManager.Current.SampleSearchFunc(sample, SearchBox.Text);
         }
 
-        private async void CategoriesTree_ItemInvoked(muxc.TreeView sender, muxc.TreeViewItemInvokedEventArgs e)
+        private async void CategoriesTree_ItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs e)
         {
-            muxc.TreeViewNode selected = (muxc.TreeViewNode)e.InvokedItem;
+            TreeViewNode selected = (TreeViewNode)e.InvokedItem;
 
             if (selected.Content.GetType() == typeof(SearchableTreeNode))
             {
@@ -248,11 +252,11 @@ namespace ArcGISRuntime.WinUI.Viewer
         protected override DataTemplate SelectTemplateCore(object item)
         {
             // Select the correct template to display the text for the node in the treeview.
-            if (((muxc.TreeViewNode)item).Content.GetType() == typeof(SearchableTreeNode))
+            if (((TreeViewNode)item).Content.GetType() == typeof(SearchableTreeNode))
             {
                 return CategoryTemplate;
             }
-            else if (((muxc.TreeViewNode)item).Content.GetType() == typeof(SampleInfo))
+            else if (((TreeViewNode)item).Content.GetType() == typeof(SampleInfo))
             {
                 return SampleTemplate;
             }

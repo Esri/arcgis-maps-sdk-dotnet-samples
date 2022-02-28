@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRgbRenderer
         description: "Apply an RGB renderer to a raster layer to enhance feature visibility.",
         instructions: "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and select the 'Update' button to update the renderer.",
         tags: new[] { "analysis", "color", "composite", "imagery", "multiband", "multispectral", "pan-sharpen", "photograph", "raster", "spectrum", "stretch", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterRgbRenderer
     {
         // A reference to the raster layer to render.
@@ -40,7 +40,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRgbRenderer
         private async void Initialize()
         {
             // Create a map with a streets basemap.
-            Map map = new Map(Basemap.CreateStreets());
+            Map map = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the file name for the local raster dataset.
             string filepath = GetRasterPath();
@@ -134,6 +134,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRgbRenderer
                     // Create a new MinMaxStretchParameters with the values.
                     stretchParameters = new MinMaxStretchParameters(minValues, maxValues);
                     break;
+
                 case "Percent Clip":
                     // Get the percentile cutoff below which values in the raster dataset are to be clipped.
                     double minimumPercent = MinimumValueSlider.Value;
@@ -144,6 +145,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRgbRenderer
                     // Create a new PercentClipStretchParameters with the inputs.
                     stretchParameters = new PercentClipStretchParameters(minimumPercent, maximumPercent);
                     break;
+
                 case "Standard Deviation":
                     // Read the standard deviation factor (the number of standard deviations used to define the range of pixel values).
                     double standardDeviationFactor = Convert.ToDouble(StdDeviationFactorComboBox.SelectedValue);
@@ -174,9 +176,11 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRgbRenderer
                 case "Min Max":
                     MinMaxParametersGrid.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     break;
+
                 case "Percent Clip":
                     PercentClipParametersGrid.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     break;
+
                 case "Standard Deviation":
                     StdDeviationParametersGrid.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     break;

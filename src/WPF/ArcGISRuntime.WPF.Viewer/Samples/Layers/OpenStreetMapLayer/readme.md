@@ -21,7 +21,7 @@ When the sample opens, it will automatically display the map with the OpenStreet
 ## Relevant API
 
 * Basemap
-* Basemap.CreateOpenStreetMap
+* BasemapStyle.OSMStandard
 * Map
 * MapView
 * OpenStreetMapLayer

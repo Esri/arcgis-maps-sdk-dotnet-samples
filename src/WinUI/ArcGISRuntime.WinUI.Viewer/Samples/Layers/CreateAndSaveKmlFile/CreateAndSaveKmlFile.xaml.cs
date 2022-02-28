@@ -48,7 +48,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
         private void Initialize()
         {
             // Create the map.
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Set the images for the point icon picker.
             List<string> iconLinks = new List<string>()

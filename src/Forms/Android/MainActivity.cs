@@ -38,21 +38,25 @@ namespace ArcGISRuntime.Droid
             LoadApplication(new App());
         }
 
-        #region LocationDisplay
+        #region Permissions
 
         private const int LocationPermissionRequestCode = 99;
         private const int LocationRequesNoMap = 97;
 
+        private const int CameraPermissionRequestCode = 100;
+
         private Esri.ArcGISRuntime.Xamarin.Forms.MapView _lastUsedMapView;
-        private TaskCompletionSource<bool> _permissionTCS;
+        private TaskCompletionSource<bool> _locationPermissionTCS;
+
+        private TaskCompletionSource<bool> _cameraPermissionTCS;
 
         public async Task<bool> AskForLocationPermission()
         {
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
-                _permissionTCS = new TaskCompletionSource<bool>();
-                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation }, LocationRequesNoMap);
-                return await _permissionTCS.Task;
+                _locationPermissionTCS = new TaskCompletionSource<bool>();
+                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation }, LocationRequesNoMap);
+                return await _locationPermissionTCS.Task;
             }
             return true;
         }
@@ -67,7 +71,7 @@ namespace ArcGISRuntime.Droid
             {
                 // Show the standard permission dialog.
                 // Once the user has accepted or denied, OnRequestPermissionsResult is called with the result.
-                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation }, LocationPermissionRequestCode);
+                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation }, LocationPermissionRequestCode);
             }
             else
             {
@@ -85,12 +89,23 @@ namespace ArcGISRuntime.Droid
             }
         }
 
+        public async Task<bool> AskForCameraPermission()
+        {
+            if (ContextCompat.CheckSelfPermission(this, CameraService) != Permission.Granted)
+            {
+                _cameraPermissionTCS = new TaskCompletionSource<bool>();
+                RequestPermissions(new[] { Manifest.Permission.Camera }, CameraPermissionRequestCode);
+                return await _cameraPermissionTCS.Task;
+            }
+            return true;
+        }
+
         public override async void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             if (requestCode == LocationPermissionRequestCode)
             {
                 // If the permissions were granted, enable location.
-                if (grantResults.Length == 1 && grantResults[0] == Permission.Granted && _lastUsedMapView != null)
+                if ((grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted)) && _lastUsedMapView != null)
                 {
                     System.Diagnostics.Debug.WriteLine("User affirmatively gave permission to use location. Enabling location.");
                     try
@@ -115,13 +130,17 @@ namespace ArcGISRuntime.Droid
             }
             else if (requestCode == LocationRequesNoMap)
             {
-                _permissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
+                _locationPermissionTCS.TrySetResult(grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted));
+            }
+            else if(requestCode == CameraPermissionRequestCode)
+            {
+                _cameraPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
             }
         }
 
-        private void ShowMessage(string message, string title = "Error") => new AlertDialog.Builder(this).SetTitle(title).SetMessage(message).Show();
+        #endregion Permissions
 
-        #endregion LocationDisplay
+        private void ShowMessage(string message, string title = "Error") => new AlertDialog.Builder(this).SetTitle(title).SetMessage(message).Show();
 
         public static void SyncAssets(string assetFolder, string targetDir)
         {

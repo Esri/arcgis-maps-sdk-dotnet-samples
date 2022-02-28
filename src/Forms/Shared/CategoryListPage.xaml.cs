@@ -21,7 +21,7 @@ using Xamarin.Forms;
 
 #if XAMARIN_ANDROID
 using Google.AR.Core;
-using Google.AR.Core.Exceptions;
+using ArcGISRuntime.Droid;
 #endif
 
 namespace ArcGISRuntime
@@ -74,6 +74,24 @@ namespace ArcGISRuntime
             var sample = e.Item as SampleInfo;
             if (category != null)
             {
+#if XAMARIN_ANDROID
+                // Check if Android device is AR compatible.
+                if (category.Name == "Augmented reality")
+                {
+                    bool arCompatible = await ViewModel.CheckARAndroid();
+                    if (!arCompatible)
+                    {
+                        // Inform user AR is not supported.
+                        await Application.Current.MainPage.DisplayAlert("Augmented reality not supported", "Camera permissions are required for use of augmented reality.", "OK");
+
+                        // Remove AR from categories view.
+                        SampleCategoriesList.ItemsSource = null;
+                        SampleCategoriesList.ItemsSource = ViewModel.SampleCategories;
+                        return;
+                    }
+                }
+#endif
+
                 // Navigate to the listing page for the category.
                 await Navigation.PushAsync(new SampleListPage(category.Name));
             }
@@ -103,18 +121,23 @@ namespace ArcGISRuntime
         {
             SampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
             _allSamples = SampleManager.Current.AllSamples.ToList();
+        }
 
 #if XAMARIN_ANDROID
+        public async Task<bool> CheckARAndroid()
+        {
             // Remove AR category if device does not support AR.
             bool arCompatible;
             try
             {
+                await MainActivity.Instance.AskForCameraPermission();
+
                 var arSession = new Session(Android.App.Application.Context);
                 arCompatible = true;
             }
-            catch (UnavailableException ex)
+            catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"{ex.GetType().Name} {ex.Message}");
                 arCompatible = false;
             }
 
@@ -122,9 +145,11 @@ namespace ArcGISRuntime
             {
                 SampleCategories.RemoveAll(category => category.Name == "Augmented reality");
                 _allSamples.RemoveAll(sample => sample.Category == "Augmented reality");
+                OnPropertyChanged(nameof(SampleCategories));
             }
-#endif
+            return arCompatible;    
         }
+#endif
 
         public string SearchQuery
         {

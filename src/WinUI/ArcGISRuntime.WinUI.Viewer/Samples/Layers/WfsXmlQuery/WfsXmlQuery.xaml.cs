@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -44,8 +44,8 @@ namespace ArcGISRuntime.WinUI.Samples.WfsXmlQuery
 
         // Constants for the table name and URL.
         private const string TableUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
-        
-        // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name. 
+
+        // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name.
         private const string LayerName = "Seattle_Downtown_Features:Trees";
 
         public WfsXmlQuery()
@@ -57,7 +57,7 @@ namespace ArcGISRuntime.WinUI.Samples.WfsXmlQuery
         private async void Initialize()
         {
             // Create the map with basemap.
-            MyMapView.Map = new Map(Basemap.CreateNavigationVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
             try
             {

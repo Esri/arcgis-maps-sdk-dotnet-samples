@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WinUI.Samples.WmsServiceCatalog
         private async void Initialize()
         {
             // Apply an imagery basemap to the map.
-            MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the WMS Service.
             WmsService service = new WmsService(_wmsUrl);

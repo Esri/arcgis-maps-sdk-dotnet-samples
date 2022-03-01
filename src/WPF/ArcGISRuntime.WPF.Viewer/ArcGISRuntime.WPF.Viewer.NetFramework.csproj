@@ -148,6 +148,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml.cs">
+      <DependentUpon>BrowseBuildingFloors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\LocationWithNMEA\LocationWithNMEA.xaml.cs">
+      <DependentUpon>LocationWithNMEA.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\ArcGISLoginPrompt.cs" />
     <Compile Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.xaml.cs">
       <DependentUpon>LocationDrivenGeotriggers.xaml</DependentUpon>
@@ -771,6 +777,14 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Location\LocationWithNMEA\LocationWithNMEA.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1602,6 +1616,12 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\LocationWithNMEA\LocationWithNMEA.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

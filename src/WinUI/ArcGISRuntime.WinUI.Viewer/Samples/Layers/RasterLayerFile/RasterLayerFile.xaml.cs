@@ -21,7 +21,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterLayerFile
         description: "Create and use a raster layer made from a local raster file.",
         instructions: "When the sample starts, a raster will be loaded from a file and displayed in the map view.",
         tags: new[] { "data", "image", "import", "layer", "raster", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterLayerFile
     {
         public RasterLayerFile()
@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterLayerFile
         private async void Initialize()
         {
             // Add an imagery basemap
-            Map myMap = new Map(Basemap.CreateImagery());
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Get the file name
             string filepath = GetRasterPath();

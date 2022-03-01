@@ -13,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
 {
@@ -22,7 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
         category: "Layers",
         description: "Identify features in a scene to select.",
         instructions: "Click on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.",
-        tags: new[] { "3D", "Berlin", "buildings", "identify", "model", "query", "search", "select" })]
+        tags: new[] { "3D", "Brest", "buildings", "identify", "model", "query", "search", "select" })]
     public partial class SceneLayerSelection
     {
         public SceneLayerSelection()
@@ -31,10 +30,10 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
-            // Create a new Scene with an imagery basemap.
-            Scene scene = new Scene(BasemapStyle.ArcGISImageryStandard);
+            // Create a new Scene with a topographic basemap.
+            Scene scene = new Scene(BasemapStyle.ArcGISTopographic);
 
             // Add a base surface with elevation data.
             Surface elevationSurface = new Surface();
@@ -43,7 +42,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             scene.BaseSurface = elevationSurface;
 
             // Add a scene layer.
-            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Berlin/SceneServer");
+            Uri buildingsService = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
             ArcGISSceneLayer buildingsLayer = new ArcGISSceneLayer(buildingsService);
             scene.OperationalLayers.Add(buildingsLayer);
 
@@ -53,9 +52,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
             try
             {
                 // Create a camera with an interesting view.
-                await buildingsLayer.LoadAsync();
-                MapPoint center = (MapPoint)GeometryEngine.Project(buildingsLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
-                Camera viewCamera = new Camera(center.Y, center.X, 600, 120, 60, 0);
+                Camera viewCamera = new Camera(48.378, -4.494, 200, 345, 65, 0);
 
                 // Set the viewpoint with the camera.
                 MySceneView.SetViewpointCamera(viewCamera);
@@ -69,7 +66,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
         private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
-            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer) MySceneView.Scene.OperationalLayers.First();
+            ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer)MySceneView.Scene.OperationalLayers.First();
 
             // Clear any existing selection.
             sceneLayer.ClearSelection();
@@ -90,7 +87,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
                     if (geoElement != null)
                     {
                         // Select the feature to highlight it in the scene view.
-                        sceneLayer.SelectFeature((Feature) geoElement);
+                        sceneLayer.SelectFeature((Feature)geoElement);
                     }
                 }
             }

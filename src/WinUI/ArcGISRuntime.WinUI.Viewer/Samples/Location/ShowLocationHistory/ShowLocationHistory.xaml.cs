@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.ShowLocationHistory
             Unloaded += SampleUnloaded;
 
             // Create new Map with basemap.
-            Map myMap = new Map(Basemap.CreateDarkGrayCanvasVector());
+            Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Display the map.
             MyMapView.Map = myMap;

@@ -21,7 +21,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerShapefile
         description: "Open a shapefile stored on the device and display it as a feature layer with default symbology.",
         instructions: "Pan and zoom around the map to observe the data from the shapefile.",
         tags: new[] { "layers", "shapefile", "shp", "vector" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class FeatureLayerShapefile
     {
         public FeatureLayerShapefile()
@@ -35,7 +35,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerShapefile
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            MyMapView.Map = new Map(Basemap.CreateStreetsVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the path to the downloaded shapefile
             string filepath = GetShapefilePath();

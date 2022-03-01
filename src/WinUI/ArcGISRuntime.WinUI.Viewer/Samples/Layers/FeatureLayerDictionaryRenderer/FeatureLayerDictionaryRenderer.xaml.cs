@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDictionaryRenderer
         description: "Convert features into graphics to show them with mil2525d symbols.",
         instructions: "Pan and zoom around the map. Observe the displayed military symbology on the map.",
         tags: new[] { "military", "symbol" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
     public partial class FeatureLayerDictionaryRenderer
     {
         public FeatureLayerDictionaryRenderer()
@@ -37,11 +37,11 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDictionaryRenderer
         private async void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Provide Map to the MapView
             MyMapView.Map = myMap;
-            
+
             // Get the path to the geodatabase
             string geodbFilePath = GetGeodatabasePath();
 
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDictionaryRenderer
                     // Add the layer to the map
                     myMap.OperationalLayers.Add(myLayer);
                 }
-                    
+
                 // Create geometry for the center of the map
                 MapPoint centerGeometry = new MapPoint(-13549402.587055, 4397264.96879385, SpatialReference.Create(3857));
 

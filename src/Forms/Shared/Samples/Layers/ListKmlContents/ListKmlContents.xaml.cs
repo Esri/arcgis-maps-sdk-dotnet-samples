@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using System;
@@ -40,7 +40,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         private async void Initialize()
         {
             // Add a basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
             MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
             // Get the URL to the data.
@@ -78,7 +78,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         private void LayerTreeView_OnSelectionChanged(object sender, SelectedItemChangedEventArgs e)
         {
             // Get the KML node.
-            LayerDisplayVM selectedItem = (LayerDisplayVM) e.SelectedItem;
+            LayerDisplayVM selectedItem = (LayerDisplayVM)e.SelectedItem;
 
             NavigateToNode(selectedItem.Node);
         }
@@ -122,9 +122,11 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
                     case KmlViewpointType.LookAt:
                         return new Viewpoint(kvp.Location,
                             new Camera(kvp.Location, kvp.Range, kvp.Heading, kvp.Pitch, kvp.Roll));
+
                     case KmlViewpointType.Camera:
                         return new Viewpoint(kvp.Location,
                             new Camera(kvp.Location, kvp.Heading, kvp.Pitch, kvp.Roll));
+
                     default:
                         throw new InvalidOperationException("Unexpected KmlViewPointType: " + kvp.Type);
                 }

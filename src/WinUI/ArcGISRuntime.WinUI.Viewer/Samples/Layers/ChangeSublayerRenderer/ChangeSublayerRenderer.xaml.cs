@@ -38,19 +38,19 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeSublayerRenderer
         private void Initialize()
         {
             // Create a new map based on the streets base map.
-            Map newMap = new Map(Basemap.CreateStreets());
+            Map newMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create an envelope that covers the continental US in the web Mercator spatial reference.
-            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925 , SpatialReferences.WebMercator);
+            Envelope continentalUSEnvelope = new Envelope(-14193469.5655232, 2509617.28647268, -7228772.04749191, 6737139.97573925, SpatialReferences.WebMercator);
 
             // Zoom the map to the extent of the envelope.
-            newMap.InitialViewpoint = new  Viewpoint(continentalUSEnvelope);
+            newMap.InitialViewpoint = new Viewpoint(continentalUSEnvelope);
 
             // Assign the map to the MapView.
             MyMapView.Map = newMap;
 
             // Create an ArcGIS map image layer based on the Uri to that points to an ArcGIS Server map service that contains four Census sub-layers.
-            // NOTE: sub-layer[0] = Census Block Points, sub-layer[1] = Census Block Group, sub-layer[3] = Counties, sub-layer[3] = States. 
+            // NOTE: sub-layer[0] = Census Block Points, sub-layer[1] = Census Block Group, sub-layer[3] = Counties, sub-layer[3] = States.
             _arcGISMapImageLayer = new ArcGISMapImageLayer(new System.Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"));
 
             // Add the ArcGIS map image layer to the map's operation layers collection.
@@ -100,6 +100,5 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeSublayerRenderer
             // Disable the button after has been used.
             ChangeSublayerRendererButton.IsEnabled = false;
         }
-
     }
 }

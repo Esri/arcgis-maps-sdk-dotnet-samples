@@ -42,7 +42,7 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyKmlFeatures
         private void Initialize()
         {
             // Set up the basemap.
-            MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the dataset.
             KmlDataset dataset = new KmlDataset(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx_latest.kml"));
@@ -59,6 +59,7 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyKmlFeatures
             // Listen for taps to identify features.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
+
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Clear any existing popups.

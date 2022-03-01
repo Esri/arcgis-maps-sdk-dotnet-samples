@@ -13,7 +13,7 @@
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+        "Esri.ArcGISRuntime.WinUI": "100.13.0"
     },
     "offline_data": [
         "d9f8ce6f6ac84b90a665a861d71a5d0a",

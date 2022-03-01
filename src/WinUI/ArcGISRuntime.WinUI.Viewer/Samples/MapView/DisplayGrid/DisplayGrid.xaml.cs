@@ -37,7 +37,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayGrid
         private void Initialize()
         {
             // Set up the map view with a basemap.
-            MyMapView.Map = new Map(Basemap.CreateImageryWithLabelsVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
             // Configure the UI options.
             gridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };

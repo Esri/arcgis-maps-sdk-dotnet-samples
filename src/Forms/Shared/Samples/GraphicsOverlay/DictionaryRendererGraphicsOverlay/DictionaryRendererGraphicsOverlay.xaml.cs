@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -16,18 +16,19 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Graphics overlay (dictionary renderer)",
+        name: "Dictionary renderer with graphics overlay",
         category: "GraphicsOverlay",
-        description: "This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.",
+        description: "Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.",
         instructions: "Pan and zoom to explore military symbols on the map.",
         tags: new[] { "defense", "military", "situational awareness", "tactical", "visualization" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "1e4ea99af4b440c092e7959cf3957bfa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1e4ea99af4b440c092e7959cf3957bfa")]
     public partial class DictionaryRendererGraphicsOverlay : ContentPage
     {
         // Hold a reference to the graphics overlay for easy access.
@@ -36,10 +37,10 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
         public DictionaryRendererGraphicsOverlay()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -52,14 +53,20 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
                 // Prevent graphics from showing up when zoomed too far out.
                 _tacticalMessageOverlay.MinScale = 1000000;
 
-                // Create a symbol dictionary style following the mil2525d spec.
-                string symbolFilePath = DataManager.GetDataFolder("c78b149a1d52414682c86a5feeb13d30", "mil2525d.stylx");
-                DictionarySymbolStyle mil2525DStyle = await DictionarySymbolStyle.CreateFromFileAsync(symbolFilePath);
+                // Create the dictionary symbol style from the Joint Military Symbology MIL-STD-2525D portal item.
+                var symbolStyleUri = new Uri("https://www.arcgis.com/home/item.html?id=d815f3bdf6e6452bb8fd153b654c94ca");
+                DictionarySymbolStyle dictionarySymbolStyle = await DictionarySymbolStyle.OpenAsync(symbolStyleUri);
 
-                // Use the dictionary symbol style to render graphics in the overlay.
-                _tacticalMessageOverlay.Renderer = new DictionaryRenderer(mil2525DStyle);
+                // Find the first configuration setting which has the property name "model", and set its value to "ORDERED ANCHOR POINT".
+                if (dictionarySymbolStyle?.Configurations?.FirstOrDefault(config => config.Name == "model") is DictionarySymbolStyleConfiguration configuration)
+                {
+                    configuration.Value = "ORDERED ANCHOR POINT";
+                }
 
-                // Load the military messages and render them.
+                // Create a new dictionary renderer from the dictionary symbol style to render graphics with symbol dictionary attributes and set it to the graphics overlay renderer.
+                _tacticalMessageOverlay.Renderer = new DictionaryRenderer(dictionarySymbolStyle);
+
+                // Parse graphic attributes from an XML file following the mil2525d specification.
                 LoadMilitaryMessages();
 
                 // Get the extent of the graphics.
@@ -68,10 +75,9 @@ namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
                 // Zoom to the extent of the graphics.
                 await MyMapView.SetViewpointGeometryAsync(graphicExtent, 10);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e);
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

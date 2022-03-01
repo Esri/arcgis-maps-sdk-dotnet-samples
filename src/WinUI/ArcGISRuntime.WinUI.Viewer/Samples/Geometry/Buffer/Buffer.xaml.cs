@@ -30,7 +30,6 @@ namespace ArcGISRuntime.WinUI.Samples.Buffer
         {
             InitializeComponent();
 
-
             // Initialize the map and graphics overlays.
             Initialize();
         }
@@ -38,17 +37,17 @@ namespace ArcGISRuntime.WinUI.Samples.Buffer
         private void Initialize()
         {
             // Create a map with a topographic basemap and add it to the map view.
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Handle the MapView's GeoViewTapped event to create buffers.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Create a fill symbol for geodesic buffer polygons.            
+            // Create a fill symbol for geodesic buffer polygons.
             System.Drawing.Color geodesicBufferColor = System.Drawing.Color.FromArgb(120, 255, 0, 0);
             SimpleLineSymbol geodesicOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, geodesicBufferColor, 2);
             SimpleFillSymbol geodesicBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, geodesicBufferColor, geodesicOutlineSymbol);
 
-            // Create a fill symbol for planar buffer polygons.            
+            // Create a fill symbol for planar buffer polygons.
             System.Drawing.Color planarBufferColor = System.Drawing.Color.FromArgb(120, 0, 0, 255);
             SimpleLineSymbol planarOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, planarBufferColor, 2);
             SimpleFillSymbol planarBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, planarBufferColor, planarOutlineSymbol);

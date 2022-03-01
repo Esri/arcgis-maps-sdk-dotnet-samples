@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
         private void Initialize()
         {
             // Create the map with streets basemap.
-            MyMapView.Map = new Map(Basemap.CreateStreets());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Create the feature table, referring to the Damage Assessment feature service.
             ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
@@ -93,7 +93,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
 
                 // Get the selected feature as an ArcGISFeature. It is assumed that all GeoElements in the result are of type ArcGISFeature.
                 GeoElement tappedElement = identifyResult.GeoElements.First();
-                ArcGISFeature tappedFeature = (ArcGISFeature) tappedElement;
+                ArcGISFeature tappedFeature = (ArcGISFeature)tappedElement;
 
                 // Select the feature in the UI and hold a reference to the tapped feature in a field.
                 _damageLayer.SelectFeature(tappedFeature);
@@ -159,7 +159,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
                 await _selectedFeature.AddAttachmentAsync(file.Name, contentType, attachmentData);
 
                 // Get a reference to the feature's service feature table.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
 
                 // Apply the edits to the service feature table.
                 await serviceTable.ApplyEditsAsync();
@@ -189,16 +189,16 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
             try
             {
                 // Get a reference to the button that raised the event.
-                Button sendingButton = (Button) sender;
+                Button sendingButton = (Button)sender;
 
                 // Get the attachment from the button's DataContext. The button's DataContext is set by the list box.
-                Attachment selectedAttachment = (Attachment) sendingButton.DataContext;
+                Attachment selectedAttachment = (Attachment)sendingButton.DataContext;
 
                 // Delete the attachment.
                 await _selectedFeature.DeleteAttachmentAsync(selectedAttachment);
 
                 // Get a reference to the feature's service feature table.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
 
                 // Apply the edits to the service feature table.
                 await serviceTable.ApplyEditsAsync();
@@ -225,15 +225,15 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
             try
             {
                 // Get the attachment that should be downloaded.
-                Button sendingButton = (Button) sender;
-                Attachment selectedAttachment = (Attachment) sendingButton.DataContext;
+                Button sendingButton = (Button)sender;
+                Attachment selectedAttachment = (Attachment)sendingButton.DataContext;
 
                 // Show a file dialog.
                 // Allow the user to specify a file path - create the dialog.
                 var savePicker = new FileSavePicker();
                 WinRT.Interop.InitializeWithWindow.Initialize(savePicker, App.CurrentWindowHandle);
                 savePicker.SuggestedStartLocation = PickerLocationId.Downloads;
-                savePicker.FileTypeChoices.Add(selectedAttachment.ContentType, new List<string> {".jpeg", ".jpg"});
+                savePicker.FileTypeChoices.Add(selectedAttachment.ContentType, new List<string> { ".jpeg", ".jpg" });
                 savePicker.SuggestedFileName = selectedAttachment.Name;
 
                 // Show the dialog and get a file to write to.

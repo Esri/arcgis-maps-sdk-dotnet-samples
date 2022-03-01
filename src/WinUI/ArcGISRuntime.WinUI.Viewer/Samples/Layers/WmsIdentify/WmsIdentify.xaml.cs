@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WinUI.Samples.WmsIdentify
             "https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Create and hold a list of uniquely-identifying WMS layer names to display.
-        private readonly List<string> _wmsLayerNames = new List<string> {"4"};
+        private readonly List<string> _wmsLayerNames = new List<string> { "4" };
 
         // Hold the WMS layer.
         private WmsLayer _wmsLayer;
@@ -47,7 +47,7 @@ namespace ArcGISRuntime.WinUI.Samples.WmsIdentify
         private async void Initialize()
         {
             // Apply an imagery basemap to the map.
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Create a new WMS layer displaying the specified layers from the service.
             _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
@@ -89,7 +89,7 @@ namespace ArcGISRuntime.WinUI.Samples.WmsIdentify
                 }
 
                 // Retrieve the identified feature, which is always a WmsFeature for WMS layers.
-                WmsFeature identifiedFeature = (WmsFeature) myIdentifyResult.GeoElements[0];
+                WmsFeature identifiedFeature = (WmsFeature)myIdentifyResult.GeoElements[0];
 
                 // Retrieve the WmsFeature's HTML content.
                 string htmlContent = identifiedFeature.Attributes["HTML"].ToString();

@@ -21,7 +21,7 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
         category: "GraphicsOverlay",
         description: "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.",
         instructions: "Pan and zoom on the map to view graphics for points, lines, and polygons (including polygons with curve segments) which are stylized using renderers.",
-        tags: new[] { "arc", "bezier", "curve", "display", "graphics", "marker", "overlay", "renderer", "segment", "symbol", "true curve", "Featured" })]
+        tags: new[] { "arc", "bezier", "curve", "display", "ellipse", "graphics", "marker", "overlay", "renderer", "segment", "symbol", "true curve", "Featured" })]
     public partial class AddGraphicsRenderer
     {
         public AddGraphicsRenderer()
@@ -42,7 +42,30 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
                 MakeLineGraphicsOverlay(),
                 MakeSquareGraphicsOverlay(),
                 MakeCurvedGraphicsOverlay(),
+                MakeEllipseGraphicsOverlay()
             });
+        }
+
+        private GraphicsOverlay MakeEllipseGraphicsOverlay()
+        {
+            // Create a simple fill symbol with outline.
+            SimpleLineSymbol curvedLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Purple, 1);
+            SimpleFillSymbol curvedFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.Purple, curvedLineSymbol);
+
+            // Create a graphics overlay for the polygons with curve segments.
+            GraphicsOverlay ellipseGraphicsOverlay = new GraphicsOverlay();
+
+            // Create and assign a simple renderer to the graphics overlay.
+            ellipseGraphicsOverlay.Renderer = new SimpleRenderer(curvedFillSymbol);
+
+            // Create the polygon geometry, then create a graphic using that polygon.
+            Polygon ellipse = MakeEllipseGeometry();
+            Graphic ellipseGraphic = new Graphic(ellipse);
+
+            // Add the graphic to the graphics overlay.
+            ellipseGraphicsOverlay.Graphics.Add(ellipseGraphic);
+
+            return ellipseGraphicsOverlay;
         }
 
         private GraphicsOverlay MakePointGraphicsOverlay()
@@ -177,6 +200,28 @@ namespace ArcGISRuntime.WPF.Samples.AddGraphicsRenderer
             PolygonBuilder builder = new PolygonBuilder(spatialReference);
             builder.AddPart(newPart);
             return builder.ToGeometry();
+        }
+
+        private Polygon MakeEllipseGeometry()
+        {
+            // Creates a GeodesicEllipseParameters object to use for GeometryEngine.EllipseGeodesic method.
+            GeodesicEllipseParameters parameters = new GeodesicEllipseParameters
+            {
+                Center = new MapPoint(70e5, 10e5, SpatialReferences.WebMercator),
+                GeometryType = GeometryType.Polygon,
+                SemiAxis1Length = 1000,
+                SemiAxis2Length = 2000,
+                AxisDirection = 45,
+                MaxPointCount = 100,
+                // Angular unit is degrees by default.
+                AngularUnit = AngularUnits.Degrees,
+                // Linear unit is meters by default.
+                LinearUnit = LinearUnits.Kilometers,
+                MaxSegmentLength = 20
+            };
+
+            Polygon ellipsePoly = (Polygon)GeometryEngine.EllipseGeodesic(parameters);
+            return ellipsePoly;
         }
     }
 }

@@ -25,17 +25,14 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBasemap
         // Dictionary that associates names with basemaps.
         private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
         {
-            {"Streets (Raster)", Basemap.CreateStreets()},
-            {"Streets (Vector)", Basemap.CreateStreetsVector()},
-            {"Streets - Night (Vector)", Basemap.CreateStreetsNightVector()},
-            {"Imagery (Raster)", Basemap.CreateImagery()},
-            {"Imagery with Labels (Raster)", Basemap.CreateImageryWithLabels()},
-            {"Imagery with Labels (Vector)", Basemap.CreateImageryWithLabelsVector()},
-            {"Dark Gray Canvas (Vector)", Basemap.CreateDarkGrayCanvasVector()},
-            {"Light Gray Canvas (Raster)", Basemap.CreateLightGrayCanvas()},
-            {"Light Gray Canvas (Vector)", Basemap.CreateLightGrayCanvasVector()},
-            {"Navigation (Vector)", Basemap.CreateNavigationVector()},
-            {"OpenStreetMap (Raster)", Basemap.CreateOpenStreetMap()}
+            {"Streets", new Basemap(BasemapStyle.ArcGISStreets)},
+            {"Streets - Night", new Basemap(BasemapStyle.ArcGISStreetsNight)},
+            {"Imagery", new Basemap(BasemapStyle.ArcGISImageryStandard)},
+            {"Imagery with Labels", new Basemap(BasemapStyle.ArcGISImagery)},
+            {"Dark Gray Canvas", new Basemap(BasemapStyle.ArcGISDarkGray)},
+            {"Light Gray Canvas", new Basemap(BasemapStyle.ArcGISLightGray)},
+            {"Navigation", new Basemap(BasemapStyle.ArcGISNavigation)},
+            {"OpenStreetMap", new Basemap(BasemapStyle.OSMStandard)}
         };
 
         public ChangeBasemap()

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         description: "Show a line of sight between two moving objects.",
         instructions: "A line of sight will display between a point on the Empire State Building (observer) and a taxi (target).",
         tags: new[] { "3D", "line of sight", "visibility", "visibility analysis" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class LineOfSightGeoElement
     {
         // URL of the elevation service - provides elevation component of the scene
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
         private async void Initialize()
         {
             // Create scene
-            Scene myScene = new Scene(Basemap.CreateImageryWithLabels())
+            Scene myScene = new Scene(BasemapStyle.ArcGISImagery)
             {
                 // Set initial viewpoint
                 InitialViewpoint = new Viewpoint(_observerPoint, 1600)

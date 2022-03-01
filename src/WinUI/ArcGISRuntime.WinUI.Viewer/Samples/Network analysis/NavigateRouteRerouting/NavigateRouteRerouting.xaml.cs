@@ -80,7 +80,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
                 Unloaded += SampleUnloaded;
 
                 // Create the map view.
-                MyMapView.Map = new Map(Basemap.CreateNavigationVector());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
                 // Create the route task, using the routing service.
                 _routeTask = await RouteTask.CreateAsync(_networkGeodatabasePath, "Streets_ND");

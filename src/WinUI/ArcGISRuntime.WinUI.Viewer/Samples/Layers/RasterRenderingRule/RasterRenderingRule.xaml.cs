@@ -43,7 +43,7 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRenderingRule
         private async void Initialize()
         {
             // Assign a new map to the MapView
-            MyMapView.Map = new Map(Basemap.CreateStreets());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Create a new image service raster from the Uri
             ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_imageServerUri);
@@ -107,7 +107,6 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRenderingRule
                     // Create a new image service raster
                     ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_imageServerUri)
                     {
-
                         // Set the image service raster's rendering rule to the rendering rule created earlier
                         RenderingRule = myRenderingRule
                     };

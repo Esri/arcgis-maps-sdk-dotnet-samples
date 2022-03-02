@@ -40,7 +40,7 @@ Data will be downloaded by the sample viewer automatically.
 
 ## About the data
 
-This sample uses a custom tour created by a member of the ArcGIS Runtime SDK samples team. When you play the tour, you'll see a narrated journey through some of Esri's offices.
+This sample uses a custom tour created by a member of the ArcGIS Runtime API samples team. When you play the tour, you'll see a narrated journey through some of Esri's offices.
 
 ## Additional information
 

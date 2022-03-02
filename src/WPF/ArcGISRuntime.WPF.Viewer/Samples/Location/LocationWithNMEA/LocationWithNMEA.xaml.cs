@@ -81,10 +81,10 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
 
         private void UpdateNmeaMessageLabel(object sender, NmeaMessageEventArgs e)
         {
-            Dispatcher.BeginInvoke(delegate ()
+            Dispatcher.BeginInvoke(new Action(() =>
             {
                 NmeaMessageLabel.Content = e.NmeaMessage;
-            });
+            }));
         }
 
         private void SatellitesChanged(object sender, IReadOnlyList<NmeaSatelliteInfo> infos)
@@ -99,25 +99,25 @@ namespace ArcGISRuntime.WPF.Samples.LocationWithNMEA
                 uniqueSatelliteIds.Add(info.Id);
             }
 
-            Dispatcher.BeginInvoke(delegate ()
+            Dispatcher.BeginInvoke(new Action(() =>
             {
                 // Show the status information in the UI.
                 CountLabel.Content = $"Satellite count: {infos.Count}";
                 SatellitesLabel.Content = $"Satellites: {string.Join(", ", uniqueSatelliteIds)}";
                 SystemLabel.Content = $"System: {infos.First().System}";
-            });
+            }));
         }
 
         private void LocationChanged(object sender, Location loc)
         {
-            Dispatcher.BeginInvoke(delegate ()
+            Dispatcher.BeginInvoke(new Action(() =>
             {
                 // Show the status information in the UI.
                 AccuracyLabel.Content = $"Accuracy: Horizontal {string.Format("{0:0.00}", loc.HorizontalAccuracy)} meters, Vertical  {string.Format("{0:0.00}", loc.VerticalAccuracy)} meters";
 
                 // Recenter on the new location.
                 MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-            });
+            }));
         }
 
         private void StartClick(object sender, RoutedEventArgs e)

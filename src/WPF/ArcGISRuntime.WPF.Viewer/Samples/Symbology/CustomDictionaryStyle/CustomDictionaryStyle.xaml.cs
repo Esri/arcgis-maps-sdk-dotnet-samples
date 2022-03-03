@@ -47,8 +47,8 @@ namespace ArcGISRuntime.WPF.Samples.CustomDictionaryStyle
         {
             try
             {
-                // Create a new map with a streets basemap.
-                Map map = new Map(BasemapStyle.ArcGISStreets);
+                // Create a new map with a topographic basemap.
+                Map map = new Map(BasemapStyle.ArcGISTopographic);
 
                 // Create the restaurants layer and add it to the map.
                 _restaurantLayer = new FeatureLayer(_restaurantUri);

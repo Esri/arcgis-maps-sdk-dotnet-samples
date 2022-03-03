@@ -1,7 +1,17 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.CustomDictionaryStyle.CustomDictionaryStyle"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
-    <esriUI:MapView x:Name="MyMapView" />
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.CustomDictionaryStyle.CustomDictionaryStyle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Width="290"
+                Height="auto"
+                Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Padding="0,0,0,5" Text="Custom Dictionary Symbol Style Source" />
+                <RadioButton x:Name="LocalStyleButton" Content="Local .stylx file" />
+                <RadioButton x:Name="WebStyleButton" Content="Web style" />
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>

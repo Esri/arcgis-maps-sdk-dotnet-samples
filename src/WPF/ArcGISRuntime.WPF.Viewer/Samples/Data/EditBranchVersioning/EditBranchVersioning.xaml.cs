@@ -205,7 +205,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                     await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
                     // Update the service.
-                    await ((ServiceFeatureTable)_selectedFeature.FeatureTable).ApplyEditsAsync();
+                    await ((ServiceFeatureTable)_selectedFeature.FeatureTable).ServiceGeodatabase.ApplyEditsAsync();
 
                     ShowAlert("Moved feature " + _selectedFeature.Attributes["objectid"]);
                 }
@@ -270,7 +270,7 @@ namespace ArcGISRuntime.WPF.Samples.EditBranchVersioning
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
                 // Update the service.
-                await ((ServiceFeatureTable)_selectedFeature.FeatureTable).ApplyEditsAsync();
+                await ((ServiceFeatureTable)_selectedFeature.FeatureTable).ServiceGeodatabase.ApplyEditsAsync();
 
                 AttributePicker.Visibility = Visibility.Collapsed;
                 ShowAlert("Edited feature " + _selectedFeature.Attributes["objectid"]);

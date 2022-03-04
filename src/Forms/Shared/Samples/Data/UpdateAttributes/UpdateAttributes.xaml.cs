@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -42,13 +42,16 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the map with streets basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
+            ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+            await serviceGeodatabase.LoadAsync();
+
             // Create the feature table, referring to the Damage Assessment feature service.
-            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+            ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
 
             // When the table loads, use it to discover the domain of the typdamage field.
             damageTable.Loaded += DamageTable_Loaded;
@@ -72,11 +75,11 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             Device.BeginInvokeOnMainThread(() =>
             {
                 // Get the relevant field from the table.
-                ServiceFeatureTable table = (ServiceFeatureTable) sender;
+                ServiceFeatureTable table = (ServiceFeatureTable)sender;
                 Field typeDamageField = table.Fields.First(field => field.Name == AttributeFieldName);
 
                 // Get the domain for the field.
-                CodedValueDomain attributeDomain = (CodedValueDomain) typeDamageField.Domain;
+                CodedValueDomain attributeDomain = (CodedValueDomain)typeDamageField.Domain;
 
                 // Update the combobox with the attribute values.
                 DamageTypePicker.ItemsSource = attributeDomain.CodedValues.Select(codedValue => codedValue.Name).ToList();
@@ -158,7 +161,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
                 // Update the service.
-                ServiceFeatureTable table = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await table.ApplyEditsAsync();
 
                 await Application.Current.MainPage.DisplayAlert("Success!", $"Edited feature {_selectedFeature.Attributes["objectid"]}", "OK");

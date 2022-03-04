@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using System;
@@ -36,13 +36,16 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the map with streets basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
+            ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+            await serviceGeodatabase.LoadAsync();
+
             // Create the feature table, referring to the Damage Assessment feature service.
-            _damageFeatureTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+            _damageFeatureTable = serviceGeodatabase.GetTable(0);
 
             // Create a feature layer to visualize the features in the table.
             FeatureLayer damageLayer = new FeatureLayer(_damageFeatureTable);
@@ -62,10 +65,10 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
             try
             {
                 // Create the feature.
-                ArcGISFeature feature = (ArcGISFeature) _damageFeatureTable.CreateFeature();
+                ArcGISFeature feature = (ArcGISFeature)_damageFeatureTable.CreateFeature();
 
                 // Get the normalized geometry for the tapped location and use it as the feature's geometry.
-                MapPoint tappedPoint = (MapPoint) GeometryEngine.NormalizeCentralMeridian(e.Location);
+                MapPoint tappedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
                 feature.Geometry = tappedPoint;
 
                 // Set feature attributes.

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -39,13 +39,16 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the map with streets basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
+            ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+            await serviceGeodatabase.LoadAsync();
+
             // Create the feature table, referring to the Damage Assessment feature service.
-            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+            ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
 
             // Create a feature layer to visualize the features in the table.
             _damageLayer = new FeatureLayer(damageTable);
@@ -81,7 +84,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
                 }
 
                 // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
+                long featureId = (long)identifyResult.GeoElements.First().Attributes["objectid"];
 
                 // Get the feature by constructing a query and running it.
                 QueryParameters qp = new QueryParameters();
@@ -110,7 +113,6 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
 
         private async void DeleteButton_Click(object sender, EventArgs e)
         {
-            
             // Reconfigure the button.
             DeleteButton.IsEnabled = false;
             DeleteButton.Text = "Delete feature";
@@ -127,7 +129,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
                 await _damageLayer.FeatureTable.DeleteFeatureAsync(_tappedFeature);
 
                 // Sync the change with the service.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _damageLayer.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_damageLayer.FeatureTable;
                 await serviceTable.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.

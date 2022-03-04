@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -39,13 +39,16 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the map with streets basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
+            ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+            await serviceGeodatabase.LoadAsync();
+
             // Create the feature table, referring to the Damage Assessment feature service.
-            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+            ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
 
             // Create a feature layer to visualize the features in the table.
             _damageLayer = new FeatureLayer(damageTable);
@@ -83,7 +86,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
                 MapPoint destinationPoint = tapEventDetails.Location;
 
                 // Normalize the point - needed when the tapped location is over the international date line.
-                destinationPoint = (MapPoint) GeometryEngine.NormalizeCentralMeridian(destinationPoint);
+                destinationPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(destinationPoint);
 
                 // Load the feature.
                 await _selectedFeature.LoadAsync();
@@ -95,7 +98,7 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
                 // Push the update to the service.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await serviceTable.ApplyEditsAsync();
                 await Application.Current.MainPage.DisplayAlert("Success!", $"Moved feature {_selectedFeature.Attributes["objectid"]}", "OK");
             }

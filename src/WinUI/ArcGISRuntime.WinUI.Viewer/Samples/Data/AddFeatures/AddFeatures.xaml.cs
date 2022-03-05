@@ -36,13 +36,16 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeatures
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
             // Create the map with streets basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
+            ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+            await serviceGeodatabase.LoadAsync();
+
             // Create the feature table, referring to the Damage Assessment feature service.
-            _damageFeatureTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+            _damageFeatureTable = serviceGeodatabase.GetTable(0);
 
             // Create a feature layer to visualize the features in the table.
             FeatureLayer damageLayer = new FeatureLayer(_damageFeatureTable);

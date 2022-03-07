@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
@@ -41,10 +42,10 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
         public CustomDictionaryStyle()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -74,8 +75,11 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
                 // Set the map to the map view.
                 MyMapView.Map = map;
 
-                // Set the local style button to be clicked.  
-                LocalStyleButton.IsEnabled = true;
+                // Create the dictionary renderer with the style file and the field overrides.
+                DictionaryRenderer dictionaryRenderer = new DictionaryRenderer(_localRestaurantStyle);
+
+                // Set the restaurant layer renderer to the dictionary renderer.
+                _restaurantLayer.Renderer = dictionaryRenderer;
             }
             catch (Exception ex)
             {

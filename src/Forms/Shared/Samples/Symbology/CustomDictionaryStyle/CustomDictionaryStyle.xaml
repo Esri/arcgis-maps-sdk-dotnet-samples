@@ -12,15 +12,15 @@
         <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
         <Label Grid.Row="1"
                Padding="0,0,0,5"
-               Text="Custom Dictionary Symbol Style Source" />
+               Text="Select Dictionary Symbol Style Source" />
         <Button x:Name="LocalStyleButton"
                 Grid.Row="2"
                 Clicked="LocalStyleButtonClicked"
+                IsEnabled="False"
                 Text="Local .stylx file" />
         <Button x:Name="WebStyleButton"
                 Grid.Row="3"
                 Clicked="WebStyleButtonClicked"
-                IsEnabled="False"
                 Text="Web style" />
     </Grid>
 </ContentPage>

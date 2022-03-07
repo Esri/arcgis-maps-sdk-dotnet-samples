@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.CustomDictionaryStyle
 {
@@ -40,10 +41,10 @@ namespace ArcGISRuntime.WinUI.Samples.CustomDictionaryStyle
         public CustomDictionaryStyle()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

@@ -99,6 +99,7 @@
 * [Create and save KML file](Shared/Samples/Layers/CreateAndSaveKmlFile/readme.md) - Construct a KML document and save it as a KMZ file.
 * [Feature collection layer](Shared/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display annotation](Shared/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
+* [Display dimensions](Shared/Samples/Layers/DisplayDimensions/readme.md) - Display dimension features from a mobile map package.
 * [Display KML](Shared/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](Shared/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](Shared/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.

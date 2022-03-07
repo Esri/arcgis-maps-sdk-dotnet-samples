@@ -9,17 +9,28 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="370" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3" />
         <Label Grid.Row="1"
+               Grid.Column="1"
                Padding="0,0,0,5"
                Text="Select Dictionary Symbol Style Source" />
         <Button x:Name="LocalStyleButton"
                 Grid.Row="2"
+                Grid.Column="1"
                 Clicked="LocalStyleButtonClicked"
                 IsEnabled="False"
                 Text="Local .stylx file" />
         <Button x:Name="WebStyleButton"
                 Grid.Row="3"
+                Grid.Column="1"
                 Clicked="WebStyleButtonClicked"
                 Text="Web style" />
     </Grid>

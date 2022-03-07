@@ -27,7 +27,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayOverviewMap
         description: "Include an overview or inset map as an additional map view to show the wider context of the primary view. ",
         instructions: "Pan or zoom across the map view to browse through the tourist attractions feature layer and notice the viewpoint and scale of the linked overview map update automatically. When running the sample on a desktop, you can also navigate by panning and zooming on the overview map. However, interactivity of the overview map is disabled on mobile devices.",
         tags: new[] { "context", "inset", "map", "minimap", "overview", "preview", "small scale", "toolkit", "view" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("97ceed5cfc984b4399e23888f6252856")]
     public partial class DisplayOverviewMap : ContentPage
     {
         // URL to the feature service.
@@ -48,7 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayOverviewMap
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Set the initial map location.
-            MyMapView.Map.InitialViewpoint = new Viewpoint(49.28299, -123.12052, 70000);
+            MyMapView.SetViewpoint(new Viewpoint(49.28299, -123.12052, 70000));
 
             // Create the feature table, referring to the feature service.
             _featureTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
@@ -58,12 +57,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayOverviewMap
 
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(featureLayer);
-
-            // Connect the overview map to the map.
-            MyOverviewMap.GeoView = MyMapView;
-
-            // Set the scale of the overview map relative to the basemap. 
-            MyOverviewMap.ScaleFactor = 10;
         }
     }
 }

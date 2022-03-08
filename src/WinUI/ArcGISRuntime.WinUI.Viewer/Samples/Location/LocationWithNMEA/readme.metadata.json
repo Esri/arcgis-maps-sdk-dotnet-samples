@@ -1,0 +1,39 @@
+{
+    "category": "Location",
+    "description": "Parse NMEA sentences and use the results to show device location on the map.",
+    "formal_name": "LocationWithNMEA",
+    "ignore": false,
+    "images": [
+        "LocationWithNMEA.jpg"
+    ],
+    "keywords": [
+        "GNSS",
+        "GPS",
+        "NMEA",
+        "RTK",
+        "dongle",
+        "history",
+        "navigation",
+        "real-time",
+        "trace"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.WinUI": "100.13.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/locationwithnmea.htm"
+    ],
+    "relevant_apis": [
+        "Location",
+        "LocationDisplay",
+        "NmeaLocationDataSource",
+        "NmeaSatelliteInfo"
+    ],
+    "snippets": [
+        "LocationWithNMEA.xaml",
+        "LocationWithNMEA.xaml.cs"
+    ],
+    "title": "Display device location with NMEA data sources"
+}

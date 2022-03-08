@@ -31,15 +31,15 @@ namespace ArcGISRuntime.WinUI.Samples.ClipGeometry
         // Graphic that represents the 1st parameter of the GeometryEngine.Clip operation - it follows the boundary of Colorado.
         private Graphic _coloradoGraphic;
 
-        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope 
+        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope
         // that falls completely outside the boundary of Colorado.
         private Graphic _outsideGraphic;
 
-        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope 
+        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope
         // that is completely contained within the boundary of Colorado.
         private Graphic _containedGraphic;
 
-        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope 
+        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope
         // that is intersects the boundary of Colorado.
         private Graphic _intersectingGraphic;
 
@@ -59,7 +59,7 @@ namespace ArcGISRuntime.WinUI.Samples.ClipGeometry
             Map newMap = new Map(SpatialReferences.WebMercator)
             {
                 // Set the basemap of the map to be a topographic layer.
-                Basemap = Basemap.CreateTopographic()
+                Basemap = new Basemap(BasemapStyle.ArcGISTopographic)
             };
 
             // Create a graphics overlay to hold the input geometries for the clip operation.
@@ -74,7 +74,7 @@ namespace ArcGISRuntime.WinUI.Samples.ClipGeometry
             // Add the resulting geometries graphics overlay to the MapView.
             MyMapView.GraphicsOverlays.Add(_clipAreasGraphicsOverlay);
 
-            // Create a simple line symbol for the 1st parameter of the GeometryEngine.Clip operation - it follows the 
+            // Create a simple line symbol for the 1st parameter of the GeometryEngine.Clip operation - it follows the
             // boundary of Colorado.
             SimpleLineSymbol coloradoSimpleLineSymbol = new SimpleLineSymbol(
                 SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 4);
@@ -139,7 +139,7 @@ namespace ArcGISRuntime.WinUI.Samples.ClipGeometry
 
             // Set the initial visual extent of the map view to the extent of the graphics overlay.
             newMap.InitialViewpoint = new Viewpoint(visibleExtent);
-            
+
             // Assign the map to the MapView.
             MyMapView.Map = newMap;
         }
@@ -170,23 +170,23 @@ namespace ArcGISRuntime.WinUI.Samples.ClipGeometry
         {
             try
             {
-                // Remove the Colorado graphic from the input geometries graphics overlay collection. That way it will be easier 
-                // to see the clip versions of the GeometryEngine.Clip operation. 
+                // Remove the Colorado graphic from the input geometries graphics overlay collection. That way it will be easier
+                // to see the clip versions of the GeometryEngine.Clip operation.
                 _inputGeometriesGraphicsOverlay.Graphics.Remove(_coloradoGraphic);
 
                 // Loop through each graphic in the input geometries for the clip operation.
                 foreach (Graphic oneGraphic in _inputGeometriesGraphicsOverlay.Graphics)
                 {
-                    // Perform the clip operation. The first parameter of the clip operation will always be the Colorado graphic. 
-                    // The second parameter of the clip operation will be one of the 3 different clip geometries (_outsideGraphic, 
+                    // Perform the clip operation. The first parameter of the clip operation will always be the Colorado graphic.
+                    // The second parameter of the clip operation will be one of the 3 different clip geometries (_outsideGraphic,
                     // _containedGraphic, or _intersectingGraphic).
                     Geometry myGeometry = GeometryEngine.Clip(_coloradoGraphic.Geometry, (Envelope)oneGraphic.Geometry);
 
                     // Only work on returned geometries that are not null.
                     if (myGeometry != null)
                     {
-                        // Create the graphic as a result of the clip operation using the same symbology that was defined for 
-                        // the _coloradoGraphic defined in the Initialize() method previously. 
+                        // Create the graphic as a result of the clip operation using the same symbology that was defined for
+                        // the _coloradoGraphic defined in the Initialize() method previously.
                         Graphic clippedGraphic = new Graphic(myGeometry, _coloradoGraphic.Symbol);
 
                         // Add the clipped graphic to the clip areas graphics overlay collection.

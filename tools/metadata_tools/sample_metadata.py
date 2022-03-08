@@ -94,6 +94,8 @@ class sample_metadata:
             self.nuget_packages["Esri.ArcGISRuntime.UWP"] = self.arcgis_runtime_latest
         elif platform == "WPF":
             self.nuget_packages["Esri.ArcGISRuntime.WPF"] = self.arcgis_runtime_latest
+        elif platform == "WinUI":
+            self.nuget_packages["Esri.ArcGISRuntime.WinUI"] = self.arcgis_runtime_latest
         return
     
     def populate_from_readme(self, platform, path_to_readme):

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -41,7 +41,7 @@ namespace ArcGISRuntime.WinUI.Samples.PlayKmlTours
         private async void Initialize()
         {
             // Load the scene with a basemap and a terrain surface.
-            MySceneView.Scene = new Scene(Basemap.CreateImagery());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
             MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
             // Get the URL to the data.
@@ -141,11 +141,13 @@ namespace ArcGISRuntime.WinUI.Samples.PlayKmlTours
                     PlayButton.IsEnabled = true;
                     PauseButton.IsEnabled = false;
                     break;
+
                 case KmlTourStatus.Paused:
                     PlayButton.IsEnabled = true;
                     PauseButton.IsEnabled = false;
                     ResetButton.IsEnabled = true;
                     break;
+
                 case KmlTourStatus.Playing:
                     ResetButton.IsEnabled = true;
                     PlayButton.IsEnabled = false;

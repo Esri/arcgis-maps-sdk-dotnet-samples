@@ -25,7 +25,7 @@
     ],
     "relevant_apis": [
         "Basemap",
-        "Basemap.CreateOpenStreetMap",
+        "BasemapStyle.OSMStandard",
         "Map",
         "MapView",
         "OpenStreetMapLayer"

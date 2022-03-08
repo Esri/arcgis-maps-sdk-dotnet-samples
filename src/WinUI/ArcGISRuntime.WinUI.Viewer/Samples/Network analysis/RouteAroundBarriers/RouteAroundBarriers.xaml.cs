@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -22,6 +22,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+
 using Symbology = Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
@@ -69,7 +70,7 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
                 UpdateInterfaceState(SampleState.NotReady);
 
                 // Create the map with a basemap.
-                Map sampleMap = new Map(Basemap.CreateTopographicVector());
+                Map sampleMap = new Map(BasemapStyle.ArcGISTopographic);
                 sampleMap.InitialViewpoint = new Viewpoint(32.7157, -117.1611, 1e5);
                 MyMapView.Map = sampleMap;
 
@@ -121,6 +122,7 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
                     // Add the graphic to the overlay - this will cause it to appear on the map.
                     _barriersOverlay.Graphics.Add(barrierGraphic);
                     break;
+
                 case SampleState.AddingStops:
                     // Get the name of this stop.
                     string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
@@ -318,12 +320,15 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
                     CalculateRouteButton.IsEnabled = false;
                     StatusLabel.Text = "Preparing sample...";
                     break;
+
                 case SampleState.AddingBarriers:
                     StatusLabel.Text = "Tap the map to add a barrier.";
                     break;
+
                 case SampleState.AddingStops:
                     StatusLabel.Text = "Tap the map to add a stop.";
                     break;
+
                 case SampleState.Ready:
                     AddStopButton.IsEnabled = true;
                     AddBarrierButton.IsEnabled = true;
@@ -336,6 +341,7 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
                     StatusLabel.Text = "Click 'Add stop' or 'Add barrier', then tap on the map to add stops and barriers.";
                     BusyOverlay.Visibility = Visibility.Collapsed;
                     break;
+
                 case SampleState.Routing:
                     BusyOverlay.Visibility = Visibility.Visible;
                     break;

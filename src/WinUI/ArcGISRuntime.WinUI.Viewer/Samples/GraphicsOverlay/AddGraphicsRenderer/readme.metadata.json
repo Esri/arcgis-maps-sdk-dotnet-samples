@@ -11,6 +11,7 @@
         "bezier",
         "curve",
         "display",
+        "ellipse",
         "graphics",
         "marker",
         "overlay",
@@ -21,7 +22,7 @@
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WinUI": "100.10.0-preview1"
+        "Esri.ArcGISRuntime.WinUI": "100.13.0"
     },
     "offline_data": [],
     "redirect_from": [
@@ -30,6 +31,7 @@
     "relevant_apis": [
         "CubicBezierSegment",
         "EllipticArcSegment",
+        "GeodesicEllipseParameters",
         "Geometry",
         "Graphic",
         "GraphicsOverlay",

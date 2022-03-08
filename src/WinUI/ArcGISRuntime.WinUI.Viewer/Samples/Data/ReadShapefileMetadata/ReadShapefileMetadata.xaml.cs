@@ -22,7 +22,7 @@ namespace ArcGISRuntime.WinUI.Samples.ReadShapefileMetadata
         description: "Read a shapefile and display its metadata.",
         instructions: "The shapefile's metadata will be displayed when you open the sample.",
         tags: new[] { "credits", "description", "metadata", "package", "shape file", "shapefile", "summary", "symbology", "tags", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class ReadShapefileMetadata
     {
         public ReadShapefileMetadata()
@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WinUI.Samples.ReadShapefileMetadata
         private async void Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
-            Map streetMap = new Map(Basemap.CreateStreetsVector());
+            Map streetMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the path to the downloaded shapefile
             string filepath = GetShapefilePath();

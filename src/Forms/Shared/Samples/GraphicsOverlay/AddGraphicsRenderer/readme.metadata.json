@@ -11,6 +11,7 @@
         "bezier",
         "curve",
         "display",
+        "ellipse",
         "graphics",
         "marker",
         "overlay",
@@ -33,6 +34,7 @@
     "relevant_apis": [
         "CubicBezierSegment",
         "EllipticArcSegment",
+        "GeodesicEllipseParameters",
         "Geometry",
         "Graphic",
         "GraphicsOverlay",

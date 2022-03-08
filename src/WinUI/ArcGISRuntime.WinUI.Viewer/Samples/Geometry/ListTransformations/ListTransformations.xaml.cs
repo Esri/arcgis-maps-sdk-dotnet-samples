@@ -27,7 +27,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListTransformations
         description: "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",
         instructions: "Select a transformation from the list to see the result of projecting the point from EPSG:27700 to EPSG:3857 using that transformation. The result is shown as a red cross; you can visually compare the original blue point with the projected red cross.",
         tags: new[] { "datum", "geodesy", "projection", "spatial reference", "transformation" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ListTransformations : INotifyPropertyChanged
     {
         // Point whose coordinates will be projected using a selected transform.
@@ -41,6 +41,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListTransformations
 
         // Property to expose the list of datum transformations for binding to the list box.
         private IReadOnlyList<DatumTransformationListBoxItem> _datumTransformations;
+
         public IReadOnlyList<DatumTransformationListBoxItem> SuitableTransformationsList
         {
             get
@@ -56,6 +57,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListTransformations
 
         // Implement INotifyPropertyChanged to indicate when the list of transformations has been updated.
         public event PropertyChangedEventHandler PropertyChanged;
+
         private void OnPropertyChanged(string propertyName)
         {
             if (PropertyChanged != null)
@@ -74,9 +76,9 @@ namespace ArcGISRuntime.WinUI.Samples.ListTransformations
         private async void Initialize()
         {
             // Create the map.
-            Map myMap = new Map(Basemap.CreateImageryWithLabels());
+            Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
-            // Create a point in the Greenwich observatory courtyard in London, UK, the location of the prime meridian. 
+            // Create a point in the Greenwich observatory courtyard in London, UK, the location of the prime meridian.
             _originalPoint = new MapPoint(538985.355, 177329.516, SpatialReference.Create(27700));
 
             // Set the initial extent to an extent centered on the point.
@@ -165,7 +167,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListTransformations
             if (selectedListBoxItem == null) { return; }
 
             DatumTransformation selectedTransform = selectedListBoxItem.TransformationObject;
-            
+
             try
             {
                 // Project the original point using the selected transform.
@@ -210,8 +212,8 @@ namespace ArcGISRuntime.WinUI.Samples.ListTransformations
 
         private string GetProjectionDataPath()
         {
-            // Return the projection data path; note that this is not valid by default. 
-            //You must manually download the projection engine data and update the path returned here. 
+            // Return the projection data path; note that this is not valid by default.
+            //You must manually download the projection engine data and update the path returned here.
             return "";
         }
     }

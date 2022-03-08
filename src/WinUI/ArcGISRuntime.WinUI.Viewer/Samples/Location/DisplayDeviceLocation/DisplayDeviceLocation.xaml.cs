@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -45,7 +45,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDeviceLocation
             Unloaded += SampleUnloaded;
 
             // Assign the map to the MapView.
-            MyMapView.Map = new Map(Basemap.CreateTopographic());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Populate the list of options and select a default.
             LocationModes.ItemsSource = _navigationTypes;
@@ -73,12 +73,15 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDeviceLocation
                     // Starts location display with auto pan mode set to Off.
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
                     break;
+
                 case "Re-Center":
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
                     break;
+
                 case "Navigation":
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
                     break;
+
                 case "Compass":
                     MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
                     break;

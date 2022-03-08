@@ -1,0 +1,33 @@
+{
+    "category": "Layers",
+    "description": "Display dimension features from a mobile map package.",
+    "formal_name": "DisplayDimensions",
+    "ignore": false,
+    "images": [
+        "DisplayDimensions.jpg"
+    ],
+    "keywords": [
+        "dimension",
+        "layer",
+        "mmpk",
+        "mobile map package",
+        "utility"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.WinUI": "100.13.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/displaydimensions.htm"
+    ],
+    "relevant_apis": [
+        "DimensionLayer",
+        "MobileMapPackage"
+    ],
+    "snippets": [
+        "DisplayDimensions.xaml",
+        "DisplayDimensions.xaml.cs"
+    ],
+    "title": "Display dimensions"
+}

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -37,11 +37,11 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKml
         private void Initialize()
         {
             // Set up the basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
 
             // Update the UI.
             LayerPicker.IsEnabled = true;
-            LayerPicker.ItemsSource = new[] {"URL", "Local file", "Portal item"};
+            LayerPicker.ItemsSource = new[] { "URL", "Local file", "Portal item" };
             LayerPicker.SelectionChanged += LayerPicker_SelectionChanged;
             LayerPicker.SelectedIndex = 0;
         }
@@ -64,10 +64,12 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKml
                     default:
                         layer = new KmlLayer(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
                         break;
+
                     case "Local file":
                         string filePath = DataManager.GetDataFolder("324e4742820e46cfbe5029ff2c32cb1f", "US_State_Capitals.kml");
                         layer = new KmlLayer(new Uri(filePath));
                         break;
+
                     case "Portal item":
                         ArcGISPortal portal = await ArcGISPortal.CreateAsync();
                         PortalItem item = await PortalItem.CreateAsync(portal, "9fe0b1bfdcd64c83bd77ea0452c76253");

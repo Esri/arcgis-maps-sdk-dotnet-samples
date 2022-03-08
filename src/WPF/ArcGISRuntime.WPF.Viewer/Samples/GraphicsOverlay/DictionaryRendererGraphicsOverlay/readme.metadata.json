@@ -1,6 +1,6 @@
 {
     "category": "GraphicsOverlay",
-    "description": "This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.",
+    "description": "Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.",
     "formal_name": "DictionaryRendererGraphicsOverlay",
     "ignore": false,
     "images": [
@@ -18,8 +18,7 @@
         "Esri.ArcGISRuntime.WPF": "100.13.0"
     },
     "offline_data": [
-        "e34835bf5ec5430da7cf16bb8c0b075c",
-        "3db12175479147ea9c89ebaaf3b89996"
+        "1e4ea99af4b440c092e7959cf3957bfa"
     ],
     "redirect_from": [
         "/net/latest/wpf/sample-code/dictionaryrenderergraphicsoverlay.htm"
@@ -33,5 +32,5 @@
         "DictionaryRendererGraphicsOverlay.xaml",
         "DictionaryRendererGraphicsOverlay.xaml.cs"
     ],
-    "title": "Graphics overlay (dictionary renderer)"
+    "title": "Dictionary renderer with graphics overlay"
 }

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
@@ -22,46 +23,39 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
         tags: new[] { "basemap", "map" })]
     public partial class ChangeBasemap
     {
-        // Dictionary that associates names with basemaps.
-        private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
-        {
-            {"Streets", new Basemap(BasemapStyle.ArcGISStreets)},
-            {"Streets - Night", new Basemap(BasemapStyle.ArcGISStreetsNight)},
-            {"Imagery", new Basemap(BasemapStyle.ArcGISImageryStandard)},
-            {"Imagery with Labels", new Basemap(BasemapStyle.ArcGISImagery)},
-            {"Dark Gray Canvas", new Basemap(BasemapStyle.ArcGISDarkGray)},
-            {"Light Gray Canvas", new Basemap(BasemapStyle.ArcGISLightGray)},
-            {"Navigation", new Basemap(BasemapStyle.ArcGISNavigation)},
-            {"OpenStreetMap", new Basemap(BasemapStyle.OSMStandard)}
-        };
-
         public ChangeBasemap()
         {
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            testInitialize();
+        }
+
+        private async void testInitialize()
+        {
+            // Assign a new map to the MapView
+            MyMapView.Map = new Map(Basemap.CreateLightGrayCanvas());
+
+            MyBasemapGallery.Portal = await ArcGISPortal.CreateAsync();
+
+            await MyBasemapGallery.Portal.GetBasemapsAsync();
         }
 
         private void Initialize()
         {
             // Assign a new map to the MapView
-            MyMapView.Map = new Map(_basemapOptions.Values.First());
+            //MyMapView.Map = new Map(_basemapOptions.Values.First());
 
-            // Set basemap titles as a items source
-            BasemapChooser.ItemsSource = _basemapOptions.Keys;
+            //// Set basemap titles as a items source
+            //BasemapChooser.ItemsSource = _basemapOptions.Keys;
 
-            // Show the first basemap in the list
-            BasemapChooser.SelectedIndex = 0;
+            //// Show the first basemap in the list
+            //BasemapChooser.SelectedIndex = 0;
         }
 
-        private void OnBasemapChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void BasemapSelected(object sender, Esri.ArcGISRuntime.Toolkit.UI.BasemapGalleryItem e)
         {
-            // Get the title of the selected basemap
-            string selectedBasemapTitle = e.AddedItems[0].ToString();
-
-            // Retrieve the basemap from the dictionary
-            MyMapView.Map.Basemap = _basemapOptions[selectedBasemapTitle];
+            MyMapView.Map.Basemap = MyBasemapGallery.SelectedBasemap.Basemap;
         }
     }
 }

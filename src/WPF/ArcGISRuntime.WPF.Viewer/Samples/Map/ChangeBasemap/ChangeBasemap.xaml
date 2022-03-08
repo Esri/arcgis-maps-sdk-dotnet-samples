@@ -4,16 +4,9 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <TextBlock Text="Select basemap"
-                           FontWeight="SemiBold"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,5"
-                           TextWrapping="Wrap" />
-                <ComboBox x:Name="BasemapChooser"
-                          SelectionChanged="OnBasemapChooserSelectionChanged" />
-            </StackPanel>
-        </Border>
+
+        <esri:BasemapGallery x:Name="MyBasemapGallery"
+                             Margin="10,10,25,575"
+                             BasemapSelected="BasemapSelected" />
     </Grid>
 </UserControl>

@@ -50,26 +50,33 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
 
         private async void Initialize()
         {
-            // Create the map with streets basemap.
-            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
+            try
+            {
+                // Create the map with streets basemap.
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
-            ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
-            await serviceGeodatabase.LoadAsync();
+                ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+                await serviceGeodatabase.LoadAsync();
 
-            // Create the feature table, referring to the Damage Assessment feature service.
-            ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
+                // Create the feature table, referring to the Damage Assessment feature service.
+                ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
 
-            // Create a feature layer to visualize the features in the table.
-            _damageLayer = new FeatureLayer(damageTable);
+                // Create a feature layer to visualize the features in the table.
+                _damageLayer = new FeatureLayer(damageTable);
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(_damageLayer);
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map.
-            MyMapView.GeoViewTapped += MapView_Tapped;
+                // Listen for user taps on the map.
+                MyMapView.GeoViewTapped += MapView_Tapped;
 
-            // Zoom to the United States.
-            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+                // Zoom to the United States.
+                _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+            }
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
@@ -165,7 +172,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
 
                 // Apply the edits to the service feature table.
-                await serviceTable.ApplyEditsAsync();
+                await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();
@@ -204,7 +211,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
 
                 // Apply the edits to the service feature table.
-                await serviceTable.ApplyEditsAsync();
+                await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Update UI.
                 _selectedFeature.Refresh();

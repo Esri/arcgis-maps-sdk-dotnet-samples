@@ -57,7 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeatures
             MyMapView.GeoViewTapped += MapView_Tapped;
 
             // Zoom to the United States.
-            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
@@ -79,7 +79,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeatures
                 await _damageFeatureTable.AddFeatureAsync(feature);
 
                 // Apply the edits to the service.
-                await _damageFeatureTable.ApplyEditsAsync();
+                await _damageFeatureTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Update the feature to get the updated objectid - a temporary ID is used before the feature is added.
                 feature.Refresh();

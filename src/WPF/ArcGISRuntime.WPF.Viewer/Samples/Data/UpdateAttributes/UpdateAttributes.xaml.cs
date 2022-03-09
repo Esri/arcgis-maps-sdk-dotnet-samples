@@ -68,7 +68,7 @@ namespace ArcGISRuntime.WPF.Samples.UpdateAttributes
             MyMapView.GeoViewTapped += MapView_Tapped;
 
             // Zoom to the United States.
-            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
 
         private void DamageTable_Loaded(object sender, EventArgs e)
@@ -164,7 +164,7 @@ namespace ArcGISRuntime.WPF.Samples.UpdateAttributes
 
                 // Update the service.
                 ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
-                await table.ApplyEditsAsync();
+                await table.ServiceGeodatabase.ApplyEditsAsync();
 
                 MessageBox.Show("Edited feature " + _selectedFeature.Attributes["objectid"], "Success!");
             }

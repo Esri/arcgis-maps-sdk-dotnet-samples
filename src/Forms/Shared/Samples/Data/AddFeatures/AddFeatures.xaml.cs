@@ -59,7 +59,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
                 MyMapView.GeoViewTapped += MapView_Tapped;
 
                 // Zoom to the United States.
-                MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+                _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
             }
             catch (Exception ex)
             {

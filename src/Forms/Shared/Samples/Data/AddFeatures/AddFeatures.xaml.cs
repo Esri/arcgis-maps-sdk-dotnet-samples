@@ -38,26 +38,33 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
 
         private async void Initialize()
         {
-            // Create the map with streets basemap.
-            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
+            try
+            {
+                // Create the map with streets basemap.
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
-            ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
-            await serviceGeodatabase.LoadAsync();
+                ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+                await serviceGeodatabase.LoadAsync();
 
-            // Create the feature table, referring to the Damage Assessment feature service.
-            _damageFeatureTable = serviceGeodatabase.GetTable(0);
+                // Create the feature table, referring to the Damage Assessment feature service.
+                _damageFeatureTable = serviceGeodatabase.GetTable(0);
 
-            // Create a feature layer to visualize the features in the table.
-            FeatureLayer damageLayer = new FeatureLayer(_damageFeatureTable);
+                // Create a feature layer to visualize the features in the table.
+                FeatureLayer damageLayer = new FeatureLayer(_damageFeatureTable);
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(damageLayer);
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(damageLayer);
 
-            // Listen for user taps on the map - this will select the feature.
-            MyMapView.GeoViewTapped += MapView_Tapped;
+                // Listen for user taps on the map - this will select the feature.
+                MyMapView.GeoViewTapped += MapView_Tapped;
 
-            // Zoom to the United States.
-            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+                // Zoom to the United States.
+                MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
         private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
@@ -79,7 +86,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
                 await _damageFeatureTable.AddFeatureAsync(feature);
 
                 // Apply the edits to the service.
-                await _damageFeatureTable.ApplyEditsAsync();
+                await _damageFeatureTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Update the feature to get the updated objectid - a temporary ID is used before the feature is added.
                 feature.Refresh();

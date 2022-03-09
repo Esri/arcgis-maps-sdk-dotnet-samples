@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeatures
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
 

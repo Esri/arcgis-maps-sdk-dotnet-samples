@@ -38,7 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
             await MyBasemapGallery.Portal.GetBasemapsAsync();
 
             // Assign a new map to the MapView.
-            MyMapView.Map = new Map(Basemap.CreateDarkGrayCanvasVector());
+            MyMapView.Map = new Map();
         }
 
         private void BasemapSelected(object sender, Esri.ArcGISRuntime.Toolkit.UI.BasemapGalleryItem e)

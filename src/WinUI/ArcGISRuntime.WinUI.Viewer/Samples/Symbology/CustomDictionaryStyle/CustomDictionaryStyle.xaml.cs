@@ -74,10 +74,6 @@ namespace ArcGISRuntime.WinUI.Samples.CustomDictionaryStyle
                 // Set the map to the map view.
                 MyMapView.Map = map;
 
-                // Add event handlers to the radio buttons. 
-                LocalStyleButton.Checked += LocalStyleButton_Checked;
-                WebStyleButton.Checked += WebStyleButton_Checked; 
-
                 // Set the local style radio button to be checked.  
                 LocalStyleButton.IsChecked = true;
             }

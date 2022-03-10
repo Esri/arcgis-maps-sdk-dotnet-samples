@@ -83,7 +83,7 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

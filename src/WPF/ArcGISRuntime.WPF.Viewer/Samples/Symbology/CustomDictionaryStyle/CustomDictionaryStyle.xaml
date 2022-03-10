@@ -9,8 +9,12 @@
                 Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Label Padding="0,0,0,5" Content="Custom Dictionary Symbol Style Source" />
-                <RadioButton x:Name="LocalStyleButton" Content="Local .stylx file" />
-                <RadioButton x:Name="WebStyleButton" Content="Web style" />
+                <RadioButton x:Name="LocalStyleButton"
+                             Checked="LocalStyleButton_Checked"
+                             Content="Local .stylx file" />
+                <RadioButton x:Name="WebStyleButton"
+                             Checked="WebStyleButton_Checked"
+                             Content="Web style" />
             </StackPanel>
         </Border>
     </Grid>

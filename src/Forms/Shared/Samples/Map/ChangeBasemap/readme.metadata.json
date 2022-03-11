@@ -23,6 +23,7 @@
     ],
     "relevant_apis": [
         "Basemap",
+        "BasemapGallery",
         "Map",
         "MapView"
     ],

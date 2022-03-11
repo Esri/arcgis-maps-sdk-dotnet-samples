@@ -10,17 +10,19 @@ Basemaps should be selected contextually. For example, in maritime applications,
 
 ## How to use the sample
 
-Use the drop down menu to select the active basemap from the list of available basemaps.
+When the basemap gallery appears, select a basemap to be displayed.
 
 ## How it works
 
 1. Create an `Map` object.
 2. Set the map to the `MapView` object.
-3. Choose a new basemap type and set it on the map.
+3. Create a `BasemapGallery` using the toolkit. 
+4. Use the `BasemapSelected` event to change the basemap. 
 
 ## Relevant API
 
 * Basemap
+* BasemapGallery
 * Map
 * MapView
 

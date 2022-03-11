@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,19 +24,6 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         tags: new[] { "basemap", "map" })]
     public partial class ChangeBasemap : ContentPage
     {
-        // Dictionary that associates names with basemaps.
-        private readonly Dictionary<string, BasemapStyle> _basemapOptions = new Dictionary<string, BasemapStyle>()
-        {
-            {"Streets", BasemapStyle.ArcGISStreets},
-            {"Streets - Night", BasemapStyle.ArcGISStreetsNight},
-            {"Imagery", BasemapStyle.ArcGISImageryStandard},
-            {"Imagery with Labels", BasemapStyle.ArcGISImagery},
-            {"Dark Gray Canvas", BasemapStyle.ArcGISDarkGray},
-            {"Light Gray Canvas", BasemapStyle.ArcGISLightGray},
-            {"Navigation", BasemapStyle.ArcGISNavigation},
-            {"OpenStreetMap", BasemapStyle.OSMStandard}
-        };
-
         public ChangeBasemap()
         {
             InitializeComponent();
@@ -44,24 +32,32 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             Initialize();
         }
 
-        private async void OnChangeBasemapButtonClicked(object sender, EventArgs e)
+        private void BasemapSelected(object sender, Esri.ArcGISRuntime.Toolkit.UI.BasemapGalleryItem e)
         {
-            // Show sheet and get title from the selection
-            string selectedBasemap =
-                await ((Page)Parent).DisplayActionSheet("Select basemap", "Cancel", null, _basemapOptions.Keys.ToArray());
+            MyMapView.Map.Basemap = MyBasemapGallery.SelectedBasemap.Basemap;
+        }
 
-            // Verify the user did not cancel the operation
-            if (!selectedBasemap.ToLower().Equals("cancel"))
+        private void OnChangeBasemapButtonClicked(object sender, EventArgs e)
+        {
+            // Toggles the basemap gallery on and off.
+            if (MyBasemapGallery.IsVisible)
             {
-                // Retrieve the basemap from the dictionary
-                MyMapView.Map.Basemap = new Basemap(_basemapOptions[selectedBasemap]);
+                MyBasemapGallery.IsVisible = false;
+            }
+            else
+            {
+                MyBasemapGallery.IsVisible = true;
             }
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
+            // Creates a portal for the BasemapGallery to get the collection of basemaps.
+            MyBasemapGallery.Portal = await ArcGISPortal.CreateAsync();
+            await MyBasemapGallery.Portal.GetBasemapsAsync();
+
             // Assign the map to the MapView
-            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+            MyMapView.Map = new Map();
         }
     }
 }

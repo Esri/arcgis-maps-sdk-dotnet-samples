@@ -6,8 +6,7 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <esri:BasemapGallery x:Name="MyBasemapGallery"
-                         BasemapSelected="BasemapSelected" />
+            <esri:BasemapGallery x:Name="MyBasemapGallery" BasemapSelected="BasemapSelected" />
         </Border>
     </Grid>
 </UserControl>

@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WinUI.Samples.DensifyAndGeneralize
             InitializeComponent();
 
             // Create the map with a default basemap.
-            MyMapView.Map = new Map(Basemap.CreateStreetsNightVector());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight);
 
             // Create and add a graphics overlay.
             GraphicsOverlay overlay = new GraphicsOverlay();
@@ -92,7 +92,7 @@ namespace ArcGISRuntime.WinUI.Samples.DensifyAndGeneralize
                 // Reset the other slider.
                 SegmentLengthSlider.Value = 100;
 
-                polyline = (Polyline) GeometryEngine.Generalize(polyline, deviation, true);
+                polyline = (Polyline)GeometryEngine.Generalize(polyline, deviation, true);
 
                 // Update the result label.
                 ResultLabel.Text = $"Operation: Generalize, Deviation: {deviation:f}";
@@ -102,7 +102,7 @@ namespace ArcGISRuntime.WinUI.Samples.DensifyAndGeneralize
                 // Reset the other slider.
                 DeviationSlider.Value = 10;
 
-                polyline = (Polyline) GeometryEngine.Densify(polyline, segmentLength);
+                polyline = (Polyline)GeometryEngine.Densify(polyline, segmentLength);
 
                 // Update the result label.
                 ResultLabel.Text = $"Operation: Densify, Segment length: {segmentLength:f}";

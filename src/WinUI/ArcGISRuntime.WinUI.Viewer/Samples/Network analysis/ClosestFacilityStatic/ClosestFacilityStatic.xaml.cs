@@ -70,7 +70,7 @@ namespace ArcGISRuntime.WinUI.Samples.ClosestFacilityStatic
             try
             {
                 // Construct the map and set the MapView.Map property.
-                MyMapView.Map = new Map(Basemap.CreateLightGrayCanvasVector());
+                MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
                 // Add a graphics overlay to MyMapView. (Will be used later to display routes)
                 MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());

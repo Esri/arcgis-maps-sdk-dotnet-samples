@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WinUI.Samples.TakeScreenshot
         private void Initialize()
         {
             // Show an imagery basemap.
-            MyMapView.Map = new Map(Basemap.CreateImagery());
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
         }
 
         private async void OnTakeScreenshotButtonClicked(object sender, RoutedEventArgs e)
@@ -85,7 +85,6 @@ namespace ArcGISRuntime.WinUI.Samples.TakeScreenshot
                 // Register the callback that sets the task result after 2000 ms.
                 ct.Token.Register(() =>
                     tcs.TrySetResult(null), false);
-
 
                 // Define a local function that will set the task result and unregister itself when the map finishes drawing.
                 void DrawCompleteHandler(object s, DrawStatusChangedEventArgs e)

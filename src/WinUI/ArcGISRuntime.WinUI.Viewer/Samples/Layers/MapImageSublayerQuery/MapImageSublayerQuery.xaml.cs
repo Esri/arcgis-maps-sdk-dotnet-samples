@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -31,17 +31,17 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageSublayerQuery
         private GraphicsOverlay _selectedFeaturesOverlay;
 
         public MapImageSublayerQuery()
-        { 
+        {
             InitializeComponent();
 
-            // Initialize the map to show the USA map image layer. 
+            // Initialize the map to show the USA map image layer.
             Initialize();
         }
 
         private void Initialize()
         {
             // Create a new Map with a vector streets basemap.
-            Map myMap = new Map(Basemap.CreateStreetsVector());
+            Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
             // Create and set the map's initial view point.
             MapPoint initialLocation = new MapPoint(-12716000.00, 4170400.00, SpatialReferences.WebMercator);
@@ -91,19 +91,19 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageSublayerQuery
                 ArcGISMapImageSublayer citiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[0];
                 ArcGISMapImageSublayer statesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[2];
                 ArcGISMapImageSublayer countiesSublayer = (ArcGISMapImageSublayer)usaMapImageLayer.Sublayers[3];
-            
+
                 // Get the service feature table for each of the sublayers.
                 ServiceFeatureTable citiesTable = citiesSublayer.Table;
                 ServiceFeatureTable statesTable = statesSublayer.Table;
                 ServiceFeatureTable countiesTable = countiesSublayer.Table;
-            
+
                 // Create the query parameters that will find features in the current extent with a population greater than the value entered.
                 QueryParameters populationQuery = new QueryParameters
                 {
                     WhereClause = "POP2000 > " + PopulationTextBox.Text,
                     Geometry = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry
                 };
-            
+
                 // Query each of the sublayers with the query parameters.
                 FeatureQueryResult citiesQueryResult = await citiesTable.QueryFeaturesAsync(populationQuery);
                 FeatureQueryResult statesQueryResult = await statesTable.QueryFeaturesAsync(populationQuery);
@@ -111,11 +111,11 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageSublayerQuery
 
                 // Display the selected cities in the graphics overlay.
                 SimpleMarkerSymbol citySymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 16);
-                foreach(Feature city in citiesQueryResult)
+                foreach (Feature city in citiesQueryResult)
                 {
                     Graphic cityGraphic = new Graphic(city.Geometry, citySymbol);
 
-                    _selectedFeaturesOverlay.Graphics.Add(cityGraphic);                
+                    _selectedFeaturesOverlay.Graphics.Add(cityGraphic);
                 }
 
                 // Display the selected counties in the graphics overlay.

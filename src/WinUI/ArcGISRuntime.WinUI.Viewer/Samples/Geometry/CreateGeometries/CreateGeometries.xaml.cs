@@ -22,7 +22,6 @@ namespace ArcGISRuntime.WinUI.Samples.CreateGeometries
         tags: new[] { "area", "boundary", "line", "marker", "path", "shape" })]
     public partial class CreateGeometries
     {
-
         public CreateGeometries()
         {
             InitializeComponent();
@@ -33,7 +32,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateGeometries
         private void Initialize()
         {
             // Create a map with a topographic basemap.
-            Map theMap = new Map(Basemap.CreateTopographic());
+            Map theMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Assign the map to the MapView.
             MyMapView.Map = theMap;
@@ -143,6 +142,5 @@ namespace ArcGISRuntime.WinUI.Samples.CreateGeometries
             // Return the geometry.
             return theMultipoint;
         }
-
     }
 }

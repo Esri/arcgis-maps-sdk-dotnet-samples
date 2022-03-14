@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using System;
@@ -34,14 +34,14 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyGraphics
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
             // Create a map with 'Imagery with Labels' basemap and an initial location
-            Map myMap = new Map(Basemap.CreateTopographic());
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
 
             // Create graphics overlay with graphics
             CreateOverlay();
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyGraphics
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             double tolerance = 10d; // Use larger tolerance for touch
-            int maximumResults = 1; // Only return one graphic  
+            int maximumResults = 1; // Only return one graphic
             bool onlyReturnPopups = false; // Don't return only popups
 
             try
@@ -94,13 +94,13 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyGraphics
                 IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
                     _polygonOverlay,
                     e.Position,
-                    tolerance, 
-                    onlyReturnPopups, 
+                    tolerance,
+                    onlyReturnPopups,
                     maximumResults);
 
                 // Check if we got results
                 if (identifyResults.Graphics.Count > 0)
-                { 
+                {
                     //  Display to the user the identify worked.
                     await new MessageDialog2("Tapped on graphic", "").ShowAsync();
                 }

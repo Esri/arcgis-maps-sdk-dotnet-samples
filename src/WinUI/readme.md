@@ -99,6 +99,7 @@
 * [Create and save KML file](ArcGISRuntime.WinUI.Viewer/Samples/Layers/CreateAndSaveKmlFile/readme.md) - Construct a KML document and save it as a KMZ file.
 * [Feature collection layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display annotation](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
+* [Display dimensions](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayDimensions/readme.md) - Display dimension features from a mobile map package.
 * [Display KML](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.
@@ -151,6 +152,7 @@
 
 * [Display device location with autopan modes](ArcGISRuntime.WinUI.Viewer/Samples/Location/DisplayDeviceLocation/readme.md) - Display your current position on the map, as well as switch between different types of auto pan Modes.
 * [Set up location-driven Geotriggers](ArcGISRuntime.WinUI.Viewer/Samples/Location/LocationDrivenGeotriggers/readme.md) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
+* [Display device location with NMEA data sources](ArcGISRuntime.WinUI.Viewer/Samples/Location/LocationWithNMEA/readme.md) - Parse NMEA sentences and use the results to show device location on the map.
 * [Show location history](ArcGISRuntime.WinUI.Viewer/Samples/Location/ShowLocationHistory/readme.md) - Display your location history on the map.
 
 ## Map
@@ -158,6 +160,7 @@
 * [Access load status](ArcGISRuntime.WinUI.Viewer/Samples/Map/AccessLoadStatus/readme.md) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Apply scheduled updates to preplanned map area](ArcGISRuntime.WinUI.Viewer/Samples/Map/ApplyScheduledUpdates/readme.md) - Apply scheduled updates to a downloaded preplanned map area.
 * [Create and save map](ArcGISRuntime.WinUI.Viewer/Samples/Map/AuthorMap/readme.md) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
+* [Browse building floors](ArcGISRuntime.WinUI.Viewer/Samples/Map/BrowseBuildingFloors/readme.md) - Display and browse through building floors from a floor-aware web map.
 * [Change basemap](ArcGISRuntime.WinUI.Viewer/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Display map](ArcGISRuntime.WinUI.Viewer/Samples/Map/DisplayMap/readme.md) - Display a map with an imagery basemap.
 * [Download preplanned map area](ArcGISRuntime.WinUI.Viewer/Samples/Map/DownloadPreplannedMap/readme.md) - Take a map offline using a preplanned map area.

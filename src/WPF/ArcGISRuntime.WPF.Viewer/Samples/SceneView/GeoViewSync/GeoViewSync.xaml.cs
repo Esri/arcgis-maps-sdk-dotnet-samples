@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.GeoViewSync
         {
             // Initialize the MapView and SceneView with a basemap
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
-            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
 
             // Disable 'flick' gesture - this is the most straightforward way to prevent the 'flick'
             //     animation on one view from competing with user interaction on the other
@@ -44,7 +44,7 @@ namespace ArcGISRuntime.WPF.Samples.GeoViewSync
             // Subscribe to viewpoint change events for both views - event raised on click+drag
             MyMapView.ViewpointChanged += OnViewpointChanged;
             MySceneView.ViewpointChanged += OnViewpointChanged;
-            
+
             // Subscribe to the navigation completed events - raised on flick
             MyMapView.NavigationCompleted += OnNavigationComplete;
             MySceneView.NavigationCompleted += OnNavigationComplete;

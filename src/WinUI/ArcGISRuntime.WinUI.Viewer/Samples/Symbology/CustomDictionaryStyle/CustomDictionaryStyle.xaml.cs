@@ -50,7 +50,7 @@ namespace ArcGISRuntime.WinUI.Samples.CustomDictionaryStyle
             {
                 // Create a new map with a topographic basemap.
                 Map map = new Map(BasemapStyle.ArcGISTopographic);
-
+              
                 // Create the restaurants layer and add it to the map.
                 _restaurantLayer = new FeatureLayer(_restaurantUri);
                 map.OperationalLayers.Add(_restaurantLayer);

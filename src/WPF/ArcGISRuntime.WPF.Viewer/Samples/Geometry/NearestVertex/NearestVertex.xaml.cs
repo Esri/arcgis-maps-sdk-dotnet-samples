@@ -7,11 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.NearestVertex
 {
@@ -37,13 +41,25 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
             InitializeComponent();
 
             // Create the map, set the initial extent, and add the original point graphic.
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
-            // Configure the basemap
-            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+            // California zone 5 (ftUS) state plane coordinate system.
+            SpatialReference californiaZone5SpatialReference = SpatialReference.Create(2229);
+
+            MyMapView.Map = new Map(californiaZone5SpatialReference);
+
+            // Open a portal item containing a feature layer.
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+            PortalItem portalItem = await PortalItem.CreateAsync(portal, "99fd67933e754a1181cc755146be21ca");
+
+            // Create the feature layer using the portal item. 
+            FeatureLayer featureLayer = new FeatureLayer(portalItem.ServiceUrl);
+
+            // Add the feature layer to the MapView
+            MyMapView.Map.OperationalLayers.Add(featureLayer);
 
             // Create the graphics overlay and set the selection color
             _graphicsOverlay = new GraphicsOverlay();
@@ -51,14 +67,15 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
             // Add the overlay to the MapView
             MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
 
+            
             // Create the point collection that defines the polygon
-            PointCollection polygonPoints = new PointCollection(SpatialReferences.WebMercator)
+            PointCollection polygonPoints = new PointCollection(californiaZone5SpatialReference)
             {
-                new MapPoint(-5991501.677830, 5599295.131468),
-                new MapPoint(-6928550.398185, 2087936.739807),
-                new MapPoint(-3149463.800709, 1840803.011362),
-                new MapPoint(-1563689.043184, 3714900.452072),
-                new MapPoint(-3180355.516764, 5619889.608838)
+                new MapPoint(6627416.41469281, 1804532.53233782),
+                new MapPoint(6669147.89779046, 2479145.16609522),
+                new MapPoint(7265673.02678292, 2484254.50442408),
+                new MapPoint(7676192.55880379, 2001458.66365744),
+                new MapPoint(7175695.94143837, 1840722.34474458)
             };
 
             // Create the polygon
@@ -88,7 +105,7 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
             MyMapView.GeoViewTapped += MapViewTapped;
 
             // Center the map on the polygon
-            MyMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 200000000);
+            await MyMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 8000000);
         }
 
         private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)

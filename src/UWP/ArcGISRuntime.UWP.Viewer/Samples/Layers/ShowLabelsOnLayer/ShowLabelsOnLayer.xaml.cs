@@ -47,15 +47,15 @@ namespace ArcGISRuntime.UWP.Samples.ShowLabelsOnLayer
             ServiceFeatureTable featureTable = new ServiceFeatureTable(new Uri(layerUrl));
 
             // Create a feature layer from the service feature table.
-            FeatureLayer districtFeatureLabel = new FeatureLayer(featureTable);
+            FeatureLayer districtFeatureLayer = new FeatureLayer(featureTable);
 
             // Add the feature layer to the operations layers collection of the map.
-            sampleMap.OperationalLayers.Add(districtFeatureLabel);
+            sampleMap.OperationalLayers.Add(districtFeatureLayer);
 
             try
             {
                 // Load the feature layer - this way we can obtain it's extent.
-                await districtFeatureLabel.LoadAsync();
+                await districtFeatureLayer.LoadAsync();
 
                 // Zoom the map view to the extent of the feature layer.
                 await MyMapView.SetViewpointCenterAsync(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000);
@@ -65,11 +65,11 @@ namespace ArcGISRuntime.UWP.Samples.ShowLabelsOnLayer
                 LabelDefinition democratLabelDefinition = MakeLabelDefinition("Democrat", Color.Blue);
 
                 // Add the label definition to the feature layer's label definition collection.
-                districtFeatureLabel.LabelDefinitions.Add(republicanLabelDefinition);
-                districtFeatureLabel.LabelDefinitions.Add(democratLabelDefinition);
+                districtFeatureLayer.LabelDefinitions.Add(republicanLabelDefinition);
+                districtFeatureLayer.LabelDefinitions.Add(democratLabelDefinition);
 
                 // Enable the visibility of labels to be seen.
-                districtFeatureLabel.LabelsEnabled = true;
+                districtFeatureLayer.LabelsEnabled = true;
             }
             catch (Exception ex)
             {

@@ -167,6 +167,7 @@
 * [Browse building floors](ArcGISRuntime.WPF.Viewer/Samples/Map/BrowseBuildingFloors/readme.md) - Display and browse through building floors from a floor-aware web map.
 * [Change basemap](ArcGISRuntime.WPF.Viewer/Samples/Map/ChangeBasemap/readme.md) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Display map](ArcGISRuntime.WPF.Viewer/Samples/Map/DisplayMap/readme.md) - Display a map with an imagery basemap.
+* [Display overview map](ArcGISRuntime.WPF.Viewer/Samples/Map/DisplayOverviewMap/readme.md) - Include an overview or inset map as an additional map view to show the wider context of the primary view. 
 * [Download preplanned map area](ArcGISRuntime.WPF.Viewer/Samples/Map/DownloadPreplannedMap/readme.md) - Take a map offline using a preplanned map area.
 * [Generate offline map](ArcGISRuntime.WPF.Viewer/Samples/Map/GenerateOfflineMap/readme.md) - Take a web map offline.
 * [Generate offline map (overrides)](ArcGISRuntime.WPF.Viewer/Samples/Map/GenerateOfflineMapWithOverrides/readme.md) - Take a web map offline with additional options for each layer.

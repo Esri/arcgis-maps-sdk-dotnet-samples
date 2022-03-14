@@ -1,0 +1,41 @@
+{
+    "category": "Map",
+    "description": "Include an overview or inset map as an additional map view to show the wider context of the primary view. ",
+    "formal_name": "DisplayOverviewMap",
+    "ignore": false,
+    "images": [
+        "DisplayOverviewMap.jpg"
+    ],
+    "keywords": [
+        "context",
+        "inset",
+        "map",
+        "minimap",
+        "overview",
+        "preview",
+        "small scale",
+        "toolkit",
+        "view"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.UWP": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Forms": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0",
+        "Esri.ArcGISRuntime.Toolkit.Xamarin.Forms": "100.13.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/displayoverviewmap.htm"
+    ],
+    "relevant_apis": [
+        "MapView",
+        "OverviewMap"
+    ],
+    "snippets": [
+        "DisplayOverviewMap.xaml",
+        "DisplayOverviewMap.xaml.cs"
+    ],
+    "title": "Display overview map"
+}

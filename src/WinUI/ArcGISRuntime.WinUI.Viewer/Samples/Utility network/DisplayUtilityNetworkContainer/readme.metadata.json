@@ -1,0 +1,22 @@
+{
+    "category": "Utility network",
+    "description": "A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.",
+    "formal_name": "DisplayUtilityNetworkContainer",
+    "ignore": false,
+    "images": [
+        "DisplayUtilityNetworkContainer.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/DisplayUtilityNetworkContainer.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Display content of utility network container"
+}

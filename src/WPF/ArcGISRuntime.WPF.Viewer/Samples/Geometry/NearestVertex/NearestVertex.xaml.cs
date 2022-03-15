@@ -7,15 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using System;
 using System.Threading.Tasks;
-using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.NearestVertex
 {
@@ -46,29 +44,26 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
 
         private async Task Initialize()
         {
-            // California zone 5 (ftUS) state plane coordinate system.
+            // Create a spatial reference using the California zone 5 (ftUS) state plane coordinate system.
             SpatialReference californiaZone5SpatialReference = SpatialReference.Create(2229);
 
+            // Create a map that uses the California zone 5 state spatial reference.
             MyMapView.Map = new Map(californiaZone5SpatialReference);
 
-            // Open a portal item containing a feature layer.
-            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
-            PortalItem portalItem = await PortalItem.CreateAsync(portal, "99fd67933e754a1181cc755146be21ca");
+            // Create the feature layer. 
+            Uri uriLayerSource = new Uri("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_States_Generalized/FeatureServer/0");
+            FeatureLayer usaStatesFeatureLayer = new FeatureLayer(uriLayerSource);
 
-            // Create the feature layer using the portal item. 
-            FeatureLayer featureLayer = new FeatureLayer(portalItem.ServiceUrl);
+            // Add the feature layer to the MapView.
+            MyMapView.Map.OperationalLayers.Add(usaStatesFeatureLayer);
 
-            // Add the feature layer to the MapView
-            MyMapView.Map.OperationalLayers.Add(featureLayer);
-
-            // Create the graphics overlay and set the selection color
+            // Create the graphics overlay and set the selection color.
             _graphicsOverlay = new GraphicsOverlay();
 
-            // Add the overlay to the MapView
+            // Add the overlay to the MapView.
             MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
 
-            
-            // Create the point collection that defines the polygon
+            // Create the point collection that defines the polygon.
             PointCollection polygonPoints = new PointCollection(californiaZone5SpatialReference)
             {
                 new MapPoint(6627416.41469281, 1804532.53233782),
@@ -78,18 +73,18 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
                 new MapPoint(7175695.94143837, 1840722.34474458)
             };
 
-            // Create the polygon
+            // Create the polygon.
             Polygon polygonGeometry = new Polygon(polygonPoints);
 
-            // Define and apply the symbology
+            // Define and apply the symbology.
             SimpleLineSymbol polygonOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Green, 2);
             SimpleFillSymbol polygonFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Green, polygonOutlineSymbol);
 
-            // Create the graphic and add it to the graphics overlay
+            // Create the graphic and add it to the graphics overlay.
             _polygonGraphic = new Graphic(polygonGeometry, polygonFillSymbol);
             _graphicsOverlay.Graphics.Add(_polygonGraphic);
 
-            // Create the graphics and symbology for the tapped point, the nearest vertex, and the nearest coordinate
+            // Create the graphics and symbology for the tapped point, the nearest vertex, and the nearest coordinate.
             SimpleMarkerSymbol tappedLocationSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Orange, 15);
             SimpleMarkerSymbol nearestCoordinateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, System.Drawing.Color.Red, 10);
             SimpleMarkerSymbol nearestVertexSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 15);
@@ -101,43 +96,43 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
             _graphicsOverlay.Graphics.Add(_nearestVertexGraphic);
             _graphicsOverlay.Graphics.Add(_nearestCoordinateGraphic);
 
-            // Listen for taps; the spatial relationships will be updated in the handler
+            // Listen for taps; the spatial relationships will be updated in the handler.
             MyMapView.GeoViewTapped += MapViewTapped;
 
-            // Center the map on the polygon
+            // Center the map on the polygon.
             await MyMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 8000000);
         }
 
         private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
-            // Get the tapped location
+            // Get the tapped location.
             MapPoint tappedLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geoViewInputEventArgs.Location);
 
-            // Show the tapped location
+            // Show the tapped location.
             _tappedLocationGraphic.Geometry = tappedLocation;
 
-            // Get the nearest vertex in the polygon
+            // Get the nearest vertex in the polygon.
             ProximityResult nearestVertexResult = GeometryEngine.NearestVertex(_polygonGraphic.Geometry, tappedLocation);
 
-            // Get the nearest coordinate in the polygon
+            // Get the nearest coordinate in the polygon.
             ProximityResult nearestCoordinateResult =
                 GeometryEngine.NearestCoordinate(_polygonGraphic.Geometry, tappedLocation);
 
-            // Get the distance to the nearest vertex in the polygon
+            // Get the distance to the nearest vertex in the polygon.
             int distanceVertex = (int)(nearestVertexResult.Distance / 1000);
 
-            // Get the distance to the nearest coordinate in the polygon
+            // Get the distance to the nearest coordinate in the polygon.
             int distanceCoordinate = (int)(nearestCoordinateResult.Distance / 1000);
 
-            // Show the nearest vertex in blue
+            // Show the nearest vertex in blue.
             _nearestVertexGraphic.Geometry = nearestVertexResult.Coordinate;
 
-            // Show the nearest coordinate in red
+            // Show the nearest coordinate in red.
             _nearestCoordinateGraphic.Geometry = nearestCoordinateResult.Coordinate;
 
-            // Show the distances in the UI
+            // Show the distances in the UI.
             ResultsLabel.Content =
-                string.Format("Vertex dist: {0} km, Point dist: {1} km", distanceVertex, distanceCoordinate);
+                string.Format("Vertex distance: {0} km, Point dist: {1} km", distanceVertex, distanceCoordinate);
         }
     }
 }

@@ -23,6 +23,7 @@ Click anywhere on the map. An orange cross will show at that location. A blue ci
 ## Relevant API
 
 * Geometry
+* GeometryEngine
 * ProximityResult
 
 ## Additional information

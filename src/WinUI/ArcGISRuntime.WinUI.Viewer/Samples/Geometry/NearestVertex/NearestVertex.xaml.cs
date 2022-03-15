@@ -84,7 +84,7 @@ namespace ArcGISRuntime.WinUI.Samples.NearestVertex
             _graphicsOverlay.Graphics.Add(_polygonGraphic);
 
             // Create the graphics and symbology for the tapped point, the nearest vertex, and the nearest coordinate.
-            SimpleMarkerSymbol tappedLocationSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Orange, 15);
+            SimpleMarkerSymbol tappedLocationSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, System.Drawing.Color.Black, 15);
             SimpleMarkerSymbol nearestCoordinateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, System.Drawing.Color.Red, 10);
             SimpleMarkerSymbol nearestVertexSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 15);
             _nearestCoordinateGraphic = new Graphic { Symbol = nearestCoordinateSymbol };

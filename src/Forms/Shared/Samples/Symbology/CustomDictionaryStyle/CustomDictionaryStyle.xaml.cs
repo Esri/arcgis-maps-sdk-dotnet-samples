@@ -32,9 +32,9 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
         // Uri for the restaurants feature service.
         private readonly Uri _restaurantUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Redlands_Restaurants/FeatureServer/0");
 
-        // Hold a reference to the custom dictionary styles for use in the event handlers. 
-        private DictionarySymbolStyle _localRestaurantStyle;
-        private DictionarySymbolStyle _restaurantStyleFromPortal;
+        // Hold a reference to the renderers for use in the event handlers.
+        private DictionaryRenderer _localStyleDictionaryRenderer;
+        private DictionaryRenderer _dictionaryRendererFromPortal;
 
         // Hold a reference to the feature layer for use in the event handlers.
         private FeatureLayer _restaurantLayer;
@@ -59,27 +59,20 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
                 // Load the feature table for the restaurants layer.
                 await _restaurantLayer.FeatureTable.LoadAsync();
 
-                // Open the local custom style file.
-                _localRestaurantStyle = await DictionarySymbolStyle.CreateFromFileAsync(_stylxPath);
-
-                // Open a portal item containing a dictionary symbol style.
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
-                PortalItem portalItem = await PortalItem.CreateAsync(portal, "adee951477014ec68d7cf0ea0579c800");
-
-                // Open the portal custom style file.
-                _restaurantStyleFromPortal = await DictionarySymbolStyle.OpenAsync(portalItem);
-
                 // Set the map's initial extent to that of the restaurants.
                 map.InitialViewpoint = new Viewpoint(_restaurantLayer.FullExtent);
 
                 // Set the map to the map view.
                 MyMapView.Map = map;
 
-                // Create the dictionary renderer with the style file and the field overrides.
-                DictionaryRenderer dictionaryRenderer = new DictionaryRenderer(_localRestaurantStyle);
+                // Load the local style renderer.
+                await LoadLocalStyle();
 
-                // Set the restaurant layer renderer to the dictionary renderer.
-                _restaurantLayer.Renderer = dictionaryRenderer;
+                // Load the portal style renderer.
+                await LoadWebStyle();
+
+                // Set the local style radio button to be checked.  
+                LocalStyleButton.IsChecked = true;
             }
             catch (Exception ex)
             {
@@ -87,28 +80,44 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
             }
         }
 
-        private void LocalStyleButtonClicked(object sender, EventArgs e)
+        private async Task LoadLocalStyle()
         {
+            // Open the local custom style file.
+            DictionarySymbolStyle localRestaurantStyle = await DictionarySymbolStyle.CreateFromFileAsync(_stylxPath);
+
             // Create the dictionary renderer with the style file and the field overrides.
-            DictionaryRenderer dictionaryRenderer = new DictionaryRenderer(_localRestaurantStyle);
-
-            // Set the restaurant layer renderer to the dictionary renderer.
-            _restaurantLayer.Renderer = dictionaryRenderer;
-
-            LocalStyleButton.IsEnabled = false;
-            WebStyleButton.IsEnabled = true;
+            _localStyleDictionaryRenderer = new DictionaryRenderer(localRestaurantStyle);
         }
 
+        private async Task LoadWebStyle()
+        {
+            // Open a portal item containing a dictionary symbol style.
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+            PortalItem portalItem = await PortalItem.CreateAsync(portal, "adee951477014ec68d7cf0ea0579c800");
+
+            // Open the portal custom style file.
+            DictionarySymbolStyle restaurantStyleFromPortal = await DictionarySymbolStyle.OpenAsync(portalItem);
+
+            // Create the dictionary renderer with the style file and the field overrides.
+            _dictionaryRendererFromPortal = new DictionaryRenderer(restaurantStyleFromPortal);
+        }
+
+        private void LocalStyleButtonClicked(object sender, EventArgs e)
+        {
+            if (LocalStyleButton.IsChecked)
+            {
+                // Set the restaurant layer renderer to the dictionary renderer.
+                _restaurantLayer.Renderer = _localStyleDictionaryRenderer;
+            }
+        }
+        
         private void WebStyleButtonClicked(object sender, EventArgs e)
         {
-            // Create the dictionary renderer with the style file and the field overrides.
-            DictionaryRenderer dictionaryRenderer = new DictionaryRenderer(_restaurantStyleFromPortal);
-
-            // Set the restaurant layer renderer to the dictionary renderer.
-            _restaurantLayer.Renderer = dictionaryRenderer;
-
-            LocalStyleButton.IsEnabled = true;
-            WebStyleButton.IsEnabled = false;
+            if (WebStyleButton.IsChecked)
+            {
+                // Set the restaurant layer renderer to the dictionary renderer.
+                _restaurantLayer.Renderer = _dictionaryRendererFromPortal;
+            }
         }
     }
 }

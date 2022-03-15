@@ -24,7 +24,6 @@ Use the radio buttons to toggle between the dictionary symbols from the web styl
 * DictionaryRenderer
 * DictionarySymbolStyle
 * DictionarySymbolStyleConfiguration
-* Portal
 * PortalItem
 
 ## Offline data

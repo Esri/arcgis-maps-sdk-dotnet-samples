@@ -22,16 +22,15 @@
                Grid.Column="1"
                Padding="0,0,0,5"
                Text="Select Dictionary Symbol Style Source" />
-        <Button x:Name="LocalStyleButton"
-                Grid.Row="2"
-                Grid.Column="1"
-                Clicked="LocalStyleButtonClicked"
-                IsEnabled="False"
-                Text="Local .stylx file" />
-        <Button x:Name="WebStyleButton"
-                Grid.Row="3"
-                Grid.Column="1"
-                Clicked="WebStyleButtonClicked"
-                Text="Web style" />
+        <RadioButton x:Name="LocalStyleButton"
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     CheckedChanged="LocalStyleButtonClicked"
+                     Content="Local .stylx file"/>
+        <RadioButton x:Name="WebStyleButton"
+                     Grid.Row="3"
+                     Grid.Column="1"
+                     CheckedChanged="WebStyleButtonClicked"
+                     Content="Web style" />
     </Grid>
 </ContentPage>

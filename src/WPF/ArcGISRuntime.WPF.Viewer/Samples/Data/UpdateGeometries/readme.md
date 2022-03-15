@@ -14,18 +14,20 @@ Tap a feature to select it. Tap again to set the updated location for that featu
 
 ## How it works
 
-1. Create a `ServiceFeatureTable` object from a URL.
-2. Create a `FeatureLayer` object from the `ServiceFeatureTable`.
-3. Select a feature from the feature layer, using `FeatureLayer.SelectFeatures`.
-4. Load the selected feature.
-5. Change the selected feature's location using `Feature.Geometry = geometry`.
-6. After the change, update the table on the server using `ApplyEditsAsync`.
+1. Create a `ServiceGeodatabase` object from a URL.
+2. Get the `ServiceFeatureTable` from the `ServiceGeodatbase` object. 
+3. Create a `FeatureLayer` object from the `ServiceFeatureTable`.
+4. Select a feature from the feature layer, using `FeatureLayer.SelectFeatures`.
+5. Load the selected feature.
+6. Change the selected feature's location using `Feature.Geometry = geometry`.
+7. After the change, update the table on the server using `ApplyEditsAsync`.
 
 ## Relevant API
 
 * Feature
 * FeatureLayer
 * ServiceFeatureTable
+* ServiceGeodatabase
 
 ## Tags
 

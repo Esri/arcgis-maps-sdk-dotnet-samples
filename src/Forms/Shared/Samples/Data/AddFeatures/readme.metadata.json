@@ -26,7 +26,8 @@
         "Feature",
         "FeatureEditResult",
         "FeatureLayer",
-        "ServiceFeatureTable"
+        "ServiceFeatureTable",
+        "ServiceGeodatabase"
     ],
     "snippets": [
         "AddFeatures.xaml",

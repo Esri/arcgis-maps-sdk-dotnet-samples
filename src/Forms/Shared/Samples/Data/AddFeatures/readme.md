@@ -16,11 +16,12 @@ Tap on a location on the map to add a feature at that location.
 
 A `Feature` instance is added to a `ServiceFeatureTable` which then pushes that new feature to the server.
 
-1. Create a `ServiceFeatureTable` from a URL.
-2. Create a `FeatureLayer` derived from the `ServiceFeatureTable` instance.
-3. Create a `Feature` with attributes and a location using the `ServiceFeatureTable`.
-4. Add the `Feature` to the `ServiceFeatureTable`.
-5. *Apply edits* to the `ServiceFeatureTable` which will upload the new feature to the online service.
+1. Create a `ServiceGeodatabase` from a URL.
+2. Get a `ServiceFeatureTable` from the `ServiceGeodatabase`.
+3. Create a `FeatureLayer` derived from the `ServiceFeatureTable` instance.
+4. Create a `Feature` with attributes and a location using the `ServiceFeatureTable`.
+5. Add the `Feature` to the `ServiceFeatureTable`.
+6. *Apply edits* to the `ServiceGeodatabase` which will upload the new feature to the online service.
 
 ## Relevant API
 
@@ -28,6 +29,7 @@ A `Feature` instance is added to a `ServiceFeatureTable` which then pushes that 
 * FeatureEditResult
 * FeatureLayer
 * ServiceFeatureTable
+* ServiceGeodatabase
 
 ## Tags
 

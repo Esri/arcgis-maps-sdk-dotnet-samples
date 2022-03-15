@@ -14,17 +14,19 @@ To delete a feature, tap it, then tap 'Delete incident'.
 
 ## How it works
 
-1. Create a `ServiceFeatureTable` object from a URL.
-2. Create a `FeatureLayer` object from the service feature table.
-3. Select features from the feature layer via `FeatureLayer.SelectFeatures()`.
-4. Remove the selected features from the service feature table using `ServiceFeatureTable.DeleteFeatureAsync()`.
-5. Update the table on the server using `ServiceFeatureTable.ApplyEditsAsync()`.
+1. Create a `ServiceGeodatabase` object from a URL.
+2. Get a `ServiceFeatureTable` object from the `ServiceGeodatabase` object.
+3. Create a `FeatureLayer` object from the service feature table.
+4. Select features from the feature layer via `FeatureLayer.SelectFeatures()`.
+5. Remove the selected features from the service feature table using `ServiceFeatureTable.DeleteFeatureAsync()`.
+6. Update the table on the server using `ServiceFeatureTable.ServiceGeodatabase.ApplyEditsAsync()`.
 
 ## Relevant API
 
 * Feature
 * FeatureLayer
 * ServiceFeatureTable
+* ServiceGeodatabase
 
 ## Tags
 

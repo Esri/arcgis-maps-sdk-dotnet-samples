@@ -25,11 +25,11 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
         tags: new[] { "analysis", "coordinate", "geometry", "nearest", "proximity", "vertex" })]
     public partial class NearestVertex
     {
-        // Hold references to the graphics overlay and the polygon graphic
+        // Hold references to the graphics overlay and the polygon graphic.
         private GraphicsOverlay _graphicsOverlay;
         private Graphic _polygonGraphic;
 
-        // Hold references to the graphics for the user and results points
+        // Hold references to the graphics for the user and results points.
         private Graphic _tappedLocationGraphic;
         private Graphic _nearestVertexGraphic;
         private Graphic _nearestCoordinateGraphic;

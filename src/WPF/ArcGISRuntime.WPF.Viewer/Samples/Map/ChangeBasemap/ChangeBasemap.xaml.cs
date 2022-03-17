@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
         category: "Map",
         description: "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
         instructions: "When the basemap gallery appears, select a basemap to be displayed.",
-        tags: new[] { "basemap", "map" })]
+        tags: new[] { "basemap", "basemap gallery", "map", "toolkit" })]
     public partial class ChangeBasemap
     {
         public ChangeBasemap()

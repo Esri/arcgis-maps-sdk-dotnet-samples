@@ -16,7 +16,7 @@ When the basemap gallery appears, select a basemap to be displayed.
 
 1. Create an `Map` object.
 2. Set the map to the `MapView` object.
-3. Create a `BasemapGallery` using the toolkit. 
+3. Create a `BasemapGallery` using the toolkit.
 4. Use the `BasemapSelected` event to change the basemap. 
 
 ## Relevant API
@@ -26,6 +26,10 @@ When the basemap gallery appears, select a basemap to be displayed.
 * Map
 * MapView
 
+## Additional Information
+
+This samples uses the basemap gallery toolkit component, which requires the [toolkit](https://github.com/Esri/arcgis-toolkit-dotnet) to be cloned and set up locally. For information about setting up the toolkit, visit the [repository](https://github.com/Esri/arcgis-toolkit-dotnet/blob/main/README.md).
+
 ## Tags
 
-basemap, map
+basemap, basemap gallery, map, toolkit

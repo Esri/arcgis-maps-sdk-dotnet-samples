@@ -11,10 +11,13 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView" />
-        <toolkit:BasemapGallery x:Name="MyBasemapGallery" BasemapSelected="BasemapSelected" />
-        <Button x:Name="changeBasemapButton"
+        <toolkit:BasemapGallery x:Name="MyBasemapGallery"
+                                BackgroundColor="White"
+                                GeoModel="{Binding Source={x:Reference MyMapView}, Path=Map}"
+                                Opacity="0.85" />
+        <Button x:Name="basemapGalleryButton"
                 Grid.Row="1"
-                Clicked="OnChangeBasemapButtonClicked"
-                Text="Change Basemap" />
+                Clicked="OnBasemapGalleryButtonClicked"
+                Text="Hide Gallery" />
     </Grid>
 </ContentPage>

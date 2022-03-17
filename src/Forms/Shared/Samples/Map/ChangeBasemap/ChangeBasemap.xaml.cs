@@ -28,36 +28,23 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
-            Initialize();
+            // Assign a new map to the MapView.
+            MyMapView.Map = new Map();
         }
 
-        private void BasemapSelected(object sender, Esri.ArcGISRuntime.Toolkit.UI.BasemapGalleryItem e)
-        {
-            MyMapView.Map.Basemap = MyBasemapGallery.SelectedBasemap.Basemap;
-        }
-
-        private void OnChangeBasemapButtonClicked(object sender, EventArgs e)
+        private void OnBasemapGalleryButtonClicked(object sender, EventArgs e)
         {
             // Toggles the basemap gallery on and off.
             if (MyBasemapGallery.IsVisible)
             {
                 MyBasemapGallery.IsVisible = false;
+                basemapGalleryButton.Text = "Show Gallery";
             }
             else
             {
                 MyBasemapGallery.IsVisible = true;
+                basemapGalleryButton.Text = "Hide Gallery";
             }
-        }
-
-        private async void Initialize()
-        {
-            // Creates a portal for the BasemapGallery to get the collection of basemaps.
-            MyBasemapGallery.Portal = await ArcGISPortal.CreateAsync();
-            await MyBasemapGallery.Portal.GetBasemapsAsync();
-
-            // Assign the map to the MapView
-            MyMapView.Map = new Map();
         }
     }
 }

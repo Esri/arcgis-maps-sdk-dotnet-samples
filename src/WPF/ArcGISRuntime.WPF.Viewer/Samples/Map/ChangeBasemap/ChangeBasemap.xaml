@@ -6,7 +6,7 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <esri:BasemapGallery x:Name="MyBasemapGallery" />
+            <esri:BasemapGallery x:Name="MyBasemapGallery" GeoModel="{Binding ElementName=MyMapView, Path=Map}" />
         </Border>
     </Grid>
 </UserControl>

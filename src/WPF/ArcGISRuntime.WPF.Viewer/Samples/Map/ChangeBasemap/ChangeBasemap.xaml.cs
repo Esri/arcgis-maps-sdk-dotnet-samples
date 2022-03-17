@@ -29,9 +29,6 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
 
             // Assign a new map to the MapView.
             MyMapView.Map = new Map();
-
-            // Sets the basemap gallery's geomodel to the map view's map to change the basemap.
-            MyBasemapGallery.GeoModel = MyMapView.Map;
         }
     }
 }

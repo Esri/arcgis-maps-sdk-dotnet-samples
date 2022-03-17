@@ -27,23 +27,11 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization.
-            Initialize();
-        }
-
-        private async void Initialize()
-        {
-            // Creates a portal for the BasemapGallery to get the collection of basemaps.
-            MyBasemapGallery.Portal = await ArcGISPortal.CreateAsync();
-            await MyBasemapGallery.Portal.GetBasemapsAsync();
-
             // Assign a new map to the MapView.
             MyMapView.Map = new Map();
-        }
 
-        private void BasemapSelected(object sender, Esri.ArcGISRuntime.Toolkit.UI.BasemapGalleryItem e)
-        {
-            MyMapView.Map.Basemap = MyBasemapGallery.SelectedBasemap.Basemap;
+            // Sets the basemap gallery's geomodel to the map view's map to change the basemap.
+            MyBasemapGallery.GeoModel = MyMapView.Map;
         }
     }
 }

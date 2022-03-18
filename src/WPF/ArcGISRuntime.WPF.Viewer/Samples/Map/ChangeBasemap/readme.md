@@ -17,7 +17,7 @@ When the basemap gallery appears, select a basemap to be displayed.
 1. Create an `Map` object.
 2. Set the map to the `MapView` object.
 3. Create a `BasemapGallery` using the toolkit.
-4. Use the `BasemapSelected` event to change the basemap. 
+4. Bind the `Geomodel` property from the `BasemapGallery` object to the `MapView` map.
 
 ## Relevant API
 

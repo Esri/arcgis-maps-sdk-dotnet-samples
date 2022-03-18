@@ -10,14 +10,14 @@ Basemaps should be selected contextually. For example, in maritime applications,
 
 ## How to use the sample
 
-When the basemap gallery appears, select a basemap to be displayed.
+When the basemap gallery appears, select a basemap to be displayed. Tap the 'Hide Gallery' button to hide the gallery. If you want to see the gallery again, tap the 'Show Gallery' button.
 
 ## How it works
 
 1. Create an `Map` object.
 2. Set the map to the `MapView` object.
 3. Create a `BasemapGallery` using the toolkit.
-4. Use the `BasemapSelected` event to change the basemap. 
+4. Bind the `Geomodel` property from the `BasemapGallery` object to the `MapView` map.
 
 ## Relevant API
 

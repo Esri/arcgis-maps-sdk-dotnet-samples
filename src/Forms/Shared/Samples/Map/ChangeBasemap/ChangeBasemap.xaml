@@ -13,8 +13,7 @@
         <esriUI:MapView x:Name="MyMapView" />
         <toolkit:BasemapGallery x:Name="MyBasemapGallery"
                                 BackgroundColor="White"
-                                GeoModel="{Binding Source={x:Reference MyMapView}, Path=Map}"
-                                Opacity="0.85" />
+                                GeoModel="{Binding Source={x:Reference MyMapView}, Path=Map}" />
         <Button x:Name="basemapGalleryButton"
                 Grid.Row="1"
                 Clicked="OnBasemapGalleryButtonClicked"

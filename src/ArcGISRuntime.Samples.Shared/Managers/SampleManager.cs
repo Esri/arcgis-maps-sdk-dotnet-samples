@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.Managers
 
             // Add a special category for featured samples.
             IEnumerable<string> featuredSamples = GetFeaturedSamplesNames();
-            SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => featuredSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)));
+            SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => featuredSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));
             FullTree.Items.Insert(0, featured);
         }
 

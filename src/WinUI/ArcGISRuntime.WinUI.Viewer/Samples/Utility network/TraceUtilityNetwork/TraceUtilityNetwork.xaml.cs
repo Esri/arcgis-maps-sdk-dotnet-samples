@@ -30,7 +30,7 @@ namespace ArcGISRuntime.WinUI.Samples.TraceUtilityNetwork
         category: "Utility network",
         description: "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
         instructions: "Tap on one or more features while 'Add starting locations' or 'Add barriers' is selected. When a junction feature is identified, you may be prompted to select a terminal. When an edge feature is identified, the distance from the tapped location to the beginning of the edge feature will be computed. Select the type of trace using the drop down menu. Click 'Trace' to initiate a trace on the network. Click 'Reset' to clear the trace parameters and start over.",
-        tags: new[] { "condition barriers", "downstream trace", "network analysis", "subnetwork trace", "trace configuration", "traversability", "upstream trace", "utility network", "validate consistency", "Featured" })]
+        tags: new[] { "condition barriers", "downstream trace", "network analysis", "subnetwork trace", "trace configuration", "traversability", "upstream trace", "utility network", "validate consistency" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class TraceUtilityNetwork
     {

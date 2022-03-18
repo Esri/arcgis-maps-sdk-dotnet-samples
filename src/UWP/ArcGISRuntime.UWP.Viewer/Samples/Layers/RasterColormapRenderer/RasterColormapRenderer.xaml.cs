@@ -24,7 +24,7 @@ namespace ArcGISRuntime.UWP.Samples.RasterColormapRenderer
         category: "Layers",
         description: "Apply a colormap renderer to a raster.",
         instructions: "Pan and zoom to explore the effect of the colormap applied to the raster.",
-        tags: new[] { "colormap", "data", "raster", "renderer", "visualization", "Featured" })]
+        tags: new[] { "colormap", "data", "raster", "renderer", "visualization" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public partial class RasterColormapRenderer
     {

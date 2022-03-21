@@ -8,7 +8,9 @@
     ],
     "keywords": [
         "basemap",
-        "map"
+        "basemap gallery",
+        "map",
+        "toolkit"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.13.0",
@@ -20,6 +22,7 @@
     ],
     "relevant_apis": [
         "Basemap",
+        "BasemapGallery",
         "Map",
         "MapView"
     ],

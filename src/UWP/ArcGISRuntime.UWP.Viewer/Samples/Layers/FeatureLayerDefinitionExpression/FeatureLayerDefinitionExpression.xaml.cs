@@ -23,7 +23,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerDefinitionExpression
         category: "Layers",
         description: "Filter features displayed on a map using a definition expression or a display filter.",
         instructions: "Use a definition expression to limit the features requested from the feature layer to those specified by a SQL query. This narrows down the results that are drawn, and removes those features from the layer's attribute table. To filter the results being drawn without modifying the attribute table, hit the button to apply the display filter instead.",
-        tags: new[] { "SQL", "definition expression", "display filter", "filter", "limit data", "query", "restrict data", "where clause", "Featured" })]
+        tags: new[] { "SQL", "definition expression", "display filter", "filter", "limit data", "query", "restrict data", "where clause" })]
     public partial class FeatureLayerDefinitionExpression
     {
         private const string FeatureServerURL = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0";

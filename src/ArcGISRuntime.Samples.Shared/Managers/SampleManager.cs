@@ -12,8 +12,11 @@ using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace ArcGISRuntime.Samples.Managers
 {
@@ -67,8 +70,37 @@ namespace ArcGISRuntime.Samples.Managers
             FullTree = BuildFullTree(AllSamples);
 
             // Add a special category for featured samples.
-            SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => sample.Tags.Contains("Featured")));
+            IEnumerable<string> featuredSamples = GetFeaturedSamplesNames();
+            SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => featuredSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));
             FullTree.Items.Insert(0, featured);
+        }
+
+        /// <summary>
+        /// Get a list of featured sample names from a resource file. 
+        /// </summary>
+        /// <returns>An enumerable containing the names of the featured samples.</returns>
+        public IEnumerable<string> GetFeaturedSamplesNames()
+        {
+            // Instantiate a null XElement to be populated by the resource file. 
+            XElement featuredSampleElement = null;
+
+            // Create a list to hold the names of the featured samples. 
+            List<string> featuredSamples = new List<string>();
+
+            // Load the FeaturedSamples resource file. 
+            using (Stream stream = this.GetType().Assembly.
+                       GetManifestResourceStream("ArcGISRuntime.Resources.FeaturedSamples.xml"))
+            {
+                featuredSampleElement = XElement.Load(stream);
+            }
+
+            // If the resource file has been successfully loaded populate the list of featured samples. 
+            if (featuredSampleElement != null)
+            {
+                featuredSamples = featuredSampleElement.Descendants("Sample").Select(x => x.Value).ToList();
+            }
+
+            return featuredSamples;
         }
 
         /// <summary>

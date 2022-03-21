@@ -129,8 +129,6 @@ def update_attribute(sample, sample_dir):
                 if "]" in line and start_found:
                     # Store the end index
                     end = i
-                    # Check if sample was featured
-                    featured = "Featured" in line
                     # Delete the existing attributes
                     del lines[start:end+1]
 
@@ -159,10 +157,6 @@ def update_attribute(sample, sample_dir):
                     tags = []
                     if type(sample.keywords) is list and len(sample.keywords)>0:
                         tags = sample.keywords
-                        if featured:
-                            tags.append("Featured")
-                    elif featured:
-                        tags = ["Featured"]
                         
                     if len(tags)>0:
                         new_attributes += ",\n        tags: new[] { "

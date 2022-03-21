@@ -22,7 +22,7 @@ namespace ArcGISRuntime.WPF.Samples.CustomDictionaryStyle
         category: "Symbology",
         description: "Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.",
         instructions: "Pan and zoom the map to see the symbology from the custom dictionary style.",
-        tags: new[] { "ArcGIS Online", "dictionary", "military", "renderer", "style", "stylx", "unique value", "visualization", "web style", "Featured" })]
+        tags: new[] { "ArcGIS Online", "dictionary", "military", "renderer", "style", "stylx", "unique value", "visualization", "web style" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("751138a2e0844e06853522d54103222a")]
     public partial class CustomDictionaryStyle
     {

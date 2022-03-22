@@ -12,6 +12,18 @@
     <OutputPath>..\..\..\output\WinUI\$(Configuration)\$(Platform)\</OutputPath>
     <UseWinUI>true</UseWinUI>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
+    <DefineConstants>WinUI</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
+    <DefineConstants>WinUI</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DefineConstants>WinUI</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DefineConstants>WinUI</DefineConstants>
+  </PropertyGroup>
   
   <ItemGroup>
     <Content Include="Resources\*.md">

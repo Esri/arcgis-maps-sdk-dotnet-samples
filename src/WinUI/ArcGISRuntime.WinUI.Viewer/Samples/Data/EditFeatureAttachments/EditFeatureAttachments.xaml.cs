@@ -55,12 +55,8 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
                 // Create the map with streets basemap.
                 MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
-                // Create a service geodatabase from the feature service.
-                ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
-                await serviceGeodatabase.LoadAsync();
-
-                // Gets the feature table from the service geodatabase, referring to the Damage Assessment feature service.
-                ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
+                // Create the feature table, referring to the Damage Assessment feature service.
+                ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
 
                 // Create a feature layer to visualize the features in the table.
                 _damageLayer = new FeatureLayer(damageTable);

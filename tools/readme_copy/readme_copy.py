@@ -34,7 +34,7 @@ def replace_readmes(category, formal_name, sample_root):
     plats = ["Forms", "WinUI"] # "Android", "iOS", "UWP"
     for platform in plats:
         # Skip local server for non WinUI platforms.
-        if not platform == "WinUI" and category == "Local Server":
+        if not platform == "WinUI" and category == "LocalServer":
             continue
 
         # Copy the original WPF text into a new string

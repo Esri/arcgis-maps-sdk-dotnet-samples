@@ -1,0 +1,22 @@
+{
+    "category": "Data",
+    "description": "The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.",
+    "formal_name": "FilterByTimeExtent",
+    "ignore": false,
+    "images": [
+        "FilterByTimeExtent.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/FilterByTimeExtent.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Visualize temporal data using time slider"
+}

@@ -7,16 +7,31 @@
         "FilterByTimeExtent.jpg"
     ],
     "keywords": [
+        "animate",
+        "data",
+        "filter",
+        "time",
+        "time extent",
+        "time frame",
+        "toolkit"
     ],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.10.0"
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.WPF": "100.13.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/FilterByTimeExtent.htm"
+        "/net/latest/wpf/sample-code/filterbytimeextent.htm"
     ],
     "relevant_apis": [
+        "AGSFeatureLayer",
+        "AGSMap",
+        "AGSMapView",
+        "AGSServiceFeatureTable"
     ],
     "snippets": [
+        "FilterByTimeExtent.xaml",
+        "FilterByTimeExtent.xaml.cs"
     ],
-    "title": "Visualize temporal data using time slider"
+    "title": "Filter by time extent"
 }

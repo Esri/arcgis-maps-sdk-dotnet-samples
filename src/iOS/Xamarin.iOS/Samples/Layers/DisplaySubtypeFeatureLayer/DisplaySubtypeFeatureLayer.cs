@@ -29,7 +29,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
         category: "Layers",
         description: "Displays a composite layer of all the subtype values in a feature class.",
         instructions: "The sample loads with the sublayer visible on the map. Change the sublayer's visibiliy, renderer, and minimum scale using the on screen controls. Setting the minimum scale will change its value to that of the current map scale. Zoom in and out to see the sublayer become visible based on its new scale range.",
-        tags: new[] { "asset group", "feature layer", "labeling", "sublayer", "subtype", "symbology", "utility network", "visible scale range", "Featured" })]
+        tags: new[] { "asset group", "feature layer", "labeling", "sublayer", "subtype", "symbology", "utility network", "visible scale range" })]
     public class DisplaySubtypeFeatureLayer : UIViewController
     {
         // Hold references to UI controls.

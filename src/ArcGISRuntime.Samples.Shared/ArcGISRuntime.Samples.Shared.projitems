@@ -18,4 +18,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SearchableTreeNode.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\FeaturedSamples.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Resources\" />
+  </ItemGroup>
 </Project>

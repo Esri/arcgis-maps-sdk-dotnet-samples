@@ -32,7 +32,7 @@ namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
         category: "Location",
         description: "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",
         instructions: "Observe a virtual walking tour of the Santa Barbara Botanic Garden. Information about the user's current Garden Section, as well as information about nearby points of interest within 10 meters will display or be removed from the UI when the user enters or exits the buffer of each feature.",
-        tags: new[] { "alert", "arcade", "fence", "geofence", "geotrigger", "location", "navigation", "notification", "notify", "routing", "trigger", "Featured" })]
+        tags: new[] { "alert", "arcade", "fence", "geofence", "geotrigger", "location", "navigation", "notification", "notify", "routing", "trigger" })]
     public class LocationDrivenGeotriggers : UIViewController
     {
         // Hold references to UI controls.

@@ -1,4 +1,4 @@
-﻿// Copyright 2021 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -17,18 +17,21 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Speech.Synthesis;
 using System.Threading.Tasks;
-using System.Windows;
+using Windows.Media.SpeechSynthesis;
+using Windows.UI.Core;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.WPF.Samples.NavigateRoute
+namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Navigate route",
         category: "Network analysis",
         description: "Use a routing service to navigate between points.",
         instructions: "Click 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Click 'Recenter' to refocus on the location display.",
-        tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice", "Featured" })]
+        tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class NavigateRoute
     {
@@ -42,6 +45,8 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
 
         // Speech synthesizer to play voice guidance audio.
         private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
+
+        // private MediaElement _mediaElement = new MediaElement();
 
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
@@ -127,7 +132,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "Error");
+                await new MessageDialog2(e.Message, "Error").ShowAsync();
             }
         }
 
@@ -163,7 +168,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
             MyMapView.LocationDisplay.IsEnabled = true;
         }
 
-        private void TrackingStatusUpdated(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
+        private async void TrackingStatusUpdated(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
         {
             TrackingStatus status = e.TrackingStatus;
 
@@ -200,11 +205,11 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
                 // Navigate to the next stop (if there are stops remaining).
                 if (status.RemainingDestinationCount > 1)
                 {
-                    _tracker.SwitchToNextDestinationAsync();
+                    await _tracker.SwitchToNextDestinationAsync();
                 }
                 else
                 {
-                    Dispatcher.BeginInvoke((Action)delegate ()
+                    DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
                     {
                         // Stop the simulated location data source.
                         MyMapView.LocationDisplay.DataSource.StopAsync();
@@ -212,18 +217,24 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
                 }
             }
 
-            Dispatcher.BeginInvoke((Action)delegate ()
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Show the status information in the UI.
                 MessagesTextBlock.Text = statusMessageBuilder.ToString();
             });
         }
 
-        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
-            // Say the direction using voice synthesis.
-            _speechSynthesizer.SpeakAsyncCancelAll();
-            _speechSynthesizer.SpeakAsync(e.VoiceGuidance.Text);
+            // Generate the audio stream for the voice guidance.
+            SpeechSynthesisStream stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);
+
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
+            {
+                // Play the audio stream.
+                // _mediaElement.SetSource(stream, stream.ContentType);
+                // _mediaElement.Play();
+            });
         }
 
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
@@ -241,7 +252,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRoute
         private void SampleUnloaded(object sender, RoutedEventArgs e)
         {
             // Stop the speech synthesizer.
-            _speechSynthesizer.SpeakAsyncCancelAll();
+            //_mediaElement.Stop();
             _speechSynthesizer.Dispose();
 
             // Stop the tracker.

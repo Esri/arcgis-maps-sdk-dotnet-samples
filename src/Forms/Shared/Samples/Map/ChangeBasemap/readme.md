@@ -10,20 +10,26 @@ Basemaps should be selected contextually. For example, in maritime applications,
 
 ## How to use the sample
 
-Use the drop down menu to select the active basemap from the list of available basemaps.
+When the basemap gallery appears, select a basemap to be displayed. Tap the 'Hide Gallery' button to hide the gallery. If you want to see the gallery again, tap the 'Show Gallery' button.
 
 ## How it works
 
 1. Create an `Map` object.
 2. Set the map to the `MapView` object.
-3. Choose a new basemap type and set it on the map.
+3. Create a `BasemapGallery` using the toolkit.
+4. Bind the `Geomodel` property from the `BasemapGallery` object to the `MapView` map.
 
 ## Relevant API
 
 * Basemap
+* BasemapGallery
 * Map
 * MapView
 
+## Additional Information
+
+This samples uses the basemap gallery toolkit component, which requires the [toolkit](https://github.com/Esri/arcgis-toolkit-dotnet) to be cloned and set up locally. For information about setting up the toolkit, visit the [repository](https://github.com/Esri/arcgis-toolkit-dotnet/blob/main/README.md).
+
 ## Tags
 
-basemap, map
+basemap, basemap gallery, map, toolkit

@@ -1,7 +1,36 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle.CustomDictionaryStyle"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
-    <esriUI:MapView x:Name="MyMapView" />
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle.CustomDictionaryStyle"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="370" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3" />
+        <Label Grid.Row="1"
+               Grid.Column="1"
+               Padding="0,0,0,5"
+               Text="Select Dictionary Symbol Style Source" />
+        <RadioButton x:Name="LocalStyleButton"
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     CheckedChanged="LocalStyleButtonClicked"
+                     Content="Local .stylx file"/>
+        <RadioButton x:Name="WebStyleButton"
+                     Grid.Row="3"
+                     Grid.Column="1"
+                     CheckedChanged="WebStyleButtonClicked"
+                     Content="Web style" />
+    </Grid>
 </ContentPage>

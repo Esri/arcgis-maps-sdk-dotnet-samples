@@ -191,13 +191,13 @@
     <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml.cs">
       <DependentUpon>IdentifyRasterCell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
+    <Compile Include="Samples\UItilityNetwork\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
       <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
+    <Compile Include="Samples\UItilityNetwork\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
       <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
+    <Compile Include="Samples\UItilityNetwork\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
       <DependentUpon>ConfigureSubnetworkTrace.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml.cs">
@@ -206,17 +206,17 @@
     <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml.cs">
       <DependentUpon>DisplayAnnotation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+    <Compile Include="Samples\UItilityNetwork\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
       <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\NavigateRouteRerouting\GpxProvider.cs" />
-    <Compile Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\NavigateRouteRerouting\GpxProvider.cs" />
+    <Compile Include="Samples\NetworkAnalysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
       <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml.cs">
       <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\NavigateRoute\NavigateRoute.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\NavigateRoute\NavigateRoute.xaml.cs">
       <DependentUpon>NavigateRoute.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml.cs">
@@ -248,13 +248,13 @@
     </Compile>
     <Compile Include="Samples\Map\MobileMapSearchAndRoute\ItemToImageSourceConverter.cs" />
     <Compile Include="Samples\Map\MobileMapSearchAndRoute\NullToVisibilityConverter.cs" />
-    <Compile Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
       <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\OfflineRouting\OfflineRouting.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\OfflineRouting\OfflineRouting.xaml.cs">
       <DependentUpon>OfflineRouting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
       <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.xaml.cs">
@@ -729,16 +729,16 @@
     <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
       <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
       <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\ClosestFacility\ClosestFacility.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\ClosestFacility\ClosestFacility.xaml.cs">
       <DependentUpon>ClosestFacility.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\FindRoute\FindRoute.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.xaml.cs">
       <DependentUpon>FindRoute.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Network analysis\FindServiceArea\FindServiceArea.xaml.cs">
+    <Compile Include="Samples\NetworkAnalysis\FindServiceArea\FindServiceArea.xaml.cs">
       <DependentUpon>FindServiceArea.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
@@ -839,15 +839,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">
+    <Page Include="Samples\UItilityNetwork\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
+    <Page Include="Samples\UItilityNetwork\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
+    <Page Include="Samples\UItilityNetwork\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -859,11 +859,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
+    <Page Include="Samples\UItilityNetwork\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
+    <Page Include="Samples\NetworkAnalysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -871,7 +871,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\NavigateRoute\NavigateRoute.xaml">
+    <Page Include="Samples\NetworkAnalysis\NavigateRoute\NavigateRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -911,15 +911,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
+    <Page Include="Samples\NetworkAnalysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\OfflineRouting\OfflineRouting.xaml">
+    <Page Include="Samples\NetworkAnalysis\OfflineRouting\OfflineRouting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
+    <Page Include="Samples\NetworkAnalysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1091,7 +1091,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\FindServiceArea\FindServiceArea.xaml">
+    <Page Include="Samples\NetworkAnalysis\FindServiceArea\FindServiceArea.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1555,15 +1555,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
+    <Page Include="Samples\NetworkAnalysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\ClosestFacility\ClosestFacility.xaml">
+    <Page Include="Samples\NetworkAnalysis\ClosestFacility\ClosestFacility.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Network analysis\FindRoute\FindRoute.xaml">
+    <Page Include="Samples\NetworkAnalysis\FindRoute\FindRoute.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1672,13 +1672,13 @@
     <Content Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Utility network\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg">
+    <Content Include="Samples\UItilityNetwork\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Utility network\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg">
+    <Content Include="Samples\UItilityNetwork\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Utility network\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg">
+    <Content Include="Samples\UItilityNetwork\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg">
@@ -1687,16 +1687,16 @@
     <Content Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Utility network\TraceUtilityNetwork\TraceUtilityNetwork.jpg">
+    <Content Include="Samples\UItilityNetwork\TraceUtilityNetwork\TraceUtilityNetwork.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg">
+    <Content Include="Samples\NetworkAnalysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\NavigateRoute\NavigateRoute.jpg">
+    <Content Include="Samples\NetworkAnalysis\NavigateRoute\NavigateRoute.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg">
@@ -1726,13 +1726,13 @@
     <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg">
+    <Content Include="Samples\NetworkAnalysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\OfflineRouting\OfflineRouting.jpg">
+    <Content Include="Samples\NetworkAnalysis\OfflineRouting\OfflineRouting.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\RouteAroundBarriers\RouteAroundBarriers.jpg">
+    <Content Include="Samples\NetworkAnalysis\RouteAroundBarriers\RouteAroundBarriers.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Security\CertificateAuthenticationWithPKI\CertificateAuthenticationWithPKI.jpg">
@@ -2211,16 +2211,16 @@
     <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg">
+    <Content Include="Samples\NetworkAnalysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\ClosestFacility\ClosestFacility.jpg">
+    <Content Include="Samples\NetworkAnalysis\ClosestFacility\ClosestFacility.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\FindRoute\FindRoute.jpg">
+    <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Network analysis\FindServiceArea\FindServiceArea.jpg">
+    <Content Include="Samples\NetworkAnalysis\FindServiceArea\FindServiceArea.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Search\FindAddress\FindAddress.jpg">

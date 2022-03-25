@@ -1,4 +1,4 @@
-// Copyright 2019 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,10 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Widget;
 using ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -21,35 +17,34 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UtilityNetworks;
+using Foundation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using UIKit;
 
 namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
 {
-    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Register("TraceUtilityNetwork")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Trace utility network",
         category: "Utility network",
         description: "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
         instructions: "Tap on one or more features while 'Add starting locations' or 'Add barriers' is selected. When a junction feature is identified, you may be prompted to select a terminal. When an edge feature is identified, the distance from the tapped location to the beginning of the edge feature will be computed. Select the type of trace using the drop down menu. Tap 'Trace' to initiate a trace on the network. Tap 'Reset' to clear the trace parameters and start over.",
-        tags: new[] { "condition barriers", "downstream trace", "network analysis", "subnetwork trace", "trace configuration", "traversability", "upstream trace", "utility network", "validate consistency", "Featured" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.AndroidLayout("TraceUtilityNetwork.axml")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public class TraceUtilityNetwork : Activity
+        tags: new[] { "condition barriers", "downstream trace", "network analysis", "subnetwork trace", "trace configuration", "traversability", "upstream trace", "utility network", "validate consistency" })]
+    public class TraceUtilityNetwork : UIViewController
     {
-        // Hold references to the UI controls.
+        // Hold references to UI controls.
         private MapView _myMapView;
-        private RadioButton _addStartButton;
-        private RadioButton _addBarrierButton;
-        private Button _traceButton;
-        private Button _resetButton;
-        private Button _traceTypeButton;
-        private TextView _status;
-        private ProgressBar _progressBar;
-
-        private bool isAddingStart = true;
+        private UIToolbar _toolbar;
+        private UIBarButtonItem _resetButton;
+        private UIBarButtonItem _traceButton;
+        private UISegmentedControl _startBarrierPicker;
+        private UILabel _statusLabel;
+        private UIActivityIndicatorView _activityIndicator;
+        private UIButton _tracePickerButton;
 
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
@@ -62,23 +57,18 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
         private List<UtilityElement> _startingLocations = new List<UtilityElement>();
         private List<UtilityElement> _barriers = new List<UtilityElement>();
         private UtilityTier _mediumVoltageTier;
-        private UtilityTraceType _utilityTraceType = UtilityTraceType.Connected;
+        private UtilityTraceType _utilityTraceType;
 
         // Task completion source for the user selected terminal.
-        private TaskCompletionSource<int> _terminalCompletionSource = null;
+        private TaskCompletionSource<string> _terminalCompletionSource = null;
 
         // Markers for the utility elements.
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
 
-        protected override void OnCreate(Bundle bundle)
+        public TraceUtilityNetwork()
         {
-            base.OnCreate(bundle);
-
             Title = "Trace a utility network";
-
-            CreateLayout();
-            Initialize();
         }
 
         private async void Initialize()
@@ -96,18 +86,18 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 }
                 catch (Exception ex)
                 {
-                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                    Debug.WriteLine(ex.Message);
                     return null;
                 }
             });
 
             try
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Visible;
-                _status.Text = "Loading Utility Network...";
+                _activityIndicator.StartAnimating();
+                _statusLabel.Text = "Loading Utility Network...";
 
                 // Create a map.
-                _myMapView.Map = new Map(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")))
+                _myMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight)
                 {
                     InitialViewpoint = _startingViewpoint
                 };
@@ -145,25 +135,25 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                 _myMapView.GraphicsOverlays.Add(graphicsOverlay);
 
                 // Set the instruction text.
-                _status.Text = "Tap on the network lines or points to add a utility element.";
+                _statusLabel.Text = "Click on the network lines or points to add a utility element.";
             }
             catch (Exception ex)
             {
-                _status.Text = "Loading Utility Network failed...";
-                CreateDialog(ex.Message, title: ex.GetType().Name);
+                _statusLabel.Text = "Loading Utility Network failed...";
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Invisible;
+                _activityIndicator.StopAnimating();
             }
         }
 
-        private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Visible;
-                _status.Text = "Identifying trace locations...";
+                _activityIndicator.StartAnimating();
+                _statusLabel.Text = "Identifying trace locations...";
 
                 // Identify the feature to be used.
                 IEnumerable<IdentifyLayerResult> identifyResult = await _myMapView.IdentifyLayersAsync(e.Position, 10.0, false);
@@ -181,7 +171,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                     {
                         element.Terminal = await WaitForTerminal(terminals);
                     }
-                    _status.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
+                    _statusLabel.Text = $"Terminal: {element.Terminal?.Name ?? "default"}";
                 }
                 else if (element.NetworkSource.SourceType == UtilityNetworkSourceType.Edge)
                 {
@@ -189,16 +179,14 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                     if (feature.Geometry is Polyline line)
                     {
                         line = GeometryEngine.RemoveZ(line) as Polyline;
-                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
-                        if (double.IsNaN(fraction)) { return; }
-                        element.FractionAlongEdge = fraction;
-                        _status.Text = $"Fraction along edge: {element.FractionAlongEdge}";
+                        element.FractionAlongEdge = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        _statusLabel.Text = $"Fraction along edge: {element.FractionAlongEdge}";
                     }
                 }
 
                 // Check whether starting location or barrier is added to update the right collection and symbology.
                 Symbol symbol = null;
-                if (isAddingStart)
+                if (_startBarrierPicker.SelectedSegment == 0)
                 {
                     _startingLocations.Add(element);
                     symbol = _startingPointSymbol;
@@ -215,62 +203,100 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             }
             catch (Exception ex)
             {
-                _status.Text = "Identifying locations failed.";
-                CreateDialog(ex.Message, ex.GetType().Name);
+                _statusLabel.Text = "Identifying locations failed...";
+                new UIAlertView("Error", ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
             }
             finally
             {
-                if (_status.Text.Equals("Identifying trace locations...")) { _status.Text = "Could not identify location."; }
-                _progressBar.Visibility = Android.Views.ViewStates.Invisible;
+                if (_statusLabel.Text.Equals("Identifying trace locations...")) { _statusLabel.Text = "Could not identify location."; }
+                _activityIndicator.StopAnimating();
             }
         }
 
         private async Task<UtilityTerminal> WaitForTerminal(IEnumerable<UtilityTerminal> terminals)
         {
-            // Create an array of the terminal names for the UI.
-            string[] terminalNames = terminals.ToList().Select(t => t.Name).ToArray();
+            try
+            {
+                // Prevent user from tapping map while selecting terminal.
+                _myMapView.GeoViewTapped -= OnGeoViewTapped;
 
-            // Create UI for terminal selection.
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Select terminal for junction");
-            builder.SetItems(terminalNames, Choose_Click);
-            builder.SetCancelable(false);
-            builder.Show();
+                // Start the UI for the user choosing the junction.
+                UIAlertController prompt = UIAlertController.Create(null, "Choose terminal", UIAlertControllerStyle.ActionSheet);
 
-            // Return the selected terminal.
-            _terminalCompletionSource = new TaskCompletionSource<int>();
-            string selectedName = terminalNames[await _terminalCompletionSource.Task];
-            return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
+                foreach (UtilityTerminal terminal in terminals)
+                {
+                    prompt.AddAction(UIAlertAction.Create(terminal.Name, UIAlertActionStyle.Default, Choose_Click));
+                }
+
+                // Needed to prevent crash on iPad.
+                UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+                if (ppc != null)
+                {
+                    ppc.SourceView = _toolbar;
+                    ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+                    ppc.DidDismiss += (s, e) => _terminalCompletionSource.TrySetCanceled();
+                }
+
+                PresentViewController(prompt, true, null);
+
+                // Wait for the user to select a terminal.
+                _terminalCompletionSource = new TaskCompletionSource<string>();
+                string selectedName = await _terminalCompletionSource.Task;
+                return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
+            }
+            finally
+            {
+                // Enable the main UI again.
+                _myMapView.GeoViewTapped += OnGeoViewTapped;
+            }
         }
 
-        private void Choose_Click(object sender, DialogClickEventArgs e)
+        private void Choose_Click(UIAlertAction action)
         {
-            _terminalCompletionSource.TrySetResult(e.Which);
+            _terminalCompletionSource.TrySetResult(action.Title);
         }
 
-        private void ChooseTraceType(object sender, EventArgs e)
+        private void ChangeTraceType(object sender, EventArgs e)
         {
-            // Create UI for trace type selection.
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.SetTitle("Select trace type");
-            builder.SetItems(new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" }, ChangeTraceType);
-            builder.SetCancelable(true);
-            builder.Show();
+            // Prevent user from tapping map while selecting a trace type.
+            _myMapView.GeoViewTapped -= OnGeoViewTapped;
+
+            // Start the UI for the user choosing the trace type.
+            UIAlertController prompt = UIAlertController.Create(null, "Choose trace type", UIAlertControllerStyle.ActionSheet);
+
+            // Add a selection action for every valid trace type.
+            foreach (string name in new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" })
+            {
+                prompt.AddAction(UIAlertAction.Create(name, UIAlertActionStyle.Default, TraceTypeClick));
+            }
+
+            // Needed to prevent crash on iPad.
+            UIPopoverPresentationController ppc = prompt.PopoverPresentationController;
+            if (ppc != null)
+            {
+                ppc.SourceView = _tracePickerButton;
+                ppc.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            PresentViewController(prompt, true, null);
+
+            // Enable the main UI again.
+            _myMapView.GeoViewTapped += OnGeoViewTapped;
         }
 
-        private void ChangeTraceType(object sender, DialogClickEventArgs e)
+        private void TraceTypeClick(UIAlertAction action)
         {
-            _utilityTraceType = (UtilityTraceType)Enum.GetValues(typeof(UtilityTraceType)).GetValue(e.Which);
-            _traceTypeButton.Text = $"Trace type: {_utilityTraceType}";
+            _utilityTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), action.Title);
+            _tracePickerButton.SetTitle($"Trace type: {_utilityTraceType}", UIControlState.Normal);
         }
 
-        private async void Trace_Click(object sender, EventArgs e)
+        private async void OnTrace(object sender, EventArgs e)
         {
             try
             {
                 // Update the UI.
-                _progressBar.Visibility = Android.Views.ViewStates.Visible;
-                _status.Text = $"Running {_utilityTraceType.ToString().ToLower()} trace...";
+                _activityIndicator.StartAnimating();
+                _statusLabel.Text = $"Running {_utilityTraceType.ToString().ToLower()} trace...";
 
                 // Clear previous selection from the layers.
                 _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
@@ -299,73 +325,149 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
                         layer.SelectFeatures(features);
                     }
                 }
-                _status.Text = "Trace completed.";
+                _statusLabel.Text = "Trace completed.";
             }
             catch (Exception ex)
             {
-                _status.Text = "Trace failed...";
+                _statusLabel.Text = "Trace failed...";
                 if (ex is ArcGISWebException && ex.Message == null)
                 {
-                    CreateDialog("Trace failed.", ex.GetType().Name);
+                    new UIAlertView(ex.GetType().Name, "Trace failed.", (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
                 else
                 {
-                    CreateDialog(ex.Message, ex.GetType().Name);
+                    new UIAlertView(ex.GetType().Name, ex.Message, (IUIAlertViewDelegate)null, "OK", null).Show();
                 }
             }
             finally
             {
-                _progressBar.Visibility = Android.Views.ViewStates.Invisible;
+                _activityIndicator.StopAnimating();
             }
         }
 
-        private void Reset_Click(object sender, EventArgs e)
+        private void OnReset(object sender, EventArgs e)
         {
             // Reset the UI.
-            _status.Text = "Tap on the network lines or points to add a utility element.";
-            _progressBar.Visibility = Android.Views.ViewStates.Invisible;
+            _statusLabel.Text = "Click on the network lines or points to add a utility element.";
+            _activityIndicator.StopAnimating();
 
-            // Clear the utility trace parameters.
+            // Clear collections of starting locations and barriers.
             _startingLocations.Clear();
             _barriers.Clear();
 
-            // Clear the map layers and graphics.
+            // Clear the map of any locations, barriers and trace result.
             _myMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Clear();
             _myMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
         }
 
-        private void CreateLayout()
+        public override void LoadView()
         {
-            // Create a new vertical layout for the app.
-            SetContentView(Resource.Layout.TraceUtilityNetwork);
+            // Create the views.
+            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
 
-            _myMapView = FindViewById<MapView>(Resource.Id.MapView);
+            _myMapView = new MapView();
+            _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _addStartButton = FindViewById<RadioButton>(Resource.Id.addStart);
-            _addBarrierButton = FindViewById<RadioButton>(Resource.Id.addBarrier);
-            _traceButton = FindViewById<Button>(Resource.Id.traceButton);
-            _resetButton = FindViewById<Button>(Resource.Id.resetButton);
-            _traceTypeButton = FindViewById<Button>(Resource.Id.traceTypeButton);
-            _status = FindViewById<TextView>(Resource.Id.statusLabel);
-            _progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar);
+            _statusLabel = new UILabel
+            {
+                Text = "Instructions",
+                AdjustsFontSizeToFitWidth = true,
+                TextAlignment = UITextAlignment.Center,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
+                TextColor = UIColor.White,
+                Lines = 1,
+                TranslatesAutoresizingMaskIntoConstraints = false
+            };
 
-            _myMapView.GeoViewTapped += GeoViewTapped;
-            _traceButton.Click += Trace_Click;
-            _resetButton.Click += Reset_Click;
+            _tracePickerButton = new UIButton(UIButtonType.System);
+            _tracePickerButton.SetTitle("Trace type: Connected", UIControlState.Normal);
+            _tracePickerButton.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _traceTypeButton.Click += ChooseTraceType;
+            _startBarrierPicker = new UISegmentedControl(new string[] { "Start", "Barrier" });
+            _startBarrierPicker.SelectedSegment = 0;
 
-            _addStartButton.Click += (s, e) => { isAddingStart = true; };
-            _addBarrierButton.Click += (s, e) => { isAddingStart = false; };
+            _traceButton = new UIBarButtonItem();
+            _traceButton.Title = "Trace";
+
+            _resetButton = new UIBarButtonItem();
+            _resetButton.Title = "Reset";
+
+            _toolbar = new UIToolbar();
+            _toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            _toolbar.Items = new[]
+            {
+                new UIBarButtonItem(_startBarrierPicker),
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _traceButton,
+                _resetButton
+            };
+
+            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
+            {
+                TranslatesAutoresizingMaskIntoConstraints = false,
+                HidesWhenStopped = true,
+                BackgroundColor = UIColor.FromWhiteAlpha(0, .5f)
+            };
+
+            // Add the views.
+            View.AddSubviews(_myMapView, _statusLabel, _tracePickerButton, _toolbar, _activityIndicator);
+
+            // Lay out the views.
+            NSLayoutConstraint.ActivateConstraints(new[]
+                {
+                    _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
+                    _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                    _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                    _myMapView.BottomAnchor.ConstraintEqualTo(_tracePickerButton.TopAnchor),
+
+                    _tracePickerButton.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                    _tracePickerButton.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                    _tracePickerButton.BottomAnchor.ConstraintEqualTo(_toolbar.TopAnchor),
+                    _tracePickerButton.HeightAnchor.ConstraintEqualTo(40),
+
+                    _toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                    _toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                    _toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+
+                    _statusLabel.TopAnchor.ConstraintEqualTo(_myMapView.TopAnchor),
+                    _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                    _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                    _statusLabel.HeightAnchor.ConstraintEqualTo(40),
+
+                    _activityIndicator.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor),
+                    _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                    _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                    _activityIndicator.BottomAnchor.ConstraintEqualTo(View.BottomAnchor)
+                }
+            );
         }
 
-        private void CreateDialog(string message, string title = null)
+        public override void ViewWillAppear(bool animated)
         {
-            // Create a dialog to show message to user.
-            AlertDialog alert = new AlertDialog.Builder(this).Create();
-            if (title != null) alert.SetTitle(title);
-            alert.SetMessage(message);
-            alert.Show();
+            base.ViewWillAppear(animated);
+
+            // Subscribe to events.
+            _myMapView.GeoViewTapped += OnGeoViewTapped;
+            _traceButton.Clicked += OnTrace;
+            _resetButton.Clicked += OnReset;
+            _tracePickerButton.TouchUpInside += ChangeTraceType;
+        }
+
+        public override void ViewDidDisappear(bool animated)
+        {
+            base.ViewDidDisappear(animated);
+
+            // Unsubscribe from events, per best practice.
+            _myMapView.GeoViewTapped -= OnGeoViewTapped;
+            _traceButton.Clicked -= OnTrace;
+            _resetButton.Clicked -= OnReset;
+            _tracePickerButton.TouchUpInside -= ChangeTraceType;
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+            Initialize();
         }
     }
 }

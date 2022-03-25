@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Shared.Attributes;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -31,7 +32,8 @@ namespace ArcGISRuntime.Samples.Shared.Models
         {
             get
             {
-                return System.IO.Path.Combine(_pathStub, "Samples", Category, FormalName);
+                string formalCategory = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Category).Replace(" ", "");
+                return System.IO.Path.Combine(_pathStub, "Samples", formalCategory, FormalName);
             }
         }
 

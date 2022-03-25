@@ -20,7 +20,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditKmlGroundOverlay
         category: "Layers",
         description: "Edit the values of a KML ground overlay.",
         instructions: "Use the slider to adjust the opacity of the ground overlay.",
-        tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "imagery", "Featured" })]
+        tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "imagery" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1f3677c24b2c446e96eaf1099292e83e")]
     public partial class EditKmlGroundOverlay
     {

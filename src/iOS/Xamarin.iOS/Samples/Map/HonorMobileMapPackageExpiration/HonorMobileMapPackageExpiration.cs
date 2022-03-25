@@ -24,7 +24,7 @@ namespace ArcGISRuntimeXamarin.Samples.HonorMobileMapPackageExpiration
         category: "Map",
         description: "Access the expiration information of an expired mobile map package.",
         instructions: "Load the sample. The author of the MMPK used in this sample chose to set the MMPK's map as still readable, even if it's expired. The sample presents expiration information to the user.",
-        tags: new[] { "expiration", "mmpk", "Featured" })]
+        tags: new[] { "expiration", "mmpk" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("174150279af74a2ba6f8b87a567f480b")]
     public class HonorMobileMapPackageExpiration : UIViewController
     {

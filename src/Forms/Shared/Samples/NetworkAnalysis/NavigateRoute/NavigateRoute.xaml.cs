@@ -1,4 +1,4 @@
-// Copyright 2019 Esri.
+﻿// Copyright 2019 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,12 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Android.App;
-using Android.OS;
-using Android.Runtime;
-using Android.Speech.Tts;
-using Android.Widget;
-using ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
@@ -20,30 +14,25 @@ using Esri.ArcGISRuntime.Navigation;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Forms;
+using static Xamarin.Essentials.TextToSpeech;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
 {
-    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Navigate route",
         category: "Network analysis",
         description: "Use a routing service to navigate between points.",
         instructions: "Tap 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Tap 'Recenter' to refocus on the location display.",
-        tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice", "Featured" })]
+        tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
-    public class NavigateRoute : Activity, TextToSpeech.IOnInitListener
+    public partial class NavigateRoute : ContentPage, IDisposable
     {
-        // Hold references to the UI controls.
-        private MapView _myMapView;
-        private Button _navigateButton;
-        private Button _recenterButton;
-        private TextView _status;
-
         // Variables for tracking the navigation route.
         private RouteTracker _tracker;
         private RouteResult _routeResult;
@@ -52,11 +41,8 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
 
-        // Speech synthesizer to play voice guidance audio.
-        private TextToSpeech _textToSpeech;
-
-        // String to hold route status for the UI.
-        private string _statusMessage;
+        // Cancellation token for speech synthesizer.
+        private CancellationTokenSource _speechToken = new CancellationTokenSource();
 
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
@@ -74,13 +60,9 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
         // Feature service for routing in San Diego.
         private readonly Uri _routingUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
-        protected override void OnCreate(Bundle bundle)
+        public NavigateRoute()
         {
-            base.OnCreate(bundle);
-
-            Title = "Navigate route";
-
-            CreateLayout();
+            InitializeComponent();
             Initialize();
         }
 
@@ -89,10 +71,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             try
             {
                 // Create the map view.
-                _myMapView.Map = new Map(BasemapStyle.ArcGISStreets);
-
-                // Create the text to speech object.
-                _textToSpeech = new TextToSpeech(this, this, "com.google.android.tts");
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
                 // Create the route task, using the online routing service.
                 RouteTask routeTask = await RouteTask.CreateAsync(_routingUri);
@@ -120,13 +99,13 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
                 _route = _routeResult.Routes[0];
 
                 // Add a graphics overlay for the route graphics.
-                _myMapView.GraphicsOverlays.Add(new GraphicsOverlay());
+                MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
                 // Add graphics for the stops.
                 SimpleMarkerSymbol stopSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, Color.OrangeRed, 20);
-                _myMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_conventionCenter, stopSymbol));
-                _myMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_memorial, stopSymbol));
-                _myMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_aerospaceMuseum, stopSymbol));
+                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_conventionCenter, stopSymbol));
+                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_memorial, stopSymbol));
+                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(_aerospaceMuseum, stopSymbol));
 
                 // Create a graphic (with a dashed line symbol) to represent the route.
                 _routeAheadGraphic = new Graphic(_route.RouteGeometry) { Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.BlueViolet, 5) };
@@ -135,25 +114,25 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
                 _routeTraveledGraphic = new Graphic { Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.LightBlue, 3) };
 
                 // Add the route graphics to the map view.
-                _myMapView.GraphicsOverlays[0].Graphics.Add(_routeAheadGraphic);
-                _myMapView.GraphicsOverlays[0].Graphics.Add(_routeTraveledGraphic);
+                MyMapView.GraphicsOverlays[0].Graphics.Add(_routeAheadGraphic);
+                MyMapView.GraphicsOverlays[0].Graphics.Add(_routeTraveledGraphic);
 
                 // Set the map viewpoint to show the entire route.
-                await _myMapView.SetViewpointGeometryAsync(_route.RouteGeometry, 100);
+                await MyMapView.SetViewpointGeometryAsync(_route.RouteGeometry, 100);
 
                 // Enable the navigation button.
-                _navigateButton.Enabled = true;
+                StartNavigationButton.IsEnabled = true;
             }
             catch (Exception e)
             {
-                new AlertDialog.Builder(this).SetMessage(e.Message).SetTitle("Error").Show();
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
         }
 
         private void StartNavigation(object sender, EventArgs e)
         {
             // Disable the start navigation button.
-            _navigateButton.Enabled = false;
+            StartNavigationButton.IsEnabled = false;
 
             // Get the directions for the route.
             _directionsList = _route.DirectionManeuvers;
@@ -166,20 +145,20 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
 
             // Turn on navigation mode for the map view.
-            _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-            _myMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
+            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
+            MyMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
 
             // Add a data source for the location display.
             var simulationParameters = new SimulationParameters(DateTimeOffset.Now, 40.0);
             var simulatedDataSource = new SimulatedLocationDataSource();
             simulatedDataSource.SetLocationsWithPolyline(_route.RouteGeometry, simulationParameters);
-            _myMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(simulatedDataSource, _tracker);
+            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(simulatedDataSource, _tracker);
 
             // Use this instead if you want real location:
-            // _myMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
+            // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
 
             // Enable the location display (this wil start the location data source).
-            _myMapView.LocationDisplay.IsEnabled = true;
+            MyMapView.LocationDisplay.IsEnabled = true;
         }
 
         private void TrackingStatusUpdated(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
@@ -221,79 +200,58 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
                 {
                     _tracker.SwitchToNextDestinationAsync();
                 }
-                else
-                {
-                    RunOnUiThread(() =>
-                    {
-                        // Stop the simulated location data source.
-                        _myMapView.LocationDisplay.DataSource.StopAsync();
-                    });
-                }
+
+                // Stop the simulated location data source.
+                MyMapView.LocationDisplay.DataSource.StopAsync();
             }
 
-            _statusMessage = statusMessageBuilder.ToString().TrimEnd('\n').TrimEnd('\r');
-
-            // Update the status in the UI.
-            RunOnUiThread(SetLabelText);
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                // Show the status information in the UI.
+                MessagesTextBlock.Text = statusMessageBuilder.ToString().TrimEnd('\n').TrimEnd('\r');
+            });
         }
 
-        private void SetLabelText()
+        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
-            _status.Text = _statusMessage;
-        }
-
-        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
-        {
-            _textToSpeech.Stop();
-            _textToSpeech.Speak(e.VoiceGuidance.Text, QueueMode.Flush, null, null);
+            // Say the direction using voice synthesis.
+            if (e.VoiceGuidance.Text?.Length > 0)
+            {
+                _speechToken.Cancel();
+                _speechToken = new CancellationTokenSource();
+                await SpeakAsync(e.VoiceGuidance.Text, _speechToken.Token);
+            }
         }
 
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
         {
             // Turn the recenter button on or off when the location display changes to or from navigation mode.
-            _recenterButton.Enabled = e != LocationDisplayAutoPanMode.Navigation;
+            RecenterButton.IsEnabled = e != LocationDisplayAutoPanMode.Navigation;
         }
 
-        private void Recenter(object sender, EventArgs e)
+        private void RecenterButton_Click(object sender, EventArgs e)
         {
             // Change the mapview to use navigation mode.
-            _myMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
+            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
         }
 
-        private void CreateLayout()
+        public void Dispose()
         {
-            // Load the layout from the axml resource.
-            SetContentView(Resource.Layout.NavigateRoute);
+            // Stop the tracker.
+            if (_tracker != null)
+            {
+                _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
+                _tracker.NewVoiceGuidance -= SpeakDirection;
+                _tracker = null;
+            }
 
-            _myMapView = FindViewById<MapView>(Resource.Id.MapView);
-            _navigateButton = FindViewById<Button>(Resource.Id.navigateButton);
-            _recenterButton = FindViewById<Button>(Resource.Id.recenterButton);
-            _status = FindViewById<TextView>(Resource.Id.statusLabel);
-
-            // Add listeners for all of the buttons.
-            _navigateButton.Click += StartNavigation;
-            _recenterButton.Click += Recenter;
-        }
-
-        public void OnInit([GeneratedEnum] OperationResult status)
-        {
-            Console.WriteLine(status.ToString());
-        }
-
-        protected override void OnDestroy()
-        {
             // Stop the location data source.
-            _myMapView?.LocationDisplay?.DataSource?.StopAsync();
-
-            base.OnDestroy();
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 
-    /*
-     * This location data source uses an input data source and a route tracker.
-     * The location source that it updates is based on the snapped-to-route location from the route tracker.
-     */
-
+    // This location data source uses an input data source and a route tracker.
+    // The location source that it updates is based on the snapped-to-route location from the route tracker.
     public class RouteTrackerDisplayLocationDataSource : LocationDataSource
     {
         private LocationDataSource _inputDataSource;

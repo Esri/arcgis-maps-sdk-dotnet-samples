@@ -15,7 +15,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace ArcGISRuntime.Samples.Managers
@@ -39,7 +38,7 @@ namespace ArcGISRuntime.Samples.Managers
         /// <summary>
         /// A list of all samples.
         /// </summary>
-        /// <remarks>This is public on purpose. Other solutions that consume 
+        /// <remarks>This is public on purpose. Other solutions that consume
         /// this project reference it directly.</remarks>
         public IList<SampleInfo> AllSamples { get; set; }
 
@@ -76,25 +75,32 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
         /// <summary>
-        /// Get a list of featured sample names from a resource file. 
+        /// Get a list of featured sample names from a resource file.
         /// </summary>
         /// <returns>An enumerable containing the names of the featured samples.</returns>
         public IEnumerable<string> GetFeaturedSamplesNames()
         {
-            // Instantiate a null XElement to be populated by the resource file. 
+            // Instantiate a null XElement to be populated by the resource file.
             XElement featuredSampleElement = null;
 
-            // Create a list to hold the names of the featured samples. 
+            // Create a list to hold the names of the featured samples.
             List<string> featuredSamples = new List<string>();
 
-            // Load the FeaturedSamples resource file. 
+            string resourceStreamName;
+
+#if WinUI
+            resourceStreamName = "ArcGISRuntime.WinUI.Viewer.Resources.FeaturedSamples.xml";
+#else
+            resourceStreamName = "ArcGISRuntime.Resources.FeaturedSamples.xml";
+#endif
+            // Load the FeaturedSamples resource file.
             using (Stream stream = this.GetType().Assembly.
-                       GetManifestResourceStream("ArcGISRuntime.Resources.FeaturedSamples.xml"))
+                       GetManifestResourceStream(resourceStreamName))
             {
                 featuredSampleElement = XElement.Load(stream);
             }
 
-            // If the resource file has been successfully loaded populate the list of featured samples. 
+            // If the resource file has been successfully loaded populate the list of featured samples.
             if (featuredSampleElement != null)
             {
                 featuredSamples = featuredSampleElement.Descendants("Sample").Select(x => x.Value).ToList();
@@ -133,10 +139,10 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
         /// <summary>
-        /// Creates a <c>SearchableTreeNode</c> representing the entire 
+        /// Creates a <c>SearchableTreeNode</c> representing the entire
         /// collection of samples, organized by category.
         /// </summary>
-        /// <remarks>This is public on purpose. Other solutions that 
+        /// <remarks>This is public on purpose. Other solutions that
         /// consume this project reference it directly.</remarks>
         /// <param name="allSamples">A list of all samples.</param>
         /// <returns>A <c>SearchableTreeNode</c> with all samples organized by category.</returns>

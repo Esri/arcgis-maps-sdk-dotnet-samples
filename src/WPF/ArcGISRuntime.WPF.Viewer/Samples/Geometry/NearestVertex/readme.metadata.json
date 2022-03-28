@@ -23,7 +23,7 @@
         "/net/latest/wpf/sample-code/nearestvertex.htm"
     ],
     "relevant_apis": [
-        "Geometry",
+        "GeometryEngine",
         "ProximityResult"
     ],
     "snippets": [

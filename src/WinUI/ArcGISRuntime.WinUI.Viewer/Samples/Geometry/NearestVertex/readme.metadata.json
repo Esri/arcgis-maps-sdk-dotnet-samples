@@ -23,7 +23,7 @@
         "/net/latest/winui/sample-code/nearestvertex.htm"
     ],
     "relevant_apis": [
-        "Geometry",
+        "GeometryEngine",
         "ProximityResult"
     ],
     "snippets": [

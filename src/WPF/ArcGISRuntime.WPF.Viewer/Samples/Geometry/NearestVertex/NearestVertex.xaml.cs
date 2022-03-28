@@ -44,7 +44,9 @@ namespace ArcGISRuntime.WPF.Samples.NearestVertex
 
         private async Task Initialize()
         {
+            // Planar distances are only accurate for geometries that have a defined projected coordinate system.
             // Create a spatial reference using the California zone 5 (ftUS) state plane coordinate system.
+            // This coordinate system maintains planar distance accuracy in the region of Southern California.
             SpatialReference californiaZone5SpatialReference = SpatialReference.Create(2229);
 
             // Create a map that uses the California zone 5 state spatial reference.

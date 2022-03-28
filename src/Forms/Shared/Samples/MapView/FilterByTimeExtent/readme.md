@@ -14,17 +14,15 @@ Use the slider at the bottom of the map to customize the date range for which yo
 
 ## How it works
 
-1. Create an `AGSMapView` with an `AGSMap`.
-2. Create a feature layer by creating an `AGSPortalItem` and specifying the layer.
-3. Add the feature layer that includes time-enabled data to the map's array of operational layers.
-4. Create a `TimeSlider` from the ArcGIS Runtime Toolkit to allow users to show data only from the given date range. This sets up all necessary calls to visualize and step through the temporal data.
+1. Create a `MapView` with a `Map`, and add layers that have time-enabled data.
+2. Create a `TimeSlider` from the ArcGIS Runtime Toolkit to allow users to show data only from the given date range. This sets up all necessary calls to visualize and step through the temporal data.
 
 ## Relevant API
 
-* AGSFeatureLayer
-* AGSMap
-* AGSMapView
-* AGSServiceFeatureTable
+* FeatureLayer
+* Map
+* MapView
+* ServiceFeatureTable
 
 ## Additional information
 

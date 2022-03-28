@@ -160,6 +160,8 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
+                SampleContainer.Width = 800;
+                SampleContainer.Height = 600;
                 SourceCodeContainer.LoadSourceCode();
             }
             catch (OperationCanceledException)

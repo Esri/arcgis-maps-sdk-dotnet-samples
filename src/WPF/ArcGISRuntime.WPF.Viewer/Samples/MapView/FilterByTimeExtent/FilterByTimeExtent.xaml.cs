@@ -8,33 +8,28 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.Toolkit.UI;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.FilterByTimeExtent
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Filter by time extent",
-        category: "Data",
+        category: "MapView",
         description: "The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.",
         instructions: "Use the slider at the bottom of the map to customize the date range for which you want to view the data. The date for the hurricanes sample data ranges from September 1st, 2005 to December 31st, 2005. Once the start and end dates have been selected, the map view will update to only show the relevant data that falls in the time extent selected. Use the play button to step through the data one day at a time. Use the previous and next buttons to go back and forth in 2 day increments as demonstrated below.",
         tags: new[] { "animate", "data", "filter", "time", "time extent", "time frame", "toolkit" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("49925d814d7e40fb8fa64864ef62d55e")]
     public partial class FilterByTimeExtent
     {
+        // URL to the feature service.
+        private const string FeatureServiceUrl = "https://services5.arcgis.com/N82JbI5EYtAkuUKU/ArcGIS/rest/services/Hurricane_time_enabled_layer_2005_1_day/FeatureServer/0";
+
+        // Hold a reference to the feature table.
+        private ServiceFeatureTable _featureTable;
+
         public FilterByTimeExtent()
         {
             InitializeComponent();
@@ -43,6 +38,29 @@ namespace ArcGISRuntime.WPF.Samples.FilterByTimeExtent
 
         private async Task Initialize()
         {
+            // Create the map with streets basemap.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+
+            // Set the initial map location.
+            MyMapView.SetViewpoint(new Viewpoint(29.979774, -58.495293, 150000000));
+
+            // Create the feature table, referring to the Damage Assessment feature service.
+            _featureTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+
+            // Create a feature layer to visualize the features in the table.
+            FeatureLayer featureLayer = new FeatureLayer(_featureTable);
+
+            // Add the layer to the map.
+            MyMapView.Map.OperationalLayers.Add(featureLayer);
+
+            // Initialize time slider properties, including full extent and time intervals, based on the feature layer.
+            await MyTimeSlider.InitializeTimePropertiesAsync(featureLayer);
+        }
+
+        private void TimeSlider_CurrentExtentChanged(object sender, TimeExtentChangedEventArgs e)
+        {
+            // Update the time extent on the map view. 
+            MyMapView.TimeExtent = e.NewExtent;
         }
     }
 }

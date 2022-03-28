@@ -24,10 +24,10 @@
         "/net/latest/wpf/sample-code/filterbytimeextent.htm"
     ],
     "relevant_apis": [
-        "AGSFeatureLayer",
-        "AGSMap",
-        "AGSMapView",
-        "AGSServiceFeatureTable"
+        "FeatureLayer",
+        "Map",
+        "MapView",
+        "ServiceFeatureTable"
     ],
     "snippets": [
         "FilterByTimeExtent.xaml",

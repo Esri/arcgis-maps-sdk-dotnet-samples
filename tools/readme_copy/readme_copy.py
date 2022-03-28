@@ -59,6 +59,8 @@ def replace_readmes(category, formal_name, sample_root):
         if  not platform == "UWP" and not platform == "WinUI":
             platformcontent = platformcontent.replace("click ", "tap ")
             platformcontent = platformcontent.replace("Click ", "Tap ")
+            platformcontent = platformcontent.replace("clicked ", "tapped ")
+            platformcontent = platformcontent.replace("Clicked ", "Tapped ")
 
         try:
             # Write the WPF readme to other platform

@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         name: "Edit and sync features",
         category: "Data",
         description: "Synchronize offline edits with a feature service.",
-        instructions: "Pan and zoom to position the red rectangle around the area you want to take offline. Tap \"Generate geodatabase\" to take the area offline. When complete, the map will update to only show the offline area. To edit features, tap to select a feature, and tap again anywhere else on the map to move the selected feature to the clicked location. To sync the edits with the feature service, tap the \"Sync geodatabase\" button.",
+        instructions: "Pan and zoom to position the red rectangle around the area you want to take offline. Tap \"Generate geodatabase\" to take the area offline. When complete, the map will update to only show the offline area. To edit features, tap to select a feature, and tap again anywhere else on the map to move the selected feature to the tapped location. To sync the edits with the feature service, tap the \"Sync geodatabase\" button.",
         tags: new[] { "feature service", "geodatabase", "offline", "synchronize" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
     public partial class EditAndSyncFeatures : ContentPage

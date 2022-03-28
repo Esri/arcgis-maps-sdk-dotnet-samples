@@ -56,6 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.UpdateAttributes
                 await serviceGeodatabase.LoadAsync();
 
                 // Gets the feature table from the service geodatbase, referring to the Damage Assessment feature service.
+                // Creating a feature table from the feature service will cause the service geodatbase to be null.
                 ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
 
                 // When the table loads, use it to discover the domain of the typdamage field.

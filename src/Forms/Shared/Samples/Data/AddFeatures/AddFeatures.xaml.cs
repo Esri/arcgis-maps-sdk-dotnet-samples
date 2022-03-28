@@ -48,6 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
                 await serviceGeodatabase.LoadAsync();
 
                 // Gets the feature table from the service geodatabase, referring to the Damage Assessment feature service.
+                // Creating a feature table from the feature service will cause the service geodatbase to be null.
                 _damageFeatureTable = serviceGeodatabase.GetTable(0);
 
                 // Create a feature layer to visualize the features in the table.

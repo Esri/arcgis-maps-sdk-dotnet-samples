@@ -30,6 +30,10 @@ To change the feature's damage property, tap the feature to select it, and updat
 * ServiceFeatureTable
 * ServiceGeodatabase
 
+## Additional Information
+
+When editing feature tables that are subject to database behavior (operations on one table affecting another table), it's now recommended to call these methods (apply edits & undo edits) on the `ServiceGeodatabase` object rather than on the `ServiceFeatureTable` object. Using the `ServiceGeodatabase` object to call these methods will prevent possible data inconsistencies and ensure transactional integrity so that all changes can be commited or rolled back. 
+
 ## Tags
 
 amend, attribute, details, edit, editing, information, value

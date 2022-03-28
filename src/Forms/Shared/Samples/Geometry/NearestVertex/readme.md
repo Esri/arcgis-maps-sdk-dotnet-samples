@@ -10,15 +10,15 @@ Determine the shortest distance between a location and the boundary of an area. 
 
 ## How to use the sample
 
-Tap anywhere on the map. An orange cross will show at that location. A blue circle will show the polygon's nearest vertex to the point that was tapped. A red diamond will appear at the coordinate on the geometry that is nearest to the point that was tapped. If tapped inside the geometry, the red and orange markers will overlap. The information box showing distance between the tapped point and the nearest vertex/coordinate will be updated with every new location tapped.
+Tap anywhere on the map. An orange cross will show at that location. A blue circle will show the polygon's nearest vertex to the point that was clicked. A red diamond will appear at the coordinate on the geometry that is nearest to the point that was clicked. If clicked inside the geometry, the red and orange markers will overlap. The information box showing distance between the clicked point and the nearest vertex/coordinate will be updated with every new location clicked.
 
 ## How it works
 
 1. Get a `Geometry` and a `Point` to check the nearest vertex against.
 2. Call `GeometryEngine.NearestVertex(inputGeometry, point)`.
-3. Use the returned `ProximityResult` to get the `Point` representing the polygon vertex, and to determine the distance between that vertex and the tapped point.
+3. Use the returned `ProximityResult` to get the `Point` representing the polygon vertex, and to determine the distance between that vertex and the clicked point.
 4. Call `GeometryEngine.NearestCoordinate(inputGeometry, point)`.
-5. Use the returned `ProximityResult` to get the `Point` representing the coordinate on the polygon, and to determine the distance between that coordinate and the tapped point.
+5. Use the returned `ProximityResult` to get the `Point` representing the coordinate on the polygon, and to determine the distance between that coordinate and the clicked point.
 
 ## Relevant API
 

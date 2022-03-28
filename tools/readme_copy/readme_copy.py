@@ -3,6 +3,10 @@ import sys
 import os
 import copy
 
+excluded_samples = [
+    ("ChangeBasemap", "WinUI")
+]
+
 def get_platform_samples_root(platform, sample_root):
     '''
     Gets the root directory for each platform
@@ -35,6 +39,10 @@ def replace_readmes(category, formal_name, sample_root):
     for platform in plats:
         # Skip local server for non WinUI platforms.
         if not platform == "WinUI" and category == "LocalServer":
+            continue
+
+        # Skip excluded samples
+        if (formal_name, platform) in excluded_samples:
             continue
 
         # Copy the original WPF text into a new string

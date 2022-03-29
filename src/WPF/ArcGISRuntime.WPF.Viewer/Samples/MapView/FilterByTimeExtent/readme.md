@@ -15,7 +15,9 @@ Use the slider at the bottom of the map to customize the date range for which yo
 ## How it works
 
 1. Create a `MapView` with a `Map`, and add layers that have time-enabled data.
-2. Create a `TimeSlider` from the ArcGIS Runtime Toolkit to allow users to show data only from the given date range. This sets up all necessary calls to visualize and step through the temporal data.
+2. Create a `TimeSlider` from the ArcGIS Runtime Toolkit to allow users to show data only from the given date range. 
+3. Call `TimeSlider.InitializeTimePropertiesAsync` to initialize the full extent and time intervals of the `TimeSlider` based on the time-aware `Featurelayer`.
+4. Create a `TimeSlider.CurrentExtentChanged` event handler to update the `MapView` when the `TimeSlider` extent changes.
 
 ## Relevant API
 

@@ -21,7 +21,6 @@ namespace ArcGISRuntime.WPF.Samples.FilterByTimeExtent
         description: "The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.",
         instructions: "Use the slider at the bottom of the map to customize the date range for which you want to view the data. The date for the hurricanes sample data ranges from September 1st, 2005 to December 31st, 2005. Once the start and end dates have been selected, the map view will update to only show the relevant data that falls in the time extent selected. Use the play button to step through the data one day at a time. Use the previous and next buttons to go back and forth in 2 day increments as demonstrated below.",
         tags: new[] { "animate", "data", "filter", "time", "time extent", "time frame", "toolkit" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("49925d814d7e40fb8fa64864ef62d55e")]
     public partial class FilterByTimeExtent
     {
         // URL to the feature service.
@@ -38,13 +37,13 @@ namespace ArcGISRuntime.WPF.Samples.FilterByTimeExtent
 
         private async Task Initialize()
         {
-            // Create the map with streets basemap.
+            // Create the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Set the initial map location.
             MyMapView.SetViewpoint(new Viewpoint(29.979774, -58.495293, 150000000));
 
-            // Create the feature table, referring to the Damage Assessment feature service.
+            // Create the feature table, referring to the feature service.
             _featureTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
 
             // Create a feature layer to visualize the features in the table.

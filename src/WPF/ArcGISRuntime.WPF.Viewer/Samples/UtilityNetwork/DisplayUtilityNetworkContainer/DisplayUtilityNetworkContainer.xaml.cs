@@ -70,7 +70,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
             MyMapView.GraphicsOverlays.Add(_associationsOverlay);
 
             // Symbols for the associations.
-            Symbol attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Green, 5d);
+            Symbol attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Blue, 5d);
             Symbol boundingBoxSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Yellow, 5d);
             Symbol connectivitySymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Red, 5d);
 
@@ -148,6 +148,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
                 // Clear the graphics overlay.
                 _associationsOverlay.Graphics.Clear();
 
+                // Enable the close button.
+                CloseButton.Visibility = System.Windows.Visibility.Visible;
+
                 // Get the content features and give them each a symbol, and add them as a graphic to the graphics overlay.
                 foreach (ArcGISFeature contentFeature in contentFeatures)
                 {
@@ -162,13 +165,13 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
                 // If there is only single element, create a bounding box using the container view scale.
                 if (contentFeatures.Count() == 1 && contentFeatures.First().Geometry is MapPoint point)
                 {
-                    await MyMapView.SetViewpointAsync(new Viewpoint(point, containerViewScale));
-                    boundingBox = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
+                    boundingBox = new Envelope(point, containerViewScale, containerViewScale);
                 }
                 // Otherwise, create a bounding box using the combined extents of the elements from associations.
                 else
                 {
-                    boundingBox = GeometryEngine.Buffer(_associationsOverlay.Extent, 0.05);
+                    Envelope combinedExtents = GeometryEngine.CombineExtents(contentFeatures.Select(f => f.Geometry));
+                    boundingBox = GeometryEngine.Buffer(combinedExtents, 0.05);
                 }
 
                 // Add a graphic for the bounding box.
@@ -196,11 +199,22 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
                 }
 
                 // Set the viewpoint to show the bounding box.
-                await MyMapView.SetViewpointAsync(new Viewpoint(boundingBox.Extent));
+                await MyMapView.SetViewpointGeometryAsync(boundingBox, 25);
             }
             catch (Exception ex)
             {
             }
+        }
+
+        private void CloseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            CloseButton.Visibility = System.Windows.Visibility.Hidden;
+
+            // Clear the graphics overlay.
+            _associationsOverlay.Graphics.Clear();
+
+            // Return to the initial viewpoint.
+            MyMapView.SetViewpointAsync(InitialViewpoint);
         }
     }
 }

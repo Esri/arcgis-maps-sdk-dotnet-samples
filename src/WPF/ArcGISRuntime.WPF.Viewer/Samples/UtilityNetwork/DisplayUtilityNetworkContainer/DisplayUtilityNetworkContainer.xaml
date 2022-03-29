@@ -25,6 +25,11 @@
                           Margin="5"
                           IsHitTestVisible="False"
                           ItemTemplate="{StaticResource AssociationLegendItemTemplate}" />
+                <Button x:Name="CloseButton"
+                        Margin="5"
+                        Click="CloseButton_Click"
+                        Content="Close container view"
+                        Visibility="Hidden" />
             </StackPanel>
         </Border>
     </Grid>

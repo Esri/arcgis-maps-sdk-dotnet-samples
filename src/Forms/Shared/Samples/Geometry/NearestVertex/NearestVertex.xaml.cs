@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
         name: "Nearest vertex",
         category: "Geometry",
         description: "Find the closest vertex and coordinate of a geometry to a point.",
-        instructions: "Tap anywhere on the map. An orange cross will show at that location. A blue circle will show the polygon's nearest vertex to the point that was clicked. A red diamond will appear at the coordinate on the geometry that is nearest to the point that was clicked. If clicked inside the geometry, the red and orange markers will overlap. The information box showing distance between the clicked point and the nearest vertex/coordinate will be updated with every new location clicked.",
+        instructions: "Tap anywhere on the map. An orange cross will show at that location. A blue circle will show the polygon's nearest vertex to the point that was clicked. A red diamond will appear at the coordinate on the geometry that is nearest to the point that was clicked. If tapped inside the geometry, the red and orange markers will overlap. The information box showing distance between the tapped point and the nearest vertex/coordinate will be updated with every new location clicked.",
         tags: new[] { "analysis", "coordinate", "geometry", "nearest", "proximity", "vertex" })]
     public partial class NearestVertex
     {

@@ -10,7 +10,7 @@ Quickly and accurately determining the most efficient route between a location a
 
 ## How to use the sample
 
-Tap near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.
+Tap near any of the hospitals and a route will be displayed from that tapped location to the nearest hospital.
 
 ## How it works
 

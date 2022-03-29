@@ -159,17 +159,18 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
                     _associationsOverlay.Graphics.Add(new Graphic(contentFeature.Geometry, symbol));
                 }
 
-                double containerViewScale = containerElement.AssetType.ContainerViewScale;
-
+                // Create a bounding box for the container.
                 Geometry boundingBox;
+
                 // If there is only single element, create a bounding box using the container view scale.
                 if (contentFeatures.Count() == 1 && contentFeatures.First().Geometry is MapPoint point)
                 {
+                    double containerViewScale = containerElement.AssetType.ContainerViewScale;
                     boundingBox = new Envelope(point, containerViewScale, containerViewScale);
                 }
-                // Otherwise, create a bounding box using the combined extents of the elements from associations.
                 else
                 {
+                    // Create a bounding box using the combined extents of the elements from associations.
                     Envelope combinedExtents = GeometryEngine.CombineExtents(contentFeatures.Select(f => f.Geometry));
                     boundingBox = GeometryEngine.Buffer(combinedExtents, 0.05);
                 }

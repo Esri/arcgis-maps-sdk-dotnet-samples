@@ -33,8 +33,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
         // Overlay to hold graphics for all of the associations.
         private GraphicsOverlay _associationsOverlay;
 
-        private GraphicsOverlay _otherGraphics;
-
         // This viewpoint shows several associations clearly in the utility network.
         private readonly Viewpoint InitialViewpoint = new Viewpoint(41.801504, -88.163718, 4e3);
 
@@ -70,8 +68,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
             // Create a graphics overlay for associations.
             _associationsOverlay = new GraphicsOverlay();
             MyMapView.GraphicsOverlays.Add(_associationsOverlay);
-            _otherGraphics = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(_otherGraphics);
 
             // Symbols for the associations.
             Symbol attachmentSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dot, Color.Green, 5d);
@@ -80,7 +76,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
 
             // Create a renderer for the associations.
             var attachmentValue = new UniqueValue("Attachment", string.Empty, attachmentSymbol, UtilityAssociationType.Attachment.ToString());
-            var boundingBoxValue = new UniqueValue("Containment", string.Empty, boundingBoxSymbol, UtilityAssociationType.Attachment.ToString());
+            var boundingBoxValue = new UniqueValue("Containment", string.Empty, boundingBoxSymbol, UtilityAssociationType.Containment.ToString());
             var connectivityValue = new UniqueValue("Connectivity", string.Empty, connectivitySymbol, UtilityAssociationType.Connectivity.ToString());
             _associationsOverlay.Renderer = new UniqueValueRenderer(new List<string> { "AssociationType" }, new List<UniqueValue> { attachmentValue, boundingBoxValue, connectivityValue }, string.Empty, null);
 
@@ -137,51 +133,50 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
                 // Create element from the identified feature.
                 UtilityElement containerElement = _utilityNetwork.CreateElement(feature);
 
+                // Get all of the containment associations for the selected container element.
                 IEnumerable<UtilityAssociation> containmentAssociations = await _utilityNetwork.GetAssociationsAsync(containerElement, UtilityAssociationType.Containment);
 
-                IEnumerable<UtilityElement> contentElements = containmentAssociations.Select(association => association.FromElement.ObjectId == containerElement.ObjectId ? association.FromElement : association.ToElement);
+                // Get all of the other elements associated with the selected element.
+                IEnumerable<UtilityElement> contentElements = containmentAssociations.Select(association => association.FromElement.ObjectId == containerElement.ObjectId ? association.ToElement : association.FromElement);
 
+                // Verify that there are elements in the associations.
                 if (!contentElements.Any()) return;
 
+                // Get features for these elements.
                 IEnumerable<ArcGISFeature> contentFeatures = await _utilityNetwork.GetFeaturesForElementsAsync(contentElements);
+
+                // Clear the graphics overlay.
+                _associationsOverlay.Graphics.Clear();
 
                 // Get the content features and give them each a symbol, and add them as a graphic to the graphics overlay.
                 foreach (ArcGISFeature contentFeature in contentFeatures)
                 {
+                    // Get the symbol for each element from the feature table.
                     Symbol symbol = (contentFeature.FeatureTable as ArcGISFeatureTable).LayerInfo.DrawingInfo.Renderer.GetSymbol(contentFeature);
-                    _otherGraphics.Graphics.Add(new Graphic(contentFeature.Geometry, symbol));
+                    _associationsOverlay.Graphics.Add(new Graphic(contentFeature.Geometry, symbol));
                 }
 
                 double containerViewScale = containerElement.AssetType.ContainerViewScale;
-                //var boundingBox = GeometryEngine.CombineExtents(contentFeatures.Select(f => f.Geometry.Extent));
 
                 Geometry boundingBox;
-                if(_otherGraphics.Graphics.Count == 1 && _otherGraphics.Graphics.First().Geometry is MapPoint point)
+                // If there is only single element, create a bounding box using the container view scale.
+                if (contentFeatures.Count() == 1 && contentFeatures.First().Geometry is MapPoint point)
                 {
                     await MyMapView.SetViewpointAsync(new Viewpoint(point, containerViewScale));
                     boundingBox = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
                 }
+                // Otherwise, create a bounding box using the combined extents of the elements from associations.
                 else
                 {
                     boundingBox = GeometryEngine.Buffer(_associationsOverlay.Extent, 0.05);
                 }
-                    //\ if (graphicsOverlay.getGraphics().size() == 1 && firstGraphic instanceof Point) {
-                    //mapView.setViewpointCenterAsync((Point)firstGraphic, containerViewScale).addDoneListener(()-> {
 
-                    //    // the bounding box, which defines the container view, may be computed using the extent of the features
-                    //    // it contains or centered around its geometry at the container's view scale
-                    //    Geometry boundingBox = mapView.getCurrentViewpoint(Viewpoint.Type.BOUNDING_GEOMETRY).getTargetGeometry();
-                    //    identifyAssociationsWithExtent(boundingBox);
-                    //    new Alert(Alert.AlertType.INFORMATION, "This feature has no associations").show();
-
-                //identifyAssociationsWithExtent(boundingBox);
-                //var boundingBox = new Viewpoint(_associationsOverlay.Extent.GetCenter(), containerViewScale).TargetGeometry;
-
-                // Add a graphic for the association.
+                // Add a graphic for the bounding box.
                 Graphic boundingGraphic = new Graphic(boundingBox);
-                // boundingGraphic.Attributes["GlobalId"] = boundingBox;
                 boundingGraphic.Attributes["AssociationType"] = UtilityAssociationType.Containment.ToString();
                 _associationsOverlay.Graphics.Add(boundingGraphic);
+
+                // Add graphics for every association.
                 var allAssociations = await _utilityNetwork.GetAssociationsAsync(boundingBox.Extent);
                 foreach (UtilityAssociation association in allAssociations)
                 {
@@ -194,11 +189,14 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
                     // Add a graphic for the association.
                     Graphic graphic = new Graphic(association.Geometry);
                     graphic.Attributes["GlobalId"] = association.GlobalId;
+
+                    // This association type will be used by the unique value renderer to determine the symbology of the graphic.
                     graphic.Attributes["AssociationType"] = association.AssociationType.ToString();
                     _associationsOverlay.Graphics.Add(graphic);
                 }
 
-                await MyMapView.SetViewpointAsync(new Viewpoint(boundingBox));
+                // Set the viewpoint to show the bounding box.
+                await MyMapView.SetViewpointAsync(new Viewpoint(boundingBox.Extent));
             }
             catch (Exception ex)
             {

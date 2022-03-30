@@ -84,18 +84,18 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayUtilityNetworkContainer
             _associationsOverlay.Renderer = new UniqueValueRenderer(new List<string> { "AssociationType" }, new List<UniqueValue> { attachmentValue, boundingBoxValue, connectivityValue }, string.Empty, null);
 
             // Populate the legend in the UI.
-            var typeImageKey = new Dictionary<UtilityAssociationType, Microsoft.UI.Xaml.Media.ImageSource>();
+            var symbologyKey = new Dictionary<UtilityAssociationType, Microsoft.UI.Xaml.Media.ImageSource>();
 
             RuntimeImage attachmentSwatch = await attachmentSymbol.CreateSwatchAsync();
-            typeImageKey[UtilityAssociationType.Attachment] = await attachmentSwatch?.ToImageSourceAsync();
+            symbologyKey[UtilityAssociationType.Attachment] = await attachmentSwatch?.ToImageSourceAsync();
 
             RuntimeImage boundingSwatch = await boundingBoxSymbol.CreateSwatchAsync();
-            typeImageKey[UtilityAssociationType.Containment] = await boundingSwatch?.ToImageSourceAsync();
+            symbologyKey[UtilityAssociationType.Containment] = await boundingSwatch?.ToImageSourceAsync();
 
             RuntimeImage connectSwatch = await connectivitySymbol.CreateSwatchAsync();
-            typeImageKey[UtilityAssociationType.Connectivity] = await connectSwatch?.ToImageSourceAsync();
+            symbologyKey[UtilityAssociationType.Connectivity] = await connectSwatch?.ToImageSourceAsync();
 
-            AssociationLegend.ItemsSource = typeImageKey;
+            AssociationLegend.ItemsSource = symbologyKey;
 
             try
             {

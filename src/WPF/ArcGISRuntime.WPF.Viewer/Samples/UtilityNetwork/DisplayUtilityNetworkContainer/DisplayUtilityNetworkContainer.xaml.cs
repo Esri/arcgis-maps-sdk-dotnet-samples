@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
 {
@@ -113,6 +114,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -204,6 +206,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

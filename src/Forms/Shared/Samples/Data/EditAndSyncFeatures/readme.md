@@ -10,7 +10,7 @@ A survey worker who works in an area without an internet connection could take a
 
 ## How to use the sample
 
-Pan and zoom to position the red rectangle around the area you want to take offline. Tap "Generate geodatabase" to take the area offline. When complete, the map will update to only show the offline area. To edit features, tap to select a feature, and tap again anywhere else on the map to move the selected feature to the clicked location. To sync the edits with the feature service, tap the "Sync geodatabase" button.
+Pan and zoom to position the red rectangle around the area you want to take offline. Tap "Generate geodatabase" to take the area offline. When complete, the map will update to only show the offline area. To edit features, tap to select a feature, and tap again anywhere else on the map to move the selected feature to the tapped location. To sync the edits with the feature service, tap the "Sync geodatabase" button.
 
 ## How it works
 

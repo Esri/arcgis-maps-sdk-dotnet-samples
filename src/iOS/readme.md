@@ -12,11 +12,11 @@
 
 ## Augmented reality
 
-* [Collect data in AR](Xamarin.iOS/Samples/Augmented%20reality/CollectDataAR/readme.md) - Tap on real-world objects to collect data.
-* [Display scenes in tabletop AR](Xamarin.iOS/Samples/Augmented%20reality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
-* [Explore scenes in flyover AR](Xamarin.iOS/Samples/Augmented%20reality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
-* [Navigate in AR](Xamarin.iOS/Samples/Augmented%20reality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.
-* [View hidden infrastructure in AR](Xamarin.iOS/Samples/Augmented%20reality/ViewHiddenInfrastructureAR/readme.md) - Visualize hidden infrastructure in its real-world location using augmented reality.
+* [Collect data in AR](Xamarin.iOS/Samples/AugmentedReality/CollectDataAR/readme.md) - Tap on real-world objects to collect data.
+* [Display scenes in tabletop AR](Xamarin.iOS/Samples/AugmentedReality/DisplayScenesInTabletopAR/readme.md) - Use augmented reality (AR) to pin a scene to a table or desk for easy exploration.
+* [Explore scenes in flyover AR](Xamarin.iOS/Samples/AugmentedReality/ExploreScenesInFlyoverAR/readme.md) - Use augmented reality (AR) to quickly explore a scene more naturally than you could with a touch or mouse interface.
+* [Navigate in AR](Xamarin.iOS/Samples/AugmentedReality/NavigateAR/readme.md) - Use a route displayed in the real world to navigate.
+* [View hidden infrastructure in AR](Xamarin.iOS/Samples/AugmentedReality/ViewHiddenInfrastructureAR/readme.md) - Visualize hidden infrastructure in its real-world location using augmented reality.
 
 ## Data
 
@@ -198,15 +198,15 @@
 
 ## Network analysis
 
-* [Find closest facility to an incident (interactive)](Xamarin.iOS/Samples/Network%20analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
-* [Find closest facility to multiple incidents (service)](Xamarin.iOS/Samples/Network%20analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Find route](Xamarin.iOS/Samples/Network%20analysis/FindRoute/readme.md) - Display directions for a route between two points.
-* [Find service area](Xamarin.iOS/Samples/Network%20analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
-* [Find service areas for multiple facilities](Xamarin.iOS/Samples/Network%20analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
-* [Navigate route](Xamarin.iOS/Samples/Network%20analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
-* [Navigate route with rerouting](Xamarin.iOS/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
-* [Offline routing](Xamarin.iOS/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
-* [Route around barriers](Xamarin.iOS/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Find closest facility to an incident (interactive)](Xamarin.iOS/Samples/NetworkAnalysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
+* [Find closest facility to multiple incidents (service)](Xamarin.iOS/Samples/NetworkAnalysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Find route](Xamarin.iOS/Samples/NetworkAnalysis/FindRoute/readme.md) - Display directions for a route between two points.
+* [Find service area](Xamarin.iOS/Samples/NetworkAnalysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
+* [Find service areas for multiple facilities](Xamarin.iOS/Samples/NetworkAnalysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
+* [Navigate route](Xamarin.iOS/Samples/NetworkAnalysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
+* [Navigate route with rerouting](Xamarin.iOS/Samples/NetworkAnalysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
+* [Offline routing](Xamarin.iOS/Samples/NetworkAnalysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
+* [Route around barriers](Xamarin.iOS/Samples/NetworkAnalysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
 
 ## Scene
 
@@ -252,8 +252,8 @@
 
 ## Utility network
 
-* [Configure subnetwork trace](Xamarin.iOS/Samples/Utility%20network/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
-* [Display utility associations](Xamarin.iOS/Samples/Utility%20network/DisplayUtilityAssociations/readme.md) - Create graphics for utility associations in a utility network.
-* [Perform valve isolation trace](Xamarin.iOS/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
-* [Trace utility network](Xamarin.iOS/Samples/Utility%20network/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
+* [Configure subnetwork trace](Xamarin.iOS/Samples/UtilityNetwork/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
+* [Display utility associations](Xamarin.iOS/Samples/UtilityNetwork/DisplayUtilityAssociations/readme.md) - Create graphics for utility associations in a utility network.
+* [Perform valve isolation trace](Xamarin.iOS/Samples/UtilityNetwork/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+* [Trace utility network](Xamarin.iOS/Samples/UtilityNetwork/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

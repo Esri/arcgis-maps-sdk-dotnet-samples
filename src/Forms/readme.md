@@ -194,15 +194,15 @@
 
 ## Network analysis
 
-* [Find closest facility to an incident (interactive)](Shared/Samples/Network%20analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
-* [Find closest facility to multiple incidents (service)](Shared/Samples/Network%20analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Find route](Shared/Samples/Network%20analysis/FindRoute/readme.md) - Display directions for a route between two points.
-* [Find service area](Shared/Samples/Network%20analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
-* [Find service areas for multiple facilities](Shared/Samples/Network%20analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
-* [Navigate route](Shared/Samples/Network%20analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
-* [Navigate route with rerouting](Shared/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
-* [Offline routing](Shared/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
-* [Route around barriers](Shared/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Find closest facility to an incident (interactive)](Shared/Samples/NetworkAnalysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
+* [Find closest facility to multiple incidents (service)](Shared/Samples/NetworkAnalysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Find route](Shared/Samples/NetworkAnalysis/FindRoute/readme.md) - Display directions for a route between two points.
+* [Find service area](Shared/Samples/NetworkAnalysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
+* [Find service areas for multiple facilities](Shared/Samples/NetworkAnalysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
+* [Navigate route](Shared/Samples/NetworkAnalysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
+* [Navigate route with rerouting](Shared/Samples/NetworkAnalysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
+* [Offline routing](Shared/Samples/NetworkAnalysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
+* [Route around barriers](Shared/Samples/NetworkAnalysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
 
 ## Scene
 
@@ -247,8 +247,8 @@
 
 ## Utility network
 
-* [Configure subnetwork trace](Shared/Samples/Utility%20network/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
-* [Display utility associations](Shared/Samples/Utility%20network/DisplayUtilityAssociations/readme.md) - Create graphics for utility associations in a utility network.
-* [Perform valve isolation trace](Shared/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
-* [Trace utility network](Shared/Samples/Utility%20network/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
+* [Configure subnetwork trace](Shared/Samples/UtilityNetwork/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
+* [Display utility associations](Shared/Samples/UtilityNetwork/DisplayUtilityAssociations/readme.md) - Create graphics for utility associations in a utility network.
+* [Perform valve isolation trace](Shared/Samples/UtilityNetwork/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+* [Trace utility network](Shared/Samples/UtilityNetwork/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

@@ -17,7 +17,7 @@
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="25" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="0"
@@ -31,16 +31,13 @@
                            Text="Containment" />
                     <Image x:Name="AttachmentImage"
                            Grid.Row="0"
-                           Grid.Column="0"
-                           WidthRequest="25" />
+                           Grid.Column="0" />
                     <Image x:Name="ConnectivityImage"
                            Grid.Row="1"
-                           Grid.Column="0"
-                           WidthRequest="25" />
+                           Grid.Column="0" />
                     <Image x:Name="ContainmentImage"
                            Grid.Row="2"
-                           Grid.Column="0"
-                           WidthRequest="25" />
+                           Grid.Column="0" />
                 </Grid>
                 <Button x:Name="CloseButton"
                         Margin="5"

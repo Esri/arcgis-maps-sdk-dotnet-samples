@@ -116,6 +116,9 @@ class sample_metadata:
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 
+         # Correct category metadata for categories with spaces
+        self.category = self.category.replace("LocalServer", "Local Server").replace("NetworkAnalysis", "Network analysis").replace("UtilityNetwork", "Utility network").replace("AugmentedReality", "Augmented reality")
+
         # if category is 'Hydrography', add the hydrography package
         if self.category == "Hydrography":
             self.nuget_packages["Esri.ArcGISRuntime.Hydrography"] = self.arcgis_runtime_latest

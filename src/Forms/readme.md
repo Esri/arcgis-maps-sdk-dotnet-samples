@@ -235,7 +235,7 @@
 
 ## Symbology
 
-* [Custom dictionary style](Shared/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.
+* [Custom dictionary style](Shared/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary created from a web style or style file (.stylx) to symbolize features using a variety of attribute values.
 * [Feature layer extrusion](Shared/Samples/Symbology/FeatureLayerExtrusion/readme.md) - Extrude features based on their attributes.
 * [Picture marker symbol](Shared/Samples/Symbology/RenderPictureMarkers/readme.md) - Use pictures for markers.
 * [Simple marker symbol](Shared/Samples/Symbology/RenderSimpleMarkers/readme.md) - Show a simple marker symbol on a map.

@@ -10,7 +10,7 @@ Basemaps should be selected contextually. For example, in maritime applications,
 
 ## How to use the sample
 
-When the basemap gallery appears, select a basemap to be displayed. Tap the 'Hide Gallery' button to hide the gallery. If you want to see the gallery again, tap the 'Show Gallery' button.
+When the basemap gallery appears, select a basemap to be displayed.
 
 ## How it works
 

@@ -50,7 +50,7 @@ def get_csproj_style_path(category_list, sample_name, file_name):
     Gets the path in the csproj style, consisting of the categories and file name
     e.g. Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg
     '''
-    components = ["Samples", category_list, sample_name, file_name]
+    components = ["Samples", category_list.title().replace(' ', ''), sample_name, file_name]
     return '\\'.join(components)
 
 def build_csproj_line(category_list, sample_name, platform, entry_type):
@@ -157,7 +157,7 @@ def orchestrate_file_copy(platforms, root, category_list, sample_name, replaceme
     template_root = os.path.dirname(os.path.realpath(__file__))
     template_root = os.path.join(template_root, "templates", "default")
     for platform in platforms:
-        dest_root = os.path.join(get_platform_root(platform, root), "Samples", category_list, sample_name) 
+        dest_root = os.path.join(get_platform_root(platform, root), "Samples", category_list.title().replace(' ', ''), sample_name) 
         source = ""
         dest = ""
         # copy the code files
@@ -192,14 +192,14 @@ def ensure_category_present(platforms, root, category_list):
     '''
     for platform in platforms:
         plat_root = get_platform_root(platform, root)
-        category_folder = os.path.join(plat_root, "Samples", category_list)
+        category_folder = os.path.join(plat_root, "Samples", category_list.title().replace(' ', ''))
         if not os.path.exists(category_folder):
             os.makedirs(category_folder)
 
 def create_sample_directory(platforms, root, category_list, sample_name):
     for platform in platforms:
         plat_root = get_platform_root(platform, root)
-        category_folder = os.path.join(plat_root, "Samples", category_list)
+        category_folder = os.path.join(plat_root, "Samples", category_list.title().replace(' ', ''))
         sample_folder = os.path.join(category_folder, sample_name)
         if not os.path.exists(sample_folder):
             os.makedirs(sample_folder)
@@ -247,6 +247,9 @@ def new_sample_main(full_directory):
     # Ask for the category
     category_string = input("Enter the sample category: ")
 
+    # Make a folder string for that category
+    category_path = category_string.title().replace(' ', '')
+
     # Ask for description
     sample_description = input("Enter the (brief, 1-line) sample description: ")
 
@@ -254,13 +257,13 @@ def new_sample_main(full_directory):
     is_scene = input("Is this a scene sample? (defaults to no) y/n: ")
 
     # perform replacement in csproj files
-    perform_csproj_replace(Platforms, full_directory, category_string, sample_name)
+    perform_csproj_replace(Platforms, full_directory, category_path, sample_name)
 
     # create the category directory if not already present
-    ensure_category_present(Platforms, full_directory, category_string)
+    ensure_category_present(Platforms, full_directory, category_path)
 
     # create the sample directory
-    create_sample_directory(Platforms, full_directory, category_string, sample_name)
+    create_sample_directory(Platforms, full_directory, category_path, sample_name)
 
     # collect offline item ids
     itemIds = []
@@ -285,15 +288,15 @@ def new_sample_main(full_directory):
     Replacements["[offline_data_attr]"] = get_offline_data_attribute(itemIds)
 
     # create templated files
-    orchestrate_file_copy(Platforms, full_directory, category_string, sample_name, Replacements) 
+    orchestrate_file_copy(Platforms, full_directory, category_path, sample_name, Replacements) 
 
 def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Replacements):
     for platform in platforms:
         file_list = [old_name + '.jpg', old_name + ".cs", old_name + ".xaml.cs", old_name + ".xaml", "readme.md", "readme.metadata.json"]
         for filename in file_list:
             plat_root = get_platform_root(platform, root)
-            old_path = os.path.join(plat_root, "Samples", old_cat, old_name, filename)
-            new_path = os.path.join(plat_root, "Samples", new_cat, new_name, filename.replace(old_name, new_name))
+            old_path = os.path.join(plat_root, "Samples", old_cat.title().replace(' ', ''), old_name, filename)
+            new_path = os.path.join(plat_root, "Samples", new_cat.title().replace(' ', ''), new_name, filename.replace(old_name, new_name))
             old_content = ""
             if not os.path.isfile(old_path):
                 continue
@@ -309,7 +312,7 @@ def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Repl
 def delete_sample_folder(platforms, root, category, sample_name):
     for platform in platforms:
         plat_root = get_platform_root(platform, root)
-        path = os.path.join(plat_root, "Samples", category, sample_name)
+        path = os.path.join(plat_root, "Samples", category.title().replace(' ', ''), sample_name)
         # delete any markdown files
         for entry in os.listdir(path):
             if entry.lower().endswith(".md"):
@@ -318,7 +321,7 @@ def delete_sample_folder(platforms, root, category, sample_name):
         if os.path.isdir(path) and len(os.listdir(path)) < 1:
             shutil.rmtree(path)
         # delete category folder if empty
-        cat_path = os.path.join(plat_root, "Samples", category)
+        cat_path = os.path.join(plat_root, "Samples", category.title().replace(' ', ''))
         if len(os.listdir(cat_path)) < 1:
             shutil.rmtree(cat_path)
     return

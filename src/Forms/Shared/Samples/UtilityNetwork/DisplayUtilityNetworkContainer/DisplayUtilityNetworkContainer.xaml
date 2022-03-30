@@ -3,20 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:resources="clr-namespace:Forms.Resources">
-    <ContentPage.Resources>
-        <DataTemplate x:Key="AssociationLegendItemTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Image Width="25"
-                       Height="25"
-                       Source="{Binding Value}" />
-                <Label Grid.Column="1" Text="{Binding Key}" />
-            </Grid>
-        </DataTemplate>
-    </ContentPage.Resources>
     <RelativeLayout>
         <esriUI:MapView x:Name="MyMapView"
                         GeoViewTapped="MyMapView_GeoViewTapped"

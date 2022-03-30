@@ -3,6 +3,10 @@ import sys
 import os
 import copy
 
+excluded_samples = [
+    ("ChangeBasemap", "WinUI")
+]
+
 def get_platform_samples_root(platform, sample_root):
     '''
     Gets the root directory for each platform
@@ -34,7 +38,11 @@ def replace_readmes(category, formal_name, sample_root):
     plats = ["Forms", "WinUI"] # "Android", "iOS", "UWP"
     for platform in plats:
         # Skip local server for non WinUI platforms.
-        if not platform == "WinUI" and category == "Local Server":
+        if not platform == "WinUI" and category == "LocalServer":
+            continue
+
+        # Skip excluded samples
+        if (formal_name, platform) in excluded_samples:
             continue
 
         # Copy the original WPF text into a new string
@@ -51,6 +59,8 @@ def replace_readmes(category, formal_name, sample_root):
         if  not platform == "UWP" and not platform == "WinUI":
             platformcontent = platformcontent.replace("click ", "tap ")
             platformcontent = platformcontent.replace("Click ", "Tap ")
+            platformcontent = platformcontent.replace("clicked ", "tapped ")
+            platformcontent = platformcontent.replace("Clicked ", "Tapped ")
 
         try:
             # Write the WPF readme to other platform

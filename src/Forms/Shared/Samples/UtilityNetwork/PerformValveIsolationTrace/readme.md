@@ -26,12 +26,12 @@ Tap on one or more features to use as filter barriers or create and set the conf
 10. Create a `UtilityElement` for the identified feature and add this `UtilityElement` to a collection of filter barriers.
       * If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `Terminal` property with the selected terminal.
       * If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.  
-11. If 'Trace' is clicked without filter barriers:
+11. If 'Trace' is tapped without filter barriers:
       * Create a new `UtilityCategoryComparison` with the selected category and `UtilityCategoryComparisonOperator.Exists`.
       * Create a new `UtilityTraceFilter` with this condition as `Barriers` to set `Filter` and update `IncludeIsolatedFeatures` properties of the default configuration from step 5.
       * Run a `UtilityNetwork.TraceAsync`.
   
-    If 'Trace' is clicked with filter barriers:
+    If 'Trace' is tapped with filter barriers:
       * Update `IncludeIsolatedFeatures` property of the default configuration from step 5.
       * Run a `UtilityNetwork.TraceAsync`.
 12. For every `FeatureLayer` in the map, select the features returned with `GetFeaturesForElementsAsync` from the elements matching their `NetworkSource.FeatureTable` with the layer's `FeatureTable`.

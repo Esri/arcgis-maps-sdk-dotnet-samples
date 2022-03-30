@@ -1,19 +1,21 @@
 {
     "category": "Symbology",
-    "description": "Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.",
+    "description": "Use a custom dictionary created from a web style or style file (.stylx) to symbolize features using a variety of attribute values.",
     "formal_name": "CustomDictionaryStyle",
     "ignore": false,
     "images": [
         "CustomDictionaryStyle.jpg"
     ],
     "keywords": [
+        "ArcGIS Online",
         "dictionary",
         "military",
         "renderer",
         "style",
         "stylx",
         "unique value",
-        "visualization"
+        "visualization",
+        "web style"
     ],
     "nuget_packages": {
         "Esri.ArcGISRuntime": "100.13.0",
@@ -28,7 +30,8 @@
     "relevant_apis": [
         "DictionaryRenderer",
         "DictionarySymbolStyle",
-        "DictionarySymbolStyleConfiguration"
+        "DictionarySymbolStyleConfiguration",
+        "PortalItem"
     ],
     "snippets": [
         "CustomDictionaryStyle.xaml",

@@ -117,6 +117,10 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayUtilityNetworkContainer
             {
                 await new MessageDialog2(ex.Message, ex.Message.GetType().Name).ShowAsync();
             }
+            finally
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)

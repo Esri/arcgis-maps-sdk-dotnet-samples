@@ -111,6 +111,10 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityNetworkContainer
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
+            finally
+            {
+                LoadingIndicator.IsVisible = false;
+            }
         }
 
         private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)

@@ -46,5 +46,16 @@
                         Text="Close container view" />
             </StackLayout>
         </resources:ResponsiveFormContainer>
+        <ActivityIndicator x:Name="LoadingIndicator"
+                           HorizontalOptions="CenterAndExpand"
+                           IsRunning="True"
+                           IsVisible="True"
+                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                                  Property=Height,
+                                                                                  Factor=1}"
+                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                                 Property=Width,
+                                                                                 Factor=1}"
+                           VerticalOptions="CenterAndExpand" />
     </RelativeLayout>
 </ContentPage>

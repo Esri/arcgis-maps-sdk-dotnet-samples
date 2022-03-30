@@ -32,5 +32,12 @@
                         Visibility="Collapsed" />
             </StackPanel>
         </Border>
+        <ProgressBar x:Name="LoadingBar"
+                     Width="200"
+                     Height="25"
+                     HorizontalContentAlignment="Center"
+                     VerticalContentAlignment="Center"
+                     IsIndeterminate="True"
+                     Visibility="Visible" />
     </Grid>
 </UserControl>

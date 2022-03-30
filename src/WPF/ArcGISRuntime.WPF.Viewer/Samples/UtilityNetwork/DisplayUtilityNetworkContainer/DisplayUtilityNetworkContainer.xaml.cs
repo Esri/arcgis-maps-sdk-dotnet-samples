@@ -116,6 +116,10 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
             {
                 MessageBox.Show(ex.Message, ex.Message.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+            finally
+            {
+                LoadingBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
@@ -151,7 +155,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
                 _associationsOverlay.Graphics.Clear();
 
                 // Enable the close button.
-                CloseButton.Visibility = System.Windows.Visibility.Visible;
+                CloseButton.Visibility = Visibility.Visible;
 
                 // Get the content features and give them each a symbol, and add them as a graphic to the graphics overlay.
                 foreach (ArcGISFeature contentFeature in contentFeatures)
@@ -210,9 +214,9 @@ namespace ArcGISRuntime.WPF.Samples.DisplayUtilityNetworkContainer
             }
         }
 
-        private void CloseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            CloseButton.Visibility = System.Windows.Visibility.Hidden;
+            CloseButton.Visibility = Visibility.Hidden;
 
             // Clear the graphics overlay.
             _associationsOverlay.Graphics.Clear();

@@ -13,10 +13,6 @@
         "features",
         "fields"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0"
-    },
     "offline_data": [
         "74c0c9fa80f4498c9739cc42531e9948"
     ],

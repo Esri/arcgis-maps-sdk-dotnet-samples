@@ -224,8 +224,6 @@ def main():
                 if os.path.exists(path_to_json):
                     metadata_based_sample = sample_metadata()
                     metadata_based_sample.populate_from_json(path_to_json)
-                    sample.nuget_packages = metadata_based_sample.nuget_packages
-                sample.resync_nuget_packages(platform)
                 sample.flush_to_json(path_to_json)
 
                 # update attributes in the sample code files

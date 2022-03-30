@@ -12,10 +12,6 @@
         "shp",
         "vector"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.UWP": "100.13.0"
-    },
     "offline_data": [
         "d98b3e5293834c5f852f13c569930caa"
     ],

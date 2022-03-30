@@ -25,7 +25,6 @@ class sample_metadata:
         self.formal_name = ""
         self.friendly_name = ""
         self.category = ""
-        self.nuget_packages = {}
         self.keywords = []
         self.relevant_api = []
         self.since = ""
@@ -53,7 +52,7 @@ class sample_metadata:
         with open(path_to_json, 'r') as json_file:
             data = json.load(json_file)
             keys = data.keys()
-            for key in ["category", "keywords", "images", "redirect_from", "description", "ignore", "nuget_packages"]:
+            for key in ["category", "keywords", "images", "redirect_from", "description", "ignore"]:
                 if key in keys:
                     setattr(self, key, data[key])
             if "title" in keys:
@@ -63,39 +62,6 @@ class sample_metadata:
             if "snippets" in keys:
                 self.source_files = data["snippets"]
 
-            # manually correct nuget package if needed
-            self.nuget_packages["Esri.ArcGISRuntime"] = self.arcgis_runtime_latest
-            if self.category == "Hydrography":
-                self.nuget_packages["Esri.ArcGISRuntime.Hydrography"] = self.arcgis_runtime_latest
-            if self.category in ["Local Server", "LocalServer"]:
-                self.nuget_packages["Esri.ArcGISRuntime.LocalServices"] = self.local_server_latest
-            if self.category in ["Augmented reality", "Augmented Reality"]:
-                self.nuget_packages["Esri.ArcGISRuntime.ARToolkit"] = self.ar_toolkit_latest
-
-        return
-    
-    def resync_nuget_packages(self, platform):
-        '''
-        Updates this sample's nuget packages.
-        '''
-        # add base package
-        self.nuget_packages["Esri.ArcGISRuntime"] = self.arcgis_runtime_latest
-        # add platform-specific package
-        if platform == "Forms":
-            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Forms"] = self.arcgis_runtime_latest
-            self.nuget_packages["Esri.ArcGISRuntime.UWP"] = self.arcgis_runtime_latest
-            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.iOS"] = self.arcgis_runtime_latest
-            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Android"] = self.arcgis_runtime_latest
-        elif platform == "iOS":
-            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.iOS"] = self.arcgis_runtime_latest
-        elif platform == "Android":
-            self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Android"] = self.arcgis_runtime_latest
-        elif platform == "UWP":
-            self.nuget_packages["Esri.ArcGISRuntime.UWP"] = self.arcgis_runtime_latest
-        elif platform == "WPF":
-            self.nuget_packages["Esri.ArcGISRuntime.WPF"] = self.arcgis_runtime_latest
-        elif platform == "WinUI":
-            self.nuget_packages["Esri.ArcGISRuntime.WinUI"] = self.arcgis_runtime_latest
         return
     
     def populate_from_readme(self, platform, path_to_readme):
@@ -118,16 +84,6 @@ class sample_metadata:
 
          # Correct category metadata for categories with spaces
         self.category = self.category.replace("LocalServer", "Local Server").replace("NetworkAnalysis", "Network analysis").replace("UtilityNetwork", "Utility network").replace("AugmentedReality", "Augmented reality")
-
-        # if category is 'Hydrography', add the hydrography package
-        if self.category == "Hydrography":
-            self.nuget_packages["Esri.ArcGISRuntime.Hydrography"] = self.arcgis_runtime_latest
-        elif self.category == "LocalServer" or self.category == "Local Server":
-            self.nuget_packages["Esri.ArcGISRuntime.LocalServices"] = self.local_server_latest
-        elif self.category in ["Augmented reality", "Augmented Reality"]:
-            self.nuget_packages["Esri.ArcGISRuntime.ARToolkit"] = self.ar_toolkit_latest
-        # add the ArcGIS Runtime package always
-        self.nuget_packages["Esri.ArcGISRuntime"] = self.arcgis_runtime_latest
 
         # read the readme content into a string
         readme_contents = ""
@@ -312,7 +268,6 @@ class sample_metadata:
         data["description"] = self.description
         data["ignore"] = self.ignore
         data["offline_data"] = self.offline_data
-        data["nuget_packages"] = self.nuget_packages
         data["formal_name"] = self.formal_name
 
         with open(path_to_json, 'w+') as json_file:
@@ -355,17 +310,6 @@ class sample_metadata:
                         dest_path = os.path.join(output_dir, "Controls", os.path.split(file)[1])
                     copyfile(source_path, dest_path)
 
-        # Remove nuget packages for forms as needed
-        if platform == "XFA":
-            del self.nuget_packages["Esri.ArcGISRuntime.Xamarin.iOS"]
-            del self.nuget_packages["Esri.ArcGISRuntime.UWP"]
-        elif platform == "XFI":
-            del self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Android"]
-            del self.nuget_packages["Esri.ArcGISRuntime.UWP"]
-        elif platform == "XFU":
-            del self.nuget_packages["Esri.ArcGISRuntime.Xamarin.Android"]
-            del self.nuget_packages["Esri.ArcGISRuntime.Xamarin.iOS"]
-
         # accumulate list of source, xaml, axml, and resource files
         all_source_files = self.source_files
 
@@ -374,7 +318,6 @@ class sample_metadata:
         replacements["$$project$$"] = self.formal_name
         replacements[".slntemplate"] = ".sln" # replacement needed to prevent template solutions from appearing in Visual Studio git browser
         replacements["$$embedded_resources$$"] = "" # TODO
-        replacements["$$nuget_packages$$"] = get_csproj_xml_for_nuget_packages(self.nuget_packages)
         replacements["$$code_and_xaml$$"] = get_csproj_xml_for_code_files(all_source_files, platform)
         replacements["$$axml_files$$"] = get_csproj_xml_for_android_layout(all_source_files)
         replacements["$$current_year$$"] = str(datetime.now().year)

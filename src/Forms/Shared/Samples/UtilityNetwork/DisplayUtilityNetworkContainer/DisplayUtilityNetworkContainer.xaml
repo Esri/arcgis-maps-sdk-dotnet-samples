@@ -9,7 +9,10 @@
                         Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
-                <Label Margin="5" Text="Utility association types" />
+                <Label Margin="5" Text="Tap an element to view its container." />
+                <Label Margin="5"
+                       FontAttributes="Bold"
+                       Text="Utility association types" />
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />

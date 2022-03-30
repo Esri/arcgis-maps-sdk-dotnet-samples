@@ -20,7 +20,10 @@
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <Label Margin="5" Content="Utility association types" />
+                <Label Margin="5" Content="Click an element to view its container." />
+                <Label Margin="5"
+                       Content="Utility association types"
+                       FontWeight="Bold" />
                 <ListView x:Name="AssociationLegend"
                           Margin="5"
                           IsHitTestVisible="False"

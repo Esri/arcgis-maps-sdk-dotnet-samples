@@ -184,7 +184,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayUtilityNetworkContainer
                 _associationsOverlay.Graphics.Add(boundingGraphic);
 
                 // Add graphics for every association.
-                var allAssociations = await _utilityNetwork.GetAssociationsAsync(boundingBox.Extent);
+                IEnumerable<UtilityAssociation> allAssociations = await _utilityNetwork.GetAssociationsAsync(boundingBox.Extent);
                 foreach (UtilityAssociation association in allAssociations)
                 {
                     // Check if the graphics overlay already contains the association.

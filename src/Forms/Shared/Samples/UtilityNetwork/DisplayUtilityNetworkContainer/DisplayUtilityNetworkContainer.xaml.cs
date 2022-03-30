@@ -22,10 +22,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityNetworkContainer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Display content of utility network container",
-        "Utility network",
-        "A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.",
-        "")]
+        name: "Display content of utility network container",
+        category: "Utility network",
+        description: "A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.",
+        instructions: "Tap on a container feature to show all features inside the container. The container is shown as a polygon graphic with the content features contained within. The viewpoint and scale of the map are also changed to the container's extent. Connectivity and attachment associations inside the container are shown as red and blue dotted lines respectively.",
+        tags: new[] { "associations", "connectivity association", "containment association", "structural attachment associations", "utility network" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayUtilityNetworkContainer : ContentPage
     {

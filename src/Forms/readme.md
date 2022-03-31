@@ -22,6 +22,7 @@
 * [Feature layer (GeoPackage)](Shared/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](Shared/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.
 * [Feature layer (shapefile)](Shared/Samples/Data/FeatureLayerShapefile/readme.md) - Open a shapefile stored on the device and display it as a feature layer with default symbology.
+* [Filter by time extent](Shared/Samples/Data/FilterByTimeExtent/readme.md) - The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.
 * [Generate geodatabase](Shared/Samples/Data/GenerateGeodatabase/readme.md) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](Shared/Samples/Data/GeodatabaseTransactions/readme.md) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](Shared/Samples/Data/ListRelatedFeatures/readme.md) - List features related to the selected feature.

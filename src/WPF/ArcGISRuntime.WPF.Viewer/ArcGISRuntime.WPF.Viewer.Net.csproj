@@ -115,8 +115,9 @@
   </Target>
   <!-- Workaround for https://github.com/dotnet/core/issues/7176 -->
   <ItemGroup>
-    <FrameworkReference
-      Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms"
-      TargetingPackVersion="6.0.0" />
+    <FrameworkReference Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms" TargetingPackVersion="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Samples\GraphicsOverlay\SketchOnMap\resources\" />
   </ItemGroup>
 </Project>

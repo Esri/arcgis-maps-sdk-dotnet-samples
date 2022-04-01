@@ -43,8 +43,8 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
 
         private void Initialize()
         {
-            // Create a light gray canvas map
-            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
+            // Create a map
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Create graphics overlay to display sketch geometry
             _sketchOverlay = new GraphicsOverlay();
@@ -53,60 +53,66 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
             // Assign the map to the MapView
             MyMapView.Map = myMap;
 
-            // Fill the combo box with choices for the sketch modes (shapes)
-            SketchModeComboBox.ItemsSource = System.Enum.GetValues(typeof(SketchCreationMode));
-            SketchModeComboBox.SelectedIndex = 0;
+            // set a viewpoint on the map view
+            MyMapView.SetViewpoint(new Viewpoint(64.3286, -15.5314, 72223));
 
             // Set the sketch editor as the page's data context
             DataContext = MyMapView.SketchEditor;
         }
 
         #region Graphic and symbol helpers
-        private Graphic CreateGraphic(Esri.ArcGISRuntime.Geometry.Geometry geometry)
+        private Graphic SaveGraphic(Geometry geometry)
         {
+            //Geometry geometry = _sketchOverlay.SelectedGraphics.FirstOrDefault().Geometry;
+
             // Create a graphic to display the specified geometry
             Symbol symbol = null;
-            switch (geometry.GeometryType)
+            if (geometry != null)
             {
-                // Symbolize with a fill symbol
-                case GeometryType.Envelope:
-                case GeometryType.Polygon:
-                    {
-                        symbol = new SimpleFillSymbol()
+                switch (geometry.GeometryType)
+                {
+                    // Symbolize with a fill symbol
+                    case GeometryType.Envelope:
+                    case GeometryType.Polygon:
                         {
-                            Color = Color.Red,
-                            Style = SimpleFillSymbolStyle.Solid
-                        };
-                        break;
-                    }
-                // Symbolize with a line symbol
-                case GeometryType.Polyline:
-                    {
-                        symbol = new SimpleLineSymbol()
+                            symbol = new SimpleFillSymbol()
+                            {
+                                Color = Color.Red,
+                                Style = SimpleFillSymbolStyle.Solid
+                            };
+                            break;
+                        }
+                    // Symbolize with a line symbol
+                    case GeometryType.Polyline:
                         {
-                            Color = Color.Red,
-                            Style = SimpleLineSymbolStyle.Solid,
-                            Width = 5d
-                        };
-                        break;
-                    }
-                // Symbolize with a marker symbol
-                case GeometryType.Point:
-                case GeometryType.Multipoint:
-                    {
+                            symbol = new SimpleLineSymbol()
+                            {
+                                Color = Color.Red,
+                                Style = SimpleLineSymbolStyle.Solid,
+                                Width = 5d
+                            };
+                            break;
+                        }
+                    // Symbolize with a marker symbol
+                    case GeometryType.Point:
+                    case GeometryType.Multipoint:
+                        {
 
-                        symbol = new SimpleMarkerSymbol()
-                        {
-                            Color = Color.Red,
-                            Style = SimpleMarkerSymbolStyle.Circle,
-                            Size = 15d
-                        };
-                        break;
-                    }
+                            symbol = new SimpleMarkerSymbol()
+                            {
+                                Color = Color.Red,
+                                Style = SimpleMarkerSymbolStyle.Circle,
+                                Size = 15d
+                            };
+                            break;
+                        }
+                }
+
+                // pass back a new graphic with the appropriate symbol
+                return new Graphic(geometry, symbol);
             }
 
-            // pass back a new graphic with the appropriate symbol
-            return new Graphic(geometry, symbol);
+            return null;
         }
 
         private async Task<Graphic> GetGraphicAsync()
@@ -124,7 +130,7 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
             Graphic graphic = null;
             IdentifyGraphicsOverlayResult idResult = results.FirstOrDefault();
             if (idResult != null && idResult.Graphics.Count > 0)
-            { 
+            {
                 graphic = idResult.Graphics.FirstOrDefault();
             }
 
@@ -133,16 +139,52 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
         }
         #endregion
 
-        private async void DrawButtonClick(object sender, RoutedEventArgs e)
+        #region Button click event handlers
+        private async void PointButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Point);
+        }
+
+        private async void MultipointButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Multipoint);
+        }
+
+        private async void PolylineButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Polyline);
+        }
+
+        private async void PolygonButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Polygon);
+        }
+
+        private async void FreehandPolylineButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.FreehandLine);
+        }
+
+        private async void FreehandPolygonButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.FreehandPolygon);
+        }
+
+        private async void RectangleButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Rectangle);
+        }
+        #endregion
+
+        private async Task DrawButtonClick(SketchCreationMode creationMode)
         {
             try
             {
                 // Let the user draw on the map view using the chosen sketch mode
-                SketchCreationMode creationMode = (SketchCreationMode)SketchModeComboBox.SelectedItem;
-                Esri.ArcGISRuntime.Geometry.Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
+                Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Create and add a graphic from the geometry the user drew
-                Graphic graphic = CreateGraphic(geometry);
+                Graphic graphic = SaveGraphic(geometry);
                 _sketchOverlay.Graphics.Add(graphic);
 
                 // Enable/disable the clear and edit buttons according to whether or not graphics exist in the overlay
@@ -176,10 +218,14 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
             {
                 // Allow the user to select a graphic
                 Graphic editGraphic = await GetGraphicAsync();
-                if (editGraphic == null) { return; }
+
+                if (editGraphic == null) 
+                { 
+                    return; 
+                }
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry)
-                Esri.ArcGISRuntime.Geometry.Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
+                Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
 
                 // Display the updated geometry in the graphic
                 editGraphic.Geometry = newGeometry;
@@ -191,7 +237,7 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                MessageBox.Show("Error editing shape: " + ex.Message);
+                MessageBox.Show("Error editing shape: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

@@ -38,25 +38,37 @@ namespace ArcGISRuntime.WPF.Samples.DeleteFeatures
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create the map with streets basemap.
-            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
+            try
+            {
+                // Create the map with streets basemap.
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
-            // Create the feature table, referring to the Damage Assessment feature service.
-            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+                // Create a service geodatabase from the feature service.
+                ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+                await serviceGeodatabase.LoadAsync();
 
-            // Create a feature layer to visualize the features in the table.
-            _damageLayer = new FeatureLayer(damageTable);
+                // Gets the feature table from the service geodatabase, referring to the Damage Assessment feature service.
+                // Creating a feature table from the feature service will cause the service geodatbase to be null.
+                ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(_damageLayer);
+                // Create a feature layer to visualize the features in the table.
+                _damageLayer = new FeatureLayer(damageTable);
 
-            // Listen for user taps on the map - on tap, a callout will be shown.
-            MyMapView.GeoViewTapped += MapView_Tapped;
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Zoom to the United States.
-            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+                // Listen for user taps on the map - on tap, a callout will be shown.
+                MyMapView.GeoViewTapped += MapView_Tapped;
+
+                // Zoom to the United States.
+                _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
@@ -79,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.DeleteFeatures
                 }
 
                 // Otherwise, get the ID of the first result.
-                long featureId = (long) identifyResult.GeoElements.First().Attributes["objectid"];
+                long featureId = (long)identifyResult.GeoElements.First().Attributes["objectid"];
 
                 // Get the feature by constructing a query and running it.
                 QueryParameters qp = new QueryParameters();
@@ -111,7 +123,7 @@ namespace ArcGISRuntime.WPF.Samples.DeleteFeatures
             deleteButton.Click += DeleteButton_Click;
 
             // Show the callout.
-            MyMapView.ShowCalloutAt((MapPoint) tappedFeature.Geometry, deleteButton);
+            MyMapView.ShowCalloutAt((MapPoint)tappedFeature.Geometry, deleteButton);
         }
 
         private async void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -122,15 +134,15 @@ namespace ArcGISRuntime.WPF.Samples.DeleteFeatures
             try
             {
                 // Get the feature to delete from the layer.
-                Button deleteButton = (Button) sender;
-                Feature featureToDelete = (Feature) deleteButton.Tag;
+                Button deleteButton = (Button)sender;
+                Feature featureToDelete = (Feature)deleteButton.Tag;
 
                 // Delete the feature.
                 await _damageLayer.FeatureTable.DeleteFeatureAsync(featureToDelete);
 
-                // Sync the change with the service.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _damageLayer.FeatureTable;
-                await serviceTable.ApplyEditsAsync();
+                // Sync the change with the service on the service geodatabase.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_damageLayer.FeatureTable;
+                await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
                 MessageBox.Show("Deleted feature with ID " + featureToDelete.Attributes["objectid"], "Success!");

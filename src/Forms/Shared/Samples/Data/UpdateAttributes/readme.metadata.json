@@ -29,7 +29,8 @@
     "relevant_apis": [
         "ArcGISFeature",
         "FeatureLayer",
-        "ServiceFeatureTable"
+        "ServiceFeatureTable",
+        "ServiceGeodatabase"
     ],
     "snippets": [
         "UpdateAttributes.xaml",

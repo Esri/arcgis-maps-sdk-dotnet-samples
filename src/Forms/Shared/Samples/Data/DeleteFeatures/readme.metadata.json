@@ -27,7 +27,8 @@
     "relevant_apis": [
         "Feature",
         "FeatureLayer",
-        "ServiceFeatureTable"
+        "ServiceFeatureTable",
+        "ServiceGeodatabase"
     ],
     "snippets": [
         "DeleteFeatures.xaml",

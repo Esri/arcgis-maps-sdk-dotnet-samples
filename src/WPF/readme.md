@@ -22,6 +22,7 @@
 * [Feature layer (GeoPackage)](ArcGISRuntime.WPF.Viewer/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](ArcGISRuntime.WPF.Viewer/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.
 * [Feature layer (shapefile)](ArcGISRuntime.WPF.Viewer/Samples/Data/FeatureLayerShapefile/readme.md) - Open a shapefile stored on the device and display it as a feature layer with default symbology.
+* [Filter by time extent](ArcGISRuntime.WPF.Viewer/Samples/Data/FilterByTimeExtent/readme.md) - The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.
 * [Generate geodatabase](ArcGISRuntime.WPF.Viewer/Samples/Data/GenerateGeodatabase/readme.md) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WPF.Viewer/Samples/Data/GeodatabaseTransactions/readme.md) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WPF.Viewer/Samples/Data/ListRelatedFeatures/readme.md) - List features related to the selected feature.
@@ -147,10 +148,10 @@
 
 ## Local Server
 
-* [Local server feature layer](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerFeatureLayer/readme.md) - Start a local feature service and display its features in a map.
-* [Local server geoprocessing](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerGeoprocessing/readme.md) - Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.
-* [Local Server map image layer](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerMapImageLayer/readme.md) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
-* [Local server services](ArcGISRuntime.WPF.Viewer/Samples/Local%20Server/LocalServerServices/readme.md) - Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.
+* [Local server feature layer](ArcGISRuntime.WPF.Viewer/Samples/LocalServer/LocalServerFeatureLayer/readme.md) - Start a local feature service and display its features in a map.
+* [Local server geoprocessing](ArcGISRuntime.WPF.Viewer/Samples/LocalServer/LocalServerGeoprocessing/readme.md) - Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.
+* [Local Server map image layer](ArcGISRuntime.WPF.Viewer/Samples/LocalServer/LocalServerMapImageLayer/readme.md) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
+* [Local server services](ArcGISRuntime.WPF.Viewer/Samples/LocalServer/LocalServerServices/readme.md) - Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.
 
 ## Location
 
@@ -201,15 +202,15 @@
 
 ## Network analysis
 
-* [Find closest facility to an incident (interactive)](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
-* [Find closest facility to multiple incidents (service)](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Find route](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/FindRoute/readme.md) - Display directions for a route between two points.
-* [Find service area](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
-* [Find service areas for multiple facilities](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
-* [Navigate route](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
-* [Navigate route with rerouting](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
-* [Offline routing](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
-* [Route around barriers](ArcGISRuntime.WPF.Viewer/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Find closest facility to an incident (interactive)](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
+* [Find closest facility to multiple incidents (service)](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Find route](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/FindRoute/readme.md) - Display directions for a route between two points.
+* [Find service area](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
+* [Find service areas for multiple facilities](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
+* [Navigate route](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
+* [Navigate route with rerouting](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
+* [Offline routing](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
+* [Route around barriers](ArcGISRuntime.WPF.Viewer/Samples/NetworkAnalysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
 
 ## Scene
 
@@ -244,7 +245,7 @@
 
 ## Symbology
 
-* [Custom dictionary style](ArcGISRuntime.WPF.Viewer/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.
+* [Custom dictionary style](ArcGISRuntime.WPF.Viewer/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary created from a web style or style file (.stylx) to symbolize features using a variety of attribute values.
 * [Feature layer extrusion](ArcGISRuntime.WPF.Viewer/Samples/Symbology/FeatureLayerExtrusion/readme.md) - Extrude features based on their attributes.
 * [Picture marker symbol](ArcGISRuntime.WPF.Viewer/Samples/Symbology/RenderPictureMarkers/readme.md) - Use pictures for markers.
 * [Simple marker symbol](ArcGISRuntime.WPF.Viewer/Samples/Symbology/RenderSimpleMarkers/readme.md) - Show a simple marker symbol on a map.
@@ -256,8 +257,8 @@
 
 ## Utility network
 
-* [Configure subnetwork trace](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
-* [Display utility associations](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/DisplayUtilityAssociations/readme.md) - Create graphics for utility associations in a utility network.
-* [Perform valve isolation trace](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
-* [Trace utility network](ArcGISRuntime.WPF.Viewer/Samples/Utility%20network/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
+* [Configure subnetwork trace](ArcGISRuntime.WPF.Viewer/Samples/UtilityNetwork/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
+* [Display utility associations](ArcGISRuntime.WPF.Viewer/Samples/UtilityNetwork/DisplayUtilityAssociations/readme.md) - Create graphics for utility associations in a utility network.
+* [Perform valve isolation trace](ArcGISRuntime.WPF.Viewer/Samples/UtilityNetwork/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+* [Trace utility network](ArcGISRuntime.WPF.Viewer/Samples/UtilityNetwork/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

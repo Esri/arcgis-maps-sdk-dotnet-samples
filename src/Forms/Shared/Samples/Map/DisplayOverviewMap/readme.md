@@ -31,7 +31,7 @@ The data used in this sample is the [OpenStreetMap Tourist Attractions for North
 
 ## Additional information
 
- This sample uses the overview map toolkit component which can be accessed using the Esri.ArcGISRuntime.Toolkit.Xamarin.Forms nuget package. The [toolkit](https://github.com/Esri/arcgis-toolkit-dotnet) can also be cloned and set up locally. For information about setting up the toolkit, visit the [repository](https://github.com/Esri/arcgis-toolkit-dotnet/blob/main/README.md).
+ This sample uses the overview map toolkit component which can be accessed using the Esri.ArcGISRuntime.Toolkit nuget package. The [toolkit](https://github.com/Esri/arcgis-toolkit-dotnet) can also be cloned and set up locally. For information about setting up the toolkit, visit the [repository](https://github.com/Esri/arcgis-toolkit-dotnet/blob/main/README.md).
 
 ## Tags
 

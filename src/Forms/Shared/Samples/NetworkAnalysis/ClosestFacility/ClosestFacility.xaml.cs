@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
         name: "Find closest facility to an incident (interactive)",
         category: "Network analysis",
         description: "Find a route to the closest facility from a location.",
-        instructions: "Tap near any of the hospitals and a route will be displayed from that clicked location to the nearest hospital.",
+        instructions: "Tap near any of the hospitals and a route will be displayed from that tapped location to the nearest hospital.",
         tags: new[] { "incident", "network analysis", "route", "search" })]
     public partial class ClosestFacility
     {

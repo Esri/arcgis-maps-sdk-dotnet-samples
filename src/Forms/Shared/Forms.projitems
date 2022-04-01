@@ -11,6 +11,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayOverviewMap\DisplayOverviewMap.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayDimensions\DisplayDimensions.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.jpg" />
@@ -215,6 +216,10 @@
       <DependentUpon>ToggleBetweenFeatureRequestModes.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.xaml.cs">
+      <DependentUpon>FilterByTimeExtent.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayOverviewMap\DisplayOverviewMap.xaml.cs">
       <DependentUpon>DisplayOverviewMap.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -223,7 +228,7 @@
       <DependentUpon>DisplayDimensions.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-     <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml.cs">
       <DependentUpon>BrowseBuildingFloors.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -920,6 +925,9 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayOverviewMap\DisplayOverviewMap.xaml">

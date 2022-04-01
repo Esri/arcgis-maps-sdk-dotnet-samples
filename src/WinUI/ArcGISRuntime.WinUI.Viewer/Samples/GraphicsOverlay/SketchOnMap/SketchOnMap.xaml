@@ -18,6 +18,8 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -81,15 +83,43 @@
                     ToolTipService.ToolTip="Freehand Polygon">
                 <Image Source="resources/brush.png" />
             </Button>
-            <Button x:Name="RectangleButton"
+            <Button x:Name="CircleButton"
                     Grid.Row="5"
+                    Grid.Column="0"
+                    Click="CircleButtonClick"
+                    ToolTipService.ToolTip="Circle">
+                <Image Source="resources/circle.png" />
+            </Button>
+            <Button x:Name="EllipseButton"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Click="EllipseButtonClick"
+                    ToolTipService.ToolTip="Ellipse">
+                <Image Source="resources/ellipse.png" />
+            </Button>
+            <Button x:Name="TriangleButton"
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Click="TriangleButtonClick"
+                    ToolTipService.ToolTip="Triangle">
+                <Image Source="resources/triangle.png" />
+            </Button>
+            <Button x:Name="ArrowButton"
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Click="ArrowButtonClick"
+                    ToolTipService.ToolTip="Arrow">
+                <Image Source="resources/arrow.png" />
+            </Button>
+            <Button x:Name="RectangleButton"
+                    Grid.Row="7"
                     Grid.Column="0"
                     Click="RectangleButtonClick"
                     ToolTipService.ToolTip="Rectangle">
                 <Image Source="resources/rectangle.png" />
             </Button>
             <Button x:Name="UndoButton"
-                    Grid.Row="7"
+                    Grid.Row="8"
                     Grid.Column="0"
                     Margin="0,5,0,0"
                     Command="{Binding UndoCommand}"
@@ -97,7 +127,7 @@
                 <Image Source="resources/undo.png" />
             </Button>
             <Button x:Name="RedoButton"
-                    Grid.Row="7"
+                    Grid.Row="8"
                     Grid.Column="1"
                     Margin="0,5,0,0"
                     Command="{Binding RedoCommand}"
@@ -105,14 +135,14 @@
                 <Image Source="resources/redo.png" />
             </Button>
             <Button x:Name="SaveButton"
-                    Grid.Row="8"
+                    Grid.Row="9"
                     Grid.Column="0"
                     Command="{Binding CompleteCommand}"
                     ToolTipService.ToolTip="Save">
                 <Image Source="resources/save.png" />
             </Button>
             <Button x:Name="ClearButton"
-                    Grid.Row="8"
+                    Grid.Row="9"
                     Grid.Column="1"
                     Click="ClearButtonClick"
                     ToolTipService.ToolTip="Clear">

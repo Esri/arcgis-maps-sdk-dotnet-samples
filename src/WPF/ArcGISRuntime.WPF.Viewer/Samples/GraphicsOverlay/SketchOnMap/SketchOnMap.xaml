@@ -18,6 +18,8 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
@@ -28,103 +30,123 @@
                     Grid.Column="0"
                     Click="EditButtonClick"
                     ToolTip="Edit">
-                <Image Source="resources/edit.jpg" />
+                <Image Source="resources/edit.png" />
             </Button>
             <Button x:Name="StopButton"
                     Grid.Row="0"
                     Grid.Column="1"
                     Command="{Binding CancelCommand}"
                     ToolTip="Cancel">
-                <Image Source="resources/clear.jpg" />
+                <Image Source="resources/clear.png" />
             </Button>
-            <GridSplitter Grid.Row="1"
-                          Grid.ColumnSpan="2"
-                          Height="5"
-                          Margin="0"
-                          HorizontalAlignment="Stretch"
-                          Opacity="0" />
             <Button x:Name="PointButton"
                     Grid.Row="2"
                     Grid.Column="0"
+                    Margin="0,5,0,0"
                     Click="PointButtonClick"
                     ToolTip="Point">
-                <Image Source="resources/point.jpg" />
+                <Image Source="resources/point.png" />
             </Button>
             <Button x:Name="MultipointButton"
                     Grid.Row="2"
                     Grid.Column="1"
+                    Margin="0,5,0,0"
                     Click="MultipointButtonClick"
                     ToolTip="Multipoint">
-                <Image Source="resources/multipoint.jpg" />
+                <Image Source="resources/multipoint.png" />
             </Button>
             <Button x:Name="PolylineButton"
                     Grid.Row="3"
                     Grid.Column="0"
                     Click="PolylineButtonClick"
                     ToolTip="Polyline">
-                <Image Source="resources/polyline.jpg" />
+                <Image Source="resources/polyline.png" />
             </Button>
             <Button x:Name="PolygonButton"
                     Grid.Row="3"
                     Grid.Column="1"
                     Click="PolygonButtonClick"
                     ToolTip="Polygon">
-                <Image Source="resources/polygon.jpg" />
+                <Image Source="resources/polygon.png" />
             </Button>
             <Button x:Name="FreehandPolylineButton"
                     Grid.Row="4"
                     Grid.Column="0"
                     Click="FreehandPolylineButtonClick"
                     ToolTip="Freehand Polyline">
-                <Image Source="resources/freehand-polyline.jpg" />
+                <Image Source="resources/freehand-polyline.png" />
             </Button>
             <Button x:Name="FreehandPolygonButton"
                     Grid.Row="4"
                     Grid.Column="1"
                     Click="FreehandPolygonButtonClick"
                     ToolTip="Freehand Polygon">
-                <Image Source="resources/brush.jpg" />
+                <Image Source="resources/brush.png" />
+            </Button>
+            <Button x:Name="CircleButton"
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Click="CircleButtonClick"
+                    ToolTipService.ToolTip="Circle">
+                <Image Source="resources/circle.png" />
+            </Button>
+            <Button x:Name="EllipseButton"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Click="EllipseButtonClick"
+                    ToolTipService.ToolTip="Ellipse">
+                <Image Source="resources/ellipse.png" />
+            </Button>
+            <Button x:Name="TriangleButton"
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Click="TriangleButtonClick"
+                    ToolTipService.ToolTip="Triangle">
+                <Image Source="resources/triangle.png" />
+            </Button>
+            <Button x:Name="ArrowButton"
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Click="ArrowButtonClick"
+                    ToolTipService.ToolTip="Arrow">
+                <Image Source="resources/arrow.png" />
             </Button>
             <Button x:Name="RectangleButton"
-                    Grid.Row="5"
+                    Grid.Row="7"
                     Grid.Column="0"
                     Click="RectangleButtonClick"
                     ToolTip="Rectangle">
-                <Image Source="resources/rectangle.jpg" />
+                <Image Source="resources/rectangle.png" />
             </Button>
-            <GridSplitter Grid.Row="6"
-                          Grid.ColumnSpan="2"
-                          Height="5"
-                          Margin="0"
-                          HorizontalAlignment="Stretch"
-                          Opacity="0" />
             <Button x:Name="UndoButton"
-                    Grid.Row="7"
+                    Grid.Row="8"
                     Grid.Column="0"
+                    Margin="0,5,0,0"
                     Command="{Binding UndoCommand}"
                     ToolTip="Undo">
-                <Image Source="resources/undo.jpg" />
+                <Image Source="resources/undo.png" />
             </Button>
             <Button x:Name="RedoButton"
-                    Grid.Row="7"
+                    Grid.Row="8"
                     Grid.Column="1"
+                    Margin="0,5,0,0"
                     Command="{Binding RedoCommand}"
                     ToolTip="Redo">
-                <Image Source="resources/redo.jpg" />
+                <Image Source="resources/redo.png" />
             </Button>
             <Button x:Name="SaveButton"
-                    Grid.Row="8"
+                    Grid.Row="9"
                     Grid.Column="0"
                     Command="{Binding CompleteCommand}"
                     ToolTip="Save">
-                <Image Source="resources/save.jpg" />
+                <Image Source="resources/save.png" />
             </Button>
             <Button x:Name="ClearButton"
-                    Grid.Row="8"
+                    Grid.Row="9"
                     Grid.Column="1"
                     Click="ClearButtonClick"
                     ToolTip="Clear">
-                <Image Source="resources/trash-can-outline.jpg" />
+                <Image Source="resources/trash-can-outline.png" />
             </Button>
         </Grid>
     </Grid>

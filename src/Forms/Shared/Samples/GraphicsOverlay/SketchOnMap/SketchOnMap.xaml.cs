@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
         name: "Sketch on map",
         category: "GraphicsOverlay",
         description: "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",
-        instructions: "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, and freehand polygons.",
+        instructions: "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, freehand polygons, circles, ellipses, triangles, arrows and rectangles.",
         tags: new[] { "draw", "edit" })]
     public partial class SketchOnMap : ContentPage
     {
@@ -42,8 +42,8 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
         private void Initialize()
         {
-            // Create a light gray canvas map
-            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
+            // Create a map
+            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Create graphics overlay to display sketch geometry
             _sketchOverlay = new GraphicsOverlay();
@@ -51,6 +51,9 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
             // Assign the map to the MapView
             MyMapView.Map = myMap;
+
+            // set a viewpoint on the map view
+            MyMapView.SetViewpoint(new Viewpoint(64.3286, -15.5314, 72223));
 
             // Fill the combo box with choices for the sketch modes (shapes)
             Array sketchModes = System.Enum.GetValues(typeof(SketchCreationMode));

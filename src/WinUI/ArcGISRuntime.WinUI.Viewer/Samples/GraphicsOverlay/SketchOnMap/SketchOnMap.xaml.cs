@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Drawing;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
@@ -26,7 +25,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
         name: "Sketch on map",
         category: "GraphicsOverlay",
         description: "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",
-        instructions: "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, and freehand polygons.",
+        instructions: "Choose which geometry type to sketch from one of the available buttons. Choose from points, multipoints, polylines, polygons, freehand polylines, freehand polygons, circles, ellipses, triangles, arrows and rectangles.",
         tags: new[] { "draw", "edit" })]
     public sealed partial class SketchOnMap
     {
@@ -168,6 +167,26 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
         private async void FreehandPolygonButtonClick(object sender, RoutedEventArgs e)
         {
             await DrawButtonClick(SketchCreationMode.FreehandPolygon);
+        }
+
+        private async void EllipseButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Ellipse);
+        }
+
+        private async void CircleButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Circle);
+        }
+
+        private async void TriangleButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Triangle);
+        }
+
+        private async void ArrowButtonClick(object sender, RoutedEventArgs e)
+        {
+            await DrawButtonClick(SketchCreationMode.Arrow);
         }
 
         private async void RectangleButtonClick(object sender, RoutedEventArgs e)

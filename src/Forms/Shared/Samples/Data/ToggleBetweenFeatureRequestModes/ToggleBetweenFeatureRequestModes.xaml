@@ -1,9 +1,32 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes.ToggleBetweenFeatureRequestModes"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes.ToggleBetweenFeatureRequestModes">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+
+        <StackLayout Orientation="Vertical" Grid.Row="1">
+            <Picker x:Name="CacheModes"
+                    VerticalOptions="Center"
+                    Margin="10">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>Cache</x:String>
+                        <x:String>No Cache</x:String>
+                        <x:String>Manual Cache</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+                <Picker.SelectedIndex ="0" />
+            </Picker>
+            <Button x:Name="PopulateMap"
+                    Clicked="PopulateButtonClick"
+                    Text="Populate"
+                    Margin="10" />
+        </StackLayout>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+    </Grid>
 </ContentPage>

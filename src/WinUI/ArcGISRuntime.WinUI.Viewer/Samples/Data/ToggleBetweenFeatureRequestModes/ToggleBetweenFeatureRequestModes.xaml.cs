@@ -29,7 +29,6 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
         "Data",
         "Use different feature request modes to populate the map from a service feature table.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ToggleBetweenFeatureRequestModes
     {
         private ServiceFeatureTable _treeFeatureTable;

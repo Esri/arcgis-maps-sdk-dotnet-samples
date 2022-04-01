@@ -32,28 +32,35 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
 
         private void Initialize()
         {
-            // Create new Map with basemap
-            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
-            MyMapView.Map = myMap;
-
-            // Set intial map location.
-            MyMapView.Map.InitialViewpoint = new Viewpoint(45.5266, -122.6219, 6000);
-
-            // Create uri to the used feature service.
-            Uri serviceUri = new Uri(
-               "https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Trees_of_Portland/FeatureServer/0");
-
-            // Create a feature table for the trees of Portland feature service.
-            _treeFeatureTable = new ServiceFeatureTable(serviceUri)
+            try
             {
-                FeatureRequestMode = FeatureRequestMode.OnInteractionCache
-            };
+                // Create new Map with basemap
+                Map myMap = new Map(BasemapStyle.ArcGISTopographic);
+                MyMapView.Map = myMap;
 
-            // Create FeatureLayer that uses the created table
-            _treeFeatureLayer = new FeatureLayer(_treeFeatureTable);
+                // Set intial map location.
+                MyMapView.Map.InitialViewpoint = new Viewpoint(45.5266, -122.6219, 6000);
 
-            // Add created layer to the map
-            MyMapView.Map.OperationalLayers.Add(_treeFeatureLayer);
+                // Create uri to the used feature service.
+                Uri serviceUri = new Uri(
+                   "https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Trees_of_Portland/FeatureServer/0");
+
+                // Create a feature table for the trees of Portland feature service.
+                _treeFeatureTable = new ServiceFeatureTable(serviceUri)
+                {
+                    FeatureRequestMode = FeatureRequestMode.OnInteractionCache
+                };
+
+                // Create FeatureLayer that uses the created table
+                _treeFeatureLayer = new FeatureLayer(_treeFeatureTable);
+
+                // Add created layer to the map
+                MyMapView.Map.OperationalLayers.Add(_treeFeatureLayer);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
 
         // Use this method for manual cache.

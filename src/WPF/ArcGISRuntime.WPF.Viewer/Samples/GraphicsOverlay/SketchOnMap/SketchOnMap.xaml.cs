@@ -198,7 +198,7 @@ namespace ArcGISRuntime.WPF.Samples.SketchOnMap
             catch (Exception ex)
             {
                 // Report exceptions
-                MessageBox.Show("Error drawing graphic shape: " + ex.Message);
+                MessageBox.Show("Error drawing graphic shape: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

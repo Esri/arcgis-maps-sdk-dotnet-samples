@@ -68,16 +68,16 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
                 MyMapView.Map.OperationalLayers.Add(_treeFeatureLayer);
 
                 // Creates a list for the items in the pickers.
-                //List<string> cacheModeName = new List<string>();
+                List<string> cacheModeName = new List<string>();
 
-                //cacheModeName.Add("Cache");
-                //cacheModeName.Add("No Cache");
-                //cacheModeName.Add("Manual Cache");
+                cacheModeName.Add("Cache");
+                cacheModeName.Add("No Cache");
+                cacheModeName.Add("Manual Cache");
 
-                //// Adds the list for the picker.
-                //CacheModes.ItemsSource = cacheModeName;
+                // Adds the list for the picker.
+                CacheModes.ItemsSource = cacheModeName;
 
-                //CacheModes.SelectedIndex = 0;
+                CacheModes.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -111,24 +111,28 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
 
         private void PopulateButtonClick(object sender, EventArgs e)
         {
-            //Populates the map with server feature table request mode cache.
-            //if ((bool)Cache.IsChecked)
-            //{
-            //    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
-            //}
+            string currentPick = CacheModes.SelectedItem.ToString();
+            switch (currentPick)
+            {
+                //Populates the map with server feature table request mode cache.
+                case "Cache":
+                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
+                    break;
 
-            //// Populates the map with server feature table request mode no cache.
-            //if ((bool)NoCache.IsChecked)
-            //{
-            //    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
-            //}
+                // Populates the map with server feature table request mode no cache.
+                case "No Cache":
+                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
+                    break;
 
-            //// Populates the map with server feature table request mode manual cache.
-            //if ((bool)ManualCache.IsChecked)
-            //{
-            //    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
-            //    FetchCacheManually();
-            //}
+                // Populates the map with server feature table request mode manual cache.
+                case "Manual Cache":
+                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+                    FetchCacheManually();
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 }

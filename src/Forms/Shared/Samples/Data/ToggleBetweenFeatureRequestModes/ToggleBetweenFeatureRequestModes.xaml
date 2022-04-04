@@ -9,16 +9,7 @@
         <StackLayout Orientation="Vertical" Grid.Row="1">
             <Picker x:Name="CacheModes"
                     VerticalOptions="Center"
-                    Margin="10">
-                <Picker.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>Cache</x:String>
-                        <x:String>No Cache</x:String>
-                        <x:String>Manual Cache</x:String>
-                    </x:Array>
-                </Picker.ItemsSource>
-                <Picker.SelectedIndex ="0" />
-            </Picker>
+                    Margin="10" />
             <Button x:Name="PopulateMap"
                     Clicked="PopulateButtonClick"
                     Text="Populate"

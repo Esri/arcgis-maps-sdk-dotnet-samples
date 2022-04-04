@@ -18,10 +18,6 @@
         "site",
         "story"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WPF": "100.13.0"
-    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/wpf/sample-code/browsebuildingfloors.htm"

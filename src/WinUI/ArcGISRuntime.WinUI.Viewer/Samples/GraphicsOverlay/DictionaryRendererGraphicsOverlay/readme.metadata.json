@@ -13,10 +13,6 @@
         "tactical",
         "visualization"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WinUI": "100.13.0"
-    },
     "offline_data": [
         "1e4ea99af4b440c092e7959cf3957bfa"
     ],

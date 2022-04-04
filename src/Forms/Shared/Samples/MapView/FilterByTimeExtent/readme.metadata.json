@@ -1,0 +1,40 @@
+{
+    "category": "MapView",
+    "description": "The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.",
+    "formal_name": "FilterByTimeExtent",
+    "ignore": false,
+    "images": [
+        "FilterByTimeExtent.jpg"
+    ],
+    "keywords": [
+        "animate",
+        "data",
+        "filter",
+        "time",
+        "time extent",
+        "time frame",
+        "toolkit"
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.UWP": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.Forms": "100.13.0",
+        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0"
+    },
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/filterbytimeextent.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "Map",
+        "MapView",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "FilterByTimeExtent.xaml",
+        "FilterByTimeExtent.xaml.cs"
+    ],
+    "title": "Filter by time extent"
+}

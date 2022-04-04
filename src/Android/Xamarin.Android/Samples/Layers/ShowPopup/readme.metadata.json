@@ -13,11 +13,6 @@
         "toolkit",
         "web map"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.Toolkit": "100.9.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0"
-    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/showpopup.htm"

@@ -40,25 +40,37 @@ namespace ArcGISRuntime.WPF.Samples.UpdateGeometries
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create the map with streets basemap.
-            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
+            try
+            {
+                // Create the map with streets basemap.
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
-            // Create the feature table, referring to the Damage Assessment feature service.
-            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+                // Create a service geodatabase from the feature service.
+                ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+                await serviceGeodatabase.LoadAsync();
 
-            // Create a feature layer to visualize the features in the table.
-            _damageLayer = new FeatureLayer(damageTable);
+                // Gets the feature table from the service geodatabase, referring to the Damage Assessment feature service.
+                // Creating a feature table from the feature service will cause the service geodatbase to be null.
+                ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(_damageLayer);
+                // Create a feature layer to visualize the features in the table.
+                _damageLayer = new FeatureLayer(damageTable);
 
-            // Listen for user taps on the map - on tap, a feature will be selected.
-            MyMapView.GeoViewTapped += MapView_Tapped;
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Zoom to the United States.
-            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+                // Listen for user taps on the map - on tap, a feature will be selected.
+                MyMapView.GeoViewTapped += MapView_Tapped;
+
+                // Zoom to the United States.
+                _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
@@ -84,7 +96,7 @@ namespace ArcGISRuntime.WPF.Samples.UpdateGeometries
                 MapPoint destinationPoint = tapEventDetails.Location;
 
                 // Normalize the point - needed when the tapped location is over the international date line.
-                destinationPoint = (MapPoint) GeometryEngine.NormalizeCentralMeridian(destinationPoint);
+                destinationPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(destinationPoint);
 
                 // Load the feature.
                 await _selectedFeature.LoadAsync();
@@ -95,9 +107,9 @@ namespace ArcGISRuntime.WPF.Samples.UpdateGeometries
                 // Apply the edit to the feature table.
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
-                // Push the update to the service.
-                ServiceFeatureTable serviceTable = (ServiceFeatureTable) _selectedFeature.FeatureTable;
-                await serviceTable.ApplyEditsAsync();
+                // Push the update to the service with the service geodatabase.
+                ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
+                await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
                 MessageBox.Show("Moved feature " + _selectedFeature.Attributes["objectid"], "Success!");
             }
             catch (Exception ex)

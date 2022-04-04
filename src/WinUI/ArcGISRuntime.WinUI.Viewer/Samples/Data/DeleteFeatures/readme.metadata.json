@@ -13,10 +13,6 @@
         "online",
         "table"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WinUI": "100.13.0"
-    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/winui/sample-code/deletefeatures.htm"
@@ -24,7 +20,8 @@
     "relevant_apis": [
         "Feature",
         "FeatureLayer",
-        "ServiceFeatureTable"
+        "ServiceFeatureTable",
+        "ServiceGeodatabase"
     ],
     "snippets": [
         "DeleteFeatures.xaml",

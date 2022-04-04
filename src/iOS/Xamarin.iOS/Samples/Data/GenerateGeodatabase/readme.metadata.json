@@ -12,10 +12,6 @@
         "offline",
         "sync"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0"
-    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/ios/sample-code/generategeodatabase.htm"

@@ -20,11 +20,6 @@
         "survey",
         "world-scale"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.ARToolkit": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0"
-    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/android/sample-code/collectdataar.htm"

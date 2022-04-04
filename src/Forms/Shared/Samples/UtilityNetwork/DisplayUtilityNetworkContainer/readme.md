@@ -40,7 +40,7 @@ Tap on a container feature to show all features inside the container. The contai
 
 ## About the data
 
-The [Naperville electric](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer) network feature service, contains a utility network used to find associations shown in this sample. The [Naperville electric containers](https://sampleserver7.arcgisonline.com/portal/home/item.html?id=813eda749a9444e4a9d833a4db19e1c8) webmap uses the same feature service endpoint and displays only container features. Authentication is required and handled within the sample code.
+The [Naperville electric](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer) feature service contains a utility network layer used to find associations shown in this sample. The [Naperville electric containers](https://sampleserver7.arcgisonline.com/portal/home/item.html?id=813eda749a9444e4a9d833a4db19e1c8) webmap uses the same feature service endpoint and displays only container features. Authentication is required and handled within the sample code.
 
 ## Additional information
 

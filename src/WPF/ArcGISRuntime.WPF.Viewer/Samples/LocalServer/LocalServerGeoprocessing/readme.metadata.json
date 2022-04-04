@@ -14,11 +14,6 @@
         "processing",
         "service"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.LocalServices": "100.12.0",
-        "Esri.ArcGISRuntime.WPF": "100.13.0"
-    },
     "offline_data": [
         "a680362d6a7447e8afe2b1eb85fcde30",
         "3f38e1ae7c5948cc95334ba3a142a4ec"

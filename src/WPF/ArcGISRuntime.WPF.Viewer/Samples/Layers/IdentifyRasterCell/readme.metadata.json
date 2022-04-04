@@ -18,10 +18,6 @@
         "pixel value",
         "raster"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WPF": "100.13.0"
-    },
     "offline_data": [
         "b5f977c78ec74b3a8857ca86d1d9b318"
     ],

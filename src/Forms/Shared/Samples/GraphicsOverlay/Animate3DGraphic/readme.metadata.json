@@ -13,13 +13,6 @@
         "RendererSceneProperties",
         "SceneView"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.UWP": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.Forms": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0"
-    },
     "offline_data": [
         "681d6f7694644709a7c830ec57a2d72b",
         "290f0c571c394461a8b58b6775d0bd63",

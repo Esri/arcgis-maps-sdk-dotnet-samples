@@ -17,10 +17,6 @@
         "raster",
         "visualization"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WPF": "100.13.0"
-    },
     "offline_data": [
         "68ec42517cdd439e81b036210483e8e7"
     ],

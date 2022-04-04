@@ -22,7 +22,6 @@
 * [Feature layer (GeoPackage)](Shared/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](Shared/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.
 * [Feature layer (shapefile)](Shared/Samples/Data/FeatureLayerShapefile/readme.md) - Open a shapefile stored on the device and display it as a feature layer with default symbology.
-* [Filter by time extent](Shared/Samples/Data/FilterByTimeExtent/readme.md) - The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.
 * [Generate geodatabase](Shared/Samples/Data/GenerateGeodatabase/readme.md) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](Shared/Samples/Data/GeodatabaseTransactions/readme.md) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](Shared/Samples/Data/ListRelatedFeatures/readme.md) - List features related to the selected feature.
@@ -187,6 +186,7 @@
 * [Display grid](Shared/Samples/MapView/DisplayGrid/readme.md) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
 * [Display layer view state](Shared/Samples/MapView/DisplayLayerViewState/readme.md) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](Shared/Samples/MapView/FeatureLayerTimeOffset/readme.md) - Display a time-enabled feature layer with a time offset.
+* [Filter by time extent](Shared/Samples/MapView/FilterByTimeExtent/readme.md) - The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.
 * [Identify layers](Shared/Samples/MapView/IdentifyLayers/readme.md) - Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.
 * [Map rotation](Shared/Samples/MapView/MapRotation/readme.md) - Rotate a map.
 * [Show callout](Shared/Samples/MapView/ShowCallout/readme.md) - Show a callout with the latitude and longitude of user-tapped points.

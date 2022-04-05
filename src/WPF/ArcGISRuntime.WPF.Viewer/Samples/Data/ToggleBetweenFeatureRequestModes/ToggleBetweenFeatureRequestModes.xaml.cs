@@ -68,7 +68,6 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
             {
-                WhereClause = "Condition < '4'",
                 Geometry = MyMapView.VisibleArea
             };
 

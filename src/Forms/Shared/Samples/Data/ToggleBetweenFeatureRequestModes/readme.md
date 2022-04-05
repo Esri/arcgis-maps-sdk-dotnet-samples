@@ -15,9 +15,9 @@ Run the sample and use the radio buttons to change what feature request modes yo
 ## How it works
 
 1. Create a `ServiceFeatureTable` with the a feature service URL.
-2. Set the `FeatureRequestMode` property of the service feature table to the desired mode (`ON_INTERACTION_CACHE`, `ON_INTERACTION_NO_CACHE`, or `MANUAL_CACHE`).
+2. Set the `FeatureRequestMode` property of the service feature table to the desired mode (`OnInteractionCache`, `OnInteractionNoCache`, or `ManualCache`).
     * If using `MANUAL_CACHE`, populate the features with `ServiceFeatureTable.PopulateFromServiceAsync()`.
-3. Create a `FeatureLayer` with the feature table and add it to an `ArcGISMap`'s operational layers to display it.
+3. Create a `FeatureLayer` with the feature table and add it to an `MapView.Map`'s operational layers to display it.
 
 ## Relevant API
 
@@ -36,7 +36,6 @@ This sample uses the [Trees of Portland](https://services2.arcgis.com/ZQgQTuoyBr
 ## Additional information
 
 **On interaction cache** is the default feature request mode. Features are requested automatically for the visible extent as the users pans and zooms the map. If the user returns to an area where features have previously been requested, those features won't be requested again. In **no cache** mode, features are automatically populated from the service for the visible extent. Each time the user pans and zooms, features are downloaded for the visible extent. Features are still cached in a local geodatabase for display, but the cache will always be populated with the latest data after navigation. In **manual cache** mode, features are never automatically populated from the service. All features are loaded manually using calls to `PopulateFromServiceAsync`.
-
 
 ## Tags
 

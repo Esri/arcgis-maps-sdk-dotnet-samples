@@ -6,17 +6,31 @@
     "images": [
         "ToggleBetweenFeatureRequestModes.jpg"
     ],
-    "keywords": [
-    ],
+    "keywords": ["cache",
+         "feature request mode", 
+         "performance"],
     "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.10.0"
+        "Esri.ArcGISRuntime": "100.13.0",
+        "Esri.ArcGISRuntime.WPF": "100.13.0"
     },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/ToggleBetweenFeatureRequestModes.htm"
+        "/net/latest/wpf/sample-code/servicefeaturetablenocache.htm",
+        "/net/latest/wpf/sample-code/servicefeaturetablemanualcache.htm",
+        "/net/latest/wpf/sample-code/servicefeaturetablecache.htm"
     ],
     "relevant_apis": [
+        "FeatureLayer",
+        "FeatureRequestMode.ManualCache",
+        "FeatureRequestMode.NoCache",
+        "FeatureRequestMode.OnInteractionCache",
+        "ServiceFeatureTable",
+        "ServiceFeatureTable.FeatureRequestMode",
+        "ServiceFeatureTable.PopulateFromServiceAsync"
     ],
     "snippets": [
+        "ToggleBetweenFeatureRequestModes.xaml",
+        "ToggleBetweenFeatureRequestModes.xaml.cs"
     ],
     "title": "Toggle between feature request modes"
 }

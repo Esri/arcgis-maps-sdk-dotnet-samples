@@ -24,11 +24,11 @@ using System.Collections.Generic;
 namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Toggle between feature request modes",
-        "Data",
-        "Use different feature request modes to populate the map from a service feature table.",
-        "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+        name: "Toggle between feature request modes",
+        category: "Data",
+        description: "Use different feature request modes to populate the map from a service feature table.",
+        instructions: "Run the sample and use the radio buttons to change what feature request modes you want to use (the default value is  **on interaction cache**). After you selected which feature request mode to use, tap the `Populate` button to apply the feature request mode. ",
+        tags: new[] { "cache", "feature request mode", "performance" })]
     public partial class ToggleBetweenFeatureRequestModes : ContentPage
     {
         private ServiceFeatureTable _treeFeatureTable;

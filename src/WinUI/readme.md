@@ -34,6 +34,7 @@
 * [Statistical query](ArcGISRuntime.WinUI.Viewer/Samples/Data/StatisticalQuery/readme.md) - Query a table to get aggregated statistics back for a specific field.
 * [Statistical query group and sort](ArcGISRuntime.WinUI.Viewer/Samples/Data/StatsQueryGroupAndSort/readme.md) - Query a feature table for statistics, grouping and sorting by different fields.
 * [Symbolize shapefile](ArcGISRuntime.WinUI.Viewer/Samples/Data/SymbolizeShapefile/readme.md) - Display a shapefile with custom symbology.
+* [Toggle between feature request modes](ArcGISRuntime.WinUI.Viewer/Samples/Data/ToggleBetweenFeatureRequestModes/readme.md) - Use different feature request modes to populate the map from a service feature table.
 * [Update attributes (feature service)](ArcGISRuntime.WinUI.Viewer/Samples/Data/UpdateAttributes/readme.md) - Update feature attributes in an online feature service.
 * [Update geometries (feature service)](ArcGISRuntime.WinUI.Viewer/Samples/Data/UpdateGeometries/readme.md) - Update a feature's location in an online feature service.
 * [View point cloud data offline](ArcGISRuntime.WinUI.Viewer/Samples/Data/ViewPointCloudDataOffline/readme.md) - Display local 3D point cloud data.

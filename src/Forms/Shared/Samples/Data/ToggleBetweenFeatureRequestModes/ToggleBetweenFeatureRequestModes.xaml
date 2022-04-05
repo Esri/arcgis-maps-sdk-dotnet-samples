@@ -6,14 +6,14 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
 
-        <StackLayout Orientation="Vertical" Grid.Row="1">
+        <StackLayout Grid.Row="1" Orientation="Vertical">
             <Picker x:Name="CacheModes"
-                    VerticalOptions="Center"
-                    Margin="10" />
+                    Margin="10"
+                    VerticalOptions="Center" />
             <Button x:Name="PopulateMap"
+                    Margin="10"
                     Clicked="PopulateButtonClick"
-                    Text="Populate"
-                    Margin="10" />
+                    Text="Populate" />
         </StackLayout>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

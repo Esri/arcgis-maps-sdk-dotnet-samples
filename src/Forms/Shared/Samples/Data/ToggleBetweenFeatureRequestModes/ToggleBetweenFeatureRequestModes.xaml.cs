@@ -56,10 +56,8 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
                    "https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Trees_of_Portland/FeatureServer/0");
 
                 // Create a feature table for the trees of Portland feature service.
-                _treeFeatureTable = new ServiceFeatureTable(serviceUri)
-                {
-                    FeatureRequestMode = FeatureRequestMode.OnInteractionCache
-                };
+                // The feature request mode for this service feature table is OnInteractionCache by default.
+                _treeFeatureTable = new ServiceFeatureTable(serviceUri);
 
                 // Create FeatureLayer that uses the created table.
                 _treeFeatureLayer = new FeatureLayer(_treeFeatureTable);

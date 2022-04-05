@@ -94,6 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
             };
 
             // Create list of the fields that are returned from the service.
+            // Using "*" will return all fields. This can be replaced to return certain fields.
             string[] outputFields = { "*" };
 
             try

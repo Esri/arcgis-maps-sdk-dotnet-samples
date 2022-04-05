@@ -83,6 +83,7 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
             };
 
             // Create list of the fields that are returned from the service.
+            // Using "*" will return all fields. This can be replaced to return certain fields.
             string[] outputFields = { "*" };
 
             try
@@ -100,21 +101,21 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
         {
             // Populates the map with server feature table request mode OnInteractionCache.
             // Features are requested automatically for the visible extent. If the area is visited again, the features won't be requested again.
-            if ((bool)Cache.IsChecked)
+            if (Cache.IsChecked == true)
             {
                 _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
             }
 
             // Populates the map with server feature table request mode OnInteractionNoCache.
             // Features are downloaded for the visible extent. If the area is visited again, the cache will be populated with the latest data.
-            if ((bool)NoCache.IsChecked)
+            if (NoCache.IsChecked == true)
             {
                 _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
             }
 
             // Populates the map with server feature table request mode ManualCache.
             // Features are never automatically populated from the services. All features are loaded manually using PopulateFromServiceAsync.
-            if ((bool)ManualCache.IsChecked)
+            if (ManualCache.IsChecked == true)
             {
                 _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
                 FetchCacheManually();

@@ -138,62 +138,17 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
         }
         #endregion
 
-        #region Button click event handlers
-        private async void PointButtonClick(object sender, RoutedEventArgs e)
+        private void ShapeClick(object sender, RoutedEventArgs e)
         {
-            await DrawButtonClick(SketchCreationMode.Point);
-        }
+            // Get the command parameter from the button press
+            string mode = (sender as Microsoft.UI.Xaml.Controls.Button).CommandParameter.ToString();
 
-        private async void MultipointButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.Multipoint);
+            // Check if the command parameter is defined in the SketchCreationMode enumerator
+            if (Enum.IsDefined(typeof(SketchCreationMode), mode))
+            {
+                _ = DrawButtonClick((SketchCreationMode)Enum.Parse(typeof(SketchCreationMode), mode));
+            }
         }
-
-        private async void PolylineButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.Polyline);
-        }
-
-        private async void PolygonButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.Polygon);
-        }
-
-        private async void FreehandPolylineButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.FreehandLine);
-        }
-
-        private async void FreehandPolygonButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.FreehandPolygon);
-        }
-
-        private async void EllipseButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.Ellipse);
-        }
-
-        private async void CircleButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.Circle);
-        }
-
-        private async void TriangleButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.Triangle);
-        }
-
-        private async void ArrowButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.Arrow);
-        }
-
-        private async void RectangleButtonClick(object sender, RoutedEventArgs e)
-        {
-            await DrawButtonClick(SketchCreationMode.Rectangle);
-        }
-        #endregion
 
         private async Task DrawButtonClick(SketchCreationMode creationMode)
         {

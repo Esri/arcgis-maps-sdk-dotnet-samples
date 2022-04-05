@@ -43,7 +43,8 @@
                     Grid.Row="2"
                     Grid.Column="0"
                     Margin="0,5,0,0"
-                    Click="PointButtonClick"
+                    Click="ShapeClick"
+                    CommandParameter="Point"
                     ToolTip="Point">
                 <Image Source="resources/point.png" />
             </Button>
@@ -51,70 +52,80 @@
                     Grid.Row="2"
                     Grid.Column="1"
                     Margin="0,5,0,0"
-                    Click="MultipointButtonClick"
+                    Click="ShapeClick"
+                    CommandParameter="Multipoint"
                     ToolTip="Multipoint">
                 <Image Source="resources/multipoint.png" />
             </Button>
             <Button x:Name="PolylineButton"
                     Grid.Row="3"
                     Grid.Column="0"
-                    Click="PolylineButtonClick"
+                    Click="ShapeClick"
+                    CommandParameter="Polyline"
                     ToolTip="Polyline">
                 <Image Source="resources/polyline.png" />
             </Button>
             <Button x:Name="PolygonButton"
                     Grid.Row="3"
                     Grid.Column="1"
-                    Click="PolygonButtonClick"
+                    Click="ShapeClick"
+                    CommandParameter="Polygon"
                     ToolTip="Polygon">
                 <Image Source="resources/polygon.png" />
             </Button>
             <Button x:Name="FreehandPolylineButton"
                     Grid.Row="4"
                     Grid.Column="0"
-                    Click="FreehandPolylineButtonClick"
+                    Click="ShapeClick"
+                    CommandParameter="FreehandLine"
                     ToolTip="Freehand Polyline">
                 <Image Source="resources/freehand-polyline.png" />
             </Button>
             <Button x:Name="FreehandPolygonButton"
                     Grid.Row="4"
                     Grid.Column="1"
-                    Click="FreehandPolygonButtonClick"
+                    Click="ShapeClick"
+                    CommandParameter="FreehandPolygon"
                     ToolTip="Freehand Polygon">
                 <Image Source="resources/brush.png" />
             </Button>
             <Button x:Name="CircleButton"
                     Grid.Row="5"
                     Grid.Column="0"
-                    Click="CircleButtonClick"
-                    ToolTipService.ToolTip="Circle">
+                    Click="ShapeClick"
+                    CommandParameter="Circle"
+                    ToolTip="Circle">
                 <Image Source="resources/circle.png" />
             </Button>
             <Button x:Name="EllipseButton"
                     Grid.Row="5"
                     Grid.Column="1"
-                    Click="EllipseButtonClick"
-                    ToolTipService.ToolTip="Ellipse">
+                    Click="ShapeClick"
+                    CommandParameter="Ellipse"
+                    ToolTip="Ellipse">
                 <Image Source="resources/ellipse.png" />
             </Button>
             <Button x:Name="TriangleButton"
                     Grid.Row="6"
                     Grid.Column="0"
-                    Click="TriangleButtonClick"
-                    ToolTipService.ToolTip="Triangle">
+                    Click="ShapeClick"
+                    CommandParameter="Triangle"
+                    ToolTip="Triangle">
                 <Image Source="resources/triangle.png" />
             </Button>
             <Button x:Name="ArrowButton"
                     Grid.Row="6"
                     Grid.Column="1"
-                    Click="ArrowButtonClick"
-                    ToolTipService.ToolTip="Arrow">
+                    Click="ShapeClick"
+                    CommandParameter="Arrow"
+                    ToolTip="Arrow">
                 <Image Source="resources/arrow.png" />
             </Button>
             <Button x:Name="RectangleButton"
                     Grid.Row="7"
                     Grid.Column="0"
-                    Click="RectangleButtonClick"
+                    Click="ShapeClick"
+                    CommandParameter="Rectangle"
                     ToolTip="Rectangle">
                 <Image Source="resources/rectangle.png" />
             </Button>

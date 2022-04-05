@@ -45,7 +45,7 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
         {
             try
             {
-                // Create new Map with basemap
+                // Create new Map with basemap.
                 Map myMap = new Map(BasemapStyle.ArcGISTopographic);
                 MyMapView.Map = myMap;
 
@@ -62,10 +62,10 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
                     FeatureRequestMode = FeatureRequestMode.OnInteractionCache
                 };
 
-                // Create FeatureLayer that uses the created table
+                // Create FeatureLayer that uses the created table.
                 _treeFeatureLayer = new FeatureLayer(_treeFeatureTable);
 
-                // Add created layer to the map
+                // Add created layer to the map.
                 MyMapView.Map.OperationalLayers.Add(_treeFeatureLayer);
             }
             catch (Exception ex)
@@ -77,19 +77,19 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
         // Use this method for manual cache.
         private async void FetchCacheManually()
         {
-            // Create new query object that contains parameters to query specific request types
+            // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
             {
                 WhereClause = "Condition < '4'",
                 Geometry = MyMapView.VisibleArea
             };
 
-            // Create list of the fields that are returned from the service
+            // Create list of the fields that are returned from the service.
             string[] outputFields = { "*" };
 
             try
             {
-                // Populate feature table with the data based on query
+                // Populate feature table with the data based on query.
                 await _treeFeatureTable.PopulateFromServiceAsync(queryParameters, true, outputFields);
             }
             catch (Exception ex)

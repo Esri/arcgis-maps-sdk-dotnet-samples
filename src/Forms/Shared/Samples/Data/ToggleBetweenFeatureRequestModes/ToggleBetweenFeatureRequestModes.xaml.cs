@@ -112,17 +112,20 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
             string currentPick = CacheModes.SelectedItem.ToString();
             switch (currentPick)
             {
-                //Populates the map with server feature table request mode cache.
+                // Populates the map with server feature table request mode OnInteractionCache.
+                // Features are requested automatically for the visible extent. If the area is visited again, the features won't be requested again.
                 case "Cache":
                     _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
                     break;
 
-                // Populates the map with server feature table request mode no cache.
+                // Populates the map with server feature table request mode OnInteractionNoCache.
+                // Features are downloaded for the visible extent. If the area is visited again, the cache will be populated with the latest data.
                 case "No Cache":
                     _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
                     break;
 
-                // Populates the map with server feature table request mode manual cache.
+                // Populates the map with server feature table request mode ManualCache.
+                // Features are never automatically populated from the services. All features are loaded manually using PopulateFromServiceAsync.
                 case "Manual Cache":
                     _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
                     FetchCacheManually();

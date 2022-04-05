@@ -88,19 +88,22 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
 
         private void PopulateButtonClick(object sender, RoutedEventArgs e)
         {
-            // Populates the map with server feature table request mode cache.
+            // Populates the map with server feature table request mode OnInteractionCache.
+            // Features are requested automatically for the visible extent. If the area is visited again, the features won't be requested again.
             if ((bool)Cache.IsChecked)
             {
                 _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
             }
 
-            // Populates the map with server feature table request mode no cache.
+            // Populates the map with server feature table request mode OnInteractionNoCache.
+            // Features are downloaded for the visible extent. If the area is visited again, the cache will be populated with the latest data.
             if ((bool)NoCache.IsChecked)
             {
                 _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
             }
 
-            // Populates the map with server feature table request mode manual cache.
+            // Populates the map with server feature table request mode ManualCache.
+            // Features are never automatically populated from the services. All features are loaded manually using PopulateFromServiceAsync.
             if ((bool)ManualCache.IsChecked)
             {
                 _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;

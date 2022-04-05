@@ -70,37 +70,21 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Samples\GraphicsOverlay\SketchOnMap\resources\" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Resources\SyntaxHighlighting\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Remove="readme.md" />
     <None Remove="App.config" />
     <None Remove="Resources\github-markdown.css" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\arrow.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\brush.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\circle.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\clear.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\edit.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\ellipse.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\freehand-polyline.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\multipoint.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\point.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\polygon.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\polyline.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\rectangle.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\redo.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\save.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\trash-can-outline.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\triangle.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\undo.png" />
-    
     <Compile Update="Samples\**\*.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Page Update="Samples\**\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
@@ -133,24 +117,5 @@
   <!-- Workaround for https://github.com/dotnet/core/issues/7176 -->
   <ItemGroup>
     <FrameworkReference Update="Microsoft.WindowsDesktop.App;Microsoft.WindowsDesktop.App.WPF;Microsoft.WindowsDesktop.App.WindowsForms" TargetingPackVersion="6.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\arrow.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\brush.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\circle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\clear.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\edit.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\ellipse.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\freehand-polyline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\multipoint.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\point.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\polygon.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\polyline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\rectangle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\redo.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\save.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\trash-can-outline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\triangle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\undo.png" />
   </ItemGroup>
 </Project>

@@ -48,7 +48,8 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 // Select the first item
                 samples.First().IsSelected = true;
-
+                SampleContainer.Height = 600;
+                SampleContainer.Width = 800;
                 Loaded += FirstLoaded;
             }
             catch (Exception ex)

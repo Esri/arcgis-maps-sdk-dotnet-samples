@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
         }
 
         // Use this method for manual cache.
-        private async void FetchCacheManually()
+        private async void PopulateButtonClick(object sender, RoutedEventArgs e)
         {
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
@@ -86,28 +86,42 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
             }
         }
 
-        private void PopulateButtonClick(object sender, RoutedEventArgs e)
+        private void CacheChecked(object sender, RoutedEventArgs e)
         {
             // Populates the map with server feature table request mode OnInteractionCache.
             // Features are requested automatically for the visible extent. If the area is visited again, the features won't be requested again.
-            if (Cache.IsChecked == true)
-            {
-                _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
-            }
+            _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
 
+            // Disable populate map button used for manual cache.
+            if (PopulateMap.IsEnabled == true)
+            {
+                PopulateMap.IsEnabled = false;
+            }
+        }
+
+        private void NoCacheChecked(object sender, RoutedEventArgs e)
+        {
             // Populates the map with server feature table request mode OnInteractionNoCache.
             // Features are downloaded for the visible extent. If the area is visited again, the cache will be populated with the latest data.
-            if (NoCache.IsChecked == true)
-            {
-                _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
-            }
+            _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
 
+            // Disable populate map button used for manual cache.
+            if (PopulateMap.IsEnabled == true)
+            {
+                PopulateMap.IsEnabled = false;
+            }
+        }
+
+        private void ManualCacheChecked(object sender, RoutedEventArgs e)
+        {
             // Populates the map with server feature table request mode ManualCache.
             // Features are never automatically populated from the services. All features are loaded manually using PopulateFromServiceAsync.
-            if (ManualCache.IsChecked == true)
+            _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+
+            // Enable populate map button used for manual cache.
+            if (PopulateMap.IsEnabled == false)
             {
-                _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
-                FetchCacheManually();
+                PopulateMap.IsEnabled = true;
             }
         }
     }

@@ -9,13 +9,18 @@
                 Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <RadioButton x:Name="Cache"
-                             Content="Cache"
-                             IsChecked="True" />
-                <RadioButton x:Name="NoCache" Content="No Cache" />
-                <RadioButton x:Name="ManualCache" Content="Manual Cache" />
+                             Checked="CacheChecked"
+                             Content="Cache" />
+                <RadioButton x:Name="NoCache"
+                             Checked="NoCacheChecked"
+                             Content="No Cache" />
+                <RadioButton x:Name="ManualCache"
+                             Checked="ManualCacheChecked"
+                             Content="Manual Cache" />
                 <Button x:Name="PopulateMap"
                         Click="PopulateButtonClick"
-                        Content="Populate" />
+                        Content="Populate"
+                        IsEnabled="False" />
             </StackPanel>
         </Border>
     </Grid>

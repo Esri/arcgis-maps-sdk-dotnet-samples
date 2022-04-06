@@ -83,8 +83,54 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
             }
         }
 
+        private void CacheSelectionChanged(object sender, EventArgs e)
+        {
+            string currentPick = CacheModes.SelectedItem.ToString();
+            switch (currentPick)
+            {
+                // Populates the map with server feature table request mode OnInteractionCache.
+                // Features are requested automatically for the visible extent. If the area is visited again, the features won't be requested again.
+                case "Cache":
+                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
+
+                    // Disable populate map button used for manual cache.
+                    if (PopulateMap.IsEnabled == true)
+                    {
+                        PopulateMap.IsEnabled = false;
+                    }
+                    break;
+
+                // Populates the map with server feature table request mode OnInteractionNoCache.
+                // Features are downloaded for the visible extent. If the area is visited again, the cache will be populated with the latest data.
+                case "No Cache":
+                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
+
+                    // Disable populate map button used for manual cache.
+                    if (PopulateMap.IsEnabled == true)
+                    {
+                        PopulateMap.IsEnabled = false;
+                    }
+                    break;
+
+                // Populates the map with server feature table request mode ManualCache.
+                // Features are never automatically populated from the services. All features are loaded manually using PopulateFromServiceAsync.
+                case "Manual Cache":
+                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
+
+                    // Enable populate map button used for manual cache.
+                    if (PopulateMap.IsEnabled == false)
+                    {
+                        PopulateMap.IsEnabled = true;
+                    }
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
         // Use this method for manual cache.
-        private async void FetchCacheManually()
+        private async void PopulateButtonClick(object sender, EventArgs e)
         {
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
@@ -104,35 +150,6 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
-            }
-        }
-
-        private void PopulateButtonClick(object sender, EventArgs e)
-        {
-            string currentPick = CacheModes.SelectedItem.ToString();
-            switch (currentPick)
-            {
-                // Populates the map with server feature table request mode OnInteractionCache.
-                // Features are requested automatically for the visible extent. If the area is visited again, the features won't be requested again.
-                case "Cache":
-                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
-                    break;
-
-                // Populates the map with server feature table request mode OnInteractionNoCache.
-                // Features are downloaded for the visible extent. If the area is visited again, the cache will be populated with the latest data.
-                case "No Cache":
-                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
-                    break;
-
-                // Populates the map with server feature table request mode ManualCache.
-                // Features are never automatically populated from the services. All features are loaded manually using PopulateFromServiceAsync.
-                case "Manual Cache":
-                    _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
-                    FetchCacheManually();
-                    break;
-
-                default:
-                    break;
             }
         }
     }

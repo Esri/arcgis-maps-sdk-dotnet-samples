@@ -9,10 +9,12 @@
         <StackLayout Grid.Row="1" Orientation="Vertical">
             <Picker x:Name="CacheModes"
                     Margin="10"
+                    SelectedIndexChanged="CacheSelectionChanged"
                     VerticalOptions="Center" />
             <Button x:Name="PopulateMap"
                     Margin="10"
                     Clicked="PopulateButtonClick"
+                    IsEnabled="False"
                     Text="Populate" />
         </StackLayout>
         <Grid.RowDefinitions>

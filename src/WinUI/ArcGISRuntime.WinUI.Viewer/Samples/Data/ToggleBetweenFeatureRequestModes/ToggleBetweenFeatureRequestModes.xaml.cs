@@ -68,7 +68,7 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(ex.ToString()).ShowAsync();
+                await new MessageDialog2(ex.Message).ShowAsync();
             }
         }
 
@@ -92,7 +92,7 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(ex.ToString()).ShowAsync();
+                await new MessageDialog2(ex.Message).ShowAsync();
             }
         }
 

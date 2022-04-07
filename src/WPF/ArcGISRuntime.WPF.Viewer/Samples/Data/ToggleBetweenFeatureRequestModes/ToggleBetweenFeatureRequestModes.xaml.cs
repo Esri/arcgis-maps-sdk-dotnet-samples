@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 
@@ -82,7 +82,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 

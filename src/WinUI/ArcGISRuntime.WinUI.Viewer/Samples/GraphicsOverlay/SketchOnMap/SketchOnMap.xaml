@@ -29,14 +29,16 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Click="EditButtonClick"
-                    ToolTipService.ToolTip="Edit">
+                    ToolTipService.ToolTip="Edit"
+                    Background="LightGray">
                 <Image Source="resources/edit.png" />
             </Button>
             <Button x:Name="StopButton"
                     Grid.Row="0"
                     Grid.Column="1"
                     Command="{Binding CancelCommand}"
-                    ToolTipService.ToolTip="Cancel">
+                    ToolTipService.ToolTip="Cancel"
+                    Background="LightGray">
                 <Image Source="resources/clear.png" />
             </Button>
             <Button x:Name="PointButton"
@@ -45,6 +47,7 @@
                     Margin="0,5,0,0"
                     Click="ShapeClick"
                     CommandParameter="Point"
+                    Background="LightGray"
                     ToolTipService.ToolTip="Point">
                 <Image Source="resources/point.png" />
             </Button>
@@ -54,6 +57,7 @@
                     Margin="0,5,0,0"
                     Click="ShapeClick"
                     CommandParameter="Multipoint"
+                    Background="LightGray"
                     ToolTipService.ToolTip="Multipoint">
                 <Image Source="resources/multipoint.png" />
             </Button>
@@ -62,6 +66,7 @@
                     Grid.Column="0"
                     Click="ShapeClick"
                     CommandParameter="Polyline"
+                    Background="LightGray"
                     ToolTipService.ToolTip="Polyline">
                 <Image Source="resources/polyline.png" />
             </Button>
@@ -70,6 +75,7 @@
                     Grid.Column="1"
                     Click="ShapeClick"
                     CommandParameter="Polygon"
+                    Background="LightGray"
                     ToolTipService.ToolTip="Polygon">
                 <Image Source="resources/polygon.png" />
             </Button>
@@ -77,6 +83,7 @@
                     Grid.Row="4"
                     Grid.Column="0"
                     Click="ShapeClick"
+                    Background="LightGray"
                     CommandParameter="FreehandLine"
                     ToolTipService.ToolTip="Freehand Polyline">
                 <Image Source="resources/freehand-polyline.png" />
@@ -85,6 +92,7 @@
                     Grid.Row="4"
                     Grid.Column="1"
                     Click="ShapeClick"
+                    Background="LightGray"
                     CommandParameter="FreehandPolygon"
                     ToolTipService.ToolTip="Freehand Polygon">
                 <Image Source="resources/brush.png" />
@@ -93,6 +101,7 @@
                     Grid.Row="5"
                     Grid.Column="0"
                     Click="ShapeClick"
+                    Background="LightGray"
                     CommandParameter="Circle"
                     ToolTipService.ToolTip="Circle">
                 <Image Source="resources/circle.png" />
@@ -101,6 +110,7 @@
                     Grid.Row="5"
                     Grid.Column="1"
                     Click="ShapeClick"
+                    Background="LightGray"
                     CommandParameter="Ellipse"
                     ToolTipService.ToolTip="Ellipse">
                 <Image Source="resources/ellipse.png" />
@@ -109,6 +119,7 @@
                     Grid.Row="6"
                     Grid.Column="0"
                     Click="ShapeClick"
+                    Background="LightGray"
                     CommandParameter="Triangle"
                     ToolTipService.ToolTip="Triangle">
                 <Image Source="resources/triangle.png" />
@@ -117,6 +128,7 @@
                     Grid.Row="6"
                     Grid.Column="1"
                     Click="ShapeClick"
+                    Background="LightGray"
                     CommandParameter="Arrow"
                     ToolTipService.ToolTip="Arrow">
                 <Image Source="resources/arrow.png" />
@@ -126,6 +138,7 @@
                     Grid.Column="0"
                     Click="ShapeClick"
                     CommandParameter="Rectangle"
+                    Background="LightGray"
                     ToolTipService.ToolTip="Rectangle">
                 <Image Source="resources/rectangle.png" />
             </Button>
@@ -134,6 +147,7 @@
                     Grid.Column="0"
                     Margin="0,5,0,0"
                     Command="{Binding UndoCommand}"
+                    Background="LightGray"
                     ToolTipService.ToolTip="Undo">
                 <Image Source="resources/undo.png" />
             </Button>
@@ -141,6 +155,7 @@
                     Grid.Row="8"
                     Grid.Column="1"
                     Margin="0,5,0,0"
+                    Background="LightGray"
                     Command="{Binding RedoCommand}"
                     ToolTipService.ToolTip="Redo">
                 <Image Source="resources/redo.png" />
@@ -148,6 +163,7 @@
             <Button x:Name="SaveButton"
                     Grid.Row="9"
                     Grid.Column="0"
+                    Background="LightGray"
                     Command="{Binding CompleteCommand}"
                     ToolTipService.ToolTip="Save">
                 <Image Source="resources/save.png" />
@@ -156,6 +172,7 @@
                     Grid.Row="9"
                     Grid.Column="1"
                     Click="ClearButtonClick"
+                    Background="LightGray"
                     ToolTipService.ToolTip="Clear">
                 <Image Source="resources/trash-can-outline.png" />
             </Button>

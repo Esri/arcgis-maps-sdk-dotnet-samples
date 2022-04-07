@@ -62,8 +62,6 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
         #region Graphic and symbol helpers
         private Graphic SaveGraphic(Geometry geometry)
         {
-            //Geometry geometry = _sketchOverlay.SelectedGraphics.FirstOrDefault().Geometry;
-
             // Create a graphic to display the specified geometry
             Symbol symbol = null;
             if (geometry != null)
@@ -107,7 +105,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
                         }
                 }
 
-                // pass back a new graphic with the appropriate symbol
+                // Pass back a new graphic with the appropriate symbol
                 return new Graphic(geometry, symbol);
             }
 

@@ -21,7 +21,8 @@
                 <Button x:Name="PopulateMap"
                         Click="PopulateButtonClick"
                         Content="Populate"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        Margin="5" />
             </StackPanel>
         </Border>
     </Grid>

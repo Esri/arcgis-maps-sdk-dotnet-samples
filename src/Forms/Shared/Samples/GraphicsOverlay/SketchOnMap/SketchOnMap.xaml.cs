@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             // Assign the map to the MapView
             MyMapView.Map = myMap;
 
-            // set a viewpoint on the map view
+            // Set a viewpoint on the map view
             MyMapView.SetViewpoint(new Viewpoint(64.3286, -15.5314, 72223));
 
             // Fill the combo box with choices for the sketch modes (shapes)

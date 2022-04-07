@@ -34,7 +34,7 @@ Summary of the change and any relevant info.
 - [ ] There are no warnings related to changes
 - [ ] No unrelated changes have been made to any other code or project files
 - [ ] `sample_sync.py` runs without making changes
-- [ ] Codemaid and xaml formatting have been run on every changed file
+- [ ] Codemaid and XAML styler extensions have been run on every changed file
 - [ ] Code is commented with correct formatting
 - [ ] All variable and method names are good and make sense
 - [ ] There is no leftover commented code

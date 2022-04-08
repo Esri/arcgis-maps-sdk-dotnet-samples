@@ -114,7 +114,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
                     }
             }
 
-            // pass back a new graphic with the appropriate symbol.
+            // Pass back a new graphic with the appropriate symbol.
             return new Graphic(geometry, symbol);
         }
 

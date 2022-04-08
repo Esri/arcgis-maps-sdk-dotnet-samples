@@ -6,12 +6,16 @@
     "images": [
         "ToggleBetweenFeatureRequestModes.jpg"
     ],
-    "keywords": ["cache",
-        "feature request mode", 
-        "performance"],
+    "keywords": [
+        "cache",
+        "feature request mode",
+        "performance"
+    ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/togglebetweenfeaturerequestmodes.htm"
+        "/net/latest/winui/sample-code/servicefeaturetablenocache.htm",
+        "/net/latest/winui/sample-code/servicefeaturetablemanualcache.htm",
+        "/net/latest/winui/sample-code/servicefeaturetablecache.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

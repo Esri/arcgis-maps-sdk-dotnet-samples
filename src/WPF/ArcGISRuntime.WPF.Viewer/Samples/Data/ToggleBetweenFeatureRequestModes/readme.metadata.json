@@ -6,9 +6,11 @@
     "images": [
         "ToggleBetweenFeatureRequestModes.jpg"
     ],
-    "keywords": ["cache",
-         "feature request mode", 
-         "performance"],
+    "keywords": [
+        "cache",
+        "feature request mode",
+        "performance"
+    ],
     "offline_data": [],
     "redirect_from": [
         "/net/latest/wpf/sample-code/servicefeaturetablenocache.htm",

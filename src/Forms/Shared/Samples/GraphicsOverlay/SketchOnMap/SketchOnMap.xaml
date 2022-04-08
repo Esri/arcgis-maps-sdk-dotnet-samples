@@ -37,7 +37,7 @@
                     VerticalOptions="CenterAndExpand" />
             <Button Grid.Row="1"
                     Grid.Column="1"
-                    Clicked="DrawButtonClick"
+                    Clicked="StartSketch"
                     HeightRequest="35"
                     HorizontalOptions="Center"
                     Text="✍️"

@@ -12,12 +12,12 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Drawing;
-using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
 {
@@ -29,46 +29,47 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
         tags: new[] { "draw", "edit" })]
     public sealed partial class SketchOnMap
     {
-        // Graphics overlay to host sketch graphics
+        // Graphics overlay to host sketch graphics.
         private GraphicsOverlay _sketchOverlay;
 
         public SketchOnMap()
         {
             InitializeComponent();
 
-            // Call a function to set up the map and sketch editor
+            // Call a function to set up the map and sketch editor.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create a map
+            // Create a map.
             Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
-            // Create graphics overlay to display sketch geometry
+            // Create graphics overlay to display sketch geometry.
             _sketchOverlay = new GraphicsOverlay();
             MyMapView.GraphicsOverlays.Add(_sketchOverlay);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             MyMapView.Map = myMap;
 
-            // Set a viewpoint on the map view
+            // Set a viewpoint on the map view.
             MyMapView.SetViewpoint(new Viewpoint(64.3286, -15.5314, 72223));
 
-            // Set the sketch editor as the page's data context
+            // Set the sketch editor as the page's data context.
             DataContext = MyMapView.SketchEditor;
         }
 
         #region Graphic and symbol helpers
+
         private Graphic SaveGraphic(Geometry geometry)
         {
-            // Create a graphic to display the specified geometry
+            // Create a graphic to display the specified geometry.
             Symbol symbol = null;
             if (geometry != null)
             {
                 switch (geometry.GeometryType)
                 {
-                    // Symbolize with a fill symbol
+                    // Symbolize with a fill symbol.
                     case GeometryType.Envelope:
                     case GeometryType.Polygon:
                         {
@@ -79,7 +80,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
                             };
                             break;
                         }
-                    // Symbolize with a line symbol
+                    // Symbolize with a line symbol.
                     case GeometryType.Polyline:
                         {
                             symbol = new SimpleLineSymbol()
@@ -90,11 +91,10 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
                             };
                             break;
                         }
-                    // Symbolize with a marker symbol
+                    // Symbolize with a marker symbol.
                     case GeometryType.Point:
                     case GeometryType.Multipoint:
                         {
-
                             symbol = new SimpleMarkerSymbol()
                             {
                                 Color = Color.Red,
@@ -105,7 +105,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
                         }
                 }
 
-                // Pass back a new graphic with the appropriate symbol
+                // Pass back a new graphic with the appropriate symbol.
                 return new Graphic(geometry, symbol);
             }
 
@@ -114,16 +114,16 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
 
         private async Task<Graphic> GetGraphicAsync()
         {
-            // Wait for the user to click a location on the map
+            // Wait for the user to click a location on the map.
             MapPoint mapPoint = (MapPoint)await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
 
-            // Convert the map point to a screen point
+            // Convert the map point to a screen point.
             Windows.Foundation.Point screenCoordinate = MyMapView.LocationToScreen(mapPoint);
 
-            // Identify graphics in the graphics overlay using the point
+            // Identify graphics in the graphics overlay using the point.
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
 
-            // If results were found, get the first graphic
+            // If results were found, get the first graphic.
             Graphic graphic = null;
             IdentifyGraphicsOverlayResult idResult = results.FirstOrDefault();
             if (idResult != null && idResult.Graphics.Count > 0)
@@ -131,55 +131,56 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
                 graphic = idResult.Graphics.FirstOrDefault();
             }
 
-            // Return the graphic (or null if none were found)
+            // Return the graphic (or null if none were found).
             return graphic;
         }
-        #endregion
+
+        #endregion Graphic and symbol helpers
 
         private void ShapeClick(object sender, RoutedEventArgs e)
         {
-            // Get the command parameter from the button press
+            // Get the command parameter from the button press.
             string mode = (sender as Microsoft.UI.Xaml.Controls.Button).CommandParameter.ToString();
 
-            // Check if the command parameter is defined in the SketchCreationMode enumerator
+            // Check if the command parameter is defined in the SketchCreationMode enumerator.
             if (Enum.IsDefined(typeof(SketchCreationMode), mode))
             {
-                _ = DrawButtonClick((SketchCreationMode)Enum.Parse(typeof(SketchCreationMode), mode));
+                _ = StartSketch((SketchCreationMode)Enum.Parse(typeof(SketchCreationMode), mode));
             }
         }
 
-        private async Task DrawButtonClick(SketchCreationMode creationMode)
+        private async Task StartSketch(SketchCreationMode creationMode)
         {
             try
             {
-                // Let the user draw on the map view using the chosen sketch mode
+                // Let the user draw on the map view using the chosen sketch mode.
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
 
-                // Create and add a graphic from the geometry the user drew
+                // Create and add a graphic from the geometry the user drew.
                 Graphic graphic = SaveGraphic(geometry);
                 _sketchOverlay.Graphics.Add(graphic);
 
-                // Enable/disable the clear and edit buttons according to whether or not graphics exist in the overlay
+                // Enable/disable the clear and edit buttons according to whether or not graphics exist in the overlay.
                 ClearButton.IsEnabled = _sketchOverlay.Graphics.Count > 0;
                 EditButton.IsEnabled = _sketchOverlay.Graphics.Count > 0;
             }
             catch (TaskCanceledException)
             {
-                // Ignore ... let the user cancel drawing
+                // Ignore ... let the user cancel drawing.
             }
             catch (Exception ex)
             {
-                // Report exceptions
+                // Report exceptions.
                 await new MessageDialog2("Error drawing graphic shape: " + ex.Message, ex.GetType().Name).ShowAsync();
             }
         }
 
         private void ClearButtonClick(object sender, RoutedEventArgs e)
         {
-            // Remove all graphics from the graphics overlay
+            // Remove all graphics from the graphics overlay.
             _sketchOverlay.Graphics.Clear();
 
-            // Disable buttons that require graphics
+            // Disable buttons that require graphics.
             ClearButton.IsEnabled = false;
             EditButton.IsEnabled = false;
         }
@@ -188,7 +189,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
         {
             try
             {
-                // Allow the user to select a graphic
+                // Allow the user to select a graphic.
                 Graphic editGraphic = await GetGraphicAsync();
 
                 if (editGraphic == null)
@@ -196,19 +197,19 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
                     return;
                 }
 
-                // Let the user make changes to the graphic's geometry, await the result (updated geometry)
+                // Let the user make changes to the graphic's geometry, await the result (updated geometry).
                 Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
 
-                // Display the updated geometry in the graphic
+                // Display the updated geometry in the graphic.
                 editGraphic.Geometry = newGeometry;
             }
             catch (TaskCanceledException)
             {
-                // Ignore ... let the user cancel editing
+                // Ignore ... let the user cancel editing.
             }
             catch (Exception ex)
             {
-                // Report exceptions
+                // Report exceptions.
                 await new MessageDialog2("Error editing shape: " + ex.Message, ex.GetType().Name).ShowAsync();
             }
         }

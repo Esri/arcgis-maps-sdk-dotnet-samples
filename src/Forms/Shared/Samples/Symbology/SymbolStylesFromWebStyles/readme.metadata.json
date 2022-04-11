@@ -1,0 +1,31 @@
+{
+    "category": "Symbology",
+    "description": "Create symbol styles from a style file hosted on a portal.",
+    "formal_name": "SymbolStylesFromWebStyles",
+    "ignore": false,
+    "images": [
+        "SymbolStylesFromWebStyles.jpg"
+    ],
+    "keywords": [
+        "renderer",
+        "symbol",
+        "symbology",
+        "web style"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/symbolstylesfromwebstyles.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "Symbol",
+        "SymbolStyle",
+        "UniqueValue",
+        "UniqueValueRenderer"
+    ],
+    "snippets": [
+        "SymbolStylesFromWebStyles.xaml",
+        "SymbolStylesFromWebStyles.xaml.cs"
+    ],
+    "title": "Create symbol styles from web styles"
+}

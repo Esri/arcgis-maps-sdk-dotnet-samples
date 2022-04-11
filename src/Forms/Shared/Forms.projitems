@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayOverviewMap\DisplayOverviewMap.jpg" />
@@ -212,6 +213,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml.cs">
+      <DependentUpon>SymbolStylesFromWebStyles.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.xaml.cs">
       <DependentUpon>DisplayUtilityNetworkContainer.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -924,6 +929,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

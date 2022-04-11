@@ -63,7 +63,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
         }
 
         // Use this method for manual cache.
-        private async void PopulateButtonClick(object sender, RoutedEventArgs e)
+        private async void FetchCacheManually()
         {
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
@@ -86,6 +86,11 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
             }
         }
 
+        private void PopulateButtonClick(object sender, RoutedEventArgs e)
+        {
+            FetchCacheManually();
+        }
+
         private void CacheChecked(object sender, RoutedEventArgs e)
         {
             // Populates the map with server feature table request mode OnInteractionCache.
@@ -93,10 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
             _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
 
             // Disable populate map button used for manual cache.
-            if (PopulateMap.IsEnabled == true)
-            {
-                PopulateMap.IsEnabled = false;
-            }
+            PopulateMap.IsEnabled = false;
         }
 
         private void NoCacheChecked(object sender, RoutedEventArgs e)
@@ -106,10 +108,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
             _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
 
             // Disable populate map button used for manual cache.
-            if (PopulateMap.IsEnabled == true)
-            {
-                PopulateMap.IsEnabled = false;
-            }
+            PopulateMap.IsEnabled = false;
         }
 
         private void ManualCacheChecked(object sender, RoutedEventArgs e)
@@ -119,10 +118,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
             _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
             // Enable populate map button used for manual cache.
-            if (PopulateMap.IsEnabled == false)
-            {
-                PopulateMap.IsEnabled = true;
-            }
+            PopulateMap.IsEnabled = true;
         }
     }
 }

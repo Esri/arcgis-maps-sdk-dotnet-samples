@@ -94,10 +94,7 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
                     _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionCache;
 
                     // Disable populate map button used for manual cache.
-                    if (PopulateMap.IsEnabled == true)
-                    {
-                        PopulateMap.IsEnabled = false;
-                    }
+                    PopulateMap.IsEnabled = false;
                     break;
 
                 // Populates the map with server feature table request mode OnInteractionNoCache.
@@ -106,10 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
                     _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.OnInteractionNoCache;
 
                     // Disable populate map button used for manual cache.
-                    if (PopulateMap.IsEnabled == true)
-                    {
-                        PopulateMap.IsEnabled = false;
-                    }
+                    PopulateMap.IsEnabled = false;
                     break;
 
                 // Populates the map with server feature table request mode ManualCache.
@@ -118,10 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
                     _treeFeatureTable.FeatureRequestMode = FeatureRequestMode.ManualCache;
 
                     // Enable populate map button used for manual cache.
-                    if (PopulateMap.IsEnabled == false)
-                    {
-                        PopulateMap.IsEnabled = true;
-                    }
+                    PopulateMap.IsEnabled = true;
                     break;
 
                 default:
@@ -130,7 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
         }
 
         // Use this method for manual cache.
-        private async void PopulateButtonClick(object sender, EventArgs e)
+        private async void FetchCacheManually()
         {
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
@@ -151,6 +142,11 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
+        }
+
+        private void PopulateButtonClick(object sender, EventArgs e)
+        {
+            FetchCacheManually();
         }
     }
 }

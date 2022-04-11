@@ -33,7 +33,7 @@ Pan and zoom to explore military symbols on the map.
 
 ## Offline data
 
-This sample uses the [MIL-STD-2525D XML Message File](https://arcgisruntime.maps.arcgis.com/home/item.html?id=1e4ea99af4b440c092e7959cf3957bfa) hosted on ArcGIS Online.
+This sample uses the [MIL-STD-2525D XML Message File](https://www.arcgis.com/home/item.html?id=8776cfc26eed4485a03de6316826384c) hosted on ArcGIS Online.
 
 ## About the data
 

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WinUI.Samples.DictionaryRendererGraphicsOverlay
         description: "Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.",
         instructions: "Pan and zoom to explore military symbols on the map.",
         tags: new[] { "defense", "military", "situational awareness", "tactical", "visualization" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1e4ea99af4b440c092e7959cf3957bfa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("8776cfc26eed4485a03de6316826384c")]
     public partial class DictionaryRendererGraphicsOverlay
     {
         // Hold a reference to the graphics overlay for easy access.
@@ -55,10 +55,10 @@ namespace ArcGISRuntime.WinUI.Samples.DictionaryRendererGraphicsOverlay
                 var symbolStyleUri = new Uri("https://www.arcgis.com/home/item.html?id=d815f3bdf6e6452bb8fd153b654c94ca");
                 DictionarySymbolStyle dictionarySymbolStyle = await DictionarySymbolStyle.OpenAsync(symbolStyleUri);
 
-                // Find the first configuration setting which has the property name "model", and set its value to "ORDERED ANCHOR POINT".
+                // Find the first configuration setting which has the property name "model", and set its value to "ORDERED ANCHOR POINTS".
                 if (dictionarySymbolStyle?.Configurations?.FirstOrDefault(config => config.Name == "model") is DictionarySymbolStyleConfiguration configuration)
                 {
-                    configuration.Value = "ORDERED ANCHOR POINT";
+                    configuration.Value = "ORDERED ANCHOR POINTS";
                 }
 
                 // Create a new dictionary renderer from the dictionary symbol style to render graphics with symbol dictionary attributes and set it to the graphics overlay renderer.
@@ -82,7 +82,7 @@ namespace ArcGISRuntime.WinUI.Samples.DictionaryRendererGraphicsOverlay
         private void LoadMilitaryMessages()
         {
             // Get the path to the messages file.
-            string militaryMessagePath = DataManager.GetDataFolder("1e4ea99af4b440c092e7959cf3957bfa", "Mil2525DMessages.xml");
+            string militaryMessagePath = DataManager.GetDataFolder("8776cfc26eed4485a03de6316826384c", "Mil2525DMessages.xml");
 
             // Load the XML document.
             XElement xmlRoot = XElement.Load(militaryMessagePath);

@@ -19,10 +19,6 @@
         "visualize",
         "world-scale"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.ARToolkit": "100.13.0"
-    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/formsar/sample-code/viewhiddeninfrastructurear.htm"

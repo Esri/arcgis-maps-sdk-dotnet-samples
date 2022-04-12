@@ -1,0 +1,33 @@
+{
+    "category": "Utility network",
+    "description": "A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.",
+    "formal_name": "DisplayUtilityNetworkContainer",
+    "ignore": false,
+    "images": [
+        "DisplayUtilityNetworkContainer.jpg"
+    ],
+    "keywords": [
+        "associations",
+        "connectivity association",
+        "containment association",
+        "structural attachment associations",
+        "utility network"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/displayutilitynetworkcontainer.htm"
+    ],
+    "relevant_apis": [
+        "SubtypeFeatureLayer",
+        "UtilityAssociation",
+        "UtilityAssociationType",
+        "UtilityElement",
+        "UtilityNetwork",
+        "UtilityNetworkDefinition"
+    ],
+    "snippets": [
+        "DisplayUtilityNetworkContainer.xaml",
+        "DisplayUtilityNetworkContainer.xaml.cs"
+    ],
+    "title": "Display content of utility network container"
+}

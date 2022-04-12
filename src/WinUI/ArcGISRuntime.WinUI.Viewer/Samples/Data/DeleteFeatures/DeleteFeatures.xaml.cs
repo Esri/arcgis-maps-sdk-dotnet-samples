@@ -39,25 +39,37 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create the map with streets basemap.
-            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
+            try
+            {
+                // Create the map with streets basemap.
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
-            // Create the feature table, referring to the Damage Assessment feature service.
-            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+                // Create a service geodatabase from the feature service.
+                ServiceGeodatabase serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
+                await serviceGeodatabase.LoadAsync();
 
-            // Create a feature layer to visualize the features in the table.
-            _damageLayer = new FeatureLayer(damageTable);
+                // Gets the feature table from the service geodatabase, referring to the Damage Assessment feature service.
+                // Creating a feature table from the feature service will cause the service geodatbase to be null.
+                ServiceFeatureTable damageTable = serviceGeodatabase.GetTable(0);
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(_damageLayer);
+                // Create a feature layer to visualize the features in the table.
+                _damageLayer = new FeatureLayer(damageTable);
 
-            // Listen for user taps on the map - on tap, a callout will be shown.
-            MyMapView.GeoViewTapped += MapView_Tapped;
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Zoom to the United States.
-            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+                // Listen for user taps on the map - on tap, a callout will be shown.
+                MyMapView.GeoViewTapped += MapView_Tapped;
+
+                // Zoom to the United States.
+                _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
+            }
         }
 
         private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
@@ -129,9 +141,9 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
                 // Delete the feature.
                 await _damageLayer.FeatureTable.DeleteFeatureAsync(featureToDelete);
 
-                // Sync the change with the service.
+                // Sync the change with the service on the service geodatabase.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable)_damageLayer.FeatureTable;
-                await serviceTable.ApplyEditsAsync();
+                await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
                 await new MessageDialog2($"Deleted feature with ID {featureToDelete.Attributes["objectid"]}", "Success!").ShowAsync();

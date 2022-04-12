@@ -16,10 +16,6 @@
         "table",
         "web"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WinUI": "100.13.0"
-    },
     "offline_data": [],
     "redirect_from": [
         "/net/latest/winui/sample-code/displayoacollection.htm"

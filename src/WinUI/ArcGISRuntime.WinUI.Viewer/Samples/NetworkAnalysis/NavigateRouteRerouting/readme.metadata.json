@@ -14,10 +14,6 @@
         "turn-by-turn",
         "voice"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WinUI": "100.13.0"
-    },
     "offline_data": [
         "91e7e6be79cc4d2f8416eff867674c1e",
         "567e14f3420d40c5a206e5c0284cf8fc"

@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
@@ -63,7 +64,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
         }
 
         // Use this method for manual cache.
-        private async void FetchCacheManually()
+        private async Task FetchCacheManually()
         {
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
@@ -88,7 +89,7 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
 
         private void PopulateButtonClick(object sender, RoutedEventArgs e)
         {
-            FetchCacheManually();
+            _ = FetchCacheManually();
         }
 
         private void CacheChecked(object sender, RoutedEventArgs e)

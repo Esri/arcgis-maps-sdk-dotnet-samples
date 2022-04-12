@@ -121,7 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
         }
 
         // Use this method for manual cache.
-        private async void FetchCacheManually()
+        private async Task FetchCacheManually()
         {
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
@@ -146,7 +146,7 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
 
         private void PopulateButtonClick(object sender, EventArgs e)
         {
-            FetchCacheManually();
+            _ = FetchCacheManually();
         }
     }
 }

@@ -73,7 +73,7 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
         }
 
         // Use this method for manual cache.
-        private async void FetchCacheManually()
+        private async Task FetchCacheManually()
         {
             // Create new query object that contains parameters to query specific request types.
             QueryParameters queryParameters = new QueryParameters()
@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.ToggleBetweenFeatureRequestModes
 
         private void PopulateButtonClick(object sender, RoutedEventArgs e)
         {
-            FetchCacheManually();
+            _ = FetchCacheManually();
         }
 
         private void CacheChecked(object sender, RoutedEventArgs e)

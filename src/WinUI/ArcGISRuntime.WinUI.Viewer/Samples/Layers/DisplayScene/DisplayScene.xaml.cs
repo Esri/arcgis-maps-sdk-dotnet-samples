@@ -61,7 +61,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayScene
             myScene.BaseSurface = mySurface;
 
             // Create camera with an initial camera position (Mount Everest in the Alps mountains).
-            Camera myCamera = new Camera(28.4, 83.9, 10010.0, 10.0, 80.0, 300.0);
+            Camera myCamera = new Camera(28.4, 83.9, 10010.0, 10.0, 80.0, 0);
 
             // Set the scene view's camera position.
             MySceneView.SetViewpointCameraAsync(myCamera);

@@ -41,33 +41,30 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
         private async void Initialize()
         {
             // Create new Map with basemap
-            Map myMap = new Map(Basemap.CreateLightGrayCanvasVector());
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
+
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
+
             // Create overlay to where graphics are shown
             GraphicsOverlay overlay = new GraphicsOverlay();
+
             // Add created overlay to the MapView
             MyMapView.GraphicsOverlays.Add(overlay);
-
-            #region "Add Simple Marker Symbols"
 
             //Graphic for labeling multilayer point symbols with marker symbols
             Graphic textGraphic4Markers = new Graphic(new MapPoint(x, y, SpatialReferences.Wgs84),
                 new TextSymbol()
                 {
                     Text = "Multilayerpoint \n Simple markers",
-                    Color = System.Drawing.Color.Red,
-                    BackgroundColor = System.Drawing.Color.Yellow,
+                    Color = Color.Red,
+                    BackgroundColor = Color.Yellow,
                     Size = 25,
                     OutlineColor = Color.Green,
                     OutlineWidth = 1
                 });
             overlay.Graphics.Add(textGraphic4Markers);
             AddPointGraphicsWithMarkerSymbols(overlay);
-
-            #endregion "Add Simple Marker Symbols"
-
-            #region "Add Picture Marker Symbols"
 
             //Graphic for labeling picture marker symbols column
             x = -80.0;
@@ -76,13 +73,14 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
                 new TextSymbol()
                 {
                     Text = "Multilayerpoint \n Picture markers",
-                    Color = System.Drawing.Color.Red,
-                    BackgroundColor = System.Drawing.Color.Yellow,
+                    Color = Color.Red,
+                    BackgroundColor = Color.Yellow,
                     Size = 25,
                     FontStyle = Esri.ArcGISRuntime.Symbology.FontStyle.Italic,
                     FontWeight = Esri.ArcGISRuntime.Symbology.FontWeight.Bold
                 });
             overlay.Graphics.Add(textGraphic4PictureMarkers);
+
             // Add picture graphics using different source types
             // #1: Using url
             AddPointGraphicsWithPictureMarkerSymbolFromUrl(overlay);
@@ -97,10 +95,6 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             {
                 MessageBox.Show(e.ToString(), "Error");
             }
-
-            #endregion "Add Picture Marker Symbols"
-
-            #region "Add Line Symbols"
 
             //Graphic for labeling line marker symbols column
             x = 20.0;
@@ -117,8 +111,6 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
                 });
             overlay.Graphics.Add(textGraphic4lineSymbols);
             AddLineGraphicsWithMarkerSymbols(overlay);
-
-            #endregion "Add Line Symbols"
 
             #region "Add Polygon Symbols"
 

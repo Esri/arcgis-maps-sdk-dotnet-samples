@@ -22,41 +22,42 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerGeoPackage
         description: "Display features from a local GeoPackage.",
         instructions: "Pan and zoom around the map. View the data loaded from the geopackage.",
         tags: new[] { "OGC", "feature table", "geopackage", "gpkg", "package", "standards" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class FeatureLayerGeoPackage
     {
         public FeatureLayerGeoPackage()
         {
             InitializeComponent();
 
-            // Read data from the GeoPackage
+            // Read data from the GeoPackage.
             Initialize();
         }
 
         private async void Initialize()
         {
-            // Create a new map centered on Aurora Colorado
-            MyMapView.Map = new Map(BasemapType.LightGrayCanvasVector, 39.7294, -104.8319, 9);
+            // Create a new map centered on Aurora Colorado.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
+            MyMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.8319, 9);
 
-            // Get the full path
+            // Get the full path.
             string geoPackagePath = GetGeoPackagePath();
 
             try
             {
-                // Open the GeoPackage
+                // Open the GeoPackage.
                 GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
 
-                // Read the feature tables and get the first one
+                // Read the feature tables and get the first one.
                 FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
 
-                // Make sure a feature table was found in the package
+                // Make sure a feature table was found in the package.
                 if (geoPackageTable == null) { return; }
 
-                // Create a layer to show the feature table
+                // Create a layer to show the feature table.
                 FeatureLayer newLayer = new FeatureLayer(geoPackageTable);
                 await newLayer.LoadAsync();
 
-                // Add the feature table as a layer to the map (with default symbology)
+                // Add the feature table as a layer to the map (with default symbology).
                 MyMapView.Map.OperationalLayers.Add(newLayer);
             }
             catch (Exception e)

@@ -10,7 +10,7 @@
                 VerticalOptions="Start" />
         <ContentView x:Name="LegendPopupView"
                      Margin="5,45"
-                     Padding="5,5"
+                     Padding="5"
                      BackgroundColor="White"
                      HeightRequest="350"
                      HorizontalOptions="StartAndExpand"

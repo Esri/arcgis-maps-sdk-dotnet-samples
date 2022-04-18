@@ -80,11 +80,10 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolStylesFromWebStyles
                 // Load the symbols from portal and add them to the renderer.
                 await CreateSymbolStyles();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
-
         }
 
         private async Task CreateSymbolStyles()
@@ -130,21 +129,21 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolStylesFromWebStyles
 
         private Dictionary<string, List<string>> CreateCategoriesMap()
         {
-            Dictionary<string, List<string>> categoriesMap = new Dictionary<string, List<string>>();
-            categoriesMap.Add("atm", new List<string>() { "Banking and Finance" });
-            categoriesMap.Add("beach", new List<string>() { "Beaches and Marinas" });
-            categoriesMap.Add("campground", new List<string>() { "Campgrounds" });
-            categoriesMap.Add("city-hall", new List<string>() { "City Halls", "Government Offices" });
-            categoriesMap.Add("hospital", new List<string>() { "Hospitals and Medical Centers", "Health Screening and Testing", "Health Centers", "Mental Health Centers" });
-            categoriesMap.Add("library", new List<string>() { "Libraries" });
-            categoriesMap.Add("park", new List<string>() { "Parks and Gardens" });
-            categoriesMap.Add("place-of-worship", new List<string>() { "Churches" });
-            categoriesMap.Add("police-station", new List<string>() { "Sheriff and Police Stations" });
-            categoriesMap.Add("post-office", new List<string>() { "DHL Locations", "Federal Express Locations" });
-            categoriesMap.Add("school", new List<string>() { "Public High Schools", "Public Elementary Schools", "Private and Charter Schools" });
-            categoriesMap.Add("trail", new List<string>() { "Trails" });
+            Dictionary<string, List<string>> symbolCategories = new Dictionary<string, List<string>>();
+            symbolCategories.Add("atm", new List<string>() { "Banking and Finance" });
+            symbolCategories.Add("beach", new List<string>() { "Beaches and Marinas" });
+            symbolCategories.Add("campground", new List<string>() { "Campgrounds" });
+            symbolCategories.Add("city-hall", new List<string>() { "City Halls", "Government Offices" });
+            symbolCategories.Add("hospital", new List<string>() { "Hospitals and Medical Centers", "Health Screening and Testing", "Health Centers", "Mental Health Centers" });
+            symbolCategories.Add("library", new List<string>() { "Libraries" });
+            symbolCategories.Add("park", new List<string>() { "Parks and Gardens" });
+            symbolCategories.Add("place-of-worship", new List<string>() { "Churches" });
+            symbolCategories.Add("police-station", new List<string>() { "Sheriff and Police Stations" });
+            symbolCategories.Add("post-office", new List<string>() { "DHL Locations", "Federal Express Locations" });
+            symbolCategories.Add("school", new List<string>() { "Public High Schools", "Public Elementary Schools", "Private and Charter Schools" });
+            symbolCategories.Add("trail", new List<string>() { "Trails" });
 
-            return categoriesMap;
+            return symbolCategories;
         }
 
         private void LegendButton_Clicked(object sender, EventArgs e)

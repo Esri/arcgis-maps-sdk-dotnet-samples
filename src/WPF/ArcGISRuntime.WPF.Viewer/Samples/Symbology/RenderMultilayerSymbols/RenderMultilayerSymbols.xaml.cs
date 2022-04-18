@@ -38,7 +38,58 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             Initialize();
         }
 
-        private async void Initialize()
+        // What we need to show:
+        // - Multilayer point [ ]
+        // - Picture marker [ ]
+        // - Polyling [ ]
+        // - Polygon [ ]
+        // - Multilayer Symbols [ ]
+        // How we might show it:
+        // - Using API [ ]
+        // - Using URL [X]
+        // - Using bytes [X]
+        // - Using local files [ ] (might be hard to do)
+        // Note: I won't need the code to label the symbols since it's more important to show the symbology and how it's created.
+
+        private void testInitialize()
+        {
+            // Create new Map with basemap.
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
+
+            // Provide used Map to the MapView.
+            MyMapView.Map = myMap;
+
+            // Create overlay to where graphics are shown.
+            GraphicsOverlay overlay = new GraphicsOverlay();
+
+            // Add created overlay to the MapView.
+            MyMapView.GraphicsOverlays.Add(overlay);
+
+            // Does the multilayer point stuff.
+            testAddPointGraphicsWithMarkerSymbols(overlay);
+
+            // Use picture marker symbol from a URL
+            testAddPointGraphicsWithPictureMarkerSymbolFromUrl(overlay);
+
+            // Use picture marker symbol from embedded resources
+            testAddPointGraphicsWithPictureMarkerSymbolFromResources(overlay);
+
+            // Use picture marker symbol from bytes
+            testAddPointGraphicsWithPictureMarkesFromBytes(overlay);
+
+            // Make line marker symbol
+            testAddLineGraphicsWithMarkerSymbols(overlay);
+
+            // Polygon symbol
+            testAddPolygonGraphicsWithMarkerSymbols(overlay);
+
+            // Advance symbol
+            AdvancePoint(overlay);
+            AdvancePolygon(overlay);
+            AdvancePolyline(overlay);
+        }
+
+        private void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(BasemapStyle.ArcGISLightGray);
@@ -156,6 +207,7 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             #endregion "Add more complex multilayer symbols"
         }
 
+        // Multilayer point
         private void AddPointGraphicsWithMarkerSymbols(GraphicsOverlay overlay)
         {
             //graphic for point geometries
@@ -256,6 +308,30 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             }
         }
 
+        // Multilayer point
+        private void testAddPointGraphicsWithMarkerSymbols(GraphicsOverlay overlay)
+        {
+            //graphic for point geometries
+            Graphic pointGraphic;
+            //symbol for different marker styles
+            MultilayerPointSymbol markerSymbol;
+
+            //define fist vector element , a square in this case.
+            var vec_elem_geom = Geometry.FromJson("{\"rings\":[[[0.0,2.5],[2.5,0.0],[0.0,-2.5],[-2.5,0.0],[0.0,2.5]]]}");
+            var vec_elem_fill = new SolidFillSymbolLayer(Color.Red);
+            var mlfs = new MultilayerPolygonSymbol(new[] { vec_elem_fill });
+            var vmse_diamond = new VectorMarkerSymbolElement(vec_elem_geom, mlfs);
+            var vmsl = new VectorMarkerSymbolLayer(new[] { vmse_diamond });
+            markerSymbol = new MultilayerPointSymbol(new[] { vmsl });
+
+            // Create point graphics at x, y using symbol created above.
+            pointGraphic = new Graphic(new MapPoint(0, 40, SpatialReferences.Wgs84), markerSymbol);
+
+            // Add new graphic to overlay
+            overlay.Graphics.Add(pointGraphic);
+        }
+
+        // keep
         private void AddPointGraphicsWithPictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create uri to the used image
@@ -271,6 +347,27 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             // decrement y so all pictures appear in one column
             y -= 10.0;
             MapPoint campsitePoint = new MapPoint(x, y, SpatialReferences.Wgs84);
+            // Create graphic with the location and symbol
+            Graphic campsiteGraphic = new Graphic(campsitePoint, campsiteSymbol);
+            // Add graphic to the graphics overlay
+            overlay.Graphics.Add(campsiteGraphic);
+        }
+
+        private void testAddPointGraphicsWithPictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
+        {
+            // Create uri to the used image
+            Uri symbolUri = new Uri(
+                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
+            // Create new symbol using asynchronous factory method from uri.
+            PictureMarkerSymbolLayer campsiteMarker = new PictureMarkerSymbolLayer(symbolUri)
+            {
+                Size = 40
+            };
+            MultilayerPointSymbol campsiteSymbol = new MultilayerPointSymbol(new[] { campsiteMarker });
+            // Create location for the campsite
+            // decrement y so all pictures appear in one column
+            y -= 10.0;
+            MapPoint campsitePoint = new MapPoint(-25, 15, SpatialReferences.Wgs84);
             // Create graphic with the location and symbol
             Graphic campsiteGraphic = new Graphic(campsitePoint, campsiteSymbol);
             // Add graphic to the graphics overlay
@@ -306,6 +403,35 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             }
         }
 
+        private void testAddPointGraphicsWithPictureMarkerSymbolFromResources(GraphicsOverlay overlay)
+        {
+            // Get current assembly that contains the image
+            Assembly currentAssembly = Assembly.GetExecutingAssembly();
+            // Get image as a stream from the resources
+            // Picture is defined as EmbeddedResource
+            using (var stream = currentAssembly.GetManifestResourceStream("ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png"))
+            {
+                using (var mem = new MemoryStream())
+                {
+                    stream.CopyTo(mem);
+                    // Create a runtime image from the bytes read from the memory stream
+                    RuntimeImage img = new RuntimeImage(mem.ToArray());
+                    // Create new PictureMarkerSymbolLayer from the runtime image object
+                    PictureMarkerSymbolLayer pinMarker = new PictureMarkerSymbolLayer(img) { Size = 50 };
+                    // Create a new multilayerpoint symbol with the PictureMarkerSymbolLayer
+                    MultilayerPointSymbol pinSymbol = new MultilayerPointSymbol(new[] { pinMarker });
+                    // Create location for the pin
+                    // decrement y so all pictures appear in one column
+                    y -= 10.0;
+                    MapPoint pinPoint = new MapPoint(25, 30, SpatialReferences.Wgs84);
+                    // Create graphic with the location and symbol
+                    Graphic pinGraphic = new Graphic(pinPoint, pinSymbol);
+                    // Add graphic to the graphics overlay
+                    overlay.Graphics.Add(pinGraphic);
+                }
+            }
+        }
+
         private void AddPointGraphicsWithPictureMarkesFromBytes(GraphicsOverlay overlay)
         {
             y -= 10;
@@ -319,6 +445,23 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             MultilayerPointSymbol pictureSymbol = new MultilayerPointSymbol(new[] { symLayer });
             // Create graphic with the location and symbol
             var pictureFromBytesGraphic = new Graphic(new MapPoint(x, y, SpatialReferences.Wgs84), pictureSymbol);
+            // Add graphic to the graphics overlay
+            overlay.Graphics.Add(pictureFromBytesGraphic);
+        }
+
+        private void testAddPointGraphicsWithPictureMarkesFromBytes(GraphicsOverlay overlay)
+        {
+            y -= 10;
+            // get bytes from FromBase64String
+            var bytes = Convert.FromBase64String("iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAAYagMeiWXwAAAfJJREFUeJztm79LAnEYhz/n1OAQNBTkIOjg0GBw7QYNLVFgUEOQQW0Ojv4J/glBB11bgVBBQ9CgzgU1NDg4uBzUELQIbfV+Tw5OSbj3hgPvfR94Dn8gL99H7/SEg3QyMx4/Ji/JV/J3zn0mL8iDKAGWySfSJWtkGfOPTZ6S1+QtuRR+MhxgleyTW0gve+Q7QhHCAVxyEelnhTwP7gQBzD6f5nd+mn1y19wIAmxDHv6agwBpONhx8dccBChBHhMBJLJgNpID+GiAJIbYto1KpRLZYrGIpEgkgOM46HQ6ka3X60gK3QUgHA0A4WgACEcDQDgaAMLRANwX5PN51omNMZvNsmbkcjn2jFIp3n867AC1Wo11YmMsFAqsGdVqlT2j2WwiDroLQDgaAMLRABCOBoBwNACEowG4LxgOh+j1eixHoxFrhud57Bn9fh9xYAdwXZd9pjYYDFgz2u02e0ar1UIcdBeAcDQAhKMBIBwNAOFoAAhHAyQxpFwuw7KsyDYaDSSFfgIgHA0AufyYTRAg3t8p882b2WTCd4QxEeAR8vDXHAS4IruQwx15b26ED4JH5DfSzwfGV5L6hAN4GF881UV6eSDXyK/ggemvwU9yE+Prhl2k4+D4QjrkIbmD0OINs34HmGPCCblOWnPuBnlG3vy30D/UTySOabh2IwAAAABJRU5ErkJggg==");
+            // Create a runtime image from the bytes
+            RuntimeImage img = new RuntimeImage(bytes);
+            // Create new PictureMarkerSymbolLayer from the runtime image object
+            var symLayer = new PictureMarkerSymbolLayer(img) { Size = 30 };
+            // Create a new multilayerpoint symbol with the PictureMarkerSymbolLayer
+            MultilayerPointSymbol pictureSymbol = new MultilayerPointSymbol(new[] { symLayer });
+            // Create graphic with the location and symbol
+            var pictureFromBytesGraphic = new Graphic(new MapPoint(10, 0, SpatialReferences.Wgs84), pictureSymbol);
             // Add graphic to the graphics overlay
             overlay.Graphics.Add(pictureFromBytesGraphic);
         }
@@ -437,6 +580,44 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
                 // decrement both y so all lines appear in one column
                 y -= 5.0;
             }
+        }
+
+        private void testAddLineGraphicsWithMarkerSymbols(GraphicsOverlay overlay)
+        {
+            //graphic for line geometries
+            Graphic lineGraphic;
+            // Multilayer polyline symbol for different line styles
+            MultilayerPolylineSymbol lineSymbol;
+            // Dash geometric effects that define the dash and dot template used by different line style
+            DashGeometricEffect dashEffect = new DashGeometricEffect();
+            // Stroke used by line symbols
+            SolidStrokeSymbolLayer strokeLayer;
+            //Loop through each simple line symbol style and create an equivalent multilayer polyline symbol and assign it to a graphic
+
+            // Create point graphics at x, y using symbol created above.
+            PolylineBuilder polylineBuilder = new PolylineBuilder(SpatialReferences.Wgs84);
+            polylineBuilder.AddPoint(new MapPoint(-10, -15, SpatialReferences.Wgs84));
+            polylineBuilder.AddPoint(new MapPoint(0, 20, SpatialReferences.Wgs84));
+            //create a new stroke for each style
+            strokeLayer = new SolidStrokeSymbolLayer(3, Color.Red);
+            // set captyle of stroke is rounded. With this style endings of the stroke are rounded
+            strokeLayer.CapStyle = StrokeSymbolLayerCapStyle.Round;
+            // Create a dash effect for each style
+            dashEffect = new DashGeometricEffect();
+
+            dashEffect.DashTemplate.Add(4);//dash
+            dashEffect.DashTemplate.Add(6);//gap
+            dashEffect.DashTemplate.Add(0.5);//dot
+            dashEffect.DashTemplate.Add(6);//gap
+            dashEffect.DashTemplate.Add(0.5);//dot
+            dashEffect.DashTemplate.Add(6);//gap
+            strokeLayer.GeometricEffects.Add(dashEffect);
+
+            lineSymbol = new MultilayerPolylineSymbol(new List<SymbolLayer>() { strokeLayer });
+            // Create a polyline graphic with geometry and symbol
+            lineGraphic = new Graphic(polylineBuilder.ToGeometry(), lineSymbol);
+            // Add new graphic to overlay
+            overlay.Graphics.Add(lineGraphic);
         }
 
         private void AddPolygonGraphicsWithMarkerSymbols(GraphicsOverlay overlay)
@@ -566,6 +747,34 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             }
         }
 
+        private void testAddPolygonGraphicsWithMarkerSymbols(GraphicsOverlay overlay)
+        {
+            // Create polygon graphics starting at x, y defined above.
+            PolygonBuilder polygonBuilder = new PolygonBuilder(SpatialReferences.Wgs84);
+            polygonBuilder.AddPoint(new MapPoint(0, -15, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(30, -15, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(30, -35, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(0, -35, SpatialReferences.Wgs84));
+            // Create a stroke symol layer to be used by hatch patterns
+            SolidStrokeSymbolLayer strokeForHatches = new SolidStrokeSymbolLayer(2, Color.Red);
+            // Create a stroke symbol layer for outline of polygons
+            SolidStrokeSymbolLayer strokeForOutline = new SolidStrokeSymbolLayer(1, Color.Black);
+
+            // Create diagonal cross pattern hatch symbol layers for diagonal cross fill style
+            HatchFillSymbolLayer diagonalStroke1 = new HatchFillSymbolLayer(new MultilayerPolylineSymbol(new List<SymbolLayer>() { strokeForHatches }), 45);
+            HatchFillSymbolLayer diagonalStroke2 = new HatchFillSymbolLayer(new MultilayerPolylineSymbol(new List<SymbolLayer>() { strokeForHatches }), -45);
+            // Define separation distance for lines in a hatch pattern
+            diagonalStroke1.Separation = 9;
+            // Define separation distance for lines in a hatch pattern
+            diagonalStroke2.Separation = 9;
+            // Create multilayer polygon symbol with symbol layers
+            MultilayerPolygonSymbol diagonalCrossPolygonSymbol = new MultilayerPolygonSymbol(new List<SymbolLayer>() { diagonalStroke1, diagonalStroke2, strokeForOutline });
+            // Create a polygon graphic with geometry and symbol
+            var diagonalCrossGraphic = new Graphic(polygonBuilder.ToGeometry(), diagonalCrossPolygonSymbol);
+            // Add new graphic to overlay
+            overlay.Graphics.Add(diagonalCrossGraphic);
+        }
+
         private void AddSomeAdvancedSymbolsForPointLinePolygon(GraphicsOverlay overlay)
         {
             y = 40;
@@ -656,6 +865,118 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
             polygonBuilder.AddPoint(new MapPoint(x + 30, y, SpatialReferences.Wgs84));
             polygonBuilder.AddPoint(new MapPoint(x + 30, y - 5, SpatialReferences.Wgs84));
             polygonBuilder.AddPoint(new MapPoint(x + 20, y - 5, SpatialReferences.Wgs84));
+            // Create a polyline graphic with geometry and symbol
+            Graphic advanced_polygon_graphic = new Graphic(polygonBuilder.ToGeometry(), ml_polygonSymbol);
+
+            // Add new graphic to overlay
+            overlay.Graphics.Add(advanced_polygon_graphic);
+        }
+
+        private void AdvancePoint(GraphicsOverlay overlay)
+        {
+            MultilayerPointSymbol ml_pointSymbol;
+
+            //Symbol layers for Multilayerpoint
+
+            //0th layer with three marker elements and three vector marker layers
+
+            //Orange envelope with Redish outline
+            SolidFillSymbolLayer orange_Fill_Layer = new SolidFillSymbolLayer(Color.Orange);
+            SolidStrokeSymbolLayer pink_outline = new SolidStrokeSymbolLayer(2, Color.Blue);
+            var orange_Square_Geometry = new Envelope(new MapPoint(-0.5, -0.5, SpatialReferences.Wgs84), new MapPoint(0.5, 0.5, SpatialReferences.Wgs84));
+            VectorMarkerSymbolElement orange_Square_Vector_Element = new VectorMarkerSymbolElement(orange_Square_Geometry, new MultilayerPolygonSymbol(new List<SymbolLayer>() { orange_Fill_Layer, pink_outline }));
+            VectorMarkerSymbolLayer orange_Square_VectorMarkerLayer = new VectorMarkerSymbolLayer(new[] { orange_Square_Vector_Element });
+            orange_Square_VectorMarkerLayer.Size = 11;
+            orange_Square_VectorMarkerLayer.Anchor = new SymbolAnchor(-4, -6, SymbolAnchorPlacementMode.Absolute);
+
+            // black envelope
+            SolidFillSymbolLayer black_Fill_Layer = new SolidFillSymbolLayer(Color.Black);
+            SolidStrokeSymbolLayer orange_outline = new SolidStrokeSymbolLayer(2, Color.OrangeRed);
+            var black_Square_Geometry = new Envelope(new MapPoint(-0.5, -0.5, SpatialReferences.Wgs84), new MapPoint(0.5, 0.5, SpatialReferences.Wgs84));
+            VectorMarkerSymbolElement black_Square_Vector_Element = new VectorMarkerSymbolElement(black_Square_Geometry, new MultilayerPolygonSymbol(new List<SymbolLayer>() { black_Fill_Layer, orange_outline }));
+            VectorMarkerSymbolLayer black_Square_VectorMarkerLayer = new VectorMarkerSymbolLayer(new[] { black_Square_Vector_Element });
+            black_Square_VectorMarkerLayer.Size = 6;
+            black_Square_VectorMarkerLayer.Anchor = new SymbolAnchor(2, 1, SymbolAnchorPlacementMode.Absolute);
+
+            // envelope with no purple outline
+            SolidFillSymbolLayer transparent_Fill_Layer = new SolidFillSymbolLayer(Color.Transparent);
+            SolidStrokeSymbolLayer purple_Outline = new SolidStrokeSymbolLayer(2, Color.Purple);
+            var purple_Square_Geometry = new Envelope(new MapPoint(-0.5, -0.5, SpatialReferences.Wgs84), new MapPoint(0.5, 0.5, SpatialReferences.Wgs84));
+            VectorMarkerSymbolElement purple_Square_Vector_Element = new VectorMarkerSymbolElement(purple_Square_Geometry, new MultilayerPolygonSymbol(new List<SymbolLayer>() { transparent_Fill_Layer, purple_Outline }));
+            VectorMarkerSymbolLayer purple_Square_VectorMarkerLayer = new VectorMarkerSymbolLayer(new[] { purple_Square_Vector_Element });
+            purple_Square_VectorMarkerLayer.Size = 14;
+            purple_Square_VectorMarkerLayer.Anchor = new SymbolAnchor(4, 2, SymbolAnchorPlacementMode.Absolute);
+
+            //1st layer with it's marker graphics and nested symbol layers
+            var hexagon_Element_Geometry = Geometry.FromJson("{\"rings\":[[[-2.89,5.0],[2.89,5.0],[5.77,0.0],[2.89,-5.0],[-2.89,-5.0],[-5.77,0.0],[-2.89,5.0]]]}");
+            SolidFillSymbolLayer yellow_Fill_Layer = new SolidFillSymbolLayer(Color.Yellow);
+            SolidStrokeSymbolLayer black_Outline = new SolidStrokeSymbolLayer(2, Color.Black);
+            VectorMarkerSymbolElement hexagon_Vector_Element = new VectorMarkerSymbolElement(hexagon_Element_Geometry, new MultilayerPolygonSymbol(new List<SymbolLayer>() { yellow_Fill_Layer, black_Outline }));
+            VectorMarkerSymbolLayer hexagon_VectorMarkerLayer = new VectorMarkerSymbolLayer(new[] { hexagon_Vector_Element });
+            hexagon_VectorMarkerLayer.Size = 35;
+
+            ml_pointSymbol = new MultilayerPointSymbol(new List<SymbolLayer> { hexagon_VectorMarkerLayer, orange_Square_VectorMarkerLayer, black_Square_VectorMarkerLayer, purple_Square_VectorMarkerLayer });
+
+            Graphic advanced_point_graphic = new Graphic(new MapPoint(45, 10, SpatialReferences.Wgs84), ml_pointSymbol);
+
+            overlay.Graphics.Add(advanced_point_graphic);
+        }
+
+        private void AdvancePolyline(GraphicsOverlay overlay)
+        {
+            MultilayerPolylineSymbol ml_polylineSymbol;
+
+            //Symbol layers for Multilayerpolyline
+            SolidStrokeSymbolLayer black_dashes = new SolidStrokeSymbolLayer(1, Color.Black);
+            GeometricEffect dash_Effect = new DashGeometricEffect(new double[] { 5, 3 });
+            black_dashes.GeometricEffects.Add(dash_Effect);
+            black_dashes.CapStyle = StrokeSymbolLayerCapStyle.Square;
+
+            //yellow stroke inside
+            SolidStrokeSymbolLayer yellow_stroke = new SolidStrokeSymbolLayer(5, Color.Yellow);
+            yellow_stroke.CapStyle = StrokeSymbolLayerCapStyle.Round;
+
+            //black outline
+            SolidStrokeSymbolLayer black_outline = new SolidStrokeSymbolLayer(7, Color.Black);
+            black_outline.CapStyle = StrokeSymbolLayerCapStyle.Round;
+
+            ml_polylineSymbol = new MultilayerPolylineSymbol(new List<SymbolLayer>() { black_outline, yellow_stroke, black_dashes });
+            PolylineBuilder polylineBuilder = new PolylineBuilder(SpatialReferences.Wgs84);
+            polylineBuilder.AddPoint(new MapPoint(40, -15, SpatialReferences.Wgs84));
+            polylineBuilder.AddPoint(new MapPoint(10, 20, SpatialReferences.Wgs84));
+
+            // Create a polyline graphic with geometry and symbol
+            Graphic advanced_line_graphic = new Graphic(polylineBuilder.ToGeometry(), ml_polylineSymbol);
+
+            // Add new graphic to overlay
+            overlay.Graphics.Add(advanced_line_graphic);
+        }
+
+        private void AdvancePolygon(GraphicsOverlay overlay)
+        {
+            MultilayerPolygonSymbol ml_polygonSymbol;
+
+            //black outline
+            SolidStrokeSymbolLayer black_outline = new SolidStrokeSymbolLayer(7, Color.Black);
+            black_outline.CapStyle = StrokeSymbolLayerCapStyle.Round;
+
+            //yellow stroke inside
+            SolidStrokeSymbolLayer yellow_stroke = new SolidStrokeSymbolLayer(5, Color.Yellow);
+            yellow_stroke.CapStyle = StrokeSymbolLayerCapStyle.Round;
+
+            //Symbol layers for Multilayerpolyline
+            SolidStrokeSymbolLayer black_dashes = new SolidStrokeSymbolLayer(1, Color.Black);
+            GeometricEffect dash_Effect = new DashGeometricEffect(new double[] { 5, 3 });
+            black_dashes.GeometricEffects.Add(dash_Effect);
+            black_dashes.CapStyle = StrokeSymbolLayerCapStyle.Square;
+
+            SolidFillSymbolLayer red_Fill_Layer = new SolidFillSymbolLayer(Color.Red);
+            ml_polygonSymbol = new MultilayerPolygonSymbol(new List<SymbolLayer>() { red_Fill_Layer, black_outline, yellow_stroke, black_dashes });
+            PolygonBuilder polygonBuilder = new PolygonBuilder(SpatialReferences.Wgs84);
+            polygonBuilder.AddPoint(new MapPoint(40, 30, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(50, 30, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(50, 40, SpatialReferences.Wgs84));
+            polygonBuilder.AddPoint(new MapPoint(40, 40, SpatialReferences.Wgs84));
             // Create a polyline graphic with geometry and symbol
             Graphic advanced_polygon_graphic = new Graphic(polygonBuilder.ToGeometry(), ml_polygonSymbol);
 

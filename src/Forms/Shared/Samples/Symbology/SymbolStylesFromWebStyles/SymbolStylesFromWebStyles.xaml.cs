@@ -7,21 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Collections.Generic;
-using Esri.ArcGISRuntime.Portal;
-using System;
-using System.Collections.ObjectModel;
 
 namespace ArcGISRuntimeXamarin.Samples.SymbolStylesFromWebStyles
 {
@@ -33,59 +28,101 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolStylesFromWebStyles
         tags: new[] { "renderer", "symbol", "symbology", "web style" })]
     public partial class SymbolStylesFromWebStyles : ContentPage
     {
+        // Hold a reference to the renderer.
         UniqueValueRenderer _renderer;
-        public ObservableCollection<SymbolLegendInfo> SymbolLegend = new ObservableCollection<SymbolLegendInfo>();
+
+        // Hold a reference to the feature layer.
+        FeatureLayer _webStyleLayer;
+
+        // Hold a list of symbol data for the legend. 
+        private readonly ObservableCollection<SymbolLegendInfo> _symbolLegendCollection = new ObservableCollection<SymbolLegendInfo>();
 
         public SymbolStylesFromWebStyles()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
-            MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
+            try
+            {
+                // Create a new basemap and assign it to the map view.
+                MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
-            Uri webStyleLayerUri = new Uri("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/LA_County_Points_of_Interest/FeatureServer/0");
+                // URL for a feature layer that contains points of interest in varying categories across LA County.
+                Uri webStyleLayerUri = new Uri("https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/LA_County_Points_of_Interest/FeatureServer/0");
 
-            FeatureLayer webStyleLayer = new FeatureLayer(webStyleLayerUri);
+                // Create the feature layer from the given URL.
+                _webStyleLayer = new FeatureLayer(webStyleLayerUri);
 
-            _renderer = new UniqueValueRenderer();
-            _renderer.FieldNames.Add("cat2");
-            webStyleLayer.Renderer = _renderer;
+                // Instantiate a UniqueValueRenderer, this will impact specific features based on the values of the specified FieldName(s). 
+                _renderer = new UniqueValueRenderer();
+                _renderer.FieldNames.Add("cat2");
 
-            MyMapView.Map.OperationalLayers.Add(webStyleLayer);
+                // The UniqueValueRenderer defines how features of a FeatureLayer are styled.
+                // Without an overriding UniqueValueRenderer features will use the web layer's default gray circle style.
+                _webStyleLayer.Renderer = _renderer;
 
-            MyMapView.Map.ReferenceScale = (100000);
+                // Add the feature layer to the map view.
+                MyMapView.Map.OperationalLayers.Add(_webStyleLayer);
 
-            MapPoint centerPoint = new MapPoint(-118.44186, 34.28301, SpatialReferences.Wgs84);
+                // Set the scale at which feature symbols and text will appear at their default size.
+                MyMapView.Map.ReferenceScale = (100000);
 
-            MyMapView.Map.InitialViewpoint = new Viewpoint(centerPoint, 7000);
+                // Set the the initial view point for the map view. 
+                MapPoint centerPoint = new MapPoint(-118.44186, 34.28301, SpatialReferences.Wgs84);
+                MyMapView.Map.InitialViewpoint = new Viewpoint(centerPoint, 7000);
 
-            CreateSymbolStyles();
+                // Set the item source for the legend to the ObservableCollection containing legend data.
+                LegendCollectionView.ItemsSource = _symbolLegendCollection;
+
+                // Load the symbols from portal and add them to the renderer.
+                await CreateSymbolStyles();
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+            }
+
         }
 
-        private async void CreateSymbolStyles()
+        private async Task CreateSymbolStyles()
         {
-            Dictionary<string, List<string>> categories = CreateCategoriesMap();
+            // Create a dictionary of symbol categories and their associated symbol name. 
+            Dictionary<string, List<string>> symbolCategories = CreateCategoriesMap();
+
+            // Create a portal to enable access to the symbols.
             ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+
+            // Create a SymbolStyle, this is used to return symbols based on provided symbol keys from portal. 
             SymbolStyle esri2DPointSymbolStyle = await SymbolStyle.OpenAsync("Esri2DPointSymbolsStyle", portal);
 
-            foreach (string symbolName in categories.Keys)
+            // Loop through each of the keys in the symbol categories dictionary and retrieve each symbol from portal. 
+            foreach (string symbolName in symbolCategories.Keys)
             {
-                var symbol = await esri2DPointSymbolStyle.GetSymbolAsync(new List<string>() { symbolName });
+                // This call is used to retrieve a single symbol for a given symbol name, if multiple symbol names are provided
+                // a multilayer symbol assembled and returned for the given symbol names.
+                Symbol symbol = await esri2DPointSymbolStyle.GetSymbolAsync(new List<string>() { symbolName });
 
+                // Get the image source for the symbol to populate the legend UI.
                 RuntimeImage symbolSwatch = await symbol.CreateSwatchAsync();
-                var source = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(symbolSwatch);
-                
-                var symbolInfo = new SymbolLegendInfo() { Name = symbolName, Source = source };
-                
-                SymbolLegend.Add(symbolInfo);
+                ImageSource imageSource = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(symbolSwatch);
 
-                foreach (string symbolDescription in categories[symbolName])
+                // Add the symbol the ObservableCollection containing the symbol legend data.
+                _symbolLegendCollection.Add(new SymbolLegendInfo() { Name = symbolName, ImageSource = imageSource });
+
+                // Loop through each of the categories in the symbol categories dictionary for the given symbol name. 
+                // This needs to be done to ensure that a UniqueValue is created for each symbol category. 
+                // Numerous categories can have the same matching symbol name, however each category needs their own UniqueValue.
+                foreach (string symbolCategory in symbolCategories[symbolName])
                 {
-                    UniqueValue uniqueValue = new UniqueValue(symbolDescription, symbolName, symbol, new List<string>() { symbolDescription });
+                    // Create a UniqueValue for a given symbol category, name and symbol.
+                    // If multiple categories are passed in this UniqueValue will only be used in cases where every given category is matched in our data set.
+                    // In the data set used in this sample each point of interest is only represented by a single category so we only use a single category in this case.
+                    UniqueValue uniqueValue = new UniqueValue(symbolCategory, symbolName, symbol, new List<string>() { symbolCategory });
 
+                    // Add the UniqueValue to the renderer. 
                     _renderer.UniqueValues.Add(uniqueValue);
                 }
             }
@@ -109,11 +146,33 @@ namespace ArcGISRuntimeXamarin.Samples.SymbolStylesFromWebStyles
 
             return categoriesMap;
         }
+
+        private void LegendButton_Clicked(object sender, EventArgs e)
+        {
+            // Show/hide the legend popup view if it is currently hidden or shown.
+            if (LegendPopupView.IsVisible)
+            {
+                LegendPopupView.IsVisible = false;
+            }
+            else
+            {
+                LegendPopupView.IsVisible = true;
+            }
+        }
+
+        private void MapViewExtentChanged(object sender, EventArgs e)
+        {
+            // Hide the legend popup when the map view extent changes. 
+            LegendPopupView.IsVisible = false;
+
+            // Set scale symbols to true when we zoom in so the symbols don't take up the entire view.
+            _webStyleLayer.ScaleSymbols = MyMapView.MapScale >= 80000;
+        }
     }
 
     public class SymbolLegendInfo
     {
         public string Name { get; set; }
-        public ImageSource Source { get; set; }
+        public ImageSource ImageSource { get; set; }
     }
 }

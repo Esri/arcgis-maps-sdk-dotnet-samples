@@ -46,7 +46,8 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         private void Initialize()
         {
             // Create the map with a gray canvas basemap and an initial location centered on London, UK.
-            Map myMap = new Map(BasemapType.LightGrayCanvas, 51.5017, -0.12714, 15);
+            Map myMap = new Map(BasemapStyle.ArcGISLightGray);
+            myMap.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 15);
 
             // Add the map to the map view.
             MyMapView.Map = myMap;
@@ -84,12 +85,15 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
                 case "Union":
                     resultPolygon = GeometryEngine.Union(polygonOne, polygonTwo);
                     break;
+
                 case "Difference":
                     resultPolygon = GeometryEngine.Difference(polygonOne, polygonTwo);
                     break;
+
                 case "Symmetric difference":
                     resultPolygon = GeometryEngine.SymmetricDifference(polygonOne, polygonTwo);
                     break;
+
                 case "Intersection":
                     resultPolygon = GeometryEngine.Intersection(polygonOne, polygonTwo);
                     break;
@@ -172,5 +176,5 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
             _polygonsOverlay.Graphics.Add(_graphicOne);
             _polygonsOverlay.Graphics.Add(_graphicTwo);
         }
-    }    
+    }
 }

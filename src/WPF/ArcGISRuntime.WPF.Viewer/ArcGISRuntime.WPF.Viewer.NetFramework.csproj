@@ -151,6 +151,9 @@
     <Compile Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml.cs">
       <DependentUpon>SymbolStylesFromWebStyles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml.cs">
+      <DependentUpon>ToggleBetweenFeatureRequestModes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.xaml.cs">
       <DependentUpon>DisplayUtilityNetworkContainer.xaml</DependentUpon>
     </Compile>
@@ -437,15 +440,6 @@
     </Compile>
     <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
       <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
       <DependentUpon>StatisticalQuery.xaml</DependentUpon>
@@ -790,6 +784,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1178,18 +1176,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1647,6 +1633,9 @@
     <Content Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1932,15 +1921,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg">

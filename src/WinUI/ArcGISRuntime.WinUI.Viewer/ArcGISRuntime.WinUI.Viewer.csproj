@@ -83,6 +83,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Samples\GraphicsOverlay\SketchOnMap\resources\" />
+  </ItemGroup>
   
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 

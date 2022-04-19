@@ -32,7 +32,11 @@ namespace ArcGISRuntime.Samples.Shared.Models
         {
             get
             {
-                string formalCategory = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Category).Replace(" ", "");
+                string formalCategory = Category;
+                if (formalCategory.Contains(' '))
+                {
+                    formalCategory = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Category).Replace(" ", "");
+                }
                 return System.IO.Path.Combine(_pathStub, "Samples", formalCategory, FormalName);
             }
         }

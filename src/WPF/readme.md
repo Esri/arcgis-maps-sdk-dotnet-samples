@@ -28,12 +28,10 @@
 * [Raster layer (GeoPackage)](ArcGISRuntime.WPF.Viewer/Samples/Data/RasterLayerGeoPackage/readme.md) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](ArcGISRuntime.WPF.Viewer/Samples/Data/ReadGeoPackage/readme.md) - Add rasters and feature tables from a GeoPackage to a map.
 * [Read shapefile metadata](ArcGISRuntime.WPF.Viewer/Samples/Data/ReadShapefileMetadata/readme.md) - Read a shapefile and display its metadata.
-* [Service feature table (on interaction cache)](ArcGISRuntime.WPF.Viewer/Samples/Data/ServiceFeatureTableCache/readme.md) - Display a feature layer from a service using the **on interaction cache** feature request mode.
-* [Service feature table (manual cache)](ArcGISRuntime.WPF.Viewer/Samples/Data/ServiceFeatureTableManualCache/readme.md) - Display a feature layer from a service using the **manual cache** feature request mode.
-* [Service feature table (no cache)](ArcGISRuntime.WPF.Viewer/Samples/Data/ServiceFeatureTableNoCache/readme.md) - Display a feature layer from a service using the **no cache** feature request mode.
 * [Statistical query](ArcGISRuntime.WPF.Viewer/Samples/Data/StatisticalQuery/readme.md) - Query a table to get aggregated statistics back for a specific field.
 * [Statistical query group and sort](ArcGISRuntime.WPF.Viewer/Samples/Data/StatsQueryGroupAndSort/readme.md) - Query a feature table for statistics, grouping and sorting by different fields.
 * [Symbolize shapefile](ArcGISRuntime.WPF.Viewer/Samples/Data/SymbolizeShapefile/readme.md) - Display a shapefile with custom symbology.
+* [Toggle between feature request modes](ArcGISRuntime.WPF.Viewer/Samples/Data/ToggleBetweenFeatureRequestModes/readme.md) - Use different feature request modes to populate the map from a service feature table.
 * [Update attributes (feature service)](ArcGISRuntime.WPF.Viewer/Samples/Data/UpdateAttributes/readme.md) - Update feature attributes in an online feature service.
 * [Update geometries (feature service)](ArcGISRuntime.WPF.Viewer/Samples/Data/UpdateGeometries/readme.md) - Update a feature's location in an online feature service.
 * [View point cloud data offline](ArcGISRuntime.WPF.Viewer/Samples/Data/ViewPointCloudDataOffline/readme.md) - Display local 3D point cloud data.

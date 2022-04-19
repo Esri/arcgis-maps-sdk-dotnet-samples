@@ -11,6 +11,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\DisplayOverviewMap\DisplayOverviewMap.jpg" />
@@ -104,9 +105,6 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\StatisticalQuery\StatisticalQuery.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg" />
@@ -215,6 +213,10 @@
     <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml.cs">
       <DependentUpon>SymbolStylesFromWebStyles.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml.cs">
+      <DependentUpon>ToggleBetweenFeatureRequestModes.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.xaml.cs">
@@ -712,15 +714,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
       <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableCache.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableManualCache.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml.cs">
-      <DependentUpon>ServiceFeatureTableNoCache.xaml</DependentUpon>
-    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
       <DependentUpon>StatisticalQuery.xaml</DependentUpon>
     </Compile>
@@ -930,6 +923,9 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.xaml">
@@ -1306,15 +1302,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableCache\ServiceFeatureTableCache.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableManualCache\ServiceFeatureTableManualCache.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ServiceFeatureTableNoCache\ServiceFeatureTableNoCache.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\StatisticalQuery\StatisticalQuery.xaml">

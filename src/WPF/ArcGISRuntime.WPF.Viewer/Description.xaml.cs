@@ -37,6 +37,9 @@ namespace ArcGISRuntime.WPF.Viewer
             
             // Set the html in web browser.
             DescriptionView.DocumentText = htmlString;
+            
+            // Remove the exisiting handler.
+            DescriptionView.Document.Click -= HyperlinkClick;
 
             // Add an event handler for hyperlink clicks.
             DescriptionView.Document.Click += HyperlinkClick;
@@ -51,7 +54,7 @@ namespace ArcGISRuntime.WPF.Viewer
             System.Windows.Forms.HtmlElement src = DescriptionView.Document?.GetElementFromPoint(e.ClientMousePosition);
 
             // Check if the element is a hyperlink.
-            if (src?.OuterHtml.Contains("http") == true)
+            if (src?.OuterHtml.StartsWith("<A href=") == true)
             {
                 // Parse the url from the hyperlink html.
                 string url = src.OuterHtml.Split('\"')[1];

@@ -30,10 +30,10 @@ namespace ArcGISRuntime.WPF.Samples.SymbolStylesFromWebStyles
     public partial class SymbolStylesFromWebStyles
     {
         // Hold a reference to the renderer.
-        UniqueValueRenderer _renderer;
+        private UniqueValueRenderer _renderer;
 
         // Hold a reference to the feature layer.
-        FeatureLayer _webStyleLayer;
+        private FeatureLayer _webStyleLayer;
 
         // Hold a list of symbol data for the legend. 
         private readonly ObservableCollection<SymbolLegendInfo> _symbolLegendCollection = new ObservableCollection<SymbolLegendInfo>();
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolStylesFromWebStyles
                 MyMapView.Map.OperationalLayers.Add(_webStyleLayer);
 
                 // Set the scale at which feature symbols and text will appear at their default size.
-                MyMapView.Map.ReferenceScale = (100000);
+                MyMapView.Map.ReferenceScale = 100000;
 
                 // Set the the initial view point for the map view. 
                 MapPoint centerPoint = new MapPoint(-118.44186, 34.28301, SpatialReferences.Wgs84);
@@ -103,7 +103,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolStylesFromWebStyles
             {
                 // This call is used to retrieve a single symbol for a given symbol name, if multiple symbol names are provided
                 // a multilayer symbol assembled and returned for the given symbol names.
-                Symbol symbol = await esri2DPointSymbolStyle.GetSymbolAsync(new List<string>() { symbolName });
+                Symbol symbol = await esri2DPointSymbolStyle.GetSymbolAsync(new List<string> { symbolName });
 
                 // Get the image source for the symbol to populate the legend UI.
                 RuntimeImage symbolSwatch = await symbol.CreateSwatchAsync();
@@ -120,7 +120,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolStylesFromWebStyles
                     // Create a UniqueValue for a given symbol category, name and symbol.
                     // If multiple categories are passed in this UniqueValue will only be used in cases where every given category is matched in our data set.
                     // In the data set used in this sample each point of interest is only represented by a single category so we only use a single category in this case.
-                    UniqueValue uniqueValue = new UniqueValue(symbolCategory, symbolName, symbol, new List<string>() { symbolCategory });
+                    UniqueValue uniqueValue = new UniqueValue(symbolCategory, symbolName, symbol, new List<string> { symbolCategory });
 
                     // Add the UniqueValue to the renderer. 
                     _renderer.UniqueValues.Add(uniqueValue);

@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
@@ -40,11 +39,11 @@ namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
 
         private void Initialize()
         {
-            // Create new Map with the light gray basemap.
+            // Creates a new Map with the light gray basemap.
             Map myMap = new Map(BasemapStyle.ArcGISLightGray);
             MyMapView.Map = myMap;
 
-            // Create overlay to where graphics are shown.
+            // Creates a graphic overlay.
             GraphicsOverlay overlay = new GraphicsOverlay();
             MyMapView.GraphicsOverlays.Add(overlay);
 

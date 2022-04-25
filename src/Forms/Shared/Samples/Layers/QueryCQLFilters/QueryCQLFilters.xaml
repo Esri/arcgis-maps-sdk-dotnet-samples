@@ -58,10 +58,13 @@
                         Toggled="DateSwitch_Toggled" />
                 <DatePicker x:Name="StartDatePicker"
                             Grid.Row="4"
-                            Grid.Column="0" />
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="5" />
                 <DatePicker x:Name="EndDatePicker"
-                            Grid.Row="4"
-                            Grid.Column="1"
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
                             Margin="5" />
                 <Button x:Name="ApplyQuery"
                         Grid.Row="6"

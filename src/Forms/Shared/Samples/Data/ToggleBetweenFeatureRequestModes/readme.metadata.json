@@ -13,9 +13,10 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/servicefeaturetablenocache.htm",
-        "/net/latest/forms/sample-code/servicefeaturetablemanualcache.htm",
-        "/net/latest/forms/sample-code/servicefeaturetablecache.htm"
+        "/net/latest/forms/sample-code/togglebetweenfeaturerequestmodes.htm",
+        "/net/forms/sample-code/servicefeaturetablenocache.htm",
+        "/net/forms/sample-code/servicefeaturetablemanualcache.htm",
+        "/net/forms/sample-code/servicefeaturetablecache.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

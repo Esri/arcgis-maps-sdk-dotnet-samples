@@ -32,7 +32,6 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
         private IReadOnlyList<string> DefaultWhereClause = new[]
         {
             // Sample Query 1: Query for features with an F_CODE attribute property of "AP010".
-            "F_CODE = 'AP010'", // cql-text query
             "{ \"eq\" : [ { \"property\" : \"F_CODE\" }, \"AP010\" ] }", // cql-json query
 
             // Sample Query 2: Query for features with an F_CODE attribute property similar to "AQ".

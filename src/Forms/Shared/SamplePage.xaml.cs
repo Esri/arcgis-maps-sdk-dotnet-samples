@@ -48,15 +48,8 @@ namespace ArcGISRuntime
             //    navigation won't work from within the sample until the parent is manually set.
             sample.Parent = this;
 
-            // Set the title. If the sample control didn't define the title, use the name from the sample metadata.
-            if (!string.IsNullOrWhiteSpace(sample.Title))
-            {
-                Title = sample.Title;
-            }
-            else
-            {
-                Title = sampleInfo.SampleName;
-            }
+            // Set the title.
+            Title = sampleInfo.SampleName;
 
             // Set up the description page.
             try

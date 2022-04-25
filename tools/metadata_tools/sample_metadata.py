@@ -79,6 +79,11 @@ class sample_metadata:
         if self.formal_name == "DisplayDeviceLocation":
             self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/display-device-location/")
 
+        if self.formal_name == "ToggleBetweenFeatureRequestModes":
+            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/servicefeaturetablenocache.htm")
+            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/servicefeaturetablemanualcache.htm")
+            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/servicefeaturetablecache.htm")
+
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 

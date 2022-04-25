@@ -56,6 +56,8 @@ namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
 
                 // Add created layer to the map.
                 MyMapView.Map.OperationalLayers.Add(_treeFeatureLayer);
+
+                Cache.IsChecked = true;
             }
             catch (Exception ex)
             {

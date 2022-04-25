@@ -34,7 +34,6 @@ namespace ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute
         instructions: "A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Click on a map in the list to open it. If a locator task is available, click on the map to reverse geocode the location's address. If transportation networks are available, a route will be calculated between geocode locations.",
         tags: new[] { "disconnected", "field mobility", "geocode", "network", "network analysis", "offline", "routing", "search", "transportation" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
     public partial class MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.

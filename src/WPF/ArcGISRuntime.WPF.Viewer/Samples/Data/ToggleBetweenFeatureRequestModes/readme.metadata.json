@@ -13,9 +13,10 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/servicefeaturetablenocache.htm",
-        "/net/latest/wpf/sample-code/servicefeaturetablemanualcache.htm",
-        "/net/latest/wpf/sample-code/servicefeaturetablecache.htm"
+        "/net/latest/wpf/sample-code/togglebetweenfeaturerequestmodes.htm",
+        "/net/wpf/sample-code/servicefeaturetablenocache.htm",
+        "/net/wpf/sample-code/servicefeaturetablemanualcache.htm",
+        "/net/wpf/sample-code/servicefeaturetablecache.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

@@ -44,11 +44,12 @@ namespace ArcGISRuntime.Droid
         private const int LocationRequesNoMap = 97;
 
         private const int CameraPermissionRequestCode = 100;
+        private const int BluetoothPermissionRequestCode = 101;
 
         private Esri.ArcGISRuntime.Xamarin.Forms.MapView _lastUsedMapView;
         private TaskCompletionSource<bool> _locationPermissionTCS;
-
         private TaskCompletionSource<bool> _cameraPermissionTCS;
+        private TaskCompletionSource<bool> _bluetoothPermissionTCS;
 
         public async Task<bool> AskForLocationPermission()
         {
@@ -96,6 +97,17 @@ namespace ArcGISRuntime.Droid
                 _cameraPermissionTCS = new TaskCompletionSource<bool>();
                 RequestPermissions(new[] { Manifest.Permission.Camera }, CameraPermissionRequestCode);
                 return await _cameraPermissionTCS.Task;
+            }
+            return true;
+        }
+
+        public async Task<bool> AskForBluetoothPermission()
+        {
+            if (ContextCompat.CheckSelfPermission(this, BluetoothService) != Permission.Granted)
+            {
+                _bluetoothPermissionTCS = new TaskCompletionSource<bool>();
+                RequestPermissions(new[] { Manifest.Permission.Bluetooth }, BluetoothPermissionRequestCode);
+                return await _bluetoothPermissionTCS.Task;
             }
             return true;
         }

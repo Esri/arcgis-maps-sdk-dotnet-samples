@@ -19,7 +19,6 @@ using UIKit;
 namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {
     [Register("AnalyzeHotspots")]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("DateSelectionViewController.cs")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Analyze hotspots",
         category: "Geoprocessing",

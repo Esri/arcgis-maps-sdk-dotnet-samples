@@ -5,8 +5,8 @@
       <Sample>ToggleBetweenFeatureRequestModes</Sample>
     </Category>
     <Category name="GraphicsOverlay">
-	  <Sample>AddGraphicsRenderer</Sample>
-	  <Sample>SketchOnMap</Sample>
+	    <Sample>AddGraphicsRenderer</Sample>
+	    <Sample>SketchOnMap</Sample>
     </Category>
     <Category name="Layers">
 	  <Sample>DisplayDimensions</Sample>
@@ -16,14 +16,14 @@
       <Sample>LocationDrivenGeotriggers</Sample>
       <Sample>LocationWithNMEA</Sample>
     </Category>
-	<Category name="Map">
-	  <Sample>BrowseBuildingFloors</Sample>
-	  <Sample>ChangeBasemap</Sample>
-      <Sample>DisplayOverviewMap</Sample>
-	</Category>
-	<Category name="MapView">
+    <Category name="Map">
+      <Sample>BrowseBuildingFloors</Sample>
+      <Sample>ChangeBasemap</Sample>
+        <Sample>DisplayOverviewMap</Sample>
+    </Category>
+    <Category name="MapView">
       <Sample>FilterByTimeExtent</Sample>
-	</Category>
+    </Category>
     <Category name="Symbology">
       <Sample>CustomDictionaryStyle</Sample>
       <Sample>SymbolStylesFromWebStyles</Sample>

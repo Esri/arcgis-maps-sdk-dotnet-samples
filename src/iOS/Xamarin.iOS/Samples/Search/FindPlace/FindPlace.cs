@@ -96,8 +96,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Unsubscribe from further events; only want to zoom to location once.
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
-            // Need to use this to interact with UI elements because this function is called from a background thread.
-            BeginInvokeOnMainThread(() => _myMapView.SetViewpoint(new Viewpoint(e.Position, 100000)));
+            // Zoom to the location.
+            _myMapView.SetViewpointCenterAsync(e.Position, 100000);
         }
 
         // Gets the map point corresponding to the text in the location textbox.

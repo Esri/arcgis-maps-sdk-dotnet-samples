@@ -5,11 +5,11 @@
       <Sample>ToggleBetweenFeatureRequestModes</Sample>
     </Category>
     <Category name="GraphicsOverlay">
-	    <Sample>AddGraphicsRenderer</Sample>
-	    <Sample>SketchOnMap</Sample>
+      <Sample>AddGraphicsRenderer</Sample>
+      <Sample>SketchOnMap</Sample>
     </Category>
     <Category name="Layers">
-	  <Sample>DisplayDimensions</Sample>
+      <Sample>DisplayDimensions</Sample>
       <Sample>FeatureLayerDefinitionExpression</Sample>
     </Category>
     <Category name="Location">
@@ -19,7 +19,7 @@
     <Category name="Map">
       <Sample>BrowseBuildingFloors</Sample>
       <Sample>ChangeBasemap</Sample>
-        <Sample>DisplayOverviewMap</Sample>
+      <Sample>DisplayOverviewMap</Sample>
     </Category>
     <Category name="MapView">
       <Sample>FilterByTimeExtent</Sample>

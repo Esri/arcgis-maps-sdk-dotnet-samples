@@ -16,9 +16,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
-      <uap:VisualElements DisplayName="ArcGIS Runtime SDK for .NET Samples (WPF)" Description="Sample viewer for the ArcGIS Runtime SDK for .NET, implemented with WPF." BackgroundColor="transparent" Square150x150Logo="Images\Square150x150Logo.png" Square44x44Logo="Images\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" ShortName="ArcGIS Runtime Samples" Square71x71Logo="Images\SmallTile.png" Square310x310Logo="Images\LargeTile.png">
-        </uap:DefaultTile>
+      <uap:VisualElements DisplayName="ArcGIS Runtime SDK for .NET Samples (WPF)" Description="Sample viewer for the ArcGIS Runtime SDK for .NET, implemented with WPF." BackgroundColor="transparent" Square44x44Logo="Images\Square44x44Logo.png" Square150x150Logo="Images\Square150x150Logo.png">
+        <uap:DefaultTile ShortName="ArcGIS Runtime Samples"  Square71x71Logo="Images\SmallTile.png" Wide310x150Logo="Images\Wide310x150Logo.png" Square310x310Logo="Images\LargeTile.png"/>
+        <uap:LockScreen BadgeLogo="Images\BadgeLogo.png"  Notification="badgeAndTileText"/>
         <uap:SplashScreen Image="Images\SplashScreen.png"/>
       </uap:VisualElements>
     </Application>

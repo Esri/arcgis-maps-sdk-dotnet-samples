@@ -31,10 +31,8 @@ Choose and adjust the altitude, azimuth, slope type, and color ramp type setting
 
 ## Offline data
 
-This sample downloads the following items from ArcGIS Online automatically:
-
-* [shasta-elevation.zip](https://www.arcgis.com/home/item.html?id=caeef9aa78534760b07158bb8e068462) - Shasta elevation image collection
+This sample uses the [Shasta elevation image collection](https://www.arcgis.com/home/item.html?id=caeef9aa78534760b07158bb8e068462).
 
 ## Tags
 
-Elevation, Hillshade, RasterLayer, color ramp, elevation, image, visualization
+color ramp, elevation, hillshade, image, raster, visualization

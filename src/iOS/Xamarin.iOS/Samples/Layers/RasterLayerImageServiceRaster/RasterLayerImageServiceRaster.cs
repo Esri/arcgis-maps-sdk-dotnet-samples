@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
             Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create a Uri to the image service raster.
-            Uri uri = new Uri("https://gis.ngdc.noaa.gov/arcgis/rest/services/bag_hillshades/ImageServer");
+            Uri uri = new Uri("https://gis.ngdc.noaa.gov/arcgis/rest/services/bag_hillshades_subsets/ImageServer");
 
             // Create new image service raster from the Uri.
             ImageServiceRaster imageServiceRaster = new ImageServiceRaster(uri);

@@ -17,10 +17,6 @@
         "search",
         "transportation"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.WPF": "100.13.0"
-    },
     "offline_data": [
         "260eb6535c824209964cf281766ebe43"
     ],
@@ -38,10 +34,8 @@
         "TransportationNetworkDataset"
     ],
     "snippets": [
-        "ItemToImageSourceConverter.cs",
         "MobileMapSearchAndRoute.xaml",
-        "MobileMapSearchAndRoute.xaml.cs",
-        "NullToVisibilityConverter.cs"
+        "MobileMapSearchAndRoute.xaml.cs"
     ],
     "title": "Mobile map (search and route)"
 }

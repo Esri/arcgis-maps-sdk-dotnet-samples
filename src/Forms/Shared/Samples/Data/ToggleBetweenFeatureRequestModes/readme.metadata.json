@@ -1,0 +1,35 @@
+{
+    "category": "Data",
+    "description": "Use different feature request modes to populate the map from a service feature table.",
+    "formal_name": "ToggleBetweenFeatureRequestModes",
+    "ignore": false,
+    "images": [
+        "ToggleBetweenFeatureRequestModes.jpg"
+    ],
+    "keywords": [
+        "cache",
+        "feature request mode",
+        "performance"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/togglebetweenfeaturerequestmodes.htm",
+        "/net/forms/sample-code/servicefeaturetablenocache.htm",
+        "/net/forms/sample-code/servicefeaturetablemanualcache.htm",
+        "/net/forms/sample-code/servicefeaturetablecache.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "FeatureRequestMode.ManualCache",
+        "FeatureRequestMode.NoCache",
+        "FeatureRequestMode.OnInteractionCache",
+        "ServiceFeatureTable",
+        "ServiceFeatureTable.FeatureRequestMode",
+        "ServiceFeatureTable.PopulateFromServiceAsync"
+    ],
+    "snippets": [
+        "ToggleBetweenFeatureRequestModes.xaml",
+        "ToggleBetweenFeatureRequestModes.xaml.cs"
+    ],
+    "title": "Toggle between feature request modes"
+}

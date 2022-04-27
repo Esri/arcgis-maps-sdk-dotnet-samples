@@ -90,12 +90,8 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             // Unsubscribe from the event (only want to zoom once).
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
-            // Needed because the event is called from a background (non-UI) thread and this code is manipulating UI.
-            Dispatcher.Invoke(() =>
-            {
-                // Zoom to the location.
-                MyMapView.SetViewpointAsync(new Viewpoint(e.Position, 100000));
-            });
+            // Zoom to the location.
+            MyMapView.SetViewpointCenterAsync(e.Position, 100000);
         }
 
         /// <summary>

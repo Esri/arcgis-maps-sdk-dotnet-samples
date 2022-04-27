@@ -28,12 +28,10 @@
 * [Raster layer (GeoPackage)](Shared/Samples/Data/RasterLayerGeoPackage/readme.md) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](Shared/Samples/Data/ReadGeoPackage/readme.md) - Add rasters and feature tables from a GeoPackage to a map.
 * [Read shapefile metadata](Shared/Samples/Data/ReadShapefileMetadata/readme.md) - Read a shapefile and display its metadata.
-* [Service feature table (on interaction cache)](Shared/Samples/Data/ServiceFeatureTableCache/readme.md) - Display a feature layer from a service using the **on interaction cache** feature request mode.
-* [Service feature table (manual cache)](Shared/Samples/Data/ServiceFeatureTableManualCache/readme.md) - Display a feature layer from a service using the **manual cache** feature request mode.
-* [Service feature table (no cache)](Shared/Samples/Data/ServiceFeatureTableNoCache/readme.md) - Display a feature layer from a service using the **no cache** feature request mode.
 * [Statistical query](Shared/Samples/Data/StatisticalQuery/readme.md) - Query a table to get aggregated statistics back for a specific field.
 * [Statistical query group and sort](Shared/Samples/Data/StatsQueryGroupAndSort/readme.md) - Query a feature table for statistics, grouping and sorting by different fields.
 * [Symbolize shapefile](Shared/Samples/Data/SymbolizeShapefile/readme.md) - Display a shapefile with custom symbology.
+* [Toggle between feature request modes](Shared/Samples/Data/ToggleBetweenFeatureRequestModes/readme.md) - Use different feature request modes to populate the map from a service feature table.
 * [Update attributes (feature service)](Shared/Samples/Data/UpdateAttributes/readme.md) - Update feature attributes in an online feature service.
 * [Update geometries (feature service)](Shared/Samples/Data/UpdateGeometries/readme.md) - Update a feature's location in an online feature service.
 * [View point cloud data offline](Shared/Samples/Data/ViewPointCloudDataOffline/readme.md) - Display local 3D point cloud data.
@@ -186,6 +184,7 @@
 * [Display grid](Shared/Samples/MapView/DisplayGrid/readme.md) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
 * [Display layer view state](Shared/Samples/MapView/DisplayLayerViewState/readme.md) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](Shared/Samples/MapView/FeatureLayerTimeOffset/readme.md) - Display a time-enabled feature layer with a time offset.
+* [Filter by time extent](Shared/Samples/MapView/FilterByTimeExtent/readme.md) - The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.
 * [Identify layers](Shared/Samples/MapView/IdentifyLayers/readme.md) - Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.
 * [Map rotation](Shared/Samples/MapView/MapRotation/readme.md) - Rotate a map.
 * [Show callout](Shared/Samples/MapView/ShowCallout/readme.md) - Show a callout with the latitude and longitude of user-tapped points.
@@ -194,15 +193,15 @@
 
 ## Network analysis
 
-* [Find closest facility to an incident (interactive)](Shared/Samples/Network%20analysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
-* [Find closest facility to multiple incidents (service)](Shared/Samples/Network%20analysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
-* [Find route](Shared/Samples/Network%20analysis/FindRoute/readme.md) - Display directions for a route between two points.
-* [Find service area](Shared/Samples/Network%20analysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
-* [Find service areas for multiple facilities](Shared/Samples/Network%20analysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
-* [Navigate route](Shared/Samples/Network%20analysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
-* [Navigate route with rerouting](Shared/Samples/Network%20analysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
-* [Offline routing](Shared/Samples/Network%20analysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
-* [Route around barriers](Shared/Samples/Network%20analysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
+* [Find closest facility to an incident (interactive)](Shared/Samples/NetworkAnalysis/ClosestFacility/readme.md) - Find a route to the closest facility from a location.
+* [Find closest facility to multiple incidents (service)](Shared/Samples/NetworkAnalysis/ClosestFacilityStatic/readme.md) - Find routes from several locations to the respective closest facility.
+* [Find route](Shared/Samples/NetworkAnalysis/FindRoute/readme.md) - Display directions for a route between two points.
+* [Find service area](Shared/Samples/NetworkAnalysis/FindServiceArea/readme.md) - Find the service area within a network from a given point.
+* [Find service areas for multiple facilities](Shared/Samples/NetworkAnalysis/FindServiceAreasForMultipleFacilities/readme.md) - Find the service areas of several facilities from a feature service.
+* [Navigate route](Shared/Samples/NetworkAnalysis/NavigateRoute/readme.md) - Use a routing service to navigate between points.
+* [Navigate route with rerouting](Shared/Samples/NetworkAnalysis/NavigateRouteRerouting/readme.md) - Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
+* [Offline routing](Shared/Samples/NetworkAnalysis/OfflineRouting/readme.md) - Solve a route on-the-fly using offline data.
+* [Route around barriers](Shared/Samples/NetworkAnalysis/RouteAroundBarriers/readme.md) - Find a route that reaches all stops without crossing any barriers.
 
 ## Scene
 
@@ -243,12 +242,14 @@
 * [Scene symbols](Shared/Samples/Symbology/SceneSymbols/readme.md) - Show various kinds of 3D symbols in a scene.
 * [Simple renderer](Shared/Samples/Symbology/SimpleRenderers/readme.md) - Display common symbols for all graphics in a graphics overlay with a renderer.
 * [Read symbols from mobile style](Shared/Samples/Symbology/SymbolsFromMobileStyle/readme.md) - Combine multiple symbols from a mobile style file into a single symbol.
+* [Create symbol styles from web styles](Shared/Samples/Symbology/SymbolStylesFromWebStyles/readme.md) - Create symbol styles from a style file hosted on a portal.
 * [Distance composite scene symbol](Shared/Samples/Symbology/UseDistanceCompositeSym/readme.md) - Change a graphic's symbol based on the camera's proximity to it.
 
 ## Utility network
 
-* [Configure subnetwork trace](Shared/Samples/Utility%20network/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
-* [Display utility associations](Shared/Samples/Utility%20network/DisplayUtilityAssociations/readme.md) - Create graphics for utility associations in a utility network.
-* [Perform valve isolation trace](Shared/Samples/Utility%20network/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
-* [Trace utility network](Shared/Samples/Utility%20network/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
+* [Configure subnetwork trace](Shared/Samples/UtilityNetwork/ConfigureSubnetworkTrace/readme.md) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
+* [Display utility associations](Shared/Samples/UtilityNetwork/DisplayUtilityAssociations/readme.md) - Create graphics for utility associations in a utility network.
+* [Display content of utility network container](Shared/Samples/UtilityNetwork/DisplayUtilityNetworkContainer/readme.md) - A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.
+* [Perform valve isolation trace](Shared/Samples/UtilityNetwork/PerformValveIsolationTrace/readme.md) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+* [Trace utility network](Shared/Samples/UtilityNetwork/TraceUtilityNetwork/readme.md) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 

@@ -51,25 +51,32 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             Initialize();
         }
 
-        private void Initialize()
+        private async void Initialize()
         {
-            // Create the map with streets basemap.
-            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
+            try
+            {
+                // Create the map with streets basemap.
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
-            // Create the feature table, referring to the Damage Assessment feature service.
-            ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
+                // Create the feature table, referring to the Damage Assessment feature service.
+                ServiceFeatureTable damageTable = new ServiceFeatureTable(new Uri(FeatureServiceUrl));
 
-            // Create a feature layer to visualize the features in the table.
-            _damageLayer = new FeatureLayer(damageTable);
+                // Create a feature layer to visualize the features in the table.
+                _damageLayer = new FeatureLayer(damageTable);
 
-            // Add the layer to the map.
-            MyMapView.Map.OperationalLayers.Add(_damageLayer);
+                // Add the layer to the map.
+                MyMapView.Map.OperationalLayers.Add(_damageLayer);
 
-            // Listen for user taps on the map.
-            MyMapView.GeoViewTapped += MapView_Tapped;
+                // Listen for user taps on the map.
+                MyMapView.GeoViewTapped += MapView_Tapped;
 
-            // Zoom to the United States.
-            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+                // Zoom to the United States.
+                _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
         private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)

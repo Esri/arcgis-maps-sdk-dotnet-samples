@@ -84,8 +84,11 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
 
     for category in samples_in_categories.keys():
         readme_text += f"## {category}\n\n"
+        formal_category = category
+        if ' ' in formal_category:
+            formal_category = formal_category.title().replace(' ', '')
         for sample in samples_in_categories[category]:
-            entry_url = f"{relative_path_to_samples}/{sample.category}/{sample.formal_name}/readme.md"
+            entry_url = f"{relative_path_to_samples}/{formal_category}/{sample.formal_name}/readme.md"
             entry_url = urllib.parse.quote(entry_url)
             readme_text += f"* [{sample.friendly_name}]({entry_url}) - {sample.description}\n"
         readme_text += "\n"
@@ -224,8 +227,6 @@ def main():
                 if os.path.exists(path_to_json):
                     metadata_based_sample = sample_metadata()
                     metadata_based_sample.populate_from_json(path_to_json)
-                    sample.nuget_packages = metadata_based_sample.nuget_packages
-                sample.resync_nuget_packages(platform)
                 sample.flush_to_json(path_to_json)
 
                 # update attributes in the sample code files

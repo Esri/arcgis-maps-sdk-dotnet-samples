@@ -7,21 +7,13 @@
         "ChangeBlendRenderer.jpg"
     ],
     "keywords": [
-        "Elevation",
-        "Hillshade",
-        "RasterLayer",
         "color ramp",
         "elevation",
+        "hillshade",
         "image",
+        "raster",
         "visualization"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.UWP": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.Forms": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0"
-    },
     "offline_data": [
         "caeef9aa78534760b07158bb8e068462"
     ],

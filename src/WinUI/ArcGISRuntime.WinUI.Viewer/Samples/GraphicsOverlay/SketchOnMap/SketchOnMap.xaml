@@ -1,92 +1,181 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.SketchOnMap.SketchOnMap"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.SketchOnMap.SketchOnMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <CommandBar OverflowButtonVisibility="Collapsed">
-            <AppBarButton AllowFocusOnInteraction="True">
-                <AppBarButton.Content>
-                    <TextBlock HorizontalAlignment="Center" Text="Draw/Edit" />
-                </AppBarButton.Content>
-                <AppBarButton.Flyout>
-                    <Flyout x:Name="DrawToolsFlyout">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="5" />
-                                <RowDefinition Height="35" />
-                                <RowDefinition Height="35" />
-                                <RowDefinition Height="35" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition />
-                                <ColumnDefinition />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock
-                                Grid.Row="1"
-                                Grid.Column="0"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                FontSize="12"
-                                Text="Sketch shape:" />
-                            <ComboBox
-                                x:Name="SketchModeComboBox"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Margin="2"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Center"
-                                FontSize="12" />
-                            <Button
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                Width="100"
-                                Height="30"
-                                Margin="2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Click="DrawButtonClick"
-                                Content="Draw"
-                                FontSize="12" />
-                            <Button
-                                x:Name="EditButton"
-                                Grid.Row="3"
-                                Grid.Column="1"
-                                Width="100"
-                                Height="30"
-                                Margin="2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
-                                Click="EditButtonClick"
-                                Content="Edit"
-                                FontSize="12"
-                                IsEnabled="False" />
-                        </Grid>
-                    </Flyout>
-                </AppBarButton.Flyout>
-            </AppBarButton>
-            <AppBarButton Command="{Binding UndoCommand}">
-                <AppBarButton.Content>
-                    <TextBlock HorizontalAlignment="Center" Text="Undo" />
-                </AppBarButton.Content>
-            </AppBarButton>
-            <AppBarButton Command="{Binding RedoCommand}">
-                <AppBarButton.Content>
-                    <TextBlock HorizontalAlignment="Center" Text="Redo" />
-                </AppBarButton.Content>
-            </AppBarButton>
-            <AppBarButton Command="{Binding CompleteCommand}">
-                <AppBarButton.Content>
-                    <TextBlock HorizontalAlignment="Center" Text="Complete" />
-                </AppBarButton.Content>
-            </AppBarButton>
-            <AppBarButton x:Name="ClearButton" Click="ClearButtonClick">
-                <AppBarButton.Content>
-                    <TextBlock HorizontalAlignment="Center" Text="Clear" />
-                </AppBarButton.Content>
-            </AppBarButton>
-        </CommandBar>
+        <Grid Grid.Column="1"
+              Margin="0,5,5,0"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="EditButton"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Click="EditButtonClick"
+                    ToolTipService.ToolTip="Edit"
+                    Background="LightGray">
+                <Image Source="resources/edit.png" />
+            </Button>
+            <Button x:Name="StopButton"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Command="{Binding CancelCommand}"
+                    ToolTipService.ToolTip="Cancel"
+                    Background="LightGray">
+                <Image Source="resources/clear.png" />
+            </Button>
+            <Button x:Name="PointButton"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="0,5,0,0"
+                    Click="ShapeClick"
+                    CommandParameter="Point"
+                    Background="LightGray"
+                    ToolTipService.ToolTip="Point">
+                <Image Source="resources/point.png" />
+            </Button>
+            <Button x:Name="MultipointButton"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="0,5,0,0"
+                    Click="ShapeClick"
+                    CommandParameter="Multipoint"
+                    Background="LightGray"
+                    ToolTipService.ToolTip="Multipoint">
+                <Image Source="resources/multipoint.png" />
+            </Button>
+            <Button x:Name="PolylineButton"
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Click="ShapeClick"
+                    CommandParameter="Polyline"
+                    Background="LightGray"
+                    ToolTipService.ToolTip="Polyline">
+                <Image Source="resources/polyline.png" />
+            </Button>
+            <Button x:Name="PolygonButton"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Click="ShapeClick"
+                    CommandParameter="Polygon"
+                    Background="LightGray"
+                    ToolTipService.ToolTip="Polygon">
+                <Image Source="resources/polygon.png" />
+            </Button>
+            <Button x:Name="FreehandPolylineButton"
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Click="ShapeClick"
+                    Background="LightGray"
+                    CommandParameter="FreehandLine"
+                    ToolTipService.ToolTip="Freehand Polyline">
+                <Image Source="resources/freehand-polyline.png" />
+            </Button>
+            <Button x:Name="FreehandPolygonButton"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Click="ShapeClick"
+                    Background="LightGray"
+                    CommandParameter="FreehandPolygon"
+                    ToolTipService.ToolTip="Freehand Polygon">
+                <Image Source="resources/brush.png" />
+            </Button>
+            <Button x:Name="CircleButton"
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Click="ShapeClick"
+                    Background="LightGray"
+                    CommandParameter="Circle"
+                    ToolTipService.ToolTip="Circle">
+                <Image Source="resources/circle.png" />
+            </Button>
+            <Button x:Name="EllipseButton"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Click="ShapeClick"
+                    Background="LightGray"
+                    CommandParameter="Ellipse"
+                    ToolTipService.ToolTip="Ellipse">
+                <Image Source="resources/ellipse.png" />
+            </Button>
+            <Button x:Name="TriangleButton"
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Click="ShapeClick"
+                    Background="LightGray"
+                    CommandParameter="Triangle"
+                    ToolTipService.ToolTip="Triangle">
+                <Image Source="resources/triangle.png" />
+            </Button>
+            <Button x:Name="ArrowButton"
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Click="ShapeClick"
+                    Background="LightGray"
+                    CommandParameter="Arrow"
+                    ToolTipService.ToolTip="Arrow">
+                <Image Source="resources/arrow.png" />
+            </Button>
+            <Button x:Name="RectangleButton"
+                    Grid.Row="7"
+                    Grid.Column="0"
+                    Click="ShapeClick"
+                    CommandParameter="Rectangle"
+                    Background="LightGray"
+                    ToolTipService.ToolTip="Rectangle">
+                <Image Source="resources/rectangle.png" />
+            </Button>
+            <Button x:Name="UndoButton"
+                    Grid.Row="8"
+                    Grid.Column="0"
+                    Background="LightGray"
+                    Margin="0,5,0,0"
+                    Command="{Binding UndoCommand}"
+                    ToolTipService.ToolTip="Undo">
+                <Image Source="resources/undo.png" />
+            </Button>
+            <Button x:Name="RedoButton"
+                    Grid.Row="8"
+                    Grid.Column="1"
+                    Margin="0,5,0,0"
+                    Background="LightGray"
+                    Command="{Binding RedoCommand}"
+                    ToolTipService.ToolTip="Redo">
+                <Image Source="resources/redo.png" />
+            </Button>
+            <Button x:Name="SaveButton"
+                    Grid.Row="9"
+                    Grid.Column="0"
+                    Background="LightGray"
+                    Command="{Binding CompleteCommand}"
+                    ToolTipService.ToolTip="Save">
+                <Image Source="resources/save.png" />
+            </Button>
+            <Button x:Name="ClearButton"
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    Click="ClearButtonClick"
+                    Background="LightGray"
+                    ToolTipService.ToolTip="Clear">
+                <Image Source="resources/trash-can-outline.png" />
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>

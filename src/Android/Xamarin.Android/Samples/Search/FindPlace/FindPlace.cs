@@ -100,7 +100,9 @@ namespace ArcGISRuntime.Samples.FindPlace
 
             // Unsubscribe; only want to zoom to location once.
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
-            RunOnUiThread(() => { _myMapView.SetViewpoint(new Viewpoint(e.Position, 10000)); });
+
+            // Zoom to the location.
+            _myMapView.SetViewpointCenterAsync(e.Position, 100000);
         }
 
         private void CreateLayout()

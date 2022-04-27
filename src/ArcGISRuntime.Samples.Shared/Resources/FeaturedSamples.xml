@@ -1,36 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FeaturedSamples>
-	<Categories>
-		<Category name="GraphicsOverlay">
-			<Sample>AddGraphicsRenderer</Sample>
-			<Sample>SurfacePlacements</Sample>
-		</Category>
-		<Category name="Layers">
-			<Sample>ControlAnnotationSublayerVisibility</Sample>
-			<Sample>CreateAndSaveKmlFile</Sample>
-			<Sample>DisplaySubtypeFeatureLayer</Sample>
-			<Sample>EditKmlGroundOverlay</Sample>
-			<Sample>FeatureLayerDefinitionExpression</Sample>
-			<Sample>QueryCQLFilters</Sample>
-			<Sample>RasterColormapRenderer</Sample>
-		</Category>
-		<Category name="Location">
-			<Sample>LocationDrivenGeotriggers</Sample>
-			<Sample>LocationWithNMEA</Sample>
-			<Sample>ShowLocationHistory</Sample>
-		</Category>
-		<Category name="Map">
-			<Sample>ApplyScheduledUpdates</Sample>
-			<Sample>HonorMobileMapPackageExpiration</Sample>
-		</Category>
-		<Category name="NetworkAnalysis">
-			<Sample>NavigateRoute</Sample>
-		</Category>
-		<Category name="Symbology">
-			<Sample>CustomDictionaryStyle</Sample>
-		</Category>
-		<Category name="UtilityNetwork">
-			<Sample>TraceUtilityNetwork</Sample>
-		</Category>
-	</Categories>
+  <Categories>
+    <Category name="Data">
+      <Sample>ToggleBetweenFeatureRequestModes</Sample>
+    </Category>
+    <Category name="GraphicsOverlay">
+      <Sample>AddGraphicsRenderer</Sample>
+      <Sample>SketchOnMap</Sample>
+    </Category>
+    <Category name="Layers">
+      <Sample>DisplayDimensions</Sample>
+      <Sample>FeatureLayerDefinitionExpression</Sample>
+    </Category>
+    <Category name="Location">
+      <Sample>LocationDrivenGeotriggers</Sample>
+      <Sample>LocationWithNMEA</Sample>
+    </Category>
+    <Category name="Map">
+      <Sample>BrowseBuildingFloors</Sample>
+      <Sample>ChangeBasemap</Sample>
+      <Sample>DisplayOverviewMap</Sample>
+    </Category>
+    <Category name="MapView">
+      <Sample>FilterByTimeExtent</Sample>
+    </Category>
+    <Category name="Symbology">
+      <Sample>CustomDictionaryStyle</Sample>
+      <Sample>SymbolStylesFromWebStyles</Sample>
+    </Category>
+    <Category name="UtilityNetwork">
+      <Sample>DisplayUtilityNetworkContainer</Sample>
+    </Category>
+  </Categories>
 </FeaturedSamples>

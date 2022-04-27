@@ -1,21 +1,21 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:ArcGISRuntime.Converters"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:local="clr-namespace:ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute">
+             xmlns:viewer="clr-namespace:ArcGISRuntime.WPF.Viewer.Converters">
     <UserControl.Resources>
-        <local:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
-        <local:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
+        <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
+        <viewer:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock
-                    Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
-                    TextWrapping="Wrap" FontWeight="SemiBold" />
-                <ListBox ItemsSource="{Binding Maps}"
-                         SelectionChanged="Map_Selected">
+                <TextBlock FontWeight="SemiBold"
+                           Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
+                           TextWrapping="Wrap" />
+                <ListBox ItemsSource="{Binding Maps}" SelectionChanged="Map_Selected">
                     <ListBox.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -29,15 +29,16 @@
                                     <ColumnDefinition Width="Auto" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0"
-                                       Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
-                                <Image Grid.Column="1" Source="../../../Resources/routingSymbol.png"
-                                       Height="50" Width="50"
+                                <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
+                                <Image Grid.Column="1"
+                                       Width="50"
+                                       Height="50"
                                        Margin="5"
-                                       Visibility="{Binding TransportationNetworks,Converter={StaticResource NullToVisibilityConverter}}" />
+                                       Source="../../../Resources/routingSymbol.png"
+                                       Visibility="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}" />
                                 <TextBlock Grid.Column="2"
-                                           Text="{Binding Item.Title}"
                                            VerticalAlignment="Center"
+                                           Text="{Binding Item.Title}"
                                            TextAlignment="Right" />
                             </Grid>
                         </DataTemplate>

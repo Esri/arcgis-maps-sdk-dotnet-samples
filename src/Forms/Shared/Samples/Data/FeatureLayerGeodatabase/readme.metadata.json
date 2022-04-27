@@ -11,13 +11,6 @@
         "mobile",
         "offline"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.13.0",
-        "Esri.ArcGISRuntime.UWP": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.Android": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.Forms": "100.13.0",
-        "Esri.ArcGISRuntime.Xamarin.iOS": "100.13.0"
-    },
     "offline_data": [
         "d9f8ce6f6ac84b90a665a861d71a5d0a",
         "2b0f9e17105847809dfeb04e3cad69e0"

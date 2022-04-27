@@ -6,35 +6,30 @@
     </Category>
     <Category name="GraphicsOverlay">
       <Sample>AddGraphicsRenderer</Sample>
-      <Sample>SurfacePlacements</Sample>
+      <Sample>SketchOnMap</Sample>
     </Category>
     <Category name="Layers">
-      <Sample>ControlAnnotationSublayerVisibility</Sample>
-      <Sample>CreateAndSaveKmlFile</Sample>
-      <Sample>DisplaySubtypeFeatureLayer</Sample>
-      <Sample>EditKmlGroundOverlay</Sample>
+      <Sample>DisplayDimensions</Sample>
       <Sample>FeatureLayerDefinitionExpression</Sample>
-      <Sample>QueryCQLFilters</Sample>
-      <Sample>RasterColormapRenderer</Sample>
     </Category>
     <Category name="Location">
       <Sample>LocationDrivenGeotriggers</Sample>
       <Sample>LocationWithNMEA</Sample>
-      <Sample>ShowLocationHistory</Sample>
     </Category>
     <Category name="Map">
-      <Sample>ApplyScheduledUpdates</Sample>
-      <Sample>HonorMobileMapPackageExpiration</Sample>
+      <Sample>BrowseBuildingFloors</Sample>
+      <Sample>ChangeBasemap</Sample>
+      <Sample>DisplayOverviewMap</Sample>
     </Category>
-    <Category name="NetworkAnalysis">
-      <Sample>NavigateRoute</Sample>
+    <Category name="MapView">
+      <Sample>FilterByTimeExtent</Sample>
     </Category>
     <Category name="Symbology">
       <Sample>CustomDictionaryStyle</Sample>
       <Sample>SymbolStylesFromWebStyles</Sample>
     </Category>
     <Category name="UtilityNetwork">
-      <Sample>TraceUtilityNetwork</Sample>
+      <Sample>DisplayUtilityNetworkContainer</Sample>
     </Category>
   </Categories>
 </FeaturedSamples>

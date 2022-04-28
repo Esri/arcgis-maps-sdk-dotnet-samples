@@ -63,15 +63,31 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
             try
             {
+                // Create a oirtak uten for the web map.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync(uri, true);
-
                 PortalItem item = await PortalItem.CreateAsync(portal, "89f88764c29b48218366855d7717d266");
 
-                Map myMap = new Map(item);
-                await myMap.LoadAsync();
-                MyMapView.Map = myMap;
+                // Load the map in the map view.
+                MyMapView.Map = new Map(item);
+                await MyMapView.Map.LoadAsync();
 
-                FeatureTable positioningTable = await GetPositioningTable();
+                // Get the positioning table from the map.
+                FeatureTable positioningTable = null;
+                foreach (FeatureTable table in MyMapView.Map.Tables)
+                {
+                    await table.LoadAsync();
+                    if (table.TableName.Equals("ips_positioning"))
+                    {
+                        positioningTable = table;
+                    }
+                }
+                if (positioningTable == null) return;
+
+                // Get a table of all of the indoor pathways.
+                FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name.Equals("pathways", StringComparison.InvariantCultureIgnoreCase)) as FeatureLayer;
+                ArcGISFeatureTable pathwaysTable = pathwaysFeatureLayer.FeatureTable as ArcGISFeatureTable;
+
+                // Get the global id for positioning.
                 Field dateCreatedFieldName = positioningTable.Fields.FirstOrDefault(f => f.Name.Equals("DateCreated", StringComparison.InvariantCultureIgnoreCase) || f.Name.Equals("DATE_CREATED", StringComparison.InvariantCultureIgnoreCase));
 
                 QueryParameters queryParameters = new QueryParameters
@@ -85,8 +101,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 FeatureQueryResult queryResult = await positioningTable.QueryFeaturesAsync(queryParameters);
                 Guid globalID = (Guid)queryResult.First().Attributes["GlobalID"];
 
-                ArcGISFeatureTable pathwaysTable = GetPathwaysTable();
-
+                // Create the indoor location data source using the tables nad Guid
                 _indoorsLocationDataSource = new IndoorsLocationDataSource(positioningTable, pathwaysTable, globalID);
 
                 MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
@@ -103,52 +118,26 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
         {
             IReadOnlyDictionary<string, object> locationProperties = e.AdditionalSourceProperties;
 
-            var floor = locationProperties[LocationSourcePropertyKeys.Floor].ToString();
-            var positionSource = locationProperties[LocationSourcePropertyKeys.PositionSource].ToString();
-            var networkCount = locationProperties[LocationSourcePropertyKeys.SatelliteCount].ToString();
+            string floor = locationProperties[LocationSourcePropertyKeys.Floor].ToString();
+            string positionSource = locationProperties[LocationSourcePropertyKeys.PositionSource].ToString();
+            string networkCount = locationProperties[LocationSourcePropertyKeys.SatelliteCount].ToString();
 
-            var newFloor = int.Parse(floor);
+            int newFloor = int.Parse(floor);
 
             if (_currentFloor == null || _currentFloor != newFloor)
             {
                 _currentFloor = newFloor;
 
-                SetupLayers();
+                foreach (DimensionLayer layer in MyMapView.Map.OperationalLayers)
+                {
+                    if (layer?.Name == "Details" || layer?.Name == "Units" || layer?.Name == "Levels")
+                    {
+                        layer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
+                    }
+                }
             }
 
             PositioningLabel.Text = $"Floor: {floor}, Position-source: {positionSource}, Horizontal-accuracy: {e.HorizontalAccuracy}m, Satellite-count: {networkCount}";
-        }
-
-        private void SetupLayers()
-        {
-            foreach (DimensionLayer layer in MyMapView.Map.OperationalLayers)
-            {
-                if (layer?.Name == "Details" || layer?.Name == "Units" || layer?.Name == "Levels")
-                {
-                    layer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
-                }
-            }
-        }
-
-        private async Task<FeatureTable> GetPositioningTable()
-        {
-            foreach (FeatureTable table in MyMapView.Map.Tables)
-            {
-                await table.LoadAsync();
-                if (table.TableName.Equals("ips_positioning"))
-                {
-                    return table;
-                }
-            }
-
-            return null;
-        }
-
-        private ArcGISFeatureTable GetPathwaysTable()
-        {
-            FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name.Equals("pathways", StringComparison.InvariantCultureIgnoreCase)) as FeatureLayer;
-
-            return pathwaysFeatureLayer.FeatureTable as ArcGISFeatureTable;
         }
     }
 }

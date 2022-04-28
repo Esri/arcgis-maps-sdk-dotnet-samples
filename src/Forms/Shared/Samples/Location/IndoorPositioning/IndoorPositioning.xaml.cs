@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -70,8 +71,27 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 await myMap.LoadAsync();
                 MyMapView.Map = myMap;
 
-                await SetIndoorLocationDataSource();
+                FeatureTable positioningTable = await GetPositioningTable();
+                Field dateCreatedFieldName = positioningTable.Fields.FirstOrDefault(f => f.Name.Equals("DateCreated", StringComparison.InvariantCultureIgnoreCase) || f.Name.Equals("DATE_CREATED", StringComparison.InvariantCultureIgnoreCase));
 
+                QueryParameters queryParameters = new QueryParameters
+                {
+                    MaxFeatures = 1,
+                    // "1=1" will give all the features from the table.
+                    WhereClause = "1=1",
+                };
+                queryParameters.OrderByFields.Add(new OrderBy(dateCreatedFieldName.Name, SortOrder.Descending));
+
+                FeatureQueryResult queryResult = await positioningTable.QueryFeaturesAsync(queryParameters);
+                Guid globalID = (Guid)queryResult.First().Attributes["GlobalID"];
+
+                ArcGISFeatureTable pathwaysTable = GetPathwaysTable();
+
+                _indoorsLocationDataSource = new IndoorsLocationDataSource(positioningTable, pathwaysTable, globalID);
+
+                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
+                MyMapView.LocationDisplay.DataSource = _indoorsLocationDataSource;
+                MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
             }
             catch (Exception ex)
             {
@@ -79,37 +99,9 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             }
         }
 
-        private async Task SetIndoorLocationDataSource()
-        {
-            var positioningTable = await GetPositioningTable();
-            var dateCreatedFieldName = positioningTable.Fields.FirstOrDefault(f => f.Name.Equals("DateCreated", StringComparison.InvariantCultureIgnoreCase) || f.Name.Equals("DATE_CREATED", StringComparison.InvariantCultureIgnoreCase));
-            
-            QueryParameters queryParameters = new QueryParameters();
-            queryParameters.OrderByFields.Add(new OrderBy(dateCreatedFieldName.Name, SortOrder.Descending));
-            queryParameters.MaxFeatures = 1;
-            // "1=1" will give all the features from the table.
-            queryParameters.WhereClause = "1=1";
-
-            var queryResult = await positioningTable.QueryFeaturesAsync(queryParameters);
-            Guid globalID = (Guid)queryResult.First().Attributes["GlobalID"];
-
-            ArcGISFeatureTable pathwaysTable = GetPathwaysTable();
-
-            _indoorsLocationDataSource = new IndoorsLocationDataSource(positioningTable, pathwaysTable, globalID);
-
-            StartLocationDisplay();
-        }
-
-        private void StartLocationDisplay()
-        {
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-            MyMapView.LocationDisplay.DataSource = _indoorsLocationDataSource;
-            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
-        }
-
         private void LocationDisplay_LocationChanged(object sender, Location e)
         {
-            var locationProperties = e.AdditionalSourceProperties;
+            IReadOnlyDictionary<string, object> locationProperties = e.AdditionalSourceProperties;
 
             var floor = locationProperties[LocationSourcePropertyKeys.Floor].ToString();
             var positionSource = locationProperties[LocationSourcePropertyKeys.PositionSource].ToString();
@@ -124,16 +116,14 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 SetupLayers();
             }
 
-            var locationPropertiesMessage = $"Floor: {floor}, Position-source: {positionSource}, Horizontal-accuracy: {e.HorizontalAccuracy}m, Satellite-count: {networkCount}";
-
-            PositioningLabel.Text = locationPropertiesMessage;
+            PositioningLabel.Text = $"Floor: {floor}, Position-source: {positionSource}, Horizontal-accuracy: {e.HorizontalAccuracy}m, Satellite-count: {networkCount}";
         }
 
         private void SetupLayers()
         {
             foreach (DimensionLayer layer in MyMapView.Map.OperationalLayers)
             {
-                if (layer is DimensionLayer && (layer.Name == "Details" || layer.Name == "Units" || layer.Name == "Levels"))
+                if (layer?.Name == "Details" || layer?.Name == "Units" || layer?.Name == "Levels")
                 {
                     layer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
                 }

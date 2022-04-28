@@ -1658,7 +1658,4 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\key.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\keygrey.png" />
   </ItemGroup>
-</Project>ingsPage\key.png" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\keygrey.png" />
-  </ItemGroup>
 </Project>

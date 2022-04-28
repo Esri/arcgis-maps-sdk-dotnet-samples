@@ -11,7 +11,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Map\ShowDeviceLocationUsingIndoorPositioning\ShowDeviceLocationUsingIndoorPositioning.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Location\IndoorPositioning\IndoorPositioning.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.jpg" />
@@ -216,8 +216,8 @@
       <DependentUpon>SymbolStylesFromWebStyles.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Map\ShowDeviceLocationUsingIndoorPositioning\ShowDeviceLocationUsingIndoorPositioning.xaml.cs">
-      <DependentUpon>ShowDeviceLocationUsingIndoorPositioning.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\IndoorPositioning\IndoorPositioning.xaml.cs">
+      <DependentUpon>IndoorPositioning.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml.cs">
@@ -930,7 +930,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Map\ShowDeviceLocationUsingIndoorPositioning\ShowDeviceLocationUsingIndoorPositioning.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\IndoorPositioning\IndoorPositioning.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml">
@@ -1656,6 +1656,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\key.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\keygrey.png" />
+  </ItemGroup>
+</Project>ingsPage\key.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\keygrey.png" />
   </ItemGroup>
 </Project>

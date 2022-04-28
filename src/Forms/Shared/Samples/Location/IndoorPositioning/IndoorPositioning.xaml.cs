@@ -19,20 +19,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowDeviceLocationUsingIndoorPositioning
+namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Show device location using indoor positioning",
-        "Map",
-        "Show your device's real-time location while inside a building by using signals from indoor positioning beacons.",
-        "")]
-    public partial class ShowDeviceLocationUsingIndoorPositioning : ContentPage
+        name: "Show device location using indoor positioning",
+        category: "Location",
+        description: "Show your device's real-time location while inside a building by using signals from indoor positioning beacons.",
+        instructions: "When the device is within range of an IPS beacon, toggle \"Show Location\" to change the visibility of the location indicator in the map view. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `navigation`.",
+        tags: new[] { "BLE", "Bluetooth", "GPS", "IPS", "beacon", "blue dot", "building", "facility", "indoor", "location", "map", "mobile", "navigation", "site", "transmitter" })]
+    public partial class IndoorPositioning : ContentPage
     {
         private IndoorsLocationDataSource _indoorsLocationDataSource;
 
         private int? _currentFloor = null;
 
-        public ShowDeviceLocationUsingIndoorPositioning()
+        public IndoorPositioning()
         {
             InitializeComponent();
             _ = Initialize();

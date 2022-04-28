@@ -2,7 +2,7 @@
 
 Show your device's real-time location while inside a building by using signals from indoor positioning beacons.
 
-![Show device location using indoor positioning](ShowDeviceLocationUsingIndoorPositioning.jpg)
+![Show device location using indoor positioning](IndoorPositioning.jpg)
 
 ## Use case
 

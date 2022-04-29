@@ -18,6 +18,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using Xamarin.Forms;
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 {

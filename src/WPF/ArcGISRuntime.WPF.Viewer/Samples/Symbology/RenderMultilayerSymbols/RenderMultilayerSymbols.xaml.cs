@@ -21,10 +21,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Render multilayer symbols",
-        "Symbology",
-        "Shows a multilayer symbol on a map.",
-        "")]
+        name: "Render multilayer symbols",
+        category: "Symbology",
+        description: "Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.",
+        instructions: "The sample loads multilayer symbols for points, polylines, and polygons.",
+        tags: new[] { "graphic", "marker", "multilayer", "picture", "symbol" })]
     public partial class RenderMultilayerSymbols
     {
         // This is used to keep consistent distance from each symbol on the column.

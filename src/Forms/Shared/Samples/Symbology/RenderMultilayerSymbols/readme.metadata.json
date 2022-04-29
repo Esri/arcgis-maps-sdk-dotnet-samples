@@ -1,22 +1,36 @@
 {
     "category": "Symbology",
-    "description": "Shows a multilayer symbol on a map.",
+    "description": "Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.",
     "formal_name": "RenderMultilayerSymbols",
     "ignore": false,
     "images": [
-        "RenderMultilayerSymbols.jpg"
+        "MultilayerSymbolRenderer.jpg"
     ],
     "keywords": [
+        "graphic",
+        "marker",
+        "multilayer",
+        "picture",
+        "symbol"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.10.0"
-    },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/RenderMultilayerSymbols.htm"
+        "/net/latest/forms/sample-code/rendermultilayersymbols.htm"
     ],
     "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "MultiLayerPoint",
+        "MultiLayerPolygon",
+        "MultiLayerPolyline",
+        "PictureMarkerSymbolLayer",
+        "SolidFillSymbolLayer",
+        "SolidStrokeSymbolLayer",
+        "VectorMarkerSymbolLayer"
     ],
     "snippets": [
+        "RenderMultilayerSymbols.xaml",
+        "RenderMultilayerSymbols.xaml.cs"
     ],
     "title": "Render multilayer symbols"
 }

@@ -2,7 +2,7 @@
 
 Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.
 
-![Image of render multilayer symbols](MultilayerSymbolRenderer.jpg)
+![Image of render multilayer symbols](RenderMultilayerSymbols.jpg)
 
 ## Use case
 

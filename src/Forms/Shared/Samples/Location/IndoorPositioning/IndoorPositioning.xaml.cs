@@ -79,7 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 }
 #endif
 
-                // Create a oirtak uten for the web map.
+                // Create a portal item for the web map.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync(portalUri, true);
                 PortalItem item = await PortalItem.CreateAsync(portal, ItemId);
 

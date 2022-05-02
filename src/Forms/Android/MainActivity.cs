@@ -148,6 +148,10 @@ namespace ArcGISRuntime.Droid
             {
                 _cameraPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
             }
+            else if (requestCode == BluetoothPermissionRequestCode)
+            {
+                _bluetoothPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
+            }
         }
 
         #endregion Permissions

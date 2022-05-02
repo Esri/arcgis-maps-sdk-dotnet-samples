@@ -24,6 +24,7 @@ namespace ArcGISRuntime.Samples.Desktop
     public partial class MainWindow
     {
         private bool _waitFlag;
+        private List<TreeViewItem> _samples;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
@@ -43,11 +44,11 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleManager.Current.Initialize();
 
                 // Set category data context
-                var samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
-                Categories.DataContext = samples;
+                _samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+                Categories.DataContext = _samples;
 
                 // Select the first item
-                samples.First().IsSelected = true;
+                _samples.First().IsSelected = true;
 
                 Loaded += FirstLoaded;
             }
@@ -291,6 +292,26 @@ namespace ArcGISRuntime.Samples.Desktop
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
             settingsWindow.Show();
+        }
+
+        private void FavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            string sampleFormalName = (sender as Button).CommandParameter.ToString();
+
+            SampleManager.Current.AddRemoveFavorite(sampleFormalName);
+
+            // Select the first item
+            var categories = (List<TreeViewItem>)Categories.DataContext;
+            var selectedCategory = categories.First(c => c.IsSelected);
+            
+            var categoryIndex = 0;
+            categoryIndex = categories.IndexOf(categories.First(c => c.IsSelected));
+           
+            // Set category data context
+            var samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+            Categories.DataContext = samples;
+
+            samples[categoryIndex].IsSelected = true;
         }
     }
 }

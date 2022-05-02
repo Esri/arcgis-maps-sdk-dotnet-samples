@@ -1,10 +1,14 @@
 ﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.IndoorPositioning.IndoorPositioning"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Label x:Name="PositioningLabel" />
+        <Label x:Name="PositioningLabel"
+               BackgroundColor="#AA000000"
+               HeightRequest="40"
+               HorizontalOptions="FillAndExpand"
+               Text="Calibrate your device before starting"
+               TextColor="White" />
     </Grid>
 </ContentPage>

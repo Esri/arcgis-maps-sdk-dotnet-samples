@@ -41,7 +41,7 @@ namespace ArcGISRuntime.Droid
         #region Permissions
 
         private const int LocationPermissionRequestCode = 99;
-        private const int LocationRequesNoMap = 97;
+        private const int LocationRequestNoMap = 97;
 
         private const int CameraPermissionRequestCode = 100;
         private const int BluetoothPermissionRequestCode = 101;
@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Droid
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
                 _locationPermissionTCS = new TaskCompletionSource<bool>();
-                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation }, LocationRequesNoMap);
+                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation }, LocationRequestNoMap);
                 return await _locationPermissionTCS.Task;
             }
             return true;
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.Droid
             if (ContextCompat.CheckSelfPermission(this, BluetoothService) != Permission.Granted)
             {
                 _bluetoothPermissionTCS = new TaskCompletionSource<bool>();
-                RequestPermissions(new[] { Manifest.Permission.Bluetooth }, BluetoothPermissionRequestCode);
+                RequestPermissions(new[] { Manifest.Permission.Bluetooth, Manifest.Permission.BluetoothAdmin }, BluetoothPermissionRequestCode);
                 return await _bluetoothPermissionTCS.Task;
             }
             return true;
@@ -140,7 +140,7 @@ namespace ArcGISRuntime.Droid
                 // Reset the mapview.
                 _lastUsedMapView = null;
             }
-            else if (requestCode == LocationRequesNoMap)
+            else if (requestCode == LocationRequestNoMap)
             {
                 _locationPermissionTCS.TrySetResult(grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted));
             }

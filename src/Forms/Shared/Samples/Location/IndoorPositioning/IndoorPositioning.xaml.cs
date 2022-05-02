@@ -72,10 +72,11 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 // Get bluetooth permission for Android devices.
 #if XAMARIN_ANDROID
                 bool locationGranted = await MainActivity.Instance.AskForLocationPermission();
-                if (!locationGranted)
+                bool bluetoothGranted = await MainActivity.Instance.AskForBluetoothPermission();
+                if (!locationGranted || !bluetoothGranted)
                 {
-                    Debug.WriteLine("Bluetooth permission required for use of indoor positioning.");
-                    return;
+                    Debug.WriteLine("Bluetooth and location permissions required for use of indoor positioning.");
+                    //return;
                 }
 #endif
 

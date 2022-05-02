@@ -150,7 +150,7 @@ namespace ArcGISRuntime.Droid
             }
             else if (requestCode == BluetoothPermissionRequestCode)
             {
-                _bluetoothPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
+                _bluetoothPermissionTCS.TrySetResult(grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted));
             }
         }
 

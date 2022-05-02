@@ -20,6 +20,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
+#if XAMARIN_ANDROID
+using ArcGISRuntime.Droid;
+#endif
+
 namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -28,11 +32,13 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
         description: "Show your device's real-time location while inside a building by using signals from indoor positioning beacons.",
         instructions: "When the device is within range of an IPS beacon, toggle \"Show Location\" to change the visibility of the location indicator in the map view. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `navigation`.",
         tags: new[] { "BLE", "Bluetooth", "GPS", "IPS", "beacon", "blue dot", "building", "facility", "indoor", "location", "map", "mobile", "navigation", "site", "transmitter" })]
-    public partial class IndoorPositioning : ContentPage
+    public partial class IndoorPositioning : ContentPage, IDisposable
     {
         private IndoorsLocationDataSource _indoorsLocationDataSource;
 
         private int? _currentFloor = null;
+
+        private const string ItemId = "89f88764c29b48218366855d7717d266";
 
         public IndoorPositioning()
         {
@@ -42,7 +48,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
         private async Task Initialize()
         {
-            Uri uri = new Uri("https://viennardc.maps.arcgis.com");
+            var portalUri = new Uri("https://viennardc.maps.arcgis.com");
 
             // Handle the login to the feature service.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
@@ -63,24 +69,27 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
             try
             {
+                // Get bluetooth permission for Android devices.
+#if XAMARIN_ANDROID
+                bool locationGranted = await MainActivity.Instance.AskForLocationPermission();
+                if (!locationGranted)
+                {
+                    Debug.WriteLine("Bluetooth permission required for use of indoor positioning.");
+                    return;
+                }
+#endif
+
                 // Create a oirtak uten for the web map.
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync(uri, true);
-                PortalItem item = await PortalItem.CreateAsync(portal, "89f88764c29b48218366855d7717d266");
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(portalUri, true);
+                PortalItem item = await PortalItem.CreateAsync(portal, ItemId);
 
                 // Load the map in the map view.
                 MyMapView.Map = new Map(item);
                 await MyMapView.Map.LoadAsync();
 
                 // Get the positioning table from the map.
-                FeatureTable positioningTable = null;
-                foreach (FeatureTable table in MyMapView.Map.Tables)
-                {
-                    await table.LoadAsync();
-                    if (table.TableName.Equals("ips_positioning"))
-                    {
-                        positioningTable = table;
-                    }
-                }
+                await Task.WhenAll(MyMapView.Map.Tables.Select(table => table.LoadAsync()));
+                FeatureTable positioningTable = MyMapView.Map.Tables.Where(table => table.TableName.Equals("ips_positioning")).FirstOrDefault();
                 if (positioningTable == null) return;
 
                 // Get a table of all of the indoor pathways.
@@ -114,16 +123,18 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             }
         }
 
-        private void LocationDisplay_LocationChanged(object sender, Location e)
+        private void LocationDisplay_LocationChanged(object sender, Location loc)
         {
-            IReadOnlyDictionary<string, object> locationProperties = e.AdditionalSourceProperties;
+            // Get the properties from the new location.
+            IReadOnlyDictionary<string, object> locationProperties = loc.AdditionalSourceProperties;
 
             string floor = locationProperties[LocationSourcePropertyKeys.Floor].ToString();
             string positionSource = locationProperties[LocationSourcePropertyKeys.PositionSource].ToString();
-            string networkCount = locationProperties[LocationSourcePropertyKeys.SatelliteCount].ToString();
+            string satCount = locationProperties[LocationSourcePropertyKeys.SatelliteCount].ToString();
 
             int newFloor = int.Parse(floor);
 
+            // Check if the new location is on a different floor.
             if (_currentFloor == null || _currentFloor != newFloor)
             {
                 _currentFloor = newFloor;
@@ -132,12 +143,20 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 {
                     if (layer?.Name == "Details" || layer?.Name == "Units" || layer?.Name == "Levels")
                     {
+                        // Set the layer definition expression to only show data for the current floor.
                         layer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
                     }
                 }
             }
 
-            PositioningLabel.Text = $"Floor: {floor}, Position-source: {positionSource}, Horizontal-accuracy: {e.HorizontalAccuracy}m, Satellite-count: {networkCount}";
+            // Update the UI with the latest location information.
+            PositioningLabel.Text = $"Floor: {floor}, Position-source: {positionSource}, Horizontal-accuracy: {loc.HorizontalAccuracy}m, Satellite-count: {satCount}";
+        }
+
+        public void Dispose()
+        {
+            // Stop the location data source.
+            MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

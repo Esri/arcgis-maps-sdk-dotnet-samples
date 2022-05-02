@@ -89,7 +89,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
                 // Get the positioning table from the map.
                 await Task.WhenAll(MyMapView.Map.Tables.Select(table => table.LoadAsync()));
-                FeatureTable positioningTable = MyMapView.Map.Tables.Where(table => table.TableName.Equals("ips_positioning")).FirstOrDefault();
+                FeatureTable positioningTable = MyMapView.Map.Tables.FirstOrDefault(table => table.TableName.Equals("ips_positioning"));
                 if (positioningTable == null) return;
 
                 // Get a table of all of the indoor pathways.

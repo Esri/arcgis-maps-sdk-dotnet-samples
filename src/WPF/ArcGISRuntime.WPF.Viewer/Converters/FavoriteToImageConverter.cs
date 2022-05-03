@@ -15,7 +15,8 @@ namespace ArcGISRuntime.WPF.Viewer.Converters
                     return "resources/favoriteStar.png";
                 }
             }
-            return "resources/star.png";
+
+            return "resources/whiteStar.png";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

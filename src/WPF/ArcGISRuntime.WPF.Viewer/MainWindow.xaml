@@ -14,45 +14,48 @@
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <converters:FavoriteToImageConverter x:Key="FavoriteToImageConverter" />
         <DataTemplate x:Key="StandardSampleItemTemplate">
-            <Border Margin="2" Background="{StaticResource PrimaryBackgroundColor}">
-                <Grid Width="300" Margin="0,10,0,2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="200" />
-                        <RowDefinition Height="45" />
-                    </Grid.RowDefinitions>
-                    <Image Width="300"
-                           Height="250"
-                           HorizontalAlignment="Center"
-                           Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
-                           Stretch="Uniform" />
-                    <Button Grid.Row="0"
-                            Width="25"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Background="#A52F2F2F"
-                            Click="FavoriteButton_Click"
-                            CommandParameter="{Binding FormalName}">
-                        <Image Source="{Binding IsFavorite, Converter={StaticResource FavoriteToImageConverter}}" />
-                    </Button>
-                    <TextBlock Grid.Row="0"
-                               Padding="10"
-                               VerticalAlignment="Bottom"
-                               Background="#A52F2F2F"
-                               FontSize="18"
-                               Foreground="White"
-                               Text="{Binding SampleName}"
-                               TextWrapping="Wrap" />
-                    <TextBlock Grid.Row="1"
-                               Margin="5,5,5,5"
-                               VerticalAlignment="Top"
-                               FontSize="13"
-                               FontWeight="Normal"
-                               Style="{StaticResource SecondaryTextBlock}"
-                               Text="{Binding Description}"
-                               TextTrimming="CharacterEllipsis"
-                               TextWrapping="Wrap" />
-                </Grid>
-            </Border>
+            <Grid x:Name="SampleGrid">
+                <Border Margin="2" Background="{StaticResource PrimaryBackgroundColor}">
+                    <Grid Width="300" Margin="0,10,0,2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="200" />
+                            <RowDefinition Height="45" />
+                        </Grid.RowDefinitions>
+                        <Image Width="300"
+                               Height="250"
+                               HorizontalAlignment="Center"
+                               Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
+                               Stretch="Uniform" />
+                        <Button Grid.Row="0"
+                                Width="25"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                Background="#A52F2F2F"
+                                Click="SampleGridFavoriteButton_Click"
+                                CommandParameter="{Binding FormalName}"
+                                Style="{DynamicResource SampleGridFavoriteButton}">
+                            <Image Source="{Binding IsFavorite, Converter={StaticResource FavoriteToImageConverter}}" />
+                        </Button>
+                        <TextBlock Grid.Row="0"
+                                   Padding="10"
+                                   VerticalAlignment="Bottom"
+                                   Background="#A52F2F2F"
+                                   FontSize="18"
+                                   Foreground="White"
+                                   Text="{Binding SampleName}"
+                                   TextWrapping="Wrap" />
+                        <TextBlock Grid.Row="1"
+                                   Margin="5,5,5,5"
+                                   VerticalAlignment="Top"
+                                   FontSize="13"
+                                   FontWeight="Normal"
+                                   Style="{StaticResource SecondaryTextBlock}"
+                                   Text="{Binding Description}"
+                                   TextTrimming="CharacterEllipsis"
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                </Border>
+            </Grid>
         </DataTemplate>
     </Window.Resources>
     <Grid Background="{StaticResource PrimaryBackgroundColor}">
@@ -155,12 +158,25 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="SampleTitleBlock"
-                               Grid.Row="0"
-                               Margin="10,0,0,0"
-                               VerticalAlignment="Center"
-                               FontSize="24"
-                               FontWeight="SemiBold" />
+                    <StackPanel Grid.Row="0"
+                                Margin="10,0,0,0"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                        <TextBlock x:Name="SampleTitleBlock"
+                                   FontSize="24"
+                                   FontWeight="SemiBold" />
+                        <Button x:Name="SampleFavoriteButton"
+                                Grid.Row="0"
+                                Width="25"
+                                Margin="5,5"
+                                VerticalAlignment="Center"
+                                Background="white"
+                                BorderThickness="0"
+                                Click="InSampleFavoriteButton_Click"
+                                CommandParameter="{Binding FormalName}">
+                            <Image x:Name="SampleFavoriteButtonImage" />
+                        </Button>
+                    </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
                         <RadioButton x:Name="SampleRadTab"
                                      Margin="5,0,0,0"

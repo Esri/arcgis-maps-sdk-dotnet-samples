@@ -249,10 +249,7 @@ namespace ArcGISRuntime.Samples.Managers
             // Set favorited samples.
             foreach (var sample in AllSamples)
             {
-                if (favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase))
-                {
-                    sample.IsFavorite = true;
-                }
+                sample.IsFavorite = favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase);
             }
 
             SearchableTreeNode favorites = new SearchableTreeNode("Favorites", AllSamples.Where(sample => favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));

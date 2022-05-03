@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
@@ -162,6 +163,10 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 SourceCodeContainer.LoadSourceCode();
+
+                // Once the sample has loaded show the favorite button
+                SampleFavoriteButton.DataContext = selectedSample;
+                SetFavoriteButtonImageSource(selectedSample);
             }
             catch (OperationCanceledException)
             {
@@ -294,24 +299,85 @@ namespace ArcGISRuntime.Samples.Desktop
             settingsWindow.Show();
         }
 
-        private void FavoriteButton_Click(object sender, RoutedEventArgs e)
+        private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
         {
             string sampleFormalName = (sender as Button).CommandParameter.ToString();
 
             SampleManager.Current.AddRemoveFavorite(sampleFormalName);
 
-            // Select the first item
-            var categories = (List<TreeViewItem>)Categories.DataContext;
-            var selectedCategory = categories.First(c => c.IsSelected);
-            
-            var categoryIndex = 0;
-            categoryIndex = categories.IndexOf(categories.First(c => c.IsSelected));
-           
-            // Set category data context
-            var samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+            // Get the first selected category. 
+            int selectedCategoryIndex = 0;
+            List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
+
+            if (categories.Any(c => c.IsSelected))
+            {
+                selectedCategoryIndex = categories.IndexOf(categories.First(c => c.IsSelected));
+            }
+
+            // Get the expanded categories. 
+            List<int> expandedCategoryIndexes = new List<int>();
+            List<TreeViewItem> expandedCategories = categories.Where(c => c.IsExpanded).ToList();
+
+            foreach (TreeViewItem category in expandedCategories)
+            {
+                expandedCategoryIndexes.Add(categories.IndexOf(category));
+            }
+
+            // Set category data context with the newly favorited categories.
+            List<TreeViewItem> samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
             Categories.DataContext = samples;
 
-            samples[categoryIndex].IsSelected = true;
+            // Set the selected category. 
+            samples[selectedCategoryIndex].IsSelected = true;
+
+            // Set the expanded categories. 
+            foreach (var expandedCategoryIndex in expandedCategoryIndexes)
+            {
+                samples[expandedCategoryIndex].IsExpanded = true;
+            }
+        }
+
+        private void InSampleFavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            string sampleFormalName = (sender as Button).CommandParameter.ToString();
+
+            SampleInfo selectedSample = SampleManager.Current.AllSamples.First(s => s.FormalName.Equals(sampleFormalName));
+
+            SampleManager.Current.AddRemoveFavorite(sampleFormalName);
+            SetFavoriteButtonImageSource(selectedSample);
+
+            List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
+
+            // Get the expanded categories. 
+            List<int> expandedCategoryIndexes = new List<int>();
+            List<TreeViewItem> expandedCategories = categories.Where(c => c.IsExpanded).ToList();
+
+            foreach (TreeViewItem category in expandedCategories)
+            {
+                expandedCategoryIndexes.Add(categories.IndexOf(category));
+            }
+
+            // Set category data context with the newly favorited categories.
+            List<TreeViewItem> samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+            Categories.DataContext = samples;
+
+            // Set the expanded categories. 
+            foreach (var expandedCategoryIndex in expandedCategoryIndexes)
+            {
+                samples[expandedCategoryIndex].IsExpanded = true;
+            }
+        }
+
+        private void SetFavoriteButtonImageSource(SampleInfo selectedSample)
+        {
+            if (selectedSample.IsFavorite)
+            {
+                SampleFavoriteButtonImage.Source = new BitmapImage(new Uri("Resources/favoriteStar.png", UriKind.RelativeOrAbsolute));
+            }
+            else
+            {
+                SampleFavoriteButtonImage.Source = new BitmapImage(new Uri("Resources/borderStar.png", UriKind.RelativeOrAbsolute));
+            }
         }
     }
 }

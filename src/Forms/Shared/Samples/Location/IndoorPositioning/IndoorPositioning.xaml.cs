@@ -38,7 +38,22 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
         private int? _currentFloor = null;
 
+        // This data is specific to a building on the Esri campus. Substitute your own data in order to use this sample. Code in the sample may need to be modified to work with other maps.
+        #region EsriBuildingData
+
+        private Uri _portalUri = new Uri("https://viennardc.maps.arcgis.com");
+
+        private const string sampleUser = "tester_viennardc";
+        private const string samplePass = "password.testing12345";
+
         private const string ItemId = "89f88764c29b48218366855d7717d266";
+
+        private const string PositioningTableName = "ips_positioning";
+        private const string PathwaysLayerName = "pathways";
+
+        private string[] _layerNames = new string[] { "Details", "Units", "Levels" };
+
+        #endregion EsriBuildingData
 
         public IndoorPositioning()
         {
@@ -48,16 +63,12 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
         private async Task Initialize()
         {
-            var portalUri = new Uri("https://viennardc.maps.arcgis.com");
-
             // Handle the login to the feature service.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
             {
                 try
                 {
                     // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
-                    string sampleUser = "tester_viennardc";
-                    string samplePass = "password.testing12345";
                     return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleUser, samplePass, info.GenerateTokenOptions);
                 }
                 catch (Exception ex)
@@ -75,13 +86,12 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 bool bluetoothGranted = await MainActivity.Instance.AskForBluetoothPermission();
                 if (!locationGranted || !bluetoothGranted)
                 {
-                    Debug.WriteLine("Bluetooth and location permissions required for use of indoor positioning.");
-                    //return;
+                    await Application.Current.MainPage.DisplayAlert("Error", "Bluetooth and location permissions required for use of indoor positioning.", "OK");
                 }
 #endif
 
                 // Create a portal item for the web map.
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync(portalUri, true);
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(_portalUri, true);
                 PortalItem item = await PortalItem.CreateAsync(portal, ItemId);
 
                 // Load the map in the map view.
@@ -90,11 +100,11 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
                 // Get the positioning table from the map.
                 await Task.WhenAll(MyMapView.Map.Tables.Select(table => table.LoadAsync()));
-                FeatureTable positioningTable = MyMapView.Map.Tables.FirstOrDefault(table => table.TableName.Equals("ips_positioning"));
+                FeatureTable positioningTable = MyMapView.Map.Tables.FirstOrDefault(table => table.TableName.Equals(PositioningTableName));
                 if (positioningTable == null) return;
 
                 // Get a table of all of the indoor pathways.
-                FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name.Equals("pathways", StringComparison.InvariantCultureIgnoreCase)) as FeatureLayer;
+                FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name.Equals(PathwaysLayerName, StringComparison.InvariantCultureIgnoreCase)) as FeatureLayer;
                 ArcGISFeatureTable pathwaysTable = pathwaysFeatureLayer.FeatureTable as ArcGISFeatureTable;
 
                 // Get the global id for positioning.
@@ -120,7 +130,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex.Message);
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
@@ -142,7 +152,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
                 foreach (DimensionLayer layer in MyMapView.Map.OperationalLayers)
                 {
-                    if (layer?.Name == "Details" || layer?.Name == "Units" || layer?.Name == "Levels")
+                    if (_layerNames.Contains(layer?.Name))
                     {
                         // Set the layer definition expression to only show data for the current floor.
                         layer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";

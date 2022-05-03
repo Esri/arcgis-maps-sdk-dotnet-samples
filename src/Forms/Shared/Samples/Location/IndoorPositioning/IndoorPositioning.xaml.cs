@@ -130,12 +130,19 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 MyMapView.LocationDisplay.DataSource = _indoorsLocationDataSource;
                 MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
 
+                _indoorsLocationDataSource.WarningChanged += WarningChanged;
+
                 await MyMapView.LocationDisplay.DataSource.StartAsync();
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
+        }
+
+        private async void WarningChanged(object sender, Exception ex)
+        {
+            Debug.WriteLine(ex.Message);
         }
 
         private void LocationDisplay_LocationChanged(object sender, Location loc)

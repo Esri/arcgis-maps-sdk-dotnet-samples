@@ -39,6 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
         private int? _currentFloor = null;
 
         // This data is specific to a building on the Esri campus. Substitute your own data in order to use this sample. Code in the sample may need to be modified to work with other maps.
+
         #region EsriBuildingData
 
         private Uri _portalUri = new Uri("https://viennardc.maps.arcgis.com");
@@ -87,6 +88,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 if (!locationGranted || !bluetoothGranted)
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", "Bluetooth and location permissions required for use of indoor positioning.", "OK");
+                    return;
                 }
 #endif
 
@@ -121,12 +123,14 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 FeatureQueryResult queryResult = await positioningTable.QueryFeaturesAsync(queryParameters);
                 Guid globalID = (Guid)queryResult.First().Attributes["GlobalID"];
 
-                // Create the indoor location data source using the tables nad Guid
+                // Create the indoor location data source using the tables and Guid.
                 _indoorsLocationDataSource = new IndoorsLocationDataSource(positioningTable, pathwaysTable, globalID);
 
                 MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
                 MyMapView.LocationDisplay.DataSource = _indoorsLocationDataSource;
                 MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
+                await MyMapView.LocationDisplay.DataSource.StartAsync();
             }
             catch (Exception ex)
             {
@@ -139,29 +143,32 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             // Get the properties from the new location.
             IReadOnlyDictionary<string, object> locationProperties = loc.AdditionalSourceProperties;
 
-            string floor = locationProperties[LocationSourcePropertyKeys.Floor].ToString();
-            string positionSource = locationProperties[LocationSourcePropertyKeys.PositionSource].ToString();
-            string satCount = locationProperties[LocationSourcePropertyKeys.SatelliteCount].ToString();
+            locationProperties.TryGetValue(LocationSourcePropertyKeys.Floor, out object floor);
+            locationProperties.TryGetValue(LocationSourcePropertyKeys.PositionSource, out object positionSource);
+            locationProperties.TryGetValue(LocationSourcePropertyKeys.SatelliteCount, out object satCount);
 
-            int newFloor = int.Parse(floor);
+            int newFloor = int.Parse(floor.ToString());
 
             // Check if the new location is on a different floor.
             if (_currentFloor == null || _currentFloor != newFloor)
             {
                 _currentFloor = newFloor;
 
-                foreach (DimensionLayer layer in MyMapView.Map.OperationalLayers)
+                foreach (Layer layer in MyMapView.Map.OperationalLayers)
                 {
-                    if (_layerNames.Contains(layer?.Name))
+                    if (_layerNames.Contains(layer?.Name) && layer is DimensionLayer dimLayer)
                     {
                         // Set the layer definition expression to only show data for the current floor.
-                        layer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
+                        dimLayer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
                     }
                 }
             }
 
-            // Update the UI with the latest location information.
-            PositioningLabel.Text = $"Floor: {floor}, Position-source: {positionSource}, Horizontal-accuracy: {loc.HorizontalAccuracy}m, Satellite-count: {satCount}";
+            // Update UI on the main thread.
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                PositioningLabel.Text = $"Floor: {floor}\nPosition-source: {positionSource}\nHorizontal-accuracy: {string.Format("{0:0.##}", loc.HorizontalAccuracy)}m\nBeacon-count: {satCount}";
+            });
         }
 
         public void Dispose()

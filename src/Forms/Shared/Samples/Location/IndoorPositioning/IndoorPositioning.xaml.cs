@@ -146,6 +146,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             locationProperties.TryGetValue(LocationSourcePropertyKeys.Floor, out object floor);
             locationProperties.TryGetValue(LocationSourcePropertyKeys.PositionSource, out object positionSource);
             locationProperties.TryGetValue(LocationSourcePropertyKeys.SatelliteCount, out object satCount);
+            locationProperties.TryGetValue("transmitterCount", out object transmitterCount);
 
             int newFloor = int.Parse(floor.ToString());
 
@@ -164,10 +165,21 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 }
             }
 
+            // Set text for satellites or beacons.
+            string countText = string.Empty;
+            if (positionSource.Equals("GNSS"))
+            {
+                countText = $"Satellite count: {satCount}";
+            }
+            else if (positionSource.Equals("BLE"))
+            {
+                countText = $"Beacon count: {transmitterCount}";
+            }
+
             // Update UI on the main thread.
             Device.BeginInvokeOnMainThread(() =>
             {
-                PositioningLabel.Text = $"Floor: {floor}\nPosition-source: {positionSource}\nHorizontal-accuracy: {string.Format("{0:0.##}", loc.HorizontalAccuracy)}m\nBeacon-count: {satCount}";
+                PositioningLabel.Text = $"Floor: {floor}\nPosition-source: {positionSource}\nHorizontal-accuracy: {string.Format("{0:0.##}", loc.HorizontalAccuracy)}m\n{countText}";
             });
         }
 

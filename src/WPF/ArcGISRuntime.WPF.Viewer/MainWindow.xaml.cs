@@ -32,6 +32,9 @@ namespace ArcGISRuntime.Samples.Desktop
             "SearchPortalMaps",
             "OAuth" };
 
+        private BitmapImage _favoriteStarImage = new BitmapImage(new Uri("Resources/favoriteStar.png", UriKind.RelativeOrAbsolute));
+        private BitmapImage _borderStarImage = new BitmapImage(new Uri("Resources/borderStar.png", UriKind.RelativeOrAbsolute));
+
         public MainWindow()
         {
             InitializeComponent();
@@ -302,10 +305,26 @@ namespace ArcGISRuntime.Samples.Desktop
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
         {
             string sampleFormalName = (sender as Button).CommandParameter.ToString();
-
             SampleManager.Current.AddRemoveFavorite(sampleFormalName);
+            ResetCategories();
+        }
 
-            // Get the first selected category. 
+        private void InSampleFavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Categories.SelectedItemChanged -= categories_SelectedItemChanged;
+            CategoriesList.SelectionChanged -= categoriesList_SelectionChanged;
+
+            SampleManager.Current.AddRemoveFavorite(SampleManager.Current.SelectedSample.FormalName);
+            SetFavoriteButtonImageSource(SampleManager.Current.SelectedSample);
+            ResetCategories();
+
+            Categories.SelectedItemChanged += categories_SelectedItemChanged;
+            CategoriesList.SelectionChanged += categoriesList_SelectionChanged;
+        }
+
+        private void ResetCategories()
+        {
+            // Get the first selected category.
             int selectedCategoryIndex = 0;
             List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
 
@@ -314,7 +333,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 selectedCategoryIndex = categories.IndexOf(categories.First(c => c.IsSelected));
             }
 
-            // Get the expanded categories. 
+            // Get the expanded categories.
             List<int> expandedCategoryIndexes = new List<int>();
             List<TreeViewItem> expandedCategories = categories.Where(c => c.IsExpanded).ToList();
 
@@ -327,41 +346,10 @@ namespace ArcGISRuntime.Samples.Desktop
             List<TreeViewItem> samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
             Categories.DataContext = samples;
 
-            // Set the selected category. 
+            // Set the selected category.
             samples[selectedCategoryIndex].IsSelected = true;
 
-            // Set the expanded categories. 
-            foreach (var expandedCategoryIndex in expandedCategoryIndexes)
-            {
-                samples[expandedCategoryIndex].IsExpanded = true;
-            }
-        }
-
-        private void InSampleFavoriteButton_Click(object sender, RoutedEventArgs e)
-        {
-            string sampleFormalName = (sender as Button).CommandParameter.ToString();
-
-            SampleInfo selectedSample = SampleManager.Current.AllSamples.First(s => s.FormalName.Equals(sampleFormalName));
-
-            SampleManager.Current.AddRemoveFavorite(sampleFormalName);
-            SetFavoriteButtonImageSource(selectedSample);
-
-            List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
-
-            // Get the expanded categories. 
-            List<int> expandedCategoryIndexes = new List<int>();
-            List<TreeViewItem> expandedCategories = categories.Where(c => c.IsExpanded).ToList();
-
-            foreach (TreeViewItem category in expandedCategories)
-            {
-                expandedCategoryIndexes.Add(categories.IndexOf(category));
-            }
-
-            // Set category data context with the newly favorited categories.
-            List<TreeViewItem> samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
-            Categories.DataContext = samples;
-
-            // Set the expanded categories. 
+            // Set the expanded categories.
             foreach (var expandedCategoryIndex in expandedCategoryIndexes)
             {
                 samples[expandedCategoryIndex].IsExpanded = true;
@@ -370,14 +358,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void SetFavoriteButtonImageSource(SampleInfo selectedSample)
         {
-            if (selectedSample.IsFavorite)
-            {
-                SampleFavoriteButtonImage.Source = new BitmapImage(new Uri("Resources/favoriteStar.png", UriKind.RelativeOrAbsolute));
-            }
-            else
-            {
-                SampleFavoriteButtonImage.Source = new BitmapImage(new Uri("Resources/borderStar.png", UriKind.RelativeOrAbsolute));
-            }
+            SampleFavoriteButtonImage.Source = selectedSample.IsFavorite ? _favoriteStarImage : _borderStarImage;
         }
     }
 }

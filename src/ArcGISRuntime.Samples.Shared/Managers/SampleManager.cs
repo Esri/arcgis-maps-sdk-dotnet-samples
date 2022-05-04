@@ -15,7 +15,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace ArcGISRuntime.Samples.Managers
@@ -263,7 +262,7 @@ namespace ArcGISRuntime.Samples.Managers
 
             // Get the existing favorites to check if they are already present in the category tree.
             SearchableTreeNode existingFavorites = FullTree.Items.FirstOrDefault(i => i is SearchableTreeNode t && t.Name == "Favorites") as SearchableTreeNode;
-            
+
             if (existingFavorites == null)
             {
                 FullTree.Items.Insert(1, favorites);
@@ -272,7 +271,6 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 FullTree.Items[1] = favorites;
             }
-
         }
 
         internal static string GetFavoritesFolder()

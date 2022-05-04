@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29806.167
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Xamarin.Forms", "Shared\ArcGISRuntime.Xamarin.Forms.shproj", "{05BAEB1E-03DD-4BDC-B0EB-07B2679D9DB8}"
 EndProject
@@ -76,6 +76,7 @@ Global
 		{DB2FC14A-7608-44F9-BCF4-88EC7C1AA949}.Debug|ARM64.ActiveCfg = Debug|iPhoneSimulator
 		{DB2FC14A-7608-44F9-BCF4-88EC7C1AA949}.Debug|iPhone.ActiveCfg = Debug|iPhoneSimulator
 		{DB2FC14A-7608-44F9-BCF4-88EC7C1AA949}.Debug|iPhone.Build.0 = Debug|iPhoneSimulator
+		{DB2FC14A-7608-44F9-BCF4-88EC7C1AA949}.Debug|iPhone.Deploy.0 = Debug|iPhoneSimulator
 		{DB2FC14A-7608-44F9-BCF4-88EC7C1AA949}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{DB2FC14A-7608-44F9-BCF4-88EC7C1AA949}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{DB2FC14A-7608-44F9-BCF4-88EC7C1AA949}.Debug|x64.ActiveCfg = Debug|iPhoneSimulator

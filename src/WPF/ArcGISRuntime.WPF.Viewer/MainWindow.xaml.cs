@@ -324,23 +324,17 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void ResetCategories()
         {
-            // Get the first selected category.
-            int selectedCategoryIndex = 0;
             List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
 
+            // Get the first selected category.
+            int selectedCategoryIndex = 0;
             if (categories.Any(c => c.IsSelected))
             {
                 selectedCategoryIndex = categories.IndexOf(categories.First(c => c.IsSelected));
             }
 
             // Get the expanded categories.
-            List<int> expandedCategoryIndexes = new List<int>();
-            List<TreeViewItem> expandedCategories = categories.Where(c => c.IsExpanded).ToList();
-
-            foreach (TreeViewItem category in expandedCategories)
-            {
-                expandedCategoryIndexes.Add(categories.IndexOf(category));
-            }
+            List<int> expandedCategoryIndexes = categories.Where(c => c.IsExpanded).Select(c => categories.IndexOf(c)).ToList();
 
             // Set category data context with the newly favorited categories.
             List<TreeViewItem> samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);

@@ -82,6 +82,7 @@ namespace ArcGISRuntime.Samples.Managers
             FullTree.Items.Insert(0, featured);
 
 #if !(__IOS__ || XAMARIN || WinUI)
+            // Get favorite samples if they exist. This feature is only available on WPF. 
             AddFavoritesCategory();
 #endif
         }
@@ -211,6 +212,8 @@ namespace ArcGISRuntime.Samples.Managers
 #if !(__IOS__ || XAMARIN || WinUI)
         private static List<string> GetFavoriteSampleNames()
         {
+            // Get the names of the favorite samples from the saved file if it exists.
+            // If the file does not exist, create it. 
             if (File.Exists(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)))
             {
                 return File.ReadAllLines(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)).ToList();
@@ -225,8 +228,10 @@ namespace ArcGISRuntime.Samples.Managers
 
         public void AddRemoveFavorite(string sampleName)
         {
+            // Get the list of favorites from the saved file. 
             List<string> favorites = File.ReadAllLines(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)).ToList();
 
+            // If the sample currently being added/removed is present or not present remove or add it to the list accordingly.
             if (favorites.Contains(sampleName))
             {
                 favorites.Remove(sampleName);
@@ -236,14 +241,15 @@ namespace ArcGISRuntime.Samples.Managers
                 favorites.Add(sampleName);
             }
 
+            // Save the new list of favorites.
             File.WriteAllLines(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName), favorites);
 
+            // Build the categories tree again with the updated favorite category.
             BuildSampleCategories();
         }
 
         private void AddFavoritesCategory()
         {
-            // Get favorite samples if they exist. This feature is only available on WPF. 
             IEnumerable<string> favoriteSamples = GetFavoriteSampleNames();
 
             // Set favorited samples.
@@ -252,8 +258,10 @@ namespace ArcGISRuntime.Samples.Managers
                 sample.IsFavorite = favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase);
             }
 
+            // Create a new SearchableTreeNode for the updated favorites.
             SearchableTreeNode favorites = new SearchableTreeNode("Favorites", AllSamples.Where(sample => favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));
 
+            // Get the existing favorites to check if they are already present in the category tree.
             SearchableTreeNode existingFavorites = FullTree.Items.FirstOrDefault(i => i is SearchableTreeNode t && t.Name == "Favorites") as SearchableTreeNode;
             
             if (existingFavorites == null)

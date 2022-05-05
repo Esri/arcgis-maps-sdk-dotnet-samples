@@ -1,0 +1,22 @@
+{
+    "category": "Map",
+    "description": "Limit the view of a map to a particular area.",
+    "formal_name": "SetMaxExtent",
+    "ignore": false,
+    "images": [
+        "SetMaxExtent.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/SetMaxExtent.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Set max extent"
+}

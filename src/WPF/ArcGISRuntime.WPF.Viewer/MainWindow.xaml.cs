@@ -273,8 +273,12 @@ namespace ArcGISRuntime.Samples.Desktop
             await Task.Delay(200);
             _waitFlag = false;
 
-            var results =
-                SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            PopulateSearchedTree();
+        }
+
+        private void PopulateSearchedTree()
+        {
+            var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
 
             // Set category data context
             Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
@@ -302,11 +306,28 @@ namespace ArcGISRuntime.Samples.Desktop
             settingsWindow.Show();
         }
 
+        #region Update Favorites
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
         {
+            // Get the selected category name and expanded categories before updating the category tree.
+            string selectedCategoryName = GetSelectedCategoryName();
+            List<string> expandedCategoryNames = GetExpandedCategoryNames();
+
             string sampleFormalName = (sender as Button).CommandParameter.ToString();
             SampleManager.Current.AddRemoveFavorite(sampleFormalName);
-            ResetCategories();
+
+            UpdateTreeViewItems();
+
+            if (!string.IsNullOrEmpty(SearchFilterBox.SearchText))
+            {
+                PopulateSearchedTree();
+            }
+
+            // Set the selected category. 
+            SetSelectedCategory(selectedCategoryName);
+
+            // Set the expanded categories.
+            SetExpandedCategories(expandedCategoryNames);
         }
 
         private void InSampleFavoriteButton_Click(object sender, RoutedEventArgs e)
@@ -321,33 +342,81 @@ namespace ArcGISRuntime.Samples.Desktop
             Categories.SelectedItemChanged += categories_SelectedItemChanged;
             CategoriesList.SelectionChanged += categoriesList_SelectionChanged;
         }
+        #endregion
 
-        private void ResetCategories()
+        #region Category Visibility Properties
+        private void SetSelectedCategory(string selectedCategoryName)
+        {
+            if (!string.IsNullOrEmpty(selectedCategoryName))
+            {
+                var selectedTreeViewItem = Categories.Items.Cast<TreeViewItem>().First(t => t.Header.Equals(selectedCategoryName));
+                if (selectedTreeViewItem != null) selectedTreeViewItem.IsSelected = true;
+            } else
+            {
+                var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
+                if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
+            }
+        }
+
+        private void SetExpandedCategories(List<string> expandedCategoryNames)
+        {
+            if (expandedCategoryNames.Any())
+            {
+                foreach (var category in Categories.Items.Cast<TreeViewItem>())
+                {
+                    category.IsExpanded = expandedCategoryNames.Contains((string)category.Header);
+                }
+            }
+        }
+
+        private string GetSelectedCategoryName()
         {
             List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
 
             // Get the first selected category.
-            int selectedCategoryIndex = 0;
             if (categories.Any(c => c.IsSelected))
             {
-                selectedCategoryIndex = categories.IndexOf(categories.First(c => c.IsSelected));
+                return categories.First(c => c.IsSelected).Header as string;
             }
 
-            // Get the expanded categories.
-            List<int> expandedCategoryIndexes = categories.Where(c => c.IsExpanded).Select(c => categories.IndexOf(c)).ToList();
+            return string.Empty;
+        }
 
-            // Set category data context with the newly favorited categories.
+        private List<string> GetExpandedCategoryNames()
+        {
+            List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
+
+            List<string> expandedCategories = new List<string>();
+
+            if (categories.Any(c => c.IsExpanded))
+            {
+                expandedCategories = categories.Where(c => c.IsExpanded).Select(c => (string)c.Header).ToList();
+            }
+
+            return expandedCategories;
+
+        }
+        #endregion
+
+        private void UpdateTreeViewItems()
+        {
             List<TreeViewItem> samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
             Categories.DataContext = samples;
+        }
 
-            // Set the selected category.
-            samples[selectedCategoryIndex].IsSelected = true;
+        private void ResetCategories()
+        {
+            // Get the selected category name and expanded categories before updating the category tree.
+            string selectedCategoryName = GetSelectedCategoryName();
+            List<string> expandedCategoryNames = GetExpandedCategoryNames();
+
+            UpdateTreeViewItems();
+
+            // Set the selected category. 
+            SetSelectedCategory(selectedCategoryName);
 
             // Set the expanded categories.
-            foreach (var expandedCategoryIndex in expandedCategoryIndexes)
-            {
-                samples[expandedCategoryIndex].IsExpanded = true;
-            }
+            SetExpandedCategories(expandedCategoryNames);
         }
 
         private void SetFavoriteButtonImageSource(SampleInfo selectedSample)

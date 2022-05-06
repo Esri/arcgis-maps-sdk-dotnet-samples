@@ -4,21 +4,14 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border MaxWidth="220" Style="{StaticResource BorderStyle}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <CheckBox x:Name="MaxExtentCheckBox"
-                          Grid.Column="0"
-                          VerticalAlignment="Center"
-                          VerticalContentAlignment="Center"
-                          Checked="MaxExtentCheckBoxChanged"
-                          Unchecked="MaxExtentCheckBoxChanged">
-                    <TextBlock Grid.Column="1" Text="Max Extent Enabled" />
-                </CheckBox>
-            </Grid>
+        <Border MaxWidth="200" Style="{StaticResource BorderStyle}">
+            <CheckBox x:Name="MaxExtentCheckBox"
+                      VerticalAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      Checked="MaxExtentCheckBoxChanged"
+                      Unchecked="MaxExtentCheckBoxChanged">
+                <TextBlock Text="Max Extent Enabled" />
+            </CheckBox>
         </Border>
     </Grid>
 </UserControl>

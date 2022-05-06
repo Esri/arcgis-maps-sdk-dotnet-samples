@@ -34,10 +34,8 @@
         "TransportationNetworkDataset"
     ],
     "snippets": [
-        "ItemToImageSourceConverter.cs",
         "MobileMapSearchAndRoute.xaml",
-        "MobileMapSearchAndRoute.xaml.cs",
-        "NullToVisibilityConverter.cs"
+        "MobileMapSearchAndRoute.xaml.cs"
     ],
     "title": "Mobile map (search and route)"
 }

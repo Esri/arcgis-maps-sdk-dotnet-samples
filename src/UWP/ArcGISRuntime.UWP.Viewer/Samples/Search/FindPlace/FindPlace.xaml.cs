@@ -87,11 +87,8 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             // Unsubscribe from further events; only want to zoom to location once
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
-            // Need to use the dispatcher to interact with UI elements because this function is called from a background thread
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-            {
-                MyMapView.SetViewpoint(new Viewpoint(e.Position, 100000));
-            });
+            // Zoom to the location.
+            MyMapView.SetViewpointCenterAsync(e.Position, 100000);
         }
 
         /// <summary>

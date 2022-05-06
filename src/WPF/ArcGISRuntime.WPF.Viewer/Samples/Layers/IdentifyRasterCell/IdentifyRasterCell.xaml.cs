@@ -48,7 +48,8 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
         private async void Initialize()
         {
             // Define a new map with Wgs84 Spatial Reference.
-            var map = new Map(BasemapType.Oceans, latitude: -34.1, longitude: 18.6, levelOfDetail: 9);
+            var map = new Map(BasemapStyle.ArcGISOceans);
+            map.InitialViewpoint = new Viewpoint(-34.1, 18.6, 9);
 
             // Get the file name for the raster.
             string filepath = DataManager.GetDataFolder("b5f977c78ec74b3a8857ca86d1d9b318", "SA_EVI_8Day_03May20.tif");
@@ -99,7 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
 
         private async void IdentifyCell(Point position)
         {
-            // Check if a cell is already being identified
+            // Check if a cell is already being identified.
             if (_isIdentifying)
             {
                 _nextIdentifyAction = () => IdentifyCell(position);

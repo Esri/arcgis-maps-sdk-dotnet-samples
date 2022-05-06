@@ -13,9 +13,10 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/servicefeaturetablenocache.htm",
-        "/net/latest/winui/sample-code/servicefeaturetablemanualcache.htm",
-        "/net/latest/winui/sample-code/servicefeaturetablecache.htm"
+        "/net/latest/winui/sample-code/togglebetweenfeaturerequestmodes.htm",
+        "/net/winui/sample-code/servicefeaturetablenocache.htm",
+        "/net/winui/sample-code/servicefeaturetablemanualcache.htm",
+        "/net/winui/sample-code/servicefeaturetablecache.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

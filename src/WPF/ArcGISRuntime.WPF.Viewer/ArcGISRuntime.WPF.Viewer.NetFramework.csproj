@@ -151,6 +151,9 @@
     <Compile Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml.cs">
       <DependentUpon>RenderMultilayerSymbols.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml.cs">
+      <DependentUpon>SymbolStylesFromWebStyles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml.cs">
       <DependentUpon>ToggleBetweenFeatureRequestModes.xaml</DependentUpon>
     </Compile>
@@ -255,8 +258,6 @@
     <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
       <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Map\MobileMapSearchAndRoute\ItemToImageSourceConverter.cs" />
-    <Compile Include="Samples\Map\MobileMapSearchAndRoute\NullToVisibilityConverter.cs" />
     <Compile Include="Samples\NetworkAnalysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
       <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
     </Compile>
@@ -323,7 +324,9 @@
     <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml.cs">
       <DependentUpon>DictionaryRendererGraphicsOverlay.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
+    <Compile Include="Converters\ItemToImageSourceConverter.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
       <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
     </Compile>
@@ -784,6 +787,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1633,6 +1640,9 @@
     <Content Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -2299,10 +2309,16 @@
     <Compile Include="Controls\SearchTextBox.xaml.cs">
       <DependentUpon>SearchTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converters\TreeViewLeftMarginMultiplierConverter.cs" />
+    <Compile Include="Converters\TreeViewLeftMarginMultiplierConverter.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Helpers\TreeViewItemExtensions.cs" />
-    <Compile Include="Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Converters\SampleToBitmapConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Converters\SampleToBitmapConverter.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Description.xaml.cs">
       <DependentUpon>Description.xaml</DependentUpon>
     </Compile>

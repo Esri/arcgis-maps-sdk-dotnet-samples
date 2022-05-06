@@ -35,7 +35,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
         description: "Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.",
         instructions: "1. Use the button to start taking the map offline.",
         tags: new[] { "basemap", "download", "local", "offline", "save", "web map" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("85282f2aaa2844d8935cdb8722e22a93")]
     public class OfflineBasemapByReference : Activity
     {
         // Hold references to the UI controls.

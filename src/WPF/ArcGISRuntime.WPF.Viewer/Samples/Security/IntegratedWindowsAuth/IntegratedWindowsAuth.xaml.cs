@@ -27,8 +27,6 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
         description: "Connect to an IWA secured Portal and search for maps.",
         instructions: "1. Enter the URL to your IWA-secured portal.",
         tags: new[] { "Portal", "Windows", "authentication", "security" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("LoginWindow.xaml.cs")]
-    [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("LoginWindow.xaml")]
     public partial class IntegratedWindowsAuth
     {
         // The ArcGIS Online URL for searching public web maps.

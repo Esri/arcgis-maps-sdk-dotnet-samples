@@ -35,7 +35,8 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         private async void Initialize()
         {
             // Create a new map centered on Aurora Colorado.
-            MyMapView.Map = new Map(BasemapType.Streets, 39.7294, -104.70, 11);
+            MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
+            MyMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.70, 11);
 
             // Get the full path to the GeoPackage on the device.
             string myGeoPackagePath = GetGeoPackagePath();

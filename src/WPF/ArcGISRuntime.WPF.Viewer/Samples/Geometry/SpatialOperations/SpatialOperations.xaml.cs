@@ -26,11 +26,11 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
     {
         // GraphicsOverlay to hold the polygon graphics.
         private GraphicsOverlay _polygonsOverlay;
-        
+
         // Polygon graphics to run spatial operations on.
         private Graphic _graphicOne;
         private Graphic _graphicTwo;
-        
+
         // Graphic to display the spatial operation result polygon.
         private Graphic _resultGraphic;
 
@@ -45,14 +45,15 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
         private void Initialize()
         {
             // Create the map with a gray canvas basemap and an initial location centered on London, UK.
-            Map spatialOperationsMap = new Map(BasemapType.LightGrayCanvas, 51.5017, -0.12714, 15);
+            Map spatialOperationsMap = new Map(BasemapStyle.ArcGISLightGray);
+            spatialOperationsMap.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 15);
 
             // Add the map to the map view.
             MyMapView.Map = spatialOperationsMap;
 
             // Create and add two overlapping polygon graphics to operate on.
             CreatePolygonsOverlay();
-            
+
             // Fill the combo box with some spatial operations to run on the polygon graphics.
             SpatialOperationComboBox.Items.Add("Difference");
             SpatialOperationComboBox.Items.Add("Intersection");
@@ -65,17 +66,17 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
         {
             // If an operation hasn't been selected, return.
             if (SpatialOperationComboBox.SelectedItem == null) { return; }
-            
+
             // Remove any currently displayed result.
             _polygonsOverlay.Graphics.Remove(_resultGraphic);
-            
+
             // Polygon geometry from the input graphics.
             Geometry polygonOne = _graphicOne.Geometry;
             Geometry polygonTwo = _graphicTwo.Geometry;
-            
+
             // Result polygon for spatial operations.
             Geometry resultPolygon = null;
-            
+
             // Run the selected spatial operation on the polygon graphics and get the result geometry.
             string operation = (string)SpatialOperationComboBox.SelectedItem;
             switch (operation)
@@ -83,23 +84,26 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
                 case "Union":
                     resultPolygon = GeometryEngine.Union(polygonOne, polygonTwo);
                     break;
+
                 case "Difference":
                     resultPolygon = GeometryEngine.Difference(polygonOne, polygonTwo);
                     break;
+
                 case "Symmetric difference":
                     resultPolygon = GeometryEngine.SymmetricDifference(polygonOne, polygonTwo);
                     break;
+
                 case "Intersection":
                     resultPolygon = GeometryEngine.Intersection(polygonOne, polygonTwo);
                     break;
             }
-            
+
             // Create a black outline symbol to use for the result polygon.
             SimpleLineSymbol outlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 1);
-            
+
             // Create a solid red fill symbol for the result polygon graphic.
             SimpleFillSymbol resultSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, System.Drawing.Color.Red, outlineSymbol);
-            
+
             // Create the result polygon graphic and add it to the graphics overlay.
             _resultGraphic = new Graphic(resultPolygon, resultSymbol);
             _polygonsOverlay.Graphics.Add(_resultGraphic);
@@ -109,7 +113,7 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
         {
             // Remove any currently displayed result.
             _polygonsOverlay.Graphics.Remove(_resultGraphic);
-            
+
             // Clear the selected spatial operation.
             SpatialOperationComboBox.SelectedIndex = -1;
         }
@@ -128,12 +132,12 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
                 new MapPoint(-13300, 6710500),
                 new MapPoint(-13160, 6710100)
             };
-            
+
             // Create a polygon graphic with a blue fill.
             SimpleFillSymbol fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Vertical, System.Drawing.Color.Blue, outlineSymbol);
             Polygon polygonOne = new Polygon(polygonVertices);
             _graphicOne = new Graphic(polygonOne, fillSymbol);
-            
+
             // Create a point collection to define outer polygon ring vertices.
             PointCollection outerRingVerticesCollection = new PointCollection(SpatialReferences.WebMercator)
             {
@@ -142,7 +146,7 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
                 new MapPoint(-13160, 6709700),
                 new MapPoint(-14560, 6710730)
             };
-            
+
             // Create a point collection to define inner polygon ring vertices ("donut hole").
             PointCollection innerRingVerticesCollection = new PointCollection(SpatialReferences.WebMercator)
             {
@@ -151,7 +155,7 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
                 new MapPoint(-13160, 6709900),
                 new MapPoint(-12450, 6710660)
             };
-            
+
             // Create a list to contain the inner and outer ring point collections.
             List<PointCollection> polygonParts = new List<PointCollection>
             {
@@ -162,11 +166,11 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
             // Create a polygon graphic with a green fill.
             fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Horizontal, System.Drawing.Color.Green, outlineSymbol);
             _graphicTwo = new Graphic(new Polygon(polygonParts), fillSymbol);
-            
+
             // Create a graphics overlay in the map view to hold the polygons.
             _polygonsOverlay = new GraphicsOverlay();
             MyMapView.GraphicsOverlays.Add(_polygonsOverlay);
-            
+
             // Add the polygons to the graphics overlay.
             _polygonsOverlay.Graphics.Add(_graphicOne);
             _polygonsOverlay.Graphics.Add(_graphicTwo);

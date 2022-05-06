@@ -252,6 +252,7 @@
 * [Scene symbols](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SceneSymbols/readme.md) - Show various kinds of 3D symbols in a scene.
 * [Simple renderer](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SimpleRenderers/readme.md) - Display common symbols for all graphics in a graphics overlay with a renderer.
 * [Read symbols from mobile style](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SymbolsFromMobileStyle/readme.md) - Combine multiple symbols from a mobile style file into a single symbol.
+* [Create symbol styles from web styles](ArcGISRuntime.WPF.Viewer/Samples/Symbology/SymbolStylesFromWebStyles/readme.md) - Create symbol styles from a style file hosted on a portal.
 * [Distance composite scene symbol](ArcGISRuntime.WPF.Viewer/Samples/Symbology/UseDistanceCompositeSym/readme.md) - Change a graphic's symbol based on the camera's proximity to it.
 
 ## Utility network

@@ -176,6 +176,7 @@
 * [Map initial extent](ArcGISRuntime.WinUI.Viewer/Samples/Map/SetInitialMapArea/readme.md) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Set initial map location](ArcGISRuntime.WinUI.Viewer/Samples/Map/SetInitialMapLocation/readme.md) - Display a basemap centered at an initial location and scale.
 * [Map spatial reference](ArcGISRuntime.WinUI.Viewer/Samples/Map/SetMapSpatialReference/readme.md) - Specify a map's spatial reference.
+* [Set max extent](ArcGISRuntime.WinUI.Viewer/Samples/Map/SetMaxExtent/readme.md) - Limit the view of a map to a particular area.
 * [Set min & max scale](ArcGISRuntime.WinUI.Viewer/Samples/Map/SetMinMaxScale/readme.md) - Restrict zooming between specific scale ranges.
 
 ## MapView

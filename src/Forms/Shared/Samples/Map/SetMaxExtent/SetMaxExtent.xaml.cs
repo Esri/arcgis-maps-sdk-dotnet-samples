@@ -62,7 +62,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMaxExtent
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
 
-            // Set the max extent.
+            // Enable the max extent.
             MaxExtentSwitch.IsToggled = true;
         }
 
@@ -70,7 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.SetMaxExtent
         {
             if (_extentEnvelope != null)
             {
-                // Set the map max extent.
+                // Set the map max extent to null to disable the max extent or to the extentEnvelope to enable the max extent.
                 MyMapView.Map.MaxExtent = MaxExtentSwitch.IsToggled ? _extentEnvelope : null;
             }
         }

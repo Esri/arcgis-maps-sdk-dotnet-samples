@@ -62,7 +62,7 @@ namespace ArcGISRuntime.WinUI.Samples.SetMaxExtent
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
 
-            // Set the max extent.
+            // Enable the max extent.
             MaxExtentCheckBox.IsChecked = true;
         }
 
@@ -70,7 +70,7 @@ namespace ArcGISRuntime.WinUI.Samples.SetMaxExtent
         {
             if (_extentEnvelope != null)
             {
-                // Set the map max extent of the map.
+                // Set the map max extent to null to disable the max extent or to the extentEnvelope to enable the max extent.
                 MyMapView.Map.MaxExtent = MaxExtentCheckBox.IsChecked == true ? _extentEnvelope : null;
             }
         }

@@ -107,11 +107,10 @@ namespace ArcGISRuntime.Droid
         {
             if (ContextCompat.CheckSelfPermission(this, BluetoothService) != Permission.Granted)
             {
-                // Request bluetooth scan if on Android 32 or later.
+                // Request bluetooth scan if on Android API 32 or later.
                 if (Build.VERSION.SdkInt > BuildVersionCodes.S)
                 {
                     _bluetoothScanPermissionTCS = new TaskCompletionSource<bool>();
-
                     RequestPermissions(new[] { Manifest.Permission.BluetoothScan }, BluetoothScanPermissionRequestCode);
                     return await _bluetoothScanPermissionTCS.Task;
                 }

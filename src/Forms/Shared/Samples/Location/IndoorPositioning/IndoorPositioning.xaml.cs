@@ -82,10 +82,10 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             {
                 try
                 {
-                    var status = await Xamarin.Essentials.Permissions.RequestAsync<Xamarin.Essentials.Permissions.LocationWhenInUse>();
+                    Xamarin.Essentials.PermissionStatus status = await Xamarin.Essentials.Permissions.RequestAsync<Xamarin.Essentials.Permissions.LocationWhenInUse>();
                     if (status != Xamarin.Essentials.PermissionStatus.Granted)
                     {
-                        await Application.Current.MainPage.DisplayAlert("Error", "Bluetooth and location permissions required for use of indoor positioning.", "OK");
+                        await Application.Current.MainPage.DisplayAlert("Error", "Location permission required for use of indoor positioning.", "OK");
                         return;
                     }
                 }
@@ -95,7 +95,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 }
 
 #if __ANDROID__
-                // Get bluetooth permission for Android devices.
+                // Get bluetooth permission for Android devices. Devies running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
                 bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
                 if (!bluetoothScanGranted)
                 {

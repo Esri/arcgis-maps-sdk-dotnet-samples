@@ -142,32 +142,12 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 MyMapView.LocationDisplay.DataSource = _indoorsLocationDataSource;
                 _indoorsLocationDataSource.LocationChanged += LocationDisplay_LocationChanged;
 
-                _indoorsLocationDataSource.WarningChanged += WarningChanged;
-
-                _indoorsLocationDataSource.Log += Log;
-
                 await MyMapView.LocationDisplay.DataSource.StartAsync();
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
-        }
-        Queue<string> messages = new Queue<string>();
-        private async void Log(object sender, string msg)
-        {
-            //this.Dispatcher.BeginInvokeOnMainThread(() =>
-            //{
-            //    if (messages.Count > 8)
-            //        messages.Dequeue();
-            //    messages.Enqueue(msg);
-            //    Messages.Text = string.Join(Environment.NewLine, messages);
-            //});
-        }
-
-        private void WarningChanged(object sender, Exception ex)
-        {
-            Debug.WriteLine(ex.Message);
         }
 
         private void LocationDisplay_LocationChanged(object sender, Location loc)
@@ -205,7 +185,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             }
             else
             {
-                countText = $"Beacon count: {transmitterCount} {positionSource}";
+                countText = $"Beacon count: {transmitterCount}";
             }
 
             // Update UI on the main thread.

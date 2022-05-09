@@ -1,0 +1,30 @@
+{
+    "category": "Map",
+    "description": "Limit the view of a map to a particular area.",
+    "formal_name": "SetMaxExtent",
+    "ignore": false,
+    "images": [
+        "SetMaxExtent.jpg"
+    ],
+    "keywords": [
+        "extent",
+        "limit panning",
+        "map",
+        "mapview",
+        "max extent",
+        "zoom"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/setmaxextent.htm"
+    ],
+    "relevant_apis": [
+        "Envelope",
+        "Map"
+    ],
+    "snippets": [
+        "SetMaxExtent.xaml",
+        "SetMaxExtent.xaml.cs"
+    ],
+    "title": "Set max extent"
+}

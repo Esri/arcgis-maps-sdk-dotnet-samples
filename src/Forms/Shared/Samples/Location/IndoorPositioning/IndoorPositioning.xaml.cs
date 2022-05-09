@@ -183,7 +183,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             {
                 countText = $"Satellite count: {satCount}";
             }
-            else
+            else if (positionSource.Equals("BLE") || positionSource.Equals("AppleIPS"))
             {
                 countText = $"Beacon count: {transmitterCount}";
             }

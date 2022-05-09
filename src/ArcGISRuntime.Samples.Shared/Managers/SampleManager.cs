@@ -208,7 +208,7 @@ namespace ArcGISRuntime.Samples.Managers
                    sample.Tags.Any(tag => tag.Contains(searchText));
         }
 
-#if !(__IOS__ || XAMARIN || WinUI)
+#if !(__IOS__ || XAMARIN || WinUI || __ANDROID__ || WINDOWS_UWP)
         private static List<string> GetFavoriteSampleNames()
         {
             // Get the names of the favorite samples from the saved file if it exists.

@@ -282,6 +282,7 @@
     </Style>
 
     <Style x:Key="SampleGridFavoriteButton" TargetType="Button">
+        <Setter Property="Foreground" Value="White" />
         <Setter Property="Visibility" Value="Hidden" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding ElementName=SampleGrid, Path=IsMouseOver}" Value="True">
@@ -289,6 +290,15 @@
             </DataTrigger>
             <DataTrigger Binding="{Binding IsFavorite}" Value="True">
                 <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="Foreground" Value="Yellow" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="InSampleFavoriteButton" TargetType="Button">
+        <Setter Property="Foreground" Value="White" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                <Setter Property="Foreground" Value="Yellow" />
             </DataTrigger>
         </Style.Triggers>
     </Style>

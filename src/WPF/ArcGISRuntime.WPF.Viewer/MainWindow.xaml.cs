@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntime.Samples.Desktop
@@ -169,7 +170,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 // Once the sample has loaded show the favorite button
                 SampleFavoriteButton.DataContext = selectedSample;
-                SetFavoriteButtonImageSource(selectedSample);
             }
             catch (OperationCanceledException)
             {
@@ -336,7 +336,8 @@ namespace ArcGISRuntime.Samples.Desktop
             CategoriesList.SelectionChanged -= categoriesList_SelectionChanged;
 
             SampleManager.Current.AddRemoveFavorite(SampleManager.Current.SelectedSample.FormalName);
-            SetFavoriteButtonImageSource(SampleManager.Current.SelectedSample);
+            SampleFavoriteButton.DataContext = SampleManager.Current.SelectedSample;
+            SampleFavoriteButton.Foreground = SampleManager.Current.SelectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
             ResetCategories();
 
             Categories.SelectedItemChanged += categories_SelectedItemChanged;
@@ -351,7 +352,8 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 var selectedTreeViewItem = Categories.Items.Cast<TreeViewItem>().First(t => t.Header.Equals(selectedCategoryName));
                 if (selectedTreeViewItem != null) selectedTreeViewItem.IsSelected = true;
-            } else
+            }
+            else
             {
                 var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
                 if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
@@ -417,11 +419,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
             // Set the expanded categories.
             SetExpandedCategories(expandedCategoryNames);
-        }
-
-        private void SetFavoriteButtonImageSource(SampleInfo selectedSample)
-        {
-            SampleFavoriteButtonImage.Source = selectedSample.IsFavorite ? _favoriteStarImage : _borderStarImage;
         }
     }
 }

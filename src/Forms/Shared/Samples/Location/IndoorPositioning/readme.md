@@ -10,29 +10,29 @@ An indoor positioning system (IPS) allows you to locate yourself and others insi
 
 ## How to use the sample
 
-When the device is within range of an IPS beacon, toggle "Show Location" to change the visibility of the location indicator in the map view. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `navigation`.
+Bring the device within range of an IPS beacon. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `Navigation`.
 
 When there is no IPS beacons nearby, or other errors occur while initializing the indoors location data source, it will seamlessly fall back to the current device location as determined by GPS.
 
 ## How it works
 
 1. Load an IPS-enabled map. This can be a web map hosted as a portal item in ArcGIS Online, an Enterprise Portal, or a mobile map package (.mmpk) created with ArcGIS Pro.
-2. Create an `AGSIndoorsLocationDataSource` with the positioning feature table (stored with the map) and the pathways feature table after both tables are loaded.
+2. Create an `IndoorsLocationDataSource` with the positioning feature table (stored with the map) and the pathways feature table after both tables are loaded.
 3. Handle location change events to respond to floor changes or read other metadata for locations.
-4. Assign the `AGSIndoorsLocationDataSource` to the map view's location display.
-5. Enable and disable the map view's location display using `start()` and `stop()`. Device location will appear on the display as a blue dot and update as the user moves throughout the space.
-6. Use the `autoPanMode` property to change how the map behaves when location updates are received.
+4. Assign the `IndoorsLocationDataSource` to the map view's location display.
+5. Enable and disable the map view's location display using `StartAsync()` and `StopAsync()`. Device location will appear on the display as a blue dot and update as the user moves throughout the space.
+6. Use the `AutoPanMode` property to change how the map behaves when location updates are received.
 
 ## Relevant API
 
-* AGSArcGISFeatureTable
-* AGSFeatureTable
-* AGSIndoorsLocationDataSource
-* AGSLocationChangeHandlerDelegate
-* AGSLocationDisplay
-* AGSLocationDisplayAutoPanMode
-* AGSMap
-* AGSMapView
+* ArcGISFeatureTable
+* FeatureTable
+* IndoorsLocationDataSource
+* Location
+* LocationDisplay
+* LocationDisplayAutoPanMode
+* Map
+* MapView
 
 ## About the data
 

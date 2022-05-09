@@ -30,7 +30,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
         name: "Show device location using indoor positioning",
         category: "Location",
         description: "Show your device's real-time location while inside a building by using signals from indoor positioning beacons.",
-        instructions: "When the device is within range of an IPS beacon, toggle \"Show Location\" to change the visibility of the location indicator in the map view. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `navigation`.",
+        instructions: "Bring the device within range of an IPS beacon. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `Navigation`.",
         tags: new[] { "BLE", "Bluetooth", "GPS", "IPS", "beacon", "blue dot", "building", "facility", "indoor", "location", "map", "mobile", "navigation", "site", "transmitter" })]
     public partial class IndoorPositioning : ContentPage, IDisposable
     {

@@ -28,14 +28,14 @@
         "/net/latest/forms/sample-code/indoorpositioning.htm"
     ],
     "relevant_apis": [
-        "AGSArcGISFeatureTable",
-        "AGSFeatureTable",
-        "AGSIndoorsLocationDataSource",
-        "AGSLocationChangeHandlerDelegate",
-        "AGSLocationDisplay",
-        "AGSLocationDisplayAutoPanMode",
-        "AGSMap",
-        "AGSMapView"
+        "ArcGISFeatureTable",
+        "FeatureTable",
+        "IndoorsLocationDataSource",
+        "Location",
+        "LocationDisplay",
+        "LocationDisplayAutoPanMode",
+        "Map",
+        "MapView"
     ],
     "snippets": [
         "IndoorPositioning.xaml",

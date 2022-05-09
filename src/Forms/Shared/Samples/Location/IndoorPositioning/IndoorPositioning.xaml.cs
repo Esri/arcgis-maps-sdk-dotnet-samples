@@ -20,7 +20,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-#if XAMARIN_ANDROID
+#if __ANDROID__
 using ArcGISRuntime.Droid;
 #endif
 
@@ -61,7 +61,6 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             InitializeComponent();
             _ = Initialize();
         }
-
         private async Task Initialize()
         {
             // Handle the login to the feature service.
@@ -141,9 +140,11 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
                 MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
                 MyMapView.LocationDisplay.DataSource = _indoorsLocationDataSource;
-                MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+                _indoorsLocationDataSource.LocationChanged += LocationDisplay_LocationChanged;
 
                 _indoorsLocationDataSource.WarningChanged += WarningChanged;
+
+                _indoorsLocationDataSource.Log += Log;
 
                 await MyMapView.LocationDisplay.DataSource.StartAsync();
             }
@@ -151,6 +152,17 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             {
                 await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
+        }
+        Queue<string> messages = new Queue<string>();
+        private async void Log(object sender, string msg)
+        {
+            //this.Dispatcher.BeginInvokeOnMainThread(() =>
+            //{
+            //    if (messages.Count > 8)
+            //        messages.Dequeue();
+            //    messages.Enqueue(msg);
+            //    Messages.Text = string.Join(Environment.NewLine, messages);
+            //});
         }
 
         private void WarningChanged(object sender, Exception ex)
@@ -191,9 +203,9 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
             {
                 countText = $"Satellite count: {satCount}";
             }
-            else if (positionSource.Equals("BLE"))
+            else
             {
-                countText = $"Beacon count: {transmitterCount}";
+                countText = $"Beacon count: {transmitterCount} {positionSource}";
             }
 
             // Update UI on the main thread.

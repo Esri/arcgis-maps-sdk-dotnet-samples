@@ -21,7 +21,6 @@ namespace ArcGISRuntimeXamarin.Samples.SetMaxExtent
         description: "Limit the view of a map to a particular area.",
         instructions: "The application loads with a map whose maximum extent has been set to the borders of Colorado. Note that you won't be able to pan far from the Colorado border or zoom out beyond the minimum scale set by the max extent. Use the control to disable the max extent to freely pan/zoom around the map.",
         tags: new[] { "extent", "limit panning", "map", "mapview", "max extent", "zoom" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class SetMaxExtent : ContentPage
     {
         // Hold a reference to the extent envelope.

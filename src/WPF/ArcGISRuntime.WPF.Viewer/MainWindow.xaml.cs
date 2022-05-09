@@ -336,7 +336,6 @@ namespace ArcGISRuntime.Samples.Desktop
             CategoriesList.SelectionChanged -= categoriesList_SelectionChanged;
 
             SampleManager.Current.AddRemoveFavorite(SampleManager.Current.SelectedSample.FormalName);
-            SampleFavoriteButton.DataContext = SampleManager.Current.SelectedSample;
             SampleFavoriteButton.Foreground = SampleManager.Current.SelectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
             ResetCategories();
 

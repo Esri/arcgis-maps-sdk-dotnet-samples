@@ -174,6 +174,7 @@
 * [Map initial extent](Shared/Samples/Map/SetInitialMapArea/readme.md) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Set initial map location](Shared/Samples/Map/SetInitialMapLocation/readme.md) - Display a basemap centered at an initial location and scale.
 * [Map spatial reference](Shared/Samples/Map/SetMapSpatialReference/readme.md) - Specify a map's spatial reference.
+* [Set max extent](Shared/Samples/Map/SetMaxExtent/readme.md) - Limit the view of a map to a particular area.
 * [Set min & max scale](Shared/Samples/Map/SetMinMaxScale/readme.md) - Restrict zooming between specific scale ranges.
 
 ## MapView

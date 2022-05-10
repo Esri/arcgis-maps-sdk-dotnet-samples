@@ -20,6 +20,7 @@
       <Sample>BrowseBuildingFloors</Sample>
       <Sample>ChangeBasemap</Sample>
       <Sample>DisplayOverviewMap</Sample>
+      <Sample>SetMaxExtent</Sample>
     </Category>
     <Category name="MapView">
       <Sample>FilterByTimeExtent</Sample>

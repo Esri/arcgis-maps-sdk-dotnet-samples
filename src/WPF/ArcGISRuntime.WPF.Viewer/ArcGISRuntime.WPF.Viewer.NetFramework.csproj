@@ -151,6 +151,9 @@
     <Compile Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml.cs">
       <DependentUpon>RenderMultilayerSymbols.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\SetMaxExtent\SetMaxExtent.xaml.cs">
+      <DependentUpon>SetMaxExtent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml.cs">
       <DependentUpon>SymbolStylesFromWebStyles.xaml</DependentUpon>
     </Compile>
@@ -787,6 +790,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Map\SetMaxExtent\SetMaxExtent.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1638,6 +1645,9 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMaxExtent\SetMaxExtent.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg">

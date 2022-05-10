@@ -108,15 +108,14 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
                 // Get the positioning table from the map.
                 await Task.WhenAll(MyMapView.Map.Tables.Select(table => table.LoadAsync()));
-                FeatureTable positioningTable = MyMapView.Map.Tables.FirstOrDefault(table => table.TableName.Equals(PositioningTableName));
-                if (positioningTable == null) return;
+                FeatureTable positioningTable = MyMapView.Map.Tables.Single(table => table.TableName.Equals(PositioningTableName));
 
                 // Get a table of all of the indoor pathways.
-                FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().FirstOrDefault(l => l.Name.Equals(PathwaysLayerName, StringComparison.InvariantCultureIgnoreCase));
+                FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().Single(l => l.Name.Equals(PathwaysLayerName, StringComparison.InvariantCultureIgnoreCase));
                 ArcGISFeatureTable pathwaysTable = pathwaysFeatureLayer.FeatureTable as ArcGISFeatureTable;
 
                 // Get the global id for positioning.
-                Field dateCreatedFieldName = positioningTable.Fields.FirstOrDefault(f => f.Name.Equals("DateCreated", StringComparison.InvariantCultureIgnoreCase) || f.Name.Equals("DATE_CREATED", StringComparison.InvariantCultureIgnoreCase));
+                Field dateCreatedFieldName = positioningTable.Fields.Single(f => f.Name.Equals("DateCreated", StringComparison.InvariantCultureIgnoreCase) || f.Name.Equals("DATE_CREATED", StringComparison.InvariantCultureIgnoreCase));
 
                 QueryParameters queryParameters = new QueryParameters
                 {
@@ -127,7 +126,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 queryParameters.OrderByFields.Add(new OrderBy(dateCreatedFieldName.Name, SortOrder.Descending));
 
                 FeatureQueryResult queryResult = await positioningTable.QueryFeaturesAsync(queryParameters);
-                Guid globalID = (Guid)queryResult.First().Attributes["GlobalID"];
+                Guid globalID = (Guid)queryResult.Single().Attributes["GlobalID"];
 
                 // Create the indoor location data source using the tables and Guid.
                 _indoorsLocationDataSource = new IndoorsLocationDataSource(positioningTable, pathwaysTable, globalID);

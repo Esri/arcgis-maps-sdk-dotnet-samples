@@ -114,9 +114,10 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().Single(l => l.Name.Equals(PathwaysLayerName, StringComparison.InvariantCultureIgnoreCase));
                 ArcGISFeatureTable pathwaysTable = pathwaysFeatureLayer.FeatureTable as ArcGISFeatureTable;
 
-                // Get the global id for positioning.
+                // Get the global ID for positioning. The ID identifies a specific row in the feature table that should be used for setting up IPS. We use this ID to construct the data source.
                 Field dateCreatedFieldName = positioningTable.Fields.Single(f => f.Name.Equals("DateCreated", StringComparison.InvariantCultureIgnoreCase) || f.Name.Equals("DATE_CREATED", StringComparison.InvariantCultureIgnoreCase));
 
+                // Create a query for the latest created feature. This is needed for correctly constructing the IPS used in this sample. There is a constructor without an ID parameter that will attempt to automatically find the latest row.
                 QueryParameters queryParameters = new QueryParameters
                 {
                     MaxFeatures = 1,

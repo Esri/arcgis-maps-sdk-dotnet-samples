@@ -194,7 +194,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
         public void Dispose()
         {
             // Stop the location data source.
-            MyMapView.LocationDisplay?.DataSource?.StopAsync();
+            _ = MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

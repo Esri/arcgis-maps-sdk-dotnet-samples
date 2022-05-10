@@ -80,18 +80,10 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
             try
             {
-                try
+                Xamarin.Essentials.PermissionStatus status = await Xamarin.Essentials.Permissions.RequestAsync<Xamarin.Essentials.Permissions.LocationWhenInUse>();
+                if (status != Xamarin.Essentials.PermissionStatus.Granted)
                 {
-                    Xamarin.Essentials.PermissionStatus status = await Xamarin.Essentials.Permissions.RequestAsync<Xamarin.Essentials.Permissions.LocationWhenInUse>();
-                    if (status != Xamarin.Essentials.PermissionStatus.Granted)
-                    {
-                        await Application.Current.MainPage.DisplayAlert("Error", "Location permission required for use of indoor positioning.", "OK");
-                        return;
-                    }
-                }
-                catch
-                {
-                    return;
+                    throw new Exception("Location permission required for use of indoor positioning.");
                 }
 
 #if __ANDROID__
@@ -99,8 +91,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
                 if (!bluetoothScanGranted)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Bluetooth permission is required for use of indoor positioning.", "OK");
-                    return;
+                    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
                 }
 #endif
                 PositioningLabel.Text = "Loading map";

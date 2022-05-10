@@ -95,7 +95,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 }
 
 #if __ANDROID__
-                // Get bluetooth permission for Android devices. Devies running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
+                // Get bluetooth permission for Android devices. Devices running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
                 bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
                 if (!bluetoothScanGranted)
                 {

@@ -167,9 +167,9 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 {
                     _currentFloor = newFloor;
 
-                    foreach (Layer layer in MyMapView.Map.OperationalLayers)
+                    foreach (DimensionLayer dimLayer in MyMapView.Map.OperationalLayers.OfType<DimensionLayer>())
                     {
-                        if (_layerNames.Contains(layer?.Name) && layer is DimensionLayer dimLayer)
+                        if (_layerNames.Contains(dimLayer?.Name))
                         {
                             // Set the layer definition expression to only show data for the current floor.
                             dimLayer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";

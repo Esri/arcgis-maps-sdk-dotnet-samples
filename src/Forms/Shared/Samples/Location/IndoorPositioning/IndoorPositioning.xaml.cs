@@ -152,44 +152,44 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
         {
             // Get the properties from the new location.
             IReadOnlyDictionary<string, object> locationProperties = loc.AdditionalSourceProperties;
-
             locationProperties.TryGetValue(LocationSourcePropertyKeys.Floor, out object floor);
             locationProperties.TryGetValue(LocationSourcePropertyKeys.PositionSource, out object positionSource);
             locationProperties.TryGetValue(LocationSourcePropertyKeys.SatelliteCount, out object satCount);
             locationProperties.TryGetValue("transmitterCount", out object transmitterCount);
 
-            int newFloor = int.Parse(floor.ToString());
-
-            // Check if the new location is on a different floor.
-            if (_currentFloor == null || _currentFloor != newFloor)
+            // Handle any floor changes.
+            if (floor != null)
             {
-                _currentFloor = newFloor;
+                int newFloor = int.Parse(floor.ToString());
 
-                foreach (Layer layer in MyMapView.Map.OperationalLayers)
+                // Check if the new location is on a different floor.
+                if (_currentFloor == null || _currentFloor != newFloor)
                 {
-                    if (_layerNames.Contains(layer?.Name) && layer is DimensionLayer dimLayer)
+                    _currentFloor = newFloor;
+
+                    foreach (Layer layer in MyMapView.Map.OperationalLayers)
                     {
-                        // Set the layer definition expression to only show data for the current floor.
-                        dimLayer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
+                        if (_layerNames.Contains(layer?.Name) && layer is DimensionLayer dimLayer)
+                        {
+                            // Set the layer definition expression to only show data for the current floor.
+                            dimLayer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
+                        }
                     }
                 }
             }
 
-            // Set text for satellites or beacons.
-            string countText = string.Empty;
-            if (positionSource.Equals("GNSS"))
-            {
-                countText = $"Satellite count: {satCount}";
-            }
-            else if (positionSource.Equals("BLE") || positionSource.Equals("AppleIPS"))
-            {
-                countText = $"Beacon count: {transmitterCount}";
-            }
+            // Create the UI label with information about the updated location.
+            string labelText = string.Empty;
+            if (_currentFloor != null) labelText += $"Floor: { _currentFloor}\n";
+            if (positionSource != null) labelText += $"Position-source: {positionSource}\n";
+            if (satCount != null) labelText += $"Satellite count: {satCount}\n";
+            if (transmitterCount != null) labelText += $"Beacon count: {transmitterCount}\n";
+            labelText += $"Horizontal accuracy: { string.Format("{0:0.##}", loc.HorizontalAccuracy)}m";
 
             // Update UI on the main thread.
             Device.BeginInvokeOnMainThread(() =>
             {
-                PositioningLabel.Text = $"Floor: {floor}\nPosition-source: {positionSource}\nHorizontal-accuracy: {string.Format("{0:0.##}", loc.HorizontalAccuracy)}m\n{countText}";
+                PositioningLabel.Text = labelText;
             });
         }
 

@@ -103,6 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                     return;
                 }
 #endif
+                PositioningLabel.Text = "Loading map";
 
                 // Create a portal item for the web map.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync(_portalUri, true);
@@ -111,6 +112,8 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 // Load the map in the map view.
                 MyMapView.Map = new Map(item);
                 await MyMapView.Map.LoadAsync();
+
+                PositioningLabel.Text = "Creating indoors location data source";
 
                 // Get the positioning table from the map.
                 await Task.WhenAll(MyMapView.Map.Tables.Select(table => table.LoadAsync()));
@@ -138,11 +141,15 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 // Create the indoor location data source using the tables and Guid.
                 _indoorsLocationDataSource = new IndoorsLocationDataSource(positioningTable, pathwaysTable, globalID);
 
+                PositioningLabel.Text = "Starting IPS";
+
                 MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
                 MyMapView.LocationDisplay.DataSource = _indoorsLocationDataSource;
                 _indoorsLocationDataSource.LocationChanged += LocationDisplay_LocationChanged;
 
                 await MyMapView.LocationDisplay.DataSource.StartAsync();
+
+                PositioningLabel.Text = "Waiting for location";
             }
             catch (Exception ex)
             {

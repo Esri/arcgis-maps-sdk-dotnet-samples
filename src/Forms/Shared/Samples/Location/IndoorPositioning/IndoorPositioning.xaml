@@ -8,7 +8,7 @@
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}"
                         Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Label x:Name="PositioningLabel" Text="IPS not started" />
+            <Label x:Name="PositioningLabel" />
         </resources:ResponsiveFormContainer>
     </RelativeLayout>
 </ContentPage>

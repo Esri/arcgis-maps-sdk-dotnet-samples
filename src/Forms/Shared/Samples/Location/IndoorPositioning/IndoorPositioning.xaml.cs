@@ -167,13 +167,11 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 {
                     _currentFloor = newFloor;
 
-                    foreach (DimensionLayer dimLayer in MyMapView.Map.OperationalLayers.OfType<DimensionLayer>())
+                    // Loop through dimension layers specified for this data set.
+                    foreach (DimensionLayer dimLayer in MyMapView.Map.OperationalLayers.OfType<DimensionLayer>().Where(layer => _layerNames.Contains(layer.Name)))
                     {
-                        if (_layerNames.Contains(dimLayer?.Name))
-                        {
-                            // Set the layer definition expression to only show data for the current floor.
-                            dimLayer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
-                        }
+                        // Set the layer definition expression to only show data for the current floor.
+                        dimLayer.DefinitionExpression = $"VERTICAL_ORDER = {_currentFloor}";
                     }
                 }
             }

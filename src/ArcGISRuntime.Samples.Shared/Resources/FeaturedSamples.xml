@@ -27,6 +27,7 @@
     </Category>
     <Category name="Symbology">
       <Sample>CustomDictionaryStyle</Sample>
+      <Sample>RenderMultilayerSymbols</Sample>
       <Sample>SymbolStylesFromWebStyles</Sample>
     </Category>
     <Category name="UtilityNetwork">

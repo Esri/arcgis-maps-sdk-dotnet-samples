@@ -112,7 +112,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 if (positioningTable == null) return;
 
                 // Get a table of all of the indoor pathways.
-                FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name.Equals(PathwaysLayerName, StringComparison.InvariantCultureIgnoreCase)) as FeatureLayer;
+                FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().FirstOrDefault(l => l.Name.Equals(PathwaysLayerName, StringComparison.InvariantCultureIgnoreCase));
                 ArcGISFeatureTable pathwaysTable = pathwaysFeatureLayer.FeatureTable as ArcGISFeatureTable;
 
                 // Get the global id for positioning.

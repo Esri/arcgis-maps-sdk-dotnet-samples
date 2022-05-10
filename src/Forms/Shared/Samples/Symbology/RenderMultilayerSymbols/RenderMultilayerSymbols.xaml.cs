@@ -13,11 +13,8 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Windows;
-using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
@@ -41,10 +38,8 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
         private void Initialize()
         {
-            var myMap = new Map(BasemapStyle.ArcGISLightGray);
-            MyMapView.Map = myMap;
+            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
             var overlay = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(overlay);
 
             var textGraphicForMarkers = new Graphic(new MapPoint(-150, 50, SpatialReferences.Wgs84),
                 new TextSymbol()
@@ -121,17 +116,17 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
             overlay.Graphics.Add(textGraphicForComplexSymbols);
 
             // Create the more complex multilayer points, polygons, and polylines.
-            ComplexPoint(overlay);
-            ComplexPolygon(overlay);
-            ComplexPolyline(overlay);
+            AddComplexPointGraphic(overlay);
+            AddComplexPolygonGraphic(overlay);
+            AddComplexPolylineGraphic(overlay);
+
+            MyMapView.GraphicsOverlays.Add(overlay);
         }
 
         #region Create a multilayer point symbol.
 
         private void AddPointGraphicsWithMarkerSymbols(GraphicsOverlay overlay)
         {
-            Graphic pointGraphic;
-
             MultilayerPointSymbol markerSymbol;
 
             // Define a vector element, a diamond in this case.
@@ -143,8 +138,8 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
             markerSymbol = new MultilayerPointSymbol(new[] { vectorMarkerSymbol });
 
             // Create point graphics using the diamond symbol created above.
-            pointGraphic = new Graphic(new MapPoint(-150, 20, SpatialReferences.Wgs84), markerSymbol);
-            overlay.Graphics.Add(pointGraphic);
+            var diamondGraphic = new Graphic(new MapPoint(-150, 20, SpatialReferences.Wgs84), markerSymbol);
+            overlay.Graphics.Add(diamondGraphic);
 
             // Define a vector element, a triangle in this case.
             vectorElementGeometry = Geometry.FromJson("{\"rings\":[[[0.0,5.0],[5,-5.0],[-5,-5.0],[0.0,5.0]]]}");
@@ -155,8 +150,8 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
             markerSymbol = new MultilayerPointSymbol(new[] { vectorMarkerSymbol });
 
             // Create point graphics using the triangle symbol created above.
-            pointGraphic = new Graphic(new MapPoint(-150, 20 - _offset, SpatialReferences.Wgs84), markerSymbol);
-            overlay.Graphics.Add(pointGraphic);
+            var triangleGraphic = new Graphic(new MapPoint(-150, 20 - _offset, SpatialReferences.Wgs84), markerSymbol);
+            overlay.Graphics.Add(triangleGraphic);
 
             // Define a vector element, a cross in this case.
             vectorElementGeometry = Geometry.FromJson("{\"paths\":[[[-1,1],[0,0],[1,-1]],[[1,1],[0,0],[-1,-1]]]}");
@@ -167,8 +162,8 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
             markerSymbol = new MultilayerPointSymbol(new[] { vectorMarkerSymbol });
 
             // Create point graphics using the cross symbol created above.
-            pointGraphic = new Graphic(new MapPoint(-150, 20 - 2 * _offset, SpatialReferences.Wgs84), markerSymbol);
-            overlay.Graphics.Add(pointGraphic);
+            var crossGraphic = new Graphic(new MapPoint(-150, 20 - 2 * _offset, SpatialReferences.Wgs84), markerSymbol);
+            overlay.Graphics.Add(crossGraphic);
         }
 
         #endregion Create a multilayer point symbol.
@@ -177,9 +172,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
         private void AddPointGraphicsWithPictureMarkerSymbolFromUri(GraphicsOverlay overlay)
         {
-            // Create Uri to the used image.
-            var symbolUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
+            var symbolUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
 
             // Create a new symbol using asynchronous factory method from Uri.
             var campsiteMarker = new PictureMarkerSymbolLayer(symbolUri)
@@ -188,7 +181,6 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
             };
             var campsiteSymbol = new MultilayerPointSymbol(new[] { campsiteMarker });
 
-            // Create location for the campsite.
             var campsitePoint = new MapPoint(-80, 20, SpatialReferences.Wgs84);
 
             // Create graphic with the location and symbol.
@@ -238,8 +230,6 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
         private void AddLineGraphicsWithMarkerSymbols(GraphicsOverlay overlay)
         {
-            Graphic lineGraphic;
-
             // Multilayer polyline symbol for different line styles.
             MultilayerPolylineSymbol lineSymbol;
 
@@ -268,8 +258,8 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
             lineSymbol = new MultilayerPolylineSymbol(new List<SymbolLayer> { strokeLayer });
 
             // Create a polyline graphic with geometry using the symbol created above.
-            lineGraphic = new Graphic(polylineBuilder.ToGeometry(), lineSymbol);
-            overlay.Graphics.Add(lineGraphic);
+            var shortDashDotGraphic = new Graphic(polylineBuilder.ToGeometry(), lineSymbol);
+            overlay.Graphics.Add(shortDashDotGraphic);
 
             polylineBuilder = new PolylineBuilder(SpatialReferences.Wgs84);
             polylineBuilder.AddPoint(new MapPoint(-30, 20 - _offset, SpatialReferences.Wgs84));
@@ -287,8 +277,8 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
             lineSymbol = new MultilayerPolylineSymbol(new List<SymbolLayer> { strokeLayer });
 
             // Create a polyline graphic with geometry using the symbol created above.
-            lineGraphic = new Graphic(polylineBuilder.ToGeometry(), lineSymbol);
-            overlay.Graphics.Add(lineGraphic);
+            var shortDashGraphic = new Graphic(polylineBuilder.ToGeometry(), lineSymbol);
+            overlay.Graphics.Add(shortDashGraphic);
 
             polylineBuilder = new PolylineBuilder(SpatialReferences.Wgs84);
             polylineBuilder.AddPoint(new MapPoint(-30, 20 - 2 * _offset, SpatialReferences.Wgs84));
@@ -308,8 +298,8 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
             lineSymbol = new MultilayerPolylineSymbol(new List<SymbolLayer> { strokeLayer });
 
             // Create a polyline graphic with geometry using the symbol created above.
-            lineGraphic = new Graphic(polylineBuilder.ToGeometry(), lineSymbol);
-            overlay.Graphics.Add(lineGraphic);
+            var dashDotGraphic = new Graphic(polylineBuilder.ToGeometry(), lineSymbol);
+            overlay.Graphics.Add(dashDotGraphic);
         }
 
         #endregion Create a multilayer polyline symbol.
@@ -326,14 +316,12 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
             // Create a stroke symbol layer to be used by hatch patterns.
             var strokeForHatches = new SolidStrokeSymbolLayer(2, Color.Red);
-
             var strokeForOutline = new SolidStrokeSymbolLayer(1, Color.Black);
 
             // Create a diagonal cross pattern hatch symbol layers for diagonal cross fill style.
             var diagonalStroke1 = new HatchFillSymbolLayer(new MultilayerPolylineSymbol(new List<SymbolLayer>() { strokeForHatches }), 45);
             var diagonalStroke2 = new HatchFillSymbolLayer(new MultilayerPolylineSymbol(new List<SymbolLayer>() { strokeForHatches }), -45);
 
-            // Define separation distance for lines in a hatch pattern.
             diagonalStroke1.Separation = 9;
             diagonalStroke2.Separation = 9;
 
@@ -352,8 +340,6 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
             // Create a forward diagonal pattern hatch symbol layer for forward diagonal fill style.
             var forwardDiagonal = new HatchFillSymbolLayer(new MultilayerPolylineSymbol(new List<SymbolLayer>() { strokeForHatches }), -45);
-
-            // Define separation distance for lines in a hatch pattern.
             forwardDiagonal.Separation = 9;
 
             // Create a multilayer polygon symbol with symbol layers.
@@ -371,8 +357,6 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
             // Create a vertical pattern hatch symbol layer for vertical fill style.
             var vertical = new HatchFillSymbolLayer(new MultilayerPolylineSymbol(new List<SymbolLayer> { strokeForHatches }), 90);
-
-            // Define separation distance for lines in a hatch pattern.
             vertical.Separation = 9;
 
             // Create a multilayer polygon symbol with symbol layers.
@@ -387,9 +371,9 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
         #region Create complex multilayer point symbol.
 
-        private void ComplexPoint(GraphicsOverlay overlay)
+        private void AddComplexPointGraphic(GraphicsOverlay overlay)
         {
-            // Create an orange envelope with redish outline.
+            // Create an orange envelope with reddish outline.
             var orangeFillLayer = new SolidFillSymbolLayer(Color.Orange);
             var pinkOutline = new SolidStrokeSymbolLayer(2, Color.Blue);
             var orangeSquareGeometry = new Envelope(new MapPoint(-0.5, -0.5, SpatialReferences.Wgs84), new MapPoint(0.5, 0.5, SpatialReferences.Wgs84));
@@ -436,7 +420,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
         #region Create complex multilayer polyline symbol.
 
-        private void ComplexPolyline(GraphicsOverlay overlay)
+        private void AddComplexPolylineGraphic(GraphicsOverlay overlay)
         {
             // Symbol layers for multilayer polyline.
             var blackDashes = new SolidStrokeSymbolLayer(1, Color.Black);
@@ -467,7 +451,7 @@ namespace ArcGISRuntimeXamarin.Samples.RenderMultilayerSymbols
 
         #region Create complex multilayer polygon symbol.
 
-        private void ComplexPolygon(GraphicsOverlay overlay)
+        private void AddComplexPolygonGraphic(GraphicsOverlay overlay)
         {
             // Create the black outline.
             SolidStrokeSymbolLayer blackOutline = new SolidStrokeSymbolLayer(7, Color.Black);

@@ -294,12 +294,4 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="InSampleFavoriteButton" TargetType="Button">
-        <Setter Property="Foreground" Value="White" />
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding IsFavorite}" Value="True">
-                <Setter Property="Foreground" Value="Yellow" />
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
 </ResourceDictionary>

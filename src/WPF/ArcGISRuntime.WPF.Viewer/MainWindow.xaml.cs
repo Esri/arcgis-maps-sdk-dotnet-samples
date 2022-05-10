@@ -168,8 +168,8 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 SourceCodeContainer.LoadSourceCode();
 
-                // Once the sample has loaded show the favorite button
-                SampleFavoriteButton.DataContext = selectedSample;
+                // Set the color of the favorite button
+                SetInSampleFavoriteButtonColor(selectedSample);
             }
             catch (OperationCanceledException)
             {
@@ -336,11 +336,16 @@ namespace ArcGISRuntime.Samples.Desktop
             CategoriesList.SelectionChanged -= categoriesList_SelectionChanged;
 
             SampleManager.Current.AddRemoveFavorite(SampleManager.Current.SelectedSample.FormalName);
-            SampleFavoriteButton.Foreground = SampleManager.Current.SelectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
+            SetInSampleFavoriteButtonColor(SampleManager.Current.SelectedSample);
             ResetCategories();
 
             Categories.SelectedItemChanged += categories_SelectedItemChanged;
             CategoriesList.SelectionChanged += categoriesList_SelectionChanged;
+        }
+
+        private void SetInSampleFavoriteButtonColor(SampleInfo selectedSample)
+        {
+            SampleFavoriteButton.Foreground = selectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
         }
         #endregion
 

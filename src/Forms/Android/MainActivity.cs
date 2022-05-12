@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Droid
 {
-    [Activity(Label = "ArcGIS Runtime SDK for .NET", Icon = "@drawable/icon", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "ArcGIS Runtime SDK for .NET", Icon = "@drawable/icon", MainLauncher = true, Exported = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : Xamarin.Forms.Platform.Android.FormsApplicationActivity
     {
         internal static MainActivity Instance { get; private set; }

@@ -18,17 +18,23 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
     public partial class MainWindow
     {
         private bool _waitFlag;
+        private List<TreeViewItem> _samples;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
             "SearchPortalMaps",
             "OAuth" };
+
+        private BitmapImage _favoriteStarImage = new BitmapImage(new Uri("Resources/favoriteStar.png", UriKind.RelativeOrAbsolute));
+        private BitmapImage _borderStarImage = new BitmapImage(new Uri("Resources/borderStar.png", UriKind.RelativeOrAbsolute));
 
         public MainWindow()
         {
@@ -43,11 +49,11 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleManager.Current.Initialize();
 
                 // Set category data context
-                var samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
-                Categories.DataContext = samples;
+                _samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+                Categories.DataContext = _samples;
 
                 // Select the first item
-                samples.First().IsSelected = true;
+                _samples.First().IsSelected = true;
 
                 Loaded += FirstLoaded;
             }
@@ -161,6 +167,9 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 SourceCodeContainer.LoadSourceCode();
+
+                // Set the color of the favorite button
+                SetInSampleFavoriteButtonColor(selectedSample);
             }
             catch (OperationCanceledException)
             {
@@ -264,8 +273,12 @@ namespace ArcGISRuntime.Samples.Desktop
             await Task.Delay(200);
             _waitFlag = false;
 
-            var results =
-                SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            PopulateSearchedTree();
+        }
+
+        private void PopulateSearchedTree()
+        {
+            var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
 
             // Set category data context
             Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
@@ -291,6 +304,125 @@ namespace ArcGISRuntime.Samples.Desktop
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
             settingsWindow.Show();
+        }
+
+        #region Update Favorites
+        private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the selected category name and expanded categories before updating the category tree.
+            string selectedCategoryName = GetSelectedCategoryName();
+            List<string> expandedCategoryNames = GetExpandedCategoryNames();
+
+            string sampleFormalName = (sender as Button).CommandParameter.ToString();
+            SampleManager.Current.AddRemoveFavorite(sampleFormalName);
+
+            UpdateTreeViewItems();
+
+            if (!string.IsNullOrEmpty(SearchFilterBox.SearchText))
+            {
+                PopulateSearchedTree();
+            }
+
+            // Set the selected category. 
+            SetSelectedCategory(selectedCategoryName);
+
+            // Set the expanded categories.
+            SetExpandedCategories(expandedCategoryNames);
+        }
+
+        private void InSampleFavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Categories.SelectedItemChanged -= categories_SelectedItemChanged;
+            CategoriesList.SelectionChanged -= categoriesList_SelectionChanged;
+
+            SampleManager.Current.AddRemoveFavorite(SampleManager.Current.SelectedSample.FormalName);
+            SetInSampleFavoriteButtonColor(SampleManager.Current.SelectedSample);
+            ResetCategories();
+
+            Categories.SelectedItemChanged += categories_SelectedItemChanged;
+            CategoriesList.SelectionChanged += categoriesList_SelectionChanged;
+        }
+
+        private void SetInSampleFavoriteButtonColor(SampleInfo selectedSample)
+        {
+            SampleFavoriteButton.Foreground = selectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
+        }
+        #endregion
+
+        #region Category Visibility Properties
+        private void SetSelectedCategory(string selectedCategoryName)
+        {
+            if (!string.IsNullOrEmpty(selectedCategoryName))
+            {
+                var selectedTreeViewItem = Categories.Items.Cast<TreeViewItem>().First(t => t.Header.Equals(selectedCategoryName));
+                if (selectedTreeViewItem != null) selectedTreeViewItem.IsSelected = true;
+            }
+            else
+            {
+                var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
+                if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
+            }
+        }
+
+        private void SetExpandedCategories(List<string> expandedCategoryNames)
+        {
+            if (expandedCategoryNames.Any())
+            {
+                foreach (var category in Categories.Items.Cast<TreeViewItem>())
+                {
+                    category.IsExpanded = expandedCategoryNames.Contains((string)category.Header);
+                }
+            }
+        }
+
+        private string GetSelectedCategoryName()
+        {
+            List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
+
+            // Get the first selected category.
+            if (categories.Any(c => c.IsSelected))
+            {
+                return categories.First(c => c.IsSelected).Header as string;
+            }
+
+            return string.Empty;
+        }
+
+        private List<string> GetExpandedCategoryNames()
+        {
+            List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
+
+            List<string> expandedCategories = new List<string>();
+
+            if (categories.Any(c => c.IsExpanded))
+            {
+                expandedCategories = categories.Where(c => c.IsExpanded).Select(c => (string)c.Header).ToList();
+            }
+
+            return expandedCategories;
+
+        }
+        #endregion
+
+        private void UpdateTreeViewItems()
+        {
+            List<TreeViewItem> samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+            Categories.DataContext = samples;
+        }
+
+        private void ResetCategories()
+        {
+            // Get the selected category name and expanded categories before updating the category tree.
+            string selectedCategoryName = GetSelectedCategoryName();
+            List<string> expandedCategoryNames = GetExpandedCategoryNames();
+
+            UpdateTreeViewItems();
+
+            // Set the selected category. 
+            SetSelectedCategory(selectedCategoryName);
+
+            // Set the expanded categories.
+            SetExpandedCategories(expandedCategoryNames);
         }
     }
 }

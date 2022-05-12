@@ -26,36 +26,40 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Grid>
-                        <Border x:Name="Background" BorderBrush="{TemplateBinding BorderBrush}"
+                        <Border x:Name="Background"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}" CornerRadius="3" />
-                        <Rectangle x:Name="DisabledVisualElement" Fill="{DynamicResource WhiteBrush}"
-                                   IsHitTestVisible="False" Opacity="0" RadiusY="3" RadiusX="3" />
-                        <TextBlock x:Name="contentPresenter" Text="{TemplateBinding Content}"
-                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                CornerRadius="3" />
+                        <Rectangle x:Name="DisabledVisualElement"
+                                   Fill="{DynamicResource WhiteBrush}"
+                                   IsHitTestVisible="False"
+                                   Opacity="0"
+                                   RadiusX="3"
+                                   RadiusY="3" />
+                        <TextBlock x:Name="contentPresenter"
                                    Margin="{TemplateBinding Padding}"
-                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                   HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                   VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                   Text="{TemplateBinding Content}" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="Foreground" TargetName="contentPresenter"
-                                    Value="{StaticResource PrimaryColor}" />
-                            <Setter Property="FontWeight" TargetName="contentPresenter" Value="Bold" />
+                            <Setter TargetName="contentPresenter" Property="Foreground" Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="contentPresenter" Property="FontWeight" Value="Bold" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsChecked" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Foreground" TargetName="contentPresenter"
-                                    Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="contentPresenter" Property="Foreground" Value="{StaticResource PrimaryColor}" />
                         </MultiTrigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter Property="BorderBrush" TargetName="Background"
-                                    Value="{DynamicResource ButtonMouseOverBorderBrush}" />
+                            <Setter TargetName="Background" Property="BorderBrush" Value="{DynamicResource ButtonMouseOverBorderBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" TargetName="contentPresenter" Value="0.3" />
+                            <Setter TargetName="contentPresenter" Property="Opacity" Value="0.3" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -79,23 +83,27 @@
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <Border Grid.Row="1" Opacity="0" x:Name="TopBorder" Background="{StaticResource PrimaryColor}"
-                                BorderBrush="{StaticResource PrimaryColor}" BorderThickness="2"
-                                VerticalAlignment="Bottom"/>
+                        <Border x:Name="TopBorder"
+                                Grid.Row="1"
+                                VerticalAlignment="Bottom"
+                                Background="{StaticResource PrimaryColor}"
+                                BorderBrush="{StaticResource PrimaryColor}"
+                                BorderThickness="2"
+                                Opacity="0" />
 
                         <Border x:Name="Background"
                                 Grid.Row="1"
+                                Background="Transparent"
                                 BorderBrush="{StaticResource EsriPrimary}"
-                                BorderThickness="0"
-                                Background="Transparent">
+                                BorderThickness="0">
                             <TextBlock x:Name="contentPresenter"
-                                       Margin="15, 4, 15, 7"
-                                       Foreground="Black"
-                                       FontSize="18"
-                                       Text="{TemplateBinding Content}"
                                        Grid.Row="1"
+                                       Margin="15,4,15,7"
                                        HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" />
+                                       VerticalAlignment="Center"
+                                       FontSize="18"
+                                       Foreground="Black"
+                                       Text="{TemplateBinding Content}" />
                         </Border>
 
                         <Rectangle x:Name="DisabledVisualElement"
@@ -104,31 +112,27 @@
                                    IsHitTestVisible="False"
                                    Opacity="0" />
 
-                        
+
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="BorderThickness" TargetName="Background" Value="0,0,0,2" />
-                            <Setter Property="Padding" TargetName="Background" Value="0,2,0,0" />
-                            <Setter Property="Background" TargetName="Background"
-                                    Value="{StaticResource PrimaryBackgroundColor}" />
-                            <Setter Property="Foreground" TargetName="contentPresenter"
-                                    Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="Background" Property="BorderThickness" Value="0,0,0,2" />
+                            <Setter TargetName="Background" Property="Padding" Value="0,2,0,0" />
+                            <Setter TargetName="Background" Property="Background" Value="{StaticResource PrimaryBackgroundColor}" />
+                            <Setter TargetName="contentPresenter" Property="Foreground" Value="{StaticResource PrimaryColor}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsMouseOver" Value="True" />
                                 <Condition Property="IsChecked" Value="False" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Foreground" TargetName="contentPresenter"
-                                    Value="{StaticResource PrimaryColor}" />
+                            <Setter TargetName="contentPresenter" Property="Foreground" Value="{StaticResource PrimaryColor}" />
                         </MultiTrigger>
                         <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                            <Setter Property="BorderBrush" TargetName="Background"
-                                    Value="{DynamicResource ButtonMouseOverBorderBrush}" />
+                            <Setter TargetName="Background" Property="BorderBrush" Value="{DynamicResource ButtonMouseOverBorderBrush}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" TargetName="contentPresenter" Value="0.3" />
+                            <Setter TargetName="contentPresenter" Property="Opacity" Value="0.3" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -147,7 +151,7 @@
         <Setter Property="Width" Value="375" />
     </Style>
 
-    <!-- TreeView Styles taken from Stack Overflow answer: https://stackoverflow.com/a/672123/4630559 -->
+    <!--  TreeView Styles taken from Stack Overflow answer: https://stackoverflow.com/a/672123/4630559  -->
 
     <SolidColorBrush x:Key="GlyphBrush" Color="#444" />
     <Style x:Key="ExpandCollapseToggleStyle" TargetType="ToggleButton">
@@ -155,23 +159,19 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">
-                    <Grid
-                        Width="15"
-                        Height="13"
-                        Background="Transparent">
+                    <Grid Width="15"
+                          Height="13"
+                          Background="Transparent">
                         <Path x:Name="ExpandPath"
+                              Margin="1,1,1,1"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Center"
-                              Margin="1,1,1,1"
-                              Fill="{StaticResource GlyphBrush}"
-                              Data="M 4 0 L 8 4 L 4 8 Z" />
+                              Data="M 4 0 L 8 4 L 4 8 Z"
+                              Fill="{StaticResource GlyphBrush}" />
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked"
-                                 Value="True">
-                            <Setter Property="Data"
-                                    TargetName="ExpandPath"
-                                    Value="M 0 4 L 8 4 L 4 8 Z" />
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="ExpandPath" Property="Data" Value="M 0 4 L 8 4 L 4 8 Z" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -184,10 +184,10 @@
                 <ControlTemplate>
                     <Border>
                         <Rectangle Margin="0,0,0,0"
-                                   StrokeThickness="5"
+                                   Opacity="0"
                                    Stroke="Black"
                                    StrokeDashArray="1 2"
-                                   Opacity="0" />
+                                   StrokeThickness="5" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -195,49 +195,39 @@
     </Style>
 
 
-    <Style x:Key="{x:Type TreeViewItem}"
-           TargetType="{x:Type TreeViewItem}">
-        <Setter Property="Background"
-                Value="Transparent" />
-        <Setter Property="HorizontalContentAlignment"
-                Value="{Binding Path=HorizontalContentAlignment,
-              RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="VerticalContentAlignment"
-                Value="{Binding Path=VerticalContentAlignment,
-              RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
-        <Setter Property="Padding"
-                Value="1,0,0,0" />
-        <Setter Property="Foreground"
-                Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
-        <Setter Property="FocusVisualStyle"
-                Value="{StaticResource TreeViewItemFocusVisual}" />
+    <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+        <Setter Property="Padding" Value="1,0,0,0" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TreeViewItem}">
                     <ControlTemplate.Resources>
-                        <converters:LeftMarginMultiplierConverter Length="19" x:Key="lengthConverter" />
+                        <converters:LeftMarginMultiplierConverter x:Key="lengthConverter" Length="19" />
                     </ControlTemplate.Resources>
                     <StackPanel>
                         <Border Name="Bd"
+                                Margin="0,2.5,2.5,0"
+                                Padding="0,2.5,0,2.5"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Padding="0,2.5,0,2.5" Margin="0,2.5,2.5,0">
-                            <Grid
-                                Margin="{Binding Converter={StaticResource lengthConverter},
-                              RelativeSource={RelativeSource TemplatedParent}}">
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid Margin="{Binding Converter={StaticResource lengthConverter}, RelativeSource={RelativeSource TemplatedParent}}">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="19" />
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
                                 <ToggleButton x:Name="Expander"
-                                              Style="{StaticResource ExpandCollapseToggleStyle}"
-                                              IsChecked="{Binding Path=IsExpanded,
-                              RelativeSource={RelativeSource TemplatedParent}}"
-                                              ClickMode="Press" />
+                                              ClickMode="Press"
+                                              IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"
+                                              Style="{StaticResource ExpandCollapseToggleStyle}" />
                                 <ContentPresenter x:Name="PART_Header"
                                                   Grid.Column="1"
-                                                  ContentSource="Header"
-                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="Center">
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="Center"
+                                                  ContentSource="Header">
                                     <ContentPresenter.Resources>
                                         <Style TargetType="TextBlock">
                                             <Setter Property="FontSize" Value="16" />
@@ -250,68 +240,58 @@
                         <ItemsPresenter x:Name="ItemsHost" />
                     </StackPanel>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsExpanded"
-                                 Value="false">
-                            <Setter TargetName="ItemsHost"
-                                    Property="Visibility"
-                                    Value="Collapsed" />
+                        <Trigger Property="IsExpanded" Value="false">
+                            <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="HasItems"
-                                 Value="false">
-                            <Setter TargetName="Expander"
-                                    Property="Visibility"
-                                    Value="Hidden" />
+                        <Trigger Property="HasItems" Value="false">
+                            <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="HasHeader"
-                                           Value="false" />
-                                <Condition Property="Width"
-                                           Value="Auto" />
+                                <Condition Property="HasHeader" Value="false" />
+                                <Condition Property="Width" Value="Auto" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="PART_Header"
-                                    Property="MinWidth"
-                                    Value="75" />
+                            <Setter TargetName="PART_Header" Property="MinWidth" Value="75" />
                         </MultiTrigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="HasHeader"
-                                           Value="false" />
-                                <Condition Property="Height"
-                                           Value="Auto" />
+                                <Condition Property="HasHeader" Value="false" />
+                                <Condition Property="Height" Value="Auto" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="PART_Header"
-                                    Property="MinHeight"
-                                    Value="19" />
+                            <Setter TargetName="PART_Header" Property="MinHeight" Value="19" />
                         </MultiTrigger>
-                        <Trigger Property="IsSelected"
-                                 Value="true">
-                            <Setter TargetName="Bd"
-                                    Property="Background" Value="{StaticResource EsriPrimary}" />
-                            <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource EsriPrimary}" />
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected"
-                                           Value="true" />
-                                <Condition Property="IsSelectionActive"
-                                           Value="false" />
+                                <Condition Property="IsSelected" Value="true" />
+                                <Condition Property="IsSelectionActive" Value="false" />
                             </MultiTrigger.Conditions>
-                            <Setter TargetName="Bd"
-                                    Property="Background"
-                                    Value="Transparent" />
-                            <Setter Property="Foreground"
-                                    Value="{StaticResource EsriPrimary}" />
+                            <Setter TargetName="Bd" Property="Background" Value="Transparent" />
+                            <Setter Property="Foreground" Value="{StaticResource EsriPrimary}" />
                         </MultiTrigger>
-                        <Trigger Property="IsEnabled"
-                                 Value="false">
-                            <Setter Property="Foreground"
-                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="SampleGridFavoriteButton" TargetType="Button">
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Visibility" Value="Hidden" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ElementName=SampleGrid, Path=IsMouseOver}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                <Setter Property="Visibility" Value="Visible" />
+                <Setter Property="Foreground" Value="Yellow" />
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

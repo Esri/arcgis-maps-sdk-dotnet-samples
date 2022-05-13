@@ -117,10 +117,12 @@ namespace ArcGISRuntime.Samples.Desktop
                 CategoriesRegion.Visibility = Visibility.Visible;
                 CategoriesHeader.Text = category.Name;
 
-                AnalyticsHelper.TrackEvent("category", new Dictionary<string, string> {
+                // Send analytics.
+                var dict = new Dictionary<string, string> {
                     { "Category", category.Name },
-                    { "Search", SearchFilterBox.SearchText != null ? SearchFilterBox.SearchText : string.Empty },
-                });
+                };
+                if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
+                AnalyticsHelper.TrackEvent("category", dict);
             }
             else if (sample != null)
             {
@@ -134,10 +136,12 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             if (selectedSample == null) return;
 
-            AnalyticsHelper.TrackEvent("sample", new Dictionary<string, string> {
-                { "Sample", selectedSample.SampleName },
-                { "Search", SearchFilterBox.SearchText != null ? SearchFilterBox.SearchText : string.Empty },
-            });
+            // Send analytics.
+            var dict = new Dictionary<string, string> {
+                    { "Sample", selectedSample.SampleName },
+                };
+            if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
+            AnalyticsHelper.TrackEvent("category", dict);
 
             // Restore API key if leaving named user sample.
             if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))

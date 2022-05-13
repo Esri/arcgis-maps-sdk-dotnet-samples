@@ -119,7 +119,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 AnalyticsHelper.TrackEvent("category", new Dictionary<string, string> {
                     { "Category", category.Name },
-                    { "Search", SearchFilterBox.SearchText },
+                    { "Search", SearchFilterBox.SearchText != null ? SearchFilterBox.SearchText : string.Empty },
                 });
             }
             else if (sample != null)
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
             AnalyticsHelper.TrackEvent("sample", new Dictionary<string, string> {
                 { "Sample", selectedSample.SampleName },
-                { "Search", SearchFilterBox.SearchText },
+                { "Search", SearchFilterBox.SearchText != null ? SearchFilterBox.SearchText : string.Empty },
             });
 
             // Restore API key if leaving named user sample.

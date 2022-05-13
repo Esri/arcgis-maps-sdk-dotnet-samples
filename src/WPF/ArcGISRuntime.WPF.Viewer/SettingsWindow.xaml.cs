@@ -73,7 +73,7 @@ namespace ArcGISRuntime
 
         private async Task SetUpTelemetryTab()
         {
-            TelemetryTab.IsEnabled = AnalyticsHelper.AnalyticsEnabled;
+            TelemetryTab.Visibility = AnalyticsHelper.AnalyticsEnabled ? Visibility.Visible : Visibility.Collapsed;
 
             // Set telemetry checkbox.
             TelemetryCheckbox.IsChecked = await Analytics.IsEnabledAsync();

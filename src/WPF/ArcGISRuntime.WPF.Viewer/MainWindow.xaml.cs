@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
@@ -33,9 +32,6 @@ namespace ArcGISRuntime.Samples.Desktop
             "AuthorMap",
             "SearchPortalMaps",
             "OAuth" };
-
-        private BitmapImage _favoriteStarImage = new BitmapImage(new Uri("Resources/favoriteStar.png", UriKind.RelativeOrAbsolute));
-        private BitmapImage _borderStarImage = new BitmapImage(new Uri("Resources/borderStar.png", UriKind.RelativeOrAbsolute));
 
         public MainWindow()
         {

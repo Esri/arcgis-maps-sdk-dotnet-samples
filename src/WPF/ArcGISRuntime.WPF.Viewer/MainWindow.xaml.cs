@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
+using Microsoft.AppCenter.Analytics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -118,6 +119,11 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleContainer.Content = null;
                 CategoriesRegion.Visibility = Visibility.Visible;
                 CategoriesHeader.Text = category.Name;
+
+                Analytics.TrackEvent("category", new Dictionary<string, string> {
+                    { "Category", category.Name },
+                    { "Search", SearchFilterBox.SearchText },
+                });
             }
             else if (sample != null)
             {
@@ -130,6 +136,11 @@ namespace ArcGISRuntime.Samples.Desktop
         private async Task SelectSample(SampleInfo selectedSample)
         {
             if (selectedSample == null) return;
+
+            Analytics.TrackEvent("sample", new Dictionary<string, string> {
+                { "Sample", selectedSample.SampleName },
+                { "Search", SearchFilterBox.SearchText },
+            });
 
             // Restore API key if leaving named user sample.
             if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
@@ -248,6 +259,11 @@ namespace ArcGISRuntime.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Visible;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Collapsed;
+
+            Analytics.TrackEvent("tab", new Dictionary<string, string> {
+                { "Tab", "Description" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            });
         }
 
         private void ShowSourceTab()
@@ -257,6 +273,11 @@ namespace ArcGISRuntime.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Visible;
+
+            Analytics.TrackEvent("tab", new Dictionary<string, string> {
+                { "Tab", "Source code" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            });
         }
 
         private void LiveSample_Click(object sender, RoutedEventArgs e) => ShowSampleTab();
@@ -278,6 +299,9 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void PopulateSearchedTree()
         {
+            bool analyticsEnabledSetting = Analytics.Instance.InstanceEnabled;
+            Analytics.Instance.InstanceEnabled = false;
+
             var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
 
             // Set category data context
@@ -292,6 +316,8 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 CloseCategoryLeaves();
             }
+
+            Analytics.Instance.InstanceEnabled = analyticsEnabledSetting;
         }
 
         private bool SampleSearchFunc(SampleInfo sample)
@@ -307,6 +333,7 @@ namespace ArcGISRuntime.Samples.Desktop
         }
 
         #region Update Favorites
+
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
         {
             // Get the selected category name and expanded categories before updating the category tree.
@@ -323,7 +350,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 PopulateSearchedTree();
             }
 
-            // Set the selected category. 
+            // Set the selected category.
             SetSelectedCategory(selectedCategoryName);
 
             // Set the expanded categories.
@@ -347,9 +374,11 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SampleFavoriteButton.Foreground = selectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
         }
-        #endregion
+
+        #endregion Update Favorites
 
         #region Category Visibility Properties
+
         private void SetSelectedCategory(string selectedCategoryName)
         {
             if (!string.IsNullOrEmpty(selectedCategoryName))
@@ -400,9 +429,9 @@ namespace ArcGISRuntime.Samples.Desktop
             }
 
             return expandedCategories;
-
         }
-        #endregion
+
+        #endregion Category Visibility Properties
 
         private void UpdateTreeViewItems()
         {
@@ -418,7 +447,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
             UpdateTreeViewItems();
 
-            // Set the selected category. 
+            // Set the selected category.
             SetSelectedCategory(selectedCategoryName);
 
             // Set the expanded categories.

@@ -8,8 +8,12 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Windows;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
@@ -30,6 +34,16 @@ namespace ArcGISRuntime.WPF.Viewer
 
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+
+
+                // analytics
+                AppCenter.Start(,
+                   typeof(Analytics), typeof(Crashes));
+
+                var countryCode = RegionInfo.CurrentRegion.TwoLetterISORegionName;
+                AppCenter.SetCountryCode(countryCode);
+
+                Analytics.TrackEvent("Sample viewer started");
             }
             catch (Exception ex)
             {

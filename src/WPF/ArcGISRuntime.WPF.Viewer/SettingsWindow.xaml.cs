@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.WPF.Viewer;
 using Esri.ArcGISRuntime;
+using Microsoft.AppCenter.Analytics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -65,6 +66,28 @@ namespace ArcGISRuntime
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
 
             SampleDataListView.ItemsSource = OfflineDataSamples;
+
+            _ = SetUpTelemetryBox();
+        }
+
+        private async Task SetUpTelemetryBox()
+        {
+            // Set telemetry checkbox.
+            TelemetryCheckbox.IsChecked = await Analytics.IsEnabledAsync();
+            TelemetryCheckbox.Checked += TelemetryCheckboxChanged;
+            TelemetryCheckbox.Unchecked += TelemetryCheckboxChanged;
+
+            // Unhook event handlers when window closes.
+            this.Closed += (s, e) =>
+            {
+                TelemetryCheckbox.Checked -= TelemetryCheckboxChanged;
+                TelemetryCheckbox.Unchecked -= TelemetryCheckboxChanged;
+            };
+        }
+
+        private void TelemetryCheckboxChanged(object sender, RoutedEventArgs e)
+        {
+            _ = Analytics.SetEnabledAsync(TelemetryCheckbox.IsChecked == true);
         }
 
         private void HyperlinkClick(object sender, System.Windows.Forms.HtmlElementEventArgs e)

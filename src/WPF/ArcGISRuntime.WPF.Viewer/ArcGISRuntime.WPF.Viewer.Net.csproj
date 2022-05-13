@@ -116,6 +116,8 @@
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.1" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.1" />
     <PackageReference Include="System.Speech" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>

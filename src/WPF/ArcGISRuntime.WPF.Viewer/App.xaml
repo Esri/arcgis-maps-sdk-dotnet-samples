@@ -6,19 +6,19 @@
     <Application.Resources>
         <ResourceDictionary>
 
-            <!-- General Style files -->
+            <!--  General Style files  -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources\ControlStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="HeaderTextBlock" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}"/>
+                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
             </Style>
             <Style x:Key="PrimaryTextBlock" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}"/>
+                <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
             </Style>
             <Style x:Key="SecondaryTextBlock" TargetType="TextBlock">
-                <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}"/>
+                <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
             </Style>
 
         </ResourceDictionary>

@@ -44,6 +44,8 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
+                Analytics.Instance.InstanceEnabled = false;
+
                 SampleManager.Current.Initialize();
 
                 // Set category data context
@@ -54,6 +56,8 @@ namespace ArcGISRuntime.Samples.Desktop
                 _samples.First().IsSelected = true;
 
                 Loaded += FirstLoaded;
+
+                Analytics.Instance.InstanceEnabled = AnalyticsHelper.AnalyticsEnabled;
             }
             catch (Exception ex)
             {
@@ -300,7 +304,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void PopulateSearchedTree()
         {
-            bool analyticsEnabledSetting = Analytics.Instance.InstanceEnabled;
             Analytics.Instance.InstanceEnabled = false;
 
             var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
@@ -318,7 +321,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 CloseCategoryLeaves();
             }
 
-            Analytics.Instance.InstanceEnabled = analyticsEnabledSetting;
+            Analytics.Instance.InstanceEnabled = AnalyticsHelper.AnalyticsEnabled;
         }
 
         private bool SampleSearchFunc(SampleInfo sample)

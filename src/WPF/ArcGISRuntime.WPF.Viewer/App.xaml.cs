@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Helpers;
 using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
@@ -37,7 +38,6 @@ namespace ArcGISRuntime.WPF.Viewer
 
                 // Analytics are only used in the Microsoft store version of the viewer.
                 //StartAnalytics();
-                
             }
             catch (Exception ex)
             {
@@ -49,6 +49,8 @@ namespace ArcGISRuntime.WPF.Viewer
 
         private void StartAnalytics()
         {
+            AnalyticsHelper.AnalyticsEnabled = true;
+
             // Start app analytics.
             string appSecret = "";
             AppCenter.Start(appSecret, typeof(Analytics), typeof(Crashes));

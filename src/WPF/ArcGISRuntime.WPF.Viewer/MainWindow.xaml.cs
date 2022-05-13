@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Helpers;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
@@ -116,7 +117,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 CategoriesRegion.Visibility = Visibility.Visible;
                 CategoriesHeader.Text = category.Name;
 
-                Analytics.TrackEvent("category", new Dictionary<string, string> {
+                AnalyticsHelper.TrackEvent("category", new Dictionary<string, string> {
                     { "Category", category.Name },
                     { "Search", SearchFilterBox.SearchText },
                 });
@@ -133,7 +134,7 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             if (selectedSample == null) return;
 
-            Analytics.TrackEvent("sample", new Dictionary<string, string> {
+            AnalyticsHelper.TrackEvent("sample", new Dictionary<string, string> {
                 { "Sample", selectedSample.SampleName },
                 { "Search", SearchFilterBox.SearchText },
             });
@@ -256,7 +257,7 @@ namespace ArcGISRuntime.Samples.Desktop
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Collapsed;
 
-            Analytics.TrackEvent("tab", new Dictionary<string, string> {
+            AnalyticsHelper.TrackEvent("tab", new Dictionary<string, string> {
                 { "Tab", "Description" },
                 { "Sample", SampleManager.Current.SelectedSample?.SampleName },
             });
@@ -270,7 +271,7 @@ namespace ArcGISRuntime.Samples.Desktop
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Visible;
 
-            Analytics.TrackEvent("tab", new Dictionary<string, string> {
+            AnalyticsHelper.TrackEvent("tab", new Dictionary<string, string> {
                 { "Tab", "Source code" },
                 { "Sample", SampleManager.Current.SelectedSample?.SampleName },
             });

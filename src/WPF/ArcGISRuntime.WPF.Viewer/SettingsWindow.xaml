@@ -108,12 +108,12 @@
             <TabItem Header="API Key">
                 <local:ApiKeyPrompt HorizontalAlignment="Left" VerticalAlignment="Top" />
             </TabItem>
-            <TabItem Header="Telemetry">
+            <TabItem Name="TelemetryTab"
+                     Header="Telemetry"
+                     IsEnabled="False">
                 <StackPanel>
                     <Label Content="This app uses telemetry to determine which samples are being used and what searches are done in app. No location or GPS data is reported using telemetry." />
                     <CheckBox x:Name="TelemetryCheckbox" Content="Telemetry enabled." />
-
-
                 </StackPanel>
             </TabItem>
         </TabControl>

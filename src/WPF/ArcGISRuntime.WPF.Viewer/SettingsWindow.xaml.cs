@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Helpers;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.WPF.Viewer;
@@ -67,11 +68,13 @@ namespace ArcGISRuntime
 
             SampleDataListView.ItemsSource = OfflineDataSamples;
 
-            _ = SetUpTelemetryBox();
+            _ = SetUpTelemetryTab();
         }
 
-        private async Task SetUpTelemetryBox()
+        private async Task SetUpTelemetryTab()
         {
+            TelemetryTab.IsEnabled = AnalyticsHelper.AnalyticsEnabled;
+
             // Set telemetry checkbox.
             TelemetryCheckbox.IsChecked = await Analytics.IsEnabledAsync();
             TelemetryCheckbox.Checked += TelemetryCheckboxChanged;

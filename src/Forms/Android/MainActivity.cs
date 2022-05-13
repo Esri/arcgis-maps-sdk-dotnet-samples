@@ -41,21 +41,24 @@ namespace ArcGISRuntime.Droid
         #region Permissions
 
         private const int LocationPermissionRequestCode = 99;
-        private const int LocationRequesNoMap = 97;
+        private const int LocationRequestNoMap = 97;
 
         private const int CameraPermissionRequestCode = 100;
+        private const int BluetoothPermissionRequestCode = 101;
+        private const int BluetoothScanPermissionRequestCode = 102;
 
         private Esri.ArcGISRuntime.Xamarin.Forms.MapView _lastUsedMapView;
         private TaskCompletionSource<bool> _locationPermissionTCS;
-
         private TaskCompletionSource<bool> _cameraPermissionTCS;
+        private TaskCompletionSource<bool> _bluetoothPermissionTCS;
+        private TaskCompletionSource<bool> _bluetoothScanPermissionTCS;
 
         public async Task<bool> AskForLocationPermission()
         {
             if (ContextCompat.CheckSelfPermission(this, LocationService) != Permission.Granted)
             {
                 _locationPermissionTCS = new TaskCompletionSource<bool>();
-                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation }, LocationRequesNoMap);
+                RequestPermissions(new[] { Manifest.Permission.AccessFineLocation, Manifest.Permission.AccessCoarseLocation }, LocationRequestNoMap);
                 return await _locationPermissionTCS.Task;
             }
             return true;
@@ -100,12 +103,33 @@ namespace ArcGISRuntime.Droid
             return true;
         }
 
+        public async Task<bool> AskForBluetoothPermission()
+        {
+            if (ContextCompat.CheckSelfPermission(this, BluetoothService) != Permission.Granted)
+            {
+                // Request bluetooth scan if on Android API 32 or later.
+                if (Build.VERSION.SdkInt > BuildVersionCodes.S)
+                {
+                    _bluetoothScanPermissionTCS = new TaskCompletionSource<bool>();
+                    RequestPermissions(new[] { Manifest.Permission.BluetoothScan }, BluetoothScanPermissionRequestCode);
+                    return await _bluetoothScanPermissionTCS.Task;
+                }
+                else
+                {
+                    _bluetoothPermissionTCS = new TaskCompletionSource<bool>();
+                    RequestPermissions(new[] { Manifest.Permission.Bluetooth, Manifest.Permission.BluetoothAdmin }, BluetoothPermissionRequestCode);
+                    return await _bluetoothPermissionTCS.Task;
+                }
+            }
+            return true;
+        }
+
         public override async void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             if (requestCode == LocationPermissionRequestCode)
             {
                 // If the permissions were granted, enable location.
-                if ((grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted)) && _lastUsedMapView != null)
+                if ((grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted) && _lastUsedMapView != null))
                 {
                     System.Diagnostics.Debug.WriteLine("User affirmatively gave permission to use location. Enabling location.");
                     try
@@ -128,13 +152,27 @@ namespace ArcGISRuntime.Droid
                 // Reset the mapview.
                 _lastUsedMapView = null;
             }
-            else if (requestCode == LocationRequesNoMap)
+            else if (requestCode == LocationRequestNoMap)
             {
                 _locationPermissionTCS.TrySetResult(grantResults.Length == 2 && (grantResults[0] == Permission.Granted || grantResults[1] == Permission.Granted));
             }
-            else if(requestCode == CameraPermissionRequestCode)
+            else if (requestCode == CameraPermissionRequestCode)
             {
                 _cameraPermissionTCS.TrySetResult(grantResults.Length == 1 && grantResults[0] == Permission.Granted);
+            }
+            else if (requestCode == BluetoothPermissionRequestCode)
+            {
+                _bluetoothPermissionTCS.TrySetResult(grantResults.Length == 2 && (grantResults[0] == Permission.Granted && grantResults[1] == Permission.Granted));
+            }
+            else if (requestCode == BluetoothScanPermissionRequestCode)
+            {
+                _bluetoothScanPermissionTCS.TrySetResult(grantResults.Length == 1 && (grantResults[0] == Permission.Granted));
+            }
+            else
+            {
+                Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+                base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
             }
         }
 

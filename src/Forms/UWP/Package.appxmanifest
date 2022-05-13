@@ -33,5 +33,6 @@
     <Capability Name="privateNetworkClientServer" />
     <uap:Capability Name="enterpriseAuthentication"/>
     <DeviceCapability Name="location" />
+    <DeviceCapability Name="bluetooth"/>
   </Capabilities>
 </Package>

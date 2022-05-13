@@ -11,6 +11,7 @@
   <ItemGroup>
     <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Location\IndoorPositioning\IndoorPositioning.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.jpg" />
@@ -213,6 +214,10 @@
     <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml.cs">
       <DependentUpon>SymbolStylesFromWebStyles.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Location\IndoorPositioning\IndoorPositioning.xaml.cs">
+      <DependentUpon>IndoorPositioning.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml.cs">
@@ -923,6 +928,9 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Location\IndoorPositioning\IndoorPositioning.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml">

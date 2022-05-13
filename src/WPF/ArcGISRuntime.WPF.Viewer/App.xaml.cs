@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Windows;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
@@ -35,15 +35,9 @@ namespace ArcGISRuntime.WPF.Viewer
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
 
-
-                // analytics
-                AppCenter.Start(,
-                   typeof(Analytics), typeof(Crashes));
-
-                var countryCode = RegionInfo.CurrentRegion.TwoLetterISORegionName;
-                AppCenter.SetCountryCode(countryCode);
-
-                Analytics.TrackEvent("Sample viewer started");
+                // Analytics are only used in the Microsoft store version of the viewer.
+                //StartAnalytics();
+                
             }
             catch (Exception ex)
             {
@@ -51,6 +45,15 @@ namespace ArcGISRuntime.WPF.Viewer
                 MessageBox.Show(string.Format("There was an error that prevented initializing the runtime. {0}", ex.Message));
                 Current.Shutdown();
             }
+        }
+
+        private void StartAnalytics()
+        {
+            // Start app analytics.
+            string appSecret = "";
+            AppCenter.Start(appSecret, typeof(Analytics), typeof(Crashes));
+            AppCenter.SetCountryCode(RegionInfo.CurrentRegion.TwoLetterISORegionName);
+            Analytics.StartSession();
         }
     }
 }

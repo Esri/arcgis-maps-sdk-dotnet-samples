@@ -13,6 +13,8 @@ using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,6 +29,7 @@ namespace ArcGISRuntime.Samples.Desktop
     {
         private bool _waitFlag;
         private List<TreeViewItem> _samples;
+        private SampleInfo _selectedSample;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
@@ -129,6 +132,8 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private async Task SelectSample(SampleInfo selectedSample)
         {
+            _selectedSample = selectedSample;
+
             if (selectedSample == null) return;
 
             // Restore API key if leaving named user sample.
@@ -185,6 +190,13 @@ namespace ArcGISRuntime.Samples.Desktop
 
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
+            SetScreenshotButttonVisibility(ScreenshotManager.ScreenshotSettings.ScreenshotEnabled);
+            SetContainerDimensions(ScreenshotManager.ScreenshotSettings.ScreenshotEnabled);
+        }
+
+        private void SetScreenshotButttonVisibility(bool isEnabled)
+        {
+            ScreenshotButton.Visibility = isEnabled ? Visibility.Visible : Visibility.Hidden;
         }
 
         private static void ClearCredentials()
@@ -303,7 +315,28 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
+            settingsWindow.Closing += SettingsWindow_Closing;
             settingsWindow.Show();
+        }
+
+        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SetScreenshotButttonVisibility(ScreenshotManager.ScreenshotSettings.ScreenshotEnabled);
+            SetContainerDimensions(ScreenshotManager.ScreenshotSettings.ScreenshotEnabled);
+        }
+
+        private void SetContainerDimensions(bool setDimensions)
+        {
+            if (setDimensions)
+            {
+                SampleContainer.Width = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+                SampleContainer.Height = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            }
+            else
+            {
+                SampleContainer.Width = double.NaN;
+                SampleContainer.Height = double.NaN;
+            }
         }
 
         #region Update Favorites
@@ -423,6 +456,29 @@ namespace ArcGISRuntime.Samples.Desktop
 
             // Set the expanded categories.
             SetExpandedCategories(expandedCategoryNames);
+        }
+
+        private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
+        {
+            GetJpgImage(SampleContainer);
+        }
+
+        private static void GetJpgImage(UIElement source)
+        {
+            int Height = (int)source.DesiredSize.Height;
+            int Width = (int)source.DesiredSize.Width;
+            System.Windows.Point relativePoint = source.PointToScreen(new System.Windows.Point(0d, 0d));
+            int X = (int)relativePoint.X;
+            int Y = (int)relativePoint.Y;
+            Bitmap Screenshot = new Bitmap(Width, Height);
+            Graphics G = Graphics.FromImage(Screenshot);
+            // snip wanted area
+            G.CopyFromScreen(X, Y, 0, 0, new System.Drawing.Size(Width, Height), CopyPixelOperation.SourceCopy);
+            string filePath = @"C:\Users\Ham12189\Pictures\test.png"; // insert your filepath here to see the image output.
+
+            System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
+            Screenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+            fs.Close();
         }
     }
 }

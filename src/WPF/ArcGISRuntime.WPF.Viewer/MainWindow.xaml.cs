@@ -463,21 +463,38 @@ namespace ArcGISRuntime.Samples.Desktop
             GetJpgImage(SampleContainer);
         }
 
-        private static void GetJpgImage(UIElement source)
+        private void GetJpgImage(UIElement source)
         {
-            int Height = (int)source.DesiredSize.Height;
-            int Width = (int)source.DesiredSize.Width;
+            ContentControl sampleContainer = (ContentControl)source;
+            int actualHeight = (int)sampleContainer.ActualHeight;
+            int actualWidth = (int)sampleContainer.ActualWidth;
+
+            PresentationSource presentationSource = PresentationSource.FromVisual(source);
+
+            double scaleX, scaleY = 1;
+
+            scaleX = presentationSource.CompositionTarget.TransformToDevice.M11;
+            scaleY = presentationSource.CompositionTarget.TransformToDevice.M22;
+
+            int Height = (int)(source.DesiredSize.Height * scaleY);
+            int Width = (int)(source.DesiredSize.Width * scaleX);
             System.Windows.Point relativePoint = source.PointToScreen(new System.Windows.Point(0d, 0d));
             int X = (int)relativePoint.X;
             int Y = (int)relativePoint.Y;
-            Bitmap Screenshot = new Bitmap(Width, Height);
-            Graphics G = Graphics.FromImage(Screenshot);
-            // snip wanted area
+            Bitmap screenshot = new Bitmap(Width, Height);
+            Graphics G = Graphics.FromImage(screenshot);
             G.CopyFromScreen(X, Y, 0, 0, new System.Drawing.Size(Width, Height), CopyPixelOperation.SourceCopy);
-            string filePath = @"C:\Users\Ham12189\Pictures\test.png"; // insert your filepath here to see the image output.
+
+            // If scaling has occurred due to screen scaling we need to resize the image.
+            Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scaleX), (int)(screenshot.Height / scaleY)));
+
+            string sourcePath = ScreenshotManager.ScreenshotSettings.SourcePath;
+            string sampleName = _selectedSample.FormalName;
+            string categoryName = _selectedSample.Category;
+            string filePath = @$"{sourcePath}\{categoryName}\{sampleName}\{sampleName}.jpg"; // insert your filepath here to see the image output.
 
             System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
-            Screenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+            resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
             fs.Close();
         }
     }

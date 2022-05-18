@@ -62,7 +62,7 @@ namespace ArcGISRuntime
             }
 
             ScreenshotManager.SaveScreenshotSettings(screenshotSettings);
-
+            
             Status.Text = "Saved";
         }
 

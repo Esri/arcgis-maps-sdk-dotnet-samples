@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.Desktop
                     { "Sample", selectedSample.SampleName },
                 };
             if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
-            AnalyticsHelper.TrackEvent("category", dict);
+            AnalyticsHelper.TrackEvent("sample", dict);
 
             // Restore API key if leaving named user sample.
             if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))

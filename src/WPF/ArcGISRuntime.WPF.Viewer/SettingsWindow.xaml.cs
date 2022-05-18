@@ -73,7 +73,7 @@ namespace ArcGISRuntime
             System.Windows.Forms.HtmlElement src = LicenseBrowser.Document?.GetElementFromPoint(e.ClientMousePosition);
 
             // Check if the element is a hyperlink.
-            if (src?.OuterHtml.Contains("http") == true)
+            if (src?.OuterHtml.Contains("http") == true && src.Children.Count == 0)
             {
                 // Parse the url from the hyperlink html.
                 string url = src.OuterHtml.Split('\"')[1];

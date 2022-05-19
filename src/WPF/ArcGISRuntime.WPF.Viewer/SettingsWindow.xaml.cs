@@ -12,7 +12,6 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.WPF.Viewer;
 using Esri.ArcGISRuntime;
-using Microsoft.AppCenter.Analytics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -68,15 +67,15 @@ namespace ArcGISRuntime
 
             SampleDataListView.ItemsSource = OfflineDataSamples;
 
-            _ = SetUpTelemetryTab();
+            SetUpTelemetryTab();
         }
 
-        private async Task SetUpTelemetryTab()
+        private void SetUpTelemetryTab()
         {
-            TelemetryTab.Visibility = AnalyticsHelper.AnalyticsEnabled ? Visibility.Visible : Visibility.Collapsed;
+            TelemetryTab.Visibility = AnalyticsHelper.AnalyticsStarted ? Visibility.Visible : Visibility.Collapsed;
 
             // Set telemetry checkbox.
-            TelemetryCheckbox.IsChecked = await Analytics.IsEnabledAsync();
+            TelemetryCheckbox.IsChecked = AnalyticsHelper.AnalyticsEnabled;
             TelemetryCheckbox.Checked += TelemetryCheckboxChanged;
             TelemetryCheckbox.Unchecked += TelemetryCheckboxChanged;
 
@@ -90,7 +89,8 @@ namespace ArcGISRuntime
 
         private void TelemetryCheckboxChanged(object sender, RoutedEventArgs e)
         {
-            _ = Analytics.SetEnabledAsync(TelemetryCheckbox.IsChecked == true);
+            AnalyticsHelper.AnalyticsEnabled = TelemetryCheckbox.IsChecked == true;
+            AnalyticsHelper.EnableAnalytics();
         }
 
         private void HyperlinkClick(object sender, System.Windows.Forms.HtmlElementEventArgs e)

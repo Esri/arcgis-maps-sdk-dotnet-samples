@@ -12,7 +12,6 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
-using Microsoft.AppCenter.Analytics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,7 +43,7 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
-                Analytics.Instance.InstanceEnabled = false;
+                AnalyticsHelper.DisableAnalytics();
 
                 SampleManager.Current.Initialize();
 
@@ -57,7 +56,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
                 Loaded += FirstLoaded;
 
-                Analytics.Instance.InstanceEnabled = AnalyticsHelper.AnalyticsEnabled;
+                AnalyticsHelper.EnableAnalytics();
             }
             catch (Exception ex)
             {
@@ -304,7 +303,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void PopulateSearchedTree()
         {
-            Analytics.Instance.InstanceEnabled = false;
+            AnalyticsHelper.DisableAnalytics();
 
             var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
 
@@ -321,7 +320,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 CloseCategoryLeaves();
             }
 
-            Analytics.Instance.InstanceEnabled = AnalyticsHelper.AnalyticsEnabled;
+            AnalyticsHelper.EnableAnalytics();
         }
 
         private bool SampleSearchFunc(SampleInfo sample)

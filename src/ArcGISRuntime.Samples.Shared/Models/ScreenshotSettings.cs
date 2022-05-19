@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ArcGISRuntime.Samples.Shared.Models
+﻿namespace ArcGISRuntime.Samples.Shared.Models
 {
     public class ScreenshotSettings
     {
@@ -10,5 +6,6 @@ namespace ArcGISRuntime.Samples.Shared.Models
         public string SourcePath { get; set; }
         public int? Width { get; set; }
         public int? Height { get; set; }
+        public double? ScaleFactor { get; set; }
     }
 }

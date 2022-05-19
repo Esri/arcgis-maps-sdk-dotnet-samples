@@ -8,17 +8,25 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
+using ArcGISRuntime.Samples.Shared.Models;
 using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Drawing;
 using Windows.System;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
     public sealed partial class SamplePage
     {
+        private SampleInfo _selectedSample;
+        private Windows.System.VirtualKey _lastKeyPress;
+
         public SamplePage()
         {
             InitializeComponent();
@@ -29,9 +37,17 @@ namespace ArcGISRuntime.WinUI.Viewer
 
             // Get selected sample and set that as the DataContext.
             DataContext = SampleManager.Current.SelectedSample;
+            _selectedSample = SampleManager.Current.SelectedSample;
 
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
+
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                KeyDown += ScreenshotKeyDown_Event;
+                SampleContainer.Width = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+                SampleContainer.Height = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            }
 
             // Change UI elements to be dark.
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
@@ -56,7 +72,7 @@ namespace ArcGISRuntime.WinUI.Viewer
             DescriptionBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
             // Set the appropriate backgrounds.
-            DescriptionContainer.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
+            DescriptionContainer.Background = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
 
             // Load the source code files.
             _ = SourceCodeContainer.LoadSourceCodeAsync();
@@ -81,6 +97,45 @@ namespace ArcGISRuntime.WinUI.Viewer
         private async void MarkdownText_LinkClicked(object sender, LinkClickedEventArgs e)
         {
             await Launcher.LaunchUriAsync(new Uri(e.Link));
+        }
+
+        private void ScreenshotKeyDown_Event(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.End)
+            {
+                GetJpgImage(SampleContainer);
+            }
+        }
+
+        private void GetJpgImage(UIElement source)
+        {
+            ContentControl sampleContainer = (ContentControl)source;
+            int actualHeight = (int)sampleContainer.ActualHeight;
+            int actualWidth = (int)sampleContainer.ActualWidth;
+
+            double scale = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.Value : double.NaN;
+
+            int Height = (int)(source.DesiredSize.Height * scale);
+            int Width = (int)(source.DesiredSize.Width * scale);
+            var visual = source.TransformToVisual(null).TransformPoint(new Windows.Foundation.Point(0, 0));
+            int X = (int)(visual.X * scale);
+            int Y = (int)(visual.Y * scale) + 29;
+
+            Bitmap screenshot = new Bitmap(Width, Height);
+            Graphics G = Graphics.FromImage(screenshot);
+            G.CopyFromScreen(X, Y, 0, 0, new System.Drawing.Size(Width, Height), CopyPixelOperation.SourceCopy);
+
+            // If scaling has occurred due to screen scaling we need to resize the image.
+            Bitmap resizedScreenshot = new Bitmap(screenshot, new Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
+
+            string sourcePath = ScreenshotManager.ScreenshotSettings.SourcePath;
+            string sampleName = _selectedSample.FormalName;
+            string categoryName = _selectedSample.Category;
+            string filePath = @$"{sourcePath}\{categoryName}\{sampleName}\{sampleName}.jpg"; // insert your filepath here to see the image output.
+
+            System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
+            resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+            fs.Close();
         }
     }
 }

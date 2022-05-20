@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Helpers;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
@@ -21,7 +22,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
@@ -35,9 +35,6 @@ namespace ArcGISRuntime.Samples.Desktop
             "SearchPortalMaps",
             "OAuth" };
 
-        private BitmapImage _favoriteStarImage = new BitmapImage(new Uri("Resources/favoriteStar.png", UriKind.RelativeOrAbsolute));
-        private BitmapImage _borderStarImage = new BitmapImage(new Uri("Resources/borderStar.png", UriKind.RelativeOrAbsolute));
-
         public MainWindow()
         {
             InitializeComponent();
@@ -48,6 +45,8 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
+                AnalyticsHelper.DisableAnalytics();
+
                 SampleManager.Current.Initialize();
 
                 // Set category data context
@@ -58,6 +57,8 @@ namespace ArcGISRuntime.Samples.Desktop
                 _samples.First().IsSelected = true;
 
                 Loaded += FirstLoaded;
+
+                AnalyticsHelper.EnableAnalytics();
             }
             catch (Exception ex)
             {
@@ -120,6 +121,13 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleContainer.Content = null;
                 CategoriesRegion.Visibility = Visibility.Visible;
                 CategoriesHeader.Text = category.Name;
+
+                // Send analytics.
+                var dict = new Dictionary<string, string> {
+                    { "Category", category.Name },
+                };
+                if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
+                AnalyticsHelper.TrackEvent("category", dict);
             }
             else if (sample != null)
             {
@@ -132,6 +140,13 @@ namespace ArcGISRuntime.Samples.Desktop
         private async Task SelectSample(SampleInfo selectedSample)
         {
             if (selectedSample == null) return;
+
+            // Send analytics.
+            var dict = new Dictionary<string, string> {
+                    { "Sample", selectedSample.SampleName },
+                };
+            if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
+            AnalyticsHelper.TrackEvent("sample", dict);
 
             // Restore API key if leaving named user sample.
             if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
@@ -252,6 +267,11 @@ namespace ArcGISRuntime.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Visible;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Collapsed;
+
+            AnalyticsHelper.TrackEvent("tab", new Dictionary<string, string> {
+                { "Tab", "Description" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            });
         }
 
         private void ShowSourceTab()
@@ -261,6 +281,11 @@ namespace ArcGISRuntime.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Visible;
+
+            AnalyticsHelper.TrackEvent("tab", new Dictionary<string, string> {
+                { "Tab", "Source code" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            });
         }
 
         private void LiveSample_Click(object sender, RoutedEventArgs e) => ShowSampleTab();
@@ -282,6 +307,8 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private void PopulateSearchedTree()
         {
+            AnalyticsHelper.DisableAnalytics();
+
             var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
 
             // Set category data context
@@ -296,6 +323,8 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 CloseCategoryLeaves();
             }
+
+            AnalyticsHelper.EnableAnalytics();
         }
 
         private bool SampleSearchFunc(SampleInfo sample)
@@ -313,6 +342,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
 
         #region Update Favorites
+
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
         {
             // Get the selected category name and expanded categories before updating the category tree.
@@ -329,7 +359,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 PopulateSearchedTree();
             }
 
-            // Set the selected category. 
+            // Set the selected category.
             SetSelectedCategory(selectedCategoryName);
 
             // Set the expanded categories.
@@ -353,9 +383,11 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SampleFavoriteButton.Foreground = selectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
         }
-        #endregion
+
+        #endregion Update Favorites
 
         #region Category Visibility Properties
+
         private void SetSelectedCategory(string selectedCategoryName)
         {
             if (!string.IsNullOrEmpty(selectedCategoryName))
@@ -406,9 +438,9 @@ namespace ArcGISRuntime.Samples.Desktop
             }
 
             return expandedCategories;
-
         }
-        #endregion
+
+        #endregion Category Visibility Properties
 
         private void UpdateTreeViewItems()
         {
@@ -424,7 +456,7 @@ namespace ArcGISRuntime.Samples.Desktop
 
             UpdateTreeViewItems();
 
-            // Set the selected category. 
+            // Set the selected category.
             SetSelectedCategory(selectedCategoryName);
 
             // Set the expanded categories.

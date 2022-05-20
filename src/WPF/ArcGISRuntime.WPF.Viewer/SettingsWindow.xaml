@@ -111,6 +111,16 @@
             <TabItem Header="Screenshot">
                 <local:ScreenshotTab HorizontalAlignment="Left" VerticalAlignment="Top" />
             </TabItem>
+            <TabItem Name="TelemetryTab" Header="Telemetry">
+                <StackPanel>
+                    <TextBlock Margin="5"
+                               Text="This app uses telemetry to determine which samples are being used and what searches are done in app. No location or GPS data is reported using telemetry."
+                               TextWrapping="Wrap" />
+                    <CheckBox x:Name="TelemetryCheckbox"
+                              Margin="5"
+                              Content="Telemetry enabled." />
+                </StackPanel>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

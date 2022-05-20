@@ -2283,6 +2283,7 @@
   </ItemGroup>
   <!-- Sample Viewer code (not samples) -->
   <ItemGroup>
+    <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Resource Include="Resources\ic_menu_closeclear_light.png" />
     <Resource Include="Resources\ic_menu_find_light.png" />
     <Resource Include="Resources\ic_menu_settings_dark.png" />
@@ -2396,6 +2397,12 @@
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Analytics">
+      <Version>4.5.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AppCenter.Crashes">
+      <Version>4.5.1</Version>
     </PackageReference>
   </ItemGroup>
   <!-- Imports -->

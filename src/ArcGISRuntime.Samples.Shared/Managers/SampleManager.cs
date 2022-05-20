@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Helpers;
 using ArcGISRuntime.Samples.Shared.Attributes;
 using ArcGISRuntime.Samples.Shared.Models;
 using System;
@@ -25,7 +26,8 @@ namespace ArcGISRuntime.Samples.Managers
     public class SampleManager
     {
         // Private constructor
-        private SampleManager() { }
+        private SampleManager()
+        { }
 
         // Static initialization of the unique instance
         private static readonly SampleManager SingleInstance = new SampleManager();
@@ -81,7 +83,7 @@ namespace ArcGISRuntime.Samples.Managers
             FullTree.Items.Insert(0, featured);
 
 #if !(__IOS__ || XAMARIN || WinUI || __ANDROID__ || WINDOWS_UWP)
-            // Get favorite samples if they exist. This feature is only available on WPF. 
+            // Get favorite samples if they exist. This feature is only available on WPF.
             AddFavoritesCategory();
 #endif
         }
@@ -209,10 +211,11 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
 #if !(__IOS__ || XAMARIN || WinUI || __ANDROID__ || WINDOWS_UWP)
+
         private static List<string> GetFavoriteSampleNames()
         {
             // Get the names of the favorite samples from the saved file if it exists.
-            // If the file does not exist, create it. 
+            // If the file does not exist, create it.
             if (File.Exists(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)))
             {
                 return File.ReadAllLines(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)).ToList();
@@ -227,7 +230,7 @@ namespace ArcGISRuntime.Samples.Managers
 
         public void AddRemoveFavorite(string sampleName)
         {
-            // Get the list of favorites from the saved file. 
+            // Get the list of favorites from the saved file.
             List<string> favorites = File.ReadAllLines(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)).ToList();
 
             // If the sample currently being added/removed is present or not present remove or add it to the list accordingly.
@@ -238,6 +241,10 @@ namespace ArcGISRuntime.Samples.Managers
             else
             {
                 favorites.Add(sampleName);
+
+                AnalyticsHelper.TrackEvent("favorite", new Dictionary<string, string> {
+                    { "Sample", AllSamples.FirstOrDefault(s => s.FormalName.Equals(sampleName)).SampleName },
+                });
             }
 
             // Save the new list of favorites.
@@ -283,6 +290,7 @@ namespace ArcGISRuntime.Samples.Managers
 
             return sampleDataFolder;
         }
+
 #endif
     }
 }

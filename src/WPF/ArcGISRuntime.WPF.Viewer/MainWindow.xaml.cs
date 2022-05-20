@@ -490,9 +490,16 @@ namespace ArcGISRuntime.Samples.Desktop
             // Remove white space.
             filePath = Regex.Replace(filePath, @"\s+", "");
 
-            System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
-            resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
-            fs.Close();
+            try
+            {
+                System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
+                resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving screenshot: {ex.Message}");
+            }
         }
 #endregion
     }

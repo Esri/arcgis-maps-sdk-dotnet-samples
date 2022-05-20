@@ -15,7 +15,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Managers\ApiKeyManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\DataManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Managers\SampleManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Managers\ScreenshotManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SampleInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ScreenshotSettings.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\SearchableTreeNode.cs" />
   </ItemGroup>
   <ItemGroup>

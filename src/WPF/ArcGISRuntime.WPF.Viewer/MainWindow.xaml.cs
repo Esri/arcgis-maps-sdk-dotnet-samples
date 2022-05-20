@@ -14,7 +14,9 @@ using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -200,6 +202,8 @@ namespace ArcGISRuntime.Samples.Desktop
 
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
+            SetScreenshotButttonVisibility();
+            SetContainerDimensions();
         }
 
         private static void ClearCredentials()
@@ -332,8 +336,10 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
+            settingsWindow.Closing += SettingsWindow_Closing;
             settingsWindow.Show();
         }
+
 
         #region Update Favorites
 
@@ -456,5 +462,77 @@ namespace ArcGISRuntime.Samples.Desktop
             // Set the expanded categories.
             SetExpandedCategories(expandedCategoryNames);
         }
+
+        #region Screenshot Tool
+
+        private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveScreenshot(SampleContainer);
+        }
+
+        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SetScreenshotButttonVisibility();
+            SetContainerDimensions();
+        }
+        private void SetScreenshotButttonVisibility()
+        {
+            ScreenshotButton.Visibility = ScreenshotManager.ScreenshotSettings.ScreenshotEnabled ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void SetContainerDimensions()
+        {
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                SampleContainer.Width = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+                SampleContainer.Height = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            }
+            else
+            {
+                SampleContainer.Width = double.NaN;
+                SampleContainer.Height = double.NaN;
+            }
+        }
+
+        // Code here is adapted from the following Stack Overflow answers:
+        // https://stackoverflow.com/q/24466482
+        // https://stackoverflow.com/a/15537372
+        private void SaveScreenshot(UIElement source)
+        {
+            PresentationSource presentationSource = PresentationSource.FromVisual(source);
+
+            double scaleX = presentationSource.CompositionTarget.TransformToDevice.M11;
+            double scaleY = presentationSource.CompositionTarget.TransformToDevice.M22;
+
+            int height = (int)(source.DesiredSize.Height * scaleY);
+            int width = (int)(source.DesiredSize.Width * scaleX);
+            System.Windows.Point screenPoint = source.PointToScreen(new System.Windows.Point(0d, 0d));
+            Bitmap screenshot = new Bitmap(width, height);
+            Graphics G = Graphics.FromImage(screenshot);
+            G.CopyFromScreen((int)screenPoint.X, (int)screenPoint.Y, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
+
+            // If scaling has occurred due to screen scaling we need to resize the image.
+            Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scaleX), (int)(screenshot.Height / scaleY)));
+
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WPF\\ArcGISRuntime.WPF.Viewer\\Samples\\" +
+                $"{SampleManager.Current.SelectedSample.Category}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+
+            // Remove white space.
+            filePath = Regex.Replace(filePath, @"\s+", "");
+
+            try
+            {
+                System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
+                resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving screenshot: {ex.Message}");
+            }
+        }
+#endregion
     }
 }

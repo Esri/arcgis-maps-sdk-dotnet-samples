@@ -54,6 +54,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="ScreenshotTab.xaml" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Resources\SyntaxHighlighting\highlight.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -66,6 +69,7 @@
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.14.0" />
     <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.14.0" />
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.14.0" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
@@ -85,6 +89,12 @@
 
   <ItemGroup>
     <Folder Include="Samples\GraphicsOverlay\SketchOnMap\resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="ScreenshotTab.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
   </ItemGroup>
   
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

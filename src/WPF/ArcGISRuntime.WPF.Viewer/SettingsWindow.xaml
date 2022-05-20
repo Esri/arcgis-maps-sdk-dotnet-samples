@@ -109,7 +109,7 @@
                 <local:ApiKeyPrompt HorizontalAlignment="Left" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Header="Screenshot">
-                <local:ScreenshotPrompt HorizontalAlignment="Left" VerticalAlignment="Top" />
+                <local:ScreenshotTab HorizontalAlignment="Left" VerticalAlignment="Top" />
             </TabItem>
         </TabControl>
     </Grid>

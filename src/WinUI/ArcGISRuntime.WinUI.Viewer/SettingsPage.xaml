@@ -120,7 +120,7 @@
             <arcgisruntime:ApiKeyPrompt />
         </TabViewItem>
         <TabViewItem Header="Screenshot" IsClosable="False">
-            <arcgisruntime:ScreenshotPrompt />
+            <arcgisruntime:ScreenshotTab />
         </TabViewItem>
     </TabView>
 </UserControl>

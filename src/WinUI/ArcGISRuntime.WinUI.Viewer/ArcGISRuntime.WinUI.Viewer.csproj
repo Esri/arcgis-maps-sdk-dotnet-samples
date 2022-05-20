@@ -54,7 +54,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Remove="ScreenshotPrompt.xaml" />
+    <None Remove="ScreenshotTab.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\SyntaxHighlighting\highlight.css">
@@ -92,7 +92,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Update="ScreenshotPrompt.xaml">
+    <Page Update="ScreenshotTab.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>

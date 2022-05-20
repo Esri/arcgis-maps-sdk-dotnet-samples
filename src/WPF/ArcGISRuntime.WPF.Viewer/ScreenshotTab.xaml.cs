@@ -10,9 +10,9 @@ namespace ArcGISRuntime
     /// <summary>
     /// Interaction logic for ScreenshotPrompt.xaml
     /// </summary>
-    public partial class ScreenshotPrompt : UserControl
+    public partial class ScreenshotTab : UserControl
     {
-        public ScreenshotPrompt()
+        public ScreenshotTab()
         {
             InitializeComponent();
             Initialize();
@@ -24,9 +24,14 @@ namespace ArcGISRuntime
             SourcePathText.Text = ScreenshotManager.ScreenshotSettings.SourcePath;
             WidthEntryBox.Text = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.ToString() : null;
             HeightEntryBox.Text = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.ToString() : null;
+
+            ScreenshotEnabledCheckBox.Checked += SaveData_Event;
+            SourcePathText.TextChanged += SaveData_Event;
+            WidthEntryBox.TextChanged += SaveData_Event;
+            HeightEntryBox.TextChanged += SaveData_Event;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveData_Event(object sender, RoutedEventArgs e)
         {
             ScreenshotSettings screenshotSettings = new ScreenshotSettings();
             screenshotSettings.ScreenshotEnabled = ScreenshotEnabledCheckBox.IsChecked.HasValue ? ScreenshotEnabledCheckBox.IsChecked.Value : false;
@@ -51,19 +56,6 @@ namespace ArcGISRuntime
             }
 
             ScreenshotManager.SaveScreenshotSettings(screenshotSettings);
-
-            Status.Text = "Saved";
-        }
-
-        private void IntegerInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            e.Handled = !IsTextAllowed(e.Text);
-        }
-
-        private bool IsTextAllowed(string text)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            return !regex.IsMatch(text);
         }
     }
 }

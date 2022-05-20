@@ -18,9 +18,9 @@ using System.Text.RegularExpressions;
 
 namespace ArcGISRuntime
 {
-    public sealed partial class ScreenshotPrompt : UserControl
+    public sealed partial class ScreenshotTab : UserControl
     {
-        public ScreenshotPrompt()
+        public ScreenshotTab()
         {
             this.InitializeComponent();
         }
@@ -37,9 +37,15 @@ namespace ArcGISRuntime
             WidthEntryBox.Text = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.ToString() : null;
             HeightEntryBox.Text = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.ToString() : null;
             ScaleFactorEntryBox.Text = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.ToString() : null;
+
+            ScreenshotEnabledCheckBox.Checked += SaveData_Event;
+            SourcePathText.TextChanged += SaveData_Event;
+            WidthEntryBox.TextChanged += SaveData_Event;
+            HeightEntryBox.TextChanged += SaveData_Event;
+            ScaleFactorEntryBox.TextChanged += SaveData_Event;
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveData_Event(object sender, RoutedEventArgs e)
         {
             ScreenshotSettings screenshotSettings = new ScreenshotSettings();
             screenshotSettings.ScreenshotEnabled = ScreenshotEnabledCheckBox.IsChecked.HasValue ? ScreenshotEnabledCheckBox.IsChecked.Value : false;
@@ -73,30 +79,6 @@ namespace ArcGISRuntime
             }
 
             ScreenshotManager.SaveScreenshotSettings(screenshotSettings);
-
-            Status.Text = "Saved";
-        }
-
-        private void IntegerInput_BeforeTextChanging(object sender, TextBoxBeforeTextChangingEventArgs e)
-        {
-            e.Cancel = !IsIntegerTextAllowed(e.NewText);
-        }
-
-        private bool IsIntegerTextAllowed(string text)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            return !regex.IsMatch(text);
-        }
-
-        private void DoubleInput_BeforeTextChanging(object sender, TextBoxBeforeTextChangingEventArgs e)
-        {
-            e.Cancel = !IsDoubleTextAllowed(e.NewText);
-        }
-
-        private bool IsDoubleTextAllowed(string text)
-        {
-            Regex regex = new Regex("[^0-9.]+");
-            return !regex.IsMatch(text);
         }
     }
 }

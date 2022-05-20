@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,7 +29,6 @@ namespace ArcGISRuntime.Samples.Desktop
     {
         private bool _waitFlag;
         private List<TreeViewItem> _samples;
-        private SampleInfo _selectedSample;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
@@ -131,8 +131,6 @@ namespace ArcGISRuntime.Samples.Desktop
 
         private async Task SelectSample(SampleInfo selectedSample)
         {
-            _selectedSample = selectedSample;
-
             if (selectedSample == null) return;
 
             // Restore API key if leaving named user sample.
@@ -189,13 +187,8 @@ namespace ArcGISRuntime.Samples.Desktop
 
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
-            SetScreenshotButttonVisibility(ScreenshotManager.ScreenshotSettings.ScreenshotEnabled);
-            SetContainerDimensions(ScreenshotManager.ScreenshotSettings.ScreenshotEnabled);
-        }
-
-        private void SetScreenshotButttonVisibility(bool isEnabled)
-        {
-            ScreenshotButton.Visibility = isEnabled ? Visibility.Visible : Visibility.Hidden;
+            SetScreenshotButttonVisibility();
+            SetContainerDimensions();
         }
 
         private static void ClearCredentials()
@@ -318,25 +311,6 @@ namespace ArcGISRuntime.Samples.Desktop
             settingsWindow.Show();
         }
 
-        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            SetScreenshotButttonVisibility(ScreenshotManager.ScreenshotSettings.ScreenshotEnabled);
-            SetContainerDimensions(ScreenshotManager.ScreenshotSettings.ScreenshotEnabled);
-        }
-
-        private void SetContainerDimensions(bool setDimensions)
-        {
-            if (setDimensions)
-            {
-                SampleContainer.Width = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
-                SampleContainer.Height = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
-            }
-            else
-            {
-                SampleContainer.Width = double.NaN;
-                SampleContainer.Height = double.NaN;
-            }
-        }
 
         #region Update Favorites
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
@@ -457,44 +431,69 @@ namespace ArcGISRuntime.Samples.Desktop
             SetExpandedCategories(expandedCategoryNames);
         }
 
+        #region Screenshot Tool
+
         private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
-            GetJpgImage(SampleContainer);
+            SaveScreenshot(SampleContainer);
         }
 
-        private void GetJpgImage(UIElement source)
+        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ContentControl sampleContainer = (ContentControl)source;
-            int actualHeight = (int)sampleContainer.ActualHeight;
-            int actualWidth = (int)sampleContainer.ActualWidth;
+            SetScreenshotButttonVisibility();
+            SetContainerDimensions();
+        }
+        private void SetScreenshotButttonVisibility()
+        {
+            ScreenshotButton.Visibility = ScreenshotManager.ScreenshotSettings.ScreenshotEnabled ? Visibility.Visible : Visibility.Hidden;
+        }
 
+        private void SetContainerDimensions()
+        {
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                SampleContainer.Width = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+                SampleContainer.Height = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            }
+            else
+            {
+                SampleContainer.Width = double.NaN;
+                SampleContainer.Height = double.NaN;
+            }
+        }
+
+        // Code here is adapted from the following Stack Overflow answers:
+        // https://stackoverflow.com/q/24466482
+        // https://stackoverflow.com/a/15537372
+        private void SaveScreenshot(UIElement source)
+        {
             PresentationSource presentationSource = PresentationSource.FromVisual(source);
 
-            double scaleX, scaleY = 1;
+            double scaleX = presentationSource.CompositionTarget.TransformToDevice.M11;
+            double scaleY = presentationSource.CompositionTarget.TransformToDevice.M22;
 
-            scaleX = presentationSource.CompositionTarget.TransformToDevice.M11;
-            scaleY = presentationSource.CompositionTarget.TransformToDevice.M22;
-
-            int Height = (int)(source.DesiredSize.Height * scaleY);
-            int Width = (int)(source.DesiredSize.Width * scaleX);
-            System.Windows.Point relativePoint = source.PointToScreen(new System.Windows.Point(0d, 0d));
-            int X = (int)relativePoint.X;
-            int Y = (int)relativePoint.Y;
-            Bitmap screenshot = new Bitmap(Width, Height);
+            int height = (int)(source.DesiredSize.Height * scaleY);
+            int width = (int)(source.DesiredSize.Width * scaleX);
+            System.Windows.Point screenPoint = source.PointToScreen(new System.Windows.Point(0d, 0d));
+            Bitmap screenshot = new Bitmap(width, height);
             Graphics G = Graphics.FromImage(screenshot);
-            G.CopyFromScreen(X, Y, 0, 0, new System.Drawing.Size(Width, Height), CopyPixelOperation.SourceCopy);
+            G.CopyFromScreen((int)screenPoint.X, (int)screenPoint.Y, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
 
             // If scaling has occurred due to screen scaling we need to resize the image.
             Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scaleX), (int)(screenshot.Height / scaleY)));
 
-            string sourcePath = ScreenshotManager.ScreenshotSettings.SourcePath;
-            string sampleName = _selectedSample.FormalName;
-            string categoryName = _selectedSample.Category;
-            string filePath = @$"{sourcePath}\{categoryName}\{sampleName}\{sampleName}.jpg"; // insert your filepath here to see the image output.
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WPF\\ArcGISRuntime.WPF.Viewer\\Samples\\" +
+                $"{SampleManager.Current.SelectedSample.Category}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+
+            // Remove white space.
+            filePath = Regex.Replace(filePath, @"\s+", "");
 
             System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
             resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
             fs.Close();
         }
+#endregion
     }
 }

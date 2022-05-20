@@ -9,24 +9,20 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
 using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using Windows.System;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
     public sealed partial class SamplePage
     {
-        private SampleInfo _selectedSample;
-        private Windows.System.VirtualKey _lastKeyPress;
-
         public SamplePage()
         {
             InitializeComponent();
@@ -37,7 +33,6 @@ namespace ArcGISRuntime.WinUI.Viewer
 
             // Get selected sample and set that as the DataContext.
             DataContext = SampleManager.Current.SelectedSample;
-            _selectedSample = SampleManager.Current.SelectedSample;
 
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
@@ -99,43 +94,51 @@ namespace ArcGISRuntime.WinUI.Viewer
             await Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
+        #region Screenshot Tool
         private void ScreenshotKeyDown_Event(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.End)
             {
-                GetJpgImage(SampleContainer);
+                SaveScreenshot(SampleContainer);
             }
         }
 
-        private void GetJpgImage(UIElement source)
+        // Code here is adapted from the following Stack Overflow answers:
+        // https://stackoverflow.com/q/24466482
+        // https://stackoverflow.com/a/15537372
+        private void SaveScreenshot(UIElement source)
         {
-            ContentControl sampleContainer = (ContentControl)source;
-            int actualHeight = (int)sampleContainer.ActualHeight;
-            int actualWidth = (int)sampleContainer.ActualWidth;
-
             double scale = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.Value : double.NaN;
 
-            int Height = (int)(source.DesiredSize.Height * scale);
-            int Width = (int)(source.DesiredSize.Width * scale);
+            int height = (int)(source.DesiredSize.Height * scale);
+            int width = (int)(source.DesiredSize.Width * scale);
             var visual = source.TransformToVisual(null).TransformPoint(new Windows.Foundation.Point(0, 0));
-            int X = (int)(visual.X * scale);
-            int Y = (int)(visual.Y * scale) + 29;
 
-            Bitmap screenshot = new Bitmap(Width, Height);
+            // This is the height of the top bar for the viewer application. 
+            int topBorderWidth = 29;
+            
+            int X = (int)(visual.X * scale);
+            int Y = (int)(visual.Y * scale) + topBorderWidth;
+
+            Bitmap screenshot = new Bitmap(width, height);
             Graphics G = Graphics.FromImage(screenshot);
-            G.CopyFromScreen(X, Y, 0, 0, new System.Drawing.Size(Width, Height), CopyPixelOperation.SourceCopy);
+            G.CopyFromScreen(X, Y, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
 
             // If scaling has occurred due to screen scaling we need to resize the image.
             Bitmap resizedScreenshot = new Bitmap(screenshot, new Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
 
-            string sourcePath = ScreenshotManager.ScreenshotSettings.SourcePath;
-            string sampleName = _selectedSample.FormalName;
-            string categoryName = _selectedSample.Category;
-            string filePath = @$"{sourcePath}\{categoryName}\{sampleName}\{sampleName}.jpg"; // insert your filepath here to see the image output.
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WinUI\\ArcGISRuntime.WinUI.Viewer\\Samples\\" +
+                $"{SampleManager.Current.SelectedSample.Category}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+
+            // Remove white space.
+            filePath = Regex.Replace(filePath, @"\s+", "");
 
             System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
             resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
             fs.Close();
         }
+        #endregion
     }
 }

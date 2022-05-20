@@ -1,15 +1,10 @@
 ﻿using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace ArcGISRuntime
 {
-    /// <summary>
-    /// Interaction logic for ScreenshotPrompt.xaml
-    /// </summary>
     public partial class ScreenshotTab : UserControl
     {
         public ScreenshotTab()

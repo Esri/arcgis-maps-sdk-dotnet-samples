@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Helpers;
 using ArcGISRuntime.Samples.Shared.Attributes;
 using ArcGISRuntime.Samples.Shared.Models;
 using System;
@@ -242,7 +241,7 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 favorites.Add(sampleName);
 
-                AnalyticsHelper.TrackEvent("favorite", new Dictionary<string, string> {
+                Helpers.AnalyticsHelper.TrackEvent("favorite", new Dictionary<string, string> {
                     { "Sample", AllSamples.FirstOrDefault(s => s.FormalName.Equals(sampleName)).SampleName },
                 });
             }

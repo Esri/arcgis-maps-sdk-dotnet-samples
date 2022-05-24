@@ -38,6 +38,7 @@ namespace ArcGISRuntime
             ScaleFactorEntryBox.Text = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.ToString() : null;
 
             ScreenshotEnabledCheckBox.Checked += SaveData_Event;
+            ScreenshotEnabledCheckBox.Unchecked += SaveData_Event;
             SourcePathText.TextChanged += SaveData_Event;
             WidthEntryBox.TextChanged += SaveData_Event;
             HeightEntryBox.TextChanged += SaveData_Event;

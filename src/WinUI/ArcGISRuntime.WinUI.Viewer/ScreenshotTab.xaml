@@ -5,7 +5,6 @@
     <StackPanel Orientation="Vertical">
         <CheckBox x:Name="ScreenshotEnabledCheckBox"
                   Margin="3"
-                  Checked="SaveData_Event"
                   Content="Screenshot tool enabled" />
         <StackPanel Orientation="Horizontal">
             <TextBlock Margin="5"
@@ -13,8 +12,7 @@
                        Text="Source path:" />
             <TextBox x:Name="SourcePathText"
                      Width="450"
-                     Margin="5"
-                     TextChanged="SaveData_Event" />
+                     Margin="5" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock Margin="5"
@@ -23,16 +21,14 @@
             <TextBox x:Name="WidthEntryBox"
                      Width="40"
                      Margin="5"
-                     HorizontalAlignment="Left"
-                     TextChanged="SaveData_Event" />
+                     HorizontalAlignment="Left" />
             <TextBlock Margin="5"
                        VerticalAlignment="Center"
                        Text="Height" />
             <TextBox x:Name="HeightEntryBox"
                      Width="40"
                      Margin="5"
-                     HorizontalAlignment="Left"
-                     TextChanged="SaveData_Event" />
+                     HorizontalAlignment="Left" />
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <TextBlock Margin="5"
@@ -41,8 +37,7 @@
             <TextBox x:Name="ScaleFactorEntryBox"
                      Width="40"
                      Margin="5"
-                     HorizontalAlignment="Left"
-                     TextChanged="SaveData_Event" />
+                     HorizontalAlignment="Left" />
         </StackPanel>
     </StackPanel>
 </UserControl>

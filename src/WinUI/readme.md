@@ -14,6 +14,7 @@
 
 * [Add features](ArcGISRuntime.WinUI.Viewer/Samples/Data/AddFeatures/readme.md) - Add features to a feature layer.
 * [Delete features (feature service)](ArcGISRuntime.WinUI.Viewer/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
+* [Display feature layers](ArcGISRuntime.WinUI.Viewer/Samples/Data/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Edit and sync features](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
 * [Edit with branch versioning](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.

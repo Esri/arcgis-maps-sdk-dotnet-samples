@@ -14,6 +14,7 @@
 
 * [Add features](Shared/Samples/Data/AddFeatures/readme.md) - Add features to a feature layer.
 * [Delete features (feature service)](Shared/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
+* [Display feature layers](Shared/Samples/Data/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Edit and sync features](Shared/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
 * [Edit with branch versioning](Shared/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](Shared/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.

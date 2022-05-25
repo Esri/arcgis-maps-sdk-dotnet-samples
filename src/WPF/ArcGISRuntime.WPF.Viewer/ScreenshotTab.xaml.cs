@@ -30,6 +30,13 @@ namespace ArcGISRuntime
         private void SaveData_Event(object sender, RoutedEventArgs e)
         {
             ScreenshotSettings screenshotSettings = new ScreenshotSettings();
+
+            // Do not overwrite the saved WinUI setting. 
+            if (ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue)
+            {
+                screenshotSettings.ScaleFactor = ScreenshotManager.ScreenshotSettings.ScaleFactor.Value;
+            }
+
             screenshotSettings.ScreenshotEnabled = ScreenshotEnabledCheckBox.IsChecked.HasValue ? ScreenshotEnabledCheckBox.IsChecked.Value : false;
             screenshotSettings.SourcePath = SourcePathText.Text;
 

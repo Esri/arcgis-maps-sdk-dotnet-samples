@@ -21,6 +21,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
+using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Security;
+using System.Diagnostics;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
 {
@@ -33,14 +37,225 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "2b0f9e17105847809dfeb04e3cad69e0", "68ec42517cdd439e81b036210483e8e7", "15a7cbd3af1e47cfa5d2c6b93dc44fc2")]
     public partial class DisplayFeatureLayers
     {
+        public enum FeatureLayerSource
+        {
+            ServiceFeatureTable,
+            PortalItem,
+            Geodatabase,
+            Geopackaging,
+            Shapefile
+        }
+
         public DisplayFeatureLayers()
         {
             InitializeComponent();
-            _ = Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
+            // Create a new map.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+
+            // Configure the feature layer selection box.
+            FeatureLayerCombo.ItemsSource = Enum.GetValues(typeof(FeatureLayerSource));
+            FeatureLayerCombo.SelectedItem = FeatureLayerSource.ServiceFeatureTable;
         }
+
+        private async void FeatureLayerCombo_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            // Clear the existing FeatureLayer when a new FeatureLayer is selected.
+            MyMapView.Map.OperationalLayers.Clear();
+
+            switch (FeatureLayerCombo.SelectedItem)
+            {
+                case FeatureLayerSource.ServiceFeatureTable:
+                    await SetServiceFeatureTableFeatureLayer();
+                    break;
+                case FeatureLayerSource.PortalItem:
+                    await SetPortalItemFeatureLayer();
+                    break;
+                case FeatureLayerSource.Geodatabase:
+                    await SetGeodatabaseFeatureLayerSource();
+                    break;
+                case FeatureLayerSource.Geopackaging:
+                    await SetGeopackagingFeatureLayer();
+                    break;
+                case FeatureLayerSource.Shapefile:
+                    await SetShapefileFeatureLayer();
+                    break;
+            }
+        }
+
+        #region ServiceFeatureTable
+        private async Task SetServiceFeatureTableFeatureLayer()
+        {
+            // Handle the login to the feature service.
+            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
+            {
+                try
+                {
+                    // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
+                    string sampleServer7User = "viewer01";
+                    string sampleServer7Pass = "I68VGU^nMurF";
+                    return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                    return null;
+                }
+            });
+
+            // Set the viewpoint.
+            MyMapView.SetViewpoint(new Viewpoint(41.773519, -88.143104, 4e3));
+
+            // Create uri for a given feature service.
+            Uri serviceUri = new Uri(
+                "https://sampleserver7.arcgisonline.com/server/rest/services/DamageAssessment/FeatureServer/0");
+
+            // Create a new FeatureTable from the service uri.
+            FeatureTable featureTable = new ServiceFeatureTable(serviceUri);
+
+            // Create a FeatureLayer with the FeatureTable.
+            FeatureLayer featureLayer = new FeatureLayer(featureTable);
+
+            // Add the FeatureLayer to the operations layers collection of the map.
+            MyMapView.Map.OperationalLayers.Add(featureLayer);
+
+            try
+            {
+                // Wait for the FeatureLayer to load.
+                await featureLayer.LoadAsync();
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+            }
+        }
+        #endregion
+
+        #region Geodatabase
+        private async Task SetGeodatabaseFeatureLayerSource()
+        {
+            // Get the path to the downloaded mobile geodatabase (.geodatabase file).
+            // Use samples viewer's DataManager helper class to get the path of the downloaded dataset on disk.
+            // NOTE: The url for the actual data is: https://www.arcgis.com/home/item.html?id=2b0f9e17105847809dfeb04e3cad69e0.
+            string mobileGeodatabaseFilePath = DataManager.GetDataFolder("2b0f9e17105847809dfeb04e3cad69e0", "LA_Trails.geodatabase");
+
+            try
+            {
+                // Open the mobile geodatabase.
+                Geodatabase mobileGeodatabase = await Geodatabase.OpenAsync(mobileGeodatabaseFilePath);
+
+                // Get the 'Trailheads' geodatabase feature table from the mobile geodatabase.
+                GeodatabaseFeatureTable trailheadsGeodatabaseFeatureTable = mobileGeodatabase.GetGeodatabaseFeatureTable("Trailheads");
+
+                // Asynchronously load the 'Trailheads' geodatabase feature table.
+                await trailheadsGeodatabaseFeatureTable.LoadAsync();
+
+                // Create a FeatureLayer based on the geodatabase feature table.
+                FeatureLayer trailheadsFeatureLayer = new FeatureLayer(trailheadsGeodatabaseFeatureTable);
+
+                // Add the FeatureLayer to the operations layers collection of the map.
+                MyMapView.Map.OperationalLayers.Add(trailheadsFeatureLayer);
+
+                // Zoom the map to the extent of the FeatureLayer.
+                await MyMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent, 50);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+            }
+        }
+        #endregion
+
+        #region Geopackaging
+        private async Task SetGeopackagingFeatureLayer()
+        {
+            // Set the viewpoint.
+            await MyMapView.SetViewpointAsync(new Viewpoint(39.7294, -104.8319, 5e5));
+
+            // Get the full path.
+            string geoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
+
+            try
+            {
+                // Open the GeoPackage.
+                GeoPackage myGeoPackage = await GeoPackage.OpenAsync(geoPackagePath);
+
+                // Read the feature tables and get the first one.
+                FeatureTable geoPackageTable = myGeoPackage.GeoPackageFeatureTables.FirstOrDefault();
+
+                // Make sure a feature table was found in the package.
+                if (geoPackageTable == null) { return; }
+
+                // Create a FeatureLayer to show the FeatureTable.
+                FeatureLayer featureLayer = new FeatureLayer(geoPackageTable);
+                await featureLayer.LoadAsync();
+
+                // Add the FeatureLayer to the operations layers collection of the map.
+                MyMapView.Map.OperationalLayers.Add(featureLayer);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+            }
+        }
+        #endregion
+
+        #region PortalItem
+        private async Task SetPortalItemFeatureLayer()
+        {
+            // Set the viewpoint.
+            await MyMapView.SetViewpointAsync(new Viewpoint(45.5266, -122.6219, 6000));
+
+            try
+            {
+                // Create a portal instance.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+
+                // Instantiate a PortalItem for a given portal item ID. 
+                PortalItem portalItem = await PortalItem.CreateAsync(portal, "1759fd3e8a324358a0c58d9a687a8578");
+
+                // Create a FeatureLayer using the PortalItem.
+                FeatureLayer featureLayer = new FeatureLayer(portalItem, 0);
+
+                // Add the FeatureLayer to the operations layers collection of the map.
+                MyMapView.Map.OperationalLayers.Add(featureLayer);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+            }
+        }
+        #endregion
+
+        #region Shapefile
+        private async Task SetShapefileFeatureLayer()
+        {
+            // Get the path to the downloaded shapefile.
+            string filepath = DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
+
+            try
+            {
+                // Open the shapefile.
+                ShapefileFeatureTable myShapefile = await ShapefileFeatureTable.OpenAsync(filepath);
+
+                // Create a FeatureLayer to display the shapefile.
+                FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
+
+                // Add the FeatureLayer to the operations layers collection of the map.
+                MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
+
+                // Zoom the map to the extent of the shapefile.
+                await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+            }
+        }
+        #endregion
     }
 }

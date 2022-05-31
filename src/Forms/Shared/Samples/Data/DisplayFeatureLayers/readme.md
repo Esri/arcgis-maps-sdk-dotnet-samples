@@ -34,7 +34,7 @@ Tap the button on the toolbar to add feature layers, from different sources, to 
 6. Load a feature layer with a shapefile.  
     i. Create a `ShapefileFeatureTable` using the shapefile name.  
     ii. Create a `FeatureLayer` from the feature table and load it.  
-7. Add the feature layer to the map's `operationalLayers`.  
+7. Add the feature layer to the map's `OperationalLayers`.  
 
 ## Relevant API
 

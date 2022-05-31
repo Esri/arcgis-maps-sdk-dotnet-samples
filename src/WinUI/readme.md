@@ -19,10 +19,7 @@
 * [Edit with branch versioning](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
-* [Feature layer (geodatabase)](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.
-* [Feature layer (GeoPackage)](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.
-* [Feature layer (shapefile)](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerShapefile/readme.md) - Open a shapefile stored on the device and display it as a feature layer with default symbology.
 * [Generate geodatabase](ArcGISRuntime.WinUI.Viewer/Samples/Data/GenerateGeodatabase/readme.md) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WinUI.Viewer/Samples/Data/GeodatabaseTransactions/readme.md) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WinUI.Viewer/Samples/Data/ListRelatedFeatures/readme.md) - List features related to the selected feature.

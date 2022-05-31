@@ -7,15 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Security;
+using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -27,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
         description: "Display feature layers from various data sources.",
         instructions: "Tap the button on the toolbar to add feature layers, from different sources, to the map. Pan and zoom the map to view the feature layers.",
         tags: new[] { "feature", "geodatabase", "geopackage", "layers", "service", "shapefile", "table" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "2b0f9e17105847809dfeb04e3cad69e0", "68ec42517cdd439e81b036210483e8e7", "15a7cbd3af1e47cfa5d2c6b93dc44fc2")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "2b0f9e17105847809dfeb04e3cad69e0", "68ec42517cdd439e81b036210483e8e7", "d98b3e5293834c5f852f13c569930caa")]
     public partial class DisplayFeatureLayers : ContentPage
     {
         public enum FeatureLayerSource
@@ -51,16 +50,16 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
             // Configure the feature layer selection box.
-            FeatureLayerCombo.ItemsSource = Enum.GetValues(typeof(FeatureLayerSource));
-            FeatureLayerCombo.SelectedItem = FeatureLayerSource.ServiceFeatureTable;
+            FeatureLayerPicker.ItemsSource = Enum.GetValues(typeof(FeatureLayerSource));
+            FeatureLayerPicker.SelectedItem = FeatureLayerSource.ServiceFeatureTable;
         }
 
-        private async void FeatureLayerCombo_SelectionChanged(object sender, RoutedEventArgs e)
+        private async void FeatureLayerPicker_SelectionChanged(object sender, EventArgs e)
         {
             // Clear the existing FeatureLayer when a new FeatureLayer is selected.
             MyMapView.Map.OperationalLayers.Clear();
 
-            switch (FeatureLayerCombo.SelectedItem)
+            switch (FeatureLayerPicker.SelectedItem)
             {
                 case FeatureLayerSource.ServiceFeatureTable:
                     await SetServiceFeatureTableFeatureLayer();
@@ -101,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             });
 
             // Set the viewpoint.
-            MyMapView.SetViewpoint(new Viewpoint(41.773519, -88.143104, 4e3));
+            await MyMapView.SetViewpointAsync(new Viewpoint(41.773519, -88.143104, 4e3));
 
             // Create uri for a given feature service.
             Uri serviceUri = new Uri(
@@ -123,7 +122,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             }
             catch (Exception e)
             {
-                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
         }
         #endregion
@@ -158,7 +157,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             }
             catch (Exception e)
             {
-                //await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
         }
         #endregion
@@ -192,7 +191,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             }
             catch (Exception e)
             {
-                //await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
         }
         #endregion
@@ -219,7 +218,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             }
             catch (Exception e)
             {
-                //await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
         }
         #endregion
@@ -246,7 +245,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             }
             catch (Exception e)
             {
-                //await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
             }
         }
         #endregion

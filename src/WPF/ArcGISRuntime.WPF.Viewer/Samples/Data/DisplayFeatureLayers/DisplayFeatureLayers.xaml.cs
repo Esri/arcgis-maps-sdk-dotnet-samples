@@ -7,26 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Security;
 using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
-using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
-using System.Diagnostics;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
 {
@@ -36,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
         description: "Display feature layers from various data sources.",
         instructions: "Click the button on the toolbar to add feature layers, from different sources, to the map. Pan and zoom the map to view the feature layers.",
         tags: new[] { "feature", "geodatabase", "geopackage", "layers", "service", "shapefile", "table" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "2b0f9e17105847809dfeb04e3cad69e0", "68ec42517cdd439e81b036210483e8e7", "15a7cbd3af1e47cfa5d2c6b93dc44fc2")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "2b0f9e17105847809dfeb04e3cad69e0", "68ec42517cdd439e81b036210483e8e7", "d98b3e5293834c5f852f13c569930caa")]
     public partial class DisplayFeatureLayers
     {
         public enum FeatureLayerSource
@@ -109,8 +99,8 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
                 }
             });
 
-            // Set initial viewpoint.
-            MyMapView.Map.InitialViewpoint = new Viewpoint(41.773519, -88.143104, 4e3);
+            // Set the viewpoint.
+            await MyMapView.SetViewpointAsync(new Viewpoint(41.773519, -88.143104, 4e3));
 
             // Create uri for a given feature service.
             Uri serviceUri = new Uri(
@@ -118,7 +108,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
 
             // Create a new FeatureTable from the service uri.
             FeatureTable featureTable = new ServiceFeatureTable(serviceUri);
-            
+
             // Create a FeatureLayer with the FeatureTable.
             FeatureLayer featureLayer = new FeatureLayer(featureTable);
 
@@ -175,8 +165,8 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
         #region Geopackaging
         private async Task SetGeopackagingFeatureLayer()
         {
-            // Set the initial viewpoint.
-            MyMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.8319, 5e5);
+            // Set the viewpoint.
+            await MyMapView.SetViewpointAsync(new Viewpoint(39.7294, -104.8319, 5e5));
 
             // Get the full path.
             string geoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");
@@ -210,7 +200,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
         private async Task SetPortalItemFeatureLayer()
         {
             // Set the viewpoint.
-            MyMapView.Map.InitialViewpoint = new Viewpoint(45.5266, -122.6219, 6000);
+            await MyMapView.SetViewpointAsync(new Viewpoint(45.5266, -122.6219, 6000));
 
             try
             {

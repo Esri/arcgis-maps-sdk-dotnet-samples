@@ -26,7 +26,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
         description: "Display feature layers from various data sources.",
         instructions: "Click the button on the toolbar to add feature layers, from different sources, to the map. Pan and zoom the map to view the feature layers.",
         tags: new[] { "feature", "geodatabase", "geopackage", "layers", "service", "shapefile", "table" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "2b0f9e17105847809dfeb04e3cad69e0", "68ec42517cdd439e81b036210483e8e7", "d98b3e5293834c5f852f13c569930caa")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "2b0f9e17105847809dfeb04e3cad69e0", "68ec42517cdd439e81b036210483e8e7", "15a7cbd3af1e47cfa5d2c6b93dc44fc2")]
     public partial class DisplayFeatureLayers
     {
         public enum FeatureLayerSource
@@ -227,7 +227,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
         private async Task SetShapefileFeatureLayer()
         {
             // Get the path to the downloaded shapefile.
-            string filepath = DataManager.GetDataFolder("d98b3e5293834c5f852f13c569930caa", "Public_Art.shp");
+            string filepath = DataManager.GetDataFolder("15a7cbd3af1e47cfa5d2c6b93dc44fc2", "ScottishWildlifeTrust_ReserveBoundaries_20201102.shp");
 
             try
             {
@@ -240,8 +240,8 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
                 // Add the FeatureLayer to the operations layers collection of the map.
                 MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
-                // Zoom the map to the extent of the shapefile.
-                await MyMapView.SetViewpointGeometryAsync(newFeatureLayer.FullExtent, 50);
+                // Set the viewpoint.
+                await MyMapView.SetViewpointAsync(new Viewpoint(56.641344, -3.889066, 6e6));
             }
             catch (Exception e)
             {

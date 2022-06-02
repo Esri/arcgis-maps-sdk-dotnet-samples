@@ -8,6 +8,10 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Security;
 using System;
 using System.Diagnostics;
 using System.Linq;

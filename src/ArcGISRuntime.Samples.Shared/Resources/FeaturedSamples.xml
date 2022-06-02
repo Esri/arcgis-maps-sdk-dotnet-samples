@@ -10,6 +10,7 @@
     </Category>
     <Category name="Layers">
       <Sample>DisplayDimensions</Sample>
+      <Sample>DisplayFeatureLayers</Sample>
       <Sample>FeatureLayerDefinitionExpression</Sample>
     </Category>
     <Category name="Location">

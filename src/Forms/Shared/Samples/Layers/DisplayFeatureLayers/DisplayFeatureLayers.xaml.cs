@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -63,7 +63,6 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
         {
             try
             {
-
                 // Clear the existing FeatureLayer when a new FeatureLayer is selected.
                 MyMapView.Map.OperationalLayers.Clear();
 
@@ -72,15 +71,19 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
                     case FeatureLayerSource.ServiceFeatureTable:
                         await SetServiceFeatureTableFeatureLayer();
                         break;
+
                     case FeatureLayerSource.PortalItem:
                         await SetPortalItemFeatureLayer();
                         break;
+
                     case FeatureLayerSource.Geodatabase:
                         await SetGeodatabaseFeatureLayerSource();
                         break;
+
                     case FeatureLayerSource.Geopackage:
                         await SetGeopackagingFeatureLayer();
                         break;
+
                     case FeatureLayerSource.Shapefile:
                         await SetShapefileFeatureLayer();
                         break;
@@ -93,6 +96,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
         }
 
         #region ServiceFeatureTable
+
         private async Task SetServiceFeatureTableFeatureLayer()
         {
             // Handle the login to the feature service.
@@ -130,11 +134,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
 
             // Wait for the FeatureLayer to load.
             await featureLayer.LoadAsync();
-
         }
-        #endregion
+
+        #endregion ServiceFeatureTable
 
         #region Geodatabase
+
         private async Task SetGeodatabaseFeatureLayerSource()
         {
             // Get the path to the downloaded mobile geodatabase (.geodatabase file).
@@ -158,9 +163,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             // Zoom the map to the extent of the FeatureLayer.
             await MyMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent, 50);
         }
-        #endregion
+
+        #endregion Geodatabase
 
         #region Geopackage
+
         private async Task SetGeopackagingFeatureLayer()
         {
             // Set the viewpoint.
@@ -185,9 +192,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             // Add the FeatureLayer to the operations layers collection of the map.
             MyMapView.Map.OperationalLayers.Add(featureLayer);
         }
-        #endregion
+
+        #endregion Geopackage
 
         #region PortalItem
+
         private async Task SetPortalItemFeatureLayer()
         {
             // Set the viewpoint.
@@ -196,7 +205,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             // Create a portal instance.
             ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
-            // Instantiate a PortalItem for a given portal item ID. 
+            // Instantiate a PortalItem for a given portal item ID.
             PortalItem portalItem = await PortalItem.CreateAsync(portal, "1759fd3e8a324358a0c58d9a687a8578");
 
             // Create a FeatureLayer using the PortalItem.
@@ -205,9 +214,11 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             // Add the FeatureLayer to the operations layers collection of the map.
             MyMapView.Map.OperationalLayers.Add(featureLayer);
         }
-        #endregion
+
+        #endregion PortalItem
 
         #region Shapefile
+
         private async Task SetShapefileFeatureLayer()
         {
             // Get the path to the downloaded shapefile.
@@ -225,6 +236,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             // Set the viewpoint.
             await MyMapView.SetViewpointAsync(new Viewpoint(56.641344, -3.889066, 6e6));
         }
-        #endregion
+
+        #endregion Shapefile
     }
 }

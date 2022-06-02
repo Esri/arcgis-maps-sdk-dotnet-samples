@@ -71,15 +71,19 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
                     case FeatureLayerSource.ServiceFeatureTable:
                         await SetServiceFeatureTableFeatureLayer();
                         break;
+
                     case FeatureLayerSource.PortalItem:
                         await SetPortalItemFeatureLayer();
                         break;
+
                     case FeatureLayerSource.Geodatabase:
                         await SetGeodatabaseFeatureLayerSource();
                         break;
+
                     case FeatureLayerSource.Geopackage:
                         await SetGeopackagingFeatureLayer();
                         break;
+
                     case FeatureLayerSource.Shapefile:
                         await SetShapefileFeatureLayer();
                         break;
@@ -92,6 +96,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
         }
 
         #region ServiceFeatureTable
+
         private async Task SetServiceFeatureTableFeatureLayer()
         {
             // Handle the login to the feature service.
@@ -130,9 +135,11 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
             // Wait for the FeatureLayer to load.
             await featureLayer.LoadAsync();
         }
-        #endregion
+
+        #endregion ServiceFeatureTable
 
         #region Geodatabase
+
         private async Task SetGeodatabaseFeatureLayerSource()
         {
             // Get the path to the downloaded mobile geodatabase (.geodatabase file).
@@ -156,9 +163,11 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
             // Zoom the map to the extent of the FeatureLayer.
             await MyMapView.SetViewpointGeometryAsync(trailheadsFeatureLayer.FullExtent, 50);
         }
-        #endregion
+
+        #endregion Geodatabase
 
         #region Geopackage
+
         private async Task SetGeopackagingFeatureLayer()
         {
             // Set the viewpoint.
@@ -183,9 +192,11 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
             // Add the FeatureLayer to the operations layers collection of the map.
             MyMapView.Map.OperationalLayers.Add(featureLayer);
         }
-        #endregion
+
+        #endregion Geopackage
 
         #region PortalItem
+
         private async Task SetPortalItemFeatureLayer()
         {
             // Set the viewpoint.
@@ -194,7 +205,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
             // Create a portal instance.
             ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
-            // Instantiate a PortalItem for a given portal item ID. 
+            // Instantiate a PortalItem for a given portal item ID.
             PortalItem portalItem = await PortalItem.CreateAsync(portal, "1759fd3e8a324358a0c58d9a687a8578");
 
             // Create a FeatureLayer using the PortalItem.
@@ -203,9 +214,11 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
             // Add the FeatureLayer to the operations layers collection of the map.
             MyMapView.Map.OperationalLayers.Add(featureLayer);
         }
-        #endregion
+
+        #endregion PortalItem
 
         #region Shapefile
+
         private async Task SetShapefileFeatureLayer()
         {
             // Get the path to the downloaded shapefile.
@@ -223,7 +236,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
             // Set the viewpoint.
             await MyMapView.SetViewpointAsync(new Viewpoint(56.641344, -3.889066, 6e6));
         }
-        #endregion
 
+        #endregion Shapefile
     }
 }

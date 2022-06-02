@@ -24,7 +24,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DefineConstants>WinUI</DefineConstants>
   </PropertyGroup>
-
   <ItemGroup>
     <Content Include="Resources\*.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -96,7 +95,6 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
-
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 
 </Project>

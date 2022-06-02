@@ -91,7 +91,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
             }
             catch (Exception e)
             {
-                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                await new MessageDialog2(e.Message, "Error").ShowAsync();
             }
         }
 

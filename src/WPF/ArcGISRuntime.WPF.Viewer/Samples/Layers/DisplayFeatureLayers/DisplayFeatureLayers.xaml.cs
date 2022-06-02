@@ -91,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString(), "Error");
+                MessageBox.Show(e.Message, "Error");
             }
         }
 

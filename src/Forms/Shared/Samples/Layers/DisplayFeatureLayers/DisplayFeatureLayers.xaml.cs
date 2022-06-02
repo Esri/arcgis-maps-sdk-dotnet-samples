@@ -22,7 +22,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display feature layers",
-        category: "Data",
+        category: "Layers",
         description: "Display feature layers from various data sources.",
         instructions: "Tap the button on the toolbar to add feature layers, from different sources, to the map. Pan and zoom the map to view the feature layers.",
         tags: new[] { "feature", "geodatabase", "geopackage", "layers", "service", "shapefile", "table" })]
@@ -34,7 +34,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             ServiceFeatureTable,
             PortalItem,
             Geodatabase,
-            Geopackaging,
+            Geopackage,
             Shapefile
         }
 
@@ -54,7 +54,12 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
             FeatureLayerPicker.SelectedItem = FeatureLayerSource.ServiceFeatureTable;
         }
 
-        private async void FeatureLayerPicker_SelectionChanged(object sender, EventArgs e)
+        private void FeatureLayerPicker_SelectionChanged(object sender, EventArgs e)
+        {
+            _ = SetFeatureLayerSource();
+        }
+
+        private async Task SetFeatureLayerSource()
         {
             // Clear the existing FeatureLayer when a new FeatureLayer is selected.
             MyMapView.Map.OperationalLayers.Clear();
@@ -70,7 +75,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
                 case FeatureLayerSource.Geodatabase:
                     await SetGeodatabaseFeatureLayerSource();
                     break;
-                case FeatureLayerSource.Geopackaging:
+                case FeatureLayerSource.Geopackage:
                     await SetGeopackagingFeatureLayer();
                     break;
                 case FeatureLayerSource.Shapefile:
@@ -162,7 +167,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
         }
         #endregion
 
-        #region Geopackaging
+        #region Geopackage
         private async Task SetGeopackagingFeatureLayer()
         {
             // Set the viewpoint.

@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\DisplayFeatureLayers\DisplayFeatureLayers.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\SetMaxExtent\SetMaxExtent.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg" />
@@ -211,7 +211,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\DisplayFeatureLayers\DisplayFeatureLayers.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.xaml.cs">
       <DependentUpon>DisplayFeatureLayers.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -925,7 +925,7 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\DisplayFeatureLayers\DisplayFeatureLayers.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml">

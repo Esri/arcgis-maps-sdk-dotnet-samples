@@ -1,5 +1,5 @@
 {
-    "category": "Data",
+    "category": "Layers",
     "description": "Display feature layers from various data sources.",
     "formal_name": "DisplayFeatureLayers",
     "ignore": false,

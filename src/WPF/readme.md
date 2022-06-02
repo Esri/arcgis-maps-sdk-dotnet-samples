@@ -14,7 +14,6 @@
 
 * [Add features](ArcGISRuntime.WPF.Viewer/Samples/Data/AddFeatures/readme.md) - Add features to a feature layer.
 * [Delete features (feature service)](ArcGISRuntime.WPF.Viewer/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
-* [Display feature layers](ArcGISRuntime.WPF.Viewer/Samples/Data/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Edit and sync features](ArcGISRuntime.WPF.Viewer/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
 * [Edit with branch versioning](ArcGISRuntime.WPF.Viewer/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](ArcGISRuntime.WPF.Viewer/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
@@ -96,6 +95,7 @@
 * [Feature collection layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display annotation](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display dimensions](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayDimensions/readme.md) - Display dimension features from a mobile map package.
+* [Display feature layers](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Display KML](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.

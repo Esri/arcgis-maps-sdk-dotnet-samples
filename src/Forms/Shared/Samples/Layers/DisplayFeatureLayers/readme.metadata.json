@@ -1,5 +1,5 @@
 {
-    "category": "Data",
+    "category": "Layers",
     "description": "Display feature layers from various data sources.",
     "formal_name": "DisplayFeatureLayers",
     "ignore": false,
@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/displayfeaturelayers.htm"
+        "/net/latest/forms/sample-code/displayfeaturelayers.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

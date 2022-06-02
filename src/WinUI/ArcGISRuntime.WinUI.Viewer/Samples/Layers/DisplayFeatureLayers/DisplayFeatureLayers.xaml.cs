@@ -22,7 +22,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display feature layers",
-        category: "Data",
+        category: "Layers",
         description: "Display feature layers from various data sources.",
         instructions: "Click the button on the toolbar to add feature layers, from different sources, to the map. Pan and zoom the map to view the feature layers.",
         tags: new[] { "feature", "geodatabase", "geopackage", "layers", "service", "shapefile", "table" })]
@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
             ServiceFeatureTable,
             PortalItem,
             Geodatabase,
-            Geopackaging,
+            Geopackage,
             Shapefile
         }
 
@@ -54,7 +54,12 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
             FeatureLayerCombo.SelectedItem = FeatureLayerSource.ServiceFeatureTable;
         }
 
-        private async void FeatureLayerCombo_SelectionChanged(object sender, RoutedEventArgs e)
+        private void FeatureLayerCombo_SelectionChanged(object sender, RoutedEventArgs e)
+        {
+            _ = SetFeatureLayerSource();
+        }
+
+        private async Task SetFeatureLayerSource()
         {
             // Clear the existing FeatureLayer when a new FeatureLayer is selected.
             MyMapView.Map.OperationalLayers.Clear();
@@ -70,7 +75,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
                 case FeatureLayerSource.Geodatabase:
                     await SetGeodatabaseFeatureLayerSource();
                     break;
-                case FeatureLayerSource.Geopackaging:
+                case FeatureLayerSource.Geopackage:
                     await SetGeopackagingFeatureLayer();
                     break;
                 case FeatureLayerSource.Shapefile:
@@ -162,7 +167,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
         }
         #endregion
 
-        #region Geopackaging
+        #region Geopackage
         private async Task SetGeopackagingFeatureLayer()
         {
             // Set the viewpoint.
@@ -241,7 +246,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayFeatureLayers
                 MyMapView.Map.OperationalLayers.Add(newFeatureLayer);
 
                 // Set the viewpoint.
-                await MyMapView.SetViewpointAsync(new Viewpoint(56.641344, -3.889066, 6e6)); 
+                await MyMapView.SetViewpointAsync(new Viewpoint(56.641344, -3.889066, 6e6));
             }
             catch (Exception e)
             {

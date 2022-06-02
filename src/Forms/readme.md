@@ -14,7 +14,6 @@
 
 * [Add features](Shared/Samples/Data/AddFeatures/readme.md) - Add features to a feature layer.
 * [Delete features (feature service)](Shared/Samples/Data/DeleteFeatures/readme.md) - Delete features from an online feature service.
-* [Display feature layers](Shared/Samples/Data/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Edit and sync features](Shared/Samples/Data/EditAndSyncFeatures/readme.md) - Synchronize offline edits with a feature service.
 * [Edit with branch versioning](Shared/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](Shared/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
@@ -96,6 +95,7 @@
 * [Feature collection layer](Shared/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display annotation](Shared/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display dimensions](Shared/Samples/Layers/DisplayDimensions/readme.md) - Display dimension features from a mobile map package.
+* [Display feature layers](Shared/Samples/Layers/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Display KML](Shared/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](Shared/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](Shared/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.

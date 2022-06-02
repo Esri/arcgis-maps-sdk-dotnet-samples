@@ -18,10 +18,7 @@
 * [Edit with branch versioning](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
-* [Feature layer (geodatabase)](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.
-* [Feature layer (GeoPackage)](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.
-* [Feature layer (shapefile)](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerShapefile/readme.md) - Open a shapefile stored on the device and display it as a feature layer with default symbology.
 * [Generate geodatabase](ArcGISRuntime.WinUI.Viewer/Samples/Data/GenerateGeodatabase/readme.md) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WinUI.Viewer/Samples/Data/GeodatabaseTransactions/readme.md) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WinUI.Viewer/Samples/Data/ListRelatedFeatures/readme.md) - List features related to the selected feature.
@@ -98,6 +95,7 @@
 * [Feature collection layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display annotation](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display dimensions](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayDimensions/readme.md) - Display dimension features from a mobile map package.
+* [Display feature layers](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Display KML](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.

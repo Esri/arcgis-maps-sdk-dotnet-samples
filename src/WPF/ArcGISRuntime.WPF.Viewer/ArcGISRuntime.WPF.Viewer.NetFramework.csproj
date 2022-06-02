@@ -148,6 +148,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.xaml.cs">
+      <DependentUpon>DisplayFeatureLayers.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml.cs">
       <DependentUpon>RenderMultilayerSymbols.xaml</DependentUpon>
     </Compile>
@@ -417,17 +420,8 @@
     <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
       <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml.cs">
-      <DependentUpon>FeatureLayerGeodatabase.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml.cs">
-      <DependentUpon>FeatureLayerGeoPackage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
       <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml.cs">
-      <DependentUpon>FeatureLayerShapefile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.xaml.cs">
       <DependentUpon>GenerateGeodatabase.xaml</DependentUpon>
@@ -789,6 +783,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <Page Include="Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1153,19 +1151,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1648,6 +1634,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <Content Include="Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1917,16 +1906,7 @@
     <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Samples\Data\FeatureLayerGeodatabase\FeatureLayerGeodatabase.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Data\FeatureLayerGeoPackage\FeatureLayerGeoPackage.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Samples\Data\FeatureLayerShapefile\FeatureLayerShapefile.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Data\GenerateGeodatabase\GenerateGeodatabase.jpg">

@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayFeatureLayers
             ServiceFeatureTable,
             PortalItem,
             Geodatabase,
-            Geopackaging,
+            Geopackage,
             Shapefile
         }
 

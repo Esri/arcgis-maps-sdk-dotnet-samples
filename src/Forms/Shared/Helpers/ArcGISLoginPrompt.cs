@@ -162,7 +162,7 @@ namespace Forms.Helpers
 
 #if __ANDROID__
 
-    [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [Activity(NoHistory = true, Exported = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(new[] { Intent.ActionView },
        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
        DataScheme = "forms-samples-app", DataHost = "auth")]

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Helpers;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntime.WPF.Viewer;
@@ -65,6 +66,31 @@ namespace ArcGISRuntime
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
 
             SampleDataListView.ItemsSource = OfflineDataSamples;
+
+            SetUpTelemetryTab();
+        }
+
+        private void SetUpTelemetryTab()
+        {
+            TelemetryTab.Visibility = AnalyticsHelper.AnalyticsStarted ? Visibility.Visible : Visibility.Collapsed;
+
+            // Set telemetry checkbox.
+            TelemetryCheckbox.IsChecked = AnalyticsHelper.AnalyticsEnabled;
+            TelemetryCheckbox.Checked += TelemetryCheckboxChanged;
+            TelemetryCheckbox.Unchecked += TelemetryCheckboxChanged;
+
+            // Unhook event handlers when window closes.
+            this.Closed += (s, e) =>
+            {
+                TelemetryCheckbox.Checked -= TelemetryCheckboxChanged;
+                TelemetryCheckbox.Unchecked -= TelemetryCheckboxChanged;
+            };
+        }
+
+        private void TelemetryCheckboxChanged(object sender, RoutedEventArgs e)
+        {
+            AnalyticsHelper.AnalyticsEnabled = TelemetryCheckbox.IsChecked == true;
+            AnalyticsHelper.EnableAnalytics();
         }
 
         private void HyperlinkClick(object sender, System.Windows.Forms.HtmlElementEventArgs e)
@@ -73,7 +99,7 @@ namespace ArcGISRuntime
             System.Windows.Forms.HtmlElement src = LicenseBrowser.Document?.GetElementFromPoint(e.ClientMousePosition);
 
             // Check if the element is a hyperlink.
-            if (src?.OuterHtml.Contains("http") == true)
+            if (src?.OuterHtml.Contains("http") == true && src.Children.Count == 0)
             {
                 // Parse the url from the hyperlink html.
                 string url = src.OuterHtml.Split('\"')[1];

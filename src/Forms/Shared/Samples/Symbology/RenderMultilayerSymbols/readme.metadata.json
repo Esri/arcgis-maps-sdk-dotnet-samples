@@ -1,0 +1,36 @@
+{
+    "category": "Symbology",
+    "description": "Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.",
+    "formal_name": "RenderMultilayerSymbols",
+    "ignore": false,
+    "images": [
+        "RenderMultilayerSymbols.jpg"
+    ],
+    "keywords": [
+        "graphic",
+        "marker",
+        "multilayer",
+        "picture",
+        "symbol"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/rendermultilayersymbols.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "MultiLayerPoint",
+        "MultiLayerPolygon",
+        "MultiLayerPolyline",
+        "PictureMarkerSymbolLayer",
+        "SolidFillSymbolLayer",
+        "SolidStrokeSymbolLayer",
+        "VectorMarkerSymbolLayer"
+    ],
+    "snippets": [
+        "RenderMultilayerSymbols.xaml",
+        "RenderMultilayerSymbols.xaml.cs"
+    ],
+    "title": "Render multilayer symbols"
+}

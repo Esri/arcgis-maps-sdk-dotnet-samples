@@ -7,23 +7,28 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Helpers;
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace ArcGISRuntime.Samples.Desktop
 {
     public partial class MainWindow
     {
         private bool _waitFlag;
+        private List<TreeViewItem> _samples;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
@@ -40,16 +45,20 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             try
             {
+                AnalyticsHelper.DisableAnalytics();
+
                 SampleManager.Current.Initialize();
 
                 // Set category data context
-                var samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
-                Categories.DataContext = samples;
+                _samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+                Categories.DataContext = _samples;
 
                 // Select the first item
-                samples.First().IsSelected = true;
+                _samples.First().IsSelected = true;
 
                 Loaded += FirstLoaded;
+
+                AnalyticsHelper.EnableAnalytics();
             }
             catch (Exception ex)
             {
@@ -112,6 +121,13 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleContainer.Content = null;
                 CategoriesRegion.Visibility = Visibility.Visible;
                 CategoriesHeader.Text = category.Name;
+
+                // Send analytics.
+                var dict = new Dictionary<string, string> {
+                    { "Category", category.Name },
+                };
+                if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
+                AnalyticsHelper.TrackEvent("category", dict);
             }
             else if (sample != null)
             {
@@ -124,6 +140,13 @@ namespace ArcGISRuntime.Samples.Desktop
         private async Task SelectSample(SampleInfo selectedSample)
         {
             if (selectedSample == null) return;
+
+            // Send analytics.
+            var dict = new Dictionary<string, string> {
+                    { "Sample", selectedSample.SampleName },
+                };
+            if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
+            AnalyticsHelper.TrackEvent("sample", dict);
 
             // Restore API key if leaving named user sample.
             if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
@@ -161,6 +184,9 @@ namespace ArcGISRuntime.Samples.Desktop
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 SourceCodeContainer.LoadSourceCode();
+
+                // Set the color of the favorite button
+                SetInSampleFavoriteButtonColor(selectedSample);
             }
             catch (OperationCanceledException)
             {
@@ -176,6 +202,8 @@ namespace ArcGISRuntime.Samples.Desktop
 
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SampleContainer.Visibility = Visibility.Visible;
+            SetScreenshotButttonVisibility();
+            SetContainerDimensions();
         }
 
         private static void ClearCredentials()
@@ -239,6 +267,11 @@ namespace ArcGISRuntime.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Visible;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Collapsed;
+
+            AnalyticsHelper.TrackEvent("tab", new Dictionary<string, string> {
+                { "Tab", "Description" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            });
         }
 
         private void ShowSourceTab()
@@ -248,6 +281,11 @@ namespace ArcGISRuntime.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Visible;
+
+            AnalyticsHelper.TrackEvent("tab", new Dictionary<string, string> {
+                { "Tab", "Source code" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            });
         }
 
         private void LiveSample_Click(object sender, RoutedEventArgs e) => ShowSampleTab();
@@ -264,8 +302,14 @@ namespace ArcGISRuntime.Samples.Desktop
             await Task.Delay(200);
             _waitFlag = false;
 
-            var results =
-                SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            PopulateSearchedTree();
+        }
+
+        private void PopulateSearchedTree()
+        {
+            AnalyticsHelper.DisableAnalytics();
+
+            var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
 
             // Set category data context
             Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
@@ -279,6 +323,8 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 CloseCategoryLeaves();
             }
+
+            AnalyticsHelper.EnableAnalytics();
         }
 
         private bool SampleSearchFunc(SampleInfo sample)
@@ -290,7 +336,203 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
+            settingsWindow.Closing += SettingsWindow_Closing;
             settingsWindow.Show();
         }
+
+
+        #region Update Favorites
+
+        private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the selected category name and expanded categories before updating the category tree.
+            string selectedCategoryName = GetSelectedCategoryName();
+            List<string> expandedCategoryNames = GetExpandedCategoryNames();
+
+            string sampleFormalName = (sender as Button).CommandParameter.ToString();
+            SampleManager.Current.AddRemoveFavorite(sampleFormalName);
+
+            UpdateTreeViewItems();
+
+            if (!string.IsNullOrEmpty(SearchFilterBox.SearchText))
+            {
+                PopulateSearchedTree();
+            }
+
+            // Set the selected category.
+            SetSelectedCategory(selectedCategoryName);
+
+            // Set the expanded categories.
+            SetExpandedCategories(expandedCategoryNames);
+        }
+
+        private void InSampleFavoriteButton_Click(object sender, RoutedEventArgs e)
+        {
+            Categories.SelectedItemChanged -= categories_SelectedItemChanged;
+            CategoriesList.SelectionChanged -= categoriesList_SelectionChanged;
+
+            SampleManager.Current.AddRemoveFavorite(SampleManager.Current.SelectedSample.FormalName);
+            SetInSampleFavoriteButtonColor(SampleManager.Current.SelectedSample);
+            ResetCategories();
+
+            Categories.SelectedItemChanged += categories_SelectedItemChanged;
+            CategoriesList.SelectionChanged += categoriesList_SelectionChanged;
+        }
+
+        private void SetInSampleFavoriteButtonColor(SampleInfo selectedSample)
+        {
+            SampleFavoriteButton.Foreground = selectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
+        }
+
+        #endregion Update Favorites
+
+        #region Category Visibility Properties
+
+        private void SetSelectedCategory(string selectedCategoryName)
+        {
+            if (!string.IsNullOrEmpty(selectedCategoryName))
+            {
+                var selectedTreeViewItem = Categories.Items.Cast<TreeViewItem>().First(t => t.Header.Equals(selectedCategoryName));
+                if (selectedTreeViewItem != null) selectedTreeViewItem.IsSelected = true;
+            }
+            else
+            {
+                var firstTreeViewItem = Categories.Items[0] as TreeViewItem;
+                if (firstTreeViewItem != null) firstTreeViewItem.IsSelected = true;
+            }
+        }
+
+        private void SetExpandedCategories(List<string> expandedCategoryNames)
+        {
+            if (expandedCategoryNames.Any())
+            {
+                foreach (var category in Categories.Items.Cast<TreeViewItem>())
+                {
+                    category.IsExpanded = expandedCategoryNames.Contains((string)category.Header);
+                }
+            }
+        }
+
+        private string GetSelectedCategoryName()
+        {
+            List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
+
+            // Get the first selected category.
+            if (categories.Any(c => c.IsSelected))
+            {
+                return categories.First(c => c.IsSelected).Header as string;
+            }
+
+            return string.Empty;
+        }
+
+        private List<string> GetExpandedCategoryNames()
+        {
+            List<TreeViewItem> categories = (List<TreeViewItem>)Categories.DataContext;
+
+            List<string> expandedCategories = new List<string>();
+
+            if (categories.Any(c => c.IsExpanded))
+            {
+                expandedCategories = categories.Where(c => c.IsExpanded).Select(c => (string)c.Header).ToList();
+            }
+
+            return expandedCategories;
+        }
+
+        #endregion Category Visibility Properties
+
+        private void UpdateTreeViewItems()
+        {
+            List<TreeViewItem> samples = WPF.Viewer.Helpers.ToTreeViewItem(SampleManager.Current.FullTree);
+            Categories.DataContext = samples;
+        }
+
+        private void ResetCategories()
+        {
+            // Get the selected category name and expanded categories before updating the category tree.
+            string selectedCategoryName = GetSelectedCategoryName();
+            List<string> expandedCategoryNames = GetExpandedCategoryNames();
+
+            UpdateTreeViewItems();
+
+            // Set the selected category.
+            SetSelectedCategory(selectedCategoryName);
+
+            // Set the expanded categories.
+            SetExpandedCategories(expandedCategoryNames);
+        }
+
+        #region Screenshot Tool
+
+        private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveScreenshot(SampleContainer);
+        }
+
+        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SetScreenshotButttonVisibility();
+            SetContainerDimensions();
+        }
+        private void SetScreenshotButttonVisibility()
+        {
+            ScreenshotButton.Visibility = ScreenshotManager.ScreenshotSettings.ScreenshotEnabled ? Visibility.Visible : Visibility.Hidden;
+        }
+
+        private void SetContainerDimensions()
+        {
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                SampleContainer.Width = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+                SampleContainer.Height = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            }
+            else
+            {
+                SampleContainer.Width = double.NaN;
+                SampleContainer.Height = double.NaN;
+            }
+        }
+
+        // Code here is adapted from the following Stack Overflow answers:
+        // https://stackoverflow.com/q/24466482
+        // https://stackoverflow.com/a/15537372
+        private void SaveScreenshot(UIElement source)
+        {
+            PresentationSource presentationSource = PresentationSource.FromVisual(source);
+
+            double scaleX = presentationSource.CompositionTarget.TransformToDevice.M11;
+            double scaleY = presentationSource.CompositionTarget.TransformToDevice.M22;
+
+            int height = (int)(source.DesiredSize.Height * scaleY);
+            int width = (int)(source.DesiredSize.Width * scaleX);
+            System.Windows.Point screenPoint = source.PointToScreen(new System.Windows.Point(0d, 0d));
+            Bitmap screenshot = new Bitmap(width, height);
+            Graphics G = Graphics.FromImage(screenshot);
+            G.CopyFromScreen((int)screenPoint.X, (int)screenPoint.Y, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
+
+            // If scaling has occurred due to screen scaling we need to resize the image.
+            Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scaleX), (int)(screenshot.Height / scaleY)));
+
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WPF\\ArcGISRuntime.WPF.Viewer\\Samples\\" +
+                $"{SampleManager.Current.SelectedSample.Category}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+
+            // Remove white space.
+            filePath = Regex.Replace(filePath, @"\s+", "");
+
+            try
+            {
+                System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
+                resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving screenshot: {ex.Message}");
+            }
+        }
+#endregion
     }
 }

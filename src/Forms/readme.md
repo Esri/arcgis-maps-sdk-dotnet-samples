@@ -18,10 +18,7 @@
 * [Edit with branch versioning](Shared/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](Shared/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](Shared/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
-* [Feature layer (geodatabase)](Shared/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.
-* [Feature layer (GeoPackage)](Shared/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](Shared/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.
-* [Feature layer (shapefile)](Shared/Samples/Data/FeatureLayerShapefile/readme.md) - Open a shapefile stored on the device and display it as a feature layer with default symbology.
 * [Generate geodatabase](Shared/Samples/Data/GenerateGeodatabase/readme.md) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](Shared/Samples/Data/GeodatabaseTransactions/readme.md) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](Shared/Samples/Data/ListRelatedFeatures/readme.md) - List features related to the selected feature.
@@ -98,6 +95,7 @@
 * [Feature collection layer](Shared/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display annotation](Shared/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display dimensions](Shared/Samples/Layers/DisplayDimensions/readme.md) - Display dimension features from a mobile map package.
+* [Display feature layers](Shared/Samples/Layers/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Display KML](Shared/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](Shared/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](Shared/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.
@@ -175,6 +173,7 @@
 * [Map initial extent](Shared/Samples/Map/SetInitialMapArea/readme.md) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Set initial map location](Shared/Samples/Map/SetInitialMapLocation/readme.md) - Display a basemap centered at an initial location and scale.
 * [Map spatial reference](Shared/Samples/Map/SetMapSpatialReference/readme.md) - Specify a map's spatial reference.
+* [Set max extent](Shared/Samples/Map/SetMaxExtent/readme.md) - Limit the view of a map to a particular area.
 * [Set min & max scale](Shared/Samples/Map/SetMinMaxScale/readme.md) - Restrict zooming between specific scale ranges.
 
 ## MapView
@@ -237,6 +236,7 @@
 
 * [Custom dictionary style](Shared/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary created from a web style or style file (.stylx) to symbolize features using a variety of attribute values.
 * [Feature layer extrusion](Shared/Samples/Symbology/FeatureLayerExtrusion/readme.md) - Extrude features based on their attributes.
+* [Render multilayer symbols](Shared/Samples/Symbology/RenderMultilayerSymbols/readme.md) - Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.
 * [Picture marker symbol](Shared/Samples/Symbology/RenderPictureMarkers/readme.md) - Use pictures for markers.
 * [Simple marker symbol](Shared/Samples/Symbology/RenderSimpleMarkers/readme.md) - Show a simple marker symbol on a map.
 * [Unique value renderer](Shared/Samples/Symbology/RenderUniqueValues/readme.md) - Render features in a layer using a distinct symbol for each unique attribute value.

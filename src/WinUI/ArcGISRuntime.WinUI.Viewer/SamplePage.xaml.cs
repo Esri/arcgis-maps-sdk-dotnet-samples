@@ -8,11 +8,15 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using ArcGISRuntime.Samples.Shared.Managers;
 using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Drawing;
+using System.Text.RegularExpressions;
 using Windows.System;
 
 namespace ArcGISRuntime.WinUI.Viewer
@@ -32,6 +36,13 @@ namespace ArcGISRuntime.WinUI.Viewer
 
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
+
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                KeyDown += ScreenshotKeyDown_Event;
+                SampleContainer.Width = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+                SampleContainer.Height = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            }
 
             // Change UI elements to be dark.
             if (Application.Current.RequestedTheme == ApplicationTheme.Dark)
@@ -56,7 +67,7 @@ namespace ArcGISRuntime.WinUI.Viewer
             DescriptionBlock.Background = new SolidColorBrush() { Opacity = 0 };
 
             // Set the appropriate backgrounds.
-            DescriptionContainer.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
+            DescriptionContainer.Background = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
 
             // Load the source code files.
             _ = SourceCodeContainer.LoadSourceCodeAsync();
@@ -82,5 +93,59 @@ namespace ArcGISRuntime.WinUI.Viewer
         {
             await Launcher.LaunchUriAsync(new Uri(e.Link));
         }
+
+        #region Screenshot Tool
+        private void ScreenshotKeyDown_Event(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.End)
+            {
+                SaveScreenshot(SampleContainer);
+            }
+        }
+
+        // Code here is adapted from the following Stack Overflow answers:
+        // https://stackoverflow.com/q/24466482
+        // https://stackoverflow.com/a/15537372
+        private void SaveScreenshot(UIElement source)
+        {
+            double scale = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.Value : double.NaN;
+
+            int height = (int)(source.DesiredSize.Height * scale);
+            int width = (int)(source.DesiredSize.Width * scale);
+            var visual = source.TransformToVisual(null).TransformPoint(new Windows.Foundation.Point(0, 0));
+
+            // This is the height of the top bar for the viewer application. 
+            int topBorderWidth = 29;
+            
+            int X = (int)(visual.X * scale);
+            int Y = (int)(visual.Y * scale) + topBorderWidth;
+
+            Bitmap screenshot = new Bitmap(width, height);
+            Graphics G = Graphics.FromImage(screenshot);
+            G.CopyFromScreen(X, Y, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+
+            // If scaling has occurred due to screen scaling we need to resize the image.
+            Bitmap resizedScreenshot = new Bitmap(screenshot, new Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
+
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WinUI\\ArcGISRuntime.WinUI.Viewer\\Samples\\" +
+                $"{SampleManager.Current.SelectedSample.Category}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+
+            // Remove white space.
+            filePath = Regex.Replace(filePath, @"\s+", "");
+
+            try
+            {
+                System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
+                resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving screenshot: {ex.Message}");
+            }
+        }
+        #endregion
     }
 }

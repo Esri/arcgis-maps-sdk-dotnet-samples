@@ -18,10 +18,7 @@
 * [Edit with branch versioning](ArcGISRuntime.WPF.Viewer/Samples/Data/EditBranchVersioning/readme.md) - Create, query and edit a specific server version using service geodatabase.
 * [Edit feature attachments](ArcGISRuntime.WPF.Viewer/Samples/Data/EditFeatureAttachments/readme.md) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](ArcGISRuntime.WPF.Viewer/Samples/Data/EditFeatureLinkedAnnotation/readme.md) - Edit feature attributes which are linked to annotation through an expression.
-* [Feature layer (geodatabase)](ArcGISRuntime.WPF.Viewer/Samples/Data/FeatureLayerGeodatabase/readme.md) - Display features from a local geodatabase.
-* [Feature layer (GeoPackage)](ArcGISRuntime.WPF.Viewer/Samples/Data/FeatureLayerGeoPackage/readme.md) - Display features from a local GeoPackage.
 * [Feature layer query](ArcGISRuntime.WPF.Viewer/Samples/Data/FeatureLayerQuery/readme.md) - Find features in a feature table which match an SQL query.
-* [Feature layer (shapefile)](ArcGISRuntime.WPF.Viewer/Samples/Data/FeatureLayerShapefile/readme.md) - Open a shapefile stored on the device and display it as a feature layer with default symbology.
 * [Generate geodatabase](ArcGISRuntime.WPF.Viewer/Samples/Data/GenerateGeodatabase/readme.md) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WPF.Viewer/Samples/Data/GeodatabaseTransactions/readme.md) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WPF.Viewer/Samples/Data/ListRelatedFeatures/readme.md) - List features related to the selected feature.
@@ -98,6 +95,7 @@
 * [Feature collection layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/CreateFeatureCollectionLayer/readme.md) - Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 * [Display annotation](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayAnnotation/readme.md) - Display annotation from a feature service URL.
 * [Display dimensions](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayDimensions/readme.md) - Display dimension features from a mobile map package.
+* [Display feature layers](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayFeatureLayers/readme.md) - Display feature layers from various data sources.
 * [Display KML](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayKml/readme.md) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayKmlNetworkLinks/readme.md) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayOACollection/readme.md) - Display an OGC API feature collection and query features while navigating the map view.
@@ -181,6 +179,7 @@
 * [Map initial extent](ArcGISRuntime.WPF.Viewer/Samples/Map/SetInitialMapArea/readme.md) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Set initial map location](ArcGISRuntime.WPF.Viewer/Samples/Map/SetInitialMapLocation/readme.md) - Display a basemap centered at an initial location and scale.
 * [Map spatial reference](ArcGISRuntime.WPF.Viewer/Samples/Map/SetMapSpatialReference/readme.md) - Specify a map's spatial reference.
+* [Set max extent](ArcGISRuntime.WPF.Viewer/Samples/Map/SetMaxExtent/readme.md) - Limit the view of a map to a particular area.
 * [Set min & max scale](ArcGISRuntime.WPF.Viewer/Samples/Map/SetMinMaxScale/readme.md) - Restrict zooming between specific scale ranges.
 
 ## MapView
@@ -245,6 +244,7 @@
 
 * [Custom dictionary style](ArcGISRuntime.WPF.Viewer/Samples/Symbology/CustomDictionaryStyle/readme.md) - Use a custom dictionary created from a web style or style file (.stylx) to symbolize features using a variety of attribute values.
 * [Feature layer extrusion](ArcGISRuntime.WPF.Viewer/Samples/Symbology/FeatureLayerExtrusion/readme.md) - Extrude features based on their attributes.
+* [Render multilayer symbols](ArcGISRuntime.WPF.Viewer/Samples/Symbology/RenderMultilayerSymbols/readme.md) - Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.
 * [Picture marker symbol](ArcGISRuntime.WPF.Viewer/Samples/Symbology/RenderPictureMarkers/readme.md) - Use pictures for markers.
 * [Simple marker symbol](ArcGISRuntime.WPF.Viewer/Samples/Symbology/RenderSimpleMarkers/readme.md) - Show a simple marker symbol on a map.
 * [Unique value renderer](ArcGISRuntime.WPF.Viewer/Samples/Symbology/RenderUniqueValues/readme.md) - Render features in a layer using a distinct symbol for each unique attribute value.

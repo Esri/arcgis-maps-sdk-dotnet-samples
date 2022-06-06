@@ -1,0 +1,29 @@
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers.DisplayFeatureLayers"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="400" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackLayout Grid.Column="1"
+                         HorizontalOptions="CenterAndExpand"
+                         Orientation="Horizontal">
+                <Label Text="Select feature layer source" VerticalOptions="Center" />
+                <Picker x:Name="FeatureLayerPicker"
+                        FontSize="Small"
+                        SelectedIndexChanged="FeatureLayerPicker_SelectionChanged"
+                        VerticalOptions="Center" />
+            </StackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

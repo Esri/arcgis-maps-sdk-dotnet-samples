@@ -30,6 +30,9 @@ namespace ArcGISRuntime.WPF.Viewer
 
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+
+                // Analytics are only used in the Microsoft store version of the viewer.
+                //ArcGISRuntime.Helpers.AnalyticsHelper.StartAnalytics("");
             }
             catch (Exception ex)
             {

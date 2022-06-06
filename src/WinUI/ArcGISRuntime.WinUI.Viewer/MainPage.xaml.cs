@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Security;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,7 +96,7 @@ namespace ArcGISRuntime.WinUI.Viewer
             // Initialize manager that handles all the samples, this will load all the items from samples assembly and related files
             SampleManager.Current.Initialize();
 
-            SearchBoxBorder.Background = (Microsoft.UI.Xaml.Media.Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
+            SearchBoxBorder.Background = (Brush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
         }
 
         private async void OnSampleItemTapped(object sender, TappedRoutedEventArgs e)

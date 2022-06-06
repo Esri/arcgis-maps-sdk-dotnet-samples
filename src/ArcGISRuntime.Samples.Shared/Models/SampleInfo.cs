@@ -60,6 +60,8 @@ namespace ArcGISRuntime.Samples.Shared.Models
 
         public string Instructions { get; set; }
 
+        public bool IsFavorite { get; set; }
+
         /// <summary>
         /// A list of offline data items that should be downloaded 
         /// from ArcGIS Online prior to loading the sample. These 

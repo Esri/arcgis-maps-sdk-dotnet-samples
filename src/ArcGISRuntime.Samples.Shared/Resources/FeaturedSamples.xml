@@ -10,6 +10,7 @@
     </Category>
     <Category name="Layers">
       <Sample>DisplayDimensions</Sample>
+      <Sample>DisplayFeatureLayers</Sample>
       <Sample>FeatureLayerDefinitionExpression</Sample>
     </Category>
     <Category name="Location">
@@ -20,12 +21,14 @@
       <Sample>BrowseBuildingFloors</Sample>
       <Sample>ChangeBasemap</Sample>
       <Sample>DisplayOverviewMap</Sample>
+      <Sample>SetMaxExtent</Sample>
     </Category>
     <Category name="MapView">
       <Sample>FilterByTimeExtent</Sample>
     </Category>
     <Category name="Symbology">
       <Sample>CustomDictionaryStyle</Sample>
+      <Sample>RenderMultilayerSymbols</Sample>
       <Sample>SymbolStylesFromWebStyles</Sample>
     </Category>
     <Category name="UtilityNetwork">

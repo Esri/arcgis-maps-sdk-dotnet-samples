@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\SetMaxExtent\SetMaxExtent.jpg" />
@@ -211,6 +212,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.xaml.cs">
+      <DependentUpon>AddFeaturesWithContingentValues.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.xaml.cs">
       <DependentUpon>DisplayFeatureLayers.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -925,6 +930,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

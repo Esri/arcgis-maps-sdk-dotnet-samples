@@ -84,6 +84,11 @@ class sample_metadata:
             self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/servicefeaturetablemanualcache.htm")
             self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/servicefeaturetablecache.htm")
 
+        if self.formal_name == "DisplayFeatureLayers":
+        self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/featurelayergeopackage.htm")
+        self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/featurelayergeodatabase.htm")
+        self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/featurelayershapefile.htm")
+
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 

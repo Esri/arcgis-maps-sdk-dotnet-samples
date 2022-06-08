@@ -32,13 +32,14 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e12b54ea799f4606a2712157cf9f6e41", "b5106355f1634b8996e634c04b6a930a")]
     public partial class AddFeaturesWithContingentValues
     {
-        private GeodatabaseFeatureTable _geodatabaseFeatureTable;
-        private GraphicsOverlay _graphicsOverlay;
-        private ArcGISFeature _newFeature;
-
         // The coded value domains in this sample are hardcoded for simplicity, but can be retrieved from the GeodatabaseFeatureTable's Field's Domains.
         private readonly Dictionary<string, string> _statusValues = new Dictionary<string, string>() { { "Occupied", "OCCUPIED" }, { "Unoccupied", "UNOCCUPIED" } };
         private readonly Dictionary<string, string> _protectionValues = new Dictionary<string, string>() { { "Endangered", "ENDANGERED" }, { "Not endangered", "NOT_ENDANGERED" }, { "N/A", "NA" } };
+
+        // Hold references for use in event handlers.
+        private GeodatabaseFeatureTable _geodatabaseFeatureTable;
+        private GraphicsOverlay _graphicsOverlay;
+        private ArcGISFeature _newFeature;
 
         public AddFeaturesWithContingentValues()
         {
@@ -48,6 +49,8 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         private async Task Initialize()
         {
+            #region Basemap
+
             // Get the full path for the vector tile package.
             string vectorTilePackagePath = DataManager.GetDataFolder("b5106355f1634b8996e634c04b6a930a", "FillmoreTopographicMap.vtpk");
 
@@ -60,76 +63,90 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             // Add the base map to the map view.
             MyMapView.Map = new Map(fillmoreBasemap);
 
+            #endregion Basemap
+
+            #region FeatureLayer
+
             // Get the full path for the mobile geodatabase.
             string geodatabasePath = DataManager.GetDataFolder("e12b54ea799f4606a2712157cf9f6e41", "ContingentValuesBirdNests.geodatabase");
 
             // Load the geodatabase.
             Geodatabase geodatabase = await Geodatabase.OpenAsync(geodatabasePath);
 
-            // Set the initial viewpoint.
-            //MyMapView.SetViewpoint(new Viewpoint(-13236000, 4081200, 8822));
-
-            // Create the graphics overlay with which to display the nest buffer exclusion areas.
-            _graphicsOverlay = new GraphicsOverlay();
-            Symbol bufferSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Red, new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 2));
-            _graphicsOverlay.Renderer = new SimpleRenderer(bufferSymbol);
-            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
             // Load the Geodatabase, GeodatabaseFeatureTable and the ContingentValuesDefinition.
             // Get the 'Trailheads' geodatabase feature table from the mobile geodatabase.
             _geodatabaseFeatureTable = geodatabase.GetGeodatabaseFeatureTable("BirdNests");
 
-            // Asynchronously load the 'Trailheads' geodatabase feature table.
+            // Asynchronously load the 'BirdNests' geodatabase feature table.
             await _geodatabaseFeatureTable.LoadAsync();
+
+            // Asynchronously load the contingent values definition.
             await _geodatabaseFeatureTable.ContingentValuesDefinition.LoadAsync();
 
-            // Create a FeatureLayer based on the geodatabase feature table.
+            // Create a FeatureLayer based on the GeoDatabaseFeatureTable.
             FeatureLayer nestLayer = new FeatureLayer(_geodatabaseFeatureTable);
 
             // Add the FeatureLayer to the OperationalLayers.
             MyMapView.Map.OperationalLayers.Add(nestLayer);
 
+            #endregion FeatureLayer
+
+            #region GraphicsOverlay
+
+            // Create the GraphicsOverlay with which to display the nest buffer exclusion areas.
+            _graphicsOverlay = new GraphicsOverlay();
+            Symbol bufferSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Red, new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 2));
+            _graphicsOverlay.Renderer = new SimpleRenderer(bufferSymbol);
+            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
+
+            // Query all the features that have a buffer size greater than zero and render a graphic that depicts the buffer.
+            await QueryAndBufferFeatures();
+
+            #endregion GraphicsOverlay
+
+            #region Viewpoint
+
             // Zoom the map to the extent of the FeatureLayer.
             await MyMapView.SetViewpointGeometryAsync(nestLayer.FullExtent, 50);
 
-            await QueryAndBufferFeatures();
+            #endregion Viewpoint
+
+            #region Initialize UI components
 
             StatusCombo.ItemsSource = _statusValues.Keys;
             FeatureAttributesPanel.Visibility = Visibility.Hidden;
             SaveButton.IsEnabled = false;
+
+            #endregion Initialize UI components
         }
+
+        #region AddFeature
 
         private async Task QueryAndBufferFeatures()
         {
             if (_geodatabaseFeatureTable == null || _geodatabaseFeatureTable.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded) return;
 
-            _graphicsOverlay.Graphics.Clear();
-
-            QueryParameters parameters = new QueryParameters();
-            parameters.WhereClause = "BufferSize > 0";
-            FeatureQueryResult results = await _geodatabaseFeatureTable.QueryFeaturesAsync(parameters);
-            BufferFeaturesFromQueryResult(results);
-        }
-
-        private void BufferFeaturesFromQueryResult(FeatureQueryResult results)
-        {
-            foreach (Feature feature in results.ToList())
-            {
-                double bufferDistance = Convert.ToDouble(feature.GetAttributeValue("BufferSize"));
-                Geometry buffer = GeometryEngine.Buffer(feature.Geometry, bufferDistance);
-                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(buffer));
-            }
-        }
-
-        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
-        {
             try
             {
-                _ = CreateNewEmptyFeature(e);
+                // Clear the existing buffer graphics.
+                _graphicsOverlay.Graphics.Clear();
+
+                // Get all the features that have buffer size greater than zero.
+                QueryParameters parameters = new QueryParameters();
+                parameters.WhereClause = "BufferSize > 0";
+                FeatureQueryResult results = await _geodatabaseFeatureTable.QueryFeaturesAsync(parameters);
+
+                // Add a buffer graphic for each feature based on the above query.
+                foreach (Feature feature in results.ToList())
+                {
+                    double bufferDistance = Convert.ToDouble(feature.GetAttributeValue("BufferSize"));
+                    Geometry buffer = GeometryEngine.Buffer(feature.Geometry, bufferDistance);
+                    MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(buffer));
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
+                MessageBox.Show(e.Message, "Error");
             }
         }
 
@@ -161,23 +178,30 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
             if (_geodatabaseFeatureTable.ContingentValuesDefinition.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded) return contingentValuesNamesList;
 
-            // Instantiate a dictionary containing all possible values for a field in the context of the contingent field groups it participates in.
-            var contingentValuesResult = _geodatabaseFeatureTable.GetContingentValues(_newFeature, field);
-
-            // Loop through the contingent values.
-            foreach (ContingentValue contingentValue in contingentValuesResult.ContingentValuesByFieldGroup[fieldGroupName])
+            try
             {
-                // Contingent coded values are contingent values defined from a coded value domain.
-                // There are often multiple results returned by the ContingentValuesResult.
-                if (contingentValue is ContingentCodedValue contingentCodedValue)
+                // Instantiate a dictionary containing all possible values for a field in the context of the contingent field groups it participates in.
+                var contingentValuesResult = _geodatabaseFeatureTable.GetContingentValues(_newFeature, field);
+
+                // Loop through the contingent values.
+                foreach (ContingentValue contingentValue in contingentValuesResult.ContingentValuesByFieldGroup[fieldGroupName])
                 {
-                    contingentValuesNamesList.Add(contingentCodedValue.CodedValue.Name);
+                    // Contingent coded values are contingent values defined from a coded value domain.
+                    // There are often multiple results returned by the ContingentValuesResult.
+                    if (contingentValue is ContingentCodedValue contingentCodedValue)
+                    {
+                        contingentValuesNamesList.Add(contingentCodedValue.CodedValue.Name);
+                    }
+                    else if (contingentValue is ContingentRangeValue contingentRangeValue)
+                    {
+                        contingentValuesNamesList.Add(contingentRangeValue.MinValue.ToString());
+                        contingentValuesNamesList.Add(contingentRangeValue.MaxValue.ToString());
+                    }
                 }
-                else if (contingentValue is ContingentRangeValue contingentRangeValue)
-                {
-                    contingentValuesNamesList.Add(contingentRangeValue.MinValue.ToString());
-                    contingentValuesNamesList.Add(contingentRangeValue.MaxValue.ToString());
-                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, "Error");
             }
 
             return contingentValuesNamesList;
@@ -187,9 +211,8 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
         {
             if (_geodatabaseFeatureTable.ContingentValuesDefinition.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded || _newFeature == null) return false;
 
-            var issues = _geodatabaseFeatureTable.ValidateContingencyConstraints(_newFeature);
             // If the list of contingency constraints is empty there are no violations and the attribute map satisfies all contingencies.
-            if (issues.Count == 0)
+            if (_geodatabaseFeatureTable.ValidateContingencyConstraints(_newFeature).Count == 0)
             {
                 return true;
             }
@@ -207,6 +230,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         private async Task DiscardFeature()
         {
+            // Delete the newly created feature from the geodatabase feature table.
             await _geodatabaseFeatureTable.DeleteFeatureAsync(_newFeature);
         }
 
@@ -214,6 +238,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
         {
             try
             {
+                // Update the feature's appropriate attribute based on a given field name and a value.
                 switch (field)
                 {
                     case "Status":
@@ -239,19 +264,37 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             }
         }
 
+        #endregion AddFeature
+
+        #region EventHandlers
+
+        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
+        {
+            try
+            {
+                _ = CreateNewEmptyFeature(e);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
         private void StatusCombo_Selected(object sender, RoutedEventArgs e)
         {
             ProtectionCombo.IsEnabled = StatusCombo.SelectedIndex != -1;
 
+            // Update the feature's attribute map with the selection.
             UpdateField("Status", StatusCombo.SelectedItem);
 
+            // Get the appropriate contingent values for populating the protection combo component.
             if (GetContingentValues("Protection", "ProtectionFieldGroup").Any())
             {
-                List<string> newList = new List<string>();
-                newList.AddRange(GetContingentValues("Protection", "ProtectionFieldGroup"));
+                List<string> protectionItems = new List<string>();
+                protectionItems.AddRange(GetContingentValues("Protection", "ProtectionFieldGroup"));
 
                 ProtectionCombo.SelectionChanged -= ProtectionCombo_Selected;
-                ProtectionCombo.ItemsSource = newList;
+                ProtectionCombo.ItemsSource = protectionItems;
                 ProtectionCombo.SelectionChanged += ProtectionCombo_Selected;
             }
         }
@@ -268,12 +311,16 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
             if (minMax[0] != "")
             {
+                // Set the minimum and maximum slider values based on the valid contingent value buffer size range.
                 BufferSizeSlider.Minimum = int.Parse(minMax[0]);
                 BufferSizeSlider.Maximum = int.Parse(minMax[1]);
+
+                BufferSizeSlider.Value = BufferSizeSlider.Minimum;
 
                 // If the max value in the range is 0, set the buffer size to 0.
                 if (minMax[1] == "0")
                 {
+                    // Update the feature's buffer size with the selected value.
                     UpdateField("BufferSize", 0);
                     SaveButton.IsEnabled = ValidateContingentValues();
                 }
@@ -282,6 +329,9 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         private void BufferSizeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            // Update the feature's buffer size with the selected value.
+            UpdateField("BufferSize", BufferSizeSlider.Value);
+
             SaveButton.IsEnabled = ValidateContingentValues();
         }
 
@@ -294,15 +344,18 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            // If the contingent values are valid, save the data and hide the attribute panel.
             if (ValidateContingentValues())
             {
                 CreateNewNest();
+
                 FeatureAttributesPanel.Visibility = Visibility.Hidden;
             }
         }
 
         private void FeatureAttributesPanel_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            // Disable event handlers when the attribute panel is hidden.
             if (!FeatureAttributesPanel.IsVisible)
             {
                 StatusCombo.SelectionChanged -= StatusCombo_Selected;
@@ -311,14 +364,18 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
                 return;
             }
+
             // Reset attribute panel values when the panel opens.
             StatusCombo.SelectedIndex = -1;
             ProtectionCombo.SelectedIndex = -1;
             BufferSizeSlider.Value = BufferSizeSlider.Minimum;
 
+            // Add the event handlers to the attribute panel.
             StatusCombo.SelectionChanged += StatusCombo_Selected;
             ProtectionCombo.SelectionChanged += ProtectionCombo_Selected;
             BufferSizeSlider.ValueChanged += BufferSizeSlider_ValueChanged;
         }
+
+        #endregion EventHandlers
     }
 }

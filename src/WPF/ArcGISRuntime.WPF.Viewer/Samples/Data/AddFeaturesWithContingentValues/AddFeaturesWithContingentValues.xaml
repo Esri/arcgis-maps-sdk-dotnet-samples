@@ -20,10 +20,10 @@
                             IsSnapToTickEnabled="True"
                             TickFrequency="1"
                             TickPlacement="BottomRight" />
-                    <TextBox Width="40"
-                             Height="20"
-                             Text="{Binding ElementName=BufferSizeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
-                             TextAlignment="left" />
+                    <TextBlock Width="40"
+                               Height="20"
+                               Text="{Binding ElementName=BufferSizeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                               TextAlignment="left" />
                 </StackPanel>
 
                 <Button x:Name="SaveButton"

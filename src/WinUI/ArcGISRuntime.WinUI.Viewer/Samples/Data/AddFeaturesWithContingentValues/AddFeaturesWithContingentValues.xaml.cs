@@ -260,8 +260,17 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
 
         private async Task DiscardFeature()
         {
-            // Delete the newly created feature from the geodatabase feature table.
-            await _geodatabaseFeatureTable.DeleteFeatureAsync(_newFeature);
+            try
+            {
+                // Delete the newly created feature from the geodatabase feature table.
+                await _geodatabaseFeatureTable.DeleteFeatureAsync(_newFeature);
+
+                _newFeature = null;
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog2(e.Message, "Error").ShowAsync();
+            }
         }
 
         private async Task UpdateField(string field, object value)

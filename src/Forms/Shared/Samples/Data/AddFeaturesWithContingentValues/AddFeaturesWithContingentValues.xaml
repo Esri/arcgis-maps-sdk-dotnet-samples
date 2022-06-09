@@ -29,7 +29,6 @@
                     <Label x:Name="BufferSizeLabel"
                            Margin="5,0"
                            HeightRequest="20"
-                           Text="{Binding UpdateSourceEventName=BufferSizeSlider, Path=Value}"
                            WidthRequest="40" />
                 </StackLayout>
 

@@ -39,7 +39,6 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
         private GeodatabaseFeatureTable _geodatabaseFeatureTable;
         private GraphicsOverlay _graphicsOverlay;
         private ArcGISFeature _newFeature;
-        private bool _featureSaved;
 
         public AddFeaturesWithContingentValues()
         {
@@ -154,12 +153,6 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
         {
             try
             {
-                // If a new feature has not been saved and another tap is detected, discard the previous feature.
-                if (_newFeature != null && !_featureSaved)
-                {
-                    _ = DiscardFeature();
-                }
-
                 // Create a new empty feature to define attributes for.
                 _newFeature = (ArcGISFeature)_geodatabaseFeatureTable.CreateFeature();
 
@@ -177,8 +170,6 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
                 {
                     FeatureAttributesPanel.Visibility = Visibility.Visible;
                 }
-
-                _featureSaved = false;
             }
             catch (Exception ex)
             {
@@ -196,7 +187,7 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
             try
             {
                 // Instantiate a dictionary containing all possible values for a field in the context of the contingent field groups it participates in.
-                var contingentValuesResult = _geodatabaseFeatureTable.GetContingentValues(_newFeature, field);
+                ContingentValuesResult contingentValuesResult = _geodatabaseFeatureTable.GetContingentValues(_newFeature, field);
 
                 // Loop through the contingent values.
                 foreach (ContingentValue contingentValue in contingentValuesResult.ContingentValuesByFieldGroup[fieldGroupName])
@@ -255,7 +246,7 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
 
             _ = QueryAndBufferFeatures();
 
-            _featureSaved = true;
+            _newFeature = null;
         }
 
         private async Task DiscardFeature()
@@ -319,7 +310,7 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
         private async Task SetBufferSizeSliderRange()
         {
             // Get the valid contingent range values for the subsequent buffer size slider.
-            var minMax = await GetContingentValues("BufferSize", "BufferSizeFieldGroup");
+            List<string> minMax = await GetContingentValues("BufferSize", "BufferSizeFieldGroup");
 
             if (minMax[0] != "")
             {
@@ -360,9 +351,13 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
 
         #region EventHandlers
 
-        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            _ = CreateNewEmptyFeature(e);
+            // If a new feature is currently being created do not create another one.
+            if (_newFeature == null)
+            {
+                _ = CreateNewEmptyFeature(e);
+            }
         }
 
         private void StatusCombo_Selected(object sender, RoutedEventArgs e)

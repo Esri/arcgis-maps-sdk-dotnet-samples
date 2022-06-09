@@ -1,38 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FeaturedSamples>
-  <Categories>
-    <Category name="Data">
-      <Sample>ToggleBetweenFeatureRequestModes</Sample>
-    </Category>
-    <Category name="GraphicsOverlay">
-      <Sample>AddGraphicsRenderer</Sample>
-      <Sample>SketchOnMap</Sample>
-    </Category>
-    <Category name="Layers">
-      <Sample>DisplayDimensions</Sample>
-      <Sample>DisplayFeatureLayers</Sample>
-      <Sample>FeatureLayerDefinitionExpression</Sample>
-    </Category>
-    <Category name="Location">
-      <Sample>LocationDrivenGeotriggers</Sample>
-      <Sample>LocationWithNMEA</Sample>
-    </Category>
-    <Category name="Map">
-      <Sample>BrowseBuildingFloors</Sample>
-      <Sample>ChangeBasemap</Sample>
-      <Sample>DisplayOverviewMap</Sample>
-      <Sample>SetMaxExtent</Sample>
-    </Category>
-    <Category name="MapView">
-      <Sample>FilterByTimeExtent</Sample>
-    </Category>
-    <Category name="Symbology">
-      <Sample>CustomDictionaryStyle</Sample>
-      <Sample>RenderMultilayerSymbols</Sample>
-      <Sample>SymbolStylesFromWebStyles</Sample>
-    </Category>
-    <Category name="UtilityNetwork">
-      <Sample>DisplayUtilityNetworkContainer</Sample>
-    </Category>
-  </Categories>
+	<Categories>
+		<Category name="Data">
+			<Sample>AddFeaturesWithContingentValues</Sample>
+			<Sample>ToggleBetweenFeatureRequestModes</Sample>
+		</Category>
+		<Category name="GraphicsOverlay">
+			<Sample>AddGraphicsRenderer</Sample>
+			<Sample>SketchOnMap</Sample>
+		</Category>
+		<Category name="Layers">
+			<Sample>DisplayDimensions</Sample>
+			<Sample>DisplayFeatureLayers</Sample>
+			<Sample>FeatureLayerDefinitionExpression</Sample>
+		</Category>
+		<Category name="Location">
+			<Sample>LocationDrivenGeotriggers</Sample>
+			<Sample>LocationWithNMEA</Sample>
+		</Category>
+		<Category name="Map">
+			<Sample>BrowseBuildingFloors</Sample>
+			<Sample>ChangeBasemap</Sample>
+			<Sample>DisplayOverviewMap</Sample>
+			<Sample>SetMaxExtent</Sample>
+		</Category>
+		<Category name="MapView">
+			<Sample>FilterByTimeExtent</Sample>
+		</Category>
+		<Category name="Symbology">
+			<Sample>CustomDictionaryStyle</Sample>
+			<Sample>RenderMultilayerSymbols</Sample>
+			<Sample>SymbolStylesFromWebStyles</Sample>
+		</Category>
+		<Category name="UtilityNetwork">
+			<Sample>DisplayUtilityNetworkContainer</Sample>
+		</Category>
+	</Categories>
 </FeaturedSamples>

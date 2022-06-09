@@ -4,7 +4,7 @@
              xmlns:esri="using:Esri.ArcGISRuntime"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MapView_Tapped" />
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border x:Name="FeatureAttributesPanel"
                 MaxWidth="220"
                 Style="{StaticResource BorderStyle}">

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView" GeoViewTapped="MapView_Tapped" />
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border x:Name="FeatureAttributesPanel"
                 MaxWidth="200"
                 IsVisibleChanged="FeatureAttributesPanel_IsVisibleChanged"

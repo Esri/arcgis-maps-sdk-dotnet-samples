@@ -40,7 +40,6 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
         private GeodatabaseFeatureTable _geodatabaseFeatureTable;
         private GraphicsOverlay _graphicsOverlay;
         private ArcGISFeature _newFeature;
-        private bool _featureSaved;
 
         public AddFeaturesWithContingentValues()
         {
@@ -152,25 +151,30 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         private async Task CreateNewEmptyFeature(GeoViewInputEventArgs e)
         {
-            // Create a new empty feature to define attributes for.
-            _newFeature = (ArcGISFeature)_geodatabaseFeatureTable.CreateFeature();
-
-            // Get the normalized geometry for the tapped location and use it as the feature's geometry.
-            MapPoint tappedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
-            _newFeature.Geometry = tappedPoint;
-
-            // Add the feature to the table.
-            await _geodatabaseFeatureTable.AddFeatureAsync(_newFeature);
-
-            // Update the feature to get the updated objectid - a temporary ID is used before the feature is added.
-            _newFeature.Refresh();
-
-            if (!FeatureAttributesPanel.IsVisible)
+            try
             {
-                FeatureAttributesPanel.Visibility = Visibility.Visible;
-            }
+                // Create a new empty feature to define attributes for.
+                _newFeature = (ArcGISFeature)_geodatabaseFeatureTable.CreateFeature();
 
-            _featureSaved = false;
+                // Get the normalized geometry for the tapped location and use it as the feature's geometry.
+                MapPoint tappedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
+                _newFeature.Geometry = tappedPoint;
+
+                // Add the feature to the table.
+                await _geodatabaseFeatureTable.AddFeatureAsync(_newFeature);
+
+                // Update the feature to get the updated objectid - a temporary ID is used before the feature is added.
+                _newFeature.Refresh();
+
+                if (!FeatureAttributesPanel.IsVisible)
+                {
+                    FeatureAttributesPanel.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         private List<string> GetContingentValues(string field, string fieldGroupName)
@@ -183,7 +187,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             try
             {
                 // Instantiate a dictionary containing all possible values for a field in the context of the contingent field groups it participates in.
-                var contingentValuesResult = _geodatabaseFeatureTable.GetContingentValues(_newFeature, field);
+                ContingentValuesResult contingentValuesResult = _geodatabaseFeatureTable.GetContingentValues(_newFeature, field);
 
                 // Loop through the contingent values.
                 foreach (ContingentValue contingentValue in contingentValuesResult.ContingentValuesByFieldGroup[fieldGroupName])
@@ -242,7 +246,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
             _ = QueryAndBufferFeatures();
 
-            _featureSaved = true;
+            _newFeature = null;
         }
 
         private async Task DiscardFeature()
@@ -294,21 +298,12 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         #region EventHandlers
 
-        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            try
+            // If a new feature is currently being created do not create another one.
+            if (_newFeature == null)
             {
-                // If a new feature has not been saved and another tap is detected, discard the previous feature.
-                if (_newFeature != null && !_featureSaved)
-                {
-                    _ = DiscardFeature();
-                }
-
                 _ = CreateNewEmptyFeature(e);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error");
             }
         }
 
@@ -317,12 +312,11 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             // Update the feature's attribute map with the selection.
             UpdateField("Status", StatusCombo.SelectedItem);
 
-            // Get the appropriate contingent values for populating the protection combo component.
-            if (GetContingentValues("Protection", "ProtectionFieldGroup").Any())
-            {
-                List<string> protectionItems = new List<string>();
-                protectionItems.AddRange(GetContingentValues("Protection", "ProtectionFieldGroup"));
+            var protectionItems = GetContingentValues("Protection", "ProtectionFieldGroup");
 
+            // Get the appropriate contingent values for populating the protection combo component.
+            if (protectionItems.Any())
+            {
                 ProtectionCombo.SelectionChanged -= ProtectionCombo_Selected;
                 ProtectionCombo.ItemsSource = protectionItems;
                 ProtectionCombo.SelectionChanged += ProtectionCombo_Selected;

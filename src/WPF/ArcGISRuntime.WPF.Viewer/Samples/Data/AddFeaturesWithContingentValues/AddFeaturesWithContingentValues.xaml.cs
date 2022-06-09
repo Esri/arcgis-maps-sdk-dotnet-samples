@@ -40,6 +40,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
         private GeodatabaseFeatureTable _geodatabaseFeatureTable;
         private GraphicsOverlay _graphicsOverlay;
         private ArcGISFeature _newFeature;
+        private bool _featureSaved;
 
         public AddFeaturesWithContingentValues()
         {
@@ -115,7 +116,6 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
             StatusCombo.ItemsSource = _statusValues.Keys;
             FeatureAttributesPanel.Visibility = Visibility.Hidden;
-            SaveButton.IsEnabled = false;
 
             #endregion Initialize UI components
         }
@@ -169,6 +169,8 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             {
                 FeatureAttributesPanel.Visibility = Visibility.Visible;
             }
+
+            _featureSaved = false;
         }
 
         private List<string> GetContingentValues(string field, string fieldGroupName)
@@ -207,14 +209,27 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             return contingentValuesNamesList;
         }
 
-        private bool ValidateContingentValues()
+        private bool ValidateContingentValues(out List<string> fieldGroupNames, out int numberOfViolations)
         {
+            fieldGroupNames = new List<string>();
+            numberOfViolations = 0;
+
             if (_geodatabaseFeatureTable.ContingentValuesDefinition.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded || _newFeature == null) return false;
 
-            // If the list of contingency constraints is empty there are no violations and the attribute map satisfies all contingencies.
-            if (_geodatabaseFeatureTable.ValidateContingencyConstraints(_newFeature).Count == 0)
+            IReadOnlyList<ContingencyConstraintViolation> contingencyConstraintViolations = _geodatabaseFeatureTable.ValidateContingencyConstraints(_newFeature);
+            numberOfViolations = contingencyConstraintViolations.Count;
+
+            // If the number of contingency constraint violations is zero the attribute map satisfies all contingencies.
+            if (numberOfViolations.Equals(0))
             {
                 return true;
+            }
+            else
+            {
+                foreach (ContingencyConstraintViolation violation in contingencyConstraintViolations)
+                {
+                    fieldGroupNames.Add(violation.FieldGroup.Name);
+                }
             }
 
             return false;
@@ -226,6 +241,8 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             _ = _geodatabaseFeatureTable.UpdateFeatureAsync(_newFeature);
 
             _ = QueryAndBufferFeatures();
+
+            _featureSaved = true;
         }
 
         private async Task DiscardFeature()
@@ -272,6 +289,12 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
         {
             try
             {
+                // If a new feature has not been saved and another tap is detected, discard the previous feature.
+                if (_newFeature != null && !_featureSaved)
+                {
+                    _ = DiscardFeature();
+                }
+
                 _ = CreateNewEmptyFeature(e);
             }
             catch (Exception ex)
@@ -282,8 +305,6 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         private void StatusCombo_Selected(object sender, RoutedEventArgs e)
         {
-            ProtectionCombo.IsEnabled = StatusCombo.SelectedIndex != -1;
-
             // Update the feature's attribute map with the selection.
             UpdateField("Status", StatusCombo.SelectedItem);
 
@@ -301,8 +322,6 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         private void ProtectionCombo_Selected(object sender, RoutedEventArgs e)
         {
-            BufferSizeSlider.IsEnabled = ProtectionCombo.SelectedIndex != -1;
-
             // Update the feature's attribute map with the selection.
             UpdateField("Protection", ProtectionCombo.SelectedItem);
 
@@ -322,7 +341,6 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
                 {
                     // Update the feature's buffer size with the selected value.
                     UpdateField("BufferSize", 0);
-                    SaveButton.IsEnabled = ValidateContingentValues();
                 }
             }
         }
@@ -331,8 +349,6 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
         {
             // Update the feature's buffer size with the selected value.
             UpdateField("BufferSize", BufferSizeSlider.Value);
-
-            SaveButton.IsEnabled = ValidateContingentValues();
         }
 
         private void DiscardButton_Click(object sender, RoutedEventArgs e)
@@ -344,12 +360,19 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            List<string> fieldGroupNames = new List<string>();
+            int numberOfViolations = 0;
+
             // If the contingent values are valid, save the data and hide the attribute panel.
-            if (ValidateContingentValues())
+            if (ValidateContingentValues(out fieldGroupNames, out numberOfViolations))
             {
                 CreateNewNest();
 
                 FeatureAttributesPanel.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                MessageBox.Show($"Error saving feature. {numberOfViolations} violation(s) in field group(s) {string.Join(", ", fieldGroupNames)}.", "Error");
             }
         }
 

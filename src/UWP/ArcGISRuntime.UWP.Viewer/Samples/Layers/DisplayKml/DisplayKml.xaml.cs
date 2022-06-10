@@ -37,7 +37,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayKml
         private void Initialize()
         {
             // Set up the basemap.
-            MySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
 
             // Update the UI.
             LayerPicker.IsEnabled = true;

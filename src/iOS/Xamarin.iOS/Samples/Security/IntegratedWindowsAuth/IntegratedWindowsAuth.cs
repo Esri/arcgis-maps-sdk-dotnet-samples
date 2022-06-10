@@ -535,7 +535,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
                 string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(domain))
             {
-                new UIAlertView("Login", "Please enter a username, password, and domain", null, "OK", null).Show();
+                new UIAlertView("Login", "Please enter a username, password, and domain", (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;
             }
 

@@ -329,7 +329,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             UpdateField("Protection", ProtectionCombo.SelectedItem);
 
             // Get the valid contingent range values for the subsequent buffer size slider.
-            var minMax = GetContingentValues("BufferSize", "BufferSizeFieldGroup");
+            List<string> minMax = GetContingentValues("BufferSize", "BufferSizeFieldGroup");
 
             if (minMax[0] != "")
             {

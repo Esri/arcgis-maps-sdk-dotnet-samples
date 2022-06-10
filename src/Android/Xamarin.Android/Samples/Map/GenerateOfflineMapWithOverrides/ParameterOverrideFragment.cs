@@ -13,7 +13,9 @@ using System.Linq;
 
 namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
 {
+#pragma warning disable CS0618 // Type or member is obsolete
     public class ParameterOverrideFragment : DialogFragment
+#pragma warning restore CS0618 // Type or member is obsolete
     {
         // Hold references to the overrides, map, and area of interest.
         private GenerateOfflineMapParameterOverrides _overrides;

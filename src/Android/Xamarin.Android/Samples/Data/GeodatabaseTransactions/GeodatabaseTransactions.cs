@@ -253,7 +253,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
 
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready
-                    generateGdbJob.JobChanged += (s, e) =>
+                    generateGdbJob.StatusChanged += (s, e) =>
                     {
                         // Call a function to update the progress bar
                         RunOnUiThread(() => UpdateProgressBar(generateGdbJob.Progress));

@@ -7,21 +7,17 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Collections.Generic;
-using ArcGISRuntime.Samples.Managers;
-using System;
-using System.Linq;
 
 namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
 {
@@ -76,7 +72,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             Geodatabase geodatabase = await Geodatabase.OpenAsync(geodatabasePath);
 
             // Load the Geodatabase, GeodatabaseFeatureTable and the ContingentValuesDefinition.
-            // Get the 'Trailheads' geodatabase feature table from the mobile geodatabase.
+            // Get the 'BirdNests' geodatabase feature table from the mobile geodatabase.
             _geodatabaseFeatureTable = geodatabase.GetGeodatabaseFeatureTable("BirdNests");
 
             // Asynchronously load the 'BirdNests' geodatabase feature table.
@@ -106,14 +102,10 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
 
             #endregion GraphicsOverlay
 
-            #region Viewpoint
+            #region Initialize UI components
 
             // Zoom the map to the extent of the FeatureLayer.
             await MyMapView.SetViewpointGeometryAsync(nestLayer.FullExtent, 50);
-
-            #endregion Viewpoint
-
-            #region Initialize UI components
 
             StatusPicker.ItemsSource = _statusValues.Keys.ToList();
             FeatureAttributesPopup.IsVisible = false;
@@ -242,10 +234,10 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             return false;
         }
 
-        private void CreateNewNest()
+        private async Task CreateNewNest()
         {
             // Once the attribute map is filled and validated, save the feature to the geodatabase feature table.
-            _ = _geodatabaseFeatureTable.UpdateFeatureAsync(_newFeature);
+            await _geodatabaseFeatureTable.UpdateFeatureAsync(_newFeature);
 
             _ = QueryAndBufferFeatures();
 
@@ -304,9 +296,9 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             // Get the appropriate contingent values for populating the protection combo component.
             if (protectionItems.Any())
             {
-                ProtectionPicker.SelectedIndexChanged -= ProtectionCombo_Selected;
+                ProtectionPicker.SelectedIndexChanged -= ProtectionCombo_SelectedIndexChanged;
                 ProtectionPicker.ItemsSource = protectionItems;
-                ProtectionPicker.SelectedIndexChanged += ProtectionCombo_Selected;
+                ProtectionPicker.SelectedIndexChanged += ProtectionCombo_SelectedIndexChanged;
             }
         }
 
@@ -318,17 +310,28 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             if (minMax[0] != "")
             {
                 // Set the minimum and maximum slider values based on the valid contingent value buffer size range.
-                BufferSizeSlider.Maximum = double.Parse(minMax[1]);
-                BufferSizeSlider.Minimum = double.Parse(minMax[0]);
-
-                BufferSizeSlider.Value = BufferSizeSlider.Minimum;
-
-                // If the max value in the range is 0, set the buffer size to 0.
                 if (minMax[1] == "0")
                 {
+                    // If the max value in the range is 0, set the buffer size to 0.
+                    BufferSizeSlider.Minimum = 0;
+                    BufferSizeSlider.Maximum = 1;
+                    BufferSizeSlider.IsEnabled = false;
+
                     // Update the feature's buffer size with the selected value.
                     await UpdateField("BufferSize", 0);
                 }
+                else if (BufferSizeSlider.Maximum <= double.Parse(minMax[0]))
+                {
+                    BufferSizeSlider.Maximum = double.Parse(minMax[1]);
+                    BufferSizeSlider.Minimum = double.Parse(minMax[0]);
+                }
+                else
+                {
+                    BufferSizeSlider.Minimum = double.Parse(minMax[0]);
+                    BufferSizeSlider.Maximum = double.Parse(minMax[1]);
+                }
+
+                BufferSizeSlider.Value = BufferSizeSlider.Minimum;
             }
         }
 
@@ -340,7 +343,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             // If the contingent values are valid, save the data and hide the attribute panel.
             if (ValidateContingentValues(out fieldGroupNames, out numberOfViolations))
             {
-                CreateNewNest();
+                _ = CreateNewNest();
 
                 FeatureAttributesPopup.IsVisible = false;
             }
@@ -348,6 +351,15 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             {
                 await Application.Current.MainPage.DisplayAlert("Error", $"Error saving feature. {numberOfViolations} violation(s) in field group(s) {string.Join(", ", fieldGroupNames)}.", "OK");
             }
+        }
+
+        private void ClearAndDisableBufferSizeSlider()
+        {
+            BufferSizeSlider.Minimum = 0;
+            BufferSizeSlider.Maximum = 1;
+            BufferSizeSlider.Value = BufferSizeSlider.Minimum;
+            BufferSizeLabel.Text = BufferSizeSlider.Minimum.ToString();
+            BufferSizeSlider.IsEnabled = false;
         }
 
         #endregion AddFeature
@@ -363,18 +375,35 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             }
         }
 
-        private void StatusCombo_Selected(object sender, EventArgs e)
+        private void StatusCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Update the feature's attribute map with the selection.
             _ = UpdateField("Status", StatusPicker.SelectedItem);
             _ = SetProtectionComboItems();
+
+            if (BufferSizeSlider.IsEnabled)
+            {
+                ClearAndDisableBufferSizeSlider();
+            }
         }
 
-        private void ProtectionCombo_Selected(object sender, EventArgs e)
+        private void ProtectionCombo_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Update the feature's attribute map with the selection.
             _ = UpdateField("Protection", ProtectionPicker.SelectedItem);
-            _ = SetBufferSizeSliderRange();
+
+            BufferSizeSlider.IsEnabled = ProtectionPicker.SelectedIndex != -1;
+
+            if (ProtectionPicker.SelectedIndex == -1)
+            {
+                BufferSizeSlider.Minimum = 0;
+                BufferSizeSlider.Maximum = 1;
+                BufferSizeSlider.Value = BufferSizeSlider.Minimum;
+            }
+            else
+            {
+                _ = SetBufferSizeSliderRange();
+            }
         }
 
         private void BufferSizeSlider_ValueChanged(object sender, ValueChangedEventArgs e)
@@ -409,8 +438,8 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             // Disable event handlers when the attribute panel is hidden.
             if (!FeatureAttributesPopup.IsVisible)
             {
-                StatusPicker.SelectedIndexChanged -= StatusCombo_Selected;
-                ProtectionPicker.SelectedIndexChanged -= ProtectionCombo_Selected;
+                StatusPicker.SelectedIndexChanged -= StatusCombo_SelectedIndexChanged;
+                ProtectionPicker.SelectedIndexChanged -= ProtectionCombo_SelectedIndexChanged;
                 BufferSizeSlider.ValueChanged -= BufferSizeSlider_ValueChanged;
 
                 return;
@@ -419,12 +448,11 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
             // Reset attribute panel values when the panel opens.
             StatusPicker.SelectedIndex = -1;
             ProtectionPicker.SelectedIndex = -1;
-            BufferSizeSlider.Value = BufferSizeSlider.Minimum;
-            BufferSizeLabel.Text = BufferSizeSlider.Minimum.ToString();
+            ClearAndDisableBufferSizeSlider();
 
             // Add the event handlers to the attribute panel.
-            StatusPicker.SelectedIndexChanged += StatusCombo_Selected;
-            ProtectionPicker.SelectedIndexChanged += ProtectionCombo_Selected;
+            StatusPicker.SelectedIndexChanged += StatusCombo_SelectedIndexChanged;
+            ProtectionPicker.SelectedIndexChanged += ProtectionCombo_SelectedIndexChanged;
             BufferSizeSlider.ValueChanged += BufferSizeSlider_ValueChanged;
         }
 

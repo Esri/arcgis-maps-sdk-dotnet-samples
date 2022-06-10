@@ -27,7 +27,7 @@
                             ValueChanged="BufferSizeSlider_ValueChanged"
                             WidthRequest="250" />
                     <Label x:Name="BufferSizeLabel"
-                           Margin="5,0"
+                           Margin="0,0"
                            HeightRequest="20"
                            WidthRequest="40" />
                 </StackLayout>

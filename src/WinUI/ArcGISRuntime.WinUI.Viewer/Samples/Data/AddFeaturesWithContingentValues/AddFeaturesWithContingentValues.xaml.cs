@@ -73,7 +73,7 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
             Geodatabase geodatabase = await Geodatabase.OpenAsync(geodatabasePath);
 
             // Load the Geodatabase, GeodatabaseFeatureTable and the ContingentValuesDefinition.
-            // Get the 'Trailheads' geodatabase feature table from the mobile geodatabase.
+            // Get the 'BirdNests' geodatabase feature table from the mobile geodatabase.
             _geodatabaseFeatureTable = geodatabase.GetGeodatabaseFeatureTable("BirdNests");
 
             // Asynchronously load the 'BirdNests' geodatabase feature table.
@@ -103,14 +103,10 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
 
             #endregion GraphicsOverlay
 
-            #region Viewpoint
+            #region Initialize UI components
 
             // Zoom the map to the extent of the FeatureLayer.
             await MyMapView.SetViewpointGeometryAsync(nestLayer.FullExtent, 50);
-
-            #endregion Viewpoint
-
-            #region Initialize UI components
 
             StatusCombo.ItemsSource = _statusValues.Keys;
             FeatureAttributesPanel.Visibility = Visibility.Collapsed;
@@ -239,10 +235,10 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
             return false;
         }
 
-        private void CreateNewNest()
+        private async Task CreateNewNest()
         {
             // Once the attribute map is filled and validated, save the feature to the geodatabase feature table.
-            _ = _geodatabaseFeatureTable.UpdateFeatureAsync(_newFeature);
+            await _geodatabaseFeatureTable.UpdateFeatureAsync(_newFeature);
 
             _ = QueryAndBufferFeatures();
 
@@ -337,7 +333,7 @@ namespace ArcGISRuntime.WinUI.Samples.AddFeaturesWithContingentValues
             // If the contingent values are valid, save the data and hide the attribute panel.
             if (ValidateContingentValues(out fieldGroupNames, out numberOfViolations))
             {
-                CreateNewNest();
+                _ = CreateNewNest();
 
                 FeatureAttributesPanel.Visibility = Visibility.Collapsed;
             }

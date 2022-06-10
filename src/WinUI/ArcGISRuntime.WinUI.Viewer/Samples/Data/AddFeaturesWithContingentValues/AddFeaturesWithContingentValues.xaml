@@ -22,7 +22,7 @@
                             TickPlacement="BottomRight" />
                     <TextBlock Width="40"
                                Height="20"
-                               Margin="5,0"
+                               Margin="10,0"
                                Text="{Binding ElementName=BufferSizeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
                                TextAlignment="left" />
                 </StackPanel>

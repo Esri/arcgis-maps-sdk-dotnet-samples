@@ -88,7 +88,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 myFeatureLayer.Renderer = mySimpleRenderer;
 
                 // Create a new scene with the topographic backdrop 
-                Scene myScene = new Scene(BasemapType.Topographic);
+                Scene myScene = new Scene(BasemapStyle.ArcGISTopographic);
 
                 // Set the scene view's scene to the newly create one
                 _mySceneView.Scene = myScene;

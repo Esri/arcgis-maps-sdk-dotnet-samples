@@ -541,7 +541,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
 
                 // Handle the JobChanged event for the job
-                job.JobChanged += (s, arg) =>
+                job.StatusChanged += (s, arg) =>
                 {
                     RunOnUiThread(() =>
                     {

@@ -312,7 +312,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             // Update the feature's attribute map with the selection.
             UpdateField("Status", StatusCombo.SelectedItem);
 
-            var protectionItems = GetContingentValues("Protection", "ProtectionFieldGroup");
+            List<string> protectionItems = GetContingentValues("Protection", "ProtectionFieldGroup");
 
             // Get the appropriate contingent values for populating the protection combo component.
             if (protectionItems.Any())

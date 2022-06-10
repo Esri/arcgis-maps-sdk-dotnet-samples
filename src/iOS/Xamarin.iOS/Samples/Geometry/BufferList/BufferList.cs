@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.BufferList
         private void Initialize()
         {
             // Create a spatial reference that's suitable for creating planar buffers in north central Texas (State Plane).
-            SpatialReference statePlaneNorthCentralTexas = new SpatialReference(32038);
+            SpatialReference statePlaneNorthCentralTexas = SpatialReference.Create(32038);
 
             // Define a polygon that represents the valid area of use for the spatial reference.
             // This information is available at https://developers.arcgis.com/net/latest/wpf/guide/pdf/projected_coordinate_systems_rt100_3_0.pdf

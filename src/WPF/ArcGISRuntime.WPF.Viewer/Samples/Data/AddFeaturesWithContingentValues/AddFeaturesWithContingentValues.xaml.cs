@@ -307,7 +307,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             // Update the feature's attribute map with the selection.
             UpdateField("Status", StatusCombo.SelectedItem);
 
-            var protectionItems = GetContingentValues("Protection", "ProtectionFieldGroup");
+            List<string> protectionItems = GetContingentValues("Protection", "ProtectionFieldGroup");
 
             // Get the appropriate contingent values for populating the protection combo component.
             if (protectionItems.Any())
@@ -324,7 +324,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeaturesWithContingentValues
             UpdateField("Protection", ProtectionCombo.SelectedItem);
 
             // Get the valid contingent range values for the subsequent buffer size slider.
-            var minMax = GetContingentValues("BufferSize", "BufferSizeFieldGroup");
+            List<string> minMax = GetContingentValues("BufferSize", "BufferSizeFieldGroup");
 
             if (minMax[0] != "")
             {

@@ -88,7 +88,7 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
         if ' ' in formal_category:
             formal_category = formal_category.title().replace(' ', '')
         for sample in samples_in_categories[category]:
-            entry_url = f"{relative_path_to_samples}/{formal_category}/{sample.formal_name}/readme.md"
+            entry_url = f"{relative_path_to_samples}/{formal_category}/{sample.formal_name}"
             entry_url = urllib.parse.quote(entry_url)
             readme_text += f"* [{sample.friendly_name}]({entry_url}) - {sample.description}\n"
         readme_text += "\n"

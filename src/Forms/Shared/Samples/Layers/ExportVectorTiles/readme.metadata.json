@@ -1,0 +1,22 @@
+{
+    "category": "Layers",
+    "description": "Export tiles from an online vector tile service.",
+    "formal_name": "ExportVectorTiles",
+    "ignore": false,
+    "images": [
+        "ExportVectorTiles.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/ExportVectorTiles.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Export Vector Tiles"
+}

@@ -163,13 +163,13 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
              };
 
             // Be notified when the task completes (or other change happens)
-            _gpJob.JobChanged += GpJobOnJobChanged;
+            _gpJob.StatusChanged += GpJobOnJobChanged;
 
             // Start the job
             _gpJob.Start();
         }
 
-        private async void GpJobOnJobChanged(object o, EventArgs eventArgs)
+        private async void GpJobOnJobChanged(object o, JobStatus e)
         {
             // Show message if job failed
             if (_gpJob.Status == JobStatus.Failed)

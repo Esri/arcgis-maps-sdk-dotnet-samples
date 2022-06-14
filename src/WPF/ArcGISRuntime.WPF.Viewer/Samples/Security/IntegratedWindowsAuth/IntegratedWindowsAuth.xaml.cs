@@ -86,11 +86,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
                         var domain = win.DomainTextBox.Text;
 
                         // Create a new network credential using the user input and the URI of the resource.
-                        cred = new ArcGISNetworkCredential()
-                        {
-                            Credentials = new System.Net.NetworkCredential(username, password, domain),
-                            ServiceUri = info.ServiceUri
-                        };
+                        cred = new ArcGISNetworkCredential(info.ServiceUri, new System.Net.NetworkCredential(username, password, domain));
                     }
 
                     // Return the credential

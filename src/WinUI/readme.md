@@ -104,6 +104,7 @@
 * [Display WFS layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/DisplayWfs/readme.md) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Edit KML ground overlay](ArcGISRuntime.WinUI.Viewer/Samples/Layers/EditKmlGroundOverlay/readme.md) - Edit the values of a KML ground overlay.
 * [Export tiles](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ExportTiles/readme.md) - Download tiles to a local tile cache file stored on the device.
+* [Export vector tiles](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ExportVectorTiles/readme.md) - Export tiles from an online vector tile service.
 * [Create feature collection layer (Portal item)](ArcGISRuntime.WinUI.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal/readme.md) - Create a feature collection layer from a portal item.
 * [Feature collection layer (query)](ArcGISRuntime.WinUI.Viewer/Samples/Layers/FeatureCollectionLayerFromQuery/readme.md) - Create a feature collection layer to show a query result from a service feature table.
 * [Filter by definition expression or display filter](ArcGISRuntime.WinUI.Viewer/Samples/Layers/FeatureLayerDefinitionExpression/readme.md) - Filter features displayed on a map using a definition expression or a display filter.

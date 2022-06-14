@@ -3,6 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" ViewpointChanged="MyMapView_ViewpointChanged" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Button x:Name="MyExportButton"
+                        Click="MyExportButton_Click"
+                        Content="Export Vector Tiles"
+                        IsEnabled="False" />
+                <Grid>
+                    <ProgressBar x:Name="MyProgressBar"
+                                 MinHeight="10"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Visibility="Collapsed" />
+                    <TextBlock x:Name="MyProgressBarLabel"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="{Binding ElementName=MyProgressBar, Path=Value, StringFormat={}{0:0}%}"
+                               Visibility="Collapsed" />
+                </Grid>
+
+                <esri:MapView x:Name="MyPreviewMapView"
+                              Width="375"
+                              Height="400"
+                              Visibility="Collapsed" />
+                <Button x:Name="MyClosePreviewButton"
+                        Click="MyClosePreviewButton_Click"
+                        Content="Close Preview"
+                        Visibility="Collapsed" />
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

@@ -22,10 +22,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Export Vector Tiles",
-        "Layers",
-        "Export tiles from an online vector tile service.",
-        "")]
+        name: "Export vector tiles",
+        category: "Layers",
+        description: "Export tiles from an online vector tile service.",
+        instructions: "When the vector tiled layer loads, zoom in to the extent you want to export. The red box shows the extent that will be exported. Tap the \"Export vector tiles\" button to start exporting the vector tiles. An error will show if the extent is larger than the maximum limit allowed. When finished, a new map view will show the exported result.",
+        tags: new[] { "cache", "download", "offline", "vector" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ExportVectorTiles : ContentPage
     {

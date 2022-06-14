@@ -7,16 +7,27 @@
         "ExportVectorTiles.jpg"
     ],
     "keywords": [
+        "cache",
+        "download",
+        "offline",
+        "vector"
     ],
-    "nuget_packages": {
-        "Esri.ArcGISRuntime": "100.10.0"
-    },
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/ExportVectorTiles.htm"
+        "/net/latest/forms/sample-code/exportvectortiles.htm"
     ],
     "relevant_apis": [
+        "ArcGISVectorTiledLayer",
+        "ExportVectorTilesJob",
+        "ExportVectorTilesParameters",
+        "ExportVectorTilesResult",
+        "ExportVectorTilesTask",
+        "ItemResourceCache",
+        "VectorTileCache"
     ],
     "snippets": [
+        "ExportVectorTiles.xaml",
+        "ExportVectorTiles.xaml.cs"
     ],
-    "title": "Export Vector Tiles"
+    "title": "Export vector tiles"
 }

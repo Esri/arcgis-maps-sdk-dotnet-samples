@@ -13,6 +13,7 @@
 ## Data
 
 * [Add features](Shared/Samples/Data/AddFeatures) - Add features to a feature layer.
+* [Add features with contingent values](Shared/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
 * [Delete features (feature service)](Shared/Samples/Data/DeleteFeatures) - Delete features from an online feature service.
 * [Edit and sync features](Shared/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit with branch versioning](Shared/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.

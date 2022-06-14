@@ -19,10 +19,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.UniqueValuesAlternateSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Apply unique values with alternate symbols",
-        "Symbology",
-        "Apply a unique value with alternate symbols at different scales.",
-        "")]
+        name: "Apply unique values with alternate symbols",
+        category: "Symbology",
+        description: "Apply a unique value with alternate symbols at different scales.",
+        instructions: "Zoom in and out of the map to see alternate symbols at each scale. The symbology changes according to the following scale ranges: 0-5000, 5000-10000, 10000-20000. To go back to the initial viewpoint, press \"Reset Viewpoint\".",
+        tags: new[] { "alternate symbols", "scale based rendering", "symbology", "unique value", "unique value renderer" })]
     public partial class UniqueValuesAlternateSymbols : ContentPage
     {
         private Viewpoint _initialViewpoint = new Viewpoint(new MapPoint(-13631205.660131, 4546829.846004, SpatialReferences.WebMercator), 25000);

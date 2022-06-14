@@ -1,0 +1,22 @@
+{
+    "category": "Symbology",
+    "description": "Apply a unique value with alternate symbols at different scales.",
+    "formal_name": "UniqueValuesAlternateSymbols",
+    "ignore": false,
+    "images": [
+        "UniqueValuesAlternateSymbols.jpg"
+    ],
+    "keywords": [
+    ],
+    "nuget_packages": {
+        "Esri.ArcGISRuntime": "100.10.0"
+    },
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/UniqueValuesAlternateSymbols.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Apply unique values with alternate symbols"
+}

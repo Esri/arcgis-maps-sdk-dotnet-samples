@@ -38,21 +38,15 @@ namespace ArcGISRuntime.WPF.Samples.UniqueValuesAlternateSymbols
             var featureLayer = new FeatureLayer(featureTable);
 
             // Create a symbol for a specific scale range.
-            double minScaleTriangle = 5000;
-            double maxScaleTriangle = 0;
             MultilayerPointSymbol triangleMultilayerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, System.Drawing.Color.Red, 30).ToMultilayerSymbol();
-            triangleMultilayerSymbol.ReferenceProperties = new SymbolReferenceProperties(minScaleTriangle, maxScaleTriangle);
+            triangleMultilayerSymbol.ReferenceProperties = new SymbolReferenceProperties(minScale: 5000, maxScale: 0);
 
             // Create alternate symbols for use at different scale ranges.
-            double minScaleSquare = 10000;
-            double maxScaleSquare = 5000;
             MultilayerPointSymbol blueAlternateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Square, System.Drawing.Color.Blue, 30).ToMultilayerSymbol();
-            blueAlternateSymbol.ReferenceProperties = new SymbolReferenceProperties(minScaleSquare, maxScaleSquare);
+            blueAlternateSymbol.ReferenceProperties = new SymbolReferenceProperties(minScale: 10000, maxScale: 5000);
 
-            double minScaleDiamond = 20000;
-            double maxScaleDiamond = 10000;
             MultilayerPointSymbol yellowAlternateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, System.Drawing.Color.Yellow, 30).ToMultilayerSymbol();
-            yellowAlternateSymbol.ReferenceProperties = new SymbolReferenceProperties(minScaleDiamond, maxScaleDiamond);
+            yellowAlternateSymbol.ReferenceProperties = new SymbolReferenceProperties(minScale: 20000, maxScale: 10000);
 
             var alternateSymbols = new List<Symbol> { blueAlternateSymbol, yellowAlternateSymbol };
 

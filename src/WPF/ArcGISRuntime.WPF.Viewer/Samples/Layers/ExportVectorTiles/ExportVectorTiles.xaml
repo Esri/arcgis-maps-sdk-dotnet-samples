@@ -8,7 +8,7 @@
             <StackPanel>
                 <Button x:Name="MyExportButton"
                         Click="MyExportButton_Click"
-                        Content="Export Vector Tiles"
+                        Content="Export vector tiles"
                         IsEnabled="False" />
                 <Grid>
                     <ProgressBar x:Name="MyProgressBar"

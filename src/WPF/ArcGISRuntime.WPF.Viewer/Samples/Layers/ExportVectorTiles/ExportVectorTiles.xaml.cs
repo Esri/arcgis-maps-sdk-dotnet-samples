@@ -251,7 +251,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 

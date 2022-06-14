@@ -11,18 +11,8 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.UniqueValuesAlternateSymbols
 {
@@ -31,17 +21,63 @@ namespace ArcGISRuntime.WPF.Samples.UniqueValuesAlternateSymbols
         "Symbology",
         "Apply a unique value with alternate symbols at different scales.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class UniqueValuesAlternateSymbols
     {
+        private Viewpoint _initialViewpoint = new Viewpoint(new MapPoint(-13631205.660131, 4546829.846004, SpatialReferences.WebMercator), 25000);
+
         public UniqueValuesAlternateSymbols()
         {
             InitializeComponent();
-            _ = Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
+            // Create a feature layer using the feature table.
+            var featureTable = new ServiceFeatureTable(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SF311/FeatureServer/0"));
+            var featureLayer = new FeatureLayer(featureTable);
+
+            // Create a symbol for a specific scale range.
+            double minScaleTriangle = 5000;
+            double maxScaleTriangle = 0;
+            MultilayerPointSymbol triangleMultilayerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, System.Drawing.Color.Red, 30).ToMultilayerSymbol();
+            triangleMultilayerSymbol.ReferenceProperties = new SymbolReferenceProperties(minScaleTriangle, maxScaleTriangle);
+
+            // Create alternate symbols for use at different scale ranges.
+            double minScaleSquare = 10000;
+            double maxScaleSquare = 5000;
+            MultilayerPointSymbol blueAlternateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Square, System.Drawing.Color.Blue, 30).ToMultilayerSymbol();
+            blueAlternateSymbol.ReferenceProperties = new SymbolReferenceProperties(minScaleSquare, maxScaleSquare);
+
+            double minScaleDiamond = 20000;
+            double maxScaleDiamond = 10000;
+            MultilayerPointSymbol yellowAlternateSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, System.Drawing.Color.Yellow, 30).ToMultilayerSymbol();
+            yellowAlternateSymbol.ReferenceProperties = new SymbolReferenceProperties(minScaleDiamond, maxScaleDiamond);
+
+            var alternateSymbols = new List<Symbol> { blueAlternateSymbol, yellowAlternateSymbol };
+
+            // Create a unique value with the triangle symbol and the alternate symbols.
+            UniqueValue uniqueValue = new UniqueValue("unique value", "unique values based on request type", triangleMultilayerSymbol, "Damaged Property", alternateSymbols);
+
+            // Create a unique value renderer.
+            var uniqueValueRenderer = new UniqueValueRenderer();
+            uniqueValueRenderer.UniqueValues.Add(uniqueValue);
+            uniqueValueRenderer.FieldNames.Add("req_type");
+
+            // Set a default symbol for the unique value renderer. This will be use for features that aren't "Damaged Property" or when out of range of the UniqueValue symbols.
+            uniqueValueRenderer.DefaultSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Diamond, System.Drawing.Color.Purple, 15).ToMultilayerSymbol();
+
+            // Set the unique value renderer on the feature layer.
+            featureLayer.Renderer = uniqueValueRenderer;
+
+            // Create the map.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic) { InitialViewpoint = _initialViewpoint };
+            MyMapView.Map.OperationalLayers.Add(featureLayer);
+        }
+
+        private void ResetViewpointClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            MyMapView.SetViewpoint(_initialViewpoint);
         }
     }
 }

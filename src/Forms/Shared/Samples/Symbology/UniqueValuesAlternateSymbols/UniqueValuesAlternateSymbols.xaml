@@ -1,9 +1,26 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.UniqueValuesAlternateSymbols.UniqueValuesAlternateSymbols"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.UniqueValuesAlternateSymbols.UniqueValuesAlternateSymbols">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+             xmlns:local="clr-namespace:ArcGISRuntimeXamarin.Samples.UniqueValuesAlternateSymbols"
+             xmlns:resources="clr-namespace:Forms.Resources">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:ScaleToTextConverter x:Key="ScaleToText" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout>
+                <Label Margin="5" Text="{Binding Source={x:Reference MyMapView}, Path=MapScale, Converter={StaticResource ScaleToText}}" />
+                <Button Margin="5"
+                        Padding="5"
+                        Clicked="ResetViewpointClick"
+                        Text="Reset viewpoint" />
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+    </RelativeLayout>
 </ContentPage>

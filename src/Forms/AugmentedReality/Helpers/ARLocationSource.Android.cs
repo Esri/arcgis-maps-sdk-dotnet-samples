@@ -42,7 +42,7 @@ namespace ArcGISRuntimeXamarin.Converters
 
                 if (_currentMode == AltitudeAdjustmentMode.NmeaParsedMsl)
                 {
-                    GetLocationManager().AddNmeaListener(_listener);
+                    GetLocationManager().AddNmeaListener(_listener, null);
                 }
                 else
                 {

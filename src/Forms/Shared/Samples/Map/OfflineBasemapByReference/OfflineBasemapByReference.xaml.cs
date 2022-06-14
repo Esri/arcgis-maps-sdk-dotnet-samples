@@ -257,7 +257,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
         private void CancelJobButton_Click(object sender, EventArgs e)
         {
             // The user canceled the job.
-            _generateOfflineMapJob.Cancel();
+            _generateOfflineMapJob.CancelAsync();
         }
 
         #endregion Generate offline map

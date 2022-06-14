@@ -23,7 +23,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
         name: "Edit features with feature-linked annotation",
         category: "Data",
         description: "Edit feature attributes which are linked to annotation through an expression.",
-        instructions: "Pan and zoom the map to see that the text on the map is annotation, not labels. Tap one of the address points to update the house number (AD_ADDRESS) and street name (ST_STR_NAM). Tap one of the dashed parcel polylines and tap another location to change its geometry. NOTE: Selection is only enabled for points and straight (single segment) polylines.",
+        instructions: "Pan and zoom the map to see that the text on the map is annotation, not labels. Tap one of the address points to update the house number .GetGeodatabaseAnnotationTable((AD_ADDRESS) and street name (ST_STR_NAM). Tap one of the dashed parcel polylines and tap another location to change its geometry. NOTE: Selection is only enabled for points and straight (single segment) polylines.",
         tags: new[] { "annotation", "attributes", "feature-linked annotation", "features", "fields" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("74c0c9fa80f4498c9739cc42531e9948")]
     public partial class EditFeatureLinkedAnnotation : ContentPage
@@ -46,12 +46,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
                 Geodatabase geodatabase = await Geodatabase.OpenAsync(geodatabasePath);
 
                 // Create feature layers from tables in the geodatabase.
-                FeatureLayer addressFeatureLayer = new FeatureLayer(geodatabase.GeodatabaseFeatureTable("Loudoun_Address_Points_1"));
-                FeatureLayer parcelFeatureLayer = new FeatureLayer(geodatabase.GeodatabaseFeatureTable("ParcelLines_1"));
+                FeatureLayer addressFeatureLayer = new FeatureLayer(geodatabase.GetGeodatabaseFeatureTable("Loudoun_Address_Points_1"));
+                FeatureLayer parcelFeatureLayer = new FeatureLayer(geodatabase.GetGeodatabaseFeatureTable("ParcelLines_1"));
 
                 // Create annotation layers from tables in the geodatabase.
-                AnnotationLayer addressAnnotationLayer = new AnnotationLayer(geodatabase.GeodatabaseAnnotationTable("Loudoun_Address_PointsAnno_1"));
-                AnnotationLayer parcelAnnotationLayer = new AnnotationLayer(geodatabase.GeodatabaseAnnotationTable("ParcelLinesAnno_1"));
+                AnnotationLayer addressAnnotationLayer = new AnnotationLayer(geodatabase.GetGeodatabaseAnnotationTable("Loudoun_Address_PointsAnno_1"));
+                AnnotationLayer parcelAnnotationLayer = new AnnotationLayer(geodatabase.GetGeodatabaseAnnotationTable("ParcelLinesAnno_1"));
 
                 // Create a map with the layers.
                 MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);

@@ -382,11 +382,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
                 var netCred = new System.Net.NetworkCredential(e.Username, e.Password, e.Domain);
 
                 // Create a new ArcGIS network credential to hold the network credential and service URI.
-                var arcgisCred = new ArcGISNetworkCredential
-                {
-                    Credentials = netCred,
-                    ServiceUri = requestInfo.ServiceUri
-                };
+                var arcgisCred = new ArcGISNetworkCredential(requestInfo.ServiceUri, netCred);
 
                 // Set the task completion source result with the ArcGIS network credential.
                 // AuthenticationManager is waiting for this result and will add it to its Credentials collection.
@@ -539,7 +535,7 @@ namespace ArcGISRuntimeXamarin.Samples.IntegratedWindowsAuth
                 string.IsNullOrEmpty(password) ||
                 string.IsNullOrEmpty(domain))
             {
-                new UIAlertView("Login", "Please enter a username, password, and domain", null, "OK", null).Show();
+                new UIAlertView("Login", "Please enter a username, password, and domain", (IUIAlertViewDelegate)null, "OK", null).Show();
                 return;
             }
 

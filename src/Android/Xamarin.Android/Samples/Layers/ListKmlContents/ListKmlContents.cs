@@ -56,7 +56,7 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         private async void Initialize()
         {
             // Add a basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
             _mySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
             // Get the URL to the data.

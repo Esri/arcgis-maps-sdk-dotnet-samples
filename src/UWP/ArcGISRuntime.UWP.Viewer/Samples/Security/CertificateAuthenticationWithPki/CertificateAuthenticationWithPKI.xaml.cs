@@ -76,10 +76,7 @@ namespace ArcGISRuntime.UWP.Samples.CertificateAuthenticationWithPKI
                     X509Certificate2 cert = (X509Certificate2) listview.SelectedItem;
 
                     // Create a new CertificateCredential using the chosen certificate.
-                    credential = new Esri.ArcGISRuntime.Security.CertificateCredential(cert)
-                    {
-                        ServiceUri = new Uri(_serverUrl)
-                    };
+                    credential = new CertificateCredential(new Uri(_serverUrl), cert);
                 }
             }
             catch (Exception ex)

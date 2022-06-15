@@ -228,7 +228,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private void StartTurnByTurn()
         {
             // Create the route tracker.
-            _routeTracker = new RouteTracker(PassedRouteResult, 0);
+            _routeTracker = new RouteTracker(PassedRouteResult, 0, true);
 
             // Create the speech synthesizer.
             _textToSpeech = new TextToSpeech(this, null, "com.google.android.tts");

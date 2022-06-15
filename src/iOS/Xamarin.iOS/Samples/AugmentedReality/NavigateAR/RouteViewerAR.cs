@@ -199,7 +199,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
             _navigateButton.Enabled = false;
 
             // Configure the route tracker.
-            _routeTracker = new RouteTracker(_routeResult, 0);
+            _routeTracker = new RouteTracker(_routeResult, 0, true);
             _routeTracker.NewVoiceGuidance += TrackingDataSource_VoiceGuidanceChanged;
             _routeTracker.TrackingStatusChanged += TrackingDataSource_StatusChanged;
         }

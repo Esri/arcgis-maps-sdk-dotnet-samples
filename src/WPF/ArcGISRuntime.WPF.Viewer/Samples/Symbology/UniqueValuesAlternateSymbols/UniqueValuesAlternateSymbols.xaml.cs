@@ -72,7 +72,7 @@ namespace ArcGISRuntime.WPF.Samples.UniqueValuesAlternateSymbols
 
         private void ResetViewpointClick(object sender, System.Windows.RoutedEventArgs e)
         {
-            MyMapView.SetViewpoint(_initialViewpoint);
+            MyMapView.SetViewpointAsync(_initialViewpoint, TimeSpan.FromSeconds(5));
         }
     }
 }

@@ -10,7 +10,7 @@
             <StackPanel>
                 <Label Margin="5"
                        Content="{Binding ElementName=MyMapView, Path=MapScale}"
-                       ContentStringFormat="Scale: {0:N0}" />
+                       ContentStringFormat="Scale: 1:{0:0}" />
                 <Button Margin="5"
                         Padding="5"
                         Click="ResetViewpointClick"

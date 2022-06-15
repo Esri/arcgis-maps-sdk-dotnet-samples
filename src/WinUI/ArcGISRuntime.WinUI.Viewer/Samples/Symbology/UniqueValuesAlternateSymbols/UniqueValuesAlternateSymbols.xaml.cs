@@ -74,7 +74,7 @@ namespace ArcGISRuntime.WinUI.Samples.UniqueValuesAlternateSymbols
 
         private void ResetViewpointClick(object sender, RoutedEventArgs e)
         {
-            MyMapView.SetViewpoint(_initialViewpoint);
+            MyMapView.SetViewpointAsync(_initialViewpoint, TimeSpan.FromSeconds(5));
         }
     }
 
@@ -82,7 +82,7 @@ namespace ArcGISRuntime.WinUI.Samples.UniqueValuesAlternateSymbols
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return $"Scale: {value:N0}";
+            return $"Scale: 1:{System.Convert.ToInt32(value)}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

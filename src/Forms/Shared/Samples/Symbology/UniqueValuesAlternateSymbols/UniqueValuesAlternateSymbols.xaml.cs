@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.UniqueValuesAlternateSymbols
@@ -74,19 +73,7 @@ namespace ArcGISRuntimeXamarin.Samples.UniqueValuesAlternateSymbols
 
         private void ResetViewpointClick(object sender, EventArgs e)
         {
-            MyMapView.SetViewpoint(_initialViewpoint);
-        }
-    }
-    public class ScaleToTextConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return $"Scale: {value:N0}";
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
+            MyMapView.SetViewpointAsync(_initialViewpoint, TimeSpan.FromSeconds(5));
         }
     }
 }

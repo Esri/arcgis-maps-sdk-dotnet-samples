@@ -38,22 +38,22 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
 
         private void Initialize()
         {
-            // Create a list of the Entryes.
+            // Create a list of the entries.
             _entries = new List<Entry> { UtmTextField, DmsTextField, DecimalDegreesTextField, UsngTextField };
 
-            // Create the map
+            // Create the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
-            // Add the graphics overlay to the map
+            // Add the graphics overlay to the map.
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            // Create the starting point
+            // Create the starting point.
             MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
-            // Update the UI with the initial point
+            // Update the UI with the initial point.
             UpdateUIFromMapPoint(startingPoint);
 
-            // Subscribe to map tap events to enable tapping on map to update coordinates
+            // Subscribe to map tap events to enable tapping on map to update coordinates.
             MyMapView.GeoViewTapped += (s, e) => { UpdateUIFromMapPoint(e.Location); };
         }
 

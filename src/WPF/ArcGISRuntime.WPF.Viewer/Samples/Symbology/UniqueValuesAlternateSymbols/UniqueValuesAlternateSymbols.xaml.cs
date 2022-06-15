@@ -52,7 +52,7 @@ namespace ArcGISRuntime.WPF.Samples.UniqueValuesAlternateSymbols
             var alternateSymbols = new List<Symbol> { blueAlternateSymbol, yellowAlternateSymbol };
 
             // Create a unique value with the triangle symbol and the alternate symbols.
-            UniqueValue uniqueValue = new UniqueValue("unique value", "unique values based on request type", triangleMultilayerSymbol, "Damaged Property", alternateSymbols);
+            var uniqueValue = new UniqueValue("unique value", "unique values based on request type", triangleMultilayerSymbol, "Damaged Property", alternateSymbols);
 
             // Create a unique value renderer.
             var uniqueValueRenderer = new UniqueValueRenderer();

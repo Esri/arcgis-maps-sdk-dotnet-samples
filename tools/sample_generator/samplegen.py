@@ -118,7 +118,7 @@ def build_csproj_line(category_list, sample_name, platform, entry_type):
 
 def perform_csproj_replace(platforms, root, category_list, sample_name):
     for platform in platforms:
-        if platform is "WinUI":
+        if platform == "WinUI":
             continue
         path = get_proj_file(platform, root)
         new_contents = []

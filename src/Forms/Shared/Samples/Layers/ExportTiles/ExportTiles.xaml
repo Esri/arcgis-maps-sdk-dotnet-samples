@@ -13,10 +13,16 @@
         <Grid Grid.Row="0" BackgroundColor="MediumVioletRed">
             <esriUI:MapView x:Name="MyMapView" IsVisible="True" />
         </Grid>
-        <ActivityIndicator x:Name="MyProgressBar"
-                           Grid.Row="1"
-                           IsRunning="True"
-                           IsVisible="False" />
+        <Grid Grid.Row="1">
+            <ProgressBar x:Name="MyProgressBar"
+                         HeightRequest="30"
+                         IsVisible="False"
+                         ProgressColor="Gray" />
+            <Label x:Name="MyProgressBarLabel"
+                   HorizontalOptions="Center"
+                   IsVisible="False"
+                   VerticalOptions="Center" />
+        </Grid>
         <Button x:Name="MyExportPreviewButton"
                 Grid.Row="2"
                 Clicked="MyExportPreviewButton_Clicked"

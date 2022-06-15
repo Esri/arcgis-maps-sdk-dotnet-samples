@@ -7,23 +7,32 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Button x:Name="MyExportButton"
-                        Content="Export tiles"
                         HorizontalAlignment="Stretch"
-                        IsEnabled="False"
-                        Click="MyExportButton_Click" />
-                <ProgressBar x:Name="MyProgressBar"
-                             Visibility="Collapsed"
-                             MinHeight="10"
-                             IsIndeterminate="True" />
+                        Click="MyExportButton_Click"
+                        Content="Export tiles"
+                        IsEnabled="False" />
+                <Grid>
+                    <ProgressBar x:Name="MyProgressBar"
+                                 MinHeight="20"
+                                 Background="Transparent"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Visibility="Collapsed" />
+                    <TextBlock x:Name="MyProgressBarLabel"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Visibility="Collapsed" />
+                </Grid>
                 <esriUI:MapView x:Name="MyPreviewMapView"
-                                Width="375" Height="400"
+                                Width="375"
+                                Height="400"
                                 Visibility="Collapsed" />
                 <Button x:Name="MyClosePreviewButton"
-                        Content="Close preview" 
                         Margin="0,5,0,0"
-                        Visibility="Collapsed"
                         HorizontalAlignment="Stretch"
-                        Click="ClosePreview_Click" />
+                        Click="ClosePreview_Click"
+                        Content="Close preview"
+                        Visibility="Collapsed" />
             </StackPanel>
         </Border>
     </Grid>

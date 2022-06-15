@@ -53,7 +53,6 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
                 // Create the basemap with the layer.
                 Map myMap = new Map(new Basemap(myLayer))
                 {
-
                     // Set the min and max scale - export task fails if the scale is too big or small.
                     MaxScale = 5000000,
                     MinScale = 10000000
@@ -160,6 +159,15 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             // Create the export job.
             ExportTileCacheJob job = exportTask.ExportTileCache(parameters, tilePath);
 
+            // Add an event handler to update the progress bar as the task progresses.
+            job.ProgressChanged += (s, e) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    MyProgressBar.Value = job.Progress;
+                });
+            };
+
             // Start the export job.
             job.Start();
 
@@ -186,16 +194,18 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
                 // Hide the 'export tiles' button.
                 MyExportButton.Visibility = Visibility.Collapsed;
 
-                // Hide the progress bar.
+                // Hide the progress bar and progress bar label.
                 MyProgressBar.Visibility = Visibility.Collapsed;
+                MyProgressBarLabel.Visibility = Visibility.Collapsed;
             }
             else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
                 MessageBox.Show("Job failed");
 
-                // Hide the progress bar.
+                // Hide the progress bar and progress bar label.
                 MyProgressBar.Visibility = Visibility.Collapsed;
+                MyProgressBarLabel.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -243,8 +253,9 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         {
             try
             {
-                // Show the progress bar.
+                // Show the progress bar and progress bar label.
                 MyProgressBar.Visibility = Visibility.Visible;
+                MyProgressBarLabel.Visibility = Visibility.Visible;
 
                 // Hide the preview window.
                 MyPreviewMapView.Visibility = Visibility.Collapsed;

@@ -32,7 +32,6 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
         // Hold references to the variables used in the event handlers.
         private Graphic _downloadArea;
         private ArcGISVectorTiledLayer _vectorTiledLayer;
-        private ExportVectorTilesJob _job;
 
         public ExportVectorTiles()
         {
@@ -104,19 +103,25 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
             string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
 
             // Create the export job.
-            _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
-
-            // Start the export job.
-            _job.Start();
+            ExportVectorTilesJob job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
 
             // Add an event handler to update the progress bar as the task progresses.
-            _job.ProgressChanged += Job_ProgressChanged; ;
+            job.ProgressChanged += (s, e) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    MyProgressBar.Value = job.Progress;
+                });
+            };
+
+            // Start the export job.
+            job.Start();
 
             // Wait for the job to complete.
-            ExportVectorTilesResult vectorTilesResult = await _job.GetResultAsync();
+            ExportVectorTilesResult vectorTilesResult = await job.GetResultAsync();
 
             // Update the preview map and UI components.
-            await HandleExportCompleted(_job, vectorTilesResult);
+            await HandleExportCompleted(job, vectorTilesResult);
         }
 
         private async Task HandleExportCompleted(ExportVectorTilesJob job, ExportVectorTilesResult vectorTilesResult)
@@ -212,14 +217,6 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
         #endregion Update Preview Map/Extent Graphic
 
         #region EventHandlers
-
-        private void Job_ProgressChanged(object sender, EventArgs e)
-        {
-            this.Dispatcher.Invoke(() =>
-            {
-                MyProgressBar.Value = _job.Progress;
-            });
-        }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
         {

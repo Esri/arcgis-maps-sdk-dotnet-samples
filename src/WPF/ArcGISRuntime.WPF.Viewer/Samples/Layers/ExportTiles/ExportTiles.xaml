@@ -6,10 +6,30 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <Button Content="Export Tiles" x:Name="MyExportButton" Click="MyExportButton_Click" IsEnabled="False" />
-                <ProgressBar x:Name="MyProgressBar" Visibility="Collapsed" MinHeight="10" IsIndeterminate="True" />
-                <esri:MapView x:Name="MyPreviewMapView" Width="375" Height="400" Visibility="Collapsed" />
-                <Button Content="Close Preview" Click="ClosePreview_Click" Visibility="Collapsed" x:Name="MyClosePreviewButton" />
+                <Button x:Name="MyExportButton"
+                        Click="MyExportButton_Click"
+                        Content="Export Tiles"
+                        IsEnabled="False" />
+                <Grid>
+                    <ProgressBar x:Name="MyProgressBar"
+                                 MinHeight="10"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Visibility="Collapsed" />
+                    <TextBlock x:Name="MyProgressBarLabel"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="{Binding ElementName=MyProgressBar, Path=Value, StringFormat={}{0:0}%}"
+                               Visibility="Collapsed" />
+                </Grid>
+                <esri:MapView x:Name="MyPreviewMapView"
+                              Width="375"
+                              Height="400"
+                              Visibility="Collapsed" />
+                <Button x:Name="MyClosePreviewButton"
+                        Click="ClosePreview_Click"
+                        Content="Close Preview"
+                        Visibility="Collapsed" />
             </StackPanel>
         </Border>
     </Grid>

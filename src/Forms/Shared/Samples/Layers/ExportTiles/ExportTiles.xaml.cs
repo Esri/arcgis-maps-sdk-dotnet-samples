@@ -68,7 +68,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 // Create the basemap with the layer.
                 _basemap = new Map(new Basemap(myLayer))
                 {
-
                     // Set the min and max scale - export task fails if the scale is too big or small.
                     MaxScale = 5000000,
                     MinScale = 10000000
@@ -177,17 +176,17 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 // Create the export job.
                 ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
 
-                // Show the progress bar.
-                MyProgressBar.IsVisible = true;
+                // Add an event handler to update the progress bar as the task progresses.
+                job.ProgressChanged += (o, e) =>
+                {
+                    UpdateProgressBar(job.Progress);
+                };
 
                 // Start the export job.
                 job.Start();
 
                 // Get the tile cache result.
                 TileCache resultTileCache = await job.GetResultAsync();
-
-                // Hide the progress bar.
-                MyProgressBar.IsVisible = false;
 
                 // Do the rest of the work.
                 await HandleJobCompletion(job, resultTileCache);
@@ -196,6 +195,18 @@ namespace ArcGISRuntime.Samples.ExportTiles
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
+        }
+        private void UpdateProgressBar(int progress)
+        {
+            // Due to the nature of the threading implementation,
+            //     the dispatcher needs to be used to interact with the UI.
+            // The dispatcher takes an Action, provided here as a lambda function.
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                // Update the progress bar value.
+                MyProgressBar.Progress = progress / 100.0;
+                MyProgressBarLabel.Text = progress == 100 ? "Done" : $"{progress}%";
+            });
         }
 
         private ExportTileCacheParameters GetExportParameters()
@@ -290,8 +301,9 @@ namespace ArcGISRuntime.Samples.ExportTiles
                     // Disable the export button.
                     MyExportPreviewButton.IsEnabled = false;
 
-                    // Show the progress bar.
+                    // Show the progress bar and label.
                     MyProgressBar.IsVisible = true;
+                    MyProgressBarLabel.IsVisible = true;
 
                     // Save the map viewpoint.
                     _originalView = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -303,6 +315,10 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 {
                     // Change the button text.
                     MyExportPreviewButton.Text = "Export Tiles";
+
+                    // Hide the progress bar and label.
+                    MyProgressBar.IsVisible = false;
+                    MyProgressBarLabel.IsVisible = false;
 
                     // Clear the preview open flag.
                     _previewOpen = false;

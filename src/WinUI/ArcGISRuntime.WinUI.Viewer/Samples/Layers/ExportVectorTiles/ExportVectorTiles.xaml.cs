@@ -7,21 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
 using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
-using System.IO;
 
 namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
 {
@@ -37,7 +32,6 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
         // Hold references to the variables used in the event handlers.
         private Graphic _downloadArea;
         private ArcGISVectorTiledLayer _vectorTiledLayer;
-        private ExportVectorTilesJob _job;
 
         public ExportVectorTiles()
         {
@@ -116,19 +110,26 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
             string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
 
             // Create the export job.
-            _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
-
-            // Start the export job.
-            _job.Start();
+            ExportVectorTilesJob job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
 
             // Add an event handler to update the progress bar as the task progresses.
-            _job.ProgressChanged += Job_ProgressChanged; ;
+            job.ProgressChanged += (s, e) =>
+            {
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    MyProgressBar.Value = job.Progress;
+                    MyProgressBarLabel.Text = $"{MyProgressBar.Value}%";
+                });
+            };
+
+            // Start the export job.
+            job.Start();
 
             // Wait for the job to complete.
-            ExportVectorTilesResult vectorTilesResult = await _job.GetResultAsync();
+            ExportVectorTilesResult vectorTilesResult = await job.GetResultAsync();
 
             // Update the preview map and UI components.
-            await HandleExportCompleted(_job, vectorTilesResult);
+            await HandleExportCompleted(job, vectorTilesResult);
         }
 
         private async Task HandleExportCompleted(ExportVectorTilesJob job, ExportVectorTilesResult vectorTilesResult)
@@ -224,15 +225,6 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
         #endregion Update Preview Map/Extent Graphic
 
         #region EventHandlers
-
-        private void Job_ProgressChanged(object sender, EventArgs e)
-        {
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                MyProgressBar.Value = _job.Progress;
-                MyProgressBarLabel.Text = $"{MyProgressBar.Value}%";
-            });
-        }
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
         {

@@ -223,7 +223,7 @@ namespace ArcGISRuntime.UWP.Samples.GenerateOfflineMap
         private void CancelJobButton_Click(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             // The user canceled the job.
-            _generateOfflineMapJob.Cancel();
+            _generateOfflineMapJob.CancelAsync();
         }
     }
 }

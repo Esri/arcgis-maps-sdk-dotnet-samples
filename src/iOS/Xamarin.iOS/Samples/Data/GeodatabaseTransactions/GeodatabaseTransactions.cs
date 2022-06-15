@@ -118,7 +118,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
 
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready.
-                    void GenerateGdbJob_JobChanged(object jobSender, EventArgs e)
+                    void GenerateGdbJob_JobStatusChanged(object jobSender, JobStatus e)
                     {
                         // Call a function to update the progress bar.
                         InvokeOnMainThread(() => UpdateProgressBar(generateGdbJob.Progress));
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                             // See if the job succeeded.
                             case JobStatus.Succeeded:
                                 // Unsubscribe from event.
-                                generateGdbJob.JobChanged -= GenerateGdbJob_JobChanged;
+                                generateGdbJob.StatusChanged -= GenerateGdbJob_JobStatusChanged;
 
                                 InvokeOnMainThread(() =>
                                 {
@@ -139,7 +139,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                                 break;
                             case JobStatus.Failed:
                                 // Unsubscribe from event.
-                                generateGdbJob.JobChanged -= GenerateGdbJob_JobChanged;
+                                generateGdbJob.StatusChanged -= GenerateGdbJob_JobStatusChanged;
 
                                 InvokeOnMainThread(() =>
                                 {
@@ -152,7 +152,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     }
 
                     // Subscribe to job change event.
-                    generateGdbJob.JobChanged += GenerateGdbJob_JobChanged;
+                    generateGdbJob.StatusChanged += GenerateGdbJob_JobStatusChanged;
 
                     // Start the generate geodatabase job.
                     _localGeodatabase = await generateGdbJob.GetResultAsync();
@@ -378,7 +378,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 // Create a synchronize geodatabase job, pass in the parameters and the geodatabase.
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
 
-                void Job_JobChanged(object sendingJob, EventArgs args)
+                void Job_JobStatusChanged(object sendingJob, JobStatus args)
                 {
                     InvokeOnMainThread(() =>
                     {
@@ -390,14 +390,14 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                             // Report changes in the job status.
                             case JobStatus.Succeeded:
                                 // Unsubscribe
-                                ((SyncGeodatabaseJob) sendingJob).JobChanged -= Job_JobChanged;
+                                ((SyncGeodatabaseJob) sendingJob).StatusChanged -= Job_JobStatusChanged;
                                 // Report success.
                                 _statusLabel.Text = "Synchronization is complete!";
                                 _progressBar.Hidden = true;
                                 break;
                             case JobStatus.Failed:
                                 // Unsubscribe
-                                ((SyncGeodatabaseJob) sendingJob).JobChanged -= Job_JobChanged;
+                                ((SyncGeodatabaseJob) sendingJob).StatusChanged -= Job_JobStatusChanged;
                                 // Report failure.
                                 _statusLabel.Text = job.Error.Message;
                                 _progressBar.Hidden = true;
@@ -410,7 +410,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 }
 
                 // Handle the JobChanged event for the job.
-                job.JobChanged += Job_JobChanged;
+                job.StatusChanged += Job_JobStatusChanged;
 
                 // Await the completion of the job.
                 await job.GetResultAsync();

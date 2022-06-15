@@ -41,7 +41,8 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         private void Initialize()
         {
             // Add the map to the map view.
-            _myMapView.Map = new Map(BasemapType.Oceans, 56.075844, -2.681572, 13);
+            _myMapView.Map = new Map(BasemapStyle.ArcGISOceans);
+            _myMapView.Map.InitialViewpoint = new Viewpoint(56.075844, -2.681572, 14);
 
             // Add the graphics overlay to the map view.
             _myMapView.GraphicsOverlays.Add(_overlay);

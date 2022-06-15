@@ -27,7 +27,7 @@
         "/net/latest/android/sample-code/setinitialmaplocation.htm"
     ],
     "relevant_apis": [
-        "BasemapType",
+        "BasemapStyle",
         "Map",
         "MapView"
     ],

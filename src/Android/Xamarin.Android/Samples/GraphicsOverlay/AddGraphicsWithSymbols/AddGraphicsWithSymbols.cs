@@ -48,7 +48,8 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         private void Initialize()
         {
             // Create the map
-            Map myMap = new Map(BasemapType.Oceans, 56.075844, -2.681572, 13);
+            Map myMap = new Map(BasemapStyle.ArcGISOceans);
+            myMap.InitialViewpoint = new Viewpoint(56.075844, -2.681572, 14);
 
             // Add the map to the map view
             _myMapView.Map = myMap;

@@ -102,7 +102,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             builder.SetCancelable(true);
             builder.SetMessage("Generating offline map ...");
             _alertDialog = builder.Create();
-            _alertDialog.SetButton("Cancel", (s, e) => { _generateOfflineMapJob.Cancel(); });
+            _alertDialog.SetButton("Cancel", (s, e) => { _generateOfflineMapJob.CancelAsync(); });
         }
 
         private async void Initialize()

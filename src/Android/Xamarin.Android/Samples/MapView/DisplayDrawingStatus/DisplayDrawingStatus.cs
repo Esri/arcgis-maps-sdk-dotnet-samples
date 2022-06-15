@@ -53,7 +53,8 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             _myMapView.DrawStatusChanged += OnDrawStatusChanged;
 
             // Create new Map with basemap
-            Map myMap = new Map(BasemapType.Topographic, 34.056, -117.196, 4);
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
+            myMap.InitialViewpoint = new Viewpoint(34.056, -117.196, 4);
 
             // Create uri to the used feature service
             Uri serviceUri = new Uri(

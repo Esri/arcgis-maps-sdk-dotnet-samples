@@ -44,7 +44,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
         private void Initialize()
         {
             // Set up the basemap.
-            _mySceneView.Scene = new Scene(Basemap.CreateImageryWithLabels());
+            _mySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
 
             // Create the dataset.
             KmlDataset dataset = new KmlDataset(new Uri("https://www.arcgis.com/sharing/rest/content/items/600748d4464442288f6db8a4ba27dc95/data"));

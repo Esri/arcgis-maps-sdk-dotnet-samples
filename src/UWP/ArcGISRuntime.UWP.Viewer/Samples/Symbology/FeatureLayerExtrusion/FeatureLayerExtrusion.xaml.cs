@@ -73,7 +73,7 @@ namespace ArcGISRuntime.UWP.Samples.FeatureLayerExtrusion
                 censusLayer.Renderer = layerRenderer;
 
                 // Create a new scene with the topographic backdrop 
-                Scene myScene = new Scene(BasemapType.Topographic);
+                Scene myScene = new Scene(BasemapStyle.ArcGISTopographic);
 
                 // Set the scene view's scene to the newly create one
                 MySceneView.Scene = myScene;

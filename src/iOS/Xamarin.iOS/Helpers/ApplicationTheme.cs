@@ -30,8 +30,8 @@ namespace ArcGISRuntime
             // Check if the device is running iOS 13 or higher. iOS 13 is required to use these UIColor values at runtime in code.
             if (UIDevice.CurrentDevice.CheckSystemVersion(13, 0))
             {
-                BackgroundColor = UIColor.SystemBackgroundColor;
-                ForegroundColor = UIColor.LabelColor;
+                BackgroundColor = UIColor.SystemBackground;
+                ForegroundColor = UIColor.Label;
             }
             else
             {

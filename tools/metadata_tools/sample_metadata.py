@@ -16,10 +16,6 @@ class sample_metadata:
     Use flush_to_* to write out the sample to disk.
     Use emit_standalone_solution to write out the sample as a standalone Visual Studio solution.
     '''
-    
-    arcgis_runtime_latest = "100.13.0" # store latest Runtime version, for use with packages
-    local_server_latest = "100.12.0"
-    ar_toolkit_latest = "100.13.0"
 
     def reset_props(self):
         self.formal_name = ""

@@ -164,16 +164,16 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.14.0</Version>
+      <Version>100.14.1</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Xamarin.Forms">
-      <Version>100.14.0</Version>
+      <Version>100.14.1</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>100.14.0</Version>
+      <Version>100.14.1</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Xamarin.Forms">
-      <Version>100.14.0</Version>
+      <Version>100.14.1</Version>
     </PackageReference>
     <PackageReference Include="MarkedNet">
       <Version>2.1.4</Version>

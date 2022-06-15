@@ -11,12 +11,11 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Drawing;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace ArcGISRuntime.WinUI.Samples.FormatCoordinates
 {
@@ -28,7 +27,7 @@ namespace ArcGISRuntime.WinUI.Samples.FormatCoordinates
         tags: new[] { "USNG", "UTM", "convert", "coordinate", "decimal degrees", "degree minutes seconds", "format", "latitude", "longitude" })]
     public partial class FormatCoordinates
     {
-        // Hold a reference to the most recently selected text.
+        // Hold a reference to the most recently updated field.
         private TextBox _selectedTextBox;
 
         private List<TextBox> _textBoxes;

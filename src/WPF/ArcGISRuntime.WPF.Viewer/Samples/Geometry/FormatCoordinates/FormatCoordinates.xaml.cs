@@ -27,7 +27,7 @@ namespace ArcGISRuntime.WPF.Samples.FormatCoordinates
         tags: new[] { "USNG", "UTM", "convert", "coordinate", "decimal degrees", "degree minutes seconds", "format", "latitude", "longitude" })]
     public partial class FormatCoordinates
     {
-        // Hold a reference to the most recently selected text.
+        // Hold a reference to the most recently updated field.
         private TextBox _selectedTextBox;
 
         private List<TextBox> _textBoxes;

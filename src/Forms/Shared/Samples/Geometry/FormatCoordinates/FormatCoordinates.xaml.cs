@@ -48,7 +48,7 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
             // Create the starting point.
-            MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
+            var startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
             // Update the UI with the initial point.
             UpdateUIFromMapPoint(startingPoint);
@@ -136,10 +136,10 @@ namespace ArcGISRuntime.Samples.FormatCoordinates
             MyMapView.GraphicsOverlays[0].Graphics.Clear();
 
             // Create a symbol to symbolize the point.
-            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
+            var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
 
             // Create the graphic.
-            Graphic symbolGraphic = new Graphic(selectedPoint, symbol);
+            var symbolGraphic = new Graphic(selectedPoint, symbol);
 
             // Add the graphic to the graphics overlay.
             MyMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);

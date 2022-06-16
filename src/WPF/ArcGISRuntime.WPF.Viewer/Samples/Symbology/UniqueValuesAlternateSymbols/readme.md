@@ -16,7 +16,7 @@ Zoom in and out of the map to see alternate symbols at each scale. The symbology
 
 ## How it works
 
-1. Create a `featureLayer` using the service url and add it to the map's list of operational layers.
+1. Create a `FeatureLayer` using the service url and add it to the map's list of operational layers.
 2. Create two alternate symbols (a blue square and a yellow diamond) to be used as alternate symbols. To create an alternate symbol:
 
     a. Create a symbol using `SimpleMarkerSymbol`.

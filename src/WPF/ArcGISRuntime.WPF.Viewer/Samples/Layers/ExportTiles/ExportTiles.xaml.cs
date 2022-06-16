@@ -202,12 +202,12 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             TileCache resultTileCache = await _job.GetResultAsync();
 
             // Do the rest of the work.
-            await HandleExportCompleted(_job, resultTileCache);
+            await HandleExportCompleted(resultTileCache);
         }
 
-        private async Task HandleExportCompleted(ExportTileCacheJob job, TileCache cache)
+        private async Task HandleExportCompleted(TileCache cache)
         {
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
             {
                 // Show the exported tiles on the preview map.
                 await UpdatePreviewMap(cache);
@@ -225,7 +225,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
                 MyProgressBar.Visibility = Visibility.Collapsed;
                 MyProgressBarLabel.Visibility = Visibility.Collapsed;
             }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
+            else if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
                 MessageBox.Show("Job failed");

@@ -146,12 +146,12 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
             ExportVectorTilesResult vectorTilesResult = await _job.GetResultAsync();
 
             // Update the preview map and UI components.
-            await HandleExportCompleted(_job, vectorTilesResult);
+            await HandleExportCompleted(vectorTilesResult);
         }
 
-        private async Task HandleExportCompleted(ExportVectorTilesJob job, ExportVectorTilesResult vectorTilesResult)
+        private async Task HandleExportCompleted(ExportVectorTilesResult vectorTilesResult)
         {
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
             {
                 // Show the exported tiles on the preview map.
                 await UpdatePreviewMap(vectorTilesResult);
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
                 MyProgressBar.Visibility = Visibility.Collapsed;
                 MyProgressBarLabel.Visibility = Visibility.Collapsed;
             }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
+            else if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
                 MessageBox.Show("Job failed");

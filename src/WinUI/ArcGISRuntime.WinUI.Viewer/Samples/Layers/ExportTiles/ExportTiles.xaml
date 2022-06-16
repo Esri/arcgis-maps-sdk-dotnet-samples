@@ -27,6 +27,12 @@
                                 Width="375"
                                 Height="400"
                                 Visibility="Collapsed" />
+                <Button x:Name="MyCancelJobButton"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        Click="CancelJobButton_Click"
+                        Content="Cancel"
+                        Visibility="Collapsed" />
                 <Button x:Name="MyClosePreviewButton"
                         Margin="0,5,0,0"
                         HorizontalAlignment="Stretch"

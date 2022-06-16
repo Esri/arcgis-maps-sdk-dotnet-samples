@@ -33,6 +33,9 @@ namespace ArcGISRuntime.WinUI.Samples.ExportTiles
         // URL to the service that tiles will be exported from.
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
+        // Hold a reference to the export job for use in event handlers.
+        private ExportTileCacheJob _job;
+
         // Path to the tile package on disk.
         private string _tilePath;
 
@@ -161,32 +164,56 @@ namespace ArcGISRuntime.WinUI.Samples.ExportTiles
             _tilePath = $"{Path.GetTempFileName()}.tpk";
 
             // Create the export job.
-            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
+            _job = exportTask.ExportTileCache(parameters, _tilePath);
+
+            // Set the value of the progress bar to 0, this clears any previous progress on the bar.
+            MyProgressBar.Value = 0;
+
+            // Show the progress bar and label.
+            MyProgressBar.Visibility = Visibility.Visible;
+            MyProgressBarLabel.Visibility = Visibility.Visible;
+
+            // Show the cancel job button.
+            MyCancelJobButton.Visibility = Visibility.Visible;
 
             // Add an event handler to update the progress bar as the task progresses.
-            job.ProgressChanged += (s, e) =>
+            _job.ProgressChanged += (s, e) =>
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    MyProgressBar.Value = job.Progress;
+                    MyProgressBar.Value = _job.Progress;
                     MyProgressBarLabel.Text = $"{MyProgressBar.Value}%";
                 });
             };
 
+            // Add an event handler to hide the cancel job button if the job completes, fails or is cancelled.
+            _job.StatusChanged += (s, e) =>
+            {
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed
+                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded
+                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Canceling)
+                    {
+                        MyCancelJobButton.Visibility = Visibility.Collapsed;
+                    }
+                });
+            };
+
             // Start the export job.
-            job.Start();
+            _job.Start();
 
             // Get the result.
-            TileCache cache = await job.GetResultAsync();
+            TileCache cache = await _job.GetResultAsync();
 
             // Do the rest of the work.
-            await HandleExportComplete(job, cache);
+            await HandleExportComplete(cache);
         }
 
-        private async Task HandleExportComplete(ExportTileCacheJob job, TileCache cache)
+        private async Task HandleExportComplete(TileCache cache)
         {
             // Update the view if the job is complete.
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
             {
                 // Show the exported tiles on the preview map.
                 await UpdatePreviewMap(cache);
@@ -207,7 +234,7 @@ namespace ArcGISRuntime.WinUI.Samples.ExportTiles
                 // Enable the 'export tiles' button.
                 MyExportButton.IsEnabled = true;
             }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
+            else if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
                 ShowStatusMessage("Job failed");
@@ -264,10 +291,6 @@ namespace ArcGISRuntime.WinUI.Samples.ExportTiles
             {
                 MyExportButton.IsEnabled = false;
 
-                // Show the progress bar and progress bar label.
-                MyProgressBar.Visibility = Visibility.Visible;
-                MyProgressBarLabel.Visibility = Visibility.Visible;
-
                 // Hide the preview window if not already hidden.
                 MyPreviewMapView.Visibility = Visibility.Collapsed;
 
@@ -302,6 +325,24 @@ namespace ArcGISRuntime.WinUI.Samples.ExportTiles
 
             // Show the 'export tiles' button.
             MyExportButton.Visibility = Visibility.Visible;
+        }
+
+        private void CancelJobButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_job != null)
+            {
+                _ = _job.CancelAsync();
+
+                // Hide the cancel job button.
+                MyCancelJobButton.Visibility = Visibility.Collapsed;
+
+                // Hide the progress bar and label.
+                MyProgressBar.Visibility = Visibility.Collapsed;
+                MyProgressBarLabel.Visibility = Visibility.Collapsed;
+
+                // Re-enable the export button.
+                MyExportButton.IsEnabled = true;
+            }
         }
     }
 }

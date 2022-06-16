@@ -32,6 +32,7 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
         // Hold references to the variables used in the event handlers.
         private Graphic _downloadArea;
         private ArcGISVectorTiledLayer _vectorTiledLayer;
+        private ExportVectorTilesJob _job;
 
         public ExportVectorTiles()
         {
@@ -110,31 +111,55 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
             string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
 
             // Create the export job.
-            ExportVectorTilesJob job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
+            _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
+
+            // Set the value of the progress bar to 0, this clears any previous progress on the bar.
+            MyProgressBar.Value = 0;
+
+            // Show the progress bar and label.
+            MyProgressBar.Visibility = Visibility.Visible;
+            MyProgressBarLabel.Visibility = Visibility.Visible;
+
+            // Show the cancel job button.
+            MyCancelJobButton.Visibility = Visibility.Visible;
 
             // Add an event handler to update the progress bar as the task progresses.
-            job.ProgressChanged += (s, e) =>
+            _job.ProgressChanged += (s, e) =>
             {
                 DispatcherQueue.TryEnqueue(() =>
                 {
-                    MyProgressBar.Value = job.Progress;
+                    MyProgressBar.Value = _job.Progress;
                     MyProgressBarLabel.Text = $"{MyProgressBar.Value}%";
                 });
             };
 
+            // Add an event handler to hide the cancel job button if the job completes, fails or is cancelled.
+            _job.StatusChanged += (s, e) =>
+            {
+                DispatcherQueue.TryEnqueue(() =>
+                {
+                    if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed
+                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded
+                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Canceling)
+                    {
+                        MyCancelJobButton.Visibility = Visibility.Collapsed;
+                    }
+                });
+            };
+
             // Start the export job.
-            job.Start();
+            _job.Start();
 
             // Wait for the job to complete.
-            ExportVectorTilesResult vectorTilesResult = await job.GetResultAsync();
+            ExportVectorTilesResult vectorTilesResult = await _job.GetResultAsync();
 
             // Update the preview map and UI components.
-            await HandleExportCompleted(job, vectorTilesResult);
+            await HandleExportCompleted(vectorTilesResult);
         }
 
-        private async Task HandleExportCompleted(ExportVectorTilesJob job, ExportVectorTilesResult vectorTilesResult)
+        private async Task HandleExportCompleted(ExportVectorTilesResult vectorTilesResult)
         {
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
             {
                 // Show the exported tiles on the preview map.
                 await UpdatePreviewMap(vectorTilesResult);
@@ -152,7 +177,7 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
                 MyProgressBar.Visibility = Visibility.Collapsed;
                 MyProgressBarLabel.Visibility = Visibility.Collapsed;
             }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
+            else if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
                 await new MessageDialog2("Job failed").ShowAsync();
@@ -233,10 +258,6 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
 
         private void MyExportButton_Click(object sender, RoutedEventArgs e)
         {
-            // Show the progress bar and label.
-            MyProgressBar.Visibility = Visibility.Visible;
-            MyProgressBarLabel.Visibility = Visibility.Visible;
-
             // Hide the preview window.
             MyPreviewMapView.Visibility = Visibility.Collapsed;
 
@@ -266,6 +287,24 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
 
             // Re-enable the export button.
             MyExportButton.IsEnabled = true;
+        }
+
+        private void MyCancelJobButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_job != null)
+            {
+                _ = _job.CancelAsync();
+
+                // Hide the cancel job button.
+                MyCancelJobButton.Visibility = Visibility.Collapsed;
+
+                // Hide the progress bar and label.
+                MyProgressBar.Visibility = Visibility.Collapsed;
+                MyProgressBarLabel.Visibility = Visibility.Collapsed;
+
+                // Re-enable the export button.
+                MyExportButton.IsEnabled = true;
+            }
         }
 
         #endregion EventHandlers

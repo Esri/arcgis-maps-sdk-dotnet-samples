@@ -49,10 +49,10 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
             InitializeComponent();
 
             // Load the web map, show area of interest, restrict map interaction, and set up authorization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

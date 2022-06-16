@@ -48,10 +48,10 @@ namespace ArcGISRuntime.WinUI.Samples.AnimateImageOverlay
         public AnimateImageOverlay()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // This sample is only supported in x64 on UWP.
             if (!Environment.Is64BitProcess)

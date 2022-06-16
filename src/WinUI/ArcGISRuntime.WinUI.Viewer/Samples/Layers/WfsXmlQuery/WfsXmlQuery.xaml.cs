@@ -51,10 +51,10 @@ namespace ArcGISRuntime.WinUI.Samples.WfsXmlQuery
         public WfsXmlQuery()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);

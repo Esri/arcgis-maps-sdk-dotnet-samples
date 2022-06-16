@@ -44,10 +44,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
         {
             InitializeComponent();
 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map.
             Map myMap = new Map(BasemapStyle.ArcGISImagery);

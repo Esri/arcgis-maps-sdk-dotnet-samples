@@ -66,10 +66,10 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             InitializeComponent();
 
             // Create the map, set the initial extent, and add the original point graphic.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map.
             Map myMap = new Map(BasemapStyle.ArcGISImagery);

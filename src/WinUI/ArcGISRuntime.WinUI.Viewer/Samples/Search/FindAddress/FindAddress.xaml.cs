@@ -57,10 +57,10 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
             InitializeComponent();
 
             // Setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             if (await ApiKeyManager.CheckKeyValidity() != ApiKeyStatus.Valid)
             {

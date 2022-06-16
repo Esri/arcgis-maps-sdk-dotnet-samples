@@ -27,10 +27,10 @@ namespace ArcGISRuntimeXamarin.Samples.Project
         public Project()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Show a map in the default WebMercator spatial reference.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);

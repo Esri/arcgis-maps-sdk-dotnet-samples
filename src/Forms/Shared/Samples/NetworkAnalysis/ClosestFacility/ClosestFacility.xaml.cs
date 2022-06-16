@@ -57,10 +57,10 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             InitializeComponent();
 
             // Create the map and graphics overlays.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Hook up the DrawStatusChanged event.
             MyMapView.DrawStatusChanged += OnDrawStatusChanged;

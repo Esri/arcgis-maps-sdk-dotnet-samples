@@ -42,10 +42,10 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
             InitializeComponent();
 
             // Initialize the sample.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Apply an imagery basemap to the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);

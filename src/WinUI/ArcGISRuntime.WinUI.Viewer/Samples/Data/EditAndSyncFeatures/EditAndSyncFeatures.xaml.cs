@@ -65,10 +65,10 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk.
             TileCache tileCache = new TileCache(DataManager.GetDataFolder("e4a398afe9a945f3b0f4dca1e4faccb5", "SanFrancisco.tpkx"));

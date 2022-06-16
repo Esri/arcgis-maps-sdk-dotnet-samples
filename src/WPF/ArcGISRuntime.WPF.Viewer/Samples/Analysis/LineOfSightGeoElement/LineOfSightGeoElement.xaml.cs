@@ -65,10 +65,10 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create scene
             Scene myScene = new Scene(BasemapStyle.ArcGISImagery)

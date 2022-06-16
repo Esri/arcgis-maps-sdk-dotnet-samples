@@ -48,10 +48,10 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             InitializeComponent();
 
             // Call a function to set up the map
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a streets basemap
             Map map = new Map(BasemapStyle.ArcGISStreets);

@@ -34,10 +34,10 @@ namespace ArcGISRuntimeXamarin.Samples.RasterColormapRenderer
         public RasterColormapRenderer()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Add an imagery basemap.
             Map map = new Map(BasemapStyle.ArcGISImageryStandard);

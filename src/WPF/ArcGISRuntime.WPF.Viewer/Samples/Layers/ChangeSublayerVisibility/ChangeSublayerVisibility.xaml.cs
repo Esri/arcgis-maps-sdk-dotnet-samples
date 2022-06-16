@@ -26,10 +26,10 @@ namespace ArcGISRuntime.WPF.Samples.ChangeSublayerVisibility
             InitializeComponent();
 
             // Setup the control references and execute initialization 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map
             Map myMap = new Map();

@@ -30,10 +30,10 @@ namespace ArcGISRuntime.WPF.Samples.ChangeStretchRenderer
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Initialize the GUI controls appearance
             RendererTypes.Items.Add("Min Max");

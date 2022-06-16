@@ -29,10 +29,10 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
             InitializeComponent();
 
             // Call a function to set up the map
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Add an imagery basemap
             Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);

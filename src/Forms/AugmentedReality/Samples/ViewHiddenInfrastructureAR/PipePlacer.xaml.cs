@@ -44,10 +44,10 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         public PipePlacer()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create and add the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);

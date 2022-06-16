@@ -50,10 +50,10 @@ namespace ArcGISRuntime.WinUI.Samples.ViewshedGeoElement
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the scene with an imagery basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);

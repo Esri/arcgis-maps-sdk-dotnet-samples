@@ -34,10 +34,10 @@ namespace ArcGISRuntime.WinUI.Samples.RasterRgbRenderer
             InitializeComponent();
 
             // Call a function to create the map, add a raster layer, and fill UI controls.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a streets basemap.
             Map map = new Map(BasemapStyle.ArcGISStreets);

@@ -29,10 +29,10 @@ namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
         public ViewPointCloudDataOffline()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the scene with basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);

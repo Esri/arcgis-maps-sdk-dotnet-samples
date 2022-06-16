@@ -37,10 +37,10 @@ namespace ArcGISRuntime.WPF.Samples.UpdateGeometries
         public UpdateGeometries()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

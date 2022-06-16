@@ -62,10 +62,10 @@ namespace ArcGISRuntime.WinUI.Samples.ClosestFacilityStatic
             InitializeComponent();
 
             // Create the map and graphics overlays.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

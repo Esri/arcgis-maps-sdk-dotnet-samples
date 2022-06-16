@@ -35,10 +35,10 @@ namespace ArcGISRuntime.WinUI.Samples.OAuth
             InitializeComponent();
 
             // Call a function to initialize the app.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

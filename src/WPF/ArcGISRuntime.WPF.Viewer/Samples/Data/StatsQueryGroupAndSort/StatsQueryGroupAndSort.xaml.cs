@@ -45,10 +45,10 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             InitializeComponent();
 
             // Initialize the US states feature table and populate UI controls
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the US states feature table
             _usStatesTable = new ServiceFeatureTable(_usStatesServiceUri);

@@ -28,10 +28,10 @@ namespace ArcGISRuntime.WinUI.Samples.ReadGeoPackage
         public ReadGeoPackage()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a new map centered on Aurora Colorado.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);

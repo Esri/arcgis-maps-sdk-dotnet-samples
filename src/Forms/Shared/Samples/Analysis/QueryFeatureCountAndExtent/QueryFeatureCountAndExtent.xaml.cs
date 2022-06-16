@@ -33,10 +33,10 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
         public QueryFeatureCountAndExtent()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with a basemap.
             Map myMap = new Map(BasemapStyle.ArcGISDarkGray);

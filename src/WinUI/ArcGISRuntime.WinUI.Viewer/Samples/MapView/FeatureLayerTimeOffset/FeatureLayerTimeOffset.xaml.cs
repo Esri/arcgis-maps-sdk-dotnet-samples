@@ -34,10 +34,10 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerTimeOffset
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map
             Map myMap = new Map(BasemapStyle.ArcGISOceans);

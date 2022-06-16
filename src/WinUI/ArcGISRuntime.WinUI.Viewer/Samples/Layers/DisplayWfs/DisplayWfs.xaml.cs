@@ -39,10 +39,10 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayWfs
         public DisplayWfs()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);

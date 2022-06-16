@@ -31,7 +31,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterRenderingRule
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
         // Create an empty read-only list for the various rendering rules of the image service raster
@@ -40,7 +40,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterRenderingRule
         // Create a Uri for the image server
         private Uri _myUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/CharlotteLAS/ImageServer");
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Assign a new map to the MapView
             MyMapView.Map = new Map

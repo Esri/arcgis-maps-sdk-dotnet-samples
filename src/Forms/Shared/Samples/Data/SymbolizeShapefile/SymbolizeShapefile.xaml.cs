@@ -41,10 +41,10 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with topographic basemap
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);

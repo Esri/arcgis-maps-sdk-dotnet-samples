@@ -33,10 +33,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerSelection
         {
             InitializeComponent();
 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map with basemap.
             Map myMap = new Map(BasemapStyle.ArcGISLightGray);

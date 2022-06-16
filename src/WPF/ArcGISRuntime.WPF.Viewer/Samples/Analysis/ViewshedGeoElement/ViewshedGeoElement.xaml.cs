@@ -48,10 +48,10 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
         public ViewshedGeoElement()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the scene with an imagery basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);

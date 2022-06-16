@@ -27,10 +27,10 @@ namespace ArcGISRuntime.WPF.Samples.OpenMobileMap
         public OpenMobileMap()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Get the path to the mobile map package.
             string filepath = GetMmpkPath();

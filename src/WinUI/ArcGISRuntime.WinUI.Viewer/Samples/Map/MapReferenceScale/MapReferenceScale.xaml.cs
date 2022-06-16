@@ -44,10 +44,10 @@ namespace ArcGISRuntime.WinUI.Samples.MapReferenceScale
         public MapReferenceScale()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a portal and an item; the map will be loaded from portal item.
             ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri("https://runtime.maps.arcgis.com"));

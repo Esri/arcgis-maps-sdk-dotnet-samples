@@ -31,10 +31,10 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
             InitializeComponent();
 
             // Read data from the GeoPackage
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a new map
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);

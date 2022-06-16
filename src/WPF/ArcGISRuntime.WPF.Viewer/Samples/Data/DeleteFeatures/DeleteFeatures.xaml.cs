@@ -35,10 +35,10 @@ namespace ArcGISRuntime.WPF.Samples.DeleteFeatures
         public DeleteFeatures()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

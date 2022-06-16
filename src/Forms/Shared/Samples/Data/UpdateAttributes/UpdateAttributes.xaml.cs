@@ -39,10 +39,10 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
         public UpdateAttributes()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

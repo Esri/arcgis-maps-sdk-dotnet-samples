@@ -27,10 +27,10 @@ namespace ArcGISRuntimeXamarin.Samples.HonorMobileMapPackageExpiration
         public HonorMobileMapPackageExpiration()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

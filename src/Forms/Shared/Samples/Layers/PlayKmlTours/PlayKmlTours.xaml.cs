@@ -34,10 +34,10 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
         public PlayKmlTours()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Load the scene with a basemap and a terrain surface.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);

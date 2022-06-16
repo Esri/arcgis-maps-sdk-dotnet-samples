@@ -45,10 +45,10 @@ namespace ArcGISRuntime.WinUI.Samples.RasterHillshade
             InitializeComponent();
 
             // Set up the map and load the raster layer from a local file
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a streets basemap
             Map map = new Map(BasemapStyle.ArcGISStreets);

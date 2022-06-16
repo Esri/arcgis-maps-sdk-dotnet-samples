@@ -31,10 +31,10 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBlendRenderer
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
             // in an array of strings, then set the ComboBox.ItemSource to the array, and finally 

@@ -26,10 +26,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR
         public ExploreScenesInFlyoverAR()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the scene.
             Scene flyoverScene = new Scene(new Uri("https://www.arcgis.com/home/item.html?id=76ffb1a9e26b4602a04c209146bf2cd3"));

@@ -28,10 +28,10 @@ namespace ArcGISRuntimeXamarin.Samples.OpenMobileScenePackage
         public OpenMobileScenePackage()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Get the path to the scene package.
             string scenePath = DataManager.GetDataFolder("7dd2f97bb007466ea939160d0de96a9d", "philadelphia.mspk");

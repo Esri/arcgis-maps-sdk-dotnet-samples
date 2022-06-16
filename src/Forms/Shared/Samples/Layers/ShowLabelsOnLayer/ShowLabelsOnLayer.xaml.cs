@@ -30,10 +30,10 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a light gray canvas basemap.
             Map sampleMap = new Map(BasemapStyle.ArcGISLightGray);

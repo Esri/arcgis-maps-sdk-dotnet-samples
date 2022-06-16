@@ -36,10 +36,10 @@ namespace ArcGISRuntime.WinUI.Samples.WmsServiceCatalog
         {
             InitializeComponent();
 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Apply an imagery basemap to the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);

@@ -35,10 +35,10 @@ namespace ArcGISRuntime.WinUI.Samples.SelectEncFeatures
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Initialize the map with an oceans basemap
             MyMapView.Map = new Map(BasemapStyle.ArcGISOceans);

@@ -42,10 +42,10 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
         public IdentifyRasterCell()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Define a new map with Wgs84 Spatial Reference.
             var map = new Map(BasemapStyle.ArcGISOceans);

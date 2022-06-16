@@ -41,10 +41,10 @@ namespace ArcGISRuntime.WinUI.Samples.ExportTiles
             InitializeComponent();
 
             // Call a function to set up the map.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the tile layer.
             try

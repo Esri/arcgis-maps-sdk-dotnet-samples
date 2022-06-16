@@ -38,10 +38,10 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
             InitializeComponent ();
 
             // Initialize the map and show the list of comments.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

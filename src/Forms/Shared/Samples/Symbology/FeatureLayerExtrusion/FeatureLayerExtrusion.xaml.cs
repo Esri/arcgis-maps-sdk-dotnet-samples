@@ -30,10 +30,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
         {
             InitializeComponent();
 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

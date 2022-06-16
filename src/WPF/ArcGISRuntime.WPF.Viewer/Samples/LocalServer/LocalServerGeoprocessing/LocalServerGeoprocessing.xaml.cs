@@ -44,10 +44,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             InitializeComponent();
 
             // set up the sample
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map and add it to the view
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);

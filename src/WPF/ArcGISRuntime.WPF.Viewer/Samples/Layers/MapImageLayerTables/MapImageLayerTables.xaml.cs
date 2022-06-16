@@ -37,10 +37,10 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
             InitializeComponent();
 
             // Initialize the map and show the list of comments.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a new Map with a vector streets basemap.
             Map myMap = new Map(BasemapStyle.ArcGISStreets);

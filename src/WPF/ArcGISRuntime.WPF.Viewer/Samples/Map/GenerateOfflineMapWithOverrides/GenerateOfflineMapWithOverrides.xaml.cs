@@ -46,10 +46,10 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         public GenerateOfflineMapWithOverrides()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

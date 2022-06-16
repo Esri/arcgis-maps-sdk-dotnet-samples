@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.ShowLocationHistory
                 // Start the data source.
                 await _locationDataSource.StartAsync();
 
-                if (_locationDataSource.IsStarted)
+                if (_locationDataSource.Status == LocationDataSourceStatus.Started)
                 {
                     // Set the location display data source and enable location display.
                     MyMapView.LocationDisplay.DataSource = _locationDataSource;

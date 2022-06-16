@@ -105,7 +105,7 @@
 * [Display WFS layer](ArcGISRuntime.WPF.Viewer/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Edit KML ground overlay](ArcGISRuntime.WPF.Viewer/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.
 * [Export tiles](ArcGISRuntime.WPF.Viewer/Samples/Layers/ExportTiles) - Download tiles to a local tile cache file stored on the device.
-* [Export vector tiles](ArcGISRuntime.WPF.Viewer/Samples/Layers/ExportVectorTiles/readme.md) - Export tiles from an online vector tile service.
+* [Export vector tiles](ArcGISRuntime.WPF.Viewer/Samples/Layers/ExportVectorTiles) - Export tiles from an online vector tile service.
 * [Create feature collection layer (Portal item)](ArcGISRuntime.WPF.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
 * [Feature collection layer (query)](ArcGISRuntime.WPF.Viewer/Samples/Layers/FeatureCollectionLayerFromQuery) - Create a feature collection layer to show a query result from a service feature table.
 * [Filter by definition expression or display filter](ArcGISRuntime.WPF.Viewer/Samples/Layers/FeatureLayerDefinitionExpression) - Filter features displayed on a map using a definition expression or a display filter.

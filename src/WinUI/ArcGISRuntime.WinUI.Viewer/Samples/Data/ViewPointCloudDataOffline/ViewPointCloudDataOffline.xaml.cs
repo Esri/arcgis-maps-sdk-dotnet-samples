@@ -9,7 +9,7 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
-using System;
+using System; using System.Threading.Tasks; 
 
 namespace ArcGISRuntime.WinUI.Samples.ViewPointCloudDataOffline
 {

@@ -10,7 +10,7 @@
 using ArcGISRuntime.Helpers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using System;
+using System; using System.Threading.Tasks; 
 
 namespace ArcGISRuntime.WinUI.Samples.OAuth
 {

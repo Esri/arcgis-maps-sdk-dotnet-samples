@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using System;
+using System; using System.Threading.Tasks; 
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.SceneLayerUrl

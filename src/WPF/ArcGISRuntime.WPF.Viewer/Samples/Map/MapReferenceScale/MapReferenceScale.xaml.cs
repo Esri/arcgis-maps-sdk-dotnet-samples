@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using System;
+using System; using System.Threading.Tasks; 
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.MapReferenceScale

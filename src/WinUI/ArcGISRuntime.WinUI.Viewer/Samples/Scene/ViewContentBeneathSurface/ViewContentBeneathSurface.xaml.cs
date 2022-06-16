@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ViewContentBeneathSurface
 {

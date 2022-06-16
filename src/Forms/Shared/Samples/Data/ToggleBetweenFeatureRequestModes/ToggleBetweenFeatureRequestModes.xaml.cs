@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System;
+using System; using System.Threading.Tasks; 
 using System.Collections.Generic;
 
 namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes

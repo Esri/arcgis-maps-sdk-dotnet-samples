@@ -10,7 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System;
+using System; using System.Threading.Tasks; 
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.RasterHillshade

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Xamarin.Forms;
-using System;
+using System; using System.Threading.Tasks; 
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

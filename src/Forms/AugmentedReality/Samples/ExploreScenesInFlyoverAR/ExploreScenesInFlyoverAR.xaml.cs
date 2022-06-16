@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
+using System; using System.Threading.Tasks; 
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.ExploreScenesInFlyoverAR

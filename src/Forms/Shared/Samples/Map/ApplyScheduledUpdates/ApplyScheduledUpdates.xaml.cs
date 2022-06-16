@@ -11,7 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using System;
+using System; using System.Threading.Tasks; 
 using System.IO;
 using System.Linq;
 using Xamarin.Forms;

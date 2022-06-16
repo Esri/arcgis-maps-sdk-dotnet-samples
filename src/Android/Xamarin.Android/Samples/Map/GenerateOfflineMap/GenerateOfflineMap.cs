@@ -96,7 +96,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             _alertDialog = builder.Create();
             _alertDialog.SetButton("Cancel", (s, e) =>
             {
-                _generateOfflineMapJob.Cancel();
+                _generateOfflineMapJob.CancelAsync();
             });
         }
 

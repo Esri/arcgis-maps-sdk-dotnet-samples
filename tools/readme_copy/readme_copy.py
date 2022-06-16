@@ -25,6 +25,7 @@ def get_platform_samples_root(platform, sample_root):
         return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
     raise AssertionError(None, None)
 def replace_readmes(category, formal_name, sample_root):
+    wpfcontent = None
     try:
         # Read the readme from the WPF version.
         wpf_path = os.path.join(get_platform_samples_root("WPF", sample_root), category, formal_name, ("readme.md"))
@@ -33,6 +34,9 @@ def replace_readmes(category, formal_name, sample_root):
         wpf_file.close()
     except OSError as e:
         print(f"File: {formal_name} Error: {e.strerror} WPF read error")
+
+    if wpfcontent is None:
+        return
 
     # Loop through the other platforms.
     plats = ["Forms", "WinUI"] # "Android", "iOS", "UWP"

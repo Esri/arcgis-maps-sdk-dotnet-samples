@@ -77,7 +77,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerExtrusion
                 censusFeatureLayer.Renderer = renderer;
 
                 // Create a new scene with a topographic basemap.
-                Scene myScene = new Scene(BasemapType.Topographic);
+                Scene myScene = new Scene(BasemapStyle.ArcGISTopographic);
 
                 // Set the scene view's scene to the newly create one.
                 _mySceneView.Scene = myScene;

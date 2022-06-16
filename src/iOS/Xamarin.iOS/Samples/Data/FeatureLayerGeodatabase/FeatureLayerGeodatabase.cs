@@ -49,7 +49,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeodatabase
                 Geodatabase mobileGeodatabase = await Geodatabase.OpenAsync(mobileGeodatabaseFilePath);
 
                 // Get the 'Trailheads' geodatabase feature table from the mobile geodatabase.
-                GeodatabaseFeatureTable trailheadsGeodatabaseFeatureTable = mobileGeodatabase.GeodatabaseFeatureTable("Trailheads");
+                GeodatabaseFeatureTable trailheadsGeodatabaseFeatureTable = mobileGeodatabase.GetGeodatabaseFeatureTable("Trailheads");
 
                 // Asynchronously load the 'Trailheads' geodatabase feature table.
                 await trailheadsGeodatabaseFeatureTable.LoadAsync();

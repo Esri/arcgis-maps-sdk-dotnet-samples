@@ -32,6 +32,9 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         // URL to the service tiles will be exported from.
         private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
 
+        // Hold a reference to the export tile cache job for use in eventhandlers.
+        private ExportTileCacheJob _job;
+
         public ExportTiles()
         {
             InitializeComponent();
@@ -157,25 +160,49 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             string tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".tpk");
 
             // Create the export job.
-            ExportTileCacheJob job = exportTask.ExportTileCache(parameters, tilePath);
+            _job = exportTask.ExportTileCache(parameters, tilePath);
+
+            // Set the value of the progress bar to 0, this clears any previous progress on the bar.
+            MyProgressBar.Value = 0;
+
+            // Show the progress bar and label.
+            MyProgressBar.Visibility = Visibility.Visible;
+            MyProgressBarLabel.Visibility = Visibility.Visible;
+
+            // Show the cancel job button.
+            MyCancelJobButton.Visibility = Visibility.Visible;
 
             // Add an event handler to update the progress bar as the task progresses.
-            job.ProgressChanged += (s, e) =>
+            _job.ProgressChanged += (s, e) =>
             {
                 Dispatcher.Invoke(() =>
                 {
-                    MyProgressBar.Value = job.Progress;
+                    MyProgressBar.Value = _job.Progress;
+                });
+            };
+
+            // Add an event handler to hide the cancel job button if the job completes, fails or is cancelled.
+            _job.StatusChanged += (s, e) =>
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed
+                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded
+                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Canceling)
+                    {
+                        MyCancelJobButton.Visibility = Visibility.Collapsed;
+                    }
                 });
             };
 
             // Start the export job.
-            job.Start();
+            _job.Start();
 
             // Wait for the job to complete.
-            TileCache resultTileCache = await job.GetResultAsync();
+            TileCache resultTileCache = await _job.GetResultAsync();
 
             // Do the rest of the work.
-            await HandleExportCompleted(job, resultTileCache);
+            await HandleExportCompleted(_job, resultTileCache);
         }
 
         private async Task HandleExportCompleted(ExportTileCacheJob job, TileCache cache)
@@ -253,10 +280,6 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
         {
             try
             {
-                // Show the progress bar and progress bar label.
-                MyProgressBar.Visibility = Visibility.Visible;
-                MyProgressBarLabel.Visibility = Visibility.Visible;
-
                 // Hide the preview window.
                 MyPreviewMapView.Visibility = Visibility.Collapsed;
 
@@ -291,6 +314,24 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
 
             // Re-enable the export button.
             MyExportButton.IsEnabled = true;
+        }
+
+        private void CancelJobButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_job != null)
+            {
+                _ = _job.CancelAsync();
+
+                // Hide the cancel job button.
+                MyCancelJobButton.Visibility = Visibility.Collapsed;
+
+                // Hide the progress bar and label.
+                MyProgressBar.Visibility = Visibility.Collapsed;
+                MyProgressBarLabel.Visibility = Visibility.Collapsed;
+
+                // Re-enable the export button.
+                MyExportButton.IsEnabled = true;
+            }
         }
     }
 }

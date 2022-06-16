@@ -26,6 +26,10 @@
                               Width="375"
                               Height="400"
                               Visibility="Collapsed" />
+                <Button x:Name="MyCancelJobButton"
+                        Click="CancelJobButton_Click"
+                        Content="Cancel"
+                        Visibility="Collapsed" />
                 <Button x:Name="MyClosePreviewButton"
                         Click="ClosePreview_Click"
                         Content="Close Preview"

@@ -40,10 +40,10 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             InitializeComponent();
 
             // Call a function to set up the map.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -297,7 +297,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 

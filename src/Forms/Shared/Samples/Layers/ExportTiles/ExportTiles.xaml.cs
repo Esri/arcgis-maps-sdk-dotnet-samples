@@ -47,15 +47,18 @@ namespace ArcGISRuntime.Samples.ExportTiles
         // Holder for the Graphics Overlay (so that it can be hidden and re-added for preview/non-preview state).
         private GraphicsOverlay _overlay;
 
+        // Hold a reference to the export job for use in event handler.
+        private ExportTileCacheJob _job;
+
         public ExportTiles()
         {
             InitializeComponent();
 
             // Call a function to set up the sample.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the tile layer.
             try
@@ -103,7 +106,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -174,26 +177,53 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
 
                 // Create the export job.
-                ExportTileCacheJob job = exportTask.ExportTileCache(parameters, _tilePath);
+                _job = exportTask.ExportTileCache(parameters, _tilePath);
+
+                // Set the value of the progress bar to 0, this clears any previous progress on the bar.
+                MyProgressBar.Progress = 0.0;
+
+                // Show the progress bar and label.
+                MyProgressBar.IsVisible = true;
+                MyProgressBarLabel.IsVisible = true;
+
+                // Show the cancel job button.
+                MyCancelJobButton.IsVisible = true;
+
+                // Hide the export/close preview button.
+                MyExportPreviewButton.IsVisible = false;
 
                 // Add an event handler to update the progress bar as the task progresses.
-                job.ProgressChanged += (o, e) =>
+                _job.ProgressChanged += (o, e) =>
                 {
-                    UpdateProgressBar(job.Progress);
+                    UpdateProgressBar(_job.Progress);
+                };
+
+                // Add an event handler to hide the cancel job button if the job completes, fails or is cancelled.
+                _job.StatusChanged += (s, e) =>
+                {
+                    Device.BeginInvokeOnMainThread(() =>
+                    {
+                        if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed
+                        || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded
+                        || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Canceling)
+                        {
+                            MyCancelJobButton.IsVisible = false;
+                        }
+                    });
                 };
 
                 // Start the export job.
-                job.Start();
+                _job.Start();
 
                 // Get the tile cache result.
-                TileCache resultTileCache = await job.GetResultAsync();
+                TileCache resultTileCache = await _job.GetResultAsync();
 
                 // Do the rest of the work.
-                await HandleJobCompletion(job, resultTileCache);
+                await HandleJobCompletion(resultTileCache);
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
         private void UpdateProgressBar(int progress)
@@ -237,16 +267,19 @@ namespace ArcGISRuntime.Samples.ExportTiles
             return parameters;
         }
 
-        private async Task HandleJobCompletion(ExportTileCacheJob job, TileCache cache)
+        private async Task HandleJobCompletion(TileCache cache)
         {
             // Update the view if the job is complete.
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
             {
                 // Show the exported tiles on the preview map.
                 await UpdatePreviewMap(cache);
 
                 // Change the export button text.
                 MyExportPreviewButton.Text = "Close Preview";
+
+                // Show the export/close preview button.
+                MyExportPreviewButton.IsVisible = true;
 
                 // Re-enable the button.
                 MyExportPreviewButton.IsEnabled = true;
@@ -260,13 +293,16 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 // Then hide it.
                 MyMapView.GraphicsOverlays.Clear();
             }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
+            else if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
                 await Application.Current.MainPage.DisplayAlert("Error", "Job Failed", "OK");
 
                 // Change the export button text.
                 MyExportPreviewButton.Text = "Export Tiles";
+
+                // Show the export/close preview button.
+                MyExportPreviewButton.IsVisible = true;
 
                 // Re-enable the export button.
                 MyExportPreviewButton.IsEnabled = true;
@@ -300,10 +336,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 {
                     // Disable the export button.
                     MyExportPreviewButton.IsEnabled = false;
-
-                    // Show the progress bar and label.
-                    MyProgressBar.IsVisible = true;
-                    MyProgressBarLabel.IsVisible = true;
 
                     // Save the map viewpoint.
                     _originalView = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
@@ -341,7 +373,28 @@ namespace ArcGISRuntime.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        private void MyCancelJobButton_Clicked(object sender, EventArgs e)
+        {
+            if (_job != null)
+            {
+                _ = _job.CancelAsync();
+
+                // Hide the cancel job button.
+                MyCancelJobButton.IsVisible = false;
+
+                // Hide the progress bar and label.
+                MyProgressBar.IsVisible = false;
+                MyProgressBarLabel.IsVisible = false;
+
+                // Show the export/close preview button.
+                MyExportPreviewButton.IsVisible = true;
+
+                // Re-enable the export button.
+                MyExportPreviewButton.IsEnabled = true;
             }
         }
     }

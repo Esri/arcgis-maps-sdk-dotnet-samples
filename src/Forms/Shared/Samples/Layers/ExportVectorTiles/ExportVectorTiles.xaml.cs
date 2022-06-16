@@ -45,6 +45,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
         // Holder for the Graphics Overlay (so that it can be hidden and re-added for preview/non-preview state).
         private GraphicsOverlay _overlay;
 
+        // Hold a reference to the export job for use in event handler.
+        private ExportVectorTilesJob _job;
+
         public ExportVectorTiles()
         {
             InitializeComponent();
@@ -125,22 +128,49 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
             string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
 
             // Create the export job.
-            ExportVectorTilesJob job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
+            _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
+
+            // Set the value of the progress bar to 0, this clears any previous progress on the bar.
+            MyProgressBar.Progress = 0.0;
+
+            // Show the progress bar and label.
+            MyProgressBar.IsVisible = true;
+            MyProgressBarLabel.IsVisible = true;
+
+            // Show the cancel job button.
+            MyCancelJobButton.IsVisible = true;
+
+            // Hide the export/close preview button.
+            MyExportPreviewButton.IsVisible = false;
 
             // Add an event handler to update the progress bar as the task progresses.
-            job.ProgressChanged += (o, e) =>
+            _job.ProgressChanged += (o, e) =>
             {
-                UpdateProgressBar(job.Progress);
+                UpdateProgressBar(_job.Progress);
+            };
+
+            // Add an event handler to hide the cancel job button if the job completes, fails or is cancelled.
+            _job.StatusChanged += (s, e) =>
+            {
+                Device.BeginInvokeOnMainThread(() =>
+                {
+                    if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed
+                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded
+                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Canceling)
+                    {
+                        MyCancelJobButton.IsVisible = false;
+                    }
+                });
             };
 
             // Start the export job.
-            job.Start();
+            _job.Start();
 
             // Wait for the job to complete.
-            ExportVectorTilesResult vectorTilesResult = await job.GetResultAsync();
+            ExportVectorTilesResult vectorTilesResult = await _job.GetResultAsync();
 
             // Update the preview map and UI components.
-            await HandleExportCompleted(job, vectorTilesResult);
+            await HandleExportCompleted(vectorTilesResult);
         }
 
         private void UpdateProgressBar(int progress)
@@ -156,16 +186,19 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
             });
         }
 
-        private async Task HandleExportCompleted(ExportVectorTilesJob job, ExportVectorTilesResult vectorTilesResult)
+        private async Task HandleExportCompleted(ExportVectorTilesResult vectorTilesResult)
         {
             // Update the view if the job is complete.
-            if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
+            if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded)
             {
                 // Show the exported tiles on the preview map.
                 await UpdatePreviewMap(vectorTilesResult);
 
                 // Change the export button text.
                 MyExportPreviewButton.Text = "Close Preview";
+
+                // Show the export/close preview button.
+                MyExportPreviewButton.IsVisible = true;
 
                 // Re-enable the button.
                 MyExportPreviewButton.IsEnabled = true;
@@ -179,13 +212,16 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
                 // Then hide it.
                 MyMapView.GraphicsOverlays.Clear();
             }
-            else if (job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
+            else if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
                 await Application.Current.MainPage.DisplayAlert("Error", "Job failed", "OK");
 
                 // Change the export button text.
                 MyExportPreviewButton.Text = "Export Tiles";
+
+                // Show the export/close preview button.
+                MyExportPreviewButton.IsVisible = true;
 
                 // Re-enable the export button.
                 MyExportPreviewButton.IsEnabled = true;
@@ -268,10 +304,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
                     // Disable the export button.
                     MyExportPreviewButton.IsEnabled = false;
 
-                    // Show the progress bar and label.
-                    MyProgressBar.IsVisible = true;
-                    MyProgressBarLabel.IsVisible = true;
-
                     // Save the map viewpoint.
                     _originalView = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
@@ -324,6 +356,27 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
         private void MyExportPreviewButton_Clicked(object sender, EventArgs e)
         {
             _ = ExportPreviewButtonTask();
+        }
+
+        private void MyCancelJobButton_Clicked(object sender, EventArgs e)
+        {
+            if (_job != null)
+            {
+                _ = _job.CancelAsync();
+
+                // Hide the cancel job button.
+                MyCancelJobButton.IsVisible = false;
+
+                // Hide the progress bar and label.
+                MyProgressBar.IsVisible = false;
+                MyProgressBarLabel.IsVisible = false;
+
+                // Show the export/close preview button.
+                MyExportPreviewButton.IsVisible = true;
+
+                // Re-enable the export button.
+                MyExportPreviewButton.IsEnabled = true;
+            }
         }
 
         #endregion EventHandlers

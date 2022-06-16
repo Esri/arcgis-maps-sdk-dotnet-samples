@@ -23,6 +23,11 @@
                    IsVisible="False"
                    VerticalOptions="Center" />
         </Grid>
+        <Button x:Name="MyCancelJobButton"
+                Grid.Row="2"
+                Clicked="MyCancelJobButton_Clicked"
+                IsVisible="False"
+                Text="Cancel" />
         <Button x:Name="MyExportPreviewButton"
                 Grid.Row="2"
                 Clicked="MyExportPreviewButton_Clicked"

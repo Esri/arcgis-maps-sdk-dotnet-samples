@@ -11,11 +11,11 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Drawing;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace ArcGISRuntime.WinUI.Samples.FormatCoordinates
 {
@@ -27,47 +27,83 @@ namespace ArcGISRuntime.WinUI.Samples.FormatCoordinates
         tags: new[] { "USNG", "UTM", "convert", "coordinate", "decimal degrees", "degree minutes seconds", "format", "latitude", "longitude" })]
     public partial class FormatCoordinates
     {
-        // Hold a reference to the text that was selected last
-        private TextBox _selectedTextField;
+        // Hold a reference to the most recently updated field.
+        private TextBox _selectedTextBox;
+
+        private List<TextBox> _textBoxes;
 
         public FormatCoordinates()
         {
             InitializeComponent();
-
             Initialize();
         }
 
         private void Initialize()
         {
-            // Set the initial selected text
-            _selectedTextField = DecimalDegreesTextField;
+            // Create a list of the text boxes.
+            _textBoxes = new List<TextBox> { UtmTextField, DmsTextField, DecimalDegreesTextField, UsngTextField };
 
-            // Create the map
+            // Create the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
-            // Add the graphics overlay to the map
+            // Add the graphics overlay to the map.
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            // Create the starting point
-            MapPoint startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
+            // Create the starting point.
+            var startingPoint = new MapPoint(0, 0, SpatialReferences.WebMercator);
 
-            // Update the UI with the initial point
+            // Update the UI with the initial point.
             UpdateUIFromMapPoint(startingPoint);
 
-            // Subscribe to text change events
-            UtmTextField.TextChanged += InputTextChanged;
-            DmsTextField.TextChanged += InputTextChanged;
-            DecimalDegreesTextField.TextChanged += InputTextChanged;
-            UsngTextField.TextChanged += InputTextChanged;
-
-            // Subscribe to map tap events to enable tapping on map to update coordinates
-            MyMapView.GeoViewTapped += (sender, args) => { UpdateUIFromMapPoint(args.Location); };
+            // Subscribe to map tap events to enable tapping on map to update coordinates.
+            MyMapView.GeoViewTapped += (s, e) => { UpdateUIFromMapPoint(e.Location); };
         }
 
         private void InputTextChanged(object sender, TextChangedEventArgs e)
         {
-            // Keep track of the last edited field
-            _selectedTextField = (TextBox)sender;
+            // Keep track of the last edited field.
+            _selectedTextBox = (TextBox)sender;
+        }
+
+        private void RecalculateFields(object sender, RoutedEventArgs e)
+        {
+            // Only update the point if the user has changed text.
+            if (_selectedTextBox == null) return;
+
+            // Hold the entered point.
+            MapPoint enteredPoint = null;
+
+            // Update the point based on which text sent the event.
+            try
+            {
+                switch (_selectedTextBox.Tag.ToString())
+                {
+                    case "Decimal Degrees":
+                    case "Degrees, Minutes, Seconds":
+                        enteredPoint =
+                            CoordinateFormatter.FromLatitudeLongitude(_selectedTextBox.Text, MyMapView.SpatialReference);
+                        break;
+
+                    case "UTM":
+                        enteredPoint =
+                            CoordinateFormatter.FromUtm(_selectedTextBox.Text, MyMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
+                        break;
+
+                    case "USNG":
+                        enteredPoint =
+                            CoordinateFormatter.FromUsng(_selectedTextBox.Text, MyMapView.SpatialReference);
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                // The coordinate is malformed, warn and return
+                _ = new MessageDialog2(ex.Message, "Invalid format").ShowAsync();
+                return;
+            }
+
+            // Update the UI from the MapPoint.
+            UpdateUIFromMapPoint(enteredPoint);
         }
 
         private void UpdateUIFromMapPoint(MapPoint selectedPoint)
@@ -77,86 +113,38 @@ namespace ArcGISRuntime.WinUI.Samples.FormatCoordinates
                 // Check if the selected point can be formatted into coordinates.
                 CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 0);
             }
-            catch (Exception e)
-            {
-                // Check if the excpetion is because the coordinates are out of range.
-                if (e.Message == "Invalid argument: coordinates are out of range")
-                {
-                    // Set all of the text fields to contain the error message.
-                    DecimalDegreesTextField.Text = "Coordinates are out of range";
-                    DmsTextField.Text = "Coordinates are out of range";
-                    UtmTextField.Text = "Coordinates are out of range";
-                    UsngTextField.Text = "Coordinates are out of range";
-
-                    // Clear the selectionss symbol.
-                    MyMapView.GraphicsOverlays[0].Graphics.Clear();
-                }
-                return;
-            }
-
-            // Update the decimal degrees text
-            DecimalDegreesTextField.Text =
-                CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
-
-            // Update the degrees, minutes, seconds text
-            DmsTextField.Text = CoordinateFormatter.ToLatitudeLongitude(selectedPoint,
-                LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
-
-            // Update the UTM text
-            UtmTextField.Text = CoordinateFormatter.ToUtm(selectedPoint, UtmConversionMode.NorthSouthIndicators, true);
-
-            // Update the USNG text
-            UsngTextField.Text = CoordinateFormatter.ToUsng(selectedPoint, 4, true);
-
-            // Clear existing graphics overlays
-            MyMapView.GraphicsOverlays[0].Graphics.Clear();
-
-            // Create a symbol to symbolize the point
-            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
-
-            // Create the graphic
-            Graphic symbolGraphic = new Graphic(selectedPoint, symbol);
-
-            // Add the graphic to the graphics overlay
-            MyMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
-        }
-
-        private async void RecalculateFields(object sender, RoutedEventArgs e)
-        {
-            // Hold the entered point
-            MapPoint enteredPoint = null;
-
-            // Update the point based on which text sent the event
-            try
-            {
-                switch (_selectedTextField.Tag.ToString())
-                {
-                    case "Decimal Degrees":
-                    case "Degrees, Minutes, Seconds":
-                        enteredPoint =
-                            CoordinateFormatter.FromLatitudeLongitude(_selectedTextField.Text, MyMapView.SpatialReference);
-                        break;
-
-                    case "UTM":
-                        enteredPoint =
-                            CoordinateFormatter.FromUtm(_selectedTextField.Text, MyMapView.SpatialReference, UtmConversionMode.NorthSouthIndicators);
-                        break;
-
-                    case "USNG":
-                        enteredPoint =
-                            CoordinateFormatter.FromUsng(_selectedTextField.Text, MyMapView.SpatialReference);
-                        break;
-                }
-            }
             catch (Exception ex)
             {
-                // The coordinate is malformed, warn and return
-                await new MessageDialog2(ex.Message, "Invalid format").ShowAsync();
+                _ = new MessageDialog2(ex.Message, "Error").ShowAsync();
                 return;
             }
 
-            // Update the UI from the MapPoint
-            UpdateUIFromMapPoint(enteredPoint);
+            // "Deselect" any text box.
+            _selectedTextBox = null;
+
+            // Disable event handlers while updating text in text boxes.
+            _textBoxes.ForEach(box => box.TextChanged -= InputTextChanged);
+
+            // Update textbox values.
+            DecimalDegreesTextField.Text = CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DecimalDegrees, 4);
+            DmsTextField.Text = CoordinateFormatter.ToLatitudeLongitude(selectedPoint, LatitudeLongitudeFormat.DegreesMinutesSeconds, 1);
+            UtmTextField.Text = CoordinateFormatter.ToUtm(selectedPoint, UtmConversionMode.NorthSouthIndicators, true);
+            UsngTextField.Text = CoordinateFormatter.ToUsng(selectedPoint, 4, true);
+
+            // Enable event handlers for all of the text boxes.
+            _textBoxes.ForEach(box => box.TextChanged += InputTextChanged);
+
+            // Clear existing graphics.
+            MyMapView.GraphicsOverlays[0].Graphics.Clear();
+
+            // Create a symbol to symbolize the point.
+            var symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.X, Color.Yellow, 20);
+
+            // Create the graphic.
+            var symbolGraphic = new Graphic(selectedPoint, symbol);
+
+            // Add the graphic to the graphics overlay.
+            MyMapView.GraphicsOverlays[0].Graphics.Add(symbolGraphic);
         }
     }
 }

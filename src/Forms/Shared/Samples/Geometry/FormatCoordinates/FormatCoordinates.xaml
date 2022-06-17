@@ -18,7 +18,8 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0"
                Grid.Column="0"
-               HorizontalTextAlignment="End">
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center">
             Decimal Degrees
         </Label>
         <Entry x:Name="DecimalDegreesTextField"
@@ -27,7 +28,8 @@
                Placeholder="Decimal Degrees" />
         <Label Grid.Row="1"
                Grid.Column="0"
-               HorizontalTextAlignment="End">
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center">
             Degrees, Minutes, Seconds
         </Label>
         <Entry x:Name="DmsTextField"
@@ -36,7 +38,8 @@
                Placeholder="Degrees, Minutes, Seconds" />
         <Label Grid.Row="2"
                Grid.Column="0"
-               HorizontalTextAlignment="End">
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center">
             UTM
         </Label>
         <Entry x:Name="UtmTextField"
@@ -45,7 +48,8 @@
                Placeholder="UTM" />
         <Label Grid.Row="3"
                Grid.Column="0"
-               HorizontalTextAlignment="End">
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center">
             USNG
         </Label>
         <Entry x:Name="UsngTextField"

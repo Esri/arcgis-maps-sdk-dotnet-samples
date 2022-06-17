@@ -26,7 +26,6 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
         description: "Export tiles from an online vector tile service.",
         instructions: "When the vector tiled layer loads, zoom in to the extent you want to export. The red box shows the extent that will be exported. Tap the \"Export vector tiles\" button to start exporting the vector tiles. An error will show if the extent is larger than the maximum limit allowed. When finished, a new map view will show the exported result.",
         tags: new[] { "cache", "download", "offline", "vector" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ExportVectorTiles
     {
         // Hold references to the variables used in the event handlers.
@@ -51,18 +50,13 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
             // Set the initial viewpoint.
             MyMapView.SetViewpoint(new Viewpoint(34.049, -117.181, 1e4));
 
-            // Create a graphics overlay for the extent graphic.
-            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-
             // Create a graphic to show a red outline square around the tiles to be downloaded.
-            _downloadArea = new Graphic();
+            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+            _downloadArea = new Graphic()
+            {
+                Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2)
+            };
             graphicsOverlay.Graphics.Add(_downloadArea);
-
-            // Create a symbol for the extent graphic.
-            SimpleLineSymbol simpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
-            _downloadArea.Symbol = simpleLineSymbol;
-
-            // Add the overlay to the map view.
             MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
             // If the map has loaded check if the basemap layer is a vector tiled layer.
@@ -130,12 +124,11 @@ namespace ArcGISRuntime.WPF.Samples.ExportVectorTiles
             {
                 Dispatcher.Invoke(() =>
                 {
-                    if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed
-                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded
-                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Canceling)
-                    {
-                        MyCancelJobButton.Visibility = Visibility.Collapsed;
-                    }
+                    bool showCancelJobButton = (_job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Failed &&
+                                                _job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded &&
+                                                _job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Canceling);
+
+                    MyCancelJobButton.Visibility = showCancelJobButton ? Visibility.Visible : Visibility.Collapsed;
                 });
             };
 

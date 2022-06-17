@@ -276,7 +276,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             MyPreviewMapView.Map = new Map(new Basemap(myLayer));
         }
 
-        private async void MyExportButton_Click(object sender, RoutedEventArgs e)
+        private async Task ExportTask()
         {
             try
             {
@@ -299,6 +299,11 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void MyExportButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = ExportTask();
         }
 
         private void ClosePreview_Click(object sender, RoutedEventArgs e)

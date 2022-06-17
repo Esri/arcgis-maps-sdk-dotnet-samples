@@ -7,34 +7,42 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Button x:Name="MyExportButton"
-                        Width="350"
+                        Width="330"
+                        HorizontalAlignment="Center"
                         Click="MyExportButton_Click"
                         Content="Export vector tiles"
                         IsEnabled="False" />
                 <Grid>
                     <ProgressBar x:Name="MyProgressBar"
+                                 Width="330"
                                  MinHeight="20"
+                                 Margin="0,10,0,0"
+                                 HorizontalAlignment="Center"
                                  Background="Transparent"
                                  Maximum="100"
                                  Minimum="0"
                                  Visibility="Collapsed" />
                     <TextBlock x:Name="MyProgressBarLabel"
+                               Margin="0,10,0,0"
                                HorizontalAlignment="Center"
                                VerticalAlignment="Center"
                                Visibility="Collapsed" />
                 </Grid>
 
                 <esriUI:MapView x:Name="MyPreviewMapView"
-                                Width="375"
-                                Height="400"
+                                Width="330"
+                                Height="280"
                                 Visibility="Collapsed" />
                 <Button x:Name="MyCancelJobButton"
-                        Width="350"
+                        Width="330"
+                        HorizontalAlignment="Center"
                         Click="MyCancelJobButton_Click"
                         Content="Cancel"
                         Visibility="Collapsed" />
                 <Button x:Name="MyClosePreviewButton"
-                        Width="350"
+                        Width="330"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Center"
                         Click="MyClosePreviewButton_Click"
                         Content="Close Preview"
                         Visibility="Collapsed" />

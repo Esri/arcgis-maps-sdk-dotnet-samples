@@ -26,7 +26,6 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
         description: "Export tiles from an online vector tile service.",
         instructions: "When the vector tiled layer loads, zoom in to the extent you want to export. The red box shows the extent that will be exported. Tap the \"Export vector tiles\" button to start exporting the vector tiles. An error will show if the extent is larger than the maximum limit allowed. When finished, a new map view will show the exported result.",
         tags: new[] { "cache", "download", "offline", "vector" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ExportVectorTiles
     {
         // Hold references to the variables used in the event handlers.
@@ -51,18 +50,13 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
             // Set the initial viewpoint.
             MyMapView.SetViewpoint(new Viewpoint(34.049, -117.181, 1e4));
 
-            // Create a graphics overlay for the extent graphic.
-            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-
             // Create a graphic to show a red outline square around the tiles to be downloaded.
-            _downloadArea = new Graphic();
+            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+            _downloadArea = new Graphic()
+            {
+                Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2)
+            };
             graphicsOverlay.Graphics.Add(_downloadArea);
-
-            // Create a symbol for the extent graphic.
-            SimpleLineSymbol simpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
-            _downloadArea.Symbol = simpleLineSymbol;
-
-            // Add the overlay to the map view.
             MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
             // If the map has loaded check if the basemap layer is a vector tiled layer.
@@ -113,39 +107,17 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
             // Create the export job.
             _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
 
-            // Set the value of the progress bar to 0, this clears any previous progress on the bar.
+            // Update the UI.
             MyProgressBar.Value = 0;
-
-            // Show the progress bar and label.
             MyProgressBar.Visibility = Visibility.Visible;
             MyProgressBarLabel.Visibility = Visibility.Visible;
-
-            // Show the cancel job button.
             MyCancelJobButton.Visibility = Visibility.Visible;
 
             // Add an event handler to update the progress bar as the task progresses.
-            _job.ProgressChanged += (s, e) =>
-            {
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    MyProgressBar.Value = _job.Progress;
-                    MyProgressBarLabel.Text = $"{MyProgressBar.Value}%";
-                });
-            };
+            _job.ProgressChanged += Job_ProgressChanged;
 
             // Add an event handler to hide the cancel job button if the job completes, fails or is cancelled.
-            _job.StatusChanged += (s, e) =>
-            {
-                DispatcherQueue.TryEnqueue(() =>
-                {
-                    if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed
-                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded
-                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Canceling)
-                    {
-                        MyCancelJobButton.Visibility = Visibility.Collapsed;
-                    }
-                });
-            };
+            _job.StatusChanged += Job_StatusChanged;
 
             // Start the export job.
             _job.Start();
@@ -164,16 +136,10 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
                 // Show the exported tiles on the preview map.
                 await UpdatePreviewMap(vectorTilesResult);
 
-                // Show the preview window.
+                // Update the UI.
                 MyPreviewMapView.Visibility = Visibility.Visible;
-
-                // Show the 'close preview' button.
                 MyClosePreviewButton.Visibility = Visibility.Visible;
-
-                // Hide the 'export tiles' button.
                 MyExportButton.Visibility = Visibility.Collapsed;
-
-                // Hide the progress bar and label.
                 MyProgressBar.Visibility = Visibility.Collapsed;
                 MyProgressBarLabel.Visibility = Visibility.Collapsed;
             }
@@ -185,6 +151,10 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
                 // Hide the progress bar.
                 MyProgressBar.Visibility = Visibility.Collapsed;
             }
+
+            // Remove the event handlers.
+            _job.ProgressChanged -= Job_ProgressChanged;
+            _job.StatusChanged -= Job_StatusChanged;
         }
 
         #endregion Export Vector Tiles
@@ -258,16 +228,10 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
 
         private void MyExportButton_Click(object sender, RoutedEventArgs e)
         {
-            // Hide the preview window.
+            // Update the UI.
             MyPreviewMapView.Visibility = Visibility.Collapsed;
-
-            // Hide the 'close preview' button.
             MyClosePreviewButton.Visibility = Visibility.Collapsed;
-
-            // Show the 'export tiles' button.
             MyExportButton.Visibility = Visibility.Visible;
-
-            // Disable the 'export tiles' button.
             MyExportButton.IsEnabled = false;
 
             // Start the export.
@@ -276,16 +240,10 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
 
         private void MyClosePreviewButton_Click(object sender, RoutedEventArgs e)
         {
-            // Hide the preview map.
+            // Update the UI.
             MyPreviewMapView.Visibility = Visibility.Collapsed;
-
-            // Hide the close preview button.
             MyClosePreviewButton.Visibility = Visibility.Collapsed;
-
-            // Show the 'export tiles' button.
             MyExportButton.Visibility = Visibility.Visible;
-
-            // Re-enable the export button.
             MyExportButton.IsEnabled = true;
         }
 
@@ -295,16 +253,37 @@ namespace ArcGISRuntime.WinUI.Samples.ExportVectorTiles
             {
                 _ = _job.CancelAsync();
 
-                // Hide the cancel job button.
-                MyCancelJobButton.Visibility = Visibility.Collapsed;
+                // Remove the event handlers.
+                _job.ProgressChanged -= Job_ProgressChanged;
+                _job.StatusChanged -= Job_StatusChanged;
 
-                // Hide the progress bar and label.
+                // Update the UI.
+                MyCancelJobButton.Visibility = Visibility.Collapsed;
                 MyProgressBar.Visibility = Visibility.Collapsed;
                 MyProgressBarLabel.Visibility = Visibility.Collapsed;
-
-                // Re-enable the export button.
                 MyExportButton.IsEnabled = true;
             }
+        }
+
+        private void Job_ProgressChanged(object sender, EventArgs e)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                MyProgressBar.Value = _job.Progress;
+                MyProgressBarLabel.Text = $"{MyProgressBar.Value}%";
+            });
+        }
+
+        private void Job_StatusChanged(object sender, Esri.ArcGISRuntime.Tasks.JobStatus e)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                bool showCancelJobButton = (_job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Failed &&
+                                            _job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded &&
+                                            _job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Canceling);
+
+                MyCancelJobButton.Visibility = showCancelJobButton ? Visibility.Visible : Visibility.Collapsed;
+            });
         }
 
         #endregion EventHandlers

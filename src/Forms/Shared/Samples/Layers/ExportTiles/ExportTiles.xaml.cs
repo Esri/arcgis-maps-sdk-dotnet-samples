@@ -228,9 +228,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
         }
         private void UpdateProgressBar(int progress)
         {
-            // Due to the nature of the threading implementation,
-            //     the dispatcher needs to be used to interact with the UI.
-            // The dispatcher takes an Action, provided here as a lambda function.
             Device.BeginInvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
@@ -327,7 +324,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             MyMapView.Margin = new Thickness(40);
         }
 
-        private async void MyExportPreviewButton_Clicked(object sender, EventArgs e)
+        private async Task ExportPreviewTask()
         {
             // If preview isn't open, start an export.
             try
@@ -375,6 +372,11 @@ namespace ArcGISRuntime.Samples.ExportTiles
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
+        }
+
+        private void MyExportPreviewButton_Clicked(object sender, EventArgs e)
+        {
+            _ = ExportPreviewTask();
         }
 
         private void MyCancelJobButton_Clicked(object sender, EventArgs e)

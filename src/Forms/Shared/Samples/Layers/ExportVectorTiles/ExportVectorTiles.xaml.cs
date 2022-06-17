@@ -26,7 +26,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
         description: "Export tiles from an online vector tile service.",
         instructions: "When the vector tiled layer loads, zoom in to the extent you want to export. The red box shows the extent that will be exported. Tap the \"Export vector tiles\" button to start exporting the vector tiles. An error will show if the extent is larger than the maximum limit allowed. When finished, a new map view will show the exported result.",
         tags: new[] { "cache", "download", "offline", "vector" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ExportVectorTiles : ContentPage
     {
         // Hold references to the variables used in the event handlers.
@@ -68,18 +67,13 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
             // Set the initial viewpoint.
             MyMapView.SetViewpoint(new Viewpoint(34.049, -117.181, 1e4));
 
-            // Create a graphics overlay for the extent graphic.
-            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
-
             // Create a graphic to show a red outline square around the tiles to be downloaded.
-            _downloadArea = new Graphic();
+            GraphicsOverlay graphicsOverlay = new GraphicsOverlay();
+            _downloadArea = new Graphic()
+            {
+                Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2)
+            };
             graphicsOverlay.Graphics.Add(_downloadArea);
-
-            // Create a symbol for the extent graphic.
-            SimpleLineSymbol simpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
-            _downloadArea.Symbol = simpleLineSymbol;
-
-            // Add the overlay to the map view.
             MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
             // If the map has loaded check if the basemap layer is a vector tiled layer.
@@ -144,24 +138,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
             MyExportPreviewButton.IsVisible = false;
 
             // Add an event handler to update the progress bar as the task progresses.
-            _job.ProgressChanged += (o, e) =>
-            {
-                UpdateProgressBar(_job.Progress);
-            };
+            _job.ProgressChanged += Job_ProgressChanged;
 
             // Add an event handler to hide the cancel job button if the job completes, fails or is cancelled.
-            _job.StatusChanged += (s, e) =>
-            {
-                Device.BeginInvokeOnMainThread(() =>
-                {
-                    if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed
-                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded
-                    || _job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Canceling)
-                    {
-                        MyCancelJobButton.IsVisible = false;
-                    }
-                });
-            };
+            _job.StatusChanged += Job_StatusChanged;
 
             // Start the export job.
             _job.Start();
@@ -171,19 +151,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
 
             // Update the preview map and UI components.
             await HandleExportCompleted(vectorTilesResult);
-        }
-
-        private void UpdateProgressBar(int progress)
-        {
-            // Due to the nature of the threading implementation,
-            //     the dispatcher needs to be used to interact with the UI.
-            // The dispatcher takes an Action, provided here as a lambda function.
-            Device.BeginInvokeOnMainThread(() =>
-            {
-                // Update the progress bar value.
-                MyProgressBar.Progress = progress / 100.0;
-                MyProgressBarLabel.Text = progress == 100 ? "Done" : $"{progress}%";
-            });
         }
 
         private async Task HandleExportCompleted(ExportVectorTilesResult vectorTilesResult)
@@ -229,6 +196,10 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
                 // Set the preview open flag.
                 _previewOpen = false;
             }
+
+            // Remove the event handlers.
+            _job.ProgressChanged -= Job_ProgressChanged;
+            _job.StatusChanged -= Job_StatusChanged;
         }
 
         #endregion Export Vector Tiles
@@ -364,19 +335,37 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
             {
                 _ = _job.CancelAsync();
 
-                // Hide the cancel job button.
-                MyCancelJobButton.IsVisible = false;
+                // Remove the event handlers.
+                _job.ProgressChanged -= Job_ProgressChanged;
+                _job.StatusChanged -= Job_StatusChanged;
 
-                // Hide the progress bar and label.
+                // Update the UI.
+                MyCancelJobButton.IsVisible = false;
                 MyProgressBar.IsVisible = false;
                 MyProgressBarLabel.IsVisible = false;
-
-                // Show the export/close preview button.
                 MyExportPreviewButton.IsVisible = true;
-
-                // Re-enable the export button.
                 MyExportPreviewButton.IsEnabled = true;
             }
+        }
+
+        private void Job_ProgressChanged(object sender, EventArgs e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                // Update the progress bar value.
+                MyProgressBar.Progress = _job.Progress / 100.0;
+                MyProgressBarLabel.Text = _job.Progress == 100 ? "Done" : $"{_job.Progress}%";
+            });
+        }
+
+        private void Job_StatusChanged(object sender, Esri.ArcGISRuntime.Tasks.JobStatus e)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                MyCancelJobButton.IsVisible = (_job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Failed &&
+                                               _job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded &&
+                                               _job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Canceling);
+            });
         }
 
         #endregion EventHandlers

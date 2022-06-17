@@ -91,18 +91,6 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
 
         #region Export Vector Tiles
 
-        private async Task StartExportTask()
-        {
-            try
-            {
-                await StartExport();
-            }
-            catch (Exception e)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
-            }
-        }
-
         private async Task StartExport()
         {
             // Create the task.
@@ -124,17 +112,11 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
             // Create the export job.
             _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
 
-            // Set the value of the progress bar to 0, this clears any previous progress on the bar.
+            // Update the UI.
             MyProgressBar.Progress = 0.0;
-
-            // Show the progress bar and label.
             MyProgressBar.IsVisible = true;
             MyProgressBarLabel.IsVisible = true;
-
-            // Show the cancel job button.
             MyCancelJobButton.IsVisible = true;
-
-            // Hide the export/close preview button.
             MyExportPreviewButton.IsVisible = false;
 
             // Add an event handler to update the progress bar as the task progresses.
@@ -161,13 +143,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
                 // Show the exported tiles on the preview map.
                 await UpdatePreviewMap(vectorTilesResult);
 
-                // Change the export button text.
+                // Update the UI.
                 MyExportPreviewButton.Text = "Close Preview";
-
-                // Show the export/close preview button.
                 MyExportPreviewButton.IsVisible = true;
-
-                // Re-enable the button.
                 MyExportPreviewButton.IsEnabled = true;
 
                 // Set the preview open flag.
@@ -184,13 +162,9 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
                 // Notify the user.
                 await Application.Current.MainPage.DisplayAlert("Error", "Job failed", "OK");
 
-                // Change the export button text.
+                // Update the UI.
                 MyExportPreviewButton.Text = "Export Tiles";
-
-                // Show the export/close preview button.
                 MyExportPreviewButton.IsVisible = true;
-
-                // Re-enable the export button.
                 MyExportPreviewButton.IsEnabled = true;
 
                 // Set the preview open flag.
@@ -283,10 +257,8 @@ namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
                 }
                 else // Otherwise, close the preview.
                 {
-                    // Change the button text.
+                    // Update the UI.
                     MyExportPreviewButton.Text = "Export Tiles";
-
-                    // Hide the progress bar and label.
                     MyProgressBar.IsVisible = false;
                     MyProgressBarLabel.IsVisible = false;
 

@@ -14,12 +14,19 @@
                             IsVisible="True"
                             ViewpointChanged="MyMapView_ViewpointChanged" />
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Margin="5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
             <ProgressBar x:Name="MyProgressBar"
+                         Grid.Column="0"
                          HeightRequest="30"
+                         HorizontalOptions="Start"
                          IsVisible="False"
-                         ProgressColor="Gray" />
+                         WidthRequest="340" />
             <Label x:Name="MyProgressBarLabel"
+                   Grid.Column="1"
                    HorizontalOptions="Center"
                    IsVisible="False"
                    VerticalOptions="Center" />

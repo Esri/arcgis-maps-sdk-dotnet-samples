@@ -258,7 +258,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
         private void CancelJobButton_Click(object sender, RoutedEventArgs e)
         {
             // The user canceled the job.
-            _generateOfflineMapJob.Cancel();
+            _generateOfflineMapJob.CancelAsync();
         }
 
         #endregion Generate offline map

@@ -133,7 +133,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
         {
             // Cancel current geoprocessing job
             if (_hotspotJob.Status == JobStatus.Started)
-                _hotspotJob.Cancel();
+                _hotspotJob.CancelAsync();
 
             // Hide the waiting indication
             ShowBusyOverlay(false);

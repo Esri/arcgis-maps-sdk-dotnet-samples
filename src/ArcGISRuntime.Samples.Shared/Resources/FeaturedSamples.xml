@@ -32,6 +32,7 @@
       <Sample>CustomDictionaryStyle</Sample>
       <Sample>RenderMultilayerSymbols</Sample>
       <Sample>SymbolStylesFromWebStyles</Sample>
+      <Sample>UniqueValuesAlternateSymbols</Sample>
     </Category>
     <Category name="UtilityNetwork">
       <Sample>DisplayUtilityNetworkContainer</Sample>

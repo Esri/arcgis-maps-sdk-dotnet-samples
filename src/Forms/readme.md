@@ -245,6 +245,7 @@
 * [Simple renderer](Shared/Samples/Symbology/SimpleRenderers) - Display common symbols for all graphics in a graphics overlay with a renderer.
 * [Read symbols from mobile style](Shared/Samples/Symbology/SymbolsFromMobileStyle) - Combine multiple symbols from a mobile style file into a single symbol.
 * [Create symbol styles from web styles](Shared/Samples/Symbology/SymbolStylesFromWebStyles) - Create symbol styles from a style file hosted on a portal.
+* [Apply unique values with alternate symbols](Shared/Samples/Symbology/UniqueValuesAlternateSymbols) - Apply a unique value with alternate symbols at different scales.
 * [Distance composite scene symbol](Shared/Samples/Symbology/UseDistanceCompositeSym) - Change a graphic's symbol based on the camera's proximity to it.
 
 ## Utility network

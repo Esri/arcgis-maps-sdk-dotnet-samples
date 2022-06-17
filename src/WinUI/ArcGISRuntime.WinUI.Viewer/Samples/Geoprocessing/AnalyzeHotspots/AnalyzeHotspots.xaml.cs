@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
         {
             // Cancel current geoprocessing job
             if (_hotspotJob.Status == JobStatus.Started)
-                _hotspotJob.Cancel();
+                _hotspotJob.CancelAsync();
 
             // Hide the BusyOverlay indication
             ShowBusyOverlay(false);

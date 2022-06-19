@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
-using System; using System.Threading.Tasks; 
+using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;

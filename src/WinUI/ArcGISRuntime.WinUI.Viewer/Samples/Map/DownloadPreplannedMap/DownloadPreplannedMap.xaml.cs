@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using System; using System.Threading.Tasks; 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;

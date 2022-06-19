@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using System; using System.Threading.Tasks; 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

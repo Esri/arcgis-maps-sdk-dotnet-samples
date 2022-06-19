@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using System; using System.Threading.Tasks; 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

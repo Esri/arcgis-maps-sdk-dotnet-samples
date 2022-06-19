@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
-using System; using System.Threading.Tasks; 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;

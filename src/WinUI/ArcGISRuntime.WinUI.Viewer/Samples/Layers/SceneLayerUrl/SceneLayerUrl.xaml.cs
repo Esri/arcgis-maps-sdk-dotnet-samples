@@ -8,7 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System; using System.Threading.Tasks; 
+using System;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Geometry;
 using Windows.UI.Popups;
 

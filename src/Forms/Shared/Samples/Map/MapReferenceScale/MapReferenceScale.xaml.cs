@@ -9,7 +9,8 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using System; using System.Threading.Tasks; 
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale

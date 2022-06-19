@@ -10,7 +10,8 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
-using System; using System.Threading.Tasks; 
+using System;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;

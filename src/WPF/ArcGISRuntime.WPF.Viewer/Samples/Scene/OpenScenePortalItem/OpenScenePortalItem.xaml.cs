@@ -9,7 +9,8 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using System; using System.Threading.Tasks; 
+using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.OpenScenePortalItem

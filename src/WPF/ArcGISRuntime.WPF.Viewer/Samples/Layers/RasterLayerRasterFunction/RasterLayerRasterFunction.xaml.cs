@@ -10,7 +10,8 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.ArcGISServices;
-using System; using System.Threading.Tasks; 
+using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows;
 

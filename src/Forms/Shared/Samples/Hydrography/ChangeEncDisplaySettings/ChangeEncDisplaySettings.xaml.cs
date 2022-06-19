@@ -11,7 +11,8 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
-using System; using System.Threading.Tasks; 
+using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Forms;
 

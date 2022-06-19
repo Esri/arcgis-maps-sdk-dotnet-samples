@@ -18,37 +18,17 @@ def replace(platform_path):
                     line = lines[i]
 
                     # Check if the line is the start of the attributes
-                    if "System.Threading.Tasks" in line:
-                        task_count +=1
+                    if "using System; using System.Threading.Tasks; " in line:
+                        lines[i] = "using System;\nusing System.Threading.Tasks;\n"
                         
                     i=i+1
                 f.close()
             
-            if task_count>1:
-                print(path)
-                i = 0
-                with open(path, 'r') as f:
-                    lines = f.readlines()
-
-                    # Use an indexed while loop so we can delete sections of lines
-                    while i < len(lines):
-                        line = lines[i]
-
-                        # Check if the line is the start of the attributes
-                        if "using System; using System.Threading.Tasks;" in line:
-                            lines[i] = "using System;\n"
-                            # print("beans")
-                            # lines.remove(i)
-                            # lines.insert(i, "using System;")
-                            
-                        i=i+1
-                    f.close()
-                
-                # Rewrite the file with updated attributes.
-                with open(path, "w") as file:
-                    file.seek(0)
-                    file.write(''.join(lines))
-                    file.close()
+            
+            with open(path, "w") as file:
+                file.seek(0)
+                file.write(''.join(lines))
+                file.close()
         except:
             print("error with file: "+str(path))
 

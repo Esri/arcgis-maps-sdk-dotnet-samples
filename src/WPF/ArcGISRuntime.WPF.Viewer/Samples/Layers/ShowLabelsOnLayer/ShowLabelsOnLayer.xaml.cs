@@ -12,7 +12,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
-using System; using System.Threading.Tasks; 
+using System;
+using System.Threading.Tasks;
 using System.Drawing;
 using System.Windows;
 

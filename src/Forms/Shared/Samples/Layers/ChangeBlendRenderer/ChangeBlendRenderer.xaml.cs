@@ -11,7 +11,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using ArcGISRuntime.Samples.Managers;
-using System; using System.Threading.Tasks; 
+using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Forms;
 

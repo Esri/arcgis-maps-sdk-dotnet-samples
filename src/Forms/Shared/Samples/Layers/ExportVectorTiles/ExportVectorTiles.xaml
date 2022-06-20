@@ -1,9 +1,8 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGISRuntime.Samples.ExportTiles.ExportTiles"
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.ExportVectorTiles.ExportVectorTiles"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
-
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -11,7 +10,9 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" BackgroundColor="MediumVioletRed">
-            <esriUI:MapView x:Name="MyMapView" IsVisible="True" />
+            <esriUI:MapView x:Name="MyMapView"
+                            IsVisible="True"
+                            ViewpointChanged="MyMapView_ViewpointChanged" />
         </Grid>
         <Grid Grid.Row="1" Margin="5,0">
             <Grid.ColumnDefinitions>
@@ -23,7 +24,7 @@
                          HeightRequest="30"
                          HorizontalOptions="Start"
                          IsVisible="False"
-                         WidthRequest="320" />
+                         WidthRequest="340" />
             <Label x:Name="MyProgressBarLabel"
                    Grid.Column="1"
                    HorizontalOptions="Center"

@@ -105,6 +105,7 @@
 * [Display WFS layer](Shared/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Edit KML ground overlay](Shared/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.
 * [Export tiles](Shared/Samples/Layers/ExportTiles) - Download tiles to a local tile cache file stored on the device.
+* [Export vector tiles](Shared/Samples/Layers/ExportVectorTiles) - Export tiles from an online vector tile service.
 * [Create feature collection layer (Portal item)](Shared/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
 * [Feature collection layer (query)](Shared/Samples/Layers/FeatureCollectionLayerFromQuery) - Create a feature collection layer to show a query result from a service feature table.
 * [Filter by definition expression or display filter](Shared/Samples/Layers/FeatureLayerDefinitionExpression) - Filter features displayed on a map using a definition expression or a display filter.

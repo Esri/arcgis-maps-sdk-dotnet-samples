@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Linq;
 using Microsoft.UI.Xaml;

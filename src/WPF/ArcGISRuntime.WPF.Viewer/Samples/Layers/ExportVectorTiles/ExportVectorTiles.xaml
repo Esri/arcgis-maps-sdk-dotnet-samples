@@ -30,6 +30,7 @@
                               Height="280"
                               Visibility="Collapsed" />
                 <Button x:Name="MyCancelJobButton"
+                        Margin="0,10,0,0"
                         Click="MyCancelJobButton_Click"
                         Content="Cancel"
                         Visibility="Collapsed" />

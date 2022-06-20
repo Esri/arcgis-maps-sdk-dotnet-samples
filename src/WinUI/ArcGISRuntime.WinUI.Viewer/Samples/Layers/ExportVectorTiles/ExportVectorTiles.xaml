@@ -35,6 +35,7 @@
                                 Visibility="Collapsed" />
                 <Button x:Name="MyCancelJobButton"
                         Width="330"
+                        Margin="0,10,0,0"
                         HorizontalAlignment="Center"
                         Click="MyCancelJobButton_Click"
                         Content="Cancel"

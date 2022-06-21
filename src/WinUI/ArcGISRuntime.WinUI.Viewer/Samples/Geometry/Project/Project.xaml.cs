@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.Project
 {
@@ -27,10 +28,10 @@ namespace ArcGISRuntime.WinUI.Samples.Project
         public Project()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Show a map in the default WebMercator spatial reference.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);

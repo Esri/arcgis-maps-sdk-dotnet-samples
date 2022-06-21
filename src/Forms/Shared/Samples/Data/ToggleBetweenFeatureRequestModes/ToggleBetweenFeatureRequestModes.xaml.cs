@@ -37,10 +37,10 @@ namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
         public ToggleBetweenFeatureRequestModes()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

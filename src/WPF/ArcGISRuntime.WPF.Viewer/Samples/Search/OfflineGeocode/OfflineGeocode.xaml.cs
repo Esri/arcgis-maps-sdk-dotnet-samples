@@ -52,10 +52,10 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Get the offline tile package and use it as a basemap.
             string basemapPath = DataManager.GetDataFolder("22c3083d4fa74e3e9b25adfc9f8c0496", "streetmap_SD.tpkx");

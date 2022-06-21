@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -36,10 +37,10 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerMapImageLayer
             InitializeComponent();
 
             // set up the sample
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map and add it to the view
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);

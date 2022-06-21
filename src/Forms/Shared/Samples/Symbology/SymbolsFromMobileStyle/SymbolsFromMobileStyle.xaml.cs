@@ -43,10 +43,10 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
             InitializeComponent();
 
             // Call a function that will create the map and fill UI controls with symbols in a mobile style.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             SelectSymbolGrid.IsVisible = false;
 

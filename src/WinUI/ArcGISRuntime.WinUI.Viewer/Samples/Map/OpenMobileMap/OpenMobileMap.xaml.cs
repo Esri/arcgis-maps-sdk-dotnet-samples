@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Linq;
 using Windows.UI.Popups;
 
@@ -27,10 +28,10 @@ namespace ArcGISRuntime.WinUI.Samples.OpenMobileMap
         public OpenMobileMap()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Get the path to the mobile map package.
             string filepath = GetMmpkPath();

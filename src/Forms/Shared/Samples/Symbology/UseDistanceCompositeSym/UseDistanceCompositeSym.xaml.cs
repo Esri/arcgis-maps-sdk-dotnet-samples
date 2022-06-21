@@ -33,10 +33,10 @@ namespace ArcGISRuntime.Samples.UseDistanceCompositeSym
             InitializeComponent();
 
             // Create the Scene, basemap, graphic, and composite symbol.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -41,10 +42,10 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolizeShapefile
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with topographic basemap
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);

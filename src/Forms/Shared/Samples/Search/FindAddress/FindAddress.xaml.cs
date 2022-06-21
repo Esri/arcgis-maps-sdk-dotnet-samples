@@ -53,11 +53,11 @@ namespace ArcGISRuntime.Samples.FindAddress
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(BasemapStyle.ArcGISImagery);

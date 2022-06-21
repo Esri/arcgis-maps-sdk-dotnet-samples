@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -66,10 +67,10 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             InitializeComponent();
 
             // Create the map, set the initial extent, and add the original point graphic.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map.
             Map myMap = new Map(BasemapStyle.ArcGISImagery);

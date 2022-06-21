@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -70,10 +71,10 @@ namespace ArcGISRuntime.WinUI.Samples.ListTransformations
         {
             InitializeComponent();
 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map.
             Map myMap = new Map(BasemapStyle.ArcGISImagery);

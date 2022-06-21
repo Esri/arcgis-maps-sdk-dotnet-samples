@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using ArcGISRuntime.Samples.Managers;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
 
@@ -48,10 +49,10 @@ namespace ArcGISRuntime.Samples.RasterHillshade
             InitializeComponent();
 
             // Call a function to set up the map
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a streets basemap
             Map map = new Map(BasemapStyle.ArcGISStreets);

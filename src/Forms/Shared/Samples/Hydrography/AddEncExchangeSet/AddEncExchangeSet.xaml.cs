@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
@@ -31,10 +32,10 @@ namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Initialize the map with an oceans basemap
             MyMapView.Map = new Map(BasemapStyle.ArcGISOceans);

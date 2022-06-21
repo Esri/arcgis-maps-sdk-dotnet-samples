@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -43,10 +44,10 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
         public ApplyScheduledUpdates()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

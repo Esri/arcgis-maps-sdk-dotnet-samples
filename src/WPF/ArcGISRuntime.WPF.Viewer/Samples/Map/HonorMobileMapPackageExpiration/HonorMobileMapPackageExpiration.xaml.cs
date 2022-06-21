@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Windows;
 
@@ -27,10 +28,10 @@ namespace ArcGISRuntime.WPF.Samples.HonorMobileMapPackageExpiration
         public HonorMobileMapPackageExpiration()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

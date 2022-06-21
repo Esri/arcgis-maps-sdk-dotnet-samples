@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 
@@ -34,10 +35,10 @@ namespace ArcGISRuntime.WinUI.Samples.QueryFeatureCountAndExtent
         public QueryFeatureCountAndExtent()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with a basemap.
             Map myMap = new Map(BasemapStyle.ArcGISDarkGray);

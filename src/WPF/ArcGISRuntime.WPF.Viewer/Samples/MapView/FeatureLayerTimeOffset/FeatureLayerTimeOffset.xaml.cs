@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
@@ -34,10 +35,10 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerTimeOffset
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map
             Map myMap = new Map(BasemapStyle.ArcGISOceans);

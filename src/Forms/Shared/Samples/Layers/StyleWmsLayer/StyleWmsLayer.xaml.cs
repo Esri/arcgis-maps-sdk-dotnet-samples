@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using Esri.ArcGISRuntime.Geometry;
 using Xamarin.Forms;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.StyleWmsLayer
 {
@@ -36,12 +37,10 @@ namespace ArcGISRuntime.Samples.StyleWmsLayer
         public StyleWmsLayer()
         {
             InitializeComponent();
-
-            // Execute initialization.
-            InitializeAsync();
+            _ = Initialize();
         }
 
-        private async void InitializeAsync()
+        private async Task Initialize()
         {
             try
             {

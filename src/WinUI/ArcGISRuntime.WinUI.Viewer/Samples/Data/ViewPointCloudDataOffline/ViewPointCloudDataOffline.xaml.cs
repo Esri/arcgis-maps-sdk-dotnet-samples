@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ViewPointCloudDataOffline
 {
@@ -28,10 +29,10 @@ namespace ArcGISRuntime.WinUI.Samples.ViewPointCloudDataOffline
         public ViewPointCloudDataOffline()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the scene with basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);

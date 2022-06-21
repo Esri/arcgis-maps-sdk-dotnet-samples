@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using System.Drawing;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -28,10 +29,10 @@ namespace ArcGISRuntime.WinUI.Samples.ShowLabelsOnLayer
         public ShowLabelsOnLayer()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a light gray canvas basemap.
             Map sampleMap = new Map(BasemapStyle.ArcGISLightGray);

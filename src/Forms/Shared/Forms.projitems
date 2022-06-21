@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\UniqueValuesAlternateSymbols\UniqueValuesAlternateSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.jpg" />
@@ -215,6 +216,10 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.xaml.cs">
+      <DependentUpon>CreateMobileGeodatabase.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml.cs">
       <DependentUpon>ExportVectorTiles.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -941,6 +946,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

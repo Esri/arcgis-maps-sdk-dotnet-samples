@@ -1,0 +1,19 @@
+{
+    "category": "Data",
+    "description": "Create and share a mobile geodatabase.",
+    "formal_name": "CreateMobileGeodatabase",
+    "ignore": false,
+    "images": [
+        "CreateMobileGeodatabase.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/CreateMobileGeodatabase.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Create mobile geodatabase"
+}

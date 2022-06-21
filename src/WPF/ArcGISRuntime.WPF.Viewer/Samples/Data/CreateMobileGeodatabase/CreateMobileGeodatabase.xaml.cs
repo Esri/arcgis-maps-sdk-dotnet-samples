@@ -28,7 +28,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
         "")]
     public partial class CreateMobileGeodatabase
     {
-        private FeatureTable _featureTable;
+        private GeodatabaseFeatureTable _featureTable;
         private Geodatabase _geodatabase;
 
         private string _gdbPath;

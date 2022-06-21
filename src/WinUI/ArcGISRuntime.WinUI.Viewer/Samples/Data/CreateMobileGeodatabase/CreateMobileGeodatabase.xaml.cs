@@ -25,10 +25,11 @@ using Microsoft.UI.Xaml.Input;
 namespace ArcGISRuntime.WinUI.Samples.CreateMobileGeodatabase
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        "Create mobile geodatabase",
-        "Data",
-        "Create and share a mobile geodatabase.",
-        "")]
+        name: "Create mobile geodatabase",
+        category: "Data",
+        description: "Create and share a mobile geodatabase.",
+        instructions: "Tap on the map to add a feature symbolizing the user's location. Tap \"View table\" to view the contents of the geodatabase feature table. Once you have added the location points to the map, click on \"Close geodatabase\" to retrieve the `.geodatabase` file which can then be imported into ArcGIS Pro or opened in an ArcGIS Runtime application.",
+        tags: new[] { "arcgis pro", "database", "feature", "feature table", "geodatabase", "mobile geodatabase", "sqlite" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateMobileGeodatabase
     {

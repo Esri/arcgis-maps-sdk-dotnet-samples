@@ -14,6 +14,7 @@
 
 * [Add features](ArcGISRuntime.WPF.Viewer/Samples/Data/AddFeatures) - Add features to a feature layer.
 * [Add features with contingent values](ArcGISRuntime.WPF.Viewer/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
+* [Create mobile geodatabase](ArcGISRuntime.WPF.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
 * [Delete features (feature service)](ArcGISRuntime.WPF.Viewer/Samples/Data/DeleteFeatures) - Delete features from an online feature service.
 * [Edit and sync features](ArcGISRuntime.WPF.Viewer/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit with branch versioning](ArcGISRuntime.WPF.Viewer/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.

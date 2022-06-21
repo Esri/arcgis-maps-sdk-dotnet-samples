@@ -7,13 +7,30 @@
         "CreateMobileGeodatabase.jpg"
     ],
     "keywords": [
+        "arcgis pro",
+        "database",
+        "feature",
+        "feature table",
+        "geodatabase",
+        "mobile geodatabase",
+        "sqlite"
     ],
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/CreateMobileGeodatabase.htm"
+        "/net/latest/forms/sample-code/createmobilegeodatabase.htm"
     ],
     "relevant_apis": [
+        "ArcGISFeature",
+        "FeatureLayer",
+        "FeatureTable",
+        "FieldDescription",
+        "Geodatabase",
+        "GeodatabaseFeatureTable",
+        "TableDescription"
     ],
     "snippets": [
+        "CreateMobileGeodatabase.xaml",
+        "CreateMobileGeodatabase.xaml.cs"
     ],
     "title": "Create mobile geodatabase"
 }

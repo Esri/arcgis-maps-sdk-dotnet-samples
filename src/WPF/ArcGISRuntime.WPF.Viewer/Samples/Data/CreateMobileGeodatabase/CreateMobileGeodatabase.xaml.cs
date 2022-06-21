@@ -62,6 +62,8 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 
                 // Create the geodatabase file.
                 _gdbPath = Path.Combine(_directoryPath, "LocationHistory.geodatabase");
+
+                // Delete existing file if present from previous sample run.
                 if (File.Exists(_gdbPath))
                 {
                     File.Delete(_gdbPath);
@@ -70,12 +72,14 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
                 _geodatabase = await Geodatabase.CreateAsync(_gdbPath);
 
                 // Construct a table description which stores features as points on map.
-                var tableDescription = new TableDescription("LocationHistory", SpatialReferences.Wgs84, GeometryType.Point);
-                tableDescription.HasAttachments = false;
-                tableDescription.HasM = false;
-                tableDescription.HasZ = false;
+                var tableDescription = new TableDescription("LocationHistory", SpatialReferences.Wgs84, GeometryType.Point)
+                {
+                    HasAttachments = false,
+                    HasM = false,
+                    HasZ = false
+                };
 
-                // Set up the fields to the table,
+                // Set up the fields for the table,
                 // Field.Type.OID is the primary key of the SQLite table
                 // Field.Type.DATE is a date column used to store a Calendar date
                 // FieldDescriptions can be a SHORT, INTEGER, GUID, FLOAT, DOUBLE, DATE, TEXT, OID, GLOBALID, BLOB, GEOMETRY, RASTER, or XML.
@@ -85,12 +89,14 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
                 // Add a new table to the geodatabase by creating one from the table description.
                 _featureTable = await _geodatabase.CreateTableAsync(tableDescription);
 
+                // Clear the table.
                 await UpdateTable();
 
                 // Create a feature layer for the map.
                 FeatureLayer featureLayer = new FeatureLayer(_featureTable);
                 MyMapView.Map.OperationalLayers.Add(featureLayer);
 
+                // Add an event handler for new feature taps.
                 MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
             }
             catch (Exception ex)
@@ -106,16 +112,22 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 
         private async Task AddFeature(MapPoint location)
         {
+            // Create an attributes dictionary for the feature.
             var attributes = new Dictionary<string, object>();
-            attributes["collection_timestamp"] = DateTime.Now;
 
+            // Add a timestamp of when the feature was created.
+            attributes["collection_timestamp"] = DateTime.Now;
+            
+            // Create the feature.
             Feature feature = _featureTable.CreateFeature(attributes, location);
             try
             {
+                // Add the feature to the feature table.
                 await _featureTable.AddFeatureAsync(feature);
 
-                FeaturesLabel.Content = $"Number of features added: {_featureTable.NumberOfFeatures}";
+                // Update the UI.
                 await UpdateTable();
+                FeaturesLabel.Content = $"Number of features added: {_featureTable.NumberOfFeatures}";
             }
             catch (Exception ex)
             {
@@ -125,9 +137,10 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 
         private async Task UpdateTable()
         {
+            // Query all of the features in the feature table.
             FeatureQueryResult queryFeatureResult = await _featureTable.QueryFeaturesAsync(new QueryParameters());
 
-            // Create the table.
+            // Create a Windows table.
             var table = new Table();
             table.RowGroups.Add(new TableRowGroup());
             table.Columns.Add(new TableColumn());

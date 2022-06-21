@@ -66,6 +66,7 @@
 * [Animate 3D graphic](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/Animate3DGraphic) - An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
 * [Dictionary renderer with graphics overlay](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/DictionaryRendererGraphicsOverlay) - Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 * [Identify graphics](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/IdentifyGraphics) - Display an alert message when a graphic is clicked.
+* [Query features with arcade expression](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/QueryFeaturesWithArcadeExpression) - Query features on a map using an arcade expression.
 * [Scene properties expressions](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
 * [Sketch on map](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/SketchOnMap) - Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.
 * [Surface placement](ArcGISRuntime.WinUI.Viewer/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.

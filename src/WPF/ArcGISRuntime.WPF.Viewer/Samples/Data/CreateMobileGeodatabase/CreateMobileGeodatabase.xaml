@@ -7,8 +7,18 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Label x:Name="FeaturesLabel" Content="Number of features added: " />
-                <Button Click="ViewTable" Content="View Table" />
-                <Button Click="CreateGeodatabase" Content="Create and share mobile geodatabase" />
+                <Button Margin="5"
+                        Click="ViewTable"
+                        Content="View Table" />
+                <Button x:Name="CloseGdbButton"
+                        Margin="5"
+                        Click="CloseGeodatabaseClick"
+                        Content="Close geodatabase" />
+                <Button x:Name="CreateGdbButton"
+                        Margin="5"
+                        Click="CreateGdbButton_Click"
+                        Content="Create new geodatabase"
+                        IsEnabled="False" />
             </StackPanel>
         </Border>
         <Border x:Name="TableBorder"
@@ -16,7 +26,17 @@
                 VerticalAlignment="Center"
                 Style="{StaticResource BorderStyle}"
                 Visibility="Hidden">
-            <Label Content="placeholder" />
+            <StackPanel>
+                <FlowDocumentReader x:Name="FlowDocumentReader"
+                                    IsFindEnabled="False"
+                                    IsPrintEnabled="False"
+                                    IsScrollViewEnabled="False"
+                                    IsTwoPageViewEnabled="False" />
+                <Button Margin="5"
+                        Click="CloseTable"
+                        Content="Close" />
+            </StackPanel>
+
         </Border>
     </Grid>
 </UserControl>

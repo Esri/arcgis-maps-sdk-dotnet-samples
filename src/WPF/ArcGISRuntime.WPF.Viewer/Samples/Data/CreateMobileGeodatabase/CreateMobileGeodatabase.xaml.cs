@@ -13,9 +13,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 
 namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 {
@@ -24,12 +26,13 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
         "Data",
         "Create and share a mobile geodatabase.",
         "")]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateMobileGeodatabase
     {
         private FeatureTable _featureTable;
         private Geodatabase _geodatabase;
+
         private string _gdbPath;
+        private string _directoryPath;
 
         public CreateMobileGeodatabase()
         {
@@ -39,14 +42,26 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 
         private async Task Initialize()
         {
+            // Create a map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
-            MyMapView.SetViewpoint(new Viewpoint(34.056295, -117.195800, 10000.0));
+            MyMapView.SetViewpoint(new Viewpoint(39.323845, -77.733201, 10000.0));
 
+            await CreateGeodatabase();
+        }
+
+        private async Task CreateGeodatabase()
+        {
             try
             {
-                // Create the geodatabase file.
-                _gdbPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), "LocationHistory.geodatabase");
+                // Create a directory for the geodatabase.
+                _directoryPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), "CreateMobileGeodatabase");
+                if (!Directory.Exists(_directoryPath))
+                {
+                    Directory.CreateDirectory(_directoryPath);
+                }
 
+                // Create the geodatabase file.
+                _gdbPath = Path.Combine(_directoryPath, "LocationHistory.geodatabase");
                 if (File.Exists(_gdbPath))
                 {
                     File.Delete(_gdbPath);
@@ -70,6 +85,8 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
                 // Add a new table to the geodatabase by creating one from the table description.
                 _featureTable = await _geodatabase.CreateTableAsync(tableDescription);
 
+                await UpdateTable();
+
                 // Create a feature layer for the map.
                 FeatureLayer featureLayer = new FeatureLayer(_featureTable);
                 MyMapView.Map.OperationalLayers.Add(featureLayer);
@@ -78,15 +95,8 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void ViewTable(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void CreateGeodatabase(object sender, RoutedEventArgs e)
-        {
         }
 
         private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
@@ -105,10 +115,91 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
                 await _featureTable.AddFeatureAsync(feature);
 
                 FeaturesLabel.Content = $"Number of features added: {_featureTable.NumberOfFeatures}";
+                await UpdateTable();
             }
             catch (Exception ex)
             {
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private async Task UpdateTable()
+        {
+            FeatureQueryResult queryFeatureResult = await _featureTable.QueryFeaturesAsync(new QueryParameters());
+
+            // Create the table.
+            var table = new Table();
+            table.RowGroups.Add(new TableRowGroup());
+            table.Columns.Add(new TableColumn());
+            table.Columns.Add(new TableColumn());
+
+            // Create titles.
+            TableRow firstRow = new TableRow();
+
+            TableCell titleCell1 = new TableCell(new Paragraph(new Run("OID")));
+            TableCell titleCell2 = new TableCell(new Paragraph(new Run("Collection Timestamp")));
+            firstRow.Cells.Add(titleCell1);
+            firstRow.Cells.Add(titleCell2);
+
+            table.RowGroups[0].Rows.Add(firstRow);
+
+            // Add rows for each feature.
+            foreach (Feature feature in queryFeatureResult)
+            {
+                TableRow row = new TableRow();
+
+                TableCell cell1 = new TableCell(new Paragraph(new Run(feature.Attributes["oid"].ToString())));
+                TableCell cell2 = new TableCell(new Paragraph(new Run(feature.Attributes["collection_timestamp"].ToString())));
+                row.Cells.Add(cell1);
+                row.Cells.Add(cell2);
+
+                table.RowGroups[0].Rows.Add(row);
+            }
+
+            // Update the flow document.
+            var flowDocument = new FlowDocument();
+            flowDocument.Blocks.Add(table);
+            FlowDocumentReader.Document = flowDocument;
+        }
+
+        private void ViewTable(object sender, RoutedEventArgs e)
+        {
+            TableBorder.Visibility = Visibility.Visible;
+        }
+
+        private void CloseTable(object sender, RoutedEventArgs e)
+        {
+            TableBorder.Visibility = Visibility.Hidden;
+        }
+
+        private void CloseGeodatabaseClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Clear the UI.
+                MyMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+                CloseGdbButton.IsEnabled = false;
+                CreateGdbButton.IsEnabled = true;
+                MyMapView.Map.OperationalLayers.Clear();
+                FeaturesLabel.Content = $"Number of features added:";
+
+                // Close the geodatabase.
+                _geodatabase.Close();
+
+                // Open the file explorer to the directory containing the geodatabase.
+                Process.Start("explorer.exe", _directoryPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CreateGdbButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = CreateGeodatabase();
+            CloseGdbButton.IsEnabled = true;
+            CreateGdbButton.IsEnabled = false;
         }
     }
 }

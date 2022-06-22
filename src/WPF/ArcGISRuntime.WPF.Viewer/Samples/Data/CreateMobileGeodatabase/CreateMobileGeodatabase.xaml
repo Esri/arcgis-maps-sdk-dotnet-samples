@@ -9,16 +9,16 @@
                 <Label x:Name="FeaturesLabel" Content="Number of features added: " />
                 <Button Margin="5"
                         Click="ViewTable"
-                        Content="View Table" />
-                <Button x:Name="CloseGdbButton"
-                        Margin="5"
-                        Click="CloseGeodatabaseClick"
-                        Content="Close geodatabase" />
+                        Content="View table" />
                 <Button x:Name="CreateGdbButton"
                         Margin="5"
                         Click="CreateGdbButton_Click"
                         Content="Create new geodatabase"
                         IsEnabled="False" />
+                <Button x:Name="CloseGdbButton"
+                        Margin="5"
+                        Click="CloseGeodatabaseClick"
+                        Content="Close geodatabase" />
             </StackPanel>
         </Border>
         <Border x:Name="TableBorder"

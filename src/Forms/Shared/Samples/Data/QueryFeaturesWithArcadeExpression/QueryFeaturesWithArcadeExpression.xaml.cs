@@ -22,11 +22,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Query features with arcade expression",
+        name: "Query features with Arcade expression",
         category: "Data",
-        description: "Query features on a map using an arcade expression.",
+        description: "Query features on a map using an Arcade expression.",
         instructions: "Tap on any neighborhood to see the number of crimes in the last 60 days in a callout.",
-        tags: new[] { "arcade evaluator", "arcade expression", "identify layers", "portal", "portal item", "query" })]
+        tags: new[] { "Arcade evaluator", "Arcade expression", "identify layers", "portal", "portal item", "query" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("14562fced3474190b52d315bc19127f6")]
     public partial class QueryFeaturesWithArcadeExpression : ContentPage
     {

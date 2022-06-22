@@ -1,14 +1,14 @@
 {
     "category": "Data",
-    "description": "Query features on a map using an arcade expression.",
+    "description": "Query features on a map using an Arcade expression.",
     "formal_name": "QueryFeaturesWithArcadeExpression",
     "ignore": false,
     "images": [
         "QueryFeaturesWithArcadeExpression.jpg"
     ],
     "keywords": [
-        "arcade evaluator",
-        "arcade expression",
+        "Arcade evaluator",
+        "Arcade expression",
         "identify layers",
         "portal",
         "portal item",
@@ -30,5 +30,5 @@
         "QueryFeaturesWithArcadeExpression.xaml",
         "QueryFeaturesWithArcadeExpression.xaml.cs"
     ],
-    "title": "Query features with arcade expression"
+    "title": "Query features with Arcade expression"
 }

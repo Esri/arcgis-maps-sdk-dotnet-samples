@@ -83,8 +83,8 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
                 };
 
                 // Set up the fields for the table,
-                // Field.Type.OID is the primary key of the SQLite table
-                // Field.Type.DATE is a date column used to store a Calendar date
+                // FieldType.OID is the primary key of the SQLite table
+                // FieldType.Date is a date column used to store a Calendar date
                 // FieldDescriptions can be a SHORT, INTEGER, GUID, FLOAT, DOUBLE, DATE, TEXT, OID, GLOBALID, BLOB, GEOMETRY, RASTER, or XML.
                 tableDescription.FieldDescriptions.Add(new FieldDescription("oid", FieldType.OID));
                 tableDescription.FieldDescriptions.Add(new FieldDescription("collection_timestamp", FieldType.Date));

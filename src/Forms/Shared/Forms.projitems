@@ -1689,10 +1689,10 @@
     <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\readme.metadata.json" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml">
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </EmbeddedResource>
     <Page Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

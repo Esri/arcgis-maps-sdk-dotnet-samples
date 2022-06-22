@@ -24,7 +24,7 @@ namespace ArcGISRuntime.WinUI.Samples.QueryFeaturesWithArcadeExpression
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Query features with arcade expression",
-        category: "GraphicsOverlay",
+        category: "Data",
         description: "Query features on a map using an arcade expression.",
         instructions: "Click on any neighborhood to see the number of crimes in the last 60 days in a callout.",
         tags: new[] { "arcade evaluator", "arcade expression", "identify layers", "portal", "portal item", "query" })]

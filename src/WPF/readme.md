@@ -23,6 +23,7 @@
 * [Generate geodatabase](ArcGISRuntime.WPF.Viewer/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WPF.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WPF.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
+* [Query features with arcade expression](ArcGISRuntime.WPF.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an arcade expression.
 * [Raster layer (GeoPackage)](ArcGISRuntime.WPF.Viewer/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](ArcGISRuntime.WPF.Viewer/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Read shapefile metadata](ArcGISRuntime.WPF.Viewer/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.
@@ -66,7 +67,6 @@
 * [Animate 3D graphic](ArcGISRuntime.WPF.Viewer/Samples/GraphicsOverlay/Animate3DGraphic) - An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
 * [Dictionary renderer with graphics overlay](ArcGISRuntime.WPF.Viewer/Samples/GraphicsOverlay/DictionaryRendererGraphicsOverlay) - Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 * [Identify graphics](ArcGISRuntime.WPF.Viewer/Samples/GraphicsOverlay/IdentifyGraphics) - Display an alert message when a graphic is clicked.
-* [Query features with arcade expression](ArcGISRuntime.WPF.Viewer/Samples/GraphicsOverlay/QueryFeaturesWithArcadeExpression) - Query features on a map using an arcade expression.
 * [Scene properties expressions](ArcGISRuntime.WPF.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
 * [Sketch on map](ArcGISRuntime.WPF.Viewer/Samples/GraphicsOverlay/SketchOnMap) - Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.
 * [Surface placement](ArcGISRuntime.WPF.Viewer/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.

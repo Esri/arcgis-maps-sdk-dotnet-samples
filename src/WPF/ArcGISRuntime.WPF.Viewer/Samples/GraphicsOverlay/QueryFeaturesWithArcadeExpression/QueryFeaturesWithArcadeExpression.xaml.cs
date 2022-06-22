@@ -7,22 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Arcade;
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.QueryFeaturesWithArcadeExpression
 {
@@ -35,6 +31,18 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeaturesWithArcadeExpression
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("14562fced3474190b52d315bc19127f6")]
     public partial class QueryFeaturesWithArcadeExpression
     {
+        // Hold a reference to the layer for use in event handlers.
+        private Layer _layer;
+
+        // Hold a reference to the feature for use in event handlers.
+        private ArcGISFeature _previousFeature;
+
+        // The name of the layer used in this sample.
+        private const string RPDBeatsLayerName = "RPD Beats  - City_Beats_Border_1128-4500";
+
+        // Hold a reference to the callout text content to store it between clicks.
+        private string _calloutText = string.Empty;
+
         public QueryFeaturesWithArcadeExpression()
         {
             InitializeComponent();
@@ -43,6 +51,86 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeaturesWithArcadeExpression
 
         private async Task Initialize()
         {
+            // Create an ArcGIS portal item.
+            var portal = await ArcGISPortal.CreateAsync();
+            var item = await PortalItem.CreateAsync(portal, "14562fced3474190b52d315bc19127f6");
+
+            // Create a map using the portal item.
+            MyMapView.Map = new Map(item);
+
+            // Load the map.
+            await MyMapView.Map.LoadAsync();
+
+            // Set the visibility of all but the RDT Beats layer to false to prevent UI clutter.
+            MyMapView.Map.OperationalLayers.ToList().ForEach(l => l.IsVisible = l.Name == RPDBeatsLayerName);
+
+            // Hold the layer value so that the clicked geoelement can be identified in the event handler.
+            _layer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == RPDBeatsLayerName);
+        }
+
+        private async Task GeoViewTappedTask(GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // Get the layer based on the position tapped on the MapView.
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_layer, e.Position, 12, false);
+
+                if (identifyResult == null || !identifyResult.GeoElements.Any()) return;
+
+                // Get the tapped GeoElement as an ArcGISFeature.
+                GeoElement element = identifyResult.GeoElements.First();
+                ArcGISFeature feature = element as ArcGISFeature;
+
+                // If the previously clicked feature is null or the previous feature ID does not match the current feature ID
+                // run the arcade expression query to get the crime count for a given feature.
+                if (_previousFeature == null || !(feature.Attributes["ID"].Equals(_previousFeature.Attributes["ID"])))
+                {
+                    // Show the activity indicator as the arcade evaluator evaluation call can take time to complete.
+                    ActivityIndicator.Visibility = Visibility.Visible;
+
+                    // Instantiate a string containing the arcade expression.
+                    var expressionValue = "var crimes = FeatureSetByName($map, 'Crime in the last 60 days');\n" +
+                                          "return Count(Intersects($feature, crimes));";
+
+                    // Create an ArcadeExpression using the string expression.
+                    var expression = new ArcadeExpression(expressionValue);
+
+                    // Create an ArcadeEvaluator with the ArcadeExpression and an ArcadeProfile enum.
+                    var evaluator = new ArcadeEvaluator(expression, ArcadeProfile.FormCalculation);
+
+                    // Instantiate a list of profile variable key value pairs.
+                    var profileVariables = new List<KeyValuePair<string, object>>();
+                    profileVariables.Add(new KeyValuePair<string, object>("$feature", feature));
+                    profileVariables.Add(new KeyValuePair<string, object>("$map", MyMapView.Map));
+
+                    // Get the arcade evaluation result given the previously set profile variables.
+                    ArcadeEvaluationResult arcadeEvaluationResult = await evaluator.EvaluateAsync(profileVariables);
+
+                    if (arcadeEvaluationResult == null) return;
+
+                    // Construct the callout text content.
+                    var crimeCount = Convert.ToInt32(arcadeEvaluationResult.Result);
+                    _calloutText = $"Crimes in the last 60 days: {crimeCount}";
+
+                    // Set the current feature as the previous feature for the next click detection.
+                    _previousFeature = feature;
+
+                    // Hide the activity indicator.
+                    ActivityIndicator.Visibility = Visibility.Collapsed;
+                }
+
+                // Display a callout showing the number of crimes in the last 60 days.
+                MyMapView.ShowCalloutAt(e.Location, new CalloutDefinition(string.Empty, _calloutText));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+        }
+
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = GeoViewTappedTask(e);
         }
     }
 }

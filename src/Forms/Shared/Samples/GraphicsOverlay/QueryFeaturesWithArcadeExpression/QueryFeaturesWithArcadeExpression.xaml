@@ -1,9 +1,18 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression.QueryFeaturesWithArcadeExpression">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression.QueryFeaturesWithArcadeExpression"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <ActivityIndicator x:Name="MyActivityIndicator"
+                           Grid.Row="0"
+                           IsVisible="False" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="1"
+                        Margin="0,-6,0,0"
+                        GeoViewTapped="MyMapView_GeoViewTapped" />
+    </Grid>
 </ContentPage>

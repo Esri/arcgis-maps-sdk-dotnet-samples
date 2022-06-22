@@ -3,6 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <ProgressBar x:Name="ActivityIndicator"
+                     Height="20"
+                     Margin="5,0"
+                     HorizontalAlignment="Stretch"
+                     IsIndeterminate="True"
+                     Visibility="Collapsed" />
     </Grid>
 </UserControl>

@@ -27,11 +27,14 @@
                 Style="{StaticResource BorderStyle}"
                 Visibility="Hidden">
             <StackPanel>
-                <FlowDocumentReader x:Name="FlowDocumentReader"
-                                    IsFindEnabled="False"
-                                    IsPrintEnabled="False"
-                                    IsScrollViewEnabled="False"
-                                    IsTwoPageViewEnabled="False" />
+                <ScrollViewer Height="400" Margin="5">
+                    <DataGrid x:Name="TableDataGrid" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[oid]}" Header="OID" />
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[collection_timestamp]}" Header="Collection Timestamp" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
                 <Button Margin="5"
                         Click="CloseTable"
                         Content="Close" />

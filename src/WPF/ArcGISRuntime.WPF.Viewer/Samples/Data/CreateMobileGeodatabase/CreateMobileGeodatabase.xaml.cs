@@ -17,7 +17,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 {
@@ -120,7 +119,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 
             // Add a timestamp of when the feature was created.
             attributes["collection_timestamp"] = DateTime.Now;
-            
+
             // Create the feature.
             Feature feature = _featureTable.CreateFeature(attributes, location);
             try
@@ -143,39 +142,8 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
             // Query all of the features in the feature table.
             FeatureQueryResult queryFeatureResult = await _featureTable.QueryFeaturesAsync(new QueryParameters());
 
-            // Create a Windows table.
-            var table = new Table();
-            table.RowGroups.Add(new TableRowGroup());
-            table.Columns.Add(new TableColumn());
-            table.Columns.Add(new TableColumn());
-
-            // Create titles.
-            TableRow firstRow = new TableRow();
-
-            TableCell titleCell1 = new TableCell(new Paragraph(new Run("OID")));
-            TableCell titleCell2 = new TableCell(new Paragraph(new Run("Collection Timestamp")));
-            firstRow.Cells.Add(titleCell1);
-            firstRow.Cells.Add(titleCell2);
-
-            table.RowGroups[0].Rows.Add(firstRow);
-
-            // Add rows for each feature.
-            foreach (Feature feature in queryFeatureResult)
-            {
-                TableRow row = new TableRow();
-
-                TableCell cell1 = new TableCell(new Paragraph(new Run(feature.Attributes["oid"].ToString())));
-                TableCell cell2 = new TableCell(new Paragraph(new Run(feature.Attributes["collection_timestamp"].ToString())));
-                row.Cells.Add(cell1);
-                row.Cells.Add(cell2);
-
-                table.RowGroups[0].Rows.Add(row);
-            }
-
-            // Update the flow document.
-            var flowDocument = new FlowDocument();
-            flowDocument.Blocks.Add(table);
-            FlowDocumentReader.Document = flowDocument;
+            // Set the items source for the data grid with the updated query result.
+            TableDataGrid.ItemsSource = queryFeatureResult;
         }
 
         private void ViewTable(object sender, RoutedEventArgs e)

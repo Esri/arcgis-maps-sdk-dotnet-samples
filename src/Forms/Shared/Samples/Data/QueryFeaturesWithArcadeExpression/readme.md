@@ -22,9 +22,10 @@ Tap on any neighborhood to see the number of crimes in the last 60 days in a cal
 6. Create the following `ArcadeExpression`:
 
 	 `		
-	 "var crimes = FeatureSetByName($map, 'Crime in the last 60 days');\n"
-     "return Count(Intersects($feature, crimes));"
+	 var expressionValue = "var crimes = FeatureSetByName($map, 'Crime in the last 60 days');\n" +
+                                          "return Count(Intersects($feature, crimes));";
      `
+	 `var expression = new ArcadeExpression(expressionValue);`
 
 7. Create an `ArcadeEvaluator` using the arcade expression and `ArcadeProfile.FORM_CALCULATION`.
 8. Create a map of profile variables with the following key-value pairs. This will be passed to `ArcadeEvaluator::evaluate()` in the next step:

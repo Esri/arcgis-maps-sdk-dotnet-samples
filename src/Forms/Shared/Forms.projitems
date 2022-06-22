@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <None Include="$(MSBuildThisFileDirectory)Samples\Graphicsoverlay\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.jpg" />
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\readme.md" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\UniqueValuesAlternateSymbols\UniqueValuesAlternateSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.jpg" />
@@ -216,9 +216,8 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample Code -->
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\Graphicsoverlay\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml.cs">
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml.cs">
       <DependentUpon>QueryFeaturesWithArcadeExpression.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml.cs">
       <DependentUpon>ExportVectorTiles.xaml</DependentUpon>
@@ -946,9 +945,6 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Graphicsoverlay\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -1687,10 +1683,16 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\keygrey.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\readme.metadata.json" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.jpg" />
     <Content Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\readme.metadata.json" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

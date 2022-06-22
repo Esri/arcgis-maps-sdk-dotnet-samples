@@ -49,15 +49,15 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 
             await CreateGeodatabase();
 
-            this.Unloaded += SampleUnloaded;
+            Unloaded += SampleUnloaded;
         }
 
         private async Task CreateGeodatabase()
         {
             try
             {
-                // Create a directory for the geodatabase.
-                _directoryPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), "CreateMobileGeodatabase");
+                // Create a new randomly named directory for the geodatabase.
+                _directoryPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), "CreateMobileGeodatabase", Guid.NewGuid().ToString());
                 if (!Directory.Exists(_directoryPath))
                 {
                     Directory.CreateDirectory(_directoryPath);

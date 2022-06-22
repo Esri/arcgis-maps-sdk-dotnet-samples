@@ -99,4 +99,4 @@
 
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 
-</Project>ect>
+</Project>

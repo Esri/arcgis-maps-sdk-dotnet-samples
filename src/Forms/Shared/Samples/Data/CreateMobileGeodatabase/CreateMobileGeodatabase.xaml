@@ -1,9 +1,48 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase.CreateMobileGeodatabase"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase.CreateMobileGeodatabase">
-  <Grid>
-    <esriUI:MapView x:Name="MyMapView"/>
-  </Grid>
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
+             xmlns:resources="clr-namespace:Forms.Resources">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout>
+                <Label x:Name="FeaturesLabel" Text="Number of features added: " />
+                <StackLayout Orientation="Horizontal">
+                    <Button Margin="5"
+                            Clicked="ViewTable"
+                            Text="View table" />
+                    <Button x:Name="CreateGdbButton"
+                            Margin="5"
+                            Clicked="CreateGdbButton_Click"
+                            IsEnabled="False"
+                            Text="Create" />
+                    <Button x:Name="CloseGdbButton"
+                            Margin="5"
+                            Clicked="CloseGeodatabaseClick"
+                            Text="Share" />
+                </StackLayout>
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+        <!--<Border x:Name="TableBorder"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Hidden">
+            <StackPanel>
+                <ScrollViewer Height="400" Margin="5">
+                    <DataGrid x:Name="TableDataGrid" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[oid]}" Header="OID" />
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[collection_timestamp]}" Header="Collection Timestamp" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+                <Button Margin="5"
+                        Click="CloseTable"
+                        Content="Close" />
+            </StackPanel>
+        </Border>-->
+    </Grid>
 </ContentPage>

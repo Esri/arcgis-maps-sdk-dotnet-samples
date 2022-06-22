@@ -18,7 +18,7 @@
                 <Button x:Name="CloseGdbButton"
                         Margin="5"
                         Click="CloseGeodatabaseClick"
-                        Content="Close geodatabase" />
+                        Content="Close geodatabase and view file" />
             </StackPanel>
         </Border>
         <Border x:Name="TableBorder"
@@ -36,7 +36,6 @@
                         Click="CloseTable"
                         Content="Close" />
             </StackPanel>
-
         </Border>
     </Grid>
 </UserControl>

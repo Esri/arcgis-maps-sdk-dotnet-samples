@@ -119,6 +119,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 CategoriesList.ItemsSource = category.Items;
                 DetailsRegion.Visibility = Visibility.Collapsed;
                 SampleContainer.Content = null;
+                SampleManager.Current.SelectedSample = null;
                 CategoriesRegion.Visibility = Visibility.Visible;
                 CategoriesHeader.Text = category.Name;
 
@@ -140,6 +141,9 @@ namespace ArcGISRuntime.Samples.Desktop
         private async Task SelectSample(SampleInfo selectedSample)
         {
             if (selectedSample == null) return;
+
+            // Prevent re-opening current sample.
+            if (SampleManager.Current.SelectedSample == selectedSample) return;
 
             // Send analytics.
             var dict = new Dictionary<string, string> {

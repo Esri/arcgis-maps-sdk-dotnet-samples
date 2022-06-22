@@ -48,6 +48,8 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
             MyMapView.SetViewpoint(new Viewpoint(39.323845, -77.733201, 10000.0));
 
             await CreateGeodatabase();
+
+            this.Unloaded += SampleUnloaded;
         }
 
         private async Task CreateGeodatabase()
@@ -214,6 +216,12 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
             _ = CreateGeodatabase();
             CloseGdbButton.IsEnabled = true;
             CreateGdbButton.IsEnabled = false;
+        }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Close the geodatabase.
+            _geodatabase?.Close();
         }
     }
 }

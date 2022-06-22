@@ -103,7 +103,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -133,7 +133,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -175,7 +175,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                _ = new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
 

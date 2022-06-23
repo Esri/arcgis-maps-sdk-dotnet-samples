@@ -165,6 +165,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
                 CloseGdbButton.IsEnabled = false;
                 CreateGdbButton.IsEnabled = true;
                 MyMapView.Map.OperationalLayers.Clear();
+                TableDataGrid.ItemsSource = null;
                 FeaturesLabel.Content = $"Number of features added:";
 
                 // Close the geodatabase.

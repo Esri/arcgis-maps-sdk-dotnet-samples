@@ -168,6 +168,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
                 CloseGdbButton.IsEnabled = false;
                 CreateGdbButton.IsEnabled = true;
                 MyMapView.Map.OperationalLayers.Clear();
+                FeatureListView.ItemsSource = null;
                 FeaturesLabel.Text = $"Number of features added:";
 
                 // Close the geodatabase.

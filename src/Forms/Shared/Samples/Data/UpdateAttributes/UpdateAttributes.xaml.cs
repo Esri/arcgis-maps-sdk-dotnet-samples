@@ -96,7 +96,12 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             });
         }
 
-        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            _ = MapView_TappedTask(sender, e);
+        }
+
+        private async Task MapView_TappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
@@ -148,7 +153,12 @@ namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
             DamageTypePicker.IsEnabled = true;
         }
 
-        private async void DamageType_Changed(object sender, EventArgs e)
+        private void DamageType_Changed(object sender, EventArgs e)
+        {
+            _ = DamageType_ChangedTask(sender, e);
+        }
+
+        private async Task DamageType_ChangedTask(object sender, EventArgs e)
         {
             // Skip if nothing is selected.
             if (DamageTypePicker.SelectedIndex == -1)

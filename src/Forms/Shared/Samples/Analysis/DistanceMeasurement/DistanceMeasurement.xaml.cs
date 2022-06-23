@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
@@ -103,7 +104,12 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
 
-        private async void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = MySceneView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MySceneView_GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             try
             {

@@ -169,7 +169,12 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             return new Graphic(point, pinSymbol);
         }
 
-        private async void SuggestionButtonTapped(object sender, System.EventArgs e)
+        private void SuggestionButtonTapped(object sender, System.EventArgs e)
+        {
+            _ = SuggestionButtonTappedTask(sender, e);
+        }
+
+        private async Task SuggestionButtonTappedTask(object sender, System.EventArgs e)
         {
             // Display the list of suggestions; returns the selected option
             string action = await ((Page) this.Parent).DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
@@ -178,7 +183,12 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             updateSearch();
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {

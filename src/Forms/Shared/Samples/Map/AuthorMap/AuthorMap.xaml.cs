@@ -134,7 +134,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
             LayersList.IsVisible = true;
         }
 
-        private async void ShowSaveMapUI(object sender, EventArgs e)
+        private void ShowSaveMapUI(object sender, EventArgs e)
+        {
+            _ = ShowSaveMapUITask(sender, e);
+        }
+
+        private async Task ShowSaveMapUITask(object sender, EventArgs e)
         {
             // Create a SaveMapPage page for getting user input for the new web map item
             SaveMapPage mapInputForm = new SaveMapPage();
@@ -154,7 +159,12 @@ namespace ArcGISRuntime.Samples.AuthorMap
         }
 
         // Event handler to get information entered by the user and save the map
-        private async void SaveMapAsync(object sender, SaveMapEventArgs e)
+        private void SaveMapAsync(object sender, SaveMapEventArgs e)
+        {
+            _ = SaveMapAsyncTask(sender, e);
+        }
+
+        private async Task SaveMapAsyncTask(object sender, SaveMapEventArgs e)
         {
             // Get the current map
             Map myMap = MyMapView.Map;

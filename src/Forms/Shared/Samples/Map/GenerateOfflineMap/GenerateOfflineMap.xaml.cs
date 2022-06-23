@@ -95,7 +95,12 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
             }
         }
 
-        private async void TakeMapOfflineButton_Click(object sender, EventArgs e)
+        private void TakeMapOfflineButton_Click(object sender, EventArgs e)
+        {
+            _ = TakeMapOfflineButton_ClickTask(sender, e);
+        }
+
+        private async Task TakeMapOfflineButton_ClickTask(object sender, EventArgs e)
         {
             // Clean up any previous outputs in the temp directory.
             string tempPath = $"{Path.GetTempPath()}";

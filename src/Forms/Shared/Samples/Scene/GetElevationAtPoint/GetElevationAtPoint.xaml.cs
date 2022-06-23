@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
@@ -90,7 +91,12 @@ namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
             MySceneView.Scene = myScene;
         }
 
-        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void SceneViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            _ = SceneViewTappedTask(sender, e);
+        }
+
+        private async Task SceneViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {

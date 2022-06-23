@@ -9,6 +9,7 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -58,7 +59,12 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Clear any existing popups.
             MyMapView.DismissCallout();

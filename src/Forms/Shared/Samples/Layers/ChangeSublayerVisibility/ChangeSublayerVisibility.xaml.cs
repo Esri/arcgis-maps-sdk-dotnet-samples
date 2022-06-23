@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
@@ -54,7 +55,12 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
             MyMapView.Map = myMap;
         }
 
-        private async void OnSublayersClicked(object sender, EventArgs e)
+        private void OnSublayersClicked(object sender, EventArgs e)
+        {
+            _ = OnSublayersClickedTask(sender, e);
+        }
+
+        private async Task OnSublayersClickedTask(object sender, EventArgs e)
         {
             try
             {

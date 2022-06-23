@@ -190,7 +190,12 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             }
         }
 
-        private async void OnTrace(object sender, System.EventArgs e)
+        private void OnTrace(object sender, System.EventArgs e)
+        {
+            _ = OnTraceTask(sender, e);
+        }
+
+        private async Task OnTraceTask(object sender, System.EventArgs e)
         {
             if (_utilityNetwork == null || _startingLocation == null)
             {
@@ -225,7 +230,12 @@ namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
             ConditionBarrierExpression.Text = ExpressionToString(_initialExpression);
         }
 
-        private async void OnAddCondition(object sender, EventArgs e)
+        private void OnAddCondition(object sender, EventArgs e)
+        {
+            _ = OnAddConditionTask(sender, e);
+        }
+
+        private async Task OnAddConditionTask(object sender, EventArgs e)
         {
             try
             {

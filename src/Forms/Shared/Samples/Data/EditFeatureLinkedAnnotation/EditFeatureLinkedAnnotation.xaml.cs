@@ -164,7 +164,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
             StreetNameBox.Text = _selectedFeature.Attributes["ST_STR_NAM"].ToString();
         }
 
-        private async void OkClick(object sender, System.EventArgs e)
+        private void OkClick(object sender, System.EventArgs e)
+        {
+            _ = OkClickTask(sender, e);
+        }
+
+        private async Task OkClickTask(object sender, System.EventArgs e)
         {
             try
             {

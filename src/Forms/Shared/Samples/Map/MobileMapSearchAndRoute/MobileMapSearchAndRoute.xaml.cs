@@ -107,7 +107,12 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             return package;
         }
 
-        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            _ = MapView_TappedTask(sender, e);
+        }
+
+        private async Task MapView_TappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Handle routing.
             try
@@ -193,7 +198,12 @@ namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
             _endPoint = null;
         }
 
-        private async void Map_Selected(object sender, EventArgs e)
+        private void Map_Selected(object sender, EventArgs e)
+        {
+            _ = Map_SelectedTask(sender, e);
+        }
+
+        private async Task Map_SelectedTask(object sender, EventArgs e)
         {
             // Clear existing overlays.
             MyMapView.DismissCallout();

@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
@@ -77,7 +78,12 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             }
         }
 
-        private async void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
+        private void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
+        {
+            _ = OpenPortalFeatureCollectionClickTask(sender, e);
+        }
+
+        private async Task OpenPortalFeatureCollectionClickTask(object sender, EventArgs e)
         {
             // Get the portal item Id from the user.
             string collectionItemId = CollectionItemIdTextBox.Text.Trim();

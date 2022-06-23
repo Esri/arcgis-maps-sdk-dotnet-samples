@@ -84,7 +84,12 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             myMapView.Map = myMap;
         }
 
-        private async void OnQueryClicked(object sender, EventArgs e)
+        private void OnQueryClicked(object sender, EventArgs e)
+        {
+            _ = OnQueryClickedTask(sender, e);
+        }
+
+        private async Task OnQueryClickedTask(object sender, EventArgs e)
         {
             // Remove any previous feature selections that may have been made
             _featureLayer.ClearSelection();

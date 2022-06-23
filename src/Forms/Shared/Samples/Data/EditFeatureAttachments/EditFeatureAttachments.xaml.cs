@@ -79,7 +79,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             }
         }
 
-        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            _ = MapView_TappedTask(sender, e);
+        }
+
+        private async Task MapView_TappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
@@ -123,7 +128,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             }
         }
 
-        private async void AddAttachment_Click(object sender, EventArgs e)
+        private void AddAttachment_Click(object sender, EventArgs e)
+        {
+            _ = AddAttachment_ClickTask(sender, e);
+        }
+
+        private async Task AddAttachment_ClickTask(object sender, EventArgs e)
         {
             if (_selectedFeature == null)
             {
@@ -206,7 +216,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             }
         }
 
-        private async void DeleteAttachment_Click(object sender, EventArgs e)
+        private void DeleteAttachment_Click(object sender, EventArgs e)
+        {
+            _ = DeleteAttachment_ClickTask(sender, e);
+        }
+
+        private async Task DeleteAttachment_ClickTask(object sender, EventArgs e)
         {
             AttachmentActivityIndicator.IsVisible = true;
 
@@ -242,7 +257,12 @@ namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
             }
         }
 
-        private async void DownloadAttachment_Click(object sender, EventArgs e)
+        private void DownloadAttachment_Click(object sender, EventArgs e)
+        {
+            _ = DownloadAttachment_ClickTask(sender, e);
+        }
+
+        private async Task DownloadAttachment_ClickTask(object sender, EventArgs e)
         {
             try
             {

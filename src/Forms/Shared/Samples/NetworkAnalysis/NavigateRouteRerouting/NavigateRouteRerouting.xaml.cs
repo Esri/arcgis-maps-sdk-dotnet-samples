@@ -130,7 +130,12 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             }
         }
 
-        private async void StartNavigation(object sender, EventArgs e)
+        private void StartNavigation(object sender, EventArgs e)
+        {
+            _ = StartNavigationTask(sender, e);
+        }
+
+        private async Task StartNavigationTask(object sender, EventArgs e)
         {
             // Disable the start navigation button.
             StartNavigationButton.IsEnabled = false;
@@ -236,7 +241,12 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             });
         }
 
-        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        {
+            _ = SpeakDirectionTask(sender, e);
+        }
+
+        private async Task SpeakDirectionTask(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
             // Say the direction using voice synthesis.
             if (e.VoiceGuidance.Text?.Length > 0)

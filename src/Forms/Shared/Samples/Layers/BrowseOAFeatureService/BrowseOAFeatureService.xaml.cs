@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
@@ -83,7 +84,12 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
             }
         }
 
-        private async void LoadLayers_Clicked(object sender, EventArgs e)
+        private void LoadLayers_Clicked(object sender, EventArgs e)
+        {
+            _ = LoadLayers_ClickedTask(sender, e);
+        }
+
+        private async Task LoadLayers_ClickedTask(object sender, EventArgs e)
         {
             // Show the progress bar.
             LoadingProgressBar.IsVisible = true;

@@ -159,7 +159,12 @@ namespace ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities
             }
         }
 
-        private async void FindServiceArea_Clicked(object sender, EventArgs e)
+        private void FindServiceArea_Clicked(object sender, EventArgs e)
+        {
+            _ = FindServiceArea_ClickedTask(sender, e);
+        }
+
+        private async Task FindServiceArea_ClickedTask(object sender, EventArgs e)
         {
             try
             {

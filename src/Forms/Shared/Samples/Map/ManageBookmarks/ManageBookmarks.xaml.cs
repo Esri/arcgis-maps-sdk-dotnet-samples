@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ManageBookmarks
@@ -122,7 +123,12 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
 
         public ContentPage bookmarkAddPage;
 
-        private async void ButtonAddBookmark_Clicked(object sender, EventArgs e)
+        private void ButtonAddBookmark_Clicked(object sender, EventArgs e)
+        {
+            _ = ButtonAddBookmark_ClickedTask(sender, e);
+        }
+
+        private async Task ButtonAddBookmark_ClickedTask(object sender, EventArgs e)
         {
             // Create root layout
             StackLayout layout = new StackLayout();

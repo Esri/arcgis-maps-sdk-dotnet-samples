@@ -94,7 +94,12 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
         }
 
         // Handle a new selected comment record in the table view.
-        private async void CommentsListBox_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
+        private void CommentsListBox_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
+        {
+            _ = CommentsListBox_SelectionChangedTask(sender, e);
+        }
+
+        private async Task CommentsListBox_SelectionChangedTask(object sender, SelectedItemChangedEventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();

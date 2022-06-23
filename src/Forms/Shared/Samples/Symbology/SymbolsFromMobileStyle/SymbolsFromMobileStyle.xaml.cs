@@ -158,7 +158,12 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
         }
 
         // Handler for the tapped event on the map view.
-        private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = GeoViewTappedTask(sender, e);
+        }
+
+        private async Task GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             // Call a function to get the currently defined multilayer point symbol.
             MultilayerPointSymbol faceSymbol = await GetCurrentSymbol();
@@ -169,7 +174,12 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
         }
 
         // An event handler for list box and combo box selection changes that will update the current symbol.
-        private async void SymbolLayerSelected(object sender, SelectedItemChangedEventArgs e)
+        private void SymbolLayerSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            _ = SymbolLayerSelectedTask(sender, e);
+        }
+
+        private async Task SymbolLayerSelectedTask(object sender, SelectedItemChangedEventArgs e)
         {
             // Call a function that will construct the current symbol.
             Symbol faceSymbol = await GetCurrentSymbol();

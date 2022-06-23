@@ -63,7 +63,12 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             MyMapView.Map = myMap;
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Indicate that the geoprocessing is running.
             SetBusy();

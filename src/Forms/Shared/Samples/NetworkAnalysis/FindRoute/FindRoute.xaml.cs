@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
@@ -100,7 +101,12 @@ namespace ArcGISRuntime.Samples.FindRoute
             MyMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
         }
 
-        private async void SolveRouteClick(object sender, EventArgs e)
+        private void SolveRouteClick(object sender, EventArgs e)
+        {
+            _ = SolveRouteClickTask(sender, e);
+        }
+
+        private async Task SolveRouteClickTask(object sender, EventArgs e)
         {
             try
             {

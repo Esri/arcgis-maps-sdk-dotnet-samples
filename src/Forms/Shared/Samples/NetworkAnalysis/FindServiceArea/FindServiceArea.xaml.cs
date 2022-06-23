@@ -69,7 +69,12 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             };
         }
 
-        private async void PlaceFacilityButton_Click(object sender, EventArgs e)
+        private void PlaceFacilityButton_Click(object sender, EventArgs e)
+        {
+            _ = PlaceFacilityButton_ClickTask(sender, e);
+        }
+
+        private async Task PlaceFacilityButton_ClickTask(object sender, EventArgs e)
         {
             try
             {
@@ -104,7 +109,12 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             }
         }
 
-        private async void DrawBarrierButton_Click(object sender, EventArgs e)
+        private void DrawBarrierButton_Click(object sender, EventArgs e)
+        {
+            _ = DrawBarrierButton_ClickTask(sender, e);
+        }
+
+        private async Task DrawBarrierButton_ClickTask(object sender, EventArgs e)
         {
             // Finish drawing barriers if started.
             if (DrawBarrierButton.Text != "Draw barrier")
@@ -147,7 +157,12 @@ namespace ArcGISRuntime.Samples.FindServiceArea
             }
         }
 
-        private async void ShowServiceAreasButton_Click(object sender, EventArgs e)
+        private void ShowServiceAreasButton_Click(object sender, EventArgs e)
+        {
+            _ = ShowServiceAreasButton_ClickTask(sender, e);
+        }
+
+        private async Task ShowServiceAreasButton_ClickTask(object sender, EventArgs e)
         {
             // Finish any drawing in progress.
             if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))

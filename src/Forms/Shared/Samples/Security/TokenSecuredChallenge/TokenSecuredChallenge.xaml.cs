@@ -113,7 +113,12 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 
         // Handle the OnLoginEntered event from the login UI.
         // LoginEventArgs contains the username and password that were entered.
-        private async void LoginInfoEntered(object sender, LoginEventArgs e)
+        private void LoginInfoEntered(object sender, LoginEventArgs e)
+        {
+            _ = LoginInfoEnteredTask(sender, e);
+        }
+
+        private async Task LoginInfoEnteredTask(object sender, LoginEventArgs e)
         {
             // Make sure the task completion source has all the information needed.
             if (_loginTaskCompletionSrc == null ||

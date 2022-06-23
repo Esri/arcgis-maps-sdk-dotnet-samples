@@ -237,7 +237,12 @@ namespace ArcGISRuntime.Samples.FindPlace
             return new Graphic(point, pinSymbol);
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap.
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
@@ -307,7 +312,12 @@ namespace ArcGISRuntime.Samples.FindPlace
             Application.Current.MainPage.DisplayAlert("Alert", message, "OK");
         }
 
-        private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _ = MyLocationBox_TextChangedTask(sender, e);
+        }
+
+        private async Task MyLocationBox_TextChangedTask(object sender, TextChangedEventArgs e)
         {
             // Dismiss callout, if any.
             UserInteracted();
@@ -328,7 +338,12 @@ namespace ArcGISRuntime.Samples.FindPlace
             lstViewSuggestions.ItemsSource = results;
         }
 
-        private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _ = MySearchBox_TextChangedTask(sender, e);
+        }
+
+        private async Task MySearchBox_TextChangedTask(object sender, TextChangedEventArgs e)
         {
             // Dismiss callout, if any.
             UserInteracted();

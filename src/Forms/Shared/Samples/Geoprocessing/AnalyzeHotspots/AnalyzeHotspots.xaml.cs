@@ -59,7 +59,12 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             }
         }
 
-        private async void OnRunAnalysisClicked(object sender, EventArgs e)
+        private void OnRunAnalysisClicked(object sender, EventArgs e)
+        {
+            _ = OnRunAnalysisClickedTask(sender, e);
+        }
+
+        private async Task OnRunAnalysisClickedTask(object sender, EventArgs e)
         {
             // Clear any existing results
             MyMapView.Map.OperationalLayers.Clear();

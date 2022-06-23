@@ -212,7 +212,12 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRoute
             });
         }
 
-        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        {
+            _ = SpeakDirectionTask(sender, e);
+        }
+
+        private async Task SpeakDirectionTask(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
             // Say the direction using voice synthesis.
             if (e.VoiceGuidance.Text?.Length > 0)

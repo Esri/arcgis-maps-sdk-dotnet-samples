@@ -19,6 +19,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
+using System.Threading.Tasks;
 #if __IOS__
 using ArcGISRuntime.Samples.Managers;
 #endif
@@ -101,7 +102,12 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             MyMapView.Map.OperationalLayers.Add(_kmlLayer);
         }
 
-        private async void Edit_Click(object sender, EventArgs e)
+        private void Edit_Click(object sender, EventArgs e)
+        {
+            _ = Edit_ClickTask(sender, e);
+        }
+
+        private async Task Edit_ClickTask(object sender, EventArgs e)
         {
             try
             {
@@ -233,7 +239,12 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
             }
         }
 
-        private async void Save_Click(object sender, EventArgs e)
+        private void Save_Click(object sender, EventArgs e)
+        {
+            _ = Save_ClickTask(sender, e);
+        }
+
+        private async Task Save_ClickTask(object sender, EventArgs e)
         {
             try
             {

@@ -3,8 +3,8 @@
   <Categories>
     <Category name="Data">
       <Sample>AddFeaturesWithContingentValues</Sample>
-      <Sample>ToggleBetweenFeatureRequestModes</Sample>
       <Sample>CreateMobileGeodatabase</Sample>
+      <Sample>ToggleBetweenFeatureRequestModes</Sample>
     </Category>
     <Category name="GraphicsOverlay">
       <Sample>AddGraphicsRenderer</Sample>

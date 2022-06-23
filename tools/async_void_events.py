@@ -28,8 +28,10 @@ def replace(platform_path):
 
                         idx = line.index('(')
                         taskline = line[:idx] + "Task" + line[idx:]
-                        taskline_call = taskline.split('(')[0].split(' ')[-1] + '('+arg_parameters+');'
                         taskline = taskline.replace(" void ", " Task ")
+                        taskline = taskline.split('(')[0]+ '()' + taskline.split(')')[1]
+                        taskline_call = taskline.split('(')[0].split(' ')[-1] + '();'
+                        
 
                         newline = newline +  spacing + "{\n"+spacing + "    _ = "+taskline_call+"\n"+spacing + "}\n\n"+taskline
                         print(newline)

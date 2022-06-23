@@ -10,15 +10,18 @@
             <StackPanel>
                 <TextBlock x:Name="FeaturesLabel" Text="Number of features added: " />
                 <Button Margin="5"
+                        HorizontalAlignment="Stretch"
                         Click="ViewTable"
                         Content="View table" />
                 <Button x:Name="CreateGdbButton"
                         Margin="5"
+                        HorizontalAlignment="Stretch"
                         Click="CreateGdbButton_Click"
                         Content="Create new geodatabase"
                         IsEnabled="False" />
                 <Button x:Name="CloseGdbButton"
                         Margin="5"
+                        HorizontalAlignment="Stretch"
                         Click="CloseGeodatabaseClick"
                         Content="Close geodatabase and view file" />
             </StackPanel>

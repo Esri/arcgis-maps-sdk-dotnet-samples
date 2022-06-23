@@ -3,16 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <ActivityIndicator x:Name="MyActivityIndicator"
-                           Grid.Row="0"
-                           IsVisible="False" />
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="1"
-                        Margin="0,-6,0,0"
-                        GeoViewTapped="MyMapView_GeoViewTapped" />
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Grid x:Name="MyLoadingGrid"
+              BackgroundColor="Transparent"
+              HorizontalOptions="FillAndExpand"
+              IsVisible="False"
+              VerticalOptions="FillAndExpand">
+            <Label FontAttributes="Bold"
+                   FontSize="Large"
+                   HorizontalOptions="Center"
+                   Text="Loading..."
+                   VerticalOptions="Center"
+                   VerticalTextAlignment="Center" />
+        </Grid>
     </Grid>
 </ContentPage>

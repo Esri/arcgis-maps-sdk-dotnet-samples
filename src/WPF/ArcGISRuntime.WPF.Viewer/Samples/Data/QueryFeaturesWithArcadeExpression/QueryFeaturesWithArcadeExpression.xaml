@@ -4,11 +4,15 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
-        <ProgressBar x:Name="ActivityIndicator"
-                     Height="20"
-                     Margin="5,0"
-                     HorizontalAlignment="Stretch"
-                     IsIndeterminate="True"
-                     Visibility="Collapsed" />
+        <Grid x:Name="MyLoadingGrid"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Visibility="Collapsed">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Text="Loading..." />
+        </Grid>
     </Grid>
 </UserControl>

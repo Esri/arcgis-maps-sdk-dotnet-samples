@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
-    <None Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\readme.md" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\UniqueValuesAlternateSymbols\UniqueValuesAlternateSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.jpg" />

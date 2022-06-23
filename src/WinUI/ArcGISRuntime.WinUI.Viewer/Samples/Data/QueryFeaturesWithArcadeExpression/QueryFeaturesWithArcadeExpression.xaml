@@ -4,11 +4,15 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
-        <ProgressRing x:Name="ActivityIndicator"
-                      Width="100"
-                      Height="100"
-                      HorizontalAlignment="Center"
-                      IsActive="True"
-                      Visibility="Collapsed" />
+        <Grid x:Name="MyLoadingGrid"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Visibility="Collapsed">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Text="Loading..." />
+        </Grid>
     </Grid>
 </UserControl>

@@ -50,12 +50,19 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
 
         private async Task Initialize()
         {
-            // Create an ArcGIS portal item.
-            var portal = await ArcGISPortal.CreateAsync();
-            var item = await PortalItem.CreateAsync(portal, "14562fced3474190b52d315bc19127f6");
+            try
+            {
+                // Create an ArcGIS portal item.
+                var portal = await ArcGISPortal.CreateAsync();
+                var item = await PortalItem.CreateAsync(portal, "14562fced3474190b52d315bc19127f6");
 
-            // Create a map using the portal item.
-            MyMapView.Map = new Map(item);
+                // Create a map using the portal item.
+                MyMapView.Map = new Map(item);
+            }
+            catch (Exception e)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+            }
 
             // Load the map.
             await MyMapView.Map.LoadAsync();
@@ -74,7 +81,12 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
                 // Get the layer based on the position tapped on the MapView.
                 IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_layer, new Point(e.Position.X, e.Position.Y), 12, false);
 
-                if (identifyResult == null || !identifyResult.GeoElements.Any()) return;
+                if (identifyResult == null || !identifyResult.GeoElements.Any())
+                {
+                    MyMapView.DismissCallout();
+
+                    return;
+                }
 
                 // Get the tapped GeoElement as an ArcGISFeature.
                 GeoElement element = identifyResult.GeoElements.First();
@@ -84,12 +96,11 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
                 // run the arcade expression query to get the crime count for a given feature.
                 if (_previousFeature == null || !(feature.Attributes["ID"].Equals(_previousFeature.Attributes["ID"])))
                 {
-                    // Show the activity indicator as the arcade evaluator evaluation call can take time to complete.
-                    MyActivityIndicator.IsVisible = true;
-                    MyActivityIndicator.IsRunning = true;
+                    // Show the loading indicator as the arcade evaluator evaluation call can take time to complete.
+                    MyLoadingGrid.IsVisible = true;
 
                     // Instantiate a string containing the arcade expression.
-                    var expressionValue = "var crimes = FeatureSetByName($map, 'Crime in the last 60 days');\n" +
+                    string expressionValue = "var crimes = FeatureSetByName($map, 'Crime in the last 60 days');\n" +
                                           "return Count(Intersects($feature, crimes));";
 
                     // Create an ArcadeExpression using the string expression.
@@ -115,9 +126,8 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
                     // Set the current feature as the previous feature for the next click detection.
                     _previousFeature = feature;
 
-                    // Hide the activity indicator.
-                    MyActivityIndicator.IsRunning = false;
-                    MyActivityIndicator.IsVisible = false;
+                    // Hide the loading indicator.
+                    MyLoadingGrid.IsVisible = false;
                 }
 
                 // Display a callout showing the number of crimes in the last 60 days.

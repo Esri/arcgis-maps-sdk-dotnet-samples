@@ -21,7 +21,7 @@ Click on any neighborhood to see the number of crimes in the last 60 days in a c
 5. Identify the visible layer where it is tapped or clicked on and get the feature.
 6. Create an `ArcadeExpression` using the following string:
 
-	 ```	
+     ```	
 	 "var crimes = FeatureSetByName($map, 'Crime in the last 60 days');\n" +
      "return Count(Intersects($feature, crimes));"
      ```

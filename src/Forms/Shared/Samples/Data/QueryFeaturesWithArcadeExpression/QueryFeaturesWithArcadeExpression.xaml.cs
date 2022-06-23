@@ -84,7 +84,6 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
                 if (identifyResult == null || !identifyResult.GeoElements.Any())
                 {
                     MyMapView.DismissCallout();
-
                     return;
                 }
 
@@ -101,7 +100,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
 
                     // Instantiate a string containing the arcade expression.
                     string expressionValue = "var crimes = FeatureSetByName($map, 'Crime in the last 60 days');\n" +
-                                          "return Count(Intersects($feature, crimes));";
+                                             "return Count(Intersects($feature, crimes));";
 
                     // Create an ArcadeExpression using the string expression.
                     var expression = new ArcadeExpression(expressionValue);

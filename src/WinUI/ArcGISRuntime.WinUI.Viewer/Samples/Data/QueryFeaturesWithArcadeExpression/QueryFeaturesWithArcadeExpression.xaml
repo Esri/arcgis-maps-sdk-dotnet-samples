@@ -7,9 +7,9 @@
         <Grid x:Name="MyLoadingGrid"
               HorizontalAlignment="Stretch"
               VerticalAlignment="Stretch"
-              Visibility="Collapsed">
+              Visibility="Visible">
             <TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
+                       VerticalAlignment="Top"
                        FontSize="20"
                        FontWeight="Bold"
                        Text="Loading..." />

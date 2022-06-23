@@ -9,7 +9,7 @@
               VerticalAlignment="Stretch"
               Visibility="Collapsed">
             <TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
+                       VerticalAlignment="Top"
                        FontSize="20"
                        FontWeight="Bold"
                        Text="Loading..." />

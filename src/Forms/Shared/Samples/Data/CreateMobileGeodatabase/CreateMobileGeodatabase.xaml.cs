@@ -3,21 +3,20 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
 {
@@ -27,7 +26,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
         description: "Create and share a mobile geodatabase.",
         instructions: "Tap on the map to add a feature symbolizing the user's location. Tap \"View table\" to view the contents of the geodatabase feature table. Once you have added the location points to the map, tap on \"Close geodatabase\" to retrieve the `.geodatabase` file which can then be imported into ArcGIS Pro or opened in an ArcGIS Runtime application.",
         tags: new[] { "arcgis pro", "database", "feature", "feature table", "geodatabase", "mobile geodatabase", "sqlite" })]
-    public partial class CreateMobileGeodatabase : ContentPage
+    public partial class CreateMobileGeodatabase : ContentPage, IDisposable
     {
         private GeodatabaseFeatureTable _featureTable;
         private Geodatabase _geodatabase;
@@ -48,8 +47,6 @@ namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
             MyMapView.SetViewpoint(new Viewpoint(39.323845, -77.733201, 10000.0));
 
             await CreateGeodatabase();
-
-            Unloaded += SampleUnloaded;
         }
 
         private async Task CreateGeodatabase()
@@ -57,7 +54,12 @@ namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
             try
             {
                 // Create a new randomly named directory for the geodatabase.
+#if WINDOWS_UWP
                 _directoryPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), "CreateMobileGeodatabase", Guid.NewGuid().ToString());
+#elif __IOS__ || __ANDROID__
+                _directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CreateMobileGeodatabase", Guid.NewGuid().ToString());
+#endif
+
                 if (!Directory.Exists(_directoryPath))
                 {
                     Directory.CreateDirectory(_directoryPath);
@@ -104,11 +106,11 @@ namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             _ = AddFeature(e.Location);
         }
@@ -130,11 +132,11 @@ namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
 
                 // Update the UI.
                 await UpdateTable();
-                FeaturesLabel.Content = $"Number of features added: {_featureTable.NumberOfFeatures}";
+                FeaturesLabel.Text = $"Number of features added: {_featureTable.NumberOfFeatures}";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
@@ -144,20 +146,20 @@ namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
             FeatureQueryResult queryFeatureResult = await _featureTable.QueryFeaturesAsync(new QueryParameters());
 
             // Set the items source for the data grid with the updated query result.
-            TableDataGrid.ItemsSource = queryFeatureResult;
+            FeatureListView.ItemsSource = queryFeatureResult;
         }
 
-        private void ViewTable(object sender, RoutedEventArgs e)
+        private void ViewTable(object sender, EventArgs e)
         {
-            TableBorder.Visibility = Visibility.Visible;
+            TableFrame.IsVisible = true;
         }
 
-        private void CloseTable(object sender, RoutedEventArgs e)
+        private void CloseTable(object sender, EventArgs e)
         {
-            TableBorder.Visibility = Visibility.Hidden;
+            TableFrame.IsVisible = false;
         }
 
-        private void CloseGeodatabaseClick(object sender, RoutedEventArgs e)
+        private void CloseGeodatabaseClick(object sender, EventArgs e)
         {
             try
             {
@@ -166,28 +168,49 @@ namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
                 CloseGdbButton.IsEnabled = false;
                 CreateGdbButton.IsEnabled = true;
                 MyMapView.Map.OperationalLayers.Clear();
-                FeaturesLabel.Content = $"Number of features added:";
+                FeaturesLabel.Text = $"Number of features added:";
 
                 // Close the geodatabase.
                 _geodatabase.Close();
 
-                // Open the file explorer to the directory containing the geodatabase.
-                Process.Start("explorer.exe", _directoryPath);
+#if WINDOWS_UWP
+                // Instead of using the Windows share feature, this call opens the folder containing the geodatabase file with the file explorer.
+                _ = Windows.System.Launcher.LaunchFolderPathAsync(_directoryPath);
+#else
+                _ = ShareFile();
+#endif
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
-        private void CreateGdbButton_Click(object sender, RoutedEventArgs e)
+        private async Task ShareFile()
+        {
+            try
+            {
+                // Share the file using the Xamarin.Essentials share feature.
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = "Share geodatabase",
+                    File = new ShareFile(_gdbPath)
+                });
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+            }
+        }
+
+        private void CreateGdbButton_Click(object sender, EventArgs e)
         {
             _ = CreateGeodatabase();
             CloseGdbButton.IsEnabled = true;
             CreateGdbButton.IsEnabled = false;
         }
 
-        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        public void Dispose()
         {
             // Close the geodatabase.
             _geodatabase?.Close();

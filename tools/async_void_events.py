@@ -29,20 +29,22 @@ def replace(platform_path):
                         idx = line.index('(')
                         taskline = line[:idx] + "Task" + line[idx:]
                         taskline_call = taskline.split('(')[0].split(' ')[-1] + '('+arg_parameters+');'
+                        taskline_call.replace(" void ", " Task ")
 
                         newline = newline +  spacing + "{\n"+spacing + "    _ = "+taskline_call+"\n"+spacing + "}\n\n"+taskline
                         print(newline)
                         print(path)
+                        lines[i] = newline
                         plat_count += 1
 
                     i=i+1
                 f.close()
 
 
-            # with open(path, "w") as file:
-            #     file.seek(0)
-            #     file.write(''.join(lines))
-            #     file.close()
+            with open(path, "w") as file:
+                file.seek(0)
+                file.write(''.join(lines))
+                file.close()
         except:
             print("error with file: "+str(path))
     print(platform_path+ " instances: "+str(plat_count))

@@ -73,7 +73,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
 
                 _geodatabase = await Geodatabase.CreateAsync(_gdbPath);
 
-                // Construct a table description which stores features as points on map.
+                // Construct a table description which stores features as points on a map.
                 var tableDescription = new TableDescription("LocationHistory", SpatialReferences.Wgs84, GeometryType.Point)
                 {
                     HasAttachments = false,
@@ -81,9 +81,9 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
                     HasZ = false
                 };
 
-                // Set up the fields for the table,
-                // FieldType.OID is the primary key of the SQLite table
-                // FieldType.Date is a date column used to store a Calendar date
+                // Set up the fields for the table:
+                // FieldType.OID is the primary key of the SQLite table.
+                // FieldType.Date is a date column used to store a Calendar date.
                 // FieldDescriptions can be a SHORT, INTEGER, GUID, FLOAT, DOUBLE, DATE, TEXT, OID, GLOBALID, BLOB, GEOMETRY, RASTER, or XML.
                 tableDescription.FieldDescriptions.Add(new FieldDescription("oid", FieldType.OID));
                 tableDescription.FieldDescriptions.Add(new FieldDescription("collection_timestamp", FieldType.Date));
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
                 // Add a new table to the geodatabase by creating one from the table description.
                 _featureTable = await _geodatabase.CreateTableAsync(tableDescription);
 
-                // Clear the table.
+                // Refresh the UI for the new empty table.
                 await UpdateTable();
 
                 // Create a feature layer for the map.

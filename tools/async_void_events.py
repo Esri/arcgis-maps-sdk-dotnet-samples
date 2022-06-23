@@ -27,7 +27,7 @@ def replace(platform_path):
                         idx = line.index('(')
                         taskline = line[:idx] + "Task" + line[idx:]
 
-                        newline = newline +  spacing + "{\n"+"\n"+spacing + "}\n\n"+taskline
+                        newline = newline +  spacing + "{\n"+spacing + "_ = "+"\n"+spacing + "}\n\n"+taskline
                         print(newline)
                         plat_count += 1
 

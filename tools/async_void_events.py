@@ -22,11 +22,13 @@ def replace(platform_path):
                     if "async void" in line and "Args" in line:
                         newline = line.replace("async void", "void")
                         args = line.split('(')[1].split(')')[0]
+                        arg_parameters = args.split(' ')[1] + " "+ args.split(' ')[3]
+
                         spacing = line.split('p')[0]
 
                         idx = line.index('(')
                         taskline = line[:idx] + "Task" + line[idx:]
-                        taskline_call = taskline.split('(')[0].split(' ')[-1] + '('+args+');'
+                        taskline_call = taskline.split('(')[0].split(' ')[-1] + '('+arg_parameters+');'
 
                         newline = newline +  spacing + "{\n"+spacing + "    _ = "+taskline_call+"\n"+spacing + "}\n\n"+taskline
                         print(newline)

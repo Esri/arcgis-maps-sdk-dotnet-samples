@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.BufferList
 {
@@ -101,7 +102,12 @@ namespace ArcGISRuntime.WinUI.Samples.BufferList
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             try
             {
@@ -148,7 +154,12 @@ namespace ArcGISRuntime.WinUI.Samples.BufferList
             }
         }
 
-        private async void BufferButton_Click(object sender, RoutedEventArgs e)
+        private void BufferButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = BufferButton_ClickTask(sender, e);
+        }
+
+        private async Task BufferButton_ClickTask(object sender, RoutedEventArgs e)
         {
             try
             {

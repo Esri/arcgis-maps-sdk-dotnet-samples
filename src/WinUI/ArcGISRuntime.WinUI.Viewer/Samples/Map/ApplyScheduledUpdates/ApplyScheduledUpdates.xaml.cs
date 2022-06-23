@@ -128,7 +128,12 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
             }
         }
 
-        private async void ApplyButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private void ApplyButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = ApplyButton_ClickTask(sender, e);
+        }
+
+        private async Task ApplyButton_ClickTask(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             try
             {

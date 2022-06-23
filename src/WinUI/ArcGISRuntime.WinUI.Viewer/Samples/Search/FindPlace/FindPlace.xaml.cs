@@ -240,7 +240,12 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         /// <summary>
         /// Shows a callout for any tapped graphics
         /// </summary>
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
@@ -326,7 +331,12 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         /// <summary>
         /// Method used to keep the suggestions up-to-date for the search box
         /// </summary>
-        private async void MySearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void MySearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            _ = MySearchBox_TextChangedTask(sender, args);
+        }
+
+        private async Task MySearchBox_TextChangedTask(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             // Dismiss callout, if any
             UserInteracted();
@@ -350,7 +360,12 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         /// <summary>
         /// Method used to keep the suggestions up-to-date for the location box
         /// </summary>
-        private async void MyLocationBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void MyLocationBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            _ = MyLocationBox_TextChangedTask(sender, args);
+        }
+
+        private async Task MyLocationBox_TextChangedTask(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             // Dismiss callout, if any
             UserInteracted();

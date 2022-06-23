@@ -134,7 +134,12 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerQuery
             }
         }
 
-        private async void QueryEntry_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        private void QueryEntry_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            _ = QueryEntry_QuerySubmittedTask(sender, args);
+        }
+
+        private async Task QueryEntry_QuerySubmittedTask(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
         {
             try
             {

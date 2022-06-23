@@ -73,7 +73,12 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
             }
         }
 
-        private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
+        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = MapView_TappedTask(sender, e);
+        }
+
+        private async Task MapView_TappedTask(object sender, GeoViewInputEventArgs e)
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
@@ -128,7 +133,12 @@ namespace ArcGISRuntime.WinUI.Samples.DeleteFeatures
             MyMapView.ShowCalloutAt((MapPoint)tappedFeature.Geometry, deleteButton);
         }
 
-        private async void DeleteButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = DeleteButton_ClickTask(sender, e);
+        }
+
+        private async Task DeleteButton_ClickTask(object sender, RoutedEventArgs e)
         {
             // Dismiss the callout.
             MyMapView.DismissCallout();

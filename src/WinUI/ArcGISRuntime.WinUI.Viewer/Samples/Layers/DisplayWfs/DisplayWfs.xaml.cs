@@ -84,7 +84,12 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayWfs
             }
         }
 
-        private async void MapView_NavigationCompleted(object sender, EventArgs e)
+        private void MapView_NavigationCompleted(object sender, EventArgs e)
+        {
+            _ = MapView_NavigationCompletedTask(sender, e);
+        }
+
+        private async Task MapView_NavigationCompletedTask(object sender, EventArgs e)
         {
             // Show the loading bar.
             LoadingProgressBar.Visibility = Visibility.Visible;

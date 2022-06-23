@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.CutGeometry
 {
@@ -78,7 +79,12 @@ namespace ArcGISRuntime.WinUI.Samples.CutGeometry
             MyMapView.SetViewpointGeometryAsync(_lakeSuperiorPolygonGraphic.Geometry);
         }
 
-        private async void CutButton_Click(object sender, RoutedEventArgs e)
+        private void CutButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = CutButton_ClickTask(sender, e);
+        }
+
+        private async Task CutButton_ClickTask(object sender, RoutedEventArgs e)
         {
             try
             {

@@ -53,7 +53,12 @@ namespace ArcGISRuntime.WinUI.Samples.SearchPortalMaps
 
         private void DisplayDefaultMap() => MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
-        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = SearchButton_ClickTask(sender, e);
+        }
+
+        private async Task SearchButton_ClickTask(object sender, RoutedEventArgs e)
         {
             try
             {

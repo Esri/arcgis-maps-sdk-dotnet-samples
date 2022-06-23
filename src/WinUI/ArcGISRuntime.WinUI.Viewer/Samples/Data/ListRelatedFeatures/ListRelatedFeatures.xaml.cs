@@ -81,7 +81,12 @@ namespace ArcGISRuntime.WinUI.Samples.ListRelatedFeatures
             }
         }
 
-        private async void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = MyMapViewOnGeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapViewOnGeoViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             try
             {

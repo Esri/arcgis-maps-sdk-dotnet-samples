@@ -62,8 +62,8 @@ def main():
     winUI_path = os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
     forms_path = os.path.join(sample_root, "Forms", "Shared", "Samples")
 
-    replace(wpf_path)
-    # replace(winUI_path)
+    # replace(wpf_path)
+    replace(winUI_path)
     # replace(forms_path)
 
 

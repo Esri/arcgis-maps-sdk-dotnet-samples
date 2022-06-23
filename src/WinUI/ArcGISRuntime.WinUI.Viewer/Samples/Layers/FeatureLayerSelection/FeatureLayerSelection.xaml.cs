@@ -85,7 +85,12 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerSelection
             }
         }
 
-        private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
+        private void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = OnMapViewTappedTask(sender, e);
+        }
+
+        private async Task OnMapViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             try
             {

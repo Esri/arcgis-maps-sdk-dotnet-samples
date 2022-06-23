@@ -18,6 +18,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
 {
@@ -55,7 +56,12 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
         }
 
         // Search the public portal for web maps and display the results in a list.
-        private async void SearchPublicMapsButtonClick(object sender, RoutedEventArgs e)
+        private void SearchPublicMapsButtonClick(object sender, RoutedEventArgs e)
+        {
+            _ = SearchPublicMapsButtonClickTask(sender, e);
+        }
+
+        private async Task SearchPublicMapsButtonClickTask(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -77,7 +83,12 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
         }
 
         // Search the IWA-secured portal for web maps and display the results in a list.
-        private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
+        private void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
+        {
+            _ = SearchSecureMapsButtonClickTask(sender, e);
+        }
+
+        private async Task SearchSecureMapsButtonClickTask(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -163,7 +174,12 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
             }
         }
 
-        private async void AddMapItemClick(object sender, RoutedEventArgs e)
+        private void AddMapItemClick(object sender, RoutedEventArgs e)
+        {
+            _ = AddMapItemClickTask(sender, e);
+        }
+
+        private async Task AddMapItemClickTask(object sender, RoutedEventArgs e)
         {
             // Get a web map from the selected portal item and display it in the map view.
             if (MapItemListBox.SelectedItem == null)

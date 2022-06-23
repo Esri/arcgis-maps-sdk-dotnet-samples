@@ -83,7 +83,12 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerRenderingModeMap
             MyDynamicMapView.SetViewpoint(_zoomOutPoint);
         }
 
-        private async void OnZoomClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private void OnZoomClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            _ = OnZoomClickTask(sender, e);
+        }
+
+        private async Task OnZoomClickTask(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             try
             {

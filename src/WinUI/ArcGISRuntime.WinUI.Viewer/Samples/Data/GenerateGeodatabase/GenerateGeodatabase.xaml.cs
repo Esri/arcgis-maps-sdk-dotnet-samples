@@ -256,7 +256,12 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
             await new MessageDialog2(message).ShowAsync();
         }
 
-        private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
+        private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            _ = GenerateButton_ClickedTask(sender, e);
+        }
+
+        private async Task GenerateButton_ClickedTask(object sender, RoutedEventArgs e)
         {
             // Fix the extent of the graphic.
             MyMapView.ViewpointChanged -= MapViewExtentChanged;

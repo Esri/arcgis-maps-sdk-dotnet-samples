@@ -121,7 +121,12 @@ namespace ArcGISRuntime.WinUI.Samples.ConfigureSubnetworkTrace
             }
         }
 
-        private async void OnAddCondition(object sender, RoutedEventArgs e)
+        private void OnAddCondition(object sender, RoutedEventArgs e)
+        {
+            _ = OnAddConditionTask(sender, e);
+        }
+
+        private async Task OnAddConditionTask(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -223,7 +228,12 @@ namespace ArcGISRuntime.WinUI.Samples.ConfigureSubnetworkTrace
             throw new NotSupportedException();
         }
 
-        private async void OnTrace(object sender, RoutedEventArgs e)
+        private void OnTrace(object sender, RoutedEventArgs e)
+        {
+            _ = OnTraceTask(sender, e);
+        }
+
+        private async Task OnTraceTask(object sender, RoutedEventArgs e)
         {
             if (_utilityNetwork == null || _startingLocation == null)
             {

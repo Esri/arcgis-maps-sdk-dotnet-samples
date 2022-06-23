@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromPortal
 {
@@ -80,7 +81,12 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromPortal
             }
         }
 
-        private async void Open_Click(object sender, RoutedEventArgs e)
+        private void Open_Click(object sender, RoutedEventArgs e)
+        {
+            _ = Open_ClickTask(sender, e);
+        }
+
+        private async Task Open_ClickTask(object sender, RoutedEventArgs e)
         {
             // Get the portal item Id from the user.
             string collectionItemId = CollectionItemIdTextBox.Text.Trim();

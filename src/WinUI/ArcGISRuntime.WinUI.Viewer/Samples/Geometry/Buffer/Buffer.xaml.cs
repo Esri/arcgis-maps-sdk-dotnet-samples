@@ -15,6 +15,7 @@ using System;
 using Windows.UI;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml.Media;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.Buffer
 {
@@ -83,7 +84,12 @@ namespace ArcGISRuntime.WinUI.Samples.Buffer
             ShowBufferSwatches(planarBufferColor, geodesicBufferColor);
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             try
             {

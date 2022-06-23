@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.GetElevationAtPoint
@@ -91,7 +92,12 @@ namespace ArcGISRuntime.WinUI.Samples.GetElevationAtPoint
             MySceneView.Scene = myScene;
         }
 
-        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            _ = SceneViewTappedTask(sender, e);
+        }
+
+        private async Task SceneViewTappedTask(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             try
             {

@@ -63,7 +63,12 @@ namespace ArcGISRuntime.WinUI.Samples.SceneLayerSelection
             }
         }
 
-        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private void SceneViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            _ = SceneViewTappedTask(sender, e);
+        }
+
+        private async Task SceneViewTappedTask(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
             ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer)MySceneView.Scene.OperationalLayers.First();

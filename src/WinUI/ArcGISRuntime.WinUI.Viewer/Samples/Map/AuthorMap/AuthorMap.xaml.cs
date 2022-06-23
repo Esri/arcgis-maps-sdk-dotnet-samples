@@ -88,7 +88,12 @@ namespace ArcGISRuntime.WinUI.Samples.AuthorMap
             AddOperationalLayers();
         }
 
-        private async void SaveMapClicked(object sender, RoutedEventArgs e)
+        private void SaveMapClicked(object sender, RoutedEventArgs e)
+        {
+            _ = SaveMapClickedTask(sender, e);
+        }
+
+        private async Task SaveMapClickedTask(object sender, RoutedEventArgs e)
         {
             try
             {

@@ -16,6 +16,7 @@ using System;
 using System.Drawing;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.MapImageSublayerQuery
 {
@@ -64,7 +65,12 @@ namespace ArcGISRuntime.WinUI.Samples.MapImageSublayerQuery
             MyMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
         }
 
-        private async void QuerySublayers_Click(object sender, RoutedEventArgs e)
+        private void QuerySublayers_Click(object sender, RoutedEventArgs e)
+        {
+            _ = QuerySublayers_ClickTask(sender, e);
+        }
+
+        private async Task QuerySublayers_ClickTask(object sender, RoutedEventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();

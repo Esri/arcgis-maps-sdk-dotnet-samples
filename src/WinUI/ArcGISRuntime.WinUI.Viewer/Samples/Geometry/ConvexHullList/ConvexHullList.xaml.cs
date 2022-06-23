@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ConvexHullList
 {
@@ -138,7 +139,12 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHullList
             return polygon2;
         }
 
-        private async void ConvexHullListButton_Click(object sender, RoutedEventArgs e)
+        private void ConvexHullListButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = ConvexHullListButton_ClickTask(sender, e);
+        }
+
+        private async Task ConvexHullListButton_ClickTask(object sender, RoutedEventArgs e)
         {
             try
             {

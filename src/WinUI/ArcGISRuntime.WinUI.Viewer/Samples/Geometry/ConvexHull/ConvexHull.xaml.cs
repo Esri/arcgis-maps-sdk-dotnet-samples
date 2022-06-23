@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ConvexHull
 {
@@ -61,7 +62,12 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHull
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             try
             {
@@ -103,7 +109,12 @@ namespace ArcGISRuntime.WinUI.Samples.ConvexHull
             }
         }
 
-        private async void ConvexHullButton_Click(object sender, RoutedEventArgs e)
+        private void ConvexHullButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = ConvexHullButton_ClickTask(sender, e);
+        }
+
+        private async Task ConvexHullButton_ClickTask(object sender, RoutedEventArgs e)
         {
             try
             {

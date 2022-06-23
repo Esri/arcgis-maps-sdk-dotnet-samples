@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ClipGeometry
 {
@@ -166,7 +167,12 @@ namespace ArcGISRuntime.WinUI.Samples.ClipGeometry
             return unionEnvelopeBuilder.Extent;
         }
 
-        private async void ClipButton_Click(object sender, RoutedEventArgs e)
+        private void ClipButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = ClipButton_ClickTask(sender, e);
+        }
+
+        private async Task ClipButton_ClickTask(object sender, RoutedEventArgs e)
         {
             try
             {

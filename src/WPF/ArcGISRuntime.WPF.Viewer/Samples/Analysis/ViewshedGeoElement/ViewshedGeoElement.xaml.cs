@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
@@ -48,10 +49,10 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedGeoElement
         public ViewshedGeoElement()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the scene with an imagery basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);

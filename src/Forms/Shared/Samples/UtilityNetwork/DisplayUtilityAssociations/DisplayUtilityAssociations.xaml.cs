@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -49,10 +50,10 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
         public DisplayUtilityAssociations()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>

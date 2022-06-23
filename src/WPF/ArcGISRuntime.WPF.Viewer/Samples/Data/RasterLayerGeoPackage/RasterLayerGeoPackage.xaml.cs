@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
@@ -31,10 +32,10 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerGeoPackage
             InitializeComponent();
             
             // Read data from the GeoPackage
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a new map
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);

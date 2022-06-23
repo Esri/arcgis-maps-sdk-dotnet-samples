@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
         // Create an empty read-only list for the various rendering rules of the image service raster
@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         // Create a list to store the names of the rendering rule info for the image service raster
         private List<string> _names = new List<string>();
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Assign a new map to the MapView
             MyMapView.Map = new Map

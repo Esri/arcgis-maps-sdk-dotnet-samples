@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
 {
@@ -60,10 +61,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             InitializeComponent();
 
             // Create the map and graphics overlays.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

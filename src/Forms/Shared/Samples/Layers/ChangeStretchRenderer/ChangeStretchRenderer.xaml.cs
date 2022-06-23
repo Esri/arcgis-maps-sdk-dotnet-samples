@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using ArcGISRuntime.Samples.Managers;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
@@ -31,10 +32,10 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
             InitializeComponent();
 
             // Call a function to set up the map
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Initialize the GUI controls appearance
             ObservableCollection<string> myObservableCollection_RendererTypes = new ObservableCollection<string>();

@@ -65,10 +65,10 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
         public NavigateRouteRerouting()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

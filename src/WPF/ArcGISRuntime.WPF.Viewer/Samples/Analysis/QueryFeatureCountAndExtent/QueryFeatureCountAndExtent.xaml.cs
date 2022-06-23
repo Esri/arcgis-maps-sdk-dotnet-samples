@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
@@ -33,10 +34,10 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
         public QueryFeatureCountAndExtent()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with a basemap.
             Map myMap = new Map(BasemapStyle.ArcGISDarkGray);

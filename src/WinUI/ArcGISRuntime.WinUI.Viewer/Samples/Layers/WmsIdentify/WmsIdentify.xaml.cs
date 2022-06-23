@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Popups;
@@ -41,10 +42,10 @@ namespace ArcGISRuntime.WinUI.Samples.WmsIdentify
             InitializeComponent();
 
             // Initialize the sample.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Apply an imagery basemap to the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);

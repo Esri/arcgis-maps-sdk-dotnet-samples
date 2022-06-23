@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using Esri.ArcGISRuntime.Geometry;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.StyleWmsLayer
 {
@@ -35,12 +36,10 @@ namespace ArcGISRuntime.WPF.Samples.StyleWmsLayer
         public StyleWmsLayer()
         {
             InitializeComponent();
-
-            // Execute initialization.
-            InitializeAsync();
+            _ = Initialize();
         }
 
-        private async void InitializeAsync()
+        private async Task Initialize()
         {
             try
             {

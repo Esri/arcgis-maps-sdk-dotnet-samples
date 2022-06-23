@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
+using System.Threading.Tasks;
 using System.Drawing;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
@@ -65,10 +66,10 @@ namespace ArcGISRuntime.WinUI.Samples.LineOfSightGeoElement
             InitializeComponent();
 
             // Setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create scene.
             Scene myScene = new Scene(BasemapStyle.ArcGISImagery)

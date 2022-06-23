@@ -10,6 +10,7 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
@@ -35,10 +36,10 @@ namespace ArcGISRuntime.WinUI.Samples.ControlAnnotationSublayerVisibility
         public ControlAnnotationSublayerVisibility()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

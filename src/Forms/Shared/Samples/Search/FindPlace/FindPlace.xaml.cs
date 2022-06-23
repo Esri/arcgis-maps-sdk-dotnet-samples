@@ -47,11 +47,11 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             InitializeComponent();
 
-            Initialize();
+            _ = Initialize();
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map with basemap.
             Map myMap = new Map(BasemapStyle.ArcGISStreets);

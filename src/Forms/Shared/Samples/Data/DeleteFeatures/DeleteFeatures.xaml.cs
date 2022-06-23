@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Linq;
 using Xamarin.Forms;
 
@@ -36,10 +37,10 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
         public DeleteFeatures()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

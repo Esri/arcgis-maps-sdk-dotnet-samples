@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Portal;
 using Xamarin.Forms;
 
@@ -30,10 +31,10 @@ namespace ArcGISRuntime.Samples.OpenScenePortalItem
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

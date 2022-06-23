@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -38,10 +39,10 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);

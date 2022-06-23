@@ -15,7 +15,6 @@
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\UniqueValuesAlternateSymbols\UniqueValuesAlternateSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\readme.md" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Map\SetMaxExtent\SetMaxExtent.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg" />

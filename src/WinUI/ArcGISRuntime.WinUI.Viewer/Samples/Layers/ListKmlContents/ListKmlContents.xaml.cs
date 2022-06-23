@@ -35,10 +35,10 @@ namespace ArcGISRuntime.WinUI.Samples.ListKmlContents
         public ListKmlContents()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Add a basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);

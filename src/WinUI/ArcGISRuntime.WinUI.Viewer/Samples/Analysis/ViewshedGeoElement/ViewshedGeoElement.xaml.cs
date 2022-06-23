@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Popups;
@@ -50,10 +51,10 @@ namespace ArcGISRuntime.WinUI.Samples.ViewshedGeoElement
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the scene with an imagery basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);

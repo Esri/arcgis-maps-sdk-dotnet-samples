@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -29,10 +30,10 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         public ReadGeoPackage()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a new map centered on Aurora Colorado.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);

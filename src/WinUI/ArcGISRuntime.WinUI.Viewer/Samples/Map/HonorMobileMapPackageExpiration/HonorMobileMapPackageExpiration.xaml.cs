@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Windows.UI.Popups;
 using System.Linq;
@@ -27,10 +28,10 @@ namespace ArcGISRuntime.WinUI.Samples.HonorMobileMapPackageExpiration
         public HonorMobileMapPackageExpiration()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

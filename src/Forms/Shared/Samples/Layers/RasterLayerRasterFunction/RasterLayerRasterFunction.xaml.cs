@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.ArcGISServices;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
 
@@ -29,10 +30,10 @@ namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
             InitializeComponent ();
             
             // Create the UI, setup the control references and execute initialization 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new map with the streets basemap
             Map myMap = new Map(BasemapStyle.ArcGISStreets);

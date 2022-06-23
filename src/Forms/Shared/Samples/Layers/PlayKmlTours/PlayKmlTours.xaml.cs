@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -34,10 +35,10 @@ namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
         public PlayKmlTours()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Load the scene with a basemap and a terrain surface.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);

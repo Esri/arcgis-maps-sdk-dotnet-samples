@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Geometry;
 using Xamarin.Forms;
 
@@ -33,10 +34,10 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         public SceneLayerUrl()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Scene.
             Scene myScene = new Scene {Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard)};

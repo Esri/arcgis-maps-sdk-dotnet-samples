@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Linq;
 using Xamarin.Forms;
@@ -44,10 +45,10 @@ namespace ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR
         public PipePlacer()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create and add the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);

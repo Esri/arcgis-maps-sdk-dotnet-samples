@@ -52,10 +52,10 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceAreasForMultipleFacilities
         public FindServiceAreasForMultipleFacilities()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

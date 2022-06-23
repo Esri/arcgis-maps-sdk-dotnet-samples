@@ -11,6 +11,7 @@ using ArcGISRuntime.Helpers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.OAuth
 {
@@ -35,10 +36,10 @@ namespace ArcGISRuntime.WinUI.Samples.OAuth
             InitializeComponent();
 
             // Call a function to initialize the app.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

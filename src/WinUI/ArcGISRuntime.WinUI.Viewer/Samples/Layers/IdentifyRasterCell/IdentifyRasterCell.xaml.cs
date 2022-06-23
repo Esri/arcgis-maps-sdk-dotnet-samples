@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,10 +44,10 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyRasterCell
         public IdentifyRasterCell()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Define a new map with Wgs84 Spatial Reference.
             var map = new Map(BasemapStyle.ArcGISOceans);

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- Screenshots -->
+    <None Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Symbology\UniqueValuesAlternateSymbols\UniqueValuesAlternateSymbols.jpg" />
     <None Include="$(MSBuildThisFileDirectory)Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.jpg" />
@@ -216,6 +217,7 @@
     <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml.cs">
       <DependentUpon>QueryFeaturesWithArcadeExpression.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml.cs">
       <DependentUpon>ExportVectorTiles.xaml</DependentUpon>
@@ -943,6 +945,9 @@
   </ItemGroup>
   <ItemGroup>
     <!-- Sample XAML -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
@@ -1679,14 +1684,5 @@
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\key.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\SettingsPage\keygrey.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.jpg" />
   </ItemGroup>
 </Project>

@@ -1685,9 +1685,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
-    <Page Include="$(MSBuildThisFileDirectory)Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.jpg" />
   </ItemGroup>
 </Project>

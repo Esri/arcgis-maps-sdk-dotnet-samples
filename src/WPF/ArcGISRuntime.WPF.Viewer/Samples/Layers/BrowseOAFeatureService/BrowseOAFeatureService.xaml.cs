@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using Color = System.Drawing.Color;
 
@@ -84,7 +85,12 @@ namespace ArcGISRuntime.WPF.Samples.BrowseOAFeatureService
             }
         }
 
-        private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)
+        private void LoadLayers_Clicked(object sender, RoutedEventArgs e)
+        {
+            _ = LoadLayers_ClickedTask(sender, e);
+        }
+
+        private async Task LoadLayers_ClickedTask(object sender, RoutedEventArgs e)
         {
             // Skip if nothing selected.
             if (OgcFeatureCollectionList.SelectedItems.Count < 1)

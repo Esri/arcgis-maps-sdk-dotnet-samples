@@ -237,7 +237,12 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// <summary>
         /// Shows a callout for any tapped graphics.
         /// </summary>
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             // Search for the graphics underneath the user's tap.
             IReadOnlyList<IdentifyGraphicsOverlayResult> results =
@@ -321,7 +326,12 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// <summary>
         /// Method used to keep the suggestions up-to-date for the search box.
         /// </summary>
-        private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _ = MySearchBox_TextChangedTask(sender, e);
+        }
+
+        private async Task MySearchBox_TextChangedTask(object sender, TextChangedEventArgs e)
         {
             // Don't update results immediately; makes search-as-you-type more comfortable
             if (_waitFlag)
@@ -358,7 +368,12 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// <summary>
         /// Method used to keep the suggestions up-to-date for the location box.
         /// </summary>
-        private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _ = MyLocationBox_TextChangedTask(sender, e);
+        }
+
+        private async Task MyLocationBox_TextChangedTask(object sender, TextChangedEventArgs e)
         {
             // Don't update results immediately; makes search-as-you-type more comfortable
             if (_waitFlag)

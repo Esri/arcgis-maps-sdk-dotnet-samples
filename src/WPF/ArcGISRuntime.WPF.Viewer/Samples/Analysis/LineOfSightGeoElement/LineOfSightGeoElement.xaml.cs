@@ -197,7 +197,12 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             return new MapPoint(firstPoint.X + scaled.X, firstPoint.Y + scaled.Y, firstPoint.Z + scaled.Z);
         }
 
-        private async void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
+        private void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
+        {
+            _ = Geoline_TargetVisibilityChangedTask(sender, e);
+        }
+
+        private async Task Geoline_TargetVisibilityChangedTask(object sender, EventArgs e)
         {
             // This is needed because Runtime delivers notifications from a different thread that doesn't have access to UI controls
             await Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)UpdateUiAndSelection);

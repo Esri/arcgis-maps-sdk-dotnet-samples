@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Drawing;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
@@ -63,7 +64,12 @@ namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
             MyMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
         }
 
-        private async void QuerySublayers_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void QuerySublayers_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            _ = QuerySublayers_ClickTask(sender, e);
+        }
+
+        private async Task QuerySublayers_ClickTask(object sender, System.Windows.RoutedEventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();

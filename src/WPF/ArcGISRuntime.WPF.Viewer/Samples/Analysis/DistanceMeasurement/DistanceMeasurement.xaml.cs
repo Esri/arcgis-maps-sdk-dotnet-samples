@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -117,7 +118,12 @@ namespace ArcGISRuntime.WPF.Samples.DistanceMeasurement
             HelpLabel.Content = "Tap 'New measurement' to start.";
         }
 
-        private async void MySceneView_MouseMoved(object sender, MouseEventArgs e)
+        private void MySceneView_MouseMoved(object sender, MouseEventArgs e)
+        {
+            _ = MySceneView_MouseMovedTask(sender, e);
+        }
+
+        private async Task MySceneView_MouseMovedTask(object sender, MouseEventArgs e)
         {
             try
             {

@@ -58,7 +58,12 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             }
         }
 
-        private async void OnAnalyzeHotspotsClicked(object sender, RoutedEventArgs e)
+        private void OnAnalyzeHotspotsClicked(object sender, RoutedEventArgs e)
+        {
+            _ = OnAnalyzeHotspotsClickedTask(sender, e);
+        }
+
+        private async Task OnAnalyzeHotspotsClickedTask(object sender, RoutedEventArgs e)
         {
             // Clear any existing results
             MyMapView.Map.OperationalLayers.Clear();

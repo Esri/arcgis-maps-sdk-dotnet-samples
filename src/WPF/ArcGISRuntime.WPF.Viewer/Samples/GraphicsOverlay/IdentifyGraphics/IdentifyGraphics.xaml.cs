@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Windows;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.IdentifyGraphics
 {
@@ -82,7 +83,12 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyGraphics
             MyMapView.GraphicsOverlays.Add(_polygonOverlay);
         }
 
-        private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
+        private void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = OnMapViewTappedTask(sender, e);
+        }
+
+        private async Task OnMapViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             double tolerance = 10d; // Use larger tolerance for touch
             int maximumResults = 1; // Only return one graphic  

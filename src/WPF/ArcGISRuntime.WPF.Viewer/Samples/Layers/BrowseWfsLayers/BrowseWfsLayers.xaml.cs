@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
@@ -86,7 +87,12 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             }
         }
 
-        private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)
+        private void LoadLayers_Clicked(object sender, RoutedEventArgs e)
+        {
+            _ = LoadLayers_ClickedTask(sender, e);
+        }
+
+        private async Task LoadLayers_ClickedTask(object sender, RoutedEventArgs e)
         {
             // Skip if nothing selected.
             if (WfsLayerList.SelectedItems.Count < 1)

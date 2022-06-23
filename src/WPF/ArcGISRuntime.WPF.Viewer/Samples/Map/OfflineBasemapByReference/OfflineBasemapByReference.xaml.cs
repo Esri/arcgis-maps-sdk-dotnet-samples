@@ -149,7 +149,12 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
             }
         }
 
-        private async void TakeMapOfflineButton_Click(object sender, RoutedEventArgs e)
+        private void TakeMapOfflineButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = TakeMapOfflineButton_ClickTask(sender, e);
+        }
+
+        private async Task TakeMapOfflineButton_ClickTask(object sender, RoutedEventArgs e)
         {
             // Create a new folder for the output mobile map.
             string packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NapervilleWaterNetwork");

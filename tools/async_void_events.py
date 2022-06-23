@@ -63,8 +63,8 @@ def main():
     forms_path = os.path.join(sample_root, "Forms", "Shared", "Samples")
 
     replace(wpf_path)
-    replace(winUI_path)
-    replace(forms_path)
+    # replace(winUI_path)
+    # replace(forms_path)
 
 
 

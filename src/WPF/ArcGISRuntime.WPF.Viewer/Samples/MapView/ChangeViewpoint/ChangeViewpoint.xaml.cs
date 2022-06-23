@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeViewpoint
 {
@@ -55,7 +56,12 @@ namespace ArcGISRuntime.WPF.Samples.ChangeViewpoint
             InitializeComponent();
         }
 
-        private async void OnButtonClick(object sender, RoutedEventArgs e)
+        private void OnButtonClick(object sender, RoutedEventArgs e)
+        {
+            _ = OnButtonClickTask(sender, e);
+        }
+
+        private async Task OnButtonClickTask(object sender, RoutedEventArgs e)
         {
             try
             {

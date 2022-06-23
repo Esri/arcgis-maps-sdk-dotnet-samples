@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.TimeBasedQuery
@@ -63,7 +64,12 @@ namespace ArcGISRuntime.WPF.Samples.TimeBasedQuery
             MyMapView.Map = myMap;
         }
 
-        private async void OnLoadedPopulateData(object sender, LoadStatusEventArgs e)
+        private void OnLoadedPopulateData(object sender, LoadStatusEventArgs e)
+        {
+            _ = OnLoadedPopulateDataTask(sender, e);
+        }
+
+        private async Task OnLoadedPopulateDataTask(object sender, LoadStatusEventArgs e)
         {
             // If layer isn't loaded, do nothing
             if (e.Status != LoadStatus.Loaded) { return; }

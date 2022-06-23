@@ -206,7 +206,12 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
             }
         }
         
-        private async void AddNewFeature(object sender, RoutedEventArgs args)
+        private void AddNewFeature(object sender, RoutedEventArgs args)
+        {
+            _ = AddNewFeatureTask(sender, args);
+        }
+
+        private async Task AddNewFeatureTask(object sender, RoutedEventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked
             Button addFeatureButton = (Button)sender;
@@ -320,7 +325,12 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
         }
 
         // Synchronize edits in the local geodatabase with the service
-        public async void SynchronizeEdits(object sender, RoutedEventArgs e)
+        public void SynchronizeEdits(object sender, RoutedEventArgs e)
+        {
+            _ = SynchronizeEditsTask(sender, e);
+        }
+
+        public async Task SynchronizeEditsTask(object sender, RoutedEventArgs e)
         {
             // Show the progress bar while the sync is working
             LoadingProgressBar.Visibility = Visibility.Visible;

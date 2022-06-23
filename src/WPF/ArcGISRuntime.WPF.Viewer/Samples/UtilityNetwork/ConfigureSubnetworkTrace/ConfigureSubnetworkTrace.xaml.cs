@@ -228,7 +228,12 @@ namespace ArcGISRuntime.WPF.Samples.ConfigureSubnetworkTrace
             throw new NotSupportedException();
         }
 
-        private async void OnTrace(object sender, RoutedEventArgs e)
+        private void OnTrace(object sender, RoutedEventArgs e)
+        {
+            _ = OnTraceTask(sender, e);
+        }
+
+        private async Task OnTraceTask(object sender, RoutedEventArgs e)
         {
             if (_utilityNetwork == null || _startingLocation == null)
             {

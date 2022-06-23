@@ -105,7 +105,12 @@ namespace ArcGISRuntime.WPF.Samples.MobileMapSearchAndRoute
             return package;
         }
 
-        private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
+        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = MapView_TappedTask(sender, e);
+        }
+
+        private async Task MapView_TappedTask(object sender, GeoViewInputEventArgs e)
         {
             // Handle routing.
             try

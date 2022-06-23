@@ -92,7 +92,12 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
             }
         }
 
-        private async void _localFeatureService_StatusChanged(object sender, StatusChangedEventArgs e)
+        private void _localFeatureService_StatusChanged(object sender, StatusChangedEventArgs e)
+        {
+            _ = _localFeatureService_StatusChangedTask(sender, e);
+        }
+
+        private async Task _localFeatureService_StatusChangedTask(object sender, StatusChangedEventArgs e)
         {
             // Load the map from the service once ready
             if (e.Status == LocalServerStatus.Started)

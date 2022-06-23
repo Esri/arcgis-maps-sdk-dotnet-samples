@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.SpatialRelationships
 {
@@ -110,7 +111,12 @@ namespace ArcGISRuntime.WPF.Samples.SpatialRelationships
             MyMapView.SetViewpointCenterAsync(pointGeometry, 200000000);
         }
 
-        private async void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
+        private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
+        {
+            _ = MapViewTappedTask(sender, geoViewInputEventArgs);
+        }
+
+        private async Task MapViewTappedTask(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
             IdentifyGraphicsOverlayResult result = null;
 

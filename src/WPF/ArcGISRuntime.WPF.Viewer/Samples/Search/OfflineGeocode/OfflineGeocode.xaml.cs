@@ -139,7 +139,12 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
             }
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            _ = MyMapView_GeoViewTappedTask(sender, e);
+        }
+
+        private async Task MyMapView_GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
         {
             try
             {

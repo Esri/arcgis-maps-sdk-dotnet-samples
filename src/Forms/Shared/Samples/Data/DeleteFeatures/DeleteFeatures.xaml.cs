@@ -73,12 +73,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
             }
         }
 
-        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
-            _ = MapView_TappedTask(sender, e);
-        }
-
-        private async Task MapView_TappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
@@ -126,12 +121,7 @@ namespace ArcGISRuntimeXamarin.Samples.DeleteFeatures
             DeleteButton.IsEnabled = true;
         }
 
-        private void DeleteButton_Click(object sender, EventArgs e)
-        {
-            _ = DeleteButton_ClickTask(sender, e);
-        }
-
-        private async Task DeleteButton_ClickTask(object sender, EventArgs e)
+        private async void DeleteButton_Click(object sender, EventArgs e)
         {
             // Reconfigure the button.
             DeleteButton.IsEnabled = false;

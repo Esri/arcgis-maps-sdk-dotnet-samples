@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 #if XAMARIN_ANDROID
 using ArcGISRuntime.Droid;
@@ -58,12 +57,7 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             MyMapView.LocationDisplay.IsEnabled = false;
         }
 
-        private void OnStartClicked(object sender, EventArgs e)
-        {
-            _ = OnStartClickedTask(sender, e);
-        }
-
-        private async Task OnStartClickedTask(object sender, EventArgs e)
+        private async void OnStartClicked(object sender, EventArgs e)
         {
             // Show sheet and get title from the selection.
             string selectedMode =

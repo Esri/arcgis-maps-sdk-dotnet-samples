@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ChangeViewpoint
@@ -75,12 +74,7 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
             MyMapView.Map = myMap;
         }
 
-        private void OnViewpointsClicked(object sender, EventArgs e)
-        {
-            _ = OnViewpointsClickedTask(sender, e);
-        }
-
-        private async Task OnViewpointsClickedTask(object sender, EventArgs e)
+        private async void OnViewpointsClicked(object sender, EventArgs e)
         {
             try
             {

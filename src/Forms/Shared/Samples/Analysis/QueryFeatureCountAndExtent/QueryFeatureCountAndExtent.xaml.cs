@@ -68,12 +68,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private void BtnZoomToFeatures_Click(object sender, EventArgs e)
-        {
-            _ = BtnZoomToFeatures_ClickTask(sender, e);
-        }
-
-        private async Task BtnZoomToFeatures_ClickTask(object sender, EventArgs e)
+        private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
         {
             // Create the query parameters.
             QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{txtStateEntry.Text.ToUpper()}%'" };
@@ -104,12 +99,7 @@ namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private void BtnCountFeatures_Click(object sender, EventArgs e)
-        {
-            _ = BtnCountFeatures_ClickTask(sender, e);
-        }
-
-        private async Task BtnCountFeatures_ClickTask(object sender, EventArgs e)
+        private async void BtnCountFeatures_Click(object sender, EventArgs e)
         {
             // Get the current visible extent.
             Geometry currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;

@@ -224,12 +224,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             });
         }
 
-        private void OnDownloadMapAreaClicked(object sender, EventArgs e)
-        {
-            _ = OnDownloadMapAreaClickedTask(sender, e);
-        }
-
-        private async Task OnDownloadMapAreaClickedTask(object sender, EventArgs e)
+        private async void OnDownloadMapAreaClicked(object sender, EventArgs e)
         {
             if (AreasList.SelectedItem != null)
             {
@@ -238,12 +233,7 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             }
         }
 
-        private void OnDeleteAllMapAreasClicked(object sender, EventArgs e)
-        {
-            _ = OnDeleteAllMapAreasClickedTask(sender, e);
-        }
-
-        private async Task OnDeleteAllMapAreasClickedTask(object sender, EventArgs e)
+        private async void OnDeleteAllMapAreasClicked(object sender, EventArgs e)
         {
             try
             {

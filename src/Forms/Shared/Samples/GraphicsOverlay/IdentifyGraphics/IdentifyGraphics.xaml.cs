@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 using Esri.ArcGISRuntime.Data;
 using Colors = System.Drawing.Color;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.IdentifyGraphics
 {
@@ -82,12 +81,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             MyMapView.GraphicsOverlays.Add(_polygonOverlay);
         }
 
-        private void OnMapViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
-            _ = OnMapViewTappedTask(sender, e);
-        }
-
-        private async Task OnMapViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void OnMapViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             double tolerance = 10d; // Use larger tolerance for touch
             int maximumResults = 1; // Only return one graphic  

@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
@@ -110,12 +109,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             MyMapView.SetViewpointCenterAsync(pointGeometry, 200000000);
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
-            _ = MyMapView_GeoViewTappedTask(sender, e);
-        }
-
-        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Identify the tapped graphics
             IdentifyGraphicsOverlayResult result = null;

@@ -138,12 +138,7 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
             return queryParameters;
         }
 
-        private void ApplyQuery_Pressed(object sender, EventArgs e)
-        {
-            _ = ApplyQuery_PressedTask(sender, e);
-        }
-
-        private async Task ApplyQuery_PressedTask(object sender, EventArgs e)
+        private async void ApplyQuery_Pressed(object sender, EventArgs e)
         {
             if (_featureTable.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded)
             {

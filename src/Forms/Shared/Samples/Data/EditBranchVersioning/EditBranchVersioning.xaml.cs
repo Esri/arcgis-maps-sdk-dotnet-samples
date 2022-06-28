@@ -192,12 +192,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
-            _ = MyMapView_GeoViewTappedTask(sender, e);
-        }
-
-        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             // Check if a feature is selected and the service geodatabase is not on the default version.
             if (_selectedFeature is ArcGISFeature && _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
@@ -299,12 +294,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             }
         }
 
-        private void ConfirmVersionClick(object sender, EventArgs e)
-        {
-            _ = ConfirmVersionClickTask(sender, e);
-        }
-
-        private async Task ConfirmVersionClickTask(object sender, EventArgs e)
+        private async void ConfirmVersionClick(object sender, EventArgs e)
         {
             try
             {
@@ -344,12 +334,7 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
         private void CancelVersionClick(object sender, EventArgs e) => SwitchView(DefaultView);
 
-        private void CloseAttributeClick(object sender, EventArgs e)
-        {
-            _ = CloseAttributeClickTask(sender, e);
-        }
-
-        private async Task CloseAttributeClickTask(object sender, EventArgs e)
+        private async void CloseAttributeClick(object sender, EventArgs e)
         {
             SwitchView(DefaultView);
 

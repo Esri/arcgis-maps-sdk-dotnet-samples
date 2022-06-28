@@ -143,12 +143,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
 
         #endregion Graphic and symbol helpers
 
-        private void StartSketch(object sender, EventArgs e)
-        {
-            _ = StartSketchTask(sender, e);
-        }
-
-        private async Task StartSketchTask(object sender, EventArgs e)
+        private async void StartSketch(object sender, EventArgs e)
         {
             try
             {
@@ -194,12 +189,7 @@ namespace ArcGISRuntime.Samples.SketchOnMap
             EditButton.IsEnabled = false;
         }
 
-        private void EditButtonClick(object sender, EventArgs e)
-        {
-            _ = EditButtonClickTask(sender, e);
-        }
-
-        private async Task EditButtonClickTask(object sender, EventArgs e)
+        private async void EditButtonClick(object sender, EventArgs e)
         {
             try
             {

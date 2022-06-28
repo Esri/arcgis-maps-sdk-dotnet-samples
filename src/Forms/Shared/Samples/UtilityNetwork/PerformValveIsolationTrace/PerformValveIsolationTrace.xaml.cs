@@ -150,12 +150,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             }
         }
 
-        private void OnTrace(object sender, EventArgs e)
-        {
-            _ = OnTraceTask(sender, e);
-        }
-
-        private async Task OnTraceTask(object sender, EventArgs e)
+        private async void OnTrace(object sender, EventArgs e)
         {
             try
             {
@@ -246,12 +241,7 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
             _terminalCompletionSource.TrySetResult(TerminalPicker.SelectedItem as string);
         }
 
-        private void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
-            _ = OnGeoViewTappedTask(sender, e);
-        }
-
-        private async Task OnGeoViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {

@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
@@ -53,12 +52,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             MyMapView.Map = myMap;
         }
 
-        private void OnChangeLayerButtonClicked(object sender, EventArgs e)
-        {
-            _ = OnChangeLayerButtonClickedTask(sender, e);
-        }
-
-        private async Task OnChangeLayerButtonClickedTask(object sender, EventArgs e)
+        private async void OnChangeLayerButtonClicked(object sender, EventArgs e)
         {
             // Get list of layer names as array to show in an action sheet
             string[] layerNames = _layerUrls.Keys.ToArray();

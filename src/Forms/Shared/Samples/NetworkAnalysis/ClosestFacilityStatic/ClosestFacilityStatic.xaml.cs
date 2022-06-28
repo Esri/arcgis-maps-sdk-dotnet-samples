@@ -139,12 +139,7 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             }
         }
 
-        private void SolveRoutesClick(object sender, EventArgs e)
-        {
-            _ = SolveRoutesClickTask(sender, e);
-        }
-
-        private async Task SolveRoutesClickTask(object sender, EventArgs e)
+        private async void SolveRoutesClick(object sender, EventArgs e)
         {
             // Holds locations of hospitals around San Diego.
             List<Facility> facilities = new List<Facility>();

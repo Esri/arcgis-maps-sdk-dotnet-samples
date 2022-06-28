@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
@@ -64,12 +63,7 @@ namespace ArcGISRuntime.Samples.MapImageSublayerQuery
             MyMapView.GraphicsOverlays.Add(_selectedFeaturesOverlay);
         }
 
-        private void QuerySublayers_Click(object sender, EventArgs e)
-        {
-            _ = QuerySublayers_ClickTask(sender, e);
-        }
-
-        private async Task QuerySublayers_ClickTask(object sender, EventArgs e)
+        private async void QuerySublayers_Click(object sender, EventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();

@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Mapping.Popups;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
 
@@ -40,12 +39,7 @@ namespace ArcGISRuntimeXamarin.Samples.ShowPopup
             MyMapView.Map = new Map(new Uri("https://arcgisruntime.maps.arcgis.com/home/item.html?id=fb788308ea2e4d8682b9c05ef641f273"));
         }
 
-        private void MapViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
-            _ = MapViewTappedTask(sender, e);
-        }
-
-        private async Task MapViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MapViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {

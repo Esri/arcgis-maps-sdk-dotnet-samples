@@ -249,12 +249,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             }
         }
 
-        private void GenerateButton_Clicked(object sender, EventArgs e)
-        {
-            _ = GenerateButton_ClickedTask(sender, e);
-        }
-
-        private async Task GenerateButton_ClickedTask(object sender, EventArgs e)
+        private async void GenerateButton_Clicked(object sender, EventArgs e)
         {
             // Fix the extent of the graphic.
             myMapView.ViewpointChanged -= MapViewExtentChanged;

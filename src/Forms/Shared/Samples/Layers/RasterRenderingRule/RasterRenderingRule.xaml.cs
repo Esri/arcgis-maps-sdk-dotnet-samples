@@ -129,12 +129,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             }
         }
 
-        private void OnChangeRenderingRuleButtonClicked(object sender, EventArgs e)
-        {
-            _ = OnChangeRenderingRuleButtonClickedTask(sender, e);
-        }
-
-        private async Task OnChangeRenderingRuleButtonClickedTask(object sender, EventArgs e)
+        private async void OnChangeRenderingRuleButtonClicked(object sender, EventArgs e)
         {
             // Call the function to display the image service raster based up on user choice of rendering rules
             await ChangeRenderingRuleAsync();

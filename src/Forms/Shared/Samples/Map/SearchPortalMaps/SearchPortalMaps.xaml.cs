@@ -104,12 +104,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             SearchMapsUI.IsVisible = true;
         }
 
-        private void GetMyMaps(object sender, EventArgs e)
-        {
-            _ = GetMyMapsTask(sender, e);
-        }
-
-        private async Task GetMyMapsTask(object sender, EventArgs e)
+        private async void GetMyMaps(object sender, EventArgs e)
         {
             try
             {

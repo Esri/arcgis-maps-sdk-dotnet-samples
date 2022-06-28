@@ -37,12 +37,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
         }
 
-        private void OnTakeScreenshotClicked(object sender, EventArgs e)
-        {
-            _ = OnTakeScreenshotClickedTask(sender, e);
-        }
-
-        private async Task OnTakeScreenshotClickedTask(object sender, EventArgs e)
+        private async void OnTakeScreenshotClicked(object sender, EventArgs e)
         {
             try
             {
@@ -141,12 +136,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             return tcs.Task;
         }
 
-        private void CloseButton_Clicked(object sender, EventArgs e)
-        {
-            _ = CloseButton_ClickedTask(sender, e);
-        }
-
-        private async Task CloseButton_ClickedTask(object sender, EventArgs e)
+        private async void CloseButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PopAsync();
         }

@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -47,12 +46,7 @@ namespace ArcGISRuntimeXamarin.Samples.DisplayKml
             LayerPicker.SelectedIndex = 0;
         }
 
-        private void LayerPicker_SelectionChanged(object sender, EventArgs e)
-        {
-            _ = LayerPicker_SelectionChangedTask(sender, e);
-        }
-
-        private async Task LayerPicker_SelectionChangedTask(object sender, EventArgs e)
+        private async void LayerPicker_SelectionChanged(object sender, EventArgs e)
         {
             // Clear existing layers.
             MySceneView.Scene.OperationalLayers.Clear();

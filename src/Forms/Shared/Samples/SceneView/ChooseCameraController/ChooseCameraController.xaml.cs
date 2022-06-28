@@ -131,12 +131,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
                     break;
             }
         }
-        private void OnButtonClicked(object sender, EventArgs e)
-        {
-            _ = OnButtonClickedTask(sender, e);
-        }
-
-        private async Task OnButtonClickedTask(object sender, EventArgs e)
+        private async void OnButtonClicked(object sender, EventArgs e)
         {
             try
             {

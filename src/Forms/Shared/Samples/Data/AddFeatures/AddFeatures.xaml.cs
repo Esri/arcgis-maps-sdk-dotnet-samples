@@ -70,12 +70,7 @@ namespace ArcGISRuntimeXamarin.Samples.AddFeatures
             }
         }
 
-        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
-            _ = MapView_TappedTask(sender, e);
-        }
-
-        private async Task MapView_TappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {

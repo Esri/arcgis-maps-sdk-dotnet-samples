@@ -223,12 +223,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             }
         }
 
-        private void AddNewFeature(object sender, EventArgs args)
-        {
-            _ = AddNewFeatureTask(sender, args);
-        }
-
-        private async Task AddNewFeatureTask(object sender, EventArgs args)
+        private async void AddNewFeature(object sender, EventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked
             Button addFeatureButton = (Button)sender;
@@ -286,12 +281,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             }
         }
 
-        private void StopEditTransaction(object sender, EventArgs e)
-        {
-            _ = StopEditTransactionTask(sender, e);
-        }
-
-        private async Task StopEditTransactionTask(object sender, EventArgs e)
+        private async void StopEditTransaction(object sender, EventArgs e)
         {
             // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
             string choice = await ((Page)Parent).DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
@@ -347,12 +337,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         }
 
         // Synchronize edits in the local geodatabase with the service
-        public void SynchronizeEdits(object sender, EventArgs e)
-        {
-            _ = SynchronizeEditsTask(sender, e);
-        }
-
-        public async Task SynchronizeEditsTask(object sender, EventArgs e)
+        public async void SynchronizeEdits(object sender, EventArgs e)
         {
             // Show the progress bar while the sync is working
             LoadingProgressBar.IsVisible = true;

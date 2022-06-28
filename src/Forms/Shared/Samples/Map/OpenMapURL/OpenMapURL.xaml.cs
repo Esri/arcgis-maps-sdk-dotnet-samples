@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.OpenMapURL
@@ -49,12 +48,7 @@ namespace ArcGISRuntime.Samples.OpenMapURL
             MyMapView.Map = new Map(new Uri(_itemURLs[0]));
         }
 
-        private void OnMapsClicked(object sender, EventArgs e)
-        {
-            _ = OnMapsClickedTask(sender, e);
-        }
-
-        private async Task OnMapsClickedTask(object sender, EventArgs e)
+        private async void OnMapsClicked(object sender, EventArgs e)
         {
             // Show sheet and get title from the selection
             string selectedMapTitle = await ((Page)Parent).DisplayActionSheet("Select map", "Cancel", null, _titles);

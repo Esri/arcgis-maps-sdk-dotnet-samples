@@ -155,12 +155,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             IsAddingBarriers.IsEnabled = false;
         }
 
-        private void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
-        {
-            _ = OnGeoViewTappedTask(sender, e);
-        }
-
-        private async Task OnGeoViewTappedTask(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             try
             {
@@ -278,12 +273,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
         }
 
-        private void OnTrace(object sender, EventArgs e)
-        {
-            _ = OnTraceTask(sender, e);
-        }
-
-        private async Task OnTraceTask(object sender, EventArgs e)
+        private async void OnTrace(object sender, EventArgs e)
         {
             try
             {
@@ -343,12 +333,7 @@ namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
             }
         }
 
-        private void TraceTypeButtonPressed(object sender, EventArgs e)
-        {
-            _ = TraceTypeButtonPressedTask(sender, e);
-        }
-
-        private async Task TraceTypeButtonPressedTask(object sender, EventArgs e)
+        private async void TraceTypeButtonPressed(object sender, EventArgs e)
         {
             try
             {

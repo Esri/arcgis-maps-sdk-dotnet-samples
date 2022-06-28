@@ -131,6 +131,8 @@ class MetadataCreator:
         results = []
         for file in os.listdir(self.folder_path):
             print(file)
+            if os.path.splitext(file)[1] in ['.xaml']:
+                results.append(file)
             if os.path.splitext(file)[1] in ['.xaml.cs']:
                 results.append(file)
         if not results:

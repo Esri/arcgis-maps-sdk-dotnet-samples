@@ -85,6 +85,7 @@ def main():
     for f in files:
         if not os.path.exists(f):
             # The changed file is deleted, no need to style check.
+            print("file doesn't exist: " + f)
             continue
 
         path_parts = os.path.normpath(f).split(os.path.sep)

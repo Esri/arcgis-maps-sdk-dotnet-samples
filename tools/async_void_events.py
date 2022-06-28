@@ -28,12 +28,12 @@ def replace(platform_path):
                         if "await" in line and not trypresent:
                                 plat_count += 1
                                 print("No try: "+str(os.path.basename(path)))
+                                print(line.split("\n")[0])
                         if "try" in line:
                             trypresent = True
                         if line.startswith(spacing+"}"):
                             mode = 0
                             if not trypresent:
-                                plat_count += 1
                                 print("No try: "+str(os.path.basename(path)))
                     i=i+1
                 f.close()
@@ -60,9 +60,9 @@ def main():
     winUI_path = os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
     forms_path = os.path.join(sample_root, "Forms", "Shared", "Samples")
 
-    replace(wpf_path)
+    #replace(wpf_path)
     replace(winUI_path)
-    replace(forms_path)
+    #replace(forms_path)
 
 if __name__ == "__main__":
     main() 

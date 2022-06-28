@@ -95,7 +95,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
                 // Show error message
                 var message = new MessageDialog2("Please select valid time range. There has to be at least one day in between To and From dates.",
                     "Invalid date range");
-                await message.ShowAsync();
+                _ = message.ShowAsync();
 
                 // Remove the BusyOverlay
                 ShowBusyOverlay(false);

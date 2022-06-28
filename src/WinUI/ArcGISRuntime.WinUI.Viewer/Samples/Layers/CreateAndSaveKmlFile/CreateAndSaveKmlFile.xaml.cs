@@ -7,20 +7,19 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.WinUI.Viewer;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using Windows.Storage.Pickers;
-using Windows.UI.Popups;
-using ArcGISRuntime.WinUI.Viewer;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 
 namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
@@ -221,16 +220,16 @@ namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
 
         private async void Save_Click(object sender, RoutedEventArgs e)
         {
-            // Open a save dialog for the user.
-            FileSavePicker savePicker = new FileSavePicker();
-            WinRT.Interop.InitializeWithWindow.Initialize(savePicker, App.CurrentWindowHandle);
-            savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            savePicker.FileTypeChoices.Add("KMZ file", new List<string>() { ".kmz" });
-            Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
-
-            if (file != null)
+            try
             {
-                try
+                // Open a save dialog for the user.
+                FileSavePicker savePicker = new FileSavePicker();
+                WinRT.Interop.InitializeWithWindow.Initialize(savePicker, App.CurrentWindowHandle);
+                savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+                savePicker.FileTypeChoices.Add("KMZ file", new List<string>() { ".kmz" });
+                Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
+
+                if (file != null)
                 {
                     using (Stream stream = await file.OpenStreamForWriteAsync())
                     {
@@ -239,10 +238,10 @@ namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
                     }
                     await new MessageDialog2("Item saved.").ShowAsync();
                 }
-                catch
-                {
-                    await new MessageDialog2("File not saved.").ShowAsync();
-                }
+            }
+            catch
+            {
+                await new MessageDialog2("File not saved.").ShowAsync();
             }
         }
 

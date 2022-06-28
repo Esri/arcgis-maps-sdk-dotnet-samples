@@ -12,16 +12,15 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Media;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Media;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
 namespace ArcGISRuntime.WinUI.Samples.SymbolsFromMobileStyle
@@ -69,12 +68,18 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolsFromMobileStyle
 
             // Get the full path to the downloaded mobile style file (.stylx).
             string mobileStyleFilePath = DataManager.GetDataFolder("1bd036f221f54a99abc9e46ff3511cbf", "emoji-mobile.stylx");
+            try
+            {
+                // Call a function that will read the mobile style file and populate list boxes with symbol layers.
+                await ReadMobileStyle(mobileStyleFilePath);
 
-            // Call a function that will read the mobile style file and populate list boxes with symbol layers.
-            await ReadMobileStyle(mobileStyleFilePath);
-
-            // Handle the tapped event on the map view to draw point graphics with the chosen symbol.
-            MyMapView.GeoViewTapped += GeoViewTapped;
+                // Handle the tapped event on the map view to draw point graphics with the chosen symbol.
+                MyMapView.GeoViewTapped += GeoViewTapped;
+            }
+            catch (Exception ex)
+            {
+                _ = new MessageDialog2(ex.Message, "Error").ShowAsync();
+            }
         }
 
         private async Task ReadMobileStyle(string stylePath)
@@ -155,22 +160,34 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolsFromMobileStyle
         // Handler for the tapped event on the map view.
         private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            try { 
             // Call a function to get the currently defined multilayer point symbol.
             MultilayerPointSymbol faceSymbol = await GetCurrentSymbol();
 
             // Create a graphic for the tapped location using the current symbol and add it to the map view.
             Graphic graphic = new Graphic(e.Location, faceSymbol);
             MyMapView.GraphicsOverlays.First().Graphics.Add(graphic);
+            }
+            catch (Exception ex)
+            {
+                _ = new MessageDialog2(ex.Message, "Error").ShowAsync();
+            }
         }
 
         // An event handler for list box and combo box selection changes that will update the current symbol.
         private async void SymbolPropertyChanged(object sender, SelectionChangedEventArgs e)
         {
+            try { 
             // Call a function that will construct the current symbol.
             Symbol faceSymbol = await GetCurrentSymbol();
 
             // Call a function to update the symbol preview.
             await UpdateSymbolPreview(faceSymbol);
+            }
+            catch (Exception ex)
+            {
+                _ = new MessageDialog2(ex.Message, "Error").ShowAsync();
+            }
         }
 
         private async Task<MultilayerPointSymbol> GetCurrentSymbol()

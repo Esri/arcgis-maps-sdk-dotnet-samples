@@ -151,6 +151,9 @@
     <Compile Include="Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.xaml.cs">
       <DependentUpon>CreateMobileGeodatabase.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml.cs">
+      <DependentUpon>QueryFeaturesWithArcadeExpression.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml.cs">
       <DependentUpon>ExportVectorTiles.xaml</DependentUpon>
     </Compile>
@@ -796,6 +799,10 @@
   <ItemGroup>
     <!-- Sample XAML -->
     <Page Include="Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1663,6 +1670,9 @@
   <ItemGroup>
     <!-- Screenshots -->
     <Content Include="Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Samples\Layers\ExportVectorTiles\ExportVectorTiles.jpg">

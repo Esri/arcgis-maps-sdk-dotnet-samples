@@ -24,6 +24,7 @@
 * [Generate geodatabase](Shared/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](Shared/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](Shared/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
+* [Query features with Arcade expression](Shared/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Raster layer (GeoPackage)](Shared/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](Shared/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Read shapefile metadata](Shared/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.

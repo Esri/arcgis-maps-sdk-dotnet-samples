@@ -5,6 +5,7 @@
       <Sample>AddFeaturesWithContingentValues</Sample>
       <Sample>CreateMobileGeodatabase</Sample>
       <Sample>ToggleBetweenFeatureRequestModes</Sample>
+      <Sample>QueryFeaturesWithArcadeExpression</Sample>
     </Category>
     <Category name="GraphicsOverlay">
       <Sample>AddGraphicsRenderer</Sample>

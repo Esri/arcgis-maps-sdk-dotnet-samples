@@ -24,6 +24,7 @@
 * [Generate geodatabase](ArcGISRuntime.WPF.Viewer/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WPF.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WPF.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
+* [Query features with Arcade expression](ArcGISRuntime.WPF.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Raster layer (GeoPackage)](ArcGISRuntime.WPF.Viewer/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](ArcGISRuntime.WPF.Viewer/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Read shapefile metadata](ArcGISRuntime.WPF.Viewer/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.

@@ -234,6 +234,8 @@ class ReadmeStyleChecker:
         self.readme_parts = None
         self.readme_headers = None
 
+        print(self.folder_name)
+
     def populate_from_readme(self) -> None:
         """
         Read and parse the sections from README.

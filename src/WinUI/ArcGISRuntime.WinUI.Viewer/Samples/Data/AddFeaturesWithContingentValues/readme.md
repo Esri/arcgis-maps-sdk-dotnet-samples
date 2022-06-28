@@ -29,7 +29,7 @@ Tap on the map to add a feature symbolizing a bird's nest. Then choose values de
 8. Set the `ArcGISFeature` attribute values by name with `ArcGISFeature.SetAttributeValue(fieldName, fieldValue)`.
 9. Validate the feature's contingent values by using `GeodatabaseFeatureTable.ValidateContingencyConstraints(newFeature)` with the created feature. If the resulting list is empty, the selected values are valid.
 
-## RelevantAPI
+## Relevant API
 
 * FeatureTable
 * CodedValue

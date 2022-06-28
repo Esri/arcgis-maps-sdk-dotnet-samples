@@ -133,7 +133,7 @@ def main():
             return_code += 1
 
         # Run the markdownlint linter on README file.
-        if filename == 'README.md':
+        if filename == 'readme.md':
             # Run the linter on markdown file.
             return_code += run_mdl(f)
 

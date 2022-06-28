@@ -130,10 +130,11 @@ class MetadataCreator:
         """
         results = []
         for file in os.listdir(self.folder_path):
-            print(file)
             if os.path.splitext(file)[1] in ['.xaml']:
+                print(file)
                 results.append(file)
             if os.path.splitext(file)[1] in ['.xaml.cs']:
+                print(file)
                 results.append(file)
         if not results:
             raise Exception('Unable to get c# source code paths.')
@@ -264,6 +265,8 @@ def compare_one_metadata(folder_path: str):
     new = single_updater.flush_to_json_string()
     original = json.dumps(json_data, indent=4, sort_keys=True)
     if new != original:
+        print(new)
+        print(original)
         raise Exception(f'Error inconsistent metadata - {folder_path}')
 
 

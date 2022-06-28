@@ -90,12 +90,12 @@ def main():
 
         path_parts = os.path.normpath(f).split(os.path.sep)
         print(path_parts)
-        if len(path_parts) < 4:
+        if len(path_parts) < 7:
             # A file not in samples folder, omit.
             # E.g. might be in the root folder or other unrelated folders.
             continue
 
-        print(path_parts[-4])
+        print(path_parts[-3])
         # Only run checks on folders that is within a category.
         if path_parts[-3] not in categories:
             # Folder name is not a category, omit.

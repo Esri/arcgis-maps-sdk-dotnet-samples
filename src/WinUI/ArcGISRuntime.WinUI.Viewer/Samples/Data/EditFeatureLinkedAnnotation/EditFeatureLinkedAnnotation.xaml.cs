@@ -172,12 +172,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureLinkedAnnotation
             AttributesBorder.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
         }
 
-        private void OkClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        {
-            _ = OkClickTask(sender, e);
-        }
-
-        private async Task OkClickTask(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private async void OkClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             try
             {

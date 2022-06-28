@@ -77,12 +77,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
             }
         }
 
-        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = MapView_TappedTask(sender, e);
-        }
-
-        private async Task MapView_TappedTask(object sender, GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
@@ -129,12 +124,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
             }
         }
 
-        private void AddAttachment_Click(object sender, RoutedEventArgs e)
-        {
-            _ = AddAttachment_ClickTask(sender, e);
-        }
-
-        private async Task AddAttachment_ClickTask(object sender, RoutedEventArgs e)
+        private async void AddAttachment_Click(object sender, RoutedEventArgs e)
         {
             if (_selectedFeature == null)
             {
@@ -200,12 +190,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
             }
         }
 
-        private void DeleteAttachment_Click(object sender, RoutedEventArgs e)
-        {
-            _ = DeleteAttachment_ClickTask(sender, e);
-        }
-
-        private async Task DeleteAttachment_ClickTask(object sender, RoutedEventArgs e)
+        private async void DeleteAttachment_Click(object sender, RoutedEventArgs e)
         {
             ActivityIndicator.Visibility = Visibility.Visible;
 
@@ -243,12 +228,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditFeatureAttachments
             }
         }
 
-        private void DownloadAttachment_Click(object sender, RoutedEventArgs e)
-        {
-            _ = DownloadAttachment_ClickTask(sender, e);
-        }
-
-        private async Task DownloadAttachment_ClickTask(object sender, RoutedEventArgs e)
+        private async void DownloadAttachment_Click(object sender, RoutedEventArgs e)
         {
             try
             {

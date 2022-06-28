@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.StatisticalQuery
 {
@@ -59,12 +58,7 @@ namespace ArcGISRuntime.WinUI.Samples.StatisticalQuery
             MyMapView.Map = myMap;
         }
 
-        private void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnExecuteStatisticsQueryClickedTask(sender, e);
-        }
-
-        private async Task OnExecuteStatisticsQueryClickedTask(object sender, RoutedEventArgs e)
+        private async void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
         {
             // Create definitions for each statistic to calculate
             StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");

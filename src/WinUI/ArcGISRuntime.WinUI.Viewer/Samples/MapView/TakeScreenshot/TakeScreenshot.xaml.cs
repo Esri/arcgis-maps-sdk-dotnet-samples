@@ -39,12 +39,7 @@ namespace ArcGISRuntime.WinUI.Samples.TakeScreenshot
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
         }
 
-        private void OnTakeScreenshotButtonClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnTakeScreenshotButtonClickedTask(sender, e);
-        }
-
-        private async Task OnTakeScreenshotButtonClickedTask(object sender, RoutedEventArgs e)
+        private async void OnTakeScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {

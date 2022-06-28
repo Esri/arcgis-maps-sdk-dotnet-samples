@@ -142,12 +142,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             }
         }
 
-        private void GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
-        {
-            _ = GeoViewTappedTask(sender, e);
-        }
-
-        private async Task GeoViewTappedTask(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private async void GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             try
             {
@@ -493,12 +488,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             await new MessageDialog2(message).ShowAsync();
         }
 
-        private void GenerateButton_Clicked(object sender, RoutedEventArgs e)
-        {
-            _ = GenerateButton_ClickedTask(sender, e);
-        }
-
-        private async Task GenerateButton_ClickedTask(object sender, RoutedEventArgs e)
+        private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
             // Fix the selection graphic extent.
             MyMapView.ViewpointChanged -= MapViewExtentChanged;
@@ -536,12 +526,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             });
         }
 
-        private void SyncButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = SyncButton_ClickTask(sender, e);
-        }
-
-        private async Task SyncButton_ClickTask(object sender, RoutedEventArgs e)
+        private async void SyncButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {

@@ -195,12 +195,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditBranchVersioning
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = MyMapView_GeoViewTappedTask(sender, e);
-        }
-
-        private async Task MyMapView_GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Check if a feature is selected and the service geodatabase is not on the default version.
             if (_selectedFeature is ArcGISFeature && _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
@@ -265,12 +260,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditBranchVersioning
             }
         }
 
-        private void DamageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _ = DamageBox_SelectionChangedTask(sender, e);
-        }
-
-        private async Task DamageBox_SelectionChangedTask(object sender, SelectionChangedEventArgs e)
+        private async void DamageBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -302,12 +292,7 @@ namespace ArcGISRuntime.WinUI.Samples.EditBranchVersioning
             }
         }
 
-        private void ConfirmVersionClick(object sender, RoutedEventArgs e)
-        {
-            _ = ConfirmVersionClickTask(sender, e);
-        }
-
-        private async Task ConfirmVersionClickTask(object sender, RoutedEventArgs e)
+        private async void ConfirmVersionClick(object sender, RoutedEventArgs e)
         {
             try
             {

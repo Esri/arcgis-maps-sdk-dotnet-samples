@@ -68,12 +68,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceArea
             };
         }
 
-        private void PlaceFacilityButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = PlaceFacilityButton_ClickTask(sender, e);
-        }
-
-        private async Task PlaceFacilityButton_ClickTask(object sender, RoutedEventArgs e)
+        private async void PlaceFacilityButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -108,12 +103,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceArea
             }
         }
 
-        private void DrawBarrierButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = DrawBarrierButton_ClickTask(sender, e);
-        }
-
-        private async Task DrawBarrierButton_ClickTask(object sender, RoutedEventArgs e)
+        private async void DrawBarrierButton_Click(object sender, RoutedEventArgs e)
         {
             // Finish the drawing if already started.
             if ((string)DrawBarrierButton.Content != "Draw barrier")
@@ -155,12 +145,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceArea
             }
         }
 
-        private void ShowServiceAreasButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = ShowServiceAreasButton_ClickTask(sender, e);
-        }
-
-        private async Task ShowServiceAreasButton_ClickTask(object sender, RoutedEventArgs e)
+        private async void ShowServiceAreasButton_Click(object sender, RoutedEventArgs e)
         {
             // Finish any sketches in progress.
             // If the sketch editor complete command is enabled, a sketch is in progress.

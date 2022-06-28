@@ -216,12 +216,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             }
         }
 
-        private void AddNewFeature(object sender, RoutedEventArgs args)
-        {
-            _ = AddNewFeatureTask(sender, args);
-        }
-
-        private async Task AddNewFeatureTask(object sender, RoutedEventArgs args)
+        private async void AddNewFeature(object sender, RoutedEventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked
             Button addFeatureButton = (Button)sender;
@@ -279,12 +274,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             }
         }
 
-        private void StopEditTransaction(object sender, RoutedEventArgs e)
-        {
-            _ = StopEditTransactionTask(sender, e);
-        }
-
-        private async Task StopEditTransactionTask(object sender, RoutedEventArgs e)
+        private async void StopEditTransaction(object sender, RoutedEventArgs e)
         {
             // Create a new dialog that prompts for commit, rollback, or cancel
             var promptDialog = new MessageDialog2("Commit your edits to the local geodatabase or rollback to discard them.", "Stop Editing");
@@ -326,12 +316,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
         }
 
         // Change which controls are enabled if the user chooses to require/not require transactions for edits
-        private void RequireTransactionChanged(object sender, RoutedEventArgs e)
-        {
-            _ = RequireTransactionChangedTask(sender, e);
-        }
-
-        private async Task RequireTransactionChangedTask(object sender, RoutedEventArgs e)
+        private async void RequireTransactionChanged(object sender, RoutedEventArgs e)
         {
             // If the local geodatabase isn't created yet, return
             if (_localGeodatabase == null) { return; }
@@ -355,12 +340,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
         }
 
         // Synchronize edits in the local geodatabase with the service
-        public void SynchronizeEdits(object sender, RoutedEventArgs e)
-        {
-            _ = SynchronizeEditsTask(sender, e);
-        }
-
-        public async Task SynchronizeEditsTask(object sender, RoutedEventArgs e)
+        public async void SynchronizeEdits(object sender, RoutedEventArgs e)
         {
             // Show the progress bar while the sync is working
             LoadingProgressBar.Visibility = Visibility.Visible;

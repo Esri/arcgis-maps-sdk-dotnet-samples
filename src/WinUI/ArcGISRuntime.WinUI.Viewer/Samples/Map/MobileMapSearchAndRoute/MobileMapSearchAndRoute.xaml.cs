@@ -103,12 +103,7 @@ namespace ArcGISRuntime.WinUI.Samples.MobileMapSearchAndRoute
             return package;
         }
 
-        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = MapView_TappedTask(sender, e);
-        }
-
-        private async Task MapView_TappedTask(object sender, GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
             // Handle routing.
             try
@@ -194,12 +189,7 @@ namespace ArcGISRuntime.WinUI.Samples.MobileMapSearchAndRoute
             _endPoint = null;
         }
 
-        private void Map_Selected(object sender, SelectionChangedEventArgs e)
-        {
-            _ = Map_SelectedTask(sender, e);
-        }
-
-        private async Task Map_SelectedTask(object sender, SelectionChangedEventArgs e)
+        private async void Map_Selected(object sender, SelectionChangedEventArgs e)
         {
             // Clear existing overlays.
             MyMapView.DismissCallout();

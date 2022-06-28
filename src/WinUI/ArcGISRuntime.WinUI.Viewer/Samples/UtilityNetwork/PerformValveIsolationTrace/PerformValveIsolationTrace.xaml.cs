@@ -150,12 +150,7 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
             }
         }
 
-        private void OnTrace(object sender, RoutedEventArgs e)
-        {
-            _ = OnTraceTask(sender, e);
-        }
-
-        private async Task OnTraceTask(object sender, RoutedEventArgs e)
+        private async void OnTrace(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -242,12 +237,7 @@ namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
             _terminalCompletionSource.TrySetResult(Picker.SelectedItem as UtilityTerminal);
         }
 
-        private void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = OnGeoViewTappedTask(sender, e);
-        }
-
-        private async Task OnGeoViewTappedTask(object sender, GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {

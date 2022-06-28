@@ -136,12 +136,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             }
         }
 
-        private void StartNavigation(object sender, RoutedEventArgs e)
-        {
-            _ = StartNavigationTask(sender, e);
-        }
-
-        private async Task StartNavigationTask(object sender, RoutedEventArgs e)
+        private async void StartNavigation(object sender, RoutedEventArgs e)
         {
             // Disable the start navigation button.
             StartNavigationButton.IsEnabled = false;
@@ -247,12 +242,7 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             });
         }
 
-        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
-        {
-            _ = SpeakDirectionTask(sender, e);
-        }
-
-        private async Task SpeakDirectionTask(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
             // Generate the audio stream for the voice guidance.
             SpeechSynthesisStream stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);

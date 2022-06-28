@@ -81,12 +81,7 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
         }
 
         // Execute a statistical query using the parameters defined by the user and display the results
-        private void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnExecuteStatisticsQueryClickedTask(sender, e);
-        }
-
-        private async Task OnExecuteStatisticsQueryClickedTask(object sender, RoutedEventArgs e)
+        private async void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
         {
             // Verify that there is at least one statistic definition
             if (_statDefinitions.Count == 0)

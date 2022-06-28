@@ -72,12 +72,7 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeStretchRenderer
             }
         }
 
-        private void OnUpdateRendererClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnUpdateRendererClickedTask(sender, e);
-        }
-
-        private async Task OnUpdateRendererClickedTask(object sender, RoutedEventArgs e)
+        private async void OnUpdateRendererClicked(object sender, RoutedEventArgs e)
         {
             // Convert the text to doubles and return if they're invalid.
             double input1;

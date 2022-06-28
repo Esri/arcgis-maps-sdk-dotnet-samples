@@ -15,7 +15,6 @@ using System.Linq;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ChangeViewpoint
 {
@@ -70,12 +69,7 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeViewpoint
             MyMapView.Map = myMap;
         }
 
-        private void OnButtonClick(object sender, RoutedEventArgs e)
-        {
-            _ = OnButtonClickTask(sender, e);
-        }
-
-        private async Task OnButtonClickTask(object sender, RoutedEventArgs e)
+        private async void OnButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {

@@ -185,12 +185,7 @@ namespace ArcGISRuntime.WinUI.Samples.SketchOnMap
             EditButton.IsEnabled = false;
         }
 
-        private void EditButtonClick(object sender, RoutedEventArgs e)
-        {
-            _ = EditButtonClickTask(sender, e);
-        }
-
-        private async Task EditButtonClickTask(object sender, RoutedEventArgs e)
+        private async void EditButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {

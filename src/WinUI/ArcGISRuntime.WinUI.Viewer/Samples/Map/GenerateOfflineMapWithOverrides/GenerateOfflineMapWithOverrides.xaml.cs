@@ -115,12 +115,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMapWithOverrides
             }
         }
 
-        private void TakeMapOfflineButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        {
-            _ = TakeMapOfflineButton_ClickTask(sender, e);
-        }
-
-        private async Task TakeMapOfflineButton_ClickTask(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private async void TakeMapOfflineButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             // Create a new folder for the output mobile map.
             string packagePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), @"NapervilleWaterNetwork");

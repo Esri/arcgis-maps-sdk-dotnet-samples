@@ -22,7 +22,6 @@ using ArcGISRuntime.WinUI.Viewer;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
 {
@@ -90,12 +89,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
             MyMapView.Map.OperationalLayers.Add(_kmlLayer);
         }
 
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Edit_ClickTask(sender, e);
-        }
-
-        private async Task Edit_ClickTask(object sender, RoutedEventArgs e)
+        private async void Edit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -225,12 +219,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
             }
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Save_ClickTask(sender, e);
-        }
-
-        private async Task Save_ClickTask(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             // Open a save dialog for the user.
             FileSavePicker savePicker = new FileSavePicker();

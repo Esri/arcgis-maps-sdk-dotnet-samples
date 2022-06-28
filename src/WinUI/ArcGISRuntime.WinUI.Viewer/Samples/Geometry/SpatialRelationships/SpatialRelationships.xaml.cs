@@ -18,7 +18,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using Windows.UI.Popups;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.SpatialRelationships
 {
@@ -112,12 +111,7 @@ namespace ArcGISRuntime.WinUI.Samples.SpatialRelationships
             MyMapView.SetViewpointCenterAsync(pointGeometry, 200000000);
         }
 
-        private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
-        {
-            _ = MapViewTappedTask(sender, geoViewInputEventArgs);
-        }
-
-        private async Task MapViewTappedTask(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
+        private async void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Identify the tapped graphics
             IdentifyGraphicsOverlayResult result = null;

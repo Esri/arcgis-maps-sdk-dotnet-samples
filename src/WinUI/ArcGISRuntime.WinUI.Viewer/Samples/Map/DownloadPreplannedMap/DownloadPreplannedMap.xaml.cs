@@ -223,12 +223,7 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
             });
         }
 
-        private void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnDownloadMapAreaClickedTask(sender, e);
-        }
-
-        private async Task OnDownloadMapAreaClickedTask(object sender, RoutedEventArgs e)
+        private async void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
         {
             if (AreasList.SelectedItem != null)
             {
@@ -237,12 +232,7 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
             }
         }
 
-        private void OnDeleteAllMapAreasClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnDeleteAllMapAreasClickedTask(sender, e);
-        }
-
-        private async Task OnDeleteAllMapAreasClickedTask(object sender, RoutedEventArgs e)
+        private async void OnDeleteAllMapAreasClicked(object sender, RoutedEventArgs e)
         {
             try
             {

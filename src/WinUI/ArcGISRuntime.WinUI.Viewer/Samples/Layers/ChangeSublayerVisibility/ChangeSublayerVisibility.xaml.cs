@@ -13,7 +13,6 @@ using System.Linq;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ChangeSublayerVisibility
 {
@@ -57,12 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeSublayerVisibility
             MyMapView.Map = myMap;
         }
 
-        private void OnSublayersButtonClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnSublayersButtonClickedTask(sender, e);
-        }
-
-        private async Task OnSublayersButtonClickedTask(object sender, RoutedEventArgs e)
+        private async void OnSublayersButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {

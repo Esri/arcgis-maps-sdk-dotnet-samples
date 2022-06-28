@@ -17,7 +17,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
 {
@@ -131,12 +130,7 @@ namespace ArcGISRuntime.WinUI.Samples.DistanceMeasurement
             HelpTextBlock.Text = "Move the mouse to update the end point. Tap again to finish.";
         }
 
-        private void MySceneView_PointerMoved(object sender, PointerRoutedEventArgs e)
-        {
-            _ = MySceneView_PointerMovedTask(sender, e);
-        }
-
-        private async Task MySceneView_PointerMovedTask(object sender, PointerRoutedEventArgs e)
+        private async void MySceneView_PointerMoved(object sender, PointerRoutedEventArgs e)
         {
             try
             {

@@ -16,7 +16,6 @@ using System;
 using System.Linq;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml.Controls;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.IdentifyKmlFeatures
 {
@@ -61,12 +60,7 @@ namespace ArcGISRuntime.WinUI.Samples.IdentifyKmlFeatures
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = MyMapView_GeoViewTappedTask(sender, e);
-        }
-
-        private async Task MyMapView_GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Clear any existing popups.
             MyMapView.DismissCallout();

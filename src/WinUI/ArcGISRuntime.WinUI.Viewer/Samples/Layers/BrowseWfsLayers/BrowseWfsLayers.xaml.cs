@@ -19,7 +19,6 @@ using System.Drawing;
 using System.Linq;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.BrowseWfsLayers
 {
@@ -88,12 +87,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseWfsLayers
             }
         }
 
-        private void LoadLayers_Clicked(object sender, RoutedEventArgs e)
-        {
-            _ = LoadLayers_ClickedTask(sender, e);
-        }
-
-        private async Task LoadLayers_ClickedTask(object sender, RoutedEventArgs e)
+        private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)
         {
             // Skip if nothing selected.
             if (WfsLayerList.SelectedItems.Count < 1)

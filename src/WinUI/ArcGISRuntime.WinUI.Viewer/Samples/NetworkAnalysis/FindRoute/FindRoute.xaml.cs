@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.FindRoute
@@ -94,12 +93,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindRoute
             MyMapView.GraphicsOverlays.Add(_routeGraphicsOverlay);
         }
 
-        private void SolveRouteClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        {
-            _ = SolveRouteClickTask(sender, e);
-        }
-
-        private async Task SolveRouteClickTask(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private async void SolveRouteClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             try
             {

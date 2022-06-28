@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml.Controls;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayKml
 {
@@ -47,12 +46,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayKml
             LayerPicker.SelectedIndex = 0;
         }
 
-        private void LayerPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _ = LayerPicker_SelectionChangedTask(sender, e);
-        }
-
-        private async Task LayerPicker_SelectionChangedTask(object sender, SelectionChangedEventArgs e)
+        private async void LayerPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Clear existing layers.
             MySceneView.Scene.OperationalLayers.Clear();

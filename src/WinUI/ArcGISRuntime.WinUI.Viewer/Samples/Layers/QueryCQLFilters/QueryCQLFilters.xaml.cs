@@ -139,12 +139,7 @@ namespace ArcGISRuntime.WinUI.Samples.QueryCQLFilters
             return queryParameters;
         }
 
-        private void ApplyQuery_Click(object sender, RoutedEventArgs e)
-        {
-            _ = ApplyQuery_ClickTask(sender, e);
-        }
-
-        private async Task ApplyQuery_ClickTask(object sender, RoutedEventArgs e)
+        private async void ApplyQuery_Click(object sender, RoutedEventArgs e)
         {
             if (_featureTable.LoadStatus != Esri.ArcGISRuntime.LoadStatus.Loaded)
             {

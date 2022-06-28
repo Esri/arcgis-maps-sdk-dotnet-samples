@@ -16,7 +16,6 @@ using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.BrowseOAFeatureService
 {
@@ -84,12 +83,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseOAFeatureService
             }
         }
 
-        private void LoadLayers_Clicked(object sender, RoutedEventArgs e)
-        {
-            _ = LoadLayers_ClickedTask(sender, e);
-        }
-
-        private async Task LoadLayers_ClickedTask(object sender, RoutedEventArgs e)
+        private async void LoadLayers_Clicked(object sender, RoutedEventArgs e)
         {
             // Skip if nothing selected.
             if (OgcFeatureCollectionList.SelectedItems.Count < 1)

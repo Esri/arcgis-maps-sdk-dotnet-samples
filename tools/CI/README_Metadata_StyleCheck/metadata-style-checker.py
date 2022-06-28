@@ -225,7 +225,7 @@ def compare_one_metadata(folder_path: str):
     without passing in arguments, and write to a separate json for comparison.
 
     The path may look like
-    '~/arcgis-runtime-samples-dotnet/arcgis-ios-sdk-samples/Maps/Display a map'
+    '~/arcgis-runtime-samples-dotnet/src/Forms/Shared/Samples/Map/DisplayMap'
     """
     single_updater = MetadataCreator(folder_path)
     try:
@@ -293,28 +293,25 @@ def all_samples(path: str):
     if exception_count > 0:
         raise Exception('Error(s) occurred during checking all samples.')
 
-
 def main():
     # Initialize parser.
-    msg = 'Check metadata style. Run it against the /arcgis-ios-sdk-samples ' \
-          'folder or a single sample folder. ' \
+    msg = 'Check metadata style. Run it against the samples repo root, or a single sample folder. ' \
           'On success: Script will exit with zero. ' \
           'On failure: Title inconsistency will print to console and the ' \
           'script will exit with non-zero code.'
     parser = argparse.ArgumentParser(description=msg)
-    parser.add_argument('-a', '--all', help='path to arcgis-ios-sdk-samples '
-                                            'folder')
+    parser.add_argument('-a', '--all', help='path to the samples repo root')
     parser.add_argument('-s', '--single', help='path to a single sample')
     args = parser.parse_args()
 
-    if args.all:
-        try:
-            all_samples(args.all)
-        except Exception as err:
-            raise err
-    elif args.single:
+    if args.single:
         try:
             compare_one_metadata(args.single)
+        except Exception as err:
+            raise err
+    elif args.all:
+        try:
+            all_samples(args.all)
         except Exception as err:
             raise err
     else:

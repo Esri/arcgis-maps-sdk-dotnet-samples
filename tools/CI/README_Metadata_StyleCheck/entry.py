@@ -124,11 +124,11 @@ def main():
             print(f'*** Checking {dir_path} ***')
 
         # Check if the capitalization of doc filenames are correct.
-        if l_name == 'readme.md' and filename != 'README.md':
+        if l_name == 'readme.md' and filename != 'readme.md':
             print(f'Error: {dir_path} filename has wrong capitalization')
             return_code += 1
 
-        if l_name == 'readme.metadata.json' and filename != 'README.metadata.json':
+        if l_name == 'readme.metadata.json' and filename != 'readme.metadata.json':
             print(f'Error: {dir_path} filename has wrong capitalization')
             return_code += 1
 

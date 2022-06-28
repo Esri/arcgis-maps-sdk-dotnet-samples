@@ -139,7 +139,6 @@ class MetadataCreator:
         results = []
         for file in os.listdir(self.folder_path):
             if os.path.splitext(file)[1] in ['.xaml', '.cs']:
-                print(file)
                 results.append(file)
         if not results:
             raise Exception('Unable to get c# source code paths.')
@@ -191,7 +190,6 @@ class MetadataCreator:
             keywords = parse_tags(readme_parts[tags_section_index])
             # De-duplicate API names in README's Tags section.
             self.keywords = [w for w in keywords if w not in self.relevant_apis]
-            print(readme_parts[offline_data_section_index])
             self.offline_data = parse_offline_data(readme_parts[offline_data_section_index])
 
         except Exception as err:

@@ -234,7 +234,7 @@ class ReadmeStyleChecker:
         self.readme_parts = None
         self.readme_headers = None
 
-        print(self.folder_name)
+        print("Folder Name: " + self.folder_name)
 
     def populate_from_readme(self) -> None:
         """

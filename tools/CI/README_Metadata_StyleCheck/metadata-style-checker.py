@@ -119,8 +119,8 @@ class MetadataCreator:
 
         self.folder_path = folder_path
         self.folder_name = get_folder_name_from_path(folder_path)
-        self.readme_path = os.path.join(folder_path, 'README.md')
-        self.json_path = os.path.join(folder_path, 'README.metadata.json')
+        self.readme_path = os.path.join(folder_path, 'readme.md')
+        self.json_path = os.path.join(folder_path, 'readme.metadata.json')
 
     def get_source_code_paths(self) -> typing.List[str]:
         """
@@ -235,7 +235,7 @@ def compare_one_metadata(folder_path: str):
         print(f'Error populate failed for - {single_updater.folder_name}.')
         raise err
 
-    json_path = os.path.join(folder_path, 'README.metadata.json')
+    json_path = os.path.join(folder_path, 'readme.metadata.json')
 
     try:
         json_file = open(json_path, 'r')

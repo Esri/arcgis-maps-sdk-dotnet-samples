@@ -230,7 +230,7 @@ class ReadmeStyleChecker:
     def __init__(self, folder_path: str):
         self.folder_path = folder_path
         self.folder_name = get_folder_name_from_path(folder_path)
-        self.readme_path = os.path.join(folder_path, 'README.md')
+        self.readme_path = os.path.join(folder_path, 'readme.md')
         self.readme_contents = None
         self.readme_parts = None
         self.readme_headers = None

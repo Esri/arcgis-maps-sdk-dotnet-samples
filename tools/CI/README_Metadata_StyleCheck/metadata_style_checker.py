@@ -133,7 +133,7 @@ class MetadataCreator:
             if os.path.splitext(file)[1] in ['.xaml']:
                 print(file)
                 results.append(file)
-            if os.path.splitext(file)[1] in ['.xaml.cs']:
+            elif os.path.splitext(file)[1] in ['.xaml.cs']:
                 print(file)
                 results.append(file)
         if not results:

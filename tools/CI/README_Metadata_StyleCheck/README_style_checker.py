@@ -426,6 +426,8 @@ def main():
           'On success: Script will exit with zero. ' \
           'On failure: Style violations will print to console and the script ' \
           'will exit with non-zero code.'
+
+    print("test")
     parser = argparse.ArgumentParser(description=msg)
     parser.add_argument('-a', '--all', help='path to project root folder')
     parser.add_argument('-s', '--single', help='path to a sample folder')

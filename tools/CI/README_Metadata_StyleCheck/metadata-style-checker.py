@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from ast import Tuple
 import os
 import re
 import json
@@ -47,7 +46,7 @@ def sub_special_char(string: str) -> str:
     return re.sub(regex, '', string)
 
 
-def parse_head(head_string: str) -> Tuple[str, str]:
+def parse_head(head_string: str) -> (str, str):
     """
     Parse the `Title` section of README file and get the title and description.
 

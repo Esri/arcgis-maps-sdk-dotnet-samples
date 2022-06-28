@@ -76,7 +76,7 @@ def get_folder_name_from_path(path: str, index: int = -1) -> str:
     return os.path.normpath(path).split(os.path.sep)[index]
 
 
-def parse_head(head_string: str) -> Tuple[str, str]:
+def parse_head(head_string: str) -> (str, str):
     """
     Parse the head of README and get title and description.
 

@@ -70,6 +70,7 @@ def main():
     print(args.string)
     if args.string:
         files = read_json(json.loads(args.string))
+        print(files)
         if not files:
             print('Invalid input file paths string, abort.')
             exit(1)
@@ -102,6 +103,8 @@ def main():
         filename = os.path.basename(f)
         dir_path = os.path.dirname(f)
         l_name = filename.lower()
+
+        print("name: " + l_name)
 
         # Changed file is not a README or metadata file, omit.
         if l_name != 'readme.md' and l_name != 'readme.metadata.json':

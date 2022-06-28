@@ -90,8 +90,6 @@ def main():
             continue
 
         path_parts = os.path.normpath(f).split(os.path.sep)
-        print(path_parts)
-        print(len(path_parts))
         if len(path_parts) < 7:
             # A file not in samples folder, omit.
             # E.g. might be in the root folder or other unrelated folders.
@@ -101,19 +99,12 @@ def main():
         # Only run checks on folders that is within a category.
         if path_parts[-3] not in categories:
             # Folder name is not a category, omit.
-            print(path_parts[-3] + " not found in categories")
-            
             continue
         
-        print(path_parts[-3] + " found in categories")
         # Get filename and folder name of the changed sample.
         filename = os.path.basename(f)
-        print(filename)
         dir_path = os.path.dirname(f)
-        print(dir_path)
         l_name = filename.lower()
-
-        print("name: " + l_name)
 
         # Changed file is not a README or metadata file, omit.
         if l_name != 'readme.md' and l_name != 'readme.metadata.json':

@@ -31,7 +31,6 @@ Tap on the map to add a feature symbolizing a bird's nest. Then choose values de
 
 ## Relevant API
 
-* FeatureTable
 * CodedValue
 * CodedValueDomain
 * ContingencyConstraintViolation
@@ -39,6 +38,7 @@ Tap on the map to add a feature symbolizing a bird's nest. Then choose values de
 * ContingentRangeValue
 * ContingentValuesDefinition
 * ContingentValuesResult
+* FeatureTable
 
 ## Offline data
 

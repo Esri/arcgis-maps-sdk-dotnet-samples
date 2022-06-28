@@ -82,6 +82,7 @@ def main():
     # A set of dirname strings to avoid duplicate checks on the same sample.
     samples_set = set()
 
+    print(categories)
     for f in files:
         if not os.path.exists(f):
             # The changed file is deleted, no need to style check.

@@ -100,9 +100,11 @@ def main():
         # Only run checks on folders that is within a category.
         if path_parts[-3] not in categories:
             # Folder name is not a category, omit.
+            print(path_parts[-3] + " not found in categories")
+            
             continue
         
-        print(path_parts[-3] + "found in categories")
+        print(path_parts[-3] + " found in categories")
         # Get filename and folder name of the changed sample.
         filename = os.path.basename(f)
         print(filename)

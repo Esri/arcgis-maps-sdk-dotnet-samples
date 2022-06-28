@@ -222,12 +222,7 @@ namespace ArcGISRuntime.WPF.Samples.DownloadPreplannedMap
             });
         }
 
-        private void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnDownloadMapAreaClickedTask(sender, e);
-        }
-
-        private async Task OnDownloadMapAreaClickedTask(object sender, RoutedEventArgs e)
+        private async void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
         {
             if (AreasList.SelectedItem != null)
             {

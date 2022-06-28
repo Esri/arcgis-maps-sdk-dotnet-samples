@@ -14,7 +14,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -156,12 +155,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             }
         }
 
-        private void StartServiceButtonClicked(object sender, RoutedEventArgs e)
-        {
-            _ = StartServiceButtonClickedTask(sender, e);
-        }
-
-        private async Task StartServiceButtonClickedTask(object sender, RoutedEventArgs e)
+        private async void StartServiceButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -177,12 +171,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             }
         }
 
-        private void StopServiceButtonClicked(object sender, RoutedEventArgs e)
-        {
-            _ = StopServiceButtonClickedTask(sender, e);
-        }
-
-        private async Task StopServiceButtonClickedTask(object sender, RoutedEventArgs e)
+        private async void StopServiceButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -213,12 +202,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             return DataManager.GetDataFolder("a680362d6a7447e8afe2b1eb85fcde30", "Contour.gpkx");
         }
 
-        private void StartServerButtonClicked(object sender, RoutedEventArgs e)
-        {
-            _ = StartServerButtonClickedTask(sender, e);
-        }
-
-        private async Task StartServerButtonClickedTask(object sender, RoutedEventArgs e)
+        private async void StartServerButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -254,12 +238,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             LocalServerStartButton.IsEnabled = false;
         }
 
-        private void StopServerButtonClicked(object sender, RoutedEventArgs e)
-        {
-            _ = StopServerButtonClickedTask(sender, e);
-        }
-
-        private async Task StopServerButtonClickedTask(object sender, RoutedEventArgs e)
+        private async void StopServerButtonClicked(object sender, RoutedEventArgs e)
         {
             // Update the UI
             ServiceStartButton.IsEnabled = false;

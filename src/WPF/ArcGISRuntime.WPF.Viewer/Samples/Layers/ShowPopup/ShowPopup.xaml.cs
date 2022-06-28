@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.ShowPopup
 {
@@ -39,12 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.ShowPopup
             MyMapView.Map = new Map(new Uri("https://arcgisruntime.maps.arcgis.com/home/item.html?id=fb788308ea2e4d8682b9c05ef641f273"));
         }
 
-        private void MapViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = MapViewTappedTask(sender, e);
-        }
-
-        private async Task MapViewTappedTask(object sender, GeoViewInputEventArgs e)
+        private async void MapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {

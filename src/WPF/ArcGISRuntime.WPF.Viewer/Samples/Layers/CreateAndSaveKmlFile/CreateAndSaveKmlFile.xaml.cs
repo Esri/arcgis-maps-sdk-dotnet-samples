@@ -16,7 +16,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
@@ -96,12 +95,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
             MyMapView.Map.OperationalLayers.Add(_kmlLayer);
         }
 
-        private void Edit_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Edit_ClickTask(sender, e);
-        }
-
-        private async Task Edit_ClickTask(object sender, RoutedEventArgs e)
+        private async void Edit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -227,12 +221,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateAndSaveKmlFile
             }
         }
 
-        private void Save_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Save_ClickTask(sender, e);
-        }
-
-        private async Task Save_ClickTask(object sender, RoutedEventArgs e)
+        private async void Save_Click(object sender, RoutedEventArgs e)
         {
             // Open a save dialog for the user.
             SaveFileDialog saveFileDialog = new SaveFileDialog();

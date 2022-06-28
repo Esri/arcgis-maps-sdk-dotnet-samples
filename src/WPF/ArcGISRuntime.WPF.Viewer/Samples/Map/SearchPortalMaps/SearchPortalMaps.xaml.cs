@@ -49,12 +49,7 @@ namespace ArcGISRuntime.WPF.Samples.SearchPortalMaps
 
         private void DisplayDefaultMap() => MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
-        private void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = SearchButton_ClickTask(sender, e);
-        }
-
-        private async Task SearchButton_ClickTask(object sender, RoutedEventArgs e)
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {

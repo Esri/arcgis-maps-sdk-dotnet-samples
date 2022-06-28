@@ -74,12 +74,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
-        {
-            _ = MyMapView_GeoViewTappedTask(sender, e);
-        }
-
-        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // Hide the old result.
             BrowserView.Visibility = Visibility.Collapsed;

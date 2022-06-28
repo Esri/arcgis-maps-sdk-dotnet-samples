@@ -106,12 +106,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
         }
 
         // Search the public portal for web maps and display the results in a list.
-        private void SearchPublicMapsClick(object sender, RoutedEventArgs e)
-        {
-            _ = SearchPublicMapsClickTask(sender, e);
-        }
-
-        private async Task SearchPublicMapsClickTask(object sender, RoutedEventArgs e)
+        private async void SearchPublicMapsClick(object sender, RoutedEventArgs e)
         {
             // Set a variable that indicates this is the public portal.
             // When a map is loaded from the results, will need to know which portal it came from.
@@ -133,12 +128,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
         }
 
         // Search the IWA-secured portal for web maps and display the results in a list.
-        private void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
-        {
-            _ = SearchSecureMapsButtonClickTask(sender, e);
-        }
-
-        private async Task SearchSecureMapsButtonClickTask(object sender, RoutedEventArgs e)
+        private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -227,12 +217,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
             }
         }
 
-        private void AddMapItemClick(object sender, RoutedEventArgs e)
-        {
-            _ = AddMapItemClickTask(sender, e);
-        }
-
-        private async Task AddMapItemClickTask(object sender, RoutedEventArgs e)
+        private async void AddMapItemClick(object sender, RoutedEventArgs e)
         {
             // Get a web map from the selected portal item and display it in the map view.
             if (MapItemListBox.SelectedItem == null)

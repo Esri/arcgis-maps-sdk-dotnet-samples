@@ -105,12 +105,7 @@ namespace ArcGISRuntime.WPF.Samples.AuthorMap
             OperationalLayerListBox.SelectedIndex = -1;
         }
 
-        private void SaveMapClicked(object sender, RoutedEventArgs e)
-        {
-            _ = SaveMapClickedTask(sender, e);
-        }
-
-        private async Task SaveMapClickedTask(object sender, RoutedEventArgs e)
+        private async void SaveMapClicked(object sender, RoutedEventArgs e)
         {
             try
             {

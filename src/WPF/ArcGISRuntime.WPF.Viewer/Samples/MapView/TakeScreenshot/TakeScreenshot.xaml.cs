@@ -37,12 +37,7 @@ namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
         }
 
-        private void OnScreenshotButtonClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnScreenshotButtonClickedTask(sender, e);
-        }
-
-        private async Task OnScreenshotButtonClickedTask(object sender, RoutedEventArgs e)
+        private async void OnScreenshotButtonClicked(object sender, RoutedEventArgs e)
         {
             try
             {

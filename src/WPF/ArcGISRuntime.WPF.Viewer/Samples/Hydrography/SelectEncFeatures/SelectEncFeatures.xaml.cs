@@ -103,12 +103,7 @@ namespace ArcGISRuntime.WPF.Samples.SelectEncFeatures
             MyMapView.DismissCallout();
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
-        {
-            _ = MyMapView_GeoViewTappedTask(sender, e);
-        }
-
-        private async Task MyMapView_GeoViewTappedTask(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
             // First clear any existing selections.
             ClearAllSelections();

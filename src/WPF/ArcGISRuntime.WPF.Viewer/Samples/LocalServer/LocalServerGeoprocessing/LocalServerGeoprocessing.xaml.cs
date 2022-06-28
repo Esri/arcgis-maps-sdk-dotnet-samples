@@ -129,12 +129,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             }
         }
 
-        private void GpServiceOnStatusChanged(object sender, StatusChangedEventArgs statusChangedEventArgs)
-        {
-            _ = GpServiceOnStatusChangedTask(sender, statusChangedEventArgs);
-        }
-
-        private async Task GpServiceOnStatusChangedTask(object sender, StatusChangedEventArgs statusChangedEventArgs)
+        private async void GpServiceOnStatusChanged(object sender, StatusChangedEventArgs statusChangedEventArgs)
         {
             // Return if the server hasn't started
             if (statusChangedEventArgs.Status != LocalServerStatus.Started) return;

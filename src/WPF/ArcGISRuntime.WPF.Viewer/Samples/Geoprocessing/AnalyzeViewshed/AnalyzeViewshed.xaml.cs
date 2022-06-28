@@ -68,12 +68,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
             MyMapView.Map = myMap;
         }
 
-        private void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = OnMapViewTappedTask(sender, e);
-        }
-
-        private async Task OnMapViewTappedTask(object sender, GeoViewInputEventArgs e)
+        private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // The geoprocessing task is still executing, don't do anything else (i.e. respond to
             // more user taps) until the processing is complete.

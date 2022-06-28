@@ -151,12 +151,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolsFromMobileStyle
         }
 
         // Handler for the tapped event on the map view.
-        private void GeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = GeoViewTappedTask(sender, e);
-        }
-
-        private async Task GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
+        private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Call a function to get the currently defined multilayer point symbol.
             MultilayerPointSymbol faceSymbol = await GetCurrentSymbol();
@@ -167,12 +162,7 @@ namespace ArcGISRuntime.WPF.Samples.SymbolsFromMobileStyle
         }
 
         // An event handler for list box and combo box selection changes that will update the current symbol.
-        private void SymbolPropertyChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            _ = SymbolPropertyChangedTask(sender, e);
-        }
-
-        private async Task SymbolPropertyChangedTask(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private async void SymbolPropertyChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             // Call a function that will construct the current symbol.
             Symbol faceSymbol = await GetCurrentSymbol();

@@ -14,7 +14,6 @@ using System.Windows.Controls;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Portal;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayKml
 {
@@ -47,12 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayKml
             LayerPicker.SelectedIndex = 0;
         }
 
-        private void LayerPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            _ = LayerPicker_SelectionChangedTask(sender, e);
-        }
-
-        private async Task LayerPicker_SelectionChangedTask(object sender, SelectionChangedEventArgs e)
+        private async void LayerPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Clear existing layers.
             MySceneView.Scene.OperationalLayers.Clear();

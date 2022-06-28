@@ -160,12 +160,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceAreasForMultipleFacilities
             }
         }
 
-        private void FindServiceArea_Clicked(object sender, RoutedEventArgs e)
-        {
-            _ = FindServiceArea_ClickedTask(sender, e);
-        }
-
-        private async Task FindServiceArea_ClickedTask(object sender, RoutedEventArgs e)
+        private async void FindServiceArea_Clicked(object sender, RoutedEventArgs e)
         {
             try
             {

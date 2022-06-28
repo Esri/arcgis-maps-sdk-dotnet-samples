@@ -132,12 +132,7 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
             }
         }
 
-        private void StartNavigation(object sender, RoutedEventArgs e)
-        {
-            _ = StartNavigationTask(sender, e);
-        }
-
-        private async Task StartNavigationTask(object sender, RoutedEventArgs e)
+        private async void StartNavigation(object sender, RoutedEventArgs e)
         {
             // Disable the start navigation button.
             StartNavigationButton.IsEnabled = false;

@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
@@ -58,12 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.StatisticalQuery
             MyMapView.Map = myMap;
         }
 
-        private void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
-        {
-            _ = OnExecuteStatisticsQueryClickedTask(sender, e);
-        }
-
-        private async Task OnExecuteStatisticsQueryClickedTask(object sender, RoutedEventArgs e)
+        private async void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
         {
             // Create definitions for each statistic to calculate
             StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");

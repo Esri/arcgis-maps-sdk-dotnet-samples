@@ -119,12 +119,7 @@ namespace ArcGISRuntime.WPF.Samples.ApplyScheduledUpdates
             }
         }
 
-        private void ApplyButton_Click(object sender, RoutedEventArgs e)
-        {
-            _ = ApplyButton_ClickTask(sender, e);
-        }
-
-        private async Task ApplyButton_ClickTask(object sender, RoutedEventArgs e)
+        private async void ApplyButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {

@@ -72,12 +72,7 @@ namespace ArcGISRuntime.WPF.Samples.ReverseGeocode
             await MyMapView.SetViewpointCenterAsync(34.058, -117.195, 5e4);
         }
 
-        private void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = MyMapView_GeoViewTappedTask(sender, e);
-        }
-
-        private async Task MyMapView_GeoViewTappedTask(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {

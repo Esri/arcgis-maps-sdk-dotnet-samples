@@ -147,12 +147,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
             }
         }
 
-        private void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = OnGeoViewTappedTask(sender, e);
-        }
-
-        private async Task OnGeoViewTappedTask(object sender, GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {
@@ -262,12 +257,7 @@ namespace ArcGISRuntime.WPF.Samples.TraceUtilityNetwork
             MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().ToList().ForEach(layer => layer.ClearSelection());
         }
 
-        private void OnTrace(object sender, RoutedEventArgs e)
-        {
-            _ = OnTraceTask(sender, e);
-        }
-
-        private async Task OnTraceTask(object sender, RoutedEventArgs e)
+        private async void OnTrace(object sender, RoutedEventArgs e)
         {
             try
             {

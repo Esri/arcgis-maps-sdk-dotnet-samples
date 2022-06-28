@@ -68,12 +68,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
-        {
-            _ = BtnZoomToFeaturesClickTask(sender, e);
-        }
-
-        private async Task BtnZoomToFeaturesClickTask(object sender, RoutedEventArgs e)
+        private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -105,12 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
-        {
-            _ = BtnCountFeaturesClickTask(sender, e);
-        }
-
-        private async Task BtnCountFeaturesClickTask(object sender, RoutedEventArgs e)
+        private async void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
         {
             try
             {

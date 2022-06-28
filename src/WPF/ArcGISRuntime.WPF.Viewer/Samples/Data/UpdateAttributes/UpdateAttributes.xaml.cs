@@ -98,12 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.UpdateAttributes
             });
         }
 
-        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = MapView_TappedTask(sender, e);
-        }
-
-        private async Task MapView_TappedTask(object sender, GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
@@ -155,12 +150,7 @@ namespace ArcGISRuntime.WPF.Samples.UpdateAttributes
             DamageTypeDropDown.IsEnabled = true;
         }
 
-        private void DamageType_Changed(object sender, SelectionChangedEventArgs e)
-        {
-            _ = DamageType_ChangedTask(sender, e);
-        }
-
-        private async Task DamageType_ChangedTask(object sender, SelectionChangedEventArgs e)
+        private async void DamageType_Changed(object sender, SelectionChangedEventArgs e)
         {
             // Skip if nothing is selected.
             if (DamageTypeDropDown.SelectedIndex == -1)

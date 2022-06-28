@@ -69,12 +69,7 @@ namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
             return await Task.FromResult(credential);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            _ = Button_ClickTask(sender, e);
-        }
-
-        private async Task Button_ClickTask(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             try
             {

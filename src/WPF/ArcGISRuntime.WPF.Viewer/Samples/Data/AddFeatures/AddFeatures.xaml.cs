@@ -70,12 +70,7 @@ namespace ArcGISRuntime.WPF.Samples.AddFeatures
             }
         }
 
-        private void MapView_Tapped(object sender, GeoViewInputEventArgs e)
-        {
-            _ = MapView_TappedTask(sender, e);
-        }
-
-        private async Task MapView_TappedTask(object sender, GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {

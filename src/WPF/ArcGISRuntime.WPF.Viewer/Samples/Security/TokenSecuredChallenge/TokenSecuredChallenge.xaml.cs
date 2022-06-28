@@ -82,12 +82,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
         }
 
         // Handle the click event for the login button on the login UI.
-        private void LoginButtonClick(object sender, RoutedEventArgs e)
-        {
-            _ = LoginButtonClickTask(sender, e);
-        }
-
-        private async Task LoginButtonClickTask(object sender, RoutedEventArgs e)
+        private async void LoginButtonClick(object sender, RoutedEventArgs e)
         {
             // Make sure there's a task completion source for the login operation.
             if (_loginTaskCompletionSource == null || _loginTaskCompletionSource.Task == null || _loginTaskCompletionSource.Task.AsyncState == null)

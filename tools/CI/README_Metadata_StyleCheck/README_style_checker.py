@@ -40,25 +40,26 @@ exception_proper_nouns = {
 
 # A set of category folder names in current sample viewer.
 categories = {
-    'Analysis'
-    'Data'
-    'Geometry'
-    'Geoprocessing'
-    'GraphicsOverlay'
-    'Hydrography'
-    'Layers'
-    'LocalServer'
-    'Location'
-    'Map'
-    'MapView'
-    'NetworkAnalysis'
-    'Scene'
-    'SceneView'
-    'Search'
-    'Security'
-    'Symbology'
+    'Analysis',
+    'Data',
+    'Geometry',
+    'Geoprocessing',
+    'GraphicsOverlay',
+    'Hydrography',
+    'Layers',
+    'LocalServer',
+    'Location',
+    'Map',
+    'MapView',
+    'NetworkAnalysis',
+    'Scene',
+    'SceneView',
+    'Search',
+    'Security',
+    'Symbology',
     'UtilityNetwork'
 }
+
 # endregion
 
 

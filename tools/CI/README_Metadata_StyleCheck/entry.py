@@ -7,26 +7,26 @@ import subprocess as sp
 
 # A set of category folder names in current sample viewer.
 # Only run the checks when a file path is within one of these category folders.
-categories = [
-    'Analysis'
-    'Data'
-    'Geometry'
-    'Geoprocessing'
-    'GraphicsOverlay'
-    'Hydrography'
-    'Layers'
-    'LocalServer'
-    'Location'
-    'Map'
-    'MapView'
-    'NetworkAnalysis'
-    'Scene'
-    'SceneView'
-    'Search'
-    'Security'
-    'Symbology'
+categories = {
+    'Analysis',
+    'Data',
+    'Geometry',
+    'Geoprocessing',
+    'GraphicsOverlay',
+    'Hydrography',
+    'Layers',
+    'LocalServer',
+    'Location',
+    'Map',
+    'MapView',
+    'NetworkAnalysis',
+    'Scene',
+    'SceneView',
+    'Search',
+    'Security',
+    'Symbology',
     'UtilityNetwork'
-]
+}
 
 
 def run_mdl(readme_path: str):

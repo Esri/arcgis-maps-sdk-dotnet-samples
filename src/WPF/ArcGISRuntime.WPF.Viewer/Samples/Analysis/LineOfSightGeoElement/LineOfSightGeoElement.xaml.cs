@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Timers;
-using System.Drawing;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
@@ -197,32 +197,30 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightGeoElement
             return new MapPoint(firstPoint.X + scaled.X, firstPoint.Y + scaled.Y, firstPoint.Z + scaled.Z);
         }
 
-        private async void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
+        private void Geoline_TargetVisibilityChanged(object sender, EventArgs e)
         {
             // This is needed because Runtime delivers notifications from a different thread that doesn't have access to UI controls
-            await Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, (Action)UpdateUiAndSelection);
-        }
-
-        private void UpdateUiAndSelection()
-        {
-            switch (_geoLine.TargetVisibility)
+            Dispatcher.BeginInvoke(new Action(() =>
             {
-                case LineOfSightTargetVisibility.Obstructed:
-                    MyStatusLabel.Text = "Status: Obstructed";
-                    _taxiGraphic.IsSelected = false;
-                    break;
+                switch (_geoLine.TargetVisibility)
+                {
+                    case LineOfSightTargetVisibility.Obstructed:
+                        MyStatusLabel.Text = "Status: Obstructed";
+                        _taxiGraphic.IsSelected = false;
+                        break;
 
-                case LineOfSightTargetVisibility.Visible:
-                    MyStatusLabel.Text = "Status: Visible";
-                    _taxiGraphic.IsSelected = true;
-                    break;
+                    case LineOfSightTargetVisibility.Visible:
+                        MyStatusLabel.Text = "Status: Visible";
+                        _taxiGraphic.IsSelected = true;
+                        break;
 
-                default:
-                case LineOfSightTargetVisibility.Unknown:
-                    MyStatusLabel.Text = "Status: Unknown";
-                    _taxiGraphic.IsSelected = false;
-                    break;
-            }
+                    default:
+                    case LineOfSightTargetVisibility.Unknown:
+                        MyStatusLabel.Text = "Status: Unknown";
+                        _taxiGraphic.IsSelected = false;
+                        break;
+                }
+            }));
         }
 
         private static string GetModelUri()

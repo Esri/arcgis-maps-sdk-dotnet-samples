@@ -133,81 +133,88 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent.</param>
         private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
-            // Clear any existing markers.
-            MyMapView.GraphicsOverlays.Clear();
-
-            // Return gracefully if the textbox is empty or the geocoder isn't ready.
-            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            try
             {
-                return;
-            }
+                // Clear any existing markers.
+                MyMapView.GraphicsOverlays.Clear();
 
-            // Create the geocode parameters.
-            GeocodeParameters parameters = new GeocodeParameters();
-
-            // Get the MapPoint for the current search location.
-            MapPoint searchLocation = await GetSearchMapPoint(locationText);
-
-            // Update the geocode parameters if the map point is not null.
-            if (searchLocation != null)
-            {
-                parameters.PreferredSearchLocation = searchLocation;
-            }
-
-            // Update the search area if desired.
-            if (restrictToExtent)
-            {
-                // Update the search parameters with the current map extent.
-                parameters.SearchArea = MyMapView.VisibleArea;
-            }
-
-            // Show the progress bar.
-            MyProgressBar.Visibility = Visibility.Visible;
-
-            // Get the location information.
-            IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
-
-            // Stop gracefully and show a message if the geocoder does not return a result.
-            if (locations.Count < 1)
-            {
-                MyProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar.
-                MessageBox.Show("No results found"); // 2. Show a message.
-                return; // 3. Stop.
-            }
-
-            // Create the GraphicsOverlay so that results can be drawn on the map.
-            GraphicsOverlay resultOverlay = new GraphicsOverlay();
-
-            // Add each address to the map.
-            foreach (GeocodeResult location in locations)
-            {
-                // Get the Graphic to display.
-                Graphic point = await GraphicForPoint(location.DisplayLocation);
-
-                // Add the specific result data to the point.
-                point.Attributes["Match_Title"] = location.Label;
-
-                // Get the address for the point.
-                IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
-
-                // Add the first suitable address if possible.
-                if (addresses.Any())
+                // Return gracefully if the textbox is empty or the geocoder isn't ready.
+                if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
                 {
-                    point.Attributes["Match_Address"] = addresses[0].Label;
+                    return;
                 }
 
-                // Add the Graphic to the GraphicsOverlay.
-                resultOverlay.Graphics.Add(point);
+                // Create the geocode parameters.
+                GeocodeParameters parameters = new GeocodeParameters();
+
+                // Get the MapPoint for the current search location.
+                MapPoint searchLocation = await GetSearchMapPoint(locationText);
+
+                // Update the geocode parameters if the map point is not null.
+                if (searchLocation != null)
+                {
+                    parameters.PreferredSearchLocation = searchLocation;
+                }
+
+                // Update the search area if desired.
+                if (restrictToExtent)
+                {
+                    // Update the search parameters with the current map extent.
+                    parameters.SearchArea = MyMapView.VisibleArea;
+                }
+
+                // Show the progress bar.
+                MyProgressBar.Visibility = Visibility.Visible;
+
+                // Get the location information.
+                IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
+
+                // Stop gracefully and show a message if the geocoder does not return a result.
+                if (locations.Count < 1)
+                {
+                    MyProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar.
+                    MessageBox.Show("No results found"); // 2. Show a message.
+                    return; // 3. Stop.
+                }
+
+                // Create the GraphicsOverlay so that results can be drawn on the map.
+                GraphicsOverlay resultOverlay = new GraphicsOverlay();
+
+                // Add each address to the map.
+                foreach (GeocodeResult location in locations)
+                {
+                    // Get the Graphic to display.
+                    Graphic point = await GraphicForPoint(location.DisplayLocation);
+
+                    // Add the specific result data to the point.
+                    point.Attributes["Match_Title"] = location.Label;
+
+                    // Get the address for the point.
+                    IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
+
+                    // Add the first suitable address if possible.
+                    if (addresses.Any())
+                    {
+                        point.Attributes["Match_Address"] = addresses[0].Label;
+                    }
+
+                    // Add the Graphic to the GraphicsOverlay.
+                    resultOverlay.Graphics.Add(point);
+                }
+
+                // Hide the progress bar.
+                MyProgressBar.Visibility = Visibility.Collapsed;
+
+                // Add the GraphicsOverlay to the MapView.
+                MyMapView.GraphicsOverlays.Add(resultOverlay);
+
+                // Update the map viewpoint.
+                await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
             }
-
-            // Hide the progress bar.
-            MyProgressBar.Visibility = Visibility.Collapsed;
-
-            // Add the GraphicsOverlay to the MapView.
-            MyMapView.GraphicsOverlays.Add(resultOverlay);
-
-            // Update the map viewpoint.
-            await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         /// <summary>
@@ -239,31 +246,37 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// </summary>
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Search for the graphics underneath the user's tap.
-            IReadOnlyList<IdentifyGraphicsOverlayResult> results =
-                await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
-
-            // Clear callouts and return if there was no result.
-            if (results.Count < 1 || results.First().Graphics.Count < 1)
+            try
             {
-                MyMapView.DismissCallout();
-                return;
+                // Search for the graphics underneath the user's tap.
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+
+                // Clear callouts and return if there was no result.
+                if (results.Count < 1 || results.First().Graphics.Count < 1)
+                {
+                    MyMapView.DismissCallout();
+                    return;
+                }
+
+                // Get the first graphic from the first result.
+                Graphic matchingGraphic = results.First().Graphics.First();
+
+                // Get the title; manually added to the point's attributes in UpdateSearch.
+                string title = matchingGraphic.Attributes["Match_Title"].ToString();
+
+                // Get the address; manually added to the point's attributes in UpdateSearch.
+                string address = matchingGraphic.Attributes["Match_Address"].ToString();
+
+                // Define the callout.
+                CalloutDefinition calloutBody = new CalloutDefinition(title, address);
+
+                // Show the callout on the map at the tapped location.
+                MyMapView.ShowCalloutAt(e.Location, calloutBody);
             }
-
-            // Get the first graphic from the first result.
-            Graphic matchingGraphic = results.First().Graphics.First();
-
-            // Get the title; manually added to the point's attributes in UpdateSearch.
-            string title = matchingGraphic.Attributes["Match_Title"].ToString();
-
-            // Get the address; manually added to the point's attributes in UpdateSearch.
-            string address = matchingGraphic.Attributes["Match_Address"].ToString();
-
-            // Define the callout.
-            CalloutDefinition calloutBody = new CalloutDefinition(title, address);
-
-            // Show the callout on the map at the tapped location.
-            MyMapView.ShowCalloutAt(e.Location, calloutBody);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         /// <summary>
@@ -323,36 +336,43 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// </summary>
         private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Don't update results immediately; makes search-as-you-type more comfortable
-            if (_waitFlag)
+            try
             {
-                return;
+                // Don't update results immediately; makes search-as-you-type more comfortable
+                if (_waitFlag)
+                {
+                    return;
+                }
+
+                _waitFlag = true;
+                await Task.Delay(150);
+                _waitFlag = false;
+
+                // Dismiss callout, if any.
+                MyMapView.DismissCallout();
+
+                // Get the current text.
+                string searchText = MySearchBox.Text;
+
+                // Get the current search location.
+                string locationText = MyLocationBox.Text;
+
+                // Convert the list into a usable format for the suggest box.
+                List<string> results = await GetSuggestResults(searchText, locationText, true);
+
+                // Quit if there are no results.
+                if (!results.Any())
+                {
+                    return;
+                }
+
+                // Update the list of options.
+                MySearchBox.ItemsSource = results;
             }
-
-            _waitFlag = true;
-            await Task.Delay(150);
-            _waitFlag = false;
-
-            // Dismiss callout, if any.
-            MyMapView.DismissCallout();
-
-            // Get the current text.
-            string searchText = MySearchBox.Text;
-
-            // Get the current search location.
-            string locationText = MyLocationBox.Text;
-
-            // Convert the list into a usable format for the suggest box.
-            List<string> results = await GetSuggestResults(searchText, locationText, true);
-
-            // Quit if there are no results.
-            if (!results.Any())
+            catch (Exception ex)
             {
-                return;
+                MessageBox.Show(ex.Message, "Error");
             }
-
-            // Update the list of options.
-            MySearchBox.ItemsSource = results;
         }
 
         /// <summary>
@@ -360,36 +380,43 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// </summary>
         private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            // Don't update results immediately; makes search-as-you-type more comfortable
-            if (_waitFlag)
+            try
             {
-                return;
+                // Don't update results immediately; makes search-as-you-type more comfortable
+                if (_waitFlag)
+                {
+                    return;
+                }
+
+                _waitFlag = true;
+                await Task.Delay(150);
+                _waitFlag = false;
+
+                // Dismiss callout, if any.
+                MyMapView.DismissCallout();
+
+                // Get the current text.
+                string searchText = MyLocationBox.Text;
+
+                // Get the results.
+                List<string> results = await GetSuggestResults(searchText);
+
+                // Quit if there are no results.
+                if (!results.Any())
+                {
+                    return;
+                }
+
+                // Add a 'current location' option to the list.
+                results.Insert(0, "Current Location");
+
+                // Update the list of options.
+                MyLocationBox.ItemsSource = results;
             }
-
-            _waitFlag = true;
-            await Task.Delay(150);
-            _waitFlag = false;
-
-            // Dismiss callout, if any.
-            MyMapView.DismissCallout();
-
-            // Get the current text.
-            string searchText = MyLocationBox.Text;
-
-            // Get the results.
-            List<string> results = await GetSuggestResults(searchText);
-
-            // Quit if there are no results.
-            if (!results.Any())
+            catch (Exception ex)
             {
-                return;
+                MessageBox.Show(ex.Message, "Error");
             }
-
-            // Add a 'current location' option to the list.
-            results.Insert(0, "Current Location");
-
-            // Update the list of options.
-            MyLocationBox.ItemsSource = results;
         }
 
         /// <summary>

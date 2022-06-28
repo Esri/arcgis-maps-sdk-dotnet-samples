@@ -134,41 +134,48 @@ namespace ArcGISRuntime.WPF.Samples.NavigateRouteRerouting
 
         private async void StartNavigation(object sender, RoutedEventArgs e)
         {
-            // Disable the start navigation button.
-            StartNavigationButton.IsEnabled = false;
-
-            // Get the directions for the route.
-            _directionsList = _route.DirectionManeuvers;
-
-            // Create a route tracker.
-            _tracker = new RouteTracker(_routeResult, 0, true);
-            _tracker.NewVoiceGuidance += SpeakDirection;
-
-            // Handle route tracking status changes.
-            _tracker.TrackingStatusChanged += TrackingStatusUpdated;
-
-            // Check if this route task supports rerouting.
-            if (_routeTask.RouteTaskInfo.SupportsRerouting)
+            try
             {
-                // Enable automatic re-routing.
-                await _tracker.EnableReroutingAsync(new ReroutingParameters(_routeTask, _routeParams) { Strategy = ReroutingStrategy.ToNextWaypoint, VisitFirstStopOnStart = false });
+                // Disable the start navigation button.
+                StartNavigationButton.IsEnabled = false;
 
-                // Handle re-routing completion to display updated route graphic and report new status.
-                _tracker.RerouteStarted += RerouteStarted;
-                _tracker.RerouteCompleted += RerouteCompleted;
+                // Get the directions for the route.
+                _directionsList = _route.DirectionManeuvers;
+
+                // Create a route tracker.
+                _tracker = new RouteTracker(_routeResult, 0, true);
+                _tracker.NewVoiceGuidance += SpeakDirection;
+
+                // Handle route tracking status changes.
+                _tracker.TrackingStatusChanged += TrackingStatusUpdated;
+
+                // Check if this route task supports rerouting.
+                if (_routeTask.RouteTaskInfo.SupportsRerouting)
+                {
+                    // Enable automatic re-routing.
+                    await _tracker.EnableReroutingAsync(new ReroutingParameters(_routeTask, _routeParams) { Strategy = ReroutingStrategy.ToNextWaypoint, VisitFirstStopOnStart = false });
+
+                    // Handle re-routing completion to display updated route graphic and report new status.
+                    _tracker.RerouteStarted += RerouteStarted;
+                    _tracker.RerouteCompleted += RerouteCompleted;
+                }
+
+                // Turn on navigation mode for the map view.
+                MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
+                MyMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
+
+                // Add a data source for the location display.
+                MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(new GpxProvider(_gpxPath), _tracker);
+                // Use this instead if you want real location:
+                // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
+
+                // Enable the location display (this will start the location data source).
+                MyMapView.LocationDisplay.IsEnabled = true;
             }
-
-            // Turn on navigation mode for the map view.
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-            MyMapView.LocationDisplay.AutoPanModeChanged += AutoPanModeChanged;
-
-            // Add a data source for the location display.
-            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(new GpxProvider(_gpxPath), _tracker);
-            // Use this instead if you want real location:
-            // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
-
-            // Enable the location display (this will start the location data source).
-            MyMapView.LocationDisplay.IsEnabled = true;
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
         }
 
         private void RerouteStarted(object sender, EventArgs e)

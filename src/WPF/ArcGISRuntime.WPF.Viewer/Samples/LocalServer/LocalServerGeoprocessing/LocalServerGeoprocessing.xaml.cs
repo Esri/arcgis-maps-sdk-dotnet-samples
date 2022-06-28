@@ -13,10 +13,10 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -134,12 +134,19 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             // Return if the server hasn't started
             if (statusChangedEventArgs.Status != LocalServerStatus.Started) return;
 
-            // Create the geoprocessing task from the service
-            _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_gpService.Url + "/Contour"));
+            try
+            {
+                // Create the geoprocessing task from the service
+                _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_gpService.Url + "/Contour"));
 
-            // Update UI
-            MyUpdateContourButton.IsEnabled = true;
-            MyLoadingIndicator.Visibility = Visibility.Collapsed;
+                // Update UI
+                MyUpdateContourButton.IsEnabled = true;
+                MyLoadingIndicator.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void GenerateContours()

@@ -196,6 +196,7 @@ class MetadataCreator:
         try:
             self.images = self.get_images_paths()
             self.snippets = self.get_source_code_paths()
+            print(self.folder_name)
         except Exception as err:
             print(f"Error parsing paths - {self.folder_name} - {err}.")
             raise err

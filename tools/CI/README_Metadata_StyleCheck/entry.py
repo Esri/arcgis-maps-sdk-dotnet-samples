@@ -67,10 +67,8 @@ def main():
     files = None
 
     print("** Starting checks **")
-    print(args.string)
     if args.string:
         files = read_json(json.loads(args.string))
-        print(files)
         if not files:
             print('Invalid input file paths string, abort.')
             exit(1)
@@ -82,7 +80,6 @@ def main():
     # A set of dirname strings to avoid duplicate checks on the same sample.
     samples_set = set()
 
-    print(categories)
     for f in files:
         if not os.path.exists(f):
             # The changed file is deleted, no need to style check.
@@ -95,7 +92,6 @@ def main():
             # E.g. might be in the root folder or other unrelated folders.
             continue
 
-        print(path_parts[-3])
         # Only run checks on folders that is within a category.
         if path_parts[-3] not in categories:
             # Folder name is not a category, omit.

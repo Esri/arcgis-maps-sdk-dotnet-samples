@@ -16,7 +16,7 @@ Tap on the map to add a feature symbolizing a bird's nest. Then choose values de
 
 ## How it works
 
-1. Create and load the `Geodatabase` from the mobile geodatabase location on file.
+1. Create and load the `Geodatabase` from the mobile geodatabase location on file  .
 2. Load the `GeodatabaseFeatureTable`.
 3. Load the `ContingentValuesDefinition` from the feature table with `GeodatabaseFeatureTable.ContingentValuesDefinition.LoadAsync()`.
 4. Create a new `FeatureLayer` from the feature table and add it to the map.

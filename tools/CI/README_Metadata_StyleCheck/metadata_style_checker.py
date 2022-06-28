@@ -126,14 +126,14 @@ class MetadataCreator:
         """
         Traverse the directory and get all filenames for source code.
 
-        :return: A list of swift source code filenames.
+        :return: A list of c# source code filenames.
         """
         results = []
         for file in os.listdir(self.folder_path):
-            if os.path.splitext(file)[1] in ['.swift']:
+            if os.path.splitext(file)[1] in ['.cs']:
                 results.append(file)
         if not results:
-            raise Exception('Unable to get swift source code paths.')
+            raise Exception('Unable to get c# source code paths.')
         return sorted(results)
 
     def get_images_paths(self):

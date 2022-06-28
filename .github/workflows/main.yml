@@ -51,7 +51,7 @@ jobs:
       #    echo '${{ steps.file_changes.outputs.files_removed}}'
 
       - name: Run style checks
-        uses: ./Scripts/CI/README_Metadata_StyleCheck
+        uses: ./tools/CI/README_Metadata_StyleCheck
         with:
           FILE_PATHS: ${{ steps.file_changes.outputs.files }}
       

@@ -13,30 +13,25 @@ def replace(platform_path):
             task_count = 0
             with open(path, 'r') as f:
                 lines = f.readlines()
-
+                mode = 0
                 # Use an indexed while loop so we can delete sections of lines
                 while i < len(lines):
                     line = lines[i]
 
-                    # Check if the line is the start of the attributes
-                    if "async void" in line and "Args" in line:
-                        newline = line.replace("async void", "void")
-                        args = line.split('(')[1].split(')')[0]
-                        arg_parameters = args.split(' ')[1] + " "+ args.split(' ')[3]
-
-                        spacing = line.split('p')[0]
-
-                        idx = line.index('(')
-                        taskline = line[:idx] + "Task" + line[idx:]
-                        taskline = taskline.replace(" void ", " Task ")
-                        taskline_call = taskline.split('(')[0].split(' ')[-1] + '('+arg_parameters+');'
-
-                        newline = newline +  spacing + "{\n"+spacing + "    _ = "+taskline_call+"\n"+spacing + "}\n\n"+taskline
-                        print(newline)
-                        print(path)
-                        lines[i] = newline
-                        plat_count += 1
-
+                    if mode is 0:
+                        # Check if the line is the start of the attributes
+                        if "async void" in line and "Args" in line:
+                            spacing = line.split('p')[0]
+                            plat_count += 1
+                            mode = 1
+                            trypresent = False
+                    if mode == 1:
+                        if "try" in line:
+                            trypresent = True
+                        if spacing+"}" in line:
+                            mode = 0
+                            if not trypresent:
+                                print("No try: "+str(path))
                     i=i+1
                 f.close()
 
@@ -62,8 +57,8 @@ def main():
     winUI_path = os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
     forms_path = os.path.join(sample_root, "Forms", "Shared", "Samples")
 
-    # replace(wpf_path)
-    # replace(winUI_path)
+    replace(wpf_path)
+    replace(winUI_path)
     replace(forms_path)
 
 

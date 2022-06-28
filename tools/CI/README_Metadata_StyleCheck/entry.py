@@ -7,7 +7,7 @@ import subprocess as sp
 
 # A set of category folder names in current sample viewer.
 # Only run the checks when a file path is within one of these category folders.
-categories = {
+categories = [
     'Analysis'
     'Data'
     'Geometry'
@@ -26,7 +26,7 @@ categories = {
     'Security'
     'Symbology'
     'UtilityNetwork'
-}
+]
 
 
 def run_mdl(readme_path: str):

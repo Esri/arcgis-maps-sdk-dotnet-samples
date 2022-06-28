@@ -18,20 +18,23 @@ def replace(platform_path):
                 while i < len(lines):
                     line = lines[i]
 
-                    if mode is 0:
+                    if mode == 0:
                         # Check if the line is the start of the attributes
                         if "async void" in line and "Args" in line:
                             spacing = line.split('p')[0]
-                            plat_count += 1
                             mode = 1
                             trypresent = False
                     if mode == 1:
+                        if "await" in line and not trypresent:
+                                plat_count += 1
+                                print("No try: "+str(os.path.basename(path)))
                         if "try" in line:
                             trypresent = True
-                        if spacing+"}" in line:
+                        if line.startswith(spacing+"}"):
                             mode = 0
                             if not trypresent:
-                                print("No try: "+str(path))
+                                plat_count += 1
+                                print("No try: "+str(os.path.basename(path)))
                     i=i+1
                 f.close()
 

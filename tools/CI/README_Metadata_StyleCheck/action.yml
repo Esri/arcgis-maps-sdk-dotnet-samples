@@ -1,7 +1,7 @@
 # The name of the stepm just as a reference.
 name: "mdl and Python style checks"
 description: "This check will run several scripts to ensure the formatting."
-author: "tchen@esri.com"
+author: "hduff@esri.com"
 
 inputs:
   FILE_PATHS:

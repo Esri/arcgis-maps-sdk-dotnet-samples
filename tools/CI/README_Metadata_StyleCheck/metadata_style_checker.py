@@ -130,7 +130,8 @@ class MetadataCreator:
         """
         results = []
         for file in os.listdir(self.folder_path):
-            if os.path.splitext(file)[1] in ['.cs']:
+            print(file)
+            if os.path.splitext(file)[1] in ['.xaml.cs']:
                 results.append(file)
         if not results:
             raise Exception('Unable to get c# source code paths.')

@@ -101,10 +101,13 @@ def main():
         if path_parts[-3] not in categories:
             # Folder name is not a category, omit.
             continue
-
+        
+        print(path_parts[-3] + "found in categories")
         # Get filename and folder name of the changed sample.
         filename = os.path.basename(f)
+        print(filename)
         dir_path = os.path.dirname(f)
+        print(dir_path)
         l_name = filename.lower()
 
         print("name: " + l_name)

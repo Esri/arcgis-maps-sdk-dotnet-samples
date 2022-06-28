@@ -165,6 +165,9 @@ class MetadataCreator:
         'description', 'relevant_apis' and 'keywords' fields in the dictionary
         for output json.
         """
+        print(self.readme_path)
+        self.formal_name = self.readme_path[-2]
+
         try:
             readme_file = open(self.readme_path, 'r')
             # read the readme content into a string
@@ -216,6 +219,7 @@ class MetadataCreator:
 
         data["category"] = self.category
         data["description"] = self.description
+        data["formal_name"] = self.formal_name
         data["ignore"] = self.ignore
         data["images"] = self.images
         data["keywords"] = self.keywords

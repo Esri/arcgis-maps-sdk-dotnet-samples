@@ -14,6 +14,7 @@
 
 * [Add features](ArcGISRuntime.WinUI.Viewer/Samples/Data/AddFeatures) - Add features to a feature layer.
 * [Add features with contingent values](ArcGISRuntime.WinUI.Viewer/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
+* [Create mobile geodatabase](ArcGISRuntime.WinUI.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
 * [Delete features (feature service)](ArcGISRuntime.WinUI.Viewer/Samples/Data/DeleteFeatures) - Delete features from an online feature service.
 * [Edit and sync features](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit with branch versioning](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
@@ -23,6 +24,7 @@
 * [Generate geodatabase](ArcGISRuntime.WinUI.Viewer/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WinUI.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WinUI.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
+* [Query features with Arcade expression](ArcGISRuntime.WinUI.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Raster layer (GeoPackage)](ArcGISRuntime.WinUI.Viewer/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](ArcGISRuntime.WinUI.Viewer/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Read shapefile metadata](ArcGISRuntime.WinUI.Viewer/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.

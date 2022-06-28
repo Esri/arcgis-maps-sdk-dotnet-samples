@@ -95,6 +95,7 @@ def main():
             # E.g. might be in the root folder or other unrelated folders.
             continue
 
+        print(path_parts[-4])
         # Only run checks on folders that is within a category.
         if path_parts[-3] not in categories:
             # Folder name is not a category, omit.

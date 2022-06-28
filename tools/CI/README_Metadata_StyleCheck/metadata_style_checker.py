@@ -144,7 +144,7 @@ class MetadataCreator:
         """
         results = []
         for file in os.listdir(self.folder_path):
-            if os.path.splitext(file)[1].lower() in ['.png']:
+            if os.path.splitext(file)[1].lower() in ['.jpg']:
                 results.append(file)
         if not results:
             raise Exception('Unable to get images paths.')
@@ -196,7 +196,6 @@ class MetadataCreator:
         try:
             self.images = self.get_images_paths()
             self.snippets = self.get_source_code_paths()
-            print(self.folder_name)
         except Exception as err:
             print(f"Error parsing paths - {self.folder_name} - {err}.")
             raise err

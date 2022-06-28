@@ -67,7 +67,7 @@ def main():
     files = None
 
     print("** Starting checks **")
-    print(args)
+    print(args.string)
     if args.string:
         files = read_json(json.loads(args.string))
         if not files:

@@ -50,17 +50,24 @@ namespace ArcGISRuntime.Samples.OpenMapURL
 
         private async void OnMapsClicked(object sender, EventArgs e)
         {
-            // Show sheet and get title from the selection
-            string selectedMapTitle = await ((Page)Parent).DisplayActionSheet("Select map", "Cancel", null, _titles);
+            try
+            {
+                // Show sheet and get title from the selection
+                string selectedMapTitle = await ((Page)Parent).DisplayActionSheet("Select map", "Cancel", null, _titles);
 
-            // If selected cancel do nothing
-            if (selectedMapTitle == null || selectedMapTitle == "Cancel") return;
+                // If selected cancel do nothing
+                if (selectedMapTitle == null || selectedMapTitle == "Cancel") return;
 
-            // Get index that is used to get the selected url
-            int selectedIndex = _titles.ToList().IndexOf(selectedMapTitle);
+                // Get index that is used to get the selected url
+                int selectedIndex = _titles.ToList().IndexOf(selectedMapTitle);
 
-            // Create a new Map instance with url of the webmap that selected
-            MyMapView.Map = new Map(new Uri(_itemURLs[selectedIndex]));
+                // Create a new Map instance with url of the webmap that selected
+                MyMapView.Map = new Map(new Uri(_itemURLs[selectedIndex]));
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
     }
 }

@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Verify that there is at least one statistic definition
             if (!_statDefinitions.Any())
             {
-                await Application.Current.MainPage.DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
+                _ = Application.Current.MainPage.DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
                 return;
             }
 

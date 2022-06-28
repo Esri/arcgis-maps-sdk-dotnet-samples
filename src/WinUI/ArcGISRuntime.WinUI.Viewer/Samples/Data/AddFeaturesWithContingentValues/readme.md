@@ -54,4 +54,4 @@ Learn more about contingent values and how to utilize them on the [ArcGIS Pro do
 
 ## Tags
 
-coded values, contingent values, feature table, geodatabase, arcade
+coded values, contingent values, feature table, geodatabase

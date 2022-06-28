@@ -188,6 +188,7 @@ class MetadataCreator:
             keywords = parse_tags(readme_parts[tags_section_index])
             # De-duplicate API names in README's Tags section.
             self.keywords = [w for w in keywords if w not in self.relevant_apis]
+            print(readme_parts[offline_data_section_index])
             self.offline_data = parse_offline_data(readme_parts[offline_data_section_index])
 
         except Exception as err:
@@ -218,6 +219,7 @@ class MetadataCreator:
         data["ignore"] = self.ignore
         data["images"] = self.images
         data["keywords"] = self.keywords
+        data["offline_data"] = self.offline_data
         data["redirect_from"] = self.redirect_from
         data["relevant_apis"] = self.relevant_apis
         data["snippets"] = self.snippets

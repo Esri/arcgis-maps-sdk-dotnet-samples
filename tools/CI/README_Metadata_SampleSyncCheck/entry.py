@@ -10,8 +10,6 @@ def main():
     parser.add_argument('-s', '--string', help='A JSON array of file paths.')
     args = parser.parse_args()
     files = None
-    p = Path(__file__).parent[2]
-    print(p)
     print("** Starting checks **")
     code2 = sp.call(f'python3 /sample_sync.py', shell=True)
 

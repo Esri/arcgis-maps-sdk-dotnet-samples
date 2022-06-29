@@ -215,7 +215,7 @@ def main():
             if not skipped_categories:
                 skipped_categories = True
                 continue
-            for sample_dir in d:
+            for sample_dir in d.sort():
                 # skip category directories
                 sample = sample_metadata()
                 path_to_readme = os.path.join(r, sample_dir, "readme.md")

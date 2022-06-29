@@ -93,7 +93,7 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
             readme_text += f"* [{sample.friendly_name}]({entry_url}) - {sample.description}\n"
         readme_text += "\n"
     readme_text = readme_text[:-1]   
-
+    print(readme_text)
     readme_path = os.path.join(platform_dir, "../..", "readme.md")
     with open(readme_path, 'w+') as file:
         file.write(readme_text)

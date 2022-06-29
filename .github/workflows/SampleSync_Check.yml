@@ -47,7 +47,7 @@ jobs:
           files: |
              **/*.md
 
-      - name: Verify Changed files
+      - name: Verify Changed files 2
         uses: tj-actions/verify-changed-files@v10
         id: verify-changed-files
         with:

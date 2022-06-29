@@ -8,4 +8,5 @@ ADD sample_sync.py /sample_sync.py
 RUN echo "**** Install Python ****" && \
     apk add --no-cache python3 && \
     if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi
+RUN pip install requests
 ENTRYPOINT ["python3", "/entry.py"]

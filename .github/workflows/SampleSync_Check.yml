@@ -31,8 +31,6 @@ jobs:
 
       - name: Run sample sync check
         uses: ./tools/CI/README_Metadata_SampleSyncCheck
-        with: 
-          FILE_PATH : ${GITHUB_WORKSPACE}
 
       # - name: Change text file
       #   run: |

@@ -6,10 +6,10 @@ def main():
     '''
     Usage: python sample_sync.py 
     '''
-    args = sys.argv[1]
+    # args = sys.argv[1]
     
-    readme_script_path = os.path.join(args,"tools", "readme_copy", "readme_copy.py")
-    metadata_script_path = os.path.join(args, "tools", "metadata_tools", "process_metadata.py")
+    readme_script_path = os.path.join(".","tools", "readme_copy", "readme_copy.py")
+    metadata_script_path = os.path.join(".", "tools", "metadata_tools", "process_metadata.py")
 
     print("Copying readmes")
     subprocess.run(["python", readme_script_path])

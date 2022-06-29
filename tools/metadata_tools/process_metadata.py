@@ -101,8 +101,10 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
 def update_attribute(sample, sample_dir):
     try:
         # Get the formal name of the sample
-        name = sample_dir.split('\\')[-1]
-        print(name)
+        if '\\' in sample_dir:
+            name = sample_dir.split('\\')[-1]
+        elif  '/' in sample_dir:
+            name = sample_dir.split('/')[-1]
 
         # Get the correct file ending
         if "Xamarin.iOS" in sample_dir or "Xamarin.Android" in sample_dir:

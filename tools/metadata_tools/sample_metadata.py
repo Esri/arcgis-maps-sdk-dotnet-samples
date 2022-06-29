@@ -416,6 +416,8 @@ class sample_metadata:
             self.source_files.append("../../../Controls/JoystickSeekBar.cs")
         if self.formal_name in ["OAuth", "AuthorMap", "NavigateAR", "SearchPortalMaps"]:
             self.source_files.append("../../../Helpers/ArcGISLoginPrompt.cs")
+        if platform == "Android" and self.formal_name in ["Animate3DGraphic"]:
+            print(self.source_files)
         self.source_files.sort()
 
     def rewrite_files_in_place(source_dir, replacements_dict):

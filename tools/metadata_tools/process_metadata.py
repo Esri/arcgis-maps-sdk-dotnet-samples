@@ -1,7 +1,6 @@
 from sample_metadata import *
 import urllib.parse
 import sys
-from collections import OrderedDict
 import os
 
 def get_platform_samples_root(platform, sample_root):
@@ -82,12 +81,17 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
     '''
     readme_text = "# Table of contents\n\n"
 
-    for category in samples_in_categories.keys():
+    keys = list(samples_in_categories.keys())
+    keys.sort()
+    for category in keys:
         readme_text += f"## {category}\n\n"
         formal_category = category
         if ' ' in formal_category:
             formal_category = formal_category.title().replace(' ', '')
-        for sample in samples_in_categories[category]:
+
+        samples = list(samples_in_categories[category])
+        samples.sort(key=lambda s: s.friendly_name)
+        for sample in samples:
             entry_url = f"{relative_path_to_samples}/{formal_category}/{sample.formal_name}"
             entry_url = urllib.parse.quote(entry_url)
             readme_text += f"* [{sample.friendly_name}]({entry_url}) - {sample.description}\n"
@@ -209,7 +213,7 @@ def main():
     for platform in ["UWP", "WPF", "Android", "Forms", "iOS", "FormsAR", "WinUI"]:
         # make a list of samples, so that build_all_csproj.bat can be produced
         list_of_sample_dirs = []
-        list_of_samples = OrderedDict()
+        list_of_samples = {}
         skipped_categories = False
         for r, d, f in os.walk(get_platform_samples_root(platform, sample_root)):
             if not skipped_categories:

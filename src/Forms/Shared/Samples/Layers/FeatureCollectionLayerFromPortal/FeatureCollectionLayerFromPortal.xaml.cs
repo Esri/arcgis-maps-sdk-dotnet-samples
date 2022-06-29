@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
         instructions: "The feature collection is loaded from the Portal item when the sample starts.",
         tags: new[] { "collection", "feature collection", "feature collection layer", "id", "item", "map notes", "portal" })]
     public partial class FeatureCollectionLayerFromPortal : ContentPage
-    { 
+    {
         // Default portal item Id to load features from.
         private const string FeatureCollectionItemId = "32798dfad17942858d5eef82ee802f0b";
 
@@ -77,7 +77,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             }
         }
 
-        private async void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
+        private void OpenPortalFeatureCollectionClick(object sender, EventArgs e)
         {
             // Get the portal item Id from the user.
             string collectionItemId = CollectionItemIdTextBox.Text.Trim();
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             // Make sure an Id was entered.
             if (String.IsNullOrEmpty(collectionItemId))
             {
-                await Application.Current.MainPage.DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
+                _ = Application.Current.MainPage.DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
                 return;
             }
 

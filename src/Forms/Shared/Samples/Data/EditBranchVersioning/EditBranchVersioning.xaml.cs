@@ -181,15 +181,9 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
             return true;
         }
 
-        private async void ShowAlert(string alertText, string titleText = "Alert")
+        private void ShowAlert(string alertText, string titleText = "Alert")
         {
-            try
-            {
-                await Application.Current.MainPage.DisplayAlert(titleText, alertText, "OK");
-            }
-            catch
-            {
-            }
+            Application.Current.MainPage.DisplayAlert(titleText, alertText, "OK");
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
@@ -340,7 +334,14 @@ namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
 
             if (_serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)
             {
-                await ApplyDamageChange();
+                try
+                {
+                    await ApplyDamageChange();
+                }
+                catch (Exception ex)
+                {
+                    ShowAlert(ex.Message, ex.GetType().Name);
+                }
             }
 
             // Clear the selection.

@@ -27,8 +27,6 @@ jobs:
 
     # Steps represent a sequence of tasks that got executed as part of the job.
     steps:
-
-       steps:
       - uses: actions/checkout@v2
 
       - name: Change text file

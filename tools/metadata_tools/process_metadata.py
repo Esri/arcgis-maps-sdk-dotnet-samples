@@ -82,7 +82,7 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
     '''
     readme_text = "# Table of contents\n\n"
 
-    for category in samples_in_categories.keys():
+    for category in samples_in_categories.keys().sort():
         readme_text += f"## {category}\n\n"
         formal_category = category
         if ' ' in formal_category:

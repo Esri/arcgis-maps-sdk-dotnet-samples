@@ -256,4 +256,3 @@
 * [Display utility associations](Xamarin.iOS/Samples/UtilityNetwork/DisplayUtilityAssociations) - Create graphics for utility associations in a utility network.
 * [Perform valve isolation trace](Xamarin.iOS/Samples/UtilityNetwork/PerformValveIsolationTrace) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
 * [Trace utility network](Xamarin.iOS/Samples/UtilityNetwork/TraceUtilityNetwork) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
-

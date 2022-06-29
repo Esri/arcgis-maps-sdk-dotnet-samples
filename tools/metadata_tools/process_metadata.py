@@ -225,7 +225,7 @@ def main():
                 sample.populate_from_readme(platform, path_to_readme)
                 if platform == "FormsAR":
                     sample.category = "Augmented reality"
-                # sample.populate_snippets_from_folder(platform, path_to_readme)
+                sample.populate_snippets_from_folder(platform, path_to_readme)
 
                 # read existing packages from metadata
                 path_to_json = os.path.join(r, sample_dir, "readme.metadata.json")

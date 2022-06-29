@@ -56,10 +56,15 @@ jobs:
           files: |
              **/*.metadata.json
 
-      - name: Run step only when files change.
-        if: steps.verify-readme.outputs.files_changed == 'true' || steps.verify-metadata.outputs.files_changed == 'true'
+      - name: Run step only when readme changes.
+        if: steps.verify-readme.outputs.files_changed == 'true'
         run: |
           echo "Changed readme: ${{ steps.verify-readme.outputs.changed_files }}"
+          exit 1
+
+      - name: Run step only when metadata changes.
+        if: steps.verify-metadata.outputs.files_changed == 'true'
+        run: |
           echo "Changed metadata: ${{ steps.verify-metatada.outputs.changed_files }}"
           exit 1
         # Outputs: "Changed files: new.txt test_directory/new.txt"

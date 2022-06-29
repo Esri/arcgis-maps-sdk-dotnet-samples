@@ -68,6 +68,7 @@ def main():
 
     print("** Starting checks **")
     if args.string:
+        print(args.string)
         files = read_json(json.loads(args.string))
         if not files:
             print('Invalid input file paths string, abort.')

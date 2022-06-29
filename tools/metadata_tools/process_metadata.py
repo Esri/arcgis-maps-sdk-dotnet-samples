@@ -1,7 +1,7 @@
 from sample_metadata import *
 import urllib.parse
 import sys
-
+from collections import OrderedDict
 import os
 
 def get_platform_samples_root(platform, sample_root):
@@ -209,13 +209,15 @@ def main():
     for platform in ["UWP", "WPF", "Android", "Forms", "iOS", "FormsAR", "WinUI"]:
         # make a list of samples, so that build_all_csproj.bat can be produced
         list_of_sample_dirs = []
-        list_of_samples = {}
+        list_of_samples = OrderedDict()
         skipped_categories = False
         for r, d, f in os.walk(get_platform_samples_root(platform, sample_root)):
             if not skipped_categories:
                 skipped_categories = True
                 continue
-            for sample_dir in d.sort():
+            
+            d.sort()
+            for sample_dir in d:
                 # skip category directories
                 sample = sample_metadata()
                 path_to_readme = os.path.join(r, sample_dir, "readme.md")

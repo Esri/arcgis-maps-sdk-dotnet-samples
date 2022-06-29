@@ -45,12 +45,7 @@ jobs:
         id: verify-changed-files
         with:
           files: |
-             *.txt
-             test_directory
-             action.yml
-             **/*.py
-             **/*.jpeg
-             *.sql
+             *.metadata.json
              *.md
 
       - name: Run step only when files change.

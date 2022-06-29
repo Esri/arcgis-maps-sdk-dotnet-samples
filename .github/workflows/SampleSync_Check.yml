@@ -29,7 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run style checks
+      - name: Run sample sync check
         uses: ./tools/CI/README_Metadata_SampleSyncCheck
 
       # - name: Change text file

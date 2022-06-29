@@ -49,7 +49,7 @@ jobs:
 
       - name: Verify Changed files 2
         uses: tj-actions/verify-changed-files@v10
-        id: verify-changed-files
+        id: verify-changed-files-v2
         with:
           files: |
              **/*.metadata.json

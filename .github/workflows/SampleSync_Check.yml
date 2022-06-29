@@ -54,6 +54,13 @@ jobs:
           files: |
              **/*.metadata.json
 
+      - name: Verify sample code
+        uses: tj-actions/verify-changed-files@v10
+        id: verify-sample-code
+        with:
+          files: |
+             **/*.xaml.cs
+
       - name: Run step only when readme changes.
         if: steps.verify-readme.outputs.files_changed == 'true'
         run: |
@@ -64,5 +71,11 @@ jobs:
         if: steps.verify-metadata.outputs.files_changed == 'true'
         run: |
           echo "Changed metadata: ${{ steps.verify-metatada.outputs.changed_files }}"
+          exit 1
+
+      - name: Run step only when sample code.
+        if: steps.verify-sample-code.outputs.files_changed == 'true'
+        run: |
+          echo "Changed sample: ${{ steps.verify-sample-code.outputs.changed_files }}"
           exit 1
         # Outputs: "Changed files: new.txt test_directory/new.txt"

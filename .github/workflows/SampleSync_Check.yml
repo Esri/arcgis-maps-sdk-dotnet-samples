@@ -29,13 +29,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Change text file
-        run: |
-          echo "Modified" > new.txt
+      - name: Run style checks
+        uses: ./tools/CI/README_Metadata_SampleSyncCheck
 
-      - name: Change file in directory
-        run: |
-          echo "Changed" > test_directory/new.txt
+      # - name: Change text file
+      #   run: |
+      #     echo "Modified" > new.txt
+
+      # - name: Change file in directory
+      #   run: |
+      #     echo "Changed" > test_directory/new.txt
 
       - name: Verify Changed files
         uses: tj-actions/verify-changed-files@v10

@@ -88,6 +88,7 @@ def main():
             # get the location of the samples relative to this script in the tools folder
             script_location = os.path.dirname(os.path.realpath(__file__))
             sample_root = os.path.abspath(os.path.join(script_location, "..", "..", "src"))
+            print(sample_root)
         else:
             sample_root = sys.argv[1]
         for category in os.listdir(get_platform_samples_root("WPF", sample_root)):

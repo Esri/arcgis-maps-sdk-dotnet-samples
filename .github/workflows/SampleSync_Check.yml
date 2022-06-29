@@ -42,22 +42,24 @@ jobs:
       #   run: |
       #     echo "Changed" > test_directory/new.txt
 
-      - name: Verify Changed files
+      - name: Verify readme
         uses: tj-actions/verify-changed-files@v10
-        id: verify-changed-files
+        id: verify-readme
         with:
           files: |
              **/*.md
 
-      - name: Verify Changed files 2
+      - name: Verify metadata
         uses: tj-actions/verify-changed-files@v10
-        id: verify-changed-files-v2
+        id: verify-metadata
         with:
           files: |
              **/*.metadata.json
 
       - name: Run step only when files change.
-        if: steps.verify-changed-files.outputs.files_changed == 'true'
+        if: steps.verify-readme.outputs.files_changed == 'true' || steps.verify-metadata.outputs.files_changed == 'true'
         run: |
-          echo "Changed files: ${{ steps.verify-changed-files.outputs.changed_files }}"
+          echo "Changed readme: ${{ steps.verify-readme.outputs.changed_files }}"
+          echo "Changed metadata: ${{ steps.verify-metatada.outputs.changed_files }}"
+          exit 1
         # Outputs: "Changed files: new.txt test_directory/new.txt"

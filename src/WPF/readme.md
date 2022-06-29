@@ -265,4 +265,3 @@
 * [Display content of utility network container](ArcGISRuntime.WPF.Viewer/Samples/UtilityNetwork/DisplayUtilityNetworkContainer) - A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.
 * [Perform valve isolation trace](ArcGISRuntime.WPF.Viewer/Samples/UtilityNetwork/PerformValveIsolationTrace) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
 * [Trace utility network](ArcGISRuntime.WPF.Viewer/Samples/UtilityNetwork/TraceUtilityNetwork) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
-

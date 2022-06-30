@@ -153,25 +153,25 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
                 WhereClause = "1=1"
             };
 
-            // Query all features in the facility table.
-            FeatureQueryResult facilityResult = await _facilityTable.QueryFeaturesAsync(queryParams);
-
-            // Add all of the query results to facilities as new Facility objects.
-            facilities.AddRange(facilityResult.ToList().Select(feature => new Facility((MapPoint)feature.Geometry)));
-
-            // Query all features in the incident table.
-            FeatureQueryResult incidentResult = await _incidentTable.QueryFeaturesAsync(queryParams);
-
-            // Add all of the query results to facilities as new Incident objects.
-            incidents.AddRange(incidentResult.ToList().Select(feature => new Incident((MapPoint)feature.Geometry)));
-
-            // Set facilities and incident in parameters.
-            ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
-            closestFacilityParameters.SetFacilities(facilities);
-            closestFacilityParameters.SetIncidents(incidents);
-
             try
             {
+                // Query all features in the facility table.
+                FeatureQueryResult facilityResult = await _facilityTable.QueryFeaturesAsync(queryParams);
+
+                // Add all of the query results to facilities as new Facility objects.
+                facilities.AddRange(facilityResult.ToList().Select(feature => new Facility((MapPoint)feature.Geometry)));
+
+                // Query all features in the incident table.
+                FeatureQueryResult incidentResult = await _incidentTable.QueryFeaturesAsync(queryParams);
+
+                // Add all of the query results to facilities as new Incident objects.
+                incidents.AddRange(incidentResult.ToList().Select(feature => new Incident((MapPoint)feature.Geometry)));
+
+                // Set facilities and incident in parameters.
+                ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
+                closestFacilityParameters.SetFacilities(facilities);
+                closestFacilityParameters.SetIncidents(incidents);
+
                 // Use the task to solve for the closest facility.
                 ClosestFacilityResult result = await _task.SolveClosestFacilityAsync(closestFacilityParameters);
 
@@ -196,6 +196,10 @@ namespace ArcGISRuntime.WPF.Samples.ClosestFacilityStatic
             catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
             {
                 System.Windows.MessageBox.Show("An ArcGIS web exception occurred.\n" + exception.Message, "Sample error");
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.Message, "Error");
             }
         }
 

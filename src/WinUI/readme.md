@@ -14,6 +14,7 @@
 
 * [Add features](ArcGISRuntime.WinUI.Viewer/Samples/Data/AddFeatures) - Add features to a feature layer.
 * [Add features with contingent values](ArcGISRuntime.WinUI.Viewer/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
+* [Create mobile geodatabase](ArcGISRuntime.WinUI.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
 * [Delete features (feature service)](ArcGISRuntime.WinUI.Viewer/Samples/Data/DeleteFeatures) - Delete features from an online feature service.
 * [Edit and sync features](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit feature attachments](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureAttachments) - Add, delete, and download attachments for features from a service.

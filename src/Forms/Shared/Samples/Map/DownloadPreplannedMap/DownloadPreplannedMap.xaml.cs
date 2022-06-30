@@ -224,12 +224,12 @@ namespace ArcGISRuntimeXamarin.Samples.DownloadPreplannedMap
             });
         }
 
-        private async void OnDownloadMapAreaClicked(object sender, EventArgs e)
+        private void OnDownloadMapAreaClicked(object sender, EventArgs e)
         {
             if (AreasList.SelectedItem != null)
             {
                 PreplannedMapArea selectedMapArea = AreasList.SelectedItem as PreplannedMapArea;
-                await DownloadMapAreaAsync(selectedMapArea);
+                _ = DownloadMapAreaAsync(selectedMapArea);
             }
         }
 

@@ -135,9 +135,9 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             return tcs.Task;
         }
 
-        private async void CloseButton_Clicked(object sender, EventArgs e)
+        private void CloseButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            Navigation.PopAsync();
         }
     }
 }

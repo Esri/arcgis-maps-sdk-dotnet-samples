@@ -57,17 +57,24 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             // Get list of layer names as array to show in an action sheet
             string[] layerNames = _layerUrls.Keys.ToArray();
 
-            // Show sheet and get title from the selection
-            string selectedLayer = await ((Page)Parent).DisplayActionSheet("Select layer", "Cancel", null, layerNames);
+            try
+            {
+                // Show sheet and get title from the selection
+                string selectedLayer = await ((Page)Parent).DisplayActionSheet("Select layer", "Cancel", null, layerNames);
 
-            // If selected cancel do nothing
-            if (selectedLayer == "Cancel") return;
+                // If selected cancel do nothing
+                if (selectedLayer == "Cancel") return;
 
-            // Create a new ArcGISVectorTiledLayer with the URL Selected by the user
-            ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls[selectedLayer]);
+                // Create a new ArcGISVectorTiledLayer with the URL Selected by the user
+                ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(_layerUrls[selectedLayer]);
 
-            // Create new Map with basemap and assigning to the MapView's Map
-            MyMapView.Map = new Map(new Basemap(vectorTiledLayer));
+                // Create new Map with basemap and assigning to the MapView's Map
+                MyMapView.Map = new Map(new Basemap(vectorTiledLayer));
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
     }
 }

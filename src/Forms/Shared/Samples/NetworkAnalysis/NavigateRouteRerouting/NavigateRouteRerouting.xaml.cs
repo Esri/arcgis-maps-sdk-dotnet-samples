@@ -148,12 +148,19 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             // Check if this route task supports rerouting.
             if (_routeTask.RouteTaskInfo.SupportsRerouting)
             {
-                // Enable automatic re-routing.
-                await _tracker.EnableReroutingAsync(new ReroutingParameters(_routeTask, _routeParams) { Strategy = ReroutingStrategy.ToNextWaypoint, VisitFirstStopOnStart = false });
+                try
+                {
+                    // Enable automatic re-routing.
+                    await _tracker.EnableReroutingAsync(new ReroutingParameters(_routeTask, _routeParams) { Strategy = ReroutingStrategy.ToNextWaypoint, VisitFirstStopOnStart = false });
 
-                // Handle re-routing completion to display updated route graphic and report new status.
-                _tracker.RerouteStarted += RerouteStarted;
-                _tracker.RerouteCompleted += RerouteCompleted;
+                    // Handle re-routing completion to display updated route graphic and report new status.
+                    _tracker.RerouteStarted += RerouteStarted;
+                    _tracker.RerouteCompleted += RerouteCompleted;
+                }
+                catch (Exception ex)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                }
             }
 
             // Turn on navigation mode for the map view.
@@ -236,14 +243,14 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
             });
         }
 
-        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        private void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
         {
             // Say the direction using voice synthesis.
             if (e.VoiceGuidance.Text?.Length > 0)
             {
                 _speechToken.Cancel();
                 _speechToken = new CancellationTokenSource();
-                await SpeakAsync(e.VoiceGuidance.Text, _speechToken.Token);
+                SpeakAsync(e.VoiceGuidance.Text, _speechToken.Token);
             }
         }
 

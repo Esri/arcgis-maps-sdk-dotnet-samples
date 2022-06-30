@@ -15,15 +15,11 @@ using Esri.ArcGISRuntime.Navigation;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
-using Windows.Media.SpeechSynthesis;
-using Windows.UI.Core;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
 {
@@ -45,10 +41,6 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
 
         // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
-
-        // Speech synthesizer to play voice guidance audio.
-        private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
-        // private MediaElement _mediaElement = new MediaElement();
 
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
@@ -146,7 +138,6 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
 
             // Create a route tracker.
             _tracker = new RouteTracker(_routeResult, 0, true);
-            _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
@@ -154,12 +145,19 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             // Check if this route task supports rerouting.
             if (_routeTask.RouteTaskInfo.SupportsRerouting)
             {
-                // Enable automatic re-routing.
-                await _tracker.EnableReroutingAsync(new ReroutingParameters(_routeTask, _routeParams) { Strategy = ReroutingStrategy.ToNextWaypoint, VisitFirstStopOnStart = false });
+                try
+                {
+                    // Enable automatic re-routing.
+                    await _tracker.EnableReroutingAsync(new ReroutingParameters(_routeTask, _routeParams) { Strategy = ReroutingStrategy.ToNextWaypoint, VisitFirstStopOnStart = false });
 
-                // Handle re-routing completion to display updated route graphic and report new status.
-                _tracker.RerouteStarted += RerouteStarted;
-                _tracker.RerouteCompleted += RerouteCompleted;
+                    // Handle re-routing completion to display updated route graphic and report new status.
+                    _tracker.RerouteStarted += RerouteStarted;
+                    _tracker.RerouteCompleted += RerouteCompleted;
+                }
+                catch (Exception ex)
+                {
+                    _ = new MessageDialog2(ex.Message, "Error").ShowAsync();
+                }
             }
 
             // Turn on navigation mode for the map view.
@@ -178,7 +176,6 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
         private void RerouteStarted(object sender, EventArgs e)
         {
             // Remove the event listeners for tracking status changes while the route tracker recalculates.
-            _tracker.NewVoiceGuidance -= SpeakDirection;
             _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
         }
 
@@ -188,7 +185,6 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             _directionsList = e.TrackingStatus.RouteResult.Routes[0].DirectionManeuvers;
 
             // Re-add the event listeners for tracking status changes.
-            _tracker.NewVoiceGuidance += SpeakDirection;
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
         }
 
@@ -242,19 +238,6 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
             });
         }
 
-        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
-        {
-            // Generate the audio stream for the voice guidance.
-            SpeechSynthesisStream stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);
-
-            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
-            {
-                // Play the audio stream.
-                // _mediaElement.SetSource(stream, stream.ContentType);
-                // _mediaElement.Play();
-            });
-        }
-
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
         {
             // Turn the recenter button on or off when the location display changes to or from navigation mode.
@@ -269,15 +252,10 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRouteRerouting
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)
         {
-            // Stop the speech synthesizer.
-            //_mediaElement.Stop();
-            _speechSynthesizer.Dispose();
-
             // Stop the tracker.
             if (_tracker != null)
             {
                 _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
-                _tracker.NewVoiceGuidance -= SpeakDirection;
                 _tracker.RerouteStarted -= RerouteStarted;
                 _tracker.RerouteCompleted -= RerouteCompleted;
                 _tracker = null;

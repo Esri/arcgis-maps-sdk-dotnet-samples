@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
             if (EndDate.Date <= StartDate.Date.AddDays(1))
             {
                 // Show error message
-                await Application.Current.MainPage.DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
+                _ = Application.Current.MainPage.DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");
 
                 // Remove the busy activity indication
                 MyActivityIndicator.IsRunning = false;

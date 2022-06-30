@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 // Once the local geodatabase is available, load the tables as layers to the map
                 await LoadLocalGeodatabaseTables();
             };
-            
+
             // Create a new map with the oceans basemap and add it to the map view
             Map map = new Map(BasemapStyle.ArcGISOceans);
             MyMapView.Map = map;
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             {
                 // See if the geodatabase file is already present
                 if (File.Exists(localGeodatabasePath))
-                { 
+                {
                     // If the geodatabase is already available, open it, hide the progress control, and update the message
                     _localGeodatabase = await Geodatabase.OpenAsync(localGeodatabasePath);
                     LoadingProgressBar.IsVisible = false;
@@ -199,8 +199,8 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                 RequireTransactionCheckBox.IsEnabled = !e.IsInTransaction;
             });
         }
-        
-       private string GetGdbPath()
+
+        private string GetGdbPath()
         {
             // Set the platform-specific path for storing the geodatabase
 #if WINDOWS_UWP
@@ -283,32 +283,39 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 
         private async void StopEditTransaction(object sender, EventArgs e)
         {
-            // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
-            string choice = await ((Page)Parent).DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
+            try
+            {
+                // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
+                string choice = await ((Page)Parent).DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
 
-            if (choice == "Commit")
-            {
-                // See if there is a transaction active for the geodatabase
-                if (_localGeodatabase.IsInTransaction)
+                if (choice == "Commit")
                 {
-                    // If there is, commit the transaction to store the edits (this will also end the transaction)
-                    _localGeodatabase.CommitTransaction();
-                    MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
+                    // See if there is a transaction active for the geodatabase
+                    if (_localGeodatabase.IsInTransaction)
+                    {
+                        // If there is, commit the transaction to store the edits (this will also end the transaction)
+                        _localGeodatabase.CommitTransaction();
+                        MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
+                    }
+                }
+                else if (choice == "Rollback")
+                {
+                    // See if there is a transaction active for the geodatabase
+                    if (_localGeodatabase.IsInTransaction)
+                    {
+                        // If there is, rollback the transaction to discard the edits (this will also end the transaction)
+                        _localGeodatabase.RollbackTransaction();
+                        MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
+                    }
+                }
+                else
+                {
+                    // For 'cancel' don't end the transaction with a commit or rollback
                 }
             }
-            else if (choice == "Rollback")
+            catch (Exception ex)
             {
-                // See if there is a transaction active for the geodatabase
-                if (_localGeodatabase.IsInTransaction)
-                {
-                    // If there is, rollback the transaction to discard the edits (this will also end the transaction)
-                    _localGeodatabase.RollbackTransaction();
-                    MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
-                }
-            }
-            else
-            {
-                // For 'cancel' don't end the transaction with a commit or rollback
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

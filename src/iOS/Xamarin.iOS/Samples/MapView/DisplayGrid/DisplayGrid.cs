@@ -1,4 +1,4 @@
-// Copyright 2016 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,78 +7,253 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Foundation;
+using System;
 using UIKit;
+using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.DisplayDrawingStatus
+namespace ArcGISRuntime.Samples.DisplayGrid
 {
-    [Register("DisplayDrawingStatus")]
+    [Register("DisplayGrid")]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Display draw status",
+        name: "Display grid",
         category: "MapView",
-        description: "Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.",
-        instructions: "Pan and zoom around the map. Observe how the status changes from a loading animation to solid, indicating that drawing has completed.",
-        tags: new[] { "draw", "loading", "map", "render" })]
-    public class DisplayDrawingStatus : UIViewController
+        description: "Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.",
+        instructions: "Select type of grid from the types (LatLong, MGRS, UTM and USNG) and modify its properties like label visibility, grid line color, and grid label color. Press the button to apply these settings.",
+        tags: new[] { "MGRS", "USNG", "UTM", "coordinates", "degrees", "graticule", "grid", "latitude", "longitude", "minutes", "seconds" })]
+    public class DisplayGrid : UIViewController
     {
         // Hold references to UI controls.
         private MapView _myMapView;
-        private UIActivityIndicatorView _activityIndicator;
-        private UILabel _statusLabel;
+        private UIBarButtonItem _typeButton;
+        private UIBarButtonItem _lineColorButton;
+        private UIBarButtonItem _positionButton;
+        private UIBarButtonItem _labelColorButton;
 
-        public DisplayDrawingStatus()
+        // Fields for storing the user's grid preferences.
+        private string _selectedGridType = "LatLong";
+        private Colors? _selectedGridColor = Colors.Red;
+        private Colors? _selectedLabelColor = Colors.White;
+        private GridLabelPosition _selectedLabelPosition = GridLabelPosition.Geographic;
+
+        public DisplayGrid()
         {
-            Title = "Display drawing status";
+            Title = "Display a grid";
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
-            // Create new Map with basemap.
-            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
-            myMap.InitialViewpoint = new Viewpoint(34.056, -117.196, 4);
+            // Set a basemap.
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
-            // URL to the feature service.
-            Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
+            // Apply a grid by default.
+            ApplyCurrentSettings();
 
-            // Initialize a new feature layer.
-            ServiceFeatureTable myFeatureTable = new ServiceFeatureTable(serviceUri);
-            FeatureLayer myFeatureLayer = new FeatureLayer(myFeatureTable);
-
-            // Load the feature layer.
-            await myFeatureLayer.LoadAsync();
-
-            // Add the feature layer to the Map.
-            myMap.OperationalLayers.Add(myFeatureLayer);
-
-            // Provide used Map to the MapView.
-            _myMapView.Map = myMap;
-
-            // Animate the activity spinner.
-            _activityIndicator.StartAnimating();
+            // Zoom to a default scale that will show the grid labels if they are enabled.
+            _myMapView.SetViewpointCenterAsync(
+                new MapPoint(-7702852.905619, 6217972.345771, SpatialReferences.WebMercator), 23227);
         }
 
-        private void OnMapViewDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
+        private void ApplyCurrentSettings()
         {
-            // Make sure that the UI changes are done in the UI thread.
-            BeginInvokeOnMainThread(() =>
+            Grid grid;
+
+            // First, update the grid based on the type selected.
+            switch (_selectedGridType)
             {
-                // Show the activity indicator if the map is drawing.
-                if (e.Status == DrawStatus.InProgress)
+                case "LatLong":
+                    grid = new LatitudeLongitudeGrid();
+                    break;
+
+                case "MGRS":
+                    grid = new MgrsGrid();
+                    break;
+
+                case "UTM":
+                    grid = new UtmGrid();
+                    break;
+
+                case "USNG":
+                default:
+                    grid = new UsngGrid();
+                    break;
+            }
+
+            // Next, apply the label position setting.
+            grid.LabelPosition = _selectedLabelPosition;
+
+            // Next, apply the grid color and label color settings for each zoom level.
+            for (long level = 0; level < grid.LevelCount; level++)
+            {
+                // Set the grid color if the grid is selected for display.
+                if (_selectedGridColor != null)
                 {
-                    _activityIndicator.Hidden = false;
-                    _statusLabel.Text = "Drawing status: In progress";
+                    // Set the line symbol.
+                    Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, _selectedGridColor.Value, 2);
+                    grid.SetLineSymbol(level, lineSymbol);
                 }
-                else
+
+                // Set the label color if labels are enabled for display.
+                if (_selectedLabelColor != null)
                 {
-                    _activityIndicator.Hidden = true;
-                    _statusLabel.Text = "Drawing status: Completed";
+                    // Set the text symbol.
+                    Symbol textSymbol = new TextSymbol
+                    {
+                        Color = _selectedLabelColor.Value,
+                        Size = 16,
+                        FontWeight = FontWeight.Bold
+                    };
+                    grid.SetTextSymbol(level, textSymbol);
                 }
-            });
+            }
+
+            // Next, hide the grid if it has been hidden.
+            if (_selectedGridColor == null)
+            {
+                grid.IsVisible = false;
+            }
+
+            // Next, hide the labels if they have been hidden.
+            if (_selectedLabelColor == null)
+            {
+                grid.IsLabelVisible = false;
+            }
+
+            // Apply the updated grid.
+            _myMapView.Grid = grid;
+        }
+
+        private void LabelPositionButton_Click(object sender, EventArgs e)
+        {
+            // Create the view controller that will present the list of label positions.
+            UIAlertController labelPositionAlert = UIAlertController.Create(null, "Select a label position", UIAlertControllerStyle.ActionSheet);
+
+            // Needed to prevent a crash on iPad.
+            UIPopoverPresentationController presentationPopover = labelPositionAlert.PopoverPresentationController;
+            if (presentationPopover != null)
+            {
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            // Add an option for each label position option.
+            foreach (string item in Enum.GetNames(typeof(GridLabelPosition)))
+            {
+                // Record the selection and re-apply all settings.
+                labelPositionAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
+                {
+                    _selectedLabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), item);
+                    ApplyCurrentSettings();
+                }));
+            }
+
+            // Show the alert.
+            PresentViewController(labelPositionAlert, true, null);
+        }
+
+        private void GridTypeButton_Click(object sender, EventArgs e)
+        {
+            // Create the view controller that will present the list of grid types.
+            UIAlertController gridTypeAlert = UIAlertController.Create(null, "Select a grid type", UIAlertControllerStyle.ActionSheet);
+
+            // Needed to prevent a crash on iPad.
+            UIPopoverPresentationController presentationPopover = gridTypeAlert.PopoverPresentationController;
+            if (presentationPopover != null)
+            {
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            // Add an option for each grid type.
+            foreach (string item in new[] { "LatLong", "UTM", "MGRS", "USNG" })
+            {
+                // Record the selection and re-apply all settings.
+                gridTypeAlert.AddAction(UIAlertAction.Create(item, UIAlertActionStyle.Default, action =>
+                {
+                    _selectedGridType = item;
+                    ApplyCurrentSettings();
+                }));
+            }
+
+            // Show the alert.
+            PresentViewController(gridTypeAlert, true, null);
+        }
+
+        private void LabelColorButton_Click(object sender, EventArgs e)
+        {
+            // Create the view controller that will present the list of label color options.
+            UIAlertController labelColorAlert = UIAlertController.Create(null, "Select a label color", UIAlertControllerStyle.ActionSheet);
+
+            // Needed to prevent a crash on iPad.
+            UIPopoverPresentationController presentationPopover = labelColorAlert.PopoverPresentationController;
+            if (presentationPopover != null)
+            {
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            // Add an option for each color.
+            foreach (Colors item in new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White })
+            {
+                // Record the selection and re-apply all settings.
+                labelColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action =>
+                {
+                    _selectedLabelColor = item;
+                    ApplyCurrentSettings();
+                }));
+            }
+
+            // Add an option to hide labels.
+            labelColorAlert.AddAction(UIAlertAction.Create("Hide labels", UIAlertActionStyle.Default, action =>
+            {
+                // Record the selection and re-apply all settings.
+                _selectedLabelColor = null;
+                ApplyCurrentSettings();
+            }));
+
+            // Show the alert.
+            PresentViewController(labelColorAlert, true, null);
+        }
+
+        private void GridColorButton_Click(object sender, EventArgs e)
+        {
+            // Create the view controller that will present the list of grid color options.
+            UIAlertController gridColorAlert = UIAlertController.Create(null, "Select a grid color", UIAlertControllerStyle.ActionSheet);
+
+            // Needed to prevent a crash on iPad.
+            UIPopoverPresentationController presentationPopover = gridColorAlert.PopoverPresentationController;
+            if (presentationPopover != null)
+            {
+                presentationPopover.BarButtonItem = (UIBarButtonItem)sender;
+                presentationPopover.PermittedArrowDirections = UIPopoverArrowDirection.Down;
+            }
+
+            // Add an option for each color.
+            foreach (Colors item in new[] { Colors.Red, Colors.Green, Colors.Blue, Colors.White })
+            {
+                // Record the selection and re-apply all settings.
+                gridColorAlert.AddAction(UIAlertAction.Create(item.Name, UIAlertActionStyle.Default, action =>
+                {
+                    _selectedGridColor = item;
+                    ApplyCurrentSettings();
+                }));
+            }
+
+            // Add an option to hide the grid.
+            gridColorAlert.AddAction(UIAlertAction.Create("Hide the grid", UIAlertActionStyle.Default, action =>
+            {
+                // Record the selection and re-apply all settings.
+                _selectedGridColor = null;
+                ApplyCurrentSettings();
+            }));
+
+            // Show the alert.
+            PresentViewController(gridColorAlert, true, null);
         }
 
         public override void ViewDidLoad()
@@ -90,48 +265,50 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         public override void LoadView()
         {
             // Create the views.
-            View = new UIView() { BackgroundColor = ApplicationTheme.BackgroundColor };
+            View = new UIView { BackgroundColor = ApplicationTheme.BackgroundColor };
 
             _myMapView = new MapView();
             _myMapView.TranslatesAutoresizingMaskIntoConstraints = false;
 
-            _activityIndicator = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.WhiteLarge)
-            {
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TranslatesAutoresizingMaskIntoConstraints = false
-            };
+            _typeButton = new UIBarButtonItem();
+            _typeButton.Title = "Grid type";
 
-            _statusLabel = new UILabel
+            _lineColorButton = new UIBarButtonItem();
+            _lineColorButton.Title = "Line color";
+
+            _positionButton = new UIBarButtonItem();
+            _positionButton.Title = "Positions";
+
+            _labelColorButton = new UIBarButtonItem();
+            _labelColorButton.Title = "Text color";
+
+            UIToolbar toolbar = new UIToolbar();
+            toolbar.TranslatesAutoresizingMaskIntoConstraints = false;
+            toolbar.Items = new[]
             {
-                Text = "Drawing status: Unknown",
-                AdjustsFontSizeToFitWidth = true,
-                TextAlignment = UITextAlignment.Center,
-                BackgroundColor = UIColor.FromWhiteAlpha(0, .6f),
-                TextColor = UIColor.White,
-                Lines = 1,
-                TranslatesAutoresizingMaskIntoConstraints = false
+                _typeButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _lineColorButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _positionButton,
+                new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
+                _labelColorButton
             };
 
             // Add the views.
-            View.AddSubviews(_myMapView, _activityIndicator, _statusLabel);
+            View.AddSubviews(_myMapView, toolbar);
 
             // Lay out the views.
             NSLayoutConstraint.ActivateConstraints(new[]
             {
                 _myMapView.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _myMapView.BottomAnchor.ConstraintEqualTo(View.BottomAnchor),
                 _myMapView.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
                 _myMapView.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
+                _myMapView.BottomAnchor.ConstraintEqualTo(toolbar.TopAnchor),
 
-                _statusLabel.TopAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.TopAnchor),
-                _statusLabel.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _statusLabel.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _statusLabel.HeightAnchor.ConstraintEqualTo(40),
-
-                _activityIndicator.TopAnchor.ConstraintEqualTo(_statusLabel.BottomAnchor),
-                _activityIndicator.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
-                _activityIndicator.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
-                _activityIndicator.HeightAnchor.ConstraintEqualTo(40)
+                toolbar.BottomAnchor.ConstraintEqualTo(View.SafeAreaLayoutGuide.BottomAnchor),
+                toolbar.LeadingAnchor.ConstraintEqualTo(View.LeadingAnchor),
+                toolbar.TrailingAnchor.ConstraintEqualTo(View.TrailingAnchor),
             });
         }
 
@@ -139,9 +316,11 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         {
             base.ViewWillAppear(animated);
 
-            // Subscribe to events, removing any existing subscriptions.
-            _myMapView.DrawStatusChanged -= OnMapViewDrawStatusChanged;
-            _myMapView.DrawStatusChanged += OnMapViewDrawStatusChanged;
+            // Subscribe to events.
+            _typeButton.Clicked += GridTypeButton_Click;
+            _lineColorButton.Clicked += GridColorButton_Click;
+            _positionButton.Clicked += LabelPositionButton_Click;
+            _labelColorButton.Clicked += LabelColorButton_Click;
         }
 
         public override void ViewDidDisappear(bool animated)
@@ -149,7 +328,10 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             base.ViewDidDisappear(animated);
 
             // Unsubscribe from events, per best practice.
-            _myMapView.DrawStatusChanged -= OnMapViewDrawStatusChanged;
+            _typeButton.Clicked -= GridTypeButton_Click;
+            _lineColorButton.Clicked -= GridColorButton_Click;
+            _positionButton.Clicked -= LabelPositionButton_Click;
+            _labelColorButton.Clicked -= LabelColorButton_Click;
         }
     }
 }

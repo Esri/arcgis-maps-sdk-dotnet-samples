@@ -64,6 +64,12 @@ jobs:
              **/*.xaml.cs
           autocrlf: false
 
+      - name: Git stuff
+        run: |
+          git rev-parse --abbrev-ref HEAD
+          git status
+          git diff -w
+
       - name: Run step only when readme changes.
         if: steps.verify-readme.outputs.files_changed == 'true'
         run: |
@@ -82,9 +88,4 @@ jobs:
           echo "Changed sample: ${{ steps.verify-sample-code.outputs.changed_files }}"
           exit 1
 
-      - name: Git stuff
-        run: |
-          git rev-parse --abbrev-ref HEAD
-          git status
-          git diff -w
         # Outputs: "Changed files: new.txt test_directory/new.txt"

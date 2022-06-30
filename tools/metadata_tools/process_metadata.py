@@ -193,7 +193,7 @@ def update_attribute(sample, sample_dir):
             file.seek(0)
             file.write(''.join(lines))
             file.close()
-        content = file.readline
+        content = file.readlines
         print(content)
     except Exception as e:
         print(e)

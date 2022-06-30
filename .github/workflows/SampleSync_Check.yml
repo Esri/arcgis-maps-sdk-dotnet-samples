@@ -23,7 +23,8 @@ jobs:
     
     # The type of runner that the job will run on
     # supported VMs are here: https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners#supported-runners-and-hardware-resources
-    runs-on: ubuntu-latest
+    # runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     # Steps represent a sequence of tasks that got executed as part of the job.
     steps:

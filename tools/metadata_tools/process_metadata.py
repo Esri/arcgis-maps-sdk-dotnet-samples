@@ -196,6 +196,7 @@ def update_attribute(sample, sample_dir):
             file.close()
 
         with open(path_to_source, "r") as f:
+            print(path_to_source)
             print(f.read())
 
     except Exception as e:

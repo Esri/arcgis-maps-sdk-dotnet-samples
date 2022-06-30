@@ -124,9 +124,6 @@ def update_attribute(sample, sample_dir):
         path_to_source = os.path.join(sample_dir, name + ending)
 
         with open(path_to_source, 'r') as f:
-            oldcontent = f.read()
-
-        with open(path_to_source, 'r') as f:
             lines = f.readlines()
             i = 0
             start_found = False
@@ -198,14 +195,6 @@ def update_attribute(sample, sample_dir):
             file.seek(0)
             file.write(''.join(lines))
             file.close()
-
-        with open(path_to_source, "r") as f:
-            newContent = f.read()
-        
-        if oldcontent != newContent:
-            print(path_to_source)
-            print(oldcontent)
-            print(newContent)
 
     except Exception as e:
         print(e)

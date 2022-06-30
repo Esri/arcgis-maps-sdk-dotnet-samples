@@ -46,7 +46,6 @@ jobs:
         with:
           files: |
              **/*.md
-          autocrlf: true
 
       - name: Verify metadata
         uses: tj-actions/verify-changed-files@v10
@@ -54,7 +53,6 @@ jobs:
         with:
           files: |
              **/*.metadata.json
-          autocrlf: true
 
       - name: Verify sample code
         uses: tj-actions/verify-changed-files@v10
@@ -63,14 +61,6 @@ jobs:
           files: |
              **/*.xaml.cs
              **/*.cs
-          autocrlf: true
-
-      - name: Git stuff
-        run: |
-          git branch
-          git branch --show-current
-          git status
-          git diff -w
 
       - name: Run step only when readme changes.
         if: steps.verify-readme.outputs.files_changed == 'true'
@@ -88,7 +78,6 @@ jobs:
         if: steps.verify-sample-code.outputs.files_changed == 'true'
         run: |
           echo "Changed sample: ${{ steps.verify-sample-code.outputs.changed_files }}"
-          git diff
           exit 1
 
         # Outputs: "Changed files: new.txt test_directory/new.txt"

@@ -87,6 +87,7 @@ jobs:
         if: steps.verify-sample-code.outputs.files_changed == 'true'
         run: |
           echo "Changed sample: ${{ steps.verify-sample-code.outputs.changed_files }}"
+          git diff
           exit 1
 
         # Outputs: "Changed files: new.txt test_directory/new.txt"

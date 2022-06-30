@@ -132,7 +132,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             }
         }
 
-        private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
+        private async Task UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers.
             MyMapView.GraphicsOverlays.Clear();
@@ -389,7 +389,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Run the search.
-            UpdateSearch(searchText, locationText, true);
+            _ = UpdateSearch(searchText, locationText, true);
         }
 
         private void MySearchButton_Clicked(object sender, EventArgs e)
@@ -404,7 +404,7 @@ namespace ArcGISRuntime.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Run the search.
-            UpdateSearch(searchText, locationText);
+            _ = UpdateSearch(searchText, locationText);
         }
 
         private void MyLocationBox_Unfocused(object sender, FocusEventArgs e)

@@ -135,7 +135,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
             _stopsOverlay.Graphics.Clear();
         }
 
-        private async void UpdateRoute(TravelMode selectedTravelMode)
+        private async Task UpdateRoute(TravelMode selectedTravelMode)
         {
             try
             {
@@ -183,7 +183,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
             }
         }
 
-        private async void AddStop(Point tappedPosition)
+        private async Task AddStop(Point tappedPosition)
         {
             try
             {
@@ -256,10 +256,10 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
             }
 
             // Add the stop for the tapped position.
-            AddStop(e.Position);
+            _ = AddStop(e.Position);
 
             // Update the route with the final list of stops.
-            UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
+            _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
         }
 
         private void TravelMode_SelectionChanged(object sender, EventArgs e)
@@ -273,7 +273,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
                 }
 
                 // Update the route.
-                UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
+                _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
             }
             catch (Exception ex)
             {
@@ -282,9 +282,9 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
             }
         }
 
-        private async void ShowMessage(string title, string detail)
+        private void ShowMessage(string title, string detail)
         {
-            await Application.Current.MainPage.DisplayAlert(title, detail, "OK");
+            Application.Current.MainPage.DisplayAlert(title, detail, "OK");
         }
     }
 }

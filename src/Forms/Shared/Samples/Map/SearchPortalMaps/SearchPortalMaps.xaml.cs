@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
         private void DisplayDefaultMap() => MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
 
-        private async void SearchPublicMaps(string searchText)
+        private async Task SearchPublicMaps(string searchText)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         private void SearchMapsClicked(object sender, EventArgs e)
         {
             // Search ArcGIS Online maps with the text entered
-            SearchPublicMaps(SearchTextEntry.Text);
+            _ = SearchPublicMaps(SearchTextEntry.Text);
         }
     }
 }

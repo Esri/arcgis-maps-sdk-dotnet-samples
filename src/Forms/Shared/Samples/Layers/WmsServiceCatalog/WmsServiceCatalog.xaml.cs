@@ -64,7 +64,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 }
 
                 // Update the map display based on the viewModel.
-                UpdateMapDisplay(_viewModelList);
+                _ = UpdateMapDisplay(_viewModelList);
 
                 // Update the list of layers.
                 MyDisplayList.ItemsSource = _viewModelList;
@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// Updates the map with the latest layer selection.
         /// </summary>
-        private async void UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
+        private async Task UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
         {
             // Remove all existing layers.
             MyMapView.Map.OperationalLayers.Clear();
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             selectedItem.Select();
 
             // Update the map
-            UpdateMapDisplay(_viewModelList);
+            _ = UpdateMapDisplay(_viewModelList);
         }
     }
 

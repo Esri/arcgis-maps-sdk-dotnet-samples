@@ -256,9 +256,9 @@ namespace ArcGISRuntime.UWP.Samples.Animate3DGraphic
 
                 // Update stats display
                 AltitudeTextBlock.Text = $"{currentFrame.Elevation:F}m";
-                HeadingTextBlock.Text = $"{currentFrame.Heading:F}°";
-                PitchTextBlock.Text = $"{currentFrame.Pitch:F}°";
-                RollTextBlock.Text = $"{currentFrame.Roll:F}°";
+                HeadingTextBlock.Text = $"{currentFrame.Heading:F}\u00b0";
+                PitchTextBlock.Text = $"{currentFrame.Pitch:F}\u00b0";
+                RollTextBlock.Text = $"{currentFrame.Roll:F}\u00b0";
             });
 
             // Update plane's position

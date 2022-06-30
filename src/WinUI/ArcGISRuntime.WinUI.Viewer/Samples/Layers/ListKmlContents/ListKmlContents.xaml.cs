@@ -81,12 +81,12 @@ namespace ArcGISRuntime.WinUI.Samples.ListKmlContents
             // Get the KML node.
             LayerDisplayVM selectedItem = (LayerDisplayVM)e.AddedItems[0];
 
-            NavigateToNode(selectedItem.Node);
+            _ = NavigateToNode(selectedItem.Node);
         }
 
         #region viewpoint_conversion
 
-        private async void NavigateToNode(KmlNode node)
+        private async Task NavigateToNode(KmlNode node)
         {
             try
             {

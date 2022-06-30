@@ -126,10 +126,9 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
         }
         
         // Helper function to show a message
-        private async void ShowMessage(string message, string title)
+        private void ShowMessage(string message, string title)
         {
-            var messageDialog = new MessageDialog2(message, title);
-            await messageDialog.ShowAsync();
+            _ = new MessageDialog2(message, title).ShowAsync();
         }
 
         // Handle when the check box for a "group by" field is checked on or off by adding or removing the field from the collection

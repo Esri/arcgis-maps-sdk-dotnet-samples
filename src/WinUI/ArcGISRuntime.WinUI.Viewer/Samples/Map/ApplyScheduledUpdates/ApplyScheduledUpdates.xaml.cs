@@ -90,7 +90,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
                 _offlineMapSyncTask = await OfflineMapSyncTask.CreateAsync(offlineMap);
 
                 // Check if there are scheduled updates to the preplanned map area.
-                CheckForScheduledUpdates();
+                _ = CheckForScheduledUpdates();
             }
             catch (Exception ex)
             {
@@ -98,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
             }
         }
 
-        private async void CheckForScheduledUpdates()
+        private async Task CheckForScheduledUpdates()
         {
             try
             {
@@ -173,7 +173,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
                     }
 
                     // Verify that the map is up to date and change the UI to reflect the update availability status.
-                    CheckForScheduledUpdates();
+                    _ = CheckForScheduledUpdates();
                 }
                 else
                 {

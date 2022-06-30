@@ -132,7 +132,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayUtilityAssociations
                 await MyMapView.SetViewpointAsync(InitialViewpoint);
 
                 // Add the associations in the starting viewpoint.
-                AddAssociations();
+                _ = AddAssociations();
             }
             catch (Exception ex)
             {
@@ -142,10 +142,10 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayUtilityAssociations
 
         private void OnNavigationCompleted(object sender, EventArgs e)
         {
-            AddAssociations();
+            _ = AddAssociations();
         }
 
-        private async void AddAssociations()
+        private async Task AddAssociations()
         {
             try
             {

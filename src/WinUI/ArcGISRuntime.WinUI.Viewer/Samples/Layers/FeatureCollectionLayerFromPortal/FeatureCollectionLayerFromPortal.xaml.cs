@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromPortal
 {
@@ -45,7 +46,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromPortal
             MyMapView.Map = myMap;
         }
 
-        private async void OpenFeaturesFromArcGISOnline(string itemId)
+        private async Task OpenFeaturesFromArcGISOnline(string itemId)
         {
             try
             {
@@ -94,7 +95,7 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromPortal
             }
 
             // Call a function to add the feature collection from the specified portal item.
-            OpenFeaturesFromArcGISOnline(collectionItemId);
+            _ = OpenFeaturesFromArcGISOnline(collectionItemId);
         }
     }
 }

@@ -184,15 +184,9 @@ namespace ArcGISRuntime.WinUI.Samples.EditBranchVersioning
             return true;
         }
 
-        private async void ShowAlert(string alertText, string titleText = "Alert")
+        private void ShowAlert(string alertText, string titleText = "Alert")
         {
-            try
-            {
-                await new MessageDialog2(alertText, titleText).ShowAsync();
-            }
-            catch
-            {
-            }
+            _ = new MessageDialog2(alertText, titleText).ShowAsync();
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)

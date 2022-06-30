@@ -142,7 +142,6 @@ def update_attribute(sample, sample_dir):
                     # Store the end index
                     end = i
                     # Delete the existing attributes
-                    oldcontent = lines[start:end+1].append()
                     del lines[start:end+1]
 
                     # Create the new attributes
@@ -181,10 +180,6 @@ def update_attribute(sample, sample_dir):
 
                     # Add the closing characters
                     new_attributes += ")]\n"
-
-                    if oldcontent != new_attributes:
-                        print(oldcontent)
-                        print(new_attributes)
 
                     # Add the new attributes
                     lines.insert(start, new_attributes)

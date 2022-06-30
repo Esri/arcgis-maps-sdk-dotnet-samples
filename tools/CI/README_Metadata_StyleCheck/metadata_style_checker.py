@@ -120,6 +120,7 @@ class MetadataCreator:
         self.ignore = False         # Default to False.
         self.images = []            # Populate from paths.
         self.keywords = []          # Populate from README.
+        self.offline_data = []      # Populate from README.
         self.redirect_from = []     # Default to empty list.
         self.relevant_apis = []     # Populate from README.
         self.snippets = []          # Populate from paths.
@@ -223,8 +224,7 @@ class MetadataCreator:
         data["ignore"] = self.ignore
         data["images"] = self.images
         data["keywords"] = self.keywords
-        if self.offline_data.__len__() > 0:
-            data["offline_data"] = self.offline_data
+        data["offline_data"] = self.offline_data
         data["redirect_from"] = self.redirect_from
         data["relevant_apis"] = self.relevant_apis
         data["snippets"] = self.snippets

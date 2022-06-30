@@ -142,7 +142,7 @@ def update_attribute(sample, sample_dir):
                     # Store the end index
                     end = i
                     # Delete the existing attributes
-                    oldcontent = lines[start:end+1].append
+                    oldcontent = lines[start:end+1].append()
                     del lines[start:end+1]
 
                     # Create the new attributes
@@ -198,6 +198,7 @@ def update_attribute(sample, sample_dir):
         with open(path_to_source, "w") as file:
             file.seek(0)
             file.write(''.join(lines))
+            print(file.read())
             file.close()
     except Exception as e:
         print(e)

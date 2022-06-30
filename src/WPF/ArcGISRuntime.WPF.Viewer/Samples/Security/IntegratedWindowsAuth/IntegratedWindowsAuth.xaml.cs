@@ -118,7 +118,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
                 _publicPortal = await ArcGISPortal.CreateAsync(new Uri(_publicPortalUrl));
 
                 // Call a function to search the portal.
-                SearchPortal(_publicPortal);
+                _ = SearchPortal(_publicPortal);
             }
             catch (Exception ex)
             {
@@ -150,7 +150,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
                 _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl), requireLogin);
 
                 // Call a function to search the portal.
-                SearchPortal(_iwaSecuredPortal);
+                _ = SearchPortal(_iwaSecuredPortal);
 
                 // Set a variable that indicates this is the secure portal.
                 // When a map is loaded from the results, will need to know which portal it came from.
@@ -163,7 +163,7 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
             }
         }
 
-        private async void SearchPortal(ArcGISPortal currentPortal)
+        private async Task SearchPortal(ArcGISPortal currentPortal)
         {
             // Remove any existing results from the list.
             MapItemListBox.Items.Clear();

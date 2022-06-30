@@ -96,15 +96,15 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
             Point position = mouseArgs.GetPosition(MyMapView);
 
             // Identify the raster cell at that position.
-            IdentifyCell(position);
+            _ = IdentifyCell(position);
         }
 
-        private async void IdentifyCell(Point position)
+        private async Task IdentifyCell(Point position)
         {
             // Check if a cell is already being identified.
             if (_isIdentifying)
             {
-                _nextIdentifyAction = () => IdentifyCell(position);
+                _nextIdentifyAction = () => _ = IdentifyCell(position);
                 return;
             }
 

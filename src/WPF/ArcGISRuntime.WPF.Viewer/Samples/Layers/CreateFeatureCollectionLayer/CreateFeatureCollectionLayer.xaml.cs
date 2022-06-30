@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
 {
@@ -42,10 +43,10 @@ namespace ArcGISRuntime.WPF.Samples.CreateFeatureCollectionLayer
             MyMapView.Map = myMap;
 
             // Call a function that will create a new feature collection layer and zoom to it
-            CreateNewFeatureCollection();
+            _ = CreateNewFeatureCollection();
         }
 
-        private async void CreateNewFeatureCollection()
+        private async Task CreateNewFeatureCollection()
         {
             // Create the schema for a points table (one text field to contain a name attribute)
             List<Field> pointFields = new List<Field>();

@@ -95,7 +95,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
             }
         }
 
-        private async void UpdateSearch()
+        private async Task UpdateSearch()
         {
             // Get the text in the search bar.
             string enteredText = SearchBox.Text;
@@ -190,12 +190,12 @@ namespace ArcGISRuntime.WPF.Samples.OfflineGeocode
 
             // Update the search.
             SearchBox.Text = SearchBox.SelectedValue.ToString();
-            UpdateSearch();
+            _ = UpdateSearch();
         }
 
         private void Search_Clicked(object sender, RoutedEventArgs e)
         {
-            UpdateSearch();
+            _ = UpdateSearch();
         }
 
         private async Task<Graphic> GraphicForPoint(MapPoint point)

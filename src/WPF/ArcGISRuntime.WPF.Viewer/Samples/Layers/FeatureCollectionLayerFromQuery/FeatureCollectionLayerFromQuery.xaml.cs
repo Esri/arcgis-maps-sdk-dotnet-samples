@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromQuery
@@ -39,10 +40,10 @@ namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromQuery
             MyMapView.Map = myMap;
 
             // Call a function that will create a new feature collection layer from a service query
-            GetFeaturesFromQuery();
+            _ = GetFeaturesFromQuery();
         }
 
-        private async void GetFeaturesFromQuery()
+        private async Task GetFeaturesFromQuery()
         {
             try
             {

@@ -200,26 +200,32 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 
             // Create a map image layer to show the results
             ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(new Uri(gpServiceResultUrl));
-            //ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(_gpService.Url);
 
-            // Load the layer
-            await myMapImageLayer.LoadAsync();
-
-            // This is needed because the event comes from outside of the UI thread
-            Dispatcher.Invoke(() =>
+            try
             {
-                // Add the layer to the map
-                MyMapView.Map.OperationalLayers.Add(myMapImageLayer);
+                // Load the layer
+                await myMapImageLayer.LoadAsync();
 
-                // Hide the progress bar
-                MyLoadingIndicator.Visibility = Visibility.Collapsed;
+                // This is needed because the event comes from outside of the UI thread
+                Dispatcher.Invoke(() =>
+                {
+                    // Add the layer to the map
+                    MyMapView.Map.OperationalLayers.Add(myMapImageLayer);
 
-                // Disable the generate button
-                MyUpdateContourButton.IsEnabled = false;
+                    // Hide the progress bar
+                    MyLoadingIndicator.Visibility = Visibility.Collapsed;
 
-                // Enable the reset button
-                MyResetButton.IsEnabled = true;
-            });
+                    // Disable the generate button
+                    MyUpdateContourButton.IsEnabled = false;
+
+                    // Enable the reset button
+                    MyResetButton.IsEnabled = true;
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         private static string GetRasterPath()

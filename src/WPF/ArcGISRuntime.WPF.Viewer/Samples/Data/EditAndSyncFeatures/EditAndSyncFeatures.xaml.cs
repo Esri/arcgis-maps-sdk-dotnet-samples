@@ -324,10 +324,10 @@ namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
             MyProgressBar.Visibility = Visibility.Collapsed;
 
             // Do the rest of the work.
-            HandleGenerationCompleted(generateGdbJob);
+            _ = HandleGenerationCompleted(generateGdbJob);
         }
 
-        private async void HandleGenerationCompleted(GenerateGeodatabaseJob job)
+        private async Task HandleGenerationCompleted(GenerateGeodatabaseJob job)
         {
             // If the job completed successfully, add the geodatabase to the map, replacing the layer from the service.
             if (job.Status == JobStatus.Succeeded)

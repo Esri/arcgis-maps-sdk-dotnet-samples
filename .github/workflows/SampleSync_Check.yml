@@ -46,7 +46,7 @@ jobs:
         with:
           files: |
              **/*.md
-          autocrlf: false
+          autocrlf: true
 
       - name: Verify metadata
         uses: tj-actions/verify-changed-files@v10
@@ -54,7 +54,7 @@ jobs:
         with:
           files: |
              **/*.metadata.json
-          autocrlf: false
+          autocrlf: true
 
       - name: Verify sample code
         uses: tj-actions/verify-changed-files@v10
@@ -62,7 +62,7 @@ jobs:
         with:
           files: |
              **/*.xaml.cs
-          autocrlf: false
+          autocrlf: true
 
       - name: Git stuff
         run: |

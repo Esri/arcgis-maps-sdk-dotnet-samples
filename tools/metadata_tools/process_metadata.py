@@ -193,7 +193,8 @@ def update_attribute(sample, sample_dir):
             file.seek(0)
             file.write(''.join(lines))
             file.close()
-        print(file)
+        content = file.readline
+        print(content)
     except Exception as e:
         print(e)
         print("Error with sample: "+sample_dir)

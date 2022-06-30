@@ -187,7 +187,7 @@ def update_attribute(sample, sample_dir):
                     break
                 i=i+1
             f.close()
-
+        print(lines)
         # Rewrite the file with updated attributes.
         with open(path_to_source, "w") as file:
             file.seek(0)

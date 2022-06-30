@@ -23,8 +23,7 @@ jobs:
     
     # The type of runner that the job will run on
     # supported VMs are here: https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners#supported-runners-and-hardware-resources
-    # runs-on: ubuntu-latest
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that got executed as part of the job.
     steps:
@@ -69,20 +68,23 @@ jobs:
         if: steps.verify-readme.outputs.files_changed == 'true'
         run: |
           echo "Changed readme: ${{ steps.verify-readme.outputs.changed_files }}"
-          git diff -w
           exit 1
 
       - name: Run step only when metadata changes.
         if: steps.verify-metadata.outputs.files_changed == 'true'
         run: |
           echo "Changed metadata: ${{ steps.verify-metatada.outputs.changed_files }}"
-          git diff -w
           exit 1
 
       - name: Run step only when sample code.
         if: steps.verify-sample-code.outputs.files_changed == 'true'
         run: |
           echo "Changed sample: ${{ steps.verify-sample-code.outputs.changed_files }}"
-          git diff -w
           exit 1
+
+      - name: Git stuff
+        run: |
+          git rev-parse --abbrev-ref HEAD
+          git status
+          git diff -w
         # Outputs: "Changed files: new.txt test_directory/new.txt"

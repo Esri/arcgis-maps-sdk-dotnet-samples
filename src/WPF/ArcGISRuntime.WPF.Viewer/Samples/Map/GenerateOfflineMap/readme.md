@@ -39,4 +39,4 @@ The creation of the offline map can be fine-tuned using [parameter overrides for
 
 ## Tags
 
-download, offline, save, web map
+download, offline, save, web map, arcade

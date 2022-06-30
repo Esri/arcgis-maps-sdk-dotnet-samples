@@ -1,3 +1,4 @@
+from http.client import NETWORK_AUTHENTICATION_REQUIRED
 from sample_metadata import *
 import urllib.parse
 import sys
@@ -141,6 +142,7 @@ def update_attribute(sample, sample_dir):
                     # Store the end index
                     end = i
                     # Delete the existing attributes
+                    oldcontent = lines[start:end+1]
                     del lines[start:end+1]
 
                     # Create the new attributes
@@ -180,6 +182,10 @@ def update_attribute(sample, sample_dir):
                     # Add the closing characters
                     new_attributes += ")]\n"
 
+                    if oldcontent != new_attributes:
+                        print(oldcontent)
+                        print(new_attributes)
+
                     # Add the new attributes
                     lines.insert(start, new_attributes)
 
@@ -193,8 +199,6 @@ def update_attribute(sample, sample_dir):
             file.seek(0)
             file.write(''.join(lines))
             file.close()
-        content = file.readlines
-        print(content)
     except Exception as e:
         print(e)
         print("Error with sample: "+sample_dir)

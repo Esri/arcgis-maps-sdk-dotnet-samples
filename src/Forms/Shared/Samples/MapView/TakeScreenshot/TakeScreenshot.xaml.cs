@@ -9,40 +9,135 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using System;
+using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntime.Samples.ShowMagnifier
+namespace ArcGISRuntime.Samples.TakeScreenshot
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Show magnifier",
+        name: "Take screenshot",
         category: "MapView",
-        description: "Tap and hold on a map to show a magnifier.",
-        instructions: "Tap and hold on the map to show a magnifier, then drag across the map to move the magnifier. You can also pan the map while holding the magnifier, by dragging the magnifier to the edge of the map.",
-        tags: new[] { "magnify", "map", "zoom" })]
-    public partial class ShowMagnifier : ContentPage
+        description: "Take a screenshot of the map.",
+        instructions: "Pan and zoom to find an interesting location, then use the button to take a screenshot. The screenshot will be displayed. Note that there may be a small delay if the map is still rendering when you push the button.",
+        tags: new[] { "capture", "export", "image", "print", "screen capture", "screenshot", "share", "shot" })]
+    public partial class TakeScreenshot : ContentPage
     {
-        public ShowMagnifier()
+        public TakeScreenshot()
         {
             InitializeComponent();
-
-            // Initialize the sample.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create new Map with basemap and initial location.
-            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
-            myMap.InitialViewpoint = new Viewpoint(34.056295, -117.195800, 10);
+            // Show an imagery basemap.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
+        }
 
-            // Enable magnifier.
-            MyMapView.InteractionOptions = new MapViewInteractionOptions
+        private async void OnTakeScreenshotClicked(object sender, EventArgs e)
+        {
+            try
             {
-                IsMagnifierEnabled = true
-            };
+                ScreenshotButton.IsEnabled = false;
 
-            // Assign the map to the MapView.
-            MyMapView.Map = myMap;
+                // Wait for rendering to finish before taking the screenshot.
+                await WaitForRenderCompleteAsync(MyMapView);
+
+                // Export the image from the map view.
+                RuntimeImage exportedImage = await MyMapView.ExportImageAsync();
+
+                // Create layout for sublayers page
+                // Create root layout
+                StackLayout layout = new StackLayout();
+
+                Button closeButton = new Button
+                {
+                    Text = "Close"
+                };
+                closeButton.Clicked += CloseButton_Clicked;
+
+                // Create image bitmap by getting stream from the exported image.
+                // NOTE: currently broken on UWP due to Xamarin.Forms bug https://github.com/xamarin/Xamarin.Forms/issues/5188.
+                var buffer = await exportedImage.GetEncodedBufferAsync();
+                byte[] data = new byte[buffer.Length];
+                buffer.Read(data, 0, data.Length);
+                var bitmap = ImageSource.FromStream(() => new MemoryStream(data));
+                Image image = new Image()
+                {
+                    Source = bitmap,
+                    Margin = new Thickness(10)
+                };
+
+                // Add elements into the layout.
+                layout.Children.Add(closeButton);
+                layout.Children.Add(image);
+
+                // Create internal page for the navigation page.
+                ContentPage screenshotPage = new ContentPage()
+                {
+                    Content = layout,
+                    Title = "Screenshot"
+                };
+
+                // Navigate to the sublayers page.
+                await Navigation.PushAsync(screenshotPage);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+            }
+            finally
+            {
+                ScreenshotButton.IsEnabled = true;
+            }
+        }
+
+        private static Task WaitForRenderCompleteAsync(Esri.ArcGISRuntime.Xamarin.Forms.MapView mapview)
+        {
+            // The task completion source manages the task, including marking it as finished when the time comes.
+            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+
+            // If the map is currently finished drawing, set the result immediately.
+            if (mapview.DrawStatus == DrawStatus.Completed)
+            {
+                tcs.SetResult(null);
+            }
+            // Otherwise, configure a callback and a timeout to either set the result when
+            // the map is finished drawing or set the result after 2000 ms.
+            else
+            {
+                // Define a cancellation token source for 2000 ms.
+                const int timeoutMs = 2000;
+                var ct = new CancellationTokenSource(timeoutMs);
+
+                // Register the callback that sets the task result after 2000 ms.
+                ct.Token.Register(() =>
+                    tcs.TrySetResult(null), false);
+
+                // Define a local function that will set the task result and unregister itself when the map finishes drawing.
+                void DrawCompleteHandler(object s, DrawStatusChangedEventArgs e)
+                {
+                    if (e.Status == DrawStatus.Completed)
+                    {
+                        mapview.DrawStatusChanged -= DrawCompleteHandler;
+                        tcs.TrySetResult(null);
+                    }
+                }
+
+                // Register the draw complete event handler.
+                mapview.DrawStatusChanged += DrawCompleteHandler;
+            }
+
+            // Return the task.
+            return tcs.Task;
+        }
+
+        private void CloseButton_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PopAsync();
         }
     }
 }

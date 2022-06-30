@@ -142,7 +142,7 @@ def update_attribute(sample, sample_dir):
                     # Store the end index
                     end = i
                     # Delete the existing attributes
-                    oldcontent = lines[start:end+1]
+                    oldcontent = lines[start:end+1].append
                     del lines[start:end+1]
 
                     # Create the new attributes

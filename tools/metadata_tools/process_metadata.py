@@ -203,6 +203,7 @@ def update_attribute(sample, sample_dir):
             newContent = f.read()
         
         if oldcontent != newContent:
+            print(path_to_source)
             print(oldcontent)
             print(newContent)
 

@@ -65,17 +65,20 @@ jobs:
         if: steps.verify-readme.outputs.files_changed == 'true'
         run: |
           echo "Changed readme: ${{ steps.verify-readme.outputs.changed_files }}"
+          git diff
           exit 1
 
       - name: Run step only when metadata changes.
         if: steps.verify-metadata.outputs.files_changed == 'true'
         run: |
           echo "Changed metadata: ${{ steps.verify-metatada.outputs.changed_files }}"
+          git diff
           exit 1
 
       - name: Run step only when sample code.
         if: steps.verify-sample-code.outputs.files_changed == 'true'
         run: |
           echo "Changed sample: ${{ steps.verify-sample-code.outputs.changed_files }}"
+          git diff
           exit 1
         # Outputs: "Changed files: new.txt test_directory/new.txt"

@@ -439,6 +439,8 @@ class sample_metadata:
                     # write out new file
                     if new_content != original_contents:
                         os.remove(sample_file_fullpath)
+                        print(original_contents)
+                        print(new_content)
                         safe_write_contents(sample_file_fullpath, new_content)
                 # rename any files (e.g. $$project$$.sln becomes AccessLoadStatus.sln)
                 new_name = sample_file_fullpath

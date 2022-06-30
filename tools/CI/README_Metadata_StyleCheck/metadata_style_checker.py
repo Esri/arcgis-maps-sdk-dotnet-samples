@@ -184,13 +184,14 @@ class MetadataCreator:
         try:
             api_section_index = readme_parts.index('Relevant API') + 1
             tags_section_index = readme_parts.index('Tags') + 1
-            offline_data_section_index = readme_parts.index('Offline data') + 1
             self.title, self.description = parse_head(readme_parts[0])
             self.relevant_apis = parse_apis(readme_parts[api_section_index])
             keywords = parse_tags(readme_parts[tags_section_index])
             # De-duplicate API names in README's Tags section.
             self.keywords = [w for w in keywords if w not in self.relevant_apis]
-            self.offline_data = parse_offline_data(readme_parts[offline_data_section_index])
+            if readme_parts.__contains__('Offline data'):
+                offline_data_section_index = readme_parts.index('Offline data') + 1
+                self.offline_data = parse_offline_data(readme_parts[offline_data_section_index])
 
         except Exception as err:
             print(f'Error parsing README - {self.readme_path} - {err}.')

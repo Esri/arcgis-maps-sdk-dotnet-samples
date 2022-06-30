@@ -190,7 +190,6 @@ class MetadataCreator:
             keywords = parse_tags(readme_parts[tags_section_index])
             # De-duplicate API names in README's Tags section.
             self.keywords = [w for w in keywords if w not in self.relevant_apis]
-            self.offline_data = ''
             if readme_parts.__contains__('Offline data'):
                 offline_data_section_index = readme_parts.index('Offline data') + 1
                 self.offline_data = parse_offline_data(readme_parts[offline_data_section_index])

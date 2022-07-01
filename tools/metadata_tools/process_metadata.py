@@ -1,4 +1,3 @@
-from http.client import NETWORK_AUTHENTICATION_REQUIRED
 from sample_metadata import *
 import urllib.parse
 import sys

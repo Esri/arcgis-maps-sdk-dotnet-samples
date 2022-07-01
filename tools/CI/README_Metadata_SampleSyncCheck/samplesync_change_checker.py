@@ -14,7 +14,7 @@ def main():
     subprocess.run(["python", readme_script_path])
 
     print("Updating metadata")
-    subprocess.run(["python", metadata_script_path, "src"])
+    subprocess.run(["python", metadata_script_path])
 
     return
 

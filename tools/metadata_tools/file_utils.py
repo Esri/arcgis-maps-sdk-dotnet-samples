@@ -16,7 +16,7 @@ def safe_read_contents(path_to_file):
                 with open(path_to_file, "r", encoding='utf-16') as handle:
                     original_contents = handle.read()
             except:
-                print(path_to_file)
+                print("Error reading file: "+path_to_file)
 
     return original_contents
 

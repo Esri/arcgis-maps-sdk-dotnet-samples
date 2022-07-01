@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                 await GetLocalGeodatabase();
 
                 // Once the local geodatabase is available, load the tables as layers to the map
-                LoadLocalGeodatabaseTables();
+                _ = LoadLocalGeodatabaseTables();
             };
         }
 
@@ -130,7 +130,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
         }
 
         // Function that loads the two point tables from the local geodatabase and displays them as feature layers
-        private async void LoadLocalGeodatabaseTables()
+        private async Task LoadLocalGeodatabaseTables()
         {
             // Read the geodatabase tables and add them as layers
             foreach (GeodatabaseFeatureTable table in _localGeodatabase.GeodatabaseFeatureTables)

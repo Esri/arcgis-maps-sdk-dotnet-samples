@@ -323,10 +323,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             myProgressBar.IsVisible = false;
 
             // Handle the job completion.
-            HandleGenerationStatusChange(generateGdbJob);
+            await HandleGenerationStatusChange(generateGdbJob);
         }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
+        private async Task HandleGenerationStatusChange(GenerateGeodatabaseJob job)
         {
             // If the job completed successfully, add the geodatabase data to the map.
             if (job.Status == JobStatus.Succeeded)

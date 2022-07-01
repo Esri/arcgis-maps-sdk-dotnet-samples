@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
@@ -44,7 +45,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             MyMapView.Map = myMap;
         }
 
-        private async void OpenFeaturesFromArcGISOnline(string itemId)
+        private async Task OpenFeaturesFromArcGISOnline(string itemId)
         {
             try
             {
@@ -90,7 +91,7 @@ namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
             }
 
             // Call a function to add the feature collection from the specified portal item.
-            OpenFeaturesFromArcGISOnline(collectionItemId);
+            _ = OpenFeaturesFromArcGISOnline(collectionItemId);
         }
     }
 }

@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.WMTSLayer
@@ -26,13 +27,13 @@ namespace ArcGISRuntime.WPF.Samples.WMTSLayer
         public WMTSLayer()
         {
             InitializeComponent();
-            LoadWMTSLayer(true);
+            _ = LoadWMTSLayer(true);
         }
 
         private void UriButton_Click(object sender, RoutedEventArgs e)
         {
             //Load the WMTS layer using Uri method.
-            LoadWMTSLayer(true);
+            _ = LoadWMTSLayer(true);
 
             // Disable and enable the appropriate buttons.
             UriButton.IsEnabled = false;
@@ -42,14 +43,14 @@ namespace ArcGISRuntime.WPF.Samples.WMTSLayer
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
             //Load the WMTS layer using layer info.
-            LoadWMTSLayer(false);
+            _ = LoadWMTSLayer(false);
 
             // Disable and enable the appropriate buttons.
             UriButton.IsEnabled = true;
             InfoButton.IsEnabled = false;
         }
 
-        private async void LoadWMTSLayer(bool uriMode)
+        private async Task LoadWMTSLayer(bool uriMode)
         {
             try
             {

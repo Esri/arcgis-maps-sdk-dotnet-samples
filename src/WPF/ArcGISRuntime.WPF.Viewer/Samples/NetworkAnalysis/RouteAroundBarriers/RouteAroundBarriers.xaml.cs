@@ -104,10 +104,10 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             }
         }
 
-        private async void HandleMapTap(MapPoint mapLocation)
+        private async Task HandleMapTap(MapPoint mapLocation)
         {
             // Normalize geometry - important for geometries that will be sent to a server for processing.
-            mapLocation = (MapPoint) GeometryEngine.NormalizeCentralMeridian(mapLocation);
+            mapLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(mapLocation);
 
             switch (_currentSampleState)
             {
@@ -121,25 +121,33 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
                     // Add the graphic to the overlay - this will cause it to appear on the map.
                     _barriersOverlay.Graphics.Add(barrierGraphic);
                     break;
+
                 case SampleState.AddingStops:
-                    // Get the name of this stop.
-                    string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
+                    try
+                    {
+                        // Get the name of this stop.
+                        string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
 
-                    // Create the marker to show underneath the stop number.
-                    PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
+                        // Create the marker to show underneath the stop number.
+                        PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
 
-                    // Create the text symbol for showing the stop.
-                    TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
-                        Symbology.HorizontalAlignment.Center, Symbology.VerticalAlignment.Middle);
-                    stopSymbol.OffsetY = 15;
+                        // Create the text symbol for showing the stop.
+                        TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
+                            Symbology.HorizontalAlignment.Center, Symbology.VerticalAlignment.Middle);
+                        stopSymbol.OffsetY = 15;
 
-                    CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
+                        CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
-                   // Create the graphic to show the stop.
-                    Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
+                        // Create the graphic to show the stop.
+                        Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
 
-                    // Add the graphic to the overlay - this will cause it to appear on the map.
-                    _stopsOverlay.Graphics.Add(stopGraphic);
+                        // Add the graphic to the overlay - this will cause it to appear on the map.
+                        _stopsOverlay.Graphics.Add(stopGraphic);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                    }
                     break;
             }
         }
@@ -173,7 +181,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
             {
                 // Note: this assumes that only points were added to the stops overlay.
-                MapPoint stopPoint = (MapPoint) stopGraphic.Geometry;
+                MapPoint stopPoint = (MapPoint)stopGraphic.Geometry;
 
                 // Create the stop from the graphic's geometry.
                 Stop routeStop = new Stop(stopPoint);
@@ -196,7 +204,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             foreach (Graphic barrierGraphic in _barriersOverlay.Graphics)
             {
                 // Get the polygon from the graphic.
-                Polygon barrierPolygon = (Polygon) barrierGraphic.Geometry;
+                Polygon barrierPolygon = (Polygon)barrierGraphic.Geometry;
 
                 // Create a barrier from the polygon.
                 PolygonBarrier routeBarrier = new PolygonBarrier(barrierPolygon);
@@ -219,10 +227,10 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             _routeParameters.PreserveLastStop = PreserveLastStopCheckbox.IsChecked == true;
 
             // Calculate and show the route.
-            CalculateAndShowRoute();
+            _ = CalculateAndShowRoute();
         }
 
-        private async void CalculateAndShowRoute()
+        private async Task CalculateAndShowRoute()
         {
             try
             {
@@ -258,7 +266,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
             DirectionsListBox.ItemsSource = directions;
         }
 
-        private void MyMapView_OnGeoViewTapped(object sender, GeoViewInputEventArgs e) => HandleMapTap(e.Location);
+        private void MyMapView_OnGeoViewTapped(object sender, GeoViewInputEventArgs e) => _ = HandleMapTap(e.Location);
 
         private void AddStop_Clicked(object sender, RoutedEventArgs e) => UpdateInterfaceState(SampleState.AddingStops);
 
@@ -318,12 +326,15 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
                     CalculateRouteButton.IsEnabled = false;
                     StatusLabel.Text = "Preparing sample...";
                     break;
+
                 case SampleState.AddingBarriers:
                     StatusLabel.Text = "Tap the map to add a barrier.";
                     break;
+
                 case SampleState.AddingStops:
                     StatusLabel.Text = "Tap the map to add a stop.";
                     break;
+
                 case SampleState.Ready:
                     AddStopButton.IsEnabled = true;
                     AddBarrierButton.IsEnabled = true;
@@ -336,6 +347,7 @@ namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers
                     StatusLabel.Text = "Click 'Add stop' or 'Add barrier', then tap on the map to add stops and barriers.";
                     BusyOverlay.Visibility = Visibility.Collapsed;
                     break;
+
                 case SampleState.Routing:
                     BusyOverlay.Visibility = Visibility.Visible;
                     break;

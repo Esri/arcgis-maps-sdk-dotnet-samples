@@ -61,7 +61,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
                 await GetLocalGeodatabase();
 
                 // Once the local geodatabase is available, load the tables as layers to the map
-                LoadLocalGeodatabaseTables();
+                await LoadLocalGeodatabaseTables();
             };
         }
 
@@ -136,7 +136,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
         }
 
         // Function that loads the two point tables from the local geodatabase and displays them as feature layers
-        private async void LoadLocalGeodatabaseTables()
+        private async Task LoadLocalGeodatabaseTables()
         {
             if (_localGeodatabase == null) { return; }
 

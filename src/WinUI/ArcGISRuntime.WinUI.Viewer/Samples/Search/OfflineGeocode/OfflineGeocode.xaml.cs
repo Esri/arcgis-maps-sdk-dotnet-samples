@@ -93,7 +93,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             }
         }
 
-        private async void UpdateSearch()
+        private async Task UpdateSearch()
         {
             // Get the text in the search bar.
             string enteredText = AutoSuggestBox.Text;
@@ -187,7 +187,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             {
                 AutoSuggestBox.Text = args.ChosenSuggestion.ToString();
             }
-            UpdateSearch();
+            _ = UpdateSearch();
         }
 
         private async Task<Graphic> GraphicForPoint(MapPoint point)

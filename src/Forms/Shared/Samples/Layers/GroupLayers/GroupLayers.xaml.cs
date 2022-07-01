@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -62,24 +62,31 @@ namespace ArcGISRuntimeXamarin.Samples.GroupLayers
             // Add the layer list to the UI.
             foreach (Layer layer in MySceneView.Scene.OperationalLayers)
             {
-                AddLayersToUI(layer);
+                _ = AddLayersToUI(layer);
             }
         }
 
-        private async void AddLayersToUI(Layer layer, int nestLevel = 0)
+        private async Task AddLayersToUI(Layer layer, int nestLevel = 0)
         {
-            // Wait for the layer to load - ensures that the UI will be up-to-date.
-            await layer.LoadAsync();
+            try
+            {
+                // Wait for the layer to load - ensures that the UI will be up-to-date.
+                await layer.LoadAsync();
 
-            // Add a row for the current layer.
-            LayersView.Children.Add(ViewForLayer(layer, nestLevel));
+                // Add a row for the current layer.
+                LayersView.Children.Add(ViewForLayer(layer, nestLevel));
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
 
             // Add rows for any children of this layer if it is a group layer.
             if (layer is GroupLayer layerGroup)
             {
                 foreach (Layer child in layerGroup.Layers)
                 {
-                    AddLayersToUI(child, nestLevel + 1);
+                    _ = AddLayersToUI(child, nestLevel + 1);
                 }
             }
         }

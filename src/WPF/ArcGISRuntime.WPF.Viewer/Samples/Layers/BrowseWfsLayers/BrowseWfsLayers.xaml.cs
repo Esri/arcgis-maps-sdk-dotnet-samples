@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
@@ -46,10 +47,10 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
             // Create the map with imagery basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
-            LoadService();
+            _ = LoadService();
         }
 
-        private async void LoadService()
+        private async Task LoadService()
         {
             try
             {
@@ -170,7 +171,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseWfsLayers
 
         private void LoadServiceButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadService();
+            _ = LoadService();
         }
     }
 }

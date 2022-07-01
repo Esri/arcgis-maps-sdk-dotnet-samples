@@ -131,7 +131,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
         /// <param name="enteredText">Results to search for.</param>
         /// <param name="locationText">Location around which to find results.</param>
         /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent.</param>
-        private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
+        private async Task UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
             try
             {
@@ -434,7 +434,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Run the search.
-            UpdateSearch(searchText, locationText, true);
+            _ = UpdateSearch(searchText, locationText, true);
         }
 
         /// <summary>
@@ -452,7 +452,7 @@ namespace ArcGISRuntime.WPF.Samples.FindPlace
             string locationText = MyLocationBox.Text;
 
             // Run the search.
-            UpdateSearch(searchText, locationText);
+            _ = UpdateSearch(searchText, locationText);
         }
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)

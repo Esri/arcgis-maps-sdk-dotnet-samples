@@ -19,6 +19,7 @@ using System.Drawing;
 using System.Linq;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.BrowseWfsLayers
 {
@@ -47,10 +48,10 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseWfsLayers
             // Create the map with imagery basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
-            LoadService();
+            _ = LoadService();
         }
 
-        private async void LoadService()
+        private async Task LoadService()
         {
             try
             {
@@ -171,7 +172,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseWfsLayers
 
         private void LoadServiceButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadService();
+            _ = LoadService();
         }
     }
 }

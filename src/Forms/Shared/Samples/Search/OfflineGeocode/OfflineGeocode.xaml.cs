@@ -90,10 +90,10 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
 
         private void Handle_TextChanged(object sender, System.EventArgs e)
         {
-            updateSearch();
+            _ = UpdateSearchAsync();
         }
 
-        private async void updateSearch()
+        private async Task UpdateSearchAsync()
         {
             // Get the text in the search bar.
             string enteredText = MySearchBar.Text;
@@ -103,7 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             MyMapView.DismissCallout();
 
             // Return if the textbox is empty or the geocoder isn't ready.
-            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
             {
                 return;
             }
@@ -177,7 +177,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
                 string action = await ((Page)this.Parent).DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
                 // Update the search
                 MySearchBar.Text = action;
-                updateSearch();
+                _ = UpdateSearchAsync();
             }
             catch (Exception ex)
             {

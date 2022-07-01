@@ -133,7 +133,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         /// <param name="enteredText">Results to search for</param>
         /// <param name="locationText">Location around which to find results</param>
         /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
-        private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
+        private async Task UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers
             MyMapView.GraphicsOverlays.Clear();
@@ -329,11 +329,9 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         /// Method abstracts the platform-specific message box functionality to maximize re-use of common code
         /// </summary>
         /// <param name="message">Text of the message to show.</param>
-        private async void ShowStatusMessage(string message)
+        private void ShowStatusMessage(string message)
         {
-            // Display the message to the user
-            var dialog = new MessageDialog2(message);
-            await dialog.ShowAsync();
+            _ = new MessageDialog2(message).ShowAsync();
         }
 
         /// <summary>
@@ -402,7 +400,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             string locationText = LocationEntry.Text;
 
             // Run the search
-            UpdateSearch(searchText, locationText, true);
+            _ = UpdateSearch(searchText, locationText, true);
         }
 
         /// <summary>
@@ -420,7 +418,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             string locationText = LocationEntry.Text;
 
             // Run the search
-            UpdateSearch(searchText, locationText);
+            _ = UpdateSearch(searchText, locationText);
         }
 
         /// <summary>

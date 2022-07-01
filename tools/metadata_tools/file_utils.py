@@ -36,4 +36,4 @@ def safe_write_contents(path_to_file, new_content):
                 with open(path_to_file, 'w+', encoding="utf-16") as rewrite_handle:
                     rewrite_handle.write(new_content)
             except:
-                print(path_to_file)
+                print("Error writing file: "+path_to_file)

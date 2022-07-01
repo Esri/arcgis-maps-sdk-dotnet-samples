@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-Comments in PyCharm style.
-
-References
-
-- Tag sorter by Zack
-  /common-samples/blob/master/tools/net/tag_sorter/tag_sorter.py
-
-- README standard format
-  /common-samples/wiki/Standard-sample-documentation-template-%28README.md%29
-"""
-
 from ast import Tuple
 import os
 import re

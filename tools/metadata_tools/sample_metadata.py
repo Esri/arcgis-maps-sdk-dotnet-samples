@@ -3,7 +3,6 @@ import os
 from distutils.dir_util import copy_tree
 from shutil import copyfile, rmtree
 import re
-# import requests
 from datetime import datetime
 from csproj_utils import *
 from file_utils import *

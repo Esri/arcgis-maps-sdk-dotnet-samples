@@ -96,6 +96,7 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
             entry_url = urllib.parse.quote(entry_url)
             readme_text += f"* [{sample.friendly_name}]({entry_url}) - {sample.description}\n"
         readme_text += "\n"
+    # Remove trailing newline character from readme.
     readme_text = readme_text[:-1]   
 
     readme_path = os.path.join(platform_dir, "../..", "readme.md")
@@ -196,8 +197,7 @@ def update_attribute(sample, sample_dir):
             file.close()
 
     except Exception as e:
-        print(e)
-        print("Error with sample: "+sample_dir)
+        print("Error with sample: "+sample_dir+"-"+e)
 
 def main():
     '''

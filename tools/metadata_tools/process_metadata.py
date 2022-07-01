@@ -1,7 +1,6 @@
 from sample_metadata import *
 import urllib.parse
 import sys
-
 import os
 
 def get_platform_samples_root(platform, sample_root):
@@ -82,17 +81,24 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
     '''
     readme_text = "# Table of contents\n\n"
 
-    for category in samples_in_categories.keys():
+    keys = list(samples_in_categories.keys())
+    keys.sort()
+    for category in keys:
         readme_text += f"## {category}\n\n"
         formal_category = category
         if ' ' in formal_category:
             formal_category = formal_category.title().replace(' ', '')
-        for sample in samples_in_categories[category]:
+
+        samples = list(samples_in_categories[category])
+        samples.sort(key=lambda s: s.friendly_name)
+        for sample in samples:
             entry_url = f"{relative_path_to_samples}/{formal_category}/{sample.formal_name}"
             entry_url = urllib.parse.quote(entry_url)
             readme_text += f"* [{sample.friendly_name}]({entry_url}) - {sample.description}\n"
         readme_text += "\n"
-    
+    # Remove trailing newline character from readme.
+    readme_text = readme_text[:-1]   
+
     readme_path = os.path.join(platform_dir, "../..", "readme.md")
     with open(readme_path, 'w+') as file:
         file.write(readme_text)
@@ -100,7 +106,10 @@ def write_samples_toc(platform_dir, relative_path_to_samples, samples_in_categor
 def update_attribute(sample, sample_dir):
     try:
         # Get the formal name of the sample
-        name = sample_dir.split('\\')[-1]
+        if '\\' in sample_dir:
+            name = sample_dir.split('\\')[-1]
+        elif  '/' in sample_dir:
+            name = sample_dir.split('/')[-1]
 
         # Get the correct file ending
         if "Xamarin.iOS" in sample_dir or "Xamarin.Android" in sample_dir:
@@ -113,6 +122,7 @@ def update_attribute(sample, sample_dir):
 
         # Open the file
         path_to_source = os.path.join(sample_dir, name + ending)
+
         with open(path_to_source, 'r') as f:
             lines = f.readlines()
             i = 0
@@ -185,8 +195,9 @@ def update_attribute(sample, sample_dir):
             file.seek(0)
             file.write(''.join(lines))
             file.close()
-    except:
-        print("Error with sample: "+sample_dir)
+
+    except Exception as e:
+        print("Error with sample: "+sample_dir+"-"+e)
 
 def main():
     '''
@@ -210,6 +221,8 @@ def main():
             if not skipped_categories:
                 skipped_categories = True
                 continue
+            
+            d.sort()
             for sample_dir in d:
                 # skip category directories
                 sample = sample_metadata()

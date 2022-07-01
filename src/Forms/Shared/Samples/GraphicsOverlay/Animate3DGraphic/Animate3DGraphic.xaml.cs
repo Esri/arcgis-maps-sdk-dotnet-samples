@@ -258,9 +258,9 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
                 // Update stats display
                 AltitudeLabel.Text = $"{currentFrame.Elevation:F}m";
-                HeadingLabel.Text = $"{currentFrame.Heading:F}°";
-                PitchLabel.Text = $"{currentFrame.Pitch:F}°";
-                RollLabel.Text = $"{currentFrame.Pitch:F}°";
+                HeadingLabel.Text = $"{currentFrame.Heading:F}\u00b0";
+                PitchLabel.Text = $"{currentFrame.Pitch:F}\u00b0";
+                RollLabel.Text = $"{currentFrame.Pitch:F}\u00b0";
             });
 
             // Update plane's position

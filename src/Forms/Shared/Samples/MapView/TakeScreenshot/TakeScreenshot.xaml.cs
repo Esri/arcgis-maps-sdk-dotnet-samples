@@ -3,16 +3,16 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.TakeScreenshot
@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 closeButton.Clicked += CloseButton_Clicked;
 
                 // Create image bitmap by getting stream from the exported image.
-                // NOTE: currently broken on UWP due to Xamarin.Forms bug https://github.com/xamarin/Xamarin.Forms/issues/5188. 
+                // NOTE: currently broken on UWP due to Xamarin.Forms bug https://github.com/xamarin/Xamarin.Forms/issues/5188.
                 var buffer = await exportedImage.GetEncodedBufferAsync();
                 byte[] data = new byte[buffer.Length];
                 buffer.Read(data, 0, data.Length);
@@ -116,7 +116,6 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 // Register the callback that sets the task result after 2000 ms.
                 ct.Token.Register(() =>
                     tcs.TrySetResult(null), false);
-
 
                 // Define a local function that will set the task result and unregister itself when the map finishes drawing.
                 void DrawCompleteHandler(object s, DrawStatusChangedEventArgs e)

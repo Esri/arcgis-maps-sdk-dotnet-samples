@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.Managers
             var downloadTask = await FileDownloadTask.StartDownload(tempFile, item);
 
             if (cancellationToken.CanBeCanceled)
-                cancellationToken.Register(() => _ = downloadTask.CancelAsync());
+                cancellationToken.Register(() => CancelDownload(downloadTask));
             if (onProgress != null)
                 downloadTask.Progress += (s, e) => onProgress(e);
             await downloadTask.DownloadAsync();
@@ -65,6 +65,15 @@ namespace ArcGISRuntime.Samples.Managers
             // Write the __sample.config file. This is used to ensure that cached data did not go out-of-date.
             string configFilePath = Path.Combine(dataDir, "__sample.config");
             File.WriteAllText(configFilePath, @"Data downloaded: " + DateTime.Now);
+        }
+
+        private static void CancelDownload(FileDownloadTask downloadTask)
+        {
+            try
+            {
+                downloadTask.CancelAsync();
+            }
+            catch { }
         }
 
         /// <summary>
@@ -109,7 +118,6 @@ namespace ArcGISRuntime.Samples.Managers
             Action<ProgressInfo, int> combinedProgress = null;
             if (onProgress != null)
             {
-
                 var count = itemIds.Count();
                 ProgressInfo[] totalProgress = new ProgressInfo[count];
                 int total = count * 100;

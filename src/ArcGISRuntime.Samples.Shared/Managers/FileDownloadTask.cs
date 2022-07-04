@@ -176,7 +176,10 @@ namespace ArcGISRuntime.Samples.Managers
             else
             {
                 if (cancellationSource == null || task == null)
+                {
                     throw new InvalidOperationException("Download not running");
+                }
+
                 cancellationSource.Cancel();
                 return task.ContinueWith(t => { File.Delete(Filename); Status = DownloadStatus.Cancelled; });
             }
@@ -229,7 +232,7 @@ namespace ArcGISRuntime.Samples.Managers
                 content = response.EnsureSuccessStatusCode();
                 transferTask = BeginTransfer(content);
             }
-            catch (System.Exception)
+            catch (Exception)
             {
                 Status = DownloadStatus.Error;
                 throw;

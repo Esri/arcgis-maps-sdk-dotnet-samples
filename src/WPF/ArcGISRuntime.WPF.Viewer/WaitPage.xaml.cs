@@ -18,6 +18,7 @@ namespace ArcGISRuntime.WPF.Viewer
     public partial class WaitPage
     {
         private CancellationTokenSource _cancellationTokenSource;
+
         public WaitPage()
         {
             InitializeComponent();
@@ -27,11 +28,25 @@ namespace ArcGISRuntime.WPF.Viewer
         {
             InitializeComponent();
             _cancellationTokenSource = cancellation;
+            this.Visibility = Visibility.Collapsed;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             _cancellationTokenSource.Cancel(true);
+        }
+
+        public void SetProgress(int percentage)
+        {
+            Dispatcher.BeginInvoke(delegate ()
+            {
+                if (percentage > 0)
+                {
+                    this.Visibility = Visibility.Visible;
+                    ProgressBar.Value = percentage;
+                    PercentageLabel.Content = $"{percentage}%";
+                }
+            });
         }
     }
 }

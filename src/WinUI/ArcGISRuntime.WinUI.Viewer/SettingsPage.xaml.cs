@@ -9,19 +9,18 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISRuntime.WinUI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.System;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using System.Reflection;
-using ArcGISRuntime.WinUI;
 
 namespace ArcGISRuntime
 {
@@ -35,7 +34,6 @@ namespace ArcGISRuntime
         {
             this.InitializeComponent();
         }
-
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -58,12 +56,13 @@ namespace ArcGISRuntime
             var root = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
             AboutBlock.Text = File.ReadAllText(Path.Combine(root, "Resources", "about.md")) + _runtimeVersion;
             LicensesBlock.Text = File.ReadAllText(Path.Combine(root, "Resources", "licenses.md"));
-            
+
             // Set up offline data.
             OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
             SampleDataListView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
         }
+
         private async void Download_All_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -89,10 +88,17 @@ namespace ArcGISRuntime
                     }
                 }
 
-                foreach (var item in itemIds)
+                StatusSpinner.IsIndeterminate = false;
+                StatusSpinner.Minimum = 0;
+                StatusSpinner.MaxHeight = 100;
+
+                await DataManager.EnsureSampleDataPresent(itemIds, token, (info) =>
                 {
-                    downloadTasks.Add(DataManager.DownloadDataItem(item, token));
-                }
+                    DispatcherQueue.TryEnqueue(() =>
+                    {
+                        StatusSpinner.Value = info.Percentage;
+                    });
+                });
 
                 await Task.WhenAll(downloadTasks);
 
@@ -109,6 +115,7 @@ namespace ArcGISRuntime
             }
             finally
             {
+                StatusSpinner.IsIndeterminate = true;
                 _cancellationTokenSource = new CancellationTokenSource();
                 SetStatusMessage("Ready", false);
                 CancelButton.Visibility = Visibility.Collapsed;
@@ -162,23 +169,46 @@ namespace ArcGISRuntime
             }
         }
 
+        private Dictionary<SampleInfo, CancellationTokenSource> _downloads = new Dictionary<SampleInfo, CancellationTokenSource>();
+
         private async void Download_Now_Click(object sender, RoutedEventArgs e)
         {
+            ProgressBar progress = null;
+            SampleInfo sample = ((Button)sender).Tag as SampleInfo;
             try
             {
-                SetStatusMessage("Downloading sample data", true);
-                SampleInfo sample = (SampleInfo)((Button)sender).Tag;
-
-                await DataManager.EnsureSampleDataPresent(sample);
+                if (_downloads.ContainsKey(sample))
+                {
+                    _downloads[sample].Cancel();
+                    return;
+                }
+                CancellationTokenSource tcs = new CancellationTokenSource();
+                _downloads[sample] = tcs;
+                var elm = (sender as Button)?.Content;
+                Action<ProgressInfo> onProgress = null;
+                if (elm is Grid grid && grid.Children.Count == 2 && grid.Children[1] is ProgressBar bar)
+                {
+                    progress = bar;
+                    progress.Value = 0;
+                    progress.Visibility = Visibility.Visible;
+                    onProgress = (info) =>
+                    {
+                        DispatcherQueue.TryEnqueue(() => { progress.Value = info.Percentage; });
+                    };
+                }
+                await DataManager.EnsureSampleDataPresent(sample, tcs.Token, onProgress);
             }
+            catch (OperationCanceledException) { }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception);
+                Debug.WriteLine(exception);
                 await new MessageDialog2("Couldn't download data for that sample", "Error").ShowAsync();
             }
             finally
             {
-                SetStatusMessage("Ready", false);
+                _downloads.Remove(sample);
+                if (progress != null)
+                    progress.Visibility = Visibility.Collapsed;
             }
         }
 

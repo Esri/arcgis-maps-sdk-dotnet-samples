@@ -7,8 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Threading;
 using Microsoft.UI.Xaml;
+using System.Threading;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
@@ -28,11 +28,25 @@ namespace ArcGISRuntime.WinUI.Viewer
         {
             InitializeComponent();
             _cancellationTokenSource = cancellation;
+            this.Visibility = Visibility.Collapsed;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             _cancellationTokenSource.Cancel(true);
+        }
+
+        public void SetProgress(int percentage)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                if (percentage > 0)
+                {
+                    this.Visibility = Visibility.Visible;
+                    ProgressBar.Value = percentage;
+                    ProgressLabel.Text = $"{percentage}%";
+                }
+            });
         }
     }
 }

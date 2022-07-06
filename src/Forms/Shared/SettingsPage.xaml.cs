@@ -48,14 +48,13 @@ namespace ArcGISRuntime
 #endif
             }
             // Precise version number cant be used while running in release mode.
-            catch(Exception)
+            catch (Exception)
             {
                 versionNumber = "100.14.1";
             }
 
-
             // Set up offline data.
-            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
+            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).OrderBy(s => s.SampleName).ToList();
             OfflineDataView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -132,7 +131,7 @@ namespace ArcGISRuntime
                     SetStatusMessage($"Downloading data for {sampleInfo.SampleName}", true);
                     await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token, (info) =>
                     {
-                       SetProgress(info.Percentage);
+                        SetProgress(info.Percentage);
                     });
                 }
                 catch (OperationCanceledException)
@@ -182,8 +181,15 @@ namespace ArcGISRuntime
 
                     foreach (string offlineItemId in sampleInfo.OfflineDataItems)
                     {
-                        string offlineDataPath = DataManager.GetDataFolder(offlineItemId);
-                        Directory.Delete(offlineDataPath, true);
+                        try
+                        {
+                            string offlineDataPath = DataManager.GetDataFolder(offlineItemId);
+                            Directory.Delete(offlineDataPath, true);
+                        }
+                        catch (DirectoryNotFoundException ex)
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
                     }
                     await Application.Current.MainPage.DisplayAlert("Success", $"Offline data deleted for {sampleInfo.SampleName}", "OK");
                 }
@@ -202,30 +208,33 @@ namespace ArcGISRuntime
         {
             try
             {
-                // Enable the cancel button.
+                CancellationToken token = _cancellationTokenSource.Token;
                 CancelButton.IsVisible = true;
-
-                // Adjust the UI
-                SetStatusMessage("Downloading all...", true);
-
-                // Make a list of tasks for downloading all of the samples.
                 HashSet<string> itemIds = new HashSet<string>();
-
                 foreach (SampleInfo sample in OfflineDataSamples)
                 {
+                    SetStatusMessage($"Downloading items for {sample.SampleName}", true);
                     foreach (string itemId in sample.OfflineDataItems)
                     {
-                        itemIds.Add(itemId);
+                        if (!itemIds.Contains(itemId))
+                        {
+                            try
+                            {
+                                // Wait for offline data to complete
+                                await DataManager.DownloadDataItem(itemId, _cancellationTokenSource.Token,
+                                (info) =>
+                                {
+                                    SetProgress(info.Percentage);
+                                });
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                            }
+                            itemIds.Add(itemId);
+                        }
                     }
                 }
-
-                // Download every item.
-                foreach (var item in itemIds)
-                {
-                    StatusLabel.Text = $"Downloading item: {item}";
-                    await DataManager.DownloadDataItem(item, _cancellationTokenSource.Token);
-                }
-
                 await Application.Current.MainPage.DisplayAlert(string.Empty, "All data downloaded", "OK");
             }
             catch (OperationCanceledException)
@@ -251,7 +260,17 @@ namespace ArcGISRuntime
                 SetStatusMessage("Deleting all...", true);
 
                 string offlineDataPath = DataManager.GetDataFolder();
-                Directory.Delete(offlineDataPath, true);
+                foreach (var d in Directory.GetDirectories(offlineDataPath))
+                {
+                    try
+                    {
+                        Directory.Delete(d, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"{ex.Message} - {d}");
+                    }
+                }
 
                 await Application.Current.MainPage.DisplayAlert("Success", "All data deleted", "OK");
             }

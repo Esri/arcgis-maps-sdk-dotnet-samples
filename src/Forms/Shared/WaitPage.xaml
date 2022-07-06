@@ -1,29 +1,28 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntime.WaitPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+﻿<ContentPage x:Class="ArcGISRuntime.WaitPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <RelativeLayout>
-        <Frame
-            CornerRadius="0"
-            HasShadow="False"
-            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                   Factor=.5,
-                                                                   Property=Height}"
-            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                  Factor=1,
-                                                                  Property=Width}"
-            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Factor=0,
-                                                              Property=Width}"
-            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Factor=.5,
-                                                              Property=Height}">
+        <Frame CornerRadius="0"
+               HasShadow="False"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Factor=.5,
+                                                                      Property=Height}"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                     Factor=1,
+                                                                     Property=Width}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                 Factor=0,
+                                                                 Property=Width}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                 Factor=.5,
+                                                                 Property=Height}">
             <StackLayout>
-                <Label
-                    FontSize="Large"
-                    HorizontalTextAlignment="Center"
-                    Text="Downloading data" />
-                <ActivityIndicator IsRunning="True" />
+                <Label x:Name="DownloadLabel"
+                       Margin="5"
+                       FontSize="Large"
+                       HorizontalTextAlignment="Start"
+                       Text="Checking for sample data" />
+                <ProgressBar x:Name="DownloadProgress" />
                 <Button Clicked="DownloadCancelled" Text="Cancel" />
             </StackLayout>
         </Frame>

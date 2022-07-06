@@ -130,7 +130,10 @@ namespace ArcGISRuntime
                     CancelButton.IsVisible = true;
 
                     SetStatusMessage($"Downloading data for {sampleInfo.SampleName}", true);
-                    await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token);
+                    await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token, (info) =>
+                    {
+                       SetProgress(info.Percentage);
+                    });
                 }
                 catch (OperationCanceledException)
                 {
@@ -273,6 +276,18 @@ namespace ArcGISRuntime
             StatusLabel.Text = message;
             StatusSpinner.IsVisible = isRunning;
             OfflineDataView.IsEnabled = !isRunning;
+        }
+
+        public void SetProgress(int percentage)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (percentage > 0)
+                {
+                    double progress = percentage / 100.0;
+                    StatusSpinner.ProgressTo(progress, 10, Easing.Linear);
+                }
+            });
         }
     }
 }

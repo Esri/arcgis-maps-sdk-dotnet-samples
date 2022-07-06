@@ -117,14 +117,15 @@
                                VerticalOptions="Center" />
                         <Grid Grid.Column="1"
                               HeightRequest="{x:OnPlatform Android=40,
-                                                           iOS=60,
+                                                           iOS=40,
                                                            UWP=40}"
                               WidthRequest="{x:OnPlatform Android=120,
                                                           iOS=120,
                                                           UWP=240}">
                             <ProgressBar x:Name="StatusSpinner"
                                          Margin="5"
-                                         IsVisible="False" />
+                                         IsVisible="False"
+                                         VerticalOptions="Center" />
                         </Grid>
                     </Grid>
                 </Grid>

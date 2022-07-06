@@ -119,9 +119,9 @@ namespace ArcGISRuntime.Samples.Managers
                 var count = itemIds.Count();
                 ProgressInfo[] totalProgress = new ProgressInfo[count];
                 int total = count * 100;
-                combinedProgress = (info, id) =>
+                combinedProgress = (info, idNum) =>
                 {
-                    totalProgress[id] = info;
+                    totalProgress[idNum] = info;
                     onProgress(new ProgressInfo() { TotalBytes = totalProgress.Sum(t => t is null ? 0 : t.TotalBytes), TotalLength = totalProgress.Sum(t => t is null ? 0 : t.TotalLength) });
                 };
             }
@@ -136,7 +136,8 @@ namespace ArcGISRuntime.Samples.Managers
                 if (!IsDataPresent(item))
                 {
                     var index = id;
-                    Task downloadTask = DownloadItem(item, token, combinedProgress is null ? null : (info) => combinedProgress(info, index));
+                    Action<ProgressInfo> action = (info) => combinedProgress(info, index);
+                    Task downloadTask = DownloadItem(item, token, combinedProgress is null ? null : action);
                     downloads.Add(downloadTask);
                 }
                 id++;

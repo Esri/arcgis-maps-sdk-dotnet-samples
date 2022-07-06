@@ -41,8 +41,6 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 Directory.CreateDirectory(dataDir);
             }
-            // Get the download task.
-            //Task<Stream> downloadTask = item.GetDataAsync(cancellationToken);
 
             // Get the path to the destination file.
             string tempFile = Path.Combine(dataDir, item.Name);
@@ -152,7 +150,7 @@ namespace ArcGISRuntime.Samples.Managers
             return DownloadDataItem(itemId, CancellationToken.None);
         }
 
-        public static async Task DownloadDataItem(string itemId, CancellationToken cancellationToken)
+        public static async Task DownloadDataItem(string itemId, CancellationToken cancellationToken, Action<ProgressInfo> onProgress = null)
         {
             // Create ArcGIS portal item
             var portal = await ArcGISPortal.CreateAsync(cancellationToken).ConfigureAwait(false);
@@ -160,7 +158,7 @@ namespace ArcGISRuntime.Samples.Managers
             // Download item if not already present
             if (!IsDataPresent(item))
             {
-                await DownloadItem(item, cancellationToken);
+                await DownloadItem(item, cancellationToken, onProgress);
             }
         }
 

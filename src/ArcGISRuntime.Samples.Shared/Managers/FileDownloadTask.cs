@@ -47,8 +47,10 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
         public Exception Exception { get; private set; }
+
         [DataMember]
         public DownloadStatus Status { get; internal set; }
+
         [DataMember]
         public int BufferSize { get; set; } = 65535;
 

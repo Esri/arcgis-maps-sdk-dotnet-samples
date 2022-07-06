@@ -197,7 +197,7 @@ def update_attribute(sample, sample_dir):
             file.close()
 
     except Exception as e:
-        print("Error with sample: "+sample_dir+"-"+e)
+        print("Error with sample: "+sample_dir+"-"+str(e))
 
 def main():
     '''

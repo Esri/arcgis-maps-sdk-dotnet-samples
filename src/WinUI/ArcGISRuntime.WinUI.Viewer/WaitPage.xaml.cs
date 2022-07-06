@@ -12,9 +12,6 @@ using System.Threading;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class WaitPage
     {
         private CancellationTokenSource _cancellationTokenSource;

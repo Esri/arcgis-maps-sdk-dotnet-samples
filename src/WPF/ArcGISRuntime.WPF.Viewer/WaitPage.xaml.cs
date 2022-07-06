@@ -12,9 +12,6 @@ using System.Windows;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
-    /// <summary>
-    /// Interaction logic for WaitPage.xaml
-    /// </summary>
     public partial class WaitPage
     {
         private CancellationTokenSource _cancellationTokenSource;

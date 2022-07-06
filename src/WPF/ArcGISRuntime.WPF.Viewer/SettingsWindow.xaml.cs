@@ -63,7 +63,7 @@ namespace ArcGISRuntime
             LicenseBrowser.NewWindow += (s, e) => { e.Cancel = true; };
 
             // Set up offline data.
-            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
+            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).OrderBy(s => s.SampleName).ToList();
 
             SampleDataListView.ItemsSource = OfflineDataSamples;
 
@@ -173,7 +173,7 @@ namespace ArcGISRuntime
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception);
+                Debug.WriteLine(exception);
                 MessageBox.Show("Couldn't download all sample data");
             }
             finally

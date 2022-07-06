@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.Managers
             transferTask = BeginTransfer(content);
         }
 
-        public Exception Exception { get; private set; }
+        public Exception DownloadException { get; private set; }
 
         [DataMember]
         public DownloadStatus Status { get; internal set; }
@@ -83,7 +83,9 @@ namespace ArcGISRuntime.Samples.Managers
         internal void OnDeserialized(StreamingContext context)
         {
             if (Status == DownloadStatus.Downloading || Status == DownloadStatus.Resuming)
+            {
                 Status = DownloadStatus.Paused;
+            }
             var fi = new FileInfo(Filename);
 
             if (fi.Exists)
@@ -95,10 +97,10 @@ namespace ArcGISRuntime.Samples.Managers
 
         public static FileDownloadTask FromJson(string json, HttpMessageHandler handler = null)
         {
-            DataContractJsonSerializer s = new DataContractJsonSerializer(typeof(FileDownloadTask));
-            using (var ms = new MemoryStream(Encoding.UTF8.GetBytes(json)))
+            var serializer = new DataContractJsonSerializer(typeof(FileDownloadTask));
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
-                var fdt = s.ReadObject(ms) as FileDownloadTask;
+                var fdt = serializer.ReadObject(stream) as FileDownloadTask;
                 fdt.client = new HttpClient(handler ?? new HttpClientHandler());
                 return fdt;
             }
@@ -106,17 +108,16 @@ namespace ArcGISRuntime.Samples.Managers
 
         public string ToJson()
         {
-            DataContractJsonSerializer s = new DataContractJsonSerializer(typeof(FileDownloadTask));
-            using (var ms = new MemoryStream())
+            var serializer = new DataContractJsonSerializer(typeof(FileDownloadTask));
+            using (var stream = new MemoryStream())
             {
-                s.WriteObject(ms, this);
-                return Encoding.UTF8.GetString(ms.ToArray());
+                serializer.WriteObject(stream, this);
+                return Encoding.UTF8.GetString(stream.ToArray());
             }
         }
 
         public static Task<FileDownloadTask> StartDownload(string filename, Esri.ArcGISRuntime.Portal.PortalItem portalItem, HttpMessageHandler handler = null)
         {
-            var uri1 = portalItem.Portal.Uri;
             string requestUri = $"http://www.arcgis.com/sharing/rest/content/items/{portalItem.ItemId}/data";
             return StartDownload(new HttpRequestMessage(HttpMethod.Get, requestUri), filename, handler);
         }
@@ -130,7 +131,9 @@ namespace ArcGISRuntime.Samples.Managers
         {
             HttpClient client;
             if (handler == null)
+            {
                 handler = new HttpClientHandler();
+            }
             client = new HttpClient(handler);
             var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
             var content = response.EnsureSuccessStatusCode();
@@ -156,9 +159,15 @@ namespace ArcGISRuntime.Samples.Managers
         public Task ResumeAsync()
         {
             if (Status != DownloadStatus.Paused && Status != DownloadStatus.Error)
+            {
                 throw new InvalidOperationException("Can only resume a paused or failed task");
+            }
+
             if (!IsResumable)
+            {
                 throw new InvalidOperationException("The server does not support resume");
+            }
+
             Status = DownloadStatus.Resuming;
             FileInfo f = new FileInfo(Filename);
             long offset = f.Exists ? f.Length : 0;
@@ -171,7 +180,10 @@ namespace ArcGISRuntime.Samples.Managers
             if (Status == DownloadStatus.Paused)
             {
                 if (File.Exists(Filename))
+                {
                     File.Delete(Filename);
+                }
+
                 Status = DownloadStatus.Cancelled;
                 return Task.CompletedTask;
             }
@@ -191,7 +203,10 @@ namespace ArcGISRuntime.Samples.Managers
         {
             var task = transferTask;
             if (cancellationSource == null || task == null)
+            {
                 throw new InvalidOperationException("Download not running");
+            }
+
             cancellationSource.Cancel();
             return task.ContinueWith(t => { Status = DownloadStatus.Paused; });
         }
@@ -203,7 +218,9 @@ namespace ArcGISRuntime.Samples.Managers
         public async Task DownloadAsync()
         {
             if (Status == DownloadStatus.Paused || Status == DownloadStatus.Error)
+            {
                 await ResumeAsync().ConfigureAwait(false);
+            }
             else if (transferTask == null)
             {
                 throw new InvalidOperationException();
@@ -224,9 +241,13 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 request.Headers.Range = new System.Net.Http.Headers.RangeHeaderValue(offset, null);
                 if (ETag != null)
+                {
                     request.Headers.IfRange = new System.Net.Http.Headers.RangeConditionHeaderValue(ETag);
+                }
                 else if (Date != null)
+                {
                     request.Headers.IfRange = new System.Net.Http.Headers.RangeConditionHeaderValue(Date.Value);
+                }
             }
             try
             {
@@ -243,7 +264,7 @@ namespace ArcGISRuntime.Samples.Managers
 
         private async Task BeginTransfer(HttpResponseMessage content)
         {
-            Exception = null;
+            DownloadException = null;
             cancellationSource = new CancellationTokenSource();
             IsResumable = content.Headers.AcceptRanges?.Contains("bytes") == true;
             if (IsResumable)
@@ -256,7 +277,10 @@ namespace ArcGISRuntime.Samples.Managers
             byte[] buffer = new byte[BufferSize];
             long? length = content.Content.Headers.ContentLength;
             if (!length.HasValue)
+            {
                 length = content.Content.Headers.ContentDisposition?.Size;
+            }
+
             long position = 0;
             if (content.StatusCode == System.Net.HttpStatusCode.PartialContent)
             {
@@ -280,7 +304,10 @@ namespace ArcGISRuntime.Samples.Managers
                         if (position > 0)
                         {
                             if (file.Length < position)
-                                throw new System.IO.IOException("File is smaller than starting position");
+                            {
+                                throw new IOException("File is smaller than starting position");
+                            }
+
                             file.Seek(position, SeekOrigin.Begin);
                             file.SetLength(position);
                         }
@@ -303,13 +330,13 @@ namespace ArcGISRuntime.Samples.Managers
                     }
                 }
             }
-            catch (System.Exception error)
+            catch (Exception ex)
             {
                 if (!token.IsCancellationRequested)
                 {
-                    Exception = error;
+                    DownloadException = ex;
                     Status = DownloadStatus.Error;
-                    Error?.Invoke(this, error);
+                    Error?.Invoke(this, ex);
                 }
             }
             finally

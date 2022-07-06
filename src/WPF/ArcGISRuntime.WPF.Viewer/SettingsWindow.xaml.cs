@@ -191,8 +191,17 @@ namespace ArcGISRuntime
                 SetStatusMessage("Deleting all...", true);
 
                 string offlineDataPath = DataManager.GetDataFolder();
-
-                Directory.Delete(offlineDataPath, true);
+                foreach (var d in Directory.GetDirectories(offlineDataPath))
+                {
+                    try
+                    {
+                        Directory.Delete(d, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"{ex.Message} - {d}");
+                    }
+                }
 
                 MessageBox.Show("All data deleted");
             }

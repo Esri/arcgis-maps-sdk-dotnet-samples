@@ -128,7 +128,7 @@ namespace ArcGISRuntime
                     // Enable the cancel button.
                     CancelButton.IsVisible = true;
 
-                    SetStatusMessage($"Downloading data for {sampleInfo.SampleName}", true);
+                    SetStatusMessage($"Downloading: {sampleInfo.SampleName}", true);
                     await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token, (info) =>
                     {
                         SetProgress(info.Percentage);

@@ -116,11 +116,13 @@
                                Margin="5"
                                VerticalAlignment="Center"
                                Text="Ready" />
-                    <ProgressBar x:Name="StatusSpinner"
+                    <ProgressBar x:Name="StatusBar"
                                  Width="300"
                                  HorizontalAlignment="Right"
+                                 VerticalAlignment="Center"
                                  HorizontalContentAlignment="Right"
-                                 IsIndeterminate="True"
+                                 Maximum="100"
+                                 Minimum="0"
                                  Visibility="Collapsed" />
                 </Grid>
             </Grid>

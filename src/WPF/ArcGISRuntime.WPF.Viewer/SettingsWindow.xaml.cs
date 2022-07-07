@@ -286,7 +286,7 @@ namespace ArcGISRuntime
 
         public void SetProgress(int percentage)
         {
-            Dispatcher.BeginInvoke(delegate ()
+            Dispatcher.BeginInvoke((Action)delegate ()
             {
                 if (percentage > 0)
                 {

@@ -1,4 +1,13 @@
-﻿using System;
+﻿// Copyright 2022 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Runtime.Serialization;
@@ -32,18 +41,18 @@ namespace ArcGISRuntime.Samples.Managers
     [DataContract]
     public class FileDownloadTask
     {
-        private HttpResponseMessage content;
-        private HttpClient client;
-        private CancellationTokenSource cancellationSource;
-        private Task transferTask;
+        private HttpResponseMessage _content;
+        private HttpClient _client;
+        private CancellationTokenSource _cancellationSource;
+        private Task _transferTask;
 
         private FileDownloadTask(string filename, Uri requestUri, HttpResponseMessage content, HttpClient client)
         {
             RequestUri = requestUri;
-            this.client = client;
-            this.content = content;
+            this._client = client;
+            this._content = content;
             this.Filename = filename;
-            transferTask = BeginTransfer(content);
+            _transferTask = BeginTransfer(content);
         }
 
         public Exception DownloadException { get; private set; }
@@ -101,7 +110,7 @@ namespace ArcGISRuntime.Samples.Managers
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
                 var fdt = serializer.ReadObject(stream) as FileDownloadTask;
-                fdt.client = new HttpClient(handler ?? new HttpClientHandler());
+                fdt._client = new HttpClient(handler ?? new HttpClientHandler());
                 return fdt;
             }
         }
@@ -144,8 +153,8 @@ namespace ArcGISRuntime.Samples.Managers
 
         public async Task RestartAsync()
         {
-            var task = transferTask;
-            if (task != null && cancellationSource != null)
+            var task = _transferTask;
+            if (task != null && _cancellationSource != null)
             {
                 try
                 {
@@ -176,7 +185,7 @@ namespace ArcGISRuntime.Samples.Managers
 
         public Task CancelAsync()
         {
-            var task = transferTask;
+            var task = _transferTask;
             if (Status == DownloadStatus.Paused)
             {
                 if (File.Exists(Filename))
@@ -189,25 +198,25 @@ namespace ArcGISRuntime.Samples.Managers
             }
             else
             {
-                if (cancellationSource == null || task == null)
+                if (_cancellationSource == null || task == null)
                 {
                     throw new InvalidOperationException("Download not running");
                 }
 
-                cancellationSource.Cancel();
+                _cancellationSource.Cancel();
                 return task.ContinueWith(t => { File.Delete(Filename); Status = DownloadStatus.Cancelled; });
             }
         }
 
         public Task PauseAsync()
         {
-            var task = transferTask;
-            if (cancellationSource == null || task == null)
+            var task = _transferTask;
+            if (_cancellationSource == null || task == null)
             {
                 throw new InvalidOperationException("Download not running");
             }
 
-            cancellationSource.Cancel();
+            _cancellationSource.Cancel();
             return task.ContinueWith(t => { Status = DownloadStatus.Paused; });
         }
 
@@ -221,18 +230,18 @@ namespace ArcGISRuntime.Samples.Managers
             {
                 await ResumeAsync().ConfigureAwait(false);
             }
-            else if (transferTask == null)
+            else if (_transferTask == null)
             {
                 throw new InvalidOperationException();
             }
-            await transferTask;
+            await _transferTask;
         }
 
         private async Task BeginDownload(long offset)
         {
             if (offset == TotalLength)
             {
-                transferTask = Task.CompletedTask;
+                _transferTask = Task.CompletedTask;
                 Status = DownloadStatus.Completed;
                 return;
             }
@@ -251,9 +260,9 @@ namespace ArcGISRuntime.Samples.Managers
             }
             try
             {
-                var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
-                content = response.EnsureSuccessStatusCode();
-                transferTask = BeginTransfer(content);
+                var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+                _content = response.EnsureSuccessStatusCode();
+                _transferTask = BeginTransfer(_content);
             }
             catch (Exception)
             {
@@ -265,14 +274,14 @@ namespace ArcGISRuntime.Samples.Managers
         private async Task BeginTransfer(HttpResponseMessage content)
         {
             DownloadException = null;
-            cancellationSource = new CancellationTokenSource();
+            _cancellationSource = new CancellationTokenSource();
             IsResumable = content.Headers.AcceptRanges?.Contains("bytes") == true;
             if (IsResumable)
             {
                 ETag = content.Headers.ETag?.Tag;
                 Date = content.Headers.Date;
             }
-            var token = cancellationSource.Token;
+            var token = _cancellationSource.Token;
             Status = DownloadStatus.Downloading;
             byte[] buffer = new byte[BufferSize];
             long? length = content.Content.Headers.ContentLength;
@@ -341,8 +350,8 @@ namespace ArcGISRuntime.Samples.Managers
             }
             finally
             {
-                cancellationSource = null;
-                transferTask = null;
+                _cancellationSource = null;
+                _transferTask = null;
             }
         }
     }

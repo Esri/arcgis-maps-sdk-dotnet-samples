@@ -20,8 +20,7 @@
                    Grid.Row="1"
                    Grid.Column="0"
                    Margin="5"
-                   VerticalAlignment="Center"
-                   Content="0%" />
+                   VerticalAlignment="Center" />
             <ProgressBar x:Name="ProgressBar"
                          Grid.Row="1"
                          Grid.Column="1"

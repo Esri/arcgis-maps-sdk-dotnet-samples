@@ -130,7 +130,7 @@ namespace ArcGISRuntime
 
                 await DataManager.EnsureSampleDataPresent(sample, (info) =>
                 {
-                    SetProgress(info.Percentage);
+                    SetProgress(info.Percentage, info.HasPercentage);
                 });
             }
             catch (Exception exception)
@@ -166,7 +166,7 @@ namespace ArcGISRuntime
                                 await DataManager.DownloadDataItem(itemId, _cancellationTokenSource.Token,
                                 (info) =>
                                 {
-                                    SetProgress(info.Percentage);
+                                    SetProgress(info.Percentage, info.HasPercentage);
                                 });
                             }
                             catch (OperationCanceledException)
@@ -285,11 +285,12 @@ namespace ArcGISRuntime
             _cancellationTokenSource.Cancel(true);
         }
 
-        public void SetProgress(int percentage)
+        public void SetProgress(int percentage, bool hasPercentage)
         {
             Dispatcher.BeginInvoke((Action)delegate ()
             {
-                if (percentage > 0)
+                StatusSpinner.IsIndeterminate = !hasPercentage;
+                if (percentage > 0 && hasPercentage)
                 {
                     StatusSpinner.Value = percentage;
                 }

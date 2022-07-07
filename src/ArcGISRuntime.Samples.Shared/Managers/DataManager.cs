@@ -67,7 +67,6 @@ namespace ArcGISRuntime.Samples.Managers
                 string configFilePath = Path.Combine(dataDir, "__sample.config");
                 File.WriteAllText(configFilePath, @"Data downloaded: " + DateTime.Now);
             }
-            
         }
 
         private static void CancelDownload(FileDownloadTask downloadTask)

@@ -156,11 +156,7 @@ namespace ArcGISRuntime.Samples.Managers
             var task = _transferTask;
             if (task != null && _cancellationSource != null)
             {
-                try
-                {
-                    await CancelAsync();
-                }
-                catch { }
+                await CancelAsync();
             }
             await BeginDownload(0);
         }

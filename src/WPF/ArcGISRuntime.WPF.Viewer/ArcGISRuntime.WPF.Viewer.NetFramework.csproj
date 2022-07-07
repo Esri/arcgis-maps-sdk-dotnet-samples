@@ -124,69 +124,66 @@
   <!-- Resources -->
   <ItemGroup>
     <None Include="ArcGISLocalServer_100.14.AGSDeployment" />
-    <Resource Include="Assets\banner-background-purple.png" />
     <Content Include="Resources\hide-header.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Assets\ApplicationIcons\windows-desktop-128.png" />
-    <Resource Include="Assets\ApplicationIcons\windows-desktop-16.png" />
+    <Resource Include="Assets\**\*.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />
-    <Resource Include="Assets\ApplicationIcons\windows-desktop-256.png" />
-    <Resource Include="Assets\ApplicationIcons\windows-desktop-32.png" />
-    <Resource Include="Assets\ApplicationIcons\windows-desktop-48.png" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="App.config" />
-    <Resource Include="Assets\appbar.layout.collapse.left.variant.png" />
-    <Resource Include="Assets\appbar.layout.expand.right.variant.png" />
-    <Resource Include="Assets\appbar.window.maximize.png" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
+    <Resource Include="Resources\*.png" />
   </ItemGroup>
-  
   <!-- Sample Viewer code (not samples) -->
   <ItemGroup>
+    <Compile Include="ScreenshotTab.xaml.cs">
+      <DependentUpon>ScreenshotTab.xaml</DependentUpon>
+    </Compile>
     <Page Include="ScreenshotTab.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="WaitPage.xaml.cs">
+      <DependentUpon>WaitPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="WaitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="ApiKeyPrompt.xaml.cs">
+      <DependentUpon>ApiKeyPrompt.xaml</DependentUpon>
+    </Compile>
     <Page Include="ApiKeyPrompt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="Converters\ItemToImageSourceConverter.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Compile Include="Controls\SearchTextBox.xaml.cs">
+      <DependentUpon>SearchTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Samples\NetworkAnalysis\NavigateRouteRerouting\GpxProvider.cs" />
-    <Compile Include="Helpers\ArcGISLoginPrompt.cs" />
-    <Compile Include="ApiKeyPrompt.xaml.cs">
-      <DependentUpon>ApiKeyPrompt.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Helpers\AnalyticsHelper.cs" />
-    <Resource Include="Resources\ic_menu_closeclear_light.png" />
-    <Resource Include="Resources\ic_menu_find_light.png" />
-    <Resource Include="Resources\ic_menu_settings_dark.png" />
-    <Resource Include="Resources\routingSymbol.png" />
-    <Resource Include="Resources\files-48.png" />
     <Page Include="Controls\SearchTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -194,52 +191,25 @@
     <Compile Include="ErrorPage.xaml.cs">
       <DependentUpon>ErrorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\ToTreeViewItem.cs" />
-    <Compile Include="ScreenshotTab.xaml.cs">
-      <DependentUpon>ScreenshotTab.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsWindow.xaml.cs">
-      <DependentUpon>SettingsWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="WaitPage.xaml.cs">
-      <DependentUpon>WaitPage.xaml</DependentUpon>
+    <Page Include="ErrorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="Description.xaml.cs">
+      <DependentUpon>Description.xaml</DependentUpon>
     </Compile>
     <Page Include="Description.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="ErrorPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Controls\SearchTextBox.xaml.cs">
-      <DependentUpon>SearchTextBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Converters\TreeViewLeftMarginMultiplierConverter.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Helpers\TreeViewItemExtensions.cs" />
-    <Compile Include="Converters\NullToVisibilityConverter.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Converters\SampleToBitmapConverter.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Description.xaml.cs">
-      <DependentUpon>Description.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\LoadingSpinner.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -262,6 +232,22 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <!-- Helper classes -->
+  <ItemGroup>
+    <Compile Include="Samples\NetworkAnalysis\NavigateRouteRerouting\GpxProvider.cs" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Helpers\ArcGISLoginPrompt.cs" >
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
+    <Compile Include="Converters\TreeViewLeftMarginMultiplierConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter.cs" />
+    <Compile Include="Converters\SampleToBitmapConverter.cs" />
+    <Compile Include="Helpers\AnalyticsHelper.cs" />
+    <Compile Include="Helpers\ToTreeViewItem.cs" />
+    <Compile Include="Helpers\TreeViewItemExtensions.cs" />
+  </ItemGroup>
   <!-- Source Code Viewer -->
   <ItemGroup>
     <Content Include="Resources\SyntaxHighlighting\highlight.css">
@@ -278,6 +264,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <!-- Packages -->
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
       <Version>100.14.1</Version>

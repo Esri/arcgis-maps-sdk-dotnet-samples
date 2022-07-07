@@ -65,7 +65,7 @@ namespace Forms.Helpers
                     // Wait for the sample data download.
                     await DataManager.EnsureSampleDataPresent(sampleInfo, cancellationSource.Token, (info) =>
                     {
-                        waitPage.SetProgress(info.Percentage);
+                        waitPage.SetProgress(info.Percentage, !info.HasPercentage, info.TotalBytes);
                     });
 
                     // Remove the waiting page.

@@ -27,15 +27,21 @@ namespace ArcGISRuntime
             _cancellationTokenSource.Cancel(true);
         }
 
-        public void SetProgress(int percentage)
+        public void SetProgress(int percentage, bool hasPercentage, long totalBytes)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                if (percentage > 0)
+                DownloadProgress.IsVisible = hasPercentage;
+                IndefiniteSpinner.IsVisible = !hasPercentage;
+                if (percentage > 0 && hasPercentage)
                 {
                     double progress = percentage / 100.0;
                     DownloadProgress.ProgressTo(progress, 10, Easing.Linear);
                     DownloadLabel.Text = $"Downloading data: {percentage}%";
+                }
+                else
+                {
+                    DownloadLabel.Text = $"Downloading data: {totalBytes / 1024}kb";
                 }
             });
         }

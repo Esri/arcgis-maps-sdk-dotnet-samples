@@ -122,10 +122,14 @@
                               WidthRequest="{x:OnPlatform Android=120,
                                                           iOS=120,
                                                           UWP=240}">
-                            <ProgressBar x:Name="StatusSpinner"
+                            <ProgressBar x:Name="StatusBar"
                                          Margin="5"
                                          IsVisible="False"
                                          VerticalOptions="Center" />
+                            <ActivityIndicator x:Name="IndefiniteSpinner"
+                                               Margin="5"
+                                               IsRunning="true"
+                                               IsVisible="false" />
                         </Grid>
                     </Grid>
                 </Grid>

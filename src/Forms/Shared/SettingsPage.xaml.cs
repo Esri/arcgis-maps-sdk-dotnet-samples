@@ -131,7 +131,7 @@ namespace ArcGISRuntime
                     SetStatusMessage($"Downloading: {sampleInfo.SampleName}", true);
                     await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token, (info) =>
                     {
-                        SetProgress(info.Percentage);
+                        SetProgress(info.Percentage, info.HasPercentage);
                     });
                 }
                 catch (OperationCanceledException)
@@ -224,7 +224,7 @@ namespace ArcGISRuntime
                                 await DataManager.DownloadDataItem(itemId, _cancellationTokenSource.Token,
                                 (info) =>
                                 {
-                                    SetProgress(info.Percentage);
+                                    SetProgress(info.Percentage, info.HasPercentage);
                                 });
                             }
                             catch (OperationCanceledException)
@@ -294,18 +294,20 @@ namespace ArcGISRuntime
         private void SetStatusMessage(string message, bool isRunning)
         {
             StatusLabel.Text = message;
-            StatusSpinner.IsVisible = isRunning;
+            StatusBar.IsVisible = isRunning;
             OfflineDataView.IsEnabled = !isRunning;
         }
 
-        public void SetProgress(int percentage)
+        public void SetProgress(int percentage, bool hasPercentage)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                if (percentage > 0)
+                StatusBar.IsVisible = hasPercentage;
+                IndefiniteSpinner.IsVisible = !hasPercentage;
+                if (percentage > 0 && hasPercentage)
                 {
                     double progress = percentage / 100.0;
-                    StatusSpinner.ProgressTo(progress, 10, Easing.Linear);
+                    StatusBar.ProgressTo(progress, 10, Easing.Linear);
                 }
             });
         }

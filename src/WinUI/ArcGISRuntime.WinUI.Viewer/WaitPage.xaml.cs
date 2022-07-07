@@ -33,15 +33,20 @@ namespace ArcGISRuntime.WinUI.Viewer
             _cancellationTokenSource.Cancel(true);
         }
 
-        public void SetProgress(int percentage)
+        public void SetProgress(int percentage, bool hasPercentage, long totalBytes)
         {
             DispatcherQueue.TryEnqueue(() =>
             {
-                if (percentage > 0)
+                this.Visibility = Visibility.Visible;
+                ProgressBar.IsIndeterminate = !hasPercentage;
+                if (hasPercentage && percentage > 0)
                 {
-                    this.Visibility = Visibility.Visible;
                     ProgressBar.Value = percentage;
                     ProgressLabel.Text = $"{percentage}%";
+                }
+                else
+                {
+                    ProgressLabel.Text = $"{totalBytes/1024}kb";
                 }
             });
         }

@@ -85,7 +85,7 @@ namespace ArcGISRuntime
                                 await DataManager.DownloadDataItem(itemId, _cancellationTokenSource.Token,
                                 (info) =>
                                 {
-                                    SetProgress(info.Percentage);
+                                    SetProgress(info.Percentage, info.HasPercentage);
                                 });
                             }
                             catch (OperationCanceledException)
@@ -180,7 +180,7 @@ namespace ArcGISRuntime
 
                 await DataManager.EnsureSampleDataPresent(sample, (info) =>
                 {
-                    SetProgress(info.Percentage);
+                    SetProgress(info.Percentage, info.HasPercentage);
                 });
             }
             catch (Exception exception)
@@ -246,11 +246,13 @@ namespace ArcGISRuntime
             await Launcher.LaunchUriAsync(new Uri(e.Link));
         }
 
-        public void SetProgress(int percentage)
+        public void SetProgress(int percentage, bool hasPercentage)
         {
             DispatcherQueue.TryEnqueue(() =>
             {
-                if (percentage > 0)
+                this.Visibility = Visibility.Visible;
+                StatusBar.IsIndeterminate = !hasPercentage;
+                if (hasPercentage && percentage > 0)
                 {
                     StatusBar.Value = percentage;
                 }

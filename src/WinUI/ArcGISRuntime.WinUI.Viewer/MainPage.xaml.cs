@@ -146,7 +146,7 @@ namespace ArcGISRuntime.WinUI.Viewer
                     await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token,
                     (info) =>
                     {
-                        waitPage.SetProgress(info.Percentage);
+                        waitPage.SetProgress(info.Percentage, info.HasPercentage, info.TotalBytes);
                     });
                 }
 

@@ -60,9 +60,14 @@ namespace ArcGISRuntime.Samples.Managers
                 await UnpackData(tempFile, dataDir, cancellationToken);
             }
 
-            // Write the __sample.config file. This is used to ensure that cached data did not go out-of-date.
-            string configFilePath = Path.Combine(dataDir, "__sample.config");
-            File.WriteAllText(configFilePath, @"Data downloaded: " + DateTime.Now);
+            // Verify download wasn't cancelled.
+            if(!cancellationToken.IsCancellationRequested)
+            {
+                // Write the __sample.config file. This is used to ensure that cached data did not go out-of-date.
+                string configFilePath = Path.Combine(dataDir, "__sample.config");
+                File.WriteAllText(configFilePath, @"Data downloaded: " + DateTime.Now);
+            }
+            
         }
 
         private static void CancelDownload(FileDownloadTask downloadTask)

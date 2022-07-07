@@ -201,6 +201,7 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 CategoriesRegion.Visibility = Visibility.Visible;
                 SampleContainer.Visibility = Visibility.Collapsed;
+                SampleManager.Current.SelectedSample = null;
                 return;
             }
             catch (Exception exception)
@@ -209,8 +210,6 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleContainer.Content = new WPF.Viewer.ErrorPage(exception);
             }
 
-            CategoriesRegion.Visibility = Visibility.Collapsed;
-            SampleContainer.Visibility = Visibility.Visible;
             SetScreenshotButttonVisibility();
             SetContainerDimensions();
         }

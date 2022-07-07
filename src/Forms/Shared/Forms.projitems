@@ -10,13 +10,10 @@
   </PropertyGroup>
   <!-- All samples -->
   <ItemGroup>
-    <!-- Screenshots -->
     <None Include="$(MSBuildThisFileDirectory)Samples\*\*\*.jpg" />
-    <!-- Sample XAML -->
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\*\*\*.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <!-- Sample Code -->
     <Compile Include="$(MSBuildThisFileDirectory)Samples\*\*\*.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

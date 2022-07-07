@@ -88,6 +88,11 @@ namespace ArcGISRuntime
                                     SetProgress(info.Percentage);
                                 });
                             }
+                            catch (OperationCanceledException)
+                            {
+                                await new MessageDialog2("Download canceled").ShowAsync();
+                                return;
+                            }
                             catch (Exception ex)
                             {
                                 Debug.WriteLine(ex.Message);
@@ -97,10 +102,6 @@ namespace ArcGISRuntime
                     }
                 }
                 await new MessageDialog2("All data downloaded").ShowAsync();
-            }
-            catch (OperationCanceledException)
-            {
-                await new MessageDialog2("Download canceled").ShowAsync();
             }
             catch (Exception exception)
             {

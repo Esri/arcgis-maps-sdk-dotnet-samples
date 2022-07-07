@@ -169,6 +169,11 @@ namespace ArcGISRuntime
                                     SetProgress(info.Percentage);
                                 });
                             }
+                            catch (OperationCanceledException)
+                            {
+                                MessageBox.Show("Download canceled");
+                                return;
+                            }
                             catch (Exception ex)
                             {
                                 Debug.WriteLine(ex.Message);
@@ -178,10 +183,6 @@ namespace ArcGISRuntime
                     }
                 }
                 MessageBox.Show("All data downloaded");
-            }
-            catch (OperationCanceledException)
-            {
-                MessageBox.Show("Download canceled");
             }
             catch (Exception exception)
             {

@@ -227,6 +227,11 @@ namespace ArcGISRuntime
                                     SetProgress(info.Percentage);
                                 });
                             }
+                            catch (OperationCanceledException)
+                            {
+                                await Application.Current.MainPage.DisplayAlert(string.Empty, "Download canceled", "OK");
+                                return;
+                            }
                             catch (Exception ex)
                             {
                                 Debug.WriteLine(ex.Message);
@@ -236,10 +241,6 @@ namespace ArcGISRuntime
                     }
                 }
                 await Application.Current.MainPage.DisplayAlert(string.Empty, "All data downloaded", "OK");
-            }
-            catch (OperationCanceledException)
-            {
-                await Application.Current.MainPage.DisplayAlert(string.Empty, "Download canceled", "OK");
             }
             catch (Exception exception)
             {

@@ -6,7 +6,6 @@
 // Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
-#if !_SSG_TOOLING_
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Portal;
 using System;
@@ -49,20 +48,25 @@ namespace ArcGISRuntime.Samples.Managers
             var downloadTask = await FileDownloadTask.StartDownload(tempFile, item);
 
             if (cancellationToken.CanBeCanceled)
-                cancellationToken.Register(() => CancelDownload(downloadTask));
-            if (onProgress != null)
-                downloadTask.Progress += (s, e) => onProgress(e);
-            await downloadTask.DownloadAsync();
-
-            // Unzip the file if it is a zip archive.
-            if (tempFile.EndsWith(".zip"))
             {
-                await UnpackData(tempFile, dataDir, cancellationToken);
+                cancellationToken.Register(() => CancelDownload(downloadTask));
+            }
+            if (onProgress != null)
+            {
+                downloadTask.Progress += (s, e) => onProgress(e);
             }
 
+            await downloadTask.DownloadAsync();
+
             // Verify download wasn't cancelled.
-            if(!cancellationToken.IsCancellationRequested)
+            if (!cancellationToken.IsCancellationRequested)
             {
+                // Unzip the file if it is a zip archive.
+                if (tempFile.EndsWith(".zip"))
+                {
+                    await UnpackData(tempFile, dataDir, cancellationToken);
+                }
+
                 // Write the __sample.config file. This is used to ensure that cached data did not go out-of-date.
                 string configFilePath = Path.Combine(dataDir, "__sample.config");
                 File.WriteAllText(configFilePath, @"Data downloaded: " + DateTime.Now);
@@ -79,7 +83,7 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
         /// <summary>
-        /// Determines if a portal item has been downloaded and is up-to-date. 
+        /// Determines if a portal item has been downloaded and is up-to-date.
         /// </summary>
         /// <param name="item">The portal item to check.</param>
         /// <returns><c>true</c> if data is available and up-to-date, false otherwise.</returns>
@@ -227,7 +231,7 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
         /// <summary>
-        /// Gets the path to an item on disk. 
+        /// Gets the path to an item on disk.
         /// The item must have already been downloaded for the path to be valid.
         /// </summary>
         /// <param name="itemId">ID of the portal item.</param>
@@ -237,7 +241,7 @@ namespace ArcGISRuntime.Samples.Managers
         }
 
         /// <summary>
-        /// Gets the path to an item on disk. 
+        /// Gets the path to an item on disk.
         /// The item must have already been downloaded for the path to be valid.
         /// </summary>
         /// <param name="itemId">ID of the portal item.</param>
@@ -248,4 +252,3 @@ namespace ArcGISRuntime.Samples.Managers
         }
     }
 }
-#endif

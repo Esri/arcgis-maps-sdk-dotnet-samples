@@ -81,6 +81,8 @@ namespace ArcGISRuntime
                         {
                             try
                             {
+                                StatusBar.Value = 0;
+
                                 // Wait for offline data to complete
                                 await DataManager.DownloadDataItem(itemId, _cancellationTokenSource.Token,
                                 (info) =>
@@ -176,6 +178,7 @@ namespace ArcGISRuntime
             try
             {
                 SetStatusMessage("Downloading sample data", true);
+                StatusBar.Value = 0;
                 SampleInfo sample = (SampleInfo)((Button)sender).Tag;
 
                 await DataManager.EnsureSampleDataPresent(sample, (info) =>

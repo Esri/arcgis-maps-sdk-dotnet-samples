@@ -129,6 +129,7 @@ namespace ArcGISRuntime
                     CancelButton.IsVisible = true;
 
                     SetStatusMessage($"Downloading: {sampleInfo.SampleName}", true);
+                    _ = StatusBar.ProgressTo(0, 10, Easing.Linear);
                     await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token, (info) =>
                     {
                         SetProgress(info.Percentage, info.HasPercentage);
@@ -220,6 +221,8 @@ namespace ArcGISRuntime
                         {
                             try
                             {
+                                _ = StatusBar.ProgressTo(0, 10, Easing.Linear);
+
                                 // Wait for offline data to complete
                                 await DataManager.DownloadDataItem(itemId, _cancellationTokenSource.Token,
                                 (info) =>

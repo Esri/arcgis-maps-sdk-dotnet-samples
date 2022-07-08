@@ -240,10 +240,7 @@
     <Compile Include="Helpers\ArcGISLoginPrompt.cs" >
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Converters\ItemToImageSourceConverter.cs" />
-    <Compile Include="Converters\TreeViewLeftMarginMultiplierConverter.cs" />
-    <Compile Include="Converters\NullToVisibilityConverter.cs" />
-    <Compile Include="Converters\SampleToBitmapConverter.cs" />
+    <Compile Include="Converters\*.cs" />
     <Compile Include="Helpers\AnalyticsHelper.cs" />
     <Compile Include="Helpers\ToTreeViewItem.cs" />
     <Compile Include="Helpers\TreeViewItemExtensions.cs" />

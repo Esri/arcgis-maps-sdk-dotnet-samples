@@ -179,10 +179,15 @@ namespace ArcGISRuntime.Samples.Desktop
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show waiting page
-                    SampleContainer.Content = new WPF.Viewer.WaitPage(cancellationSource);
+                    var waitPage = new WPF.Viewer.WaitPage(cancellationSource);
+                    SampleContainer.Content = waitPage;
 
                     // Wait for offline data to complete
-                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token);
+                    await DataManager.EnsureSampleDataPresent(selectedSample, cancellationSource.Token,
+                    (info) =>
+                    {
+                        waitPage.SetProgress(info.Percentage, info.HasPercentage, info.TotalBytes);
+                    });
                 }
 
                 // Show the sample
@@ -196,6 +201,7 @@ namespace ArcGISRuntime.Samples.Desktop
             {
                 CategoriesRegion.Visibility = Visibility.Visible;
                 SampleContainer.Visibility = Visibility.Collapsed;
+                SampleManager.Current.SelectedSample = null;
                 return;
             }
             catch (Exception exception)
@@ -204,8 +210,6 @@ namespace ArcGISRuntime.Samples.Desktop
                 SampleContainer.Content = new WPF.Viewer.ErrorPage(exception);
             }
 
-            CategoriesRegion.Visibility = Visibility.Collapsed;
-            SampleContainer.Visibility = Visibility.Visible;
             SetScreenshotButttonVisibility();
             SetContainerDimensions();
         }
@@ -344,7 +348,6 @@ namespace ArcGISRuntime.Samples.Desktop
             settingsWindow.Show();
         }
 
-
         #region Update Favorites
 
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
@@ -479,6 +482,7 @@ namespace ArcGISRuntime.Samples.Desktop
             SetScreenshotButttonVisibility();
             SetContainerDimensions();
         }
+
         private void SetScreenshotButttonVisibility()
         {
             ScreenshotButton.Visibility = ScreenshotManager.ScreenshotSettings.ScreenshotEnabled ? Visibility.Visible : Visibility.Hidden;
@@ -537,6 +541,7 @@ namespace ArcGISRuntime.Samples.Desktop
                 Console.WriteLine($"Error saving screenshot: {ex.Message}");
             }
         }
-#endregion
+
+        #endregion Screenshot Tool
     }
 }

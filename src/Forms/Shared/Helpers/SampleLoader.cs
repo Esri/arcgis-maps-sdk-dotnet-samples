@@ -59,18 +59,14 @@ namespace Forms.Helpers
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show the wait page.
-                    await nav.Navigation.PushModalAsync(new WaitPage(cancellationSource) { Title = sampleInfo.SampleName }, false);
+                    var waitPage = new WaitPage(cancellationSource) { Title = sampleInfo.SampleName };
+                    await nav.Navigation.PushModalAsync(waitPage, false);
 
-#if WINDOWS_UWP
-                    // Workaround for bug with Xamarin Forms UWP.
-                    await Task.WhenAll(
-                        Task.Delay(100),
-                        DataManager.EnsureSampleDataPresent(sampleInfo, cancellationSource.Token)
-                        );
-#else
                     // Wait for the sample data download.
-                    await DataManager.EnsureSampleDataPresent(sampleInfo, cancellationSource.Token);
-#endif
+                    await DataManager.EnsureSampleDataPresent(sampleInfo, cancellationSource.Token, (info) =>
+                    {
+                        waitPage.SetProgress(info.Percentage, info.HasPercentage, info.TotalBytes);
+                    });
 
                     // Remove the waiting page.
                     await nav.Navigation.PopModalAsync(false);

@@ -27,7 +27,6 @@ namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
         description: "Query features on a map using an Arcade expression.",
         instructions: "Tap on any neighborhood to see the number of crimes in the last 60 days in a callout.",
         tags: new[] { "Arcade evaluator", "Arcade expression", "identify layers", "portal", "portal item", "query" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("14562fced3474190b52d315bc19127f6")]
     public partial class QueryFeaturesWithArcadeExpression : ContentPage
     {
         // Hold a reference to the layer for use in event handlers.

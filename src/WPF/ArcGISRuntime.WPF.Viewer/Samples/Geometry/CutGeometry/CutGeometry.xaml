@@ -5,15 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <TextBlock x:Name="CutInstructionsLabel"
-                           Text="Click 'Cut' to cut the polygon with the polyline."
-                           TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold"
-                           Margin="0,0,0,5" />
-                <Button x:Name="CutButton"
-                        Content="Cut"
-                        Click="CutButton_Click" />
-            </StackPanel>
+            <Button x:Name="CutButton"
+                    Click="CutButton_Click"
+                    Content="Cut" />
         </Border>
     </Grid>
 </UserControl>

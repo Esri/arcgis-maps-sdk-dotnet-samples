@@ -11,8 +11,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.CutGeometry
@@ -33,6 +31,8 @@ namespace ArcGISRuntime.WinUI.Samples.CutGeometry
 
         // Graphic that represents the Canada and USA border (polyline) of Lake Superior.
         private Graphic _countryBorderPolylineGraphic;
+
+        private bool _cut;
 
         public CutGeometry()
         {
@@ -78,46 +78,58 @@ namespace ArcGISRuntime.WinUI.Samples.CutGeometry
             MyMapView.SetViewpointGeometryAsync(_lakeSuperiorPolygonGraphic.Geometry);
         }
 
-        private async void CutButton_Click(object sender, RoutedEventArgs e)
+        private void CutButton_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (!_cut)
             {
-                // Cut the polygon geometry with the polyline, expect two geometries.
-                Geometry[] cutGeometries = GeometryEngine.Cut(_lakeSuperiorPolygonGraphic.Geometry, (Polyline)_countryBorderPolylineGraphic.Geometry);
-
-                // Create a simple line symbol for the outline of the Canada side of Lake Superior.
-                SimpleLineSymbol canadaSideSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Null, System.Drawing.Color.Blue, 0);
-
-                // Create the simple fill symbol for the Canada side of Lake Superior graphic - comprised of a fill style, fill color and outline.
-                SimpleFillSymbol canadaSideSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Green, canadaSideSimpleLineSymbol);
-
-                // Create the graphic for the Canada side of Lake Superior - comprised of a polygon shape and fill symbol.
-                Graphic canadaSideGraphic = new Graphic(cutGeometries[0], canadaSideSimpleFillSymbol);
-
-                // Add the Canada side of the Lake Superior graphic to the graphics overlay collection.
-                _graphicsOverlay.Graphics.Add(canadaSideGraphic);
-
-                // Create a simple line symbol for the outline of the USA side of Lake Superior.
-                SimpleLineSymbol usaSideSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Null, System.Drawing.Color.Blue, 0);
-
-                // Create the simple fill symbol for the USA side of Lake Superior graphic - comprised of a fill style, fill color and outline.
-                SimpleFillSymbol usaSideSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Yellow, usaSideSimpleLineSymbol);
-
-                // Create the graphic for the USA side of Lake Superior - comprised of a polygon shape and fill symbol.
-                Graphic usaSideGraphic = new Graphic(cutGeometries[1], usaSideSimpleFillSymbol);
-
-                // Add the USA side of the Lake Superior graphic to the graphics overlay collection.
-                _graphicsOverlay.Graphics.Add(usaSideGraphic);
-
-                // Disable the button after has been used.
-                CutButton.IsEnabled = false;
+                Cut();
+                _cut = true;
             }
-            catch (System.Exception ex)
+            else
             {
-                // Display an error message if there is a problem generating cut operation.
-                var theMessageDialog = new MessageDialog2("Geometry Engine Failed: " + ex.Message);
-                await theMessageDialog.ShowAsync();
+                Reset();
+                _cut = false;
             }
+
+            CutButton.Content = _cut ? "Reset" : "Cut";
+        }
+
+        private void Cut()
+        {
+            // Cut the polygon geometry with the polyline, expect two geometries.
+            Geometry[] cutGeometries = GeometryEngine.Cut(_lakeSuperiorPolygonGraphic.Geometry, (Polyline)_countryBorderPolylineGraphic.Geometry);
+
+            // Create a simple line symbol for the outline of the Canada side of Lake Superior.
+            SimpleLineSymbol canadaSideSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Null, System.Drawing.Color.Blue, 0);
+
+            // Create the simple fill symbol for the Canada side of Lake Superior graphic - comprised of a fill style, fill color and outline.
+            SimpleFillSymbol canadaSideSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Green, canadaSideSimpleLineSymbol);
+
+            // Create the graphic for the Canada side of Lake Superior - comprised of a polygon shape and fill symbol.
+            Graphic canadaSideGraphic = new Graphic(cutGeometries[0], canadaSideSimpleFillSymbol);
+
+            // Add the Canada side of the Lake Superior graphic to the graphics overlay collection.
+            _graphicsOverlay.Graphics.Add(canadaSideGraphic);
+
+            // Create a simple line symbol for the outline of the USA side of Lake Superior.
+            SimpleLineSymbol usaSideSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Null, System.Drawing.Color.Blue, 0);
+
+            // Create the simple fill symbol for the USA side of Lake Superior graphic - comprised of a fill style, fill color and outline.
+            SimpleFillSymbol usaSideSimpleFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.ForwardDiagonal, System.Drawing.Color.Yellow, usaSideSimpleLineSymbol);
+
+            // Create the graphic for the USA side of Lake Superior - comprised of a polygon shape and fill symbol.
+            Graphic usaSideGraphic = new Graphic(cutGeometries[1], usaSideSimpleFillSymbol);
+
+            // Add the USA side of the Lake Superior graphic to the graphics overlay collection.
+            _graphicsOverlay.Graphics.Add(usaSideGraphic);
+        }
+
+        private void Reset()
+        {
+            // Reset the graphics.
+            _graphicsOverlay.Graphics.Clear();
+            _graphicsOverlay.Graphics.Add(_lakeSuperiorPolygonGraphic);
+            _graphicsOverlay.Graphics.Add(_countryBorderPolylineGraphic);
         }
 
         private Polyline CreateBorder()

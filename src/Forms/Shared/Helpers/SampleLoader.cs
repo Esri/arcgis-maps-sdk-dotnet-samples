@@ -25,8 +25,7 @@ namespace Forms.Helpers
         private static List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
             "SearchPortalMaps",
-            "OAuth",
-            "IndoorPositioning"};
+            "OAuth",};
 
         // Used to load a sample from the search or list in a category.
         public static async Task LoadSample(SampleInfo sampleInfo, NavigableElement nav)

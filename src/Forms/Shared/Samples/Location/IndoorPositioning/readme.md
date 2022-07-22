@@ -36,7 +36,7 @@ When there is no IPS beacons nearby, or other errors occur while initializing th
 
 ## About the data
 
-This sample uses an [IPS-enabled web map](https://viennardc.maps.arcgis.com/home/item.html?id=89f88764c29b48218366855d7717d266) that displays Building L on the Esri Redlands campus. Please note: you would only be able to use the indoor positioning functionalities when you are inside this building. Swap the web map to test with your own IPS setup.
+This sample uses an [IPS-enabled web map](https://www.arcgis.com/home/item.html?id=8fa941613b4b4b2b8a34ad4cdc3e4bba) that displays Building L on the Esri Redlands campus. Please note: you would only be able to use the indoor positioning functionalities when you are inside this building. Swap the web map to test with your own IPS setup.
 
 ## Additional information
 

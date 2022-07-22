@@ -42,12 +42,9 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
         #region EsriBuildingData
 
-        private Uri _portalUri = new Uri("https://viennardc.maps.arcgis.com");
+        private Uri _portalUri = new Uri("https://www.arcgis.com/");
 
-        private const string sampleUser = "tester_viennardc";
-        private const string samplePass = "password.testing12345";
-
-        private const string ItemId = "89f88764c29b48218366855d7717d266";
+        private const string ItemId = "8fa941613b4b4b2b8a34ad4cdc3e4bba";
 
         private const string PositioningTableName = "ips_positioning";
         private const string PathwaysLayerName = "pathways";
@@ -63,21 +60,6 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
         }
         private async Task Initialize()
         {
-            // Handle the login to the feature service.
-            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>
-            {
-                try
-                {
-                    // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
-                    return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleUser, samplePass, info.GenerateTokenOptions);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                    return null;
-                }
-            });
-
             try
             {
                 Xamarin.Essentials.PermissionStatus status = await Xamarin.Essentials.Permissions.RequestAsync<Xamarin.Essentials.Permissions.LocationWhenInUse>();
@@ -97,7 +79,7 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
                 PositioningLabel.Text = "Loading map";
 
                 // Create a portal item for the web map.
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync(_portalUri, true);
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(_portalUri, false);
                 PortalItem item = await PortalItem.CreateAsync(portal, ItemId);
 
                 // Load the map in the map view.

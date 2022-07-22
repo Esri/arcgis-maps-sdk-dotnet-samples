@@ -11,11 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -160,11 +158,11 @@ namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
 
             // Create the UI label with information about the updated location.
             string labelText = string.Empty;
-            if (_currentFloor != null) labelText += $"Floor: { _currentFloor}\n";
+            if (_currentFloor != null) labelText += $"Floor: {_currentFloor}\n";
             if (positionSource != null) labelText += $"Position-source: {positionSource}\n";
             if (satCount != null) labelText += $"Satellite count: {satCount}\n";
             if (transmitterCount != null) labelText += $"Beacon count: {transmitterCount}\n";
-            labelText += $"Horizontal accuracy: { string.Format("{0:0.##}", loc.HorizontalAccuracy)}m";
+            labelText += $"Horizontal accuracy: {string.Format("{0:0.##}", loc.HorizontalAccuracy)}m";
 
             // Update UI on the main thread.
             Device.BeginInvokeOnMainThread(() =>

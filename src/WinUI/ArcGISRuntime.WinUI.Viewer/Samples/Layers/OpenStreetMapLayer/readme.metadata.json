@@ -21,7 +21,6 @@
     ],
     "relevant_apis": [
         "Basemap",
-        "BasemapStyle.OSMStandard",
         "Map",
         "MapView",
         "OpenStreetMapLayer"

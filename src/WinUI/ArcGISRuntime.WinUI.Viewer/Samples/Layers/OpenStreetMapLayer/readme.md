@@ -6,22 +6,20 @@ Add OpenStreetMap as a basemap layer.
 
 ## Use case
 
-[OpenStreetMap](https://www.openstreetmap.org) is a free community-edited basemap.
+[OpenStreetMap](https://www.openstreetmap.org) is a free community-edited map of the world.
 
 ## How to use the sample
 
-When the sample opens, it will automatically display the map with the OpenStreetMap basemap. Pan and zoom to observe the basemap.
+When the sample opens, it will automatically display the OpenStreetMap basemap. Pan and zoom to explore the basemap.
 
 ## How it works
 
-1. Create a basemap wwith a `BasemapStyle.OSMStandard` basemap style.
-2. Create a map with that basemap.
-3. Show the map in a map view.
+1. Create an `OpenStreetMapLayer`, and set it as the `Map`'s basemap.
+2. Show the map in a map view.
 
 ## Relevant API
 
 * Basemap
-* BasemapStyle.OSMStandard
 * Map
 * MapView
 * OpenStreetMapLayer

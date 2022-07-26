@@ -37,7 +37,7 @@ namespace ArcGISRuntime.WPF.Samples.OpenStreetMapLayer
             {
                 await openStreetMapLayer.LoadAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }

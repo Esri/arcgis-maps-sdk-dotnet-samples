@@ -8,6 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using System;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.OpenStreetMapLayer
 {
@@ -22,19 +25,25 @@ namespace ArcGISRuntime.WPF.Samples.OpenStreetMapLayer
         public OpenStreetMapLayer()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
-            // Create the OpenStreetMap basemap.
-            Basemap osmBasemap = new Basemap(BasemapStyle.OSMStandard);
+            // Create the OpenStreetMap layer.
+            var openStreetMapLayer = new Esri.ArcGISRuntime.Mapping.OpenStreetMapLayer();
 
-            // Create the map with the OpenStreetMap basemap.
-            Map osmMap = new Map(osmBasemap);
+            try
+            {
+                await openStreetMapLayer.LoadAsync();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
-            // Show the map in the view.
-            MyMapView.Map = osmMap;
+            // Create a map and set the open street map layer as its basemap.
+            MyMapView.Map = new Map { Basemap = new Basemap(openStreetMapLayer) };
         }
     }
 }

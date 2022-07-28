@@ -46,7 +46,7 @@ namespace ArcGISRuntime.WPF.Samples.SpatialOperations
         {
             // Create the map with a gray canvas basemap and an initial location centered on London, UK.
             Map spatialOperationsMap = new Map(BasemapStyle.ArcGISLightGray);
-            spatialOperationsMap.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 15);
+            spatialOperationsMap.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 20000);
 
             // Add the map to the map view.
             MyMapView.Map = spatialOperationsMap;

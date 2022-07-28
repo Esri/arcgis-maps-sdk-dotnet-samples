@@ -58,10 +58,10 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
         public OfflineRouting()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -146,7 +146,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
             ErrorTextBlock.Text = "";
         }
 
-        private async void UpdateRoute(TravelMode selectedTravelMode)
+        private async Task UpdateRoute(TravelMode selectedTravelMode)
         {
             try
             {
@@ -195,7 +195,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
             }
         }
 
-        private async void AddStop(Point tappedPosition)
+        private async Task AddStop(Point tappedPosition)
         {
             try
             {
@@ -269,7 +269,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
             if (_selectedStopGraphic == null && _stopsOverlay.Graphics.Count < 5)
             {
                 // Select or add a stop.
-                AddStop(e.Position);
+                _ = AddStop(e.Position);
             }
             else if (_selectedStopGraphic == null)
             {
@@ -284,7 +284,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
                 _selectedStopGraphic = null;
 
                 // Update the route with the final list of stops.
-                UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
+                _ = UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
             }
         }
 
@@ -308,7 +308,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
                 _selectedStopGraphic.Geometry = hoverLocation;
 
                 // Update the route with the temporary stop.
-                UpdateRoute((TravelMode) TravelModesCombo.SelectedItem ?? _availableTravelModes.First());
+                _ = UpdateRoute((TravelMode) TravelModesCombo.SelectedItem ?? _availableTravelModes.First());
             }
         }
 
@@ -323,7 +323,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
                 }
 
                 // Update the route.
-                UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
+                _ = UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
             }
             catch (Exception ex)
             {

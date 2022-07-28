@@ -64,10 +64,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk.
             try
@@ -323,10 +323,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             myProgressBar.IsVisible = false;
 
             // Handle the job completion.
-            HandleGenerationStatusChange(generateGdbJob);
+            await HandleGenerationStatusChange(generateGdbJob);
         }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
+        private async Task HandleGenerationStatusChange(GenerateGeodatabaseJob job)
         {
             // If the job completed successfully, add the geodatabase data to the map.
             if (job.Status == JobStatus.Succeeded)

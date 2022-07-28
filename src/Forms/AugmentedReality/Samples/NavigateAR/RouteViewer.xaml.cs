@@ -198,7 +198,7 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
         private void NavigateButton_Clicked(object sender, EventArgs e)
         {
             // Create the route tracker.
-            _routeTracker = new RouteTracker(PassedRouteResult, 0);
+            _routeTracker = new RouteTracker(PassedRouteResult, 0, true);
 
             // Listen for updated guidance.
             _routeTracker.NewVoiceGuidance += RouteTracker_VoiceGuidanceChanged;

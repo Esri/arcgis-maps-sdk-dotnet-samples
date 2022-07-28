@@ -52,10 +52,10 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceAreasForMultipleFacilities
         public FindServiceAreasForMultipleFacilities()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -186,9 +186,9 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceAreasForMultipleFacilities
             }
         }
 
-        private async void ShowMessage(string title, string detail)
+        private void ShowMessage(string title, string detail)
         {
-            await new MessageDialog2(detail, title).ShowAsync();
+            _ = new MessageDialog2(detail, title).ShowAsync();
         }
     }
 }

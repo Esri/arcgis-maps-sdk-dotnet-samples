@@ -13,10 +13,29 @@
         <Grid Grid.Row="0" BackgroundColor="MediumVioletRed">
             <esriUI:MapView x:Name="MyMapView" IsVisible="True" />
         </Grid>
-        <ActivityIndicator x:Name="MyProgressBar"
-                           Grid.Row="1"
-                           IsRunning="True"
-                           IsVisible="False" />
+        <Grid Grid.Row="1" Margin="5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="320" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <ProgressBar x:Name="MyProgressBar"
+                         Grid.Column="0"
+                         HeightRequest="30"
+                         HorizontalOptions="Start"
+                         IsVisible="False"
+                         WidthRequest="320" />
+            <Label x:Name="MyProgressBarLabel"
+                   Grid.Column="1"
+                   HorizontalOptions="Center"
+                   IsVisible="False"
+                   VerticalOptions="Center" />
+        </Grid>
+        <Button x:Name="MyCancelJobButton"
+                Grid.Row="2"
+                Margin="0,5,0,0"
+                Clicked="MyCancelJobButton_Clicked"
+                IsVisible="False"
+                Text="Cancel" />
         <Button x:Name="MyExportPreviewButton"
                 Grid.Row="2"
                 Clicked="MyExportPreviewButton_Clicked"

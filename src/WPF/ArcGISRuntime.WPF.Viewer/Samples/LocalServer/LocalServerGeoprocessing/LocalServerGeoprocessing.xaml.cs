@@ -16,6 +16,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -44,10 +45,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             InitializeComponent();
 
             // set up the sample
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map and add it to the view
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
@@ -133,12 +134,19 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
             // Return if the server hasn't started
             if (statusChangedEventArgs.Status != LocalServerStatus.Started) return;
 
-            // Create the geoprocessing task from the service
-            _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_gpService.Url + "/Contour"));
+            try
+            {
+                // Create the geoprocessing task from the service
+                _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_gpService.Url + "/Contour"));
 
-            // Update UI
-            MyUpdateContourButton.IsEnabled = true;
-            MyLoadingIndicator.Visibility = Visibility.Collapsed;
+                // Update UI
+                MyUpdateContourButton.IsEnabled = true;
+                MyLoadingIndicator.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void GenerateContours()
@@ -163,13 +171,13 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
              };
 
             // Be notified when the task completes (or other change happens)
-            _gpJob.JobChanged += GpJobOnJobChanged;
+            _gpJob.StatusChanged += GpJobOnJobChanged;
 
             // Start the job
             _gpJob.Start();
         }
 
-        private async void GpJobOnJobChanged(object o, EventArgs eventArgs)
+        private async void GpJobOnJobChanged(object o, JobStatus e)
         {
             // Show message if job failed
             if (_gpJob.Status == JobStatus.Failed)
@@ -192,26 +200,32 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGeoprocessing
 
             // Create a map image layer to show the results
             ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(new Uri(gpServiceResultUrl));
-            //ArcGISMapImageLayer myMapImageLayer = new ArcGISMapImageLayer(_gpService.Url);
 
-            // Load the layer
-            await myMapImageLayer.LoadAsync();
-
-            // This is needed because the event comes from outside of the UI thread
-            Dispatcher.Invoke(() =>
+            try
             {
-                // Add the layer to the map
-                MyMapView.Map.OperationalLayers.Add(myMapImageLayer);
+                // Load the layer
+                await myMapImageLayer.LoadAsync();
 
-                // Hide the progress bar
-                MyLoadingIndicator.Visibility = Visibility.Collapsed;
+                // This is needed because the event comes from outside of the UI thread
+                Dispatcher.Invoke(() =>
+                {
+                    // Add the layer to the map
+                    MyMapView.Map.OperationalLayers.Add(myMapImageLayer);
 
-                // Disable the generate button
-                MyUpdateContourButton.IsEnabled = false;
+                    // Hide the progress bar
+                    MyLoadingIndicator.Visibility = Visibility.Collapsed;
 
-                // Enable the reset button
-                MyResetButton.IsEnabled = true;
-            });
+                    // Disable the generate button
+                    MyUpdateContourButton.IsEnabled = false;
+
+                    // Enable the reset button
+                    MyResetButton.IsEnabled = true;
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
         }
 
         private static string GetRasterPath()

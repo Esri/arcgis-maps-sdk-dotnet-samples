@@ -51,10 +51,10 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Get the offline tile package and use it as a basemap.
             string basemapPath = DataManager.GetDataFolder("22c3083d4fa74e3e9b25adfc9f8c0496", "streetmap_SD.tpkx");
@@ -93,7 +93,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             }
         }
 
-        private async void UpdateSearch()
+        private async Task UpdateSearch()
         {
             // Get the text in the search bar.
             string enteredText = AutoSuggestBox.Text;
@@ -187,7 +187,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineGeocode
             {
                 AutoSuggestBox.Text = args.ChosenSuggestion.ToString();
             }
-            UpdateSearch();
+            _ = UpdateSearch();
         }
 
         private async Task<Graphic> GraphicForPoint(MapPoint point)

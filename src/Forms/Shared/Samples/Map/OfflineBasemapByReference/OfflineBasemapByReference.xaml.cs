@@ -49,7 +49,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
         public OfflineBasemapByReference()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
         private async Task ConfigureOfflineJobForBasemap(GenerateOfflineMapParameters parameters)
@@ -87,7 +87,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
 
         #region Generate offline map
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -257,7 +257,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
         private void CancelJobButton_Click(object sender, EventArgs e)
         {
             // The user canceled the job.
-            _generateOfflineMapJob.Cancel();
+            _generateOfflineMapJob.CancelAsync();
         }
 
         #endregion Generate offline map

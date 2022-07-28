@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
@@ -41,10 +42,10 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
             MyMapView.Map = myMap;
 
             // Call a function that will create a new feature collection layer and zoom to it
-            CreateNewFeatureCollection();
+            _ = CreateNewFeatureCollection();
         }
 
-        private async void CreateNewFeatureCollection()
+        private async Task CreateNewFeatureCollection()
         {
             // Create the schema for a points table (one text field to contain a name attribute)
             List<Field> pointFields = new List<Field>();

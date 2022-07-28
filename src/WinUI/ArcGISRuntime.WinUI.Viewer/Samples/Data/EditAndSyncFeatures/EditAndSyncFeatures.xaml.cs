@@ -65,10 +65,10 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a tile cache and load it with the SanFrancisco streets tpk.
             TileCache tileCache = new TileCache(DataManager.GetDataFolder("e4a398afe9a945f3b0f4dca1e4faccb5", "SanFrancisco.tpkx"));
@@ -328,10 +328,10 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             GenerateSyncProgressBar.Visibility = Visibility.Collapsed;
 
             // Do the rest of the work.
-            HandleGenerationStatusChange(generateGdbJob);
+            await HandleGenerationStatusChange(generateGdbJob);
         }
 
-        private async void HandleGenerationStatusChange(GenerateGeodatabaseJob job)
+        private async Task HandleGenerationStatusChange(GenerateGeodatabaseJob job)
         {
             // If the job completed successfully, add the geodatabase data to the map.
             if (job.Status == JobStatus.Succeeded)
@@ -482,10 +482,10 @@ namespace ArcGISRuntime.WinUI.Samples.EditAndSyncFeatures
             }
         }
 
-        private async void ShowStatusMessage(string message)
+        private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            await new MessageDialog2(message).ShowAsync();
+            _ = new MessageDialog2(message).ShowAsync();
         }
 
         private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)

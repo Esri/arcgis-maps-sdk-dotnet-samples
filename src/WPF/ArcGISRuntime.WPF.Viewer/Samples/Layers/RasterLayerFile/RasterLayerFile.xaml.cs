@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
@@ -29,10 +30,10 @@ namespace ArcGISRuntime.WPF.Samples.RasterLayerFile
             InitializeComponent();
 
             // Call a function to set up the map
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Add an imagery basemap
             Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);

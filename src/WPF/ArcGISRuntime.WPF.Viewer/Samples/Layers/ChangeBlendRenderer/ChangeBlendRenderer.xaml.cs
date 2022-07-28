@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -32,10 +33,10 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBlendRenderer
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Update the preset color ramp type options and select the first one.
             ColorRamps.ItemsSource = Enum.GetNames(typeof(PresetColorRampType));

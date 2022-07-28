@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Xamarin.Forms;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
@@ -28,10 +29,10 @@ namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
         public IdentifyLayers()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with an initial viewpoint.
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);

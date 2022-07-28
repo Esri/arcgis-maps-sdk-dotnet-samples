@@ -54,10 +54,10 @@ namespace ArcGISRuntime.WinUI.Samples.MobileMapSearchAndRoute
         {
             InitializeComponent();
             DataContext = this;
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Get the path to the package on disk.
             string filePath = DataManager.GetDataFolder("260eb6535c824209964cf281766ebe43", "SanFrancisco.mmpk");

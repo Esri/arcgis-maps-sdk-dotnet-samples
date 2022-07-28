@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -36,10 +37,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map and add it to the view
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsRelief);

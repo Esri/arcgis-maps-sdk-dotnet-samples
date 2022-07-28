@@ -304,7 +304,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
             builder.SetCancelable(true);
             builder.SetMessage("Generating offline map ...");
             _alertDialog = builder.Create();
-            _alertDialog.SetButton("Cancel", (s, e) => { _generateOfflineMapJob?.Cancel(); });
+            _alertDialog.SetButton("Cancel", (s, e) => { _generateOfflineMapJob?.CancelAsync(); });
         }
 
         #endregion Generate offline map

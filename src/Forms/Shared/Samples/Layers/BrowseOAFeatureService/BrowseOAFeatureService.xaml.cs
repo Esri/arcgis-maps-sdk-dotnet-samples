@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
@@ -43,10 +44,10 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
 
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
-            LoadService();
+            _ = LoadService();
         }
 
-        private async void LoadService()
+        private async Task LoadService()
         {
             try
             {
@@ -156,7 +157,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
 
         private void LoadServiceButton_Click(object sender, EventArgs e)
         {
-            LoadService();
+            _ = LoadService();
         }
     }
 }

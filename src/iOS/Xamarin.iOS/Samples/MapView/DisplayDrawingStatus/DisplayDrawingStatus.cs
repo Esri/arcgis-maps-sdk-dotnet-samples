@@ -39,7 +39,8 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         private async void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(BasemapType.Topographic, 34.056, -117.196, 4);
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
+            myMap.InitialViewpoint = new Viewpoint(34.056, -117.196, 4);
 
             // URL to the feature service.
             Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");

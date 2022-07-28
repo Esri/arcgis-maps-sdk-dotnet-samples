@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
@@ -57,10 +58,10 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             InitializeComponent();
 
             // Create the map and graphics overlays.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Hook up the DrawStatusChanged event.
             MyMapView.DrawStatusChanged += OnDrawStatusChanged;
@@ -143,10 +144,10 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             _incidentPoint = e.Location;
 
             // Populate the facility parameters than solve using the task.
-            PopulateParametersAndSolveRouteAsync();
+            _ = PopulateParametersAndSolveRouteAsync();
         }
 
-        private async void PopulateParametersAndSolveRouteAsync()
+        private async Task PopulateParametersAndSolveRouteAsync()
         {
             try
             {

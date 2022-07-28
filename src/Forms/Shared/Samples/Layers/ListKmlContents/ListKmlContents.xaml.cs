@@ -34,10 +34,10 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
         public ListKmlContents()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Add a basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
@@ -80,12 +80,12 @@ namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
             // Get the KML node.
             LayerDisplayVM selectedItem = (LayerDisplayVM)e.SelectedItem;
 
-            NavigateToNode(selectedItem.Node);
+            _ = NavigateToNode(selectedItem.Node);
         }
 
         #region viewpoint_conversion
 
-        private async void NavigateToNode(KmlNode node)
+        private async Task NavigateToNode(KmlNode node)
         {
             try
             {

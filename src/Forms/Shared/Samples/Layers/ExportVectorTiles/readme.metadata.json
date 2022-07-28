@@ -1,0 +1,33 @@
+{
+    "category": "Layers",
+    "description": "Export tiles from an online vector tile service.",
+    "formal_name": "ExportVectorTiles",
+    "ignore": false,
+    "images": [
+        "ExportVectorTiles.jpg"
+    ],
+    "keywords": [
+        "cache",
+        "download",
+        "offline",
+        "vector"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/exportvectortiles.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISVectorTiledLayer",
+        "ExportVectorTilesJob",
+        "ExportVectorTilesParameters",
+        "ExportVectorTilesResult",
+        "ExportVectorTilesTask",
+        "ItemResourceCache",
+        "VectorTileCache"
+    ],
+    "snippets": [
+        "ExportVectorTiles.xaml",
+        "ExportVectorTiles.xaml.cs"
+    ],
+    "title": "Export vector tiles"
+}

@@ -12,13 +12,12 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.UI.Core;
 using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
 {
@@ -62,7 +61,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
                 await GetLocalGeodatabase();
 
                 // Once the local geodatabase is available, load the tables as layers to the map
-                LoadLocalGeodatabaseTables();
+                await LoadLocalGeodatabaseTables();
             };
         }
 
@@ -99,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
                     GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
 
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready
-                    generateGdbJob.JobChanged += (s, e) =>
+                    generateGdbJob.StatusChanged += (s, e) =>
                     {
                         // See if the job succeeded
                         if (generateGdbJob.Status == JobStatus.Succeeded)
@@ -137,7 +136,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
         }
 
         // Function that loads the two point tables from the local geodatabase and displays them as feature layers
-        private async void LoadLocalGeodatabaseTables()
+        private async Task LoadLocalGeodatabaseTables()
         {
             if (_localGeodatabase == null) { return; }
 
@@ -286,37 +285,44 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             promptDialog.Commands.Add(rollbackCommand);
             promptDialog.Commands.Add(cancelCommand);
 
-            // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
-            IUICommand cmd = await promptDialog.ShowAsync();
+            try
+            {
+                // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction)
+                IUICommand cmd = await promptDialog.ShowAsync();
 
-            if (cmd.Label == commitCommand.Label)
-            {
-                // See if there is a transaction active for the geodatabase
-                if (_localGeodatabase.IsInTransaction)
+                if (cmd.Label == commitCommand.Label)
                 {
-                    // If there is, commit the transaction to store the edits (this will also end the transaction)
-                    _localGeodatabase.CommitTransaction();
-                    MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
+                    // See if there is a transaction active for the geodatabase
+                    if (_localGeodatabase.IsInTransaction)
+                    {
+                        // If there is, commit the transaction to store the edits (this will also end the transaction)
+                        _localGeodatabase.CommitTransaction();
+                        MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
+                    }
+                }
+                else if (cmd.Label == rollbackCommand.Label)
+                {
+                    // See if there is a transaction active for the geodatabase
+                    if (_localGeodatabase.IsInTransaction)
+                    {
+                        // If there is, rollback the transaction to discard the edits (this will also end the transaction)
+                        _localGeodatabase.RollbackTransaction();
+                        MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
+                    }
+                }
+                else
+                {
+                    // For 'cancel' don't end the transaction with a commit or rollback
                 }
             }
-            else if (cmd.Label == rollbackCommand.Label)
+            catch
             {
-                // See if there is a transaction active for the geodatabase
-                if (_localGeodatabase.IsInTransaction)
-                {
-                    // If there is, rollback the transaction to discard the edits (this will also end the transaction)
-                    _localGeodatabase.RollbackTransaction();
-                    MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
-                }
             }
-            else
-            {
-                // For 'cancel' don't end the transaction with a commit or rollback
-            }
+            
         }
 
         // Change which controls are enabled if the user chooses to require/not require transactions for edits
-        private async void RequireTransactionChanged(object sender, RoutedEventArgs e)
+        private void RequireTransactionChanged(object sender, RoutedEventArgs e)
         {
             // If the local geodatabase isn't created yet, return
             if (_localGeodatabase == null) { return; }
@@ -327,7 +333,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             // Warn the user if disabling transactions while a transaction is active
             if (!mustHaveTransaction && _localGeodatabase.IsInTransaction)
             {
-                await new MessageDialog2("Stop editing to end the current transaction.", "Current Transaction").ShowAsync();
+                _ = new MessageDialog2("Stop editing to end the current transaction.", "Current Transaction").ShowAsync();
                 RequireTransactionCheckBox.IsChecked = true;
                 return;
             }
@@ -357,7 +363,7 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
 
                 // Handle the JobChanged event for the job
-                job.JobChanged += (s, arg) =>
+                job.StatusChanged += (s, arg) =>
                 {
                     // Report changes in the job status
                     if (job.Status == JobStatus.Succeeded)

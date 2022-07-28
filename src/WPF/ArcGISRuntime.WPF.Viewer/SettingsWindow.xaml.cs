@@ -63,7 +63,7 @@ namespace ArcGISRuntime
             LicenseBrowser.NewWindow += (s, e) => { e.Cancel = true; };
 
             // Set up offline data.
-            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
+            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).OrderBy(s => s.SampleName).ToList();
 
             SampleDataListView.ItemsSource = OfflineDataSamples;
 
@@ -126,9 +126,13 @@ namespace ArcGISRuntime
             try
             {
                 SetStatusMessage("Downloading sample data", true);
+                StatusSpinner.Value = 0;
                 SampleInfo sample = (SampleInfo)((Button)sender).Tag;
 
-                await DataManager.EnsureSampleDataPresent(sample);
+                await DataManager.EnsureSampleDataPresent(sample, (info) =>
+                {
+                    SetProgress(info.Percentage, info.HasPercentage);
+                });
             }
             catch (Exception exception)
             {
@@ -147,33 +151,45 @@ namespace ArcGISRuntime
             {
                 CancellationToken token = _cancellationTokenSource.Token;
                 CancelButton.Visibility = Visibility.Visible;
-                SetStatusMessage("Downloading all...", true);
+
                 HashSet<string> itemIds = new HashSet<string>();
                 List<Task> downloadTasks = new List<Task>();
                 foreach (SampleInfo sample in OfflineDataSamples)
                 {
+                    SetStatusMessage($"Downloading items for {sample.SampleName}", true);
                     foreach (string itemId in sample.OfflineDataItems)
                     {
-                        itemIds.Add(itemId);
+                        if (!itemIds.Contains(itemId))
+                        {
+                            try
+                            {
+                                StatusSpinner.Value = 0;
+
+                                // Wait for offline data to complete
+                                await DataManager.DownloadDataItem(itemId, _cancellationTokenSource.Token,
+                                (info) =>
+                                {
+                                    SetProgress(info.Percentage, info.HasPercentage);
+                                });
+                            }
+                            catch (OperationCanceledException)
+                            {
+                                MessageBox.Show("Download canceled");
+                                return;
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                            }
+                            itemIds.Add(itemId);
+                        }
                     }
                 }
-
-                foreach (var item in itemIds)
-                {
-                    downloadTasks.Add(DataManager.DownloadDataItem(item, token));
-                }
-
-                await Task.WhenAll(downloadTasks);
-
                 MessageBox.Show("All data downloaded");
-            }
-            catch (OperationCanceledException)
-            {
-                MessageBox.Show("Download canceled");
             }
             catch (Exception exception)
             {
-                System.Diagnostics.Debug.WriteLine(exception);
+                Debug.WriteLine(exception);
                 MessageBox.Show("Couldn't download all sample data");
             }
             finally
@@ -191,8 +207,17 @@ namespace ArcGISRuntime
                 SetStatusMessage("Deleting all...", true);
 
                 string offlineDataPath = DataManager.GetDataFolder();
-
-                Directory.Delete(offlineDataPath, true);
+                foreach (var d in Directory.GetDirectories(offlineDataPath))
+                {
+                    try
+                    {
+                        Directory.Delete(d, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"{ex.Message} - {d}");
+                    }
+                }
 
                 MessageBox.Show("All data deleted");
             }
@@ -226,7 +251,7 @@ namespace ArcGISRuntime
                 {
                     string offlineDataPath = DataManager.GetDataFolder(offlineItemId);
 
-                    Directory.Delete(offlineDataPath);
+                    Directory.Delete(offlineDataPath, true);
                 }
 
                 MessageBox.Show($"Offline data deleted for {sample.SampleName}");
@@ -261,6 +286,18 @@ namespace ArcGISRuntime
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             _cancellationTokenSource.Cancel(true);
+        }
+
+        public void SetProgress(int percentage, bool hasPercentage)
+        {
+            Dispatcher.BeginInvoke((Action)delegate ()
+            {
+                StatusSpinner.IsIndeterminate = !hasPercentage;
+                if (percentage > 0 && hasPercentage)
+                {
+                    StatusSpinner.Value = percentage;
+                }
+            });
         }
     }
 }

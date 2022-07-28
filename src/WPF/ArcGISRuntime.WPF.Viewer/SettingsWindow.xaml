@@ -99,7 +99,8 @@
                             <ProgressBar x:Name="StatusSpinner"
                                          Width="200"
                                          Height="14"
-                                         IsIndeterminate="True"
+                                         Maximum="100"
+                                         Minimum="0"
                                          Visibility="Collapsed" />
                         </StatusBarItem>
                     </StatusBar>

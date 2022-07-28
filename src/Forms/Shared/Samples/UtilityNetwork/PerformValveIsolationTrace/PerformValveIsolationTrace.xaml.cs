@@ -58,10 +58,10 @@ namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
         public PerformValveIsolationTrace()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // As of ArcGIS Enterprise 10.8.1, using utility network functionality requires a licensed user. The following login for the sample server is licensed to perform utility network operations.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(async (info) =>

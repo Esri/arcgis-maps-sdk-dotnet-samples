@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
@@ -31,10 +32,10 @@ namespace ArcGISRuntime.WinUI.Samples.FeatureLayerDictionaryRenderer
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);

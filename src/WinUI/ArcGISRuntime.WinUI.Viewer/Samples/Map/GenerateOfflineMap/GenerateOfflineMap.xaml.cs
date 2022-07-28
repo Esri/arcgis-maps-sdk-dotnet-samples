@@ -44,10 +44,10 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMap
             InitializeComponent();
 
             // Load the web map, show area of interest, restrict map interaction, and set up authorization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -222,7 +222,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMap
         private void CancelJobButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             // The user canceled the job.
-            _generateOfflineMapJob.Cancel();
+            _generateOfflineMapJob.CancelAsync();
         }
     }
 }

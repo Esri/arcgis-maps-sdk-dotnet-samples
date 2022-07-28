@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Microsoft.UI.Xaml;
 using System;
+using System.Threading.Tasks;
 using System.Drawing;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayOACollection
@@ -38,10 +39,10 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayOACollection
         public DisplayOACollection()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);

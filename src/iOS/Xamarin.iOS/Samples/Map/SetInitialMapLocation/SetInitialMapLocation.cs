@@ -34,7 +34,8 @@ namespace ArcGISRuntime.Samples.SetInitialMapLocation
         private void Initialize()
         {
             // Show a map with 'Imagery with Labels' basemap and an initial location.
-            _myMapView.Map = new Map(BasemapType.ImageryWithLabels, -33.867886, -63.985, 16);
+            _myMapView.Map = new Map(BasemapStyle.ArcGISImagery);
+            _myMapView.Map.InitialViewpoint = new Viewpoint(-33.867886, -63.985, 15);
         }
 
         public override void ViewDidLoad()

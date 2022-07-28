@@ -5,15 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <TextBlock x:Name="ClipInstructionsLabel"
-                           Text="Click 'Clip' to clip the blue graphic with red envelopes."
-                           TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold"
-                           Margin="0,0,0,5" />
-                <Button x:Name="ClipButton"
-                        Content="Clip"
-                        Click="ClipButton_Click" />
-            </StackPanel>
+            <Button x:Name="ClipButton"
+                    Click="Button_Click"
+                    Content="Clip" />
         </Border>
     </Grid>
 </UserControl>

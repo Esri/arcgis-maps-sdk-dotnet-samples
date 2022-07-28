@@ -7,17 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
 using System.Threading;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Viewer
 {
-    /// <summary>
-    /// Interaction logic for WaitPage.xaml
-    /// </summary>
     public partial class WaitPage
     {
         private CancellationTokenSource _cancellationTokenSource;
+
         public WaitPage()
         {
             InitializeComponent();
@@ -27,11 +26,30 @@ namespace ArcGISRuntime.WPF.Viewer
         {
             InitializeComponent();
             _cancellationTokenSource = cancellation;
+            this.Visibility = Visibility.Collapsed;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             _cancellationTokenSource.Cancel(true);
+        }
+
+        public void SetProgress(int percentage, bool hasPercentage, long totalBytes)
+        {
+            Dispatcher.BeginInvoke((Action)delegate ()
+            {
+                this.Visibility = Visibility.Visible;
+                ProgressBar.IsIndeterminate = !hasPercentage;
+                if (percentage > 0 && hasPercentage)
+                {
+                    ProgressBar.Value = percentage;
+                    PercentageLabel.Content = $"{percentage}%";
+                }
+                else
+                {
+                    PercentageLabel.Content = $"{totalBytes / 1024}kb";
+                }
+            });
         }
     }
 }

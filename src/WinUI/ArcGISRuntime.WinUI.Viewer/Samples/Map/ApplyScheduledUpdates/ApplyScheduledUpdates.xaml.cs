@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -43,10 +44,10 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
         public ApplyScheduledUpdates()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -89,7 +90,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
                 _offlineMapSyncTask = await OfflineMapSyncTask.CreateAsync(offlineMap);
 
                 // Check if there are scheduled updates to the preplanned map area.
-                CheckForScheduledUpdates();
+                _ = CheckForScheduledUpdates();
             }
             catch (Exception ex)
             {
@@ -97,7 +98,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
             }
         }
 
-        private async void CheckForScheduledUpdates()
+        private async Task CheckForScheduledUpdates()
         {
             try
             {
@@ -172,7 +173,7 @@ namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
                     }
 
                     // Verify that the map is up to date and change the UI to reflect the update availability status.
-                    CheckForScheduledUpdates();
+                    _ = CheckForScheduledUpdates();
                 }
                 else
                 {

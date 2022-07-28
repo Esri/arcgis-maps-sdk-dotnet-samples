@@ -48,14 +48,13 @@ namespace ArcGISRuntime
 #endif
             }
             // Precise version number cant be used while running in release mode.
-            catch(Exception)
+            catch (Exception)
             {
-                versionNumber = "100.14.0";
+                versionNumber = "100.14.1";
             }
 
-
             // Set up offline data.
-            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).ToList();
+            OfflineDataSamples = SampleManager.Current.AllSamples.Where(m => m.OfflineDataItems?.Any() ?? false).OrderBy(s => s.SampleName).ToList();
             OfflineDataView.ItemsSource = OfflineDataSamples;
             _cancellationTokenSource = new CancellationTokenSource();
 
@@ -129,8 +128,12 @@ namespace ArcGISRuntime
                     // Enable the cancel button.
                     CancelButton.IsVisible = true;
 
-                    SetStatusMessage($"Downloading data for {sampleInfo.SampleName}", true);
-                    await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token);
+                    SetStatusMessage($"Downloading: {sampleInfo.SampleName}", true);
+                    _ = StatusBar.ProgressTo(0, 10, Easing.Linear);
+                    await DataManager.EnsureSampleDataPresent(sampleInfo, _cancellationTokenSource.Token, (info) =>
+                    {
+                        SetProgress(info.Percentage, info.HasPercentage);
+                    });
                 }
                 catch (OperationCanceledException)
                 {
@@ -179,8 +182,15 @@ namespace ArcGISRuntime
 
                     foreach (string offlineItemId in sampleInfo.OfflineDataItems)
                     {
-                        string offlineDataPath = DataManager.GetDataFolder(offlineItemId);
-                        Directory.Delete(offlineDataPath, true);
+                        try
+                        {
+                            string offlineDataPath = DataManager.GetDataFolder(offlineItemId);
+                            Directory.Delete(offlineDataPath, true);
+                        }
+                        catch (DirectoryNotFoundException ex)
+                        {
+                            Debug.WriteLine(ex.Message);
+                        }
                     }
                     await Application.Current.MainPage.DisplayAlert("Success", $"Offline data deleted for {sampleInfo.SampleName}", "OK");
                 }
@@ -199,35 +209,41 @@ namespace ArcGISRuntime
         {
             try
             {
-                // Enable the cancel button.
+                CancellationToken token = _cancellationTokenSource.Token;
                 CancelButton.IsVisible = true;
-
-                // Adjust the UI
-                SetStatusMessage("Downloading all...", true);
-
-                // Make a list of tasks for downloading all of the samples.
                 HashSet<string> itemIds = new HashSet<string>();
-
                 foreach (SampleInfo sample in OfflineDataSamples)
                 {
+                    SetStatusMessage($"Downloading items for {sample.SampleName}", true);
                     foreach (string itemId in sample.OfflineDataItems)
                     {
-                        itemIds.Add(itemId);
+                        if (!itemIds.Contains(itemId))
+                        {
+                            try
+                            {
+                                _ = StatusBar.ProgressTo(0, 10, Easing.Linear);
+
+                                // Wait for offline data to complete
+                                await DataManager.DownloadDataItem(itemId, _cancellationTokenSource.Token,
+                                (info) =>
+                                {
+                                    SetProgress(info.Percentage, info.HasPercentage);
+                                });
+                            }
+                            catch (OperationCanceledException)
+                            {
+                                await Application.Current.MainPage.DisplayAlert(string.Empty, "Download canceled", "OK");
+                                return;
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine(ex.Message);
+                            }
+                            itemIds.Add(itemId);
+                        }
                     }
                 }
-
-                // Download every item.
-                foreach (var item in itemIds)
-                {
-                    StatusLabel.Text = $"Downloading item: {item}";
-                    await DataManager.DownloadDataItem(item, _cancellationTokenSource.Token);
-                }
-
                 await Application.Current.MainPage.DisplayAlert(string.Empty, "All data downloaded", "OK");
-            }
-            catch (OperationCanceledException)
-            {
-                await Application.Current.MainPage.DisplayAlert(string.Empty, "Download canceled", "OK");
             }
             catch (Exception exception)
             {
@@ -248,7 +264,17 @@ namespace ArcGISRuntime
                 SetStatusMessage("Deleting all...", true);
 
                 string offlineDataPath = DataManager.GetDataFolder();
-                Directory.Delete(offlineDataPath, true);
+                foreach (var d in Directory.GetDirectories(offlineDataPath))
+                {
+                    try
+                    {
+                        Directory.Delete(d, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine($"{ex.Message} - {d}");
+                    }
+                }
 
                 await Application.Current.MainPage.DisplayAlert("Success", "All data deleted", "OK");
             }
@@ -271,8 +297,22 @@ namespace ArcGISRuntime
         private void SetStatusMessage(string message, bool isRunning)
         {
             StatusLabel.Text = message;
-            StatusSpinner.IsVisible = isRunning;
+            StatusBar.IsVisible = isRunning;
             OfflineDataView.IsEnabled = !isRunning;
+        }
+
+        public void SetProgress(int percentage, bool hasPercentage)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                StatusBar.IsVisible = hasPercentage;
+                IndefiniteSpinner.IsVisible = !hasPercentage;
+                if (percentage > 0 && hasPercentage)
+                {
+                    double progress = percentage / 100.0;
+                    StatusBar.ProgressTo(progress, 10, Easing.Linear);
+                }
+            });
         }
     }
 }

@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.MapRotation
         private void RotationSlider_Changed(object sender, EventArgs e)
         {
             _myMapView.SetViewpointRotationAsync(_rotationSlider.Value);
-            _rotationLabel.Text = $"{_rotationSlider.Value:0}°";
+            _rotationLabel.Text = $"{_rotationSlider.Value:0}\u00B0";
         }
 
         public override void ViewDidLoad()
@@ -69,7 +69,7 @@ namespace ArcGISRuntime.Samples.MapRotation
 
             _rotationLabel = new UILabel
             {
-                Text = "0°",
+                Text = "0\u00B0",
                 TextAlignment = UITextAlignment.Center,
                 TranslatesAutoresizingMaskIntoConstraints = false
             };

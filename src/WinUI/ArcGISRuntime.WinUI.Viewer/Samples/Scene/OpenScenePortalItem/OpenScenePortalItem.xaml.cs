@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.OpenScenePortalItem
@@ -30,10 +31,10 @@ namespace ArcGISRuntime.WinUI.Samples.OpenScenePortalItem
             InitializeComponent();
 
             // Setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
         
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

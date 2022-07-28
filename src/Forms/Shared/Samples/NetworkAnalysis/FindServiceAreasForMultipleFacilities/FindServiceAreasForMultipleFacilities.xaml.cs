@@ -50,10 +50,10 @@ namespace ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities
         public FindServiceAreasForMultipleFacilities()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -184,9 +184,9 @@ namespace ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities
             }
         }
 
-        private async void ShowMessage(string title, string detail)
+        private void ShowMessage(string title, string detail)
         {
-            await Application.Current.MainPage.DisplayAlert(title, detail, "OK");
+            Application.Current.MainPage.DisplayAlert(title, detail, "OK");
         }
     }
 }

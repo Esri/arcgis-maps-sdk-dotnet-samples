@@ -2,7 +2,10 @@
 <FeaturedSamples>
   <Categories>
     <Category name="Data">
+      <Sample>AddFeaturesWithContingentValues</Sample>
+      <Sample>CreateMobileGeodatabase</Sample>
       <Sample>ToggleBetweenFeatureRequestModes</Sample>
+      <Sample>QueryFeaturesWithArcadeExpression</Sample>
     </Category>
     <Category name="GraphicsOverlay">
       <Sample>AddGraphicsRenderer</Sample>
@@ -11,6 +14,7 @@
     <Category name="Layers">
       <Sample>DisplayDimensions</Sample>
       <Sample>DisplayFeatureLayers</Sample>
+      <Sample>ExportVectorTiles</Sample>
       <Sample>FeatureLayerDefinitionExpression</Sample>
     </Category>
     <Category name="Location">
@@ -30,6 +34,7 @@
       <Sample>CustomDictionaryStyle</Sample>
       <Sample>RenderMultilayerSymbols</Sample>
       <Sample>SymbolStylesFromWebStyles</Sample>
+      <Sample>UniqueValuesAlternateSymbols</Sample>
     </Category>
     <Category name="UtilityNetwork">
       <Sample>DisplayUtilityNetworkContainer</Sample>

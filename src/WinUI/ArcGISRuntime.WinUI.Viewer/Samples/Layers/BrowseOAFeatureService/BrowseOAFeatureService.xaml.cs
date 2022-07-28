@@ -16,6 +16,7 @@ using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.BrowseOAFeatureService
 {
@@ -44,10 +45,10 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseOAFeatureService
 
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
-            LoadService();
+            _ = LoadService();
         }
 
-        private async void LoadService()
+        private async Task LoadService()
         {
             try
             {
@@ -161,7 +162,7 @@ namespace ArcGISRuntime.WinUI.Samples.BrowseOAFeatureService
 
         private void LoadServiceButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadService();
+            _ = LoadService();
         }
     }
 }

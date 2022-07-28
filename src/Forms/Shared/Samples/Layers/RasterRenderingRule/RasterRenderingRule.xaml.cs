@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
         // Create an empty read-only list for the various rendering rules of the image service raster
@@ -43,12 +43,11 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
         // Create a list to store the names of the rendering rule info for the image service raster
         private List<string> _names = new List<string>();
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Assign a new map to the MapView
             MyMapView.Map = new Map
             {
-
                 // Set the basemap to Streets
                 Basemap = new Basemap(BasemapStyle.ArcGISStreets)
             };
@@ -97,42 +96,48 @@ namespace ArcGISRuntime.Samples.RasterRenderingRule
 
         private async Task ChangeRenderingRuleAsync()
         {
-            // Display a picker to the user to choose among the available rendering rules for the image service raster
-            string myRenderingRuleInfoName = await ((Page)Parent).DisplayActionSheet("Select a Rendering Rule", "Cancel", null, _names.ToArray());
-
-            // Loop through each rendering rule info in the image service raster
-            foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
+            try
             {
-                // Get the name of the rendering rule info
-                string myRenderingRuleName = myRenderingRuleInfo.Name;
+                // Display a picker to the user to choose among the available rendering rules for the image service raster
+                string myRenderingRuleInfoName = await ((Page)Parent).DisplayActionSheet("Select a Rendering Rule", "Cancel", null, _names.ToArray());
 
-                // If the name of the rendering rule info matches what was chosen by the user, proceed
-                if (myRenderingRuleName == myRenderingRuleInfoName)
+                // Loop through each rendering rule info in the image service raster
+                foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
                 {
-                    // Create a new rendering rule from the rendering rule info
-                    RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
+                    // Get the name of the rendering rule info
+                    string myRenderingRuleName = myRenderingRuleInfo.Name;
 
-                    // Create a new image service raster
-                    ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri)
+                    // If the name of the rendering rule info matches what was chosen by the user, proceed
+                    if (myRenderingRuleName == myRenderingRuleInfoName)
                     {
+                        // Create a new rendering rule from the rendering rule info
+                        RenderingRule myRenderingRule = new RenderingRule(myRenderingRuleInfo);
 
-                        // Set the image service raster's rendering rule to the rendering rule created earlier
-                        RenderingRule = myRenderingRule
-                    };
+                        // Create a new image service raster
+                        ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri)
+                        {
+                            // Set the image service raster's rendering rule to the rendering rule created earlier
+                            RenderingRule = myRenderingRule
+                        };
 
-                    // Create a new raster layer from the image service raster
-                    RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);
+                        // Create a new raster layer from the image service raster
+                        RasterLayer myRasterLayer = new RasterLayer(myImageServiceRaster);
 
-                    // Add the raster layer to the operational layers of the  map view
-                    MyMapView.Map.OperationalLayers.Add(myRasterLayer);
+                        // Add the raster layer to the operational layers of the  map view
+                        MyMapView.Map.OperationalLayers.Add(myRasterLayer);
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
-        private async void OnChangeRenderingRuleButtonClicked(object sender, EventArgs e)
+        private void OnChangeRenderingRuleButtonClicked(object sender, EventArgs e)
         {
             // Call the function to display the image service raster based up on user choice of rendering rules
-            await ChangeRenderingRuleAsync();
+            _ = ChangeRenderingRuleAsync();
         }
     }
 }

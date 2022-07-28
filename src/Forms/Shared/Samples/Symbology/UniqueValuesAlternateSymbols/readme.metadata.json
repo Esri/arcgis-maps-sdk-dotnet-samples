@@ -1,0 +1,32 @@
+{
+    "category": "Symbology",
+    "description": "Apply a unique value with alternate symbols at different scales.",
+    "formal_name": "UniqueValuesAlternateSymbols",
+    "ignore": false,
+    "images": [
+        "UniqueValuesAlternateSymbols.jpg"
+    ],
+    "keywords": [
+        "alternate symbols",
+        "scale based rendering",
+        "symbology",
+        "unique value",
+        "unique value renderer"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/forms/sample-code/uniquevaluesalternatesymbols.htm"
+    ],
+    "relevant_apis": [
+        "MultilayerSymbol",
+        "SimpleMarkerSymbol",
+        "SymbolReferenceProperties",
+        "UniqueValue",
+        "UniqueValueRenderer"
+    ],
+    "snippets": [
+        "UniqueValuesAlternateSymbols.xaml",
+        "UniqueValuesAlternateSymbols.xaml.cs"
+    ],
+    "title": "Apply unique values with alternate symbols"
+}

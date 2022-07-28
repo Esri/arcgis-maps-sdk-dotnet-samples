@@ -14,15 +14,11 @@ using Esri.ArcGISRuntime.Navigation;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
-using Windows.Media.SpeechSynthesis;
-using Windows.UI.Core;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
 {
@@ -43,11 +39,6 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
         // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
 
-        // Speech synthesizer to play voice guidance audio.
-        private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
-
-        // private MediaElement _mediaElement = new MediaElement();
-
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
         private Graphic _routeTraveledGraphic;
@@ -67,10 +58,10 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
         public NavigateRoute()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -146,7 +137,6 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
 
             // Create a route tracker.
             _tracker = new RouteTracker(_routeResult, 0, true);
-            _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
@@ -224,19 +214,6 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
             });
         }
 
-        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
-        {
-            // Generate the audio stream for the voice guidance.
-            SpeechSynthesisStream stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);
-
-            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
-            {
-                // Play the audio stream.
-                // _mediaElement.SetSource(stream, stream.ContentType);
-                // _mediaElement.Play();
-            });
-        }
-
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
         {
             // Turn the recenter button on or off when the location display changes to or from navigation mode.
@@ -251,15 +228,10 @@ namespace ArcGISRuntime.WinUI.Samples.NavigateRoute
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)
         {
-            // Stop the speech synthesizer.
-            //_mediaElement.Stop();
-            _speechSynthesizer.Dispose();
-
             // Stop the tracker.
             if (_tracker != null)
             {
                 _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
-                _tracker.NewVoiceGuidance -= SpeakDirection;
                 _tracker = null;
             }
 

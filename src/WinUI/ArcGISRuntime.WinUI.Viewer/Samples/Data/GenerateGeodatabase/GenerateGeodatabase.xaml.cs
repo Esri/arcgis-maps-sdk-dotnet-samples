@@ -52,10 +52,10 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -250,10 +250,10 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
             }
         }
 
-        private async void ShowStatusMessage(string message)
+        private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            await new MessageDialog2(message).ShowAsync();
+            _ = new MessageDialog2(message).ShowAsync();
         }
 
         private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)

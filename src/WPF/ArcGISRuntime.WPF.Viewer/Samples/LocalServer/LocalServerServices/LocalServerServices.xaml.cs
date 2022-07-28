@@ -246,8 +246,15 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerServices
             LocalServerStartButton.IsEnabled = true;
             LocalServerStopButton.IsEnabled = false;
 
-            // Stop the server
-            await LocalServer.Instance.StopAsync();
+            try
+            {
+                // Stop the server.
+                await LocalServer.Instance.StopAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Failed to stop server");
+            }
 
             // Clear references to the services
             _localFeatureService = null;

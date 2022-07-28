@@ -52,8 +52,8 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         private MapPoint _tankEndPoint;
 
         // Units for geodetic calculation (used in animating tank)
-        private readonly LinearUnit _metersUnit = (LinearUnit)Unit.FromUnitId(9001);
-        private readonly AngularUnit _degreesUnit = (AngularUnit)Unit.FromUnitId(9102);
+        private readonly LinearUnit _metersUnit = (LinearUnit)Unit.FromWkid(9001);
+        private readonly AngularUnit _degreesUnit = (AngularUnit)Unit.FromWkid(9102);
 
         protected override async void OnCreate(Bundle bundle)
         {

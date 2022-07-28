@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -48,10 +49,10 @@ namespace ArcGISRuntime.WinUI.Samples.AnimateImageOverlay
         public AnimateImageOverlay()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // This sample is only supported in x64 on UWP.
             if (!Environment.Is64BitProcess)

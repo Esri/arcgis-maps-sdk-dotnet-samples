@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using System.Windows;
 using Color = System.Drawing.Color;
 
@@ -44,10 +45,10 @@ namespace ArcGISRuntime.WPF.Samples.BrowseOAFeatureService
 
             // Create the map with topographic basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
-            LoadService();
+            _ = LoadService();
         }
 
-        private async void LoadService()
+        private async Task LoadService()
         {
             try
             {
@@ -163,7 +164,7 @@ namespace ArcGISRuntime.WPF.Samples.BrowseOAFeatureService
 
         private void LoadServiceButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadService();
+            _ = LoadService();
         }
     }
 }

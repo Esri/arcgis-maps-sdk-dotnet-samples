@@ -7,18 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.FindAddress
@@ -53,11 +53,11 @@ namespace ArcGISRuntime.Samples.FindAddress
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(BasemapStyle.ArcGISImagery);
@@ -160,11 +160,18 @@ namespace ArcGISRuntime.Samples.FindAddress
 
         private async void SuggestionButtonTapped(object sender, System.EventArgs e)
         {
-            // Display the list of suggestions; returns the selected option
-            string action = await ((Page)this.Parent).DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
-            // Update the search
-            MySearchBar.Text = action;
-            updateSearch();
+            try
+            {
+                // Display the list of suggestions; returns the selected option
+                string action = await ((Page)this.Parent).DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+                // Update the search
+                MySearchBar.Text = action;
+                updateSearch();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
 
         /// <summary>

@@ -24,7 +24,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DefineConstants>WinUI</DefineConstants>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Content Include="Resources\*.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -66,8 +66,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.14.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.14.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.14.1" />
+    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="100.14.1" />
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.14.0" />
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" />
@@ -96,7 +96,7 @@
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>
   </ItemGroup>
-  
+
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 
 </Project>

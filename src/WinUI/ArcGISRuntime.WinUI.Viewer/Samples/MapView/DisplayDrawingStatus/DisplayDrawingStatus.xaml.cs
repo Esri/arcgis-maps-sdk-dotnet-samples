@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
 using Microsoft.UI.Xaml;
+using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayDrawingStatus
 {
@@ -38,7 +39,6 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDrawingStatus
 
             // Create new Map with a topographic basemap.
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);
-            myMap.InitialViewpoint = new Viewpoint(34.056, -117.196, 4);
 
             // URL pointing to a feature service.
             Uri serviceUri =
@@ -53,6 +53,9 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDrawingStatus
 
             // Display the map in the view.
             MyMapView.Map = myMap;
+
+            // Zoom to the United States.
+            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
 
         private void OnDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)

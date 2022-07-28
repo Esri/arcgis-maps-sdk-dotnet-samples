@@ -47,7 +47,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         {
             // Create the map with a gray canvas basemap and an initial location centered on London, UK.
             Map myMap = new Map(BasemapStyle.ArcGISLightGray);
-            myMap.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 15);
+            myMap.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 20000);
 
             // Add the map to the map view.
             MyMapView.Map = myMap;

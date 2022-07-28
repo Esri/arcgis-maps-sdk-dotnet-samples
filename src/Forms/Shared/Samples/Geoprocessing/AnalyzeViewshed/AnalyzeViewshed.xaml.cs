@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             // Create a map with topographic basemap and an initial location.
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);
-            myMap.InitialViewpoint = new Viewpoint(45.3790902612337, 6.84905317262762, 13);
+            myMap.InitialViewpoint = new Viewpoint(45.3790902612337, 6.84905317262762, 70000);
 
             // Hook into the MapView tapped event.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;

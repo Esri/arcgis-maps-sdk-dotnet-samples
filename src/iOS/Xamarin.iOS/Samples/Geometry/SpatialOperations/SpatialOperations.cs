@@ -53,7 +53,7 @@ namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
         {
             // Create and show a map with a gray canvas basemap and an initial location centered on London, UK.
             _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
-            _myMapView.Map.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 15);
+            _myMapView.Map.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 20000);
 
             // Create and add two overlapping polygon graphics to operate on.
             CreatePolygonsOverlay();

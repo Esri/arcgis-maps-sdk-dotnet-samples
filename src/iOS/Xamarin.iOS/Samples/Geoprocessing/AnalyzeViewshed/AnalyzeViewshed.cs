@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
         {
             // Create and show a map with topographic basemap and an initial location.
             _myMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
-            _myMapView.Map.InitialViewpoint = new Viewpoint(45.3790902612337, 6.84905317262762, 13);
+            _myMapView.Map.InitialViewpoint = new Viewpoint(45.3790902612337, 6.84905317262762, 70000);
 
             // Create empty overlays for the user clicked location and the results of the viewshed analysis.
             CreateOverlays();

@@ -57,10 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
                 if (selection.Count > 0)
                 {
                     // Create a new CertificateCredential using the chosen certificate.
-                    credential = new CertificateCredential(selection[0])
-                    {
-                        ServiceUri = new Uri(_serverUrl)
-                    };
+                    credential = new CertificateCredential(new Uri(_serverUrl), selection[0]);
                 }
             }
             catch (Exception ex)

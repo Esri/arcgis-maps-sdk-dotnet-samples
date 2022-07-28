@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.RasterHillshade
@@ -44,10 +45,10 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
             InitializeComponent();
 
             // Set up the map and load the raster layer from a local file
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a streets basemap
             Map map = new Map(BasemapStyle.ArcGISStreets);

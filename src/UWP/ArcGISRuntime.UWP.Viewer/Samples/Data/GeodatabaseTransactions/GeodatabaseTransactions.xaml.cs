@@ -99,7 +99,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                     GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
 
                     // Handle the job changed event and check the status of the job; store the geodatabase when it's ready
-                    generateGdbJob.JobChanged += async (s, e) =>
+                    generateGdbJob.StatusChanged += async (s, e) =>
                     {
                         // See if the job succeeded
                         if (generateGdbJob.Status == JobStatus.Succeeded)
@@ -357,7 +357,7 @@ namespace ArcGISRuntime.UWP.Samples.GeodatabaseTransactions
                 SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
 
                 // Handle the JobChanged event for the job
-                job.JobChanged += async (s, arg) =>
+                job.StatusChanged += async (s, arg) =>
                 {
                     // Report changes in the job status
                     if (job.Status == JobStatus.Succeeded)

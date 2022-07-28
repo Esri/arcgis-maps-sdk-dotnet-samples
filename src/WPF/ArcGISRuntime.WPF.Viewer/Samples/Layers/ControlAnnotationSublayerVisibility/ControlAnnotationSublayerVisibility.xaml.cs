@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace ArcGISRuntime.WPF.Samples.ControlAnnotationSublayerVisibility
@@ -34,10 +35,10 @@ namespace ArcGISRuntime.WPF.Samples.ControlAnnotationSublayerVisibility
         public ControlAnnotationSublayerVisibility()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

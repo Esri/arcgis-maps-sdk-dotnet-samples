@@ -47,7 +47,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
         public OfflineBasemapByReference()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
         private void ConfigureOfflineJobForBasemap(GenerateOfflineMapParameters parameters)
@@ -85,7 +85,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
 
         #region Generate offline map
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -258,7 +258,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineBasemapByReference
         private void CancelJobButton_Click(object sender, RoutedEventArgs e)
         {
             // The user canceled the job.
-            _generateOfflineMapJob.Cancel();
+            _generateOfflineMapJob.CancelAsync();
         }
 
         #endregion Generate offline map

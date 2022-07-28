@@ -82,13 +82,14 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
             MyMapView.Map = myMap;
         }
 
-        private async void OnQueryClicked(object sender, RoutedEventArgs e)
+        private void OnQueryClicked(object sender, RoutedEventArgs e)
         {
+           
             // Remove any previous feature selections that may have been made.
             _featureLayer.ClearSelection();
 
             // Begin query process.
-            await QueryStateFeature(QueryEntry.Text);
+            _ =  QueryStateFeature(QueryEntry.Text);
         }
 
         private async Task QueryStateFeature(string stateName)

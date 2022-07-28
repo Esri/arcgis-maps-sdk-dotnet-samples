@@ -49,10 +49,10 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
         public DownloadPreplannedMap()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -223,12 +223,12 @@ namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
             });
         }
 
-        private async void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
+        private void OnDownloadMapAreaClicked(object sender, RoutedEventArgs e)
         {
             if (AreasList.SelectedItem != null)
             {
                 PreplannedMapArea selectedMapArea = AreasList.SelectedItem as PreplannedMapArea;
-                await DownloadMapAreaAsync(selectedMapArea);
+                _ = DownloadMapAreaAsync(selectedMapArea);
             }
         }
 

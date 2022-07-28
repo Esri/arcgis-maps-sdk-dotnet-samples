@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -48,10 +48,10 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
         public OfflineGeocode()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Get the offline tile package and use it as a basemap.
             string basemapPath = DataManager.GetDataFolder("22c3083d4fa74e3e9b25adfc9f8c0496", "streetmap_SD.tpkx");
@@ -90,10 +90,10 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
 
         private void Handle_TextChanged(object sender, System.EventArgs e)
         {
-            updateSearch();
+            _ = UpdateSearchAsync();
         }
 
-        private async void updateSearch()
+        private async Task UpdateSearchAsync()
         {
             // Get the text in the search bar.
             string enteredText = MySearchBar.Text;
@@ -103,7 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
             MyMapView.DismissCallout();
 
             // Return if the textbox is empty or the geocoder isn't ready.
-            if (String.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
+            if (string.IsNullOrWhiteSpace(enteredText) || _geocoder == null)
             {
                 return;
             }
@@ -171,11 +171,18 @@ namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
 
         private async void SuggestionButtonTapped(object sender, System.EventArgs e)
         {
-            // Display the list of suggestions; returns the selected option
-            string action = await ((Page) this.Parent).DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
-            // Update the search
-            MySearchBar.Text = action;
-            updateSearch();
+            try
+            {
+                // Display the list of suggestions; returns the selected option
+                string action = await ((Page)this.Parent).DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+                // Update the search
+                MySearchBar.Text = action;
+                _ = UpdateSearchAsync();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)

@@ -39,10 +39,10 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization 
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a topographic basemap
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
@@ -133,7 +133,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
         {
             // Cancel current geoprocessing job
             if (_hotspotJob.Status == JobStatus.Started)
-                _hotspotJob.Cancel();
+                _hotspotJob.CancelAsync();
 
             // Hide the waiting indication
             ShowBusyOverlay(false);

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -57,10 +57,10 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
         public RouteAroundBarriers()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -103,7 +103,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             }
         }
 
-        private async void HandleMapTap(MapPoint mapLocation)
+        private async Task HandleMapTap(MapPoint mapLocation)
         {
             // Normalize geometry - important for geometries that will be sent to a server for processing.
             mapLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(mapLocation);
@@ -120,25 +120,34 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                     // Add the graphic to the overlay - this will cause it to appear on the map.
                     _barriersOverlay.Graphics.Add(barrierGraphic);
                     break;
+
                 case SampleState.AddingStops:
-                    // Get the name of this stop.
-                    string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
+                    try
+                    {
+                        // Create the marker to show underneath the stop number.
+                        PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
 
-                    // Create the marker to show underneath the stop number.
-                    PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
+                        // Get the name of this stop.
+                        string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
 
-                    // Create the text symbol for showing the stop.
-                    TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
-                        HorizontalAlignment.Center, VerticalAlignment.Middle);
-                    stopSymbol.OffsetY = 15;
+                        // Create the text symbol for showing the stop.
+                        TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
+                            HorizontalAlignment.Center, VerticalAlignment.Middle);
+                        stopSymbol.OffsetY = 15;
 
-                    CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
+                        CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
-                    // Create the graphic to show the stop.
-                    Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
+                        // Create the graphic to show the stop.
+                        Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
 
-                    // Add the graphic to the overlay - this will cause it to appear on the map.
-                    _stopsOverlay.Graphics.Add(stopGraphic);
+                        // Add the graphic to the overlay - this will cause it to appear on the map.
+                        _stopsOverlay.Graphics.Add(stopGraphic);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                    }
+
                     break;
             }
         }
@@ -218,10 +227,10 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             _routeParameters.PreserveLastStop = PreserveLastStopCheckbox.IsToggled;
 
             // Calculate and show the route.
-            CalculateAndShowRoute();
+            _ = CalculateAndShowRoute();
         }
 
-        private async void CalculateAndShowRoute()
+        private async Task CalculateAndShowRoute()
         {
             try
             {
@@ -266,7 +275,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             _directionsPage.Content = directionsList;
         }
 
-        private void MyMapView_OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e) => HandleMapTap(e.Location);
+        private void MyMapView_OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e) => _ = HandleMapTap(e.Location);
 
         private void AddStop_Clicked(object sender, EventArgs e) => UpdateInterfaceState(SampleState.AddingStops);
 
@@ -288,7 +297,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             ConfigureThenRoute();
             UpdateInterfaceState(SampleState.Ready);
         }
-        
+
         private void ShowDirections_Clicked(object sender, EventArgs e)
         {
             if (_directionsPage != null)
@@ -338,12 +347,15 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                     CalculateRouteButton.IsEnabled = false;
                     StatusLabel.Text = "Preparing sample...";
                     break;
+
                 case SampleState.AddingBarriers:
                     StatusLabel.Text = "Tap the map to add a barrier.";
                     break;
+
                 case SampleState.AddingStops:
                     StatusLabel.Text = "Tap the map to add a stop.";
                     break;
+
                 case SampleState.Ready:
                     AddStopButton.IsEnabled = true;
                     AddBarrierButton.IsEnabled = true;
@@ -356,6 +368,7 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
                     StatusLabel.Text = "Click 'Add stop' or 'Add barrier', then tap on the map to add stops and barriers.";
                     BusyOverlay.IsVisible = false;
                     break;
+
                 case SampleState.Routing:
                     BusyOverlay.IsVisible = true;
                     break;
@@ -372,9 +385,9 @@ namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
             Routing
         }
 
-        private async void ShowMessage(string title, string detail)
+        private void ShowMessage(string title, string detail)
         {
-            await Application.Current.MainPage.DisplayAlert(title, detail, "OK");
+            Application.Current.MainPage.DisplayAlert(title, detail, "OK");
         }
     }
 }

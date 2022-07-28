@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
@@ -34,10 +35,10 @@ namespace ArcGISRuntime.WinUI.Samples.RasterColormapRenderer
         public RasterColormapRenderer()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Add an imagery basemap.
             Map map = new Map(BasemapStyle.ArcGISImageryStandard);

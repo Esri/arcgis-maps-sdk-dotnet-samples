@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Threading.Tasks;
 using System.Diagnostics;
 using Windows.UI.Popups;
 
@@ -51,10 +52,10 @@ namespace ArcGISRuntime.WinUI.Samples.WfsXmlQuery
         public WfsXmlQuery()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the map with basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);

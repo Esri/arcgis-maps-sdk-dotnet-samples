@@ -35,7 +35,8 @@ namespace ArcGISRuntime.Samples.ShowMagnifier
         private void Initialize()
         {
             // Create new Map with basemap and initial location.
-            Map myMap = new Map(BasemapType.Topographic, 34.056295, -117.195800, 10);
+            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
+            myMap.InitialViewpoint = new Viewpoint(34.056295, -117.195800, 10);
 
             // Enable magnifier.
             _myMapView.InteractionOptions = new MapViewInteractionOptions

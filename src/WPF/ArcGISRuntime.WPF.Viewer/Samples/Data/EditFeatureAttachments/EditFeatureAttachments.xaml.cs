@@ -45,7 +45,7 @@ namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             try
             {

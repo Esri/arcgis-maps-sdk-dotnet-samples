@@ -7,14 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Threading;
 using Microsoft.UI.Xaml;
+using System.Threading;
 
 namespace ArcGISRuntime.WinUI.Viewer
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class WaitPage
     {
         private CancellationTokenSource _cancellationTokenSource;
@@ -28,11 +25,30 @@ namespace ArcGISRuntime.WinUI.Viewer
         {
             InitializeComponent();
             _cancellationTokenSource = cancellation;
+            this.Visibility = Visibility.Collapsed;
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             _cancellationTokenSource.Cancel(true);
+        }
+
+        public void SetProgress(int percentage, bool hasPercentage, long totalBytes)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                this.Visibility = Visibility.Visible;
+                ProgressBar.IsIndeterminate = !hasPercentage;
+                if (hasPercentage && percentage > 0)
+                {
+                    ProgressBar.Value = percentage;
+                    ProgressLabel.Text = $"{percentage}%";
+                }
+                else
+                {
+                    ProgressLabel.Text = $"{totalBytes/1024}kb";
+                }
+            });
         }
     }
 }

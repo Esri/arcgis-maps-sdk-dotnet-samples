@@ -3,21 +3,19 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Linq;
 using System.Text;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Media.Animation;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
 {
@@ -40,11 +38,11 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
         private string _publicPortalUrl = "https://www.arcgis.com";
 
         // The public and secured portals.
-        ArcGISPortal _iwaSecuredPortal = null;
-        ArcGISPortal _publicPortal = null;
+        private ArcGISPortal _iwaSecuredPortal = null;
+        private ArcGISPortal _publicPortal = null;
 
         // Track if the user is looking at search results from the public or secured portal.
-        bool _usingPublicPortal;
+        private bool _usingPublicPortal;
 
         public IntegratedWindowsAuth()
         {
@@ -63,7 +61,7 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
                 _publicPortal = await ArcGISPortal.CreateAsync(new Uri(_publicPortalUrl));
 
                 // Call a function to search the portal.
-                SearchPortal(_publicPortal);
+                _ = SearchPortal(_publicPortal);
 
                 // Set a variable that indicates this is the public portal.
                 // When a map is loaded from the results, will need to know which portal it came from.
@@ -96,7 +94,7 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
                 _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl));
 
                 // Call a function to search the portal.
-                SearchPortal(_iwaSecuredPortal);
+                _ = SearchPortal(_iwaSecuredPortal);
 
                 // Set a variable that indicates this is the secure portal.
                 // When a map is loaded from the results, will need to know which portal it came from.
@@ -109,7 +107,7 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
             }
         }
 
-        private async void SearchPortal(ArcGISPortal currentPortal)
+        private async Task SearchPortal(ArcGISPortal currentPortal)
         {
             // Clear any existing results.
             MapItemListBox.Items.Clear();
@@ -169,7 +167,7 @@ namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
             if (MapItemListBox.SelectedItem == null)
             {
                 var dialog = new MessageDialog2("No web map item is selected.");
-                await dialog.ShowAsync();
+                _ = dialog.ShowAsync();
                 return;
             }
 

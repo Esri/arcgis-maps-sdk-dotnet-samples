@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using System.Threading.Tasks;
 using System.Linq;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml.Controls;
@@ -41,10 +42,10 @@ namespace ArcGISRuntime.WinUI.Samples.UpdateAttributes
         public UpdateAttributes()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

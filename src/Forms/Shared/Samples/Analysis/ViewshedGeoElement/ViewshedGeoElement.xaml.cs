@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Forms;
@@ -41,18 +42,18 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
         private MapPoint _tankEndPoint;
 
         // Units for geodetic calculation (used in animating tank)
-        private readonly LinearUnit _metersUnit = (LinearUnit)Unit.FromUnitId(9001);
-        private readonly AngularUnit _degreesUnit = (AngularUnit)Unit.FromUnitId(9102);
+        private readonly LinearUnit _metersUnit = (LinearUnit)Unit.FromWkid(9001);
+        private readonly AngularUnit _degreesUnit = (AngularUnit)Unit.FromWkid(9102);
 
         public ViewshedGeoElement()
         {
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the scene with an imagery basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);

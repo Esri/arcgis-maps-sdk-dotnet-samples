@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using Xamarin.Forms;
@@ -48,10 +49,10 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
         public ApplyScheduledUpdates()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -83,7 +84,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                 _offlineMapSyncTask = await OfflineMapSyncTask.CreateAsync(offlineMap);
 
                 // Check if there are scheduled updates to the preplanned map area.
-                CheckForScheduledUpdates();
+                _ = CheckForScheduledUpdates();
             }
             catch (Exception ex)
             {
@@ -91,7 +92,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
             }
         }
 
-        private async void CheckForScheduledUpdates()
+        private async Task CheckForScheduledUpdates()
         {
             try
             {
@@ -123,10 +124,10 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
 
         private void ApplyButton_Clicked(object sender, EventArgs e)
         {
-            ApplyUpdates();
+            _ = ApplyUpdates();
         }
 
-        private async void ApplyUpdates()
+        private async Task ApplyUpdates()
         {
             try
             {
@@ -171,7 +172,7 @@ namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
                     }
 
                     // Verify that the map is up to date and change the UI to reflect the update availability status.
-                    CheckForScheduledUpdates();
+                    await CheckForScheduledUpdates();
                 }
                 else
                 {

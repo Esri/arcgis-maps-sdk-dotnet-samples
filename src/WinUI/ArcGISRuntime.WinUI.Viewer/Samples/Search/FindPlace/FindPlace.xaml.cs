@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -14,16 +15,14 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using ArcGISRuntime.Samples.Shared.Managers;
 
 namespace ArcGISRuntime.WinUI.Samples.FindPlace
 {
@@ -47,10 +46,10 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             if (await ApiKeyManager.CheckKeyValidity() != ApiKeyStatus.Valid)
             {
@@ -134,7 +133,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         /// <param name="enteredText">Results to search for</param>
         /// <param name="locationText">Location around which to find results</param>
         /// <param name="restrictToExtent">If true, limits results to only those that are within the current extent</param>
-        private async void UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
+        private async Task UpdateSearch(string enteredText, string locationText, bool restrictToExtent = false)
         {
             // Clear any existing markers
             MyMapView.GraphicsOverlays.Clear();
@@ -145,72 +144,79 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             // Create the geocode parameters
             GeocodeParameters parameters = new GeocodeParameters();
 
-            // Get the MapPoint for the current search location
-            MapPoint searchLocation = await GetSearchMapPoint(locationText);
-
-            // Update the geocode parameters if the map point is not null
-            if (searchLocation != null)
+            try
             {
-                parameters.PreferredSearchLocation = searchLocation;
-            }
+                // Get the MapPoint for the current search location
+                MapPoint searchLocation = await GetSearchMapPoint(locationText);
 
-            // Update the search area if desired
-            if (restrictToExtent)
-            {
-                // Get the current map extent
-                Geometry extent = MyMapView.VisibleArea;
-
-                // Update the search parameters
-                parameters.SearchArea = extent;
-            }
-
-            // Show the progress bar
-            ProgressBar.Visibility = Visibility.Visible;
-
-            // Get the location information
-            IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
-
-            // Stop gracefully and show a message if the geocoder does not return a result
-            if (locations.Count < 1)
-            {
-                ProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar
-                ShowStatusMessage("No results found"); // 2. Show a message
-                return; // 3. Stop
-            }
-
-            // Create the GraphicsOverlay so that results can be drawn on the map
-            GraphicsOverlay resultOverlay = new GraphicsOverlay();
-
-            // Add each address to the map
-            foreach (GeocodeResult location in locations)
-            {
-                // Get the Graphic to display
-                Graphic point = await GraphicForPoint(location.DisplayLocation);
-
-                // Add the specific result data to the point
-                point.Attributes["Match_Title"] = location.Label;
-
-                // Get the address for the point
-                IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
-
-                // Add the first suitable address if possible
-                if (addresses.Any())
+                // Update the geocode parameters if the map point is not null
+                if (searchLocation != null)
                 {
-                    point.Attributes["Match_Address"] = addresses[0].Label;
+                    parameters.PreferredSearchLocation = searchLocation;
                 }
 
-                // Add the Graphic to the GraphicsOverlay
-                resultOverlay.Graphics.Add(point);
+                // Update the search area if desired
+                if (restrictToExtent)
+                {
+                    // Get the current map extent
+                    Geometry extent = MyMapView.VisibleArea;
+
+                    // Update the search parameters
+                    parameters.SearchArea = extent;
+                }
+
+                // Show the progress bar
+                ProgressBar.Visibility = Visibility.Visible;
+
+                // Get the location information
+                IReadOnlyList<GeocodeResult> locations = await _geocoder.GeocodeAsync(enteredText, parameters);
+
+                // Stop gracefully and show a message if the geocoder does not return a result
+                if (locations.Count < 1)
+                {
+                    ProgressBar.Visibility = Visibility.Collapsed; // 1. Hide the progress bar
+                    ShowStatusMessage("No results found"); // 2. Show a message
+                    return; // 3. Stop
+                }
+
+                // Create the GraphicsOverlay so that results can be drawn on the map
+                GraphicsOverlay resultOverlay = new GraphicsOverlay();
+
+                // Add each address to the map
+                foreach (GeocodeResult location in locations)
+                {
+                    // Get the Graphic to display
+                    Graphic point = await GraphicForPoint(location.DisplayLocation);
+
+                    // Add the specific result data to the point
+                    point.Attributes["Match_Title"] = location.Label;
+
+                    // Get the address for the point
+                    IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
+
+                    // Add the first suitable address if possible
+                    if (addresses.Any())
+                    {
+                        point.Attributes["Match_Address"] = addresses[0].Label;
+                    }
+
+                    // Add the Graphic to the GraphicsOverlay
+                    resultOverlay.Graphics.Add(point);
+                }
+
+                // Hide the progress bar
+                ProgressBar.Visibility = Visibility.Collapsed;
+
+                // Add the GraphicsOverlay to the MapView
+                MyMapView.GraphicsOverlays.Add(resultOverlay);
+
+                // Update the map viewpoint
+                await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
             }
-
-            // Hide the progress bar
-            ProgressBar.Visibility = Visibility.Collapsed;
-
-            // Add the GraphicsOverlay to the MapView
-            MyMapView.GraphicsOverlays.Add(resultOverlay);
-
-            // Update the map viewpoint
-            await MyMapView.SetViewpointGeometryAsync(resultOverlay.Extent, 50);
+            catch (Exception ex)
+            {
+                _ = new MessageDialog2(ex.Message, "Error").ShowAsync();
+            }
         }
 
         /// <summary>
@@ -242,26 +248,33 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         /// </summary>
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Search for the graphics underneath the user's tap
-            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
+            try
+            {
+                // Search for the graphics underneath the user's tap
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 12, false);
 
-            // Clear callouts and return if there was no result
-            if (results.Count < 1 || results.First().Graphics.Count < 1) { MyMapView.DismissCallout(); return; }
+                // Clear callouts and return if there was no result
+                if (results.Count < 1 || results.First().Graphics.Count < 1) { MyMapView.DismissCallout(); return; }
 
-            // Get the first graphic from the first result
-            Graphic matchingGraphic = results.First().Graphics.First();
+                // Get the first graphic from the first result
+                Graphic matchingGraphic = results.First().Graphics.First();
 
-            // Get the title; manually added to the point's attributes in UpdateSearch
-            string title = matchingGraphic.Attributes["Match_Title"] as String;
+                // Get the title; manually added to the point's attributes in UpdateSearch
+                string title = matchingGraphic.Attributes["Match_Title"] as String;
 
-            // Get the address; manually added to the point's attributes in UpdateSearch
-            string address = matchingGraphic.Attributes["Match_Address"] as String;
+                // Get the address; manually added to the point's attributes in UpdateSearch
+                string address = matchingGraphic.Attributes["Match_Address"] as String;
 
-            // Define the callout
-            CalloutDefinition calloutBody = new CalloutDefinition(title, address);
+                // Define the callout
+                CalloutDefinition calloutBody = new CalloutDefinition(title, address);
 
-            // Show the callout on the map at the tapped location
-            MyMapView.ShowCalloutAt(e.Location, calloutBody);
+                // Show the callout on the map at the tapped location
+                MyMapView.ShowCalloutAt(e.Location, calloutBody);
+            }
+            catch (Exception ex)
+            {
+                _ = new MessageDialog2(ex.Message, "Error").ShowAsync();
+            }
         }
 
         /// <summary>
@@ -316,11 +329,9 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
         /// Method abstracts the platform-specific message box functionality to maximize re-use of common code
         /// </summary>
         /// <param name="message">Text of the message to show.</param>
-        private async void ShowStatusMessage(string message)
+        private void ShowStatusMessage(string message)
         {
-            // Display the message to the user
-            var dialog = new MessageDialog2(message);
-            await dialog.ShowAsync();
+            _ = new MessageDialog2(message).ShowAsync();
         }
 
         /// <summary>
@@ -389,7 +400,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             string locationText = LocationEntry.Text;
 
             // Run the search
-            UpdateSearch(searchText, locationText, true);
+            _ = UpdateSearch(searchText, locationText, true);
         }
 
         /// <summary>
@@ -407,7 +418,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             string locationText = LocationEntry.Text;
 
             // Run the search
-            UpdateSearch(searchText, locationText);
+            _ = UpdateSearch(searchText, locationText);
         }
 
         /// <summary>

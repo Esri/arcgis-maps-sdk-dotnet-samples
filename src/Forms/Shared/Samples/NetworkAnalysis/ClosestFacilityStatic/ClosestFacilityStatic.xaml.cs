@@ -16,6 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ClosestFacilityStatic
@@ -60,10 +61,10 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             InitializeComponent();
 
             // Create the map and graphics overlays.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -151,26 +152,25 @@ namespace ArcGISRuntime.Samples.ClosestFacilityStatic
             {
                 WhereClause = "1=1"
             };
-
-            // Query all features in the facility table.
-            FeatureQueryResult facilityResult = await _facilityTable.QueryFeaturesAsync(queryParams);
-
-            // Add all of the query results to facilities as new Facility objects.
-            facilities.AddRange(facilityResult.ToList().Select(feature => new Facility((MapPoint)feature.Geometry)));
-
-            // Query all features in the incident table.
-            FeatureQueryResult incidentResult = await _incidentTable.QueryFeaturesAsync(queryParams);
-
-            // Add all of the query results to facilities as new Incident objects.
-            incidents.AddRange(incidentResult.ToList().Select(feature => new Incident((MapPoint)feature.Geometry)));
-
-            // Set facilities and incident in parameters.
-            ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
-            closestFacilityParameters.SetFacilities(facilities);
-            closestFacilityParameters.SetIncidents(incidents);
-
             try
             {
+                // Query all features in the facility table.
+                FeatureQueryResult facilityResult = await _facilityTable.QueryFeaturesAsync(queryParams);
+
+                // Add all of the query results to facilities as new Facility objects.
+                facilities.AddRange(facilityResult.ToList().Select(feature => new Facility((MapPoint)feature.Geometry)));
+
+                // Query all features in the incident table.
+                FeatureQueryResult incidentResult = await _incidentTable.QueryFeaturesAsync(queryParams);
+
+                // Add all of the query results to facilities as new Incident objects.
+                incidents.AddRange(incidentResult.ToList().Select(feature => new Incident((MapPoint)feature.Geometry)));
+
+                // Set facilities and incident in parameters.
+                ClosestFacilityParameters closestFacilityParameters = await _task.CreateDefaultParametersAsync();
+                closestFacilityParameters.SetFacilities(facilities);
+                closestFacilityParameters.SetIncidents(incidents);
+
                 // Use the task to solve for the closest facility.
                 ClosestFacilityResult result = await _task.SolveClosestFacilityAsync(closestFacilityParameters);
 

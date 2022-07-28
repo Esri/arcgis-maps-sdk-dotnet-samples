@@ -9,76 +9,14 @@
     <Import_RootNamespace>Forms</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="$(MSBuildThisFileDirectory)Samples\CollectDataAR\CollectDataAR.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\NavigateAR.jpg" />
-    <None Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\ViewHiddenInfrastructureAR.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\CollectDataAR\CollectDataAR.xaml">
+    <None Include="$(MSBuildThisFileDirectory)Samples\*\*.jpg" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\*\*.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RoutePlanner.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ARLocationSource.Android.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ARLocationSource.iOS.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\CollectDataAR\CollectDataAR.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>CollectDataAR.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\DisplayScenesInTabletopAR\DisplayScenesInTabletopAR.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>DisplayScenesInTabletopAR.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\ExploreScenesInFlyoverAR\ExploreScenesInFlyoverAR.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>ExploreScenesInFlyoverAR.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RoutePlanner.xaml.cs">
-      <SubType>Code</SubType>
-      <DependentUpon>RoutePlanner.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RouteViewer.xaml.cs">
-      <DependentUpon>RouteViewer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\PipePlacer.xaml.cs">
-      <DependentUpon>PipePlacer.xaml</DependentUpon>
+    <Compile Include="$(MSBuildThisFileDirectory)Samples\*\*.xaml.cs" DependentUpon="%(Filename)">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\PipeViewer.xaml.cs">
-      <DependentUpon>PipeViewer.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Helpers\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\NavigateAR\RouteViewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\PipePlacer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Samples\ViewHiddenInfrastructureAR\PipeViewer.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </EmbeddedResource>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\*.cs" />
   </ItemGroup>
 </Project>

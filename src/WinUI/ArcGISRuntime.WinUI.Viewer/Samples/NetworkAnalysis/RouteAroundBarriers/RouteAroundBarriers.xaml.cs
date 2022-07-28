@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -20,8 +21,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
 
 using Symbology = Esri.ArcGISRuntime.Symbology;
 
@@ -59,10 +58,10 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
         public RouteAroundBarriers()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -105,7 +104,7 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
             }
         }
 
-        private async void HandleMapTap(MapPoint mapLocation)
+        private async Task HandleMapTap(MapPoint mapLocation)
         {
             // Normalize geometry - important for geometries that will be sent to a server for processing.
             mapLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(mapLocation);
@@ -124,24 +123,31 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
                     break;
 
                 case SampleState.AddingStops:
-                    // Get the name of this stop.
-                    string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
+                    try
+                    {
+                        // Get the name of this stop.
+                        string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
 
-                    // Create the marker to show underneath the stop number.
-                    PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
+                        // Create the marker to show underneath the stop number.
+                        PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
 
-                    // Create the text symbol for showing the stop.
-                    TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
-                        Symbology.HorizontalAlignment.Center, Symbology.VerticalAlignment.Middle);
-                    stopSymbol.OffsetY = 15;
+                        // Create the text symbol for showing the stop.
+                        TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
+                            Symbology.HorizontalAlignment.Center, Symbology.VerticalAlignment.Middle);
+                        stopSymbol.OffsetY = 15;
 
-                    CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
+                        CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
-                    // Create the graphic to show the stop.
-                    Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
+                        // Create the graphic to show the stop.
+                        Graphic stopGraphic = new Graphic(mapLocation, combinedSymbol);
 
-                    // Add the graphic to the overlay - this will cause it to appear on the map.
-                    _stopsOverlay.Graphics.Add(stopGraphic);
+                        // Add the graphic to the overlay - this will cause it to appear on the map.
+                        _stopsOverlay.Graphics.Add(stopGraphic);
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine(ex.Message);
+                    }
                     break;
             }
         }
@@ -221,10 +227,10 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
             _routeParameters.PreserveLastStop = PreserveLastStopCheckbox.IsChecked == true;
 
             // Calculate and show the route.
-            CalculateAndShowRoute();
+            _ = CalculateAndShowRoute();
         }
 
-        private async void CalculateAndShowRoute()
+        private async Task CalculateAndShowRoute()
         {
             try
             {
@@ -260,7 +266,7 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
             DirectionsListBox.ItemsSource = directions;
         }
 
-        private void MyMapView_OnGeoViewTapped(object sender, GeoViewInputEventArgs e) => HandleMapTap(e.Location);
+        private void MyMapView_OnGeoViewTapped(object sender, GeoViewInputEventArgs e) => _ = HandleMapTap(e.Location);
 
         private void AddStop_Clicked(object sender, RoutedEventArgs e) => UpdateInterfaceState(SampleState.AddingStops);
 
@@ -358,9 +364,9 @@ namespace ArcGISRuntime.WinUI.Samples.RouteAroundBarriers
             Routing
         }
 
-        private async void ShowMessage(string title, string detail)
+        private void ShowMessage(string title, string detail)
         {
-            await new MessageDialog2(detail, title).ShowAsync();
+            _ = new MessageDialog2(detail, title).ShowAsync();
         }
     }
 }

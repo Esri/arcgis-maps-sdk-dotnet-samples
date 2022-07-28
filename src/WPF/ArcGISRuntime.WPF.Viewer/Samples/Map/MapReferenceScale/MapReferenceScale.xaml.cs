@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.MapReferenceScale
 {
@@ -33,10 +34,10 @@ namespace ArcGISRuntime.WPF.Samples.MapReferenceScale
         public MapReferenceScale()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Populate the reference scale choices.
             ReferenceScaleBox.ItemsSource = _referenceScales;

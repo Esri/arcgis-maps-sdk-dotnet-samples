@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -37,10 +38,10 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             InitializeComponent();
 
             // Initialize the map
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Apply an imagery basemap to the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
@@ -63,7 +64,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
                 }
 
                 // Update the map display based on the viewModel.
-                UpdateMapDisplay(_viewModelList);
+                _ = UpdateMapDisplay(_viewModelList);
 
                 // Update the list of layers.
                 MyDisplayList.ItemsSource = _viewModelList;
@@ -77,7 +78,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
         /// <summary>
         /// Updates the map with the latest layer selection.
         /// </summary>
-        private async void UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
+        private async Task UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
         {
             // Remove all existing layers.
             MyMapView.Map.OperationalLayers.Clear();
@@ -129,7 +130,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             selectedItem.Select();
 
             // Update the map
-            UpdateMapDisplay(_viewModelList);
+            _ = UpdateMapDisplay(_viewModelList);
         }
     }
 

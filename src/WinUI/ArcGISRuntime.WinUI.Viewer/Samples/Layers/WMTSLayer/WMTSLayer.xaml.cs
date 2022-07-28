@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.WMTSLayer
 {
@@ -24,18 +25,16 @@ namespace ArcGISRuntime.WinUI.Samples.WMTSLayer
         tags: new[] { "OGC", "layer", "raster", "tiled", "web map tile service" })]
     public partial class WMTSLayer
     {
-
-
         public WMTSLayer()
         {
             InitializeComponent();
-            LoadWMTSLayer(true);
+            _ = LoadWMTSLayer(true);
         }
 
         private void UriButton_Click(object sender, RoutedEventArgs e)
         {
             //Load the WMTS layer using Uri method.
-            LoadWMTSLayer(true);
+            _ = LoadWMTSLayer(true);
 
             // Disable and enable the appropriate buttons.
             UriButton.IsEnabled = false;
@@ -45,14 +44,14 @@ namespace ArcGISRuntime.WinUI.Samples.WMTSLayer
         private void InfoButton_Click(object sender, RoutedEventArgs e)
         {
             //Load the WMTS layer using layer info.
-            LoadWMTSLayer(false);
+            _ = LoadWMTSLayer(false);
 
             // Disable and enable the appropriate buttons.
             UriButton.IsEnabled = true;
             InfoButton.IsEnabled = false;
         }
 
-        private async void LoadWMTSLayer(bool uriMode)
+        private async Task LoadWMTSLayer(bool uriMode)
         {
             try
             {

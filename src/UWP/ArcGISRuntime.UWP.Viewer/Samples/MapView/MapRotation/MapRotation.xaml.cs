@@ -36,7 +36,7 @@ namespace ArcGISRuntime.UWP.Samples.MapRotation
         private void MySlider_ValueChanged(object sender, RangeBaseValueChangedEventArgs e)
         {
             // Display the rotation value in the Label formatted nicely with degree symbol.
-            MyTextBlock.Text = $"{MySlider.Value:0}°";
+            MyTextBlock.Text = $"{MySlider.Value:0}\u00b0";
 
             // Set the MapView rotation to that of the Slider.
             MyMapView.SetViewpointRotationAsync(e.NewValue);

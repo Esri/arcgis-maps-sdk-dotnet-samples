@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
@@ -27,10 +28,10 @@ namespace ArcGISRuntimeXamarin.Samples.Project
         public Project()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Show a map in the default WebMercator spatial reference.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);

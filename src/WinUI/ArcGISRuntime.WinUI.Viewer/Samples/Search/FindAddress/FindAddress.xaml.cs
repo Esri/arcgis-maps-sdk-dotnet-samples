@@ -13,7 +13,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -57,10 +56,10 @@ namespace ArcGISRuntime.WinUI.Samples.FindAddress
             InitializeComponent();
 
             // Setup the control references and execute initialization.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             if (await ApiKeyManager.CheckKeyValidity() != ApiKeyStatus.Valid)
             {

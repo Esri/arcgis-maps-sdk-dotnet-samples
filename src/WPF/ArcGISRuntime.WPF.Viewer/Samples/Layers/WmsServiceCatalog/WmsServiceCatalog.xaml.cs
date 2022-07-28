@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -39,10 +40,10 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
             InitializeComponent();
 
             // Execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Apply an imagery basemap to the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);

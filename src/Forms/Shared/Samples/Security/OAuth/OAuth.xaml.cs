@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Forms.Helpers;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 #if __ANDROID__
@@ -39,10 +40,10 @@ namespace ArcGISRuntime.Samples.OAuth
             InitializeComponent();
 
             // Call a function to initialize the app and request a web map (with secured layers) to display.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {

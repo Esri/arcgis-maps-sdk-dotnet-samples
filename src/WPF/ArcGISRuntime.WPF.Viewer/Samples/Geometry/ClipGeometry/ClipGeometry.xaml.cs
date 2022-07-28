@@ -7,11 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Windows;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System.Linq;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ClipGeometry
 {
@@ -26,40 +27,25 @@ namespace ArcGISRuntime.WPF.Samples.ClipGeometry
         // Graphics overlay to display input geometries for the clip operation.
         private GraphicsOverlay _inputGeometriesGraphicsOverlay;
 
-        // Graphic that represents the 1st parameter of the GeometryEngine.Clip operation - it follows the boundary of Colorado.
-        private Graphic _coloradoGraphic;
-
-        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope 
-        // that falls completely outside the boundary of Colorado.
-        private Graphic _outsideGraphic;
-
-        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope 
-        // that is completely contained within the boundary of Colorado.
-        private Graphic _containedGraphic;
-
-        // One of the graphics that represents the 2nd parameter of the GeometryEngine.Clip operation - it will be an envelope 
-        // that is intersects the boundary of Colorado.
-        private Graphic _intersectingGraphic;
-
         // Graphics overlay to display the resulting geometries from the three GeometryEngine.Clip operations.
         private GraphicsOverlay _clipAreasGraphicsOverlay;
+
+        // Graphics to represent geometry involved in the clip operation.
+        private Graphic _coloradoGraphic;
+        private Graphic _outsideGraphic;
+        private Graphic _containedGraphic;
+        private Graphic _intersectingGraphic;
+
+        private bool _clipped;
 
         public ClipGeometry()
         {
             InitializeComponent();
-
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create a new map using the WebMercator spatial reference.
-            Map newMap = new Map(SpatialReferences.WebMercator)
-            {
-                // Set the basemap of the map to be a topographic layer.
-                Basemap = new Basemap(BasemapStyle.ArcGISTopographic)
-            };
-
             // Create a graphics overlay to hold the input geometries for the clip operation.
             _inputGeometriesGraphicsOverlay = new GraphicsOverlay();
 
@@ -72,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.ClipGeometry
             // Add the resulting geometries graphics overlay to the MapView.
             MyMapView.GraphicsOverlays.Add(_clipAreasGraphicsOverlay);
 
-            // Create a simple line symbol for the 1st parameter of the GeometryEngine.Clip operation - it follows the 
+            // Create a simple line symbol for the 1st parameter of the GeometryEngine.Clip operation - it follows the
             // boundary of Colorado.
             SimpleLineSymbol coloradoSimpleLineSymbol = new SimpleLineSymbol(
                 SimpleLineSymbolStyle.Solid, System.Drawing.Color.Blue, 4);
@@ -86,7 +72,7 @@ namespace ArcGISRuntime.WPF.Samples.ClipGeometry
 
             // Create the geometry of the Colorado graphic.
             Envelope colorado = new Envelope(
-                new MapPoint(-11362327.128340, 5012861.290274, SpatialReferences.WebMercator), 
+                new MapPoint(-11362327.128340, 5012861.290274, SpatialReferences.WebMercator),
                 new MapPoint(-12138232.018408, 4441198.773776, SpatialReferences.WebMercator));
 
             // Create the graphic for Colorado - comprised of a polygon shape and fill symbol.
@@ -101,7 +87,7 @@ namespace ArcGISRuntime.WPF.Samples.ClipGeometry
 
             // Create an envelope outside Colorado.
             Envelope outsideEnvelope = new Envelope(
-                new MapPoint(-11858344.321294, 5147942.225174, SpatialReferences.WebMercator), 
+                new MapPoint(-11858344.321294, 5147942.225174, SpatialReferences.WebMercator),
                 new MapPoint(-12201990.219681, 5297071.577304, SpatialReferences.WebMercator));
 
             // Create the graphic for an envelope outside Colorado - comprised of a polyline shape and line symbol.
@@ -112,7 +98,7 @@ namespace ArcGISRuntime.WPF.Samples.ClipGeometry
 
             // Create an envelope intersecting Colorado.
             Envelope intersectingEnvelope = new Envelope(
-                new MapPoint(-11962086.479298, 4566553.881363, SpatialReferences.WebMercator), 
+                new MapPoint(-11962086.479298, 4566553.881363, SpatialReferences.WebMercator),
                 new MapPoint(-12260345.183558, 4332053.378376, SpatialReferences.WebMercator));
 
             // Create the graphic for an envelope intersecting Colorado - comprised of a polyline shape and line symbol.
@@ -123,7 +109,7 @@ namespace ArcGISRuntime.WPF.Samples.ClipGeometry
 
             // Create a envelope inside Colorado.
             Envelope containedEnvelope = new Envelope(
-                new MapPoint(-11655182.595204, 4741618.772994, SpatialReferences.WebMercator), 
+                new MapPoint(-11655182.595204, 4741618.772994, SpatialReferences.WebMercator),
                 new MapPoint(-11431488.567009, 4593570.068343, SpatialReferences.WebMercator));
 
             // Create the graphic for an envelope inside Colorado - comprised of a polyline shape and line symbol.
@@ -132,74 +118,63 @@ namespace ArcGISRuntime.WPF.Samples.ClipGeometry
             // Add the envelope inside Colorado graphic to the graphics overlay collection.
             _inputGeometriesGraphicsOverlay.Graphics.Add(_containedGraphic);
 
-            // Get the extent of all of the graphics in the graphics overlay with a little padding to used as the initial zoom extent of the map.
-            Geometry visibleExtent = GetExtentOfGraphicsOverlay(_inputGeometriesGraphicsOverlay, 1.3, SpatialReferences.WebMercator);
+            // Get the extent of all of the graphics in the graphics overlay.
+            Geometry visibleExtent = GeometryEngine.CombineExtents(_inputGeometriesGraphicsOverlay.Graphics.Select(graphic => graphic.Geometry));
 
-            // Set the initial visual extent of the map view to the extent of the graphics overlay.
-            newMap.InitialViewpoint = new Viewpoint(visibleExtent);
-            
-            // Assign the map to the MapView.
-            MyMapView.Map = newMap;
+            // Create the map for the MapView.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic) { InitialViewpoint = new Viewpoint(visibleExtent) };
         }
 
-        private Geometry GetExtentOfGraphicsOverlay(GraphicsOverlay inputGraphicsOverlay, double expansionFactor, SpatialReference spatialReferenceType)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // Get all of the graphics contained in the graphics overlay.
-            GraphicCollection inputGraphicCollection = inputGraphicsOverlay.Graphics;
-
-            // Create a new envelope builder using the same spatial reference as the graphics.
-            EnvelopeBuilder unionEnvelopeBuilder = new EnvelopeBuilder(spatialReferenceType);
-
-            // Loop through each graphic in the graphic collection.
-            foreach (Graphic oneGraphic in inputGraphicCollection)
+            if (!_clipped)
             {
-                // Union the extent of each graphic in the envelope builder.
-                unionEnvelopeBuilder.UnionOf(oneGraphic.Geometry.Extent);
+                ClipGraphics();
+                _clipped = true;
+            }
+            else
+            {
+                Reset();
+                _clipped = false;
             }
 
-            // Expand the envelope builder by the expansion factor.
-            unionEnvelopeBuilder.Expand(expansionFactor);
-
-            // Return the unioned extent plus the expansion factor.
-            return unionEnvelopeBuilder.Extent;
+            ClipButton.Content = _clipped ? "Reset" : "Clip";
         }
 
-        private void ClipButton_Click(object sender, RoutedEventArgs e)
+        private void ClipGraphics()
         {
-            try
-            {
-                // Remove the Colorado graphic from the input geometries graphics overlay collection. That way it will be easier 
-                // to see the clip versions of the GeometryEngine.Clip operation. 
-                  _inputGeometriesGraphicsOverlay.Graphics.Remove(_coloradoGraphic);
+            // Remove the Colorado graphic from the input geometries graphics overlay collection. That way it will be easier
+            // to see the clip versions of the GeometryEngine.Clip operation.
+            _inputGeometriesGraphicsOverlay.Graphics.Remove(_coloradoGraphic);
 
-                // Loop through each graphic in the input geometries for the clip operation.
-                foreach (Graphic oneGraphic in _inputGeometriesGraphicsOverlay.Graphics)
+            // Loop through each graphic in the input geometries for the clip operation.
+            foreach (Graphic graphic in _inputGeometriesGraphicsOverlay.Graphics)
+            {
+                // Perform the clip operation. The first parameter of the clip operation will always be the Colorado graphic.
+                // The second parameter of the clip operation will be one of the 3 different clip geometries (_outsideGraphic,
+                // _containedGraphic, or _intersectingGraphic).
+                Geometry myGeometry = GeometryEngine.Clip(_coloradoGraphic.Geometry, (Envelope)graphic.Geometry);
+
+                // Only work on returned geometries that are not null.
+                if (myGeometry != null)
                 {
-                    // Perform the clip operation. The first parameter of the clip operation will always be the Colorado graphic. 
-                    // The second parameter of the clip operation will be one of the 3 different clip geometries (_outsideGraphic, 
-                    // _containedGraphic, or _intersectingGraphic).
-                    Geometry myGeometry = GeometryEngine.Clip(_coloradoGraphic.Geometry, (Envelope)oneGraphic.Geometry);
+                    // Create the graphic as a result of the clip operation using the same symbology that was defined for
+                    // the _coloradoGraphic defined in the Initialize() method previously.
+                    Graphic clippedGraphic = new Graphic(myGeometry, _coloradoGraphic.Symbol);
 
-                    // Only work on returned geometries that are not null.
-                    if (myGeometry != null)
-                    {
-                        // Create the graphic as a result of the clip operation using the same symbology that was defined for 
-                        // the _coloradoGraphic defined in the Initialize() method previously. 
-                        Graphic clippedGraphic = new Graphic(myGeometry, _coloradoGraphic.Symbol);
-
-                        // Add the clipped graphic to the clip areas graphics overlay collection.
-                        _clipAreasGraphicsOverlay.Graphics.Add(clippedGraphic);
-                    }
+                    // Add the clipped graphic to the clip areas graphics overlay collection.
+                    _clipAreasGraphicsOverlay.Graphics.Add(clippedGraphic);
                 }
+            }
+        }
 
-                // Disable the button after has been used.
-                ClipButton.IsEnabled = false;
-            }
-            catch (System.Exception ex)
-            {
-                // Display an error message if there is a problem generating clip operation.
-                MessageBox.Show(ex.Message, "Geometry Engine Failed!");
-            }
+        private void Reset()
+        {
+            // Add the colorado graphic.
+            _inputGeometriesGraphicsOverlay.Graphics.Add(_coloradoGraphic);
+
+            // Remove the clip graphics.
+            _clipAreasGraphicsOverlay.Graphics.Clear();
         }
     }
 }

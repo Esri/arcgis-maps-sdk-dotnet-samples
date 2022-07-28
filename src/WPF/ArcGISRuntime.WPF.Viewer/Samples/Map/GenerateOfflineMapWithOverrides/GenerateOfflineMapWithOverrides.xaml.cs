@@ -46,10 +46,10 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         public GenerateOfflineMapWithOverrides()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             try
             {
@@ -367,7 +367,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
         private void CancelJobButton_Click(object sender, RoutedEventArgs e)
         {
             // The user canceled the job.
-            _generateOfflineMapJob.Cancel();
+            _generateOfflineMapJob.CancelAsync();
         }
     }
 }

@@ -394,7 +394,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
             }
 
             // Show a preview of the current symbol (created previously or the default face).
-            UpdateSymbol();
+            _ = UpdateSymbol();
 
             // Return the new view for display.
             return dialogView;

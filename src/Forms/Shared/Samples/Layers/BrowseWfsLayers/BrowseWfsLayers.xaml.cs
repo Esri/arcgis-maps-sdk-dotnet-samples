@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
@@ -46,10 +47,10 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
             // Create the map with imagery basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
-            LoadService();
+            _ = LoadService();
         }
 
-        private async void LoadService()
+        private async Task LoadService()
         {
             try
             {
@@ -164,7 +165,7 @@ namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
 
         private void LoadServiceButton_Click(object sender, EventArgs e)
         {
-            LoadService();
+            _ = LoadService();
         }
     }
 }

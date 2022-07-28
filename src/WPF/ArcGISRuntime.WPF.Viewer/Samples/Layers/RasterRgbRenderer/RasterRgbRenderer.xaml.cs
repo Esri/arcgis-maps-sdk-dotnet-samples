@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -35,10 +36,10 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
             InitializeComponent();
 
             // Call a function to create the map, add a raster layer, and fill UI controls.
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a streets basemap.
             Map map = new Map(BasemapStyle.ArcGISStreets);

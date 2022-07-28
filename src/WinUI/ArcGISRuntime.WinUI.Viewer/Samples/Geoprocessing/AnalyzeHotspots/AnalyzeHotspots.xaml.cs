@@ -40,10 +40,10 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
             InitializeComponent();
 
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a map with a topographic basemap
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
         {
             // Cancel current geoprocessing job
             if (_hotspotJob.Status == JobStatus.Started)
-                _hotspotJob.Cancel();
+                _hotspotJob.CancelAsync();
 
             // Hide the BusyOverlay indication
             ShowBusyOverlay(false);
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
                 // Show error message
                 var message = new MessageDialog2("Please select valid time range. There has to be at least one day in between To and From dates.",
                     "Invalid date range");
-                await message.ShowAsync();
+                _ = message.ShowAsync();
 
                 // Remove the BusyOverlay
                 ShowBusyOverlay(false);

@@ -79,10 +79,10 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             LayoutFrame.IsVisible = false;
 #endif
             // Create the UI, setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Apply appropriate maps to the scene and the inset map view
             InsetMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
@@ -258,9 +258,9 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
                 // Update stats display
                 AltitudeLabel.Text = $"{currentFrame.Elevation:F}m";
-                HeadingLabel.Text = $"{currentFrame.Heading:F}°";
-                PitchLabel.Text = $"{currentFrame.Pitch:F}°";
-                RollLabel.Text = $"{currentFrame.Pitch:F}°";
+                HeadingLabel.Text = $"{currentFrame.Heading:F}\u00b0";
+                PitchLabel.Text = $"{currentFrame.Pitch:F}\u00b0";
+                RollLabel.Text = $"{currentFrame.Pitch:F}\u00b0";
             });
 
             // Update plane's position

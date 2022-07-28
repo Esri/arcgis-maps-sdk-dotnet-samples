@@ -42,10 +42,10 @@ namespace ArcGISRuntime.WinUI.Samples.ReverseGeocode
         public ReverseGeocode()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             if (await ApiKeyManager.CheckKeyValidity() != ApiKeyStatus.Valid)
             {

@@ -79,7 +79,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             SearchViewButton.IsEnabled = true;
         }
 
-        private async void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
+        private void LocationDisplay_LocationChanged(object sender, Esri.ArcGISRuntime.Location.Location e)
         {
             // Return if position is null; event is raised with null location after
             if (e.Position == null) { return; }
@@ -88,7 +88,7 @@ namespace ArcGISRuntime.UWP.Samples.FindPlace
             ((LocationDisplay)sender).LocationChanged -= LocationDisplay_LocationChanged;
 
             // Zoom to the location.
-            MyMapView.SetViewpointCenterAsync(e.Position, 100000);
+            _ = MyMapView.SetViewpointCenterAsync(e.Position, 100000);
         }
 
         /// <summary>

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -35,10 +36,10 @@ namespace ArcGISRuntime.WinUI.Samples.SelectEncFeatures
             InitializeComponent();
 
             // Setup the control references and execute initialization
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Initialize the map with an oceans basemap
             MyMapView.Map = new Map(BasemapStyle.ArcGISOceans);

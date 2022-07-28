@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
@@ -30,10 +31,10 @@ namespace ArcGISRuntime.WinUI.Samples.ReadShapefileMetadata
             InitializeComponent();
 
             // Open a shapefile stored locally and add it to the map as a feature layer
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create a new map to display in the map view with a streets basemap
             Map streetMap = new Map(BasemapStyle.ArcGISStreets);

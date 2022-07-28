@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,10 +43,10 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
         public IdentifyRasterCell()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Define a new map with Wgs84 Spatial Reference.
             var map = new Map(BasemapStyle.ArcGISOceans);
@@ -95,15 +96,15 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyRasterCell
             Point position = mouseArgs.GetPosition(MyMapView);
 
             // Identify the raster cell at that position.
-            IdentifyCell(position);
+            _ = IdentifyCell(position);
         }
 
-        private async void IdentifyCell(Point position)
+        private async Task IdentifyCell(Point position)
         {
             // Check if a cell is already being identified.
             if (_isIdentifying)
             {
-                _nextIdentifyAction = () => IdentifyCell(position);
+                _nextIdentifyAction = () => _ = IdentifyCell(position);
                 return;
             }
 

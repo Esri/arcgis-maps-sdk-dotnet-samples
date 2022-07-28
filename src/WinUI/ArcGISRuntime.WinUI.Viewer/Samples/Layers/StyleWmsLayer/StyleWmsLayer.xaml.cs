@@ -14,6 +14,7 @@ using System.Diagnostics;
 using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Esri.ArcGISRuntime.Geometry;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.StyleWmsLayer
 {
@@ -37,12 +38,10 @@ namespace ArcGISRuntime.WinUI.Samples.StyleWmsLayer
         public StyleWmsLayer()
         {
             InitializeComponent();
-
-            // Execute initialization.
-            InitializeAsync();
+            _ = Initialize();
         }
 
-        private async void InitializeAsync()
+        private async Task Initialize()
         {
             try
             {

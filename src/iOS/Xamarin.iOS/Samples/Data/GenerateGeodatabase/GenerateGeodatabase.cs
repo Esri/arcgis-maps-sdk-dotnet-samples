@@ -364,7 +364,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             // Unsubscribe from events, per best practice.
             if (_generateGdbJob != null)
             {
-                _generateGdbJob.Cancel();
+                _generateGdbJob.CancelAsync();
                 _generateGdbJob.ProgressChanged -= GenerateGdbJob_ProgressChanged;
             }
 

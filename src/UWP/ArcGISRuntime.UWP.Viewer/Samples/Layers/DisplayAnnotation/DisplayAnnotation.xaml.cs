@@ -44,7 +44,7 @@ namespace ArcGISRuntime.UWP.Samples.DisplayAnnotation
 
             // Create a map.
             Map map = new Map(BasemapStyle.ArcGISLightGray);
-            map.InitialViewpoint = new Viewpoint(55.882436, -2.725610, 13);
+            map.InitialViewpoint = new Viewpoint(55.882436, -2.725610, 50000);
 
             // Create a feature layer from a feature service.
             FeatureLayer riverFeatureLayer = new FeatureLayer(new ServiceFeatureTable(riverFeatureServiceUri));

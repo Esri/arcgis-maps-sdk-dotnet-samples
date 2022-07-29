@@ -44,6 +44,7 @@ Contour Line Controls (Top Left):
 * GeoprocessingParameters
 * GeoprocessingTask
 * LocalGeoprocessingService
+* LocalGeoprocessingService.ServiceType
 * LocalServer
 * LocalServerStatus
 

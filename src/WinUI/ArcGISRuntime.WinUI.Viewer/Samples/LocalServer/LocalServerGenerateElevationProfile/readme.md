@@ -18,16 +18,16 @@ The sample loads at the full extent of the raster dataset. Click the "Draw Polyl
 
 1. Create a `Raster` from a raster dataset, and apply a series of `RasterFunction`s to mask any data at or below sea level.
 2. Start the Local Server instance with `LocalServer.Instance.StartAsync()`.
-5. Start a `LocalGeoprocessingService` and create a `GeoprocessingTask`.
+3. Start a `LocalGeoprocessingService` and create a `GeoprocessingTask`.
     1. Instantiate `LocalGeoprocessingService(Url, ServiceType)` to create a local geoprocessing service.
     2. Invoke `LocalGeoprocessingService.StartAsync()` to start the service asynchronously.
     3. Instantiate `GeoprocessingTask.CreateAsync(LocalGeoprocessingService.url() + "/CreateElevationProfileModel")` to create a geoprocessing task that uses the elevation profile tool.
-6. Create an instance of `GeoprocessingParameters` and get its list of inputs with `GeoprocessingParameters.Inputs`.
-7. Add `GeoprocessingFeatures` with a `FeatureCollectionTable` pointing to a polyline geometry, and `GeoprocessingString` with a path to the raster data on disk to the list of inputs.
-8. Create and start a `GeoprocessingJob` using the input parameters.
+4. Create an instance of `GeoprocessingParameters` and get its list of inputs with `GeoprocessingParameters.Inputs`.
+5. Add `GeoprocessingFeatures` with a `FeatureCollectionTable` pointing to a polyline geometry, and `GeoprocessingString` with a path to the raster data on disk to the list of inputs.
+6. Create and start a `GeoprocessingJob` using the input parameters.
     1. Create a geoprocessing job with `GeoprocessingTask.CreateJob(GeoprocessingParameters)`.
     2. Start the job with `GeoprocessingJob.Start()`.
-9. Add generated elevation profile as a `FeatureLayer` to the scene.
+7. Add generated elevation profile as a `FeatureLayer` to the scene.
     1. Get the url from the local geoprocessing service using `LocalGeoprocessingService.Url`.
     2. Get the server job id of the geoprocessing job using `GeoprocessingJob.ServerJobId`.
     3. Replace `GPServer` from the url with `MapServer/jobs/jobId`, to get generate elevation profile data.

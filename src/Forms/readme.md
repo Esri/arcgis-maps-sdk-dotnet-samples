@@ -150,6 +150,7 @@
 * [Display device location with NMEA data sources](Shared/Samples/Location/LocationWithNMEA) - Parse NMEA sentences and use the results to show device location on the map.
 * [Display device location with autopan modes](Shared/Samples/Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan Modes.
 * [Set up location-driven Geotriggers](Shared/Samples/Location/LocationDrivenGeotriggers) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
+* [Show device location using indoor positioning](Shared/Samples/Location/IndoorPositioning) - Show your device's real-time location while inside a building by using signals from indoor positioning beacons.
 * [Show location history](Shared/Samples/Location/ShowLocationHistory) - Display your location history on the map.
 
 ## Map

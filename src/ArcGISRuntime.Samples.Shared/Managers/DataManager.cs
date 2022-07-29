@@ -87,17 +87,29 @@ namespace ArcGISRuntime.Samples.Managers
         /// </summary>
         /// <param name="item">The portal item to check.</param>
         /// <returns><c>true</c> if data is available and up-to-date, false otherwise.</returns>
-        private static bool IsDataPresent(PortalItem item)
+        private static async Task<bool> IsDataPresent(string itemId)
         {
             // Look for __sample.config file. Return false if not present.
-            string configPath = Path.Combine(GetDataFolder(item.ItemId), "__sample.config");
+            string configPath = Path.Combine(GetDataFolder(itemId), "__sample.config");
             if (!File.Exists(configPath)) { return false; }
 
             // Get the last write date from the __sample.config file metadata.
             DateTime downloadDate = File.GetLastWriteTime(configPath);
 
-            // Return true if the item was downloaded after it was last modified.
-            return downloadDate >= item.Modified;
+            try
+            {
+                // Create ArcGIS portal item
+                var portal = await ArcGISPortal.CreateAsync().ConfigureAwait(false);
+                var item = await PortalItem.CreateAsync(portal, itemId).ConfigureAwait(false);
+                // Return true if the item was downloaded after it was last modified.
+                return downloadDate >= item.Modified;
+            }
+            // Catch exception when data manager cant access the internet.
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+                return true;
+            }
         }
 
         public static async Task EnsureSampleDataPresent(SampleInfo info, Action<ProgressInfo> onProgress = null)
@@ -137,12 +149,14 @@ namespace ArcGISRuntime.Samples.Managers
             int id = 0;
             foreach (string itemId in itemIds)
             {
-                // Create ArcGIS portal item
-                var portal = await ArcGISPortal.CreateAsync(token).ConfigureAwait(false);
-                var item = await PortalItem.CreateAsync(portal, itemId, token).ConfigureAwait(false);
+                bool isDownloaded = await IsDataPresent(itemId);
                 // Download item if not already present
-                if (!IsDataPresent(item))
+                if (!isDownloaded)
                 {
+                    // Create ArcGIS portal item
+                    var portal = await ArcGISPortal.CreateAsync(token).ConfigureAwait(false);
+                    var item = await PortalItem.CreateAsync(portal, itemId, token).ConfigureAwait(false);
+
                     var index = id;
                     Action<ProgressInfo> action = (info) => combinedProgress(info, index);
                     Task downloadTask = DownloadItem(item, token, combinedProgress is null ? null : action);
@@ -161,12 +175,14 @@ namespace ArcGISRuntime.Samples.Managers
 
         public static async Task DownloadDataItem(string itemId, CancellationToken cancellationToken, Action<ProgressInfo> onProgress = null)
         {
-            // Create ArcGIS portal item
-            var portal = await ArcGISPortal.CreateAsync(cancellationToken).ConfigureAwait(false);
-            var item = await PortalItem.CreateAsync(portal, itemId, cancellationToken).ConfigureAwait(false);
+            bool isDownloaded = await IsDataPresent(itemId);
             // Download item if not already present
-            if (!IsDataPresent(item))
+            if (!isDownloaded)
             {
+                // Create ArcGIS portal item
+                var portal = await ArcGISPortal.CreateAsync(cancellationToken).ConfigureAwait(false);
+                var item = await PortalItem.CreateAsync(portal, itemId, cancellationToken).ConfigureAwait(false);
+
                 await DownloadItem(item, cancellationToken, onProgress);
             }
         }

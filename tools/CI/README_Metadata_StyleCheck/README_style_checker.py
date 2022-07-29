@@ -9,7 +9,7 @@ import argparse
 # region Global sets
 # A set of words that get omitted during letter-case checks.
 exception_proper_nouns = {
-    'Arcade'
+    'Arcade',
     'WmsLayer',
     'ArcGIS Online',
     'OAuth',
@@ -23,7 +23,7 @@ exception_proper_nouns = {
     'Network Link Control',
     'Open Street Map',
     'OpenStreetMap',
-    'Play a KML Tour'
+    'Play a KML Tour',
 }
 
 # A set of category folder names in current sample viewer.

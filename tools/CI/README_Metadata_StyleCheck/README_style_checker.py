@@ -17,6 +17,7 @@ exception_proper_nouns = {
     'ArcGIS Pro',
     'GeoPackage',
     'loadStatus',
+    'Local Server',
     'Integrated Windows Authentication',
     'GeoElement',
     'Network Link',

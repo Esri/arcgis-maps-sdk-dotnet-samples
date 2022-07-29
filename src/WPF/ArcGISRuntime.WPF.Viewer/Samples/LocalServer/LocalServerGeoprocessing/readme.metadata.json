@@ -26,9 +26,9 @@
         "GeoprocessingJob",
         "GeoprocessingParameter",
         "GeoprocessingParameters",
+        "GeoprocessingService.ServiceType",
         "GeoprocessingTask",
         "LocalGeoprocessingService",
-        "LocalGeoprocessingService.ServiceType",
         "LocalServer",
         "LocalServerStatus"
     ],

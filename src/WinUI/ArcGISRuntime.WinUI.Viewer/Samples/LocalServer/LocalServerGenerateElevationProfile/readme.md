@@ -42,7 +42,7 @@ The sample loads at the full extent of the raster dataset. Click the "Draw Polyl
 * GeoprocessingParameters
 * GeoprocessingTask
 * LocalGeoprocessingService
-* GeoprocessingService.ServiceType
+* LocalGeoprocessingService.ServiceType
 * LocalServer
 * LocalServerStatus
 * Raster

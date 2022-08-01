@@ -458,22 +458,36 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerGenerateElevationProfile
 
         private async Task GeoViewTappedTask(GeoViewInputEventArgs e)
         {
-            // Get the location from the tapped screen position.
-            MapPoint point = await MySceneView.ScreenToLocationAsync(e.Position);
-
-            // Project the point to the spatial reference of the raster layer.
-            MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(point, _rasterLayerSpatialReference);
-
-            // Check that the user has clicked within the extent of the raster.
-            if (GeometryEngine.Intersects(projectedPoint, _rasterLayer.FullExtent))
+            try
             {
-                // Add the projected point to the collection of projected points and the graphics overlay displaying tapped points.
-                _pointCollection.Add(projectedPoint);
-                _pointsGraphicsOverlay.Graphics.Add(new Graphic(projectedPoint));
+                // Get the location from the tapped screen position.
+                MapPoint point = await MySceneView.ScreenToLocationAsync(e.Position);
+
+                // In order to project the tapped point, the point must have a valid spatial reference.
+                if (point.SpatialReference == null)
+                {
+                    await new MessageDialog2("Clicked point must contain a valid spatial reference.", "Error").ShowAsync();
+                    return;
+                }
+
+                // Project the point to the spatial reference of the raster layer.
+                MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(point, _rasterLayerSpatialReference);
+
+                // Check that the user has clicked within the extent of the raster.
+                if (GeometryEngine.Intersects(projectedPoint, _rasterLayer.FullExtent))
+                {
+                    // Add the projected point to the collection of projected points and the graphics overlay displaying tapped points.
+                    _pointCollection.Add(projectedPoint);
+                    _pointsGraphicsOverlay.Graphics.Add(new Graphic(projectedPoint));
+                }
+                else
+                {
+                    await new MessageDialog2("Clicked point must be within raster layer extent.", "Error").ShowAsync();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await new MessageDialog2("Clicked point must be within raster layer extent", "Error").ShowAsync();
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
 
@@ -560,7 +574,7 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerGenerateElevationProfile
             }
             else
             {
-                await new MessageDialog2("More than one point required to draw a polyline", "Warning").ShowAsync();
+                await new MessageDialog2("More than one point required to draw a polyline.", "Warning").ShowAsync();
             }
         }
 

@@ -458,22 +458,37 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
 
         private async Task GeoViewTappedTask(GeoViewInputEventArgs e)
         {
-            // Get the location from the tapped screen position.
-            MapPoint point = await MySceneView.ScreenToLocationAsync(e.Position);
-
-            // Project the point to the spatial reference of the raster layer.
-            MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(point, _rasterLayerSpatialReference);
-
-            // Check that the user has clicked within the extent of the raster.
-            if (GeometryEngine.Intersects(projectedPoint, _rasterLayer.FullExtent))
+            try
             {
-                // Add the projected point to the collection of projected points and the graphics overlay displaying tapped points.
-                _pointCollection.Add(projectedPoint);
-                _pointsGraphicsOverlay.Graphics.Add(new Graphic(projectedPoint));
+                // Get the location from the tapped screen position.
+                MapPoint point = await MySceneView.ScreenToLocationAsync(e.Position);
+
+                // In order to project the tapped point, the point must have a valid spatial reference.
+                if (point.SpatialReference == null)
+                {
+                    MessageBox.Show("Clicked point must contain a valid spatial reference.", "Error");
+
+                    return;
+                }
+
+                // Project the point to the spatial reference of the raster layer.
+                MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(point, _rasterLayerSpatialReference);
+
+                // Check that the user has clicked within the extent of the raster.
+                if (GeometryEngine.Intersects(projectedPoint, _rasterLayer.FullExtent))
+                {
+                    // Add the projected point to the collection of projected points and the graphics overlay displaying tapped points.
+                    _pointCollection.Add(projectedPoint);
+                    _pointsGraphicsOverlay.Graphics.Add(new Graphic(projectedPoint));
+                }
+                else
+                {
+                    MessageBox.Show("Clicked point must be within raster layer extent.", "Error");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Clicked point must be within raster layer extent", "Error");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 

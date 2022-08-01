@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
         name: "Generate elevation profile with Local Server",
         category: "Local Server",
         description: "Create an elevation profile using a geoprocessing package executed with ArcGIS Runtime Local Server.",
-        instructions: "The sample loads at the full extent of the raster dataset. Click the \"Draw Polyline\" button and sketch a polyline along where you'd like the elevation profile to be calculated (the polyline can be any shape). Right-click to save the sketch and draw the polyline. Click \"Generate Elevation Profile\" to interpolate the sketched polyline onto the raster surface in 3D. Once ready, the view will automatically zoom onto the newly drawn elevation profile. Click \"Clear Results\" to reset the sample.",
+        instructions: "The sample loads at the full extent of the raster dataset. Click the \"Draw Polyline\" button and sketch a polyline along where you'd like the elevation profile to be calculated (the polyline can be any shape). Click the \"Save\" button to save the sketch and draw the polyline. Click \"Generate Elevation Profile\" to interpolate the sketched polyline onto the raster surface in 3D. Once ready, the view will automatically zoom onto the newly drawn elevation profile. Click \"Clear Results\" to reset the sample.",
         tags: new[] { "elevation profile", "geoprocessing", "interpolate shape", "local server", "offline", "parameters", "processing", "raster", "raster function", "scene", "service", "terrain" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("db9cd9beedce4e0987c33c198c8dfb45", "259f420250a444b4944a277eec2c4e42", "831cbdc61b1c4cd3bfedd1af91d09d36")]
     public partial class LocalServerGenerateElevationProfile
@@ -52,8 +52,8 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
         private GeoprocessingJob _gpJob;
         private Raster _arranRaster;
         private LocalGeoprocessingService _localGPService;
-        private GraphicsOverlay _graphicsOverlay;
-        private GraphicsOverlay _tempGraphicsOverlay;
+        private GraphicsOverlay _polylineGraphicsOverlay;
+        private GraphicsOverlay _pointsGraphicsOverlay;
         private Viewpoint _rasterExtentViewPoint;
         private RasterLayer _rasterLayer;
         private SpatialReference _rasterLayerSpatialReference;
@@ -87,11 +87,11 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
                 // Start the local server instance.
                 await LocalServer.Instance.StartAsync();
 
-                // Initialise and start a local geoprocessing service instance using our local geoprocessing package.
+                // Initialize and start a local geoprocessing service instance using our local geoprocessing package.
                 _localGPService = new LocalGeoprocessingService(_geoprocessingPackagePath, GeoprocessingServiceType.AsynchronousSubmitWithMapServiceResult);
                 await _localGPService.StartAsync();
 
-                // Initialise a geoprocessing task using the local geoprocessing service.
+                // Initialize a geoprocessing task using the local geoprocessing service.
                 _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_localGPService.Url + "/CreateElevationProfileModel"));
             }
             catch (Exception ex)
@@ -106,18 +106,26 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
             // Create a scene with a topographic basemap style.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISHillshadeDark);
 
-            // Create a new raster from a local file and display it on the scene.
-            _arranRaster = new Raster(_rasterPath);
+            try
+            {
+                // Create a new raster from a local file and display it on the scene.
+                _arranRaster = new Raster(_rasterPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+
             await DisplayRaster(_arranRaster);
 
             // Set up a new feature collection.
             _featureCollection = new FeatureCollection();
 
             // Create a graphics overlay for displaying the sketched polyline and add it to the scene view's list of graphics overlays.
-            _graphicsOverlay = new GraphicsOverlay();
+            _polylineGraphicsOverlay = new GraphicsOverlay();
             SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Black, 3);
-            _graphicsOverlay.Renderer = new SimpleRenderer(lineSymbol);
-            MySceneView.GraphicsOverlays.Add(_graphicsOverlay);
+            _polylineGraphicsOverlay.Renderer = new SimpleRenderer(lineSymbol);
+            MySceneView.GraphicsOverlays.Add(_polylineGraphicsOverlay);
 
             // Update the UI.
             MyInstructionsTitleTextBlock.Visibility = Visibility.Visible;
@@ -139,7 +147,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
                 // Set a hillshade renderer on the raster layer.
                 _rasterLayer.Renderer = new HillshadeRenderer(30, 210, 1, SlopeType.None, 1, 1, 8);
 
-                // Load the rasyer layer.
+                // Load the raster layer.
                 await _rasterLayer.LoadAsync();
 
                 // Add the raster layer to the scene.
@@ -284,8 +292,8 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
             try
             {
                 // Convert geoprocessor server url to that of a map server and get the job id.
-                var serviceUrl = _localGPService.Url;
-                var mapServerUrl = serviceUrl.ToString().Replace("GPServer", "MapServer/jobs/" + _gpJob.ServerJobId);
+                Uri serviceUrl = _localGPService.Url;
+                string mapServerUrl = serviceUrl.ToString().Replace("GPServer", "MapServer/jobs/" + _gpJob.ServerJobId);
 
                 // Create a service geodatabase from the map server url.
                 var serviceGeodatabase = new ServiceGeodatabase(new Uri(mapServerUrl));
@@ -324,33 +332,35 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
 
                 // Set the viewpoint based on the position of the elevation profile.
                 await MySceneView.SetViewpointCameraAsync(CreateCameraFacingElevationProfile(), new TimeSpan(0, 0, 0, 2, 0));
-
-                // Remove the event handlers.
-                _gpJob.ProgressChanged -= GpJob_ProgressChanged;
-                _gpJob.StatusChanged -= GpJob_StatusChanged;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, "Error");
+            }
+            finally
+            {
+                // Remove the event handlers.
+                _gpJob.ProgressChanged -= GpJob_ProgressChanged;
+                _gpJob.StatusChanged -= GpJob_StatusChanged;
             }
         }
 
         private Camera CreateCameraFacingElevationProfile()
         {
             // Get the polyline's end point coordinates.
-            var endPoint = _polyline.Parts[0].EndPoint;
-            var endPointX = endPoint.X;
-            var endPointY = endPoint.Y;
+            MapPoint endPoint = _polyline.Parts[0].EndPoint;
+            double endPointX = endPoint.X;
+            double endPointY = endPoint.Y;
 
             // Get the polyline's center point coordinates.
-            var centerPoint = _polyline.Extent.GetCenter();
-            var centerX = centerPoint.X;
-            var centerY = centerPoint.Y;
+            MapPoint centerPoint = _polyline.Extent.GetCenter();
+            double centerX = centerPoint.X;
+            double centerY = centerPoint.Y;
 
             // Calculate the position of a point perpendicular to the centre of the polyline.
             double lengthX = endPointX - centerX;
             double lengthY = endPointY - centerY;
-            var cameraPositionPoint = new MapPoint(centerX + lengthY * 2, centerY - lengthX * 2, 1200,
+            MapPoint cameraPositionPoint = new MapPoint(centerX + lengthY * 2, centerY - lengthX * 2, 1200,
               SpatialReferences.WebMercator);
 
             // Calculate the heading for the camera position so that it points perpendicularly towards the elevation profile.
@@ -424,12 +434,12 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
             MySaveButton.Visibility = Visibility.Visible;
 
             // Create a temporary graphics overlay to display a point collection on the map.
-            _tempGraphicsOverlay = new GraphicsOverlay();
-            MySceneView.GraphicsOverlays.Add(_tempGraphicsOverlay);
+            _pointsGraphicsOverlay = new GraphicsOverlay();
+            MySceneView.GraphicsOverlays.Add(_pointsGraphicsOverlay);
 
             // Create a cross markery symbol for the tapped points.
             var simpleMarkerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Black, 10);
-            _tempGraphicsOverlay.Renderer = new SimpleRenderer(simpleMarkerSymbol);
+            _pointsGraphicsOverlay.Renderer = new SimpleRenderer(simpleMarkerSymbol);
 
             // Create a point collection with the same spatial reference as the raster layer.
             _rasterLayerSpatialReference = _rasterLayer.SpatialReference;
@@ -438,11 +448,11 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
             MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
 
-        private async void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             if (_isDrawing)
             {
-                await GeoViewTappedTask(e);
+                _ = GeoViewTappedTask(e);
             }
         }
 
@@ -459,7 +469,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
             {
                 // Add the projected point to the collection of projected points and the graphics overlay displaying tapped points.
                 _pointCollection.Add(projectedPoint);
-                _tempGraphicsOverlay.Graphics.Add(new Graphic(projectedPoint));
+                _pointsGraphicsOverlay.Graphics.Add(new Graphic(projectedPoint));
             }
             else
             {
@@ -477,10 +487,10 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
             try
             {
                 // Remove all graphics.
-                _graphicsOverlay.Graphics.Clear();
+                _polylineGraphicsOverlay.Graphics.Clear();
 
                 // Clear the temporary graphics overlay.
-                _tempGraphicsOverlay.Graphics.Clear();
+                _pointsGraphicsOverlay.Graphics.Clear();
 
                 // If the elevation profile feature layer has been added to the scene, remove it.
                 if (MySceneView.Scene.OperationalLayers.Count > 1)
@@ -516,17 +526,17 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_tempGraphicsOverlay.Graphics.Count > 1)
+            if (_pointsGraphicsOverlay.Graphics.Count > 1)
             {
                 _isDrawing = false;
 
                 // Remove the temporarily created points from the map.
-                _tempGraphicsOverlay.Graphics.Clear();
+                _pointsGraphicsOverlay.Graphics.Clear();
 
                 // Create a polyline from the clicked points on the scene and add it as a graphic to the graphics overlay.
                 _polyline = new Polyline(_pointCollection);
                 Graphic graphic = new Graphic(_polyline);
-                _graphicsOverlay.Graphics.Add(graphic);
+                _polylineGraphicsOverlay.Graphics.Add(graphic);
 
                 // Update the UI.
                 MyGenerateElevationProfileButton.Visibility = Visibility.Visible;
@@ -543,7 +553,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
 
                 MySceneView.GeoViewTapped -= MySceneView_GeoViewTapped;
             }
-            else if (_tempGraphicsOverlay.Graphics.Count == 1)
+            else
             {
                 MessageBox.Show("More than one point required to draw a polyline", "Warning");
             }

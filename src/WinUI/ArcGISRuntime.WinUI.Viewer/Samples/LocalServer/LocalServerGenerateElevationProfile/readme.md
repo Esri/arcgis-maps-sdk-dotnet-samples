@@ -12,7 +12,7 @@ You can generate elevation profiles to carry out topographical analysis of valle
 
 ## How to use the sample
 
-The sample loads at the full extent of the raster dataset. Click the "Draw Polyline" button and sketch a polyline along where you'd like the elevation profile to be calculated (the polyline can be any shape). Right-click to save the sketch and draw the polyline. Click "Generate Elevation Profile" to interpolate the sketched polyline onto the raster surface in 3D. Once ready, the view will automatically zoom onto the newly drawn elevation profile. Click "Clear Results" to reset the sample.
+The sample loads at the full extent of the raster dataset. Click the "Draw Polyline" button and sketch a polyline along where you'd like the elevation profile to be calculated (the polyline can be any shape). Click the "Save" button to save the sketch and draw the polyline. Click "Generate Elevation Profile" to interpolate the sketched polyline onto the raster surface in 3D. Once ready, the view will automatically zoom onto the newly drawn elevation profile. Click "Clear Results" to reset the sample.
 
 ## How it works
 
@@ -21,7 +21,7 @@ The sample loads at the full extent of the raster dataset. Click the "Draw Polyl
 3. Start a `LocalGeoprocessingService` and create a `GeoprocessingTask`.
     1. Instantiate `LocalGeoprocessingService(Url, ServiceType)` to create a local geoprocessing service.
     2. Invoke `LocalGeoprocessingService.StartAsync()` to start the service asynchronously.
-    3. Instantiate `GeoprocessingTask.CreateAsync(LocalGeoprocessingService.url() + "/CreateElevationProfileModel")` to create a geoprocessing task that uses the elevation profile tool.
+    3. Instantiate `GeoprocessingTask.CreateAsync(LocalGeoprocessingService.Url + "/CreateElevationProfileModel")` to create a geoprocessing task that uses the elevation profile tool.
 4. Create an instance of `GeoprocessingParameters` and get its list of inputs with `GeoprocessingParameters.Inputs`.
 5. Add `GeoprocessingFeatures` with a `FeatureCollectionTable` pointing to a polyline geometry, and `GeoprocessingString` with a path to the raster data on disk to the list of inputs.
 6. Create and start a `GeoprocessingJob` using the input parameters.

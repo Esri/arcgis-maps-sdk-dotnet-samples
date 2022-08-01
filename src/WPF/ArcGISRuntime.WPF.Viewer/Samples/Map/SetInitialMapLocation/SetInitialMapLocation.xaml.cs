@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.SetInitialMapLocation
 
             //initialize map with `imagery with labels` basemap and an initial location.
             Map myMap = new Map(BasemapStyle.ArcGISImagery);
-            myMap.InitialViewpoint = new Viewpoint(-33.867886, -63.985, 15);
+            myMap.InitialViewpoint = new Viewpoint(-33.867886, -63.985, 25000);
 
             //assign the map to the map view.
             MyMapView.Map = myMap;

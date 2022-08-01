@@ -9,6 +9,7 @@
 
 using System;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -40,7 +41,6 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         {
             // Create new Map with basemap.
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);
-            myMap.InitialViewpoint = new Viewpoint(34.056, -117.196, 4);
 
             // URL to the feature service.
             Uri serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0");
@@ -57,6 +57,9 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 
             // Provide used Map to the MapView.
             _myMapView.Map = myMap;
+
+             // Zoom to the United States.
+            _myMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
 
             // Animate the activity spinner.
             _activityIndicator.StartAnimating();

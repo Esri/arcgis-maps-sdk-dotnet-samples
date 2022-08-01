@@ -7,28 +7,24 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
-using Esri.ArcGISRuntime.LocalServices;
-using System.Diagnostics;
-using System.Reflection;
-using Esri.ArcGISRuntime.Rasters;
-using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 
 namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
 {
@@ -61,7 +57,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
         private Viewpoint _rasterExtentViewPoint;
         private RasterLayer _rasterLayer;
         private SpatialReference _rasterLayerSpatialReference;
-        private Esri.ArcGISRuntime.Geometry.PointCollection _pointCollection;
+        private PointCollection _pointCollection;
         private bool _isDrawing;
 
         public LocalServerGenerateElevationProfile()

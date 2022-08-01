@@ -204,6 +204,8 @@ class MetadataCreator:
         folder.
         """
         self.category = get_folder_name_from_path(self.folder_path, -2)
+        if self.category.__contains__('LocalServer'):
+            self.category = "Local Server"
         try:
             self.images = self.get_images_paths()
             self.snippets = self.get_source_code_paths()

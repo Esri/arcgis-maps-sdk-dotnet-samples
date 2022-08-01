@@ -1,16 +1,10 @@
 <UserControl x:Class="ArcGISRuntime.WinUI.Samples.LocalServerGenerateElevationProfile.LocalServerGenerateElevationProfile"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="using:Esri.ArcGISRuntime"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-        <esriUI:SceneView x:Name="MySceneView" Grid.ColumnSpan="2" />
+        <esriUI:SceneView x:Name="MySceneView" />
         <Border x:Name="MyButtonPanel"
-                Grid.Column="0"
                 Width="250"
                 HorizontalAlignment="Left"
                 Style="{StaticResource BorderStyle}"
@@ -60,8 +54,7 @@
                         Visibility="Collapsed" />
             </StackPanel>
         </Border>
-        <Border Grid.Column="1"
-                Width="300"
+        <Border Width="300"
                 HorizontalAlignment="Right"
                 Style="{StaticResource BorderStyle}">
             <StackPanel>

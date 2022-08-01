@@ -443,7 +443,7 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerGenerateElevationProfile
 
             // Create a point collection with the same spatial reference as the raster layer.
             _rasterLayerSpatialReference = _rasterLayer.SpatialReference;
-            _pointCollection = new Esri.ArcGISRuntime.Geometry.PointCollection(_rasterLayerSpatialReference);
+            _pointCollection = new PointCollection(_rasterLayerSpatialReference);
 
             MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
@@ -495,17 +495,17 @@ namespace ArcGISRuntime.WinUI.Samples.LocalServerGenerateElevationProfile
                 // If the elevation profile feature layer has been added to the scene, remove it.
                 if (MySceneView.Scene.OperationalLayers.Count > 1)
                 {
-                    // Remove last operational layer added to the scene (feature layer), retain the raster layer.
-                    MySceneView.Scene.OperationalLayers.RemoveAt(1);
+                    // Remove last elevation profile feature layer from the scene.
+                    MySceneView.Scene.OperationalLayers.Remove(_elevationProfileFeatureLayer);
                 }
 
                 // If more than one graphics overlay is present, remove the temporary points overlay.
                 if (MySceneView.GraphicsOverlays.Count > 1)
                 {
-                    MySceneView.GraphicsOverlays.RemoveAt(1);
+                    MySceneView.GraphicsOverlays.Remove(_pointsGraphicsOverlay);
                 }
 
-                // Update the UI after checking there is still an operational layer in the scene (raster layer).
+                // Update the UI.
                 MyGenerateElevationProfileButton.IsEnabled = false;
                 MyDrawPolylineButton.IsEnabled = true;
                 MyClearResultsButton.IsEnabled = false;

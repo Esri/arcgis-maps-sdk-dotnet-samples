@@ -3,13 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-        <esri:SceneView x:Name="MySceneView" Grid.ColumnSpan="2" />
+        <esri:SceneView x:Name="MySceneView" />
         <Border x:Name="MyButtonPanel"
-                Grid.Column="0"
                 Width="250"
                 HorizontalAlignment="Left"
                 Style="{StaticResource BorderStyle}"
@@ -54,8 +49,7 @@
                         Visibility="Collapsed" />
             </StackPanel>
         </Border>
-        <Border Grid.Column="1"
-                Width="250"
+        <Border Width="250"
                 HorizontalAlignment="Right"
                 Style="{StaticResource BorderStyle}">
             <StackPanel>

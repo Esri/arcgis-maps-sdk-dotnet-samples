@@ -110,13 +110,12 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
             {
                 // Create a new raster from a local file and display it on the scene.
                 _arranRaster = new Raster(_rasterPath);
+                await DisplayRaster(_arranRaster);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }
-
-            await DisplayRaster(_arranRaster);
 
             // Set up a new feature collection.
             _featureCollection = new FeatureCollection();

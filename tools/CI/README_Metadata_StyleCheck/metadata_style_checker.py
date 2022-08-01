@@ -274,6 +274,8 @@ def compare_one_metadata(folder_path: str):
     new = single_updater.flush_to_json_string()
     original = json.dumps(json_data, indent=4, sort_keys=True)
     if new != original:
+        print(new)
+        print(original)
         raise Exception(f'Error inconsistent metadata - {folder_path}')
 
 

@@ -360,7 +360,7 @@ namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
             // Calculate the position of a point perpendicular to the centre of the polyline.
             double lengthX = endPointX - centerX;
             double lengthY = endPointY - centerY;
-            MapPoint cameraPositionPoint = new MapPoint(centerX + lengthY * 2, centerY - lengthX * 2, 1200,
+            var cameraPositionPoint = new MapPoint(centerX + lengthY * 2, centerY - lengthX * 2, 1200,
               SpatialReferences.WebMercator);
 
             // Calculate the heading for the camera position so that it points perpendicularly towards the elevation profile.

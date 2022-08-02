@@ -1,10 +1,10 @@
 {
     "category": "Data",
     "description": "Generate a local geodatabase from an online feature service.",
-    "formal_name": "GenerateGeodatabase",
+    "formal_name": "GenerateGeodatabaseReplica",
     "ignore": false,
     "images": [
-        "GenerateGeodatabase.jpg"
+        "GenerateGeodatabaseReplica.jpg"
     ],
     "keywords": [
         "disconnected",
@@ -14,17 +14,17 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/generategeodatabase.htm"
+        "/net/latest/winui/sample-code/generategeodatabase.htm"
     ],
     "relevant_apis": [
-        "GenerateGeodatabaseJob",
-        "GenerateGeodatabaseParameters",
+        "GenerateGeodatabaseReplicaJob",
+        "GenerateGeodatabaseReplicaParameters",
         "Geodatabase",
         "GeodatabaseSyncTask"
     ],
     "snippets": [
-        "GenerateGeodatabase.xaml",
-        "GenerateGeodatabase.xaml.cs"
+        "GenerateGeodatabaseReplica.xaml",
+        "GenerateGeodatabaseReplica.xaml.cs"
     ],
     "title": "Generate geodatabase"
 }

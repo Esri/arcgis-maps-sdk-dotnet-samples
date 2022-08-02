@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Esri.ArcGISRuntime.ArcGISServices;
 
-namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
+namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabaseReplica
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Generate geodatabase",
@@ -32,7 +32,7 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         instructions: "Zoom to any extent. Then click the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
         tags: new[] { "disconnected", "local geodatabase", "offline", "sync" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
-    public partial class GenerateGeodatabase
+    public partial class GenerateGeodatabaseReplica
     {
         // URI for a feature service that supports geodatabase generation.
         private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
@@ -44,9 +44,9 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
         private GeodatabaseSyncTask _gdbSyncTask;
 
         // Job used to generate the geodatabase.
-        private GenerateGeodatabaseJob _generateGdbJob;
+        private GenerateGeodatabaseReplicaJob _generateGdbJob;
 
-        public GenerateGeodatabase()
+        public GenerateGeodatabaseReplica()
         {
             InitializeComponent();
 
@@ -171,10 +171,10 @@ namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabase
             Envelope extent = MyMapView.GraphicsOverlays.First().Graphics.First().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task.
-            GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
+            GenerateGeodatabaseReplicaParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseReplicaParametersAsync(extent);
 
             // Create a generate geodatabase job.
-            _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
+            _generateGdbJob = _gdbSyncTask.GenerateGeodatabaseReplica(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
             _generateGdbJob.ProgressChanged += (sender, e) =>

@@ -84,6 +84,9 @@ class sample_metadata:
             self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/featurelayergeodatabase.htm")
             self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/featurelayershapefile.htm")
 
+        if self.formal_name == "GenerateGeodatabaseReplica":
+            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/generategeodatabase.htm")
+
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 

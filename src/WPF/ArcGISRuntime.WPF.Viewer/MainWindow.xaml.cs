@@ -481,6 +481,9 @@ namespace ArcGISRuntime.Samples.Desktop
         {
             SetScreenshotButttonVisibility();
             SetContainerDimensions();
+
+            // Reactivate the parent window so that it does not minimize on close.
+            Activate();
         }
 
         private void SetScreenshotButttonVisibility()

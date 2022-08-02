@@ -147,6 +147,7 @@
 
 ## Local Server
 
+* [Generate elevation profile with Local Server](ArcGISRuntime.WPF.Viewer/Samples/LocalServer/LocalServerGenerateElevationProfile) - Create an elevation profile using a geoprocessing package executed with ArcGIS Runtime Local Server.
 * [Local Server map image layer](ArcGISRuntime.WPF.Viewer/Samples/LocalServer/LocalServerMapImageLayer) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
 * [Local server feature layer](ArcGISRuntime.WPF.Viewer/Samples/LocalServer/LocalServerFeatureLayer) - Start a local feature service and display its features in a map.
 * [Local server geoprocessing](ArcGISRuntime.WPF.Viewer/Samples/LocalServer/LocalServerGeoprocessing) - Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.

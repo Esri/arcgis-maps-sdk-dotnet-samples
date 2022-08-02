@@ -1,4 +1,4 @@
-﻿# Add features
+# Add features
 
 Add features to a feature layer.
 

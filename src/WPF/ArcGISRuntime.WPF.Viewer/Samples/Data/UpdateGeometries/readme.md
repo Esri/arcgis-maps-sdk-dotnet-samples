@@ -1,4 +1,4 @@
-﻿# Update geometries (feature service)
+# Update geometries (feature service)
 
 Update a feature's location in an online feature service.
 

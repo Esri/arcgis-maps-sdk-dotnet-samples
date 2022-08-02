@@ -1,4 +1,4 @@
-﻿# Update attributes (feature service)
+# Update attributes (feature service)
 
 Update feature attributes in an online feature service.
 

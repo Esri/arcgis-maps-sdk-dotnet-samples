@@ -1,4 +1,4 @@
-﻿# Terrain exaggeration
+# Terrain exaggeration
 
 Vertically exaggerate terrain in a scene.
 

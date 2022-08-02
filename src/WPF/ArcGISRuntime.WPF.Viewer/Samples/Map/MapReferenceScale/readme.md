@@ -1,4 +1,4 @@
-﻿# Map reference scale
+# Map reference scale
 
 Set the map's reference scale and which feature layers should honor the reference scale.
 

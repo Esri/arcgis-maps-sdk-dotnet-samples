@@ -41,10 +41,10 @@ When the `GenerateOfflineMapJob` is started it will check whether `GenerateOffli
 
 ## Relevant API
 
-* OfflineMapTask
-* GenerateOfflineMapParameters
 * GenerateOfflineMapJob
+* GenerateOfflineMapParameters
 * GenerateOfflineMapResult
+* OfflineMapTask
 
 ## Offline data
 

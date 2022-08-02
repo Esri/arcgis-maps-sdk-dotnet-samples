@@ -29,4 +29,4 @@ When the sample loads, note that the map view opens at the initial viewpoint def
 
 ## Tags
 
-extent, envelope, initial, viewpoint, zoom
+envelope, extent, initial, viewpoint, zoom

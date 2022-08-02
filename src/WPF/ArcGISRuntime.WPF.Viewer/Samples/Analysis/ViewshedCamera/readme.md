@@ -20,11 +20,11 @@ The sample will start with a viewshed created from the initial camera location, 
 ## Relevant API
 
 * AnalysisOverlay
-* Scene
-* IntegratedMeshLayer
 * ArcGISTiledElevationSource
 * Camera
+* IntegratedMeshLayer
 * LocationViewshed
+* Scene
 * SceneView
 
 ## About the data

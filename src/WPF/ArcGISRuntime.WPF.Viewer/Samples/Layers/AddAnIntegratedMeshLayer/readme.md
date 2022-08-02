@@ -1,8 +1,8 @@
-﻿# Add an integrated mesh layer
+﻿# Add integrated mesh layer
 
 View an integrated mesh layer from a scene service.
 
-![Add an integrated mesh layer sample](AddAnIntegratedMeshLayer.jpg)
+![Add integrated mesh layer sample](AddAnIntegratedMeshLayer.jpg)
 
 ## Use case
 

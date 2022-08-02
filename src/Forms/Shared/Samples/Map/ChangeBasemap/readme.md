@@ -26,7 +26,7 @@ When the basemap gallery appears, select a basemap to be displayed.
 * Map
 * MapView
 
-## Additional Information
+## Additional information
 
 This samples uses the basemap gallery toolkit component, which requires the [toolkit](https://github.com/Esri/arcgis-toolkit-dotnet) to be cloned and set up locally. For information about setting up the toolkit, visit the [repository](https://github.com/Esri/arcgis-toolkit-dotnet/blob/main/README.md).
 

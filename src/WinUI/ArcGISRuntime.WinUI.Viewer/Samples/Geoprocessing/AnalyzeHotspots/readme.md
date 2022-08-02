@@ -30,4 +30,4 @@ Select a date range (between 1998-01-01 and 1998-05-31) from the dialog and tap 
 
 ## Tags
 
-Geoprocessing, GeoprocessingJob, GeoprocessingParameters, GeoprocessingResult
+analysis, density, geoprocessing, hot spots, hotspots

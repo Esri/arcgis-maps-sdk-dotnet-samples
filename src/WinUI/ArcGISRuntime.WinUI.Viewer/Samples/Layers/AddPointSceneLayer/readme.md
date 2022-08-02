@@ -32,4 +32,4 @@ Point scene layers can also be retrieved from scene layer packages (.slpk) and m
 
 ## Tags
 
-3D, point scene layer, layers
+3D, layers, point scene layer

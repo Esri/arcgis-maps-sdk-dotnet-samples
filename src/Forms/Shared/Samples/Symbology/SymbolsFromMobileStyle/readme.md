@@ -29,7 +29,7 @@ Select a symbol and a color from each of the category lists to create an emoji. 
 * SymbolStyle.GetSymbolAsync
 * SymbolStyleSearchParameters
 
-## Offline Data
+## Offline data
 
 [Emoji mobile style](https://www.arcgis.com/home/item.html?id=1bd036f221f54a99abc9e46ff3511cbf)
 

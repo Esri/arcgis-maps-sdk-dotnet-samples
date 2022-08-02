@@ -1,4 +1,4 @@
-﻿# Identify KML features
+# Identify KML features
 
 Show a callout with formatted content for a KML feature.
 

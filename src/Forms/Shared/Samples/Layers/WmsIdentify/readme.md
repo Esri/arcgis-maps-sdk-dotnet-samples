@@ -37,4 +37,4 @@ This sample shows a map of surface water sources in each U.S. state. States with
 
 ## Tags
 
-callout, IdentifyLayerAsync, OGC, ShowCalloutAt, web map service, WMS
+callout, identify, OGC, web map service, WMS

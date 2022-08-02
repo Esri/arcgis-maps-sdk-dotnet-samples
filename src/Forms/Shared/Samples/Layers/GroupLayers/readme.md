@@ -4,7 +4,7 @@ Group a collection of layers together and toggle their visibility as a group.
 
 ![Image of group layers](GroupLayers.jpg)
 
-## Use case  
+## Use case
 
 Group layers communicate to the user that layers are related and can be managed together.
 

@@ -40,4 +40,4 @@ In order to find any service areas at least one facility needs to be added to th
 
 ## Tags
 
-Routing and Logistics, barriers, facilities, impedance
+barriers, facilities, impedance, logistics, routing

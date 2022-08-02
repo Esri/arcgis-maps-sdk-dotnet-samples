@@ -33,7 +33,6 @@ Animation Controls:
 
 ## Relevant API
 
-* Scene
 * Camera
 * GlobeCameraController
 * Graphic
@@ -41,6 +40,7 @@ Animation Controls:
 * ModelSceneSymbol
 * OrbitGeoElementCameraController
 * Renderer
+* Scene
 * SceneProperties
 * SceneView
 * SurfacePlacement
@@ -57,4 +57,4 @@ This sample downloads the following items from ArcGIS Online automatically:
 
 ## Tags
 
-Camera, ModelSceneSymbol, OrbitGeoElementCameraController, RendererSceneProperties, SceneView
+animation, camera, heading, pitch, roll, rotation, visualize

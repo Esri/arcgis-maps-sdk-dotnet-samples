@@ -1,4 +1,4 @@
-﻿# Dictionary renderer with graphics overlay
+# Dictionary renderer with graphics overlay
 
 Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 

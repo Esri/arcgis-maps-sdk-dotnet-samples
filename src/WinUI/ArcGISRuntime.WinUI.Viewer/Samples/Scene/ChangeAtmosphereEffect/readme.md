@@ -1,4 +1,4 @@
-﻿# Change atmosphere effect
+# Change atmosphere effect
 
 Changes the appearance of the atmosphere in a scene.
 

@@ -42,4 +42,4 @@ GeoPackage uses a single SQLite file (.gpkg) that conforms to the OGC GeoPackage
 
 ## Tags
 
-container, GeoPackage, layer, map, OGC, package, raster, table
+container, layer, map, OGC, package, raster, table

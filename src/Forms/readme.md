@@ -21,7 +21,7 @@
 * [Edit features with feature-linked annotation](Shared/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
 * [Edit with branch versioning](Shared/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
 * [Feature layer query](Shared/Samples/Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.
-* [Generate geodatabase](Shared/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
+* [Generate geodatabase replica from feature service](Shared/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](Shared/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](Shared/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
 * [Query features with Arcade expression](Shared/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.

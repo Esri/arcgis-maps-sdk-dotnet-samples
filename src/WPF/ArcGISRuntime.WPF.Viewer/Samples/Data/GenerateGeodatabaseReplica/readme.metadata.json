@@ -10,11 +10,12 @@
         "disconnected",
         "local geodatabase",
         "offline",
+        "replica",
         "sync"
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/generategeodatabase.htm"
+        "/net/latest/wpf/sample-code/generategeodatabasereplica.htm"
     ],
     "relevant_apis": [
         "GenerateGeodatabaseReplicaJob",
@@ -26,5 +27,5 @@
         "GenerateGeodatabaseReplica.xaml",
         "GenerateGeodatabaseReplica.xaml.cs"
     ],
-    "title": "Generate geodatabase"
+    "title": "Generate geodatabase replica from feature service"
 }

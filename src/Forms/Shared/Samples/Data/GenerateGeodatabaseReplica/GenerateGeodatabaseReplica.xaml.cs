@@ -26,11 +26,11 @@ using Colors = System.Drawing.Color;
 namespace ArcGISRuntime.Samples.GenerateGeodatabaseReplica
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Generate geodatabase",
+        name: "Generate geodatabase replica from feature service",
         category: "Data",
         description: "Generate a local geodatabase from an online feature service.",
         instructions: "Zoom to any extent. Then tap the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
-        tags: new[] { "disconnected", "local geodatabase", "offline", "sync" })]
+        tags: new[] { "disconnected", "local geodatabase", "offline", "replica", "sync" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
     public partial class GenerateGeodatabaseReplica : ContentPage
     {

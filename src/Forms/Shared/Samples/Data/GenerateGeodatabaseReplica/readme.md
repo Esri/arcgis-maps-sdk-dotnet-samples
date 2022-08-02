@@ -1,8 +1,8 @@
-# Generate geodatabase
+# Generate geodatabase replica from feature service
 
 Generate a local geodatabase from an online feature service.
 
-![Image of generate geodatabase](GenerateGeodatabaseReplica.jpg)
+![Image of generate geodatabase replica from feature service](GenerateGeodatabaseReplica.jpg)
 
 ## Use case
 
@@ -29,4 +29,4 @@ Zoom to any extent. Then tap the generate button to generate a geodatabase of fe
 
 ## Tags
 
-disconnected, local geodatabase, offline, sync
+disconnected, local geodatabase, offline, replica, sync

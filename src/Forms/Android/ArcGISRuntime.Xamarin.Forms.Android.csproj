@@ -127,40 +127,40 @@
       <Version>28.0.0.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Annotation">
-      <Version>1.3.0.3</Version>
+      <Version>1.4.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.ConstraintLayout">
-      <Version>2.1.3.1</Version>
+      <Version>2.1.4.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.ConstraintLayout.Solver">
-      <Version>2.0.4.8</Version>
+      <Version>2.0.4.9</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Core">
-      <Version>1.7.0.2</Version>
+      <Version>1.8.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.UI">
-      <Version>1.0.0.14</Version>
+      <Version>1.0.0.15</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.Utils">
-      <Version>1.0.0.13</Version>
+      <Version>1.0.0.14</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Browser">
-      <Version>1.4.0.1</Version>
+      <Version>1.4.0.2</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Fragment">
-      <Version>1.4.1.1</Version>
+      <Version>1.5.0</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Media">
-      <Version>1.5.0.1</Version>
+      <Version>1.6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Essentials">
-      <Version>1.7.2</Version>
+      <Version>1.7.3</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms">
-      <Version>5.0.0.2401</Version>
+      <Version>5.0.0.2515</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4">
-      <Version>1.0.0.13</Version>
+      <Version>1.0.0.14</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Arch.Lifecycle.ViewModel">
       <Version>1.1.1.3</Version>
@@ -180,7 +180,7 @@
     <PackageReference Include="Xamarin.Android.Support.Core.Utils">
       <Version>28.0.0.3</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.8" />
+    <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.10" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\github-markdown.css" />

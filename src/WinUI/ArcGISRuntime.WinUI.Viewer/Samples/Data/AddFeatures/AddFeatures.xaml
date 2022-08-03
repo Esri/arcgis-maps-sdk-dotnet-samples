@@ -1,4 +1,4 @@
-﻿<UserControl 
+﻿<UserControl
     x:Class="ArcGISRuntime.WinUI.Samples.AddFeatures.AddFeatures"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -12,4 +12,3 @@
         </Border>
     </Grid>
 </UserControl>
-

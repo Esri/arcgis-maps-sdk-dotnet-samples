@@ -76,7 +76,6 @@
                         IsEnabled="False"
                         Text="Show Online" />
                 </Grid>
-
             </StackLayout>
         </resources:ResponsiveFormContainer>
         <!--  Busy indication  -->

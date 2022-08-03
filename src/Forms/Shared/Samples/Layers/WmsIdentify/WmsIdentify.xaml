@@ -6,7 +6,7 @@
              x:Class="ArcGISRuntime.Samples.WmsIdentify.WmsIdentify">
     <StackLayout Orientation="Vertical">
         <Label Text="Tap to identify features."
-               VerticalOptions="Start"/>
+               VerticalOptions="Start" />
         <esriUI:MapView x:Name="MyMapView"
                         VerticalOptions="FillAndExpand" />
     </StackLayout>

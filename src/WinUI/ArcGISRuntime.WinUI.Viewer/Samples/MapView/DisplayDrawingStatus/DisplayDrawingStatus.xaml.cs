@@ -8,11 +8,11 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
 using Microsoft.UI.Xaml;
-using Esri.ArcGISRuntime.Geometry;
+using System;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayDrawingStatus
 {

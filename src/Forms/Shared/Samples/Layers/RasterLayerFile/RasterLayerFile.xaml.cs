@@ -7,11 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Threading.Tasks;
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using ArcGISRuntime.Samples.Managers;
+using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.RasterLayerFile
@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.RasterLayerFile
         description: "Create and use a raster layer made from a local raster file.",
         instructions: "When the sample starts, a raster will be loaded from a file and displayed in the map view.",
         tags: new[] { "data", "image", "import", "layer", "raster", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterLayerFile : ContentPage
     {
         public RasterLayerFile()

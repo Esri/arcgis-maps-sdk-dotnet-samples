@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
 using System.Windows;
-using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
 {
@@ -80,7 +80,6 @@ namespace ArcGISRuntime.WPF.Samples.TakeScreenshot
                 // Register the callback that sets the task result after 2000 ms.
                 ct.Token.Register(() =>
                     tcs.TrySetResult(null), false);
-
 
                 // Define a local function that will set the task result and unregister itself when the map finishes drawing.
                 void DrawCompleteHandler(object s, DrawStatusChangedEventArgs e)

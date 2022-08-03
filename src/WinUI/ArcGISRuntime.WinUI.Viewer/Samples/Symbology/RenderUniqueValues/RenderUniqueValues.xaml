@@ -5,6 +5,6 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
 
     <Grid>
-        <esriUI:MapView x:Name="MyMapView"/>
+        <esriUI:MapView x:Name="MyMapView" />
     </Grid>
 </UserControl>

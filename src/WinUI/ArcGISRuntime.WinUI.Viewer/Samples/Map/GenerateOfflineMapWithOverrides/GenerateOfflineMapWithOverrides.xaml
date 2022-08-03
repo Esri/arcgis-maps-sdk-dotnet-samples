@@ -107,7 +107,7 @@
                 <Button Content="Take map offline"
                         Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"
                         HorizontalAlignment="Stretch"
-                        IsEnabled="True" 
+                        IsEnabled="True"
                         Click="TakeMapOfflineButton_Click" />
             </Grid>
         </Border>

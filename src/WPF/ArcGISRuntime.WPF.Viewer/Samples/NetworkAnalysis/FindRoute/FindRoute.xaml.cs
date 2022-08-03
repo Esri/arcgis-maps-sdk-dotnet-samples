@@ -59,7 +59,7 @@ namespace ArcGISRuntime.WPF.Samples.FindRoute
             // Create Stop objects with the points and add them to a list of stops
             Stop stop1 = new Stop(fromPoint);
             Stop stop2 = new Stop(toPoint);
-            _routeStops = new List<Stop> {stop1, stop2};
+            _routeStops = new List<Stop> { stop1, stop2 };
 
             // Picture marker symbols: from = car, to = checkered flag
             PictureMarkerSymbol carSymbol = new PictureMarkerSymbol(_carIconUri);

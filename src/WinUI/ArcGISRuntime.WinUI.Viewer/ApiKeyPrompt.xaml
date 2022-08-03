@@ -1,13 +1,12 @@
 ﻿<UserControl
     x:Class="ArcGISRuntime.ApiKeyPrompt"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntime"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Loaded="UserControl_Loaded"
     mc:Ignorable="d">
-    <StackPanel Grid.Row="1" Orientation="Vertical" Height="220" HorizontalAlignment="Left" VerticalAlignment="Top" >
+    <StackPanel Grid.Row="1" Orientation="Vertical" Height="220" HorizontalAlignment="Left" VerticalAlignment="Top">
         <TextBlock
             x:Name="Instructions"
             Margin="5"

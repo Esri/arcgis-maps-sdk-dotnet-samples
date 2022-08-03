@@ -20,7 +20,7 @@
             HorizontalOptions="FillAndExpand"
             Text="Connecting to services..."
             TextColor="White"
-            FontSize="Title"/>
+            FontSize="Title" />
         <Button
             x:Name="StartARButton"
             Grid.Row="2"

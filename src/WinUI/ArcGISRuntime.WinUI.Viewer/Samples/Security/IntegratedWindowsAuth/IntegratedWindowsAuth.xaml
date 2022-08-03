@@ -1,4 +1,6 @@
-﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth.IntegratedWindowsAuth" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth.IntegratedWindowsAuth" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid Background="DarkGray">
         <Grid x:Name="MyMapGrid">
             <esriUI:MapView x:Name="MyMapView" />

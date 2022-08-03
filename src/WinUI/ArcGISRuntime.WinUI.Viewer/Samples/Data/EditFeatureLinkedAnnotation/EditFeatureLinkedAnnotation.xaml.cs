@@ -17,7 +17,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.EditFeatureLinkedAnnotation
 {

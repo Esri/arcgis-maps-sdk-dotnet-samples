@@ -6,7 +6,7 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-        <TextBlock Text="Tap to identify features." HorizontalTextAlignment="Center" FontWeight="SemiBold" />
+            <TextBlock Text="Tap to identify features." HorizontalTextAlignment="Center" FontWeight="SemiBold" />
         </Border>
     </Grid>
 </UserControl>

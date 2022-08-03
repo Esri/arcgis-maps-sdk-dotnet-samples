@@ -2,9 +2,8 @@
     x:Class="ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile.CreateAndSaveKmlFile"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:Windows.UI.Xaml.Controls;assembly=Windows.Foundation.UniversalApiContract"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:local="clr-namespace:ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile">
+    xmlns:local="clr-namespace:ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ImageConverter x:Key="imageConverter" />

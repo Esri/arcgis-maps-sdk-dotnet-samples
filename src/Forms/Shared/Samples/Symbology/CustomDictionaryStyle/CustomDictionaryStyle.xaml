@@ -26,7 +26,7 @@
                      Grid.Row="2"
                      Grid.Column="1"
                      CheckedChanged="LocalStyleButtonClicked"
-                     Content="Local .stylx file"/>
+                     Content="Local .stylx file" />
         <RadioButton x:Name="WebStyleButton"
                      Grid.Row="3"
                      Grid.Column="1"

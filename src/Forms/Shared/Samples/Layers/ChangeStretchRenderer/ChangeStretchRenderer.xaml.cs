@@ -7,14 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using ArcGISRuntime.Samples.Managers;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.ChangeStretchRenderer
 {
@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         description: "Use a stretch renderer to enhance the visual contrast of raster data for analysis.",
         instructions: "Choose one of the stretch parameter types:",
         tags: new[] { "analysis", "deviation", "histogram", "imagery", "interpretation", "min-max", "percent clip", "pixel", "raster", "stretch", "symbology", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public partial class ChangeStretchRenderer : ContentPage
     {
         public ChangeStretchRenderer()
@@ -179,7 +179,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // Create a new MinMaxStretchParameters based on the user choice for min and max stretch values
                     MinMaxStretchParameters myMinMaxStretchParameters = new MinMaxStretchParameters(myMinValues, myMaxValues);
 
-                    // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp 
+                    // Create the stretch renderer based on the user defined min/max stretch values, empty gamma values, statistic estimates, and a predefined color ramp
                     myStretchRenderer = new Esri.ArcGISRuntime.Rasters.StretchRenderer(myMinMaxStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
@@ -192,7 +192,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // Create a new PercentClipStretchParameters based on the user choice for min and max percent clip values
                     PercentClipStretchParameters myPercentClipStretchParameters = new PercentClipStretchParameters(input1, input2);
 
-                    // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp 
+                    // Create the percent clip renderer based on the user defined min/max percent clip values, empty gamma values, statistic estimates, and a predefined color ramp
                     myStretchRenderer = new StretchRenderer(myPercentClipStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
@@ -205,7 +205,7 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
                     // Create a new StandardDeviationStretchParameters based on the user choice for standard deviation value
                     StandardDeviationStretchParameters myStandardDeviationStretchParameters = new StandardDeviationStretchParameters(input1);
 
-                    // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp 
+                    // Create the standard deviation renderer based on the user defined standard deviation value, empty gamma values, statistic estimates, and a predefined color ramp
                     myStretchRenderer = new StretchRenderer(myStandardDeviationStretchParameters, myGammaValues, true, myColorRamp);
 
                     break;
@@ -222,6 +222,5 @@ namespace ArcGISRuntime.Samples.ChangeStretchRenderer
         {
             return DataManager.GetDataFolder("95392f99970d4a71bd25951beb34a508", "shasta", "ShastaBW.tif");
         }
-
     }
 }

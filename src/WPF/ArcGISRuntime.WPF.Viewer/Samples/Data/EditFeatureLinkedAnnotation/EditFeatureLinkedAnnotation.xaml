@@ -5,7 +5,7 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border Style="{StaticResource BorderStyle}"  HorizontalAlignment="Left">
-            <TextBlock Text="1. Click to select a feature.&#x0a;2. For MapPoint features, edit the feature attributes.&#x0a;3. Click again to move the feature."/>
+            <TextBlock Text="1. Click to select a feature.&#x0a;2. For MapPoint features, edit the feature attributes.&#x0a;3. Click again to move the feature." />
         </Border>
         <Border
             x:Name="AttributesBorder"

@@ -112,7 +112,6 @@
             Content="Add"
             FontSize="15" />
 
-
         <!--  Row 4  -->
         <TextBlock
             Grid.Row="3"
@@ -156,4 +155,3 @@
             FontSize="15" />
     </Grid>
 </UserControl>
-

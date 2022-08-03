@@ -10,8 +10,8 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using System.Collections.Generic;
 using Microsoft.UI.Xaml;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace ArcGISRuntime.WinUI.Samples.ChangeSublayerRenderer

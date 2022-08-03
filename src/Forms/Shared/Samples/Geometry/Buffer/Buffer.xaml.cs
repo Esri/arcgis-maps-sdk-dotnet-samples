@@ -41,12 +41,12 @@ namespace ArcGISRuntime.Samples.Buffer
             // Handle the MapView's GeoViewTapped event to create buffers.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Create a fill symbol for geodesic buffer polygons.            
+            // Create a fill symbol for geodesic buffer polygons.
             Colors geodesicBufferColor = Colors.FromArgb(120, 255, 0, 0);
             SimpleLineSymbol geodesicOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, geodesicBufferColor, 2);
             SimpleFillSymbol geodesicBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, geodesicBufferColor, geodesicOutlineSymbol);
 
-            // Create a fill symbol for planar buffer polygons.            
+            // Create a fill symbol for planar buffer polygons.
             Colors planarBufferColor = Colors.FromArgb(120, 0, 0, 255);
             SimpleLineSymbol planarOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, planarBufferColor, 2);
             SimpleFillSymbol planarBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, planarBufferColor, planarOutlineSymbol);
@@ -127,8 +127,8 @@ namespace ArcGISRuntime.Samples.Buffer
         {
             // Create Xamarin.Forms.Colors to represent the System.Drawing.Colors used for the buffers.
             Color planarLabelColor = Color.FromRgba(planarBufferColor.R,
-                planarBufferColor.G, 
-                planarBufferColor.B, 
+                planarBufferColor.G,
+                planarBufferColor.B,
                 planarBufferColor.A);
             Color geodesicLabelColor = Color.FromRgba(geodesicBufferColor.R,
                 geodesicBufferColor.G,

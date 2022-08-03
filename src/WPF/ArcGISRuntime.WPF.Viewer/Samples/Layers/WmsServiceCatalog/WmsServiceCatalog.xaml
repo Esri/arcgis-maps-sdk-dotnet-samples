@@ -20,7 +20,7 @@
                         <HierarchicalDataTemplate DataType="{x:Type wmsServiceCatalog:LayerDisplayVM}"
                                                   ItemsSource="{Binding Children}">
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}" 
+                                <CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}"
                                           VerticalAlignment="Center" Margin="5"
                                           Checked="ToggleButton_OnChecked"
                                           Unchecked="ToggleButton_OnChecked" />

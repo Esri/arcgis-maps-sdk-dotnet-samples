@@ -217,7 +217,8 @@ namespace ArcGISRuntime.WPF.Samples.LocationDrivenGeotriggers
         }
     }
 
-    public enum MonitorSource { Section, PointOfInterest };
+    public enum MonitorSource
+    { Section, PointOfInterest };
 
     // Class to store attributes of features together.
     public class GeotriggerFeature

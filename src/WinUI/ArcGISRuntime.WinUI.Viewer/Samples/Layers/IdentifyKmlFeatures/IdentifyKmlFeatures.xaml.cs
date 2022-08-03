@@ -12,10 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Linq;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.IdentifyKmlFeatures
 {

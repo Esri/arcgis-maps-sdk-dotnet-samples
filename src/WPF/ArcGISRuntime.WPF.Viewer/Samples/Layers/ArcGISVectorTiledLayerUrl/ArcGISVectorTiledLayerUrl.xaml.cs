@@ -70,7 +70,7 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
             // Create a new ArcGISVectorTiledLayer with the URI Selected by the user
             ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(vectorTiledLayerUrl);
 
-            // Create new Map with basemap 
+            // Create new Map with basemap
             MyMapView.Map = new Map(new Basemap(vectorTiledLayer));
         }
     }

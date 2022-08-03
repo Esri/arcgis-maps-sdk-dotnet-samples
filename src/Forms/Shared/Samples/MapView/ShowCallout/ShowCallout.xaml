@@ -6,8 +6,8 @@
              x:Class="ArcGISRuntime.Samples.ShowCallout.ShowCallout">
     <StackLayout Orientation="Vertical">
         <Label Text="Tap to show a callout."
-               VerticalOptions="Start"/>
+               VerticalOptions="Start" />
         <esriUI:MapView x:Name="MyMapView"
-                        VerticalOptions="FillAndExpand"/>
+                        VerticalOptions="FillAndExpand" />
     </StackLayout>
 </ContentPage>

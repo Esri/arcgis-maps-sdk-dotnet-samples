@@ -147,7 +147,7 @@ namespace ArcGISRuntime
                 _allSamples.RemoveAll(sample => sample.Category == "Augmented reality");
                 OnPropertyChanged(nameof(SampleCategories));
             }
-            return arCompatible;    
+            return arCompatible;
         }
 #endif
 

@@ -27,7 +27,7 @@
                         MaximumTrackColor="CadetBlue"
                         MinimumTrackColor="CadetBlue"
                         Maximum="250" Minimum="1" Value="1" />
-                <Label Text="Densify" 
+                <Label Text="Densify"
                        Grid.Row="1" Grid.Column="0"
                        Style="{StaticResource LabelStyle}" HorizontalTextAlignment="End" />
                 <Slider x:Name="SegmentLengthSlider"

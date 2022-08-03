@@ -9,7 +9,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label Text="Tap to select features." 
+        <Label Text="Tap to select features."
                HorizontalTextAlignment="Center" />
         <esriUI:MapView x:Name="MyMapView"
                         Grid.Row="1" />

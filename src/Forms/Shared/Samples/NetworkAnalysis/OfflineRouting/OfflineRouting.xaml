@@ -49,7 +49,7 @@
                 <Button
                     Grid.Row="2"
                     Text="Reset"
-                    Clicked="ResetButton_Click"/>
+                    Clicked="ResetButton_Click" />
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

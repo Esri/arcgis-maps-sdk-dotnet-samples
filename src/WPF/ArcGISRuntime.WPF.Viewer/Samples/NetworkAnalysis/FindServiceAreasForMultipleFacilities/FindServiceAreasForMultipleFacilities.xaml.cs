@@ -127,7 +127,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceAreasForMultipleFacilities
                 // Perform the service area analysis.
                 ServiceAreaResult result = await _serviceAreaTask.SolveServiceAreaAsync(serviceAreaParameters);
 
-                // Count the features in the facilities layer. 
+                // Count the features in the facilities layer.
                 long facilityCount = await _facilitiesTable.QueryFeatureCountAsync(facilityQueryParameters);
 
                 // Get the service area for each facility.

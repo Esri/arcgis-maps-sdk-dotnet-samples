@@ -45,7 +45,6 @@ namespace ArcGISRuntime.WPF.Samples.TimeBasedQuery
             // Create feature table for the hurricane feature service
             _myFeatureTable = new ServiceFeatureTable(_serviceUri)
             {
-
                 // Define the request mode
                 FeatureRequestMode = FeatureRequestMode.ManualCache
             };

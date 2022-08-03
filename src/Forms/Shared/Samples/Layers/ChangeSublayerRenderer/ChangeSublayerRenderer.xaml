@@ -5,7 +5,7 @@
              x:Class="ArcGISRuntime.Samples.ChangeSublayerRenderer.ChangeSublayerRenderer">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -18,8 +18,8 @@
         <Button x:Name="ChangeSublayerRendererButton"
                 Grid.Row="1"
                 Text="Change sublayer renderer"
-                Clicked="ChangeSublayerRendererButton_Clicked"/>
-        <esriUI:MapView x:Name="MyMapView" 
-                        Grid.Row="2"/>
+                Clicked="ChangeSublayerRendererButton_Clicked" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="2" />
     </Grid>
 </ContentPage>

@@ -50,7 +50,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
             // Create a map that uses the California zone 5 state spatial reference.
             MyMapView.Map = new Map(californiaZone5SpatialReference);
 
-            // Create the feature layer. 
+            // Create the feature layer.
             Uri uriLayerSource = new Uri("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_States_Generalized/FeatureServer/0");
             FeatureLayer usaStatesFeatureLayer = new FeatureLayer(uriLayerSource);
 

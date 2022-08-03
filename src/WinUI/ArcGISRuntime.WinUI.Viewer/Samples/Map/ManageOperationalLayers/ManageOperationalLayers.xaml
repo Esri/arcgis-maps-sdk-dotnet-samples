@@ -29,7 +29,7 @@
                 <TextBlock Text="Layers in map"
                            TextAlignment="Center"
                            FontWeight="SemiBold" />
-                <!-- Item template defined in UserControl.Resources above specifies that each listbox 
+                <!-- Item template defined in UserControl.Resources above specifies that each listbox
                      item's content consists of a label with the layer's Name property displayed. -->
                 <ListView Style="{StaticResource LayerListStyle}"
                           ItemsSource="{Binding IncludedLayers,Mode=TwoWay}"
@@ -40,7 +40,7 @@
                 <TextBlock Text="Layers not in map"
                            TextAlignment="Center"
                            FontWeight="SemiBold" />
-                <!-- Item template defined in UserControl.Resources above specifies that each listbox 
+                <!-- Item template defined in UserControl.Resources above specifies that each listbox
                      item's content consists of a label with the layer's Name property displayed. -->
                 <ListView Style="{StaticResource LayerListStyle}"
                           ItemsSource="{Binding ExcludedLayers}"
@@ -49,7 +49,6 @@
                           Drop="ListBox_OnDrop"
                           ItemTemplate="{StaticResource LayerItemTemplate}" />
             </StackPanel>
-
         </Border>
     </Grid>
 </UserControl>

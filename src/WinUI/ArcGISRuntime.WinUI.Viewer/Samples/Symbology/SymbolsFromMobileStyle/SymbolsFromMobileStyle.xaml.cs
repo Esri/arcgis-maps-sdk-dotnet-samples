@@ -160,13 +160,14 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolsFromMobileStyle
         // Handler for the tapped event on the map view.
         private async void GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            try { 
-            // Call a function to get the currently defined multilayer point symbol.
-            MultilayerPointSymbol faceSymbol = await GetCurrentSymbol();
+            try
+            {
+                // Call a function to get the currently defined multilayer point symbol.
+                MultilayerPointSymbol faceSymbol = await GetCurrentSymbol();
 
-            // Create a graphic for the tapped location using the current symbol and add it to the map view.
-            Graphic graphic = new Graphic(e.Location, faceSymbol);
-            MyMapView.GraphicsOverlays.First().Graphics.Add(graphic);
+                // Create a graphic for the tapped location using the current symbol and add it to the map view.
+                Graphic graphic = new Graphic(e.Location, faceSymbol);
+                MyMapView.GraphicsOverlays.First().Graphics.Add(graphic);
             }
             catch (Exception ex)
             {
@@ -177,12 +178,13 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolsFromMobileStyle
         // An event handler for list box and combo box selection changes that will update the current symbol.
         private async void SymbolPropertyChanged(object sender, SelectionChangedEventArgs e)
         {
-            try { 
-            // Call a function that will construct the current symbol.
-            Symbol faceSymbol = await GetCurrentSymbol();
+            try
+            {
+                // Call a function that will construct the current symbol.
+                Symbol faceSymbol = await GetCurrentSymbol();
 
-            // Call a function to update the symbol preview.
-            await UpdateSymbolPreview(faceSymbol);
+                // Call a function to update the symbol preview.
+                await UpdateSymbolPreview(faceSymbol);
             }
             catch (Exception ex)
             {

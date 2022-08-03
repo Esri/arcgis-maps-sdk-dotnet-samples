@@ -7,4 +7,3 @@
         <esriUI:MapView x:Name="MyMapView" />
     </Grid>
 </UserControl>
-

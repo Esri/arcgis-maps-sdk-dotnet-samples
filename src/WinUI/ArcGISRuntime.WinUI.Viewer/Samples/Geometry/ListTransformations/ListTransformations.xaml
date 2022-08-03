@@ -2,8 +2,8 @@
     x:Class="ArcGISRuntime.WinUI.Samples.ListTransformations.ListTransformations"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
     xmlns:local="using:ArcGISRuntime.WinUI.Samples.ListTransformations"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
     x:Name="_this">
     <Grid DataContext="{Binding ElementName=_this}">
         <esriUI:MapView x:Name="MyMapView" />

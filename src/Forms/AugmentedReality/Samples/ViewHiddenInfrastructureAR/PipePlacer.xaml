@@ -2,8 +2,7 @@
     x:Class="ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR.PipePlacer"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -36,7 +35,7 @@
                     Minimum="-10.0"
                     Value="0.0"
                     MinimumTrackColor="CadetBlue"
-                    MaximumTrackColor="CadetBlue"/>
+                    MaximumTrackColor="CadetBlue" />
             </Grid>
             <Grid Grid.Row="3" HorizontalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>

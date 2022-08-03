@@ -91,7 +91,7 @@
                          Grid.Row="8" Grid.Column="1" />
                 <TextBlock Text="{Binding ElementName=FlowRateFilterEntry,Path=Value,StringFormat=n0}"
                            Grid.Row="8" Grid.Column="2"
-                           MinWidth="25"/>
+                           MinWidth="25" />
                 <TextBlock Text="Crop layer to extent"
                            FontWeight="SemiBold"
                            Margin="0,0,0,5"

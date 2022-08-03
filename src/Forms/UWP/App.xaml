@@ -2,7 +2,6 @@
     x:Class="ArcGISRuntime.UWP.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ArcGISRuntime.UWP"
     RequestedTheme="Light">
     <Application.Resources>
         <!--  This data template is used to workaround a bug with Xamarin.Forms - https://forums.xamarin.com/discussion/64281/uwp-prevent-all-lowercase-table-section-headers  -->

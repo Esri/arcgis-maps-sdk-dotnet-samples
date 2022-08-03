@@ -22,7 +22,6 @@
                     Grid.Row="1"
                     Content="" />
             </Grid>
-
         </Border>
     </Grid>
 </UserControl>

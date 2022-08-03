@@ -5,8 +5,8 @@
              x:Class="ArcGISRuntime.Samples.ShowMagnifier.ShowMagnifier">
     <StackLayout Orientation="Vertical">
         <Label Text="Tap and hold to show the magnifier. Note: this only works on touchscreen devices."
-               VerticalOptions="Start"/>
+               VerticalOptions="Start" />
         <esriUI:MapView x:Name="MyMapView"
-                        VerticalOptions="FillAndExpand"/>
+                        VerticalOptions="FillAndExpand" />
     </StackLayout>
 </ContentPage>

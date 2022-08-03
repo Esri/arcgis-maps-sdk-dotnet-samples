@@ -23,7 +23,7 @@
                     </ListView.ItemTemplate>
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
-                            <Setter Property="Focusable" Value="false"/>
+                            <Setter Property="Focusable" Value="false" />
                         </Style>
                     </ListView.ItemContainerStyle>
                 </ListView>

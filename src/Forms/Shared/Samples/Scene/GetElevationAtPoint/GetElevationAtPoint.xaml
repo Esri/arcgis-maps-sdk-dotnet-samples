@@ -7,7 +7,7 @@
                VerticalOptions="Start"
                VerticalTextAlignment="Center"
                HorizontalTextAlignment="Center"
-               Margin="5"/>
+               Margin="5" />
         <esriUI:SceneView x:Name="MySceneView"
                           VerticalOptions="FillAndExpand" />
     </StackLayout>

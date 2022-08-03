@@ -9,7 +9,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical">
                 <Grid>
@@ -23,48 +23,47 @@
                             Content="Start Editing"
                             IsEnabled="False"
                             Margin="0,0,0,5"
-                            Click="BeginTransaction"/>
+                            Click="BeginTransaction" />
                     <Button x:Name="StopEditingButton"
                             Grid.Column="1"
-                            Content="Stop Editing" 
+                            Content="Stop Editing"
                             IsEnabled="False"
-                            Click="StopEditTransaction"/>
+                            Click="StopEditTransaction" />
                     <Button x:Name="SyncEditsButton"
                             Grid.Column="2"
-                            Content="Synchronize" 
+                            Content="Synchronize"
                             IsEnabled="True"
-                            Click="SynchronizeEdits"/>
+                            Click="SynchronizeEdits" />
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="AddBirdButton" 
+                    <Button x:Name="AddBirdButton"
                             Grid.Column="0"
                             Content="Add Bird Feature"
                             IsEnabled="False"
                             Margin="0,0,0,5"
-                            Click="AddNewFeature"/>
-                    <Button x:Name="AddMarineButton" 
+                            Click="AddNewFeature" />
+                    <Button x:Name="AddMarineButton"
                             Grid.Column="1"
                             Content="Add Marine Feature"
                             IsEnabled="False"
-                            Click="AddNewFeature"/>
+                            Click="AddNewFeature" />
                 </Grid>
                 <CheckBox x:Name="RequireTransactionCheckBox"
                           Content="Require a transaction for edits"
                           IsChecked="True"
-                          Click="RequireTransactionChanged"/>
-                <ProgressBar x:Name="LoadingProgressBar" 
+                          Click="RequireTransactionChanged" />
+                <ProgressBar x:Name="LoadingProgressBar"
                              Height="15"
                              Margin="0,5,0,5"
-                             IsIndeterminate="True"/>
+                             IsIndeterminate="True" />
                 <TextBlock x:Name="MessageTextBlock"
-                           Text="Generating local geodatabase ..." 
+                           Text="Generating local geodatabase ..."
                            Foreground="Blue"
-                           TextWrapping="Wrap"/>
-                
+                           TextWrapping="Wrap" />
             </StackPanel>
         </Border>
     </Grid>

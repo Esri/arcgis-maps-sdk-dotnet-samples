@@ -11,8 +11,6 @@
                            FontWeight="SemiBold" />
                 <WebBrowser x:Name="BrowserView" MaxHeight="125" Visibility="Collapsed" />
             </StackPanel>
-
         </Border>
     </Grid>
-
 </UserControl>

@@ -5,6 +5,6 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
 
     <Grid>
-        <esriUI:SceneView x:Name="MySceneView"/>
+        <esriUI:SceneView x:Name="MySceneView" />
     </Grid>
 </UserControl>

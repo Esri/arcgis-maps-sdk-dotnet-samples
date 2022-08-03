@@ -24,7 +24,7 @@
             <TextBox x:Name="PortalUrlTextbox" Text="https://portal.yourcompany.com/gis/"
                      Margin="5"
                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-            <Button Content="Choose certificate" 
+            <Button Content="Choose certificate"
                     Margin="5"
                     Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                     Click="Button_Click" />

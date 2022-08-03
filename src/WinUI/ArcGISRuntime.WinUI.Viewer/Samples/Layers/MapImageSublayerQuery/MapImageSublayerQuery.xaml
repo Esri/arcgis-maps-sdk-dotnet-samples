@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView"/>
+        <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -20,16 +20,16 @@
                            FontWeight="SemiBold"
                            Margin="0,0,0,5"
                            Text="[POP2000] > " />
-                <TextBox x:Name="PopulationTextBox" 
-                         Grid.Row="0" Grid.Column="1"                         
-                         Margin="5,0,0,5" 
+                <TextBox x:Name="PopulationTextBox"
+                         Grid.Row="0" Grid.Column="1"
+                         Margin="5,0,0,5"
                          HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Right"
                          Text="1810000" />
-                <Button x:Name="QuerySublayers" 
+                <Button x:Name="QuerySublayers"
                         Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                         HorizontalAlignment="Stretch"
                         Content="Query in extent"
-                        Click="QuerySublayers_Click"/>
+                        Click="QuerySublayers_Click" />
             </Grid>
         </Border>
     </Grid>

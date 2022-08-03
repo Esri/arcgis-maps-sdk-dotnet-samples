@@ -97,7 +97,7 @@
                 <TextBlock Text="Tap to change the viewshed location."
                            Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
                            FontWeight="SemiBold" HorizontalAlignment="Center"
-                           Margin="0,5,0,0"/>
+                           Margin="0,5,0,0" />
             </Grid>
         </Border>
     </Grid>

@@ -11,12 +11,10 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Windows;
-using Windows.UI.Popups;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.LocalServerMapImageLayer
 {

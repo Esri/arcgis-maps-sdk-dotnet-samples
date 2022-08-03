@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.GetElevationAtPoint
 {

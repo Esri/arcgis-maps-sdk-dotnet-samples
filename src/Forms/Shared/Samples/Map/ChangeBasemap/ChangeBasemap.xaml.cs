@@ -8,10 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Portal;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ChangeBasemap

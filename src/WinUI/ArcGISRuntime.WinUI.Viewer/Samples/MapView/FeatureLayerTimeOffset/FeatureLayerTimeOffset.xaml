@@ -1,25 +1,30 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.FeatureLayerTimeOffset.FeatureLayerTimeOffset"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.FeatureLayerTimeOffset.FeatureLayerTimeOffset"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border Width="375"
+                Margin="30"
+                Padding="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
             <StackPanel>
-                <TextBlock Text="Red hurricanes offset 10 days"
+                <TextBlock HorizontalAlignment="Center"
                            FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           Foreground="Red" />
-                <TextBlock Text="Blue hurricanes not offset"
+                           Foreground="Red"
+                           Text="Red hurricanes offset 10 days" />
+                <TextBlock HorizontalAlignment="Center"
                            FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           Foreground="Blue" />
+                           Foreground="Blue"
+                           Text="Blue hurricanes not offset" />
                 <Slider x:Name="TimeSlider"
-                        Minimum="0" Maximum="100"
                         IsEnabled="False"
+                        Maximum="100"
+                        Minimum="0"
                         ValueChanged="MyTimeSlider_ValueChanged" />
                 <TextBlock x:Name="CurrentDateLabel"
                            FontWeight="SemiBold"

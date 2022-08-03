@@ -1,15 +1,13 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation.EditFeatureLinkedAnnotation"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation.EditFeatureLinkedAnnotation"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:MapView
-            x:Name="MyMapView"
-            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-            GeoViewTapped="MyMapView_GeoViewTapped"
-            Style="{StaticResource MapWithFormStyle}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        GeoViewTapped="MyMapView_GeoViewTapped"
+                        Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
                 <Label x:Name="InstructionsText" Text="1. Tap to select a feature.&#x0a;2. For MapPoint features, edit the feature attributes.&#x0a;3. Tap again to move the feature." />
@@ -24,31 +22,36 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Label
-                        Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                        Text="Edit feature attribute:" />
-                    <Label
-                        Grid.Row="1" Grid.Column="0"
-                        Text="AD_ADDRESS" VerticalTextAlignment="Center" />
-                    <Entry
-                        x:Name="AdressBox"
-                        Grid.Row="1" Grid.Column="1"
-                        Margin="5" />
-                    <Label
-                        Grid.Row="2" Grid.Column="0"
-                        Text="ST_STR_NAM" VerticalTextAlignment="Center" />
-                    <Entry
-                        x:Name="StreetNameBox"
-                        Grid.Row="2" Grid.Column="1"
-                        Margin="5" />
-                    <Button
-                        Grid.Row="3" Grid.Column="0"
-                        Margin="5"
-                        Clicked="CancelClick" Text="Cancel" />
-                    <Button
-                        Grid.Row="3" Grid.Column="1"
-                        Margin="5"
-                        Clicked="OkClick" Text="OK" />
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="Edit feature attribute:" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Text="AD_ADDRESS"
+                           VerticalTextAlignment="Center" />
+                    <Entry x:Name="AdressBox"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Margin="5" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Text="ST_STR_NAM"
+                           VerticalTextAlignment="Center" />
+                    <Entry x:Name="StreetNameBox"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Margin="5" />
+                    <Button Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="5"
+                            Clicked="CancelClick"
+                            Text="Cancel" />
+                    <Button Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="5"
+                            Clicked="OkClick"
+                            Text="OK" />
                 </Grid>
             </StackLayout>
         </resources:ResponsiveFormContainer>

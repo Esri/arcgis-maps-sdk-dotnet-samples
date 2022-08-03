@@ -22,7 +22,7 @@
     </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border  Style="{StaticResource BorderStyle}">
+        <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -36,14 +36,20 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Stretch type: "
-                           Grid.Row="0" Grid.Column="0"
-                           HorizontalAlignment="Right" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Text="Stretch type: " />
                 <ComboBox x:Name="StretchTypeComboBox"
-                          Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="3"
                           SelectionChanged="StretchTypeComboBox_SelectionChanged" />
                 <Grid x:Name="MinMaxParametersGrid"
-                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="4"
                       Margin="0,0,0,5"
                       Visibility="Visible">
                     <Grid.RowDefinitions>
@@ -57,32 +63,43 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0"
-                               Text="Min value: "
-                               HorizontalAlignment="Right" VerticalAlignment="Center" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="Min value: " />
                     <ComboBox x:Name="MinRedComboBox"
-                              Grid.Row="0" Grid.Column="1"
+                              Grid.Row="0"
+                              Grid.Column="1"
                               Foreground="Red" />
                     <ComboBox x:Name="MinGreenComboBox"
-                              Grid.Row="0" Grid.Column="2"
+                              Grid.Row="0"
+                              Grid.Column="2"
                               Foreground="Green" />
                     <ComboBox x:Name="MinBlueComboBox"
-                              Grid.Row="0" Grid.Column="3"
+                              Grid.Row="0"
+                              Grid.Column="3"
                               Foreground="Blue" />
-                    <TextBlock Grid.Row="1" Grid.Column="0"
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
                                Text="Max value: " />
                     <ComboBox x:Name="MaxRedComboBox"
-                              Grid.Row="1" Grid.Column="1"
+                              Grid.Row="1"
+                              Grid.Column="1"
                               Foreground="Red" />
                     <ComboBox x:Name="MaxGreenComboBox"
-                              Grid.Row="1" Grid.Column="2"
+                              Grid.Row="1"
+                              Grid.Column="2"
                               Foreground="Green" />
                     <ComboBox x:Name="MaxBlueComboBox"
-                              Grid.Row="1" Grid.Column="3"
+                              Grid.Row="1"
+                              Grid.Column="3"
                               Foreground="Blue" />
                 </Grid>
                 <Grid x:Name="PercentClipParametersGrid"
-                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="4"
                       Visibility="Collapsed">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -92,34 +109,41 @@
                         <ColumnDefinition Width="*" MinWidth="100" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0"
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
                                Text="Minimum %:" />
                     <Slider x:Name="MinimumValueSlider"
-                            Grid.Row="0" Grid.Column="1" />
-                    <TextBlock Grid.Row="1" Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.Column="1" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
                                Text="Maximum %: " />
                     <Slider x:Name="MaximumValueSlider"
-                            Grid.Row="1" Grid.Column="1" />
+                            Grid.Row="1"
+                            Grid.Column="1" />
                 </Grid>
                 <Grid x:Name="StdDeviationParametersGrid"
-                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                      Grid.Row="1"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="4"
                       Visibility="Collapsed">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" MinWidth="100" />
                         <ColumnDefinition Width="3*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="Factor: "
-                               Grid.Column="0" />
+                    <TextBlock Grid.Column="0" Text="Factor: " />
                     <ComboBox x:Name="StdDeviationFactorComboBox"
-                              Margin="5,5,0,5"
-                              Grid.Column="1" />
+                              Grid.Column="1"
+                              Margin="5,5,0,5" />
                 </Grid>
                 <Button x:Name="ApplyRgbRendererButton"
-                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="4"
                         HorizontalAlignment="Stretch"
-                        IsEnabled="False"
+                        Click="ApplyRgbRendererButton_Click"
                         Content="Apply renderer"
-                        Click="ApplyRgbRendererButton_Click" />
+                        IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>

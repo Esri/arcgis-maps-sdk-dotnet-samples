@@ -1,8 +1,7 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.ChangeEncDisplaySettings.ChangeEncDisplaySettings"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.ChangeEncDisplaySettings.ChangeEncDisplaySettings"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="FontWeight" Value="SemiBold" />
@@ -19,35 +18,35 @@
                 <TextBlock Text="Color scheme" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="DayRadioButton"
-                                 GroupName="ColorScheme"
                                  Content="Day"
+                                 GroupName="ColorScheme"
                                  IsChecked="True" />
                     <RadioButton x:Name="DuskRadioButton"
-                                 GroupName="ColorScheme"
-                                 Content="Dusk" />
+                                 Content="Dusk"
+                                 GroupName="ColorScheme" />
                     <RadioButton x:Name="NightRadioButton"
-                                 GroupName="ColorScheme"
-                                 Content="Night" />
+                                 Content="Night"
+                                 GroupName="ColorScheme" />
                 </StackPanel>
                 <TextBlock Text="Area symbolization type" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="PlainAreaRadioButton"
-                                 GroupName="Area"
                                  Content="Plain"
+                                 GroupName="Area"
                                  IsChecked="True" />
                     <RadioButton x:Name="SymbolizedAreaRadioButton"
-                                 GroupName="Area"
-                                 Content="Symbolized" />
+                                 Content="Symbolized"
+                                 GroupName="Area" />
                 </StackPanel>
                 <TextBlock Text="Point symbolization type" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="PaperPointRadioButton"
-                                 GroupName="Point"
                                  Content="Paper Chart"
+                                 GroupName="Point"
                                  IsChecked="True" />
                     <RadioButton x:Name="SimplifiedRadioButton"
-                                 GroupName="Point"
-                                 Content="Simplified" />
+                                 Content="Simplified"
+                                 GroupName="Point" />
                 </StackPanel>
             </StackPanel>
         </Border>

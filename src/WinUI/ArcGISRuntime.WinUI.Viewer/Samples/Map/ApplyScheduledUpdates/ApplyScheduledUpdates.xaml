@@ -1,8 +1,7 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates.ApplyScheduledUpdates"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates.ApplyScheduledUpdates"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
@@ -11,13 +10,12 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <Button
-                    x:Name="ApplyButton"
-                    Grid.Row="0"
-                    HorizontalAlignment="Stretch"
-                    Click="ApplyButton_Click"
-                    Content="Apply scheduled updates"
-                    IsEnabled="False" />
+                <Button x:Name="ApplyButton"
+                        Grid.Row="0"
+                        HorizontalAlignment="Stretch"
+                        Click="ApplyButton_Click"
+                        Content="Apply scheduled updates"
+                        IsEnabled="False" />
                 <TextBlock x:Name="InfoLabel" Grid.Row="1" />
             </Grid>
         </Border>

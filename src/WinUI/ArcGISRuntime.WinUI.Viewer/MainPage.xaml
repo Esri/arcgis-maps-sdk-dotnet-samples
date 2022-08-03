@@ -1,59 +1,48 @@
-﻿<Page
-    x:Class="ArcGISRuntime.WinUI.Viewer.MainPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:arcgisruntime="using:ArcGISRuntime"
-    xmlns:models="using:ArcGISRuntime.Samples.Shared.Models"
-    xmlns:viewer="using:ArcGISRuntime.WinUI.Viewer"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d">
+﻿<Page x:Class="ArcGISRuntime.WinUI.Viewer.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:arcgisruntime="using:ArcGISRuntime"
+      xmlns:models="using:ArcGISRuntime.Samples.Shared.Models"
+      xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+      xmlns:viewer="using:ArcGISRuntime.WinUI.Viewer">
     <Page.Resources>
         <DataTemplate x:Key="StandardSampleItemTemplate">
-            <Border
-                Margin="1"
-                Background="Transparent"
-                BorderThickness="1">
-                <Grid
-                    Width="300"
-                    Margin="0,10,0,2"
-                    Tapped="OnSampleItemTapped">
+            <Border Margin="1"
+                    Background="Transparent"
+                    BorderThickness="1">
+                <Grid Width="300"
+                      Margin="0,10,0,2"
+                      Tapped="OnSampleItemTapped">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="200" />
                         <RowDefinition Height="45" />
                     </Grid.RowDefinitions>
-                    <Image
-                        Width="300"
-                        Height="250"
-                        HorizontalAlignment="Center"
-
-                        Stretch="Uniform">
+                    <Image Width="300"
+                           Height="250"
+                           HorizontalAlignment="Center"
+                           Stretch="Uniform">
                         <Image.Source>
                             <BitmapImage UriSource="{Binding SampleImageName}" />
                         </Image.Source>
                     </Image>
-                    <Border
-                        Grid.Row="0"
-                        VerticalAlignment="Bottom"
-                        Background="#A52F2F2F">
-                        <TextBlock
-                            Margin="10"
-                            FontSize="18"
-                            Foreground="White"
-                            Text="{Binding SampleName}"
-                            TextWrapping="Wrap" />
+                    <Border Grid.Row="0"
+                            VerticalAlignment="Bottom"
+                            Background="#A52F2F2F">
+                        <TextBlock Margin="10"
+                                   FontSize="18"
+                                   Foreground="White"
+                                   Text="{Binding SampleName}"
+                                   TextWrapping="Wrap" />
                     </Border>
-                    <TextBlock
-                        Grid.Row="1"
-                        Margin="5"
-                        VerticalAlignment="Top"
-                        FontSize="13"
-                        FontWeight="Normal"
-                        Style="{StaticResource PrimaryTextBlock}"
-                        Text="{Binding Description}"
-                        TextTrimming="CharacterEllipsis"
-                        TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="1"
+                               Margin="5"
+                               VerticalAlignment="Top"
+                               FontSize="13"
+                               FontWeight="Normal"
+                               Style="{StaticResource PrimaryTextBlock}"
+                               Text="{Binding Description}"
+                               TextTrimming="CharacterEllipsis"
+                               TextWrapping="Wrap" />
                 </Grid>
             </Border>
         </DataTemplate>
@@ -66,10 +55,9 @@
             <TextBlock Text="{Binding Content.SampleName}" TextWrapping="Wrap" />
         </DataTemplate>
 
-        <viewer:TreeViewItemTemplateSelector
-            x:Key="TreeViewItemTemplateSelector"
-            CategoryTemplate="{StaticResource CategoryTemplate}"
-            SampleTemplate="{StaticResource SampleTemplate}" />
+        <viewer:TreeViewItemTemplateSelector x:Key="TreeViewItemTemplateSelector"
+                                             CategoryTemplate="{StaticResource CategoryTemplate}"
+                                             SampleTemplate="{StaticResource SampleTemplate}" />
     </Page.Resources>
 
     <Grid>
@@ -85,40 +73,36 @@
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock
-                Grid.Column="0"
-                Margin="10,0,0,0"
-                VerticalAlignment="Center"
-                FontSize="18"
-                FontWeight="SemiBold"
-                Foreground="White"
-                Text="ArcGIS Runtime SDK for .NET (WinUI Desktop)" />
-            <Border
-                x:Name="SearchBoxBorder"
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                RelativePanel.AlignRightWithPanel="True"
-                RelativePanel.AlignVerticalCenterWith="CategoryTitle">
-                <AutoSuggestBox
-                    x:Name="SearchBox"
-                    Width="240"
-                    HorizontalAlignment="Right"
+            <TextBlock Grid.Column="0"
+                       Margin="10,0,0,0"
+                       VerticalAlignment="Center"
+                       FontSize="18"
+                       FontWeight="SemiBold"
+                       Foreground="White"
+                       Text="ArcGIS Runtime SDK for .NET (WinUI Desktop)" />
+            <Border x:Name="SearchBoxBorder"
+                    Grid.Column="1"
                     VerticalAlignment="Center"
-                    PlaceholderText="Search..."
-                    QueryIcon="Find"
-                    TextChanged="OnSearchQuerySubmitted" />
+                    RelativePanel.AlignRightWithPanel="True"
+                    RelativePanel.AlignVerticalCenterWith="CategoryTitle">
+                <AutoSuggestBox x:Name="SearchBox"
+                                Width="240"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                PlaceholderText="Search..."
+                                QueryIcon="Find"
+                                TextChanged="OnSearchQuerySubmitted" />
             </Border>
 
-            <Button
-                Grid.Column="2"
-                Margin="10,10,10,10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                HorizontalContentAlignment="Center"
-                VerticalContentAlignment="Center"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                Click="Settings_Click">
+            <Button Grid.Column="2"
+                    Margin="10,10,10,10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Click="Settings_Click">
                 <SymbolIcon RequestedTheme="Dark" Symbol="Setting" />
             </Button>
         </Grid>
@@ -135,37 +119,33 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <muxc:TreeView
-                x:Name="CategoriesTree"
-                Grid.Column="0"
-                Background="{StaticResource SecondaryBackgroundColor}"
-                CanDrag="False"
-                CanDragItems="False"
-                CanReorderItems="False"
-                ItemInvoked="CategoriesTree_ItemInvoked"
-                ItemTemplateSelector="{StaticResource TreeViewItemTemplateSelector}"
-                SelectionMode="Single" />
-            <ContentControl
-                x:Name="SamplePageContainer"
-                Grid.Column="1"
-                Margin="1,0,0,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                HorizontalContentAlignment="Stretch"
-                VerticalContentAlignment="Stretch" />
-            <Grid
-                x:Name="SampleSelectionGrid"
-                Grid.Column="1"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Background="{StaticResource PrimaryBackgroundColor}">
+            <muxc:TreeView x:Name="CategoriesTree"
+                           Grid.Column="0"
+                           Background="{StaticResource SecondaryBackgroundColor}"
+                           CanDrag="False"
+                           CanDragItems="False"
+                           CanReorderItems="False"
+                           ItemInvoked="CategoriesTree_ItemInvoked"
+                           ItemTemplateSelector="{StaticResource TreeViewItemTemplateSelector}"
+                           SelectionMode="Single" />
+            <ContentControl x:Name="SamplePageContainer"
+                            Grid.Column="1"
+                            Margin="1,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Stretch" />
+            <Grid x:Name="SampleSelectionGrid"
+                  Grid.Column="1"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  Background="{StaticResource PrimaryBackgroundColor}">
 
-                <GridView
-                    x:Name="SamplesGridView"
-                    Margin="10,0,0,0"
-                    Background="Transparent"
-                    ItemTemplate="{StaticResource StandardSampleItemTemplate}"
-                    SelectionMode="None">
+                <GridView x:Name="SamplesGridView"
+                          Margin="10,0,0,0"
+                          Background="Transparent"
+                          ItemTemplate="{StaticResource StandardSampleItemTemplate}"
+                          SelectionMode="None">
                     <GridView.ItemContainerStyle>
                         <Style TargetType="GridViewItem">
                             <Setter Property="HorizontalAlignment" Value="Center" />
@@ -174,11 +154,15 @@
                 </GridView>
             </Grid>
         </Grid>
-        <ContentDialog x:Name="ApiKeyDialog" CloseButtonText="Close" Grid.RowSpan="2">
+        <ContentDialog x:Name="ApiKeyDialog"
+                       Grid.RowSpan="2"
+                       CloseButtonText="Close">
             <arcgisruntime:ApiKeyPrompt />
         </ContentDialog>
 
-        <ContentDialog x:Name="settingsDialog" CloseButtonText="Close" Grid.RowSpan="2">
+        <ContentDialog x:Name="settingsDialog"
+                       Grid.RowSpan="2"
+                       CloseButtonText="Close">
             <arcgisruntime:SettingsPage />
         </ContentDialog>
     </Grid>

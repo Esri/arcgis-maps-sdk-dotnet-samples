@@ -1,8 +1,7 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.ManageOperationalLayers.ManageOperationalLayers"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.ManageOperationalLayers.ManageOperationalLayers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <UserControl.Resources>
         <DataTemplate x:Key="LayerItemTemplate">
             <TextBlock Text="{Binding Name}" />
@@ -11,11 +10,11 @@
             <Setter Property="Background" Value="LightGray" />
             <Setter Property="MinHeight" Value="100" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <!-- Allow items to be dropped on the listview. -->
+            <!--  Allow items to be dropped on the listview.  -->
             <Setter Property="AllowDrop" Value="True" />
-            <!-- Allow items to be dragged out of the listview. -->
+            <!--  Allow items to be dragged out of the listview.  -->
             <Setter Property="CanDragItems" Value="True" />
-            <!-- Allow items to be reordered within the listview -->
+            <!--  Allow items to be reordered within the listview  -->
             <Setter Property="CanReorderItems" Value="True" />
         </Style>
     </UserControl.Resources>
@@ -24,30 +23,34 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="Drag and drop layers to add, remove, and reorder them."
-                           TextWrapping="Wrap"
-                           TextAlignment="Left" />
-                <TextBlock Text="Layers in map"
-                           TextAlignment="Center"
-                           FontWeight="SemiBold" />
-                <!-- Item template defined in UserControl.Resources above specifies that each listbox
-                     item's content consists of a label with the layer's Name property displayed. -->
-                <ListView Style="{StaticResource LayerListStyle}"
-                          ItemsSource="{Binding IncludedLayers,Mode=TwoWay}"
+                           TextAlignment="Left"
+                           TextWrapping="Wrap" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="Layers in map"
+                           TextAlignment="Center" />
+                <!--
+                    Item template defined in UserControl.Resources above specifies that each listbox
+                    item's content consists of a label with the layer's Name property displayed.
+                -->
+                <ListView DragItemsStarting="ListBox_OnDragItemsStarting"
+                          DragOver="ListBox_OnDragOver"
+                          Drop="ListBox_OnDrop"
                           ItemTemplate="{StaticResource LayerItemTemplate}"
+                          ItemsSource="{Binding IncludedLayers, Mode=TwoWay}"
+                          Style="{StaticResource LayerListStyle}" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="Layers not in map"
+                           TextAlignment="Center" />
+                <!--
+                    Item template defined in UserControl.Resources above specifies that each listbox
+                    item's content consists of a label with the layer's Name property displayed.
+                -->
+                <ListView DragItemsStarting="ListBox_OnDragItemsStarting"
                           DragOver="ListBox_OnDragOver"
                           Drop="ListBox_OnDrop"
-                          DragItemsStarting="ListBox_OnDragItemsStarting" />
-                <TextBlock Text="Layers not in map"
-                           TextAlignment="Center"
-                           FontWeight="SemiBold" />
-                <!-- Item template defined in UserControl.Resources above specifies that each listbox
-                     item's content consists of a label with the layer's Name property displayed. -->
-                <ListView Style="{StaticResource LayerListStyle}"
+                          ItemTemplate="{StaticResource LayerItemTemplate}"
                           ItemsSource="{Binding ExcludedLayers}"
-                          DragOver="ListBox_OnDragOver"
-                          DragItemsStarting="ListBox_OnDragItemsStarting"
-                          Drop="ListBox_OnDrop"
-                          ItemTemplate="{StaticResource LayerItemTemplate}" />
+                          Style="{StaticResource LayerListStyle}" />
             </StackPanel>
         </Border>
     </Grid>

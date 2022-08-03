@@ -5,8 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <TextBlock Text="Tap to find the route to the closest facility."
-                       TextAlignment="Center" FontWeight="SemiBold" />
+            <TextBlock FontWeight="SemiBold"
+                       Text="Tap to find the route to the closest facility."
+                       TextAlignment="Center" />
         </Border>
     </Grid>
 </UserControl>

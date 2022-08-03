@@ -1,34 +1,34 @@
 {
-  "category": "Layers",
-  "description": "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
-  "formal_name": "ChangeBlendRenderer",
-  "ignore": false,
-  "images": [
-    "ChangeBlendRenderer.jpg"
-  ],
-  "keywords": [
-    "color ramp",
-    "elevation",
-    "hillshade",
-    "image",
-    "raster",
-    "visualization"
-  ],
-  "offline_data": [
-    "caeef9aa78534760b07158bb8e068462"
-  ],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/changeblendrenderer.htm"
-  ],
-  "relevant_apis": [
-    "BlendRenderer",
-    "ColorRamp",
-    "Raster",
-    "RasterLayer"
-  ],
-  "snippets": [
-    "ChangeBlendRenderer.xaml",
-    "ChangeBlendRenderer.xaml.cs"
-  ],
-  "title": "Blend renderer"
+    "category": "Layers",
+    "description": "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
+    "formal_name": "ChangeBlendRenderer",
+    "ignore": false,
+    "images": [
+        "ChangeBlendRenderer.jpg"
+    ],
+    "keywords": [
+        "color ramp",
+        "elevation",
+        "hillshade",
+        "image",
+        "raster",
+        "visualization"
+    ],
+    "offline_data": [
+        "caeef9aa78534760b07158bb8e068462"
+    ],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/changeblendrenderer.htm"
+    ],
+    "relevant_apis": [
+        "BlendRenderer",
+        "ColorRamp",
+        "Raster",
+        "RasterLayer"
+    ],
+    "snippets": [
+        "ChangeBlendRenderer.xaml",
+        "ChangeBlendRenderer.xaml.cs"
+    ],
+    "title": "Blend renderer"
 }

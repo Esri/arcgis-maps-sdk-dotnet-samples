@@ -1,34 +1,34 @@
 {
-  "category": "Layers",
-  "description": "Add OpenStreetMap as a basemap layer.",
-  "formal_name": "OpenStreetMapLayer",
-  "ignore": false,
-  "images": [
-    "OpenStreetMapLayer.jpg"
-  ],
-  "keywords": [
-    "OSM",
-    "OpenStreetMap",
-    "basemap",
-    "layers",
-    "map",
-    "open",
-    "street"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/openstreetmaplayer.htm"
-  ],
-  "relevant_apis": [
-    "Basemap",
-    "BasemapStyle.OSMStandard",
-    "Map",
-    "MapView",
-    "OpenStreetMapLayer"
-  ],
-  "snippets": [
-    "OpenStreetMapLayer.xaml",
-    "OpenStreetMapLayer.xaml.cs"
-  ],
-  "title": "OpenStreetMap layer"
+    "category": "Layers",
+    "description": "Add OpenStreetMap as a basemap layer.",
+    "formal_name": "OpenStreetMapLayer",
+    "ignore": false,
+    "images": [
+        "OpenStreetMapLayer.jpg"
+    ],
+    "keywords": [
+        "OSM",
+        "OpenStreetMap",
+        "basemap",
+        "layers",
+        "map",
+        "open",
+        "street"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/openstreetmaplayer.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "BasemapStyle.OSMStandard",
+        "Map",
+        "MapView",
+        "OpenStreetMapLayer"
+    ],
+    "snippets": [
+        "OpenStreetMapLayer.xaml",
+        "OpenStreetMapLayer.xaml.cs"
+    ],
+    "title": "OpenStreetMap layer"
 }

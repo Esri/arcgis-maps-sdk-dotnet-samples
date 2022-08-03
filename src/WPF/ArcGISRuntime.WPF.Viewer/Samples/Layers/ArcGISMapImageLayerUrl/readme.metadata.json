@@ -1,28 +1,28 @@
 {
-  "category": "Layers",
-  "description": "Add an ArcGIS Map Image Layer from a URL to a map.",
-  "formal_name": "ArcGISMapImageLayerUrl",
-  "ignore": false,
-  "images": [
-    "ArcGISMapImageLayerUrl.jpg"
-  ],
-  "keywords": [
-    "ArcGIS dynamic map service layer",
-    "ArcGISMapImageLayer",
-    "layers"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/arcgismapimagelayerurl.htm"
-  ],
-  "relevant_apis": [
-    "ArcGISMapImageLayer",
-    "Map",
-    "MapView"
-  ],
-  "snippets": [
-    "ArcGISMapImageLayerUrl.xaml",
-    "ArcGISMapImageLayerUrl.xaml.cs"
-  ],
-  "title": "ArcGIS map image layer"
+    "category": "Layers",
+    "description": "Add an ArcGIS Map Image Layer from a URL to a map.",
+    "formal_name": "ArcGISMapImageLayerUrl",
+    "ignore": false,
+    "images": [
+        "ArcGISMapImageLayerUrl.jpg"
+    ],
+    "keywords": [
+        "ArcGIS dynamic map service layer",
+        "ArcGISMapImageLayer",
+        "layers"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/arcgismapimagelayerurl.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "ArcGISMapImageLayerUrl.xaml",
+        "ArcGISMapImageLayerUrl.xaml.cs"
+    ],
+    "title": "ArcGIS map image layer"
 }

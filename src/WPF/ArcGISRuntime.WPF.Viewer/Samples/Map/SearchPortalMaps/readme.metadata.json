@@ -1,31 +1,31 @@
 {
-  "category": "Map",
-  "description": "Find webmap portal items by using a search term.",
-  "formal_name": "SearchPortalMaps",
-  "ignore": false,
-  "images": [
-    "SearchPortalMaps.jpg"
-  ],
-  "keywords": [
-    "keyword",
-    "query",
-    "search",
-    "webmap"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/searchportalmaps.htm"
-  ],
-  "relevant_apis": [
-    "Portal",
-    "PortalItem",
-    "PortalQueryParameters",
-    "PortalQueryResultSet"
-  ],
-  "snippets": [
-    "../../../Helpers/ArcGISLoginPrompt.cs",
-    "SearchPortalMaps.xaml",
-    "SearchPortalMaps.xaml.cs"
-  ],
-  "title": "Search for webmap"
+    "category": "Map",
+    "description": "Find webmap portal items by using a search term.",
+    "formal_name": "SearchPortalMaps",
+    "ignore": false,
+    "images": [
+        "SearchPortalMaps.jpg"
+    ],
+    "keywords": [
+        "keyword",
+        "query",
+        "search",
+        "webmap"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/searchportalmaps.htm"
+    ],
+    "relevant_apis": [
+        "Portal",
+        "PortalItem",
+        "PortalQueryParameters",
+        "PortalQueryResultSet"
+    ],
+    "snippets": [
+        "../../../Helpers/ArcGISLoginPrompt.cs",
+        "SearchPortalMaps.xaml",
+        "SearchPortalMaps.xaml.cs"
+    ],
+    "title": "Search for webmap"
 }

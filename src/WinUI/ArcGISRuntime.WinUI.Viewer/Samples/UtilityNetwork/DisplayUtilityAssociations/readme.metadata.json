@@ -1,32 +1,32 @@
 {
-  "category": "Utility network",
-  "description": "Create graphics for utility associations in a utility network.",
-  "formal_name": "DisplayUtilityAssociations",
-  "ignore": false,
-  "images": [
-    "DisplayUtilityAssociations.jpg"
-  ],
-  "keywords": [
-    "associating",
-    "association",
-    "attachment",
-    "connectivity",
-    "containment",
-    "relationships"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/displayutilityassociations.htm"
-  ],
-  "relevant_apis": [
-    "GraphicsOverlay",
-    "UtilityAssociation",
-    "UtilityAssociationType",
-    "UtilityNetwork"
-  ],
-  "snippets": [
-    "DisplayUtilityAssociations.xaml",
-    "DisplayUtilityAssociations.xaml.cs"
-  ],
-  "title": "Display utility associations"
+    "category": "Utility network",
+    "description": "Create graphics for utility associations in a utility network.",
+    "formal_name": "DisplayUtilityAssociations",
+    "ignore": false,
+    "images": [
+        "DisplayUtilityAssociations.jpg"
+    ],
+    "keywords": [
+        "associating",
+        "association",
+        "attachment",
+        "connectivity",
+        "containment",
+        "relationships"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/displayutilityassociations.htm"
+    ],
+    "relevant_apis": [
+        "GraphicsOverlay",
+        "UtilityAssociation",
+        "UtilityAssociationType",
+        "UtilityNetwork"
+    ],
+    "snippets": [
+        "DisplayUtilityAssociations.xaml",
+        "DisplayUtilityAssociations.xaml.cs"
+    ],
+    "title": "Display utility associations"
 }

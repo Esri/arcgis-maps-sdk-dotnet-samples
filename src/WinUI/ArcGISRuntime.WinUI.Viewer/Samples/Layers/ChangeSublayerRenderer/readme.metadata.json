@@ -1,33 +1,33 @@
 {
-  "category": "Layers",
-  "description": "Apply a renderer to a sublayer.",
-  "formal_name": "ChangeSublayerRenderer",
-  "ignore": false,
-  "images": [
-    "ChangeSublayerRenderer.jpg"
-  ],
-  "keywords": [
-    "class breaks",
-    "dynamic layer",
-    "dynamic rendering",
-    "renderer",
-    "sublayer",
-    "symbology",
-    "visualization"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/changesublayerrenderer.htm"
-  ],
-  "relevant_apis": [
-    "ArcGISMapImageLayer",
-    "ArcGISMapImageSubLayer",
-    "ClassBreaksRenderer",
-    "ClassBreaksRenderer.ClassBreak"
-  ],
-  "snippets": [
-    "ChangeSublayerRenderer.xaml",
-    "ChangeSublayerRenderer.xaml.cs"
-  ],
-  "title": "Change sublayer renderer"
+    "category": "Layers",
+    "description": "Apply a renderer to a sublayer.",
+    "formal_name": "ChangeSublayerRenderer",
+    "ignore": false,
+    "images": [
+        "ChangeSublayerRenderer.jpg"
+    ],
+    "keywords": [
+        "class breaks",
+        "dynamic layer",
+        "dynamic rendering",
+        "renderer",
+        "sublayer",
+        "symbology",
+        "visualization"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/changesublayerrenderer.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "ArcGISMapImageSubLayer",
+        "ClassBreaksRenderer",
+        "ClassBreaksRenderer.ClassBreak"
+    ],
+    "snippets": [
+        "ChangeSublayerRenderer.xaml",
+        "ChangeSublayerRenderer.xaml.cs"
+    ],
+    "title": "Change sublayer renderer"
 }

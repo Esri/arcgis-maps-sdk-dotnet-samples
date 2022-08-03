@@ -1,29 +1,29 @@
 {
-  "category": "Layers",
-  "description": "Convert features into graphics to show them with mil2525d symbols.",
-  "formal_name": "FeatureLayerDictionaryRenderer",
-  "ignore": false,
-  "images": [
-    "FeatureLayerDictionaryRenderer.jpg"
-  ],
-  "keywords": [
-    "military",
-    "symbol"
-  ],
-  "offline_data": [
-    "e34835bf5ec5430da7cf16bb8c0b075c",
-    "e0d41b4b409a49a5a7ba11939d8535dc"
-  ],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/featurelayerdictionaryrenderer.htm"
-  ],
-  "relevant_apis": [
-    "DictionaryRenderer",
-    "SymbolDictionary"
-  ],
-  "snippets": [
-    "FeatureLayerDictionaryRenderer.xaml",
-    "FeatureLayerDictionaryRenderer.xaml.cs"
-  ],
-  "title": "Dictionary renderer with feature layer"
+    "category": "Layers",
+    "description": "Convert features into graphics to show them with mil2525d symbols.",
+    "formal_name": "FeatureLayerDictionaryRenderer",
+    "ignore": false,
+    "images": [
+        "FeatureLayerDictionaryRenderer.jpg"
+    ],
+    "keywords": [
+        "military",
+        "symbol"
+    ],
+    "offline_data": [
+        "e34835bf5ec5430da7cf16bb8c0b075c",
+        "e0d41b4b409a49a5a7ba11939d8535dc"
+    ],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/featurelayerdictionaryrenderer.htm"
+    ],
+    "relevant_apis": [
+        "DictionaryRenderer",
+        "SymbolDictionary"
+    ],
+    "snippets": [
+        "FeatureLayerDictionaryRenderer.xaml",
+        "FeatureLayerDictionaryRenderer.xaml.cs"
+    ],
+    "title": "Dictionary renderer with feature layer"
 }

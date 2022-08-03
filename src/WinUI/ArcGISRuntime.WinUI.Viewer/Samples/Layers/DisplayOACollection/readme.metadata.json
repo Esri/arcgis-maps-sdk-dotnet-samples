@@ -1,32 +1,32 @@
 {
-  "category": "Layers",
-  "description": "Display an OGC API feature collection and query features while navigating the map view.",
-  "formal_name": "DisplayOACollection",
-  "ignore": false,
-  "images": [
-    "DisplayOACollection.jpg"
-  ],
-  "keywords": [
-    "OGC",
-    "OGC API",
-    "feature",
-    "feature layer",
-    "feature table",
-    "service",
-    "table",
-    "web"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/displayoacollection.htm"
-  ],
-  "relevant_apis": [
-    "OgcFeatureCollectionTable",
-    "QueryParameters"
-  ],
-  "snippets": [
-    "DisplayOACollection.xaml",
-    "DisplayOACollection.xaml.cs"
-  ],
-  "title": "Display OGC API collection"
+    "category": "Layers",
+    "description": "Display an OGC API feature collection and query features while navigating the map view.",
+    "formal_name": "DisplayOACollection",
+    "ignore": false,
+    "images": [
+        "DisplayOACollection.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "OGC API",
+        "feature",
+        "feature layer",
+        "feature table",
+        "service",
+        "table",
+        "web"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/displayoacollection.htm"
+    ],
+    "relevant_apis": [
+        "OgcFeatureCollectionTable",
+        "QueryParameters"
+    ],
+    "snippets": [
+        "DisplayOACollection.xaml",
+        "DisplayOACollection.xaml.cs"
+    ],
+    "title": "Display OGC API collection"
 }

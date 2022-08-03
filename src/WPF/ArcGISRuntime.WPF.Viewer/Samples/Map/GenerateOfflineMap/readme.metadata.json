@@ -1,31 +1,31 @@
 {
-  "category": "Map",
-  "description": "Take a web map offline.",
-  "formal_name": "GenerateOfflineMap",
-  "ignore": false,
-  "images": [
-    "GenerateOfflineMap.jpg"
-  ],
-  "keywords": [
-    "download",
-    "offline",
-    "save",
-    "web map"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/generateofflinemap.htm"
-  ],
-  "relevant_apis": [
-    "GenerateOfflineMapJob",
-    "GenerateOfflineMapParameters",
-    "GenerateOfflineMapResult",
-    "OfflineMapTask",
-    "Portal"
-  ],
-  "snippets": [
-    "GenerateOfflineMap.xaml",
-    "GenerateOfflineMap.xaml.cs"
-  ],
-  "title": "Generate offline map"
+    "category": "Map",
+    "description": "Take a web map offline.",
+    "formal_name": "GenerateOfflineMap",
+    "ignore": false,
+    "images": [
+        "GenerateOfflineMap.jpg"
+    ],
+    "keywords": [
+        "download",
+        "offline",
+        "save",
+        "web map"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/generateofflinemap.htm"
+    ],
+    "relevant_apis": [
+        "GenerateOfflineMapJob",
+        "GenerateOfflineMapParameters",
+        "GenerateOfflineMapResult",
+        "OfflineMapTask",
+        "Portal"
+    ],
+    "snippets": [
+        "GenerateOfflineMap.xaml",
+        "GenerateOfflineMap.xaml.cs"
+    ],
+    "title": "Generate offline map"
 }

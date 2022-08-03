@@ -1,24 +1,24 @@
 {
-  "category": "Scene",
-  "description": "Changes the appearance of the atmosphere in a scene.",
-  "formal_name": "ChangeAtmosphereEffect",
-  "ignore": false,
-  "images": [
-    "ChangeAtmosphereEffect.jpg"
-  ],
-  "keywords": [
-    "atmosphere",
-    "horizon",
-    "sky"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/changeatmosphereeffect.htm"
-  ],
-  "relevant_apis": [],
-  "snippets": [
-    "ChangeAtmosphereEffect.xaml",
-    "ChangeAtmosphereEffect.xaml.cs"
-  ],
-  "title": "Change atmosphere effect"
+    "category": "Scene",
+    "description": "Changes the appearance of the atmosphere in a scene.",
+    "formal_name": "ChangeAtmosphereEffect",
+    "ignore": false,
+    "images": [
+        "ChangeAtmosphereEffect.jpg"
+    ],
+    "keywords": [
+        "atmosphere",
+        "horizon",
+        "sky"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/changeatmosphereeffect.htm"
+    ],
+    "relevant_apis": [],
+    "snippets": [
+        "ChangeAtmosphereEffect.xaml",
+        "ChangeAtmosphereEffect.xaml.cs"
+    ],
+    "title": "Change atmosphere effect"
 }

@@ -1,35 +1,35 @@
 {
-  "category": "Layers",
-  "description": "Construct a KML document and save it as a KMZ file.",
-  "formal_name": "CreateAndSaveKmlFile",
-  "ignore": false,
-  "images": [
-    "CreateAndSaveKmlFile.jpg"
-  ],
-  "keywords": [
-    "KML",
-    "KMZ",
-    "Keyhole",
-    "OGC"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/createandsavekmlfile.htm"
-  ],
-  "relevant_apis": [
-    "GeometryEngine.Project",
-    "KmlDataset",
-    "KmlDocument",
-    "KmlGeometry",
-    "KmlLayer",
-    "KmlNode.SaveAsASync",
-    "KmlPlacemark",
-    "KmlStyle",
-    "SketchEditor"
-  ],
-  "snippets": [
-    "CreateAndSaveKmlFile.xaml",
-    "CreateAndSaveKmlFile.xaml.cs"
-  ],
-  "title": "Create and save KML file"
+    "category": "Layers",
+    "description": "Construct a KML document and save it as a KMZ file.",
+    "formal_name": "CreateAndSaveKmlFile",
+    "ignore": false,
+    "images": [
+        "CreateAndSaveKmlFile.jpg"
+    ],
+    "keywords": [
+        "KML",
+        "KMZ",
+        "Keyhole",
+        "OGC"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/createandsavekmlfile.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine.Project",
+        "KmlDataset",
+        "KmlDocument",
+        "KmlGeometry",
+        "KmlLayer",
+        "KmlNode.SaveAsASync",
+        "KmlPlacemark",
+        "KmlStyle",
+        "SketchEditor"
+    ],
+    "snippets": [
+        "CreateAndSaveKmlFile.xaml",
+        "CreateAndSaveKmlFile.xaml.cs"
+    ],
+    "title": "Create and save KML file"
 }

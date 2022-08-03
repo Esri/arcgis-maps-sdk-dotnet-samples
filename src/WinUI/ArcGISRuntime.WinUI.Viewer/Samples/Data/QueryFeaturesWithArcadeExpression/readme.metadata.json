@@ -1,34 +1,34 @@
 {
-  "category": "Data",
-  "description": "Query features on a map using an Arcade expression.",
-  "formal_name": "QueryFeaturesWithArcadeExpression",
-  "ignore": false,
-  "images": [
-    "QueryFeaturesWithArcadeExpression.jpg"
-  ],
-  "keywords": [
-    "Arcade evaluator",
-    "Arcade expression",
-    "identify layers",
-    "portal",
-    "portal item",
-    "query"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/queryfeatureswitharcadeexpression.htm"
-  ],
-  "relevant_apis": [
-    "ArcadeEvaluationResult",
-    "ArcadeEvaluator",
-    "ArcadeExpression",
-    "ArcadeProfile",
-    "Portal",
-    "PortalItem"
-  ],
-  "snippets": [
-    "QueryFeaturesWithArcadeExpression.xaml",
-    "QueryFeaturesWithArcadeExpression.xaml.cs"
-  ],
-  "title": "Query features with Arcade expression"
+    "category": "Data",
+    "description": "Query features on a map using an Arcade expression.",
+    "formal_name": "QueryFeaturesWithArcadeExpression",
+    "ignore": false,
+    "images": [
+        "QueryFeaturesWithArcadeExpression.jpg"
+    ],
+    "keywords": [
+        "Arcade evaluator",
+        "Arcade expression",
+        "identify layers",
+        "portal",
+        "portal item",
+        "query"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/queryfeatureswitharcadeexpression.htm"
+    ],
+    "relevant_apis": [
+        "ArcadeEvaluationResult",
+        "ArcadeEvaluator",
+        "ArcadeExpression",
+        "ArcadeProfile",
+        "Portal",
+        "PortalItem"
+    ],
+    "snippets": [
+        "QueryFeaturesWithArcadeExpression.xaml",
+        "QueryFeaturesWithArcadeExpression.xaml.cs"
+    ],
+    "title": "Query features with Arcade expression"
 }

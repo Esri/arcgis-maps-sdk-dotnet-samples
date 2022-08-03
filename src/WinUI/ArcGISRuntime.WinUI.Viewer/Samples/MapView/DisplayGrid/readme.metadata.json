@@ -1,41 +1,41 @@
 {
-  "category": "MapView",
-  "description": "Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.",
-  "formal_name": "DisplayGrid",
-  "ignore": false,
-  "images": [
-    "DisplayGrid.jpg"
-  ],
-  "keywords": [
-    "MGRS",
-    "USNG",
-    "UTM",
-    "coordinates",
-    "degrees",
-    "graticule",
-    "grid",
-    "latitude",
-    "longitude",
-    "minutes",
-    "seconds"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/displaygrid.htm"
-  ],
-  "relevant_apis": [
-    "Grid",
-    "LatitudeLongitudeGrid",
-    "MGRSGrid",
-    "MapView",
-    "SimpleLineSymbol",
-    "TextSymbol",
-    "USNGGrid",
-    "UTMGrid"
-  ],
-  "snippets": [
-    "DisplayGrid.xaml",
-    "DisplayGrid.xaml.cs"
-  ],
-  "title": "Display grid"
+    "category": "MapView",
+    "description": "Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.",
+    "formal_name": "DisplayGrid",
+    "ignore": false,
+    "images": [
+        "DisplayGrid.jpg"
+    ],
+    "keywords": [
+        "MGRS",
+        "USNG",
+        "UTM",
+        "coordinates",
+        "degrees",
+        "graticule",
+        "grid",
+        "latitude",
+        "longitude",
+        "minutes",
+        "seconds"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/displaygrid.htm"
+    ],
+    "relevant_apis": [
+        "Grid",
+        "LatitudeLongitudeGrid",
+        "MGRSGrid",
+        "MapView",
+        "SimpleLineSymbol",
+        "TextSymbol",
+        "USNGGrid",
+        "UTMGrid"
+    ],
+    "snippets": [
+        "DisplayGrid.xaml",
+        "DisplayGrid.xaml.cs"
+    ],
+    "title": "Display grid"
 }

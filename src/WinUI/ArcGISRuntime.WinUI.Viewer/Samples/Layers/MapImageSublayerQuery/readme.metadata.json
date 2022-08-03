@@ -1,27 +1,27 @@
 {
-  "category": "Layers",
-  "description": "Find features in a sublayer based on attributes and location.",
-  "formal_name": "MapImageSublayerQuery",
-  "ignore": false,
-  "images": [
-    "MapImageSublayerQuery.jpg"
-  ],
-  "keywords": [
-    "search and query"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/mapimagesublayerquery.htm"
-  ],
-  "relevant_apis": [
-    "ArcGISMapImageLayer",
-    "ArcGISMapImageSublayer",
-    "QueryParameters",
-    "ServiceFeatureTable"
-  ],
-  "snippets": [
-    "MapImageSublayerQuery.xaml",
-    "MapImageSublayerQuery.xaml.cs"
-  ],
-  "title": "Query map image sublayer"
+    "category": "Layers",
+    "description": "Find features in a sublayer based on attributes and location.",
+    "formal_name": "MapImageSublayerQuery",
+    "ignore": false,
+    "images": [
+        "MapImageSublayerQuery.jpg"
+    ],
+    "keywords": [
+        "search and query"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/mapimagesublayerquery.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "ArcGISMapImageSublayer",
+        "QueryParameters",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "MapImageSublayerQuery.xaml",
+        "MapImageSublayerQuery.xaml.cs"
+    ],
+    "title": "Query map image sublayer"
 }

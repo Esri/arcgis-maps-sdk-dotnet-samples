@@ -1,6 +1,8 @@
 ﻿using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace ArcGISRuntime.Samples.Shared.Managers
 {

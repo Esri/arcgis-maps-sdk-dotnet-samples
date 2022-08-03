@@ -1,26 +1,26 @@
 {
-  "category": "Layers",
-  "description": "Group a collection of layers together and toggle their visibility as a group.",
-  "formal_name": "GroupLayers",
-  "ignore": false,
-  "images": [
-    "GroupLayers.jpg"
-  ],
-  "keywords": [
-    "group layer",
-    "layers"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/grouplayers.htm"
-  ],
-  "relevant_apis": [
-    "GroupLayer",
-    "ILayerContent"
-  ],
-  "snippets": [
-    "GroupLayers.xaml",
-    "GroupLayers.xaml.cs"
-  ],
-  "title": "Group layers"
+    "category": "Layers",
+    "description": "Group a collection of layers together and toggle their visibility as a group.",
+    "formal_name": "GroupLayers",
+    "ignore": false,
+    "images": [
+        "GroupLayers.jpg"
+    ],
+    "keywords": [
+        "group layer",
+        "layers"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/grouplayers.htm"
+    ],
+    "relevant_apis": [
+        "GroupLayer",
+        "ILayerContent"
+    ],
+    "snippets": [
+        "GroupLayers.xaml",
+        "GroupLayers.xaml.cs"
+    ],
+    "title": "Group layers"
 }

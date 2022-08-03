@@ -1,33 +1,33 @@
 {
-  "category": "Layers",
-  "description": "Edit the values of a KML ground overlay.",
-  "formal_name": "EditKmlGroundOverlay",
-  "ignore": false,
-  "images": [
-    "EditKmlGroundOverlay.jpg"
-  ],
-  "keywords": [
-    "KML",
-    "KMZ",
-    "Keyhole",
-    "OGC",
-    "imagery"
-  ],
-  "offline_data": [
-    "1f3677c24b2c446e96eaf1099292e83e"
-  ],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/editkmlgroundoverlay.htm"
-  ],
-  "relevant_apis": [
-    "KmlDataset",
-    "KmlGroundOverlay",
-    "KmlIcon",
-    "KmlLayer"
-  ],
-  "snippets": [
-    "EditKmlGroundOverlay.xaml",
-    "EditKmlGroundOverlay.xaml.cs"
-  ],
-  "title": "Edit KML ground overlay"
+    "category": "Layers",
+    "description": "Edit the values of a KML ground overlay.",
+    "formal_name": "EditKmlGroundOverlay",
+    "ignore": false,
+    "images": [
+        "EditKmlGroundOverlay.jpg"
+    ],
+    "keywords": [
+        "KML",
+        "KMZ",
+        "Keyhole",
+        "OGC",
+        "imagery"
+    ],
+    "offline_data": [
+        "1f3677c24b2c446e96eaf1099292e83e"
+    ],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/editkmlgroundoverlay.htm"
+    ],
+    "relevant_apis": [
+        "KmlDataset",
+        "KmlGroundOverlay",
+        "KmlIcon",
+        "KmlLayer"
+    ],
+    "snippets": [
+        "EditKmlGroundOverlay.xaml",
+        "EditKmlGroundOverlay.xaml.cs"
+    ],
+    "title": "Edit KML ground overlay"
 }

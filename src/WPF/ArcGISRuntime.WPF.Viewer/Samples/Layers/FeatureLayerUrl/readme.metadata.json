@@ -1,31 +1,31 @@
 {
-  "category": "Layers",
-  "description": "Show features from an online feature service.",
-  "formal_name": "FeatureLayerUrl",
-  "ignore": false,
-  "images": [
-    "FeatureLayerUrl.jpg"
-  ],
-  "keywords": [
-    "feature table",
-    "layer",
-    "layers",
-    "service"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/featurelayerurl.htm"
-  ],
-  "relevant_apis": [
-    "Basemap",
-    "FeatureLayer",
-    "Map",
-    "MapView",
-    "ServiceFeatureTable"
-  ],
-  "snippets": [
-    "FeatureLayerUrl.xaml",
-    "FeatureLayerUrl.xaml.cs"
-  ],
-  "title": "Feature layer (feature service)"
+    "category": "Layers",
+    "description": "Show features from an online feature service.",
+    "formal_name": "FeatureLayerUrl",
+    "ignore": false,
+    "images": [
+        "FeatureLayerUrl.jpg"
+    ],
+    "keywords": [
+        "feature table",
+        "layer",
+        "layers",
+        "service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/featurelayerurl.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "FeatureLayer",
+        "Map",
+        "MapView",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "FeatureLayerUrl.xaml",
+        "FeatureLayerUrl.xaml.cs"
+    ],
+    "title": "Feature layer (feature service)"
 }

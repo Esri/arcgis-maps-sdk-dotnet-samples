@@ -1,43 +1,43 @@
 {
-  "category": "Network analysis",
-  "description": "Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.",
-  "formal_name": "NavigateRouteRerouting",
-  "ignore": false,
-  "images": [
-    "NavigateRouteRerouting.jpg"
-  ],
-  "keywords": [
-    "directions",
-    "maneuver",
-    "navigation",
-    "route",
-    "turn-by-turn",
-    "voice"
-  ],
-  "offline_data": [
-    "91e7e6be79cc4d2f8416eff867674c1e",
-    "567e14f3420d40c5a206e5c0284cf8fc"
-  ],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/navigateroutererouting.htm"
-  ],
-  "relevant_apis": [
-    "DestinationStatus",
-    "DirectionManeuver",
-    "Location",
-    "LocationDataSource",
-    "ReroutingStrategy",
-    "Route",
-    "RouteParameters",
-    "RouteTask",
-    "RouteTracker",
-    "Stop",
-    "VoiceGuidance"
-  ],
-  "snippets": [
-    "GpxProvider.cs",
-    "NavigateRouteRerouting.xaml",
-    "NavigateRouteRerouting.xaml.cs"
-  ],
-  "title": "Navigate route with rerouting"
+    "category": "Network analysis",
+    "description": "Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.",
+    "formal_name": "NavigateRouteRerouting",
+    "ignore": false,
+    "images": [
+        "NavigateRouteRerouting.jpg"
+    ],
+    "keywords": [
+        "directions",
+        "maneuver",
+        "navigation",
+        "route",
+        "turn-by-turn",
+        "voice"
+    ],
+    "offline_data": [
+        "91e7e6be79cc4d2f8416eff867674c1e",
+        "567e14f3420d40c5a206e5c0284cf8fc"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/navigateroutererouting.htm"
+    ],
+    "relevant_apis": [
+        "DestinationStatus",
+        "DirectionManeuver",
+        "Location",
+        "LocationDataSource",
+        "ReroutingStrategy",
+        "Route",
+        "RouteParameters",
+        "RouteTask",
+        "RouteTracker",
+        "Stop",
+        "VoiceGuidance"
+    ],
+    "snippets": [
+        "GpxProvider.cs",
+        "NavigateRouteRerouting.xaml",
+        "NavigateRouteRerouting.xaml.cs"
+    ],
+    "title": "Navigate route with rerouting"
 }

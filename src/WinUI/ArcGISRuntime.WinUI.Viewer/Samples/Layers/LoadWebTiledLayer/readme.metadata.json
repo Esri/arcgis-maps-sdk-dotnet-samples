@@ -1,31 +1,31 @@
 {
-  "category": "Layers",
-  "description": "Display a tiled web layer.",
-  "formal_name": "LoadWebTiledLayer",
-  "ignore": false,
-  "images": [
-    "LoadWebTiledLayer.jpg"
-  ],
-  "keywords": [
-    "OGC",
-    "Open Street Map",
-    "OpenStreetMap",
-    "layer",
-    "stamen.com",
-    "tiled",
-    "tiles"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/loadwebtiledlayer.htm"
-  ],
-  "relevant_apis": [
-    "Basemap",
-    "WebTiledLayer"
-  ],
-  "snippets": [
-    "LoadWebTiledLayer.xaml",
-    "LoadWebTiledLayer.xaml.cs"
-  ],
-  "title": "Web tiled layer"
+    "category": "Layers",
+    "description": "Display a tiled web layer.",
+    "formal_name": "LoadWebTiledLayer",
+    "ignore": false,
+    "images": [
+        "LoadWebTiledLayer.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "Open Street Map",
+        "OpenStreetMap",
+        "layer",
+        "stamen.com",
+        "tiled",
+        "tiles"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/loadwebtiledlayer.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "WebTiledLayer"
+    ],
+    "snippets": [
+        "LoadWebTiledLayer.xaml",
+        "LoadWebTiledLayer.xaml.cs"
+    ],
+    "title": "Web tiled layer"
 }

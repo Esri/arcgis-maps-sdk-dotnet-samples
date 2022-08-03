@@ -1,38 +1,38 @@
 {
-  "category": "Layers",
-  "description": "Display feature layers from various data sources.",
-  "formal_name": "DisplayFeatureLayers",
-  "ignore": false,
-  "images": [
-    "DisplayFeatureLayers.jpg"
-  ],
-  "keywords": [
-    "feature",
-    "geodatabase",
-    "geopackage",
-    "layers",
-    "service",
-    "shapefile",
-    "table"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/displayfeaturelayers.htm",
-    "/net/wpf/sample-code/featurelayergeopackage.htm",
-    "/net/wpf/sample-code/featurelayergeodatabase.htm",
-    "/net/wpf/sample-code/featurelayershapefile.htm"
-  ],
-  "relevant_apis": [
-    "FeatureLayer",
-    "GeoPackageFeatureTable",
-    "Geodatabase",
-    "PortalItem",
-    "ServiceFeatureTable",
-    "ShapefileFeatureTable"
-  ],
-  "snippets": [
-    "DisplayFeatureLayers.xaml",
-    "DisplayFeatureLayers.xaml.cs"
-  ],
-  "title": "Display feature layers"
+    "category": "Layers",
+    "description": "Display feature layers from various data sources.",
+    "formal_name": "DisplayFeatureLayers",
+    "ignore": false,
+    "images": [
+        "DisplayFeatureLayers.jpg"
+    ],
+    "keywords": [
+        "feature",
+        "geodatabase",
+        "geopackage",
+        "layers",
+        "service",
+        "shapefile",
+        "table"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/displayfeaturelayers.htm",
+        "/net/wpf/sample-code/featurelayergeopackage.htm",
+        "/net/wpf/sample-code/featurelayergeodatabase.htm",
+        "/net/wpf/sample-code/featurelayershapefile.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "GeoPackageFeatureTable",
+        "Geodatabase",
+        "PortalItem",
+        "ServiceFeatureTable",
+        "ShapefileFeatureTable"
+    ],
+    "snippets": [
+        "DisplayFeatureLayers.xaml",
+        "DisplayFeatureLayers.xaml.cs"
+    ],
+    "title": "Display feature layers"
 }

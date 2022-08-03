@@ -1,28 +1,28 @@
 {
-  "category": "Layers",
-  "description": "Display a WMS layer using a WMS service URL.",
-  "formal_name": "WMSLayerUrl",
-  "ignore": false,
-  "images": [
-    "WMSLayerUrl.jpg"
-  ],
-  "keywords": [
-    "OGC",
-    "WmsLayer",
-    "web map service"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/wmslayerurl.htm"
-  ],
-  "relevant_apis": [
-    "Map",
-    "MapView",
-    "WmsLayer"
-  ],
-  "snippets": [
-    "WMSLayerUrl.xaml",
-    "WMSLayerUrl.xaml.cs"
-  ],
-  "title": "WMS layer (URL)"
+    "category": "Layers",
+    "description": "Display a WMS layer using a WMS service URL.",
+    "formal_name": "WMSLayerUrl",
+    "ignore": false,
+    "images": [
+        "WMSLayerUrl.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "WmsLayer",
+        "web map service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/wmslayerurl.htm"
+    ],
+    "relevant_apis": [
+        "Map",
+        "MapView",
+        "WmsLayer"
+    ],
+    "snippets": [
+        "WMSLayerUrl.xaml",
+        "WMSLayerUrl.xaml.cs"
+    ],
+    "title": "WMS layer (URL)"
 }

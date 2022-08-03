@@ -1,27 +1,27 @@
 {
-  "category": "Map",
-  "description": "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
-  "formal_name": "ChangeBasemap",
-  "ignore": false,
-  "images": [
-    "ChangeBasemap.jpg"
-  ],
-  "keywords": [
-    "basemap",
-    "map"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/changebasemap.htm"
-  ],
-  "relevant_apis": [
-    "Basemap",
-    "Map",
-    "MapView"
-  ],
-  "snippets": [
-    "ChangeBasemap.xaml",
-    "ChangeBasemap.xaml.cs"
-  ],
-  "title": "Change basemap"
+    "category": "Map",
+    "description": "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
+    "formal_name": "ChangeBasemap",
+    "ignore": false,
+    "images": [
+        "ChangeBasemap.jpg"
+    ],
+    "keywords": [
+        "basemap",
+        "map"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/changebasemap.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "ChangeBasemap.xaml",
+        "ChangeBasemap.xaml.cs"
+    ],
+    "title": "Change basemap"
 }

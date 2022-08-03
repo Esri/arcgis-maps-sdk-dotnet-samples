@@ -1,34 +1,34 @@
 {
-  "category": "Geometry",
-  "description": "Project a point from one spatial reference to another.",
-  "formal_name": "Project",
-  "ignore": false,
-  "images": [
-    "Project.jpg"
-  ],
-  "keywords": [
-    "WGS 84",
-    "Web Mercator",
-    "coordinate system",
-    "coordinates",
-    "latitude",
-    "longitude",
-    "projected",
-    "projection",
-    "spatial reference"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/project.htm"
-  ],
-  "relevant_apis": [
-    "GeometryEngine",
-    "Point",
-    "SpatialReference"
-  ],
-  "snippets": [
-    "Project.xaml",
-    "Project.xaml.cs"
-  ],
-  "title": "Project"
+    "category": "Geometry",
+    "description": "Project a point from one spatial reference to another.",
+    "formal_name": "Project",
+    "ignore": false,
+    "images": [
+        "Project.jpg"
+    ],
+    "keywords": [
+        "WGS 84",
+        "Web Mercator",
+        "coordinate system",
+        "coordinates",
+        "latitude",
+        "longitude",
+        "projected",
+        "projection",
+        "spatial reference"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/project.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine",
+        "Point",
+        "SpatialReference"
+    ],
+    "snippets": [
+        "Project.xaml",
+        "Project.xaml.cs"
+    ],
+    "title": "Project"
 }

@@ -1,33 +1,33 @@
 {
-  "category": "Layers",
-  "description": "Create a feature collection layer from a portal item.",
-  "formal_name": "FeatureCollectionLayerFromPortal",
-  "ignore": false,
-  "images": [
-    "FeatureCollectionLayerFromPortal.jpg"
-  ],
-  "keywords": [
-    "collection",
-    "feature collection",
-    "feature collection layer",
-    "id",
-    "item",
-    "map notes",
-    "portal"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/featurecollectionlayerfromportal.htm"
-  ],
-  "relevant_apis": [
-    "FeatureCollection",
-    "FeatureCollectionLayer",
-    "Portal",
-    "PortalItem"
-  ],
-  "snippets": [
-    "FeatureCollectionLayerFromPortal.xaml",
-    "FeatureCollectionLayerFromPortal.xaml.cs"
-  ],
-  "title": "Create feature collection layer (Portal item)"
+    "category": "Layers",
+    "description": "Create a feature collection layer from a portal item.",
+    "formal_name": "FeatureCollectionLayerFromPortal",
+    "ignore": false,
+    "images": [
+        "FeatureCollectionLayerFromPortal.jpg"
+    ],
+    "keywords": [
+        "collection",
+        "feature collection",
+        "feature collection layer",
+        "id",
+        "item",
+        "map notes",
+        "portal"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/featurecollectionlayerfromportal.htm"
+    ],
+    "relevant_apis": [
+        "FeatureCollection",
+        "FeatureCollectionLayer",
+        "Portal",
+        "PortalItem"
+    ],
+    "snippets": [
+        "FeatureCollectionLayerFromPortal.xaml",
+        "FeatureCollectionLayerFromPortal.xaml.cs"
+    ],
+    "title": "Create feature collection layer (Portal item)"
 }

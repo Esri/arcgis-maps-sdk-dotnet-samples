@@ -1,44 +1,44 @@
 {
-  "category": "GraphicsOverlay",
-  "description": "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
-  "formal_name": "Animate3DGraphic",
-  "ignore": false,
-  "images": [
-    "Animate3DGraphic.jpg"
-  ],
-  "keywords": [
-    "Camera",
-    "ModelSceneSymbol",
-    "OrbitGeoElementCameraController",
-    "RendererSceneProperties",
-    "SceneView"
-  ],
-  "offline_data": [
-    "681d6f7694644709a7c830ec57a2d72b",
-    "290f0c571c394461a8b58b6775d0bd63",
-    "e87c154fb9c2487f999143df5b08e9b1",
-    "5a9b60cee9ba41e79640a06bcdf8084d",
-    "12509ffdc684437f8f2656b0129d2c13"
-  ],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/animate3dgraphic.htm"
-  ],
-  "relevant_apis": [
-    "Camera",
-    "GlobeCameraController",
-    "Graphic",
-    "GraphicsOverlay",
-    "ModelSceneSymbol",
-    "OrbitGeoElementCameraController",
-    "Renderer",
-    "Scene",
-    "SceneProperties",
-    "SceneView",
-    "SurfacePlacement"
-  ],
-  "snippets": [
-    "Animate3DGraphic.xaml",
-    "Animate3DGraphic.xaml.cs"
-  ],
-  "title": "Animate 3D graphic"
+    "category": "GraphicsOverlay",
+    "description": "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
+    "formal_name": "Animate3DGraphic",
+    "ignore": false,
+    "images": [
+        "Animate3DGraphic.jpg"
+    ],
+    "keywords": [
+        "Camera",
+        "ModelSceneSymbol",
+        "OrbitGeoElementCameraController",
+        "RendererSceneProperties",
+        "SceneView"
+    ],
+    "offline_data": [
+        "681d6f7694644709a7c830ec57a2d72b",
+        "290f0c571c394461a8b58b6775d0bd63",
+        "e87c154fb9c2487f999143df5b08e9b1",
+        "5a9b60cee9ba41e79640a06bcdf8084d",
+        "12509ffdc684437f8f2656b0129d2c13"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/animate3dgraphic.htm"
+    ],
+    "relevant_apis": [
+        "Camera",
+        "GlobeCameraController",
+        "Graphic",
+        "GraphicsOverlay",
+        "ModelSceneSymbol",
+        "OrbitGeoElementCameraController",
+        "Renderer",
+        "Scene",
+        "SceneProperties",
+        "SceneView",
+        "SurfacePlacement"
+    ],
+    "snippets": [
+        "Animate3DGraphic.xaml",
+        "Animate3DGraphic.xaml.cs"
+    ],
+    "title": "Animate 3D graphic"
 }

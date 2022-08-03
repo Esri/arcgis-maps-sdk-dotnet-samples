@@ -1,29 +1,29 @@
 {
-  "category": "Map",
-  "description": "Access and create bookmarks on a map.",
-  "formal_name": "ManageBookmarks",
-  "ignore": false,
-  "images": [
-    "ManageBookmarks.jpg"
-  ],
-  "keywords": [
-    "bookmark",
-    "extent",
-    "location",
-    "zoom"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/managebookmarks.htm"
-  ],
-  "relevant_apis": [
-    "Bookmark",
-    "BookmarkList",
-    "Viewpoint"
-  ],
-  "snippets": [
-    "ManageBookmarks.xaml",
-    "ManageBookmarks.xaml.cs"
-  ],
-  "title": "Manage bookmarks"
+    "category": "Map",
+    "description": "Access and create bookmarks on a map.",
+    "formal_name": "ManageBookmarks",
+    "ignore": false,
+    "images": [
+        "ManageBookmarks.jpg"
+    ],
+    "keywords": [
+        "bookmark",
+        "extent",
+        "location",
+        "zoom"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/managebookmarks.htm"
+    ],
+    "relevant_apis": [
+        "Bookmark",
+        "BookmarkList",
+        "Viewpoint"
+    ],
+    "snippets": [
+        "ManageBookmarks.xaml",
+        "ManageBookmarks.xaml.cs"
+    ],
+    "title": "Manage bookmarks"
 }

@@ -1,34 +1,34 @@
 {
-  "category": "MapView",
-  "description": "Set the map view to a new viewpoint.",
-  "formal_name": "ChangeViewpoint",
-  "ignore": false,
-  "images": [
-    "ChangeViewpoint.jpg"
-  ],
-  "keywords": [
-    "animate",
-    "extent",
-    "pan",
-    "rotate",
-    "scale",
-    "view",
-    "zoom"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/changeviewpoint.htm"
-  ],
-  "relevant_apis": [
-    "Geometry",
-    "Map",
-    "MapView",
-    "Point",
-    "Viewpoint"
-  ],
-  "snippets": [
-    "ChangeViewpoint.xaml",
-    "ChangeViewpoint.xaml.cs"
-  ],
-  "title": "Change viewpoint"
+    "category": "MapView",
+    "description": "Set the map view to a new viewpoint.",
+    "formal_name": "ChangeViewpoint",
+    "ignore": false,
+    "images": [
+        "ChangeViewpoint.jpg"
+    ],
+    "keywords": [
+        "animate",
+        "extent",
+        "pan",
+        "rotate",
+        "scale",
+        "view",
+        "zoom"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/changeviewpoint.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "Map",
+        "MapView",
+        "Point",
+        "Viewpoint"
+    ],
+    "snippets": [
+        "ChangeViewpoint.xaml",
+        "ChangeViewpoint.xaml.cs"
+    ],
+    "title": "Change viewpoint"
 }

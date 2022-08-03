@@ -1,29 +1,29 @@
 {
-  "category": "Analysis",
-  "description": "Measure distances between two points in 3D.",
-  "formal_name": "DistanceMeasurement",
-  "ignore": false,
-  "images": [
-    "DistanceMeasurement.jpg"
-  ],
-  "keywords": [
-    "3D",
-    "analysis",
-    "distance",
-    "measure"
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/distancemeasurement.htm"
-  ],
-  "relevant_apis": [
-    "AnalysisOverlay",
-    "LocationDistanceMeasurement",
-    "LocationDistanceMeasurement.MeasurementChanged"
-  ],
-  "snippets": [
-    "DistanceMeasurement.xaml",
-    "DistanceMeasurement.xaml.cs"
-  ],
-  "title": "Distance measurement analysis"
+    "category": "Analysis",
+    "description": "Measure distances between two points in 3D.",
+    "formal_name": "DistanceMeasurement",
+    "ignore": false,
+    "images": [
+        "DistanceMeasurement.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "analysis",
+        "distance",
+        "measure"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/distancemeasurement.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "LocationDistanceMeasurement",
+        "LocationDistanceMeasurement.MeasurementChanged"
+    ],
+    "snippets": [
+        "DistanceMeasurement.xaml",
+        "DistanceMeasurement.xaml.cs"
+    ],
+    "title": "Distance measurement analysis"
 }

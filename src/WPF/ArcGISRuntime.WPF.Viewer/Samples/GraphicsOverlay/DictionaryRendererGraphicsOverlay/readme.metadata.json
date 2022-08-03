@@ -1,32 +1,32 @@
 {
-  "category": "GraphicsOverlay",
-  "description": "Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.",
-  "formal_name": "DictionaryRendererGraphicsOverlay",
-  "ignore": false,
-  "images": [
-    "DictionaryRendererGraphicsOverlay.jpg"
-  ],
-  "keywords": [
-    "defense",
-    "military",
-    "situational awareness",
-    "tactical",
-    "visualization"
-  ],
-  "offline_data": [
-    "8776cfc26eed4485a03de6316826384c"
-  ],
-  "redirect_from": [
-    "/net/latest/wpf/sample-code/dictionaryrenderergraphicsoverlay.htm"
-  ],
-  "relevant_apis": [
-    "DictionaryRenderer",
-    "DictionarySymbolStyle",
-    "GraphicsOverlay"
-  ],
-  "snippets": [
-    "DictionaryRendererGraphicsOverlay.xaml",
-    "DictionaryRendererGraphicsOverlay.xaml.cs"
-  ],
-  "title": "Dictionary renderer with graphics overlay"
+    "category": "GraphicsOverlay",
+    "description": "Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.",
+    "formal_name": "DictionaryRendererGraphicsOverlay",
+    "ignore": false,
+    "images": [
+        "DictionaryRendererGraphicsOverlay.jpg"
+    ],
+    "keywords": [
+        "defense",
+        "military",
+        "situational awareness",
+        "tactical",
+        "visualization"
+    ],
+    "offline_data": [
+        "8776cfc26eed4485a03de6316826384c"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/dictionaryrenderergraphicsoverlay.htm"
+    ],
+    "relevant_apis": [
+        "DictionaryRenderer",
+        "DictionarySymbolStyle",
+        "GraphicsOverlay"
+    ],
+    "snippets": [
+        "DictionaryRendererGraphicsOverlay.xaml",
+        "DictionaryRendererGraphicsOverlay.xaml.cs"
+    ],
+    "title": "Dictionary renderer with graphics overlay"
 }

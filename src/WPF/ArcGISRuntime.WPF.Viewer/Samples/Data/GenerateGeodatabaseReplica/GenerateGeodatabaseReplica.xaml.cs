@@ -16,25 +16,25 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using Esri.ArcGISRuntime.ArcGISServices;
-using Xamarin.Forms;
-using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.GenerateGeodatabase
+namespace ArcGISRuntime.WPF.Samples.GenerateGeodatabaseReplica
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Generate geodatabase",
+        name: "Generate geodatabase replica from feature service",
         category: "Data",
         description: "Generate a local geodatabase from an online feature service.",
-        instructions: "Zoom to any extent. Then tap the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
-        tags: new[] { "disconnected", "local geodatabase", "offline", "sync" })]
+        instructions: "Zoom to any extent. Then click the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
+        tags: new[] { "disconnected", "local geodatabase", "offline", "replica", "sync" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
-    public partial class GenerateGeodatabase : ContentPage
+    public partial class GenerateGeodatabaseReplica
     {
-        // URL for a feature service that supports geodatabase generation.
+        // URI for a feature service that supports geodatabase generation.
         private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
 
         // Path to the geodatabase file on disk.
@@ -44,9 +44,9 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private GeodatabaseSyncTask _gdbSyncTask;
 
         // Job used to generate the geodatabase.
-        private GenerateGeodatabaseJob _generateGdbJob;
+        private GenerateGeodatabaseReplicaJob _generateGdbJob;
 
-        public GenerateGeodatabase()
+        public GenerateGeodatabaseReplica()
         {
             InitializeComponent();
 
@@ -58,23 +58,23 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         {
             try
             {
-                // Create a tile cache and load it with the SanFrancisco streets tpk.
-                TileCache _tileCache = new TileCache(DataManager.GetDataFolder("e4a398afe9a945f3b0f4dca1e4faccb5", "SanFrancisco.tpkx"));
+                // Create a tile cache from a locally downloaded file.
+                TileCache tileCache = new TileCache(DataManager.GetDataFolder("e4a398afe9a945f3b0f4dca1e4faccb5", "SanFrancisco.tpkx"));
 
                 // Create the corresponding layer based on the tile cache.
-                ArcGISTiledLayer _tileLayer = new ArcGISTiledLayer(_tileCache);
+                ArcGISTiledLayer tileLayer = new ArcGISTiledLayer(tileCache);
 
                 // Create the basemap based on the tile cache.
-                Basemap _sfBasemap = new Basemap(_tileLayer);
+                Basemap sfBasemap = new Basemap(tileLayer);
 
                 // Create the map with the tile-based basemap.
-                Map myMap = new Map(_sfBasemap);
+                Map myMap = new Map(sfBasemap);
 
                 // Assign the map to the MapView.
-                myMapView.Map = myMap;
+                MyMapView.Map = myMap;
 
                 // Create a new symbol for the extent graphic.
-                SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
+                SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Red, 2);
 
                 // Create graphics overlay for the extent graphic and apply a renderer.
                 GraphicsOverlay extentOverlay = new GraphicsOverlay
@@ -83,10 +83,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 };
 
                 // Add graphics overlay to the map view.
-                myMapView.GraphicsOverlays.Add(extentOverlay);
+                MyMapView.GraphicsOverlays.Add(extentOverlay);
 
                 // Set up an event handler for when the viewpoint (extent) changes.
-                myMapView.ViewpointChanged += MapViewExtentChanged;
+                MyMapView.ViewpointChanged += UpdateMapExtent;
 
                 // Create a task for generating a geodatabase (GeodatabaseSyncTask).
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -94,7 +94,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 // Add all graphics from the service to the map.
                 foreach (IdInfo layer in _gdbSyncTask.ServiceInfo.LayerInfos)
                 {
-                    // Create the ServiceFeatureTable for this particular layer.
+                    // Create the ServiceFeatureTable for this layer.
                     ServiceFeatureTable onlineTable = new ServiceFeatureTable(new Uri(_featureServiceUri + "/" + layer.Id));
 
                     // Wait for the table to load.
@@ -108,24 +108,24 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
                 }
 
                 // Update the graphic - needed in case the user decides not to interact before pressing the button.
-                UpdateMapExtent();
+                UpdateMapExtent(null, null);
 
-                // Enable the generate button now that the sample is ready.
-                myGenerateButton.IsEnabled = true;
+                // Enable the generate button.
+                MyGenerateButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                MessageBox.Show(ex.ToString());
             }
         }
 
-        private void UpdateMapExtent()
+        private void UpdateMapExtent(Object sender, EventArgs e)
         {
             // Return if mapview is null.
-            if (myMapView == null) { return; }
+            if (MyMapView == null) { return; }
 
             // Get the new viewpoint.
-            Viewpoint myViewPoint = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            Viewpoint myViewPoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Return if viewpoint is null.
             if (myViewPoint == null) { return; }
@@ -141,7 +141,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            GraphicsOverlay extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -157,27 +157,24 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             }
             else
             {
-                // Otherwise, update the graphic's geometry.
+                // Otherwise, simply update the graphic's geometry.
                 extentGraphic.Geometry = envelopeBldr.ToGeometry();
             }
         }
 
         private async Task StartGeodatabaseGeneration()
         {
-            // Update the geodatabase path.
-            _gdbPath = $"{Path.GetTempFileName()}.geodatabase";
-
             // Create a task for generating a geodatabase (GeodatabaseSyncTask).
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the current extent of the red preview box.
-            Envelope extent = myMapView.GraphicsOverlays[0].Graphics.First().Geometry as Envelope;
+            Envelope extent = MyMapView.GraphicsOverlays.First().Graphics.First().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task.
-            GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
+            GenerateGeodatabaseReplicaParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseReplicaParametersAsync(extent);
 
             // Create a generate geodatabase job.
-            _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
+            _generateGdbJob = _gdbSyncTask.GenerateGeodatabaseReplica(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
             _generateGdbJob.ProgressChanged += (sender, e) =>
@@ -186,7 +183,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             };
 
             // Show the progress bar.
-            myProgressBar.IsVisible = true;
+            MyProgressBar.Visibility = Visibility.Visible;
 
             // Start the job.
             _generateGdbJob.Start();
@@ -195,93 +192,85 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             Geodatabase resultGdb = await _generateGdbJob.GetResultAsync();
 
             // Hide the progress bar.
-            myProgressBar.IsVisible = false;
+            MyProgressBar.Visibility = Visibility.Hidden;
 
             // Do the rest of the work.
-            await HandleGenerationStatusChange(_generateGdbJob, resultGdb);
+            await HandleGenerationCompleted(resultGdb);
         }
 
-        private async Task HandleGenerationStatusChange(GenerateGeodatabaseJob job, Geodatabase resultGdb)
+        private async Task HandleGenerationCompleted(Geodatabase resultGdb)
         {
-            // If the job completed successfully, add the geodatabase data to the map.
-            if (job.Status == JobStatus.Succeeded)
+            // If the job completed successfully, add the geodatabase data to the map,
+            // removing the version from the service.
+            if (_generateGdbJob.Status == JobStatus.Succeeded)
             {
-                // Clear out the existing layers.
-                myMapView.Map.OperationalLayers.Clear();
+                MyMapView.Map.OperationalLayers.Clear();
 
                 // Loop through all feature tables in the geodatabase and add a new layer to the map.
                 foreach (GeodatabaseFeatureTable table in resultGdb.GeodatabaseFeatureTables)
                 {
                     // Create a new feature layer for the table.
-                    FeatureLayer _layer = new FeatureLayer(table);
+                    FeatureLayer layer = new FeatureLayer(table);
 
                     // Add the new layer to the map.
-                    myMapView.Map.OperationalLayers.Add(_layer);
+                    MyMapView.Map.OperationalLayers.Add(layer);
                 }
                 // Best practice is to unregister the geodatabase.
                 await _gdbSyncTask.UnregisterGeodatabaseAsync(resultGdb);
 
                 // Tell the user that the geodatabase was unregistered.
-                await Application.Current.MainPage.DisplayAlert("Alert", "Since no edits will be made, the local geodatabase has been unregistered per best practice.", "OK");
-
-                // Re-enable generate button.
-                myGenerateButton.IsEnabled = true;
+                MessageBox.Show("Since no edits will be made, the local geodatabase has been unregistered per best practice.");
             }
-
-            // See if the job failed.
-            if (job.Status == JobStatus.Failed)
+            else
             {
                 // Create a message to show the user.
                 string message = "Generate geodatabase job failed";
 
                 // Show an error message (if there is one).
-                if (job.Error != null)
+                if (_generateGdbJob.Error != null)
                 {
-                    message += ": " + job.Error.Message;
+                    message += ": " + _generateGdbJob.Error.Message;
                 }
                 else
                 {
-                    // If no error, show messages from the job.
-                    message += ": " + String.Join("\n", job.Messages.Select(m => m.Message));
+                    // If no error, show messages from the _generateGdbJob.
+                    message += ": " + string.Join("\n", _generateGdbJob.Messages.Select(m => m.Message));
                 }
 
-                await Application.Current.MainPage.DisplayAlert("Alert", message, "OK");
+                MessageBox.Show(message);
             }
         }
 
-        private async void GenerateButton_Clicked(object sender, EventArgs e)
+        private async void GenerateButton_Clicked(object sender, RoutedEventArgs e)
         {
             // Fix the extent of the graphic.
-            myMapView.ViewpointChanged -= MapViewExtentChanged;
+            MyMapView.ViewpointChanged -= UpdateMapExtent;
 
-            // Disable the generate button.
+            // Update the geodatabase path for the new run.
             try
             {
-                myGenerateButton.IsEnabled = false;
+                _gdbPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".geodatabase");
 
-                // Call the geodatabase generation method.
+                // Prevent the user from clicking twice - errors happen.
+                MyGenerateButton.IsEnabled = false;
+
+                // Call the cross-platform geodatabase generation method.
                 await StartGeodatabaseGeneration();
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                MessageBox.Show(ex.ToString());
             }
-        }
-
-        private void MapViewExtentChanged(object sender, EventArgs e)
-        {
-            // Call the map extent update method.
-            UpdateMapExtent();
         }
 
         private void UpdateProgressBar()
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
-            Device.BeginInvokeOnMainThread(() =>
+            Dispatcher.Invoke(() =>
             {
                 // Update the progress bar value.
-                myProgressBar.Progress = _generateGdbJob.Progress / 100.0;
+                MyProgressBar.Value = _generateGdbJob.Progress / 1.0;
             });
         }
     }

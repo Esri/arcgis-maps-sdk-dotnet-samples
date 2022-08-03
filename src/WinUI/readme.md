@@ -21,7 +21,7 @@
 * [Edit features with feature-linked annotation](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
 * [Edit with branch versioning](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
 * [Feature layer query](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.
-* [Generate geodatabase](ArcGISRuntime.WinUI.Viewer/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
+* [Generate geodatabase replica from feature service](ArcGISRuntime.WinUI.Viewer/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WinUI.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WinUI.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
 * [Query features with Arcade expression](ArcGISRuntime.WinUI.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.

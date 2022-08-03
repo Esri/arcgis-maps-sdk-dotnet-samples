@@ -1,17 +1,19 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.GenerateGeodatabase.GenerateGeodatabase"
+<UserControl x:Class="ArcGISRuntime.WinUI.Samples.GenerateGeodatabase.GenerateGeodatabase"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <esri:MapView x:Name="MyMapView" />
+        <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <Button x:Name="MyGenerateButton"
+                <Button x:Name="GenerateButton"
+                        HorizontalAlignment="Stretch"
                         Click="GenerateButton_Clicked"
-                        Content="Generate Geodatabase"
+                        Content="Generate geodatabase"
                         IsEnabled="False" />
-                <ProgressBar x:Name="MyProgressBar"
+                <ProgressBar x:Name="GenerateProgressBar"
                              MinHeight="10"
+                             Margin="0,5,0,0"
                              Visibility="Collapsed" />
             </StackPanel>
         </Border>

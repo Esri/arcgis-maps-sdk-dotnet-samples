@@ -1,0 +1,32 @@
+{
+    "category": "Data",
+    "description": "Generate a local geodatabase from an online feature service.",
+    "formal_name": "GenerateGeodatabaseReplica",
+    "ignore": false,
+    "images": [
+        "GenerateGeodatabaseReplica.jpg"
+    ],
+    "keywords": [
+        "disconnected",
+        "local geodatabase",
+        "offline",
+        "replica",
+        "sync"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/generategeodatabasereplica.htm",
+        "/net/wpf/sample-code/generategeodatabase.htm"
+    ],
+    "relevant_apis": [
+        "GenerateGeodatabaseReplicaJob",
+        "GenerateGeodatabaseReplicaParameters",
+        "Geodatabase",
+        "GeodatabaseSyncTask"
+    ],
+    "snippets": [
+        "GenerateGeodatabaseReplica.xaml",
+        "GenerateGeodatabaseReplica.xaml.cs"
+    ],
+    "title": "Generate geodatabase replica from feature service"
+}

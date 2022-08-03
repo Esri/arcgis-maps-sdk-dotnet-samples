@@ -23,16 +23,16 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.GenerateGeodatabase
+namespace ArcGISRuntime.Samples.GenerateGeodatabaseReplica
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Generate geodatabase",
+        name: "Generate geodatabase replica from feature service",
         category: "Data",
         description: "Generate a local geodatabase from an online feature service.",
         instructions: "Zoom to any extent. Then tap the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
-        tags: new[] { "disconnected", "local geodatabase", "offline", "sync" })]
+        tags: new[] { "disconnected", "local geodatabase", "offline", "replica", "sync" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
-    public partial class GenerateGeodatabase : ContentPage
+    public partial class GenerateGeodatabaseReplica : ContentPage
     {
         // URL for a feature service that supports geodatabase generation.
         private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
@@ -44,9 +44,9 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
         private GeodatabaseSyncTask _gdbSyncTask;
 
         // Job used to generate the geodatabase.
-        private GenerateGeodatabaseJob _generateGdbJob;
+        private GenerateGeodatabaseReplicaJob _generateGdbJob;
 
-        public GenerateGeodatabase()
+        public GenerateGeodatabaseReplica()
         {
             InitializeComponent();
 
@@ -174,10 +174,10 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             Envelope extent = myMapView.GraphicsOverlays[0].Graphics.First().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task.
-            GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
+            GenerateGeodatabaseReplicaParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseReplicaParametersAsync(extent);
 
             // Create a generate geodatabase job.
-            _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
+            _generateGdbJob = _gdbSyncTask.GenerateGeodatabaseReplica(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
             _generateGdbJob.ProgressChanged += (sender, e) =>
@@ -201,7 +201,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabase
             await HandleGenerationStatusChange(_generateGdbJob, resultGdb);
         }
 
-        private async Task HandleGenerationStatusChange(GenerateGeodatabaseJob job, Geodatabase resultGdb)
+        private async Task HandleGenerationStatusChange(GenerateGeodatabaseReplicaJob job, Geodatabase resultGdb)
         {
             // If the job completed successfully, add the geodatabase data to the map.
             if (job.Status == JobStatus.Succeeded)

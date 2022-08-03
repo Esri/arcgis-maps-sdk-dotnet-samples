@@ -5,9 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <TextBlock Text="Tap to select features."
-                       TextAlignment="Center"
-                       FontWeight="SemiBold" />
+            <TextBlock FontWeight="SemiBold"
+                       Text="Tap to select features."
+                       TextAlignment="Center" />
         </Border>
     </Grid>
 </UserControl>

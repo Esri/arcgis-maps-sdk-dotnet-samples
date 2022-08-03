@@ -6,13 +6,15 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Tap a park (green) to see related features."
-                           TextAlignment="Center" FontWeight="SemiBold"
-                           Margin="0,0,0,10" />
+                <TextBlock Margin="0,0,0,10"
+                           FontWeight="SemiBold"
+                           Text="Tap a park (green) to see related features."
+                           TextAlignment="Center" />
                 <ProgressBar x:Name="LoadingProgress"
-                             IsIndeterminate="True"
                              Height="15"
-                             Margin="0,0,0,10" Visibility="Visible" />
+                             Margin="0,0,0,10"
+                             IsIndeterminate="True"
+                             Visibility="Visible" />
                 <ListView x:Name="MyResultsView"
                           MaxHeight="300"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">

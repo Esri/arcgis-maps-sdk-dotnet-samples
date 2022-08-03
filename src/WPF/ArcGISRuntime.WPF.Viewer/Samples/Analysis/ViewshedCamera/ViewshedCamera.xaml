@@ -6,8 +6,8 @@
         <esri:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">
             <Button x:Name="UpdateObserverButton"
-                    Content="Viewshed from here"
-                    Click="UpdateObserverWithCamera" />
+                    Click="UpdateObserverWithCamera"
+                    Content="Viewshed from here" />
         </Border>
     </Grid>
 </UserControl>

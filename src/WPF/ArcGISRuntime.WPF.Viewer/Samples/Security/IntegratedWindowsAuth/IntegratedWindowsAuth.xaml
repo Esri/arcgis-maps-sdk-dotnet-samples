@@ -9,7 +9,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Background="LightGray" BorderBrush="Black" BorderThickness="0,0,2,0">
+        <Border Grid.Column="0"
+                Background="LightGray"
+                BorderBrush="Black"
+                BorderThickness="0,0,2,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
@@ -18,41 +21,37 @@
                     <RowDefinition Height="50" />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <Button
-                    x:Name="SearchPublicMapsButton"
-                    Grid.Row="0"
-                    Width="265"
-                    Height="35"
-                    Margin="0,50,0,0"
-                    Click="SearchPublicMapsClick"
-                    Content="Search ArcGIS Online maps" />
+                <Button x:Name="SearchPublicMapsButton"
+                        Grid.Row="0"
+                        Width="265"
+                        Height="35"
+                        Margin="0,50,0,0"
+                        Click="SearchPublicMapsClick"
+                        Content="Search ArcGIS Online maps" />
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Button
-                        x:Name="SearchSecureMapsButton"
-                        Grid.Row="1"
-                        Width="265"
-                        Height="35"
-                        Click="SearchSecureMapsButtonClick"
-                        Content="Search IWA secured maps" />
-                    <TextBox
-                        x:Name="SecurePortalUrlTextBox"
-                        Grid.Row="0"
-                        Width="265"
-                        Height="20"
-                        Margin="0,5" />
-                    <TextBlock
-                        Grid.Row="0"
-                        Margin="50,5"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Foreground="DarkGray"
-                        IsHitTestVisible="False"
-                        Text="Enter the URL to your secured portal">
+                    <Button x:Name="SearchSecureMapsButton"
+                            Grid.Row="1"
+                            Width="265"
+                            Height="35"
+                            Click="SearchSecureMapsButtonClick"
+                            Content="Search IWA secured maps" />
+                    <TextBox x:Name="SecurePortalUrlTextBox"
+                             Grid.Row="0"
+                             Width="265"
+                             Height="20"
+                             Margin="0,5" />
+                    <TextBlock Grid.Row="0"
+                               Margin="50,5"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Center"
+                               Foreground="DarkGray"
+                               IsHitTestVisible="False"
+                               Text="Enter the URL to your secured portal">
                         <TextBlock.Style>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -64,33 +63,37 @@
                             </Style>
                         </TextBlock.Style>
                     </TextBlock>
-                    <CheckBox
-                        x:Name="RequireLoginCheckBox"
-                        Grid.Row="2"
-                        Margin="45,5"
-                        Content="Force login"
-                        IsChecked="False" />
+                    <CheckBox x:Name="RequireLoginCheckBox"
+                              Grid.Row="2"
+                              Margin="45,5"
+                              Content="Force login"
+                              IsChecked="False" />
                 </Grid>
-                <ListBox
-                    x:Name="MapItemListBox"
-                    Grid.Row="2"
-                    Width="265"
-                    Height="150"
-                    Margin="0,40,0,5"
-                    FontSize="12" />
-                <Button
-                    x:Name="AddMapItem"
-                    Grid.Row="3"
-                    Width="265"
-                    Height="35"
-                    Click="AddMapItemClick"
-                    Content="Load Web Map"
-                    IsEnabled="False" />
-                <StackPanel x:Name="MessagePanel" Grid.Row="4" Margin="10" Orientation="Vertical">
+                <ListBox x:Name="MapItemListBox"
+                         Grid.Row="2"
+                         Width="265"
+                         Height="150"
+                         Margin="0,40,0,5"
+                         FontSize="12" />
+                <Button x:Name="AddMapItem"
+                        Grid.Row="3"
+                        Width="265"
+                        Height="35"
+                        Click="AddMapItemClick"
+                        Content="Load Web Map"
+                        IsEnabled="False" />
+                <StackPanel x:Name="MessagePanel"
+                            Grid.Row="4"
+                            Margin="10"
+                            Orientation="Vertical">
                     <ScrollViewer>
-                        <TextBlock x:Name="MessagesTextBlock" Text="Using default system credentials." TextWrapping="Wrap" />
+                        <TextBlock x:Name="MessagesTextBlock"
+                                   Text="Using default system credentials."
+                                   TextWrapping="Wrap" />
                     </ScrollViewer>
-                    <ProgressBar x:Name="ProgressStatus" IsIndeterminate="True" Visibility="Collapsed" />
+                    <ProgressBar x:Name="ProgressStatus"
+                                 IsIndeterminate="True"
+                                 Visibility="Collapsed" />
                 </StackPanel>
             </Grid>
         </Border>

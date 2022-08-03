@@ -5,9 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <Label Content="Tap to identify features in all layers."
-                   FontWeight="SemiBold"
-                   HorizontalAlignment="Center" />
+            <Label HorizontalAlignment="Center"
+                   Content="Tap to identify features in all layers."
+                   FontWeight="SemiBold" />
         </Border>
     </Grid>
 </UserControl>

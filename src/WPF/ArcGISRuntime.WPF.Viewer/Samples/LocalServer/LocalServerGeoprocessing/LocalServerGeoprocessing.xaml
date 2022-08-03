@@ -17,35 +17,49 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock
-                    Text="Use the slider to select a contour interval (height difference between contour lines). Use the buttons to update or clear the contours."
-                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                    FontWeight="SemiBold" TextWrapping="Wrap" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           FontWeight="SemiBold"
+                           Text="Use the slider to select a contour interval (height difference between contour lines). Use the buttons to update or clear the contours."
+                           TextWrapping="Wrap" />
                 <ProgressBar x:Name="MyLoadingIndicator"
-                             Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                             Height="15" Margin="0,5,0,0"
+                             Grid.Row="1"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Height="15"
+                             Margin="0,5,0,0"
                              IsIndeterminate="True" />
                 <Slider x:Name="MyContourSlider"
-                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                        VerticalAlignment="Center" Margin="0,5,0,0"
-                        Minimum="50" Maximum="350" />
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,5,0,0"
+                        VerticalAlignment="Center"
+                        Maximum="350"
+                        Minimum="50" />
                 <TextBlock x:Name="MyContourDepthLabel"
-                           Grid.Row="2" Grid.Column="2"
-                           VerticalAlignment="Center" Margin="0,5,0,0"
-                           TextAlignment="Center"
-                           Text="{Binding Value, ElementName=MyContourSlider, StringFormat=N2}" />
+                           Grid.Row="2"
+                           Grid.Column="2"
+                           Margin="0,5,0,0"
+                           VerticalAlignment="Center"
+                           Text="{Binding Value, ElementName=MyContourSlider, StringFormat=N2}"
+                           TextAlignment="Center" />
                 <Button x:Name="MyUpdateContourButton"
-                        Grid.Row="3" Grid.Column="0"
-                        Content="Generate"
+                        Grid.Row="3"
+                        Grid.Column="0"
                         Margin="0,5,5,0"
-                        IsEnabled="False"
-                        Click="MyUpdateContourButton_OnClick" />
+                        Click="MyUpdateContourButton_OnClick"
+                        Content="Generate"
+                        IsEnabled="False" />
                 <Button x:Name="MyResetButton"
-                        Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
-                        Content="Reset"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
                         Margin="5,5,0,0"
-                        IsEnabled="False"
-                        Click="MyResetButton_OnClick" />
+                        Click="MyResetButton_OnClick"
+                        Content="Reset"
+                        IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>

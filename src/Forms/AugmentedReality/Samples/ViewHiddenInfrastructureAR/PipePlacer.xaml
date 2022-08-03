@@ -1,8 +1,7 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR.PipePlacer"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.ViewHiddenInfrastructureAR.PipePlacer"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -11,31 +10,28 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <esriUI:MapView
-                x:Name="MyMapView"
-                Grid.Row="0"
-                Grid.RowSpan="2" />
-            <Label
-                x:Name="HelpLabel"
-                Grid.Row="0"
-                BackgroundColor="#AA000000"
-                HorizontalOptions="FillAndExpand"
-                Text="Press the + button to start"
-                TextColor="White" />
+            <esriUI:MapView x:Name="MyMapView"
+                            Grid.Row="0"
+                            Grid.RowSpan="2" />
+            <Label x:Name="HelpLabel"
+                   Grid.Row="0"
+                   BackgroundColor="#AA000000"
+                   HorizontalOptions="FillAndExpand"
+                   Text="Press the + button to start"
+                   TextColor="White" />
             <Grid Grid.Row="2" HorizontalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Text="Elevation: " />
-                <Slider
-                    x:Name="ElevationSlider"
-                    Grid.Column="1"
-                    Maximum="10.0"
-                    Minimum="-10.0"
-                    Value="0.0"
-                    MinimumTrackColor="CadetBlue"
-                    MaximumTrackColor="CadetBlue" />
+                <Slider x:Name="ElevationSlider"
+                        Grid.Column="1"
+                        Maximum="10.0"
+                        MaximumTrackColor="CadetBlue"
+                        Minimum="-10.0"
+                        MinimumTrackColor="CadetBlue"
+                        Value="0.0" />
             </Grid>
             <Grid Grid.Row="3" HorizontalOptions="FillAndExpand">
                 <Grid.ColumnDefinitions>
@@ -45,35 +41,30 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button
-                    x:Name="AddButton"
-                    Grid.Column="0"
-                    Clicked="AddSketch"
-                    Text="&#xFF0B;" />
-                <Button
-                    x:Name="UndoButton"
-                    Grid.Column="1"
-                    Clicked="UndoClicked"
-                    IsEnabled="False"
-                    Text="&#x21B6;" />
-                <Button
-                    x:Name="RedoButton"
-                    Grid.Column="2"
-                    Clicked="RedoClicked"
-                    IsEnabled="False"
-                    Text="&#x21B7;" />
-                <Button
-                    x:Name="DoneButton"
-                    Grid.Column="3"
-                    Clicked="DoneClicked"
-                    IsEnabled="False"
-                    Text="&#x2713;" />
-                <Button
-                    x:Name="ViewButton"
-                    Grid.Column="4"
-                    Clicked="ViewClicked"
-                    IsEnabled="False"
-                    Text="View" />
+                <Button x:Name="AddButton"
+                        Grid.Column="0"
+                        Clicked="AddSketch"
+                        Text="&#xFF0B;" />
+                <Button x:Name="UndoButton"
+                        Grid.Column="1"
+                        Clicked="UndoClicked"
+                        IsEnabled="False"
+                        Text="&#x21B6;" />
+                <Button x:Name="RedoButton"
+                        Grid.Column="2"
+                        Clicked="RedoClicked"
+                        IsEnabled="False"
+                        Text="&#x21B7;" />
+                <Button x:Name="DoneButton"
+                        Grid.Column="3"
+                        Clicked="DoneClicked"
+                        IsEnabled="False"
+                        Text="&#x2713;" />
+                <Button x:Name="ViewButton"
+                        Grid.Column="4"
+                        Clicked="ViewClicked"
+                        IsEnabled="False"
+                        Text="View" />
             </Grid>
         </Grid>
     </Grid>

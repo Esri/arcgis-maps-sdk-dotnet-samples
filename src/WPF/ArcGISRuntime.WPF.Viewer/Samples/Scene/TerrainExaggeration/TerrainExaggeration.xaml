@@ -8,8 +8,11 @@
             <StackPanel>
                 <Label Content="Terrain exaggeration:" />
                 <Slider x:Name="TerrainSlider"
-                        Minimum="1" Value="1" Maximum="3"
-                        AutoToolTipPlacement="TopLeft" AutoToolTipPrecision="2" />
+                        AutoToolTipPlacement="TopLeft"
+                        AutoToolTipPrecision="2"
+                        Maximum="3"
+                        Minimum="1"
+                        Value="1" />
             </StackPanel>
         </Border>
     </Grid>

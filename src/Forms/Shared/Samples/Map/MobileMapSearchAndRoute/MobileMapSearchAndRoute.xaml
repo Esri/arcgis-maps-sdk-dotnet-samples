@@ -1,30 +1,29 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:ArcGISRuntimeXamarin.Converters;assembly=ArcGISRuntime"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:converters1="clr-namespace:Forms.Converters"
-             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
-             x:Class="ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <ContentPage.Resources>
         <converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters1:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
     </ContentPage.Resources>
     <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
-                <Label
-                    Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
-                    LineBreakMode="WordWrap" />
+                <Label LineBreakMode="WordWrap" Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout." />
                 <ListView x:Name="MapListView"
-                          ItemSelected="Map_Selected"
+                          Margin="0,5,0,0"
                           HeightRequest="150"
-                          RowHeight="50"
-                          Margin="0,5,0,0">
+                          ItemSelected="Map_Selected"
+                          RowHeight="50">
                     <ListView.ItemTemplate>
                         <DataTemplate x:DataType="mapping:Map">
                             <ViewCell>
@@ -34,17 +33,17 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0"
-                                           Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
+                                    <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
                                     <Image Grid.Column="1"
-                                           Source="{resources:ImageResource ArcGISRuntime.Resources.routingSymbol.png}"
-                                           HeightRequest="25" WidthRequest="25"
                                            Margin="5"
-                                           IsVisible="{Binding TransportationNetworks,Converter={StaticResource NullToVisibilityConverter}}" />
+                                           HeightRequest="25"
+                                           IsVisible="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}"
+                                           Source="{resources:ImageResource ArcGISRuntime.Resources.routingSymbol.png}"
+                                           WidthRequest="25" />
                                     <Label Grid.Column="2"
+                                           HorizontalTextAlignment="Start"
                                            Text="{Binding Item.Title}"
-                                           VerticalTextAlignment="Center"
-                                           HorizontalTextAlignment="Start" />
+                                           VerticalTextAlignment="Center" />
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

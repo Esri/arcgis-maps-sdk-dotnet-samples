@@ -7,16 +7,16 @@
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <StackPanel Orientation="Vertical">
-                    <Label Content="Tap features to select."
-                           HorizontalContentAlignment="Center"
+                    <Label HorizontalContentAlignment="Center"
+                           Content="Tap features to select."
                            FontWeight="SemiBold" />
                     <ListBox x:Name="AttachmentsListBox"
-                             IsEnabled="False"
                              MinHeight="100"
                              MaxHeight="300"
                              HorizontalContentAlignment="Stretch"
-                             Background="LightGray">
-                        <!-- ItemTemplate defines how each item (Attachment) is rendered. -->
+                             Background="LightGray"
+                             IsEnabled="False">
+                        <!--  ItemTemplate defines how each item (Attachment) is rendered.  -->
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -26,30 +26,31 @@
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
                                     <Label Content="{Binding Name}" />
-                                    <!-- DataTemplate sets the item as the button's DataContext automatically. -->
-                                    <Button Content="Download"
-                                            Grid.Column="1"
-                                            HorizontalAlignment="Right"
-                                            Padding="5" Margin="0,0,5,0"
-                                            Click="DownloadAttachment_Click" />
-                                    <Button Content="Delete"
-                                            Grid.Column="2"
-                                            HorizontalAlignment="Right"
+                                    <!--  DataTemplate sets the item as the button's DataContext automatically.  -->
+                                    <Button Grid.Column="1"
+                                            Margin="0,0,5,0"
                                             Padding="5"
-                                            Click="DeleteAttachment_Click" />
+                                            HorizontalAlignment="Right"
+                                            Click="DownloadAttachment_Click"
+                                            Content="Download" />
+                                    <Button Grid.Column="2"
+                                            Padding="5"
+                                            HorizontalAlignment="Right"
+                                            Click="DeleteAttachment_Click"
+                                            Content="Delete" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <Button x:Name="AddAttachmentButton"
-                            Content="Add attachment"
-                            IsEnabled="False"
                             Margin="0,5,0,5"
-                            Click="AddAttachment_Click" />
+                            Click="AddAttachment_Click"
+                            Content="Add attachment"
+                            IsEnabled="False" />
                     <ProgressBar x:Name="ActivityIndicator"
+                                 Height="15"
                                  IsIndeterminate="True"
-                                 Visibility="Collapsed"
-                                 Height="15" />
+                                 Visibility="Collapsed" />
                 </StackPanel>
             </Grid>
         </Border>

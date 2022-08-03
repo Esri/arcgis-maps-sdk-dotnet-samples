@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.BrowseWfsLayers.BrowseWfsLayers"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.BrowseWfsLayers.BrowseWfsLayers"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
 
-        <esriUI:MapView
-            x:Name="MyMapView"
-            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-            Style="{StaticResource MapWithFormStyle}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
 
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
@@ -24,62 +22,55 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Entry
-                    x:Name="ServiceTextBox"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    Margin="0,0,5,5">
+                <Entry x:Name="ServiceTextBox"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="0,0,5,5">
                     <Entry.TextColor>
                         <OnPlatform x:TypeArguments="Color">
                             <On Platform="Android" Value="Black" />
                         </OnPlatform>
                     </Entry.TextColor>
                 </Entry>
-                <Button
-                    x:Name="LoadServiceButton"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Margin="0,0,0,5"
-                    Padding="5,0,5,0"
-                    Clicked="LoadServiceButton_Click"
-                    Text="Load service" />
-                <ListView
-                    x:Name="WfsLayerList"
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    HeightRequest="150"
-                    SelectionMode="Single">
+                <Button x:Name="LoadServiceButton"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="0,0,0,5"
+                        Padding="5,0,5,0"
+                        Clicked="LoadServiceButton_Click"
+                        Text="Load service" />
+                <ListView x:Name="WfsLayerList"
+                          Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          HeightRequest="150"
+                          SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding Title}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <StackLayout
-                    Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    Margin="0,5,0,5"
-                    Orientation="Horizontal">
+                <StackLayout Grid.Row="2"
+                             Grid.ColumnSpan="2"
+                             Margin="0,5,0,5"
+                             Orientation="Horizontal">
                     <Switch x:Name="AxisOrderSwapCheckbox" VerticalOptions="Center" />
-                    <Label
-                        HorizontalOptions="End"
-                        Text="Swap coordinate order"
-                        VerticalOptions="Center" />
+                    <Label HorizontalOptions="End"
+                           Text="Swap coordinate order"
+                           VerticalOptions="Center" />
                 </StackLayout>
-                <Button
-                    x:Name="LoadLayersButton"
-                    Grid.Row="3"
-                    Grid.ColumnSpan="2"
-                    Clicked="LoadLayers_Clicked"
-                    IsEnabled="False"
-                    Text="Load selected layer" />
-                <ActivityIndicator
-                    x:Name="LoadingProgressBar"
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    IsEnabled="True"
-                    IsRunning="True"
-                    IsVisible="True" />
+                <Button x:Name="LoadLayersButton"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Clicked="LoadLayers_Clicked"
+                        IsEnabled="False"
+                        Text="Load selected layer" />
+                <ActivityIndicator x:Name="LoadingProgressBar"
+                                   Grid.Row="1"
+                                   Grid.ColumnSpan="2"
+                                   IsEnabled="True"
+                                   IsRunning="True"
+                                   IsVisible="True" />
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

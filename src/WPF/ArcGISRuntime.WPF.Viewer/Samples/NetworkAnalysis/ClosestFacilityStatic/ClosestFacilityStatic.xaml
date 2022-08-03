@@ -8,18 +8,18 @@
             <Border Style="{StaticResource BorderStyle}">
                 <StackPanel>
                     <Button x:Name="SolveRoutesButton"
-                        HorizontalAlignment="Stretch"
-                        Height="30"
-                        Margin="0,5"
-                        Content="Solve Routes"
-                        IsEnabled="False"
-                        Click="SolveRoutesClick" />
+                            Height="30"
+                            Margin="0,5"
+                            HorizontalAlignment="Stretch"
+                            Click="SolveRoutesClick"
+                            Content="Solve Routes"
+                            IsEnabled="False" />
                     <Button x:Name="ResetButton"
-                        HorizontalAlignment="Stretch"
-                        Height="30"
-                        Content="Reset"
-                        IsEnabled="False"
-                        Click="ResetClick" />
+                            Height="30"
+                            HorizontalAlignment="Stretch"
+                            Click="ResetClick"
+                            Content="Reset"
+                            IsEnabled="False" />
                 </StackPanel>
             </Border>
         </Grid>

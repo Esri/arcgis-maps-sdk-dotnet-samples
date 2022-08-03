@@ -1,14 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.DisplayDrawingStatus.DisplayDrawingStatus"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:sampleViewer="clr-namespace:Forms.Resources"
-             x:Class="ArcGISRuntime.Samples.DisplayDrawingStatus.DisplayDrawingStatus">
+             xmlns:sampleViewer="clr-namespace:Forms.Resources">
     <RelativeLayout>
-        <esriUI:MapView x:Name="myMapView" Style="{StaticResource MapWithFormStyle}" ViewInsets="0" />
+        <esriUI:MapView x:Name="myMapView"
+                        Style="{StaticResource MapWithFormStyle}"
+                        ViewInsets="0" />
         <sampleViewer:ResponsiveFormContainer x:Name="FormContainer">
             <StackLayout>
-                <Label Text="Pan and zoom to see drawing status changes." Style="{StaticResource LabelStyle}" />
+                <Label Style="{StaticResource LabelStyle}" Text="Pan and zoom to see drawing status changes." />
                 <ActivityIndicator x:Name="activityIndicator" Color="Black" />
             </StackLayout>
         </sampleViewer:ResponsiveFormContainer>

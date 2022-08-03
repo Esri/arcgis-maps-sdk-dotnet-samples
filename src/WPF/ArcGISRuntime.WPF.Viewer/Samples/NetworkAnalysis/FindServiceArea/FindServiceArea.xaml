@@ -18,27 +18,29 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Button Name="PlaceFacilityButton"
-                        Grid.Row="0" Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.Column="0"
                         Margin="5,5,5,5"
-                        Content="Place facility"
-                        Click="PlaceFacilityButton_Click" />
+                        Click="PlaceFacilityButton_Click"
+                        Content="Place facility" />
                 <Button Name="DrawBarrierButton"
-                        Grid.Row="0" Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.Column="1"
                         Margin="5,5,5,5"
-                        Content="Draw barrier"
-                        Click="DrawBarrierButton_Click" />
+                        Click="DrawBarrierButton_Click"
+                        Content="Draw barrier" />
                 <Button Name="ShowServiceAreasButton"
                         Grid.Row="3"
                         Grid.ColumnSpan="2"
                         Margin="5,5,5,5"
-                        Content="Show service areas"
-                        Click="ShowServiceAreasButton_Click" />
+                        Click="ShowServiceAreasButton_Click"
+                        Content="Show service areas" />
                 <Button Name="ResetButton"
                         Grid.Row="4"
                         Grid.ColumnSpan="2"
                         Margin="5,5,5,5"
-                        Content="Reset"
-                        Click="Reset_Click" />
+                        Click="Reset_Click"
+                        Content="Reset" />
             </Grid>
         </Border>
     </Grid>

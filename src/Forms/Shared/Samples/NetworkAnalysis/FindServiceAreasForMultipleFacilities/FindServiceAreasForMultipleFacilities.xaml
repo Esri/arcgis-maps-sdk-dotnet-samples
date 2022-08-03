@@ -1,7 +1,7 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities.FindServiceAreasForMultipleFacilities"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities.FindServiceAreasForMultipleFacilities">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -10,14 +10,13 @@
         </Grid.RowDefinitions>
         <Button x:Name="ServiceAreaButton"
                 Grid.Row="0"
+                Clicked="FindServiceArea_Clicked"
                 IsEnabled="False"
-                Text="Find service area"
-                Clicked="FindServiceArea_Clicked" />
+                Text="Find service area" />
         <ActivityIndicator x:Name="ProgressView"
                            Grid.Row="1"
                            IsRunning="True"
                            IsVisible="False" />
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="2" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
     </Grid>
 </ContentPage>

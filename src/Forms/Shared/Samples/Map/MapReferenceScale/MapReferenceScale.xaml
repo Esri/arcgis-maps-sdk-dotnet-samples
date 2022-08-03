@@ -1,35 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.MapReferenceScale.MapReferenceScale"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.MapReferenceScale.MapReferenceScale"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:MapView
-            x:Name="MyMapView"
-            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-            Style="{StaticResource MapWithFormStyle}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <StackLayout>
                 <Label Text="Choose a map reference scale:" />
                 <!--  When the user's selection changes, the SelectedItem binding will apply the value to the Map's ReferenceScale property.  -->
-                <Picker
-                    x:Name="ReferenceScaleBox"
-                    Margin="0,5,0,5"
-                    BindingContext="{x:Reference MyMapView}"
-                    ItemDisplayBinding="{Binding StringFormat='{0:n0}'}"
-                    SelectedItem="{Binding Path=Map.ReferenceScale}"
-                    TextColor="Black"
-                    VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="ReferenceScaleBox"
+                        Margin="0,5,0,5"
+                        BindingContext="{x:Reference MyMapView}"
+                        ItemDisplayBinding="{Binding StringFormat='{0:n0}'}"
+                        SelectedItem="{Binding Path=Map.ReferenceScale}"
+                        TextColor="Black"
+                        VerticalOptions="CenterAndExpand" />
                 <Label Text="Choose layers to apply scale to:" />
                 <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->
-                <ListView
-                    Margin="0,5,0,5"
-                    BindingContext="{x:Reference MyMapView}"
-                    HeightRequest="125"
-                    ItemsSource="{Binding Path=Map.OperationalLayers}"
-                    SelectionMode="None">
+                <ListView Margin="0,5,0,5"
+                          BindingContext="{x:Reference MyMapView}"
+                          HeightRequest="125"
+                          ItemsSource="{Binding Path=Map.OperationalLayers}"
+                          SelectionMode="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -39,11 +35,10 @@
                                 -->
                                 <StackLayout Orientation="Horizontal">
                                     <Switch IsToggled="{Binding ScaleSymbols}" VerticalOptions="Center" />
-                                    <Label
-                                        HorizontalOptions="EndAndExpand"
-                                        HorizontalTextAlignment="End"
-                                        Text="{Binding Name}"
-                                        VerticalOptions="Center" />
+                                    <Label HorizontalOptions="EndAndExpand"
+                                           HorizontalTextAlignment="End"
+                                           Text="{Binding Name}"
+                                           VerticalOptions="Center" />
                                 </StackLayout>
                             </ViewCell>
                         </DataTemplate>

@@ -7,9 +7,13 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Label Content="Heading:" />
-                <Slider x:Name="HeadingSlider" Minimum="0" Maximum="360" />
+                <Slider x:Name="HeadingSlider"
+                        Maximum="360"
+                        Minimum="0" />
                 <Label Content="Pitch:" />
-                <Slider x:Name="PitchSlider" Minimum="-90" Maximum="90" />
+                <Slider x:Name="PitchSlider"
+                        Maximum="90"
+                        Minimum="-90" />
             </StackPanel>
         </Border>
     </Grid>

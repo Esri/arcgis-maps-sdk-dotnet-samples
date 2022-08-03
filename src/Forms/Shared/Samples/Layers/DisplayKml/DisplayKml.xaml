@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.DisplayKml.DisplayKml"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.DisplayKml.DisplayKml"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -12,10 +11,9 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Label Grid.Row="0" Text="Choose a KML data source." />
-        <Picker
-            x:Name="LayerPicker"
-            Grid.Row="1"
-            VerticalOptions="CenterAndExpand" />
+        <Picker x:Name="LayerPicker"
+                Grid.Row="1"
+                VerticalOptions="CenterAndExpand" />
         <esriUI:SceneView x:Name="MySceneView" Grid.Row="2" />
     </Grid>
 </ContentPage>

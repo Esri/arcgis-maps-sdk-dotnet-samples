@@ -21,29 +21,38 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Layer display status"
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                           FontWeight="Bold" TextAlignment="Center" />
-                <!-- Field labels -->
-                <TextBlock Text="Tiled layer:"
-                           TextAlignment="Right"
-                           Grid.Row="1" Grid.Column="0" />
-                <TextBlock Text="Image layer:"
-                           TextAlignment="Right"
-                           Grid.Row="2" Grid.Column="0" />
-                <TextBlock Text="Feature layer:"
-                           TextAlignment="Right"
-                           Grid.Row="3" Grid.Column="0" />
-                <!-- Status labels -->
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           FontWeight="Bold"
+                           Text="Layer display status"
+                           TextAlignment="Center" />
+                <!--  Field labels  -->
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Tiled layer:"
+                           TextAlignment="Right" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Image layer:"
+                           TextAlignment="Right" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Feature layer:"
+                           TextAlignment="Right" />
+                <!--  Status labels  -->
                 <TextBlock x:Name="TiledLayerStatusLabel"
-                           FontWeight="SemiBold"
-                           Grid.Row="1" Grid.Column="1" />
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           FontWeight="SemiBold" />
                 <TextBlock x:Name="ImageLayerStatusLabel"
-                           FontWeight="SemiBold"
-                           Grid.Row="2" Grid.Column="1" />
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           FontWeight="SemiBold" />
                 <TextBlock x:Name="FeatureLayerStatusLabel"
-                           FontWeight="SemiBold"
-                           Grid.Row="3" Grid.Column="1" />
+                           Grid.Row="3"
+                           Grid.Column="1"
+                           FontWeight="SemiBold" />
             </Grid>
         </Border>
     </Grid>

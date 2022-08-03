@@ -1,16 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.WMTSLayer.WMTSLayer"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntime.Samples.WMTSLayer.WMTSLayer">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button x:Name="UriButton" Text="WMTSLayer via Uri" Clicked="UriButton_Click" Grid.Row="0" IsEnabled="false" />
-        <Button x:Name="InfoButton" Text="WMTSLayer via WmtsLayerInfo" Clicked="InfoButton_Click" Grid.Row="1" />
+        <Button x:Name="UriButton"
+                Grid.Row="0"
+                Clicked="UriButton_Click"
+                IsEnabled="false"
+                Text="WMTSLayer via Uri" />
+        <Button x:Name="InfoButton"
+                Grid.Row="1"
+                Clicked="InfoButton_Click"
+                Text="WMTSLayer via WmtsLayerInfo" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
     </Grid>
 </ContentPage>

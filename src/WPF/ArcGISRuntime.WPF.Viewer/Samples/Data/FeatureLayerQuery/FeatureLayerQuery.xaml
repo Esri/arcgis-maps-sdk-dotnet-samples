@@ -6,15 +6,17 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Enter a state name and click 'Query' to search."
-                           TextWrapping="Wrap" FontWeight="SemiBold" TextAlignment="Center" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="Enter a state name and click 'Query' to search."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
                 <TextBox x:Name="QueryEntry"
+                         Margin="0,5,0,0"
                          Text="New York"
-                         TextAlignment="Center"
-                         Margin="0,5,0,0" />
-                <Button Content="Query"
-                        Margin="0,5,0,0"
-                        Click="OnQueryClicked" />
+                         TextAlignment="Center" />
+                <Button Margin="0,5,0,0"
+                        Click="OnQueryClicked"
+                        Content="Query" />
             </StackPanel>
         </Border>
     </Grid>

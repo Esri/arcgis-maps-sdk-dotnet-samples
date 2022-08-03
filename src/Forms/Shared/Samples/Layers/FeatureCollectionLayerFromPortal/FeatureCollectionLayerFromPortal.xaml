@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal.FeatureCollectionLayerFromPortal"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal.FeatureCollectionLayerFromPortal">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -10,15 +10,14 @@
             <RowDefinition Height="40" />
             <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="0" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
         <Entry x:Name="CollectionItemIdTextBox"
-               Placeholder="Portal item Id"
                Grid.Row="1"
-               HorizontalOptions="Fill" />
+               HorizontalOptions="Fill"
+               Placeholder="Portal item Id" />
         <Button Grid.Row="2"
+                Clicked="OpenPortalFeatureCollectionClick"
                 HorizontalOptions="Fill"
-                Text="Open feature collection item"
-                Clicked="OpenPortalFeatureCollectionClick" />
+                Text="Open feature collection item" />
     </Grid>
 </ContentPage>

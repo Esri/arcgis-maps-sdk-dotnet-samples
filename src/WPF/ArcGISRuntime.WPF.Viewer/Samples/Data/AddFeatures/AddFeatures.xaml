@@ -5,9 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <Label Content="Tap to add features."
-                   FontWeight="SemiBold"
-                   HorizontalContentAlignment="Center" />
+            <Label HorizontalContentAlignment="Center"
+                   Content="Tap to add features."
+                   FontWeight="SemiBold" />
         </Border>
     </Grid>
 </UserControl>

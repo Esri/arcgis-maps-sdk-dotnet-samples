@@ -16,46 +16,54 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Slope type:"
-                           Grid.Row="0" Grid.Column="0"
-                           TextAlignment="Right" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Slope type:"
+                           TextAlignment="Right" />
                 <ComboBox x:Name="SlopeTypeCombo"
-                          Grid.Row="0" Grid.Column="1"
+                          Grid.Row="0"
+                          Grid.Column="1"
                           Margin="5" />
-                <TextBlock Grid.Row="1" Grid.Column="0"
-                           TextAlignment="Right" VerticalAlignment="Center"
-                           Text="Altitude:" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Altitude:"
+                           TextAlignment="Right" />
                 <Slider x:Name="AltitudeSlider"
-                        Grid.Row="1" Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.Column="1"
                         Margin="5"
-                        Minimum="0" Maximum="90">
+                        Maximum="90"
+                        Minimum="0">
                     <Slider.ToolTip>
-                        <ToolTip
-                            Content="{Binding RelativeSource={RelativeSource Self},
-                               Path=PlacementTarget.Value}"
-                            ContentStringFormat="{}{0:0}" />
+                        <ToolTip Content="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.Value}" ContentStringFormat="{}{0:0}" />
                     </Slider.ToolTip>
                 </Slider>
-                <TextBlock Text="Azimuth:"
-                           Grid.Row="2" Grid.Column="0"
-                           TextAlignment="Right" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Azimuth:"
+                           TextAlignment="Right" />
                 <Slider x:Name="AzimuthSlider"
-                        Grid.Row="2" Grid.Column="1"
+                        Grid.Row="2"
+                        Grid.Column="1"
                         Margin="5"
-                        Minimum="0" Maximum="360">
+                        Maximum="360"
+                        Minimum="0">
                     <Slider.ToolTip>
-                        <ToolTip
-                            Content="{Binding RelativeSource={RelativeSource Self},
-                               Path=PlacementTarget.Value}"
-                            ContentStringFormat="{}{0:0}" />
+                        <ToolTip Content="{Binding RelativeSource={RelativeSource Self}, Path=PlacementTarget.Value}" ContentStringFormat="{}{0:0}" />
                     </Slider.ToolTip>
                 </Slider>
                 <Button x:Name="ApplyHillshadeButton"
-                        Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                        Margin="5" Padding="3"
-                        IsEnabled="False"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="5"
+                        Padding="3"
+                        Click="ApplyHillshadeButton_Click"
                         Content="Apply hillshade"
-                        Click="ApplyHillshadeButton_Click" />
+                        IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>

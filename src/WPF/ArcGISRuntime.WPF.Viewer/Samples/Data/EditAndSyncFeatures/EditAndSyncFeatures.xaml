@@ -3,25 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"
-                      GeoViewTapped="GeoViewTapped" />
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="GeoViewTapped" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock x:Name="MyHelpLabel"
+                           FontWeight="SemiBold"
                            Text="1. Click 'Generate geodatabase'"
-                           TextAlignment="Center" FontWeight="SemiBold" />
+                           TextAlignment="Center" />
                 <Button x:Name="MyGenerateButton"
-                        Content="Generate geodatabase"
                         Margin="0,5,0,5"
-                        IsEnabled="False"
-                        Click="GenerateButton_Clicked" />
+                        Click="GenerateButton_Clicked"
+                        Content="Generate geodatabase"
+                        IsEnabled="False" />
                 <Button x:Name="MySyncButton"
+                        Click="SyncButton_Click"
                         Content="Sync geodatabase"
-                        IsEnabled="False"
-                        Click="SyncButton_Click" />
+                        IsEnabled="False" />
                 <ProgressBar x:Name="MyProgressBar"
-                             Visibility="Collapsed"
-                             MinHeight="15" Margin="0,5,0,0" />
+                             MinHeight="15"
+                             Margin="0,5,0,0"
+                             Visibility="Collapsed" />
             </StackPanel>
         </Border>
     </Grid>

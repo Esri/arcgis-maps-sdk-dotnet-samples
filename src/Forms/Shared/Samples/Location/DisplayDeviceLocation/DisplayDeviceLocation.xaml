@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.DisplayDeviceLocation.DisplayDeviceLocation"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntime.Samples.DisplayDeviceLocation.DisplayDeviceLocation">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -12,8 +12,18 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Button Clicked="OnStopClicked" Text="Stop" Grid.Row="0" Grid.Column="0" x:Name="StopButton" />
-        <Button Clicked="OnStartClicked" Text="Start" Grid.Row="0" Grid.Column="1" x:Name="StartButton" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" Grid.ColumnSpan="2" />
+        <Button x:Name="StopButton"
+                Grid.Row="0"
+                Grid.Column="0"
+                Clicked="OnStopClicked"
+                Text="Stop" />
+        <Button x:Name="StartButton"
+                Grid.Row="0"
+                Grid.Column="1"
+                Clicked="OnStartClicked"
+                Text="Start" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2" />
     </Grid>
 </ContentPage>

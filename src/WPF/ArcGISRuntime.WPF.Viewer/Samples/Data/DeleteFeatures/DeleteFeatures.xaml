@@ -5,8 +5,8 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <Label Content="Tap to select features for deletion."
-                   HorizontalContentAlignment="Center"
+            <Label HorizontalContentAlignment="Center"
+                   Content="Tap to select features for deletion."
                    FontWeight="SemiBold" />
         </Border>
     </Grid>

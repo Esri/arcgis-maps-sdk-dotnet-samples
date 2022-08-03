@@ -1,25 +1,25 @@
-﻿<Application xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<Application x:Class="ArcGISRuntime.App"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:forms="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:resources="clr-namespace:Forms.Resources"
-             x:Class="ArcGISRuntime.App">
+             xmlns:resources="clr-namespace:Forms.Resources">
     <Application.Resources>
         <ResourceDictionary>
             <resources:InsetConverter x:Key="InsetConverter" />
             <Style x:Key="MapWithFormStyle" TargetType="forms:MapView">
-                <!-- NOTE: if you want to set an inset on the mapview to account for the form, set the binding context on the MapView to point to the ResponsiveFormContainer (whatever you call it). -->
-                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1}" />
-                <Setter Property="RelativeLayout.HeightConstraint" Value="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1}" />
-                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=Constant,Constant=0}" />
-                <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=Constant,Constant=0}" />
+                <!--  NOTE: if you want to set an inset on the mapview to account for the form, set the binding context on the MapView to point to the ResponsiveFormContainer (whatever you call it).  -->
+                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+                <Setter Property="RelativeLayout.HeightConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" />
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=Constant, Constant=0}" />
+                <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=Constant, Constant=0}" />
                 <Setter Property="ViewInsets" Value="{Binding Path=Height, Converter={StaticResource InsetConverter}}" />
             </Style>
             <Style x:Key="SceneWithFormStyle" TargetType="forms:SceneView">
-                <!-- NOTE: if you want to set an inset on the mapview to account for the form, set the binding context on the MapView to point to the ResponsiveFormContainer (whatever you call it). -->
-                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression Type=RelativeToParent,Property=Width,Factor=1}" />
-                <Setter Property="RelativeLayout.HeightConstraint" Value="{ConstraintExpression Type=RelativeToParent,Property=Height,Factor=1}" />
-                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=Constant,Constant=0}" />
-                <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=Constant,Constant=0}" />
+                <!--  NOTE: if you want to set an inset on the mapview to account for the form, set the binding context on the MapView to point to the ResponsiveFormContainer (whatever you call it).  -->
+                <Setter Property="RelativeLayout.WidthConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}" />
+                <Setter Property="RelativeLayout.HeightConstraint" Value="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}" />
+                <Setter Property="RelativeLayout.XConstraint" Value="{ConstraintExpression Type=Constant, Constant=0}" />
+                <Setter Property="RelativeLayout.YConstraint" Value="{ConstraintExpression Type=Constant, Constant=0}" />
                 <Setter Property="ViewInsets" Value="{Binding Path=Height, Converter={StaticResource InsetConverter}}" />
             </Style>
             <Style x:Key="LabelStyle" TargetType="Label">

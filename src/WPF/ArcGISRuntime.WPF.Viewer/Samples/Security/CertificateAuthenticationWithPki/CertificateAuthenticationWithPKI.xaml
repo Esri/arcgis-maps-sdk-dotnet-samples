@@ -13,21 +13,31 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="150" />
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Enter the URL to a Portal that you have a certificate for:"
-                       Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
-            <TextBlock Text="User: "
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="Enter the URL to a Portal that you have a certificate for:" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
                        Margin="5"
-                       Grid.Row="3" Grid.Column="0" />
-            <TextBlock x:Name="LoggedInUserName" Text="Not logged in"
+                       Text="User: " />
+            <TextBlock x:Name="LoggedInUserName"
+                       Grid.Row="3"
+                       Grid.Column="1"
                        Margin="5"
-                       Grid.Row="3" Grid.Column="1" />
-            <TextBox x:Name="PortalUrlTextbox" Text="https://portal.yourcompany.com/gis/"
+                       Text="Not logged in" />
+            <TextBox x:Name="PortalUrlTextbox"
+                     Grid.Row="1"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
                      Margin="5"
-                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-            <Button Content="Choose certificate"
+                     Text="https://portal.yourcompany.com/gis/" />
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
                     Margin="5"
-                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                    Click="Button_Click" />
+                    Click="Button_Click"
+                    Content="Choose certificate" />
         </Grid>
     </Grid>
 </UserControl>

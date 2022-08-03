@@ -20,20 +20,20 @@
                     </Grid.ColumnDefinitions>
                     <Button x:Name="StartEditingButton"
                             Grid.Column="0"
-                            Content="Start Editing"
-                            IsEnabled="False"
                             Margin="0,0,0,5"
-                            Click="BeginTransaction" />
+                            Click="BeginTransaction"
+                            Content="Start Editing"
+                            IsEnabled="False" />
                     <Button x:Name="StopEditingButton"
                             Grid.Column="1"
+                            Click="StopEditTransaction"
                             Content="Stop Editing"
-                            IsEnabled="False"
-                            Click="StopEditTransaction" />
+                            IsEnabled="False" />
                     <Button x:Name="SyncEditsButton"
                             Grid.Column="2"
+                            Click="SynchronizeEdits"
                             Content="Synchronize"
-                            IsEnabled="True"
-                            Click="SynchronizeEdits" />
+                            IsEnabled="True" />
                 </Grid>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -42,27 +42,27 @@
                     </Grid.ColumnDefinitions>
                     <Button x:Name="AddBirdButton"
                             Grid.Column="0"
-                            Content="Add Bird Feature"
-                            IsEnabled="False"
                             Margin="0,0,0,5"
-                            Click="AddNewFeature" />
+                            Click="AddNewFeature"
+                            Content="Add Bird Feature"
+                            IsEnabled="False" />
                     <Button x:Name="AddMarineButton"
                             Grid.Column="1"
+                            Click="AddNewFeature"
                             Content="Add Marine Feature"
-                            IsEnabled="False"
-                            Click="AddNewFeature" />
+                            IsEnabled="False" />
                 </Grid>
                 <CheckBox x:Name="RequireTransactionCheckBox"
+                          Click="RequireTransactionChanged"
                           Content="Require a transaction for edits"
-                          IsChecked="True"
-                          Click="RequireTransactionChanged" />
+                          IsChecked="True" />
                 <ProgressBar x:Name="LoadingProgressBar"
                              Height="15"
                              Margin="0,5,0,5"
                              IsIndeterminate="True" />
                 <TextBlock x:Name="MessageTextBlock"
-                           Text="Generating local geodatabase ..."
                            Foreground="Blue"
+                           Text="Generating local geodatabase ..."
                            TextWrapping="Wrap" />
             </StackPanel>
         </Border>

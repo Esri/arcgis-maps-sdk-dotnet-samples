@@ -6,15 +6,17 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Select sublayers for display."
-                           TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold"
-                           Margin="0,0,0,5" />
+                <TextBlock Margin="0,0,0,5"
+                           FontWeight="SemiBold"
+                           Text="Select sublayers for display."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
                 <ListView x:Name="SublayerListView">
                     <ListView.ItemTemplate>
                         <DataTemplate DataType="esri:ArcGISSublayer">
-                            <CheckBox Content="{Binding Name}"
-                                      IsChecked="{Binding IsVisible}"
-                                      Margin="5" />
+                            <CheckBox Margin="5"
+                                      Content="{Binding Name}"
+                                      IsChecked="{Binding IsVisible}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

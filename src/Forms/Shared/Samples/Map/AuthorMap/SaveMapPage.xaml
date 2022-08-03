@@ -4,28 +4,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.Content>
         <TableView x:Name="SaveMapUI"
-           Grid.Row="0"
-           Intent="Form">
+                   Grid.Row="0"
+                   Intent="Form">
             <TableRoot>
                 <TableSection Title="Map Information">
                     <EntryCell x:Name="MapTitleEntry"
-                     Label="Title:"
-                     Placeholder="Required" />
+                               Label="Title:"
+                               Placeholder="Required" />
                     <EntryCell x:Name="MapDescriptionEntry"
-                     Label="Description:"
-                     Placeholder="Required" />
+                               Label="Description:"
+                               Placeholder="Required" />
                     <EntryCell x:Name="MapTagsEntry"
-                     Label="Tags:"
-                     Text="ArcGIS Runtime, Webmap" />
+                               Label="Tags:"
+                               Text="ArcGIS Runtime, Webmap" />
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal"
-                         HorizontalOptions="CenterAndExpand">
-                            <Button Text="Cancel"
-                      Clicked="CancelButtonClicked"
-                      Margin="20,0" />
+                        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
+                            <Button Margin="20,0"
+                                    Clicked="CancelButtonClicked"
+                                    Text="Cancel" />
                             <Button x:Name="SaveMapButton"
-                      Text="Save"
-                      Clicked="SaveButtonClicked" />
+                                    Clicked="SaveButtonClicked"
+                                    Text="Save" />
                         </StackLayout>
                     </ViewCell>
                 </TableSection>

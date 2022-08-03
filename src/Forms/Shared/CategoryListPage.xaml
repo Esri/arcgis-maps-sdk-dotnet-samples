@@ -1,16 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntime.CategoryListPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+<ContentPage x:Class="ArcGISRuntime.CategoryListPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <ContentPage.ToolbarItems>
-        <ToolbarItem
-            Clicked="SettingsClicked"
-            IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settingsgrey.png},
-                                           iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settings.png},
-                                           UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settings.png}}"
-            Text="Settings" />
+        <ToolbarItem Clicked="SettingsClicked"
+                     IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settingsgrey.png},
+                                                    iOS={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settings.png},
+                                                    UWP={resources:ImageResource ArcGISRuntime.Resources.SettingsPage.settings.png}}"
+                     Text="Settings" />
     </ContentPage.ToolbarItems>
     <Grid>
         <Grid.RowDefinitions>
@@ -18,26 +16,24 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <SearchBar Grid.Row="0" Text="{Binding Path=SearchQuery}" />
-        <ListView
-            x:Name="SampleCategoriesList"
-            Grid.Row="1"
-            IsVisible="{Binding Path=IsCategoriesOpen}"
-            ItemTapped="OnItemTapped"
-            ItemsSource="{Binding Path=SampleCategories}"
-            SelectionMode="None">
+        <ListView x:Name="SampleCategoriesList"
+                  Grid.Row="1"
+                  IsVisible="{Binding Path=IsCategoriesOpen}"
+                  ItemTapped="OnItemTapped"
+                  ItemsSource="{Binding Path=SampleCategories}"
+                  SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Name}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView
-            x:Name="SampleSearchResultList"
-            Grid.Row="1"
-            IsVisible="{Binding Path=IsSearchOpen}"
-            ItemTapped="OnItemTapped"
-            ItemsSource="{Binding Path=SearchResults}"
-            SelectionMode="None">
+        <ListView x:Name="SampleSearchResultList"
+                  Grid.Row="1"
+                  IsVisible="{Binding Path=IsSearchOpen}"
+                  ItemTapped="OnItemTapped"
+                  ItemsSource="{Binding Path=SearchResults}"
+                  SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding SampleName}" />

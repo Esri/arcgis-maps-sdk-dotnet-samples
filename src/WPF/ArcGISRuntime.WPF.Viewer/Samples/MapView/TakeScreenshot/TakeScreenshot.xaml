@@ -6,8 +6,7 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <Button Content="Take screenshot"
-                        Click="OnScreenshotButtonClicked" />
+                <Button Click="OnScreenshotButtonClicked" Content="Take screenshot" />
                 <Image x:Name="ImageView"
                        Margin="0,5,0,0"
                        Visibility="Collapsed" />

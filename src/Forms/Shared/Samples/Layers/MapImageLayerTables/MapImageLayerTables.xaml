@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.MapImageLayerTables.MapImageLayerTables"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntime.Samples.MapImageLayerTables.MapImageLayerTables">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="160" />
@@ -13,20 +13,18 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0"
-                   Text="Select a row to see the related feature:" />
+            <Label Grid.Row="0" Text="Select a row to see the related feature:" />
             <ListView x:Name="CommentsListBox"
                       Grid.Row="1"
                       HeightRequest="140"
                       ItemSelected="CommentsListBox_SelectionChanged">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="{Binding  Attributes[comments]}" />
+                        <TextCell Text="{Binding Attributes[comments]}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
         </Grid>
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="1" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>
 </ContentPage>

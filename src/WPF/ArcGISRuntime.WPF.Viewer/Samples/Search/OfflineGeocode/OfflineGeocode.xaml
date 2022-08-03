@@ -14,21 +14,27 @@
                     <ColumnDefinition Width="2*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Enter an address to search or select from a preset option."
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                           TextAlignment="Center"
-                           FontWeight="SemiBold" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           FontWeight="SemiBold"
+                           Text="Enter an address to search or select from a preset option."
+                           TextAlignment="Center" />
                 <ComboBox x:Name="SearchBox"
-                          Grid.Row="1" Grid.Column="0"
+                          Grid.Row="1"
+                          Grid.Column="0"
                           Margin="0,5,5,0"
+                          IsEditable="True"
+                          IsEnabled="False"
                           ItemsSource="{Binding Suggestions}"
-                          IsEnabled="False" IsEditable="True"
                           SelectionChanged="OnSuggestionChosen" />
                 <Button x:Name="SearchButton"
-                        Grid.Row="1" Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.Column="1"
                         Margin="0,5,0,0"
-                        Content="Search" IsEnabled="False"
-                        Click="Search_Clicked" />
+                        Click="Search_Clicked"
+                        Content="Search"
+                        IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>

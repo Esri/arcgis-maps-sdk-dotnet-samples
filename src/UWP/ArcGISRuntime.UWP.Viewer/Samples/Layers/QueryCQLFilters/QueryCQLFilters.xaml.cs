@@ -32,13 +32,13 @@ namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
         private IReadOnlyList<string> DefaultWhereClause = new[]
         {
             // Sample Query 1: Query for features with an F_CODE attribute property of "AP010".
-            "{ \"eq\" : [ { \"property\" : \"F_CODE\" }, \"AP010\" ] }", // cql-json query
+            "{ \"op\": \"=\", \"args\": [ { \"property\": \"F_CODE\" }, \"AP010\" ] }", // cql-json query
 
             // Sample Query 2: Query for features with an F_CODE attribute property similar to "AQ".
             "F_CODE LIKE 'AQ%'", // cql-text query
 
             // Sample Query 3: use cql-json to combine "before" and "eq" operators with the logical "and" operator.
-           "{\"and\":[{\"eq\":[{ \"property\" : \"F_CODE\" }, \"AP010\"]},{ \"before\":[{ \"property\" : \"ZI001_SDV\"},\"2013-01-01\"]}]}"
+           "{\"op\": \"and\", \"args\":[{ \"op\": \"=\", \"args\":[{ \"property\" : \"F_CODE\" }, \"AP010\"]}, { \"op\": \"t_before\", \"args\":[{ \"property\" : \"ZI001_SDV\"},\"2013-01-01\"]}]}"
         };
 
         // Hold a reference to the OGC feature collection table.

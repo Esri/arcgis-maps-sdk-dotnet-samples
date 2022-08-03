@@ -1,28 +1,28 @@
 {
-    "category": "Map",
-    "description": "Set the map's reference scale and which feature layers should honor the reference scale.",
-    "formal_name": "MapReferenceScale",
-    "ignore": false,
-    "images": [
-        "MapReferenceScale.jpg"
-    ],
-    "keywords": [
-        "map",
-        "reference scale",
-        "scene"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/mapreferencescale.htm"
-    ],
-    "relevant_apis": [
-        "FeatureLayer",
-        "Map"
-    ],
-    "snippets": [
-        "DoubleToScaleStringConverter.cs",
-        "MapReferenceScale.xaml",
-        "MapReferenceScale.xaml.cs"
-    ],
-    "title": "Map reference scale"
+  "category": "Map",
+  "description": "Set the map's reference scale and which feature layers should honor the reference scale.",
+  "formal_name": "MapReferenceScale",
+  "ignore": false,
+  "images": [
+    "MapReferenceScale.jpg"
+  ],
+  "keywords": [
+    "map",
+    "reference scale",
+    "scene"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/mapreferencescale.htm"
+  ],
+  "relevant_apis": [
+    "FeatureLayer",
+    "Map"
+  ],
+  "snippets": [
+    "DoubleToScaleStringConverter.cs",
+    "MapReferenceScale.xaml",
+    "MapReferenceScale.xaml.cs"
+  ],
+  "title": "Map reference scale"
 }

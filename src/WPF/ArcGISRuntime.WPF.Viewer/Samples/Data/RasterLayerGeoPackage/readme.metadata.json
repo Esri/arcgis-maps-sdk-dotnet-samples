@@ -1,36 +1,36 @@
 {
-    "category": "Data",
-    "description": "Display a raster contained in a GeoPackage.",
-    "formal_name": "RasterLayerGeoPackage",
-    "ignore": false,
-    "images": [
-        "RasterLayerGeoPackage.jpg"
-    ],
-    "keywords": [
-        "OGC",
-        "container",
-        "data",
-        "image",
-        "import",
-        "layer",
-        "package",
-        "raster",
-        "visualization"
-    ],
-    "offline_data": [
-        "68ec42517cdd439e81b036210483e8e7"
-    ],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/rasterlayergeopackage.htm"
-    ],
-    "relevant_apis": [
-        "GeoPackage",
-        "GeoPackageRaster",
-        "RasterLayer"
-    ],
-    "snippets": [
-        "RasterLayerGeoPackage.xaml",
-        "RasterLayerGeoPackage.xaml.cs"
-    ],
-    "title": "Raster layer (GeoPackage)"
+  "category": "Data",
+  "description": "Display a raster contained in a GeoPackage.",
+  "formal_name": "RasterLayerGeoPackage",
+  "ignore": false,
+  "images": [
+    "RasterLayerGeoPackage.jpg"
+  ],
+  "keywords": [
+    "OGC",
+    "container",
+    "data",
+    "image",
+    "import",
+    "layer",
+    "package",
+    "raster",
+    "visualization"
+  ],
+  "offline_data": [
+    "68ec42517cdd439e81b036210483e8e7"
+  ],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/rasterlayergeopackage.htm"
+  ],
+  "relevant_apis": [
+    "GeoPackage",
+    "GeoPackageRaster",
+    "RasterLayer"
+  ],
+  "snippets": [
+    "RasterLayerGeoPackage.xaml",
+    "RasterLayerGeoPackage.xaml.cs"
+  ],
+  "title": "Raster layer (GeoPackage)"
 }

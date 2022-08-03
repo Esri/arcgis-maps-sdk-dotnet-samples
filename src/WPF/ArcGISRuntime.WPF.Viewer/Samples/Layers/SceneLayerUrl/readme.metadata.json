@@ -1,32 +1,32 @@
 {
-    "category": "Layers",
-    "description": "Display an ArcGIS scene layer from a URL.",
-    "formal_name": "SceneLayerUrl",
-    "ignore": false,
-    "images": [
-        "SceneLayerUrl.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "Portland",
-        "URL",
-        "buildings",
-        "model",
-        "scene",
-        "service"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/scenelayerurl.htm"
-    ],
-    "relevant_apis": [
-        "ArcGISScene",
-        "ArcGISSceneLayer",
-        "SceneView"
-    ],
-    "snippets": [
-        "SceneLayerUrl.xaml",
-        "SceneLayerUrl.xaml.cs"
-    ],
-    "title": "Scene layer (URL)"
+  "category": "Layers",
+  "description": "Display an ArcGIS scene layer from a URL.",
+  "formal_name": "SceneLayerUrl",
+  "ignore": false,
+  "images": [
+    "SceneLayerUrl.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "Portland",
+    "URL",
+    "buildings",
+    "model",
+    "scene",
+    "service"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/scenelayerurl.htm"
+  ],
+  "relevant_apis": [
+    "ArcGISScene",
+    "ArcGISSceneLayer",
+    "SceneView"
+  ],
+  "snippets": [
+    "SceneLayerUrl.xaml",
+    "SceneLayerUrl.xaml.cs"
+  ],
+  "title": "Scene layer (URL)"
 }

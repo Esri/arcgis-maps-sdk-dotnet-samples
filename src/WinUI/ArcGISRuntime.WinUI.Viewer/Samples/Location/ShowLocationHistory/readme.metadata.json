@@ -1,41 +1,41 @@
 {
-    "category": "Location",
-    "description": "Display your location history on the map.",
-    "formal_name": "ShowLocationHistory",
-    "ignore": false,
-    "images": [
-        "ShowLocationHistory.jpg"
-    ],
-    "keywords": [
-        "GPS",
-        "bread crumb",
-        "breadcrumb",
-        "history",
-        "movement",
-        "navigation",
-        "real-time",
-        "trace",
-        "track",
-        "trail"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/showlocationhistory.htm"
-    ],
-    "relevant_apis": [
-        "Location.Position",
-        "LocationDataSource",
-        "LocationDataSource.LocationChanged",
-        "LocationDataSource.UpdateLocation",
-        "LocationDisplay.AutoPanMode",
-        "LocationDisplay.DataSource",
-        "LocationDisplay.IsEnabled",
-        "MapView.LocationDisplay",
-        "SimulatedLocationDataSource"
-    ],
-    "snippets": [
-        "ShowLocationHistory.xaml",
-        "ShowLocationHistory.xaml.cs"
-    ],
-    "title": "Show location history"
+  "category": "Location",
+  "description": "Display your location history on the map.",
+  "formal_name": "ShowLocationHistory",
+  "ignore": false,
+  "images": [
+    "ShowLocationHistory.jpg"
+  ],
+  "keywords": [
+    "GPS",
+    "bread crumb",
+    "breadcrumb",
+    "history",
+    "movement",
+    "navigation",
+    "real-time",
+    "trace",
+    "track",
+    "trail"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/showlocationhistory.htm"
+  ],
+  "relevant_apis": [
+    "Location.Position",
+    "LocationDataSource",
+    "LocationDataSource.LocationChanged",
+    "LocationDataSource.UpdateLocation",
+    "LocationDisplay.AutoPanMode",
+    "LocationDisplay.DataSource",
+    "LocationDisplay.IsEnabled",
+    "MapView.LocationDisplay",
+    "SimulatedLocationDataSource"
+  ],
+  "snippets": [
+    "ShowLocationHistory.xaml",
+    "ShowLocationHistory.xaml.cs"
+  ],
+  "title": "Show location history"
 }

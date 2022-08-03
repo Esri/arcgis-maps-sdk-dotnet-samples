@@ -1,31 +1,31 @@
 {
-    "category": "Data",
-    "description": "Delete features from an online feature service.",
-    "formal_name": "DeleteFeatures",
-    "ignore": false,
-    "images": [
-        "DeleteFeatures.jpg"
-    ],
-    "keywords": [
-        "Service",
-        "deletion",
-        "feature",
-        "online",
-        "table"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/deletefeatures.htm"
-    ],
-    "relevant_apis": [
-        "Feature",
-        "FeatureLayer",
-        "ServiceFeatureTable",
-        "ServiceGeodatabase"
-    ],
-    "snippets": [
-        "DeleteFeatures.xaml",
-        "DeleteFeatures.xaml.cs"
-    ],
-    "title": "Delete features (feature service)"
+  "category": "Data",
+  "description": "Delete features from an online feature service.",
+  "formal_name": "DeleteFeatures",
+  "ignore": false,
+  "images": [
+    "DeleteFeatures.jpg"
+  ],
+  "keywords": [
+    "Service",
+    "deletion",
+    "feature",
+    "online",
+    "table"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/deletefeatures.htm"
+  ],
+  "relevant_apis": [
+    "Feature",
+    "FeatureLayer",
+    "ServiceFeatureTable",
+    "ServiceGeodatabase"
+  ],
+  "snippets": [
+    "DeleteFeatures.xaml",
+    "DeleteFeatures.xaml.cs"
+  ],
+  "title": "Delete features (feature service)"
 }

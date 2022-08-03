@@ -1,31 +1,31 @@
 {
-    "category": "SceneView",
-    "description": "Control the behavior of the camera in a scene.",
-    "formal_name": "ChooseCameraController",
-    "ignore": false,
-    "images": [
-        "ChooseCameraController.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "camera",
-        "camera controller"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/choosecameracontroller.htm"
-    ],
-    "relevant_apis": [
-        "Camera",
-        "GlobeCameraController",
-        "OrbitGeoElementCameraController",
-        "OrbitLocationCameraController",
-        "Scene",
-        "SceneView"
-    ],
-    "snippets": [
-        "ChooseCameraController.xaml",
-        "ChooseCameraController.xaml.cs"
-    ],
-    "title": "Choose camera controller"
+  "category": "SceneView",
+  "description": "Control the behavior of the camera in a scene.",
+  "formal_name": "ChooseCameraController",
+  "ignore": false,
+  "images": [
+    "ChooseCameraController.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "camera",
+    "camera controller"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/choosecameracontroller.htm"
+  ],
+  "relevant_apis": [
+    "Camera",
+    "GlobeCameraController",
+    "OrbitGeoElementCameraController",
+    "OrbitLocationCameraController",
+    "Scene",
+    "SceneView"
+  ],
+  "snippets": [
+    "ChooseCameraController.xaml",
+    "ChooseCameraController.xaml.cs"
+  ],
+  "title": "Choose camera controller"
 }

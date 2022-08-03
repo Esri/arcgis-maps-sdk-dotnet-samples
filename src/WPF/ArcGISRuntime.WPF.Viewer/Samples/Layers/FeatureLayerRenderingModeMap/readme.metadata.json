@@ -1,31 +1,31 @@
 {
-    "category": "Layers",
-    "description": "Render features statically or dynamically by setting the feature layer rendering mode.",
-    "formal_name": "FeatureLayerRenderingModeMap",
-    "ignore": false,
-    "images": [
-        "FeatureLayerRenderingModeMap.jpg"
-    ],
-    "keywords": [
-        "dynamic",
-        "feature layer",
-        "features",
-        "rendering",
-        "static"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/featurelayerrenderingmodemap.htm"
-    ],
-    "relevant_apis": [
-        "FeatureLayer",
-        "FeatureLayer.RenderingMode",
-        "Map",
-        "MapView"
-    ],
-    "snippets": [
-        "FeatureLayerRenderingModeMap.xaml",
-        "FeatureLayerRenderingModeMap.xaml.cs"
-    ],
-    "title": "Feature layer rendering mode (map)"
+  "category": "Layers",
+  "description": "Render features statically or dynamically by setting the feature layer rendering mode.",
+  "formal_name": "FeatureLayerRenderingModeMap",
+  "ignore": false,
+  "images": [
+    "FeatureLayerRenderingModeMap.jpg"
+  ],
+  "keywords": [
+    "dynamic",
+    "feature layer",
+    "features",
+    "rendering",
+    "static"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/featurelayerrenderingmodemap.htm"
+  ],
+  "relevant_apis": [
+    "FeatureLayer",
+    "FeatureLayer.RenderingMode",
+    "Map",
+    "MapView"
+  ],
+  "snippets": [
+    "FeatureLayerRenderingModeMap.xaml",
+    "FeatureLayerRenderingModeMap.xaml.cs"
+  ],
+  "title": "Feature layer rendering mode (map)"
 }

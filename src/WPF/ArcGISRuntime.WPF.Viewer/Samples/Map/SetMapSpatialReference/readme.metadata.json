@@ -1,29 +1,29 @@
 {
-    "category": "Map",
-    "description": "Specify a map's spatial reference.",
-    "formal_name": "SetMapSpatialReference",
-    "ignore": false,
-    "images": [
-        "SetMapSpatialReference.jpg"
-    ],
-    "keywords": [
-        "WKID",
-        "project"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/setmapspatialreference.htm"
-    ],
-    "relevant_apis": [
-        "ArcGISMapImageLayer",
-        "Basemap",
-        "Map",
-        "MapView",
-        "SpatialReference"
-    ],
-    "snippets": [
-        "SetMapSpatialReference.xaml",
-        "SetMapSpatialReference.xaml.cs"
-    ],
-    "title": "Map spatial reference"
+  "category": "Map",
+  "description": "Specify a map's spatial reference.",
+  "formal_name": "SetMapSpatialReference",
+  "ignore": false,
+  "images": [
+    "SetMapSpatialReference.jpg"
+  ],
+  "keywords": [
+    "WKID",
+    "project"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/setmapspatialreference.htm"
+  ],
+  "relevant_apis": [
+    "ArcGISMapImageLayer",
+    "Basemap",
+    "Map",
+    "MapView",
+    "SpatialReference"
+  ],
+  "snippets": [
+    "SetMapSpatialReference.xaml",
+    "SetMapSpatialReference.xaml.cs"
+  ],
+  "title": "Map spatial reference"
 }

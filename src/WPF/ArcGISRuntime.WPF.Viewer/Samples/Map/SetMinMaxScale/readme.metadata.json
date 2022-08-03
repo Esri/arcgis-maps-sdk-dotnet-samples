@@ -1,32 +1,32 @@
 {
-    "category": "Map",
-    "description": "Restrict zooming between specific scale ranges.",
-    "formal_name": "SetMinMaxScale",
-    "ignore": false,
-    "images": [
-        "SetMinMaxScale.jpg"
-    ],
-    "keywords": [
-        "area of interest",
-        "level of detail",
-        "maximum",
-        "minimum",
-        "scale",
-        "viewpoint"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/setminmaxscale.htm"
-    ],
-    "relevant_apis": [
-        "Basemap",
-        "Map",
-        "MapView",
-        "ViewPoint"
-    ],
-    "snippets": [
-        "SetMinMaxScale.xaml",
-        "SetMinMaxScale.xaml.cs"
-    ],
-    "title": "Set min & max scale"
+  "category": "Map",
+  "description": "Restrict zooming between specific scale ranges.",
+  "formal_name": "SetMinMaxScale",
+  "ignore": false,
+  "images": [
+    "SetMinMaxScale.jpg"
+  ],
+  "keywords": [
+    "area of interest",
+    "level of detail",
+    "maximum",
+    "minimum",
+    "scale",
+    "viewpoint"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/setminmaxscale.htm"
+  ],
+  "relevant_apis": [
+    "Basemap",
+    "Map",
+    "MapView",
+    "ViewPoint"
+  ],
+  "snippets": [
+    "SetMinMaxScale.xaml",
+    "SetMinMaxScale.xaml.cs"
+  ],
+  "title": "Set min & max scale"
 }

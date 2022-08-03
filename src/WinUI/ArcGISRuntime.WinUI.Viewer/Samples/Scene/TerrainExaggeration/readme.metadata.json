@@ -1,33 +1,33 @@
 {
-    "category": "Scene",
-    "description": "Vertically exaggerate terrain in a scene.",
-    "formal_name": "TerrainExaggeration",
-    "ignore": false,
-    "images": [
-        "TerrainExaggeration.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "DEM",
-        "DTM",
-        "elevation",
-        "scene",
-        "surface",
-        "terrain"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/terrainexaggeration.htm"
-    ],
-    "relevant_apis": [
-        "Scene",
-        "Scene.BaseSurface",
-        "Surface",
-        "Surface.ElevationExaggeration"
-    ],
-    "snippets": [
-        "TerrainExaggeration.xaml",
-        "TerrainExaggeration.xaml.cs"
-    ],
-    "title": "Terrain exaggeration"
+  "category": "Scene",
+  "description": "Vertically exaggerate terrain in a scene.",
+  "formal_name": "TerrainExaggeration",
+  "ignore": false,
+  "images": [
+    "TerrainExaggeration.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "DEM",
+    "DTM",
+    "elevation",
+    "scene",
+    "surface",
+    "terrain"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/terrainexaggeration.htm"
+  ],
+  "relevant_apis": [
+    "Scene",
+    "Scene.BaseSurface",
+    "Surface",
+    "Surface.ElevationExaggeration"
+  ],
+  "snippets": [
+    "TerrainExaggeration.xaml",
+    "TerrainExaggeration.xaml.cs"
+  ],
+  "title": "Terrain exaggeration"
 }

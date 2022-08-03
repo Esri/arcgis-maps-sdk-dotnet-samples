@@ -1,31 +1,31 @@
 {
-    "category": "Layers",
-    "description": "Load an ArcGIS tiled layer from a URL.",
-    "formal_name": "ArcGISTiledLayerUrl",
-    "ignore": false,
-    "images": [
-        "ArcGISTiledLayerUrl.jpg"
-    ],
-    "keywords": [
-        "basemap",
-        "layers",
-        "raster tiles",
-        "tiled layer",
-        "visualization"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/arcgistiledlayerurl.htm"
-    ],
-    "relevant_apis": [
-        "ArcGISTiledLayer",
-        "Basemap",
-        "Map",
-        "MapView"
-    ],
-    "snippets": [
-        "ArcGISTiledLayerUrl.xaml",
-        "ArcGISTiledLayerUrl.xaml.cs"
-    ],
-    "title": "ArcGIS tiled layer"
+  "category": "Layers",
+  "description": "Load an ArcGIS tiled layer from a URL.",
+  "formal_name": "ArcGISTiledLayerUrl",
+  "ignore": false,
+  "images": [
+    "ArcGISTiledLayerUrl.jpg"
+  ],
+  "keywords": [
+    "basemap",
+    "layers",
+    "raster tiles",
+    "tiled layer",
+    "visualization"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/arcgistiledlayerurl.htm"
+  ],
+  "relevant_apis": [
+    "ArcGISTiledLayer",
+    "Basemap",
+    "Map",
+    "MapView"
+  ],
+  "snippets": [
+    "ArcGISTiledLayerUrl.xaml",
+    "ArcGISTiledLayerUrl.xaml.cs"
+  ],
+  "title": "ArcGIS tiled layer"
 }

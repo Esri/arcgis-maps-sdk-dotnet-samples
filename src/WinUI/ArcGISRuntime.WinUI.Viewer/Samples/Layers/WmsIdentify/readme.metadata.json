@@ -1,34 +1,34 @@
 {
-    "category": "Layers",
-    "description": "Identify features in a WMS layer and display the associated popup content.",
-    "formal_name": "WmsIdentify",
-    "ignore": false,
-    "images": [
-        "WmsIdentify.jpg"
-    ],
-    "keywords": [
-        "IdentifyLayerAsync",
-        "OGC",
-        "ShowCalloutAt",
-        "WMS",
-        "callout",
-        "web map service"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/wmsidentify.htm"
-    ],
-    "relevant_apis": [
-        "IdentifyLayerResult",
-        "IdentifyLayerResult.GeoElements",
-        "MapView.IdentifyLayerAsync",
-        "WmsFeature",
-        "WmsFeature.Attributes",
-        "WmsLayer"
-    ],
-    "snippets": [
-        "WmsIdentify.xaml",
-        "WmsIdentify.xaml.cs"
-    ],
-    "title": "Identify WMS features"
+  "category": "Layers",
+  "description": "Identify features in a WMS layer and display the associated popup content.",
+  "formal_name": "WmsIdentify",
+  "ignore": false,
+  "images": [
+    "WmsIdentify.jpg"
+  ],
+  "keywords": [
+    "IdentifyLayerAsync",
+    "OGC",
+    "ShowCalloutAt",
+    "WMS",
+    "callout",
+    "web map service"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/wmsidentify.htm"
+  ],
+  "relevant_apis": [
+    "IdentifyLayerResult",
+    "IdentifyLayerResult.GeoElements",
+    "MapView.IdentifyLayerAsync",
+    "WmsFeature",
+    "WmsFeature.Attributes",
+    "WmsLayer"
+  ],
+  "snippets": [
+    "WmsIdentify.xaml",
+    "WmsIdentify.xaml.cs"
+  ],
+  "title": "Identify WMS features"
 }

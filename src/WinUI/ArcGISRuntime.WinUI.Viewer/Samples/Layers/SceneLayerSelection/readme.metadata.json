@@ -1,33 +1,33 @@
 {
-    "category": "Layers",
-    "description": "Identify features in a scene to select.",
-    "formal_name": "SceneLayerSelection",
-    "ignore": false,
-    "images": [
-        "SceneLayerSelection.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "Brest",
-        "buildings",
-        "identify",
-        "model",
-        "query",
-        "search",
-        "select"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/scenelayerselection.htm"
-    ],
-    "relevant_apis": [
-        "ArcGISSceneLayer",
-        "Scene",
-        "SceneView"
-    ],
-    "snippets": [
-        "SceneLayerSelection.xaml",
-        "SceneLayerSelection.xaml.cs"
-    ],
-    "title": "Scene layer selection"
+  "category": "Layers",
+  "description": "Identify features in a scene to select.",
+  "formal_name": "SceneLayerSelection",
+  "ignore": false,
+  "images": [
+    "SceneLayerSelection.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "Brest",
+    "buildings",
+    "identify",
+    "model",
+    "query",
+    "search",
+    "select"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/scenelayerselection.htm"
+  ],
+  "relevant_apis": [
+    "ArcGISSceneLayer",
+    "Scene",
+    "SceneView"
+  ],
+  "snippets": [
+    "SceneLayerSelection.xaml",
+    "SceneLayerSelection.xaml.cs"
+  ],
+  "title": "Scene layer selection"
 }

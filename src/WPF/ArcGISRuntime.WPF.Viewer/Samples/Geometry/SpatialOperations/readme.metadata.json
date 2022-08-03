@@ -1,38 +1,38 @@
 {
-    "category": "Geometry",
-    "description": "Find the union, intersection, or difference of two geometries.",
-    "formal_name": "SpatialOperations",
-    "ignore": false,
-    "images": [
-        "SpatialOperations.jpg"
-    ],
-    "keywords": [
-        "analysis",
-        "combine",
-        "difference",
-        "geometry",
-        "intersection",
-        "merge",
-        "polygon",
-        "union"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/spatialoperations.htm"
-    ],
-    "relevant_apis": [
-        "Geometry",
-        "GeometryEngine",
-        "GeometryEngine.Difference",
-        "GeometryEngine.Intersection",
-        "GeometryEngine.SymmetricDifference",
-        "GeometryEngine.Union",
-        "Graphic",
-        "GraphicsOverlay"
-    ],
-    "snippets": [
-        "SpatialOperations.xaml",
-        "SpatialOperations.xaml.cs"
-    ],
-    "title": "Perform spatial operations"
+  "category": "Geometry",
+  "description": "Find the union, intersection, or difference of two geometries.",
+  "formal_name": "SpatialOperations",
+  "ignore": false,
+  "images": [
+    "SpatialOperations.jpg"
+  ],
+  "keywords": [
+    "analysis",
+    "combine",
+    "difference",
+    "geometry",
+    "intersection",
+    "merge",
+    "polygon",
+    "union"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/spatialoperations.htm"
+  ],
+  "relevant_apis": [
+    "Geometry",
+    "GeometryEngine",
+    "GeometryEngine.Difference",
+    "GeometryEngine.Intersection",
+    "GeometryEngine.SymmetricDifference",
+    "GeometryEngine.Union",
+    "Graphic",
+    "GraphicsOverlay"
+  ],
+  "snippets": [
+    "SpatialOperations.xaml",
+    "SpatialOperations.xaml.cs"
+  ],
+  "title": "Perform spatial operations"
 }

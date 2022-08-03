@@ -1,32 +1,32 @@
 {
-    "category": "Layers",
-    "description": "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",
-    "formal_name": "FeatureLayerRenderingModeScene",
-    "ignore": false,
-    "images": [
-        "FeatureLayerRenderingModeScene.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "dynamic",
-        "feature layer",
-        "features",
-        "rendering",
-        "static"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/featurelayerrenderingmodescene.htm"
-    ],
-    "relevant_apis": [
-        "FeatureLayer",
-        "FeatureLayer.RenderingMode",
-        "Scene",
-        "SceneView"
-    ],
-    "snippets": [
-        "FeatureLayerRenderingModeScene.xaml",
-        "FeatureLayerRenderingModeScene.xaml.cs"
-    ],
-    "title": "Feature layer rendering mode (scene)"
+  "category": "Layers",
+  "description": "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",
+  "formal_name": "FeatureLayerRenderingModeScene",
+  "ignore": false,
+  "images": [
+    "FeatureLayerRenderingModeScene.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "dynamic",
+    "feature layer",
+    "features",
+    "rendering",
+    "static"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/featurelayerrenderingmodescene.htm"
+  ],
+  "relevant_apis": [
+    "FeatureLayer",
+    "FeatureLayer.RenderingMode",
+    "Scene",
+    "SceneView"
+  ],
+  "snippets": [
+    "FeatureLayerRenderingModeScene.xaml",
+    "FeatureLayerRenderingModeScene.xaml.cs"
+  ],
+  "title": "Feature layer rendering mode (scene)"
 }

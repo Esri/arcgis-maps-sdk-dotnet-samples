@@ -1,32 +1,32 @@
 {
-    "category": "Data",
-    "description": "Update a feature's location in an online feature service.",
-    "formal_name": "UpdateGeometries",
-    "ignore": false,
-    "images": [
-        "UpdateGeometries.jpg"
-    ],
-    "keywords": [
-        "editing",
-        "feature layer",
-        "feature table",
-        "moving",
-        "service",
-        "updating"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/updategeometries.htm"
-    ],
-    "relevant_apis": [
-        "Feature",
-        "FeatureLayer",
-        "ServiceFeatureTable",
-        "ServiceGeodatabase"
-    ],
-    "snippets": [
-        "UpdateGeometries.xaml",
-        "UpdateGeometries.xaml.cs"
-    ],
-    "title": "Update geometries (feature service)"
+  "category": "Data",
+  "description": "Update a feature's location in an online feature service.",
+  "formal_name": "UpdateGeometries",
+  "ignore": false,
+  "images": [
+    "UpdateGeometries.jpg"
+  ],
+  "keywords": [
+    "editing",
+    "feature layer",
+    "feature table",
+    "moving",
+    "service",
+    "updating"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/updategeometries.htm"
+  ],
+  "relevant_apis": [
+    "Feature",
+    "FeatureLayer",
+    "ServiceFeatureTable",
+    "ServiceGeodatabase"
+  ],
+  "snippets": [
+    "UpdateGeometries.xaml",
+    "UpdateGeometries.xaml.cs"
+  ],
+  "title": "Update geometries (feature service)"
 }

@@ -1,33 +1,33 @@
 {
-    "category": "Local Server",
-    "description": "Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.",
-    "formal_name": "LocalServerMapImageLayer",
-    "ignore": false,
-    "images": [
-        "LocalServerMapImageLayer.jpg"
-    ],
-    "keywords": [
-        "image",
-        "layer",
-        "local",
-        "offline",
-        "server"
-    ],
-    "offline_data": [
-        "85c34847bbe1402fa115a1b9b87561ce"
-    ],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/localservermapimagelayer.htm"
-    ],
-    "relevant_apis": [
-        "ArcGISMapImageLayer",
-        "LocalMapService",
-        "LocalServer",
-        "LocalServerStatus"
-    ],
-    "snippets": [
-        "LocalServerMapImageLayer.xaml",
-        "LocalServerMapImageLayer.xaml.cs"
-    ],
-    "title": "Local Server map image layer"
+  "category": "Local Server",
+  "description": "Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.",
+  "formal_name": "LocalServerMapImageLayer",
+  "ignore": false,
+  "images": [
+    "LocalServerMapImageLayer.jpg"
+  ],
+  "keywords": [
+    "image",
+    "layer",
+    "local",
+    "offline",
+    "server"
+  ],
+  "offline_data": [
+    "85c34847bbe1402fa115a1b9b87561ce"
+  ],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/localservermapimagelayer.htm"
+  ],
+  "relevant_apis": [
+    "ArcGISMapImageLayer",
+    "LocalMapService",
+    "LocalServer",
+    "LocalServerStatus"
+  ],
+  "snippets": [
+    "LocalServerMapImageLayer.xaml",
+    "LocalServerMapImageLayer.xaml.cs"
+  ],
+  "title": "Local Server map image layer"
 }

@@ -1,28 +1,28 @@
 {
-    "category": "MapView",
-    "description": "Rotate a map.",
-    "formal_name": "MapRotation",
-    "ignore": false,
-    "images": [
-        "MapRotation.jpg"
-    ],
-    "keywords": [
-        "rotate",
-        "rotation",
-        "viewpoint"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/maprotation.htm"
-    ],
-    "relevant_apis": [
-        "Compass",
-        "Map",
-        "MapView"
-    ],
-    "snippets": [
-        "MapRotation.xaml",
-        "MapRotation.xaml.cs"
-    ],
-    "title": "Map rotation"
+  "category": "MapView",
+  "description": "Rotate a map.",
+  "formal_name": "MapRotation",
+  "ignore": false,
+  "images": [
+    "MapRotation.jpg"
+  ],
+  "keywords": [
+    "rotate",
+    "rotation",
+    "viewpoint"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/maprotation.htm"
+  ],
+  "relevant_apis": [
+    "Compass",
+    "Map",
+    "MapView"
+  ],
+  "snippets": [
+    "MapRotation.xaml",
+    "MapRotation.xaml.cs"
+  ],
+  "title": "Map rotation"
 }

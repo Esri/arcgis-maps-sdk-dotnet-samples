@@ -1,32 +1,32 @@
 {
-    "category": "Data",
-    "description": "Use transactions to manage how changes are committed to a geodatabase.",
-    "formal_name": "GeodatabaseTransactions",
-    "ignore": false,
-    "images": [
-        "GeodatabaseTransactions.jpg"
-    ],
-    "keywords": [
-        "commit",
-        "database",
-        "geodatabase",
-        "transact",
-        "transactions"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/geodatabasetransactions.htm"
-    ],
-    "relevant_apis": [
-        "Geodatabase",
-        "Geodatabase.BeginTransaction",
-        "Geodatabase.CommitTransaction",
-        "Geodatabase.IsInTransaction",
-        "Geodatabase.RollbackTransaction"
-    ],
-    "snippets": [
-        "GeodatabaseTransactions.xaml",
-        "GeodatabaseTransactions.xaml.cs"
-    ],
-    "title": "Geodatabase transactions"
+  "category": "Data",
+  "description": "Use transactions to manage how changes are committed to a geodatabase.",
+  "formal_name": "GeodatabaseTransactions",
+  "ignore": false,
+  "images": [
+    "GeodatabaseTransactions.jpg"
+  ],
+  "keywords": [
+    "commit",
+    "database",
+    "geodatabase",
+    "transact",
+    "transactions"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/geodatabasetransactions.htm"
+  ],
+  "relevant_apis": [
+    "Geodatabase",
+    "Geodatabase.BeginTransaction",
+    "Geodatabase.CommitTransaction",
+    "Geodatabase.IsInTransaction",
+    "Geodatabase.RollbackTransaction"
+  ],
+  "snippets": [
+    "GeodatabaseTransactions.xaml",
+    "GeodatabaseTransactions.xaml.cs"
+  ],
+  "title": "Geodatabase transactions"
 }

@@ -1,30 +1,30 @@
 {
-    "category": "Layers",
-    "description": "Connect to a WMS service and show the available layers and sublayers. ",
-    "formal_name": "WmsServiceCatalog",
-    "ignore": false,
-    "images": [
-        "WmsServiceCatalog.jpg"
-    ],
-    "keywords": [
-        "OGC",
-        "WMS",
-        "catalog",
-        "web map service"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/wmsservicecatalog.htm"
-    ],
-    "relevant_apis": [
-        "WmsLayer(List<WmsLayerInfo>)",
-        "WmsLayerInfo",
-        "WmsService",
-        "WmsServiceInfo"
-    ],
-    "snippets": [
-        "WmsServiceCatalog.xaml",
-        "WmsServiceCatalog.xaml.cs"
-    ],
-    "title": "WMS service catalog"
+  "category": "Layers",
+  "description": "Connect to a WMS service and show the available layers and sublayers. ",
+  "formal_name": "WmsServiceCatalog",
+  "ignore": false,
+  "images": [
+    "WmsServiceCatalog.jpg"
+  ],
+  "keywords": [
+    "OGC",
+    "WMS",
+    "catalog",
+    "web map service"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/wmsservicecatalog.htm"
+  ],
+  "relevant_apis": [
+    "WmsLayer(List<WmsLayerInfo>)",
+    "WmsLayerInfo",
+    "WmsService",
+    "WmsServiceInfo"
+  ],
+  "snippets": [
+    "WmsServiceCatalog.xaml",
+    "WmsServiceCatalog.xaml.cs"
+  ],
+  "title": "WMS service catalog"
 }

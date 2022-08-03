@@ -1,35 +1,35 @@
 {
-    "category": "Map",
-    "description": "Apply scheduled updates to a downloaded preplanned map area.",
-    "formal_name": "ApplyScheduledUpdates",
-    "ignore": false,
-    "images": [
-        "ApplyScheduledUpdates.jpg"
-    ],
-    "keywords": [
-        "offline",
-        "pre-planned",
-        "preplanned",
-        "synchronize",
-        "update"
-    ],
-    "offline_data": [
-        "740b663bff5e4198b9b6674af93f638a"
-    ],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/applyscheduledupdates.htm"
-    ],
-    "relevant_apis": [
-        "MobileMapPackage",
-        "OfflineMapSyncJob",
-        "OfflineMapSyncParameters",
-        "OfflineMapSyncResult",
-        "OfflineMapSyncTask",
-        "OfflineMapUpdatesInfo"
-    ],
-    "snippets": [
-        "ApplyScheduledUpdates.xaml",
-        "ApplyScheduledUpdates.xaml.cs"
-    ],
-    "title": "Apply scheduled updates to preplanned map area"
+  "category": "Map",
+  "description": "Apply scheduled updates to a downloaded preplanned map area.",
+  "formal_name": "ApplyScheduledUpdates",
+  "ignore": false,
+  "images": [
+    "ApplyScheduledUpdates.jpg"
+  ],
+  "keywords": [
+    "offline",
+    "pre-planned",
+    "preplanned",
+    "synchronize",
+    "update"
+  ],
+  "offline_data": [
+    "740b663bff5e4198b9b6674af93f638a"
+  ],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/applyscheduledupdates.htm"
+  ],
+  "relevant_apis": [
+    "MobileMapPackage",
+    "OfflineMapSyncJob",
+    "OfflineMapSyncParameters",
+    "OfflineMapSyncResult",
+    "OfflineMapSyncTask",
+    "OfflineMapUpdatesInfo"
+  ],
+  "snippets": [
+    "ApplyScheduledUpdates.xaml",
+    "ApplyScheduledUpdates.xaml.cs"
+  ],
+  "title": "Apply scheduled updates to preplanned map area"
 }

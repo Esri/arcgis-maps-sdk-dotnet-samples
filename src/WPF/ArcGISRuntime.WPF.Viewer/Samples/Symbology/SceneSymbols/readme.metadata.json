@@ -1,41 +1,41 @@
 {
-    "category": "Symbology",
-    "description": "Show various kinds of 3D symbols in a scene.",
-    "formal_name": "SceneSymbols",
-    "ignore": false,
-    "images": [
-        "SceneSymbols.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "cone",
-        "cube",
-        "cylinder",
-        "diamond",
-        "geometry",
-        "graphic",
-        "graphics overlay",
-        "pyramid",
-        "scene",
-        "shape",
-        "sphere",
-        "symbol",
-        "tetrahedron",
-        "tube",
-        "visualization"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/scenesymbols.htm"
-    ],
-    "relevant_apis": [
-        "SceneSymbol.AnchorPosition",
-        "SimpleMarkerSceneSymbol",
-        "SimpleMarkerSceneSymbol.Style"
-    ],
-    "snippets": [
-        "SceneSymbols.xaml",
-        "SceneSymbols.xaml.cs"
-    ],
-    "title": "Scene symbols"
+  "category": "Symbology",
+  "description": "Show various kinds of 3D symbols in a scene.",
+  "formal_name": "SceneSymbols",
+  "ignore": false,
+  "images": [
+    "SceneSymbols.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "cone",
+    "cube",
+    "cylinder",
+    "diamond",
+    "geometry",
+    "graphic",
+    "graphics overlay",
+    "pyramid",
+    "scene",
+    "shape",
+    "sphere",
+    "symbol",
+    "tetrahedron",
+    "tube",
+    "visualization"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/scenesymbols.htm"
+  ],
+  "relevant_apis": [
+    "SceneSymbol.AnchorPosition",
+    "SimpleMarkerSceneSymbol",
+    "SimpleMarkerSceneSymbol.Style"
+  ],
+  "snippets": [
+    "SceneSymbols.xaml",
+    "SceneSymbols.xaml.cs"
+  ],
+  "title": "Scene symbols"
 }

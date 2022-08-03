@@ -1,28 +1,28 @@
 {
-    "category": "Scene",
-    "description": "See through terrain in a scene and move the camera underground.",
-    "formal_name": "ViewContentBeneathSurface",
-    "ignore": false,
-    "images": [
-        "ViewContentBeneathSurface.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "subsurface",
-        "underground",
-        "utilities"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/viewcontentbeneathsurface.htm"
-    ],
-    "relevant_apis": [
-        "Surface",
-        "Surface.NavigationConstraint"
-    ],
-    "snippets": [
-        "ViewContentBeneathSurface.xaml",
-        "ViewContentBeneathSurface.xaml.cs"
-    ],
-    "title": "View content beneath terrain surface"
+  "category": "Scene",
+  "description": "See through terrain in a scene and move the camera underground.",
+  "formal_name": "ViewContentBeneathSurface",
+  "ignore": false,
+  "images": [
+    "ViewContentBeneathSurface.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "subsurface",
+    "underground",
+    "utilities"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/viewcontentbeneathsurface.htm"
+  ],
+  "relevant_apis": [
+    "Surface",
+    "Surface.NavigationConstraint"
+  ],
+  "snippets": [
+    "ViewContentBeneathSurface.xaml",
+    "ViewContentBeneathSurface.xaml.cs"
+  ],
+  "title": "View content beneath terrain surface"
 }

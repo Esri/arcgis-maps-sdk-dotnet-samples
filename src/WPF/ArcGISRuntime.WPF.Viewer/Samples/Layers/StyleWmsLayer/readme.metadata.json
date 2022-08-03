@@ -1,29 +1,29 @@
 {
-    "category": "Layers",
-    "description": "Change the style of a Web Map Service (WMS) layer.",
-    "formal_name": "StyleWmsLayer",
-    "ignore": false,
-    "images": [
-        "StyleWmsLayer.jpg"
-    ],
-    "keywords": [
-        "WMS",
-        "imagery",
-        "styles",
-        "visualization"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/stylewmslayer.htm"
-    ],
-    "relevant_apis": [
-        "WmsLayer",
-        "WmsSublayer",
-        "WmsSublayerInfo"
-    ],
-    "snippets": [
-        "StyleWmsLayer.xaml",
-        "StyleWmsLayer.xaml.cs"
-    ],
-    "title": "Style WMS layers"
+  "category": "Layers",
+  "description": "Change the style of a Web Map Service (WMS) layer.",
+  "formal_name": "StyleWmsLayer",
+  "ignore": false,
+  "images": [
+    "StyleWmsLayer.jpg"
+  ],
+  "keywords": [
+    "WMS",
+    "imagery",
+    "styles",
+    "visualization"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/stylewmslayer.htm"
+  ],
+  "relevant_apis": [
+    "WmsLayer",
+    "WmsSublayer",
+    "WmsSublayerInfo"
+  ],
+  "snippets": [
+    "StyleWmsLayer.xaml",
+    "StyleWmsLayer.xaml.cs"
+  ],
+  "title": "Style WMS layers"
 }

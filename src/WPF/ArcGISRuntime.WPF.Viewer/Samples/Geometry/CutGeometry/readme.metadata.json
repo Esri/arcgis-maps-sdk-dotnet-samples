@@ -1,28 +1,28 @@
 {
-    "category": "Geometry",
-    "description": "Cut a geometry along a polyline.",
-    "formal_name": "CutGeometry",
-    "ignore": false,
-    "images": [
-        "CutGeometry.jpg"
-    ],
-    "keywords": [
-        "cut",
-        "geometry",
-        "split"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/cutgeometry.htm"
-    ],
-    "relevant_apis": [
-        "GeometryEngine.Cut",
-        "Polygon",
-        "Polyline"
-    ],
-    "snippets": [
-        "CutGeometry.xaml",
-        "CutGeometry.xaml.cs"
-    ],
-    "title": "Cut geometry"
+  "category": "Geometry",
+  "description": "Cut a geometry along a polyline.",
+  "formal_name": "CutGeometry",
+  "ignore": false,
+  "images": [
+    "CutGeometry.jpg"
+  ],
+  "keywords": [
+    "cut",
+    "geometry",
+    "split"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/cutgeometry.htm"
+  ],
+  "relevant_apis": [
+    "GeometryEngine.Cut",
+    "Polygon",
+    "Polyline"
+  ],
+  "snippets": [
+    "CutGeometry.xaml",
+    "CutGeometry.xaml.cs"
+  ],
+  "title": "Cut geometry"
 }

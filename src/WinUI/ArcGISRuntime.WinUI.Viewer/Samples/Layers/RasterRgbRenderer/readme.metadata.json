@@ -1,41 +1,41 @@
 {
-    "category": "Layers",
-    "description": "Apply an RGB renderer to a raster layer to enhance feature visibility.",
-    "formal_name": "RasterRgbRenderer",
-    "ignore": false,
-    "images": [
-        "RasterRgbRenderer.jpg"
-    ],
-    "keywords": [
-        "analysis",
-        "color",
-        "composite",
-        "imagery",
-        "multiband",
-        "multispectral",
-        "pan-sharpen",
-        "photograph",
-        "raster",
-        "spectrum",
-        "stretch",
-        "visualization"
-    ],
-    "offline_data": [
-        "7c4c679ab06a4df19dc497f577f111bd"
-    ],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/rasterrgbrenderer.htm"
-    ],
-    "relevant_apis": [
-        "Basemap",
-        "RGBRenderer",
-        "Raster",
-        "RasterLayer",
-        "StretchParameters"
-    ],
-    "snippets": [
-        "RasterRgbRenderer.xaml",
-        "RasterRgbRenderer.xaml.cs"
-    ],
-    "title": "RGB renderer"
+  "category": "Layers",
+  "description": "Apply an RGB renderer to a raster layer to enhance feature visibility.",
+  "formal_name": "RasterRgbRenderer",
+  "ignore": false,
+  "images": [
+    "RasterRgbRenderer.jpg"
+  ],
+  "keywords": [
+    "analysis",
+    "color",
+    "composite",
+    "imagery",
+    "multiband",
+    "multispectral",
+    "pan-sharpen",
+    "photograph",
+    "raster",
+    "spectrum",
+    "stretch",
+    "visualization"
+  ],
+  "offline_data": [
+    "7c4c679ab06a4df19dc497f577f111bd"
+  ],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/rasterrgbrenderer.htm"
+  ],
+  "relevant_apis": [
+    "Basemap",
+    "RGBRenderer",
+    "Raster",
+    "RasterLayer",
+    "StretchParameters"
+  ],
+  "snippets": [
+    "RasterRgbRenderer.xaml",
+    "RasterRgbRenderer.xaml.cs"
+  ],
+  "title": "RGB renderer"
 }

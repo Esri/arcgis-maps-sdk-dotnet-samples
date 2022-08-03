@@ -1,27 +1,27 @@
 {
-    "category": "GraphicsOverlay",
-    "description": "Display an alert message when a graphic is clicked.",
-    "formal_name": "IdentifyGraphics",
-    "ignore": false,
-    "images": [
-        "IdentifyGraphics.jpg"
-    ],
-    "keywords": [
-        "graphics",
-        "identify"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/identifygraphics.htm"
-    ],
-    "relevant_apis": [
-        "Graphic",
-        "GraphicsOverlay",
-        "MapView"
-    ],
-    "snippets": [
-        "IdentifyGraphics.xaml",
-        "IdentifyGraphics.xaml.cs"
-    ],
-    "title": "Identify graphics"
+  "category": "GraphicsOverlay",
+  "description": "Display an alert message when a graphic is clicked.",
+  "formal_name": "IdentifyGraphics",
+  "ignore": false,
+  "images": [
+    "IdentifyGraphics.jpg"
+  ],
+  "keywords": [
+    "graphics",
+    "identify"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/identifygraphics.htm"
+  ],
+  "relevant_apis": [
+    "Graphic",
+    "GraphicsOverlay",
+    "MapView"
+  ],
+  "snippets": [
+    "IdentifyGraphics.xaml",
+    "IdentifyGraphics.xaml.cs"
+  ],
+  "title": "Identify graphics"
 }

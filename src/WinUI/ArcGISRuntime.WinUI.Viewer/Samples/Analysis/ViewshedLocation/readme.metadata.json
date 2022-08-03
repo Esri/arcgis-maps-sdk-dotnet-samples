@@ -1,32 +1,32 @@
 {
-    "category": "Analysis",
-    "description": "Perform a viewshed analysis from a defined vantage point.",
-    "formal_name": "ViewshedLocation",
-    "ignore": false,
-    "images": [
-        "ViewshedLocation.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "frustum",
-        "scene",
-        "viewshed",
-        "visibility analysis"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/viewshedlocation.htm"
-    ],
-    "relevant_apis": [
-        "AnalysisOverlay",
-        "ArcGISSceneLayer",
-        "ArcGISTiledElevationSource",
-        "LocationViewshed",
-        "Viewshed"
-    ],
-    "snippets": [
-        "ViewshedLocation.xaml",
-        "ViewshedLocation.xaml.cs"
-    ],
-    "title": "Viewshed (location)"
+  "category": "Analysis",
+  "description": "Perform a viewshed analysis from a defined vantage point.",
+  "formal_name": "ViewshedLocation",
+  "ignore": false,
+  "images": [
+    "ViewshedLocation.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "frustum",
+    "scene",
+    "viewshed",
+    "visibility analysis"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/viewshedlocation.htm"
+  ],
+  "relevant_apis": [
+    "AnalysisOverlay",
+    "ArcGISSceneLayer",
+    "ArcGISTiledElevationSource",
+    "LocationViewshed",
+    "Viewshed"
+  ],
+  "snippets": [
+    "ViewshedLocation.xaml",
+    "ViewshedLocation.xaml.cs"
+  ],
+  "title": "Viewshed (location)"
 }

@@ -1,28 +1,28 @@
 {
-    "category": "Geometry",
-    "description": "Calculate a geodesic path between two points and measure its distance.",
-    "formal_name": "GeodesicOperations",
-    "ignore": false,
-    "images": [
-        "GeodesicOperations.jpg"
-    ],
-    "keywords": [
-        "densify",
-        "distance",
-        "geodesic",
-        "geodetic"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/geodesicoperations.htm"
-    ],
-    "relevant_apis": [
-        "GeometryEngine.DensifyGeodetic",
-        "GeometryEngine.LengthGeodetic"
-    ],
-    "snippets": [
-        "GeodesicOperations.xaml",
-        "GeodesicOperations.xaml.cs"
-    ],
-    "title": "Geodesic operations"
+  "category": "Geometry",
+  "description": "Calculate a geodesic path between two points and measure its distance.",
+  "formal_name": "GeodesicOperations",
+  "ignore": false,
+  "images": [
+    "GeodesicOperations.jpg"
+  ],
+  "keywords": [
+    "densify",
+    "distance",
+    "geodesic",
+    "geodetic"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/geodesicoperations.htm"
+  ],
+  "relevant_apis": [
+    "GeometryEngine.DensifyGeodetic",
+    "GeometryEngine.LengthGeodetic"
+  ],
+  "snippets": [
+    "GeodesicOperations.xaml",
+    "GeodesicOperations.xaml.cs"
+  ],
+  "title": "Geodesic operations"
 }

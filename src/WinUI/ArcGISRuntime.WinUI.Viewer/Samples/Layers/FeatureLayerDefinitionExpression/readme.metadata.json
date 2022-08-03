@@ -1,33 +1,33 @@
 {
-    "category": "Layers",
-    "description": "Filter features displayed on a map using a definition expression or a display filter.",
-    "formal_name": "FeatureLayerDefinitionExpression",
-    "ignore": false,
-    "images": [
-        "FeatureLayerDefinitionExpression.jpg"
-    ],
-    "keywords": [
-        "SQL",
-        "definition expression",
-        "display filter",
-        "filter",
-        "limit data",
-        "query",
-        "restrict data",
-        "where clause"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/featurelayerdefinitionexpression.htm"
-    ],
-    "relevant_apis": [
-        "DefinitionExpression",
-        "FeatureLayer",
-        "ServiceFeatureTable"
-    ],
-    "snippets": [
-        "FeatureLayerDefinitionExpression.xaml",
-        "FeatureLayerDefinitionExpression.xaml.cs"
-    ],
-    "title": "Filter by definition expression or display filter"
+  "category": "Layers",
+  "description": "Filter features displayed on a map using a definition expression or a display filter.",
+  "formal_name": "FeatureLayerDefinitionExpression",
+  "ignore": false,
+  "images": [
+    "FeatureLayerDefinitionExpression.jpg"
+  ],
+  "keywords": [
+    "SQL",
+    "definition expression",
+    "display filter",
+    "filter",
+    "limit data",
+    "query",
+    "restrict data",
+    "where clause"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/featurelayerdefinitionexpression.htm"
+  ],
+  "relevant_apis": [
+    "DefinitionExpression",
+    "FeatureLayer",
+    "ServiceFeatureTable"
+  ],
+  "snippets": [
+    "FeatureLayerDefinitionExpression.xaml",
+    "FeatureLayerDefinitionExpression.xaml.cs"
+  ],
+  "title": "Filter by definition expression or display filter"
 }

@@ -1,39 +1,39 @@
 {
-    "category": "Map",
-    "description": "Display a basemap centered at an initial location and scale.",
-    "formal_name": "SetInitialMapLocation",
-    "ignore": false,
-    "images": [
-        "SetInitialMapLocation.jpg"
-    ],
-    "keywords": [
-        "LOD",
-        "basemap",
-        "center",
-        "envelope",
-        "extent",
-        "initial",
-        "lat",
-        "latitude",
-        "level of detail",
-        "location",
-        "long",
-        "longitude",
-        "scale",
-        "zoom level"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/setinitialmaplocation.htm"
-    ],
-    "relevant_apis": [
-        "BasemapStyle",
-        "Map",
-        "MapView"
-    ],
-    "snippets": [
-        "SetInitialMapLocation.xaml",
-        "SetInitialMapLocation.xaml.cs"
-    ],
-    "title": "Set initial map location"
+  "category": "Map",
+  "description": "Display a basemap centered at an initial location and scale.",
+  "formal_name": "SetInitialMapLocation",
+  "ignore": false,
+  "images": [
+    "SetInitialMapLocation.jpg"
+  ],
+  "keywords": [
+    "LOD",
+    "basemap",
+    "center",
+    "envelope",
+    "extent",
+    "initial",
+    "lat",
+    "latitude",
+    "level of detail",
+    "location",
+    "long",
+    "longitude",
+    "scale",
+    "zoom level"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/setinitialmaplocation.htm"
+  ],
+  "relevant_apis": [
+    "BasemapStyle",
+    "Map",
+    "MapView"
+  ],
+  "snippets": [
+    "SetInitialMapLocation.xaml",
+    "SetInitialMapLocation.xaml.cs"
+  ],
+  "title": "Set initial map location"
 }

@@ -1,35 +1,35 @@
 {
-    "category": "Data",
-    "description": "Create, query and edit a specific server version using service geodatabase.",
-    "formal_name": "EditBranchVersioning",
-    "ignore": false,
-    "images": [
-        "EditBranchVersioning.jpg"
-    ],
-    "keywords": [
-        "branch versioning",
-        "edit",
-        "version control",
-        "version management server"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/editbranchversioning.htm"
-    ],
-    "relevant_apis": [
-        "FeatureLayer",
-        "ServiceFeatureTable",
-        "ServiceGeodatabase",
-        "ServiceGeodatabase.ApplyEditsAsync",
-        "ServiceGeodatabase.CreateVersionAsync",
-        "ServiceGeodatabase.SwitchVersionAsync",
-        "ServiceVersionInfo",
-        "ServiceVersionParameters",
-        "VersionAccess"
-    ],
-    "snippets": [
-        "EditBranchVersioning.xaml",
-        "EditBranchVersioning.xaml.cs"
-    ],
-    "title": "Edit with branch versioning"
+  "category": "Data",
+  "description": "Create, query and edit a specific server version using service geodatabase.",
+  "formal_name": "EditBranchVersioning",
+  "ignore": false,
+  "images": [
+    "EditBranchVersioning.jpg"
+  ],
+  "keywords": [
+    "branch versioning",
+    "edit",
+    "version control",
+    "version management server"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/editbranchversioning.htm"
+  ],
+  "relevant_apis": [
+    "FeatureLayer",
+    "ServiceFeatureTable",
+    "ServiceGeodatabase",
+    "ServiceGeodatabase.ApplyEditsAsync",
+    "ServiceGeodatabase.CreateVersionAsync",
+    "ServiceGeodatabase.SwitchVersionAsync",
+    "ServiceVersionInfo",
+    "ServiceVersionParameters",
+    "VersionAccess"
+  ],
+  "snippets": [
+    "EditBranchVersioning.xaml",
+    "EditBranchVersioning.xaml.cs"
+  ],
+  "title": "Edit with branch versioning"
 }

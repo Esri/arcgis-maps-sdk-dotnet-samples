@@ -1,29 +1,29 @@
 {
-    "category": "Geometry",
-    "description": "Generate multiple individual buffers or a single unioned buffer around multiple points.",
-    "formal_name": "BufferList",
-    "ignore": false,
-    "images": [
-        "BufferList.jpg"
-    ],
-    "keywords": [
-        "analysis",
-        "buffer",
-        "geometry",
-        "planar"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/bufferlist.htm"
-    ],
-    "relevant_apis": [
-        "Geometry",
-        "GeometryEngine.Buffer",
-        "SpatialReference"
-    ],
-    "snippets": [
-        "BufferList.xaml",
-        "BufferList.xaml.cs"
-    ],
-    "title": "Buffer list"
+  "category": "Geometry",
+  "description": "Generate multiple individual buffers or a single unioned buffer around multiple points.",
+  "formal_name": "BufferList",
+  "ignore": false,
+  "images": [
+    "BufferList.jpg"
+  ],
+  "keywords": [
+    "analysis",
+    "buffer",
+    "geometry",
+    "planar"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/bufferlist.htm"
+  ],
+  "relevant_apis": [
+    "Geometry",
+    "GeometryEngine.Buffer",
+    "SpatialReference"
+  ],
+  "snippets": [
+    "BufferList.xaml",
+    "BufferList.xaml.cs"
+  ],
+  "title": "Buffer list"
 }

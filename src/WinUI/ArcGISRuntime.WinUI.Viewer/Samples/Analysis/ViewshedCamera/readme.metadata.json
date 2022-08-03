@@ -1,34 +1,34 @@
 {
-    "category": "Analysis",
-    "description": "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
-    "formal_name": "ViewshedCamera",
-    "ignore": false,
-    "images": [
-        "ViewshedCamera.jpg"
-    ],
-    "keywords": [
-        "3D",
-        "Scene",
-        "integrated mesh",
-        "viewshed",
-        "visibility analysis"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/viewshedcamera.htm"
-    ],
-    "relevant_apis": [
-        "AnalysisOverlay",
-        "ArcGISTiledElevationSource",
-        "Camera",
-        "IntegratedMeshLayer",
-        "LocationViewshed",
-        "Scene",
-        "SceneView"
-    ],
-    "snippets": [
-        "ViewshedCamera.xaml",
-        "ViewshedCamera.xaml.cs"
-    ],
-    "title": "Viewshed for camera"
+  "category": "Analysis",
+  "description": "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
+  "formal_name": "ViewshedCamera",
+  "ignore": false,
+  "images": [
+    "ViewshedCamera.jpg"
+  ],
+  "keywords": [
+    "3D",
+    "Scene",
+    "integrated mesh",
+    "viewshed",
+    "visibility analysis"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/viewshedcamera.htm"
+  ],
+  "relevant_apis": [
+    "AnalysisOverlay",
+    "ArcGISTiledElevationSource",
+    "Camera",
+    "IntegratedMeshLayer",
+    "LocationViewshed",
+    "Scene",
+    "SceneView"
+  ],
+  "snippets": [
+    "ViewshedCamera.xaml",
+    "ViewshedCamera.xaml.cs"
+  ],
+  "title": "Viewshed for camera"
 }

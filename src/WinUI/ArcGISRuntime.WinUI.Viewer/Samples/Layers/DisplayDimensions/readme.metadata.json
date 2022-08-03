@@ -1,29 +1,29 @@
 {
-    "category": "Layers",
-    "description": "Display dimension features from a mobile map package.",
-    "formal_name": "DisplayDimensions",
-    "ignore": false,
-    "images": [
-        "DisplayDimensions.jpg"
-    ],
-    "keywords": [
-        "dimension",
-        "layer",
-        "mmpk",
-        "mobile map package",
-        "utility"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/displaydimensions.htm"
-    ],
-    "relevant_apis": [
-        "DimensionLayer",
-        "MobileMapPackage"
-    ],
-    "snippets": [
-        "DisplayDimensions.xaml",
-        "DisplayDimensions.xaml.cs"
-    ],
-    "title": "Display dimensions"
+  "category": "Layers",
+  "description": "Display dimension features from a mobile map package.",
+  "formal_name": "DisplayDimensions",
+  "ignore": false,
+  "images": [
+    "DisplayDimensions.jpg"
+  ],
+  "keywords": [
+    "dimension",
+    "layer",
+    "mmpk",
+    "mobile map package",
+    "utility"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/displaydimensions.htm"
+  ],
+  "relevant_apis": [
+    "DimensionLayer",
+    "MobileMapPackage"
+  ],
+  "snippets": [
+    "DisplayDimensions.xaml",
+    "DisplayDimensions.xaml.cs"
+  ],
+  "title": "Display dimensions"
 }

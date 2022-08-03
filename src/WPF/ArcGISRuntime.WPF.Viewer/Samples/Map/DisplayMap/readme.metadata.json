@@ -1,27 +1,27 @@
 {
-    "category": "Map",
-    "description": "Display a map with an imagery basemap.",
-    "formal_name": "DisplayMap",
-    "ignore": false,
-    "images": [
-        "DisplayMap.jpg"
-    ],
-    "keywords": [
-        "basemap",
-        "map"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/displaymap.htm"
-    ],
-    "relevant_apis": [
-        "Basemap",
-        "Map",
-        "MapView"
-    ],
-    "snippets": [
-        "DisplayMap.xaml",
-        "DisplayMap.xaml.cs"
-    ],
-    "title": "Display map"
+  "category": "Map",
+  "description": "Display a map with an imagery basemap.",
+  "formal_name": "DisplayMap",
+  "ignore": false,
+  "images": [
+    "DisplayMap.jpg"
+  ],
+  "keywords": [
+    "basemap",
+    "map"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/displaymap.htm"
+  ],
+  "relevant_apis": [
+    "Basemap",
+    "Map",
+    "MapView"
+  ],
+  "snippets": [
+    "DisplayMap.xaml",
+    "DisplayMap.xaml.cs"
+  ],
+  "title": "Display map"
 }

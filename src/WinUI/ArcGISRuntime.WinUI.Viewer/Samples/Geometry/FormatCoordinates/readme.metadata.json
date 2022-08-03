@@ -1,34 +1,34 @@
 {
-    "category": "Geometry",
-    "description": "Format coordinates in a variety of common notations.",
-    "formal_name": "FormatCoordinates",
-    "ignore": false,
-    "images": [
-        "FormatCoordinates.jpg"
-    ],
-    "keywords": [
-        "USNG",
-        "UTM",
-        "convert",
-        "coordinate",
-        "decimal degrees",
-        "degree minutes seconds",
-        "format",
-        "latitude",
-        "longitude"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/formatcoordinates.htm"
-    ],
-    "relevant_apis": [
-        "CoordinateFormatter",
-        "CoordinateFormatter.LatitudeLongitudeFormat",
-        "CoordinateFormatter.UtmConversionMode"
-    ],
-    "snippets": [
-        "FormatCoordinates.xaml",
-        "FormatCoordinates.xaml.cs"
-    ],
-    "title": "Format coordinates"
+  "category": "Geometry",
+  "description": "Format coordinates in a variety of common notations.",
+  "formal_name": "FormatCoordinates",
+  "ignore": false,
+  "images": [
+    "FormatCoordinates.jpg"
+  ],
+  "keywords": [
+    "USNG",
+    "UTM",
+    "convert",
+    "coordinate",
+    "decimal degrees",
+    "degree minutes seconds",
+    "format",
+    "latitude",
+    "longitude"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/formatcoordinates.htm"
+  ],
+  "relevant_apis": [
+    "CoordinateFormatter",
+    "CoordinateFormatter.LatitudeLongitudeFormat",
+    "CoordinateFormatter.UtmConversionMode"
+  ],
+  "snippets": [
+    "FormatCoordinates.xaml",
+    "FormatCoordinates.xaml.cs"
+  ],
+  "title": "Format coordinates"
 }

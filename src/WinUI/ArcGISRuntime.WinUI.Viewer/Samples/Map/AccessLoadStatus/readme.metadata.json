@@ -1,28 +1,28 @@
 {
-    "category": "Map",
-    "description": "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",
-    "formal_name": "AccessLoadStatus",
-    "ignore": false,
-    "images": [
-        "AccessLoadStatus.jpg"
-    ],
-    "keywords": [
-        "LoadStatus",
-        "Loadable pattern",
-        "Map"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/accessloadstatus.htm"
-    ],
-    "relevant_apis": [
-        "ILoadable",
-        "Map",
-        "MapView"
-    ],
-    "snippets": [
-        "AccessLoadStatus.xaml",
-        "AccessLoadStatus.xaml.cs"
-    ],
-    "title": "Access load status"
+  "category": "Map",
+  "description": "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",
+  "formal_name": "AccessLoadStatus",
+  "ignore": false,
+  "images": [
+    "AccessLoadStatus.jpg"
+  ],
+  "keywords": [
+    "LoadStatus",
+    "Loadable pattern",
+    "Map"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/accessloadstatus.htm"
+  ],
+  "relevant_apis": [
+    "ILoadable",
+    "Map",
+    "MapView"
+  ],
+  "snippets": [
+    "AccessLoadStatus.xaml",
+    "AccessLoadStatus.xaml.cs"
+  ],
+  "title": "Access load status"
 }

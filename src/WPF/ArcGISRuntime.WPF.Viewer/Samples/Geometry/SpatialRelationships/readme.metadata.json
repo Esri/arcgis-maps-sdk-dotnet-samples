@@ -1,39 +1,39 @@
 {
-    "category": "Geometry",
-    "description": "Determine spatial relationships between two geometries.",
-    "formal_name": "SpatialRelationships",
-    "ignore": false,
-    "images": [
-        "SpatialRelationships.jpg"
-    ],
-    "keywords": [
-        "geometries",
-        "relationship",
-        "spatial analysis"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/spatialrelationships.htm"
-    ],
-    "relevant_apis": [
-        "Geometry",
-        "GeometryEngine",
-        "GeometryEngine.Contains",
-        "GeometryEngine.Crosses",
-        "GeometryEngine.Disjoint",
-        "GeometryEngine.Intersects",
-        "GeometryEngine.Overlaps",
-        "GeometryEngine.Touches",
-        "GeometryEngine.Within",
-        "GeometryType",
-        "Graphic",
-        "Point",
-        "Polygon",
-        "Polyline"
-    ],
-    "snippets": [
-        "SpatialRelationships.xaml",
-        "SpatialRelationships.xaml.cs"
-    ],
-    "title": "Spatial relationships"
+  "category": "Geometry",
+  "description": "Determine spatial relationships between two geometries.",
+  "formal_name": "SpatialRelationships",
+  "ignore": false,
+  "images": [
+    "SpatialRelationships.jpg"
+  ],
+  "keywords": [
+    "geometries",
+    "relationship",
+    "spatial analysis"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/spatialrelationships.htm"
+  ],
+  "relevant_apis": [
+    "Geometry",
+    "GeometryEngine",
+    "GeometryEngine.Contains",
+    "GeometryEngine.Crosses",
+    "GeometryEngine.Disjoint",
+    "GeometryEngine.Intersects",
+    "GeometryEngine.Overlaps",
+    "GeometryEngine.Touches",
+    "GeometryEngine.Within",
+    "GeometryType",
+    "Graphic",
+    "Point",
+    "Polygon",
+    "Polyline"
+  ],
+  "snippets": [
+    "SpatialRelationships.xaml",
+    "SpatialRelationships.xaml.cs"
+  ],
+  "title": "Spatial relationships"
 }

@@ -11,11 +11,11 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.RasterColormapRenderer

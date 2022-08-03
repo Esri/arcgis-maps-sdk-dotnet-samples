@@ -7,11 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using Esri.ArcGISRuntime.Geometry;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
@@ -39,8 +39,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
             // Configure the UI options.
-            gridTypePicker.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
-            string[] colorItemsSource = { "Red", "Green", "Blue", "White", "Purple" };
+            gridTypePicker.ItemsSource = new[] {"LatLong", "MGRS", "UTM", "USNG"};
+            string[] colorItemsSource = {"Red", "Green", "Blue", "White", "Purple"};
             gridColorPicker.ItemsSource = colorItemsSource;
             labelColorPicker.ItemsSource = colorItemsSource;
             haloColorPicker.ItemsSource = colorItemsSource;
@@ -86,8 +86,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                     grid = new LatitudeLongitudeGrid();
                     // Apply the label format setting.
                     string selectedFormatString = labelFormatPicker.SelectedItem.ToString();
-                    ((LatitudeLongitudeGrid)grid).LabelFormat =
-                        (LatitudeLongitudeGridLabelFormat)Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat),
+                    ((LatitudeLongitudeGrid) grid).LabelFormat =
+                        (LatitudeLongitudeGridLabelFormat) Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat),
                             selectedFormatString);
                     break;
 
@@ -98,7 +98,6 @@ namespace ArcGISRuntime.Samples.DisplayGrid
                 case "UTM":
                     grid = new UtmGrid();
                     break;
-
                 case "USNG":
                 default:
                     grid = new UsngGrid();
@@ -133,7 +132,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Next, apply the label position setting.
             grid.LabelPosition =
-                (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), labelPositionPicker.SelectedItem.ToString());
+                (GridLabelPosition) Enum.Parse(typeof(GridLabelPosition), labelPositionPicker.SelectedItem.ToString());
 
             // Apply the updated grid.
             MyMapView.Grid = grid;

@@ -9,9 +9,10 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.WMTSLayer
@@ -73,6 +74,7 @@ namespace ArcGISRuntime.WinUI.Samples.WMTSLayer
                 {
                     // Create a WMTS layer using a Uri and provide an Id value.
                     myWmtsLayer = new WmtsLayer(wmtsUri, "WorldTimeZones");
+
                 }
                 else
                 {

@@ -8,7 +8,7 @@
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />

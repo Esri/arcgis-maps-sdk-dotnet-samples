@@ -2,34 +2,34 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.AuthorMap.SaveMapPage"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <ContentPage.Content>
-        <TableView x:Name="SaveMapUI"
+  <ContentPage.Content>
+    <TableView x:Name="SaveMapUI"
            Grid.Row="0"
            Intent="Form">
-            <TableRoot>
-                <TableSection Title="Map Information">
-                    <EntryCell x:Name="MapTitleEntry"
+      <TableRoot>
+        <TableSection Title="Map Information">
+          <EntryCell x:Name="MapTitleEntry"
                      Label="Title:"
-                     Placeholder="Required" />
-                    <EntryCell x:Name="MapDescriptionEntry"
+                     Placeholder="Required"/>
+          <EntryCell x:Name="MapDescriptionEntry"
                      Label="Description:"
-                     Placeholder="Required" />
-                    <EntryCell x:Name="MapTagsEntry"
+                     Placeholder="Required"/>
+          <EntryCell x:Name="MapTagsEntry"
                      Label="Tags:"
-                     Text="ArcGIS Runtime, Webmap" />
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal"
+                     Text="ArcGIS Runtime, Webmap"/>
+          <ViewCell>
+            <StackLayout Orientation="Horizontal"
                          HorizontalOptions="CenterAndExpand">
-                            <Button Text="Cancel"
+              <Button Text="Cancel"
                       Clicked="CancelButtonClicked"
-                      Margin="20,0" />
-                            <Button x:Name="SaveMapButton"
+                      Margin="20,0"/>
+              <Button x:Name="SaveMapButton"
                       Text="Save"
-                      Clicked="SaveButtonClicked" />
-                        </StackLayout>
-                    </ViewCell>
-                </TableSection>
-            </TableRoot>
-        </TableView>
-    </ContentPage.Content>
+                      Clicked="SaveButtonClicked"/>
+            </StackLayout>
+          </ViewCell>
+        </TableSection>
+      </TableRoot>
+    </TableView>
+  </ContentPage.Content>
 </ContentPage>

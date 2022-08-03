@@ -1,6 +1,8 @@
 ﻿using ArcGISRuntime.Samples.Shared.Models;
 using System;
 using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
 
 namespace ArcGISRuntime.Samples.Shared.Managers
 {
@@ -11,9 +13,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
 #if !(__IOS__ || XAMARIN || __ANDROID__ || WINDOWS_UWP)
         private static ScreenshotSettings _screenshotSettings = GetScreenshotSettings();
-
-        public static ScreenshotSettings ScreenshotSettings
-        { get { return _screenshotSettings; } }
+        public static ScreenshotSettings ScreenshotSettings { get { return _screenshotSettings; } }
 
         private static ScreenshotSettings GetScreenshotSettings()
         {
@@ -22,7 +22,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             try
             {
                 // Get the screenshot settings from the saved file if it exists.
-                // If the file does not exist, create it.
+                // If the file does not exist, create it. 
                 if (File.Exists(Path.Combine(GetScreenshotSettingsFolder(), _screenshotSettingsFileName)))
                 {
                     string settings = File.ReadAllText(Path.Combine(GetScreenshotSettingsFolder(), _screenshotSettingsFileName));
@@ -31,7 +31,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                     _screenshotSettings = DeserializeScreenshotSettingsJson(settings);
 #else
                     _screenshotSettings = System.Text.Json.JsonSerializer.Deserialize(settings, typeof(ScreenshotSettings)) as ScreenshotSettings;
-#endif
+#endif           
                 }
                 else
                 {
@@ -107,5 +107,5 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         }
 #endif
 #endif
-    }
+            }
 }

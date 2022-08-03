@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayKmlNetworkLinks
 {

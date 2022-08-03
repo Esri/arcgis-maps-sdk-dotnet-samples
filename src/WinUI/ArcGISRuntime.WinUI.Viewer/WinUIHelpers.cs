@@ -13,9 +13,7 @@ namespace ArcGISRuntime.WinUI
     {
         private readonly MessageDialog dialog;
 
-        public MessageDialog2(string content) : this(content, string.Empty)
-        {
-        }
+        public MessageDialog2(string content) : this(content, string.Empty) { }
 
         public MessageDialog2(string content, string title)
         {

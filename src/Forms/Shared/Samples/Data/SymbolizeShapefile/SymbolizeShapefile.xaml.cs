@@ -25,7 +25,7 @@ namespace ArcGISRuntime.Samples.SymbolizeShapefile
         description: "Display a shapefile with custom symbology.",
         instructions: "Tap the button to apply a new symbology renderer to the feature layer created from the shapefile. ",
         tags: new[] { "package", "shape file", "shapefile", "symbology", "visualization" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class SymbolizeShapefile : ContentPage
     {
         // Hold reference to the feature layer so that its renderer can be changed when button is pushed

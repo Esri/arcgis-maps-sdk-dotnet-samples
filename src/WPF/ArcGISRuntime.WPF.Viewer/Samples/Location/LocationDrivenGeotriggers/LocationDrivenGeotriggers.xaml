@@ -10,12 +10,12 @@
                 <Image x:Name="LocationImage"
                        Height="150"
                        Margin="5" />
-                <ScrollViewer
+                <ScrollViewer 
                               Height="150"
                               Margin="5">
                     <TextBlock x:Name="Description" TextWrapping="Wrap" />
                 </ScrollViewer>
-                <Label Content="Click on features in list to see information." />
+                <Label Content="Click on features in list to see information."/>
                 <ListView x:Name="LocationList"
                           Height="125"
                           Margin="5"

@@ -10,13 +10,14 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using Microsoft.UI.Xaml;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.PlayKmlTours
 {

@@ -6,19 +6,19 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
+            <RowDefinition/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="0" />
+                        Grid.Row="0"/>
         <Entry x:Name="CollectionItemIdTextBox"
                Placeholder="Portal item Id"
                Grid.Row="1"
-               HorizontalOptions="Fill" />
+               HorizontalOptions="Fill"/>
         <Button Grid.Row="2"
                 HorizontalOptions="Fill"
                 Text="Open feature collection item"
-                Clicked="OpenPortalFeatureCollectionClick" />
+                Clicked="OpenPortalFeatureCollectionClick"/>
     </Grid>
 </ContentPage>

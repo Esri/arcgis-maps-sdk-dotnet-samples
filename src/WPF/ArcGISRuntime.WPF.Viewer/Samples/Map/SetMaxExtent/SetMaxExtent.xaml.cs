@@ -41,7 +41,7 @@ namespace ArcGISRuntime.WPF.Samples.SetMaxExtent
             MapPoint southWestPoint = new MapPoint(-11359277.5124, 4438148.7816, SpatialReferences.WebMercator);
             _extentEnvelope = new Envelope(northEastPoint, southWestPoint);
 
-            // Create a graphics overlay of the map's max extent.
+            // Create a graphics overlay of the map's max extent. 
             GraphicsOverlay overlay = new GraphicsOverlay();
 
             // Create a simple red dashed line renderer.
@@ -53,7 +53,7 @@ namespace ArcGISRuntime.WPF.Samples.SetMaxExtent
             // Add the graphics overlay to the MapView.
             MyMapView.GraphicsOverlays.Add(overlay);
 
-            // Create an initial viewpoint from the extent.
+            // Create an initial viewpoint from the extent. 
             Viewpoint initialViewpoint = new Viewpoint(_extentEnvelope);
             myMap.InitialViewpoint = initialViewpoint;
 

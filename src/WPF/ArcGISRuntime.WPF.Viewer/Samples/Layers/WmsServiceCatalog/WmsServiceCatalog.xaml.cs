@@ -10,12 +10,12 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
@@ -100,6 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(myLayer);
         }
+
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {

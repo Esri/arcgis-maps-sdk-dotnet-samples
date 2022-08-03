@@ -19,10 +19,8 @@ using System.Text;
 #elif XAMARIN
 using Xamarin.Essentials;
 #else
-
 using System.Security.Cryptography;
 using System.Text;
-
 #endif
 
 using Map = Esri.ArcGISRuntime.Mapping.Map;
@@ -69,7 +67,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             _keyDisabled = false;
         }
 
-        public static async Task<ApiKeyStatus> CheckKeyValidity()
+        public async static Task<ApiKeyStatus> CheckKeyValidity()
         {
             try
             {

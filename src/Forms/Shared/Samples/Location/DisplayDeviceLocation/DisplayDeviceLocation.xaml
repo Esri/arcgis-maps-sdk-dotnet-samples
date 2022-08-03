@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              x:Class="ArcGISRuntime.Samples.DisplayDeviceLocation.DisplayDeviceLocation">
-    <Grid>
-        <Grid.RowDefinitions>
+  <Grid>
+    <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -15,5 +15,5 @@
         <Button Clicked="OnStopClicked" Text="Stop" Grid.Row="0" Grid.Column="0" x:Name="StopButton" />
         <Button Clicked="OnStartClicked" Text="Start" Grid.Row="0" Grid.Column="1" x:Name="StartButton" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" Grid.ColumnSpan="2" />
-    </Grid>
+  </Grid>
 </ContentPage>

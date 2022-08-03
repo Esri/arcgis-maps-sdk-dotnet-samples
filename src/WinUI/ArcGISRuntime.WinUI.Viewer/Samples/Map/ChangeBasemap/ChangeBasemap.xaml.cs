@@ -8,8 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.ChangeBasemap
 {

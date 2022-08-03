@@ -71,7 +71,7 @@ namespace ArcGISRuntime.WPF.Samples.CustomDictionaryStyle
                 // Load the portal style renderer.
                 await LoadWebStyle();
 
-                // Set the local style radio button to be checked.
+                // Set the local style radio button to be checked.  
                 LocalStyleButton.IsChecked = true;
             }
             catch (Exception ex)

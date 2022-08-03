@@ -1,13 +1,17 @@
-﻿using Esri.ArcGISRuntime;
-using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.UI;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media.Imaging;
-using System;
+using Esri.ArcGISRuntime;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.WinUI.Samples.MobileMapSearchAndRoute
 {
-    internal class ItemToImageSourceConverter : IValueConverter
+    class ItemToImageSourceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

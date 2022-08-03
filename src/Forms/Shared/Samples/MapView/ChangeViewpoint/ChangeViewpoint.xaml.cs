@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -59,9 +59,9 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
 
         public ChangeViewpoint()
         {
-            InitializeComponent();
+            InitializeComponent ();
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 
@@ -88,29 +88,29 @@ namespace ArcGISRuntime.Samples.ChangeViewpoint
                 switch (selectedMapTitle)
                 {
                     case "Geometry":
-
+   
                         // Set Viewpoint using Redlands envelope defined above and a padding of 20
                         await MyMapView.SetViewpointGeometryAsync(RedlandsEnvelope, 20);
                         break;
 
                     case "Center & Scale":
-
+                    
                         // Set Viewpoint so that it is centered on the London coordinates defined above
                         await MyMapView.SetViewpointCenterAsync(LondonCoords);
-
-                        // Set the Viewpoint scale to match the specified scale
+                    
+                        // Set the Viewpoint scale to match the specified scale 
                         await MyMapView.SetViewpointScaleAsync(LondonScale);
                         break;
 
                     case "Animate":
-
+                    
                         // Navigate to full extent of the first baselayer before animating to specified geometry
                         await MyMapView.SetViewpointAsync(
                             new Viewpoint(MyMapView.Map.Basemap.BaseLayers.First().FullExtent));
-
+                    
                         // Create a new Viewpoint using the specified geometry
                         Viewpoint viewpoint = new Viewpoint(EdinburghEnvelope);
-
+                    
                         // Set Viewpoint of MapView to the Viewpoint created above and animate to it using a timespan of 5 seconds
                         await MyMapView.SetViewpointAsync(viewpoint, TimeSpan.FromSeconds(5));
                         break;

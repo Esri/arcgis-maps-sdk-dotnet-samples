@@ -11,12 +11,13 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
-using Microsoft.UI.Xaml;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using System.Linq;
+using System.Drawing;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.ListRelatedFeatures
 {
@@ -60,7 +61,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListRelatedFeatures
                 await myMap.LoadAsync();
 
                 // Get the feature layer from the map.
-                _myFeatureLayer = (FeatureLayer)myMap.OperationalLayers.First();
+                _myFeatureLayer = (FeatureLayer) myMap.OperationalLayers.First();
 
                 // Wait for the layer to load.
                 await _myFeatureLayer.LoadAsync();
@@ -101,13 +102,13 @@ namespace ArcGISRuntime.WinUI.Samples.ListRelatedFeatures
                 LoadingProgress.Visibility = Visibility.Visible;
 
                 // Get the first result.
-                ArcGISFeature myFeature = (ArcGISFeature)results.GeoElements.First();
+                ArcGISFeature myFeature = (ArcGISFeature) results.GeoElements.First();
 
                 // Select the feature.
                 _myFeatureLayer.SelectFeature(myFeature);
 
                 // Get the feature table for the feature.
-                ArcGISFeatureTable myFeatureTable = (ArcGISFeatureTable)myFeature.FeatureTable;
+                ArcGISFeatureTable myFeatureTable = (ArcGISFeatureTable) myFeature.FeatureTable;
 
                 // Query related features.
                 IReadOnlyList<RelatedFeatureQueryResult> relatedFeaturesResult =
@@ -123,7 +124,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListRelatedFeatures
                     foreach (Feature resultFeature in result)
                     {
                         // Get a reference to the feature's table.
-                        ArcGISFeatureTable relatedTable = (ArcGISFeatureTable)resultFeature.FeatureTable;
+                        ArcGISFeatureTable relatedTable = (ArcGISFeatureTable) resultFeature.FeatureTable;
 
                         // Get the display field name - this is the name of the field that is intended for display.
                         string displayFieldName = relatedTable.LayerInfo.DisplayFieldName;

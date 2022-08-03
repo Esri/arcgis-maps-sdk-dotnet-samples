@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
@@ -24,7 +24,7 @@ namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
         description: "Display a raster contained in a GeoPackage.",
         instructions: "When the sample starts, a raster will be loaded from a GeoPackage and displayed in the map view.",
         tags: new[] { "OGC", "container", "data", "image", "import", "layer", "package", "raster", "visualization" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class RasterLayerGeoPackage : ContentPage
     {
         public RasterLayerGeoPackage()

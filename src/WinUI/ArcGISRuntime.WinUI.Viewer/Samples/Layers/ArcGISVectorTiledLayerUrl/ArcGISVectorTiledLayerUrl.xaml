@@ -6,14 +6,14 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Select a vector layer."
-                           HorizontalAlignment="Center"
+                <TextBlock Text="Select a vector layer." 
+                           HorizontalAlignment="Center" 
                            FontWeight="SemiBold"
-                           Margin="0,0,0,5"
+                           Margin="0,0,0,5" 
                            TextWrapping="Wrap" />
-                <ComboBox x:Name="VectorLayerChooser"
+                <ComboBox x:Name="VectorLayerChooser" 
                           HorizontalAlignment="Stretch"
-                          SelectionChanged="OnVectorLayersChooserSelectionChanged" />
+                          SelectionChanged="OnVectorLayersChooserSelectionChanged"  />
             </StackPanel>
         </Border>
     </Grid>

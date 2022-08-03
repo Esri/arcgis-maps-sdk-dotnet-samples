@@ -9,8 +9,8 @@
 
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
-using Microsoft.UI.Xaml;
 using System;
+using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.ChangeTimeExtent
 {

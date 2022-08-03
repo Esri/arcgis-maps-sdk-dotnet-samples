@@ -260,7 +260,7 @@ namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
                 string filePath = Path.Combine(Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
 
                 // Check if permission has not been granted.
-                if (ContextCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
+                if(ContextCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
                 {
                     ArcGISRuntime.Droid.MainActivity.Instance.RequestPermissions(new[] { Manifest.Permission.WriteExternalStorage }, 1);
                 }

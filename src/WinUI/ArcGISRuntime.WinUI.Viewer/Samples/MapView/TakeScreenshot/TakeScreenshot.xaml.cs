@@ -7,14 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Media;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
+using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.TakeScreenshot
 {

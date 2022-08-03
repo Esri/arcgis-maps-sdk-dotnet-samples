@@ -18,6 +18,7 @@
             </mapping:Map>
         </esri:MapView>
 
+
         <!-- Layer listing with status -->
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>

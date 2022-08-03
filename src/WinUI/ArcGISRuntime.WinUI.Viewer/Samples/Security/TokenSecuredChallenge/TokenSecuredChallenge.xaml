@@ -88,5 +88,6 @@
                            Text="{Binding ErrorMessage}" />
             </Grid>
         </Border>
+
     </Grid>
 </UserControl>

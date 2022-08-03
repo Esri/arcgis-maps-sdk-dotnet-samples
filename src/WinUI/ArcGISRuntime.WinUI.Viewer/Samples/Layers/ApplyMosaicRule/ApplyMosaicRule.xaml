@@ -1,4 +1,4 @@
-<UserControl
+<UserControl 
     x:Class="ArcGISRuntime.WinUI.Samples.ApplyMosaicRule.ApplyMosaicRule"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,7 +9,7 @@
             Style="{StaticResource BorderStyle}"
             HorizontalAlignment="Right" VerticalAlignment="Top">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Mosaic rule:" VerticalAlignment="Center" />
+                <TextBlock Text="Mosaic rule:" VerticalAlignment="Center"/>
                 <ComboBox x:Name="MosaicRulesBox" SelectionChanged="MosaicRulesBox_SelectionChanged" Background="White" Margin="5" />
             </StackPanel>
         </Border>

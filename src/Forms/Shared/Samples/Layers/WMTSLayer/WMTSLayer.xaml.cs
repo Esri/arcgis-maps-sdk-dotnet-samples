@@ -73,6 +73,7 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 {
                     // Create a WMTS layer using a Uri and provide an Id value.
                     myWmtsLayer = new WmtsLayer(wmtsUri, "WorldTimeZones");
+
                 }
                 else
                 {

@@ -12,10 +12,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
+using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.ApplyScheduledUpdates
 {

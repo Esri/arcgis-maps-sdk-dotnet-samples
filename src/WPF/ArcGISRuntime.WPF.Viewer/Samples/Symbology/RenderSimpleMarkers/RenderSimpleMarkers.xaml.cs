@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -20,13 +20,14 @@ namespace ArcGISRuntime.WPF.Samples.RenderSimpleMarkers
         description: "Show a simple marker symbol on a map.",
         instructions: "The sample loads with a predefined simple marker symbol, set as a red circle.",
         tags: new[] { "symbol" })]
+
     public partial class RenderSimpleMarkers
     {
         public RenderSimpleMarkers()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 

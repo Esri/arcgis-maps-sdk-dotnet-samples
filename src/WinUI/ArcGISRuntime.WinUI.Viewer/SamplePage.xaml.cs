@@ -95,7 +95,6 @@ namespace ArcGISRuntime.WinUI.Viewer
         }
 
         #region Screenshot Tool
-
         private void ScreenshotKeyDown_Event(object sender, KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.End)
@@ -115,9 +114,9 @@ namespace ArcGISRuntime.WinUI.Viewer
             int width = (int)(source.DesiredSize.Width * scale);
             var visual = source.TransformToVisual(null).TransformPoint(new Windows.Foundation.Point(0, 0));
 
-            // This is the height of the top bar for the viewer application.
+            // This is the height of the top bar for the viewer application. 
             int topBorderWidth = 29;
-
+            
             int X = (int)(visual.X * scale);
             int Y = (int)(visual.Y * scale) + topBorderWidth;
 
@@ -147,7 +146,6 @@ namespace ArcGISRuntime.WinUI.Viewer
                 Console.WriteLine($"Error saving screenshot: {ex.Message}");
             }
         }
-
-        #endregion Screenshot Tool
+        #endregion
     }
 }

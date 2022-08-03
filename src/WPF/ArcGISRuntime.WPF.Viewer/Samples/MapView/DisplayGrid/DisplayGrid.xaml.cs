@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Colors = System.Drawing.Color;
 using Grid = Esri.ArcGISRuntime.UI.Grid;
 
@@ -40,14 +40,14 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
             // Configure the UI options.
-            GridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
-            Colors[] colorItemsSource = { Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Purple };
+            GridTypeCombo.ItemsSource = new[] {"LatLong", "MGRS", "UTM", "USNG"};
+            Colors[] colorItemsSource = {Colors.Red, Colors.Green, Colors.Blue, Colors.White, Colors.Purple};
             GridColorCombo.ItemsSource = colorItemsSource;
             LabelColorCombo.ItemsSource = colorItemsSource;
             HaloColorCombo.ItemsSource = colorItemsSource;
             LabelPositionCombo.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
             LabelFormatCombo.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
-            ComboBox[] boxes = { GridTypeCombo, GridColorCombo, LabelColorCombo, HaloColorCombo, LabelPositionCombo, LabelFormatCombo };
+            ComboBox[] boxes = {GridTypeCombo, GridColorCombo, LabelColorCombo, HaloColorCombo, LabelPositionCombo, LabelFormatCombo};
             foreach (ComboBox combo in boxes)
             {
                 combo.SelectedIndex = 0;
@@ -87,8 +87,8 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
                     grid = new LatitudeLongitudeGrid();
                     // Apply the label format setting.
                     string selectedFormatString = LabelFormatCombo.SelectedValue.ToString();
-                    ((LatitudeLongitudeGrid)grid).LabelFormat =
-                        (LatitudeLongitudeGridLabelFormat)Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat),
+                    ((LatitudeLongitudeGrid) grid).LabelFormat =
+                        (LatitudeLongitudeGridLabelFormat) Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat),
                             selectedFormatString);
                     break;
 
@@ -99,7 +99,6 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
                 case "UTM":
                     grid = new UtmGrid();
                     break;
-
                 case "USNG":
                 default:
                     grid = new UsngGrid();
@@ -115,16 +114,16 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
             {
                 // Set the line symbol.
                 Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
-                    (Colors)GridColorCombo.SelectedValue, 2);
+                    (Colors) GridColorCombo.SelectedValue, 2);
                 grid.SetLineSymbol(level, lineSymbol);
 
                 // Set the text symbol.
                 Symbol textSymbol = new TextSymbol
                 {
-                    Color = (Colors)LabelColorCombo.SelectedValue,
-                    OutlineColor = (Colors)HaloColorCombo.SelectedValue,
+                    Color = (Colors) LabelColorCombo.SelectedValue,
+                    OutlineColor = (Colors) HaloColorCombo.SelectedValue,
                     Size = 16,
-                    HaloColor = (Colors)HaloColorCombo.SelectedValue,
+                    HaloColor = (Colors) HaloColorCombo.SelectedValue,
                     HaloWidth = 3
                 };
                 grid.SetTextSymbol(level, textSymbol);
@@ -132,7 +131,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayGrid
 
             // Next, apply the label position setting.
             grid.LabelPosition =
-                (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), LabelPositionCombo.SelectedValue.ToString());
+                (GridLabelPosition) Enum.Parse(typeof(GridLabelPosition), LabelPositionCombo.SelectedValue.ToString());
 
             // Apply the updated grid.
             MyMapView.Grid = grid;

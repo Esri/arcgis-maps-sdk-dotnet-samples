@@ -12,12 +12,13 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
-using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.BrowseWfsLayers

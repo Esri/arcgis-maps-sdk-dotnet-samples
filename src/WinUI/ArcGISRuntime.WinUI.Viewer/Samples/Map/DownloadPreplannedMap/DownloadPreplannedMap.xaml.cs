@@ -12,13 +12,14 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.DownloadPreplannedMap
 {

@@ -8,6 +8,10 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeBasemap
 {

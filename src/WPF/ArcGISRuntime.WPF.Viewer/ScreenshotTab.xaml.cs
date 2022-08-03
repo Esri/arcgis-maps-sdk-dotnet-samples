@@ -31,7 +31,7 @@ namespace ArcGISRuntime
         {
             ScreenshotSettings screenshotSettings = new ScreenshotSettings();
 
-            // Do not overwrite the saved WinUI setting.
+            // Do not overwrite the saved WinUI setting. 
             if (ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue)
             {
                 screenshotSettings.ScaleFactor = ScreenshotManager.ScreenshotSettings.ScaleFactor.Value;

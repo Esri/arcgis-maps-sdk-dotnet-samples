@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView" />
+        <esri:MapView x:Name="MyMapView"/>
         <Border Style="{StaticResource BorderStyle}">
             <Label Content="Tap to select a feature. Tap again to move it."
                    HorizontalAlignment="Center"

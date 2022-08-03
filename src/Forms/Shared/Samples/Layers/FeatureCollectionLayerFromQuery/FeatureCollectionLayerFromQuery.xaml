@@ -2,8 +2,9 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.FeatureCollectionLayerFromQuery.FeatureCollectionLayerFromQuery"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
-    </Grid>
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+  <Grid>
+    <esriUI:MapView x:Name="MyMapView"/>
+  </Grid>
 </ContentPage>

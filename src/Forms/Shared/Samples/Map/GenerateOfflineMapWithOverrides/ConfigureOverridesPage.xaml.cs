@@ -1,26 +1,26 @@
-﻿using Esri.ArcGISRuntime.Data;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ConfigureOverridesPage : ContentPage
+	public partial class ConfigureOverridesPage : ContentPage
     {
         private Esri.ArcGISRuntime.Mapping.Map _map;
         private Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
         private GenerateOfflineMapParameterOverrides _overrides;
 
-        public ConfigureOverridesPage()
-        {
-            InitializeComponent();
-        }
+		public ConfigureOverridesPage ()
+		{
+			InitializeComponent ();
+		}
 
         public ConfigureOverridesPage(GenerateOfflineMapParameterOverrides overrides, Esri.ArcGISRuntime.Mapping.Map map)
         {
@@ -46,7 +46,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
 
             // Get the min and max scale from the UI.
             int minScale = (int)MinScaleEntry.Value;
-            int maxScale = (int)MaxScaleEntry.Value;
+            int maxScale = (int) MaxScaleEntry.Value;
 
             // Re-add selected scales.
             for (int i = minScale; i < maxScale; i++)
@@ -156,7 +156,7 @@ namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
         private long GetServiceLayerId(FeatureLayer layer)
         {
             // Find the service feature table for the layer; this assumes the layer is backed by a service feature table.
-            ServiceFeatureTable serviceTable = (ServiceFeatureTable)layer.FeatureTable;
+            ServiceFeatureTable serviceTable = (ServiceFeatureTable) layer.FeatureTable;
 
             // Return the layer ID.
             return serviceTable.LayerInfo.ServiceLayerId;

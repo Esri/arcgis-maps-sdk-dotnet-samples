@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Microsoft.UI.Xaml.Controls;
 using System;
+using Microsoft.UI.Xaml.Controls;
+using Esri.ArcGISRuntime.Geometry;
 using Colors = System.Drawing.Color;
 using Grid = Esri.ArcGISRuntime.UI.Grid;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;

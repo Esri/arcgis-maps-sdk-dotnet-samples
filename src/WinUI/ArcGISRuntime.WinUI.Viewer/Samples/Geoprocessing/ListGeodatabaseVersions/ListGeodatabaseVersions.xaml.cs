@@ -3,18 +3,19 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
-using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.ListGeodatabaseVersions
 {
@@ -34,7 +35,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListGeodatabaseVersions
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization 
             _ = Initialize();
         }
 
@@ -51,20 +52,20 @@ namespace ArcGISRuntime.WinUI.Samples.ListGeodatabaseVersions
                 // Continue if we got a valid geoprocessing result
                 if (versionsFeatureSet != null)
                 {
-                    // Create a string builder to hold all of the information from the geoprocessing
-                    // task to display in the UI
+                    // Create a string builder to hold all of the information from the geoprocessing 
+                    // task to display in the UI 
                     StringBuilder myStringBuilder = new StringBuilder();
 
-                    // Loop through each Feature in the FeatureSet
+                    // Loop through each Feature in the FeatureSet 
                     foreach (Feature version in versionsFeatureSet)
                     {
                         // Get the attributes (a dictionary of <key,value> pairs) from the Feature
-                        IDictionary<string, object> myDictionary = version.Attributes;
+                        IDictionary<string,object> myDictionary = version.Attributes;
 
                         // Loop through each attribute (a <key,value> pair)
-                        foreach (KeyValuePair<string, object> attribute in myDictionary)
+                        foreach (KeyValuePair<string,object> attribute in myDictionary)
                         {
-                            // Add the key and value strings to the string builder
+                            // Add the key and value strings to the string builder 
                             myStringBuilder.AppendLine(attribute.Key + ": " + attribute.Value);
                         }
 
@@ -90,7 +91,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListGeodatabaseVersions
             // Results will be returned as a feature set
             IFeatureSet results = null;
 
-            // Create new geoprocessing task
+            // Create new geoprocessing task 
             GeoprocessingTask listVersionsTask = await GeoprocessingTask.CreateAsync(new Uri(ListVersionsUrl));
 
             // Create default parameters that are passed to the geoprocessing task
@@ -117,6 +118,7 @@ namespace ArcGISRuntime.WinUI.Samples.ListGeodatabaseVersions
                     var message = new MessageDialog2("Executing geoprocessing failed. " + listVersionsJob.Error.Message, "Geoprocessing error");
                     await message.ShowAsync();
                 }
+
                 else
                 {
                     var message = new MessageDialog2("An error occurred. " + ex.ToString(), "Sample error");

@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
-{
+{    
     // A simple UI for entering network credential information (username, password, and domain)
     public partial class LoginWindow : Window
     {

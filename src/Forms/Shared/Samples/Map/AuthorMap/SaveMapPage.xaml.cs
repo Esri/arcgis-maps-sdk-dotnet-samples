@@ -3,15 +3,15 @@ using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.AuthorMap
 {
-    public partial class SaveMapPage : ContentPage
-    {
+	public partial class SaveMapPage : ContentPage
+	{
         // Raise an event so the listener can access input values when the form has been completed
         public event EventHandler<SaveMapEventArgs> OnSaveClicked;
 
-        public SaveMapPage()
-        {
-            InitializeComponent();
-        }
+        public SaveMapPage ()
+		{
+			InitializeComponent ();
+		}
 
         // If updating an existing map item, show the existing item info and disable changing info
         public void ShowForUpdate(string title, string description, string[] tags)
@@ -38,7 +38,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             try
             {
                 // Get information for the new portal item
-                string title = MapTitleEntry.Text;
+                string title =  MapTitleEntry.Text;
                 string description = MapDescriptionEntry.Text;
                 string[] tags = MapTagsEntry.Text.Split(',');
 

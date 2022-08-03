@@ -11,8 +11,8 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Linq;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.UpdateGeometries

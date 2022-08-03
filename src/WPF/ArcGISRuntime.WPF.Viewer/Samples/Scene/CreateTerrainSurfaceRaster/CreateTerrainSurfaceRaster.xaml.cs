@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.CreateTerrainSurfaceRaster
             string packagePath = DataManager.GetDataFolder("98092369c4ae4d549bbbd45dba993ebc", "MontereyElevation.dt2");
 
             // Create the elevation source from a list of paths.
-            RasterElevationSource elevationSource = new RasterElevationSource(new[] { packagePath });
+            RasterElevationSource elevationSource = new RasterElevationSource(new[] {packagePath});
 
             // Create a surface to display the elevation source.
             Surface elevationSurface = new Surface();

@@ -15,16 +15,16 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Drawing;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 using Viewpoint = Esri.ArcGISRuntime.Mapping.Viewpoint;
+using System.Globalization;
 
 namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
 {
@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
         description: "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
         instructions: "Animation Controls:",
         tags: new[] { "Camera", "ModelSceneSymbol", "OrbitGeoElementCameraController", "RendererSceneProperties", "SceneView" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "681d6f7694644709a7c830ec57a2d72b", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "681d6f7694644709a7c830ec57a2d72b", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13")]
     public partial class Animate3DGraphic
     {
         // URL to the elevation service - provides terrain elevation
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             // Update the mission selection UI
             MissionSelectionBox.ItemsSource = _missionToItemId.Keys;
             MissionSelectionBox.SelectedIndex = 0;
-
+            
             // Wire up the selection change event to call the ChangeMission method; this method resets the animation and starts a new mission
             MissionSelectionBox.SelectionChanged += async (sender, args) => { await ChangeMission(args.AddedItems[0].ToString()); };
 

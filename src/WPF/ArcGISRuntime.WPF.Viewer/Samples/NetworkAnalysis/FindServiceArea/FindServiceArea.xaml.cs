@@ -105,7 +105,7 @@ namespace ArcGISRuntime.WPF.Samples.FindServiceArea
         private async void DrawBarrierButton_Click(object sender, RoutedEventArgs e)
         {
             // Finish the drawing if already started.
-            if ((string)DrawBarrierButton.Content != "Draw barrier")
+            if ((string) DrawBarrierButton.Content != "Draw barrier")
             {
                 if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
                     MyMapView.SketchEditor.CompleteCommand.Execute(null);

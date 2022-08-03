@@ -11,6 +11,7 @@ using ArcGISRuntime.Samples.Shared.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -18,16 +19,16 @@ namespace ArcGISRuntime.Samples.Shared.Models
 {
     public partial class SampleInfo
     {
-#if NETFX_CORE
+        #if NETFX_CORE
         private string _pathStub = Windows.ApplicationModel.Package.Current.Installed­Location.Path;
-#else
+        #else
         private string _pathStub = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-#endif
+        #endif
 
         /// <summary>
         /// Gets the path to the sample on disk.
         /// </summary>
-        public string Path
+        public string Path 
         {
             get
             {
@@ -48,7 +49,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
         /// <summary>
         /// The name of the sample as it appears in code.
         /// </summary>
-        public string FormalName { get; set; }
+        public string FormalName { get; set;  }
 
         /// <summary>
         /// The human-readable category of the sample.
@@ -62,9 +63,9 @@ namespace ArcGISRuntime.Samples.Shared.Models
         public bool IsFavorite { get; set; }
 
         /// <summary>
-        /// A list of offline data items that should be downloaded
-        /// from ArcGIS Online prior to loading the sample. These
-        /// should be expressed as portal item identifiers.
+        /// A list of offline data items that should be downloaded 
+        /// from ArcGIS Online prior to loading the sample. These 
+        /// should be expressed as portal item identifiers. 
         /// </summary>
         public IEnumerable<string> OfflineDataItems { get; set; }
 
@@ -85,21 +86,19 @@ namespace ArcGISRuntime.Samples.Shared.Models
         /// The expected filename of the sample's image, without path.
         /// This is intened for use on Windows.
         /// </summary>
-        public string Image
-        { get { return String.Format("{0}.jpg", FormalName); } }
+        public string Image { get { return String.Format("{0}.jpg", FormalName); } }
 
         /// <summary>
         /// The underlying .NET type for this sample.
-        /// Note: this is used by the sample viewer to
-        /// construct samples at run time.
+        /// Note: this is used by the sample viewer to 
+        /// construct samples at run time. 
         /// </summary>
         public Type SampleType { get; set; }
 
         /// <summary>
         /// The path to the sample image on disk; intended for use on Windows.
         /// </summary>
-        public string SampleImageName
-        { get { return System.IO.Path.Combine(Path, Image); } }
+        public string SampleImageName { get { return System.IO.Path.Combine(Path, Image); } }
 
         /// <summary>
         /// Base directory for the samples; defaults to executable directory
@@ -111,7 +110,7 @@ namespace ArcGISRuntime.Samples.Shared.Models
         }
 
         /// <summary>
-        /// This constructor is for use when the sample
+        /// This constructor is for use when the sample 
         /// type is in the executing assembly.
         /// </summary>
         /// <param name="sampleType">The type for the sample object.</param>

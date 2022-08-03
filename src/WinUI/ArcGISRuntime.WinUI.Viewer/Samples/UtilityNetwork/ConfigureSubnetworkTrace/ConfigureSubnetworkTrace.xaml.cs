@@ -8,14 +8,15 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UtilityNetworks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Esri.ArcGISRuntime.Security;
 
 namespace ArcGISRuntime.WinUI.Samples.ConfigureSubnetworkTrace
 {

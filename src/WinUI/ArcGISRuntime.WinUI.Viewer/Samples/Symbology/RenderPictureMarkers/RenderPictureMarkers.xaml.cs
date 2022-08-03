@@ -15,6 +15,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.RenderPictureMarkers
 {

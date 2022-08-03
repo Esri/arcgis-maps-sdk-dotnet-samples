@@ -7,12 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
+using Esri.ArcGISRuntime.ArcGISServices;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.RasterLayerRasterFunction
 {

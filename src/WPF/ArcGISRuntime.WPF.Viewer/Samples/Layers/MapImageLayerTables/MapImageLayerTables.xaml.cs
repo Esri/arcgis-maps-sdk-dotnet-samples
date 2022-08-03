@@ -14,10 +14,10 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
@@ -100,7 +100,7 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
 
             // Get the selected comment feature. If there is no selection, return.
             ArcGISFeature selectedComment = e.AddedItems[0] as ArcGISFeature;
-            if (selectedComment == null) { return; }
+            if(selectedComment == null) { return; }
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
             ArcGISMapImageLayer serviceRequestsMapImageLayer = (ArcGISMapImageLayer)MyMapView.Map.OperationalLayers[0];
@@ -122,7 +122,7 @@ namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
                 // Query the comments table to get the related service request feature for the selected comment.
                 IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
 
-                // Get the first result.
+                // Get the first result. 
                 RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
 
                 // Get the first feature from the result. If it's null, warn the user and return.

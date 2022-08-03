@@ -7,11 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System.Linq;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System.Linq;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
                 // Reset the other slider.
                 SegmentLengthSlider.Value = 100;
 
-                polyline = (Polyline)GeometryEngine.Generalize(polyline, deviation, true);
+                polyline = (Polyline) GeometryEngine.Generalize(polyline, deviation, true);
 
                 // Update the result label.
                 ResultLabel.Text = $"Generalize, Deviation: {deviation:f}";
@@ -105,7 +105,7 @@ namespace ArcGISRuntime.Samples.DensifyAndGeneralize
                 // Reset the other slider.
                 DeviationSlider.Value = 1;
 
-                polyline = (Polyline)GeometryEngine.Densify(polyline, segmentLength);
+                polyline = (Polyline) GeometryEngine.Densify(polyline, segmentLength);
 
                 // Update the result label.
                 ResultLabel.Text = $"Densify, Segment length: {segmentLength:f}";

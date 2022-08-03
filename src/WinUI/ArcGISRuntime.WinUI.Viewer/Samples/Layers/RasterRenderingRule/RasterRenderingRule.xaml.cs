@@ -11,10 +11,11 @@ using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using Microsoft.UI.Xaml.Controls;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.RasterRenderingRule
 {

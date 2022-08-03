@@ -8,13 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.ManageOperationalLayers
 {

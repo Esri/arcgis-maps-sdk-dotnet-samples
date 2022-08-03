@@ -8,14 +8,14 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock x:Name="ChangeSublayerRendererInstructionsLabel"
+                <TextBlock x:Name="ChangeSublayerRendererInstructionsLabel" 
                            Text="Click 'change sublayer renderer' to apply a unique value renderer to the counties sub-layer."
                            TextWrapping="Wrap" FontWeight="SemiBold"
-                           Margin="0,0,0,10" />
-                <Button x:Name="ChangeSublayerRendererButton"
+                           Margin="0,0,0,10"/>
+                <Button x:Name="ChangeSublayerRendererButton" 
                         Content="Change sublayer renderer"
                         HorizontalAlignment="Stretch"
-                    Click="ChangeSublayerRendererButton_Click" />
+                    Click="ChangeSublayerRendererButton_Click"/>
             </StackPanel>
         </Border>
     </Grid>

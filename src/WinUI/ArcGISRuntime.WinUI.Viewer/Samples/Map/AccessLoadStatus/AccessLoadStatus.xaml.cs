@@ -9,6 +9,8 @@
 
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
+using System;
+using Windows.UI.Core;
 
 namespace ArcGISRuntime.WinUI.Samples.AccessLoadStatus
 {

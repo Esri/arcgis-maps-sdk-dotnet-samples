@@ -157,7 +157,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineRouting
                 // Add a stop to the list for each graphic in the stops overlay.
                 foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
                 {
-                    Stop stop = new Stop((MapPoint)stopGraphic.Geometry);
+                    Stop stop = new Stop((MapPoint) stopGraphic.Geometry);
                     stops.Add(stop);
                 }
 
@@ -215,7 +215,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineRouting
                 stopSymbol.OffsetY = 15;
 
                 // Create a combined symbol with the pushpin and the label.
-                CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
+                CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] {pushpinMarker, stopSymbol});
 
                 // Create the graphic from the geometry and the symbology.
                 Graphic newStopGraphic = new Graphic(tappedLocation, combinedSymbol);
@@ -309,7 +309,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineRouting
                 _selectedStopGraphic.Geometry = hoverLocation;
 
                 // Update the route with the temporary stop.
-                _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem ?? _availableTravelModes.First());
+                _ = UpdateRoute((TravelMode) TravelModesCombo.SelectedItem ?? _availableTravelModes.First());
             }
         }
 
@@ -322,7 +322,7 @@ namespace ArcGISRuntime.WPF.Samples.OfflineRouting
                     TravelModesCombo.SelectedItem = _availableTravelModes.First();
                 }
 
-                _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
+                _ =UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
             }
             catch (Exception ex)
             {

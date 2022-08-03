@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
@@ -25,15 +25,15 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         description: "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
         instructions: "When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry.",
         tags: new[] { "Layers", "feature collection" })]
-    public partial class CreateFeatureCollectionLayer : ContentPage
-    {
-        public CreateFeatureCollectionLayer()
-        {
-            InitializeComponent();
+	public partial class CreateFeatureCollectionLayer : ContentPage
+	{
+		public CreateFeatureCollectionLayer ()
+		{
+            InitializeComponent ();
 
             // call a function to initialize a map to display in the MyMapView control
             Initialize();
-        }
+		}
 
         private void Initialize()
         {
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
 
             try
             {
-                // Add the new features to the appropriate feature collection table
+                // Add the new features to the appropriate feature collection table 
                 await pointsTable.AddFeatureAsync(pointFeature);
                 await linesTable.AddFeatureAsync(lineFeature);
                 await polysTable.AddFeatureAsync(polyFeature);
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
                 featuresCollection.Tables.Add(linesTable);
                 featuresCollection.Tables.Add(polysTable);
 
-                // Create a FeatureCollectionLayer
+                // Create a FeatureCollectionLayer 
                 FeatureCollectionLayer collectionLayer = new FeatureCollectionLayer(featuresCollection);
 
                 // When the layer loads, zoom the map centered on the feature collection
@@ -134,18 +134,15 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
                     // Create a marker symbol
                     sym = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Triangle, Colors.Red, 18);
                     break;
-
                 case GeometryType.Polyline:
                     // Create a line symbol
                     sym = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Colors.Green, 3);
                     break;
-
                 case GeometryType.Polygon:
                     // Create a fill symbol
                     SimpleLineSymbol lineSym = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.DarkBlue, 2);
                     sym = new SimpleFillSymbol(SimpleFillSymbolStyle.DiagonalCross, Colors.Cyan, lineSym);
                     break;
-
                 default:
                     break;
             }

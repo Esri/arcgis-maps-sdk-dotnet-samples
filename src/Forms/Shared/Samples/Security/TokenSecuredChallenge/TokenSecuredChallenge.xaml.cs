@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -165,7 +165,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
     // Note: to make this class accessible as a static resource in the shared form (TokenChallengePage.xaml)
     //       the assembly name for each platform had to be changed to the same value ("TokenChallengeForms")
     //       in order to provide a consistent XML namespace value. Another option would be to place such code in
-    //       a PCL project rather than a shared project (the shared project would still be needed for the ArcGIS
+    //       a PCL project rather than a shared project (the shared project would still be needed for the ArcGIS 
     //       Runtime code).
     public class LoadStatusToColorConverter : IValueConverter
     {
@@ -181,15 +181,12 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
                 case (int)Esri.ArcGISRuntime.LoadStatus.Loaded:
                     statusColor = Color.Green;
                     break;
-
                 case (int)Esri.ArcGISRuntime.LoadStatus.Loading:
                     statusColor = Color.Gray;
                     break;
-
                 case (int)Esri.ArcGISRuntime.LoadStatus.FailedToLoad:
                     statusColor = Color.Red;
                     break;
-
                 case (int)Esri.ArcGISRuntime.LoadStatus.NotLoaded:
                     statusColor = Color.Red;
                     break;
@@ -197,7 +194,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 
             return statusColor;
         }
-
+        
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             // No need to convert the other way.

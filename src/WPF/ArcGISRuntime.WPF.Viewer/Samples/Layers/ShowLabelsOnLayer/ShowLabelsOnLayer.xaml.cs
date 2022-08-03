@@ -13,8 +13,8 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Drawing;
 using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ShowLabelsOnLayer

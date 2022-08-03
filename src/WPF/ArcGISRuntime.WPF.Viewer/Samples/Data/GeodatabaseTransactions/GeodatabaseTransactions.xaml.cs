@@ -194,7 +194,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
             // Return the WPF-specific path for storing the geodatabase
             return Environment.ExpandEnvironmentVariables("%TEMP%\\savethebay.geodatabase");
         }
-
+        
         private void BeginTransaction(object sender, RoutedEventArgs e)
         {
             // See if there is a transaction active for the geodatabase
@@ -205,7 +205,7 @@ namespace ArcGISRuntime.WPF.Samples.GeodatabaseTransactions
                 MessageTextBlock.Text = "Transaction started";
             }
         }
-
+        
         private async void AddNewFeature(object sender, RoutedEventArgs args)
         {
             // See if it was the "Birds" or "Marine" button that was clicked

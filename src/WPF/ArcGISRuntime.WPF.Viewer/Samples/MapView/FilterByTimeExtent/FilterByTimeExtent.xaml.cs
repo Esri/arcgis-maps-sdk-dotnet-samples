@@ -58,7 +58,7 @@ namespace ArcGISRuntime.WPF.Samples.FilterByTimeExtent
 
         private void TimeSlider_CurrentExtentChanged(object sender, TimeExtentChangedEventArgs e)
         {
-            // Update the time extent on the map view.
+            // Update the time extent on the map view. 
             MyMapView.TimeExtent = e.NewExtent;
         }
     }

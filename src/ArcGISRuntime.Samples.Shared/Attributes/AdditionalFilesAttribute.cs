@@ -21,8 +21,7 @@ namespace ArcGISRuntime.Samples.Shared.Attributes
             _files = files;
         }
 
-        public IReadOnlyList<string> Files
-        { get { return _files; } }
+        public IReadOnlyList<string> Files { get { return _files; } }
     }
 
     /// <summary>

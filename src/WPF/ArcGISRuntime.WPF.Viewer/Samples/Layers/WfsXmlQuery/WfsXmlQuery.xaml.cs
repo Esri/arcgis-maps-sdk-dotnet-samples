@@ -10,8 +10,8 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.WfsXmlQuery
@@ -44,8 +44,8 @@ namespace ArcGISRuntime.WPF.Samples.WfsXmlQuery
 
         // Constants for the table name and URL.
         private const string TableUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
-
-        // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name.
+        
+        // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name. 
         private const string LayerName = "Seattle_Downtown_Features:Trees";
 
         public WfsXmlQuery()

@@ -18,7 +18,7 @@
                 </Grid.RowDefinitions>
                 <TextBlock Text="Slope type:"
                            Grid.Row="0" Grid.Column="0"
-                           TextAlignment="Right" VerticalAlignment="Center" />
+                           TextAlignment="Right" VerticalAlignment="Center"/>
                 <ComboBox x:Name="SlopeTypeCombo"
                           Grid.Row="0" Grid.Column="1"
                           Margin="5" />

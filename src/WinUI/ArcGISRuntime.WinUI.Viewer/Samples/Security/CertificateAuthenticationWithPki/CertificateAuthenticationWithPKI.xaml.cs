@@ -3,18 +3,19 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.CertificateAuthenticationWithPKI
 {
@@ -57,7 +58,7 @@ namespace ArcGISRuntime.WinUI.Samples.CertificateAuthenticationWithPKI
                 ListView listview = new ListView();
 
                 // Use a template defined as a resource in XAML.
-                listview.ItemTemplate = (DataTemplate)this.Resources["CertificateTemplate"];
+                listview.ItemTemplate = (DataTemplate) this.Resources["CertificateTemplate"];
 
                 // Display the items in the listview.
                 listview.ItemsSource = certificates;
@@ -72,7 +73,7 @@ namespace ArcGISRuntime.WinUI.Samples.CertificateAuthenticationWithPKI
                 if (listview.SelectedItems.Count > 0)
                 {
                     // Get the chosen certificate.
-                    X509Certificate2 cert = (X509Certificate2)listview.SelectedItem;
+                    X509Certificate2 cert = (X509Certificate2) listview.SelectedItem;
 
                     // Create a new CertificateCredential using the chosen certificate.
                     credential = new Esri.ArcGISRuntime.Security.CertificateCredential(new Uri(_serverUrl), cert);

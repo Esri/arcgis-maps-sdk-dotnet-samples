@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows;
+using Esri.ArcGISRuntime.Geometry;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.StyleWmsLayer
 {
@@ -24,7 +24,7 @@ namespace ArcGISRuntime.WPF.Samples.StyleWmsLayer
         tags: new[] { "WMS", "imagery", "styles", "visualization" })]
     public partial class StyleWmsLayer
     {
-        // Hold the URL to the service, which has satellite imagery covering the state of Minnesota.
+        // Hold the URL to the service, which has satellite imagery covering the state of Minnesota. 
         private Uri _wmsUrl = new Uri("https://imageserver.gisdata.mn.gov/cgi-bin/mncomp?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
@@ -44,7 +44,7 @@ namespace ArcGISRuntime.WPF.Samples.StyleWmsLayer
             try
             {
                 // Create a map with spatial reference appropriate for the service.
-                Map myMap = new Map(SpatialReference.Create(26915)) { MinScale = 7000000.0 };
+                Map myMap = new Map(SpatialReference.Create(26915)) {MinScale = 7000000.0};
 
                 // Create a new WMS layer displaying the specified layers from the service.
                 // The default styles are chosen by default.

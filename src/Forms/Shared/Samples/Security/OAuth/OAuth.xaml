@@ -4,6 +4,6 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              x:Class="ArcGISRuntime.Samples.OAuth.OAuth">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <esriUI:MapView x:Name="MyMapView"/>
     </Grid>
 </ContentPage>

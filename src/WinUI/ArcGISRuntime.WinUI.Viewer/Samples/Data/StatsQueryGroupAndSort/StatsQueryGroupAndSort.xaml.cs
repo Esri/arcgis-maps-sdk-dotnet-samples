@@ -8,14 +8,15 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Data;
 
 namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
 {
@@ -113,7 +114,7 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
                 StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
                 // Format the output for display of grouped results in the list view
-                IEnumerable<IGrouping<string, IReadOnlyDictionary<string, object>>> groupedResults = statQueryResult.GroupBy(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+                IEnumerable<IGrouping<string,IReadOnlyDictionary<string,object>>> groupedResults = statQueryResult.GroupBy(r => string.Join(", ", r.Group.Values), r => r.Statistics);
 
                 // Apply the results to the list view data source
                 GroupedResultData.Source = groupedResults;
@@ -123,7 +124,7 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
                 await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
         }
-
+        
         // Helper function to show a message
         private void ShowMessage(string message, string title)
         {
@@ -262,7 +263,7 @@ namespace ArcGISRuntime.WinUI.Samples.StatsQueryGroupAndSort
             // Get the selected OrderFieldOption object and remove it from the collection
             OrderFieldOption selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
             _orderByFields.Remove(selectedOrderBy);
-        }
+        }        
     }
 
     // Simple class to describe an "order by" option

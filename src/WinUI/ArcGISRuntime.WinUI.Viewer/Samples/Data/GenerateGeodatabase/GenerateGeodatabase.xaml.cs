@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -16,12 +15,14 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Microsoft.UI.Xaml;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
+using Esri.ArcGISRuntime.ArcGISServices;
 
 namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
 {

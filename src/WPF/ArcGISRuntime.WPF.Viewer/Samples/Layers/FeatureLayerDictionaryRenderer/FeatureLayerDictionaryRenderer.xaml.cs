@@ -7,14 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using System;
+using System.Threading.Tasks;
+using System.Windows;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
 {
@@ -24,7 +24,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerDictionaryRenderer
         description: "Convert features into graphics to show them with mil2525d symbols.",
         instructions: "Pan and zoom around the map. Observe the displayed military symbology on the map.",
         tags: new[] { "military", "symbol" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
     public partial class FeatureLayerDictionaryRenderer
     {
         public FeatureLayerDictionaryRenderer()

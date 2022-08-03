@@ -24,7 +24,7 @@
                 <Label Content="Layers in map"
                        HorizontalContentAlignment="Center"
                        FontWeight="SemiBold" />
-                <!-- Item template defined in UserControl.Resources above specifies that each listbox
+                <!-- Item template defined in UserControl.Resources above specifies that each listbox 
                      item's content consists of a label with the layer's Name property displayed. -->
                 <!-- The item container style is used to define events and properties on listbox items. -->
                 <ListBox x:Name="IncludedListBox"
@@ -37,7 +37,7 @@
                 <Label Content="Layers not in map"
                        HorizontalContentAlignment="Center"
                        FontWeight="SemiBold" />
-                <!-- Item template defined in UserControl.Resources above specifies that each listbox
+                <!-- Item template defined in UserControl.Resources above specifies that each listbox 
                      item's content consists of a label with the layer's Name property displayed. -->
                 <!-- The item container style is used to define events and properties on listbox items. -->
                 <ListBox x:Name="ExcludedListBox"

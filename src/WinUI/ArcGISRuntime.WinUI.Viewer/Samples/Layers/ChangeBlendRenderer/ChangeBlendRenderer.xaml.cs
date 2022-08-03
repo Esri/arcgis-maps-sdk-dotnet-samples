@@ -12,8 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.ChangeBlendRenderer
 {
@@ -23,28 +24,28 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBlendRenderer
         description: "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
         instructions: "Choose and adjust the altitude, azimuth, slope type, and color ramp type settings to update the image.",
         tags: new[] { "color ramp", "elevation", "hillshade", "image", "raster", "visualization" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd", "caeef9aa78534760b07158bb8e068462")]
+	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
     public partial class ChangeBlendRenderer
     {
         public ChangeBlendRenderer()
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization 
             _ = Initialize();
         }
 
         private async Task Initialize()
         {
-            // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them
-            // in an array of strings, then set the ComboBox.ItemSource to the array, and finally
+            // Get all the ColorRamp names from the PresetColorRampType Enumeration and put them 
+            // in an array of strings, then set the ComboBox.ItemSource to the array, and finally 
             // select the first item in the ComboBox
             string[] myPresetColorRampTypes = System.Enum.GetNames(typeof(PresetColorRampType));
             ColorRamps.ItemsSource = myPresetColorRampTypes;
             ColorRamps.SelectedIndex = 0;
 
-            // Get all the SlopeType names from the SlopeType Enumeration and put them
-            // in an array of strings, then set the ComboBox.ItemSource to the array, and finally
+            // Get all the SlopeType names from the SlopeType Enumeration and put them 
+            // in an array of strings, then set the ComboBox.ItemSource to the array, and finally 
             // select the first item in the ComboBox
             string[] mySlopeTypes = System.Enum.GetNames(typeof(SlopeType));
             SlopeTypes.ItemsSource = mySlopeTypes;
@@ -66,16 +67,16 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBlendRenderer
             // Create the raster layer from the raster
             RasterLayer myRasterLayerImagery = new RasterLayer(myRasterImagery);
 
-            // Create a new map using the raster layer as the base map
+            // Create a new map using the raster layer as the base map 
             Map myMap = new Map(new Basemap(myRasterLayerImagery));
 
             try
             {
-                // Wait for the layer to load - this enabled being able to obtain the extent information
+                // Wait for the layer to load - this enabled being able to obtain the extent information 
                 // of the raster layer
                 await myRasterLayerImagery.LoadAsync();
 
-                // Create a new EnvelopeBuilder from the full extent of the raster layer
+                // Create a new EnvelopeBuilder from the full extent of the raster layer 
                 EnvelopeBuilder myEnvelopBuilder = new EnvelopeBuilder(myRasterLayerImagery.FullExtent);
 
                 // Zoom in the extent just a bit so that raster layer encompasses the entire viewable area of the map
@@ -111,7 +112,7 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBlendRenderer
             // RasterLayer and define the appropriate ColorRamp option
             if (ColorRamps.SelectedValue.ToString() == "None")
             {
-                // The user chose not to use a specific ColorRamp, therefore
+                // The user chose not to use a specific ColorRamp, therefore 
                 // need to create a RasterLayer based on general imagery (ie. Shasta.tif)
                 // for display in the map and use null for the ColorRamp as one of the
                 // parameters in the BlendRenderer constructor
@@ -127,10 +128,10 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBlendRenderer
             }
             else
             {
-                // The user chose a specific ColorRamp (options: are Elevation, DemScreen, DemLight),
-                // therefore create a RasterLayer based on an imagery with elevation
-                // (ie. Shasta_Elevation.tif) for display in the map. Also create a ColorRamp
-                // based on the user choice, translated into an Enumeration, as one of the parameters
+                // The user chose a specific ColorRamp (options: are Elevation, DemScreen, DemLight), 
+                // therefore create a RasterLayer based on an imagery with elevation 
+                // (ie. Shasta_Elevation.tif) for display in the map. Also create a ColorRamp 
+                // based on the user choice, translated into an Enumeration, as one of the parameters 
                 // in the BlendRenderer constructor
 
                 // Load the raster file using a path on disk
@@ -187,5 +188,6 @@ namespace ArcGISRuntime.WinUI.Samples.ChangeBlendRenderer
         {
             return DataManager.GetDataFolder("caeef9aa78534760b07158bb8e068462", "Shasta_Elevation.tif");
         }
+
     }
 }

@@ -3,8 +3,9 @@ using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 {
-    public partial class LoginPage : ContentPage
-    {
+	public partial class LoginPage : ContentPage
+	{
+
         // Event to provide login information when the user dismisses the view.
         public event EventHandler<LoginEventArgs> OnLoginInfoEntered;
 
@@ -66,7 +67,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
         public string Username { get; set; }
 
         // Password property.
-        public string Password { get; set; }
+        public string Password { get; set; }        
 
         // Store login values passed into the constructor.
         public LoginEventArgs(string username, string password)

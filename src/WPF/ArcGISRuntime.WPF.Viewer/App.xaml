@@ -20,6 +20,7 @@
             <Style x:Key="SecondaryTextBlock" TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
             </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

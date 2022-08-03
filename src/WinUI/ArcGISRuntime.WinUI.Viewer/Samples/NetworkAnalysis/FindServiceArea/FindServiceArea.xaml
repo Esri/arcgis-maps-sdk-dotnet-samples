@@ -23,27 +23,27 @@
                         Content="Place facility"
                         Click="PlaceFacilityButton_Click"
                         HorizontalAlignment="Stretch"
-                        Width="Auto" />
+                        Width="Auto"/>
                 <Button Name="DrawBarrierButton"
                         Grid.Row="0" Grid.Column="1"
                         Margin="5,5,5,5"
                         Content="Draw barrier"
                         Click="DrawBarrierButton_Click"
-                        HorizontalAlignment="Stretch" />
+                        HorizontalAlignment="Stretch"/>
                 <Button Name="ShowServiceAreasButton"
                         Grid.Row="3"
                         Grid.ColumnSpan="2"
                         Margin="5,5,5,5"
                         Content="Show service areas"
                         Click="ShowServiceAreasButton_Click"
-                        HorizontalAlignment="Stretch" />
+                        HorizontalAlignment="Stretch"/>
                 <Button Name="ResetButton"
                         Grid.Row="4"
                         Grid.ColumnSpan="2"
                         Margin="5,5,5,5"
                         Content="Reset"
                         Click="Reset_Click"
-                        HorizontalAlignment="Stretch" />
+                        HorizontalAlignment="Stretch"/>
             </Grid>
         </Border>
     </Grid>

@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 

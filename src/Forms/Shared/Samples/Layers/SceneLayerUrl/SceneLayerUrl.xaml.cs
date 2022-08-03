@@ -7,10 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Threading.Tasks;
+using Esri.ArcGISRuntime.Geometry;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.SceneLayerUrl
@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.SceneLayerUrl
         private async Task Initialize()
         {
             // Create new Scene.
-            Scene myScene = new Scene { Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard) };
+            Scene myScene = new Scene {Basemap = new Basemap(BasemapStyle.ArcGISImageryStandard)};
 
             // Create and add an elevation source for the Scene.
             ArcGISTiledElevationSource elevationSrc = new ArcGISTiledElevationSource(_elevationSourceUrl);

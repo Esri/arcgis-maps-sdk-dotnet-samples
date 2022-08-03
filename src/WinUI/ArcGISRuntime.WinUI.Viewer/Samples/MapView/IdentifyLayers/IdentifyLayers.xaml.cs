@@ -12,8 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.IdentifyLayers
 {

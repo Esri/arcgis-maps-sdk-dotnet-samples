@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
-using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -24,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Esri.ArcGISRuntime;
 
 namespace ArcGISRuntime.WPF.Samples.EditAndSyncFeatures
 {

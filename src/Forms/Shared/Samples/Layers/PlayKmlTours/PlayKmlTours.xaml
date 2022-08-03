@@ -1,5 +1,5 @@
 ﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
              xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
              x:Class="ArcGISRuntimeXamarin.Samples.PlayKmlTours.PlayKmlTours">
@@ -20,7 +20,8 @@
                 </Grid.RowDefinitions>
                 <Label Text="Use the buttons to control the tour. Contains audio. 🎧"
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                           Margin="0,0,0,5" />
+                           Margin="0,0,0,5"
+                           />
                 <Button x:Name="PlayButton"
                         Grid.Row="1" Grid.Column="0"
                         Text="Play"
@@ -40,7 +41,7 @@
                 <ActivityIndicator x:Name="LoadingStatusBar"
                                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                                    Margin="0,5,0,0"
-                                   IsEnabled="True" IsRunning="True" />
+                                   IsEnabled="True" IsRunning="True"  />
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

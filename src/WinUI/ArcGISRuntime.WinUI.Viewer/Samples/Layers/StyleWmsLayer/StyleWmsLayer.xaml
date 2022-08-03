@@ -8,14 +8,14 @@
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-
+                
                 <TextBlock Text="Choose a style"
                            Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                            HorizontalTextAlignment="Center" />
@@ -23,7 +23,7 @@
                         Grid.Row="1" Grid.Column="0"
                         Content="Default" IsEnabled="False"
                         HorizontalAlignment="Stretch" Margin="0,0,10,0"
-                        Click="FirstStyleButton_Clicked" />
+                        Click="FirstStyleButton_Clicked"/>
                 <Button x:Name="SecondStyleButton"
                         Grid.Row="1" Grid.Column="1"
                         Content="Contrast stretch" IsEnabled="False"

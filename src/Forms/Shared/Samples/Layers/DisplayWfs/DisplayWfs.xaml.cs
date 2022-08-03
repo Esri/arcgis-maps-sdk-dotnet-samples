@@ -12,8 +12,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 

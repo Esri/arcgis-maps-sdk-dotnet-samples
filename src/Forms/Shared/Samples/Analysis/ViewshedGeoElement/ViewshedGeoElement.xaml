@@ -5,8 +5,8 @@
              x:Class="ArcGISRuntime.Samples.ViewshedGeoElement.ViewshedGeoElement">
     <StackLayout Orientation="Vertical">
         <Label Text="Tap to set a destination for the vehicle."
-               VerticalOptions="Start" />
+               VerticalOptions="Start"/>
         <esriUI:SceneView x:Name="MySceneView"
-                          VerticalOptions="FillAndExpand" />
+                          VerticalOptions="FillAndExpand"/>
     </StackLayout>
 </ContentPage>

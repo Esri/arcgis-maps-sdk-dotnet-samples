@@ -9,10 +9,10 @@
 
 using Esri.ArcGISRuntime.Data;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
             // Verify that there is at least one statistic definition
             if (!_statDefinitions.Any())
             {
-                _ = Application.Current.MainPage.DisplayAlert("Please define at least one statistic for the query.", "Statistical Query", "OK");
+                _ = Application.Current.MainPage.DisplayAlert("Please define at least one statistic for the query.", "Statistical Query","OK");
                 return;
             }
 
@@ -112,21 +112,21 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
                 // Get results formatted as a lookup (list of group names and their associated dictionary of results)
-                ILookup<string, IReadOnlyDictionary<string, object>> resultsLookup = statQueryResult.ToLookup(result => string.Join(", ", result.Group.Values), result => result.Statistics);
-
+                ILookup<string,IReadOnlyDictionary<string,object>> resultsLookup = statQueryResult.ToLookup(result => string.Join(", ", result.Group.Values), result => result.Statistics);
+            
                 // Loop through the formatted results and build a list of classes to display as grouped results in the list view
                 ObservableCollection<ResultGroup> resultsGroupCollection = new ObservableCollection<ResultGroup>();
-                foreach (IGrouping<string, IReadOnlyDictionary<string, object>> group in resultsLookup)
+                foreach (IGrouping<string,IReadOnlyDictionary<string,object>> group in resultsLookup)
                 {
                     // Create a new group
                     ResultGroup resultGroup = new ResultGroup() { GroupName = group.Key };
 
                     // Loop through all the results for this group and add them to the collection
-                    foreach (IReadOnlyDictionary<string, object> resultSet in group)
+                    foreach (IReadOnlyDictionary<string,object> resultSet in group)
                     {
-                        foreach (KeyValuePair<string, object> result in resultSet)
+                        foreach(KeyValuePair<string,object> result in resultSet)
                         {
-                            resultGroup.Add(new StatisticResult { FieldName = result.Key, StatValue = result.Value });
+                            resultGroup.Add(new StatisticResult { FieldName = result.Key, StatValue = result.Value});
                         }
                     }
 
@@ -135,14 +135,14 @@ namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
                 }
 
                 // Apply the results to the list view data source and show the results grid
-                StatResultsList.ItemsSource = resultsGroupCollection;
+                StatResultsList.ItemsSource = resultsGroupCollection; 
                 ResultsGrid.IsVisible = true;
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
-        }
+        }        
 
         // Handle when the switch for a "group by" field is toggled on or off by adding or removing the field from the collection
         private void GroupFieldCheckChanged(object sender, EventArgs e)

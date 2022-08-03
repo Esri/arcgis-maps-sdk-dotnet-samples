@@ -3,24 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView" />
+        <esri:MapView x:Name="MyMapView"/>
         <Border Style="{StaticResource BorderStyle}" MaxWidth="220">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
-                <Label
+                <Label 
                     x:Name="PylonLabel"
                     HorizontalAlignment="Center"
                     FontWeight="SemiBold"
                     Grid.Row="0"
-                    Grid.ColumnSpan="2" />
+                    Grid.ColumnSpan="2"/>
                 <CheckBox
                     x:Name="DimensionLayerCheckBox"
                     Grid.Column="0"
@@ -35,7 +35,7 @@
                         x:Name="DimensionLayerLabel"
                         Grid.Column="1"
                         Grid.Row="1"
-                        Content="Dimension Layer visibility" />
+                        Content="Dimension Layer visibility"/>
                 </CheckBox>
                 <CheckBox
                     x:Name="DefinitionExpressionCheckBox"
@@ -51,7 +51,7 @@
                         x:Name="DefinitionExpressionLabel"
                         Grid.Column="1"
                         Grid.Row="2"
-                        Content="Definition Expression: &#x0a;Dimensions >= 450m" />
+                        Content="Definition Expression: &#x0a;Dimensions >= 450m"/>
                 </CheckBox>
             </Grid>
         </Border>

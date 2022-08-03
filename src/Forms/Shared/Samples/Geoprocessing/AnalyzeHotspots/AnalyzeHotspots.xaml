@@ -19,13 +19,13 @@
         <Label Text="Start date:"
                Grid.Row="0" Grid.Column="0"
                HorizontalTextAlignment="Start"
-               VerticalTextAlignment="Center" />
+               VerticalTextAlignment="Center"/>
         <DatePicker x:Name="StartDate" Date="1/01/98"
                     Grid.Row="0" Grid.Column="1" />
         <Label Text="End date:"
                Grid.Row="1" Grid.Column="0"
                HorizontalTextAlignment="Start"
-               VerticalTextAlignment="Center" />
+               VerticalTextAlignment="Center"/>
         <DatePicker x:Name="EndDate" Date="1/31/98"
                     Grid.Row="1" Grid.Column="1" />
         <Button Text="Run Analysis"

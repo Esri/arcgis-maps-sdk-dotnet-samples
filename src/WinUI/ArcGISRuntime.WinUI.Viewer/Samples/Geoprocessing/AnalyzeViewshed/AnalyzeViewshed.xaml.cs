@@ -15,11 +15,12 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
-using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Threading.Tasks;
+using System.Drawing;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.AnalyzeViewshed
 {

@@ -90,7 +90,7 @@ namespace ArcGISRuntime.WPF.Samples.FeatureCollectionLayerFromPortal
             }
 
             // Call a function to add the feature collection from the specified portal item.
-            _ = OpenFeaturesFromArcGISOnline(collectionItemId);
+           _ = OpenFeaturesFromArcGISOnline(collectionItemId);
         }
     }
 }

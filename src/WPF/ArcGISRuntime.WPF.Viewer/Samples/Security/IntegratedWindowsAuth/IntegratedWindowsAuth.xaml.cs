@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -33,14 +33,14 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
         private string _publicPortalUrl = "https://www.arcgis.com";
 
         // The public and secured portals.
-        private ArcGISPortal _iwaSecuredPortal = null;
-        private ArcGISPortal _publicPortal = null;
+        ArcGISPortal _iwaSecuredPortal = null;
+        ArcGISPortal _publicPortal = null;
 
         // Track if the user is looking at search results from the public or secured portal.
-        private bool _usingPublicPortal;
+        bool _usingPublicPortal;
 
         // Track if the user has canceled the login dialog.
-        private bool _canceledLogin;
+        bool _canceledLogin;
 
         public IntegratedWindowsAuth()
         {
@@ -134,13 +134,14 @@ namespace ArcGISRuntime.WPF.Samples.IntegratedWindowsAuth
             {
                 // Get the string entered for the secure portal URL.
                 string securedPortalUrl = SecurePortalUrlTextBox.Text.Trim();
-
+                
                 // Make sure a portal URL has been entered in the text box.
                 if (string.IsNullOrEmpty(securedPortalUrl))
                 {
                     MessageBox.Show("Please enter the URL of the secured portal.", "Missing URL");
                     return;
                 }
+
 
                 // Check if the current Window credentials should be used or require an explicit login.
                 bool requireLogin = RequireLoginCheckBox.IsChecked == true;

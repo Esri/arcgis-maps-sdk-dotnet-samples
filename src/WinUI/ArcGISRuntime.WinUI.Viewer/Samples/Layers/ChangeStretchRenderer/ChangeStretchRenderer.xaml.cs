@@ -10,10 +10,11 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using Microsoft.UI.Xaml;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Collections.Generic;
+using Windows.UI.Popups;
+using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.ChangeStretchRenderer
 {

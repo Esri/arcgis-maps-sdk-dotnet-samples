@@ -45,7 +45,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabaseReplica
         private GeodatabaseSyncTask _gdbSyncTask;
 
         // Job used to generate the geodatabase.
-        private GenerateGeodatabaseReplicaJob _generateGdbJob;
+        private GenerateGeodatabaseJob _generateGdbJob;
 
         public GenerateGeodatabaseReplica()
         {
@@ -175,10 +175,10 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabaseReplica
             Envelope extent = MyMapView.GraphicsOverlays[0].Graphics.First().Geometry as Envelope;
 
             // Get the default parameters for the generate geodatabase task.
-            GenerateGeodatabaseReplicaParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseReplicaParametersAsync(extent);
+            GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(extent);
 
             // Create a generate geodatabase job.
-            _generateGdbJob = _gdbSyncTask.GenerateGeodatabaseReplica(generateParams, _gdbPath);
+            _generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Handle the progress changed event (to show progress bar).
             _generateGdbJob.ProgressChanged += (sender, e) =>

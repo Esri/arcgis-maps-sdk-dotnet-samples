@@ -138,6 +138,9 @@
     <PackageReference Include="Xamarin.AndroidX.Core">
       <Version>1.8.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.DataBinding.ViewBinding">
+      <Version>7.2.1.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Legacy.Support.Core.UI">
       <Version>1.0.0.15</Version>
     </PackageReference>

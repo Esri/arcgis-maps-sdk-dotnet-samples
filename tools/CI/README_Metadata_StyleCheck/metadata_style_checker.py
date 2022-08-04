@@ -206,6 +206,10 @@ class MetadataCreator:
         self.category = get_folder_name_from_path(self.folder_path, -2)
         if self.category.__contains__('LocalServer'):
             self.category = "Local Server"
+        if self.category.__contains__('NetworkAnalysis'):
+            self.category = "Network analysis"
+        if self.category.__contains__('UtilityNetwork'):
+            self.category = "Utility network"
         try:
             self.images = self.get_images_paths()
             self.snippets = self.get_source_code_paths()

@@ -1,8 +1,8 @@
-# Generate geodatabase
+# Generate geodatabase replica from feature service
 
 Generate a local geodatabase from an online feature service.
 
-![Image of generate geodatabase](GenerateGeodatabase.jpg)
+![Image of generate geodatabase replica from feature service](GenerateGeodatabaseReplica.jpg)
 
 ## Use case
 
@@ -15,18 +15,18 @@ Zoom to any extent. Then tap the generate button to generate a geodatabase of fe
 ## How it works
 
 1. Create a `GeodatabaseSyncTask` with the URL of the feature service and load it.
-2. Create `GenerateGeodatabaseParameters` specifying the extent and whether to include attachments.
-3. Create a `GenerateGeodatabaseJob` with `geodatabaseSyncTask.GenerateGeodatabaseAsync(parameters, downloadPath)`. Start the job with `job.Start()`.
+2. Create `GenerateGeodatabaseReplicaParameters` specifying the extent and whether to include attachments.
+3. Create a `GenerateGeodatabaseReplicaJob` with `geodatabaseSyncTask.GenerateGeodatabaseReplicaAsync(parameters, downloadPath)`. Start the job with `job.Start()`.
 4. When the job is done, `job.GetResultAsync()` will return the geodatabase. Inside the geodatabase are feature tables which can be used to add feature layers to the map.
 5. Call `syncTask.UnregisterGeodatabaseAsync(geodatabase)` after generation when you're not planning on syncing changes to the service.
 
 ## Relevant API
 
-* GenerateGeodatabaseJob
-* GenerateGeodatabaseParameters
+* GenerateGeodatabaseReplicaJob
+* GenerateGeodatabaseReplicaParameters
 * Geodatabase
 * GeodatabaseSyncTask
 
 ## Tags
 
-disconnected, local geodatabase, offline, sync
+disconnected, local geodatabase, offline, replica, sync

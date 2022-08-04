@@ -21,7 +21,7 @@
 * [Edit features with feature-linked annotation](ArcGISRuntime.WPF.Viewer/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
 * [Edit with branch versioning](ArcGISRuntime.WPF.Viewer/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
 * [Feature layer query](ArcGISRuntime.WPF.Viewer/Samples/Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.
-* [Generate geodatabase](ArcGISRuntime.WPF.Viewer/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
+* [Generate geodatabase replica from feature service](ArcGISRuntime.WPF.Viewer/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WPF.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WPF.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
 * [Query features with Arcade expression](ArcGISRuntime.WPF.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.

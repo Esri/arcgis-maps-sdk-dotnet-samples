@@ -14,7 +14,7 @@ Select a symbol and a color from each of the category lists to create an emoji. 
 
 ## How it works
 
-1. On startup, read a mobile style file using `SymbolStyle.OpenAsync`. 
+1. On startup, read a mobile style file using `SymbolStyle.OpenAsync`.
 2. Get a list of all symbols in the style by calling `SearchSymbolsAsync` with the default search parameters.
 3. Iterate the list of `SymbolStyleSearchResult` and add symbols to list boxes according to their category. Display a preview of each symbol with `CreateSwatchAsync`.
 4. When symbol selections change, create a new multilayer symbol by passing the keys for the selected symbols into `GetSymbolAsync`. Color lock all symbol layers except the base layer and update the current symbol preview image.

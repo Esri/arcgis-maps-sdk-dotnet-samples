@@ -47,12 +47,12 @@ namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
         private List<string> _whereClauses { get; } = new List<string>
         {
             // Sample Query 1: Query for features with an F_CODE attribute property of "AP010".
-            "{ \"op\": \"=\", \"args\": [ { \"property\": \"F_CODE\" }, \"AP010\" ] }", // cql-json query
+            "{ \"op\": \"=\", \"args\": [ { \"property\": \"F_CODE\" }, \"AP010\" ] }", // cql2-json query
 
             // Sample Query 2: Query for features with an F_CODE attribute property similar to "AQ".
             "F_CODE LIKE 'AQ%'", // cql-text query
 
-            // Sample Query 3: use cql-json to combine "before" and "eq" operators with the logical "and" operator.
+            // Sample Query 3: use cql2-json to combine "before" and "eq" operators with the logical "and" operator.
            "{\"op\": \"and\", \"args\":[{ \"op\": \"=\", \"args\":[{ \"property\" : \"F_CODE\" }, \"AP010\"]}, { \"op\": \"t_before\", \"args\":[{ \"property\" : \"ZI001_SDV\"},\"2013-01-01\"]}]}"
         };
 

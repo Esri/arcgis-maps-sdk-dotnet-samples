@@ -16,7 +16,7 @@ In order to find any service areas at least one facility needs to be added to th
 
 * To add a facility, click the facility button, then click anywhere on the map.
 * To add a barrier, click the barrier button, and click multiple locations on map. Hit the barrier button again to finish drawing barrier. Hitting any other button will also stop the barrier from drawing.
-* To show service areas around facilities that were added, click show service areas button. 
+* To show service areas around facilities that were added, click show service areas button.
 * The reset button clears all graphics and resets the service area task.
 
 ## How it works

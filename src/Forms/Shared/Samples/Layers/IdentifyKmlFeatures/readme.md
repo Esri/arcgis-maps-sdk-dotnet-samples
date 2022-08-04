@@ -18,11 +18,11 @@ Note: the KML layer used in this sample contains a screen overlay. The screen ov
 
 1. Create a listener for the `GeoViewTapped` event of the `MapView`.
 2. On tap:
-  * Dismiss the `Callout`, if one is showing.
-  * Call `IdentifyLayersAsync(...)` passing in the `KmlLayer`, screen point and tolerance.
-  * Await the result of the identify and then get the `KmlPlacemark` from the result.
-  * Create a callout at the calculated map point and populate the callout content with text from the placemark's `BalloonContent`. NOTE: KML supports defining HTML for balloon content and may need to be converted from HTML to text.
-  * Show the callout.
+    * Dismiss the `Callout`, if one is showing.
+    * Call `IdentifyLayersAsync(...)` passing in the `KmlLayer`, screen point and tolerance.
+    * Await the result of the identify and then get the `KmlPlacemark` from the result.
+    * Create a callout at the calculated map point and populate the callout content with text from the placemark's `BalloonContent`. NOTE: KML supports defining HTML for balloon content and may need to be converted from HTML to text.
+    * Show the callout.
   
 Note: There are several types of KML features. This sample only identifies features of type `KmlPlacemark`.
 

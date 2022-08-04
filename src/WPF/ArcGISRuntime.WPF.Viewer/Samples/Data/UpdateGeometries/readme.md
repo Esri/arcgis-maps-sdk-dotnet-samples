@@ -15,7 +15,7 @@ Tap a feature to select it. Tap again to set the updated location for that featu
 ## How it works
 
 1. Create a `ServiceGeodatabase` object from a URL.
-2. Get the `ServiceFeatureTable` from the `ServiceGeodatbase` object. 
+2. Get the `ServiceFeatureTable` from the `ServiceGeodatbase` object.
 3. Create a `FeatureLayer` object from the `ServiceFeatureTable`.
 4. Select a feature from the feature layer, using `FeatureLayer.SelectFeatures`.
 5. Load the selected feature.
@@ -31,7 +31,7 @@ Tap a feature to select it. Tap again to set the updated location for that featu
 
 ## Additional information
 
-When editing feature tables that are subject to database behavior (operations on one table affecting another table), it's now recommended to call these methods (apply edits & undo edits) on the `ServiceGeodatabase` object rather than on the `ServiceFeatureTable` object. Using the `ServiceGeodatabase` object to call these methods will prevent possible data inconsistencies and ensure transactional integrity so that all changes can be commited or rolled back. 
+When editing feature tables that are subject to database behavior (operations on one table affecting another table), it's now recommended to call these methods (apply edits & undo edits) on the `ServiceGeodatabase` object rather than on the `ServiceFeatureTable` object. Using the `ServiceGeodatabase` object to call these methods will prevent possible data inconsistencies and ensure transactional integrity so that all changes can be commited or rolled back.
 
 ## Tags
 

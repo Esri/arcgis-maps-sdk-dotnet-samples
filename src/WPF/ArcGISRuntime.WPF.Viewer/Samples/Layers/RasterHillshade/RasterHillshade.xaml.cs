@@ -17,11 +17,11 @@ using System.Windows;
 namespace ArcGISRuntime.WPF.Samples.RasterHillshade
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Raster hillshade renderer",
+        name: "Hillshade renderer",
         category: "Layers",
-        description: "Use a hillshade renderer on a raster.",
-        instructions: "Configure the options for rendering, then click 'Apply hillshade'.",
-        tags: new[] { "Visualization", "hillshade", "raster", "shadow", "slope" })]
+        description: "Apply a hillshade renderer to a raster.",
+        instructions: "Choose and adjust the settings to update the hillshade renderer on the raster layer. The sample allows you to change the Altitude, Azimuth, and Slope Type.",
+        tags: new[] { "altitude", "angle", "azimuth", "raster", "slope", "visualization" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     public partial class RasterHillshade
     {

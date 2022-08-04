@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateFeatureCollectionLayer
         category: "Layers",
         description: "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
         instructions: "When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry.",
-        tags: new[] { "Layers", "feature collection" })]
+        tags: new[] { "feature collection", "layers" })]
     public partial class CreateFeatureCollectionLayer
     {
         public CreateFeatureCollectionLayer()

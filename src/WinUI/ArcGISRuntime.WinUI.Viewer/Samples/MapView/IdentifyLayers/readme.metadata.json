@@ -1,6 +1,6 @@
 {
     "category": "MapView",
-    "description": "Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.",
+    "description": "Identify features in all layers in a map.",
     "formal_name": "IdentifyLayers",
     "ignore": false,
     "images": [

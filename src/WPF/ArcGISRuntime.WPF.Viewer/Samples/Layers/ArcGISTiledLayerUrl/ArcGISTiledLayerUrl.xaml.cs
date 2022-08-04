@@ -16,7 +16,7 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISTiledLayerUrl
         name: "ArcGIS tiled layer",
         category: "Layers",
         description: "Load an ArcGIS tiled layer from a URL.",
-        instructions: "Launch the app to view the \"World Topographic Map\" tile layer as the basemap. ",
+        instructions: "Launch the app to view the \"World Topographic Map\" tile layer as the basemap.",
         tags: new[] { "basemap", "layers", "raster tiles", "tiled layer", "visualization" })]
     public partial class ArcGISTiledLayerUrl
     {

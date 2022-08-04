@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         category: "Geoprocessing",
         description: "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",
         instructions: "Select a date range (between 1998-01-01 and 1998-05-31) from the dialog and tap on Analyze. The results will be shown on the map upon successful completion of the `GeoprocessingJob`.",
-        tags: new[] { "Geoprocessing", "GeoprocessingJob", "GeoprocessingParameters", "GeoprocessingResult" })]
+        tags: new[] { "analysis", "density", "geoprocessing", "hot spots", "hotspots" })]
     public partial class AnalyzeHotspots : ContentPage
     {
 

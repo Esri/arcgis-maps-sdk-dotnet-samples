@@ -14,11 +14,11 @@ using Xamarin.Forms;
 namespace ArcGISRuntime.Samples.AccessLoadStatus
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Access load status",
+        name: "Map load status",
         category: "Map",
         description: "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",
         instructions: "The load status of the map will be displayed as the sample loads.",
-        tags: new[] { "LoadStatus", "Loadable pattern", "Map" })]
+        tags: new[] { "load status", "loadable pattern", "map" })]
     public partial class AccessLoadStatus : ContentPage
     {
         public AccessLoadStatus()

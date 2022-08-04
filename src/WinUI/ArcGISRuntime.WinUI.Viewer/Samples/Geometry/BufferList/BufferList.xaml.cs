@@ -12,11 +12,10 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.BufferList
 {
@@ -125,10 +124,10 @@ namespace ArcGISRuntime.WinUI.Samples.BufferList
                 // Use a helper method to get the buffer distance in feet (unit that's used by the spatial reference).
                 double bufferDistanceFeet = LinearUnits.Miles.ConvertTo(LinearUnits.Feet, bufferDistanceMiles);
 
-                // Create a simple marker symbol (red circle) to display where the user tapped/clicked on the map. 
+                // Create a simple marker symbol (red circle) to display where the user tapped/clicked on the map.
                 SimpleMarkerSymbol tapSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Red, 10);
 
-                // Create a new graphic to show the tap location. 
+                // Create a new graphic to show the tap location.
                 Graphic tapGraphic = new Graphic(tapMapPoint, tapSymbol)
                 {
                     // Specify a z-index value on the point graphic to make sure it draws on top of the buffer polygons.
@@ -201,7 +200,7 @@ namespace ArcGISRuntime.WinUI.Samples.BufferList
                         ZIndex = 0
                     };
 
-                    // Add the buffered polygon graphic to the graphics overlay.                    
+                    // Add the buffered polygon graphic to the graphics overlay.
                     MyMapView.GraphicsOverlays[0].Graphics.Add(bufferPolygonGraphic);
                 }
             }

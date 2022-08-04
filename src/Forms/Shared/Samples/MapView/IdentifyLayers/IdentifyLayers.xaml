@@ -1,13 +1,12 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.IdentifyLayers.IdentifyLayers"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntimeXamarin.Samples.IdentifyLayers.IdentifyLayers">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <StackLayout Orientation="Vertical">
-        <Label Text="Tap to identify features in all layers."
+        <Label FontAttributes="Bold"
                HorizontalTextAlignment="Center"
-               FontAttributes="Bold"
+               Text="Tap to identify features in all layers."
                VerticalOptions="Start" />
-        <esriUI:MapView x:Name="MyMapView"
-                        VerticalOptions="FillAndExpand" />
+        <esriUI:MapView x:Name="MyMapView" VerticalOptions="FillAndExpand" />
     </StackLayout>
 </ContentPage>

@@ -29,10 +29,19 @@ namespace ArcGISRuntime.Samples.Shared.Attributes
             _tags = tags;
         }
 
-        public string Name { get { return _name; } }
-        public string Category { get { return _category; } }
-        public string Description { get { return _description; } }
-        public string Instructions { get { return _instructions; } }
-        public System.Collections.Generic.IReadOnlyList<string> Tags { get { return _tags; } }
+        public string Name
+        { get { return _name; } }
+
+        public string Category
+        { get { return _category; } }
+
+        public string Description
+        { get { return _description; } }
+
+        public string Instructions
+        { get { return _instructions; } }
+
+        public System.Collections.Generic.IReadOnlyList<string> Tags
+        { get { return _tags; } }
     }
 }

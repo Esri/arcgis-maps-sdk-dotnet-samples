@@ -1,47 +1,54 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntime.Samples.ReadShapefileMetadata.ReadShapefileMetadata">
+<ContentPage x:Class="ArcGISRuntime.Samples.ReadShapefileMetadata.ReadShapefileMetadata"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="40"/>
+            <RowDefinition />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView"/>
-        <Frame x:Name="MetadataFrame" 
-               IsVisible="False"
-               HorizontalOptions="Center"  VerticalOptions="Start"
+        <esriUI:MapView x:Name="MyMapView" />
+        <Frame x:Name="MetadataFrame"
                Margin="30"
-               BorderColor="DarkGray"
                BackgroundColor="LightGray"
+               BorderColor="DarkGray"
+               HorizontalOptions="Center"
+               IsVisible="False"
+               VerticalOptions="Start"
                WidthRequest="300">
             <ScrollView>
                 <StackLayout x:Name="InfoPanel"
-                        Orientation="Vertical"
-                        Margin="5">
-                    <Label Margin="5" 
-                       FontAttributes="Bold" FontSize="Small" TextColor="DarkBlue"
-                       Text="{Binding Path=Credits}"/>
-                    <Label LineBreakMode="WordWrap"
-                       FontSize="Micro" TextColor="Black"
-                       Text="{Binding Summary}"/>
-                    <Image x:Name="ShapefileThumbnailImage"
-                        Margin="10"/>
+                             Margin="5"
+                             Orientation="Vertical">
+                    <Label Margin="5"
+                           FontAttributes="Bold"
+                           FontSize="Small"
+                           Text="{Binding Path=Credits}"
+                           TextColor="DarkBlue" />
+                    <Label FontSize="Micro"
+                           LineBreakMode="WordWrap"
+                           Text="{Binding Summary}"
+                           TextColor="Black" />
+                    <Image x:Name="ShapefileThumbnailImage" Margin="10" />
                     <StackLayout Orientation="Horizontal">
-                        <Label FontAttributes="Bold" FontSize="Micro" TextColor="Black"
-                               Margin="0,3"
-                               Text="Tags:"/>
-                        <ListView HeightRequest="120" WidthRequest="160" RowHeight="25"
-                                  ItemsSource="{Binding Tags}"/>
+                        <Label Margin="0,3"
+                               FontAttributes="Bold"
+                               FontSize="Micro"
+                               Text="Tags:"
+                               TextColor="Black" />
+                        <ListView HeightRequest="120"
+                                  ItemsSource="{Binding Tags}"
+                                  RowHeight="25"
+                                  WidthRequest="160" />
                     </StackLayout>
                 </StackLayout>
             </ScrollView>
         </Frame>
-        <Button Grid.Row="1" 
-                Text="Show Metadata"
+        <Button Grid.Row="1"
                 Clicked="ShowMetadataClicked"
-                HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                HorizontalOptions="FillAndExpand"
+                Text="Show Metadata"
+                VerticalOptions="FillAndExpand" />
     </Grid>
 </ContentPage>

@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage
-    x:Class="ArcGISRuntime.Samples.DisplayGrid.DisplayGrid"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+<ContentPage x:Class="ArcGISRuntime.Samples.DisplayGrid.DisplayGrid"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style TargetType="Picker">
@@ -35,94 +34,77 @@
                     <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <!--  Labels  -->
-                <Label
-                    Grid.Row="0"
-                    Text="Grid type"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
-                <Label
-                    Grid.Row="1"
-                    Text="Show labels"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
-                <Label
-                    Grid.Row="2"
-                    Text="Show grid"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
-                <Label
-                    Grid.Row="3"
-                    Text="Grid color"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
-                <Label
-                    Grid.Row="4"
-                    Text="Label color"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
-                <Label
-                    Grid.Row="5"
-                    Text="Halo color"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
-                <Label
-                    Grid.Row="6"
-                    Text="Label position"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
-                <Label
-                    Grid.Row="7"
-                    Text="Label format"
-                    VerticalOptions="Center"
-                    VerticalTextAlignment="Center" />
+                <Label Grid.Row="0"
+                       Text="Grid type"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
+                <Label Grid.Row="1"
+                       Text="Show labels"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
+                <Label Grid.Row="2"
+                       Text="Show grid"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
+                <Label Grid.Row="3"
+                       Text="Grid color"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
+                <Label Grid.Row="4"
+                       Text="Label color"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
+                <Label Grid.Row="5"
+                       Text="Halo color"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
+                <Label Grid.Row="6"
+                       Text="Label position"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
+                <Label Grid.Row="7"
+                       Text="Label format"
+                       VerticalOptions="Center"
+                       VerticalTextAlignment="Center" />
                 <!--  Inputs  -->
-                <Picker
-                    x:Name="gridTypePicker"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    VerticalOptions="CenterAndExpand" />
-                <Switch
-                    x:Name="labelVisibilitySwitch"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    IsToggled="True" />
-                <Switch
-                    x:Name="gridVisibilitySwitch"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    IsToggled="True" />
-                <Picker
-                    x:Name="gridColorPicker"
-                    Grid.Row="3"
-                    Grid.Column="1"
-                    VerticalOptions="CenterAndExpand" />
-                <Picker
-                    x:Name="labelColorPicker"
-                    Grid.Row="4"
-                    Grid.Column="1"
-                    VerticalOptions="CenterAndExpand" />
-                <Picker
-                    x:Name="haloColorPicker"
-                    Grid.Row="5"
-                    Grid.Column="1"
-                    VerticalOptions="CenterAndExpand" />
-                <Picker
-                    x:Name="labelPositionPicker"
-                    Grid.Row="6"
-                    Grid.Column="1"
-                    VerticalOptions="CenterAndExpand" />
-                <Picker
-                    x:Name="labelFormatPicker"
-                    Grid.Row="7"
-                    Grid.Column="1"
-                    VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="gridTypePicker"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        VerticalOptions="CenterAndExpand" />
+                <Switch x:Name="labelVisibilitySwitch"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        IsToggled="True" />
+                <Switch x:Name="gridVisibilitySwitch"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        IsToggled="True" />
+                <Picker x:Name="gridColorPicker"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="labelColorPicker"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="haloColorPicker"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="labelPositionPicker"
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="labelFormatPicker"
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        VerticalOptions="CenterAndExpand" />
             </Grid>
         </ScrollView>
-        <Button
-            x:Name="applySettingsButton"
-            Grid.Row="1"
-            IsEnabled="False"
-            Text="Apply settings" />
+        <Button x:Name="applySettingsButton"
+                Grid.Row="1"
+                IsEnabled="False"
+                Text="Apply settings" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
     </Grid>
 </ContentPage>

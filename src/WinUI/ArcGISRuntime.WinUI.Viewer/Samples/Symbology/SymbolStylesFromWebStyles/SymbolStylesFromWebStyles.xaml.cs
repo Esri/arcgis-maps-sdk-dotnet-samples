@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -34,7 +34,7 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolStylesFromWebStyles
         // Hold a reference to the feature layer.
         private FeatureLayer _webStyleLayer;
 
-        // Hold a list of symbol data for the legend. 
+        // Hold a list of symbol data for the legend.
         private readonly ObservableCollection<SymbolLegendInfo> _symbolLegendCollection = new ObservableCollection<SymbolLegendInfo>();
 
         public SymbolStylesFromWebStyles()
@@ -56,7 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolStylesFromWebStyles
                 // Create the feature layer from the given URL.
                 _webStyleLayer = new FeatureLayer(webStyleLayerUri);
 
-                // Instantiate a UniqueValueRenderer, this will impact specific features based on the values of the specified FieldName(s). 
+                // Instantiate a UniqueValueRenderer, this will impact specific features based on the values of the specified FieldName(s).
                 _renderer = new UniqueValueRenderer();
                 _renderer.FieldNames.Add("cat2");
 
@@ -70,7 +70,7 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolStylesFromWebStyles
                 // Set the scale at which feature symbols and text will appear at their default size.
                 MyMapView.Map.ReferenceScale = 100000;
 
-                // Set the the initial view point for the map view. 
+                // Set the the initial view point for the map view.
                 MapPoint centerPoint = new MapPoint(-118.44186, 34.28301, SpatialReferences.Wgs84);
                 MyMapView.Map.InitialViewpoint = new Viewpoint(centerPoint, 7000);
 
@@ -88,16 +88,16 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolStylesFromWebStyles
 
         private async Task CreateSymbolStyles()
         {
-            // Create a dictionary of symbol categories and their associated symbol name. 
+            // Create a dictionary of symbol categories and their associated symbol name.
             Dictionary<string, List<string>> symbolCategories = CreateCategoriesMap();
 
             // Create a portal to enable access to the symbols.
             ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
-            // Create a SymbolStyle, this is used to return symbols based on provided symbol keys from portal. 
+            // Create a SymbolStyle, this is used to return symbols based on provided symbol keys from portal.
             SymbolStyle esri2DPointSymbolStyle = await SymbolStyle.OpenAsync("Esri2DPointSymbolsStyle", portal);
 
-            // Loop through each of the keys in the symbol categories dictionary and retrieve each symbol from portal. 
+            // Loop through each of the keys in the symbol categories dictionary and retrieve each symbol from portal.
             foreach (string symbolName in symbolCategories.Keys)
             {
                 // This call is used to retrieve a single symbol for a given symbol name, if multiple symbol names are provided
@@ -111,8 +111,8 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolStylesFromWebStyles
                 // Add the symbol the ObservableCollection containing the symbol legend data.
                 _symbolLegendCollection.Add(new SymbolLegendInfo() { Name = symbolName, ImageSource = imageSource });
 
-                // Loop through each of the categories in the symbol categories dictionary for the given symbol name. 
-                // This needs to be done to ensure that a UniqueValue is created for each symbol category. 
+                // Loop through each of the categories in the symbol categories dictionary for the given symbol name.
+                // This needs to be done to ensure that a UniqueValue is created for each symbol category.
                 // Numerous categories can have the same matching symbol name, however each category needs their own UniqueValue.
                 foreach (string symbolCategory in symbolCategories[symbolName])
                 {
@@ -121,7 +121,7 @@ namespace ArcGISRuntime.WinUI.Samples.SymbolStylesFromWebStyles
                     // In the data set used in this sample each point of interest is only represented by a single category so we only use a single category in this case.
                     UniqueValue uniqueValue = new UniqueValue(symbolCategory, symbolName, symbol, new List<string> { symbolCategory });
 
-                    // Add the UniqueValue to the renderer. 
+                    // Add the UniqueValue to the renderer.
                     _renderer.UniqueValues.Add(uniqueValue);
                 }
             }

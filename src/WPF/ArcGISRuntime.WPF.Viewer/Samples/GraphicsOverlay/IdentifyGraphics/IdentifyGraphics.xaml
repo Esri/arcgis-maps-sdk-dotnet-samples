@@ -5,8 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <TextBlock Text="Tap to identify the graphic."
-                       FontWeight="SemiBold" HorizontalAlignment="Center" />
+            <TextBlock HorizontalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Text="Tap to identify the graphic." />
         </Border>
     </Grid>
 </UserControl>

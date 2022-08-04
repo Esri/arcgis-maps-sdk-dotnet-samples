@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.ClosestFacilityStatic.ClosestFacilityStatic"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
-             x:Class="ArcGISRuntime.Samples.ClosestFacilityStatic.ClosestFacilityStatic">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -11,17 +10,17 @@
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView" />
         <StackLayout Grid.Row="1"
-                     Orientation="Horizontal"
+                     Margin="5,10"
                      HeightRequest="50"
-                     Margin="5,10">
+                     Orientation="Horizontal">
             <Button x:Name="SolveRoutesButton"
-                        HorizontalOptions="FillAndExpand"
-                        Text="Solve Routes"
-                        Clicked="SolveRoutesClick" />
+                    Clicked="SolveRoutesClick"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Solve Routes" />
             <Button x:Name="ResetButton"
-                        HorizontalOptions="FillAndExpand"
-                        Text="Reset"
-                        Clicked="ResetClick" />
+                    Clicked="ResetClick"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Reset" />
         </StackLayout>
     </Grid>
 </ContentPage>

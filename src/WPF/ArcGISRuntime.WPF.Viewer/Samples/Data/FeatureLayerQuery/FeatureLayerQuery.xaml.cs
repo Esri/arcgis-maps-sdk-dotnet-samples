@@ -84,12 +84,11 @@ namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
 
         private void OnQueryClicked(object sender, RoutedEventArgs e)
         {
-           
             // Remove any previous feature selections that may have been made.
             _featureLayer.ClearSelection();
 
             // Begin query process.
-            _ =  QueryStateFeature(QueryEntry.Text);
+            _ = QueryStateFeature(QueryEntry.Text);
         }
 
         private async Task QueryStateFeature(string stateName)

@@ -38,34 +38,46 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock
-                    Text="Tap 'Update renderer' to change the settings for the blend renderer. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used."
-                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                    Margin="0,0,0,10"
-                    TextWrapping="Wrap" HorizontalAlignment="Stretch" />
-                <TextBlock Text="Altitude: "
-                           Grid.Row="1" Grid.Column="0" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Margin="0,0,0,10"
+                           HorizontalAlignment="Stretch"
+                           Text="Tap 'Update renderer' to change the settings for the blend renderer. If you use None as the ColorRamp, a standard hill shade raster output is displayed. For all the other ColorRamp types an elevation raster is used."
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Altitude: " />
                 <Slider x:Name="AltitudeSlider"
-                        Grid.Row="1" Grid.Column="1" />
-                <TextBlock Text="Azimuth:"
-                           Grid.Row="2" Grid.Column="0" />
+                        Grid.Row="1"
+                        Grid.Column="1" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Azimuth:" />
                 <Slider x:Name="AzimuthSlider"
-                        Grid.Row="2" Grid.Column="1" />
-                <TextBlock Text="Slope type:"
-                           Grid.Row="3" Grid.Column="0" />
+                        Grid.Row="2"
+                        Grid.Column="1" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Slope type:" />
                 <ComboBox x:Name="SlopeTypes"
-                          Grid.Row="3" Grid.Column="1" />
-                <TextBlock Text="Color ramp:"
-                           Grid.Row="4" Grid.Column="0" />
+                          Grid.Row="3"
+                          Grid.Column="1" />
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Text="Color ramp:" />
                 <ComboBox x:Name="ColorRamps"
-                          Grid.Row="4" Grid.Column="1" />
+                          Grid.Row="4"
+                          Grid.Column="1" />
                 <Button x:Name="UpdateRenderer"
-                        Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                        Content="Update renderer"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Margin="0,5,0,0"
-                        IsEnabled="False"
                         HorizontalAlignment="Stretch"
-                        Click="OnUpdateRendererClicked" />
+                        Click="OnUpdateRendererClicked"
+                        Content="Update renderer"
+                        IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>

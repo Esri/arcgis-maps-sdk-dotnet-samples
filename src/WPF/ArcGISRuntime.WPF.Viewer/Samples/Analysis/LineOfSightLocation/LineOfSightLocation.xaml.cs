@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -36,7 +36,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightLocation
         private MapPoint _targetLocation;
 
         // Offset (meters) to use for the observer/target height (z-value for the points)
-        private double _zOffset = 2.0; 
+        private double _zOffset = 2.0;
 
         public LineOfSightLocation()
         {
@@ -60,7 +60,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightLocation
 
             // Add the Scene to the SceneView
             MySceneView.Scene = myScene;
-            
+
             // Set the viewpoint with a new camera
             Camera newCamera = new Camera(new MapPoint(-121.7, 45.4, SpatialReferences.Wgs84), 10000, 0, 45, 0);
             MySceneView.SetViewpointCameraAsync(newCamera);
@@ -72,7 +72,7 @@ namespace ArcGISRuntime.WPF.Samples.LineOfSightLocation
             // These are static properties that apply to all line of sight analyses in the scene view
             LineOfSight.VisibleColor = Color.Cyan;
             LineOfSight.ObstructedColor = Color.Magenta;
-            
+
             // Create an analysis overlay to contain the analysis and add it to the scene view
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();
             lineOfSightOverlay.Analyses.Add(_lineOfSightAnalysis);

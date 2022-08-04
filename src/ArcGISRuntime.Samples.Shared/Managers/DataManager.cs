@@ -233,7 +233,7 @@ namespace ArcGISRuntime.Samples.Managers
         internal static string GetDataFolder()
         {
 #if NETFX_CORE
-            string appDataFolder  = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+            string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #elif XAMARIN
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #else

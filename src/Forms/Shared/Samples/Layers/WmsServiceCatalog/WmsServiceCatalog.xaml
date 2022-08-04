@@ -1,17 +1,19 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.WmsServiceCatalog.WmsServiceCatalog"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntime.Samples.WmsServiceCatalog.WmsServiceCatalog">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="150" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label Text="Select a WMS layer from the list for display:" Grid.Row="0" />
-        <ListView x:Name="MyDisplayList" Grid.Row="1" ItemSelected="MyDisplayList_SelectionChanged">
+        <Label Grid.Row="0" Text="Select a WMS layer from the list for display:" />
+        <ListView x:Name="MyDisplayList"
+                  Grid.Row="1"
+                  ItemSelected="MyDisplayList_SelectionChanged">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding Name}" />

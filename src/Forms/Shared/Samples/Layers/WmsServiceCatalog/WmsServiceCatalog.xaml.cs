@@ -10,10 +10,10 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.WmsServiceCatalog
@@ -124,7 +124,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             }
 
             // Hold a reference to the selected item
-            LayerDisplayVM selectedItem = (LayerDisplayVM) e.SelectedItem;
+            LayerDisplayVM selectedItem = (LayerDisplayVM)e.SelectedItem;
 
             // Update the selection
             selectedItem.Select();

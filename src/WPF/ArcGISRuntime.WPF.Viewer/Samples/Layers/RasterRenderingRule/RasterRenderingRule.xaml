@@ -1,20 +1,16 @@
 ﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.RasterRenderingRule.RasterRenderingRule"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Select a rendering rule."
-                           Margin="0,0,0,5"
-                           TextWrapping="Wrap" TextAlignment="Center" />
-                <ComboBox x:Name="RenderingRuleChooser"
-                          SelectionChanged="comboBox_RenderingRuleChooser_SelectionChanged" />
+                <TextBlock Margin="0,0,0,5"
+                           Text="Select a rendering rule."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+                <ComboBox x:Name="RenderingRuleChooser" SelectionChanged="comboBox_RenderingRuleChooser_SelectionChanged" />
             </StackPanel>
         </Border>
     </Grid>

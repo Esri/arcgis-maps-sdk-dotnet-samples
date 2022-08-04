@@ -1,49 +1,45 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntime.SamplePage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-    ios:Page.UseSafeArea="true">
+<ContentPage x:Class="ArcGISRuntime.SamplePage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true">
     <ContentPage.ToolbarItems>
-        <ToolbarItem
-            x:Name="DetailToolbarItem"
-            Icon="Info.png"
-            Text="Details" />
+        <ToolbarItem x:Name="DetailToolbarItem"
+                     Icon="Info.png"
+                     Text="Details" />
     </ContentPage.ToolbarItems>
     <RelativeLayout>
-        <Frame
-            x:Name="SampleContentPage"
-            Padding="0"
-            CornerRadius="0"
-            HasShadow="False"
-            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                   Factor=1,
-                                                                   Property=Height}"
-            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                  Factor=1,
-                                                                  Property=Width}"
-            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Constant=0}"
-            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Constant=0}" />
-        <Frame
-            x:Name="SampleDetailPage"
-            Padding="0"
-            CornerRadius="0"
-            IsVisible="False"
-            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                   Factor=.9,
-                                                                   Property=Height}"
-            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                  Factor=.9,
-                                                                  Property=Width}"
-            RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Factor=.05,
-                                                              Property=Width}"
-            RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                              Factor=.05,
-                                                              Property=Height}">
+        <Frame x:Name="SampleContentPage"
+               Padding="0"
+               CornerRadius="0"
+               HasShadow="False"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Factor=1,
+                                                                      Property=Height}"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                     Factor=1,
+                                                                     Property=Width}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                 Constant=0}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                 Constant=0}" />
+        <Frame x:Name="SampleDetailPage"
+               Padding="0"
+               CornerRadius="0"
+               IsVisible="False"
+               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                      Factor=.9,
+                                                                      Property=Height}"
+               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                     Factor=.9,
+                                                                     Property=Width}"
+               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                 Factor=.05,
+                                                                 Property=Width}"
+               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+                                                                 Factor=.05,
+                                                                 Property=Height}">
             <WebView x:Name="DescriptionView" />
         </Frame>
     </RelativeLayout>

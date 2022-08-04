@@ -1,14 +1,14 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.RouteAroundBarriers.RouteAroundBarriers"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
-             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
-             x:Class="ArcGISRuntimeXamarin.Samples.RouteAroundBarriers.RouteAroundBarriers">
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}"
+        <esriUI:MapView x:Name="MyMapView"
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        GeoViewTapped="MyMapView_OnGeoViewTapped" 
-                        ViewInsets="0,250,0,0"/>
+                        GeoViewTapped="MyMapView_OnGeoViewTapped"
+                        Style="{StaticResource MapWithFormStyle}"
+                        ViewInsets="0,250,0,0" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <Grid.RowDefinitions>
@@ -25,59 +25,77 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label x:Name="StatusLabel"
-                           Margin="0,0,0,5"
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                           FontAttributes="Bold"/>
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       Margin="0,0,0,5"
+                       FontAttributes="Bold" />
                 <Button x:Name="AddStopButton"
-                        Text="Add stop"
-                        Grid.Row="1" Grid.Column="0"
-                        Clicked="AddStop_Clicked" />
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Clicked="AddStop_Clicked"
+                        Text="Add stop" />
                 <Button x:Name="AddBarrierButton"
-                        Text="Add barrier"
-                        Grid.Row="1" Grid.Column="1"
-                        Clicked="AddBarrier_Clicked" />
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Clicked="AddBarrier_Clicked"
+                        Text="Add barrier" />
                 <Button x:Name="ResetRoutingButton"
-                        Text="Reset"
-                        Grid.Row="1" Grid.Column="2"
-                        Clicked="ResetRoute_Clicked" />
-                <StackLayout Orientation="Horizontal"
-                             Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
-                    <Switch x:Name="AllowReorderStopsCheckbox"
-                            VerticalOptions="Center"/>
-                    <Label Text="Allow stops to be re-ordered" 
-                           VerticalOptions="Center" VerticalTextAlignment="Center" />
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Clicked="ResetRoute_Clicked"
+                        Text="Reset" />
+                <StackLayout Grid.Row="2"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Orientation="Horizontal">
+                    <Switch x:Name="AllowReorderStopsCheckbox" VerticalOptions="Center" />
+                    <Label Text="Allow stops to be re-ordered"
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center" />
                 </StackLayout>
-                <StackLayout Orientation="Horizontal"
-                             Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
-                    <Switch x:Name="PreserveFirstStopCheckbox"
-                            VerticalOptions="Center" />
+                <StackLayout Grid.Row="3"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Orientation="Horizontal">
+                    <Switch x:Name="PreserveFirstStopCheckbox" VerticalOptions="Center" />
                     <Label Text="Preserve first stop"
-                           VerticalOptions="Center" VerticalTextAlignment="Center" />
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center" />
                 </StackLayout>
-                <StackLayout Orientation="Horizontal"
-                             Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
-                    <Switch x:Name="PreserveLastStopCheckbox"
-                            VerticalOptions="Center" />
+                <StackLayout Grid.Row="4"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Orientation="Horizontal">
+                    <Switch x:Name="PreserveLastStopCheckbox" VerticalOptions="Center" />
                     <Label Text="Preserve last stop"
-                           VerticalOptions="Center" VerticalTextAlignment="Center" />
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center" />
                 </StackLayout>
                 <Button x:Name="CalculateRouteButton"
-                        Text="Route"
-                        Grid.Row="5" Grid.Column="0"
-                        Clicked="RouteButton_Clicked" />
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Clicked="RouteButton_Clicked"
+                        Text="Route" />
                 <Button x:Name="ShowDirectionsButton"
-                        Text="Show directions"
-                        Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2"
-                        Clicked="ShowDirections_Clicked"/>
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Clicked="ShowDirections_Clicked"
+                        Text="Show directions" />
                 <Grid x:Name="BusyOverlay"
-                      Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="3"
-                      HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                      Grid.Row="0"
+                      Grid.RowSpan="6"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      BackgroundColor="#aa000000"
+                      HorizontalOptions="FillAndExpand"
                       IsVisible="False"
-                      BackgroundColor="#aa000000">
-                    <Label Text="Calculating route"
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center"
-                               TextColor="White" />
+                      VerticalOptions="FillAndExpand">
+                    <Label HorizontalOptions="Center"
+                           Text="Calculating route"
+                           TextColor="White"
+                           VerticalOptions="Center" />
                 </Grid>
             </Grid>
         </resources:ResponsiveFormContainer>

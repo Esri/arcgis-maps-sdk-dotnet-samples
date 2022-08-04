@@ -11,12 +11,11 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
+using Microsoft.UI.Xaml;
 using System;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayWfs
 {

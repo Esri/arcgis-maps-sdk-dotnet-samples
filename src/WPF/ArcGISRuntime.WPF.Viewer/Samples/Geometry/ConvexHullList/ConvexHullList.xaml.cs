@@ -70,7 +70,6 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHullList
             // Create the graphic for polygon1 - comprised of a polygon shape and fill symbol.
             _polygonGraphic1 = new Graphic(CreatePolygon1(), polygonsSimpleFillSymbol)
             {
-
                 // Set the Z index for the polygon1 graphic so that it appears above the convex hull graphic(s) added later.
                 ZIndex = 1
             };
@@ -81,7 +80,6 @@ namespace ArcGISRuntime.WPF.Samples.ConvexHullList
             // Create the graphic for polygon2 - comprised of a polygon shape and fill symbol.
             _polygonGraphic2 = new Graphic(CreatePolygon2(), polygonsSimpleFillSymbol)
             {
-
                 // Set the Z index for the polygon2 graphic so that it appears above the convex hull graphic(s) added later.
                 ZIndex = 1
             };

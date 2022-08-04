@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.TimeBasedQuery
 {

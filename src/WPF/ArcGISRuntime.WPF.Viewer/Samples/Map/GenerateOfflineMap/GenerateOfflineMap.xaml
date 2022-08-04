@@ -3,71 +3,98 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
 
-        <Border x:Name="takeOfflineArea" Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border x:Name="takeOfflineArea"
+                Width="375"
+                Margin="30"
+                Padding="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
             <StackPanel>
-                <Button x:Name="TakeMapOfflineButton" 
-                        Click="TakeMapOfflineButton_Click" 
-                        IsEnabled="True" 
-                        Content="Take map offline"/>
+                <Button x:Name="TakeMapOfflineButton"
+                        Click="TakeMapOfflineButton_Click"
+                        Content="Take map offline"
+                        IsEnabled="True" />
             </StackPanel>
         </Border>
 
-        <Border x:Name="messageArea" Visibility="Collapsed"
-                Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="5" Width="450">
+        <Border x:Name="messageArea"
+                Width="450"
+                Margin="30"
+                Padding="5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Visibility="Collapsed">
             <StackPanel>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"
-                           FontWeight="Bold" 
-                           Text="Map is offline!"/>
+                <TextBlock Margin="10"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="Map is offline!" />
             </StackPanel>
         </Border>
 
-        <Grid x:Name="busyIndicator" Background="#807f7f7f" Visibility="Collapsed">
+        <Grid x:Name="busyIndicator"
+              Background="#807f7f7f"
+              Visibility="Collapsed">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"
-                           Foreground="White" FontSize="18">
-                    <Run Text="Generating offline map... "></Run>
-                    <Run x:Name="Percentage" Text=""></Run>
+                <TextBlock Margin="10"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="18"
+                           Foreground="White">
+                    <Run Text="Generating offline map... " />
+                    <Run x:Name="Percentage" Text="" />
                 </TextBlock>
                 <ProgressBar x:Name="progressBar"
-                             Grid.Row="1" 
-                             Minimum="0" Maximum="100"
+                             Grid.Row="1"
+                             Width="100"
+                             Height="10"
+                             Margin="0,0,0,10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
                              IsEnabled="True"
-                             HorizontalAlignment="Center" VerticalAlignment="Center" 
-                             Width="100" Height="10" Margin="0,0,0,10"/>
-                <Button x:Name="CancelJobButton" 
+                             Maximum="100"
+                             Minimum="0" />
+                <Button x:Name="CancelJobButton"
                         Grid.Row="3"
-                        Content="Cancel" 
-                        Click="CancelJobButton_Click" 
-                        HorizontalAlignment="Center" 
-                        Width="100"/>
+                        Width="100"
+                        HorizontalAlignment="Center"
+                        Click="CancelJobButton_Click"
+                        Content="Cancel" />
             </Grid>
         </Grid>
-        <Grid x:Name="loadingIndicator" 
-              Background="#807f7f7f" 
+        <Grid x:Name="loadingIndicator"
+              Background="#807f7f7f"
               Visibility="Visible">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Loading online map..." 
-                           Foreground="White" FontSize="18"
-                           Margin="10"/>
+                <TextBlock Margin="10"
+                           FontSize="18"
+                           Foreground="White"
+                           Text="Loading online map..." />
                 <ProgressBar Grid.Row="1"
-                             IsEnabled="True" IsIndeterminate="True" 
-                             Width="100" Height="10" 
-                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                             Width="100"
+                             Height="10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             IsEnabled="True"
+                             IsIndeterminate="True" />
             </Grid>
         </Grid>
     </Grid>

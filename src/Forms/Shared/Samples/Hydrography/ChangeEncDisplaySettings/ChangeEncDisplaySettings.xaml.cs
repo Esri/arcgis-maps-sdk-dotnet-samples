@@ -12,8 +12,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
@@ -123,9 +123,11 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
                 case "Day":
                     globalMarinerSettings.ColorScheme = EncColorScheme.Day;
                     break;
+
                 case "Dusk":
                     globalMarinerSettings.ColorScheme = EncColorScheme.Dusk;
                     break;
+
                 case "Night":
                     globalMarinerSettings.ColorScheme = EncColorScheme.Night;
                     break;

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -19,7 +20,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 

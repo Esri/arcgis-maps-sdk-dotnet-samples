@@ -12,8 +12,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.IdentifyLayers
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyLayers
                 // This function calls itself to count results on sublayers.
                 sublayerResultCount += recursivelyCountIdentifyResultsForSublayers(res);
             }
-            
+
             return result.GeoElements.Count + sublayerResultCount;
         }
     }

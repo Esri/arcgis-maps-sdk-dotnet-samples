@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -24,12 +24,11 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         tags: new[] { "analysis", "density", "geoprocessing", "hot spots", "hotspots" })]
     public partial class AnalyzeHotspots : ContentPage
     {
-
         // Url for the geoprocessing service
         private const string _hotspotUrl =
             "https://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
-        // The geoprocessing task for hot spot analysis 
+        // The geoprocessing task for hot spot analysis
         private GeoprocessingTask _hotspotTask;
 
         // The job that handles the communication between the application and the geoprocessing task
@@ -39,7 +38,7 @@ namespace ArcGISRuntime.Samples.AnalyzeHotspots
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             _ = Initialize();
         }
 

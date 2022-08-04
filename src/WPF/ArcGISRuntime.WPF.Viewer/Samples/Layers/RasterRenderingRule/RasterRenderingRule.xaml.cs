@@ -12,8 +12,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -46,7 +46,6 @@ namespace ArcGISRuntime.WPF.Samples.RasterRenderingRule
             // Assign a new map to the MapView
             MyMapView.Map = new Map
             {
-
                 // Set the basemap to Streets
                 Basemap = new Basemap(BasemapStyle.ArcGISStreets)
             };
@@ -113,7 +112,6 @@ namespace ArcGISRuntime.WPF.Samples.RasterRenderingRule
                     // Create a new image service raster
                     ImageServiceRaster myImageServiceRaster = new ImageServiceRaster(_myUri)
                     {
-
                         // Set the image service raster's rendering rule to the rendering rule created earlier
                         RenderingRule = myRenderingRule
                     };

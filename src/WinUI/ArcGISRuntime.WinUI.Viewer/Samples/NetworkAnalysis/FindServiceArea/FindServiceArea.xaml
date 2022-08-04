@@ -18,32 +18,34 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Button Name="PlaceFacilityButton"
-                        Grid.Row="0" Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Width="Auto"
                         Margin="5,5,5,5"
-                        Content="Place facility"
-                        Click="PlaceFacilityButton_Click"
                         HorizontalAlignment="Stretch"
-                        Width="Auto"/>
+                        Click="PlaceFacilityButton_Click"
+                        Content="Place facility" />
                 <Button Name="DrawBarrierButton"
-                        Grid.Row="0" Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.Column="1"
                         Margin="5,5,5,5"
-                        Content="Draw barrier"
+                        HorizontalAlignment="Stretch"
                         Click="DrawBarrierButton_Click"
-                        HorizontalAlignment="Stretch"/>
+                        Content="Draw barrier" />
                 <Button Name="ShowServiceAreasButton"
                         Grid.Row="3"
                         Grid.ColumnSpan="2"
                         Margin="5,5,5,5"
-                        Content="Show service areas"
+                        HorizontalAlignment="Stretch"
                         Click="ShowServiceAreasButton_Click"
-                        HorizontalAlignment="Stretch"/>
+                        Content="Show service areas" />
                 <Button Name="ResetButton"
                         Grid.Row="4"
                         Grid.ColumnSpan="2"
                         Margin="5,5,5,5"
-                        Content="Reset"
+                        HorizontalAlignment="Stretch"
                         Click="Reset_Click"
-                        HorizontalAlignment="Stretch"/>
+                        Content="Reset" />
             </Grid>
         </Border>
     </Grid>

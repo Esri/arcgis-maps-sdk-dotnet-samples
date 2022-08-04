@@ -11,8 +11,8 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.WmsIdentify
@@ -119,7 +119,6 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             // Create the web browser control
             WebView htmlView = new WebView
             {
-
                 // Display the string content as an HTML document
                 Source = new HtmlWebViewSource() { Html = htmlContent }
             };

@@ -11,8 +11,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System.Collections.Generic;
 using Microsoft.UI.Xaml;
+using System.Collections.Generic;
 
 namespace ArcGISRuntime.WinUI.Samples.SpatialOperations
 {

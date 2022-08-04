@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.AddFeatures
 {

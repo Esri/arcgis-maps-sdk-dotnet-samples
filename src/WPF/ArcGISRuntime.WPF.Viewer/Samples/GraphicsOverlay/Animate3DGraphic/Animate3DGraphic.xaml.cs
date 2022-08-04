@@ -15,16 +15,16 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Drawing;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 using Viewpoint = Esri.ArcGISRuntime.Mapping.Viewpoint;
-using System.Globalization;
 
 namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
 {
@@ -91,7 +91,7 @@ namespace ArcGISRuntime.WPF.Samples.Animate3DGraphic
             // Update the mission selection UI
             MissionSelectionBox.ItemsSource = _missionToItemId.Keys;
             MissionSelectionBox.SelectedIndex = 0;
-            
+
             // Wire up the selection change event to call the ChangeMission method; this method resets the animation and starts a new mission
             MissionSelectionBox.SelectionChanged += async (sender, args) => { await ChangeMission(args.AddedItems[0].ToString()); };
 

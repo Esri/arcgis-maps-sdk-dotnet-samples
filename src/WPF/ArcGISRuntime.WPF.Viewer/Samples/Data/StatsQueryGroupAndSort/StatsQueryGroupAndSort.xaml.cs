@@ -9,10 +9,10 @@
 
 using Esri.ArcGISRuntime.Data;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -75,14 +75,14 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString(), "Error");
-            }      
+            }
         }
 
         // Execute a statistical query using the parameters defined by the user and display the results
         private async void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
         {
             // Verify that there is at least one statistic definition
-            if(_statDefinitions.Count == 0)
+            if (_statDefinitions.Count == 0)
             {
                 MessageBox.Show("Please define at least one statistic for the query.", "Statistical Query");
                 return;
@@ -92,13 +92,13 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(_statDefinitions);
 
             // Specify the group fields (if any)
-            foreach(string groupField in _groupByFields)
+            foreach (string groupField in _groupByFields)
             {
                 statQueryParams.GroupByFieldNames.Add(groupField);
             }
 
             // Specify the fields to order by (if any)
-            foreach(OrderBy orderBy in _orderByFields)
+            foreach (OrderBy orderBy in _orderByFields)
             {
                 statQueryParams.OrderByFields.Add(orderBy);
             }
@@ -112,10 +112,10 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
                 StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
                 // Format the output, and display results in the tree view
-                ILookup<string,IReadOnlyDictionary<string,object>> groupedResults = statQueryResult.ToLookup(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+                ILookup<string, IReadOnlyDictionary<string, object>> groupedResults = statQueryResult.ToLookup(r => string.Join(", ", r.Group.Values), r => r.Statistics);
                 ResultsTreeView.ItemsSource = groupedResults;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Invalid statistics definitions");
             }
@@ -148,7 +148,7 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
 
                 // Also check for this field in the order by list (only group fields can be used to order by)
                 OrderBy orderBy = _orderByFields.FirstOrDefault(field => field.FieldName == fieldName);
-                if(orderBy != null)
+                if (orderBy != null)
                 {
                     // Remove the field from the "order by" list
                     _orderByFields.Remove(orderBy);
@@ -181,8 +181,8 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
         private void ChangeFieldSortOrder(object sender, RoutedEventArgs e)
         {
             // Verify that there is a selected sort field in the list
-            OrderBy selectedSortField = OrderByFieldsListBox.SelectedItem as OrderBy; 
-            if(selectedSortField == null) { return; }
+            OrderBy selectedSortField = OrderByFieldsListBox.SelectedItem as OrderBy;
+            if (selectedSortField == null) { return; }
 
             // Create a new OrderBy object to define the sort for the selected field
             OrderBy newSortDefinition = new OrderBy(selectedSortField.FieldName, selectedSortField.SortOrder);
@@ -206,10 +206,10 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
         private void RemoveStatisticClicked(object sender, RoutedEventArgs e)
         {
             // Verify that there is a selected statistic definition
-            if(StatFieldsListBox.SelectedItem == null) { return; }
+            if (StatFieldsListBox.SelectedItem == null) { return; }
 
             // Get the selected statistic definition and remove it from the collection
-            StatisticDefinition selectedStat = StatFieldsListBox.SelectedItem as StatisticDefinition; 
+            StatisticDefinition selectedStat = StatFieldsListBox.SelectedItem as StatisticDefinition;
             _statDefinitions.Remove(selectedStat);
         }
 
@@ -217,7 +217,7 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
         private void AddSortFieldClicked(object sender, RoutedEventArgs e)
         {
             // Verify that there is a selected field in the "group by" list
-            if(GroupFieldsListBox.SelectedItem == null) { return; }
+            if (GroupFieldsListBox.SelectedItem == null) { return; }
 
             // Get the name of the selected field and ensure that it's in the list of selected group fields (checked on in the list, e.g.)
             string selectedFieldName = GroupFieldsListBox.SelectedItem.ToString();
@@ -229,7 +229,7 @@ namespace ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort
 
             // Verify that the field isn't already in the "order by" list
             OrderBy existingOrderBy = _orderByFields.FirstOrDefault(field => field.FieldName == selectedFieldName);
-            if(existingOrderBy == null)
+            if (existingOrderBy == null)
             {
                 // Create a new OrderBy for this field and add it to the collection (default to ascending sort order)
                 OrderBy newOrderBy = new OrderBy(selectedFieldName, SortOrder.Ascending);

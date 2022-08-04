@@ -3,15 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical">
-                <Label Content="Tap to select a feature, then change its damage type."
-                       HorizontalContentAlignment="Center"
+                <Label HorizontalContentAlignment="Center"
+                       Content="Tap to select a feature, then change its damage type."
                        FontWeight="SemiBold" />
                 <ComboBox x:Name="DamageTypeDropDown"
-                          IsEnabled="False"
-                          IsEditable="False"/>
+                          IsEditable="False"
+                          IsEnabled="False" />
             </StackPanel>
         </Border>
     </Grid>

@@ -10,15 +10,15 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.UI;
-using Xamarin.Forms;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
-using System;
-using System.Linq;
-using System.Diagnostics;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Xamarin.Forms;
 using Forms.Helpers;
+using System;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 #if __ANDROID__
 using Application = Xamarin.Forms.Application;
@@ -67,7 +67,6 @@ namespace ArcGISRuntimeXamarin.Samples.NavigateAR
                 // Start the location display on the mapview.
                 try
                 {
-
                     // Permission request only needed on Android.
                     if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
                     {

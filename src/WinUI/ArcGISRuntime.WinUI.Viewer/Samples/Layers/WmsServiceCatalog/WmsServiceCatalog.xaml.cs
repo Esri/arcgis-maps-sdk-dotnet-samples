@@ -10,11 +10,10 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using Windows.UI.Popups;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.WmsServiceCatalog
 {

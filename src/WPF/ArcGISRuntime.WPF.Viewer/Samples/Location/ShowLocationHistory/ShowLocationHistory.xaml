@@ -6,9 +6,9 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <Button x:Name="LocationTrackingButton"
+                    Click="LocationTrackingButton_OnClick"
                     Content="Start tracking"
-                    IsEnabled="False"
-                    Click="LocationTrackingButton_OnClick" />
+                    IsEnabled="False" />
         </Border>
     </Grid>
 </UserControl>

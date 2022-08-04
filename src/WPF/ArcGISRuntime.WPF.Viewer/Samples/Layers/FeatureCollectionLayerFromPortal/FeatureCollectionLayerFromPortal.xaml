@@ -15,21 +15,28 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Supply an item ID then click 'Open from portal item'."
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                           TextAlignment="Center" FontWeight="SemiBold" />
-                <TextBlock Text="Item ID:"
-                           Grid.Row="1" Grid.Column="0"
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           FontWeight="SemiBold"
+                           Text="Supply an item ID then click 'Open from portal item'."
+                           TextAlignment="Center" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
                            Margin="0,5,5,0"
-                           VerticalAlignment="Center" />
+                           VerticalAlignment="Center"
+                           Text="Item ID:" />
                 <TextBox x:Name="CollectionItemIdTextBox"
-                         Grid.Row="1" Grid.Column="1"
+                         Grid.Row="1"
+                         Grid.Column="1"
                          Margin="0,5,0,0" />
                 <Button x:Name="OpenPortalFeatureCollectionButton"
-                        Content="Open from portal item"
-                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Margin="0,5,0,0"
-                        Click="OpenPortalFeatureCollectionClick" />
+                        Click="OpenPortalFeatureCollectionClick"
+                        Content="Open from portal item" />
             </Grid>
         </Border>
     </Grid>

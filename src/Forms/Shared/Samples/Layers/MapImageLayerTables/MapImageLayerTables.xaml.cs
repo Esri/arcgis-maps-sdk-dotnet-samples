@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.ArcGISServices;
@@ -14,10 +14,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
@@ -36,7 +35,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
 
         public MapImageLayerTables()
         {
-            InitializeComponent ();
+            InitializeComponent();
 
             // Initialize the map and show the list of comments.
             _ = Initialize();
@@ -123,7 +122,7 @@ namespace ArcGISRuntime.Samples.MapImageLayerTables
                 // Query the comments table to get the related service request feature for the selected comment.
                 IReadOnlyList<RelatedFeatureQueryResult> relatedRequestsResult = await commentsTable.QueryRelatedFeaturesAsync(selectedComment, relatedQueryParams);
 
-                // Get the first result. 
+                // Get the first result.
                 RelatedFeatureQueryResult result = relatedRequestsResult.FirstOrDefault();
 
                 // Get the first feature from the result. If it's null, warn the user and return.

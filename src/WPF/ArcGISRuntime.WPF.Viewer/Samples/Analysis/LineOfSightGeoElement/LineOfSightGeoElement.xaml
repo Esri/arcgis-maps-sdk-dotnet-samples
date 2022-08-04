@@ -6,16 +6,17 @@
         <esri:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Adjust the slider to change the observer's altitude."
-                           TextAlignment="Center" TextWrapping="Wrap" FontWeight="SemiBold" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="Adjust the slider to change the observer's altitude."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
                 <TextBlock x:Name="MyStatusLabel"
-                           Text="Status: " TextAlignment="Center"
                            Margin="0,5,0,0"
-                           Foreground="DarkBlue" />
-                <Slider Margin="0,5,0,0"
-                        ValueChanged="HeightSlider_ValueChanged" />
+                           Foreground="DarkBlue"
+                           Text="Status: "
+                           TextAlignment="Center" />
+                <Slider Margin="0,5,0,0" ValueChanged="HeightSlider_ValueChanged" />
             </StackPanel>
         </Border>
     </Grid>
-
 </UserControl>

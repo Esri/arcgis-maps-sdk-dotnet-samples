@@ -8,11 +8,10 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Linq;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Linq;
 
 namespace ArcGISRuntime.WinUI.Samples.ChangeSublayerVisibility
 {

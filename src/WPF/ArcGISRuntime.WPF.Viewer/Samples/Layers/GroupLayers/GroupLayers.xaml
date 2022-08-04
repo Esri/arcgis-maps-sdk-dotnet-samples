@@ -11,18 +11,19 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Select layers for display."
-                           Grid.Row="0" Margin="5"
-                           Foreground="Black" FontWeight="Bold" TextAlignment="Center" />
-                <TreeView Grid.Row="1"
-                          ItemsSource="{Binding ElementName=MySceneView,Path=Scene.OperationalLayers,Mode=OneWay}">
+                <TextBlock Grid.Row="0"
+                           Margin="5"
+                           FontWeight="Bold"
+                           Foreground="Black"
+                           Text="Select layers for display."
+                           TextAlignment="Center" />
+                <TreeView Grid.Row="1" ItemsSource="{Binding ElementName=MySceneView, Path=Scene.OperationalLayers, Mode=OneWay}">
                     <TreeView.ItemTemplate>
-                        <HierarchicalDataTemplate DataType="{x:Type mapping:ILayerContent}"
-                                                  ItemsSource="{Binding SublayerContents}">
-                            <!-- These are explicitly one-way bindings - because layers are loaded by MapView, these values do change. -->
-                            <CheckBox IsChecked="{Binding IsVisible, Mode=TwoWay}"
-                                      IsEnabled="{Binding CanChangeVisibility,Mode=OneWay}"
-                                      Content="{Binding Path=Name,Mode=OneWay}" />
+                        <HierarchicalDataTemplate DataType="{x:Type mapping:ILayerContent}" ItemsSource="{Binding SublayerContents}">
+                            <!--  These are explicitly one-way bindings - because layers are loaded by MapView, these values do change.  -->
+                            <CheckBox Content="{Binding Path=Name, Mode=OneWay}"
+                                      IsChecked="{Binding IsVisible, Mode=TwoWay}"
+                                      IsEnabled="{Binding CanChangeVisibility, Mode=OneWay}" />
                         </HierarchicalDataTemplate>
                     </TreeView.ItemTemplate>
                 </TreeView>

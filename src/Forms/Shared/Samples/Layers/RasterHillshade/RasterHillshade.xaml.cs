@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using ArcGISRuntime.Samples.Managers;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         description: "Use a hillshade renderer on a raster.",
         instructions: "Configure the options for rendering, then tap 'Apply hillshade'.",
         tags: new[] { "Visualization", "hillshade", "raster", "shadow", "slope" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     public partial class RasterHillshade : ContentPage
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.

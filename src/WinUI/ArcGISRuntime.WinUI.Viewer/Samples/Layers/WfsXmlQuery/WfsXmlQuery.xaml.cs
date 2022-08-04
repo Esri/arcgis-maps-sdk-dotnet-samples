@@ -10,9 +10,8 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using Windows.UI.Popups;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.WfsXmlQuery
 {

@@ -12,10 +12,11 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock
-                    Text="Click the map to add up to 5 stops. Click again to finish placing it. Route lines will be displayed on-the-fly."
-                    Grid.Row="0" Grid.Column="0"
-                    FontWeight="SemiBold" TextWrapping="Wrap" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           FontWeight="SemiBold"
+                           Text="Click the map to add up to 5 stops. Click again to finish placing it. Route lines will be displayed on-the-fly."
+                           TextWrapping="Wrap" />
                 <ComboBox x:Name="TravelModesCombo"
                           Grid.Row="1"
                           Margin="0,5,0,5">
@@ -25,13 +26,13 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="Reset"
-                        Grid.Row="2"
-                        Click="ResetButton_Click" />
+                <Button Grid.Row="2"
+                        Click="ResetButton_Click"
+                        Content="Reset" />
                 <TextBlock x:Name="ErrorTextBlock"
                            Grid.Row="3"
-                           TextWrapping="Wrap"
-                           Foreground="Red" />
+                           Foreground="Red"
+                           TextWrapping="Wrap" />
             </Grid>
         </Border>
     </Grid>

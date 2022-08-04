@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -12,8 +12,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ChangeBlendRenderer
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBlendRenderer
             // RasterLayer and define the appropriate ColorRamp option.
             if (ColorRamps.SelectedValue.ToString() == "None")
             {
-                // The user chose not to use a specific ColorRamp, therefore 
+                // The user chose not to use a specific ColorRamp, therefore
                 // need to create a RasterLayer based on general imagery (i.e. Shasta.tif)
                 // for display in the map and use null for the ColorRamp as one of the
                 // parameters in the BlendRenderer constructor.
@@ -113,10 +113,10 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBlendRenderer
             }
             else
             {
-                // The user chose a specific ColorRamp (options: are Elevation, DemScreen, DemLight), 
-                // therefore create a RasterLayer based on an imagery with elevation 
-                // (i.e. Shasta_Elevation.tif) for display in the map. Also create a ColorRamp 
-                // based on the user choice, translated into an Enumeration, as one of the parameters 
+                // The user chose a specific ColorRamp (options: are Elevation, DemScreen, DemLight),
+                // therefore create a RasterLayer based on an imagery with elevation
+                // (i.e. Shasta_Elevation.tif) for display in the map. Also create a ColorRamp
+                // based on the user choice, translated into an Enumeration, as one of the parameters
                 // in the BlendRenderer constructor.
 
                 // Load the raster file using a path on disk.
@@ -127,20 +127,19 @@ namespace ArcGISRuntime.WPF.Samples.ChangeBlendRenderer
 
                 // Create a ColorRamp based on the user choice, translated into an Enumeration.
                 PresetColorRampType myPresetColorRampType =
-                    (PresetColorRampType) Enum.Parse(typeof(PresetColorRampType), ColorRamps.SelectedValue.ToString());
+                    (PresetColorRampType)Enum.Parse(typeof(PresetColorRampType), ColorRamps.SelectedValue.ToString());
                 myColorRamp = ColorRamp.Create(myPresetColorRampType, 256);
             }
 
-
             // Define the parameters used by the BlendRenderer constructor.
             Raster rasterForMakingBlendRenderer = new Raster(GetRasterPath_Elevation());
-            IEnumerable<double> myOutputMinValues = new List<double> {9};
-            IEnumerable<double> myOutputMaxValues = new List<double> {255};
+            IEnumerable<double> myOutputMinValues = new List<double> { 9 };
+            IEnumerable<double> myOutputMaxValues = new List<double> { 255 };
             IEnumerable<double> mySourceMinValues = new List<double>();
             IEnumerable<double> mySourceMaxValues = new List<double>();
             IEnumerable<double> myNoDataValues = new List<double>();
             IEnumerable<double> myGammas = new List<double>();
-            SlopeType mySlopeType = (SlopeType) Enum.Parse(typeof(SlopeType), SlopeTypes.SelectedValue.ToString());
+            SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), SlopeTypes.SelectedValue.ToString());
 
             BlendRenderer myBlendRenderer = new BlendRenderer(
                 rasterForMakingBlendRenderer, // elevationRaster - Raster based on a elevation source.

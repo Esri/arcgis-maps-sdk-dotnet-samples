@@ -46,7 +46,7 @@ namespace ArcGISRuntime.WinUI.Viewer
                 }
                 else
                 {
-                    ProgressLabel.Text = $"{totalBytes/1024}kb";
+                    ProgressLabel.Text = $"{totalBytes / 1024}kb";
                 }
             });
         }

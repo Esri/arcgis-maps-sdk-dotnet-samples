@@ -1,20 +1,22 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.LineOfSightGeoElement.LineOfSightGeoElement"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.LineOfSightGeoElement.LineOfSightGeoElement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Use the slider to change the observer's altitude."
-                           TextAlignment="Center" FontWeight="SemiBold" TextWrapping="Wrap" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="Use the slider to change the observer's altitude."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
                 <TextBlock x:Name="StatusLabel"
-                           Text="Status: "
                            Margin="0,10,0,5"
-                           TextAlignment="Center" Foreground="MidnightBlue" />
-                <Slider HorizontalAlignment="Stretch"
-                        Margin="0,0,0,-10"
+                           Foreground="MidnightBlue"
+                           Text="Status: "
+                           TextAlignment="Center" />
+                <Slider Margin="0,0,0,-10"
+                        HorizontalAlignment="Stretch"
                         ValueChanged="HeightSlider_ValueChanged" />
             </StackPanel>
         </Border>

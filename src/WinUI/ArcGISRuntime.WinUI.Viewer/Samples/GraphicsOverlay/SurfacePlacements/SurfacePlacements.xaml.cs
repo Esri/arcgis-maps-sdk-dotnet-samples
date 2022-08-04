@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
 using System;
 using System.Drawing;
-using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.SurfacePlacements
 {

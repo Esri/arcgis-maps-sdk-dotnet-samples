@@ -22,7 +22,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
         description: "Use a hillshade renderer on a raster.",
         instructions: "Configure the options for rendering, then click 'Apply hillshade'.",
         tags: new[] { "Visualization", "hillshade", "raster", "shadow", "slope" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     public partial class RasterHillshade
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.
@@ -38,8 +38,8 @@ namespace ArcGISRuntime.WPF.Samples.RasterHillshade
         private const int PixelBitDepth = 8;
 
         // Store a reference to the layer
-        private RasterLayer _rasterLayer; 
-        
+        private RasterLayer _rasterLayer;
+
         public RasterHillshade()
         {
             InitializeComponent();

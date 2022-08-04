@@ -15,20 +15,27 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0"
-                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
                            Margin="0,5,5,0"
-                           Text="[POP2000] > " />
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Text="[POP2000] &gt; " />
                 <TextBox x:Name="PopulationTextBox"
-                         Grid.Row="0" Grid.Column="1"
+                         Grid.Row="0"
+                         Grid.Column="1"
                          Margin="0,5,0,0"
-                         HorizontalAlignment="Stretch" VerticalAlignment="Center" HorizontalContentAlignment="Center"
+                         HorizontalAlignment="Stretch"
+                         VerticalAlignment="Center"
+                         HorizontalContentAlignment="Center"
                          Text="1810000" />
                 <Button x:Name="QuerySublayers"
-                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Margin="0,5,0,0"
-                        Content="Query in extent"
-                        Click="QuerySublayers_Click" />
+                        Click="QuerySublayers_Click"
+                        Content="Query in extent" />
             </Grid>
         </Border>
     </Grid>

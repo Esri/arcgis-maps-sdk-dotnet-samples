@@ -143,6 +143,5 @@ namespace ArcGISRuntime.WPF.Samples.CreateGeometries
             // Return the geometry.
             return theMultipoint;
         }
-
     }
 }

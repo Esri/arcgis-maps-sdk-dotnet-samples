@@ -1,19 +1,16 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.IdentifyRasterCell.IdentifyRasterCell"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:resources="clr-namespace:Forms.Resources">
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.IdentifyRasterCell.IdentifyRasterCell"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources">
     <RelativeLayout>
-        <esriUI:MapView
-            x:Name="MyMapView"
-            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-            Style="{StaticResource MapWithFormStyle}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Label
-                Grid.Row="1"
-                Grid.Column="1"
-                Text="Tap to identify raster cell." />
+            <Label Grid.Row="1"
+                   Grid.Column="1"
+                   Text="Tap to identify raster cell." />
         </resources:ResponsiveFormContainer>
     </RelativeLayout>
 </ContentPage>

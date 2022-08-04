@@ -1,10 +1,8 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile.CreateAndSaveKmlFile"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:Windows.UI.Xaml.Controls;assembly=Windows.Foundation.UniversalApiContract"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:local="clr-namespace:ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile">
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile.CreateAndSaveKmlFile"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:local="clr-namespace:ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ImageConverter x:Key="imageConverter" />
@@ -19,18 +17,16 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <esriUI:MapView
-                x:Name="MyMapView"
-                Grid.Row="0"
-                Grid.RowSpan="2" />
+            <esriUI:MapView x:Name="MyMapView"
+                            Grid.Row="0"
+                            Grid.RowSpan="2" />
             <Grid x:Name="StatusGrid" BackgroundColor="DimGray">
-                <Label
-                    x:Name="Status"
-                    Grid.Row="0"
-                    Margin="5"
-                    HorizontalOptions="FillAndExpand"
-                    Text="Select the type of feature you would like to add."
-                    TextColor="White" />
+                <Label x:Name="Status"
+                       Grid.Row="0"
+                       Margin="5"
+                       HorizontalOptions="FillAndExpand"
+                       Text="Select the type of feature you would like to add."
+                       TextColor="White" />
             </Grid>
             <Grid Grid.Row="2">
                 <Grid x:Name="ShapeGrid">
@@ -39,38 +35,32 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button
-                        Grid.Column="0"
-                        Clicked="Edit_Click"
-                        Text="Point" />
-                    <Button
-                        Grid.Column="1"
-                        Clicked="Edit_Click"
-                        Text="Polyline" />
-                    <Button
-                        Grid.Column="2"
-                        Clicked="Edit_Click"
-                        Text="Polygon" />
+                    <Button Grid.Column="0"
+                            Clicked="Edit_Click"
+                            Text="Point" />
+                    <Button Grid.Column="1"
+                            Clicked="Edit_Click"
+                            Text="Polyline" />
+                    <Button Grid.Column="2"
+                            Clicked="Edit_Click"
+                            Text="Polygon" />
                 </Grid>
-                <Button
-                    x:Name="CompleteButton"
-                    Clicked="Complete_Click"
-                    IsVisible="False"
-                    Text="Complete Geometry" />
+                <Button x:Name="CompleteButton"
+                        Clicked="Complete_Click"
+                        IsVisible="False"
+                        Text="Complete Geometry" />
             </Grid>
             <Grid x:Name="SaveResetGrid" Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button
-                    Grid.Column="0"
-                    Clicked="Save_Click"
-                    Text="Save" />
-                <Button
-                    Grid.Column="1"
-                    Clicked="Reset_Click"
-                    Text="Reset" />
+                <Button Grid.Column="0"
+                        Clicked="Save_Click"
+                        Text="Save" />
+                <Button Grid.Column="1"
+                        Clicked="Reset_Click"
+                        Text="Reset" />
             </Grid>
         </Grid>
         <Grid x:Name="StyleUI" IsVisible="False">
@@ -80,26 +70,23 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <Label
-                Grid.Row="0"
-                Margin="5"
-                HorizontalTextAlignment="Center"
-                Text="Select a style for the placemark." />
-            <ListView
-                x:Name="IconPicker"
-                Grid.Row="1"
-                ItemSelected="Apply_Style_Click">
+            <Label Grid.Row="0"
+                   Margin="5"
+                   HorizontalTextAlignment="Center"
+                   Text="Select a style for the placemark." />
+            <ListView x:Name="IconPicker"
+                      Grid.Row="1"
+                      ItemSelected="Apply_Style_Click">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ImageCell ImageSource="{Binding Path=., Converter={StaticResource imageConverter}}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <ListView
-                x:Name="ColorPicker"
-                Grid.Row="1"
-                IsVisible="False"
-                ItemSelected="Apply_Style_Click">
+            <ListView x:Name="ColorPicker"
+                      Grid.Row="1"
+                      IsVisible="False"
+                      ItemSelected="Apply_Style_Click">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -108,10 +95,9 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button
-                Grid.Row="3"
-                Clicked="No_Style_Click"
-                Text="Dont Apply Style" />
+            <Button Grid.Row="3"
+                    Clicked="No_Style_Click"
+                    Text="Dont Apply Style" />
         </Grid>
     </Grid>
 </ContentPage>

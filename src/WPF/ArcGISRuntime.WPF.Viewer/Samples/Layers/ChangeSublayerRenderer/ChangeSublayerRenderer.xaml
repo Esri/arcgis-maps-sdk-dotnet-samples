@@ -7,12 +7,13 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock x:Name="ChangeSublayerRendererInstructionsLabel"
+                           Margin="0,0,0,5"
+                           FontWeight="SemiBold"
                            Text="Click 'Change sublayer renderer' to apply a unique value renderer to the counties sub-layer."
-                           TextWrapping="Wrap" FontWeight="SemiBold"
-                           Margin="0,0,0,5" />
+                           TextWrapping="Wrap" />
                 <Button x:Name="ChangeSublayerRendererButton"
-                        Content="Change sublayer renderer"
-                        Click="ChangeSublayerRendererButton_Click" />
+                        Click="ChangeSublayerRendererButton_Click"
+                        Content="Change sublayer renderer" />
             </StackPanel>
         </Border>
     </Grid>

@@ -6,9 +6,9 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <Button x:Name="MyRendererButton"
+                    Click="Button_Click"
                     Content="Change symbology"
-                    IsEnabled="False"
-                    Click="Button_Click" />
+                    IsEnabled="False" />
         </Border>
     </Grid>
 </UserControl>

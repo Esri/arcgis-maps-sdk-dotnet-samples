@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
+using Microsoft.UI.Xaml;
 using System;
 using System.Drawing;
-using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.ViewshedLocation
 {

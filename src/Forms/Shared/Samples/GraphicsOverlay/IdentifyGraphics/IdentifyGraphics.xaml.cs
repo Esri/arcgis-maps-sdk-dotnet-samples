@@ -3,17 +3,17 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.UI;
+using System;
 using Xamarin.Forms;
-using Esri.ArcGISRuntime.Data;
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.IdentifyGraphics
@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -67,7 +67,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             // Create symbol for the polygon
             SimpleFillSymbol polygonSymbol = new SimpleFillSymbol(
                 SimpleFillSymbolStyle.Solid,
-               Colors.Yellow, 
+               Colors.Yellow,
                 null);
 
             // Create new graphic
@@ -75,8 +75,8 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
 
             // Create overlay to where graphics are shown
             _polygonOverlay = new GraphicsOverlay();
-            _polygonOverlay.Graphics.Add(polygonGraphic);         
-            
+            _polygonOverlay.Graphics.Add(polygonGraphic);
+
             // Add created overlay to the MapView
             MyMapView.GraphicsOverlays.Add(_polygonOverlay);
         }
@@ -84,7 +84,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
         private async void OnMapViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
         {
             double tolerance = 10d; // Use larger tolerance for touch
-            int maximumResults = 1; // Only return one graphic  
+            int maximumResults = 1; // Only return one graphic
             bool onlyReturnPopups = false; // Don't return only popups
 
             try
@@ -93,15 +93,16 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
                 IdentifyGraphicsOverlayResult identifyResults = await MyMapView.IdentifyGraphicsOverlayAsync(
                     _polygonOverlay,
                     e.Position,
-                    tolerance, 
-                    onlyReturnPopups, 
+                    tolerance,
+                    onlyReturnPopups,
                     maximumResults);
 
                 // Check if we got results
                 if (identifyResults.Graphics.Count > 0)
                 {
                     // Make sure that the UI changes are done in the UI thread
-                    Device.BeginInvokeOnMainThread(async () => {
+                    Device.BeginInvokeOnMainThread(async () =>
+                    {
                         await Application.Current.MainPage.DisplayAlert("", "Tapped on graphic", "OK");
                     });
                 }

@@ -5,9 +5,15 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
 
-        <Border x:Name="takeOfflineArea" Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="20" Width="375">
+        <Border x:Name="takeOfflineArea"
+                Width="375"
+                Margin="30"
+                Padding="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
             <Grid>
                 <Grid.Resources>
                     <Style TargetType="TextBlock">
@@ -44,102 +50,147 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Adjust the basemap"
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
                            FontWeight="SemiBold"
-                           Grid.Row="0" Grid.Column="0" />
-                <TextBlock Text="Min scale:"
-                           Grid.Row="1" Grid.Column="0" />
+                           Text="Adjust the basemap" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Min scale:" />
                 <Slider x:Name="MinScaleEntry"
-                         Value="0"
-                         Minimum="0" Maximum="23"
-                         Grid.Row="1" Grid.Column="1" />
-                <TextBlock Text="{Binding ElementName=MinScaleEntry,Path=Value,StringFormat=n0}"
-                           Grid.Row="1" Grid.Column="2" />
-                <TextBlock Text="Max scale:"
-                           Grid.Row="2" Grid.Column="0" />
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Maximum="23"
+                        Minimum="0"
+                        Value="0" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="2"
+                           Text="{Binding ElementName=MinScaleEntry, Path=Value, StringFormat=n0}" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Max scale:" />
                 <Slider x:Name="MaxScaleEntry"
-                         Value="23" Minimum="0" Maximum="23"
-                         Grid.Row="2" Grid.Column="1" />
-                <TextBlock Text="{Binding ElementName=MaxScaleEntry,Path=Value,StringFormat=n0}"
-                           Grid.Row="2" Grid.Column="2" />
-                <TextBlock Text="Extent buffer distance (m):"
-                           Grid.Row="3" Grid.Column="0" />
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Maximum="23"
+                        Minimum="0"
+                        Value="23" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="2"
+                           Text="{Binding ElementName=MaxScaleEntry, Path=Value, StringFormat=n0}" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Extent buffer distance (m):" />
                 <Slider x:Name="ExtentBufferEntry"
-                         Value="250" Minimum="0" Maximum="500"
-                         Grid.Row="3" Grid.Column="1" />
-                <TextBlock Text="{Binding ElementName=ExtentBufferEntry,Path=Value,StringFormat=n0}"
-                           Grid.Row="3" Grid.Column="2" />
-                <TextBlock Text="Choose layers"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Maximum="500"
+                        Minimum="0"
+                        Value="250" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="2"
+                           Text="{Binding ElementName=ExtentBufferEntry, Path=Value, StringFormat=n0}" />
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
                            FontWeight="SemiBold"
-                           Grid.Row="4" Grid.Column="0" />
+                           Text="Choose layers" />
                 <CheckBox x:Name="SysValvesLayerCheckbox"
+                          Grid.Row="5"
+                          Grid.Column="0"
                           Content="System Valves"
-                          IsChecked="True"
-                          Grid.Row="5" Grid.Column="0" />
+                          IsChecked="True" />
                 <CheckBox x:Name="ServiceConnCheckbox"
-                          Content="Service Connections"
-                          Grid.Row="6" Grid.Column="0" />
-                <TextBlock Text="Apply a feature layer filer"
-                           FontWeight="SemiBold"
+                          Grid.Row="6"
+                          Grid.Column="0"
+                          Content="Service Connections" />
+                <TextBlock Grid.Row="7"
+                           Grid.Column="0"
                            Margin="0,0,0,5"
-                           Grid.Row="7" Grid.Column="0" />
-                <TextBlock Text="Min Hydrant Flow Rate (GPM):"
+                           FontWeight="SemiBold"
+                           Text="Apply a feature layer filer" />
+                <TextBlock Grid.Row="8"
+                           Grid.Column="0"
                            Margin="0,0,5,5"
-                           Grid.Row="8" Grid.Column="0" />
+                           Text="Min Hydrant Flow Rate (GPM):" />
                 <Slider x:Name="FlowRateFilterEntry"
-                         Value="500" Minimum="0" Maximum="999"
-                         Grid.Row="8" Grid.Column="1" />
-                <TextBlock Text="{Binding ElementName=FlowRateFilterEntry,Path=Value,StringFormat=n0}"
-                           Grid.Row="8" Grid.Column="2"
-                           MinWidth="25"/>
-                <TextBlock Text="Crop layer to extent"
-                           FontWeight="SemiBold"
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Maximum="999"
+                        Minimum="0"
+                        Value="500" />
+                <TextBlock Grid.Row="8"
+                           Grid.Column="2"
+                           MinWidth="25"
+                           Text="{Binding ElementName=FlowRateFilterEntry, Path=Value, StringFormat=n0}" />
+                <TextBlock Grid.Row="9"
+                           Grid.Column="0"
                            Margin="0,0,0,5"
-                           Grid.Row="9" Grid.Column="0" />
+                           FontWeight="SemiBold"
+                           Text="Crop layer to extent" />
                 <CheckBox x:Name="CropLayerCheckbox"
-                          Content="Water pipes"
-                          Grid.Row="10" Grid.Column="0" />
-                <Button Content="Take map offline"
-                        Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3"
-                        IsEnabled="True"
-                        Click="TakeMapOfflineButton_Click" />
+                          Grid.Row="10"
+                          Grid.Column="0"
+                          Content="Water pipes" />
+                <Button Grid.Row="11"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Click="TakeMapOfflineButton_Click"
+                        Content="Take map offline"
+                        IsEnabled="True" />
             </Grid>
         </Border>
 
-        <Border x:Name="MessageArea" Visibility="Collapsed"
-                Background="White" BorderBrush="Black" BorderThickness="1"
-                HorizontalAlignment="Right" VerticalAlignment="Top"
-                Margin="30" Padding="5" Width="450">
+        <Border x:Name="MessageArea"
+                Width="450"
+                Margin="30"
+                Padding="5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Visibility="Collapsed">
             <StackPanel>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"
+                <TextBlock Margin="10"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
                            FontWeight="Bold"
                            Text="Map is offline!" />
             </StackPanel>
         </Border>
 
-        <Grid x:Name="BusyIndicator" Background="#807f7f7f" Visibility="Collapsed">
+        <Grid x:Name="BusyIndicator"
+              Background="#807f7f7f"
+              Visibility="Collapsed">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"
-                           Foreground="White" FontSize="18">
+                <TextBlock Margin="10"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="18"
+                           Foreground="White">
                     <Run Text="Generating offline map... " />
                     <Run x:Name="Percentage" Text="" />
                 </TextBlock>
                 <ProgressBar x:Name="ProgressBar"
                              Grid.Row="1"
-                             Minimum="0" Maximum="100"
+                             Width="100"
+                             Height="10"
+                             Margin="0,0,0,10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
                              IsEnabled="True"
-                             HorizontalAlignment="Center" VerticalAlignment="Center"
-                             Width="100" Height="10" Margin="0,0,0,10" />
-                <Button Content="Cancel"
-                        Grid.Row="2"
-                        HorizontalAlignment="Center"
+                             Maximum="100"
+                             Minimum="0" />
+                <Button Grid.Row="2"
                         Width="100"
-                        Click="CancelJobButton_Click" />
+                        HorizontalAlignment="Center"
+                        Click="CancelJobButton_Click"
+                        Content="Cancel" />
             </Grid>
         </Grid>
         <Grid x:Name="LoadingIndicator"
@@ -150,13 +201,17 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Loading online map..."
-                           Foreground="White" FontSize="18"
-                           Margin="10" />
+                <TextBlock Margin="10"
+                           FontSize="18"
+                           Foreground="White"
+                           Text="Loading online map..." />
                 <ProgressBar Grid.Row="1"
-                             IsEnabled="True" IsIndeterminate="True"
-                             Width="100" Height="10"
-                             HorizontalAlignment="Center" VerticalAlignment="Center" />
+                             Width="100"
+                             Height="10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             IsEnabled="True"
+                             IsIndeterminate="True" />
             </Grid>
         </Grid>
     </Grid>

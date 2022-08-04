@@ -14,20 +14,25 @@
                     <RowDefinition />
                     <RowDefinition />
                 </Grid.RowDefinitions>
-                <TextBlock Text="Choose a constructor to use to load the layer."
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                           TextAlignment="Center" FontWeight="SemiBold" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           FontWeight="SemiBold"
+                           Text="Choose a constructor to use to load the layer."
+                           TextAlignment="Center" />
                 <Button x:Name="UriButton"
-                        Grid.Row="1" Grid.Column="0"
-                        Content="URL"
+                        Grid.Row="1"
+                        Grid.Column="0"
                         Margin="0,5,5,0"
                         Click="UriButton_Click"
+                        Content="URL"
                         IsEnabled="False" />
                 <Button x:Name="InfoButton"
-                        Grid.Row="1" Grid.Column="1"
-                        Content="WmtsLayerInfo"
+                        Grid.Row="1"
+                        Grid.Column="1"
                         Margin="5,5,0,0"
-                        Click="InfoButton_Click" />
+                        Click="InfoButton_Click"
+                        Content="WmtsLayerInfo" />
             </Grid>
         </Border>
     </Grid>

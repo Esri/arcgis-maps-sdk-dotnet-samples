@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.StyleWmsLayer.StyleWmsLayer"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             x:Class="ArcGISRuntime.Samples.StyleWmsLayer.StyleWmsLayer">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -13,19 +13,24 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label
-                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="Choose a style"
-                HorizontalTextAlignment="Center" />
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               HorizontalTextAlignment="Center"
+               Text="Choose a style" />
         <Button x:Name="FirstStyleButton"
-                Grid.Row="1" Grid.Column="0"
-                Text="Default"
-                Clicked="FirstStyleButton_Clicked" />
+                Grid.Row="1"
+                Grid.Column="0"
+                Clicked="FirstStyleButton_Clicked"
+                Text="Default" />
         <Button x:Name="SecondStyleButton"
-                Grid.Row="1" Grid.Column="1"
-                Text="Contrast stretch"
-                Clicked="SecondStyleButton_Clicked" />
+                Grid.Row="1"
+                Grid.Column="1"
+                Clicked="SecondStyleButton_Clicked"
+                Text="Contrast stretch" />
         <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" />
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2" />
     </Grid>
 </ContentPage>

@@ -111,8 +111,6 @@
                                    Fill="{DynamicResource WhiteBrush}"
                                    IsHitTestVisible="False"
                                    Opacity="0" />
-
-
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
@@ -193,7 +191,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
     <Style x:Key="{x:Type TreeViewItem}" TargetType="{x:Type TreeViewItem}">
         <Setter Property="Background" Value="Transparent" />

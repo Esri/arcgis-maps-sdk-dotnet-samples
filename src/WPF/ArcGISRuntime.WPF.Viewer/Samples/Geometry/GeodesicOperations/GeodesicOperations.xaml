@@ -6,8 +6,9 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <TextBlock x:Name="ResultsLabel"
+                       FontWeight="SemiBold"
                        Text="Tap to set an end point."
-                       FontWeight="SemiBold" TextAlignment="Center" />
+                       TextAlignment="Center" />
         </Border>
     </Grid>
 </UserControl>

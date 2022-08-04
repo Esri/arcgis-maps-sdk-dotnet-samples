@@ -7,17 +7,17 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Threading.Tasks;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Windows;
 using System.Drawing;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.ListTransformations
 {
@@ -75,7 +75,7 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             // Create the map.
             Map myMap = new Map(BasemapStyle.ArcGISImagery);
 
-            // Create a point in the Greenwich observatory courtyard in London, UK, the location of the prime meridian. 
+            // Create a point in the Greenwich observatory courtyard in London, UK, the location of the prime meridian.
             _originalPoint = new MapPoint(538985.355, 177329.516, SpatialReference.Create(27700));
 
             // Set the initial extent to an extent centered on the point.
@@ -177,7 +177,7 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
             {
                 // Project the original point using the selected transform.
                 MapPoint projectedPoint =
-                    (MapPoint) GeometryEngine.Project(_originalPoint, MyMapView.SpatialReference, selectedTransform);
+                    (MapPoint)GeometryEngine.Project(_originalPoint, MyMapView.SpatialReference, selectedTransform);
 
                 // Update the projected graphic (if it already exists), create it otherwise.
                 if (_projectedPointGraphic != null)
@@ -220,8 +220,8 @@ namespace ArcGISRuntime.WPF.Samples.ListTransformations
 
         private string GetProjectionDataPath()
         {
-            // Return the projection data path; note that this is not valid by default. 
-            //You must manually download the projection engine data and update the path returned here. 
+            // Return the projection data path; note that this is not valid by default.
+            //You must manually download the projection engine data and update the path returned here.
             return "";
         }
     }

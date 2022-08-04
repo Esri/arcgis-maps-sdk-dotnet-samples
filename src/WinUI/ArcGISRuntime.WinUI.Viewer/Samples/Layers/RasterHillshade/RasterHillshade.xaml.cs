@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 
 namespace ArcGISRuntime.WinUI.Samples.RasterHillshade
 {

@@ -1,23 +1,20 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.HonorMobileMapPackageExpiration.HonorMobileMapPackageExpiration"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.HonorMobileMapPackageExpiration.HonorMobileMapPackageExpiration"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <esriUI:MapView
-            x:Name="MyMapView"
-            Grid.Row="0"
-            Grid.RowSpan="2" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="0"
+                        Grid.RowSpan="2" />
         <Grid Grid.Row="0" BackgroundColor="DarkGray">
-            <Label
-                x:Name="ExpirationLabel"
-                Margin="5"
-                Text="Map package not expired."
-                TextColor="White" />
+            <Label x:Name="ExpirationLabel"
+                   Margin="5"
+                   Text="Map package not expired."
+                   TextColor="White" />
         </Grid>
     </Grid>
 </ContentPage>

@@ -10,18 +10,17 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UtilityNetworks;
+using Microsoft.UI.Xaml.Media;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml.Media;
+using System.Threading.Tasks;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
-using Esri.ArcGISRuntime.Security;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayUtilityAssociations
 {

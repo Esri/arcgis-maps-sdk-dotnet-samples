@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.UI.Xaml.Data;
+﻿using Microsoft.UI.Xaml.Data;
+using System;
 
 namespace ArcGISRuntime.WinUI.Samples.MapReferenceScale
 {
-    class DoubleToScaleStringConverter : IValueConverter
+    internal class DoubleToScaleStringConverter : IValueConverter
     {
         // Converts a double to a string
         public object Convert(object value, Type targetType, object parameter, string language)

@@ -1,8 +1,7 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.Buffer.Buffer"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.Buffer.Buffer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
@@ -19,36 +18,56 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                           HorizontalTextAlignment="Center" VerticalAlignment="Center"
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           VerticalAlignment="Center"
                            FontWeight="SemiBold"
+                           HorizontalTextAlignment="Center"
                            Text="Tap to create planar and geodesic buffers" />
-                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
                            Text="Buffer distance (miles):" />
                 <TextBox x:Name="BufferDistanceMilesTextBox"
-                         Grid.Row="1" Grid.Column="2"
+                         Grid.Row="1"
+                         Grid.Column="2"
                          Margin="5"
                          Text="1000" />
                 <Ellipse x:Name="BufferSwatchPlanarEllipse"
-                         Grid.Row="2" Grid.Column="0"
-                         Stroke="LightGray"
-                         Width="20" Height="20" Margin="5" />
-                <TextBlock Grid.Row="2" Grid.Column="1"
-                           HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Grid.Row="2"
+                         Grid.Column="0"
+                         Width="20"
+                         Height="20"
+                         Margin="5"
+                         Stroke="LightGray" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
                            Text="Planar buffers (Web Mercator)" />
                 <Ellipse x:Name="BufferSwatchGeodesicEllipse"
-                         Grid.Row="3" Grid.Column="0"
-                         Stroke="LightGray"
-                         Width="20" Height="20" Margin="5" />
-                <TextBlock Grid.Row="3" Grid.Column="1"
-                           HorizontalAlignment="Left" VerticalAlignment="Center"
+                         Grid.Row="3"
+                         Grid.Column="0"
+                         Width="20"
+                         Height="20"
+                         Margin="5"
+                         Stroke="LightGray" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="1"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Center"
                            Text="Geodesic buffers" />
                 <Button x:Name="ClearBuffersButton"
-                        Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
-                        HorizontalAlignment="Stretch" Margin="5"
-                        Content="Clear"
-                        Click="ClearBuffersButton_Click" />
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="5"
+                        HorizontalAlignment="Stretch"
+                        Click="ClearBuffersButton_Click"
+                        Content="Clear" />
             </Grid>
         </Border>
     </Grid>

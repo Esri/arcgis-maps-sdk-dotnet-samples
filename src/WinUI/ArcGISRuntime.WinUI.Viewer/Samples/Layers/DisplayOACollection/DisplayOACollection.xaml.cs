@@ -13,8 +13,8 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Microsoft.UI.Xaml;
 using System;
-using System.Threading.Tasks;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayOACollection
 {

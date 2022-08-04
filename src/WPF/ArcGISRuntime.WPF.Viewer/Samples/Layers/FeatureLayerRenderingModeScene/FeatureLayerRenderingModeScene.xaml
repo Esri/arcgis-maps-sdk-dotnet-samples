@@ -13,18 +13,27 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Label Content="Static mode:"
-               Grid.Row="0" Grid.ColumnSpan="2"
-               Foreground="Blue" FontWeight="SemiBold" />
+        <Label Grid.Row="0"
+               Grid.ColumnSpan="2"
+               Content="Static mode:"
+               FontWeight="SemiBold"
+               Foreground="Blue" />
         <esri:SceneView x:Name="MyStaticSceneView"
-                        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
-        <Label Content="Dynamic mode:"
-               Grid.Row="2" Grid.Column="0"
-               Foreground="Blue" FontWeight="SemiBold" />
-        <Button Content="Animated zoom"
-                Grid.Row="2" Grid.Column="1"
-                Click="Button_Click" />
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2" />
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Content="Dynamic mode:"
+               FontWeight="SemiBold"
+               Foreground="Blue" />
+        <Button Grid.Row="2"
+                Grid.Column="1"
+                Click="Button_Click"
+                Content="Animated zoom" />
         <esri:SceneView x:Name="MyDynamicSceneView"
-                        Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" />
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>

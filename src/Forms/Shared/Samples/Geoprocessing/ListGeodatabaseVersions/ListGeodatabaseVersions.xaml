@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntime.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+<ContentPage x:Class="ArcGISRuntime.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -13,12 +12,11 @@
                 <Label Margin="10,0,0,0" Text="Current versions:" />
             </StackLayout>
         </StackLayout>
-        <ActivityIndicator
-            x:Name="MyActivityIndicator"
-            Grid.Row="1"
-            HorizontalOptions="Center"
-            IsVisible="False"
-            VerticalOptions="Center" />
+        <ActivityIndicator x:Name="MyActivityIndicator"
+                           Grid.Row="1"
+                           HorizontalOptions="Center"
+                           IsVisible="False"
+                           VerticalOptions="Center" />
         <ScrollView Grid.Row="1">
             <Label x:Name="VersionsLabel" Margin="10,0,0,0" />
         </ScrollView>

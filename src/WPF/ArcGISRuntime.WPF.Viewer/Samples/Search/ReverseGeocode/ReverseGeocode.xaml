@@ -5,8 +5,9 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <Label Content="Tap to find the nearest address."
-                   HorizontalAlignment="Center" FontWeight="SemiBold" />
+            <Label HorizontalAlignment="Center"
+                   Content="Tap to find the nearest address."
+                   FontWeight="SemiBold" />
         </Border>
     </Grid>
 </UserControl>

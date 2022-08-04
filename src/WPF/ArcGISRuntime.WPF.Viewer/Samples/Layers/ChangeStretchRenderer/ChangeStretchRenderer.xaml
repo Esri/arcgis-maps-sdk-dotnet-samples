@@ -17,38 +17,51 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock
-                    Text="Choose a stretch renderer type from the dropdown, adjust the parameter values, then click 'Update renderer'."
-                    Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                    TextWrapping="Wrap" FontWeight="SemiBold"
-                    HorizontalAlignment="Stretch" VerticalAlignment="Center" />
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center"
+                           FontWeight="SemiBold"
+                           Text="Choose a stretch renderer type from the dropdown, adjust the parameter values, then click 'Update renderer'."
+                           TextWrapping="Wrap" />
                 <ComboBox x:Name="RendererTypes"
-                          Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                          Grid.Row="1"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
                           Margin="0,5,0,0"
                           SelectionChanged="RendererTypes_SelectionChanged" />
                 <TextBlock x:Name="FirstParameterLabel"
-                           Grid.Row="2" Grid.Column="0"
+                           Grid.Row="2"
+                           Grid.Column="0"
                            Margin="0,5,5,0"
                            Text="Parameter1" />
                 <TextBox x:Name="FirstParameterInput"
-                         Grid.Row="2" Grid.Column="1"
-                         HorizontalAlignment="Stretch" TextAlignment="Center"
+                         Grid.Row="2"
+                         Grid.Column="1"
                          Margin="0,5,0,0"
-                         Text="EnterValue1" />
+                         HorizontalAlignment="Stretch"
+                         Text="EnterValue1"
+                         TextAlignment="Center" />
                 <TextBlock x:Name="SecondParameterLabel"
-                           Grid.Row="3" Grid.Column="0"
+                           Grid.Row="3"
+                           Grid.Column="0"
                            Margin="0,5,5,0"
                            Text="Parameter2" />
                 <TextBox x:Name="SecondParameterInput"
-                         Grid.Row="3" Grid.Column="1"
-                         HorizontalAlignment="Stretch" TextAlignment="Center"
+                         Grid.Row="3"
+                         Grid.Column="1"
                          Margin="0,5,0,0"
-                         Text="EnterValue2" />
+                         HorizontalAlignment="Stretch"
+                         Text="EnterValue2"
+                         TextAlignment="Center" />
                 <Button x:Name="UpdateRenderer"
-                        Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                        Content="Update renderer"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Margin="0,5,0,0"
-                        Click="OnUpdateRendererClicked" />
+                        Click="OnUpdateRendererClicked"
+                        Content="Update renderer" />
             </Grid>
         </Border>
     </Grid>

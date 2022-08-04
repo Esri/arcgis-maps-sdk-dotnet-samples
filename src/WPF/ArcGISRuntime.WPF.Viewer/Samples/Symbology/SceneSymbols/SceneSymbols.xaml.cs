@@ -51,7 +51,7 @@ namespace ArcGISRuntime.WPF.Samples.SceneSymbols
 
             // Create a graphic for each symbol type and add it to the scene.
             int index = 0;
-            Color[] colors = {Color.Red, Color.Green, Color.Blue, Color.Purple, Color.Turquoise, Color.White};
+            Color[] colors = { Color.Red, Color.Green, Color.Blue, Color.Purple, Color.Turquoise, Color.White };
             Array symbolStyles = Enum.GetValues(typeof(SimpleMarkerSceneSymbolStyle));
             foreach (SimpleMarkerSceneSymbolStyle symbolStyle in symbolStyles)
             {

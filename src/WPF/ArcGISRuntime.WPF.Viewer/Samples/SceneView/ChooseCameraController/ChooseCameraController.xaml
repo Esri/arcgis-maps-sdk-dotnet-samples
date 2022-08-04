@@ -7,21 +7,21 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical">
                 <RadioButton x:Name="OrbitPlaneButton"
-                                 GroupName="ColorScheme"
-                                 Content="Orbit camera around plane"
-                                 Checked="Setting_Checked"
-                                 IsEnabled="False"
-                                 IsChecked="True" />
+                             Checked="Setting_Checked"
+                             Content="Orbit camera around plane"
+                             GroupName="ColorScheme"
+                             IsChecked="True"
+                             IsEnabled="False" />
                 <RadioButton x:Name="OrbitCraterButton"
-                                 GroupName="ColorScheme"
-                                 Content="Orbit camera around crater"
-                                 Checked="Setting_Checked"
-                                 IsEnabled="False" />
+                             Checked="Setting_Checked"
+                             Content="Orbit camera around crater"
+                             GroupName="ColorScheme"
+                             IsEnabled="False" />
                 <RadioButton x:Name="FreePanButton"
-                                 GroupName="ColorScheme"
-                                 Content="Free pan around the globe"
-                                 Checked="Setting_Checked"
-                                 IsEnabled="False" />
+                             Checked="Setting_Checked"
+                             Content="Free pan around the globe"
+                             GroupName="ColorScheme"
+                             IsEnabled="False" />
             </StackPanel>
         </Border>
     </Grid>

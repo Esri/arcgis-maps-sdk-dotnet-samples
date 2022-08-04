@@ -4,8 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:networkAnalysis="clr-namespace:Esri.ArcGISRuntime.Tasks.NetworkAnalysis;assembly=Esri.ArcGISRuntime">
     <Grid>
-        <esri:MapView x:Name="MyMapView"
-                      GeoViewTapped="MyMapView_OnGeoViewTapped" />
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_OnGeoViewTapped" />
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -23,42 +22,57 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="StatusLabel"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
                            Margin="0,0,0,5"
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                            FontWeight="SemiBold"
                            TextWrapping="Wrap" />
                 <Button x:Name="AddStopButton"
-                        Content="Add stop"
-                        Grid.Row="1" Grid.Column="0"
-                        Click="AddStop_Clicked" />
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Click="AddStop_Clicked"
+                        Content="Add stop" />
                 <Button x:Name="AddBarrierButton"
-                        Content="Add barrier"
+                        Grid.Row="1"
+                        Grid.Column="1"
                         Margin="5,0,5,0"
-                        Grid.Row="1" Grid.Column="1"
-                        Click="AddBarrier_Clicked" />
+                        Click="AddBarrier_Clicked"
+                        Content="Add barrier" />
                 <Button x:Name="ResetRoutingButton"
-                        Content="Reset"
-                        Grid.Row="1" Grid.Column="2"
-                        Click="ResetRoute_Clicked" />
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Click="ResetRoute_Clicked"
+                        Content="Reset" />
                 <CheckBox x:Name="AllowReorderStopsCheckbox"
-                          Content="Allow stops to be re-ordered"
+                          Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
                           Margin="0,5,0,0"
-                          Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" />
+                          Content="Allow stops to be re-ordered" />
                 <CheckBox x:Name="PreserveFirstStopCheckbox"
-                          Content="Preserve first stop"
+                          Grid.Row="3"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
                           Margin="20,5,5,0"
-                          Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" />
+                          Content="Preserve first stop" />
                 <CheckBox x:Name="PreserveLastStopCheckbox"
-                          Content="Preserve last stop"
+                          Grid.Row="4"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
                           Margin="20,5,5,0"
-                          Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" />
+                          Content="Preserve last stop" />
                 <Button x:Name="CalculateRouteButton"
-                        Content="Route"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
                         Margin="0,5,0,5"
-                        Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
-                        Click="RouteButton_Clicked" />
+                        Click="RouteButton_Clicked"
+                        Content="Route" />
                 <ListBox x:Name="DirectionsListBox"
-                         Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3">
+                         Grid.Row="6"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="3">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="networkAnalysis:DirectionManeuver">
                             <TextBlock Text="{Binding DirectionText}" TextWrapping="Wrap" />
@@ -66,13 +80,16 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <Grid x:Name="BusyOverlay"
-                      Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="3"
+                      Grid.Row="0"
+                      Grid.RowSpan="7"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
                       Margin="-20"
-                      Visibility="Collapsed"
-                      Background="#aa000000">
-                    <Label Content="Calculating route"
-                           HorizontalAlignment="Center"
+                      Background="#aa000000"
+                      Visibility="Collapsed">
+                    <Label HorizontalAlignment="Center"
                            VerticalAlignment="Center"
+                           Content="Calculating route"
                            Foreground="White" />
                 </Grid>
             </Grid>

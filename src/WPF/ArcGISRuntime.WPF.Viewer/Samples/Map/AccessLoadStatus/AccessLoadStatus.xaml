@@ -6,8 +6,8 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <Label x:Name="LoadStatusLabel"
-                   Content="Map's load status :"
                    HorizontalAlignment="Center"
+                   Content="Map's load status :"
                    FontWeight="SemiBold" />
         </Border>
     </Grid>

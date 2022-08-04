@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntime.Samples.SurfacePlacements.SurfacePlacements"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+<ContentPage x:Class="ArcGISRuntime.Samples.SurfacePlacements.SurfacePlacements"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -14,32 +13,28 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" />
-            <Button
-                x:Name="BillboardedButton"
-                Grid.Row="1"
-                Clicked="BillboardedClicked"
-                IsEnabled="False"
-                Text="Draped Billboarded" />
-            <Button
-                x:Name="FlatButton"
-                Grid.Row="2"
-                Clicked="FlatClicked"
-                Text="Draped Flat" />
-            <Slider
-                x:Name="ZSlider"
-                Grid.Row="3"
-                Margin="5"
-                Maximum="140"
-                MaximumTrackColor="CadetBlue"
-                Minimum="0"
-                MinimumTrackColor="CadetBlue"
-                ValueChanged="ZSlider_ValueChanged"
-                Value="70" />
-            <Label
-                x:Name="ValueLabel"
-                Grid.Row="4"
-                Margin="5,0,5,0"
-                Text="Z Value: 70 meters" />
+            <Button x:Name="BillboardedButton"
+                    Grid.Row="1"
+                    Clicked="BillboardedClicked"
+                    IsEnabled="False"
+                    Text="Draped Billboarded" />
+            <Button x:Name="FlatButton"
+                    Grid.Row="2"
+                    Clicked="FlatClicked"
+                    Text="Draped Flat" />
+            <Slider x:Name="ZSlider"
+                    Grid.Row="3"
+                    Margin="5"
+                    Maximum="140"
+                    MaximumTrackColor="CadetBlue"
+                    Minimum="0"
+                    MinimumTrackColor="CadetBlue"
+                    ValueChanged="ZSlider_ValueChanged"
+                    Value="70" />
+            <Label x:Name="ValueLabel"
+                   Grid.Row="4"
+                   Margin="5,0,5,0"
+                   Text="Z Value: 70 meters" />
         </Grid>
     </Grid>
 </ContentPage>

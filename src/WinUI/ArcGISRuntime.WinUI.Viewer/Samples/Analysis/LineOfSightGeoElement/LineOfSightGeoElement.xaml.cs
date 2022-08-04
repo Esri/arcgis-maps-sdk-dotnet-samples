@@ -13,11 +13,10 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
-using System;
-using System.Threading.Tasks;
-using System.Drawing;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System;
+using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.LineOfSightGeoElement
 {

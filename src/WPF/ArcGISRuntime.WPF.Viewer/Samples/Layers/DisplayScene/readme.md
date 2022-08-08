@@ -21,8 +21,8 @@ When loaded, the sample will display a scene. Pan and zoom to explore the scene.
 
 ## Relevant API
 
-* Scene
 * ArcGISTiledElevationSource
+* Scene
 * SceneView
 
 ## Tags

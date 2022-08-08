@@ -10,22 +10,25 @@ import argparse
 # A set of words that get omitted during letter-case checks.
 exception_proper_nouns = {
     'Arcade',
-    'WmsLayer',
     'ArcGIS Online',
-    'OAuth',
-    'Web Mercator',
     'ArcGIS Pro',
+    'GeoElement',
     'GeoPackage',
+    'Geotriggers',
+    'Integrated Windows Authentication',
     'loadStatus',
     'Local',
-    'Server',
-    'Integrated Windows Authentication',
-    'GeoElement',
-    'Network Link',
     'Network Link Control',
+    'Network Link',
+    'OAuth',
+    'OAuth2',
     'Open Street Map',
     'OpenStreetMap',
     'Play a KML Tour',
+    'Portal',
+    'Server',
+    'Web Mercator',
+    'WmsLayer',
 }
 
 # A set of category folder names in current sample viewer.
@@ -161,6 +164,8 @@ def check_sentence_case(string: str) -> None:
         return
     # Split sentence into words.
     words = string.split()
+    if words[0] == 'ï»¿#':
+        raise Exception('BOM at start of file')
     # First word should either be Title-cased or a proper noun (UPPERCASE).
     if words[0][0].upper() != words[0][0] and words[0].upper() != words[0] \
             and words[0] not in exception_proper_nouns:
@@ -328,15 +333,12 @@ class ReadmeStyleChecker:
 
         :return: None. Throws if exception occurs.
         """
-        try:
-            tags_section_index = self.readme_parts.index('Tags') + 1
-            api_section_index = self.readme_parts.index('Relevant API') + 1
-            api_set = check_apis(self.readme_parts[api_section_index])
-            tag_set = check_tags(self.readme_parts[tags_section_index])
-            if not api_set.isdisjoint(tag_set):
-                raise Exception(f'Error tags - API should not be in tags')
-        except Exception as err:
-            raise Exception(f'Error checking extra tags due to previous error')
+        tags_section_index = self.readme_parts.index('Tags') + 1
+        api_section_index = self.readme_parts.index('Relevant API') + 1
+        api_set = check_apis(self.readme_parts[api_section_index])
+        tag_set = check_tags(self.readme_parts[tags_section_index])
+        if not api_set.isdisjoint(tag_set):
+            raise Exception(f'Error tags - API should not be in tags')
 
 
 # region Main wrapper functions

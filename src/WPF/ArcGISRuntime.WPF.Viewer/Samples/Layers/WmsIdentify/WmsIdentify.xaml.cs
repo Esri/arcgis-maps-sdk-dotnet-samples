@@ -23,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
         category: "Layers",
         description: "Identify features in a WMS layer and display the associated popup content.",
         instructions: "Tap a feature to identify it. The HTML content associated with the feature will be displayed in a web view.",
-        tags: new[] { "IdentifyLayerAsync", "OGC", "ShowCalloutAt", "WMS", "callout", "web map service" })]
+        tags: new[] { "OGC", "WMS", "callout", "identify", "web map service" })]
     public partial class WmsIdentify
     {
         // Create and hold the URL to the WMS service showing EPA water info.

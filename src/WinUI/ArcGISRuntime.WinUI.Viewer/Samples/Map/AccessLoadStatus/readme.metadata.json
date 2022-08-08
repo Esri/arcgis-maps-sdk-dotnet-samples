@@ -7,9 +7,9 @@
         "AccessLoadStatus.jpg"
     ],
     "keywords": [
-        "LoadStatus",
-        "Loadable pattern",
-        "Map"
+        "load status",
+        "loadable pattern",
+        "map"
     ],
     "offline_data": [],
     "redirect_from": [
@@ -24,5 +24,5 @@
         "AccessLoadStatus.xaml",
         "AccessLoadStatus.xaml.cs"
     ],
-    "title": "Access load status"
+    "title": "Map load status"
 }

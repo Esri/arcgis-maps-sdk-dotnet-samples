@@ -34,4 +34,4 @@ This sample downloads the [ENC Exchange Set without updates](https://www.arcgis.
 
 ## Tags
 
-Data, ENC, maritime, nautical chart, layers, hydrographic
+Data, ENC, hydrographic, layers, maritime, nautical chart

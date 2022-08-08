@@ -22,10 +22,6 @@ Tap a feature to load its attachments. Use the buttons to save, delete, or add a
 6. To delete an attachment from the selected ArcGISFeature, use the `ArcGISFeature.DeleteAttachmentAsync()`.
 7. After a change, apply the changes to the server using `ServiceFeatureTable.ApplyEditsAsync()`.
 
-## Additional information
-
-Attachments can only be added to and accessed on service feature tables when their `HasAttachments` property is true.
-
 ## Relevant API
 
 * ApplyEditsAsync
@@ -36,6 +32,10 @@ Attachments can only be added to and accessed on service feature tables when the
 * ServiceFeatureTable
 * UpdateFeatureAsync
 
+## Additional information
+
+Attachments can only be added to and accessed on service feature tables when their `HasAttachments` property is true.
+
 ## Tags
 
-data, image, picture, JPEG, PNG, PDF, TXT
+data, image, JPEG, PDF, picture, PNG, TXT

@@ -1,4 +1,4 @@
-# Access load status
+# Map load status
 
 Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 
@@ -25,10 +25,10 @@ The `LoadStatus` is `Loaded` when any of the following criteria are met:
 
 ## Relevant API
 
-* Map
 * ILoadable
+* Map
 * MapView
 
 ## Tags
 
-LoadStatus, Loadable pattern, Map
+load status, loadable pattern, map

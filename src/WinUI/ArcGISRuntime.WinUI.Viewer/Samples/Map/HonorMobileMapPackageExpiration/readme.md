@@ -27,7 +27,7 @@ Load the sample. The author of the MMPK used in this sample chose to set the MMP
 * Expiration
 * MobileMapPackage
 
-## Offline Data
+## Offline data
 
 The mobile map package is available in [ArcGIS Online](https://arcgisruntime.maps.arcgis.com/home/item.html?id=174150279af74a2ba6f8b87a567f480b). The map shows rivers in Scotland with unique annotation.
 

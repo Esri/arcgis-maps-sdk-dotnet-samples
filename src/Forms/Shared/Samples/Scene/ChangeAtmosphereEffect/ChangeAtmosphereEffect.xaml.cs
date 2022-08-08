@@ -18,7 +18,7 @@ namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
         name: "Change atmosphere effect",
         category: "Scene",
         description: "Changes the appearance of the atmosphere in a scene.",
-        instructions: "Select one of the three available atmosphere effects. The sky will change to display the selected atmosphere effect. ",
+        instructions: "Select one of the three available atmosphere effects. The sky will change to display the selected atmosphere effect.",
         tags: new[] { "atmosphere", "horizon", "sky" })]
     public partial class ChangeAtmosphereEffect : ContentPage
     {

@@ -30,4 +30,4 @@ This sample uses a [U.S. National Weather Service radar map](https://nowcoast.no
 
 ## Tags
 
-OGC, web map service, WmsLayer
+layer, OGC, web map service, WMS

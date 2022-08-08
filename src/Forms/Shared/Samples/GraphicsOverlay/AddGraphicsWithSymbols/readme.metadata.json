@@ -7,9 +7,14 @@
         "AddGraphicsWithSymbols.jpg"
     ],
     "keywords": [
-        "SimpleFillSymbol",
-        "SimpleLineSymbol",
-        "SimpleMarkerSymbol"
+        "display",
+        "fill",
+        "graphics",
+        "line",
+        "marker",
+        "overlay",
+        "point",
+        "symbol"
     ],
     "offline_data": [],
     "redirect_from": [

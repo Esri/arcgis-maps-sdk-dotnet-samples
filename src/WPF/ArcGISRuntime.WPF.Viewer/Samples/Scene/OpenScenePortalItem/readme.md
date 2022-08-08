@@ -20,15 +20,15 @@ To open a web scene from a portal item:
 2. Create a `Scene` passing in the portal item.
 3. Set the scene to a `SceneView` to display it.
 
-## About the data
-
-This sample uses a [Berlin, Germany](https://www.arcgis.com/home/item.html?id=31874da8a16d45bfbc1273422f772270) scene hosted on ArcGIS Online.
-
 ## Relevant API
 
 * PortalItem
 * Scene
 * SceneView
+
+## About the data
+
+This sample uses a [Berlin, Germany](https://www.arcgis.com/home/item.html?id=31874da8a16d45bfbc1273422f772270) scene hosted on ArcGIS Online.
 
 ## Tags
 

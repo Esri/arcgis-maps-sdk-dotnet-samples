@@ -18,18 +18,19 @@ Use the combo box to browse different floor levels in the facility. Only the sel
 2. Create a map using the portal item.
 3. Create a map view and assign the map to it.
 4. Wait for the map to load and retrieve the map's `FloorManager` property.
-5. Wait for the floor manager to load and retrieve the floor-aware data. 
+5. Wait for the floor manager to load and retrieve the floor-aware data.
 6. Set all floors to not visible.
 7. Select the ground floor by default. The ground floor is the entry in a facility's level collection that has `VerticalOrder` of zero. Vertical order can be negative for underground floors.
-8. Set the selected level's `IsVisible` property to true. 
+8. Set the selected level's `IsVisible` property to true.
 9. When the selected floor changes, set the old selection's `IsVisible` property to false, and the new selection's `IsVisible` property to true.
+
 * **Note:** Manually set the default floor level to the first floor.
 
 ## Relevant API
 
 * FloorAware
-* FloorManager
 * FloorLevel
+* FloorManager
 * Map
 * PortalItem
 

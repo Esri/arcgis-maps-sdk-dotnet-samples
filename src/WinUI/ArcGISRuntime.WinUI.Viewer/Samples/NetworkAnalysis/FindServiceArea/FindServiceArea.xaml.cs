@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindServiceArea
         category: "Network analysis",
         description: "Find the service area within a network from a given point.",
         instructions: "In order to find any service areas at least one facility needs to be added to the map view.",
-        tags: new[] { "Routing and Logistics", "barriers", "facilities", "impedance" })]
+        tags: new[] { "barriers", "facilities", "impedance", "logistics", "routing" })]
     public partial class FindServiceArea
     {
         // Uri for the service area around San Diego.

@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         category: "GraphicsOverlay",
         description: "Use a symbol style to display a graphic on a graphics overlay.",
         instructions: "Observe the graphics on the map.",
-        tags: new[] { "SimpleFillSymbol", "SimpleLineSymbol", "SimpleMarkerSymbol" })]
+        tags: new[] { "display", "fill", "graphics", "line", "marker", "overlay", "point", "symbol" })]
     public partial class AddGraphicsWithSymbols : ContentPage
     {
         // Create the graphics overlay.

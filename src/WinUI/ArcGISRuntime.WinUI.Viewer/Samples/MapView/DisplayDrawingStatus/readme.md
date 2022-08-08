@@ -19,10 +19,10 @@ Pan and zoom around the map. Observe how the status changes from a loading anima
 
 ## Relevant API
 
-* Map
 * DrawStatus
 * DrawStatusChangedEvent
 * DrawStatusChangedListener
+* Map
 * MapView
 
 ## Tags

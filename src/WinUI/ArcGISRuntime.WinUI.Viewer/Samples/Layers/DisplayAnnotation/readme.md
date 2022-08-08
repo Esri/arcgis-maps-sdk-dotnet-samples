@@ -8,7 +8,7 @@ Display annotation from a feature service URL.
 
 Annotation is useful for displaying text that you don't want to move or resize when the map is panned or zoomed (unlike labels which will move and resize). You can use annotation to place text at a fixed size, position, orientation, font, and so on. You may choose to do this for cartographic reasons or because the exact placement of the text is important.
 
-## How to use the sample 
+## How to use the sample
 
 Pan and zoom to see names of waters and burns in a small region of Scotland.
 
@@ -23,7 +23,7 @@ Pan and zoom to see names of waters and burns in a small region of Scotland.
 * AnnotationLayer
 * FeatureLayer
 
-## About the data 
+## About the data
 
 Data derived from the [OS Open Rivers](https://www.ordnancesurvey.co.uk/business-government/products/open-map-rivers) dataset from *Ordnance Survey* . Contains OS data &copy; Crown copyright and database right 2018.
 

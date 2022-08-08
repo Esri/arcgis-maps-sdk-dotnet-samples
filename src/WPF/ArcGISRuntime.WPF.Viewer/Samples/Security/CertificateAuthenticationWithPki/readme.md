@@ -14,7 +14,7 @@ PKI (Public Key Infrastructure) is a certificate authentication method to secure
 
 Provide a URL to a PKI-enabled server, then use the certificate selection UI to select an appropriate certificate for that server.
 
-## How it works - Windows WPF
+## How it works
 
 1. Create the X.509 certificate store, referring to the user's certificates.
 2. Open the certificate store in read-only mode.

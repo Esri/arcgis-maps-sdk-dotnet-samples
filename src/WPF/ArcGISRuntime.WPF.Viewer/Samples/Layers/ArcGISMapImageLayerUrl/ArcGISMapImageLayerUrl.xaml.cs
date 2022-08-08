@@ -16,8 +16,8 @@ namespace ArcGISRuntime.WPF.Samples.ArcGISMapImageLayerUrl
         name: "ArcGIS map image layer",
         category: "Layers",
         description: "Add an ArcGIS Map Image Layer from a URL to a map.",
-        instructions: "",
-        tags: new[] { "ArcGIS dynamic map service layer", "ArcGISMapImageLayer", "layers" })]
+        instructions: "Run the sample and view the map image layer. As you navigate the map, the layer issues image requests for the new map extent. The resulting images are rendered on the screen.",
+        tags: new[] { "display", "image", "layer", "map" })]
     public partial class ArcGISMapImageLayerUrl
     {
         public ArcGISMapImageLayerUrl()

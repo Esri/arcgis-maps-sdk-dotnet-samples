@@ -16,7 +16,7 @@ In order to find any service areas at least one facility needs to be added to th
 
 * To add a facility, tap the facility button, then tap anywhere on the map.
 * To add a barrier, tap the barrier button, and tap multiple locations on map. Hit the barrier button again to finish drawing barrier. Hitting any other button will also stop the barrier from drawing.
-* To show service areas around facilities that were added, tap show service areas button. 
+* To show service areas around facilities that were added, tap show service areas button.
 * The reset button clears all graphics and resets the service area task.
 
 ## How it works
@@ -40,4 +40,4 @@ In order to find any service areas at least one facility needs to be added to th
 
 ## Tags
 
-Routing and Logistics, barriers, facilities, impedance
+barriers, facilities, impedance, logistics, routing

@@ -30,8 +30,8 @@ Observe the graphics on the map.
 
 ## Additional information
 
-To set a symbol style across a number of graphics (e.g. showing trees as graphics sharing a symbol in a park), see the "Add graphics with renderer" sample. 
+To set a symbol style across a number of graphics (e.g. showing trees as graphics sharing a symbol in a park), see the "Add graphics with renderer" sample.
 
 ## Tags
 
-SimpleFillSymbol, SimpleLineSymbol, SimpleMarkerSymbol
+display, fill, graphics, line, marker, overlay, point, symbol

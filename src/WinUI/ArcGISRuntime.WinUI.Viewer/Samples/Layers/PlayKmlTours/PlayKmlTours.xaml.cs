@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 namespace ArcGISRuntime.WinUI.Samples.PlayKmlTours
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Play KML Tour",
+        name: "Play KML tour",
         category: "Layers",
         description: "Play tours in KML files.",
         instructions: "The sample will load the KMZ file from ArcGIS Online. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. When you're ready to show the tour, use the reset button to return the tour to the unplayed state.",

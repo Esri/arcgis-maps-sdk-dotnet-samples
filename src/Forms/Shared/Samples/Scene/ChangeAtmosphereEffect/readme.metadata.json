@@ -15,7 +15,10 @@
     "redirect_from": [
         "/net/latest/forms/sample-code/changeatmosphereeffect.htm"
     ],
-    "relevant_apis": [],
+    "relevant_apis": [
+        "SceneView",
+        "SceneView.AtmosphereEffect"
+    ],
     "snippets": [
         "ChangeAtmosphereEffect.xaml",
         "ChangeAtmosphereEffect.xaml.cs"

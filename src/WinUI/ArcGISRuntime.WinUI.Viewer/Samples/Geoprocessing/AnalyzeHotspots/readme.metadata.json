@@ -7,10 +7,11 @@
         "AnalyzeHotspots.jpg"
     ],
     "keywords": [
-        "Geoprocessing",
-        "GeoprocessingJob",
-        "GeoprocessingParameters",
-        "GeoprocessingResult"
+        "analysis",
+        "density",
+        "geoprocessing",
+        "hot spots",
+        "hotspots"
     ],
     "offline_data": [],
     "redirect_from": [

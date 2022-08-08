@@ -1,4 +1,4 @@
-# Play KML Tour
+# Play KML tour
 
 Play tours in KML files.
 
@@ -44,7 +44,7 @@ This sample uses a custom tour created by a member of the ArcGIS Runtime API sam
 
 ## Additional information
 
-See [Touring in KML](https://developers.google.com/kml/documentation/touring) in *Keyhole Markup Language* for more information.
+See [Touring in KML](https://developers.google.com/kml/documentation/touring) in _Keyhole Markup Language_ for more information.
 
 ## Tags
 

@@ -252,7 +252,6 @@
     <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_1024.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Resources\Images.xcassets\AppIcons.appiconset\iOS_76.png" />
   </ItemGroup>
   <!-- Resources -->
   <ItemGroup>

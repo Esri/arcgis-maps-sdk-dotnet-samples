@@ -72,7 +72,7 @@ namespace ArcGISRuntime
 
                 string readmePath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName, "readme.md");
                 string readmeCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{markdownFile}");
-                string readmeContent = new MarkedNet.Marked().Parse(File.ReadAllText(readmePath));
+                string readmeContent = Markdig.Markdown.ToHtml(File.ReadAllText(readmePath));
 
                 string readmeHTML = "<!doctype html><head><base href=\"" +
                     readmePath +

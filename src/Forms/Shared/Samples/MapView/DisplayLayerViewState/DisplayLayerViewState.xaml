@@ -9,12 +9,20 @@
             <RowDefinition Height="150" />
         </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
-        <ListView x:Name="layerStatusListView" Grid.Row="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Message}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout Grid.Row="1">
+            <Label Margin="5" Text="Zoom in and out to observe changes in layer status." />
+            <Button x:Name="LoadButton"
+                    Margin="5"
+                    Clicked="LoadButton_Click"
+                    Text="Load layer" />
+            <StackLayout Margin="5" Orientation="Horizontal">
+                <Label FontAttributes="Bold" Text="Visible: " />
+                <Switch x:Name="VisibilityToggle"
+                        IsToggled="True"
+                        Toggled="CheckBox_Checked" />
+                <Label FontAttributes="Bold" Text="Layer display status: " />
+                <Label x:Name="LayerStatusLabel" />
+            </StackLayout>
+        </StackLayout>
     </Grid>
 </ContentPage>

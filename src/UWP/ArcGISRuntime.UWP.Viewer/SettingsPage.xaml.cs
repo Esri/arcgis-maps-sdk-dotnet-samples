@@ -30,7 +30,6 @@ namespace ArcGISRuntime
         private static string _runtimeVersion = "";
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
-        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
 
         public SettingsWindow()
         {
@@ -63,11 +62,11 @@ namespace ArcGISRuntime
             }
 
             string aboutPath = "Resources\\about.md";
-            string aboutHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(aboutPath)) + _runtimeVersion + "</body>";
+            string aboutHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + Markdig.Markdown.ToHtml(File.ReadAllText(aboutPath)) + _runtimeVersion + "</body>";
             AboutBlock.NavigateToString(aboutHTML);
 
             string licensePath = "Resources\\licenses.md";
-            string licenseHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + _markdownRenderer.Parse(File.ReadAllText(licensePath)) + "</body>";
+            string licenseHTML = "<!doctype html><head><link rel=\"stylesheet\" href=\"ms-appx-web:///" + cssPath + "\" /></head><body class=\"markdown-body\">" + Markdig.Markdown.ToHtml(File.ReadAllText(licensePath)) + "</body>";
             LicensesBlock.NavigateToString(licenseHTML);
 
             // Set up offline data.

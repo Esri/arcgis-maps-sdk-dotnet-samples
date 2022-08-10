@@ -24,7 +24,6 @@ namespace ArcGISRuntime
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SamplePage
     {
-        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
         private ContentPage _sample;
 
         public SamplePage()
@@ -78,7 +77,7 @@ namespace ArcGISRuntime
                 string cssPath = $"{baseUrl}/github-markdown.css";
 
                 string readmeContent = System.IO.File.ReadAllText(readmePath);
-                readmeContent = _markdownRenderer.Parse(readmeContent);
+                readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
                 // Fix paths for images.
                 readmeContent = readmeContent.Replace("src='", "src=\"").Replace(".jpg'", ".jpg\"").Replace("src=\"", $"src=\"{basePath}/");

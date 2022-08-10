@@ -8,9 +8,11 @@
     ],
     "keywords": [
         "layer",
+        "load",
         "map",
         "status",
-        "view"
+        "view",
+        "visibility"
     ],
     "offline_data": [],
     "redirect_from": [

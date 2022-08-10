@@ -21,8 +21,8 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         name: "Display layer view state",
         category: "MapView",
         description: "Determine if a layer is currently being viewed.",
-        instructions: "Pan and zoom around in the map. Each layer's view status is displayed. Notice that some layers configured with a min and max scale change to \"OutOfScale\" at certain scales.",
-        tags: new[] { "layer", "map", "status", "view" })]
+        instructions: "Tap the *Load layer* button to add a feature layer to the map. The current view status of the layer will display on the map. Zoom in and out of the map and note the layer disappears when the map is scaled outside of its min and max scale range. Control the layer's visibility with the switch. If you disconnect your device from the network and pan around the map, a warning will display. Reconnect to the network to remove the warning. The layer's current view status will update accordingly as you carry out these actions.",
+        tags: new[] { "layer", "load", "map", "status", "view", "visibility" })]
     public partial class DisplayLayerViewState : ContentPage
     {
         // Reference to list of view status for each layer

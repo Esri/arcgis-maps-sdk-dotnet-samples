@@ -50,7 +50,7 @@ namespace ArcGISRuntime
             // Precise version number cant be used while running in release mode.
             catch (Exception)
             {
-                versionNumber = "100.14.1";
+                versionNumber = "100.15.0";
             }
 
             // Set up offline data.

@@ -12,47 +12,28 @@
                 Background="White"
                 BorderBrush="Black"
                 BorderThickness="1">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Margin="0,5,0,0"
-                           HorizontalAlignment="Right"
-                           Text="Tiled layer:" />
-                <TextBlock x:Name="TiledLayerStatus"
-                           Grid.Row="0"
-                           Grid.Column="1"
-                           Margin="5,5,0,0"
-                           FontWeight="SemiBold" />
-                <TextBlock Grid.Row="1"
-                           Grid.Column="0"
-                           Margin="0,5,0,0"
-                           HorizontalAlignment="Right"
-                           Text="Image layer:" />
-                <TextBlock x:Name="ImageLayerStatus"
-                           Grid.Row="1"
-                           Grid.Column="1"
-                           Margin="5,5,0,0"
-                           FontWeight="SemiBold" />
-                <TextBlock Grid.Row="2"
-                           Grid.Column="0"
-                           Margin="0,5,0,0"
-                           HorizontalAlignment="Right"
-                           Text="Feature layer:" />
-                <TextBlock x:Name="FeatureLayerStatus"
-                           Grid.Row="2"
-                           Grid.Column="1"
-                           Margin="5,5,0,0"
-                           FontWeight="SemiBold" />
-            </Grid>
+            <StackPanel>
+                <TextBlock Margin="5" Text="Zoom in and out to observe changes in layer status." />
+                <Button x:Name="LoadButton"
+                        Margin="5"
+                        Click="LoadButton_Click"
+                        Content="Load layer" />
+                <CheckBox Name="VisibilityCheckBox"
+                          Margin="5"
+                          Checked="CheckBox_Checked"
+                          Content="Visible"
+                          IsChecked="True"
+                          Unchecked="CheckBox_Checked" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="5"
+                               FontWeight="Bold"
+                               Text="Layer display status: "
+                               TextAlignment="Center" />
+                    <TextBlock x:Name="LayerStatusLabel"
+                               Margin="5"
+                               FontWeight="SemiBold" />
+                </StackPanel>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

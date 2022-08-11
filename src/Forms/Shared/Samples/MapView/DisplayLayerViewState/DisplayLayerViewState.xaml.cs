@@ -9,11 +9,10 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.DisplayLayerViewState
@@ -22,132 +21,69 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
         name: "Display layer view state",
         category: "MapView",
         description: "Determine if a layer is currently being viewed.",
-        instructions: "Pan and zoom around in the map. Each layer's view status is displayed. Notice that some layers configured with a min and max scale change to \"OutOfScale\" at certain scales.",
-        tags: new[] { "layer", "map", "status", "view" })]
+        instructions: "Tap the *Load layer* button to add a feature layer to the map. The current view status of the layer will display on the map. Zoom in and out of the map and note the layer disappears when the map is scaled outside of its min and max scale range. Control the layer's visibility with the switch. If you disconnect your device from the network and pan around the map, a warning will display. Reconnect to the network to remove the warning. The layer's current view status will update accordingly as you carry out these actions.",
+        tags: new[] { "layer", "load", "map", "status", "view", "visibility" })]
     public partial class DisplayLayerViewState : ContentPage
     {
         // Reference to list of view status for each layer
-        private List<LayerStatusModel> _layerStatusModels = new List<LayerStatusModel>();
-
         public DisplayLayerViewState()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create new Map
-            Map myMap = new Map();
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic) { InitialViewpoint = new Viewpoint(new MapPoint(-11e6, 45e5, SpatialReferences.WebMercator), 40000000) };
 
-            // Create the uri for the tiled layer
-            Uri tiledLayerUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
-
-            // Create a tiled layer using url
-            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri)
-            {
-                Name = "Tiled Layer"
-            };
-
-            // Add the tiled layer to map
-            myMap.OperationalLayers.Add(tiledLayer);
-
-            // Create the uri for the ArcGISMapImage layer
-            Uri imageLayerUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
-
-            // Create ArcGISMapImage layer using a url
-            ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri)
-            {
-                Name = "Image Layer",
-
-                // Set the visible scale range for the image layer
-                MinScale = 40000000,
-                MaxScale = 2000000
-            };
-
-            // Add the image layer to map
-            myMap.OperationalLayers.Add(imageLayer);
-
-            // Create Uri for feature layer
-            Uri featureLayerUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
-
-            // Create a feature layer using url
-            FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri)
-            {
-                Name = "Feature Layer"
-            };
-
-            // Add the feature layer to map
-            myMap.OperationalLayers.Add(myFeatureLayer);
-
-            // Create a mappoint the map should zoom to
-            MapPoint mapPoint = new MapPoint(-11000000, 4500000, SpatialReferences.WebMercator);
-
-            // Set the initial viewpoint for map
-            myMap.InitialViewpoint = new Viewpoint(mapPoint, 50000000);
-
-            // Initialize the model list with unknown status for each layer
-            foreach (Layer layer in myMap.OperationalLayers)
-            {
-                _layerStatusModels.Add(new LayerStatusModel(layer.Name, "Unknown"));
-            }
-
-            // Set models list as a itemssource
-            layerStatusListView.ItemsSource = _layerStatusModels;
-
-            // Event for layer view state changed
+            // Event for layer view state changed.
             MyMapView.LayerViewStateChanged += OnLayerViewStateChanged;
-
-            // Provide used Map to the MapView
-            MyMapView.Map = myMap;
         }
 
         private void OnLayerViewStateChanged(object sender, LayerViewStateChangedEventArgs e)
         {
-            // State changed event is sent by a layer. In the list, find the layer which sends this event.
-            // If it exists then update the status
-            LayerStatusModel model = _layerStatusModels.FirstOrDefault(l => l.LayerName == e.Layer.Name);
-            if (model != null)
-                model.LayerViewStatus = e.LayerViewState.Status.ToString();
+            // Check that the layer that changed is the feature layer added to the map.
+            if (e.Layer == MyMapView.Map?.OperationalLayers.FirstOrDefault())
+            {
+                // Update the UI with the layer view status.
+                LayerStatusLabel.Text = e.LayerViewState.Status.ToString();
+            }
         }
 
-        /// <summary>
-        /// This is a custom class that holds information for layer name and status
-        /// </summary>
-        public class LayerStatusModel : INotifyPropertyChanged
+        private void LoadButton_Click(object sender, EventArgs e)
         {
-            private string layerViewStatus;
+            LoadButton.Text = "Reload layer";
+            _ = LoadLayer();
+        }
 
-            public string LayerName { get; private set; }
+        private async Task LoadLayer()
+        {
+            MyMapView.Map.OperationalLayers.Clear();
+            LayerStatusLabel.Text = string.Empty;
 
-            public string LayerViewStatus
+            try
             {
-                get { return layerViewStatus; }
-                set { layerViewStatus = value; NotifyPropertyChanged(); NotifyPropertyChanged("Message"); }
+                // Create a feature layer from a portal item.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri("https://runtime.maps.arcgis.com/"));
+                PortalItem item = await PortalItem.CreateAsync(portal, "b8f4033069f141729ffb298b7418b653");
+                var featureLayer = new FeatureLayer(item, 0) { MinScale = 40000000, MaxScale = 4000000 };
+
+                // Load the layer and add it to the map.
+                await featureLayer.LoadAsync();
+                MyMapView.Map.OperationalLayers.Add(featureLayer);
+                VisibilityToggle.IsToggled = featureLayer.IsVisible;
             }
-
-            public string Message { get { return LayerName + " - " + LayerViewStatus; } }
-
-            public LayerStatusModel(string layerName, string layerStatus)
+            catch (Exception ex)
             {
-                LayerName = layerName;
-                LayerViewStatus = layerStatus;
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
+        }
 
-            public event PropertyChangedEventHandler PropertyChanged;
+        private void CheckBox_Checked(object sender, EventArgs e)
+        {
+            if (MyMapView?.Map?.OperationalLayers?.FirstOrDefault() == null) return;
 
-            private void NotifyPropertyChanged([CallerMemberName] string propertyName = "")
-            {
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                }
-            }
+            MyMapView.Map.OperationalLayers.FirstOrDefault().IsVisible = VisibilityToggle.IsToggled == true;
         }
     }
 }

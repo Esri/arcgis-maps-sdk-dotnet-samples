@@ -5,55 +5,25 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <Grid>
-                <Grid.Resources>
-                    <Style TargetType="TextBlock">
-                        <Setter Property="Margin" Value="5,5,0,0" />
-                    </Style>
-                </Grid.Resources>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           FontWeight="Bold"
-                           Text="Layer display status"
-                           TextAlignment="Center" />
-                <!--  Field labels  -->
-                <TextBlock Grid.Row="1"
-                           Grid.Column="0"
-                           Text="Tiled layer:"
-                           TextAlignment="Right" />
-                <TextBlock Grid.Row="2"
-                           Grid.Column="0"
-                           Text="Image layer:"
-                           TextAlignment="Right" />
-                <TextBlock Grid.Row="3"
-                           Grid.Column="0"
-                           Text="Feature layer:"
-                           TextAlignment="Right" />
-                <!--  Status labels  -->
-                <TextBlock x:Name="TiledLayerStatusLabel"
-                           Grid.Row="1"
-                           Grid.Column="1"
-                           FontWeight="SemiBold" />
-                <TextBlock x:Name="ImageLayerStatusLabel"
-                           Grid.Row="2"
-                           Grid.Column="1"
-                           FontWeight="SemiBold" />
-                <TextBlock x:Name="FeatureLayerStatusLabel"
-                           Grid.Row="3"
-                           Grid.Column="1"
-                           FontWeight="SemiBold" />
-            </Grid>
+            <StackPanel>
+                <Label Margin="5" Content="Zoom in and out to observe changes in layer status." />
+                <Button x:Name="LoadButton"
+                        Margin="5"
+                        Click="LoadButton_Click"
+                        Content="Load layer" />
+                <CheckBox Name="VisibilityCheckBox"
+                          Margin="5"
+                          Checked="CheckBox_Checked"
+                          Content="Visible"
+                          IsChecked="True"
+                          Unchecked="CheckBox_Checked" />
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock FontWeight="Bold"
+                               Text="Layer display status: "
+                               TextAlignment="Center" />
+                    <TextBlock x:Name="LayerStatusLabel" FontWeight="SemiBold" />
+                </StackPanel>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

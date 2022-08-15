@@ -130,7 +130,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeViewshed
 
             // Create the parameters that are passed to the used geoprocessing task.
             GeoprocessingParameters myViewshedParameters =
-                new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
+                new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit)
                 {
                     // Request the output features to use the same SpatialReference as the map view.
                     OutputSpatialReference = MyMapView.SpatialReference

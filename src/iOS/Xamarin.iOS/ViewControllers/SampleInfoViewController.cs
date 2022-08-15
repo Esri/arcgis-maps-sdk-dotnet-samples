@@ -12,6 +12,7 @@ using Foundation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using UIKit;
@@ -65,12 +66,18 @@ namespace ArcGISRuntime
         {
             CheckDarkMode();
 
+            string formalCategory = _info.Category;
+            if (formalCategory.Contains(' '))
+            {
+                formalCategory = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_info.Category).Replace(" ", "");
+            }
+
             // Build out readme html.
             try
             {
                 string markdownFile = _darkMode ? _darkMarkdownFile : _lightMarkdownFile;
 
-                string readmePath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName, "readme.md");
+                string readmePath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", formalCategory, _info.FormalName, "readme.md");
                 string readmeCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{markdownFile}");
                 string readmeContent = Markdig.Markdown.ToHtml(File.ReadAllText(readmePath));
 
@@ -121,7 +128,7 @@ namespace ArcGISRuntime
                            "</body>" +
                            "</html>";
 
-                string sourceFilesPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", _info.Category, _info.FormalName);
+                string sourceFilesPath = Path.Combine(NSBundle.MainBundle.BundlePath, "Samples", formalCategory, _info.FormalName);
 
                 // Create a dictionary of the files.
                 _sourceCodeFiles = new Dictionary<string, string>();

@@ -30,7 +30,7 @@ namespace ArcGISRuntime.WPF.Samples.ViewshedLocation
     public partial class ViewshedLocation
     {
         // Hold the URL to the elevation source.
-        private readonly Uri _localElevationImageService = new Uri("https://scene.arcgis.com/arcgis/rest/services/BREST_DTM_1M/ImageServer");
+        private readonly Uri _localElevationImageService = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
 
         // Hold the URL to the buildings scene layer.
         private readonly Uri _buildingsUrl = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");

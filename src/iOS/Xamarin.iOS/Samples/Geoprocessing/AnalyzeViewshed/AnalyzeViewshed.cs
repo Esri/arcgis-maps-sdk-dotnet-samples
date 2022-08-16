@@ -121,7 +121,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             await inputFeatures.AddFeatureAsync(inputFeature);
 
             // Create the parameters that are passed to the used geoprocessing task.
-            GeoprocessingParameters viewshedParameters = new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
+            GeoprocessingParameters viewshedParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit)
             {
                 OutputSpatialReference = _myMapView.SpatialReference
             };

@@ -30,7 +30,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
     public partial class ExportTiles
     {
         // URL to the service tiles will be exported from.
-        private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+        private Uri _serviceUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
         // Hold a reference to the export tile cache job for use in eventhandlers.
         private ExportTileCacheJob _job;

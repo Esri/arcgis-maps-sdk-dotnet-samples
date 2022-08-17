@@ -72,7 +72,7 @@ namespace ArcGISRuntime.WPF.Samples.RenderPictureMarkers
         {
             // Create uri to the used image
             Uri symbolUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
+                "https://static.arcgis.com/images/Symbols/OutdoorRecreation/Camping.png");
 
             // Create new symbol using asynchronous factory method from uri.
             PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri)

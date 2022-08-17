@@ -1,4 +1,4 @@
-﻿# Display KML network links
+# Display KML network links
 
 Display a file with a KML network link, including displaying any network link control messages at launch.
 

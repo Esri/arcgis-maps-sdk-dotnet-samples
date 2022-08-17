@@ -6,7 +6,7 @@ Create and add features whose attribute values satisfy a predefined set of conti
 
 ## Use case
 
-Contingent values are a data design feature that allow you to make values in one field dependent on values in another field. Your choice for a value on one field further constrains the domain values that can be placed on another field. In this way, contingent values enforce data integrity by applying additional constraints to reduce the number of valid field inputs. 
+Contingent values are a data design feature that allow you to make values in one field dependent on values in another field. Your choice for a value on one field further constrains the domain values that can be placed on another field. In this way, contingent values enforce data integrity by applying additional constraints to reduce the number of valid field inputs.
 
 For example, a field crew working in a sensitive habitat area may be required to stay a certain distance away from occupied bird nests, but the size of that exclusion area differs depending on the bird's level of protection according to presiding laws. Surveyors can add points of bird nests in the work area and their selection of the size of the exclusion area will be contingent on the values in other attribute fields.
 
@@ -31,7 +31,6 @@ Tap on the map to add a feature symbolizing a bird's nest. Then choose values de
 
 ## Relevant API
 
-* FeatureTable
 * CodedValue
 * CodedValueDomain
 * ContingencyConstraintViolation
@@ -39,6 +38,7 @@ Tap on the map to add a feature symbolizing a bird's nest. Then choose values de
 * ContingentRangeValue
 * ContingentValuesDefinition
 * ContingentValuesResult
+* FeatureTable
 
 ## Offline data
 

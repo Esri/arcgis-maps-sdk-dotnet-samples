@@ -10,12 +10,12 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
@@ -87,6 +87,9 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
 
             // Get a list of selected LayerInfos.
             List<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info).ToList();
+			
+            // Only WMS layer infos without sub layers can be used to construct a WMS layer. Group layers that have sub layers must be excluded.
+            selectedLayers = selectedLayers.Where(info => info.LayerInfos.Count == 0).ToList();
 
             // Return if no layers are selected.
             if (!selectedLayers.Any())
@@ -100,7 +103,6 @@ namespace ArcGISRuntime.WPF.Samples.WmsServiceCatalog
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(myLayer);
         }
-
 
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {

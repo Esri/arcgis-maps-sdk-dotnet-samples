@@ -11,11 +11,10 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.ConvexHull
 {

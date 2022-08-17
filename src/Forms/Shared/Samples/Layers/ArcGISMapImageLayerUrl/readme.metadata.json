@@ -7,18 +7,17 @@
         "ArcGISMapImageLayerUrl.jpg"
     ],
     "keywords": [
-        "ArcGIS dynamic map service layer",
-        "ArcGISMapImageLayer",
-        "layers"
+        "display",
+        "image",
+        "layer",
+        "map"
     ],
     "offline_data": [],
     "redirect_from": [
         "/net/latest/forms/sample-code/arcgismapimagelayerurl.htm"
     ],
     "relevant_apis": [
-        "ArcGISMapImageLayer",
-        "Map",
-        "MapView"
+        "ArcGISMapImageLayer"
     ],
     "snippets": [
         "ArcGISMapImageLayerUrl.xaml",

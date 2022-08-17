@@ -25,6 +25,7 @@ namespace ArcGISRuntime.Samples.Shared.Attributes
             _items = items;
         }
 
-        public IReadOnlyList<string> Items { get { return _items; } }
+        public IReadOnlyList<string> Items
+        { get { return _items; } }
     }
 }

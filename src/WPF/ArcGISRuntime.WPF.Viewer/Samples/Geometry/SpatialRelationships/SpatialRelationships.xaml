@@ -6,16 +6,15 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Tap a graphic to see its relationship with the others."
-                           FontWeight="SemiBold" TextWrapping="Wrap" TextAlignment="Center" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="Tap a graphic to see its relationship with the others."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
                 <TreeView Margin="0,5,0,0">
                     <TreeView.Items>
-                        <TreeViewItem x:Name="PointTreeEntry"
-                                      Header="Point" />
-                        <TreeViewItem x:Name="PolylineTreeEntry"
-                                      Header="Polyline" />
-                        <TreeViewItem x:Name="PolygonTreeEntry"
-                                      Header="Polygon" />
+                        <TreeViewItem x:Name="PointTreeEntry" Header="Point" />
+                        <TreeViewItem x:Name="PolylineTreeEntry" Header="Polyline" />
+                        <TreeViewItem x:Name="PolygonTreeEntry" Header="Polygon" />
                     </TreeView.Items>
                 </TreeView>
             </StackPanel>

@@ -9,11 +9,11 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Threading.Tasks;
-using System.Linq;
 using Microsoft.UI;
 using Microsoft.UI.Xaml.Media;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ControlAnnotationSublayerVisibility
 {

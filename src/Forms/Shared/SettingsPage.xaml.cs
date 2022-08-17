@@ -26,7 +26,6 @@ namespace ArcGISRuntime
     {
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
-        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
 
         public SettingsPage()
         {
@@ -41,7 +40,7 @@ namespace ArcGISRuntime
             try
             {
 #if XAMARIN_ANDROID
-            versionNumber = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly.GetName().Version.ToString(2);
+                versionNumber = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly.GetName().Version.ToString(2);
 #else
                 var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();
                 versionNumber = FileVersionInfo.GetVersionInfo(runtimeTypeInfo.Assembly.Location).FileVersion;
@@ -50,7 +49,7 @@ namespace ArcGISRuntime
             // Precise version number cant be used while running in release mode.
             catch (Exception)
             {
-                versionNumber = "100.14.1";
+                versionNumber = "100.15.0";
             }
 
             // Set up offline data.
@@ -85,14 +84,14 @@ namespace ArcGISRuntime
 #if __IOS__
                 viewportHTML +
 #endif
-                $"</head><body class=\"markdown-body\">{_markdownRenderer.Parse(licenseString)}</body>";
+                $"</head><body class=\"markdown-body\">{Markdig.Markdown.ToHtml(licenseString)}</body>";
             LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
             string aboutHTML = htmlStart +
 #if __IOS__
                 viewportHTML +
 #endif
-                $"</head><body class=\"markdown-body\">{_markdownRenderer.Parse(aboutString)}{versionNumber}</body>";
+                $"</head><body class=\"markdown-body\">{Markdig.Markdown.ToHtml(aboutString)}{versionNumber}</body>";
             AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
 
             // Add an event handler for hyperlinks in the web views.

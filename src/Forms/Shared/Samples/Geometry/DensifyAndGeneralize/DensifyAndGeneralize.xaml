@@ -1,13 +1,14 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage x:Class="ArcGISRuntime.Samples.DensifyAndGeneralize.DensifyAndGeneralize"
+             xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:sampleViewer="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
-             x:Class="ArcGISRuntime.Samples.DensifyAndGeneralize.DensifyAndGeneralize">
+             xmlns:sampleViewer="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
         <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <Grid.RowDefinitions>
@@ -19,25 +20,38 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Text="Generalize"
-                       Grid.Row="0" Grid.Column="0"
-                       Style="{StaticResource LabelStyle}" HorizontalTextAlignment="End" />
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       Style="{StaticResource LabelStyle}"
+                       Text="Generalize" />
                 <Slider x:Name="DeviationSlider"
-                        Grid.Row="0" Grid.Column="1"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Maximum="250"
                         MaximumTrackColor="CadetBlue"
+                        Minimum="1"
                         MinimumTrackColor="CadetBlue"
-                        Maximum="250" Minimum="1" Value="1" />
-                <Label Text="Densify" 
-                       Grid.Row="1" Grid.Column="0"
-                       Style="{StaticResource LabelStyle}" HorizontalTextAlignment="End" />
+                        Value="1" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       Style="{StaticResource LabelStyle}"
+                       Text="Densify" />
                 <Slider x:Name="SegmentLengthSlider"
-                        Grid.Row="1" Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Maximum="500"
                         MaximumTrackColor="CadetBlue"
+                        Minimum="100"
                         MinimumTrackColor="CadetBlue"
-                        Maximum="500" Minimum="100" Value="100" />
-                <Label x:Name="ResultLabel" Text="Adjust a slider to start."
-                       Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                       Style="{StaticResource LabelStyle}" />
+                        Value="100" />
+                <Label x:Name="ResultLabel"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Style="{StaticResource LabelStyle}"
+                       Text="Adjust a slider to start." />
             </Grid>
         </sampleViewer:ResponsiveFormContainer>
     </RelativeLayout>

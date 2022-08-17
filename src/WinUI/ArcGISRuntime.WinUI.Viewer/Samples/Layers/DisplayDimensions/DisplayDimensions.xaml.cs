@@ -41,7 +41,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayDimensions
                 var dataPath = DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk");
 
                 // Load the mobile map package.
-                MobileMapPackage mobileMapPackage = new MobileMapPackage(dataPath); 
+                MobileMapPackage mobileMapPackage = new MobileMapPackage(dataPath);
                 await mobileMapPackage.LoadAsync();
 
                 // Set the mapview to display the map from the package.

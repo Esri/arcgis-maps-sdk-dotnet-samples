@@ -7,16 +7,18 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock x:Name="ConvexHullInstructionsLabel"
+                           FontWeight="SemiBold"
                            Text="Tap to place points, then click 'Create convex hull'."
-                           TextWrapping="Wrap" TextAlignment="Center" FontWeight="SemiBold" />
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
                 <Button x:Name="ConvexHullButton"
-                        Content="Create convex hull"
                         Margin="0,10,0,0"
-                        Click="ConvexHullButton_Click" />
+                        Click="ConvexHullButton_Click"
+                        Content="Create convex hull" />
                 <Button x:Name="ResetButton"
-                        Content="Reset"
                         Margin="0,10,0,0"
-                        Click="ResetButton_Click" />
+                        Click="ResetButton_Click"
+                        Content="Reset" />
             </StackPanel>
         </Border>
     </Grid>

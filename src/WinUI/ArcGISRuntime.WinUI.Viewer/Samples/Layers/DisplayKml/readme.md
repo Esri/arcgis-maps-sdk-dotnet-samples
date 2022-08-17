@@ -1,4 +1,4 @@
-﻿# Display KML
+# Display KML
 
 Display KML from a URL, portal item, or local KML file.
 

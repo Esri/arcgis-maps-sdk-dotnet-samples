@@ -6,21 +6,26 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Red hurricanes offset 10 days"
+                <TextBlock Margin="0"
+                           HorizontalAlignment="Center"
                            FontWeight="Bold"
-                           HorizontalAlignment="Center" Margin="0"
-                           Foreground="Red" />
-                <TextBlock Text="Blue hurricanes not offset"
+                           Foreground="Red"
+                           Text="Red hurricanes offset 10 days" />
+                <TextBlock Margin="0,5,0,0"
+                           HorizontalAlignment="Center"
                            FontWeight="Bold"
-                           HorizontalAlignment="Center" Margin="0,5,0,0"
-                           Foreground="Blue" />
+                           Foreground="Blue"
+                           Text="Blue hurricanes not offset" />
                 <Slider x:Name="MyTimeSlider"
-                        Minimum="0" Maximum="1" IsMoveToPointEnabled="True"
                         Margin="0,5,0,0"
+                        IsMoveToPointEnabled="True"
+                        Maximum="1"
+                        Minimum="0"
                         ValueChanged="MyTimeSlider_ValueChanged" />
                 <TextBlock x:Name="CurrentDateLabel"
                            Margin="0,5,0,0"
-                           FontWeight="SemiBold" TextAlignment="Center" />
+                           FontWeight="SemiBold"
+                           TextAlignment="Center" />
             </StackPanel>
         </Border>
     </Grid>

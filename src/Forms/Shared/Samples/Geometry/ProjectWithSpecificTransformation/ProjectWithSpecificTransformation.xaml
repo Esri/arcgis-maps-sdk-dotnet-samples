@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ArcGISRuntime.Samples.ProjectWithSpecificTransformation.ProjectWithSpecificTransformation">
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.ProjectWithSpecificTransformation.ProjectWithSpecificTransformation"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <StackLayout>
         <Label Text="Geometry before (WGS 84):" />
         <Label x:Name="BeforeLabel" />

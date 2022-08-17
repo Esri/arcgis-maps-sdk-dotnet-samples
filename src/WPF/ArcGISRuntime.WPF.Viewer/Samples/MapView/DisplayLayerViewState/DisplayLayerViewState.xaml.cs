@@ -3,13 +3,16 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WPF.Samples.DisplayLayerViewState
 {
@@ -17,102 +20,68 @@ namespace ArcGISRuntime.WPF.Samples.DisplayLayerViewState
         name: "Display layer view state",
         category: "MapView",
         description: "Determine if a layer is currently being viewed.",
-        instructions: "Pan and zoom around in the map. Each layer's view status is displayed. Notice that some layers configured with a min and max scale change to \"OutOfScale\" at certain scales.",
-        tags: new[] { "layer", "map", "status", "view" })]
+        instructions: "Tap the *Load layer* button to add a feature layer to the map. The current view status of the layer will display on the map. Zoom in and out of the map and note the layer disappears when the map is scaled outside of its min and max scale range. Control the layer's visibility with the switch. If you disconnect your device from the network and pan around the map, a warning will display. Reconnect to the network to remove the warning. The layer's current view status will update accordingly as you carry out these actions.",
+        tags: new[] { "layer", "load", "map", "status", "view", "visibility" })]
     public partial class DisplayLayerViewState
     {
-
         public DisplayLayerViewState()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization 
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create new Map
-            Map myMap = new Map();
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic) { InitialViewpoint = new Viewpoint(new MapPoint(-11e6, 45e5, SpatialReferences.WebMercator), 40000000) };
 
-            // Create the uri for the tiled layer
-            Uri tiledLayerUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
-
-            // Create a tiled layer using url
-            ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri)
-            {
-                Name = "Tiled Layer"
-            };
-
-            // Add the tiled layer to map
-            myMap.OperationalLayers.Add(tiledLayer);
-
-            // Create the uri for the ArcGISMapImage layer
-            Uri imageLayerUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
-
-            // Create ArcGISMapImage layer using a url
-            ArcGISMapImageLayer imageLayer = new ArcGISMapImageLayer(imageLayerUri)
-            {
-                Name = "Image Layer",
-
-                // Set the visible scale range for the image layer
-                MinScale = 40000000,
-                MaxScale = 2000000
-            };
-
-            // Add the image layer to map
-            myMap.OperationalLayers.Add(imageLayer);
-
-            // Create Uri for feature layer
-            Uri featureLayerUri = new Uri(
-                "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0");
-
-            // Create a feature layer using url
-            FeatureLayer myFeatureLayer = new FeatureLayer(featureLayerUri)
-            {
-                Name = "Feature Layer"
-            };
-
-            // Add the feature layer to map
-            myMap.OperationalLayers.Add(myFeatureLayer);
-
-            // Create a map point the map should zoom to
-            MapPoint mapPoint = new MapPoint(-11000000, 4500000, SpatialReferences.WebMercator);
-
-            // Set the initial viewpoint for map
-            myMap.InitialViewpoint = new Viewpoint(mapPoint, 50000000);
-
-            // Event for layer view state changed
+            // Event for layer view state changed.
             MyMapView.LayerViewStateChanged += OnLayerViewStateChanged;
-
-            // Provide used Map to the MapView
-            MyMapView.Map = myMap;
         }
 
         private void OnLayerViewStateChanged(object sender, LayerViewStateChangedEventArgs e)
         {
-            // For each execution of the MapView.LayerViewStateChanged Event, get the name of
-            // the layer and its LayerViewState.Status
-            string lName = e.Layer.Name;
-            string lViewStatus = e.LayerViewState.Status.ToString();
-
-            // Display the layer view status in the appropriate Label control
-            switch (lName)
+            // Check that the layer that changed is the feature layer added to the map.
+            if (e.Layer == MyMapView.Map?.OperationalLayers.FirstOrDefault())
             {
-                case "Tiled Layer":
-                    TiledLayerStatusLabel.Text = lViewStatus;
-                    break;
-                case "Image Layer":
-                    ImageLayerStatusLabel.Text = lViewStatus;
-                    break;
-                case "Feature Layer":
-                    FeatureLayerStatusLabel.Text = lViewStatus;
-                    break;
-                default:
-                    break;
+                // Update the UI with the layer view status.
+                LayerStatusLabel.Text = e.LayerViewState.Status.ToString();
             }
+        }
+
+        private void LoadButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            LoadButton.Content = "Reload layer";
+            _ = LoadLayer();
+        }
+
+        private async Task LoadLayer()
+        {
+            MyMapView.Map.OperationalLayers.Clear();
+            LayerStatusLabel.Text = string.Empty;
+
+            try
+            {
+                // Create a feature layer from a portal item.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri("https://runtime.maps.arcgis.com/"));
+                PortalItem item = await PortalItem.CreateAsync(portal, "b8f4033069f141729ffb298b7418b653");
+                var featureLayer = new FeatureLayer(item, 0) { MinScale = 40000000, MaxScale = 4000000 };
+
+                // Load the layer and add it to the map.
+                await featureLayer.LoadAsync();
+                MyMapView.Map.OperationalLayers.Add(featureLayer);
+                VisibilityCheckBox.IsChecked = featureLayer.IsVisible;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+
+        private void CheckBox_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (MyMapView.Map?.OperationalLayers?.FirstOrDefault() == null) return;
+
+            MyMapView.Map.OperationalLayers.FirstOrDefault().IsVisible = VisibilityCheckBox.IsChecked == true;
         }
     }
 }

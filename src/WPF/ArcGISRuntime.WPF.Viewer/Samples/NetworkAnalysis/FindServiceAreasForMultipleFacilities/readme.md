@@ -22,16 +22,16 @@ Click 'find service area' to calculate and display the service area of each faci
 6. For each facility, get any `ServiceAreaPolygons` that were returned, `serviceAreaResult.GetResultPolygons(facilityIndex)`.
 7. Display the service area polygons as `Graphics` in a `GraphicsOverlay` on the `MapView`.
 
-## About the data
-
-This sample uses a street map of San Diego, in combination with a feature service with facilities (used here to represent hospitals). Additionally a street network is used on the server for calculating the service area.
-
 ## Relevant API
 
 * ServiceAreaParameters
 * ServiceAreaPolygon
 * ServiceAreaResult
 * ServiceAreaTask
+
+## About the data
+
+This sample uses a street map of San Diego, in combination with a feature service with facilities (used here to represent hospitals). Additionally a street network is used on the server for calculating the service area.
 
 ## Tags
 

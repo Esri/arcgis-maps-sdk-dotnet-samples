@@ -1,8 +1,7 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WPF.Samples.ChangeTimeExtent.ChangeTimeExtent"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.ChangeTimeExtent.ChangeTimeExtent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
@@ -15,18 +14,22 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label Content="Tap a year to filter the data."
-                       Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
                        HorizontalAlignment="Center"
+                       Content="Tap a year to filter the data."
                        FontWeight="SemiBold" />
-                <Button Content="2000"
-                        Grid.Row="1" Grid.Column="0"
+                <Button Grid.Row="1"
+                        Grid.Column="0"
                         Margin="0,5,5,0"
-                        Click="twoThousand_Click" />
-                <Button Content="2005"
-                        Grid.Row="1" Grid.Column="1"
+                        Click="twoThousand_Click"
+                        Content="2000" />
+                <Button Grid.Row="1"
+                        Grid.Column="1"
                         Margin="5,5,0,0"
-                        Click="twoThousandFive_Click" />
+                        Click="twoThousandFive_Click"
+                        Content="2005" />
             </Grid>
         </Border>
     </Grid>

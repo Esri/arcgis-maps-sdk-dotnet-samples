@@ -17,7 +17,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeAtmosphereEffect
         name: "Change atmosphere effect",
         category: "Scene",
         description: "Changes the appearance of the atmosphere in a scene.",
-        instructions: "Select one of the three available atmosphere effects. The sky will change to display the selected atmosphere effect. ",
+        instructions: "Select one of the three available atmosphere effects. The sky will change to display the selected atmosphere effect.",
         tags: new[] { "atmosphere", "horizon", "sky" })]
     public partial class ChangeAtmosphereEffect
     {
@@ -33,7 +33,7 @@ namespace ArcGISRuntime.WPF.Samples.ChangeAtmosphereEffect
         {
             // Create the scene with a basemap.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
-            
+
             // Add an elevation source to the scene.
             Surface elevationSurface = new Surface();
             ArcGISTiledElevationSource elevationSource = new ArcGISTiledElevationSource(new Uri(_elevationServiceUrl));

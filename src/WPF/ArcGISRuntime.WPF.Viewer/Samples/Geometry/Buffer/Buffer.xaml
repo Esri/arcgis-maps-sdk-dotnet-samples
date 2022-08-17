@@ -18,37 +18,51 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
                        HorizontalContentAlignment="Center"
-                       FontWeight="SemiBold"
-                       Content="Click the map to create planar and geodesic buffers." />
-                <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                       Content="Click the map to create planar and geodesic buffers."
+                       FontWeight="SemiBold" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
                        HorizontalAlignment="Right"
                        Content="Buffer distance (miles):" />
                 <TextBox x:Name="BufferDistanceMilesTextBox"
-                         Grid.Row="1" Grid.Column="2"
-                         TextAlignment="Right" VerticalContentAlignment="Center"
+                         Grid.Row="1"
+                         Grid.Column="2"
                          MinWidth="80"
-                         Text="1000" />
+                         VerticalContentAlignment="Center"
+                         Text="1000"
+                         TextAlignment="Right" />
                 <Ellipse x:Name="BufferSwatchPlanarEllipse"
-                         Grid.Row="2" Grid.Column="0"
-                         Stroke="LightGray"
-                         Width="20" Height="20" />
-                <Label Grid.Row="2" Grid.Column="1"
+                         Grid.Row="2"
+                         Grid.Column="0"
+                         Width="20"
+                         Height="20"
+                         Stroke="LightGray" />
+                <Label Grid.Row="2"
+                       Grid.Column="1"
                        HorizontalAlignment="Left"
                        Content="Planar buffers (Web Mercator)" />
                 <Ellipse x:Name="BufferSwatchGeodesicEllipse"
-                         Grid.Row="3" Grid.Column="0"
-                         Stroke="LightGray"
-                         Width="20" Height="20" />
-                <Label Grid.Row="3" Grid.Column="1"
+                         Grid.Row="3"
+                         Grid.Column="0"
+                         Width="20"
+                         Height="20"
+                         Stroke="LightGray" />
+                <Label Grid.Row="3"
+                       Grid.Column="1"
                        HorizontalAlignment="Left"
                        Content="Geodesic buffers" />
                 <Button x:Name="ClearBuffersButton"
-                        Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
                         Margin="0,10,0,0"
-                        Content="Clear"
-                        Click="ClearBuffersButton_Click" />
+                        Click="ClearBuffersButton_Click"
+                        Content="Clear" />
             </Grid>
         </Border>
     </Grid>

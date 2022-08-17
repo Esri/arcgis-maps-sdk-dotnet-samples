@@ -126,25 +126,25 @@ namespace ArcGISRuntime.WinUI.Samples.LocationDrivenGeotriggers
                         {
                             try
                             {
-                                    // Get the feature that's fence has been entered.
-                                    ArcGISFeature feature = fenceInfo.FenceGeoElement as ArcGISFeature;
+                                // Get the feature that's fence has been entered.
+                                ArcGISFeature feature = fenceInfo.FenceGeoElement as ArcGISFeature;
 
-                                    // Get the description for the feature.
-                                    string description = feature.Attributes["desc_raw"].ToString();
+                                // Get the description for the feature.
+                                string description = feature.Attributes["desc_raw"].ToString();
 
-                                    // Get the attachments for the feature.
-                                    IReadOnlyList<Attachment> attach = await feature.GetAttachmentsAsync();
+                                // Get the attachments for the feature.
+                                IReadOnlyList<Attachment> attach = await feature.GetAttachmentsAsync();
 
-                                    // Load the attachment data into a bitmap image.
-                                    Stream attachmentDataStream = await attach.First().GetDataAsync();
+                                // Load the attachment data into a bitmap image.
+                                Stream attachmentDataStream = await attach.First().GetDataAsync();
                                 BitmapImage bitmapImage = new BitmapImage();
                                 await bitmapImage.SetSourceAsync(attachmentDataStream.AsRandomAccessStream());
 
-                                    // Determine which geotriggermonitor the notification came from.
-                                    MonitorSource source = (info.GeotriggerMonitor == _sectionMonitor) ? MonitorSource.Section : MonitorSource.PointOfInterest;
+                                // Determine which geotriggermonitor the notification came from.
+                                MonitorSource source = (info.GeotriggerMonitor == _sectionMonitor) ? MonitorSource.Section : MonitorSource.PointOfInterest;
 
-                                    // Create an object to group the information together for interface use.
-                                    GeotriggerFeature geotriggerFeature = new GeotriggerFeature
+                                // Create an object to group the information together for interface use.
+                                GeotriggerFeature geotriggerFeature = new GeotriggerFeature
                                 {
                                     Name = fenceInfo.Message,
                                     Description = description,
@@ -152,8 +152,8 @@ namespace ArcGISRuntime.WinUI.Samples.LocationDrivenGeotriggers
                                     Source = source,
                                 };
 
-                                    // Add the object to the list of known feature information.
-                                    _features.Add(geotriggerFeature);
+                                // Add the object to the list of known feature information.
+                                _features.Add(geotriggerFeature);
                             }
                             catch (Exception ex)
                             {
@@ -161,13 +161,13 @@ namespace ArcGISRuntime.WinUI.Samples.LocationDrivenGeotriggers
                             }
                         }
 
-                            // Add the feature to the list view.
-                            _displayedFeatures.Add(_features.First(f => f.Name == fenceInfo.Message));
+                        // Add the feature to the list view.
+                        _displayedFeatures.Add(_features.First(f => f.Name == fenceInfo.Message));
                     }
                     else
                     {
-                            // Remove the feature from the list view.
-                            if (_displayedFeatures.FirstOrDefault(f => f.Name == fenceInfo.Message) is GeotriggerFeature feature)
+                        // Remove the feature from the list view.
+                        if (_displayedFeatures.FirstOrDefault(f => f.Name == fenceInfo.Message) is GeotriggerFeature feature)
                         {
                             _displayedFeatures.Remove(feature);
                         }
@@ -210,7 +210,8 @@ namespace ArcGISRuntime.WinUI.Samples.LocationDrivenGeotriggers
         }
     }
 
-    public enum MonitorSource { Section, PointOfInterest };
+    public enum MonitorSource
+    { Section, PointOfInterest };
 
     // Class to store attributes of features together.
     public class GeotriggerFeature

@@ -6,13 +6,13 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="Tap to identify features."
-                           TextAlignment="Center"
-                           FontWeight="SemiBold" />
-                <WebBrowser x:Name="BrowserView" MaxHeight="125" Visibility="Collapsed" />
+                <TextBlock FontWeight="SemiBold"
+                           Text="Tap to identify features."
+                           TextAlignment="Center" />
+                <WebBrowser x:Name="BrowserView"
+                            MaxHeight="125"
+                            Visibility="Collapsed" />
             </StackPanel>
-
         </Border>
     </Grid>
-
 </UserControl>

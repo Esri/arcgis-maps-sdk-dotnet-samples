@@ -13,6 +13,7 @@ A colormap renderer transforms pixel values in a raster to display raster data b
 Pan and zoom to explore the effect of the colormap applied to the raster.
 
 ## How it works
+
 To apply a `ColormapRenderer` to a `RasterLayer`:
 
 1. Create a `Raster` from a raster file.
@@ -22,12 +23,12 @@ To apply a `ColormapRenderer` to a `RasterLayer`:
 
 ## Relevant API
 
-* `Map`
-* `Basemap`
-* `ColormapRenderer`
-* `MapView`
-* `Raster`
-* `RasterLayer`
+* Basemap
+* ColormapRenderer
+* Map
+* MapView
+* Raster
+* RasterLayer
 
 ## Offline data
 
@@ -39,4 +40,4 @@ The raster used in this sample shows an area in the south of the Shasta-Trinity 
 
 ## Tags
 
-data, colormap, raster, renderer, visualization
+colormap, data, raster, renderer, visualization

@@ -1,4 +1,4 @@
-﻿# Display WFS layer
+# Display WFS layer
 
 Display a layer from a WFS service, requesting only features for the current extent.
 

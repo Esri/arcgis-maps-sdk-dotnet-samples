@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -29,7 +29,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -56,12 +56,15 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
                     case LocationDisplayAutoPanMode.Off:
                         ModeChooser.SelectedIndex = 0;
                         break;
+
                     case LocationDisplayAutoPanMode.Recenter:
                         ModeChooser.SelectedIndex = 1;
                         break;
+
                     case LocationDisplayAutoPanMode.Navigation:
                         ModeChooser.SelectedIndex = 2;
                         break;
+
                     case LocationDisplayAutoPanMode.CompassNavigation:
                         ModeChooser.SelectedIndex = 3;
                         break;
@@ -73,6 +76,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDeviceLocation
         {
             MyMapView.LocationDisplay.IsEnabled = true;
         }
+
         private void OnStopButtonClicked(object sender, RoutedEventArgs e)
         {
             MyMapView.LocationDisplay.IsEnabled = false;

@@ -1,8 +1,7 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer.DisplaySubtypeFeatureLayer"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer.DisplaySubtypeFeatureLayer"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
@@ -16,49 +15,43 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Label
-                x:Name="MapScaleLabel"
-                Grid.Row="0"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Margin="5"
-                HorizontalTextAlignment="Center"
-                Text="Current map scale"
-                VerticalTextAlignment="Center" />
-            <Button
-                x:Name="VisibilityButton"
-                Grid.Row="1"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Margin="5"
-                Clicked="VisibilityChanged"
-                Text="Make sublayer invisible" />
-            <Button
-                Grid.Row="2"
-                Grid.Column="0"
-                Margin="5"
-                Clicked="OnSetMinimumScale"
-                Text="Set min scale" />
-            <Button
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="5"
-                Clicked="OnChangeRenderer"
-                Text="Change renderer" />
-            <Label
-                x:Name="MinScaleLabel"
-                Grid.Row="3"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Margin="5"
-                HorizontalTextAlignment="Center"
-                Text="Current min scale:"
-                VerticalTextAlignment="Center" />
-            <esriUI:MapView
-                x:Name="MyMapView"
-                Grid.Row="4"
-                Grid.Column="0"
-                Grid.ColumnSpan="2" />
+            <Label x:Name="MapScaleLabel"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="5"
+                   HorizontalTextAlignment="Center"
+                   Text="Current map scale"
+                   VerticalTextAlignment="Center" />
+            <Button x:Name="VisibilityButton"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    Clicked="VisibilityChanged"
+                    Text="Make sublayer invisible" />
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="5"
+                    Clicked="OnSetMinimumScale"
+                    Text="Set min scale" />
+            <Button Grid.Row="2"
+                    Grid.Column="1"
+                    Margin="5"
+                    Clicked="OnChangeRenderer"
+                    Text="Change renderer" />
+            <Label x:Name="MinScaleLabel"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="5"
+                   HorizontalTextAlignment="Center"
+                   Text="Current min scale:"
+                   VerticalTextAlignment="Center" />
+            <esriUI:MapView x:Name="MyMapView"
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2" />
         </Grid>
     </Grid>
 </ContentPage>

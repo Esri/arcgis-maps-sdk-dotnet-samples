@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
@@ -21,14 +21,14 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
         category: "Geoprocessing",
         description: "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",
         instructions: "Select a date range (between 1998-01-01 and 1998-05-31) from the dialog and tap on Analyze. The results will be shown on the map upon successful completion of the `GeoprocessingJob`.",
-        tags: new[] { "Geoprocessing", "GeoprocessingJob", "GeoprocessingParameters", "GeoprocessingResult" })]
+        tags: new[] { "analysis", "density", "geoprocessing", "hot spots", "hotspots" })]
     public partial class AnalyzeHotspots
     {
         // URL for the geoprocessing service
-        private const string _hotspotUrl = 
+        private const string _hotspotUrl =
             "https://sampleserver6.arcgisonline.com/arcgis/rest/services/911CallsHotspot/GPServer/911%20Calls%20Hotspot";
 
-        // The geoprocessing task for hot spot analysis 
+        // The geoprocessing task for hot spot analysis
         private GeoprocessingTask _hotspotTask;
 
         // The job that handles the communication between the application and the geoprocessing task
@@ -38,7 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
         {
             InitializeComponent();
 
-            // Create the UI, setup the control references and execute initialization 
+            // Create the UI, setup the control references and execute initialization
             _ = Initialize();
         }
 
@@ -70,13 +70,12 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             DateTime myFromDate = FromDate.SelectedDate.Value;
             DateTime myToDate = ToDate.SelectedDate.Value;
 
-
             // The end date must be at least one day after the start date
             if (myToDate <= myFromDate.AddDays(1))
             {
                 // Show error message
                 MessageBox.Show(
-                    "Please select valid time range. There has to be at least one day in between To and From dates.", 
+                    "Please select valid time range. There has to be at least one day in between To and From dates.",
                     "Invalid date range");
 
                 // Remove the waiting
@@ -85,7 +84,7 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
             }
 
             // Create the parameters that are passed to the used geoprocessing task
-           GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
+            GeoprocessingParameters myHotspotParameters = new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit);
 
             // Construct the date query
             string myQueryString = string.Format("(\"DATE\" > date '{0:yyyy-MM-dd} 00:00:00' AND \"DATE\" < date '{1:yyyy-MM-dd} 00:00:00')", myFromDate, myToDate);
@@ -141,9 +140,9 @@ namespace ArcGISRuntime.WPF.Samples.AnalyzeHotspots
 
         private void ShowBusyOverlay(bool visibility = true)
         {
-            // Function to toggle the visibility of interaction with the GUI for the user to 
+            // Function to toggle the visibility of interaction with the GUI for the user to
             // specify dates for the hot spot analysis. When the analysis is running, the GUI
-            // for changing the dates is 'grayed-out' and the progress bar with a cancel 
+            // for changing the dates is 'grayed-out' and the progress bar with a cancel
             // button (aka. waiting object) becomes active.
 
             if (visibility)

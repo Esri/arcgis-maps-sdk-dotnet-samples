@@ -11,13 +11,12 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
-using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Threading.Tasks;
-using System.Drawing;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
 using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.Symbology;
+using Microsoft.UI.Xaml;
+using System;
+using System.Drawing;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplaySubtypeFeatureLayer
 {

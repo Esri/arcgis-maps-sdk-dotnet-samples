@@ -7,11 +7,13 @@
         "Animate3DGraphic.jpg"
     ],
     "keywords": [
-        "Camera",
-        "ModelSceneSymbol",
-        "OrbitGeoElementCameraController",
-        "RendererSceneProperties",
-        "SceneView"
+        "animation",
+        "camera",
+        "heading",
+        "pitch",
+        "roll",
+        "rotation",
+        "visualize"
     ],
     "offline_data": [
         "681d6f7694644709a7c830ec57a2d72b",

@@ -13,8 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
-using Windows.UI.Core;
-using Windows.UI.Popups;
 using System.Drawing;
 using System.Threading.Tasks;
 
@@ -25,7 +23,7 @@ namespace ArcGISRuntime.WinUI.Samples.CreateFeatureCollectionLayer
         category: "Layers",
         description: "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
         instructions: "When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry.",
-        tags: new[] { "Layers", "feature collection" })]
+        tags: new[] { "feature collection", "layers" })]
     public partial class CreateFeatureCollectionLayer
     {
         public CreateFeatureCollectionLayer()

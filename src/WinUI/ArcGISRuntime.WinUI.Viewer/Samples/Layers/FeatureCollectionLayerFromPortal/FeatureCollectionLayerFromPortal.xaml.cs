@@ -10,9 +10,8 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using System;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromPortal

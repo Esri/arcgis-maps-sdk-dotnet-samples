@@ -318,7 +318,6 @@ namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
             catch
             {
             }
-            
         }
 
         // Change which controls are enabled if the user chooses to require/not require transactions for edits

@@ -8,15 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace ArcGISRuntime.WPF.Samples.WmsIdentify
 {
@@ -25,7 +23,7 @@ namespace ArcGISRuntime.WPF.Samples.WmsIdentify
         category: "Layers",
         description: "Identify features in a WMS layer and display the associated popup content.",
         instructions: "Tap a feature to identify it. The HTML content associated with the feature will be displayed in a web view.",
-        tags: new[] { "IdentifyLayerAsync", "OGC", "ShowCalloutAt", "WMS", "callout", "web map service" })]
+        tags: new[] { "OGC", "WMS", "callout", "identify", "web map service" })]
     public partial class WmsIdentify
     {
         // Create and hold the URL to the WMS service showing EPA water info.

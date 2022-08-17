@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
@@ -14,6 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,9 +25,6 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Foundation;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 
 namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
 {
@@ -33,7 +33,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
         category: "Network analysis",
         description: "Solve a route on-the-fly using offline data.",
         instructions: "Click near a road to start adding a stop to the route, click again to place it on the map. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose \"Fastest\" or \"Shortest\" to control how the route is optimized. The route will update on-the-fly while moving stops. The green box marks the boundary of the routable area provided by the offline data. This sample limits routes to 5 stops for performance reasons.",
-        tags: new[] { "connectivity", "disconnected", "fastest", "locator", "navigation", "network analysis", "offline", "routing", "routing", "shortest", "turn-by-turn" })]
+        tags: new[] { "connectivity", "disconnected", "fastest", "locator", "navigation", "network analysis", "offline", "routing", "shortest", "turn-by-turn" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
     public partial class OfflineRouting
     {
@@ -156,7 +156,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
                 // Add a stop to the list for each graphic in the stops overlay.
                 foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
                 {
-                    Stop stop = new Stop((MapPoint) stopGraphic.Geometry);
+                    Stop stop = new Stop((MapPoint)stopGraphic.Geometry);
                     stops.Add(stop);
                 }
 
@@ -214,7 +214,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
                 stopSymbol.OffsetY = 15;
 
                 // Create a combined symbol with the pushpin and the label.
-                CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] {pushpinMarker, stopSymbol});
+                CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });
 
                 // Create the graphic from the geometry and the symbology.
                 Graphic newStopGraphic = new Graphic(tappedLocation, combinedSymbol);
@@ -284,7 +284,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
                 _selectedStopGraphic = null;
 
                 // Update the route with the final list of stops.
-                _ = UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
+                _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
             }
         }
 
@@ -308,7 +308,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
                 _selectedStopGraphic.Geometry = hoverLocation;
 
                 // Update the route with the temporary stop.
-                _ = UpdateRoute((TravelMode) TravelModesCombo.SelectedItem ?? _availableTravelModes.First());
+                _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem ?? _availableTravelModes.First());
             }
         }
 
@@ -323,7 +323,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
                 }
 
                 // Update the route.
-                _ = UpdateRoute((TravelMode) TravelModesCombo.SelectedItem);
+                _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
             }
             catch (Exception ex)
             {

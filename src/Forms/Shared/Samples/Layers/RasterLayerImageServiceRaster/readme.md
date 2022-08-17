@@ -18,14 +18,14 @@ Simply launch the sample to see a raster from an image service being used on a m
 2. Create a `RasterLayer` from the image service raster.
 3. Add the raster layer the the map.
 
-## About the data
-
-This sample uses a [NOAA raster image service](https://gis.ngdc.noaa.gov/arcgis/rest/services/bag_hillshades_subsets/ImageServer). The service computes a hillshade image from the depth (in meters) of U.S. coastal waters.
-
 ## Relevant API
 
 * ImageServiceRaster
 * RasterLayer
+
+## About the data
+
+This sample uses a [NOAA raster image service](https://gis.ngdc.noaa.gov/arcgis/rest/services/bag_hillshades_subsets/ImageServer). The service computes a hillshade image from the depth (in meters) of U.S. coastal waters.
 
 ## Tags
 

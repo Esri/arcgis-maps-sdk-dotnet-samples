@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Windows;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
+using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.Buffer
 {
@@ -40,12 +40,12 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
             // Handle the MapView's GeoViewTapped event to create buffers.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
-            // Create a fill symbol for geodesic buffer polygons.            
+            // Create a fill symbol for geodesic buffer polygons.
             Color geodesicBufferColor = Color.FromArgb(120, 255, 0, 0);
             SimpleLineSymbol geodesicOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, geodesicBufferColor, 2);
             SimpleFillSymbol geodesicBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, geodesicBufferColor, geodesicOutlineSymbol);
 
-            // Create a fill symbol for planar buffer polygons.            
+            // Create a fill symbol for planar buffer polygons.
             Color planarBufferColor = Color.FromArgb(120, 0, 0, 255);
             SimpleLineSymbol planarOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, planarBufferColor, 2);
             SimpleFillSymbol planarBufferFillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, planarBufferColor, planarOutlineSymbol);
@@ -55,7 +55,7 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
 
             // Create a graphics overlay to display geodesic polygons, set its renderer and add it to the map view.
             GraphicsOverlay geodesicPolysOverlay = new GraphicsOverlay
-            { 
+            {
                 Id = "GeodesicPolys",
                 Renderer = new SimpleRenderer(geodesicBufferFillSymbol)
             };
@@ -68,7 +68,7 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
                 Renderer = new SimpleRenderer(planarBufferFillSymbol)
             };
             MyMapView.GraphicsOverlays.Add(planarPolysOverlay);
-        
+
             // Create a graphics overlay to display tap locations for buffers, set its renderer and add it to the map view.
             GraphicsOverlay tapLocationsOverlay = new GraphicsOverlay
             {
@@ -103,7 +103,7 @@ namespace ArcGISRuntime.WPF.Samples.Buffer
                 Graphic geodesicBufferGraphic = new Graphic(bufferGeometryGeodesic);
 
                 // Create a graphic for the user tap location.
-                Graphic locationGraphic = new Graphic(userTapPoint); 
+                Graphic locationGraphic = new Graphic(userTapPoint);
 
                 // Get the graphics overlays.
                 GraphicsOverlay planarBufferGraphicsOverlay = MyMapView.GraphicsOverlays["PlanarPolys"];

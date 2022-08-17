@@ -7,11 +7,10 @@
         "WmsIdentify.jpg"
     ],
     "keywords": [
-        "IdentifyLayerAsync",
         "OGC",
-        "ShowCalloutAt",
         "WMS",
         "callout",
+        "identify",
         "web map service"
     ],
     "offline_data": [],

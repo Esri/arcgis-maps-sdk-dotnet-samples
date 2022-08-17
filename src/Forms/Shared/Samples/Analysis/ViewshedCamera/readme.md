@@ -1,6 +1,6 @@
 # Viewshed for camera
 
-Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. 
+Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point.
 
 ![Image of viewshed for camera](ViewshedCamera.jpg)
 
@@ -20,11 +20,11 @@ The sample will start with a viewshed created from the initial camera location, 
 ## Relevant API
 
 * AnalysisOverlay
-* Scene
-* IntegratedMeshLayer
 * ArcGISTiledElevationSource
 * Camera
+* IntegratedMeshLayer
 * LocationViewshed
+* Scene
 * SceneView
 
 ## About the data
@@ -33,4 +33,4 @@ The scene shows an integrated mesh layer of [Girona, Spain](https://tiles.arcgis
 
 ## Tags
 
-3D, integrated mesh, Scene, viewshed, visibility analysis
+3D, integrated mesh, scene, viewshed, visibility analysis

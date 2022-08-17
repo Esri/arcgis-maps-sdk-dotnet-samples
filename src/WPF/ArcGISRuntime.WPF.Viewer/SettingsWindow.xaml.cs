@@ -28,7 +28,6 @@ namespace ArcGISRuntime
     public partial class SettingsWindow : Window
     {
         private static string _runtimeVersion = "";
-        private readonly MarkedNet.Marked _markdownRenderer = new MarkedNet.Marked();
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
 
         private List<SampleInfo> OfflineDataSamples;
@@ -50,7 +49,7 @@ namespace ArcGISRuntime
             string markdownPath = Path.Combine(App.ResourcePath, "Resources", "licenses.md");
             string cssPath = Path.Combine(App.ResourcePath, "Resources", "github-markdown.css");
             string licenseContent = File.ReadAllText(markdownPath);
-            licenseContent = _markdownRenderer.Parse(licenseContent);
+            licenseContent = Markdig.Markdown.ToHtml(licenseContent);
             string htmlString = "<!doctype html><head><link rel=\"stylesheet\" href=\"" + cssPath + "\" /></head><body class=\"markdown-body\">" + licenseContent + "</body>";
 
             // Set the html in web browser.

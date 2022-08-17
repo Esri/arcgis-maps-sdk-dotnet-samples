@@ -12,9 +12,8 @@ using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml;
+using System;
 using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ShowLocationHistory

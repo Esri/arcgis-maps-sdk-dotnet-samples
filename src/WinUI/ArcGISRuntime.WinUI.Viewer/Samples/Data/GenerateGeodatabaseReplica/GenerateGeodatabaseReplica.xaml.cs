@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Managers;
+using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -15,25 +16,23 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
-using Esri.ArcGISRuntime.ArcGISServices;
 
-namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
+namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabaseReplica
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Generate geodatabase",
+        name: "Generate geodatabase replica from feature service",
         category: "Data",
         description: "Generate a local geodatabase from an online feature service.",
         instructions: "Zoom to any extent. Then click the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
-        tags: new[] { "disconnected", "local geodatabase", "offline", "sync" })]
+        tags: new[] { "disconnected", "local geodatabase", "offline", "replica", "sync" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
-    public partial class GenerateGeodatabase
+    public partial class GenerateGeodatabaseReplica
     {
         // URL for a feature service that supports geodatabase generation.
         private Uri _featureServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/WildfireSync/FeatureServer");
@@ -47,7 +46,7 @@ namespace ArcGISRuntime.WinUI.Samples.GenerateGeodatabase
         // Job used to generate the geodatabase.
         private GenerateGeodatabaseJob _generateGdbJob;
 
-        public GenerateGeodatabase()
+        public GenerateGeodatabaseReplica()
         {
             InitializeComponent();
 

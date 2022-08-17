@@ -8,7 +8,7 @@
 * [Query feature count and extent](Shared/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.
 * [Viewshed (location)](Shared/Samples/Analysis/ViewshedLocation) - Perform a viewshed analysis from a defined vantage point.
 * [Viewshed for GeoElement](Shared/Samples/Analysis/ViewshedGeoElement) - Analyze the viewshed for an object (GeoElement) in a scene.
-* [Viewshed for camera](Shared/Samples/Analysis/ViewshedCamera) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. 
+* [Viewshed for camera](Shared/Samples/Analysis/ViewshedCamera) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point.
 
 ## Data
 
@@ -21,7 +21,7 @@
 * [Edit features with feature-linked annotation](Shared/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
 * [Edit with branch versioning](Shared/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
 * [Feature layer query](Shared/Samples/Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.
-* [Generate geodatabase](Shared/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
+* [Generate geodatabase replica from feature service](Shared/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](Shared/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](Shared/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
 * [Query features with Arcade expression](Shared/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
@@ -81,7 +81,7 @@
 ## Layers
 
 * [Add a point scene layer](Shared/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
-* [Add an integrated mesh layer](Shared/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add integrated mesh layer](Shared/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
 * [Apply mosaic rule to rasters](Shared/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](Shared/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
 * [ArcGIS map image layer](Shared/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
@@ -117,6 +117,7 @@
 * [Feature layer selection](Shared/Samples/Layers/FeatureLayerSelection) - Select features in a feature layer.
 * [Filter by definition expression or display filter](Shared/Samples/Layers/FeatureLayerDefinitionExpression) - Filter features displayed on a map using a definition expression or a display filter.
 * [Group layers](Shared/Samples/Layers/GroupLayers) - Group a collection of layers together and toggle their visibility as a group.
+* [Hillshade renderer](Shared/Samples/Layers/RasterHillshade) - Apply a hillshade renderer to a raster.
 * [Identify KML features](Shared/Samples/Layers/IdentifyKmlFeatures) - Show a callout with formatted content for a KML feature.
 * [Identify WMS features](Shared/Samples/Layers/WmsIdentify) - Identify features in a WMS layer and display the associated popup content.
 * [Identify raster cell](Shared/Samples/Layers/IdentifyRasterCell) - Get the cell value of a local raster at the tapped location and display the result in a callout.
@@ -125,11 +126,10 @@
 * [Map image layer sublayer visibility](Shared/Samples/Layers/ChangeSublayerVisibility) - Change the visibility of sublayers.
 * [Map image layer tables](Shared/Samples/Layers/MapImageLayerTables) - Find features in a spatial table related to features in a non-spatial table.
 * [OpenStreetMap layer](Shared/Samples/Layers/OpenStreetMapLayer) - Add OpenStreetMap as a basemap layer.
-* [Play KML Tour](Shared/Samples/Layers/PlayKmlTours) - Play tours in KML files.
+* [Play KML tour](Shared/Samples/Layers/PlayKmlTours) - Play tours in KML files.
 * [Query map image sublayer](Shared/Samples/Layers/MapImageSublayerQuery) - Find features in a sublayer based on attributes and location.
 * [Query with CQL filters](Shared/Samples/Layers/QueryCQLFilters) - Query data from an OGC API feature service using CQL filters.
 * [RGB renderer](Shared/Samples/Layers/RasterRgbRenderer) - Apply an RGB renderer to a raster layer to enhance feature visibility.
-* [Raster hillshade renderer](Shared/Samples/Layers/RasterHillshade) - Use a hillshade renderer on a raster.
 * [Raster layer (file)](Shared/Samples/Layers/RasterLayerFile) - Create and use a raster layer made from a local raster file.
 * [Raster layer (service)](Shared/Samples/Layers/RasterLayerImageServiceRaster) - Create a raster layer from a raster image service.
 * [Raster rendering rule](Shared/Samples/Layers/RasterRenderingRule) - Display a raster on a map and apply different rendering rules to that raster.
@@ -150,11 +150,11 @@
 * [Display device location with NMEA data sources](Shared/Samples/Location/LocationWithNMEA) - Parse NMEA sentences and use the results to show device location on the map.
 * [Display device location with autopan modes](Shared/Samples/Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan Modes.
 * [Set up location-driven Geotriggers](Shared/Samples/Location/LocationDrivenGeotriggers) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
+* [Show device location using indoor positioning](Shared/Samples/Location/IndoorPositioning) - Show your device's real-time location while inside a building by using signals from indoor positioning beacons.
 * [Show location history](Shared/Samples/Location/ShowLocationHistory) - Display your location history on the map.
 
 ## Map
 
-* [Access load status](Shared/Samples/Map/AccessLoadStatus) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Apply scheduled updates to preplanned map area](Shared/Samples/Map/ApplyScheduledUpdates) - Apply scheduled updates to a downloaded preplanned map area.
 * [Browse building floors](Shared/Samples/Map/BrowseBuildingFloors) - Display and browse through building floors from a floor-aware web map.
 * [Change basemap](Shared/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
@@ -169,6 +169,7 @@
 * [Manage bookmarks](Shared/Samples/Map/ManageBookmarks) - Access and create bookmarks on a map.
 * [Manage operational layers](Shared/Samples/Map/ManageOperationalLayers) - Add, remove, and reorder operational layers in a map.
 * [Map initial extent](Shared/Samples/Map/SetInitialMapArea) - Display the map at an initial viewpoint representing a bounding geometry.
+* [Map load status](Shared/Samples/Map/AccessLoadStatus) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Map reference scale](Shared/Samples/Map/MapReferenceScale) - Set the map's reference scale and which feature layers should honor the reference scale.
 * [Map spatial reference](Shared/Samples/Map/SetMapSpatialReference) - Specify a map's spatial reference.
 * [Mobile map (search and route)](Shared/Samples/Map/MobileMapSearchAndRoute) - Display maps and use locators to enable search and routing offline using a Mobile Map Package.
@@ -188,7 +189,7 @@
 * [Display layer view state](Shared/Samples/MapView/DisplayLayerViewState) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](Shared/Samples/MapView/FeatureLayerTimeOffset) - Display a time-enabled feature layer with a time offset.
 * [Filter by time extent](Shared/Samples/MapView/FilterByTimeExtent) - The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.
-* [Identify layers](Shared/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.
+* [Identify layers](Shared/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map.
 * [Map rotation](Shared/Samples/MapView/MapRotation) - Rotate a map.
 * [Show callout](Shared/Samples/MapView/ShowCallout) - Show a callout with the latitude and longitude of user-tapped points.
 * [Show magnifier](Shared/Samples/MapView/ShowMagnifier) - Tap and hold on a map to show a magnifier.

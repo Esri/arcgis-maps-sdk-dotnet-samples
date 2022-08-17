@@ -10,10 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
+using Microsoft.UI.Xaml;
 using System;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
 {
@@ -22,7 +21,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeHotspots
         category: "Geoprocessing",
         description: "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",
         instructions: "Select a date range (between 1998-01-01 and 1998-05-31) from the dialog and tap on Analyze. The results will be shown on the map upon successful completion of the `GeoprocessingJob`.",
-        tags: new[] { "Geoprocessing", "GeoprocessingJob", "GeoprocessingParameters", "GeoprocessingResult" })]
+        tags: new[] { "analysis", "density", "geoprocessing", "hot spots", "hotspots" })]
     public partial class AnalyzeHotspots
     {
         // Url for the geoprocessing service

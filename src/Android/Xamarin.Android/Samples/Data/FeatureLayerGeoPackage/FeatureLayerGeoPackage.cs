@@ -46,7 +46,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerGeoPackage
         {
             // Create a new map centered on Aurora Colorado
             _myMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
-            _myMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.8319, 9);
+            _myMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.8319, 175000);
 
             // Get the full path
             string geoPackagePath = GetGeoPackagePath();

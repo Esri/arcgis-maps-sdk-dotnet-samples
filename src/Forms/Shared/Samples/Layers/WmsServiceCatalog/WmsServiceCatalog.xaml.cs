@@ -10,10 +10,10 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.WmsServiceCatalog
@@ -86,6 +86,9 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             // Get a list of selected LayerInfos.
             List<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info).ToList();
 
+            // Only WMS layer infos without sub layers can be used to construct a WMS layer. Group layers that have sub layers must be excluded.
+            selectedLayers = selectedLayers.Where(info => info.LayerInfos.Count == 0).ToList();
+
             // Return if no layers selected.
             if (!selectedLayers.Any())
             {
@@ -124,7 +127,7 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
             }
 
             // Hold a reference to the selected item
-            LayerDisplayVM selectedItem = (LayerDisplayVM) e.SelectedItem;
+            LayerDisplayVM selectedItem = (LayerDisplayVM)e.SelectedItem;
 
             // Update the selection
             selectedItem.Select();

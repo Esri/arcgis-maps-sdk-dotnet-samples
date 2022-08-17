@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
@@ -17,9 +17,9 @@ namespace ArcGISRuntime.WinUI.Samples.ViewshedCamera
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Viewshed for camera",
         category: "Analysis",
-        description: "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",
+        description: "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point.",
         instructions: "The sample will start with a viewshed created from the initial camera location, so only the visible (green) portion of the viewshed will be visible. Move around the scene to see the obstructed (red) portions. Click the button to update the viewshed to the current camera position.",
-        tags: new[] { "3D", "Scene", "integrated mesh", "viewshed", "visibility analysis" })]
+        tags: new[] { "3D", "integrated mesh", "scene", "viewshed", "visibility analysis" })]
     public sealed partial class ViewshedCamera
     {
         // URL for a scene service of buildings in Girona.
@@ -43,7 +43,6 @@ namespace ArcGISRuntime.WinUI.Samples.ViewshedCamera
         {
             // Create a new Scene with an imagery basemap.
             Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
-
 
             // Create a scene layer to show buildings in the Scene.
             IntegratedMeshLayer meshLayer = new IntegratedMeshLayer(new Uri(_gironaMeshUrl));

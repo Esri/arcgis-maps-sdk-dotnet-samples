@@ -12,14 +12,13 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml.Input;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using Windows.Foundation;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml.Input;
 
 namespace ArcGISRuntime.WinUI.Samples.IdentifyRasterCell
 {

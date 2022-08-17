@@ -15,12 +15,11 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Drawing;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.AnalyzeViewshed
 {
@@ -57,7 +56,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeViewshed
         {
             // Create a map with topographic basemap and an initial location.
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);
-            myMap.InitialViewpoint = new Viewpoint(45.3790902612337, 6.84905317262762, 13);
+            myMap.InitialViewpoint = new Viewpoint(45.3790902612337, 6.84905317262762, 70000);
 
             // Hook into the tapped event.
             MyMapView.GeoViewTapped += OnMapViewTapped;
@@ -131,7 +130,7 @@ namespace ArcGISRuntime.WinUI.Samples.AnalyzeViewshed
 
             // Create the parameters that are passed to the used geoprocessing task.
             GeoprocessingParameters myViewshedParameters =
-                new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
+                new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit)
                 {
                     // Request the output features to use the same SpatialReference as the map view.
                     OutputSpatialReference = MyMapView.SpatialReference

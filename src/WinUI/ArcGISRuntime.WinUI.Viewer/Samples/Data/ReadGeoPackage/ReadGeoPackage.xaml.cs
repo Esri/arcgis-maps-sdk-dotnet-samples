@@ -7,13 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Threading.Tasks;
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using Windows.UI.Popups;
+using System;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ReadGeoPackage
 {
@@ -22,7 +21,7 @@ namespace ArcGISRuntime.WinUI.Samples.ReadGeoPackage
         category: "Data",
         description: "Add rasters and feature tables from a GeoPackage to a map.",
         instructions: "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.",
-        tags: new[] { "GeoPackage", "OGC", "container", "layer", "map", "package", "raster", "table" })]
+        tags: new[] { "OGC", "container", "layer", "map", "package", "raster", "table" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class ReadGeoPackage
     {
@@ -36,7 +35,7 @@ namespace ArcGISRuntime.WinUI.Samples.ReadGeoPackage
         {
             // Create a new map centered on Aurora Colorado.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
-            MyMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.73, 11);
+            MyMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.73, 175000);
 
             // Get the full path to the GeoPackage on the device.
             string myGeoPackagePath = DataManager.GetDataFolder("68ec42517cdd439e81b036210483e8e7", "AuroraCO.gpkg");

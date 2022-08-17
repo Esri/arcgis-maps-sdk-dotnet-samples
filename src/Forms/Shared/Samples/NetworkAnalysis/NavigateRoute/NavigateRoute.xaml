@@ -1,14 +1,12 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntimeXamarin.Samples.NavigateRoute.NavigateRoute"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-    xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.NavigateRoute.NavigateRoute"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:MapView
-            x:Name="MyMapView"
-            BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-            Style="{StaticResource MapWithFormStyle}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <Grid.RowDefinitions>
@@ -20,24 +18,21 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button
-                        x:Name="StartNavigationButton"
-                        Grid.Column="0"
-                        Clicked="StartNavigation"
-                        IsEnabled="False"
-                        Text="Navigate" />
-                    <Button
-                        x:Name="RecenterButton"
-                        Grid.Column="1"
-                        Clicked="RecenterButton_Click"
-                        IsEnabled="False"
-                        Text="Recenter" />
+                    <Button x:Name="StartNavigationButton"
+                            Grid.Column="0"
+                            Clicked="StartNavigation"
+                            IsEnabled="False"
+                            Text="Navigate" />
+                    <Button x:Name="RecenterButton"
+                            Grid.Column="1"
+                            Clicked="RecenterButton_Click"
+                            IsEnabled="False"
+                            Text="Recenter" />
                 </Grid>
-                <Label
-                    x:Name="MessagesTextBlock"
-                    Grid.Row="1"
-                    Margin="5"
-                    Text="" />
+                <Label x:Name="MessagesTextBlock"
+                       Grid.Row="1"
+                       Margin="5"
+                       Text="" />
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

@@ -67,7 +67,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
             if (sender is ListBoxItem)
             {
                 // Get the listbox item that is being moved.
-                ListBoxItem sendingItem = (ListBoxItem) sender;
+                ListBoxItem sendingItem = (ListBoxItem)sender;
 
                 // Record that this item was being dragged - used later when drag ends to determine which item to move.
                 _originatingListBoxItem = sendingItem;
@@ -93,10 +93,10 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
             }
 
             // Find the list box that the item was dropped on (i.e. dragged to).
-            ListBox destinationBox = FindParentListBox((UIElement) sender);
+            ListBox destinationBox = FindParentListBox((UIElement)sender);
 
             // Get the data that is being dropped.
-            Layer draggedData = (Layer) e.Data.GetData(typeof(ArcGISMapImageLayer));
+            Layer draggedData = (Layer)e.Data.GetData(typeof(ArcGISMapImageLayer));
 
             // Find where in the respective lists the items are.
             int indexOfRemoved = sourceBox.Items.IndexOf(draggedData);
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
             if (sender is ListBoxItem)
             {
                 // Find the layer that the item represents.
-                Layer targetData = ((ListBoxItem) sender).DataContext as Layer;
+                Layer targetData = ((ListBoxItem)sender).DataContext as Layer;
 
                 // Find the position of the layer in the listbox.
                 indexOfInsertion = destinationBox.Items.IndexOf(targetData);
@@ -161,7 +161,7 @@ namespace ArcGISRuntime.WPF.Samples.ManageOperationalLayers
         #endregion Drag and drop support
     }
 
-    class MapViewModel
+    internal class MapViewModel
     {
         public Map Map { get; set; }
 

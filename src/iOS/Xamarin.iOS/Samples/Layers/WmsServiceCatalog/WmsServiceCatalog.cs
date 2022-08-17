@@ -93,6 +93,9 @@ namespace ArcGISRuntime.Samples.WmsServiceCatalog
 
             // Get a list of selected LayerInfos.
             IEnumerable<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info);
+			
+            // Only WMS layer infos without sub layers can be used to construct a WMS layer. Group layers that have sub layers must be excluded.
+            selectedLayers = selectedLayers.Where(info => info.LayerInfos.Count == 0).ToList();
 
             // Create a new WmsLayer from the selected layers.
             WmsLayer myLayer = new WmsLayer(selectedLayers);

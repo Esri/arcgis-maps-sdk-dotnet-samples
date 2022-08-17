@@ -7,22 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using ArcGISRuntime.Samples.Managers;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
-using System.Collections.Generic;
 
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Raster hillshade renderer",
+        name: "Hillshade renderer",
         category: "Layers",
-        description: "Use a hillshade renderer on a raster.",
-        instructions: "Configure the options for rendering, then tap 'Apply hillshade'.",
-        tags: new[] { "Visualization", "hillshade", "raster", "shadow", "slope" })]
+        description: "Apply a hillshade renderer to a raster.",
+        instructions: "Choose and adjust the settings to update the hillshade renderer on the raster layer. The sample allows you to change the Altitude, Azimuth, and Slope Type.",
+        tags: new[] { "altitude", "angle", "azimuth", "raster", "slope", "visualization" })]
 	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     public partial class RasterHillshade : ContentPage
     {

@@ -20,8 +20,8 @@ Use the slider to rotate the map.
 
 ## Relevant API
 
-* Map
 * Compass
+* Map
 * MapView
 
 ## Tags

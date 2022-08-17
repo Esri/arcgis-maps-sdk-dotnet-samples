@@ -8,7 +8,7 @@
 * [Query feature count and extent](ArcGISRuntime.WinUI.Viewer/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.
 * [Viewshed (location)](ArcGISRuntime.WinUI.Viewer/Samples/Analysis/ViewshedLocation) - Perform a viewshed analysis from a defined vantage point.
 * [Viewshed for GeoElement](ArcGISRuntime.WinUI.Viewer/Samples/Analysis/ViewshedGeoElement) - Analyze the viewshed for an object (GeoElement) in a scene.
-* [Viewshed for camera](ArcGISRuntime.WinUI.Viewer/Samples/Analysis/ViewshedCamera) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. 
+* [Viewshed for camera](ArcGISRuntime.WinUI.Viewer/Samples/Analysis/ViewshedCamera) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point.
 
 ## Data
 
@@ -21,7 +21,7 @@
 * [Edit features with feature-linked annotation](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
 * [Edit with branch versioning](ArcGISRuntime.WinUI.Viewer/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
 * [Feature layer query](ArcGISRuntime.WinUI.Viewer/Samples/Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.
-* [Generate geodatabase](ArcGISRuntime.WinUI.Viewer/Samples/Data/GenerateGeodatabase) - Generate a local geodatabase from an online feature service.
+* [Generate geodatabase replica from feature service](ArcGISRuntime.WinUI.Viewer/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGISRuntime.WinUI.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGISRuntime.WinUI.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
 * [Query features with Arcade expression](ArcGISRuntime.WinUI.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
@@ -81,7 +81,7 @@
 ## Layers
 
 * [Add a point scene layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
-* [Add an integrated mesh layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add integrated mesh layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
 * [Apply mosaic rule to rasters](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
 * [ArcGIS map image layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
@@ -117,6 +117,7 @@
 * [Feature layer selection](ArcGISRuntime.WinUI.Viewer/Samples/Layers/FeatureLayerSelection) - Select features in a feature layer.
 * [Filter by definition expression or display filter](ArcGISRuntime.WinUI.Viewer/Samples/Layers/FeatureLayerDefinitionExpression) - Filter features displayed on a map using a definition expression or a display filter.
 * [Group layers](ArcGISRuntime.WinUI.Viewer/Samples/Layers/GroupLayers) - Group a collection of layers together and toggle their visibility as a group.
+* [Hillshade renderer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterHillshade) - Apply a hillshade renderer to a raster.
 * [Identify KML features](ArcGISRuntime.WinUI.Viewer/Samples/Layers/IdentifyKmlFeatures) - Show a callout with formatted content for a KML feature.
 * [Identify WMS features](ArcGISRuntime.WinUI.Viewer/Samples/Layers/WmsIdentify) - Identify features in a WMS layer and display the associated popup content.
 * [Identify raster cell](ArcGISRuntime.WinUI.Viewer/Samples/Layers/IdentifyRasterCell) - Get the cell value of a local raster at the tapped location and display the result in a callout.
@@ -125,11 +126,10 @@
 * [Map image layer sublayer visibility](ArcGISRuntime.WinUI.Viewer/Samples/Layers/ChangeSublayerVisibility) - Change the visibility of sublayers.
 * [Map image layer tables](ArcGISRuntime.WinUI.Viewer/Samples/Layers/MapImageLayerTables) - Find features in a spatial table related to features in a non-spatial table.
 * [OpenStreetMap layer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/OpenStreetMapLayer) - Add OpenStreetMap as a basemap layer.
-* [Play KML Tour](ArcGISRuntime.WinUI.Viewer/Samples/Layers/PlayKmlTours) - Play tours in KML files.
+* [Play KML tour](ArcGISRuntime.WinUI.Viewer/Samples/Layers/PlayKmlTours) - Play tours in KML files.
 * [Query map image sublayer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/MapImageSublayerQuery) - Find features in a sublayer based on attributes and location.
 * [Query with CQL filters](ArcGISRuntime.WinUI.Viewer/Samples/Layers/QueryCQLFilters) - Query data from an OGC API feature service using CQL filters.
 * [RGB renderer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterRgbRenderer) - Apply an RGB renderer to a raster layer to enhance feature visibility.
-* [Raster hillshade renderer](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterHillshade) - Use a hillshade renderer on a raster.
 * [Raster layer (file)](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterLayerFile) - Create and use a raster layer made from a local raster file.
 * [Raster layer (service)](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterLayerImageServiceRaster) - Create a raster layer from a raster image service.
 * [Raster rendering rule](ArcGISRuntime.WinUI.Viewer/Samples/Layers/RasterRenderingRule) - Display a raster on a map and apply different rendering rules to that raster.
@@ -146,6 +146,7 @@
 
 ## Local Server
 
+* [Generate elevation profile with Local Server](ArcGISRuntime.WinUI.Viewer/Samples/LocalServer/LocalServerGenerateElevationProfile) - Create an elevation profile using a geoprocessing package executed with ArcGIS Runtime Local Server.
 * [Local Server map image layer](ArcGISRuntime.WinUI.Viewer/Samples/LocalServer/LocalServerMapImageLayer) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
 
 ## Location
@@ -157,7 +158,6 @@
 
 ## Map
 
-* [Access load status](ArcGISRuntime.WinUI.Viewer/Samples/Map/AccessLoadStatus) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Apply scheduled updates to preplanned map area](ArcGISRuntime.WinUI.Viewer/Samples/Map/ApplyScheduledUpdates) - Apply scheduled updates to a downloaded preplanned map area.
 * [Browse building floors](ArcGISRuntime.WinUI.Viewer/Samples/Map/BrowseBuildingFloors) - Display and browse through building floors from a floor-aware web map.
 * [Change basemap](ArcGISRuntime.WinUI.Viewer/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
@@ -171,6 +171,7 @@
 * [Manage bookmarks](ArcGISRuntime.WinUI.Viewer/Samples/Map/ManageBookmarks) - Access and create bookmarks on a map.
 * [Manage operational layers](ArcGISRuntime.WinUI.Viewer/Samples/Map/ManageOperationalLayers) - Add, remove, and reorder operational layers in a map.
 * [Map initial extent](ArcGISRuntime.WinUI.Viewer/Samples/Map/SetInitialMapArea) - Display the map at an initial viewpoint representing a bounding geometry.
+* [Map load status](ArcGISRuntime.WinUI.Viewer/Samples/Map/AccessLoadStatus) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Map reference scale](ArcGISRuntime.WinUI.Viewer/Samples/Map/MapReferenceScale) - Set the map's reference scale and which feature layers should honor the reference scale.
 * [Map spatial reference](ArcGISRuntime.WinUI.Viewer/Samples/Map/SetMapSpatialReference) - Specify a map's spatial reference.
 * [Mobile map (search and route)](ArcGISRuntime.WinUI.Viewer/Samples/Map/MobileMapSearchAndRoute) - Display maps and use locators to enable search and routing offline using a Mobile Map Package.
@@ -189,7 +190,7 @@
 * [Display grid](ArcGISRuntime.WinUI.Viewer/Samples/MapView/DisplayGrid) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
 * [Display layer view state](ArcGISRuntime.WinUI.Viewer/Samples/MapView/DisplayLayerViewState) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](ArcGISRuntime.WinUI.Viewer/Samples/MapView/FeatureLayerTimeOffset) - Display a time-enabled feature layer with a time offset.
-* [Identify layers](ArcGISRuntime.WinUI.Viewer/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.
+* [Identify layers](ArcGISRuntime.WinUI.Viewer/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map.
 * [Map rotation](ArcGISRuntime.WinUI.Viewer/Samples/MapView/MapRotation) - Rotate a map.
 * [Show callout](ArcGISRuntime.WinUI.Viewer/Samples/MapView/ShowCallout) - Show a callout with the latitude and longitude of user-tapped points.
 * [Show magnifier](ArcGISRuntime.WinUI.Viewer/Samples/MapView/ShowMagnifier) - Tap and hold on a map to show a magnifier.

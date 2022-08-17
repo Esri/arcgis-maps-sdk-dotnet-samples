@@ -22,6 +22,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
+
 using Symbology = Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISRuntime.WPF.Samples.RouteAroundBarriers

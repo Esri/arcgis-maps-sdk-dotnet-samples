@@ -1,4 +1,4 @@
-﻿# Browse WFS layers
+# Browse WFS layers
 
 Browse a WFS service for layers and add them to the map.
 

@@ -12,13 +12,12 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
 using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
-using Microsoft.UI.Xaml;
 
 namespace ArcGISRuntime.WinUI.Samples.ExportTiles
 {
@@ -31,7 +30,7 @@ namespace ArcGISRuntime.WinUI.Samples.ExportTiles
     public partial class ExportTiles
     {
         // URL to the service that tiles will be exported from.
-        private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+        private Uri _serviceUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
         // Hold a reference to the export job for use in event handlers.
         private ExportTileCacheJob _job;

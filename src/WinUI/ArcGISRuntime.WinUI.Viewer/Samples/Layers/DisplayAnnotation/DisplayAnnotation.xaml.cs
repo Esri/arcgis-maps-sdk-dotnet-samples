@@ -8,17 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Linq;
-using Microsoft.UI.Xaml.Controls;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayAnnotation
 {
@@ -44,7 +35,7 @@ namespace ArcGISRuntime.WinUI.Samples.DisplayAnnotation
 
             // Create a map.
             Map map = new Map(BasemapStyle.ArcGISLightGray);
-            map.InitialViewpoint = new Viewpoint(55.882436, -2.725610, 13);
+            map.InitialViewpoint = new Viewpoint(55.882436, -2.725610, 50000);
 
             // Create a feature layer from a feature service.
             FeatureLayer riverFeatureLayer = new FeatureLayer(new ServiceFeatureTable(riverFeatureServiceUri));

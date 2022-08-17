@@ -1,11 +1,12 @@
-﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
+﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.PlayKmlTours.PlayKmlTours"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime"
-             x:Class="ArcGISRuntimeXamarin.Samples.PlayKmlTours.PlayKmlTours">
+             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
     <RelativeLayout>
-        <esriUI:SceneView x:Name="MySceneView" Style="{StaticResource SceneWithFormStyle}"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}" />
+        <esriUI:SceneView x:Name="MySceneView"
+                          BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                          Style="{StaticResource SceneWithFormStyle}" />
         <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -18,30 +19,37 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Label Text="Use the buttons to control the tour. Contains audio. 🎧"
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                           Margin="0,0,0,5"
-                           />
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       Margin="0,0,0,5"
+                       Text="Use the buttons to control the tour. Contains audio. 🎧" />
                 <Button x:Name="PlayButton"
-                        Grid.Row="1" Grid.Column="0"
-                        Text="Play"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Clicked="Play_Clicked"
                         IsEnabled="False"
-                        Clicked="Play_Clicked" />
+                        Text="Play" />
                 <Button x:Name="PauseButton"
-                        Grid.Row="1" Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.Column="1"
                         Margin="5,0,5,0"
-                        Text="Pause"
+                        Clicked="Pause_Clicked"
                         IsEnabled="False"
-                        Clicked="Pause_Clicked" />
+                        Text="Pause" />
                 <Button x:Name="ResetButton"
-                        Grid.Row="1" Grid.Column="2"
-                        Text="Reset"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Clicked="Reset_Clicked"
                         IsEnabled="False"
-                        Clicked="Reset_Clicked" />
+                        Text="Reset" />
                 <ActivityIndicator x:Name="LoadingStatusBar"
-                                   Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
                                    Margin="0,5,0,0"
-                                   IsEnabled="True" IsRunning="True"  />
+                                   IsEnabled="True"
+                                   IsRunning="True" />
             </Grid>
         </resources:ResponsiveFormContainer>
     </RelativeLayout>

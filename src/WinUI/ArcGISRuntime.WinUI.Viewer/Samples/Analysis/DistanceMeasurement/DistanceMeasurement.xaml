@@ -1,8 +1,7 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.WinUI.Samples.DistanceMeasurement.DistanceMeasurement"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.DistanceMeasurement.DistanceMeasurement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <UserControl.Resources>
         <Style TargetType="TextBlock">
             <Setter Property="Margin" Value="0,5,0,5" />
@@ -25,37 +24,49 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <!-- Labels -->
+                <!--  Labels  -->
                 <TextBlock x:Name="HelpTextBlock"
-                           TextWrapping="WrapWholeWords"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
                            FontWeight="SemiBold"
                            Text="Tap 'New measurement' to start."
-                           Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" />
-                <TextBlock Text="Direct"
-                           Grid.Row="1" Grid.Column="0" />
-                <TextBlock Text="Horizontal"
-                           Grid.Row="2" Grid.Column="0" />
-                <TextBlock Text="Vertical"
-                           Grid.Row="3" Grid.Column="0" />
+                           TextWrapping="WrapWholeWords" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Direct" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Horizontal" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Vertical" />
 
-                <!-- Controls -->
+                <!--  Controls  -->
                 <TextBlock x:Name="DirectMeasureTextBlock"
-                           Grid.Row="1" Grid.Column="1" />
+                           Grid.Row="1"
+                           Grid.Column="1" />
                 <TextBlock x:Name="HorizontalMeasureTextBlock"
-                           Grid.Row="2" Grid.Column="1" />
+                           Grid.Row="2"
+                           Grid.Column="1" />
                 <TextBlock x:Name="VerticalMeasureTextBlock"
-                           Grid.Row="3" Grid.Column="1" />
+                           Grid.Row="3"
+                           Grid.Column="1" />
                 <ComboBox x:Name="UnitSystemCombo"
-                          Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                          HorizontalAlignment="Stretch"
-                          Margin="0,5,0,5" />
+                          Grid.Row="4"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="2"
+                          Margin="0,5,0,5"
+                          HorizontalAlignment="Stretch" />
                 <Button x:Name="NewMeasureButton"
-                        Content="New measurement"
-                        IsEnabled="False"
-                        Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                        HorizontalAlignment="Stretch"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Margin="0,5,0,0"
-                        Click="NewMeasureButton_OnClick" />
+                        HorizontalAlignment="Stretch"
+                        Click="NewMeasureButton_OnClick"
+                        Content="New measurement"
+                        IsEnabled="False" />
             </Grid>
         </Border>
     </Grid>

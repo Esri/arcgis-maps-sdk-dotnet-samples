@@ -11,9 +11,8 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using System;
-using Windows.UI.Popups;
 using Microsoft.UI.Xaml.Controls;
+using System;
 
 namespace ArcGISRuntime.WinUI.Samples.DisplayKml
 {

@@ -12,8 +12,8 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ArcGISRuntime.Samples.ReadGeoPackage
@@ -23,7 +23,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         category: "Data",
         description: "Add rasters and feature tables from a GeoPackage to a map.",
         instructions: "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.",
-        tags: new[] { "GeoPackage", "OGC", "container", "layer", "map", "package", "raster", "table" })]
+        tags: new[] { "OGC", "container", "layer", "map", "package", "raster", "table" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class ReadGeoPackage : ContentPage
     {
@@ -37,7 +37,7 @@ namespace ArcGISRuntime.Samples.ReadGeoPackage
         {
             // Create a new map centered on Aurora Colorado.
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
-            MyMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.70, 11);
+            MyMapView.Map.InitialViewpoint = new Viewpoint(39.7294, -104.70, 175000);
 
             // Get the full path to the GeoPackage on the device.
             string myGeoPackagePath = GetGeoPackagePath();

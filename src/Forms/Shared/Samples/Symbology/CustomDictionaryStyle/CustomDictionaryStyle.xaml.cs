@@ -71,7 +71,7 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
                 // Load the portal style renderer.
                 await LoadWebStyle();
 
-                // Set the local style radio button to be checked.  
+                // Set the local style radio button to be checked.
                 LocalStyleButton.IsChecked = true;
             }
             catch (Exception ex)
@@ -110,7 +110,7 @@ namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
                 _restaurantLayer.Renderer = _localStyleDictionaryRenderer;
             }
         }
-        
+
         private void WebStyleButtonClicked(object sender, EventArgs e)
         {
             if (WebStyleButton.IsChecked)

@@ -1,4 +1,4 @@
-﻿# Open mobile scene package
+# Open mobile scene package
 
 Opens and displays a scene from a Mobile Scene Package (.mspk).
 

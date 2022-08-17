@@ -1,9 +1,5 @@
 ﻿using Foundation;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using UIKit;
 
 namespace ArcGISRuntime
@@ -25,7 +21,7 @@ namespace ArcGISRuntime
             string markdownFile = darkMode ? _darkMarkdownFile : _lightMarkdownFile;
 
             string markdownCSSPath = Path.Combine(NSBundle.MainBundle.BundlePath, $"SyntaxHighlighting/{markdownFile}");
-            string parsedMarkdown = new MarkedNet.Marked().Parse(rawMarkdown);
+            string parsedMarkdown = Markdig.Markdown.ToHtml(rawMarkdown);
 
             string markdowntHTML = "<!doctype html>" +
                 "<head>" +

@@ -7,13 +7,13 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Route directions:"
-                           Margin="0,0,0,2"
-                           FontWeight="SemiBold" />
+                <TextBlock Margin="0,0,0,2"
+                           FontWeight="SemiBold"
+                           Text="Route directions:" />
                 <ListBox x:Name="DirectionsListBox"
+                         Height="300"
                          HorizontalAlignment="Stretch"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                         Height="300">
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="networkAnalysis:DirectionManeuver">
                             <TextBlock Text="{Binding DirectionText}" TextWrapping="Wrap" />
@@ -21,16 +21,16 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <Button x:Name="SolveRouteButton"
-                        HorizontalAlignment="Stretch"
                         Height="30"
                         Margin="0,5"
-                        Content="Solve Route"
-                        Click="SolveRouteClick" />
-                <Button x:Name="ResetButton"
                         HorizontalAlignment="Stretch"
+                        Click="SolveRouteClick"
+                        Content="Solve Route" />
+                <Button x:Name="ResetButton"
                         Height="30"
-                        Content="Reset"
-                        Click="ResetClick" />
+                        HorizontalAlignment="Stretch"
+                        Click="ResetClick"
+                        Content="Reset" />
             </StackPanel>
         </Border>
     </Grid>

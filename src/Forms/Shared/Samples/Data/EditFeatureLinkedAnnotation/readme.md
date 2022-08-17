@@ -47,4 +47,4 @@ The annotation linked to the point data in this sample is defined by arcade expr
 
 ## Tags
 
-annotation, attributes, features, feature-linked annotation, fields
+annotation, attributes, feature-linked annotation, features, fields

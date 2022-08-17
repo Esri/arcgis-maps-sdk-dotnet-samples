@@ -27,8 +27,8 @@ The application loads a scene showing four points that use individual surface pl
 
 * Graphic
 * GraphicsOverlay
-* SceneProperties.SurfacePlacement
 * SceneProperties
+* SceneProperties.SurfacePlacement
 * Surface
 
 ## About the data
@@ -37,7 +37,7 @@ The scene launches with a view of Brest, France. Four points are shown hovering 
 
 ## Additional information
 
-This sample uses an elevation service to add elevation/terrain to the scene. Graphics are positioned relative to that surface for the `DrapedBillboarded`, `DrapedFlat`, and `Relative` surface placement modes. It also uses a scene layer containing 3D models of buildings. Graphics are positioned relative to that scene layer for the `RelativeToScene` surface placement mode. 
+This sample uses an elevation service to add elevation/terrain to the scene. Graphics are positioned relative to that surface for the `DrapedBillboarded`, `DrapedFlat`, and `Relative` surface placement modes. It also uses a scene layer containing 3D models of buildings. Graphics are positioned relative to that scene layer for the `RelativeToScene` surface placement mode.
 
 ## Tags
 

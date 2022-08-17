@@ -15,7 +15,7 @@ using Xamarin.Forms;
 namespace ArcGISRuntimeXamarin.Samples.AddAnIntegratedMeshLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
-        name: "Add an integrated mesh layer",
+        name: "Add integrated mesh layer",
         category: "Layers",
         description: "View an integrated mesh layer from a scene service.",
         instructions: "After launching the sample, watch the integrated mesh layer load in place. Navigate around the scene to visualize the high level of detail on the buildings.",

@@ -13,11 +13,10 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using Windows.UI.Popups;
+using System.Threading.Tasks;
 
 namespace ArcGISRuntime.WinUI.Samples.ClosestFacility
 {

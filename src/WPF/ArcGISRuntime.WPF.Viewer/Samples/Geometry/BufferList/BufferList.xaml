@@ -7,34 +7,34 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock x:Name="BufferInstructionsLabel"
-                           TextWrapping="Wrap"
-                           Margin="0,0,0,10">
+                           Margin="0,0,0,10"
+                           TextWrapping="Wrap">
                     Tap on the map to add points. Each point will use the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.
                 </TextBlock>
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Distance (miles):"
-                               FontWeight="SemiBold"
+                    <TextBlock Margin="0,0,5,0"
                                VerticalAlignment="Center"
-                               Margin="0,0,5,0" />
+                               FontWeight="SemiBold"
+                               Text="Distance (miles):" />
                     <TextBox x:Name="BufferDistanceMilesTextBox"
-                             Text="10"
                              Width="30"
-                             VerticalAlignment="Center" />
+                             VerticalAlignment="Center"
+                             Text="10" />
                     <CheckBox x:Name="UnionCheckBox"
-                              Content="Union the buffer(s)"
-                              IsChecked="True"
-                              FontWeight="SemiBold"
+                              Margin="10,0,0,0"
                               VerticalAlignment="Center"
-                              Margin="10,0,0,0" />
+                              Content="Union the buffer(s)"
+                              FontWeight="SemiBold"
+                              IsChecked="True" />
                 </StackPanel>
                 <Button x:Name="BufferButton"
-                        Content="Create buffer(s)"
                         Margin="0,10,0,0"
-                        Click="BufferButton_Click" />
+                        Click="BufferButton_Click"
+                        Content="Create buffer(s)" />
                 <Button x:Name="ClearButton"
-                        Content="Clear"
                         Margin="0,10,0,0"
-                        Click="ClearButton_Click" />
+                        Click="ClearButton_Click"
+                        Content="Clear" />
             </StackPanel>
         </Border>
     </Grid>

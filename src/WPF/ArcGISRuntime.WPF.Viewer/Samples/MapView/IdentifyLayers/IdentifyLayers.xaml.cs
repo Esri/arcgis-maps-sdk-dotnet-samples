@@ -12,8 +12,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ArcGISRuntime.WPF.Samples.IdentifyLayers
@@ -21,8 +21,8 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyLayers
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Identify layers",
         category: "MapView",
-        description: "Identify features in all layers in a map. MapView supports identifying features across multiple layers. Because some layer types have sublayers, the sample recursively counts results for sublayers within each layer.",
-        instructions: "Tap to identify features. An alert will show all layers with features under the cursor.",
+        description: "Identify features in all layers in a map.",
+        instructions: "Tap to identify features. An alert will show all layers with features under the cursor, as well as a layer count.",
         tags: new[] { "identify", "recursion", "recursive", "sublayers" })]
     public partial class IdentifyLayers
     {
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.WPF.Samples.IdentifyLayers
                 // This function calls itself to count results on sublayers.
                 sublayerResultCount += recursivelyCountIdentifyResultsForSublayers(res);
             }
-            
+
             return result.GeoElements.Count + sublayerResultCount;
         }
     }

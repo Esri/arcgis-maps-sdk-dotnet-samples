@@ -20,7 +20,7 @@ namespace ArcGISRuntime.Samples.WMSLayerUrl
         category: "Layers",
         description: "Display a WMS layer using a WMS service URL.",
         instructions: "The map will load automatically when the sample starts.",
-        tags: new[] { "OGC", "WmsLayer", "web map service" })]
+        tags: new[] { "OGC", "WMS", "layer", "web map service" })]
     public partial class WMSLayerUrl : ContentPage
     {
         // Hold the URL to the WMS service showing U.S. weather radar.

@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Security;
@@ -128,6 +128,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
     {
         // Information about the current request for credentials.
         private CredentialRequestInfo _requestInfo;
+
         public CredentialRequestInfo RequestInfo
         {
             get { return _requestInfo; }
@@ -140,6 +141,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
 
         // URI for the service that is requesting credentials.
         private string _serviceUrl;
+
         public string ServiceUrl
         {
             get { return _serviceUrl; }
@@ -152,6 +154,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
 
         // Username entered by the user.
         private string _userName;
+
         public string UserName
         {
             get { return _userName; }
@@ -164,6 +167,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
 
         // Password entered by the user.
         private string _password;
+
         public string Password
         {
             get { return _password; }
@@ -176,6 +180,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
 
         // Last error message encountered while creating credentials.
         private string _errorMessage;
+
         public string ErrorMessage
         {
             get { return _errorMessage; }
@@ -188,6 +193,7 @@ namespace ArcGISRuntime.WPF.Samples.TokenSecuredChallenge
 
         // Number of login attempts.
         private int _attemptCount;
+
         public int AttemptCount
         {
             get { return _attemptCount; }

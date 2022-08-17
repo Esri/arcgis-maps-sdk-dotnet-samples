@@ -11,9 +11,9 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -25,7 +25,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
         description: "Apply an RGB renderer to a raster layer to enhance feature visibility.",
         instructions: "Choose one of the stretch parameter types. The other options will adjust based on the chosen type. Add your inputs and select the 'Update' button to update the renderer.",
         tags: new[] { "analysis", "color", "composite", "imagery", "multiband", "multispectral", "pan-sharpen", "photograph", "raster", "spectrum", "stretch", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterRgbRenderer
     {
         // A reference to the raster layer to render.
@@ -101,8 +101,8 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
                 MaxBlueComboBox.SelectedValue = 255;
 
                 // Fill the standard deviation factor combo box and set a default value.
-                IEnumerable<int> wholeStdDevs = Enumerable.Range(1, 10); 
-                List<double> halfStdDevs = wholeStdDevs.Select(i => (double)i/2).ToList();
+                IEnumerable<int> wholeStdDevs = Enumerable.Range(1, 10);
+                List<double> halfStdDevs = wholeStdDevs.Select(i => (double)i / 2).ToList();
                 StdDeviationFactorComboBox.ItemsSource = halfStdDevs;
                 StdDeviationFactorComboBox.SelectedValue = 2.0;
             }
@@ -111,7 +111,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
                 MessageBox.Show(e.ToString(), "Error");
             }
         }
-        
+
         private void ApplyRgbRendererButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             // Create the correct type of StretchParameters with the corresponding user inputs.
@@ -136,6 +136,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
                     // Create a new MinMaxStretchParameters with the values.
                     stretchParameters = new MinMaxStretchParameters(minValues, maxValues);
                     break;
+
                 case "Percent Clip":
                     // Get the percentile cutoff below which values in the raster dataset are to be clipped.
                     double minimumPercent = MinimumValueSlider.Value;
@@ -146,6 +147,7 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
                     // Create a new PercentClipStretchParameters with the inputs.
                     stretchParameters = new PercentClipStretchParameters(minimumPercent, maximumPercent);
                     break;
+
                 case "Standard Deviation":
                     // Read the standard deviation factor (the number of standard deviations used to define the range of pixel values).
                     double standardDeviationFactor = Convert.ToDouble(StdDeviationFactorComboBox.SelectedValue);
@@ -176,9 +178,11 @@ namespace ArcGISRuntime.WPF.Samples.RasterRgbRenderer
                 case "Min Max":
                     MinMaxParametersGrid.Visibility = System.Windows.Visibility.Visible;
                     break;
+
                 case "Percent Clip":
                     PercentClipParametersGrid.Visibility = System.Windows.Visibility.Visible;
                     break;
+
                 case "Standard Deviation":
                     StdDeviationParametersGrid.Visibility = System.Windows.Visibility.Visible;
                     break;

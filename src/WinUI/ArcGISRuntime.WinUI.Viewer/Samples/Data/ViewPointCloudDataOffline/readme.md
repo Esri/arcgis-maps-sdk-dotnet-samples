@@ -1,4 +1,4 @@
-﻿# View point cloud data offline
+# View point cloud data offline
 
 Display local 3D point cloud data.
 

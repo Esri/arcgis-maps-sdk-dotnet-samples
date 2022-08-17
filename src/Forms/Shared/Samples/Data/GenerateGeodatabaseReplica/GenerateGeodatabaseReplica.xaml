@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.GenerateGeodatabaseReplica.GenerateGeodatabaseReplica"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Button x:Name="myGenerateButton"
+                Grid.Row="0"
+                Clicked="GenerateButton_Clicked"
+                IsEnabled="False"
+                Text="Generate" />
+        <ProgressBar x:Name="myProgressBar"
+                     Grid.Row="1"
+                     IsVisible="False"
+                     MinimumHeightRequest="10" />
+        <esriUI:MapView x:Name="myMapView" Grid.Row="2" />
+    </Grid>
+</ContentPage>

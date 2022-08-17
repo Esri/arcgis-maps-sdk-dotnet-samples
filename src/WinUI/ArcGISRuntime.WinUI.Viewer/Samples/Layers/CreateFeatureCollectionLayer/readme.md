@@ -34,4 +34,4 @@ When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `
 
 ## Tags
 
-Layers, feature collection
+feature collection, layers

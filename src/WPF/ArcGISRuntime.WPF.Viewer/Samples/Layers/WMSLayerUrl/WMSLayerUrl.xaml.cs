@@ -7,10 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
-using Esri.ArcGISRuntime.Geometry;
 
 namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
 {
@@ -19,7 +19,7 @@ namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
         category: "Layers",
         description: "Display a WMS layer using a WMS service URL.",
         instructions: "The map will load automatically when the sample starts.",
-        tags: new[] { "OGC", "WmsLayer", "web map service" })]
+        tags: new[] { "OGC", "WMS", "layer", "web map service" })]
     public partial class WMSLayerUrl
     {
         // Hold the URL to the WMS service showing U.S. weather radar.

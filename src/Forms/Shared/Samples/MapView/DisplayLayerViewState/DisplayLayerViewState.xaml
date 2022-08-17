@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"             
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
-             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime" 
-             x:Class="ArcGISRuntime.Samples.DisplayLayerViewState.DisplayLayerViewState">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="150" />
-    </Grid.RowDefinitions>
-    <esriUI:MapView x:Name="MyMapView" Grid.Row="0"/>
-    <ListView x:Name="layerStatusListView" Grid.Row="1">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <TextCell Text="{Binding Message}"/>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </Grid>
+<ContentPage x:Class="ArcGISRuntime.Samples.DisplayLayerViewState.DisplayLayerViewState"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="150" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+        <StackLayout Grid.Row="1">
+            <Label Margin="5" Text="Zoom in and out to observe changes in layer status." />
+            <Button x:Name="LoadButton"
+                    Margin="5"
+                    Clicked="LoadButton_Click"
+                    Text="Load layer" />
+            <StackLayout Margin="5" Orientation="Horizontal">
+                <Label FontAttributes="Bold" Text="Visible: " />
+                <Switch x:Name="VisibilityToggle"
+                        IsToggled="True"
+                        Toggled="CheckBox_Checked" />
+                <Label FontAttributes="Bold" Text="Layer display status: " />
+                <Label x:Name="LayerStatusLabel" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
 </ContentPage>

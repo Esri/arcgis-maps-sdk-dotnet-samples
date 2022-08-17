@@ -7,8 +7,8 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Button x:Name="ToggleDataButton"
-                        Content="Show population density"
-                        Click="Button_ToggleExtrusionData_Click" />
+                        Click="Button_ToggleExtrusionData_Click"
+                        Content="Show population density" />
             </StackPanel>
         </Border>
     </Grid>

@@ -24,6 +24,7 @@ When launched, this sample displays a map with picture marker symbols. Pan and z
 ## About the data
 
 The picture marker symbols in this sample are all constructed from different types of resources:
+
 * [Campsite symbol constructed from a URL](https://static.arcgis.com/images/Symbols/OutdoorRecreation/Camping.png)
 * Blue pin with a star stored in the resource folder that comes with the application
 

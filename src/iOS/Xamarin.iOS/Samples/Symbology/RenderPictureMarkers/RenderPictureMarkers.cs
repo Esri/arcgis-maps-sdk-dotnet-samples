@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
         private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
         {
             // Create URL to the image.
-            Uri symbolUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/Recreation/FeatureServer/0/images/e82f744ebb069bb35b234b3fea46deae");
+            Uri symbolUri = new Uri("https://static.arcgis.com/images/Symbols/OutdoorRecreation/Camping.png");
 
             // Create new symbol using asynchronous factory method from URL.
             PictureMarkerSymbol campsiteSymbol = new PictureMarkerSymbol(symbolUri)

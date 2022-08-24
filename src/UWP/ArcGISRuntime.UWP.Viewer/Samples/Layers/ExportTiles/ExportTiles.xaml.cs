@@ -31,7 +31,7 @@ namespace ArcGISRuntime.UWP.Samples.ExportTiles
     public partial class ExportTiles
     {
         // URL to the service that tiles will be exported from.
-        private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+        private Uri _serviceUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
         // Path to the tile package on disk.
         private string _tilePath;

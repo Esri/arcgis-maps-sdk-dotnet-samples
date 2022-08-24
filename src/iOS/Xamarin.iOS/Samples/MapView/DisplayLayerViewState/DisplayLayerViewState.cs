@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.DisplayLayerViewState
             Map myMap = new Map();
 
             // Create the URL for the tiled layer.
-            Uri tiledLayerUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer");
+            Uri tiledLayerUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
             // Create a tiled layer from the URL
             ArcGISTiledLayer tiledLayer = new ArcGISTiledLayer(tiledLayerUri)

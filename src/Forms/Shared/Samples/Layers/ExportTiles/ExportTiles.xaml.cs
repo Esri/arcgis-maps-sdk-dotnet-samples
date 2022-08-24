@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
     public partial class ExportTiles : ContentPage
     {
         // URL to the service tiles will be exported from.
-        private Uri _serviceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+        private Uri _serviceUri = new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
         // Path to exported tile cache.
         private string _tilePath;

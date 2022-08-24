@@ -14,11 +14,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace ArcGISRuntime.Samples.WMTSLayer
 {
-    [Activity (ConfigurationChanges=Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
+    [Activity(ConfigurationChanges = Android.Content.PM.ConfigChanges.Orientation | Android.Content.PM.ConfigChanges.ScreenSize)]
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "WMTS layer",
         category: "Layers",
@@ -35,7 +35,6 @@ namespace ArcGISRuntime.Samples.WMTSLayer
 
         // Button for loading layer using WmtsService.
         private Button _infoButton;
-        
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -87,12 +86,12 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                 WmtsLayer myWmtsLayer;
 
                 // Define the Uri to the WMTS service.
-                Uri wmtsUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/WMTS");
+                Uri wmtsUri = new Uri("https://gibs.earthdata.nasa.gov/wmts/epsg4326/best");
 
                 if (uriMode)
                 {
                     // Create a WMTS layer using a Uri and provide an Id value.
-                    myWmtsLayer = new WmtsLayer(wmtsUri, "WorldTimeZones");
+                    myWmtsLayer = new WmtsLayer(wmtsUri, "SRTM_Color_Index");
                 }
                 else
                 {
@@ -105,11 +104,11 @@ namespace ArcGISRuntime.Samples.WMTSLayer
                     // Get the service information (i.e. metadata) about the WMTS service.
                     WmtsServiceInfo myWmtsServiceInfo = myWmtsService.ServiceInfo;
 
-                    // Obtain the read only list of WMTS layer info objects.
-                    IReadOnlyList<WmtsLayerInfo> myWmtsLayerInfos = myWmtsServiceInfo.LayerInfos;
+                    // Obtain the read only list of WMTS layer info objects, and select the one with the desired Id value.
+                    WmtsLayerInfo info = myWmtsServiceInfo.LayerInfos.Single(l => l.Id == "SRTM_Color_Index");
 
-                    // Create a WMTS layer using the first item in the read only list of WMTS layer info objects.
-                    myWmtsLayer = new WmtsLayer(myWmtsLayerInfos[0]);
+                    // Create a WMTS layer using WMTS layer info.
+                    myWmtsLayer = new WmtsLayer(info);
                 }
 
                 // Add the WMTS layer to the layer collection of the map.

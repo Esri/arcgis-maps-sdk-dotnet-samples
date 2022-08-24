@@ -39,7 +39,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
 
         // URL to the service tiles will be exported from.
         private readonly Uri _serviceUri =
-            new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/World_Street_Map/MapServer");
+            new Uri("https://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer");
 
         // Path to exported tiles on disk.
         private string _tilePath;

@@ -1,43 +1,17 @@
-﻿// Copyright 2016 Esri.
-//
-// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
-// language governing permissions and limitations under the License.
+﻿using ArcGISRuntimeMaui;
 
-using Xamarin.Forms;
+namespace ArcGISRuntime.Samples.Maui;
 
-namespace ArcGISRuntime
+public partial class App : Application
 {
-    public partial class App : Application
-    {
-        public App()
-        {
-            InitializeComponent();
-            // The root page of your application
-            var navigationPage = new NavigationPage(new CategoryListPage
-            {
-                Title = "ArcGIS Runtime SDK for .NET"
-            });
+	public App()
+	{
+		InitializeComponent();
 
-            MainPage = navigationPage;
-        }
+		MainPage = new NavigationPage(new CategoryListPage() { });
+		Current = this;
 
-        protected override void OnStart()
-        {
-            // Handle when your app starts
-        }
-
-        protected override void OnSleep()
-        {
-            // Handle when your app sleeps
-        }
-
-        protected override void OnResume()
-        {
-            // Handle when your app resumes
-        }
     }
+
+	public static App Current { get; private set; }
 }

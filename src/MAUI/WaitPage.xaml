@@ -1,34 +1,32 @@
-﻿<ContentPage x:Class="ArcGISRuntime.WaitPage"
-             xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <RelativeLayout>
-        <Frame CornerRadius="0"
-               HasShadow="False"
-               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                      Factor=.5,
-                                                                      Property=Height}"
-               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                     Factor=1,
-                                                                     Property=Width}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                 Factor=0,
-                                                                 Property=Width}"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                 Factor=.5,
-                                                                 Property=Height}">
+﻿<ContentPage
+    x:Class="ArcGISRuntimeMaui.WaitPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls">
+    <cmp:RelativeLayout>
+        <Frame
+            CornerRadius="0"
+            HasShadow="False"
+            cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                   Factor=.5,
+                                                                   Property=Height}"
+            cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                  Factor=1,
+                                                                  Property=Width}"
+            cmp:RelativeLayout.XConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                              Factor=0,
+                                                              Property=Width}"
+            cmp:RelativeLayout.YConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                              Factor=.5,
+                                                              Property=Height}">
             <StackLayout>
-                <Label x:Name="DownloadLabel"
-                       Margin="5"
-                       FontSize="Large"
-                       HorizontalTextAlignment="Start"
-                       Text="Checking for sample data" />
-                <ProgressBar x:Name="DownloadProgress" />
-                <ActivityIndicator x:Name="IndefiniteSpinner"
-                                   Margin="5"
-                                   IsRunning="true"
-                                   IsVisible="false" />
+                <Label
+                    FontSize="Large"
+                    HorizontalTextAlignment="Center"
+                    Text="Downloading data" />
+                <ActivityIndicator IsRunning="True" />
                 <Button Clicked="DownloadCancelled" Text="Cancel" />
             </StackLayout>
         </Frame>
-    </RelativeLayout>
+    </cmp:RelativeLayout>
 </ContentPage>

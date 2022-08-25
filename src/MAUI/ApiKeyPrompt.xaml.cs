@@ -10,11 +10,8 @@
 using ArcGISRuntime.Samples.Shared.Managers;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
-namespace ArcGISRuntime
+namespace ArcGISRuntimeMaui
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ApiKeyPrompt : ContentPage
@@ -64,7 +61,7 @@ namespace ArcGISRuntime
 
         private void LinkTapped(object sender, EventArgs e)
         {
-            Launcher.OpenAsync(new Uri("https://links.esri.com/arcgis-api-keys"));
+            Microsoft.Maui.ApplicationModel.Launcher.OpenAsync(new Uri("https://links.esri.com/arcgis-api-keys"));
         }
     }
 }

@@ -2,9 +2,8 @@
 using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Globalization;
-using Xamarin.Forms;
 
-namespace Forms.Converters
+namespace ArcGISRuntimeMaui.Converters
 {
     class ItemToImageSourceConverter : IValueConverter
     {

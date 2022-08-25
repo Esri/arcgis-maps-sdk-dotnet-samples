@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Timers;
-using Xamarin.Forms;
+using Timer = System.Timers.Timer;
 
-namespace Forms.Resources
+namespace ArcGISRuntimeMaui.Resources
 {
     class JoystickSlider : Slider
     {

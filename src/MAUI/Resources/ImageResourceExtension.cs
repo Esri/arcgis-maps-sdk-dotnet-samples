@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Reflection;
-using Xamarin.Forms;
 
-namespace Forms.Resources
+namespace ArcGISRuntimeMaui.Resources
 {
     [ContentProperty(nameof(Source))]
-    public class ImageResourceExtension : Xamarin.Forms.Xaml.IMarkupExtension
+    public class ImageResourceExtension : IMarkupExtension
     {
         public string Source { get; set; }
 

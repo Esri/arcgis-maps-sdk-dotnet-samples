@@ -17,10 +17,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using Xamarin.Essentials;
-using Xamarin.Forms;
 
-namespace ArcGISRuntime
+namespace ArcGISRuntimeMaui
 {
     public partial class SettingsPage : TabbedPage
     {
@@ -59,8 +57,8 @@ namespace ArcGISRuntime
 
             // Get the contents of the markdown files for the "About" and "Licenses" pages.
             var assembly = Assembly.GetExecutingAssembly();
-            string aboutString = new StreamReader(assembly.GetManifestResourceStream("ArcGISRuntime.Resources.SettingsPage.about.md")).ReadToEnd();
-            string licenseString = new StreamReader(assembly.GetManifestResourceStream("ArcGISRuntime.Resources.SettingsPage.licenses.md")).ReadToEnd();
+            string aboutString = new StreamReader(assembly.GetManifestResourceStream("ArcGISRuntimeMaui.Resources.SettingsPage.about.md")).ReadToEnd();
+            string licenseString = new StreamReader(assembly.GetManifestResourceStream("ArcGISRuntimeMaui.Resources.SettingsPage.licenses.md")).ReadToEnd();
 
             // The location of the github markdown css is platform dependent.
             string baseUrl = string.Empty;
@@ -109,7 +107,7 @@ namespace ArcGISRuntime
                 try
                 {
                     // Open the link in an external browser.
-                    await Launcher.OpenAsync(e.Url);
+                    await Microsoft.Maui.ApplicationModel.Launcher.OpenAsync(e.Url);
                 }
                 catch (Exception ex)
                 {
@@ -161,7 +159,7 @@ namespace ArcGISRuntime
                     try
                     {
                         string onlinePath = $"https://www.arcgis.com/home/item.html?id={offlineItem}";
-                        await Launcher.OpenAsync(new Uri(onlinePath));
+                        await Microsoft.Maui.ApplicationModel.Launcher.OpenAsync(new Uri(onlinePath));
                     }
                     catch (Exception ex)
                     {

@@ -9,16 +9,15 @@
 
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using Forms.Helpers;
+using ArcGISRuntimeMaui.Helpers;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Forms;
 
 #if WINDOWS_UWP
 using System.Threading.Tasks;
 #endif
 
-namespace ArcGISRuntime
+namespace ArcGISRuntimeMaui
 {
     public partial class SampleListPage
     {

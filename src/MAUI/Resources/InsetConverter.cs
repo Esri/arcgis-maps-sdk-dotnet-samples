@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
-using Xamarin.Forms;
+using System.Text;
 
-namespace Forms.Resources
+namespace ArcGISRuntimeMaui.Resources
 {
     /// <summary>
     /// Converts a double to a Thickness, where the <c>Top</c> is the value, all other properties set to 0.

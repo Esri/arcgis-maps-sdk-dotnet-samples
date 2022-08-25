@@ -10,21 +10,19 @@
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 #if __ANDROID__ || __IOS__
-using Xamarin.Essentials;
 using System.Collections.Generic;
 #endif
 
 #if __ANDROID__
 using Android.App;
-using Application = Xamarin.Forms.Application;
+using Application = Microsoft.Maui.Controls.Application;
 using Android.Content;
 using Android.Content.PM;
 #endif
 
-namespace Forms.Helpers
+namespace ArcGISRuntimeMaui.Helpers
 {
     internal static class ArcGISLoginPrompt
     {

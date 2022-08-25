@@ -16,9 +16,8 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace Forms.Helpers
+namespace ArcGISRuntimeMaui.Helpers
 {
     internal static class SampleLoader
     {

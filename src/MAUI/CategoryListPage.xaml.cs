@@ -10,21 +10,20 @@
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
-using Forms.Helpers;
+using ArcGISRuntimeMaui.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
 #if XAMARIN_ANDROID
 using Google.AR.Core;
 using ArcGISRuntime.Droid;
 #endif
 
-namespace ArcGISRuntime
+namespace ArcGISRuntimeMaui
 {
     public partial class CategoryListPage
     {

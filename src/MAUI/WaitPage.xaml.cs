@@ -8,9 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using System.Threading;
-using Xamarin.Forms;
 
-namespace ArcGISRuntime
+namespace ArcGISRuntimeMaui
 {
     public partial class WaitPage
     {

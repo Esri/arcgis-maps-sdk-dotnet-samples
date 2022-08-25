@@ -8,18 +8,14 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Models;
-using ArcGISRuntimeXamarin;
 using System;
 using System.Diagnostics;
-using Xamarin.Essentials;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 #if __IOS__
 using UIKit;
 #endif
 
-namespace ArcGISRuntime
+namespace ArcGISRuntimeMaui
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SamplePage
@@ -61,11 +57,11 @@ namespace ArcGISRuntime
                 // Handle AR edge cases
                 folderPath = folderPath.Replace("RoutePlanner", "NavigateAR").Replace("PipePlacer", "ViewHiddenInfrastructureAR");
 
-#if WINDOWS_UWP
+#if WINDOWS
                 baseUrl = "ms-appx-web:///";
                 basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
                 readmePath = System.IO.Path.Combine(folderPath, "readme.md");
-#elif XAMARIN_ANDROID
+#elif __ANDROID__
                 baseUrl = "file:///android_asset";
                 basePath = System.IO.Path.Combine(baseUrl, folderPath);
                 readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), folderPath, "readme.md");
@@ -116,7 +112,7 @@ namespace ArcGISRuntime
             {
                 try
                 {
-                    Launcher.OpenAsync(new Uri(e.Url));
+                    Microsoft.Maui.ApplicationModel.Launcher.OpenAsync(new Uri(e.Url));
                     e.Cancel = true;
                 }
                 catch (Exception ex)

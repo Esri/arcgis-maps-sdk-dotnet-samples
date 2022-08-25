@@ -35,7 +35,7 @@ namespace ArcGISRuntimeMaui.Helpers
         private const string ClientSecret = "";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"forms-samples-app://auth";
+        private const string OAuthRedirectUrl = @"maui-samples-app://auth";
 
         public static async Task<bool> EnsureAGOLCredentialAsync()
         {
@@ -163,7 +163,7 @@ namespace ArcGISRuntimeMaui.Helpers
     [Activity(NoHistory = true, Exported = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(new[] { Intent.ActionView },
        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
-       DataScheme = "forms-samples-app", DataHost = "auth")]
+       DataScheme = "maui-samples-app", DataHost = "auth")]
     public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
     {
     }

@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntimeMaui.Samples.ChangeAtmosphereEffect
 {

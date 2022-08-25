@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Toolkit.UI;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntimeMaui.Samples.FilterByTimeExtent
 {

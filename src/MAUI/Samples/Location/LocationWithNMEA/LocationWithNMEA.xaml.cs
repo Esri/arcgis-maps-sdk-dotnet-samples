@@ -18,7 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntimeMaui.Samples.LocationWithNMEA
 {

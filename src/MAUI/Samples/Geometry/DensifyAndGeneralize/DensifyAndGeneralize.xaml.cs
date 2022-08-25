@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Linq;
-using Xamarin.Forms;
+
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.DensifyAndGeneralize

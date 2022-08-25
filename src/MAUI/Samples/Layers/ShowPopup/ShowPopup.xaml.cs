@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping.Popups;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using Xamarin.Forms;
+
 using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
 
 namespace ArcGISRuntimeMaui.Samples.ShowPopup

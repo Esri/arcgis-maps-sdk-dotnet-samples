@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Linq;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.ClipGeometry
 {

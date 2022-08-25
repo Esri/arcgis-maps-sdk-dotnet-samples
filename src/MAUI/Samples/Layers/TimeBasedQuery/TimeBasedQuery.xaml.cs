@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.TimeBasedQuery
 {

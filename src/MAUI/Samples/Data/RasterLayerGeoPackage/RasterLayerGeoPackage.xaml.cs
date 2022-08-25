@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.RasterLayerGeoPackage
 {

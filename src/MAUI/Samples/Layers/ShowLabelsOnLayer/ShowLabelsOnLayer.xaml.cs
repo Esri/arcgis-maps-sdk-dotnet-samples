@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
 {

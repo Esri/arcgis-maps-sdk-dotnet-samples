@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.ManageBookmarks
 {

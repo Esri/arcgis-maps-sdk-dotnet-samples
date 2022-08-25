@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntimeMaui.Samples.SetMaxExtent
 {

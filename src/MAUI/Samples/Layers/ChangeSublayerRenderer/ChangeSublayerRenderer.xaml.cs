@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
+
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.ChangeSublayerRenderer

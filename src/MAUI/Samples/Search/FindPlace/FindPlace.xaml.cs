@@ -20,7 +20,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 #if XAMARIN_ANDROID
 using ArcGISRuntime.Droid;
 #endif

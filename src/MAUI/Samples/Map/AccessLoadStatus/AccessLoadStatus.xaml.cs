@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.AccessLoadStatus
 {

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
-using Xamarin.Forms;
+
 using Colors = System.Drawing.Color;
 using GeoViewInputEventArgs = Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs;
 

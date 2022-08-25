@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntimeMaui.Samples.UniqueValuesAlternateSymbols
 {

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.DisplayLayerViewState
 {

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {

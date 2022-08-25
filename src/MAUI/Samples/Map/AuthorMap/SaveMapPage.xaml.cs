@@ -1,5 +1,5 @@
 using System;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.AuthorMap
 {

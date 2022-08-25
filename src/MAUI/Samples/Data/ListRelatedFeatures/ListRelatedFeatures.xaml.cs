@@ -10,12 +10,12 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Xamarin.Forms;
+using Esri.ArcGISRuntime.Maui;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.ListRelatedFeatures

@@ -15,10 +15,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 #if __ANDROID__
-using Application = Xamarin.Forms.Application;
+using Application = Microsoft.Maui.Controls.Application;
 #endif
 
 namespace ArcGISRuntime.Samples.SearchPortalMaps

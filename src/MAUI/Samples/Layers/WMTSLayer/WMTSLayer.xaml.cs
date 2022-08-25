@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.WMTSLayer
 {

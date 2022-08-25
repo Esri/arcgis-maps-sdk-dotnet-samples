@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
 using System.Linq;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntimeMaui.Samples.IdentifyKmlFeatures
 {

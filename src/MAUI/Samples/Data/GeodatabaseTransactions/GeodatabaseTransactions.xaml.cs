@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System;
 using System.IO;
-using Xamarin.Forms;
+
 using System.Threading.Tasks;
 
 #if WINDOWS_UWP

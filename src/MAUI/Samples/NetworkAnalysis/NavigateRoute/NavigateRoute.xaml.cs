@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 using static Xamarin.Essentials.TextToSpeech;
 using Color = System.Drawing.Color;
 

@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 {

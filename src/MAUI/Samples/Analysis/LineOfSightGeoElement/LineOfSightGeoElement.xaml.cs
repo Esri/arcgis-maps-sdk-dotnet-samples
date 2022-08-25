@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.LineOfSightGeoElement

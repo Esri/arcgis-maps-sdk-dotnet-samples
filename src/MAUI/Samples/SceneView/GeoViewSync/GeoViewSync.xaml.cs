@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Xamarin.Forms;
+using Esri.ArcGISRuntime.Maui;
 using System;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.GeoViewSync
 {

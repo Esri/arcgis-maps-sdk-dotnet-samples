@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeMaui.Samples.DisplayWfs

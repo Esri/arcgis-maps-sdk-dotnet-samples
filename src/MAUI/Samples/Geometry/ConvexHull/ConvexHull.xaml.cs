@@ -11,10 +11,10 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Xamarin.Forms;
+using Esri.ArcGISRuntime.Maui;
 using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
+
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.ConvexHull

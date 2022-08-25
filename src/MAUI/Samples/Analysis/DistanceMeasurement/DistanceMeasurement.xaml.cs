@@ -11,10 +11,10 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
-using Esri.ArcGISRuntime.Xamarin.Forms;
+using Esri.ArcGISRuntime.Maui;
 using System;
 using System.Diagnostics;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
 {

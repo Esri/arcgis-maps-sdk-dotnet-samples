@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Diagnostics;
-using Xamarin.Forms;
+
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeMaui.Samples.GetElevationAtPoint

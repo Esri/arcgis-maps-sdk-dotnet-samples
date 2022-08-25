@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.SymbolizeShapefile

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.FormatCoordinates
 {

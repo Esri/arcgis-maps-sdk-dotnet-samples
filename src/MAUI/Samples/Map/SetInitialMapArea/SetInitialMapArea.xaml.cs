@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.SetInitialMapArea
 {

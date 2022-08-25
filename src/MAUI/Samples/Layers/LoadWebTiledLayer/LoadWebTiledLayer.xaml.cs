@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using System.Collections.Generic;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 {

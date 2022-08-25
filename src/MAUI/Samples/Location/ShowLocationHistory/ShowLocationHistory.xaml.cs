@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeMaui.Samples.ShowLocationHistory

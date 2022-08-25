@@ -10,8 +10,8 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Xamarin.Forms;
-using Xamarin.Forms;
+using Esri.ArcGISRuntime.Maui;
+
 
 namespace ArcGISRuntime.Samples.ShowCallout
 {

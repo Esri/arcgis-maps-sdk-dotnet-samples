@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 // Custom code is needed for presenting the image picker on iOS.
 #if __IOS__

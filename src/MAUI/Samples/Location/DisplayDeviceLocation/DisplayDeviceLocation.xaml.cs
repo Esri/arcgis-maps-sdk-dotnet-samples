@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using Xamarin.Forms;
+
 #if XAMARIN_ANDROID
 using ArcGISRuntime.Droid;
 

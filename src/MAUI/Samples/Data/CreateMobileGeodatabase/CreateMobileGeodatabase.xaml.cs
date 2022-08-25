@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
-using Xamarin.Forms;
+
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGISRuntimeMaui.Samples.CreateMobileGeodatabase

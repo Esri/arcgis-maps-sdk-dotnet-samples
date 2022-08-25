@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.SetInitialMapLocation
 {

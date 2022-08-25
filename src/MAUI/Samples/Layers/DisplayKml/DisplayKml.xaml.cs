@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntimeMaui.Samples.DisplayKml
 {

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Security;
 using System;
 using System.Globalization;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 {

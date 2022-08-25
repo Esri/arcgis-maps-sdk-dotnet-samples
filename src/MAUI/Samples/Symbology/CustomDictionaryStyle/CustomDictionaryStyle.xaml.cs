@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 namespace ArcGISRuntimeMaui.Samples.CustomDictionaryStyle
 {

@@ -12,10 +12,10 @@ using Esri.ArcGISRuntime.Portal;
 using Forms.Helpers;
 using System;
 using System.Threading.Tasks;
-using Xamarin.Forms;
+
 
 #if __ANDROID__
-using Application = Xamarin.Forms.Application;
+using Application = Microsoft.Maui.Controls.Application;
 #endif
 
 namespace ArcGISRuntime.Samples.OAuth

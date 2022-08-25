@@ -111,9 +111,7 @@
         <PackageReference Include="Esri.ArcGISRuntime" Version="100.14.0" />
         <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="100.14.0" />
         <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="100.14.0-preview2" />
-        <PackageReference Include="MarkedNet">
-            <Version>2.1.4</Version>
-        </PackageReference>
+        <PackageReference Include="Markdig" Version="0.30.3" />
         <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
     </ItemGroup>
 

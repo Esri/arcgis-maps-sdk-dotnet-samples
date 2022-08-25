@@ -1,5 +1,5 @@
 ﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.ConfigureSubnetworkTrace.ConfigureSubnetworkTrace"
-             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Grid>
         <TableView x:Name="ConfigureTable"

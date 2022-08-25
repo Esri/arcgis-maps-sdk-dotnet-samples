@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="ArcGISRuntimeMaui.Samples.ListTransformations.ListTransformations"
-             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:local="clr-namespace:ArcGISRuntime.Samples.ListTransformations">
     <ContentPage.Resources>
         <ResourceDictionary>

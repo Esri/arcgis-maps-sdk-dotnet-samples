@@ -43,7 +43,6 @@ Click 'Navigate' to simulate traveling and to receive directions from a preset s
 
 ## Offline data
 
-A GPX file provides a simulated path for the device to demonstrate routing while travelling. [Navigate a Route GPX Track](https://arcgisruntime.maps.arcgis.com/home/item.html?id=91e7e6be79cc4d2f8416eff867674c1e)
 A geodatabase contains a road network for San Diego. [San Diego Geodatabase](https://arcgisruntime.maps.arcgis.com/home/item.html?id=567e14f3420d40c5a206e5c0284cf8fc)
 
 ## About the data

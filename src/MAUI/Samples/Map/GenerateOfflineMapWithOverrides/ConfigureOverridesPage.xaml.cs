@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using Xamarin.Forms.Xaml;
+using Xamarin.ArcGISRuntimeMaui.Xaml;
 
 namespace ArcGISRuntimeMaui.Samples.GenerateOfflineMapWithOverrides
 {
@@ -173,7 +173,7 @@ namespace ArcGISRuntimeMaui.Samples.GenerateOfflineMapWithOverrides
             ApplyFeatureFilter(_overrides);
 
             // The main sample page continues when OnDisappearing is called.
-            // OnDisappearing is called by Xamarin.Forms when navigation away from this page happens.
+            // OnDisappearing is called by Xamarin.ArcGISRuntimeMaui when navigation away from this page happens.
             Navigation.PopModalAsync(true);
         }
     }

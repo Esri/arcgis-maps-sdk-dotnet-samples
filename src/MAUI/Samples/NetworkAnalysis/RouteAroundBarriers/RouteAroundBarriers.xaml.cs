@@ -262,7 +262,7 @@ namespace ArcGISRuntimeMaui.Samples.RouteAroundBarriers
 
         private void PrepareDirectionsList(IReadOnlyList<DirectionManeuver> directions)
         {
-            // Create the Xamarin.Forms page for showing the directions.
+            // Create the Xamarin.ArcGISRuntimeMaui page for showing the directions.
             _directionsPage = new ContentPage();
 
             // Create the list view for showing directions.
@@ -275,7 +275,7 @@ namespace ArcGISRuntimeMaui.Samples.RouteAroundBarriers
             _directionsPage.Content = directionsList;
         }
 
-        private void MyMapView_OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e) => _ = HandleMapTap(e.Location);
+        private void MyMapView_OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e) => _ = HandleMapTap(e.Location);
 
         private void AddStop_Clicked(object sender, EventArgs e) => UpdateInterfaceState(SampleState.AddingStops);
 

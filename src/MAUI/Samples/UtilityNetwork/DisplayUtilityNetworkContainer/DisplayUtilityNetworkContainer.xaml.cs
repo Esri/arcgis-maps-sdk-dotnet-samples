@@ -83,13 +83,13 @@ namespace ArcGISRuntimeMaui.Samples.DisplayUtilityNetworkContainer
 
             // Populate the legend in the UI.
             RuntimeImage attachmentSwatch = await attachmentSymbol.CreateSwatchAsync();
-            AttachmentImage.Source = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(attachmentSwatch);
+            AttachmentImage.Source = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(attachmentSwatch);
 
             RuntimeImage connectSwatch = await connectivitySymbol.CreateSwatchAsync();
-            ConnectivityImage.Source = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(connectSwatch);
+            ConnectivityImage.Source = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(connectSwatch);
 
             RuntimeImage boundingSwatch = await boundingBoxSymbol.CreateSwatchAsync();
-            ContainmentImage.Source = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(boundingSwatch);
+            ContainmentImage.Source = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(boundingSwatch);
 
             try
             {
@@ -117,7 +117,7 @@ namespace ArcGISRuntimeMaui.Samples.DisplayUtilityNetworkContainer
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             _ = IdentifyContainer(e.Position);
         }

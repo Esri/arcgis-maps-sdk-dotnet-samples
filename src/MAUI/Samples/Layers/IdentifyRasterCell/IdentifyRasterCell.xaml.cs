@@ -77,7 +77,7 @@ namespace ArcGISRuntimeMaui.Samples.IdentifyRasterCell
             MyMapView.GeoViewTapped += MapTapped;
         }
 
-        private async void MapTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MapTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             try
             {

@@ -96,7 +96,7 @@ namespace ArcGISRuntimeMaui.Samples.UpdateAttributes
             });
         }
 
-        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();

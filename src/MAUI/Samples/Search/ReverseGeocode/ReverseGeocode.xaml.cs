@@ -71,7 +71,7 @@ namespace ArcGISRuntimeMaui.Samples.ReverseGeocode
             await MyMapView.SetViewpointCenterAsync(34.058, -117.195, 5e4);
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             try
             {

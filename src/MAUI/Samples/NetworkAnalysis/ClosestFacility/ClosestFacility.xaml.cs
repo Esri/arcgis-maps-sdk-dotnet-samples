@@ -135,7 +135,7 @@ namespace ArcGISRuntime.Samples.ClosestFacility
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Clear any prior incident and routes from the graphics.
             _incidentGraphicsOverlay.Graphics.Clear();

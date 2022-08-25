@@ -60,7 +60,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 closeButton.Clicked += CloseButton_Clicked;
 
                 // Create image bitmap by getting stream from the exported image.
-                // NOTE: currently broken on UWP due to Xamarin.Forms bug https://github.com/xamarin/Xamarin.Forms/issues/5188.
+                // NOTE: currently broken on UWP due to Xamarin.ArcGISRuntimeMaui bug https://github.com/xamarin/Xamarin.ArcGISRuntimeMaui/issues/5188.
                 var buffer = await exportedImage.GetEncodedBufferAsync();
                 byte[] data = new byte[buffer.Length];
                 buffer.Read(data, 0, data.Length);
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
             }
         }
 
-        private static Task WaitForRenderCompleteAsync(Esri.ArcGISRuntime.Xamarin.Forms.MapView mapview)
+        private static Task WaitForRenderCompleteAsync(Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.MapView mapview)
         {
             // The task completion source manages the task, including marking it as finished when the time comes.
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();

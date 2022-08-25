@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Forms.Helpers;
+using ArcGISRuntimeMaui.Helpers;
 using System;
 using System.Threading.Tasks;
 

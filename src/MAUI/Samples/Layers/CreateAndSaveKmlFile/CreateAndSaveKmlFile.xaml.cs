@@ -180,7 +180,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             Color systemColor = Color.Transparent;
             if (((string)e.SelectedItem).StartsWith('#'))
             {
-                Xamarin.Forms.Color platColor = Xamarin.Forms.Color.FromHex((string)e.SelectedItem);
+                Xamarin.ArcGISRuntimeMaui.Color platColor = Xamarin.ArcGISRuntimeMaui.Color.FromHex((string)e.SelectedItem);
                 systemColor = Color.FromArgb((int)(platColor.A * 255), (int)(platColor.R * 255), (int)(platColor.G * 255), (int)(platColor.B * 255));
             }
 
@@ -320,7 +320,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null || value.GetType() != typeof(string)) { return null; }
-            return Xamarin.Forms.Color.FromHex((string)value);
+            return Xamarin.ArcGISRuntimeMaui.Color.FromHex((string)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

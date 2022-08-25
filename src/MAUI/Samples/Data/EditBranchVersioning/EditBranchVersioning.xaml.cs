@@ -186,7 +186,7 @@ namespace ArcGISRuntimeMaui.Samples.EditBranchVersioning
             Application.Current.MainPage.DisplayAlert(titleText, alertText, "OK");
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Check if a feature is selected and the service geodatabase is not on the default version.
             if (_selectedFeature is ArcGISFeature && _serviceGeodatabase.VersionName != _serviceGeodatabase.DefaultVersionName)

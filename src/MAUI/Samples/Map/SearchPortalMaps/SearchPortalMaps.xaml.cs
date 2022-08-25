@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Forms.Helpers;
+using ArcGISRuntimeMaui.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,7 +89,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 SearchMapsUI.IsVisible = false;
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.Forms UWP ListView bug.
+                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.ArcGISRuntimeMaui UWP ListView bug.
                 MapsListView.IsVisible = true;
             }
             catch (Exception e)
@@ -129,7 +129,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 }
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.Forms UWP ListView bug.
+                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.ArcGISRuntimeMaui UWP ListView bug.
                 MapsListView.IsVisible = true;
             }
             catch (Exception ex)

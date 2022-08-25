@@ -103,7 +103,7 @@ namespace ArcGISRuntime.Samples.NearestVertex
             MyMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 8000000);
         }
 
-        private void MapViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs geoViewInputEventArgs)
+        private void MapViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped location.
             MapPoint tappedLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geoViewInputEventArgs.Location);

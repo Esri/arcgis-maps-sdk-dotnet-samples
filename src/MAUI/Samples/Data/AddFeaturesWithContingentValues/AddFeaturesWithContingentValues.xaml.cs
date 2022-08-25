@@ -144,7 +144,7 @@ namespace ArcGISRuntimeMaui.Samples.AddFeaturesWithContingentValues
             }
         }
 
-        private async Task CreateNewEmptyFeature(Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async Task CreateNewEmptyFeature(Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             try
             {
@@ -366,7 +366,7 @@ namespace ArcGISRuntimeMaui.Samples.AddFeaturesWithContingentValues
 
         #region EventHandlers
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // If a new feature is currently being created do not create another one.
             if (_newFeature == null)

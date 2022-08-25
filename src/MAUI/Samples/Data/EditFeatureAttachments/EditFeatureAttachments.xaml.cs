@@ -79,7 +79,7 @@ namespace ArcGISRuntimeMaui.Samples.EditFeatureAttachments
             }
         }
 
-        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
@@ -283,7 +283,7 @@ namespace ArcGISRuntimeMaui.Samples.EditFeatureAttachments
         // Image picker implementation.
         // Xamarin.Plugin.FilePicker shows an iCloud file picker; comment this out
         // and use the cross-platform implementation if that's what you want.
-        // Note: code adapted from https://docs.microsoft.com/en-us/xamarin/xamarin-forms/app-fundamentals/dependency-service/photo-picker
+        // Note: code adapted from https://docs.microsoft.com/en-us/xamarin/xamarin-ArcGISRuntimeMaui/app-fundamentals/dependency-service/photo-picker
 #if __IOS__
         private TaskCompletionSource<Stream> _taskCompletionSource;
         private UIImagePickerController _imagePicker;

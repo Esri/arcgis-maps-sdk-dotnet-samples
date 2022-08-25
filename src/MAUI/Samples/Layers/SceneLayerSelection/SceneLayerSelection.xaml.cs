@@ -64,7 +64,7 @@ namespace ArcGISRuntime.Samples.SceneLayerSelection
             }
         }
 
-        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Get the scene layer from the scene (first and only operational layer).
             ArcGISSceneLayer sceneLayer = (ArcGISSceneLayer)MySceneView.Scene.OperationalLayers.First();

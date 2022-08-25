@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.LineOfSightLocation
             MySceneView.AnalysisOverlays.Add(lineOfSightOverlay);
         }
 
-        private void SceneViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void SceneViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Ignore if tapped out of bounds (e.g. the sky).
             if (e.Location == null)

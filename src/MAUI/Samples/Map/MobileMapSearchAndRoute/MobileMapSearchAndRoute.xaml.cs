@@ -106,7 +106,7 @@ namespace ArcGISRuntimeMaui.Samples.MobileMapSearchAndRoute
             return package;
         }
 
-        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Handle routing.
             try

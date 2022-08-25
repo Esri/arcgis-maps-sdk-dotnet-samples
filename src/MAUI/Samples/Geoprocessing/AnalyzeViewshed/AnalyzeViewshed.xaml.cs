@@ -63,7 +63,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
             MyMapView.Map = myMap;
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Indicate that the geoprocessing is running.
             SetBusy();
@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.AnalyzeViewshed
 
         private async Task CalculateViewshed(MapPoint location)
         {
-            // This function will define a new geoprocessing task that performs a custom viewshed analysis based upon a
+            // This function will define a new geoprocessing task that perArcGISRuntimeMaui a custom viewshed analysis based upon a
             // user click on the map and then display the results back as a polygon fill graphics overlay. If there
             // is a problem with the execution of the geoprocessing task an error message will be displayed.
 

@@ -73,7 +73,7 @@ namespace ArcGISRuntimeMaui.Samples.UpdateGeometries
             }
         }
 
-        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Select the feature if none selected, move the feature otherwise.
             if (_selectedFeature == null)
@@ -88,7 +88,7 @@ namespace ArcGISRuntimeMaui.Samples.UpdateGeometries
             }
         }
 
-        private async void MoveSelectedFeature(Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs tapEventDetails)
+        private async void MoveSelectedFeature(Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs tapEventDetails)
         {
             try
             {
@@ -124,7 +124,7 @@ namespace ArcGISRuntimeMaui.Samples.UpdateGeometries
             }
         }
 
-        private async void TrySelectFeature(Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs tapEventDetails)
+        private async void TrySelectFeature(Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs tapEventDetails)
         {
             try
             {

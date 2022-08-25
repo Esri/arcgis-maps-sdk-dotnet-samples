@@ -67,7 +67,7 @@ namespace ArcGISRuntimeMaui.Samples.EditFeatureLinkedAnnotation
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             // Check if there is already a selected feature.
             if (_selectedFeature == null)

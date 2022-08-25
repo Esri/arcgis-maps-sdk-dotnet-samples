@@ -82,7 +82,7 @@ namespace ArcGISRuntime.Samples.Buffer
             ShowBufferSwatches(planarBufferColor, geodesicBufferColor);
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace ArcGISRuntime.Samples.Buffer
 
         private void ShowBufferSwatches(Colors planarBufferColor, Colors geodesicBufferColor)
         {
-            // Create Xamarin.Forms.Colors to represent the System.Drawing.Colors used for the buffers.
+            // Create Xamarin.ArcGISRuntimeMaui.Colors to represent the System.Drawing.Colors used for the buffers.
             Color planarLabelColor = Color.FromRgba(planarBufferColor.R,
                 planarBufferColor.G,
                 planarBufferColor.B,

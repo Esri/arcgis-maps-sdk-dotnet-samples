@@ -240,7 +240,7 @@ namespace ArcGISRuntimeMaui.Samples.PerformValveIsolationTrace
             _terminalCompletionSource.TrySetResult(TerminalPicker.SelectedItem as string);
         }
 
-        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             try
             {

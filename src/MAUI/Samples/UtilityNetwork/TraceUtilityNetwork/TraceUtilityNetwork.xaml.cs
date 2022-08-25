@@ -155,7 +155,7 @@ namespace ArcGISRuntimeMaui.Samples.TraceUtilityNetwork
             IsAddingBarriers.IsEnabled = false;
         }
 
-        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             try
             {

@@ -106,7 +106,7 @@ namespace ArcGISRuntimeMaui.Samples.SymbolStylesFromWebStyles
 
                 // Get the image source for the symbol to populate the legend UI.
                 RuntimeImage symbolSwatch = await symbol.CreateSwatchAsync();
-                ImageSource imageSource = await Esri.ArcGISRuntime.Xamarin.Forms.RuntimeImageExtensions.ToImageSourceAsync(symbolSwatch);
+                ImageSource imageSource = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(symbolSwatch);
 
                 // Add the symbol the ObservableCollection containing the symbol legend data.
                 _symbolLegendCollection.Add(new SymbolLegendInfo() { Name = symbolName, ImageSource = imageSource });

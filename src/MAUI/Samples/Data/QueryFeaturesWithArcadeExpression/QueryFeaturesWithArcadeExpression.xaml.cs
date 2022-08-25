@@ -73,7 +73,7 @@ namespace ArcGISRuntimeMaui.Samples.QueryFeaturesWithArcadeExpression
             _layer = MyMapView.Map.OperationalLayers.FirstOrDefault(l => l.Name == RPDBeatsLayerName);
         }
 
-        private async Task GeoViewTappedTask(Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async Task GeoViewTappedTask(Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             try
             {
@@ -137,7 +137,7 @@ namespace ArcGISRuntimeMaui.Samples.QueryFeaturesWithArcadeExpression
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             _ = GeoViewTappedTask(e);
         }

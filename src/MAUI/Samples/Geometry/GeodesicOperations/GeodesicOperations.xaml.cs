@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.GeodesicOperations
             MyMapView.GeoViewTapped += MyMapViewOnGeoViewTapped;
         }
 
-        private void MyMapViewOnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs geoViewInputEventArgs)
+        private void MyMapViewOnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped point, projected to WGS84.
             MapPoint destination = (MapPoint)GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);

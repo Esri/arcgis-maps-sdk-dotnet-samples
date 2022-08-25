@@ -177,7 +177,7 @@ namespace ArcGISRuntime.Samples.FindAddress
         /// <summary>
         /// Handle tap event on the map; displays callouts showing the address for a tapped search result
         /// </summary>
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.Forms.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
         {
             try
             {

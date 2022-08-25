@@ -1,4 +1,4 @@
-﻿<ContentPage x:Class="ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues.AddFeaturesWithContingentValues"
+﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.AddFeaturesWithContingentValues.AddFeaturesWithContingentValues"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">

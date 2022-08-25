@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGISRuntime.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions"
+<ContentPage x:Class="ArcGISRuntimeMaui.Samples.ListGeodatabaseVersions.ListGeodatabaseVersions"
              xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Grid>

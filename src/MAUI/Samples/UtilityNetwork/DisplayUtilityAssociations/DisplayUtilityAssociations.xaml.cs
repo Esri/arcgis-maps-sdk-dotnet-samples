@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityAssociations
+namespace ArcGISRuntimeMaui.Samples.DisplayUtilityAssociations
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display utility associations",

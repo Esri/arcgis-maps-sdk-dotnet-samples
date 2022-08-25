@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.UniqueValuesAlternateSymbols
+namespace ArcGISRuntimeMaui.Samples.UniqueValuesAlternateSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Apply unique values with alternate symbols",

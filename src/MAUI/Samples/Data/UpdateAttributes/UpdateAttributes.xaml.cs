@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.UpdateAttributes
+namespace ArcGISRuntimeMaui.Samples.UpdateAttributes
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Update attributes (feature service)",

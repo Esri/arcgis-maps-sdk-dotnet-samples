@@ -19,7 +19,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplaySubtypeFeatureLayer
+namespace ArcGISRuntimeMaui.Samples.DisplaySubtypeFeatureLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display subtype feature layer",

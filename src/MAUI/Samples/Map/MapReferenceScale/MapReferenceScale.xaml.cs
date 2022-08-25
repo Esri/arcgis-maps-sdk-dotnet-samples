@@ -13,7 +13,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MapReferenceScale
+namespace ArcGISRuntimeMaui.Samples.MapReferenceScale
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Map reference scale",

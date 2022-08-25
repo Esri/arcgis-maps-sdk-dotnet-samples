@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AnimateImageOverlay
+namespace ArcGISRuntimeMaui.Samples.AnimateImageOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Animate images with image overlay",

@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.ScenePropertiesExpressions
+namespace ArcGISRuntimeMaui.Samples.ScenePropertiesExpressions
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Scene properties expressions",

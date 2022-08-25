@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayWfs
+namespace ArcGISRuntimeMaui.Samples.DisplayWfs
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display WFS layer",

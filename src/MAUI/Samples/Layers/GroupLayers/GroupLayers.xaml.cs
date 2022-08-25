@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.GroupLayers
+namespace ArcGISRuntimeMaui.Samples.GroupLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Group layers",

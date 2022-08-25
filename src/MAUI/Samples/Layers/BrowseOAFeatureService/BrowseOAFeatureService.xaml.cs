@@ -18,7 +18,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.BrowseOAFeatureService
+namespace ArcGISRuntimeMaui.Samples.BrowseOAFeatureService
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Browse OGC API feature service",

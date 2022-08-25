@@ -21,7 +21,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.OfflineGeocode
+namespace ArcGISRuntimeMaui.Samples.OfflineGeocode
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Offline geocode",

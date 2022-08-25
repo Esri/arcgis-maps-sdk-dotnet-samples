@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.RouteAroundBarriers
+namespace ArcGISRuntimeMaui.Samples.RouteAroundBarriers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Route around barriers",

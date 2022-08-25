@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Portal;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewContentBeneathSurface
+namespace ArcGISRuntimeMaui.Samples.ViewContentBeneathSurface
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "View content beneath terrain surface",

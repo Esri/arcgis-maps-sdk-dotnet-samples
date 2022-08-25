@@ -26,7 +26,7 @@ using Xamarin.Forms;
 using Application = Xamarin.Forms.Application;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.OfflineBasemapByReference
+namespace ArcGISRuntimeMaui.Samples.OfflineBasemapByReference
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Generate offline map with local basemap",

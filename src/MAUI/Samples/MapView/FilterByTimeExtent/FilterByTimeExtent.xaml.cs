@@ -14,7 +14,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.FilterByTimeExtent
+namespace ArcGISRuntimeMaui.Samples.FilterByTimeExtent
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Filter by time extent",

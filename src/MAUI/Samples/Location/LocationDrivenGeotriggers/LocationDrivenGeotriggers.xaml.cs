@@ -21,7 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.LocationDrivenGeotriggers
+namespace ArcGISRuntimeMaui.Samples.LocationDrivenGeotriggers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Set up location-driven Geotriggers",

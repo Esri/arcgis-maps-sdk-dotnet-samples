@@ -21,7 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayUtilityNetworkContainer
+namespace ArcGISRuntimeMaui.Samples.DisplayUtilityNetworkContainer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display content of utility network container",

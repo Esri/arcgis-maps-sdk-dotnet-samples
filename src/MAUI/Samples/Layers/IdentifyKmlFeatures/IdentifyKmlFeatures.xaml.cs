@@ -15,7 +15,7 @@ using System;
 using System.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.IdentifyKmlFeatures
+namespace ArcGISRuntimeMaui.Samples.IdentifyKmlFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Identify KML features",

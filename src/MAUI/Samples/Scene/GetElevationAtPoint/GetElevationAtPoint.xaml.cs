@@ -16,7 +16,7 @@ using System.Diagnostics;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.GetElevationAtPoint
+namespace ArcGISRuntimeMaui.Samples.GetElevationAtPoint
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Get elevation at a point",

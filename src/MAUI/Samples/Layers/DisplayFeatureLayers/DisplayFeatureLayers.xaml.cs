@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayFeatureLayers
+namespace ArcGISRuntimeMaui.Samples.DisplayFeatureLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display feature layers",

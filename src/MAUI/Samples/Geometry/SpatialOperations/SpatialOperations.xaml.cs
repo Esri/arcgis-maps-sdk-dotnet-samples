@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using Xamarin.Forms;
 using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.SpatialOperations
+namespace ArcGISRuntimeMaui.Samples.SpatialOperations
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Perform spatial operations",

@@ -14,7 +14,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AddFeatures
+namespace ArcGISRuntimeMaui.Samples.AddFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add features",

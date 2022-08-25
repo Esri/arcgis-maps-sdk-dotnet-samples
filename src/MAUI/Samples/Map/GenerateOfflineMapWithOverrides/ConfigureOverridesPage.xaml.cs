@@ -8,7 +8,7 @@ using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
+namespace ArcGISRuntimeMaui.Samples.GenerateOfflineMapWithOverrides
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConfigureOverridesPage : ContentPage

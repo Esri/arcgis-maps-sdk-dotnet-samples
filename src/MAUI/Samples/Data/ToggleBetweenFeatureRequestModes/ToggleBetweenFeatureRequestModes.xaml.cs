@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ToggleBetweenFeatureRequestModes
+namespace ArcGISRuntimeMaui.Samples.ToggleBetweenFeatureRequestModes
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Toggle between feature request modes",

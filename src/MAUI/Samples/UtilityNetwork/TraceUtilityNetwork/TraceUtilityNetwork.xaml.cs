@@ -22,7 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.TraceUtilityNetwork
+namespace ArcGISRuntimeMaui.Samples.TraceUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Trace utility network",

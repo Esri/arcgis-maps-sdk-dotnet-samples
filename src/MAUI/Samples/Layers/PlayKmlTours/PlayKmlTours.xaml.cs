@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.PlayKmlTours
+namespace ArcGISRuntimeMaui.Samples.PlayKmlTours
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Play KML tour",

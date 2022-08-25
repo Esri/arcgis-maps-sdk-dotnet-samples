@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.OfflineRouting
+namespace ArcGISRuntimeMaui.Samples.OfflineRouting
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Offline routing",

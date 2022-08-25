@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowLocationHistory
+namespace ArcGISRuntimeMaui.Samples.ShowLocationHistory
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Show location history",

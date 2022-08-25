@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.IdentifyLayers
+namespace ArcGISRuntimeMaui.Samples.IdentifyLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Identify layers",

@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AddEncExchangeSet
+namespace ArcGISRuntimeMaui.Samples.AddEncExchangeSet
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add ENC exchange set",

@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.WfsXmlQuery
+namespace ArcGISRuntimeMaui.Samples.WfsXmlQuery
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Load WFS with XML query",

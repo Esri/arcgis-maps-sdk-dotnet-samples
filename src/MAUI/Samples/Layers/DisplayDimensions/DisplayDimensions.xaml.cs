@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayDimensions
+namespace ArcGISRuntimeMaui.Samples.DisplayDimensions
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display dimensions",

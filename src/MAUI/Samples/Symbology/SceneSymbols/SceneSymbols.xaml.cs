@@ -15,7 +15,7 @@ using System;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.SceneSymbols
+namespace ArcGISRuntimeMaui.Samples.SceneSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Scene symbols",

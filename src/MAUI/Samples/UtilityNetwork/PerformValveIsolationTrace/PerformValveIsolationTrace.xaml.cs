@@ -20,7 +20,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.PerformValveIsolationTrace
+namespace ArcGISRuntimeMaui.Samples.PerformValveIsolationTrace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Perform valve isolation trace",

@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenStreetMapLayer
+namespace ArcGISRuntimeMaui.Samples.OpenStreetMapLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "OpenStreetMap layer",

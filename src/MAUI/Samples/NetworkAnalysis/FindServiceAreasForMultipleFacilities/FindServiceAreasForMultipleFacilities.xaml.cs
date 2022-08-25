@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.FindServiceAreasForMultipleFacilities
+namespace ArcGISRuntimeMaui.Samples.FindServiceAreasForMultipleFacilities
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Find service areas for multiple facilities",

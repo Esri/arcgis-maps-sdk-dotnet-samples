@@ -22,7 +22,7 @@ using Xamarin.Forms;
 using ArcGISRuntime.Droid;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.IndoorPositioning
+namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Show device location using indoor positioning",

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ControlAnnotationSublayerVisibility
+namespace ArcGISRuntimeMaui.Samples.ControlAnnotationSublayerVisibility
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Control annotation sublayer visibility",

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.SetMaxExtent
+namespace ArcGISRuntimeMaui.Samples.SetMaxExtent
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Set max extent",

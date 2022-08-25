@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.EditKmlGroundOverlay
+namespace ArcGISRuntimeMaui.Samples.EditKmlGroundOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Edit KML ground overlay",

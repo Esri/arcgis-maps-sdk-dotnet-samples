@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.IdentifyRasterCell
+namespace ArcGISRuntimeMaui.Samples.IdentifyRasterCell
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Identify raster cell",

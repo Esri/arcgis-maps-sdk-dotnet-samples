@@ -26,7 +26,7 @@ using Xamarin.Essentials;
 using Map = Esri.ArcGISRuntime.Mapping.Map; // avoid ambiguity with Xamarin.Essentials.Map
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.EditFeatureAttachments
+namespace ArcGISRuntimeMaui.Samples.EditFeatureAttachments
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Edit feature attachments",

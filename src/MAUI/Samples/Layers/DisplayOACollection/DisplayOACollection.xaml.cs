@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayOACollection
+namespace ArcGISRuntimeMaui.Samples.DisplayOACollection
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display OGC API collection",

@@ -17,7 +17,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ListKmlContents
+namespace ArcGISRuntimeMaui.Samples.ListKmlContents
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "List KML contents",

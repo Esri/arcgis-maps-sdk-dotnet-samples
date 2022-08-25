@@ -16,7 +16,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ChooseCameraController
+namespace ArcGISRuntimeMaui.Samples.ChooseCameraController
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Choose camera controller",

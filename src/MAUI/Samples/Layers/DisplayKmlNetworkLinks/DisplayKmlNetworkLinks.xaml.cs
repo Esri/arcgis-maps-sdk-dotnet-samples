@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayKmlNetworkLinks
+namespace ArcGISRuntimeMaui.Samples.DisplayKmlNetworkLinks
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display KML network links",

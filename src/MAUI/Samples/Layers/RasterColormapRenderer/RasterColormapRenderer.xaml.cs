@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.RasterColormapRenderer
+namespace ArcGISRuntimeMaui.Samples.RasterColormapRenderer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Colormap renderer",

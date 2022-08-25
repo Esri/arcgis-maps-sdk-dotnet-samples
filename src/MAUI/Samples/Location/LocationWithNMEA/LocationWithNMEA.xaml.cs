@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.LocationWithNMEA
+namespace ArcGISRuntimeMaui.Samples.LocationWithNMEA
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display device location with NMEA data sources",

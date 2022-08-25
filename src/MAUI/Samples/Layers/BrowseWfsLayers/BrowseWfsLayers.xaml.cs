@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.BrowseWfsLayers
+namespace ArcGISRuntimeMaui.Samples.BrowseWfsLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Browse WFS layers",

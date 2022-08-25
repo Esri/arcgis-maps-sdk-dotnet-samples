@@ -24,7 +24,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.MobileMapSearchAndRoute
+namespace ArcGISRuntimeMaui.Samples.MobileMapSearchAndRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Mobile map (search and route)",

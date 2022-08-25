@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.QueryCQLFilters
+namespace ArcGISRuntimeMaui.Samples.QueryCQLFilters
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Query with CQL filters",

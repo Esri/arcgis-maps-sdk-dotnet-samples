@@ -18,7 +18,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGISRuntimeXamarin.Samples.CreateMobileGeodatabase
+namespace ArcGISRuntimeMaui.Samples.CreateMobileGeodatabase
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create mobile geodatabase",

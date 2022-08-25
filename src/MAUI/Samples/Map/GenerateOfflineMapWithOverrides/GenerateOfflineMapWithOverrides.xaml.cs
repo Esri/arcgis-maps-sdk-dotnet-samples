@@ -25,7 +25,7 @@ using Xamarin.Forms;
 using Application = Xamarin.Forms.Application;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.GenerateOfflineMapWithOverrides
+namespace ArcGISRuntimeMaui.Samples.GenerateOfflineMapWithOverrides
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Generate offline map (overrides)",

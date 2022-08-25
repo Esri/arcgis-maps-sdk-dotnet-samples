@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ManageOperationalLayers
+namespace ArcGISRuntimeMaui.Samples.ManageOperationalLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Manage operational layers",

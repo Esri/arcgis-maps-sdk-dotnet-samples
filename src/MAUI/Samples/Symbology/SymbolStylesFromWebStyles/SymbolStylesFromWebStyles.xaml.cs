@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.SymbolStylesFromWebStyles
+namespace ArcGISRuntimeMaui.Samples.SymbolStylesFromWebStyles
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create symbol styles from web styles",

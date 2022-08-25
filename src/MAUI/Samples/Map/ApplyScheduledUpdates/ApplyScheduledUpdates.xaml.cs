@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ApplyScheduledUpdates
+namespace ArcGISRuntimeMaui.Samples.ApplyScheduledUpdates
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Apply scheduled updates to preplanned map area",

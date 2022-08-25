@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeEncDisplaySettings
+namespace ArcGISRuntimeMaui.Samples.ChangeEncDisplaySettings
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Change ENC display settings",

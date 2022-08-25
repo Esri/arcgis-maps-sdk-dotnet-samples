@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.EditFeatureLinkedAnnotation
+namespace ArcGISRuntimeMaui.Samples.EditFeatureLinkedAnnotation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Edit features with feature-linked annotation",

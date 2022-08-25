@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ConfigureSubnetworkTrace
+namespace ArcGISRuntimeMaui.Samples.ConfigureSubnetworkTrace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Configure subnetwork trace",

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ChangeAtmosphereEffect
+namespace ArcGISRuntimeMaui.Samples.ChangeAtmosphereEffect
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Change atmosphere effect",

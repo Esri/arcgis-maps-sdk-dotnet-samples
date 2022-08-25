@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.OpenMobileScenePackage
+namespace ArcGISRuntimeMaui.Samples.OpenMobileScenePackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Open mobile scene package",

@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ExportVectorTiles
+namespace ArcGISRuntimeMaui.Samples.ExportVectorTiles
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Export vector tiles",

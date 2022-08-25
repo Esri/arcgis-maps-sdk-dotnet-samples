@@ -21,7 +21,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ReverseGeocode
+namespace ArcGISRuntimeMaui.Samples.ReverseGeocode
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Reverse geocode",

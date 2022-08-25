@@ -13,7 +13,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.ViewPointCloudDataOffline
+namespace ArcGISRuntimeMaui.Samples.ViewPointCloudDataOffline
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "View point cloud data offline",

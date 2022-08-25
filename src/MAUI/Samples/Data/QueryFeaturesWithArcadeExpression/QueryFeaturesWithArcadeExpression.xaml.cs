@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.QueryFeaturesWithArcadeExpression
+namespace ArcGISRuntimeMaui.Samples.QueryFeaturesWithArcadeExpression
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Query features with Arcade expression",

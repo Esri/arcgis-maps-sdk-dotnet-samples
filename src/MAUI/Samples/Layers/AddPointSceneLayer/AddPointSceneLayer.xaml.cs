@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AddPointSceneLayer
+namespace ArcGISRuntimeMaui.Samples.AddPointSceneLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add a point scene layer",

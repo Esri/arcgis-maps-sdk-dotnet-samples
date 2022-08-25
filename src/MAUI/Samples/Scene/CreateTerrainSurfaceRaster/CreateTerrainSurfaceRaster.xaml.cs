@@ -11,7 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.CreateTerrainSurfaceRaster
+namespace ArcGISRuntimeMaui.Samples.CreateTerrainSurfaceRaster
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create terrain surface from a local raster",

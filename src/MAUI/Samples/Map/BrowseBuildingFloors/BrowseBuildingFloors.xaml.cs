@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.BrowseBuildingFloors
+namespace ArcGISRuntimeMaui.Samples.BrowseBuildingFloors
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Browse building floors",

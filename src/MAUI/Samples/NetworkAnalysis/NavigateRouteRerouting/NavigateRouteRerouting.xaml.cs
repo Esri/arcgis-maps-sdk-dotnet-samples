@@ -23,7 +23,7 @@ using Xamarin.Forms;
 using static Xamarin.Essentials.TextToSpeech;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.NavigateRouteRerouting
+namespace ArcGISRuntimeMaui.Samples.NavigateRouteRerouting
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Navigate route with rerouting",

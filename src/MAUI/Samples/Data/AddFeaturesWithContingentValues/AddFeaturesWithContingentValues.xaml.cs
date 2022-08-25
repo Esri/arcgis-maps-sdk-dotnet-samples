@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.AddFeaturesWithContingentValues
+namespace ArcGISRuntimeMaui.Samples.AddFeaturesWithContingentValues
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add features with contingent values",

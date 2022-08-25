@@ -17,7 +17,7 @@ using System.Linq;
 using Xamarin.Forms;
 using SelectionMode = Esri.ArcGISRuntime.Mapping.SelectionMode;
 
-namespace ArcGISRuntimeXamarin.Samples.ShowPopup
+namespace ArcGISRuntimeMaui.Samples.ShowPopup
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Show popup",

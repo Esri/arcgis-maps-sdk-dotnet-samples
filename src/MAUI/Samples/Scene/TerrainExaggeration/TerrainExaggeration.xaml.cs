@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.TerrainExaggeration
+namespace ArcGISRuntimeMaui.Samples.TerrainExaggeration
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Terrain exaggeration",

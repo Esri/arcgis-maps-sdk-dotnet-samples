@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayAnnotation
+namespace ArcGISRuntimeMaui.Samples.DisplayAnnotation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display annotation",

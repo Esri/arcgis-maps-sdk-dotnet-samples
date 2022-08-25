@@ -15,7 +15,7 @@ using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.CustomDictionaryStyle
+namespace ArcGISRuntimeMaui.Samples.CustomDictionaryStyle
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Custom dictionary style",

@@ -31,7 +31,7 @@ using Android;
 using Windows.Storage.Pickers;
 #endif
 
-namespace ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile
+namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create and save KML file",

@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.EditBranchVersioning
+namespace ArcGISRuntimeMaui.Samples.EditBranchVersioning
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Edit with branch versioning",

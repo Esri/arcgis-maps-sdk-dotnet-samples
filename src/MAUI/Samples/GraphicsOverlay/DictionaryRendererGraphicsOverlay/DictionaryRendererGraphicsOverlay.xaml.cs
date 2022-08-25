@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DictionaryRendererGraphicsOverlay
+namespace ArcGISRuntimeMaui.Samples.DictionaryRendererGraphicsOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Dictionary renderer with graphics overlay",

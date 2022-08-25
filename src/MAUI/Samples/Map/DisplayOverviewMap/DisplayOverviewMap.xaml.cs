@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Xamarin.Forms;
 
-namespace ArcGISRuntimeXamarin.Samples.DisplayOverviewMap
+namespace ArcGISRuntimeMaui.Samples.DisplayOverviewMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display overview map",

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeXamarin.Samples.Project
+namespace ArcGISRuntimeMaui.Samples.Project
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Project",

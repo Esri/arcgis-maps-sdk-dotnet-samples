@@ -5,7 +5,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
-             xmlns:resources="clr-namespace:Forms.Resources;assembly=ArcGISRuntime">
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources;assembly=ArcGISRuntime">
     <ContentPage.Resources>
         <DataTemplate x:Key="LayerListTemplate" x:DataType="mapping:Layer">
             <ViewCell>

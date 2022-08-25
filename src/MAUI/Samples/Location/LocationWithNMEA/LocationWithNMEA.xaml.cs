@@ -18,7 +18,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
-
+using Location = Esri.ArcGISRuntime.Location.Location;
+using Timer = System.Timers.Timer;
 
 namespace ArcGISRuntimeMaui.Samples.LocationWithNMEA
 {

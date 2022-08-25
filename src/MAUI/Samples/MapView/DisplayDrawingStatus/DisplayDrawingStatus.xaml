@@ -3,7 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:sampleViewer="clr-namespace:Forms.Resources">
+             xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
     <RelativeLayout>
         <esriUI:MapView x:Name="myMapView"
                         Style="{StaticResource MapWithFormStyle}"

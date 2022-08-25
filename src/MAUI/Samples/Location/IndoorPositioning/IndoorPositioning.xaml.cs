@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Location = Esri.ArcGISRuntime.Location.Location;
 
 
 #if __ANDROID__

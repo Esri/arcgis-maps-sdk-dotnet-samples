@@ -2,7 +2,7 @@
 <ContentPage x:Class="ArcGISRuntimeMaui.Samples.NearestVertex.NearestVertex"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:forms="clr-namespace:Esri.ArcGISRuntime.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Xamarin.Forms">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -14,6 +14,6 @@
                TextColor="Red">
             Tap to see the nearest vertex and point.
         </Label>
-        <forms:MapView x:Name="MyMapView" Grid.Row="1" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>
 </ContentPage>

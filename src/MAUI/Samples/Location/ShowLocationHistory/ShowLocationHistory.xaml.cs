@@ -16,6 +16,7 @@ using System;
 using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
+using Location = Esri.ArcGISRuntime.Location.Location;
 
 namespace ArcGISRuntimeMaui.Samples.ShowLocationHistory
 {

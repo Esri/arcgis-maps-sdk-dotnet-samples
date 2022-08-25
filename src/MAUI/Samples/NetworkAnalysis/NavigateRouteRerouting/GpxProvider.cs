@@ -13,6 +13,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Xml;
+using Location = Esri.ArcGISRuntime.Location.Location;
+using Timer = System.Timers.Timer;
 
 namespace ArcGISRuntimeMaui.Samples.NavigateRouteRerouting
 {

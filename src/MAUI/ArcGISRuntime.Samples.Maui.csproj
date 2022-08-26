@@ -89,6 +89,13 @@
 	  <None Remove="Samples\Map\ChangeBasemap\**" />
 	  <None Remove="Samples\Map\DisplayOverviewMap\**" />
 	  <None Remove="Samples\Location\IndoorPositioning\**" />
+
+	  <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <Compile Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <EmbeddedResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <MauiCss Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <MauiXaml Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <None Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	</ItemGroup>
 
     <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

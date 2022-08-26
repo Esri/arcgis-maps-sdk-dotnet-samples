@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 #if __IOS__
 using System.Security.Cryptography;
 using System.Text;
-#elif XAMARIN
+#elif __ANDROID__ && !NETCOREAPP
 using Xamarin.Essentials;
 #else
 
@@ -120,7 +120,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 Debug.WriteLine(ex.Message);
                 return null;
             }
-#elif XAMARIN
+#elif ANDROID
             return await SecureStorage.GetAsync(_apiKeyFileName);
 #else
             return await Task.FromResult(Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName)))));
@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 #if __IOS__
                 File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Encrypt(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
                 return true;
-#elif XAMARIN
+#elif ANDROID
 
                 SecureStorage.SetAsync(_apiKeyFileName, Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey);
                 return true;
@@ -157,7 +157,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         {
 #if NETFX_CORE
             string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#elif XAMARIN
+#elif __ANDROID__ && !NETCOREAPP
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #else
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return sampleDataFolder;
         }
 
-#if !XAMARIN
+#if !__ANDROID__ && !NETCOREAPP
 
         #region Windows Data Protection
 

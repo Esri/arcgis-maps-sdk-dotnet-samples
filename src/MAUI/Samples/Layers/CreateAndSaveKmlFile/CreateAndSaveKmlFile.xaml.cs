@@ -26,6 +26,7 @@ using ArcGISRuntime.Samples.Managers;
 //using Android.Support.V4.Content;
 using Android.Content.PM;
 using Android;
+using Android.Content.Res;
 #endif
 #if WINDOWS_UWP
 using Windows.Storage.Pickers;
@@ -39,7 +40,6 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
         description: "Construct a KML document and save it as a KMZ file.",
         instructions: "Tap on one of the buttons in the middle row to start adding a geometry. Tap on the map view to place vertices. Tap the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, tap the \"Don't Apply Style\" button. When you are finished adding KML nodes, tap on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateAndSaveKmlFile : ContentPage
     {
         private KmlDocument _kmlDocument;
@@ -180,7 +180,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             Color systemColor = Color.Transparent;
             if (((string)e.SelectedItem).StartsWith('#'))
             {
-                Xamarin.ArcGISRuntimeMaui.Color platColor = Xamarin.ArcGISRuntimeMaui.Color.FromHex((string)e.SelectedItem);
+                Color platColor = Color.FromArgb(Int32.Parse(((string)e.SelectedItem).Replace("#", ""), NumberStyles.HexNumber)); 
                 systemColor = Color.FromArgb((int)(platColor.A * 255), (int)(platColor.R * 255), (int)(platColor.G * 255), (int)(platColor.B * 255));
             }
 
@@ -320,7 +320,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null || value.GetType() != typeof(string)) { return null; }
-            return Xamarin.ArcGISRuntimeMaui.Color.FromHex((string)value);
+            return System.Drawing.Color.FromArgb(Int32.Parse(((string)value).Replace("#", ""), NumberStyles.HexNumber));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

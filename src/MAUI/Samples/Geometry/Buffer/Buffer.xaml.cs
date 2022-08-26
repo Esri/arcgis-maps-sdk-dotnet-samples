@@ -125,7 +125,7 @@ namespace ArcGISRuntime.Samples.Buffer
 
         private void ShowBufferSwatches(Colors planarBufferColor, Colors geodesicBufferColor)
         {
-            // Create Xamarin.ArcGISRuntimeMaui.Colors to represent the System.Drawing.Colors used for the buffers.
+            // Create System.Drawing.Colors to represent the System.Drawing.Colors used for the buffers.
             Color planarLabelColor = Color.FromRgba(planarBufferColor.R,
                 planarBufferColor.G,
                 planarBufferColor.B,

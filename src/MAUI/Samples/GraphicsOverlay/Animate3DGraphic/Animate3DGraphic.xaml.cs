@@ -272,8 +272,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             // Update the inset map; plane symbol position
             _plane2D.Geometry = currentFrame.ToMapPoint();
             // Update inset's viewpoint and heading
-            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), InsetMapView.MapScale,
-                360 + (float)currentFrame.Heading);
+            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), InsetMapView.MapScale, 360 + (float)currentFrame.Heading);
             InsetMapView.SetViewpoint(vp);
 
             // Update the keyframe. This advances the animation

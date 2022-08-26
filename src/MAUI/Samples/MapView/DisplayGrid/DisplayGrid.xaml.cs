@@ -46,8 +46,8 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             haloColorPicker.ItemsSource = colorItemsSource;
             labelPositionPicker.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
             labelFormatPicker.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
-            foreach (Picker combo in new[]
-                {gridTypePicker, gridColorPicker, labelColorPicker, labelPositionPicker, labelFormatPicker})
+
+            foreach (Picker combo in new Picker[] {gridTypePicker, gridColorPicker, labelColorPicker, labelPositionPicker, labelFormatPicker})
             {
                 combo.SelectedIndex = 0;
             }

@@ -13,7 +13,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 
         public LoginPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         // Text to display at the top of the login controls.

@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
+using Color = System.Drawing.Color;
 
 
 namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
@@ -63,7 +64,7 @@ namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
                 await MyMapView.SetViewpointCenterAsync(new MapPoint(-10846309.950860, 4683272.219411, SpatialReferences.WebMercator), 20000000);
 
                 // create label definitions for each party.
-                LabelDefinition republicanLabelDefinition = MakeLabelDefinition("Republican", Color.Red);
+                LabelDefinition republicanLabelDefinition = MakeLabelDefinition("Republican", System.Drawing.Color.Red);
                 LabelDefinition democratLabelDefinition = MakeLabelDefinition("Democrat", Color.Blue);
 
                 // Add the label definition to the feature layer's label definition collection.

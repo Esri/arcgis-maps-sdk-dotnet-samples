@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
 
             // Disable the button after has been used.
             ChangeSublayerRendererButton.IsEnabled = false;
-            ChangeSublayerRendererButton.TextColor = Xamarin.ArcGISRuntimeMaui.Color.Gray;
+            ChangeSublayerRendererButton.TextColor = System.Drawing.Color.Gray;
         }
     }
 }

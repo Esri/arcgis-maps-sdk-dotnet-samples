@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 
 using Colors = System.Drawing.Color;
+using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISRuntimeMaui.Samples.SpatialOperations
 {

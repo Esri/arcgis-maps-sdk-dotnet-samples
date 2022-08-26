@@ -21,9 +21,6 @@ using System.Threading.Tasks;
 #if __IOS__
 using Foundation;
 using UIKit;
-#else
-using Xamarin.Essentials;
-using Map = Esri.ArcGISRuntime.Mapping.Map; // avoid ambiguity with Xamarin.Essentials.Map
 #endif
 
 namespace ArcGISRuntimeMaui.Samples.EditFeatureAttachments

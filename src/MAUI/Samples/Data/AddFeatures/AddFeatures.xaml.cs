@@ -69,7 +69,7 @@ namespace ArcGISRuntimeMaui.Samples.AddFeatures
             }
         }
 
-        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private async void MapView_Tapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             try
             {

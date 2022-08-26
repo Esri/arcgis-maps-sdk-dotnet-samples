@@ -110,7 +110,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateMobileGeodatabase
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             _ = AddFeature(e.Location);
         }

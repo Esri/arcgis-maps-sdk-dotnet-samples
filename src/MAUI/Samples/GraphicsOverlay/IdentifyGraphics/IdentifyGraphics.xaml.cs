@@ -81,7 +81,7 @@ namespace ArcGISRuntime.Samples.IdentifyGraphics
             MyMapView.GraphicsOverlays.Add(_polygonOverlay);
         }
 
-        private async void OnMapViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private async void OnMapViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             double tolerance = 10d; // Use larger tolerance for touch
             int maximumResults = 1; // Only return one graphic

@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
-using RuntimeImageExtensions = Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions;
+using RuntimeImageExtensions = Esri.ArcGISRuntime.Maui.RuntimeImageExtensions;
 
 namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
 {

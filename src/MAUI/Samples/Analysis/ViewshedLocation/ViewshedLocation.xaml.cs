@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 
 using Colors = System.Drawing.Color;
-using GeoViewInputEventArgs = Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs;
+using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
 
 namespace ArcGISRuntime.Samples.ViewshedLocation
 {

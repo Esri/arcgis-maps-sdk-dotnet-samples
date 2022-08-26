@@ -117,7 +117,7 @@ namespace ArcGISRuntimeMaui.Samples.DisplayUtilityNetworkContainer
             }
         }
 
-        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             _ = IdentifyContainer(e.Position);
         }

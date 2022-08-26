@@ -239,7 +239,7 @@ namespace ArcGISRuntimeMaui.Samples.OfflineRouting
 
         private void ResetButton_Click(object sender, EventArgs e) => ResetRoute();
 
-        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             // Make sure the user isn't adding too many stops.
             if (_stopsOverlay.Graphics.Count >= 5)

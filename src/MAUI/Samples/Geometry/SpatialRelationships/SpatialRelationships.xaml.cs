@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Color = System.Drawing.Color;
+using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISRuntime.Samples.SpatialRelationships
 {
@@ -109,7 +110,7 @@ namespace ArcGISRuntime.Samples.SpatialRelationships
             MyMapView.SetViewpointCenterAsync(pointGeometry, 200000000);
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             // Identify the tapped graphics
             IdentifyGraphicsOverlayResult result = null;

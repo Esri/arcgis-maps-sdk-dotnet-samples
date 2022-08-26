@@ -51,7 +51,7 @@ namespace ArcGISRuntimeMaui.Samples.Project
             await MyMapView.SetViewpointGeometryAsync(startingEnvelope);
         }
 
-        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private void MapView_Tapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             // Get the tapped point - this is in the map's spatial reference,
             // which in this case is WebMercator because that is the SR used by the included basemaps.

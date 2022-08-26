@@ -82,7 +82,7 @@ namespace ArcGISRuntime.Samples.Buffer
             ShowBufferSwatches(planarBufferColor, geodesicBufferColor);
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             try
             {

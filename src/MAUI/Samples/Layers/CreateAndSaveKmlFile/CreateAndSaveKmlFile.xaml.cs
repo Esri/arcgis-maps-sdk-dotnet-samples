@@ -23,7 +23,7 @@ using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 using ArcGISRuntime.Samples.Managers;
 #endif
 #if __ANDROID__
-using Android.Support.V4.Content;
+//using Android.Support.V4.Content;
 using Android.Content.PM;
 using Android;
 #endif

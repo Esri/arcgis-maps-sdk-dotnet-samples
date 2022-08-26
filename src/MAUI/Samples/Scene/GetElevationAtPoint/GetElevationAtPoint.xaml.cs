@@ -90,7 +90,7 @@ namespace ArcGISRuntimeMaui.Samples.GetElevationAtPoint
             MySceneView.Scene = myScene;
         }
 
-        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private async void SceneViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             try
             {

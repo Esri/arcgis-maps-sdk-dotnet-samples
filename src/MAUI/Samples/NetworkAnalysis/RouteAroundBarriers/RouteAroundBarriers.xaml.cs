@@ -275,7 +275,7 @@ namespace ArcGISRuntimeMaui.Samples.RouteAroundBarriers
             _directionsPage.Content = directionsList;
         }
 
-        private void MyMapView_OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e) => _ = HandleMapTap(e.Location);
+        private void MyMapView_OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e) => _ = HandleMapTap(e.Location);
 
         private void AddStop_Clicked(object sender, EventArgs e) => UpdateInterfaceState(SampleState.AddingStops);
 

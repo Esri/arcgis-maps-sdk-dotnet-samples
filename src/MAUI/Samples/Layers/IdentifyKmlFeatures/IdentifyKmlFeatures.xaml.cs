@@ -58,7 +58,7 @@ namespace ArcGISRuntimeMaui.Samples.IdentifyKmlFeatures
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             // Clear any existing popups.
             MyMapView.DismissCallout();

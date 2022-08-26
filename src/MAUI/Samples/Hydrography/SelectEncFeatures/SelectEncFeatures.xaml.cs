@@ -102,7 +102,7 @@ namespace ArcGISRuntime.Samples.SelectEncFeatures
             MyMapView.DismissCallout();
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             // First clear any existing selections
             ClearAllSelections();

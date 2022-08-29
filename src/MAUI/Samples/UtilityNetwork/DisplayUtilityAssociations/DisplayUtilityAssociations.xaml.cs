@@ -118,10 +118,10 @@ namespace ArcGISRuntimeMaui.Samples.DisplayUtilityAssociations
 
                 // Populate the legend in the UI.
                 RuntimeImage attachmentSwatch = await attachmentSymbol.CreateSwatchAsync();
-                AttachmentImage.Source = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(attachmentSwatch);
+                AttachmentImage.Source = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(attachmentSwatch);
 
                 RuntimeImage connectSwatch = await connectivitySymbol.CreateSwatchAsync();
-                ConnectivityImage.Source = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(connectSwatch);
+                ConnectivityImage.Source = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(connectSwatch);
 
                 // Set the starting viewpoint.
                 await MyMapView.SetViewpointAsync(InitialViewpoint);

@@ -14,6 +14,8 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 
+using Color = System.Drawing.Color;
+
 
 namespace ArcGISRuntime.Samples.FormatCoordinates
 {

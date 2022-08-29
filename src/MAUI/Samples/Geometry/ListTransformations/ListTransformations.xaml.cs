@@ -17,8 +17,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
-using Colors = System.Drawing.Color;
-
 namespace ArcGISRuntime.Samples.ListTransformations
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -68,7 +66,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             MyMapView.GraphicsOverlays.Add(_pointsOverlay);
 
             // Add the point as a graphic with a blue square.
-            SimpleMarkerSymbol markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Square, Colors.Blue, 15);
+            SimpleMarkerSymbol markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Square, System.Drawing.Color.Blue, 15);
             Graphic originalGraphic = new Graphic(_originalPoint, markerSymbol);
             _pointsOverlay.Graphics.Add(originalGraphic);
 
@@ -159,7 +157,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 else
                 {
                     // Create a symbol to represent the projected point (a cross to ensure both markers are visible).
-                    SimpleMarkerSymbol projectedPointMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, Colors.Red, 15);
+                    SimpleMarkerSymbol projectedPointMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Red, 15);
 
                     // Create the point graphic and add it to the overlay.
                     _projectedPointGraphic = new Graphic(projectedPoint, projectedPointMarker);
@@ -231,8 +229,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 Label transformNameLabel = new Label
                 {
                     // Show these with gray text.
-                    TextColor = Color.Gray,
-                    BackgroundColor = Color.White
+                    TextColor = Colors.Gray,
+                    BackgroundColor = Colors.White
                 };
                 transformNameLabel.SetBinding(Label.TextProperty, "TransformationObject.Name");
 
@@ -245,8 +243,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 Label transformNameLabel = new Label
                 {
                     // Show these with black text.
-                    TextColor = Color.Black,
-                    BackgroundColor = Color.White
+                    TextColor = Colors.Black,
+                    BackgroundColor = Colors.White
                 };
                 transformNameLabel.SetBinding(Label.TextProperty, "TransformationObject.Name");
 
@@ -260,8 +258,8 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 {
                     // Show these with bold blue text.
                     FontAttributes = FontAttributes.Bold,
-                    TextColor = Color.Blue,
-                    BackgroundColor = Color.White
+                    TextColor = Colors.Blue,
+                    BackgroundColor = Colors.White
                 };
                 transformNameLabel.SetBinding(Label.TextProperty, "TransformationObject.Name");
 

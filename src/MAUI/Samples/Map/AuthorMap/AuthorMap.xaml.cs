@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Color = System.Drawing.Color;
 
 #if __ANDROID__
 using Application = Microsoft.Maui.Controls.Application;
@@ -73,19 +73,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
             }
             else MyMapView.Map = new Map();
-
-            // Change the style of the layer list view for Android and UWP
-            switch (Device.RuntimePlatform)
-            {
-                case Device.Android:
-                    LayersList.BackgroundColor = Color.Black;
-                    break;
-
-                case Device.UWP:
-                    LayersList.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
-                    LayersList.Margin = new Thickness(50);
-                    break;
-            }
         }
 
         private void LayerSelected(object sender, ItemTappedEventArgs e)

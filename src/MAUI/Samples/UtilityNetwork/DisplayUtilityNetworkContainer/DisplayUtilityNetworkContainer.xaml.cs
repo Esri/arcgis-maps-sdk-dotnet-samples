@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Color = System.Drawing.Color;
 
 
 namespace ArcGISRuntimeMaui.Samples.DisplayUtilityNetworkContainer
@@ -83,13 +84,13 @@ namespace ArcGISRuntimeMaui.Samples.DisplayUtilityNetworkContainer
 
             // Populate the legend in the UI.
             RuntimeImage attachmentSwatch = await attachmentSymbol.CreateSwatchAsync();
-            AttachmentImage.Source = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(attachmentSwatch);
+            AttachmentImage.Source = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(attachmentSwatch);
 
             RuntimeImage connectSwatch = await connectivitySymbol.CreateSwatchAsync();
-            ConnectivityImage.Source = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(connectSwatch);
+            ConnectivityImage.Source = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(connectSwatch);
 
             RuntimeImage boundingSwatch = await boundingBoxSymbol.CreateSwatchAsync();
-            ContainmentImage.Source = await Esri.ArcGISRuntime.Xamarin.ArcGISRuntimeMaui.RuntimeImageExtensions.ToImageSourceAsync(boundingSwatch);
+            ContainmentImage.Source = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(boundingSwatch);
 
             try
             {

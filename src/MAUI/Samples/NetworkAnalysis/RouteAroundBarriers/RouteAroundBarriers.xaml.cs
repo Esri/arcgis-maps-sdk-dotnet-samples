@@ -132,7 +132,7 @@ namespace ArcGISRuntimeMaui.Samples.RouteAroundBarriers
 
                         // Create the text symbol for showing the stop.
                         TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
-                            HorizontalAlignment.Center, VerticalAlignment.Middle);
+                            Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
                         stopSymbol.OffsetY = 15;
 
                         CompositeSymbol combinedSymbol = new CompositeSymbol(new MarkerSymbol[] { pushpinMarker, stopSymbol });

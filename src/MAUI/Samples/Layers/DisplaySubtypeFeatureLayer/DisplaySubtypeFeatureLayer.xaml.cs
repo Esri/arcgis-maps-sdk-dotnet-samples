@@ -13,11 +13,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
-using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
-
+using Color = System.Drawing.Color;
 
 namespace ArcGISRuntimeMaui.Samples.DisplaySubtypeFeatureLayer
 {

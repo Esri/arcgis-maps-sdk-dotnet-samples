@@ -65,7 +65,7 @@ namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
         private void OnOverrideButtonClicked(object sender, EventArgs e)
         {
             // Create a symbol to be used in the renderer.
-            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Blue, 5);
+            SimpleMarkerSymbol symbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 5);
 
             // Create and apply a new renderer using the symbol just created.
             _featureLayer.Renderer = new SimpleRenderer(symbol);

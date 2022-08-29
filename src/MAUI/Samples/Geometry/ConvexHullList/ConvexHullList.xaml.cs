@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 
 using Color = System.Drawing.Color;
+using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISRuntime.Samples.ConvexHullList
 {

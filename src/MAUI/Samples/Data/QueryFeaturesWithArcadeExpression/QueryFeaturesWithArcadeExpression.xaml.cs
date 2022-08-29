@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.QueryFeaturesWithArcadeExpression
+namespace ArcGISRuntimeSamples.QueryFeaturesWithArcadeExpression
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Query features with Arcade expression",

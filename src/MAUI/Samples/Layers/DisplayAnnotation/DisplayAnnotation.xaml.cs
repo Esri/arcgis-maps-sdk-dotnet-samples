@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 
 
-namespace ArcGISRuntimeMaui.Samples.DisplayAnnotation
+namespace ArcGISRuntimeSamples.DisplayAnnotation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display annotation",

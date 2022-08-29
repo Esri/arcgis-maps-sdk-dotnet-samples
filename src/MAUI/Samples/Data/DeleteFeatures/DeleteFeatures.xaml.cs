@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.DeleteFeatures
+namespace ArcGISRuntimeSamples.DeleteFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Delete features (feature service)",

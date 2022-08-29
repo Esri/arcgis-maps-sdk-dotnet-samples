@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.UpdateAttributes
+namespace ArcGISRuntimeSamples.UpdateAttributes
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Update attributes (feature service)",

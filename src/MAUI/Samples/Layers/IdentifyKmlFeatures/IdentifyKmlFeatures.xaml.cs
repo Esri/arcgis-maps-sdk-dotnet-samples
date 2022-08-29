@@ -15,7 +15,7 @@ using System;
 using System.Linq;
 
 
-namespace ArcGISRuntimeMaui.Samples.IdentifyKmlFeatures
+namespace ArcGISRuntimeSamples.IdentifyKmlFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Identify KML features",

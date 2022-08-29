@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.ChangeEncDisplaySettings
+namespace ArcGISRuntimeSamples.ChangeEncDisplaySettings
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Change ENC display settings",

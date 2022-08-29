@@ -16,7 +16,7 @@ using System;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.ChooseCameraController
+namespace ArcGISRuntimeSamples.ChooseCameraController
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Choose camera controller",

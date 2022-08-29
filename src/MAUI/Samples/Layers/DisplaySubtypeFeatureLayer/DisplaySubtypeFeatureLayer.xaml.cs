@@ -17,7 +17,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeMaui.Samples.DisplaySubtypeFeatureLayer
+namespace ArcGISRuntimeSamples.DisplaySubtypeFeatureLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display subtype feature layer",

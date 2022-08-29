@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.ToggleBetweenFeatureRequestModes
+namespace ArcGISRuntimeSamples.ToggleBetweenFeatureRequestModes
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Toggle between feature request modes",

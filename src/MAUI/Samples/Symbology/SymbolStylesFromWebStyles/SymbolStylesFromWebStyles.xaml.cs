@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.SymbolStylesFromWebStyles
+namespace ArcGISRuntimeSamples.SymbolStylesFromWebStyles
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create symbol styles from web styles",

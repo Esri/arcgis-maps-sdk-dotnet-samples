@@ -11,7 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
 
-namespace ArcGISRuntimeMaui.Samples.CreateTerrainSurfaceTilePackage
+namespace ArcGISRuntimeSamples.CreateTerrainSurfaceTilePackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create terrain from local tile package",

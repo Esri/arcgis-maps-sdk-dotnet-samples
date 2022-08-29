@@ -15,7 +15,7 @@ using System;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeMaui.Samples.SceneSymbols
+namespace ArcGISRuntimeSamples.SceneSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Scene symbols",

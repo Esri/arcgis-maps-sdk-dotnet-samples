@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.WfsXmlQuery
+namespace ArcGISRuntimeSamples.WfsXmlQuery
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Load WFS with XML query",

@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.HonorMobileMapPackageExpiration
+namespace ArcGISRuntimeSamples.HonorMobileMapPackageExpiration
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Honor mobile map package expiration date",

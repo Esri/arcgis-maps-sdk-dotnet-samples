@@ -10,15 +10,10 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
-
-namespace ArcGISRuntimeMaui.Samples.PlayKmlTours
+namespace ArcGISRuntime.Samples.PlayKmlTours
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Play KML tour",

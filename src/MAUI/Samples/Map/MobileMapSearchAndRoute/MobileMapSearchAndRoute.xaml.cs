@@ -24,7 +24,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.MobileMapSearchAndRoute
+namespace ArcGISRuntimeSamples.MobileMapSearchAndRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Mobile map (search and route)",

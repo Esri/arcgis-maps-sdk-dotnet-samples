@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 
 
-namespace ArcGISRuntimeMaui.Samples.TerrainExaggeration
+namespace ArcGISRuntimeSamples.TerrainExaggeration
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Terrain exaggeration",

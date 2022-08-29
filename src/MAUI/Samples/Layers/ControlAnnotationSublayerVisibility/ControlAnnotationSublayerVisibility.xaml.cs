@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.ControlAnnotationSublayerVisibility
+namespace ArcGISRuntimeSamples.ControlAnnotationSublayerVisibility
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Control annotation sublayer visibility",

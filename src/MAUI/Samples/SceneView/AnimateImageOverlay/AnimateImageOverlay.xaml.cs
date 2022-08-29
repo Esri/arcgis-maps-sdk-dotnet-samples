@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading;
 
 
-namespace ArcGISRuntimeMaui.Samples.AnimateImageOverlay
+namespace ArcGISRuntimeSamples.AnimateImageOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Animate images with image overlay",

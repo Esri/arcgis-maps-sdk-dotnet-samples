@@ -22,7 +22,7 @@ using System.Xml.Linq;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 
-namespace ArcGISRuntimeMaui.Samples.DictionaryRendererGraphicsOverlay
+namespace ArcGISRuntimeSamples.DictionaryRendererGraphicsOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Dictionary renderer with graphics overlay",

@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 
 
-namespace ArcGISRuntimeMaui.Samples.OpenStreetMapLayer
+namespace ArcGISRuntime.Samples.OpenStreetMapLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "OpenStreetMap layer",

@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using Color = System.Drawing.Color;
 using Location = Esri.ArcGISRuntime.Location.Location;
 
-namespace ArcGISRuntimeMaui.Samples.NavigateRoute
+namespace ArcGISRuntimeSamples.NavigateRoute
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Navigate route",

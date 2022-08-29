@@ -21,7 +21,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.ReverseGeocode
+namespace ArcGISRuntimeSamples.ReverseGeocode
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Reverse geocode",

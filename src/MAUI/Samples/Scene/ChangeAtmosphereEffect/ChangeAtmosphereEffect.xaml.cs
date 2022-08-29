@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 
 
-namespace ArcGISRuntimeMaui.Samples.ChangeAtmosphereEffect
+namespace ArcGISRuntimeSamples.ChangeAtmosphereEffect
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Change atmosphere effect",

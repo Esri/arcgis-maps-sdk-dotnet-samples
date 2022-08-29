@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeMaui.Samples.DisplayOACollection
+namespace ArcGISRuntimeSamples.DisplayOACollection
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display OGC API collection",

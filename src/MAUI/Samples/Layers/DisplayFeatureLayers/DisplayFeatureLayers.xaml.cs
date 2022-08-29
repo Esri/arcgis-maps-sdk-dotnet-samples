@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.DisplayFeatureLayers
+namespace ArcGISRuntimeSamples.DisplayFeatureLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display feature layers",

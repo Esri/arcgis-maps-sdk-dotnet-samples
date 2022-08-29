@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.FindServiceAreasForMultipleFacilities
+namespace ArcGISRuntimeSamples.FindServiceAreasForMultipleFacilities
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Find service areas for multiple facilities",

@@ -11,7 +11,7 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
 
-namespace ArcGISRuntimeMaui.Samples.CreateTerrainSurfaceRaster
+namespace ArcGISRuntimeSamples.CreateTerrainSurfaceRaster
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create terrain surface from a local raster",

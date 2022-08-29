@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 
 
-namespace ArcGISRuntimeMaui.Samples.DisplayKmlNetworkLinks
+namespace ArcGISRuntimeSamples.DisplayKmlNetworkLinks
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display KML network links",

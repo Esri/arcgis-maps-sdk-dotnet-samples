@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
 
-namespace ArcGISRuntimeMaui.Samples.SetMaxExtent
+namespace ArcGISRuntimeSamples.SetMaxExtent
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Set max extent",

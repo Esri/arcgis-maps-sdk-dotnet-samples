@@ -16,7 +16,7 @@ using System.Diagnostics;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeMaui.Samples.GetElevationAtPoint
+namespace ArcGISRuntimeSamples.GetElevationAtPoint
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Get elevation at a point",

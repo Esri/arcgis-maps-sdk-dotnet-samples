@@ -22,7 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.TraceUtilityNetwork
+namespace ArcGISRuntimeSamples.TraceUtilityNetwork
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Trace utility network",

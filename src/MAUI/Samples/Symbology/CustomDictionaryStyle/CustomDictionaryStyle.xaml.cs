@@ -15,7 +15,7 @@ using System;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.CustomDictionaryStyle
+namespace ArcGISRuntimeSamples.CustomDictionaryStyle
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Custom dictionary style",

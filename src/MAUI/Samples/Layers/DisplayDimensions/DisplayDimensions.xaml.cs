@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.DisplayDimensions
+namespace ArcGISRuntimeSamples.DisplayDimensions
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display dimensions",

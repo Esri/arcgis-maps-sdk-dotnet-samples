@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.IdentifyRasterCell
+namespace ArcGISRuntimeSamples.IdentifyRasterCell
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Identify raster cell",

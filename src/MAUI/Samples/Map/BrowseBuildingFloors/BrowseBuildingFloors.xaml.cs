@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.BrowseBuildingFloors
+namespace ArcGISRuntimeSamples.BrowseBuildingFloors
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Browse building floors",

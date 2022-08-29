@@ -21,7 +21,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.OfflineGeocode
+namespace ArcGISRuntimeSamples.OfflineGeocode
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Offline geocode",

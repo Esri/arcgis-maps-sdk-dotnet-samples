@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.ExportVectorTiles
+namespace ArcGISRuntimeSamples.ExportVectorTiles
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Export vector tiles",

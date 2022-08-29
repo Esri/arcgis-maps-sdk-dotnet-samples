@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeMaui.Samples.QueryCQLFilters
+namespace ArcGISRuntimeSamples.QueryCQLFilters
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Query with CQL filters",

@@ -250,7 +250,7 @@ namespace ArcGISRuntimeMaui.Samples.OfflineBasemapByReference
             {
                 // Show the percent complete and update the progress bar.
                 Percentage.Text = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;
-                ProgressBar.Progress = job.Progress / 100.0;
+                MapProgressBar.Progress = job.Progress / 100.0;
             });
         }
 

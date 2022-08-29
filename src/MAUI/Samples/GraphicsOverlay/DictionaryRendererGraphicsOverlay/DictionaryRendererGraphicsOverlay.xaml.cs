@@ -19,6 +19,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
+using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
+
 
 namespace ArcGISRuntimeMaui.Samples.DictionaryRendererGraphicsOverlay
 {

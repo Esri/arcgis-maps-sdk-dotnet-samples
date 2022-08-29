@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
+using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
 {
@@ -138,10 +139,10 @@ namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
         {
             // Create two text symbols.
             TextSymbol bassRockTextSymbol = new TextSymbol("Black Rock", Colors.Blue, 10,
-                HorizontalAlignment.Left, VerticalAlignment.Bottom);
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Left, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Bottom);
 
             TextSymbol craigleithTextSymbol = new TextSymbol("Craigleith", Colors.Blue, 10,
-                HorizontalAlignment.Right, VerticalAlignment.Top);
+                Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Right, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Top);
 
             // Create two points.
             MapPoint bassPoint = new MapPoint(-2.64, 56.079, SpatialReferences.Wgs84);

@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using Colors = System.Drawing.Color;
+using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISRuntime.Samples.NearestVertex
 {

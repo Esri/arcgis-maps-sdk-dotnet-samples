@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return sampleDataFolder;
         }
 
-#if !__ANDROID__ && !NETCOREAPP
+#if !__IOS__ && !__ANDROID__
 
         #region Windows Data Protection
 
@@ -197,8 +197,8 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
             // Return the combined IV + protected data.
             var result = new byte[entropy.Length + protectedBytes.Length];
-            Buffer.BlockCopy(entropy, 0, result, 0, entropy.Length);
-            Buffer.BlockCopy(protectedBytes, 0, result, entropy.Length, protectedBytes.Length);
+            System.Buffer.BlockCopy(entropy, 0, result, 0, entropy.Length);
+            System.Buffer.BlockCopy(protectedBytes, 0, result, entropy.Length, protectedBytes.Length);
             return result;
         }
 
@@ -210,11 +210,11 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
             // Copy IV from "bytes".
             var entropy = new byte[EntropySize];
-            Buffer.BlockCopy(bytes, 0, entropy, 0, entropy.Length);
+            System.Buffer.BlockCopy(bytes, 0, entropy, 0, entropy.Length);
 
             // Copy protected data.
             var protectedBytes = new byte[bytes.Length - EntropySize];
-            Buffer.BlockCopy(bytes, EntropySize, protectedBytes, 0, protectedBytes.Length);
+            System.Buffer.BlockCopy(bytes, EntropySize, protectedBytes, 0, protectedBytes.Length);
 
             // Return the unprotected data.
             return ProtectedData.Unprotect(protectedBytes, entropy, DataProtectionScope.CurrentUser);

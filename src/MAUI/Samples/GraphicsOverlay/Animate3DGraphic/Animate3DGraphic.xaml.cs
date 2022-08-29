@@ -21,6 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Colors = System.Drawing.Color;
+using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISRuntime.Samples.Animate3DGraphic
 {
@@ -272,7 +273,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             // Update the inset map; plane symbol position
             _plane2D.Geometry = currentFrame.ToMapPoint();
             // Update inset's viewpoint and heading
-            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), InsetMapView.MapScale, 360 + (float)currentFrame.Heading);
+            Viewpoint vp = new Viewpoint(currentFrame.ToMapPoint(), (double)InsetMapView.MapScale, 360 + currentFrame.Heading);
             InsetMapView.SetViewpoint(vp);
 
             // Update the keyframe. This advances the animation

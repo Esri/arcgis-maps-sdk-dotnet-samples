@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
+
 namespace ArcGISRuntimeMaui.Samples.OfflineRouting
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -198,7 +199,7 @@ namespace ArcGISRuntimeMaui.Samples.OfflineRouting
 
                 // Create the text symbol for labeling the stop.
                 TextSymbol stopSymbol = new TextSymbol(stopName, Color.White, 15,
-                    HorizontalAlignment.Center, VerticalAlignment.Middle);
+                    Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center, Esri.ArcGISRuntime.Symbology.VerticalAlignment.Middle);
                 stopSymbol.OffsetY = 15;
 
                 // Create a combined symbol with the pushpin and the label.

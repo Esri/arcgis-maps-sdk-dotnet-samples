@@ -56,7 +56,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <ProgressBar x:Name="ProgressBar"
+                <ProgressBar x:Name="MapProgressBar"
                              Grid.Row="1"
                              Margin="0,0,0,10"
                              HeightRequest="10"

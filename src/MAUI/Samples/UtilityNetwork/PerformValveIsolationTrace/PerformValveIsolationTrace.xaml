@@ -47,20 +47,20 @@
                            HorizontalOptions="CenterAndExpand"
                            IsRunning="True"
                            IsVisible="True"
-                           RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+                           cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                                   Property=Height,
                                                                                   Factor=1}"
-                           RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+                           cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                                  Property=Width,
                                                                                  Factor=1}"
                            VerticalOptions="CenterAndExpand" />
         <Grid x:Name="PickerUI"
               HorizontalOptions="CenterAndExpand"
               IsVisible="False"
-              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+              cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                      Property=Height,
                                                                      Factor=1}"
-              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+              cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                     Property=Width,
                                                                     Factor=1}"
               VerticalOptions="CenterAndExpand">

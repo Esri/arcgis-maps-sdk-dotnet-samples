@@ -72,10 +72,10 @@
         <!--  Busy indication  -->
         <Grid x:Name="BusyIndicator"
               BackgroundColor="#807f7f7f"
-              RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+              cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                      Factor=1,
                                                                      Property=Height}"
-              RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+              cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                     Factor=1,
                                                                     Property=Width}">
             <Grid HorizontalOptions="Center" VerticalOptions="Center">

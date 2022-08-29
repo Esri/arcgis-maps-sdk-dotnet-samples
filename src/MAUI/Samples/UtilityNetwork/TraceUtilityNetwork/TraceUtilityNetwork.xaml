@@ -30,9 +30,9 @@
                                HorizontalOptions="Center"
                                IsRunning="True"
                                VerticalOptions="Center">
-                <ActivityIndicator.Color>
+                <!--<ActivityIndicator.Color>
                     <OnPlatform x:TypeArguments="Color" iOS="#2499CE" />
-                </ActivityIndicator.Color>
+                </ActivityIndicator.Color>-->
             </ActivityIndicator>
         </StackLayout>
         <Grid x:Name="PickerUI"

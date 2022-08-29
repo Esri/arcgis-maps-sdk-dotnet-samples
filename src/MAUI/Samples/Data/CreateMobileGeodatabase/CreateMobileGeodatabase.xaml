@@ -33,16 +33,16 @@
                BackgroundColor="White"
                CornerRadius="0"
                IsVisible="False"
-               RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent,
+               cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                       Factor=.9,
                                                                       Property=Height}"
-               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
+               cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                      Factor=.9,
                                                                      Property=Width}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
+               cmp:RelativeLayout.XConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                  Factor=.05,
                                                                  Property=Width}"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
+               cmp:RelativeLayout.YConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                  Factor=.05,
                                                                  Property=Height}">
             <StackLayout>

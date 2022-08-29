@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeSamples.Project
+namespace ArcGISRuntime.Samples.Project
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Project",

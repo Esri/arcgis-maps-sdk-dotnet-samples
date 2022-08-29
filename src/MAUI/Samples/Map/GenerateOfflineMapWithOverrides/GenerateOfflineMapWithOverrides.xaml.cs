@@ -25,7 +25,7 @@ using System.Threading.Tasks;
 using Application = Microsoft.Maui.Controls.Application;
 #endif
 
-namespace ArcGISRuntimeSamples.GenerateOfflineMapWithOverrides
+namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Generate offline map (overrides)",

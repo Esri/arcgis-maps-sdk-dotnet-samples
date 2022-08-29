@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeSamples.BrowseWfsLayers
+namespace ArcGISRuntime.Samples.BrowseWfsLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Browse WFS layers",

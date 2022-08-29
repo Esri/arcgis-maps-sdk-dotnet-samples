@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Portal;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.ViewContentBeneathSurface
+namespace ArcGISRuntime.Samples.ViewContentBeneathSurface
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "View content beneath terrain surface",

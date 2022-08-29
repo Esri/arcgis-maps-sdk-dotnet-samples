@@ -21,7 +21,7 @@ using System.Timers;
 using Location = Esri.ArcGISRuntime.Location.Location;
 using Timer = System.Timers.Timer;
 
-namespace ArcGISRuntimeSamples.LocationWithNMEA
+namespace ArcGISRuntime.Samples.LocationWithNMEA
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display device location with NMEA data sources",

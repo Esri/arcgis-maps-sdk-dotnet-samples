@@ -8,7 +8,7 @@ using System.Linq;
 
 
 
-namespace ArcGISRuntimeSamples.GenerateOfflineMapWithOverrides
+namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConfigureOverridesPage : ContentPage

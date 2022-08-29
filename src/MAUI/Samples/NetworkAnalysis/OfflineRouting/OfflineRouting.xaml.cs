@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Color = System.Drawing.Color;
 
 
-namespace ArcGISRuntimeSamples.OfflineRouting
+namespace ArcGISRuntime.Samples.OfflineRouting
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Offline routing",

@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.EditFeatureLinkedAnnotation
+namespace ArcGISRuntime.Samples.EditFeatureLinkedAnnotation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Edit features with feature-linked annotation",

@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeSamples.DisplayUtilityAssociations
+namespace ArcGISRuntime.Samples.DisplayUtilityAssociations
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display utility associations",

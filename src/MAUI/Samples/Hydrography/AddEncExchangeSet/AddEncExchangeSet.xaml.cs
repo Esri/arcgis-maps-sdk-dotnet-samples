@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.AddEncExchangeSet
+namespace ArcGISRuntime.Samples.AddEncExchangeSet
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add ENC exchange set",

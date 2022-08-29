@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 
 
-namespace ArcGISRuntimeSamples.AddPointSceneLayer
+namespace ArcGISRuntime.Samples.AddPointSceneLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add a point scene layer",

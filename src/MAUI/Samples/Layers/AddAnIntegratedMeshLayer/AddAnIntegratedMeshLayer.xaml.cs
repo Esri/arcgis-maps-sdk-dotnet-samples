@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 
 
-namespace ArcGISRuntimeSamples.AddAnIntegratedMeshLayer
+namespace ArcGISRuntime.Samples.AddAnIntegratedMeshLayer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add integrated mesh layer",

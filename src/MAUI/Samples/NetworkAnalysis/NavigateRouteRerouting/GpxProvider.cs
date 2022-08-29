@@ -16,7 +16,7 @@ using System.Xml;
 using Location = Esri.ArcGISRuntime.Location.Location;
 using Timer = System.Timers.Timer;
 
-namespace ArcGISRuntimeSamples.NavigateRouteRerouting
+namespace ArcGISRuntime.Samples.NavigateRouteRerouting
 {
     public class GpxProvider : LocationDataSource
     {

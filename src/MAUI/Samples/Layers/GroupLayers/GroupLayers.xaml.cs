@@ -13,7 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.GroupLayers
+namespace ArcGISRuntime.Samples.GroupLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Group layers",

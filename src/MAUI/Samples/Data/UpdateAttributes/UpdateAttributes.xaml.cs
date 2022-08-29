@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.UpdateAttributes
+namespace ArcGISRuntime.Samples.UpdateAttributes
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Update attributes (feature service)",

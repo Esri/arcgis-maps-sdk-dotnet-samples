@@ -26,7 +26,7 @@ using System.Threading.Tasks;
 using Application = Microsoft.Maui.Controls.Application;
 #endif
 
-namespace ArcGISRuntimeSamples.OfflineBasemapByReference
+namespace ArcGISRuntime.Samples.OfflineBasemapByReference
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Generate offline map with local basemap",

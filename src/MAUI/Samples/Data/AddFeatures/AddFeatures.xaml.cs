@@ -14,7 +14,7 @@ using System;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.AddFeatures
+namespace ArcGISRuntime.Samples.AddFeatures
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add features",

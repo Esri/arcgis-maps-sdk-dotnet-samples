@@ -14,7 +14,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.ControlAnnotationSublayerVisibility
+namespace ArcGISRuntime.Samples.ControlAnnotationSublayerVisibility
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Control annotation sublayer visibility",
@@ -77,7 +77,7 @@ namespace ArcGISRuntimeSamples.ControlAnnotationSublayerVisibility
                     }
                     else
                     {
-                        OpenLabel.TextColor = Color.Gray;
+                        OpenLabel.TextColor = Colors.Gray;
                     }
 
                     // Set the current map scale text.

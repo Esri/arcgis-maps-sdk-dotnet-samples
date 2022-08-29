@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.OpenMobileScenePackage
+namespace ArcGISRuntime.Samples.OpenMobileScenePackage
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Open mobile scene package",

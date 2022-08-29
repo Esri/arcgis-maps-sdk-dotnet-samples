@@ -13,7 +13,7 @@ using System;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.MapReferenceScale
+namespace ArcGISRuntime.Samples.MapReferenceScale
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Map reference scale",

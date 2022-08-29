@@ -20,7 +20,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.PerformValveIsolationTrace
+namespace ArcGISRuntime.Samples.PerformValveIsolationTrace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Perform valve isolation trace",

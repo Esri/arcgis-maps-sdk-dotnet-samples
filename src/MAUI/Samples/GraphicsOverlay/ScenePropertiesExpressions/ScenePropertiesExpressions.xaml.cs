@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeSamples.ScenePropertiesExpressions
+namespace ArcGISRuntime.Samples.ScenePropertiesExpressions
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Scene properties expressions",

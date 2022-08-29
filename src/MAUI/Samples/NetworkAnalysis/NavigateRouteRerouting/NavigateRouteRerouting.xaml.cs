@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Color = System.Drawing.Color;
 using Location = Esri.ArcGISRuntime.Location.Location;
 
-namespace ArcGISRuntimeSamples.NavigateRouteRerouting
+namespace ArcGISRuntime.Samples.NavigateRouteRerouting
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Navigate route with rerouting",
@@ -250,7 +250,7 @@ namespace ArcGISRuntimeSamples.NavigateRouteRerouting
             {
                 _speechToken.Cancel();
                 _speechToken = new CancellationTokenSource();
-                SpeakAsync(e.VoiceGuidance.Text, _speechToken.Token);
+                TextToSpeech.Default.SpeakAsync(e.VoiceGuidance.Text, null, _speechToken.Token);
             }
         }
 

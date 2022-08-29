@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeSamples.RasterColormapRenderer
+namespace ArcGISRuntime.Samples.RasterColormapRenderer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Colormap renderer",

@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 
 
-namespace ArcGISRuntimeSamples.UniqueValuesAlternateSymbols
+namespace ArcGISRuntime.Samples.UniqueValuesAlternateSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Apply unique values with alternate symbols",

@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.AddFeaturesWithContingentValues
+namespace ArcGISRuntime.Samples.AddFeaturesWithContingentValues
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Add features with contingent values",

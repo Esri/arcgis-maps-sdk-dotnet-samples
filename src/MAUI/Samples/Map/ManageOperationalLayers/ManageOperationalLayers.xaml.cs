@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 
 
-namespace ArcGISRuntimeSamples.ManageOperationalLayers
+namespace ArcGISRuntime.Samples.ManageOperationalLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Manage operational layers",

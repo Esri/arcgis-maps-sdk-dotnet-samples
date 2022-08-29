@@ -23,7 +23,7 @@ using Foundation;
 using UIKit;
 #endif
 
-namespace ArcGISRuntimeSamples.EditFeatureAttachments
+namespace ArcGISRuntime.Samples.EditFeatureAttachments
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Edit feature attachments",

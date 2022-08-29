@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.UpdateGeometries
+namespace ArcGISRuntime.Samples.UpdateGeometries
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Update geometries (feature service)",

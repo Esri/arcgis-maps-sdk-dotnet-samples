@@ -203,7 +203,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private string GetGdbPath()
         {
             // Set the platform-specific path for storing the geodatabase
-#if WINDOWS_UWP
+#if WINDOWS
             string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #elif __IOS__ || __ANDROID__
             string folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

@@ -17,7 +17,7 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.ListKmlContents
+namespace ArcGISRuntime.Samples.ListKmlContents
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "List KML contents",

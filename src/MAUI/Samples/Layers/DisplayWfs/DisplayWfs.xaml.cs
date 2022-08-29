@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeSamples.DisplayWfs
+namespace ArcGISRuntime.Samples.DisplayWfs
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display WFS layer",

@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using Color = System.Drawing.Color;
 
 
-namespace ArcGISRuntimeSamples.BrowseOAFeatureService
+namespace ArcGISRuntime.Samples.BrowseOAFeatureService
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Browse OGC API feature service",

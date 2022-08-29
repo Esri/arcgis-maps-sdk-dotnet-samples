@@ -17,7 +17,7 @@ using System.IO;
 using System.Reflection;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeSamples.RenderMultilayerSymbols
+namespace ArcGISRuntime.Samples.RenderMultilayerSymbols
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Render multilayer symbols",

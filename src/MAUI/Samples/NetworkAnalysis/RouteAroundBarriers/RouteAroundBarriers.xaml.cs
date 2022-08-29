@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntimeSamples.RouteAroundBarriers
+namespace ArcGISRuntime.Samples.RouteAroundBarriers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Route around barriers",

@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGISRuntimeSamples.CreateMobileGeodatabase
+namespace ArcGISRuntime.Samples.CreateMobileGeodatabase
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create mobile geodatabase",

@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using Color = System.Drawing.Color;
 
 
-namespace ArcGISRuntimeSamples.DisplayUtilityNetworkContainer
+namespace ArcGISRuntime.Samples.DisplayUtilityNetworkContainer
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display content of utility network container",

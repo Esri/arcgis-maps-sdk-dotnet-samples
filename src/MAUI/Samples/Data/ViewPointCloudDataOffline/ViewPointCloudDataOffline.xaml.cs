@@ -13,7 +13,7 @@ using System;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.ViewPointCloudDataOffline
+namespace ArcGISRuntime.Samples.ViewPointCloudDataOffline
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "View point cloud data offline",

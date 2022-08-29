@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 
 
-namespace ArcGISRuntimeSamples.DisplayKml
+namespace ArcGISRuntime.Samples.DisplayKml
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display KML",

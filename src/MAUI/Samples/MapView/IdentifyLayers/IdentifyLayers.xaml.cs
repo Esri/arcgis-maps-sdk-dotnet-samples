@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.IdentifyLayers
+namespace ArcGISRuntime.Samples.IdentifyLayers
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Identify layers",

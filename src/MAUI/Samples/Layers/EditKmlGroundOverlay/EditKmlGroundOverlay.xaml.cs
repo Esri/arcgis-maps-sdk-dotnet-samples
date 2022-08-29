@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 
 
-namespace ArcGISRuntimeSamples.EditKmlGroundOverlay
+namespace ArcGISRuntime.Samples.EditKmlGroundOverlay
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Edit KML ground overlay",

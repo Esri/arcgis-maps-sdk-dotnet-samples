@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.ConfigureSubnetworkTrace
+namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Configure subnetwork trace",

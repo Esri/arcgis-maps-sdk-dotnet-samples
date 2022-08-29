@@ -15,7 +15,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.ApplyMosaicRule
+namespace ArcGISRuntime.Samples.ApplyMosaicRule
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Apply mosaic rule to rasters",

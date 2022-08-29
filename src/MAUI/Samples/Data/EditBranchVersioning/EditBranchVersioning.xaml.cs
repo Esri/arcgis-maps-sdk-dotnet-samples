@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.EditBranchVersioning
+namespace ArcGISRuntime.Samples.EditBranchVersioning
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Edit with branch versioning",

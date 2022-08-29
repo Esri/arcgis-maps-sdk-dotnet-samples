@@ -20,7 +20,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.DownloadPreplannedMap
+namespace ArcGISRuntime.Samples.DownloadPreplannedMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Download preplanned map area",

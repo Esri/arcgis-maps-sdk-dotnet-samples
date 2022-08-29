@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeSamples.ApplyScheduledUpdates
+namespace ArcGISRuntime.Samples.ApplyScheduledUpdates
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Apply scheduled updates to preplanned map area",

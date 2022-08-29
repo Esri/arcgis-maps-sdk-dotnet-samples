@@ -4,14 +4,13 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-             xmlns:converters="clr-namespace:ArcGISRuntimeXamarin.Converters;assembly=ArcGISRuntime"
-             xmlns:converters1="clr-namespace:ArcGISRuntimeMaui.Converters"
+             xmlns:converters="clr-namespace:ArcGISRuntimeMaui.Converters"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <ContentPage.Resources>
         <converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
-        <converters1:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
+        <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
     </ContentPage.Resources>
     <cmp:RelativeLayout>
         <esriUI:MapView x:Name="MyMapView"

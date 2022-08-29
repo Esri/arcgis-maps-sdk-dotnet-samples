@@ -203,10 +203,11 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private string GetGdbPath()
         {
             // Set the platform-specific path for storing the geodatabase
+            string folder = string.Empty;
 #if WINDOWS
-            string folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
+            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #elif __IOS__ || __ANDROID__
-            string folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
             // Set the final path
             return Path.Combine(folder, "savethebay.geodatabase");

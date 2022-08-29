@@ -234,10 +234,7 @@
   </ItemGroup>
   <!-- Helper classes -->
   <ItemGroup>
-    <Compile Include="Samples\NetworkAnalysis\NavigateRouteRerouting\GpxProvider.cs" >
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Helpers\ArcGISLoginPrompt.cs" >
+    <Compile Include="Helpers\ArcGISLoginPrompt.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Converters\*.cs" />

@@ -1,9 +1,10 @@
-﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources;assembly=ArcGISRuntime">
-    <RelativeLayout>
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
         <esriUI:MapView x:Name="MyMapView"
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}"
                         Style="{StaticResource MapWithFormStyle}" />
@@ -95,5 +96,5 @@
                              WidthRequest="100" />
             </Grid>
         </Grid>
-    </RelativeLayout>
+    </cmp:RelativeLayout>
 </ContentPage>

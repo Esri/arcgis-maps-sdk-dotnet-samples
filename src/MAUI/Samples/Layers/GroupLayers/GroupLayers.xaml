@@ -1,9 +1,10 @@
-﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.GroupLayers.GroupLayers"
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.GroupLayers.GroupLayers"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources;assembly=ArcGISRuntime">
-    <RelativeLayout>
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
         <esriUI:SceneView x:Name="MySceneView"
                           BindingContext="{x:Reference Name=ResponsiveFormContainer}"
                           Style="{StaticResource SceneWithFormStyle}" />
@@ -11,5 +12,5 @@
             <!--  View is being done mostly in code, not XAML, because of buggy listview behavior and no option to specify a maximum height.  -->
             <StackLayout x:Name="LayersView" />
         </resources:ResponsiveFormContainer>
-    </RelativeLayout>
+    </cmp:RelativeLayout>
 </ContentPage>

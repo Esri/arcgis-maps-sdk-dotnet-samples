@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.MapReferenceScale.MapReferenceScale"
+<ContentPage x:Class="ArcGISRuntime.Samples.MapReferenceScale.MapReferenceScale"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources;assembly=ArcGISRuntime">
-    <RelativeLayout>
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
         <esriUI:MapView x:Name="MyMapView"
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}"
                         Style="{StaticResource MapWithFormStyle}" />
@@ -47,5 +48,5 @@
                 <Label BindingContext="{x:Reference MyMapView}" Text="{Binding Path=MapScale, Mode=OneWay, StringFormat='Current map scale: {0:n0}'}" />
             </StackLayout>
         </resources:ResponsiveFormContainer>
-    </RelativeLayout>
+    </cmp:RelativeLayout>
 </ContentPage>

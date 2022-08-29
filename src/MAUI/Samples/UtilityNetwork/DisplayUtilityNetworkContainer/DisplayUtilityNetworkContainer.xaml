@@ -1,9 +1,10 @@
-﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.DisplayUtilityNetworkContainer.DisplayUtilityNetworkContainer"
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.DisplayUtilityNetworkContainer.DisplayUtilityNetworkContainer"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <RelativeLayout>
+    <cmp:RelativeLayout>
         <esriUI:MapView x:Name="MyMapView"
                         GeoViewTapped="MyMapView_GeoViewTapped"
                         Style="{StaticResource MapWithFormStyle}" />
@@ -60,5 +61,5 @@
                                                                                  Property=Width,
                                                                                  Factor=1}"
                            VerticalOptions="CenterAndExpand" />
-    </RelativeLayout>
+    </cmp:RelativeLayout>
 </ContentPage>

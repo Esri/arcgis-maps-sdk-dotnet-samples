@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
+<ContentPage x:Class="ArcGISRuntime.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:converters="clr-namespace:ArcGISRuntimeXamarin.Converters;assembly=ArcGISRuntime"
              xmlns:converters1="clr-namespace:ArcGISRuntimeMaui.Converters"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources;assembly=ArcGISRuntime">
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <ContentPage.Resources>
         <converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters1:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
     </ContentPage.Resources>
-    <RelativeLayout>
+    <cmp:RelativeLayout>
         <esriUI:MapView x:Name="MyMapView"
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}"
                         Style="{StaticResource MapWithFormStyle}" />
@@ -51,5 +52,5 @@
                 </ListView>
             </StackLayout>
         </resources:ResponsiveFormContainer>
-    </RelativeLayout>
+    </cmp:RelativeLayout>
 </ContentPage>

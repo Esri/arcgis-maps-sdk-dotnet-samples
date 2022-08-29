@@ -2,9 +2,10 @@
 <ContentPage x:Class="ArcGISRuntimeMaui.Samples.DisplayDrawingStatus.DisplayDrawingStatus"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <RelativeLayout>
+    <cmp:RelativeLayout>
         <esriUI:MapView x:Name="myMapView"
                         Style="{StaticResource MapWithFormStyle}"
                         ViewInsets="0" />
@@ -14,5 +15,5 @@
                 <ActivityIndicator x:Name="activityIndicator" Color="Black" />
             </StackLayout>
         </sampleViewer:ResponsiveFormContainer>
-    </RelativeLayout>
+    </cmp:RelativeLayout>
 </ContentPage>

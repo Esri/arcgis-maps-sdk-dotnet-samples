@@ -1,11 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.ManageOperationalLayers.ManageOperationalLayers"
+<ContentPage x:Class="ArcGISRuntime.Samples.ManageOperationalLayers.ManageOperationalLayers"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources;assembly=ArcGISRuntime">
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <ContentPage.Resources>
         <DataTemplate x:Key="LayerListTemplate" x:DataType="mapping:Layer">
             <ViewCell>
@@ -33,7 +34,7 @@
             </ViewCell>
         </DataTemplate>
     </ContentPage.Resources>
-    <RelativeLayout>
+    <cmp:RelativeLayout>
         <esriUI:MapView x:Name="MyMapView"
                         BindingContext="{x:Reference Name=ResponsiveFormContainer}"
                         Style="{StaticResource MapWithFormStyle}" />
@@ -64,5 +65,5 @@
                           VerticalOptions="Start" />
             </StackLayout>
         </resources:ResponsiveFormContainer>
-    </RelativeLayout>
+    </cmp:RelativeLayout>
 </ContentPage>

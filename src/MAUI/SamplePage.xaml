@@ -1,48 +1,44 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntimeMaui.SamplePage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls">
+<ContentPage x:Class="ArcGISRuntimeMaui.SamplePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls">
     <ContentPage.ToolbarItems>
-        <ToolbarItem
-            x:Name="DetailToolbarItem"
-            IconImageSource="Info.png"
-            Text="Details" />
+        <ToolbarItem x:Name="DetailToolbarItem"
+                     IconImageSource="Info.png"
+                     Text="Details" />
     </ContentPage.ToolbarItems>
     <cmp:RelativeLayout>
-        <Frame
-            x:Name="SampleContentPage"
-            Padding="0"
-            CornerRadius="0"
-            HasShadow="False"
-            cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                   Factor=1,
-                                                                   Property=Height}"
-            cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                  Factor=1,
-                                                                  Property=Width}"
-            cmp:RelativeLayout.XConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                              Constant=0}"
-            cmp:RelativeLayout.YConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                              Constant=0}" />
-        <Frame
-            x:Name="SampleDetailPage"
-            Padding="0"
-            CornerRadius="0"
-            IsVisible="False"
-            cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                   Factor=.9,
-                                                                   Property=Height}"
-            cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                  Factor=.9,
-                                                                  Property=Width}"
-            cmp:RelativeLayout.XConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                              Factor=.05,
-                                                              Property=Width}"
-            cmp:RelativeLayout.YConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                              Factor=.05,
-                                                              Property=Height}">
+        <Frame x:Name="SampleContentPage"
+               Padding="0"
+               cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                              Factor=1,
+                                                                              Property=Height}"
+               cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                             Factor=1,
+                                                                             Property=Width}"
+               cmp:RelativeLayout.XConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                         Constant=0}"
+               cmp:RelativeLayout.YConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                         Constant=0}"
+               CornerRadius="0"
+               HasShadow="False" />
+        <Frame x:Name="SampleDetailPage"
+               Padding="0"
+               cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                              Factor=.9,
+                                                                              Property=Height}"
+               cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                             Factor=.9,
+                                                                             Property=Width}"
+               cmp:RelativeLayout.XConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                         Factor=.05,
+                                                                         Property=Width}"
+               cmp:RelativeLayout.YConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+                                                                         Factor=.05,
+                                                                         Property=Height}"
+               CornerRadius="0"
+               IsVisible="False">
             <WebView x:Name="DescriptionView" />
         </Frame>
     </cmp:RelativeLayout>

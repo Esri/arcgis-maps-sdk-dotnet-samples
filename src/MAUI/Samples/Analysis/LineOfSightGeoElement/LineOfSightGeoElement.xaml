@@ -17,21 +17,21 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <!--  keep the slider in the touchable area - iOS only  -->
-                    <ColumnDefinition>
+                    <!--<ColumnDefinition>
                         <ColumnDefinition.Width>
                             <OnPlatform x:TypeArguments="GridLength" Default="0">
                                 <On Platform="iOS" Value="50" />
                             </OnPlatform>
                         </ColumnDefinition.Width>
-                    </ColumnDefinition>
+                    </ColumnDefinition>-->
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition>
+                    <!--<ColumnDefinition>
                         <ColumnDefinition.Width>
                             <OnPlatform x:TypeArguments="GridLength" Default="0">
                                 <On Platform="iOS" Value="50" />
                             </OnPlatform>
                         </ColumnDefinition.Width>
-                    </ColumnDefinition>
+                    </ColumnDefinition>-->
                 </Grid.ColumnDefinitions>
                 <Label x:Name="MyStatusLabel"
                        Grid.Row="0"

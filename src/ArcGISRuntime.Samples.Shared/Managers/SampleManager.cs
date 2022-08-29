@@ -104,7 +104,7 @@ namespace ArcGISRuntime.Samples.Managers
 #if WinUI
             resourceStreamName = "ArcGISRuntime.WinUI.Viewer.Resources.FeaturedSamples.xml";
 #else
-            resourceStreamName = "ArcGISRuntime.Resources.FeaturedSamples.xml";
+            resourceStreamName = "ArcGISRuntimeMaui.Resources.FeaturedSamples.xml";
 #endif
             // Load the FeaturedSamples resource file.
             using (Stream stream = this.GetType().Assembly.

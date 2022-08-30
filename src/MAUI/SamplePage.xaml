@@ -4,9 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls">
     <ContentPage.ToolbarItems>
-        <ToolbarItem x:Name="DetailToolbarItem"
-                     IconImageSource="Info.png"
-                     Text="Details" />
+        <ToolbarItem x:Name="DetailToolbarItem" Text="Details" />
     </ContentPage.ToolbarItems>
     <cmp:RelativeLayout>
         <Frame x:Name="SampleContentPage"

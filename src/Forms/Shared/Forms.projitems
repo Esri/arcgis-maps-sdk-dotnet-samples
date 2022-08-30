@@ -18,10 +18,6 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-  <!-- Unique samples -->
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Samples\NetworkAnalysis\NavigateRouteRerouting\GpxProvider.cs" />
-  </ItemGroup>
   <!-- Sample Manager Code -->
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ApiKeyPrompt.xaml.cs">

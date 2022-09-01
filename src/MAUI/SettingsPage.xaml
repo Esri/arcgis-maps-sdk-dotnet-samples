@@ -6,17 +6,17 @@
             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources"
             Title="Settings">
     <TabbedPage.Children>
-        <ContentPage Title="About" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.infogrey.png}, iOS={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.info.png}, UWP={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.info.png}}">
+        <ContentPage Title="About" IconImageSource="info.png">
             <ContentPage.Content>
                 <WebView x:Name="AboutPage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Licenses" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.documentgrey.png}, iOS={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.document.png}, UWP={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.document.png}}">
+        <ContentPage Title="Licenses" IconImageSource="document.png">
             <ContentPage.Content>
                 <WebView x:Name="LicensePage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Offline data" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.downloadgrey.png}, iOS={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.download.png}, UWP={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.download.png}}">
+        <ContentPage Title="Offline data" IconImageSource="download.png">
             <ContentPage.Content>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -70,9 +70,7 @@
                                                      Clicked="DownloadClicked"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="25"
-                                                     Source="{x:OnPlatform Android={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.downloadgrey.png},
-                                                                           iOS={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.download.png},
-                                                                           UWP={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.download.png}}"
+                                                     Source="download.png"
                                                      VerticalOptions="CenterAndExpand"
                                                      WidthRequest="25" />
                                         <ImageButton Grid.Column="2"
@@ -80,9 +78,7 @@
                                                      Clicked="AGOLClicked"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="25"
-                                                     Source="{x:OnPlatform Android={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.agolgrey.png},
-                                                                           iOS={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.agol.png},
-                                                                           UWP={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.agol.png}}"
+                                                     Source="agol.png"
                                                      VerticalOptions="CenterAndExpand"
                                                      WidthRequest="25" />
                                         <ImageButton Grid.Column="3"
@@ -96,9 +92,7 @@
                                                      IsVisible="{x:OnPlatform Android=True,
                                                                               iOS=True,
                                                                               UWP=True}"
-                                                     Source="{x:OnPlatform Android={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.deletegrey.png},
-                                                                           iOS={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.delete.png},
-                                                                           UWP={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.delete.png}}"
+                                                     Source="delete.png"
                                                      VerticalOptions="CenterAndExpand"
                                                      WidthRequest="25" />
                                     </Grid>
@@ -135,6 +129,6 @@
                 </Grid>
             </ContentPage.Content>
         </ContentPage>
-        <arcgisruntime:ApiKeyPrompt Title="API Key" IconImageSource="{x:OnPlatform Android={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.keygrey.png}, iOS={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.key.png}, UWP={resources:ImageResource ArcGISRuntimeMaui.Resources.SettingsPage.key.png}}" />
+        <arcgisruntime:ApiKeyPrompt Title="API Key" IconImageSource="key.png" />
     </TabbedPage.Children>
 </TabbedPage>

@@ -119,6 +119,40 @@
 	  <BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />
       <AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
     </ItemGroup>
+    <ItemGroup>
+      <None Remove="Resources\routingSymbol.png" />
+      <None Remove="Resources\SettingsPage\agol.png" />
+      <None Remove="Resources\SettingsPage\agolgrey.png" />
+      <None Remove="Resources\SettingsPage\delete.png" />
+      <None Remove="Resources\SettingsPage\deletegrey.png" />
+      <None Remove="Resources\SettingsPage\document.png" />
+      <None Remove="Resources\SettingsPage\documentgrey.png" />
+      <None Remove="Resources\SettingsPage\download.png" />
+      <None Remove="Resources\SettingsPage\downloadgrey.png" />
+      <None Remove="Resources\SettingsPage\info.png" />
+      <None Remove="Resources\SettingsPage\infogrey.png" />
+      <None Remove="Resources\SettingsPage\key.png" />
+      <None Remove="Resources\SettingsPage\keygrey.png" />
+      <None Remove="Resources\SettingsPage\settings.png" />
+      <None Remove="Resources\SettingsPage\settingsgrey.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <MauiImage Include="Resources\routingsymbol.png" />
+      <MauiImage Include="Resources\SettingsPage\agol.png" />
+      <MauiImage Include="Resources\SettingsPage\agolgrey.png" />
+      <MauiImage Include="Resources\SettingsPage\delete.png" />
+      <MauiImage Include="Resources\SettingsPage\deletegrey.png" />
+      <MauiImage Include="Resources\SettingsPage\document.png" />
+      <MauiImage Include="Resources\SettingsPage\documentgrey.png" />
+      <MauiImage Include="Resources\SettingsPage\download.png" />
+      <MauiImage Include="Resources\SettingsPage\downloadgrey.png" />
+      <MauiImage Include="Resources\SettingsPage\info.png" />
+      <MauiImage Include="Resources\SettingsPage\infogrey.png" />
+      <MauiImage Include="Resources\SettingsPage\key.png" />
+      <MauiImage Include="Resources\SettingsPage\keygrey.png" />
+      <MauiImage Include="Resources\SettingsPage\settings.png" />
+      <MauiImage Include="Resources\SettingsPage\settingsgrey.png" />
+    </ItemGroup>
 
 
     <ItemGroup>

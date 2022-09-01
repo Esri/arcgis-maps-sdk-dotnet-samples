@@ -38,7 +38,7 @@
                                            Margin="5"
                                            HeightRequest="25"
                                            IsVisible="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}"
-                                           Source="{resources:ImageResource ArcGISRuntimeMaui.Resources.routingSymbol.png}"
+                                           Source="routingsymbol.png"
                                            WidthRequest="25" />
                                     <Label Grid.Column="2"
                                            HorizontalTextAlignment="Start"

@@ -95,18 +95,18 @@ namespace ArcGISRuntimeMaui
             }
         }
 
-        //protected override void OnAppearing()
-        //{
-        //    if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
-        //    base.OnAppearing();
-        //}
+        protected override void OnAppearing()
+        {
+            if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
+            base.OnAppearing();
+        }
 
-        //protected override void OnDisappearing()
-        //{
-        //    if (_sample is IDisposable disposableSample) disposableSample.Dispose();
-        //    if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
-        //    base.OnDisappearing();
-        //}
+        protected override void OnDisappearing()
+        {
+            if (_sample is IDisposable disposableSample) disposableSample.Dispose();
+            if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
+            base.OnDisappearing();
+        }
 
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)
         {

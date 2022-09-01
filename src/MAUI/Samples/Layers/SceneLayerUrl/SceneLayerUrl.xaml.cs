@@ -9,9 +9,6 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.SceneLayerUrl
 {

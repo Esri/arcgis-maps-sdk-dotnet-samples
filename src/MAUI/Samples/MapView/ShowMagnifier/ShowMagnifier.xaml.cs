@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-
 namespace ArcGISRuntime.Samples.ShowMagnifier
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -10,10 +10,6 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.DeleteFeatures
 {

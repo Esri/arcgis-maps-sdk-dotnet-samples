@@ -9,7 +9,6 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-
 namespace ArcGISRuntime.Samples.MapRotation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

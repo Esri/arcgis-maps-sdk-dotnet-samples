@@ -12,9 +12,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.ChooseCameraController
 {
@@ -131,6 +128,7 @@ namespace ArcGISRuntime.Samples.ChooseCameraController
                     break;
             }
         }
+
         private async void OnButtonClicked(object sender, EventArgs e)
         {
             try

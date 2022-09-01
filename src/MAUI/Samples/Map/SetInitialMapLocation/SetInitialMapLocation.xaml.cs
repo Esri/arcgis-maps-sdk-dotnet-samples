@@ -9,7 +9,6 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-
 namespace ArcGISRuntime.Samples.SetInitialMapLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

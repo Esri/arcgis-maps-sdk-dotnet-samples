@@ -9,10 +9,6 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 
 namespace ArcGISRuntime.Samples.ChangeViewpoint
 {

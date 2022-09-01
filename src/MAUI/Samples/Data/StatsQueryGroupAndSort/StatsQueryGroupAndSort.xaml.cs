@@ -8,12 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
 {

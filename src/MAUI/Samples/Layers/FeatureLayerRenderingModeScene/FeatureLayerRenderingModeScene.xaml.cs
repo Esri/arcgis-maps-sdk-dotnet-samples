@@ -10,8 +10,6 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-
 
 namespace ArcGISRuntime.Samples.FeatureLayerRenderingModeScene
 {

@@ -1,11 +1,10 @@
 ﻿using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Portal;
-using System;
 using System.Globalization;
 
 namespace ArcGISRuntimeMaui.Converters
 {
-    class ItemToImageSourceConverter : IValueConverter
+    internal class ItemToImageSourceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

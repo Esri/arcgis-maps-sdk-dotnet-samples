@@ -11,9 +11,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using Color = System.Drawing.Color;
 

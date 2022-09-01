@@ -10,12 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UtilityNetworks;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
 {
@@ -114,6 +109,7 @@ namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
                 ConfigureTable.IsEnabled = true;
             }
         }
+
         private string ExpressionToString(UtilityTraceConditionalExpression expression)
         {
             if (expression is UtilityCategoryComparison categoryComparison)

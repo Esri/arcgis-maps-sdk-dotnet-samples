@@ -11,15 +11,11 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 using ArcGISRuntimeMaui.Helpers;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Color = System.Drawing.Color;
 
 #if __ANDROID__
+
 using Application = Microsoft.Maui.Controls.Application;
+
 #endif
 
 namespace ArcGISRuntime.Samples.AuthorMap

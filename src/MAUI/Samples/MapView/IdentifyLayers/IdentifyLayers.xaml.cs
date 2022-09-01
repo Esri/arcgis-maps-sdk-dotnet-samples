@@ -11,10 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.IdentifyLayers
 {

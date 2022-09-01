@@ -15,7 +15,6 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 
-
 namespace ArcGISRuntime.Samples.GenerateOfflineMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

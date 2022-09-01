@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
-using System;
-using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 

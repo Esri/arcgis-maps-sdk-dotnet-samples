@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 
-
 namespace ArcGISRuntime.Samples.AccessLoadStatus
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

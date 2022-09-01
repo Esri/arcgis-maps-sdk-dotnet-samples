@@ -11,8 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
-
 
 namespace ArcGISRuntime.Samples.DisplayDrawingStatus
 {

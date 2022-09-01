@@ -11,9 +11,6 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.CustomDictionaryStyle
 {

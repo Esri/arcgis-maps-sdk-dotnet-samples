@@ -11,11 +11,6 @@ using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-
 
 namespace ArcGISRuntime.Samples.AnimateImageOverlay
 {

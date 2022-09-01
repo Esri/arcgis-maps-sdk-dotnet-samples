@@ -12,12 +12,8 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Color = System.Drawing.Color;
-
 
 namespace ArcGISRuntime.Samples.BrowseOAFeatureService
 {

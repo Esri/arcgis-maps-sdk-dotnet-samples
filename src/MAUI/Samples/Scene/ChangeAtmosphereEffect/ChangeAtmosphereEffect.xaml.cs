@@ -9,8 +9,6 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
-
 
 namespace ArcGISRuntime.Samples.ChangeAtmosphereEffect
 {

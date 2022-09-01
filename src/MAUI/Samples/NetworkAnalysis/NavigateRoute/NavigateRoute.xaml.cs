@@ -14,10 +14,6 @@ using Esri.ArcGISRuntime.Navigation;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 using Location = Esri.ArcGISRuntime.Location.Location;

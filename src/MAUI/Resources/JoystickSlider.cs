@@ -1,9 +1,8 @@
-﻿using System;
-using Timer = System.Timers.Timer;
+﻿using Timer = System.Timers.Timer;
 
 namespace ArcGISRuntimeMaui.Resources
 {
-    class JoystickSlider : Slider
+    internal class JoystickSlider : Slider
     {
         private const long DefaultDeltaIntervalMillis = 250;
         private double _deltaProgress;
@@ -32,6 +31,7 @@ namespace ArcGISRuntimeMaui.Resources
             DragStarted += JoystickDragStarted;
             DragCompleted += JoystickDragCompleted;
         }
+
         private void JoystickValueChanged(object sender, ValueChangedEventArgs e)
         {
             _deltaProgress = (float)(Math.Pow(e.NewValue, 2) / 25 * (e.NewValue < 0 ? -1.0 : 1.0));

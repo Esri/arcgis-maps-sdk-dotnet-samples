@@ -9,8 +9,6 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Xml;
 using Location = Esri.ArcGISRuntime.Location.Location;

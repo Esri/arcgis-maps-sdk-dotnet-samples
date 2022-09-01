@@ -8,10 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 
 namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
 {

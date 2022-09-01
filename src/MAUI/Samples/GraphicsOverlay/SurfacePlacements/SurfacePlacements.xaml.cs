@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
 
 using Color = System.Drawing.Color;
 
@@ -132,6 +131,7 @@ namespace ArcGISRuntime.Samples.SurfacePlacements
             absoluteOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, triangleSymbol));
             absoluteOverlay.Graphics.Add(new Graphic(surfaceRelatedPoint, absoluteText));
         }
+
         private void BillboardedClicked(object sender, EventArgs e)
         {
             MySceneView.GraphicsOverlays.Remove(_drapedFlatOverlay);

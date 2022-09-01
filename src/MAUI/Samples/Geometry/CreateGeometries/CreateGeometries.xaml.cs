@@ -13,7 +13,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-
 namespace ArcGISRuntime.Samples.CreateGeometries
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

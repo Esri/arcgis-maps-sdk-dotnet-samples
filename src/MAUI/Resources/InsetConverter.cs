@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+﻿using System.Globalization;
 
 namespace ArcGISRuntimeMaui.Resources
 {
@@ -9,7 +6,7 @@ namespace ArcGISRuntimeMaui.Resources
     /// Converts a double to a Thickness, where the <c>Top</c> is the value, all other properties set to 0.
     /// Used for binding the mapview inset to the height of the form, to ensure all map content is rendered.
     /// </summary>
-    class InsetConverter : IValueConverter
+    internal class InsetConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

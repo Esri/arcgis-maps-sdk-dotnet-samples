@@ -12,15 +12,10 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
-
 
 namespace ArcGISRuntime.Samples.DictionaryRendererGraphicsOverlay
 {

@@ -11,9 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 using Colors = System.Drawing.Color;
 
@@ -25,11 +22,11 @@ namespace ArcGISRuntime.Samples.CreateFeatureCollectionLayer
         description: "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",
         instructions: "When launched, this sample displays a `FeatureCollectionLayer` with a `Point`, `Polyline` and `Polygon` geometry.",
         tags: new[] { "feature collection", "layers" })]
-	public partial class CreateFeatureCollectionLayer : ContentPage
-	{
-		public CreateFeatureCollectionLayer ()
-		{
-            InitializeComponent ();
+    public partial class CreateFeatureCollectionLayer : ContentPage
+    {
+        public CreateFeatureCollectionLayer()
+        {
+            InitializeComponent();
 
             // call a function to initialize a map to display in the MyMapView control
             Initialize();

@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-
 namespace ArcGISRuntime.Samples.SetMaxExtent
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

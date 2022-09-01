@@ -8,18 +8,20 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Security;
-using System;
-using System.Threading.Tasks;
 
 #if __ANDROID__ || __IOS__
+
 using System.Collections.Generic;
+
 #endif
 
 #if __ANDROID__
+
 using Android.App;
 using Application = Microsoft.Maui.Controls.Application;
 using Android.Content;
 using Android.Content.PM;
+
 #endif
 
 namespace ArcGISRuntimeMaui.Helpers
@@ -122,6 +124,7 @@ namespace ArcGISRuntimeMaui.Helpers
     #region IOAuthAuthorizationHandler implementation
 
 #if __ANDROID__ || __IOS__
+
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
         // Use a TaskCompletionSource to track the completion of the authorization.
@@ -156,6 +159,7 @@ namespace ArcGISRuntimeMaui.Helpers
             return null;
         }
     }
+
 #endif
 
 #if __ANDROID__
@@ -167,6 +171,7 @@ namespace ArcGISRuntimeMaui.Helpers
     public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
     {
     }
+
 #endif
 
     #endregion IOAuthAuthorizationHandler implementation

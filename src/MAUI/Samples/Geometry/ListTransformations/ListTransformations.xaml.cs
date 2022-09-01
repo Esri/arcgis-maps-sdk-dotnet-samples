@@ -12,10 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntime.Samples.ListTransformations
 {
@@ -216,8 +213,10 @@ namespace ArcGISRuntime.Samples.ListTransformations
         // Data templates for three types of datum transformations.
         // - Those without supporting projection engine data (making the transformation unavailable).
         private readonly DataTemplate _unavailableTransformTemplate;
+
         // - Available transformations (data required is either available by default, or has been stored on the device).
         private readonly DataTemplate _availableTransformTemplate;
+
         // - The default datum transformation for the context (input/output spatial reference, and possibly the extent).
         private readonly DataTemplate _defaultTransformTemplate;
 

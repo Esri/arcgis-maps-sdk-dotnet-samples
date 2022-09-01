@@ -8,10 +8,8 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Maui;
-using System;
-
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.Samples.GeoViewSync
 {

@@ -10,9 +10,6 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
-using System;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.AnalyzeHotspots
 {

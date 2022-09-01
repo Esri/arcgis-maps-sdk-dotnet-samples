@@ -9,10 +9,6 @@
 
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.ControlAnnotationSublayerVisibility
 {
@@ -89,6 +85,7 @@ namespace ArcGISRuntime.Samples.ControlAnnotationSublayerVisibility
                 Console.WriteLine(e.Message);
             }
         }
+
         private void OpenSwitchChanged(object sender, ToggledEventArgs e)
         {
             // Set the visibility of the sub layer.

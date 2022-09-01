@@ -12,10 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Threading.Tasks;
 using Color = System.Drawing.Color;
-
 
 namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
 {

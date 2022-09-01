@@ -8,8 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Managers;
-using System;
-using System.Threading.Tasks;
 
 namespace ArcGISRuntimeMaui
 {

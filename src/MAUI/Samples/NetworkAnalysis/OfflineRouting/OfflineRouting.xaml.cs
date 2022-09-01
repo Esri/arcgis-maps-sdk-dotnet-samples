@@ -13,15 +13,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
-
 
 namespace ArcGISRuntime.Samples.OfflineRouting
 {

@@ -10,8 +10,6 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System;
-
 
 namespace ArcGISRuntime.Samples.RasterLayerImageServiceRaster
 {

@@ -12,13 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.DownloadPreplannedMap
 {
@@ -266,6 +260,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMap
                 BusyIndicator.IsVisible = false;
             }
         }
+
         private void AreaSelected(object sender, SelectedItemChangedEventArgs e)
         {
             PreplannedMapArea selectedMapArea = e.SelectedItem as PreplannedMapArea;

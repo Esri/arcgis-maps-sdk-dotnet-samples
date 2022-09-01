@@ -13,8 +13,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
-using System;
-using System.Threading.Tasks;
 
 using Colors = System.Drawing.Color;
 

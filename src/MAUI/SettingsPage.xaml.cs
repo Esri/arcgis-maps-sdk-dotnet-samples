@@ -10,13 +10,8 @@
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading;
 
 namespace ArcGISRuntimeMaui
 {
@@ -202,6 +197,7 @@ namespace ArcGISRuntimeMaui
                 }
             }
         }
+
         private async void DownloadAllClicked(object sender, EventArgs e)
         {
             try
@@ -254,6 +250,7 @@ namespace ArcGISRuntimeMaui
                 CancelButton.IsVisible = false; ;
             }
         }
+
         private async void DeleteAllClicked(object sender, EventArgs e)
         {
             try

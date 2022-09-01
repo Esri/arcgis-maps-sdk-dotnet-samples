@@ -11,9 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
@@ -32,6 +30,7 @@ namespace ArcGISRuntime.Samples.DisplayWfs
 
         // Constants for the service URL and layer name.
         private const string ServiceUrl = "https://dservices2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/services/Seattle_Downtown_Features/WFSServer?service=wfs&request=getcapabilities";
+
         // Note that the layer name is defined by the service. The layer name can be accessed via WfsLayerInfo.Name.
         private const string LayerName = "Seattle_Downtown_Features:Buildings";
 

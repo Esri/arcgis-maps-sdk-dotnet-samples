@@ -8,8 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System.Collections.Generic;
-
 
 namespace ArcGISRuntime.Samples.LoadWebTiledLayer
 {

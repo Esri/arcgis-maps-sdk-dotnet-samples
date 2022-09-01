@@ -9,11 +9,6 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.TakeScreenshot
 {

@@ -9,10 +9,6 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Floor;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.BrowseBuildingFloors
 {

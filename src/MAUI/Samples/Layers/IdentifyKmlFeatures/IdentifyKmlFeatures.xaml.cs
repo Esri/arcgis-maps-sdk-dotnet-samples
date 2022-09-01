@@ -11,9 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using System;
-using System.Linq;
-
 
 namespace ArcGISRuntime.Samples.IdentifyKmlFeatures
 {

@@ -10,10 +10,6 @@
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
 {

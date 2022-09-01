@@ -10,8 +10,6 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Collections.Generic;
 
 using Color = System.Drawing.Color;
 

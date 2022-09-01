@@ -10,11 +10,9 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Esri.ArcGISRuntime.Maui;
-using System;
+using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System.Diagnostics;
-
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
 {

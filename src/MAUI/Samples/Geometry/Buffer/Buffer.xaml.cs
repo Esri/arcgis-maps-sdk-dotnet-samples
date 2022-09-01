@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.Buffer

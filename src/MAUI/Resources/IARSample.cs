@@ -9,9 +9,10 @@
 
 namespace ArcGISRuntimeMaui
 {
-    interface IARSample
+    internal interface IARSample
     {
         void StartAugmentedReality();
+
         void StopAugmentedReality();
     }
 }

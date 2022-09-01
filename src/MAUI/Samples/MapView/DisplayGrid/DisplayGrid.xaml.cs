@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
 
 using Colors = System.Drawing.Color;
 
@@ -47,7 +46,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             labelPositionPicker.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
             labelFormatPicker.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
 
-            foreach (Picker combo in new Picker[] {gridTypePicker, gridColorPicker, labelColorPicker, labelPositionPicker, labelFormatPicker})
+            foreach (Picker combo in new Picker[] { gridTypePicker, gridColorPicker, labelColorPicker, labelPositionPicker, labelFormatPicker })
             {
                 combo.SelectedIndex = 0;
             }

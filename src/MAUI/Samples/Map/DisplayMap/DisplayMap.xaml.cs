@@ -9,7 +9,6 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-
 namespace ArcGISRuntime.Samples.DisplayMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

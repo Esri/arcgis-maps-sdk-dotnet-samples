@@ -9,10 +9,7 @@
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.WfsXmlQuery
 {

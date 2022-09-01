@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Models;
-using System;
 using System.Diagnostics;
 
 #if __IOS__
@@ -25,9 +24,9 @@ namespace ArcGISRuntimeMaui
         public SamplePage()
         {
             InitializeComponent();
-            ToolbarItems[0].Clicked += (o, e) => 
-            { 
-                SampleDetailPage.IsVisible = !SampleDetailPage.IsVisible; 
+            ToolbarItems[0].Clicked += (o, e) =>
+            {
+                SampleDetailPage.IsVisible = !SampleDetailPage.IsVisible;
             };
         }
 

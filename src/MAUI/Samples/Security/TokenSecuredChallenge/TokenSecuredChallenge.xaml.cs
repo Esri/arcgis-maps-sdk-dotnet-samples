@@ -9,11 +9,8 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
-using System;
 using System.Globalization;
-using System.Threading.Tasks;
 using Color = System.Drawing.Color;
-
 
 namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 {

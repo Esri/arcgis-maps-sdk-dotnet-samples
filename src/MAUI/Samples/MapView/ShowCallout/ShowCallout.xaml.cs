@@ -9,9 +9,8 @@
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Maui;
-
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISRuntime.Samples.ShowCallout
 {

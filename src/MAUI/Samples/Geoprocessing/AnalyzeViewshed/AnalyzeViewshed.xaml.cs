@@ -14,10 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.AnalyzeViewshed
 {

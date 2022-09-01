@@ -10,8 +10,6 @@
 using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntimeMaui.Helpers;
-using System.Collections.Generic;
-using System.Linq;
 
 #if WINDOWS_UWP
 using System.Threading.Tasks;

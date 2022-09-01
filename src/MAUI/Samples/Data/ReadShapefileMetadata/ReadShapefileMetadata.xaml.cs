@@ -10,10 +10,6 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 {

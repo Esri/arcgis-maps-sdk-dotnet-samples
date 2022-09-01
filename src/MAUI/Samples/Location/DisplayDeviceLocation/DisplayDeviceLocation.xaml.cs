@@ -9,9 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
 using System.Diagnostics;
-using System.Linq;
 
 #if XAMARIN_ANDROID
 using ArcGISRuntime.Droid;

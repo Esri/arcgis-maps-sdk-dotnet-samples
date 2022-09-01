@@ -10,9 +10,6 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using System;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
 {

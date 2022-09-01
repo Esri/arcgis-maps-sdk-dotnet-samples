@@ -10,8 +10,6 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using System;
-
 
 namespace ArcGISRuntime.Samples.DisplayKmlNetworkLinks
 {

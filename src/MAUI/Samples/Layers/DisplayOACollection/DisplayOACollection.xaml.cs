@@ -11,8 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using System;
-using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 
@@ -24,7 +22,6 @@ namespace ArcGISRuntime.Samples.DisplayOACollection
         description: "Display an OGC API feature collection and query features while navigating the map view.",
         instructions: "Pan the map and observe how new features are loaded from the OGC API feature service.",
         tags: new[] { "OGC", "OGC API", "feature", "feature layer", "feature table", "service", "table", "web" })]
-
     public partial class DisplayOACollection : ContentPage
     {
         // Hold a reference to the OGC feature collection table.

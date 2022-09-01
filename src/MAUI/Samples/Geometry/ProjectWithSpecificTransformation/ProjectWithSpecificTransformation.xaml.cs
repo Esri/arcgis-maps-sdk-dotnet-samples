@@ -9,7 +9,6 @@
 
 using Esri.ArcGISRuntime.Geometry;
 
-
 namespace ArcGISRuntime.Samples.ProjectWithSpecificTransformation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

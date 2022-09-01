@@ -10,10 +10,6 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.RasterHillshade
 {
@@ -23,7 +19,7 @@ namespace ArcGISRuntime.Samples.RasterHillshade
         description: "Apply a hillshade renderer to a raster.",
         instructions: "Choose and adjust the settings to update the hillshade renderer on the raster layer. The sample allows you to change the Altitude, Azimuth, and Slope Type.",
         tags: new[] { "altitude", "angle", "azimuth", "raster", "slope", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
+    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
     public partial class RasterHillshade : ContentPage
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.

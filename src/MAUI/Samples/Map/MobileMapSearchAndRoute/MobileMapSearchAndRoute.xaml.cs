@@ -14,15 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.MobileMapSearchAndRoute
 {
@@ -37,6 +31,7 @@ namespace ArcGISRuntime.Samples.MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.
         public ObservableCollection<Map> Maps { get; } = new ObservableCollection<Map>();
+
         private LocatorTask _packageLocator;
         private TransportationNetworkDataset _networkDataset;
 

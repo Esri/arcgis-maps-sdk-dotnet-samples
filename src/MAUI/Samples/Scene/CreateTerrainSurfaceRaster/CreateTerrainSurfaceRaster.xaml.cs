@@ -10,7 +10,6 @@
 using ArcGISRuntime.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-
 namespace ArcGISRuntime.Samples.CreateTerrainSurfaceRaster
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

@@ -12,8 +12,6 @@ using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Threading.Tasks;
 
 using Color = System.Drawing.Color;
 using Location = Esri.ArcGISRuntime.Location.Location;

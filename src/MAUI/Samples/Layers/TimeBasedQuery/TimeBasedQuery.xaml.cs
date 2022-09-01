@@ -10,8 +10,6 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-
 
 namespace ArcGISRuntime.Samples.TimeBasedQuery
 {

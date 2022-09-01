@@ -2,11 +2,6 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-
 
 namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
 {

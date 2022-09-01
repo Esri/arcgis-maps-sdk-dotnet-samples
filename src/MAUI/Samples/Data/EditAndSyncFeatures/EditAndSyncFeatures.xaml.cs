@@ -12,17 +12,11 @@ using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.Maui;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
 using Colors = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.EditAndSyncFeatures

@@ -8,8 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System;
-
 
 namespace ArcGISRuntime.Samples.ManageOperationalLayers
 {
@@ -113,7 +111,7 @@ namespace ArcGISRuntime.Samples.ManageOperationalLayers
         }
     }
 
-    class MapViewModel
+    internal class MapViewModel
     {
         public Map Map { get; }
         public LayerCollection IncludedLayers => Map.OperationalLayers;

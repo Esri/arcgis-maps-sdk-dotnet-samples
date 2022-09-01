@@ -10,18 +10,13 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using System;
-using System.IO;
-
-using System.Threading.Tasks;
+using Esri.ArcGISRuntime.UI;
 
 #if WINDOWS_UWP
 using Colors = Windows.UI.Colors;
 #else
-using Colors = System.Drawing.Color;
 #endif
 
 namespace ArcGISRuntime.Samples.GeodatabaseTransactions

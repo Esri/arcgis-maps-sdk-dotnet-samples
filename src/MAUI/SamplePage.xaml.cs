@@ -10,10 +10,6 @@
 using ArcGISRuntime.Samples.Shared.Models;
 using System.Diagnostics;
 
-#if __IOS__
-using UIKit;
-#endif
-
 namespace ArcGISRuntimeMaui
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]

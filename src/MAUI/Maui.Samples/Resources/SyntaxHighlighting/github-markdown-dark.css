@@ -7,7 +7,7 @@
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     line-height: 1.5;
-    color: #24292e;
+    color: #FFFFFF;
     font-family: "Segoe UI", Helvetica, Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 16px;
     line-height: 1.5;
@@ -30,7 +30,7 @@
 
     .markdown-body .pl-smi,
     .markdown-body .pl-s .pl-s1 {
-        color: #24292e;
+        color: #FFFFFF;
     }
 
     .markdown-body .pl-ent {
@@ -92,12 +92,12 @@
 
     .markdown-body .pl-mi {
         font-style: italic;
-        color: #24292e;
+        color: #FFFFFF;
     }
 
     .markdown-body .pl-mb {
         font-weight: bold;
-        color: #24292e;
+        color: #FFFFFF;
     }
 
     .markdown-body .pl-md {

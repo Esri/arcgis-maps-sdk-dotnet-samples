@@ -54,16 +54,17 @@ namespace ArcGISRuntimeMaui
                 baseUrl = "ms-appx-web:///";
                 basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
                 readmePath = System.IO.Path.Combine(folderPath, "readme.md");
-#elif __ANDROID__
+#elif ANDROID
                 baseUrl = "file:///android_asset";
                 basePath = System.IO.Path.Combine(baseUrl, folderPath);
                 readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), folderPath, "readme.md");
-#elif __IOS__
+#elif IOS
                 baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
                 basePath = folderPath;
                 readmePath = System.IO.Path.Combine(folderPath, "readme.md");
 #endif
-                string cssPath = $"{baseUrl}/github-markdown.css";
+                //string cssPath = $"{baseUrl}/Resources/SyntaxHighlighting/github-markdown.css";
+                string cssPath = $"{baseUrl}Resources/SyntaxHighlighting/github-markdown.css";
 
                 string readmeContent = System.IO.File.ReadAllText(readmePath);
                 readmeContent = Markdig.Markdown.ToHtml(readmeContent);
@@ -78,6 +79,8 @@ namespace ArcGISRuntimeMaui
                     BaseUrl = basePath
                 };
                 DescriptionView.Navigating += Webview_Navigating;
+
+                //DescriptionView.
             }
             catch (Exception ex)
             {

@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.UpdateAttributes
         private void DamageTable_Loaded(object sender, EventArgs e)
         {
             // This code needs to work with the UI, so it needs to run on the UI thread.
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Get the relevant field from the table.
                 ServiceFeatureTable table = (ServiceFeatureTable)sender;

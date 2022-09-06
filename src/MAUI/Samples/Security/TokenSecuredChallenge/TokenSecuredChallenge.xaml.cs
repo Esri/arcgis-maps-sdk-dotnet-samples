@@ -103,7 +103,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 #endif
             // Show the login controls on the UI thread.
             // OnLoginInfoEntered event will return the values entered (username and password).
-            Device.BeginInvokeOnMainThread(async () => await Navigation.PushAsync(_loginPage));
+            MainThread.BeginInvokeOnMainThread(async () => await Navigation.PushAsync(_loginPage));
 
             // Return the login task, the result will be ready when completed (user provides login info and clicks the "Login" button)
             return await _loginTaskCompletionSrc.Task;

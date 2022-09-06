@@ -297,7 +297,7 @@ namespace ArcGISRuntimeMaui
 
         public void SetProgress(int percentage, bool hasPercentage)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 StatusBar.IsVisible = hasPercentage;
                 IndefiniteSpinner.IsVisible = !hasPercentage;

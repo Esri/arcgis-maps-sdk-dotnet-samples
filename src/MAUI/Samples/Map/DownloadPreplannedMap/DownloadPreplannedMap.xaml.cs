@@ -209,7 +209,7 @@ namespace ArcGISRuntime.Samples.DownloadPreplannedMap
         {
             // Because the event is raised on a background thread, the dispatcher must be used to
             // ensure that UI updates happen on the UI thread.
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Update the UI with the progress.
                 DownloadPreplannedOfflineMapJob downloadJob = sender as DownloadPreplannedOfflineMapJob;

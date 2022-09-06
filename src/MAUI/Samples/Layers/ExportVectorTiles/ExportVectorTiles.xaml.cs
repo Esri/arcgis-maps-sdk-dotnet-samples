@@ -317,7 +317,7 @@ namespace ArcGISRuntime.Samples.ExportVectorTiles
 
         private void Job_ProgressChanged(object sender, EventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
                 MyProgressBar.Progress = _job.Progress / 100.0;
@@ -327,7 +327,7 @@ namespace ArcGISRuntime.Samples.ExportVectorTiles
 
         private void Job_StatusChanged(object sender, Esri.ArcGISRuntime.Tasks.JobStatus e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 MyCancelJobButton.IsVisible = (_job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Failed &&
                                                _job.Status != Esri.ArcGISRuntime.Tasks.JobStatus.Succeeded &&

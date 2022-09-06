@@ -54,7 +54,7 @@ namespace ArcGISRuntime.Samples.DisplayKmlNetworkLinks
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
             // The dispatcher takes an Action, provided here as a lambda function.
-            Device.BeginInvokeOnMainThread(async () =>
+            MainThread.BeginInvokeOnMainThread(async () =>
             {
                 await Application.Current.MainPage.DisplayAlert("KML layer message", e.Message, "OK");
             });

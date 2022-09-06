@@ -274,7 +274,7 @@ namespace ArcGISRuntime.Samples.GenerateGeodatabaseReplica
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
                 myProgressBar.Progress = _generateGdbJob.Progress / 100.0;

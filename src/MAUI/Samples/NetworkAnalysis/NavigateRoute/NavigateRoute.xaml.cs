@@ -200,7 +200,7 @@ namespace ArcGISRuntime.Samples.NavigateRoute
                 MyMapView.LocationDisplay.DataSource.StopAsync();
             }
 
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Show the status information in the UI.
                 MessagesTextBlock.Text = statusMessageBuilder.ToString().TrimEnd('\n').TrimEnd('\r');

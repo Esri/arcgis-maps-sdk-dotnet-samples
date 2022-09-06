@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.LocationWithNMEA
 
         private void UpdateNmeaMessageLabel(object sender, NmeaMessageEventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 NmeaMessageLabel.Text = e.NmeaMessage;
             });
@@ -98,7 +98,7 @@ namespace ArcGISRuntime.Samples.LocationWithNMEA
                 uniqueSatelliteIds.Add(info.Id);
             }
 
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Show the status information in the UI.
                 CountLabel.Text = $"Satellite count: {infos.Count}";
@@ -109,7 +109,7 @@ namespace ArcGISRuntime.Samples.LocationWithNMEA
 
         private void LocationChanged(object sender, Location loc)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Show the status information in the UI.
                 AccuracyLabel.Text = $"Accuracy: Horizontal {string.Format("{0:0.00}", loc.HorizontalAccuracy)} meters, Vertical  {string.Format("{0:0.00}", loc.VerticalAccuracy)} meters";

@@ -59,7 +59,7 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         private void OnDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
         {
             // Make sure that the UI changes are done in the UI thread.
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Show the activity indicator if the map is drawing.
                 if (e.Status == DrawStatus.InProgress)

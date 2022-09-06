@@ -26,7 +26,7 @@ namespace ArcGISRuntimeMaui
 
         public void SetProgress(int percentage, bool hasPercentage, long totalBytes)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 DownloadProgress.IsVisible = hasPercentage;
                 IndefiniteSpinner.IsVisible = !hasPercentage;

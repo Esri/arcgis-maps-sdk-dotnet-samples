@@ -138,7 +138,7 @@ namespace ArcGISRuntimeMaui.Helpers
                 _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
 #if __IOS__
-                Device.BeginInvokeOnMainThread(async () =>
+                MainThread.BeginInvokeOnMainThread(async () =>
                 {
 #endif
                 try

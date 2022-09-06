@@ -232,7 +232,7 @@ namespace ArcGISRuntime.Samples.NavigateRouteRerouting
                 statusMessageBuilder.AppendLine("Off route!");
             }
 
-            Device.BeginInvokeOnMainThread(() =>
+            MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Show the status information in the UI.
                 MessagesTextBlock.Text = statusMessageBuilder.ToString().TrimEnd('\n').TrimEnd('\r');

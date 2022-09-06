@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _distanceMeasurement.MeasurementChanged += (o, e) =>
             {
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
-                Device.BeginInvokeOnMainThread(() =>
+                MainThread.BeginInvokeOnMainThread(() =>
                 {
                     // Update the labels with new values in the format {value} {unit system}.
                     DirectMeasureLabel.Text =

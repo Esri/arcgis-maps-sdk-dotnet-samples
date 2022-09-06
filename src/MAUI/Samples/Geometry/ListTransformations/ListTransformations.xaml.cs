@@ -22,7 +22,6 @@ namespace ArcGISRuntime.Samples.ListTransformations
         description: "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",
         instructions: "Select a transformation from the list to see the result of projecting the point from EPSG:27700 to EPSG:3857 using that transformation. The result is shown as a red cross; you can visually compare the original blue point with the projected red cross.",
         tags: new[] { "datum", "geodesy", "projection", "spatial reference", "transformation" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class ListTransformations : ContentPage
     {
         // Point whose coordinates will be projected using a selected transform.

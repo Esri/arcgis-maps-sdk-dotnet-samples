@@ -23,7 +23,6 @@ namespace ArcGISRuntime.Samples.GetElevationAtPoint
         description: "Get the elevation for a given point on a surface in a scene.",
         instructions: "Tap anywhere on the surface to get the elevation at that point. Elevation is reported in meters since the scene view is in WGS84.",
         tags: new[] { "elevation", "point", "surface" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class GetElevationAtPoint : ContentPage
     {
         // URL of the elevation service - provides elevation component of the scene.

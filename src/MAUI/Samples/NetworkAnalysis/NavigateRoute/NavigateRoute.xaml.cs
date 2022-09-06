@@ -26,7 +26,6 @@ namespace ArcGISRuntime.Samples.NavigateRoute
         description: "Use a routing service to navigate between points.",
         instructions: "Tap 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Tap 'Recenter' to refocus on the location display.",
         tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
     public partial class NavigateRoute : ContentPage, IDisposable
     {
         // Variables for tracking the navigation route.

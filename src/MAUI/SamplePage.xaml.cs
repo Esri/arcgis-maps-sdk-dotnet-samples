@@ -13,17 +13,13 @@ using System.Diagnostics;
 namespace ArcGISRuntimeMaui
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SamplePage
+    public partial class SamplePage : TabbedPage
     {
         private ContentPage _sample;
 
         public SamplePage()
         {
             InitializeComponent();
-            ToolbarItems[0].Clicked += (o, e) =>
-            {
-                SampleDetailPage.IsVisible = !SampleDetailPage.IsVisible;
-            };
         }
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
@@ -37,9 +33,8 @@ namespace ArcGISRuntimeMaui
             // Update the content - this displays the sample.
             SampleContentPage.Content = sample.Content;
 
-            // Because the sample control isn't navigated to (its content is displayed directly),
-            //    navigation won't work from within the sample until the parent is manually set.
-            sample.Parent = this;
+            //  Start AR
+            if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
 
             // Set the title.
             Title = sampleInfo.SampleName;
@@ -83,6 +78,8 @@ namespace ArcGISRuntimeMaui
                     BaseUrl = basePath
                 };
                 DescriptionView.Navigating += Webview_Navigating;
+
+                
             }
             catch (Exception ex)
             {
@@ -90,17 +87,11 @@ namespace ArcGISRuntimeMaui
             }
         }
 
-        protected override void OnAppearing()
-        {
-            if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
-            base.OnAppearing();
-        }
-
-        protected override void OnDisappearing()
+        protected override bool OnBackButtonPressed()
         {
             if (_sample is IDisposable disposableSample) disposableSample.Dispose();
             if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
-            base.OnDisappearing();
+            return base.OnBackButtonPressed();
         }
 
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)

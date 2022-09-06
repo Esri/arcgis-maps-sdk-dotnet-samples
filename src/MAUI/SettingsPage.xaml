@@ -6,12 +6,13 @@
             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources"
             Title="Settings">
     <TabbedPage.Children>
-        <ContentPage Title="About" IconImageSource="info.png">
+        <ContentPage Title="About" IconImageSource="description.png">
+
             <ContentPage.Content>
                 <WebView x:Name="AboutPage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Licenses" IconImageSource="document.png">
+        <ContentPage Title="Licenses" IconImageSource="documentation.png">
             <ContentPage.Content>
                 <WebView x:Name="LicensePage" />
             </ContentPage.Content>
@@ -67,6 +68,7 @@
                                                VerticalOptions="Center" />
                                         <ImageButton Grid.Column="1"
                                                      Margin="5"
+                                                     BackgroundColor="White"
                                                      Clicked="DownloadClicked"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="25"
@@ -78,7 +80,7 @@
                                                      Clicked="AGOLClicked"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="25"
-                                                     Source="agol.png"
+                                                     Source="applications.png"
                                                      VerticalOptions="CenterAndExpand"
                                                      WidthRequest="25" />
                                         <ImageButton Grid.Column="3"
@@ -92,7 +94,7 @@
                                                      IsVisible="{x:OnPlatform Android=True,
                                                                               iOS=True,
                                                                               UWP=True}"
-                                                     Source="delete.png"
+                                                     Source="trash.png"
                                                      VerticalOptions="CenterAndExpand"
                                                      WidthRequest="25" />
                                     </Grid>

@@ -136,21 +136,21 @@
       <MauiImage Include="Resources\routingsymbol.png" />
     </ItemGroup>
 	<ItemGroup>
-      <Content Include="Resources\SyntaxHighlighting\github-markdown.css">
+      <MauiAsset Include="Resources\SyntaxHighlighting\github-markdown.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Resources\SyntaxHighlighting\github-markdown-dark.css">
+      </MauiAsset>
+      <MauiAsset Include="Resources\SyntaxHighlighting\github-markdown-dark.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Resources\SyntaxHighlighting\highlight-dark.css">
+      </MauiAsset>
+      <MauiAsset Include="Resources\SyntaxHighlighting\highlight-dark.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Resources\SyntaxHighlighting\highlight.css">
+      </MauiAsset>
+      <MauiAsset Include="Resources\SyntaxHighlighting\highlight.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Resources\SyntaxHighlighting\highlight.pack.js">
+      </MauiAsset>
+      <MauiAsset Include="Resources\SyntaxHighlighting\highlight.pack.js">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
+      </MauiAsset>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Esri.ArcGISRuntime" Version="100.15.0" />

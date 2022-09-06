@@ -242,7 +242,7 @@ namespace ArcGISRuntime.Samples.OfflineBasemapByReference
             GenerateOfflineMapJob job = sender as GenerateOfflineMapJob;
 
             // Dispatch to the UI thread.
-            MainThread.BeginInvokeOnMainThread(() =>
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Show the percent complete and update the progress bar.
                 Percentage.Text = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;

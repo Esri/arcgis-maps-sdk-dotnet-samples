@@ -37,8 +37,8 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
             _ = Initialize();
 
-            // Change the style of the layer list view for Android and UWP
-            if (Device.RuntimePlatform == Device.UWP)
+            // Change the style of the layer list view for WinUI
+            if (DeviceInfo.Platform == DevicePlatform.WinUI)
             {
                 // Semi-transparent background on Windows with a small margin around the control
                 MapsListView.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
@@ -163,7 +163,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    MainThread.BeginInvokeOnMainThread(() => Application.Current.MainPage.DisplayAlert(err.Message, "Map Load Error", "OK"));
+                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => Application.Current.MainPage.DisplayAlert(err.Message, "Map Load Error", "OK"));
                 }
             }
         }

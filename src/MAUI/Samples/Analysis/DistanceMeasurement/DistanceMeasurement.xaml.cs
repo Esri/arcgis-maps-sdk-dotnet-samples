@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
+using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 
 namespace ArcGISRuntime.Samples.DistanceMeasurement
@@ -71,7 +72,7 @@ namespace ArcGISRuntime.Samples.DistanceMeasurement
             _distanceMeasurement.MeasurementChanged += (o, e) =>
             {
                 // This is needed because measurement change events occur on a non-UI thread and this code accesses UI object.
-                MainThread.BeginInvokeOnMainThread(() =>
+                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
                 {
                     // Update the labels with new values in the format {value} {unit system}.
                     DirectMeasureLabel.Text =

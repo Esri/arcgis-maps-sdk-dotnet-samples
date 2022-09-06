@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Security;
+using Microsoft.Maui.ApplicationModel;
 
 #if __ANDROID__ || __IOS__
 
@@ -138,7 +139,7 @@ namespace ArcGISRuntimeMaui.Helpers
                 _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
 #if __IOS__
-                MainThread.BeginInvokeOnMainThread(async () =>
+                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
                 {
 #endif
                 try

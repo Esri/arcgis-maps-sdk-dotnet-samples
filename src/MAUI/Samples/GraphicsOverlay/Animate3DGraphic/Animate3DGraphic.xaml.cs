@@ -245,7 +245,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             double missionProgress = _keyframe / (double)_frameCount;
 
             // This is needed because the event could be running on a non-UI thread
-            MainThread.BeginInvokeOnMainThread(() =>
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Update the progress slider; temporarily remove event subscription to avoid feedback loop
                 MissionProgressBar.ValueChanged -= MissionProgressOnSeek;

@@ -43,7 +43,7 @@ namespace ArcGISRuntime.Samples.AccessLoadStatus
         private void OnMapsLoadStatusChanged(object sender, LoadStatusEventArgs e)
         {
             // Make sure that the UI changes are done in the UI thread
-            MainThread.BeginInvokeOnMainThread(() =>
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Update the load status information
                 loadStatusLabel.Text = $"Map's load status : {e.Status}";

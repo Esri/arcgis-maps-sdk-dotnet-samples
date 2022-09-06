@@ -496,7 +496,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
             // The dispatcher takes an Action, provided here as a lambda function.
-            MainThread.BeginInvokeOnMainThread(() =>
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
                 myProgressBar.Progress = progress / 100.0;

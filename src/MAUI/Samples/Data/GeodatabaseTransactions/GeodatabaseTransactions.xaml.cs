@@ -99,7 +99,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         // See if the job succeeded
                         if (generateGdbJob.Status == JobStatus.Succeeded)
                         {
-                            MainThread.BeginInvokeOnMainThread(() =>
+                            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
                             {
                                 // Hide the progress control and update the message
                                 LoadingProgressBar.IsVisible = false;
@@ -108,7 +108,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                         }
                         else if (generateGdbJob.Status == JobStatus.Failed)
                         {
-                            MainThread.BeginInvokeOnMainThread(() =>
+                            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
                             {
                                 // Hide the progress control and report the exception
                                 LoadingProgressBar.IsVisible = false;
@@ -124,7 +124,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Show a message for the exception encountered
-                MainThread.BeginInvokeOnMainThread(() =>
+                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
                 {
                     Application.Current.MainPage.DisplayAlert("Generate Geodatabase", "Unable to create offline database: " + ex.Message, "OK");
                 });
@@ -158,7 +158,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
 
                     // Create a new feature layer to show the table in the map
                     FeatureLayer layer = new FeatureLayer(table);
-                    MainThread.BeginInvokeOnMainThread(() => MyMapView.Map.OperationalLayers.Add(layer));
+                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MyMapView.Map.OperationalLayers.Add(layer));
                 }
                 catch (Exception e)
                 {
@@ -170,7 +170,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             _localGeodatabase.TransactionStatusChanged += GdbTransactionStatusChanged;
 
             // Zoom the map view to the extent of the generated local datasets
-            MainThread.BeginInvokeOnMainThread(() =>
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
             {
                 MyMapView.SetViewpoint(new Viewpoint(_marineTable.Extent));
                 StartEditingButton.IsEnabled = true;
@@ -181,7 +181,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
         private void GdbTransactionStatusChanged(object sender, TransactionStatusChangedEventArgs e)
         {
             // Update UI controls based on whether the geodatabase has a current transaction
-            MainThread.BeginInvokeOnMainThread(() =>
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
             {
                 // These buttons should be enabled when there IS a transaction
                 AddBirdButton.IsEnabled = e.IsInTransaction;
@@ -363,17 +363,17 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
                     if (job.Status == JobStatus.Succeeded)
                     {
                         // Report success ...
-                        MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = "Synchronization is complete!");
+                        Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = "Synchronization is complete!");
                     }
                     else if (job.Status == JobStatus.Failed)
                     {
                         // Report failure ...
-                        MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = job.Error.Message);
+                        Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = job.Error.Message);
                     }
                     else
                     {
                         // Report that the job is in progress ...
-                        MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = "Sync in progress ...");
+                        Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = "Sync in progress ...");
                     }
                 };
 

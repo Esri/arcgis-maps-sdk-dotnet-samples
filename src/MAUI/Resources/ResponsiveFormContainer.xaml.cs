@@ -6,7 +6,7 @@
         public ResponsiveFormContainer() : base()
         {
             InitializeComponent();
-            VisualStateManager.GoToState(this, Device.Idiom == TargetIdiom.Phone ? "Phone" : "DesktopTablet");
+            VisualStateManager.GoToState(this, DeviceInfo.Idiom == DeviceIdiom.Phone ? "Phone" : "DesktopTablet");
         }
     }
 }

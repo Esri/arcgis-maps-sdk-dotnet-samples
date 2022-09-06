@@ -30,7 +30,7 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
         private async Task Initialize()
         {
             // Get the path to the mobile map package.
-            string filepath = GetMmpkPath();
+            string filepath = DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", "Yellowstone.mmpk");
 
             try
             {
@@ -47,15 +47,6 @@ namespace ArcGISRuntime.Samples.OpenMobileMap
             {
                 await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
-        }
-
-        /// <summary>
-        /// This abstracts away platform & sample viewer-specific code for accessing local files.
-        /// </summary>
-        /// <returns>String that is the path to the file on disk.</returns>
-        private string GetMmpkPath()
-        {
-            return DataManager.GetDataFolder("e1f3a7254cb845b09450f54937c16061", "Yellowstone.mmpk");
         }
     }
 }

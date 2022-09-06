@@ -51,7 +51,7 @@ namespace ArcGISRuntime.Samples.CreateMobileGeodatabase
                 // Create a new randomly named directory for the geodatabase.
 #if WINUI
                 _directoryPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), "CreateMobileGeodatabase", Guid.NewGuid().ToString());
-#elif IOS || ANDROID
+#else
                 _directoryPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CreateMobileGeodatabase", Guid.NewGuid().ToString());
 #endif
 

@@ -122,7 +122,7 @@ namespace ArcGISRuntime.Samples.LineOfSightGeoElement
                 MySceneView.AnalysisOverlays.Add(myAnalysisOverlay);
 
                 // Create a timer; this will enable animating the taxi
-                Device.StartTimer(new TimeSpan(0, 0, 0, 0, 60), () =>
+                Dispatcher.StartTimer(new TimeSpan(0, 0, 0, 0, 60), () =>
                 {
                     // Move the taxi every time the timer elapses
                     AnimationTimer_Elapsed(this, null);

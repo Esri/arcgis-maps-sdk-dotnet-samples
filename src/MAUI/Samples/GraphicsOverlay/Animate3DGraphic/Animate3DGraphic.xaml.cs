@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
 
                 // Start a timer; this animates the plane
                 // The timespan is the length of the timer interval in milliseconds; this controls the animation speed (fps)
-                Device.StartTimer(new TimeSpan(0, 0, 0, 0, 60), AnimatePlane);
+                Dispatcher.StartTimer(new TimeSpan(0, 0, 0, 0, 60), AnimatePlane);
 
                 // Set the initial mission for when the sample loads
                 await ChangeMission(_missionToItemId.Keys.First());

@@ -122,7 +122,7 @@ namespace ArcGISRuntime.Samples.ViewshedGeoElement
                 MySceneView.CameraController = cameraController;
 
                 // Create a timer; this will enable animating the tank.
-                Device.StartTimer(new TimeSpan(0, 0, 0, 0, 60), () =>
+                Dispatcher.StartTimer(new TimeSpan(0, 0, 0, 0, 60), () =>
                 {
                     // Move the tank every time the timer elapses.
                     AnimateTank();

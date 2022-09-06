@@ -13,7 +13,7 @@
 		<ApplicationTitle>ArcGISRuntime.Samples.Maui</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.arcgisruntime.samples.maui</ApplicationId>
+		<ApplicationId>com.esri.arcgisruntime.samples.maui</ApplicationId>
 		<ApplicationIdGuid>dfaa7aed-d4c6-448f-8c5b-61b58c75ea36</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -105,16 +105,11 @@
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
-    <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
-        <AndroidAsset Include="Resources\github-markdown.css" />
-    </ItemGroup>
-    <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
-        <BundleResource Include="Resources\github-markdown.css" />
-    </ItemGroup>
     <ItemGroup>
       <None Remove="Resources\SettingsPage\*.md" />
       <EmbeddedResource Include="Resources\SettingsPage\*.md" />
       <Content Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+      <Content Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
 	  <BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />
       <AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
     </ItemGroup>
@@ -130,15 +125,32 @@
       <None Remove="Resources\routingSymbol.png" />
     </ItemGroup>
     <ItemGroup>
-    	<MauiImage Include="Resources\Icons\maps.svg"/>
-      <MauiImage Include="Resources\Icons\applications.svg"/>
-      <MauiImage Include="Resources\Icons\documentation.svg"/>
-      <MauiImage Include="Resources\Icons\description.svg"/>
-      <MauiImage Include="Resources\Icons\download.svg"/>
-      <MauiImage Include="Resources\Icons\key.svg"/>
-      <MauiImage Include="Resources\Icons\settings.svg"/>
-      <MauiImage Include="Resources\Icons\trash.svg"/>
-      <MauiImage Include="Resources\routingsymbol.png"/>
+      <MauiImage Include="Resources\Icons\maps.svg" />
+      <MauiImage Include="Resources\Icons\applications.svg" />
+      <MauiImage Include="Resources\Icons\documentation.svg" />
+      <MauiImage Include="Resources\Icons\description.svg" />
+      <MauiImage Include="Resources\Icons\download.svg" />
+      <MauiImage Include="Resources\Icons\key.svg" />
+      <MauiImage Include="Resources\Icons\settings.svg" />
+      <MauiImage Include="Resources\Icons\trash.svg" />
+      <MauiImage Include="Resources\routingsymbol.png" />
+    </ItemGroup>
+	<ItemGroup>
+      <Content Include="Resources\SyntaxHighlighting\github-markdown.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\SyntaxHighlighting\github-markdown-dark.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\SyntaxHighlighting\highlight-dark.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\SyntaxHighlighting\highlight.css">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\SyntaxHighlighting\highlight.pack.js">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Esri.ArcGISRuntime" Version="100.15.0" />
@@ -147,5 +159,5 @@
         <PackageReference Include="Markdig" Version="0.30.3" />
         <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
     </ItemGroup>
-    <Import Project="..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
+    <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 </Project>

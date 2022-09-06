@@ -78,8 +78,6 @@ namespace ArcGISRuntimeMaui
                     BaseUrl = basePath
                 };
                 DescriptionView.Navigating += Webview_Navigating;
-
-                
             }
             catch (Exception ex)
             {

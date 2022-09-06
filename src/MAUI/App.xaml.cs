@@ -11,6 +11,4 @@ public partial class App : Application
         MainPage = new NavigationPage(new CategoryListPage() { });
         Current = this;
     }
-
-    public static App Current { get; private set; }
 }

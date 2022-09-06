@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using ArcGISRuntimeMaui.Helpers;
 
-#if __ANDROID__
+#if ANDROID
 
 using Application = Microsoft.Maui.Controls.Application;
 

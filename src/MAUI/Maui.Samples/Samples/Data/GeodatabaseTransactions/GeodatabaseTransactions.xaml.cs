@@ -201,7 +201,7 @@ namespace ArcGISRuntime.Samples.GeodatabaseTransactions
             string folder = string.Empty;
 #if WINDOWS
             folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#elif __IOS__ || __ANDROID__
+#elif IOS || ANDROID
             folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
             // Set the final path

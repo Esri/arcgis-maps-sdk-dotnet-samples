@@ -10,13 +10,13 @@
 using Esri.ArcGISRuntime.Security;
 using Microsoft.Maui.ApplicationModel;
 
-#if __ANDROID__ || __IOS__
+#if ANDROID || IOS
 
 using System.Collections.Generic;
 
 #endif
 
-#if __ANDROID__
+#if ANDROID
 
 using Android.App;
 using Application = Microsoft.Maui.Controls.Application;
@@ -99,7 +99,7 @@ namespace ArcGISRuntimeMaui.Helpers
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
 
             // Set the OAuthAuthorizeHandler component (this class) for Android or iOS platforms.
-#if __ANDROID__ || __IOS__
+#if ANDROID || IOS
             AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
 #endif
         }
@@ -124,7 +124,7 @@ namespace ArcGISRuntimeMaui.Helpers
 
     #region IOAuthAuthorizationHandler implementation
 
-#if __ANDROID__ || __IOS__
+#if ANDROID || IOS
 
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
@@ -138,7 +138,7 @@ namespace ArcGISRuntimeMaui.Helpers
             {
                 _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
 
-#if __IOS__
+#if IOS
                 Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
                 {
 #endif
@@ -151,7 +151,7 @@ namespace ArcGISRuntimeMaui.Helpers
                 {
                     _taskCompletionSource.TrySetException(ex);
                 }
-#if __IOS__
+#if IOS
                 });
 #endif
                 return await _taskCompletionSource.Task;
@@ -163,7 +163,7 @@ namespace ArcGISRuntimeMaui.Helpers
 
 #endif
 
-#if __ANDROID__
+#if ANDROID
 
     [Activity(NoHistory = true, Exported = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(new[] { Intent.ActionView },

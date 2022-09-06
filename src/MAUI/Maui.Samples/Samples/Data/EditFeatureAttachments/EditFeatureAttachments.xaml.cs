@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
 // Custom code is needed for presenting the image picker on iOS.
-#if __IOS__
+#if IOS
 using Foundation;
 using UIKit;
 #endif
@@ -135,7 +135,7 @@ namespace ArcGISRuntime.Samples.EditFeatureAttachments
 
                 // Xamarin.Plugin.FilePicker shows the iCloud picker (not photo picker) on iOS.
                 // This iOS code shows the photo picker.
-#if __IOS__
+#if IOS
                 Stream imageStream = await GetImageStreamAsync();
                 if (imageStream == null)
                 {
@@ -275,7 +275,7 @@ namespace ArcGISRuntime.Samples.EditFeatureAttachments
         // Xamarin.Plugin.FilePicker shows an iCloud file picker; comment this out
         // and use the cross-platform implementation if that's what you want.
         // Note: code adapted from https://docs.microsoft.com/en-us/xamarin/xamarin-ArcGISRuntimeMaui/app-fundamentals/dependency-service/photo-picker
-#if __IOS__
+#if IOS
         private TaskCompletionSource<Stream> _taskCompletionSource;
         private UIImagePickerController _imagePicker;
         private string _filename;

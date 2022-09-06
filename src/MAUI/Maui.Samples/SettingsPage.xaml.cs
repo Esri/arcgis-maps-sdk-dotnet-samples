@@ -57,11 +57,11 @@ namespace ArcGISRuntimeMaui
 
             // The location of the github markdown css is platform dependent.
             string baseUrl = string.Empty;
-#if WINDOWS_UWP
+#if WINUI
             baseUrl = "ms-appx-web:///";
-#elif XAMARIN_ANDROID
+#elif ANDROID
             baseUrl = "file:///android_asset";
-#elif __IOS__
+#elif IOS
             baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
 
             // Need to set the viewport on iOS to scale page correctly.
@@ -74,14 +74,14 @@ namespace ArcGISRuntimeMaui
 
             // Load the HTML for the about and license pages.
             string licenseHTML = htmlStart +
-#if __IOS__
+#if IOS
                 viewportHTML +
 #endif
                 $"</head><body class=\"markdown-body\">{Markdig.Markdown.ToHtml(licenseString)}</body>";
             LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
             string aboutHTML = htmlStart +
-#if __IOS__
+#if IOS
                 viewportHTML +
 #endif
                 $"</head><body class=\"markdown-body\">{Markdig.Markdown.ToHtml(aboutString)}{versionNumber}</body>";

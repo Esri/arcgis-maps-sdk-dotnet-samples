@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 
-#if __ANDROID__
+#if ANDROID
 
 using Application = Microsoft.Maui.Controls.Application;
 

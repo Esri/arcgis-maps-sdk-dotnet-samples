@@ -71,7 +71,7 @@ namespace ArcGISRuntime.Samples.Animate3DGraphic
             InitializeComponent();
 
             // Hide the stats display on iOS because it looks bad
-#if __IOS__
+#if IOS
             LayoutFrame.IsVisible = false;
 #endif
             // Create the UI, setup the control references and execute initialization

@@ -107,7 +107,7 @@ namespace ArcGISRuntime.Samples.IdentifyRasterCell
                 stringBuilder.AppendLine($"X: {Math.Round(x, 4)}\nY: {Math.Round(y, 4)}");
 
                 // Create a callout using the string.
-#if __IOS__
+#if IOS
                 var definition = new CalloutDefinition(string.Empty, stringBuilder.ToString().Replace("\n", " "));
 #else
                 var definition = new CalloutDefinition(string.Empty, stringBuilder.ToString());

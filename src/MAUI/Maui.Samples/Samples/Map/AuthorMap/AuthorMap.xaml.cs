@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 using ArcGISRuntimeMaui.Helpers;
 
-#if __ANDROID__
+#if ANDROID
 
 using Application = Microsoft.Maui.Controls.Application;
 

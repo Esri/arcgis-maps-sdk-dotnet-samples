@@ -5,47 +5,36 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:SceneView x:Name="MySceneView"
-                          BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                          Style="{StaticResource MapWithFormStyle}" />
-        <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+    <ContentPage.Resources>
+        <Style x:Key="DesktopFrameStyle" TargetType="Frame">
+            <Setter Property="CornerRadius" Value="15" />
+            <Setter Property="Margin" Value="25" />
+            <Setter Property="HorizontalOptions" Value="End" />
+            <Setter Property="VerticalOptions" Value="Start" />
+            <Setter Property="WidthRequest" Value="300" />
+            <Setter Property="HeightRequest" Value="90" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{OnIdiom Desktop={StaticResource DesktopFrameStyle}, Tablet={StaticResource DesktopFrameStyle}}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="{StaticResource DefaultGridRowHeight}" />
-                    <RowDefinition Height="{StaticResource DefaultGridRowHeight}" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <!--  keep the slider in the touchable area - iOS only  -->
-                    <!--<ColumnDefinition>
-                        <ColumnDefinition.Width>
-                            <OnPlatform x:TypeArguments="GridLength" Default="0">
-                                <On Platform="iOS" Value="50" />
-                            </OnPlatform>
-                        </ColumnDefinition.Width>
-                    </ColumnDefinition>-->
-                    <ColumnDefinition Width="*" />
-                    <!--<ColumnDefinition>
-                        <ColumnDefinition.Width>
-                            <OnPlatform x:TypeArguments="GridLength" Default="0">
-                                <On Platform="iOS" Value="50" />
-                            </OnPlatform>
-                        </ColumnDefinition.Width>
-                    </ColumnDefinition>-->
-                </Grid.ColumnDefinitions>
                 <Label x:Name="MyStatusLabel"
                        Grid.Row="0"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="3"
-                       Style="{StaticResource LabelStyle}"
                        Text="Status: " />
                 <Slider x:Name="MyHeightSlider"
                         Grid.Row="1"
-                        Grid.Column="1"
-                        MaximumTrackColor="CadetBlue"
-                        MinimumTrackColor="CadetBlue"
                         ValueChanged="MyHeightSlider_ValueChanged" />
             </Grid>
-        </sampleViewer:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Frame>
+
+    </Grid>
 </ContentPage>

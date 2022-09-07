@@ -1,9 +1,0 @@
-﻿<UserControl
-    x:Class="ArcGISRuntime.UWP.Samples.DisplayKmlNetworkLinks.DisplayKmlNetworkLinks"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
-    <Grid>
-        <esriUI:SceneView x:Name="MySceneView" />
-    </Grid>
-</UserControl>

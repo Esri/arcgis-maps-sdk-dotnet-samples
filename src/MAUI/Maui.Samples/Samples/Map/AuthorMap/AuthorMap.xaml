@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.AuthorMap.AuthorMap"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+        <ActivityIndicator x:Name="SaveMapProgressBar"
+                           Grid.Row="1"
+                           IsRunning="True"
+                           IsVisible="False" />
+        <ListView x:Name="LayersList"
+                  Grid.Row="0"
+                  Grid.RowSpan="2"
+                  IsVisible="False"
+                  ItemTapped="LayerSelected" />
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Clicked="ShowLayerList"
+                    Text="Basemap" />
+            <Button Grid.Column="1"
+                    Clicked="ShowLayerList"
+                    Text="Layers" />
+            <Button Grid.Column="2"
+                    Clicked="NewMapButtonClick"
+                    Text="New" />
+            <Button Grid.Column="3"
+                    Clicked="ShowSaveMapUI"
+                    Text="Save" />
+        </Grid>
+    </Grid>
+</ContentPage>

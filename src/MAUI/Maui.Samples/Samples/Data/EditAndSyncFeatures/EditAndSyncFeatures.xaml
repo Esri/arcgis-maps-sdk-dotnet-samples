@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.EditAndSyncFeatures.EditAndSyncFeatures"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label x:Name="MyHelpLabel"
+               Grid.Row="0"
+               LineBreakMode="TailTruncation"
+               Text="1. Click 'generate'"
+               TextColor="Red" />
+        <Button x:Name="myGenerateButton"
+                Grid.Row="1"
+                Clicked="GenerateButton_Clicked"
+                IsEnabled="False"
+                Text="Generate" />
+        <Button x:Name="mySyncButton"
+                Grid.Row="2"
+                Clicked="SyncButton_Click"
+                IsEnabled="False"
+                Text="Synchronize" />
+        <ProgressBar x:Name="myProgressBar"
+                     Grid.Row="3"
+                     IsVisible="False"
+                     MinimumHeightRequest="10" />
+        <esriUI:MapView x:Name="myMapView"
+                        Grid.Row="4"
+                        GeoViewTapped="GeoViewTapped" />
+    </Grid>
+</ContentPage>

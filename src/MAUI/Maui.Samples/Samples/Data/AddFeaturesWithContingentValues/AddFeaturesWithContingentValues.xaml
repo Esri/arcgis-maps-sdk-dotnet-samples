@@ -1,0 +1,48 @@
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.AddFeaturesWithContingentValues.AddFeaturesWithContingentValues"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Frame x:Name="FeatureAttributesPopup"
+               Margin="30"
+               Padding="0"
+               BackgroundColor="White"
+               CornerRadius="0"
+               HorizontalOptions="Center"
+               IsVisible="False"
+               VerticalOptions="Start"
+               WidthRequest="300">
+            <StackLayout Margin="5">
+                <Label Text="Status" />
+                <Picker x:Name="StatusPicker" />
+                <Label Text="Protection" />
+                <Picker x:Name="ProtectionPicker" />
+                <Label Text="Buffer Size" />
+                <StackLayout Orientation="Horizontal">
+                    <Slider x:Name="BufferSizeSlider"
+                            MaximumTrackColor="Gray"
+                            MinimumTrackColor="Gray"
+                            ValueChanged="BufferSizeSlider_ValueChanged"
+                            WidthRequest="250" />
+                    <Label x:Name="BufferSizeLabel"
+                           Margin="0,0"
+                           HeightRequest="20"
+                           WidthRequest="40" />
+                </StackLayout>
+
+                <Button x:Name="SaveButton"
+                        Margin="0,5"
+                        Clicked="SaveButton_Clicked"
+                        HorizontalOptions="Center"
+                        Text="Save"
+                        WidthRequest="300" />
+                <Button x:Name="DiscardButton"
+                        Clicked="DiscardButton_Clicked"
+                        HorizontalOptions="Center"
+                        Text="Discard"
+                        WidthRequest="300" />
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

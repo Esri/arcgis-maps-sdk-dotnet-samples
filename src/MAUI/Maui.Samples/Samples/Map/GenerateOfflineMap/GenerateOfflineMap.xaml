@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.GenerateOfflineMap.GenerateOfflineMap"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+
+        <Frame x:Name="takeOfflineArea"
+               Margin="30"
+               Padding="20"
+               BackgroundColor="White"
+               BorderColor="Black"
+               HorizontalOptions="End"
+               VerticalOptions="Start"
+               WidthRequest="375">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                <Button x:Name="TakeMapOfflineButton"
+                        Clicked="TakeMapOfflineButton_Click"
+                        IsEnabled="True"
+                        Text="Take map offline"
+                        WidthRequest="250" />
+            </StackLayout>
+        </Frame>
+
+        <Frame x:Name="messageArea"
+               Margin="30"
+               Padding="5"
+               BackgroundColor="White"
+               BorderColor="Black"
+               HorizontalOptions="End"
+               IsVisible="False"
+               VerticalOptions="Start"
+               WidthRequest="450">
+            <StackLayout>
+                <Label Margin="10"
+                       HorizontalOptions="Center"
+                       Text="Map is offline!"
+                       VerticalOptions="Center" />
+            </StackLayout>
+        </Frame>
+
+        <Grid x:Name="busyIndicator"
+              BackgroundColor="#807f7f7f"
+              IsVisible="False">
+            <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label Margin="10"
+                       FontSize="18"
+                       HorizontalOptions="Center"
+                       TextColor="White"
+                       VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Generating offline map... " />
+                            <Span x:Name="Percentage" Text="" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <ProgressBar x:Name="progressBar"
+                             Grid.Row="1"
+                             Margin="0,0,0,10"
+                             HeightRequest="10"
+                             HorizontalOptions="Center"
+                             IsEnabled="True"
+                             VerticalOptions="Center"
+                             WidthRequest="100" />
+                <Button x:Name="CancelJobButton"
+                        Grid.Row="3"
+                        Clicked="CancelJobButton_Click"
+                        HorizontalOptions="Center"
+                        Text="Cancel"
+                        WidthRequest="100" />
+            </Grid>
+        </Grid>
+        <Grid x:Name="loadingIndicator"
+              BackgroundColor="#807f7f7f"
+              IsVisible="True">
+            <Grid HorizontalOptions="Center" VerticalOptions="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label Margin="10"
+                       FontSize="18"
+                       Text="Loading online map..."
+                       TextColor="White" />
+                <ProgressBar Grid.Row="1"
+                             HeightRequest="10"
+                             HorizontalOptions="Center"
+                             IsEnabled="True"
+                             VerticalOptions="Center"
+                             WidthRequest="100" />
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

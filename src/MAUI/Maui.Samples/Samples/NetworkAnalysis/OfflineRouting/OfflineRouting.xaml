@@ -1,0 +1,53 @@
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.OfflineRouting.OfflineRouting"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}"
+                        ViewInsets="0,250,0,0" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <OnPlatform x:TypeArguments="GridLength">
+                                <On Platform="UWP" Value="45" />
+                                <On Platform="Android, iOS" Value="Auto" />
+                            </OnPlatform>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <OnPlatform x:TypeArguments="GridLength">
+                                <On Platform="UWP" Value="45" />
+                                <On Platform="Android, iOS" Value="Auto" />
+                            </OnPlatform>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                    <RowDefinition>
+                        <RowDefinition.Height>
+                            <OnPlatform x:TypeArguments="GridLength">
+                                <On Platform="UWP" Value="30" />
+                                <On Platform="Android, iOS" Value="Auto" />
+                            </OnPlatform>
+                        </RowDefinition.Height>
+                    </RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Text="Click the map to add up to 5 stops. Route lines will be displayed automatically." />
+                <Picker x:Name="TravelModesCombo"
+                        Grid.Row="1"
+                        Margin="0,5,0,5"
+                        ItemDisplayBinding="{Binding Name}"
+                        TextColor="Black"
+                        VerticalOptions="CenterAndExpand" />
+                <Button Grid.Row="2"
+                        Clicked="ResetButton_Click"
+                        Text="Reset" />
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </cmp:RelativeLayout>
+</ContentPage>

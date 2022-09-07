@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.MapRotation.MapRotation"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Slider x:Name="MySlider"
+                        Grid.Column="1"
+                        Maximum="180"
+                        MaximumTrackColor="CadetBlue"
+                        Minimum="0"
+                        MinimumTrackColor="CadetBlue"
+                        ValueChanged="MySlider_ValueChanged"
+                        VerticalOptions="CenterAndExpand"
+                        Value="0" />
+                <Label x:Name="MyLabel"
+                       Grid.Column="0"
+                       Style="{StaticResource LabelStyle}"
+                       Text="0°"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </sampleViewer:ResponsiveFormContainer>
+    </cmp:RelativeLayout>
+</ContentPage>

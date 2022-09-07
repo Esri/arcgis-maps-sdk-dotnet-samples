@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage x:Class="ArcGISRuntime.Samples.ManageOperationalLayers.ManageOperationalLayers"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="LayerListTemplate" x:DataType="mapping:Layer">
+            <ViewCell>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Margin="5"
+                           Text="{Binding Name}"
+                           VerticalTextAlignment="Center" />
+                    <Button Grid.Column="1"
+                            Clicked="PromoteButton_Clicked"
+                            Text="⬆" />
+                    <Button Grid.Column="2"
+                            Clicked="DemoteButton_Clicked"
+                            Text="⬇" />
+                    <Button Grid.Column="3"
+                            Clicked="MoveButton_OnClicked"
+                            Text="➡" />
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+    </ContentPage.Resources>
+    <cmp:RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout>
+                <Label Text="Use the buttons to re-arrange layers." />
+                <Label FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Text="Layers in map" />
+                <!--
+                    Item template defined in UserControl.Resources above specifies that each listbox
+                    item's content consists of a label with the layer's Name and three buttons.
+                -->
+                <ListView x:Name="IncludedListView"
+                          HeightRequest="80"
+                          ItemTemplate="{StaticResource LayerListTemplate}"
+                          VerticalOptions="Start" />
+                <Label FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Text="Layers not in map" />
+                <!--
+                    Item template defined in UserControl.Resources above specifies that each listbox
+                    item's content consists of a label with the layer's Name and three buttons.
+                -->
+                <ListView x:Name="ExcludedListView"
+                          HeightRequest="80"
+                          ItemTemplate="{StaticResource LayerListTemplate}"
+                          VerticalOptions="Start" />
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+    </cmp:RelativeLayout>
+</ContentPage>

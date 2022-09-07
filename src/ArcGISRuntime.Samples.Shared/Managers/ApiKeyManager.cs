@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 #if __IOS__
 using System.Security.Cryptography;
 using System.Text;
-#elif XAMARIN
+#elif __ANDROID__ && !NETCOREAPP
 using Xamarin.Essentials;
 #else
 
@@ -120,7 +120,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
                 Debug.WriteLine(ex.Message);
                 return null;
             }
-#elif XAMARIN
+#elif ANDROID
             return await SecureStorage.GetAsync(_apiKeyFileName);
 #else
             return await Task.FromResult(Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName)))));
@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 #if __IOS__
                 File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Encrypt(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
                 return true;
-#elif XAMARIN
+#elif ANDROID
 
                 SecureStorage.SetAsync(_apiKeyFileName, Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey);
                 return true;
@@ -157,7 +157,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         {
 #if NETFX_CORE
             string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#elif XAMARIN
+#elif __ANDROID__ && !NETCOREAPP
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 #else
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
@@ -169,7 +169,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
             return sampleDataFolder;
         }
 
-#if !XAMARIN
+#if !__IOS__ && !__ANDROID__
 
         #region Windows Data Protection
 
@@ -197,8 +197,8 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
             // Return the combined IV + protected data.
             var result = new byte[entropy.Length + protectedBytes.Length];
-            Buffer.BlockCopy(entropy, 0, result, 0, entropy.Length);
-            Buffer.BlockCopy(protectedBytes, 0, result, entropy.Length, protectedBytes.Length);
+            System.Buffer.BlockCopy(entropy, 0, result, 0, entropy.Length);
+            System.Buffer.BlockCopy(protectedBytes, 0, result, entropy.Length, protectedBytes.Length);
             return result;
         }
 
@@ -210,11 +210,11 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
             // Copy IV from "bytes".
             var entropy = new byte[EntropySize];
-            Buffer.BlockCopy(bytes, 0, entropy, 0, entropy.Length);
+            System.Buffer.BlockCopy(bytes, 0, entropy, 0, entropy.Length);
 
             // Copy protected data.
             var protectedBytes = new byte[bytes.Length - EntropySize];
-            Buffer.BlockCopy(bytes, EntropySize, protectedBytes, 0, protectedBytes.Length);
+            System.Buffer.BlockCopy(bytes, EntropySize, protectedBytes, 0, protectedBytes.Length);
 
             // Return the unprotected data.
             return ProtectedData.Unprotect(protectedBytes, entropy, DataProtectionScope.CurrentUser);

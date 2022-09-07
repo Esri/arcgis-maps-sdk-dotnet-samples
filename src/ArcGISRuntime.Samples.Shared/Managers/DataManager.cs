@@ -82,11 +82,6 @@ namespace ArcGISRuntime.Samples.Managers
             catch { }
         }
 
-        /// <summary>
-        /// Determines if a portal item has been downloaded and is up-to-date.
-        /// </summary>
-        /// <param name="item">The portal item to check.</param>
-        /// <returns><c>true</c> if data is available and up-to-date, false otherwise.</returns>
         private static async Task<bool> IsDataPresent(string itemId)
         {
             // Look for __sample.config file. Return false if not present.

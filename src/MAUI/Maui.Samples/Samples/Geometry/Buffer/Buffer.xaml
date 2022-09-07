@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.Buffer.Buffer"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="Tap the map to create Planar and Geodesic buffers" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Distance (miles):"
+                       VerticalOptions="Center" />
+                <Entry x:Name="BufferDistanceMilesEntry"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Keyboard="Numeric"
+                       Text="1000" />
+                <Button x:Name="ClearBuffersButton"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Clicked="ClearBuffersButton_Click"
+                        Text="Clear" />
+                <Frame x:Name="BufferSwatchPlanar"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       Margin="5" />
+                <Label Grid.Row="3"
+                       Grid.Column="1"
+                       Text="Planar buffers"
+                       VerticalOptions="Center" />
+                <Frame x:Name="BufferSwatchGeodesic"
+                       Grid.Row="4"
+                       Grid.Column="0"
+                       Margin="5" />
+                <Label Grid.Row="4"
+                       Grid.Column="1"
+                       Text="Geodesic buffers"
+                       VerticalOptions="Center" />
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </cmp:RelativeLayout>
+</ContentPage>

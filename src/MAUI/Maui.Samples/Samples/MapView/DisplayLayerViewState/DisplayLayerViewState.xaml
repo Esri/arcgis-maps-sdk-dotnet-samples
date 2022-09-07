@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.DisplayLayerViewState.DisplayLayerViewState"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="150" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+        <StackLayout Grid.Row="1">
+            <Label Margin="5" Text="Zoom in and out to observe changes in layer status." />
+            <Button x:Name="LoadButton"
+                    Margin="5"
+                    Clicked="LoadButton_Click"
+                    Text="Load layer" />
+            <StackLayout Margin="5" Orientation="Horizontal">
+                <Label FontAttributes="Bold" Text="Visible: " />
+                <Switch x:Name="VisibilityToggle"
+                        IsToggled="True"
+                        Toggled="CheckBox_Checked" />
+                <Label FontAttributes="Bold" Text="Layer display status: " />
+                <Label x:Name="LayerStatusLabel" />
+            </StackLayout>
+        </StackLayout>
+    </Grid>
+</ContentPage>

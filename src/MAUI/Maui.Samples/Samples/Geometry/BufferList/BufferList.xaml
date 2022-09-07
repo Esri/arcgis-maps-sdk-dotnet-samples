@@ -1,0 +1,46 @@
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.BufferList.BufferList"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0"
+              Margin="10,0"
+              HorizontalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Label x:Name="BufferInstructionsLabel"
+                   Grid.Row="0"
+                   Text="Tap the map to add points. Each point uses the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffers with this map's spatial reference." />
+            <StackLayout Grid.Row="1" Orientation="Horizontal">
+                <Label Text="Buffer distance (miles):" VerticalOptions="Center" />
+                <Entry x:Name="BufferDistanceMilesEntry"
+                       HorizontalOptions="FillAndExpand"
+                       Keyboard="Numeric"
+                       Text="10" />
+            </StackLayout>
+            <StackLayout Grid.Row="2" Orientation="Horizontal">
+                <Label Text="Union the buffers:" VerticalOptions="Center" />
+                <Switch x:Name="UnionSwitch" IsToggled="True" />
+            </StackLayout>
+            <StackLayout Grid.Row="3" Orientation="Horizontal">
+                <Button x:Name="BufferButton"
+                        Clicked="BufferButton_Click"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Create buffers" />
+                <Button x:Name="ClearButton"
+                        Clicked="ClearButton_Click"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Clear" />
+            </StackLayout>
+        </Grid>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+    </Grid>
+</ContentPage>

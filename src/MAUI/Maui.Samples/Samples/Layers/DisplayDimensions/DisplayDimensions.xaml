@@ -1,0 +1,48 @@
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.DisplayDimensions.DisplayDimensions"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="PylonLabel"
+                       Grid.Row="0"
+                       Grid.ColumnSpan="2" />
+                <Switch x:Name="DimensionLayerSwitch"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        IsEnabled="False"
+                        IsToggled="True"
+                        Toggled="DimensionLayerSwitchChanged" />
+                <Label x:Name="DimensionLayerLabel"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Text="Dimension Layer visibility"
+                       VerticalTextAlignment="Center" />
+                <Switch x:Name="DefinitionExpressionSwitch"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        IsEnabled="False"
+                        IsToggled="False"
+                        Toggled="DefinitionExpressionSwitchChanged" />
+                <Label x:Name="DefinitionExpressionLabel"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Text="Definition Expression: Dimensions &gt;= 450m"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </cmp:RelativeLayout>
+</ContentPage>

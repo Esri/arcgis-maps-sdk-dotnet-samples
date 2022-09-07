@@ -1,0 +1,84 @@
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.EditBranchVersioning.EditBranchVersioning"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <StackLayout x:Name="DefaultView">
+                    <Label Text="Tap to select a feature." />
+                    <Label x:Name="CurrentVersionLabel" Text="Current version:" />
+                    <Button x:Name="CreateVersionButton"
+                            Clicked="VersionButtonClicked"
+                            IsEnabled="False"
+                            Text="Create version" />
+                </StackLayout>
+                <Grid x:Name="VersionView" IsVisible="false">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Name:" />
+                    <Entry x:Name="NameEntryBox"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Margin="5" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Access:" />
+                    <Picker x:Name="AccessBox"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="5" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Description:" />
+                    <Entry x:Name="DescriptionBox"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Margin="5" />
+                    <Button Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="5"
+                            Clicked="ConfirmVersionClick"
+                            Text="Create" />
+                    <Button Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="5"
+                            Clicked="CancelVersionClick"
+                            Text="Cancel" />
+                </Grid>
+                <StackLayout x:Name="AttributeView" IsVisible="false">
+                    <Label x:Name="MoveText"
+                           Margin="5"
+                           Text="Tap to move feature." />
+                    <StackLayout Orientation="Horizontal">
+                        <Label Margin="5"
+                               Text="Damage:"
+                               VerticalOptions="Center" />
+                        <Picker x:Name="DamageBox"
+                                Margin="5"
+                                VerticalOptions="Center" />
+                    </StackLayout>
+                    <Button x:Name="CloseButton"
+                            Margin="5"
+                            Clicked="CloseAttributeClick"
+                            Text="Close" />
+                </StackLayout>
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </cmp:RelativeLayout>
+</ContentPage>

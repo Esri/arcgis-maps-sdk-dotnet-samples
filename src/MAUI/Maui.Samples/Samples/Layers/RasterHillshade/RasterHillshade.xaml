@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.RasterHillshade.RasterHillshade"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="180" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Grid Grid.Row="0"
+              Margin="2"
+              HorizontalOptions="CenterAndExpand"
+              VerticalOptions="Start">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Slope type:"
+                   VerticalOptions="Center" />
+            <Picker x:Name="SlopeTypePicker"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalOptions="StartAndExpand"
+                    VerticalOptions="CenterAndExpand" />
+            <Label Grid.Row="1"
+                   Grid.Column="0"
+                   HorizontalTextAlignment="End"
+                   Text="Altitude:"
+                   VerticalOptions="Center" />
+            <Slider x:Name="AltitudeSlider"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Maximum="90"
+                    MaximumTrackColor="CadetBlue"
+                    Minimum="0"
+                    MinimumTrackColor="CadetBlue" />
+            <Label Grid.Row="2"
+                   Grid.Column="0"
+                   HorizontalTextAlignment="End"
+                   Text="Azimuth:"
+                   VerticalOptions="Center" />
+            <Slider x:Name="AzimuthSlider"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Maximum="360"
+                    MaximumTrackColor="CadetBlue"
+                    Minimum="0"
+                    MinimumTrackColor="CadetBlue" />
+            <Button x:Name="ApplyHillshadeButton"
+                    Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    Margin="20,0"
+                    Clicked="ApplyHillshadeButton_Click"
+                    HorizontalOptions="CenterAndExpand"
+                    Text="Apply hillshade"
+                    VerticalOptions="Center" />
+        </Grid>
+    </Grid>
+</ContentPage>

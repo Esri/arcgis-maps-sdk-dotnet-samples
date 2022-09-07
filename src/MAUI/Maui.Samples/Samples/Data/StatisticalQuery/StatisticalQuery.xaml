@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.StatisticalQuery.StatisticalQuery"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+            <Switch x:Name="OnlyInExtentSwitch"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HorizontalOptions="End" />
+            <Label Grid.Row="0"
+                   Grid.Column="1"
+                   Margin="10,0"
+                   Text="Cities in current extent"
+                   VerticalOptions="Center" />
+            <Switch x:Name="OnlyBigCitiesSwitch"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalOptions="End" />
+            <Label Grid.Row="1"
+                   Grid.Column="1"
+                   Margin="10,0"
+                   Text="Cities larger than 5M"
+                   VerticalOptions="Center" />
+            <Button x:Name="GetStatsButton"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5,0"
+                    Clicked="OnExecuteStatisticsQueryClicked"
+                    Text="Get Statistics" />
+        </Grid>
+
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Grid x:Name="ResultsGrid"
+              Grid.Row="1"
+              BackgroundColor="Gainsboro"
+              IsVisible="False">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <ListView x:Name="StatResultsList" />
+            <Button Grid.Row="1"
+                    Margin="5"
+                    Clicked="HideResults"
+                    Text="Dismiss" />
+        </Grid>
+    </Grid>
+</ContentPage>

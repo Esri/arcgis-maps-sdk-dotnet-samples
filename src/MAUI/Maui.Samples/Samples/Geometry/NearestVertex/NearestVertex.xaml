@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.NearestVertex.NearestVertex"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label x:Name="ResultsLabel"
+               Grid.Row="0"
+               HorizontalTextAlignment="Center"
+               TextColor="Red">
+            Tap to see the nearest vertex and point.
+        </Label>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+    </Grid>
+</ContentPage>

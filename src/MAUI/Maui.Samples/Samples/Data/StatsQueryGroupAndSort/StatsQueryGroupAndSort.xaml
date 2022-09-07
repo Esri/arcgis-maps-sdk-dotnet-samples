@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Grid HorizontalOptions="Center" VerticalOptions="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="120" />
+            <ColumnDefinition Width="35" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+               Grid.Column="1"
+               Grid.ColumnSpan="3"
+               FontSize="18"
+               HorizontalOptions="Center"
+               Text="Statistics: US States"
+               TextColor="Blue"
+               VerticalOptions="Center" />
+        <Picker x:Name="FieldsComboBox"
+                Title="Field"
+                Grid.Row="1"
+                Grid.Column="1"
+                Margin="5"
+                HorizontalOptions="Fill"
+                VerticalOptions="CenterAndExpand" />
+        <Picker x:Name="StatTypeComboBox"
+                Title="Statistic"
+                Grid.Row="1"
+                Grid.Column="3"
+                Margin="5"
+                HorizontalOptions="Fill"
+                VerticalOptions="CenterAndExpand" />
+        <Button x:Name="AddStatisticButton"
+                Grid.Row="1"
+                Grid.Column="4"
+                Margin="3"
+                Clicked="AddStatisticClicked"
+                HorizontalOptions="Start"
+                Text="+" />
+        <ListView x:Name="StatFieldsListBox"
+                  Grid.Row="2"
+                  Grid.ColumnSpan="5"
+                  Margin="25,5"
+                  BackgroundColor="Gainsboro"
+                  HeightRequest="120">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding OnFieldName}" />
+                                <Label Grid.Column="1" Text="{Binding StatisticType}" />
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="RemoveStatField"
+                Grid.Row="3"
+                Grid.Column="3"
+                Clicked="RemoveStatisticClicked"
+                HeightRequest="30"
+                HorizontalOptions="Fill"
+                Text="Remove"
+                VerticalOptions="Start" />
+        <Label Grid.Row="4"
+               Grid.ColumnSpan="2"
+               Margin="25,0,0,5"
+               HorizontalOptions="Start"
+               Text="Group by"
+               VerticalOptions="End" />
+        <ListView x:Name="GroupFieldsListBox"
+                  Grid.Row="5"
+                  Grid.ColumnSpan="5"
+                  Margin="25,0"
+                  BackgroundColor="Gainsboro"
+                  HorizontalOptions="Fill"
+                  MinimumHeightRequest="110"
+                  VerticalOptions="Fill">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Switch Toggled="GroupFieldCheckChanged" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label Grid.Row="6"
+               Grid.ColumnSpan="2"
+               Margin="25,0,0,5"
+               HorizontalOptions="Start"
+               Text="Order by"
+               VerticalOptions="End" />
+        <ListView x:Name="OrderByFieldsListBox"
+                  Grid.Row="7"
+                  Grid.ColumnSpan="5"
+                  Margin="25,0"
+                  BackgroundColor="Gainsboro"
+                  HorizontalOptions="Fill"
+                  VerticalOptions="Fill">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <Switch IsToggled="{Binding OrderWith}" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding OrderInfo.FieldName}"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="2"
+                                       Text="{Binding OrderInfo.SortOrder}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="SortOrderButton"
+                Grid.Row="8"
+                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                Margin="0,2,25,0"
+                Clicked="ChangeFieldSortOrder"
+                FontSize="12"
+                HorizontalOptions="Center"
+                Text="Change sort order"
+                VerticalOptions="Start" />
+        <Button x:Name="GetStatisticsButton"
+                Grid.Row="9"
+                Grid.Column="0"
+                Grid.ColumnSpan="5"
+                Margin="25,5,30,5"
+                Clicked="OnExecuteStatisticsQueryClicked"
+                HeightRequest="40"
+                HorizontalOptions="Fill"
+                Text="Get Statistics"
+                VerticalOptions="Fill" />
+        <Grid x:Name="ResultsGrid"
+              Grid.Row="1"
+              Grid.RowSpan="9"
+              Grid.Column="0"
+              Grid.ColumnSpan="5"
+              BackgroundColor="Gainsboro"
+              IsVisible="False">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="50" />
+            </Grid.RowDefinitions>
+            <ListView x:Name="StatResultsList" IsGroupingEnabled="true">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <TextCell Height="30" Text="{Binding GroupName}" />
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Detail="{Binding StatValue}" Text="{Binding FieldName}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Grid.Row="1"
+                    Margin="5"
+                    Clicked="HideResults"
+                    Text="Dismiss" />
+        </Grid>
+    </Grid>
+</ContentPage>

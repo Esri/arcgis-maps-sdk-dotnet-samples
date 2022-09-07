@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.FindPlace.FindPlace"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="2*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Text="Search" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Text="Location" />
+        <SearchBar x:Name="MySearchBox"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   Focused="MySearchBox_Focused"
+                   IsEnabled="False"
+                   Text="Coffee"
+                   TextChanged="MySearchBox_TextChanged"
+                   Unfocused="MyLocationBox_Unfocused" />
+        <SearchBar x:Name="MyLocationBox"
+                   Grid.Row="1"
+                   Grid.Column="1"
+                   Grid.ColumnSpan="2"
+                   Focused="MySearchBox_Focused"
+                   IsEnabled="False"
+                   Text="Current Location"
+                   TextChanged="MyLocationBox_TextChanged"
+                   Unfocused="MyLocationBox_Unfocused" />
+        <Button x:Name="MySearchButton"
+                Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Clicked="MySearchButton_Clicked"
+                IsEnabled="False"
+                Text="Search All" />
+        <Button x:Name="MySearchRestrictedButton"
+                Grid.Row="2"
+                Grid.Column="2"
+                Clicked="MySearchRestrictedButton_Clicked"
+                IsEnabled="False"
+                Text="Search in View" />
+        <ActivityIndicator x:Name="MyProgressBar"
+                           Grid.Row="3"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           IsRunning="True"
+                           IsVisible="False" />
+        <Grid Grid.Row="4" Grid.ColumnSpan="3">
+            <ListView x:Name="lstViewSuggestions"
+                      IsVisible="False"
+                      ItemSelected="lstViewSuggestions_ItemSelected">
+                <!--  Listview appears when there are suggestions  -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <esriUI:MapView x:Name="MyMapView" />
+        </Grid>
+    </Grid>
+</ContentPage>

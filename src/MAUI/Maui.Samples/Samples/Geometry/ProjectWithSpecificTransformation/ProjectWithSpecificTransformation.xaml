@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.ProjectWithSpecificTransformation.ProjectWithSpecificTransformation"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <StackLayout>
+        <Label Text="Geometry before (WGS 84):" />
+        <Label x:Name="BeforeLabel" />
+        <Label Text="Geometry to NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102 after WGS_1984_To_MSK_1942:" />
+        <Label x:Name="AfterLabel" />
+        <Label Text="Geometry to NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102 after (without specific transform)" />
+        <Label x:Name="NonSpecificLabel" />
+    </StackLayout>
+</ContentPage>

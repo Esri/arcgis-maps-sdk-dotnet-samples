@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.SearchPortalMaps.SearchPortalMaps"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+        <TableView x:Name="SearchMapsUI"
+                   Grid.Row="0"
+                   BackgroundColor="WhiteSmoke"
+                   Intent="Form"
+                   IsVisible="False">
+            <TableRoot>
+                <TableSection Title="Search public maps">
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="Search text:">
+                                <Label.TextColor>
+                                    <OnPlatform x:TypeArguments="Color">
+                                        <On Platform="Android" Value="DarkGray" />
+                                    </OnPlatform>
+                                </Label.TextColor>
+                            </Label>
+                            <Entry x:Name="SearchTextEntry"
+                                   HorizontalOptions="Start"
+                                   Placeholder=""
+                                   VerticalOptions="Center"
+                                   WidthRequest="240">
+                                <Entry.TextColor>
+                                    <OnPlatform x:TypeArguments="Color">
+                                        <On Platform="Android" Value="DarkGray" />
+                                    </OnPlatform>
+                                </Entry.TextColor>
+                            </Entry>
+                        </StackLayout>
+                    </ViewCell>
+                    <ViewCell>
+                        <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal">
+                            <Button Margin="20,0"
+                                    Clicked="CancelSearchClicked"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="Cancel" />
+                            <Button Clicked="SearchMapsClicked"
+                                    HorizontalOptions="FillAndExpand"
+                                    Text="Search" />
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+        <ListView x:Name="MapsListView"
+                  BackgroundColor="WhiteSmoke"
+                  IsVisible="False"
+                  ItemSelected="MapItemSelected"
+                  SelectionMode="Single">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Title}">
+                        <TextCell.TextColor>
+                            <OnPlatform x:TypeArguments="Color">
+                                <On Platform="Android" Value="DarkGray" />
+                            </OnPlatform>
+                        </TextCell.TextColor>
+                    </TextCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout Grid.Row="1"
+                     HorizontalOptions="FillAndExpand"
+                     Orientation="Horizontal">
+            <Button Clicked="ShowSearchUI"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Search Maps" />
+            <Button Clicked="GetMyMaps"
+                    HorizontalOptions="FillAndExpand"
+                    Text="My Maps" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

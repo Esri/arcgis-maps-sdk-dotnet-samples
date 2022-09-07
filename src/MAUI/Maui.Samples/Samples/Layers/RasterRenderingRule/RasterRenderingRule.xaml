@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.RasterRenderingRule.RasterRenderingRule"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Button x:Name="changeRenderingRule"
+                Grid.Row="1"
+                Clicked="OnChangeRenderingRuleButtonClicked"
+                Text="Change Rendering Rule" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,46 @@
+<ContentPage x:Class="ArcGISRuntime.Samples.ChangeStretchRenderer.ChangeStretchRenderer"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="100" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0">Choose a stretch renderer type from the listbox, adjust the parameter values, then click the 'Update Renderer' button.</Label>
+        <ListView x:Name="RendererTypes"
+                  Grid.Row="1"
+                  ItemSelected="RendererTypes_SelectionChanged" />
+        <StackLayout Grid.Row="2"
+                     Margin="5"
+                     Orientation="Horizontal">
+            <Label x:Name="Label_Parameter1"
+                   Text="Parameter1"
+                   VerticalOptions="Center" />
+            <Entry x:Name="Input_Parameter1"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric"
+                   Text="EnterValue1" />
+        </StackLayout>
+        <StackLayout Grid.Row="3"
+                     Margin="5"
+                     Orientation="Horizontal">
+            <Label x:Name="Label_Parameter2"
+                   Text="Parameter2"
+                   VerticalOptions="Center" />
+            <Entry x:Name="Input_Parameter2"
+                   HorizontalOptions="FillAndExpand"
+                   Keyboard="Numeric"
+                   Text="EnterValue2" />
+        </StackLayout>
+        <Button x:Name="UpdateRenderer"
+                Grid.Row="4"
+                Clicked="OnUpdateRendererClicked"
+                Text="Update Renderer" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="5" />
+    </Grid>
+</ContentPage>

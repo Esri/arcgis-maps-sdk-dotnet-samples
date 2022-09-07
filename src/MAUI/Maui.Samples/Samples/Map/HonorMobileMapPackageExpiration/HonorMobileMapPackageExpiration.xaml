@@ -1,0 +1,20 @@
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.HonorMobileMapPackageExpiration.HonorMobileMapPackageExpiration"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="0"
+                        Grid.RowSpan="2" />
+        <Grid Grid.Row="0" BackgroundColor="DarkGray">
+            <Label x:Name="ExpirationLabel"
+                   Margin="5"
+                   Text="Map package not expired."
+                   TextColor="White" />
+        </Grid>
+    </Grid>
+</ContentPage>

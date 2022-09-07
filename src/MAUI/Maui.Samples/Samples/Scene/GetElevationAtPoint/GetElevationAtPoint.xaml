@@ -1,0 +1,13 @@
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.GetElevationAtPoint.GetElevationAtPoint"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <StackLayout Orientation="Vertical">
+        <Label Margin="5"
+               HorizontalTextAlignment="Center"
+               Text="Tap to find the elevation for a point."
+               VerticalOptions="Start"
+               VerticalTextAlignment="Center" />
+        <esriUI:SceneView x:Name="MySceneView" VerticalOptions="FillAndExpand" />
+    </StackLayout>
+</ContentPage>

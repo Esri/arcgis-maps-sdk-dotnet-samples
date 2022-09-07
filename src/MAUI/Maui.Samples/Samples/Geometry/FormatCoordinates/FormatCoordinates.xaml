@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.FormatCoordinates.FormatCoordinates"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center">
+            Decimal Degrees
+        </Label>
+        <Entry x:Name="DecimalDegreesTextField"
+               Grid.Row="0"
+               Grid.Column="1"
+               Placeholder="Decimal Degrees" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center">
+            Degrees, Minutes, Seconds
+        </Label>
+        <Entry x:Name="DmsTextField"
+               Grid.Row="1"
+               Grid.Column="1"
+               Placeholder="Degrees, Minutes, Seconds" />
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center">
+            UTM
+        </Label>
+        <Entry x:Name="UtmTextField"
+               Grid.Row="2"
+               Grid.Column="1"
+               Placeholder="UTM" />
+        <Label Grid.Row="3"
+               Grid.Column="0"
+               HorizontalTextAlignment="End"
+               VerticalTextAlignment="Center">
+            USNG
+        </Label>
+        <Entry x:Name="UsngTextField"
+               Grid.Row="3"
+               Grid.Column="1"
+               Placeholder="USNG" />
+        <Button Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Clicked="RecalculateFields"
+                Text="Recalculate" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2" />
+    </Grid>
+</ContentPage>

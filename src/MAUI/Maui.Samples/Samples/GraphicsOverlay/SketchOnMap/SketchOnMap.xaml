@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.SketchOnMap.SketchOnMap"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="70" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+        <Grid x:Name="DrawToolsGrid"
+              Grid.Row="0"
+              BackgroundColor="White"
+              HorizontalOptions="Center"
+              IsVisible="False"
+              VerticalOptions="Start"
+              WidthRequest="280">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="40" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0"
+                   Grid.Column="0"
+                   HorizontalOptions="End"
+                   Text="Sketch shape:"
+                   VerticalOptions="Center" />
+            <Picker x:Name="SketchModePicker"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalOptions="Fill"
+                    VerticalOptions="CenterAndExpand" />
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    Clicked="StartSketch"
+                    HeightRequest="35"
+                    HorizontalOptions="Center"
+                    Text="✍️"
+                    VerticalOptions="Start"
+                    WidthRequest="100" />
+            <Button x:Name="EditButton"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Clicked="EditButtonClick"
+                    HeightRequest="35"
+                    HorizontalOptions="Center"
+                    IsEnabled="False"
+                    Text="⚒️"
+                    VerticalOptions="Start"
+                    WidthRequest="100" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="DrawEditButton"
+                    Grid.Column="0"
+                    Clicked="ShowDrawTools"
+                    Text="Sketch" />
+            <Button x:Name="UndoButton"
+                    Grid.Column="1"
+                    Text="↩️" />
+            <Button x:Name="RedoButton"
+                    Grid.Column="2"
+                    Text="↪️" />
+            <Button x:Name="CompleteButton"
+                    Grid.Column="3"
+                    Text="✔️" />
+            <Button x:Name="ClearButton"
+                    Grid.Column="4"
+                    Clicked="ClearButtonClick"
+                    IsEnabled="False"
+                    Text="🗑" />
+        </Grid>
+    </Grid>
+</ContentPage>

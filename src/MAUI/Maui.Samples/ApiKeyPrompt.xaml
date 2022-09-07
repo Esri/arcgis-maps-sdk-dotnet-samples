@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ArcGISRuntimeMaui.ApiKeyPrompt"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Manage API key">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical">
+            <Label x:Name="Instructions" Margin="5">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Some content used in the samples requires a developer API key for access. Go to " />
+                        <Span
+                            Text="the developer documentation"
+                            TextColor="Blue"
+                            TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="LinkTapped" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                        <Span Text=" to learn how to obtain a developer API key for ArcGIS Online." />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Current API key:" />
+                <Label x:Name="CurrentKeyText" Margin="5,0,0,0" />
+            </StackLayout>
+            <Entry
+                x:Name="KeyEntryBox"
+                Margin="5"
+                Text="" />
+            <StackLayout Orientation="Horizontal">
+                <Button
+                    x:Name="SetKeyButton"
+                    Margin="5"
+                    Clicked="SetKeyButton_Clicked"
+                    Text="Set API key" />
+                <Button
+                    x:Name="DeleteKeyButton"
+                    Margin="5"
+                    Clicked="DeleteKeyButton_Clicked"
+                    Text="Delete API key" />
+            </StackLayout>
+            <Label x:Name="Status" Margin="5,0,0,0" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

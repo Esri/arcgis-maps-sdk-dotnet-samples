@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.SpatialOperations.SpatialOperations"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Frame Margin="30"
+               Padding="10"
+               BackgroundColor="WhiteSmoke"
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="Start"
+               WidthRequest="275">
+            <StackLayout>
+                <Label Text="Select a spatial operation:">
+                    <Label.TextColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="DarkGray" />
+                        </OnPlatform>
+                    </Label.TextColor>
+                </Label>
+                <Picker x:Name="SpatialOperationComboBox"
+                        Margin="0,5"
+                        SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="253">
+                    <Picker.BackgroundColor>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android" Value="DarkGray" />
+                        </OnPlatform>
+                    </Picker.BackgroundColor>
+                </Picker>
+                <Button x:Name="ResetOperationButton"
+                        Clicked="ResetOperationButton_Clicked"
+                        Text="Reset operation"
+                        WidthRequest="253" />
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

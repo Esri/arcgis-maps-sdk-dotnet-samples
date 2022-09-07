@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGISRuntime.Samples.FeatureLayerDefinitionExpression.FeatureLayerDefinitionExpression"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        DrawStatusChanged="MapDrawStatusChanged"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <StackLayout Orientation="Vertical">
+                <Label x:Name="IncidentReportSummary" />
+                <StackLayout Orientation="Horizontal">
+                    <Button Margin="5"
+                            Clicked="Expression_Click"
+                            Text="Expression" />
+                    <Button Margin="5"
+                            Clicked="Filter_Click"
+                            Text="Filter" />
+                    <Button Margin="5"
+                            Clicked="Reset_Click"
+                            Text="Reset" />
+                </StackLayout>
+            </StackLayout>
+        </resources:ResponsiveFormContainer>
+    </cmp:RelativeLayout>
+</ContentPage>

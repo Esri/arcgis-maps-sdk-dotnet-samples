@@ -1,0 +1,40 @@
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.NavigateRouteRerouting.NavigateRouteRerouting"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <cmp:RelativeLayout>
+        <esriUI:MapView x:Name="MyMapView"
+                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
+                        Style="{StaticResource MapWithFormStyle}" />
+        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="StartNavigationButton"
+                            Grid.Column="0"
+                            Clicked="StartNavigation"
+                            IsEnabled="False"
+                            Text="Navigate" />
+                    <Button x:Name="RecenterButton"
+                            Grid.Column="1"
+                            Clicked="RecenterButton_Click"
+                            IsEnabled="False"
+                            Text="Recenter" />
+                </Grid>
+                <Label x:Name="MessagesTextBlock"
+                       Grid.Row="1"
+                       Margin="5"
+                       Text="" />
+            </Grid>
+        </resources:ResponsiveFormContainer>
+    </cmp:RelativeLayout>
+</ContentPage>

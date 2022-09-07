@@ -5,23 +5,13 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <ContentPage.Resources>
-        <Style x:Key="DesktopFrameStyle" TargetType="Frame">
-            <Setter Property="CornerRadius" Value="15" />
-            <Setter Property="Margin" Value="25" />
-            <Setter Property="HorizontalOptions" Value="End" />
-            <Setter Property="VerticalOptions" Value="Start" />
-            <Setter Property="WidthRequest" Value="300" />
-            <Setter Property="HeightRequest" Value="90" />
-        </Style>
-    </ContentPage.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <esriUI:SceneView x:Name="MySceneView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{OnIdiom Desktop={StaticResource DesktopFrameStyle}, Tablet={StaticResource DesktopFrameStyle}}">
+        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSamplePanelStyle}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -35,6 +25,5 @@
                         ValueChanged="MyHeightSlider_ValueChanged" />
             </Grid>
         </Frame>
-
     </Grid>
 </ContentPage>

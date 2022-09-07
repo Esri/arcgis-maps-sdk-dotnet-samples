@@ -1,8 +1,16 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+
+    <Style x:Key="EsriSamplePanelStyle" TargetType="Frame">
+        <Setter Property="CornerRadius" Value="{OnIdiom Phone=0, Desktop=15, Tablet=15}" />
+        <Setter Property="Margin" Value="{OnIdiom Phone=0, Desktop=20, Tablet=20}" />
+        <Setter Property="HorizontalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=End, Tablet=End}" />
+        <Setter Property="VerticalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=Start, Tablet=Start}" />
+        <Setter Property="WidthRequest" Value="{OnIdiom Phone=-1, Desktop=300, Tablet=300}" />
+        <Setter Property="HeightRequest" Value="{OnIdiom Phone=-1, Desktop=90, Tablet=90}" />
+    </Style>
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -338,7 +346,7 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Page" ApplyToDerivedTypes="True">
+    <Style ApplyToDerivedTypes="True" TargetType="Page">
         <Setter Property="Padding" Value="0" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
     </Style>
@@ -356,7 +364,9 @@
         <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
     </Style>
 
-    <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" ApplyToDerivedTypes="True" />
+    <Style ApplyToDerivedTypes="True"
+           BasedOn="{StaticResource BaseStyle}"
+           TargetType="ShellItem" />
 
     <Style TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />

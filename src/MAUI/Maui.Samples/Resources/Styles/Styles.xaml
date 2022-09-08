@@ -9,7 +9,6 @@
         <Setter Property="HorizontalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=End, Tablet=End}" />
         <Setter Property="VerticalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=Start, Tablet=Start}" />
         <Setter Property="WidthRequest" Value="{OnIdiom Phone=-1, Desktop=300, Tablet=300}" />
-        <Setter Property="HeightRequest" Value="{OnIdiom Phone=-1, Desktop=90, Tablet=90}" />
     </Style>
 
     <Style TargetType="ActivityIndicator">

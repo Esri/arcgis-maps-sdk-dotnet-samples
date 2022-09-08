@@ -2,22 +2,35 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.QueryFeatureCountAndExtent.QueryFeatureCountAndExtent"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               HeightRequest="{OnIdiom Default=-1,
+                                       Desktop=-1,
+                                       Tablet=-1}"
+               Style="{StaticResource EsriSamplePanelStyle}">
+            <Grid RowDefinitions="auto,auto,auto,auto">
                 <Entry x:Name="txtStateEntry"
-                       Text="NH"
-                       TextColor="Black" />
-                <Button Clicked="BtnZoomToFeatures_Click" Text="Zoom to matching" />
-                <Button Clicked="BtnCountFeatures_Click" Text="Count in extent" />
-                <Label x:Name="txtResults" Style="{StaticResource LabelStyle}" />
-            </StackLayout>
-        </sampleViewer:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+                       Grid.Row="0"
+                       Margin="5"
+                       Text="NH" />
+                <Button Grid.Row="1"
+                        Clicked="BtnZoomToFeatures_Click"
+                        Text="Zoom to matching" />
+                <Button Grid.Row="2"
+                        Clicked="BtnCountFeatures_Click"
+                        Text="Count in extent" />
+                <Label x:Name="txtResults" Grid.Row="3" />
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentPage>

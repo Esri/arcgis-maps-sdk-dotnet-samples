@@ -5,47 +5,21 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:SceneView x:Name="MySceneView"
-                          BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                          Style="{StaticResource MapWithFormStyle}" />
-        <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="{StaticResource DefaultGridRowHeight}" />
-                    <RowDefinition Height="{StaticResource DefaultGridRowHeight}" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <!--  keep the slider in the touchable area - iOS only  -->
-                    <!--<ColumnDefinition>
-                        <ColumnDefinition.Width>
-                            <OnPlatform x:TypeArguments="GridLength" Default="0">
-                                <On Platform="iOS" Value="50" />
-                            </OnPlatform>
-                        </ColumnDefinition.Width>
-                    </ColumnDefinition>-->
-                    <ColumnDefinition Width="*" />
-                    <!--<ColumnDefinition>
-                        <ColumnDefinition.Width>
-                            <OnPlatform x:TypeArguments="GridLength" Default="0">
-                                <On Platform="iOS" Value="50" />
-                            </OnPlatform>
-                        </ColumnDefinition.Width>
-                    </ColumnDefinition>-->
-                </Grid.ColumnDefinitions>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid RowDefinitions="auto,auto">
                 <Label x:Name="MyStatusLabel"
                        Grid.Row="0"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="3"
-                       Style="{StaticResource LabelStyle}"
                        Text="Status: " />
                 <Slider x:Name="MyHeightSlider"
                         Grid.Row="1"
-                        Grid.Column="1"
-                        MaximumTrackColor="CadetBlue"
-                        MinimumTrackColor="CadetBlue"
                         ValueChanged="MyHeightSlider_ValueChanged" />
             </Grid>
-        </sampleViewer:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Frame>
+    </Grid>
 </ContentPage>

@@ -17,7 +17,7 @@
                HeightRequest="{OnIdiom Default=-1,
                                        Desktop=-1,
                                        Tablet=-1}"
-               Style="{StaticResource EsriSamplePanelStyle}">
+               Style="{StaticResource EsriSampleFrameStyle}">
             <Grid RowDefinitions="auto,auto,auto,auto">
                 <Entry x:Name="txtStateEntry"
                        Grid.Row="0"

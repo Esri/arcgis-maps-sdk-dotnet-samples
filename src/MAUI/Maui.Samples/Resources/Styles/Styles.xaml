@@ -3,7 +3,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
 
-    <Style x:Key="EsriSamplePanelStyle" TargetType="Frame">
+    <Style x:Key="EsriSampleFrameStyle" TargetType="Frame">
         <Setter Property="CornerRadius" Value="{OnIdiom Phone=0, Desktop=15, Tablet=15}" />
         <Setter Property="Margin" Value="{OnIdiom Phone=0, Desktop=20, Tablet=20}" />
         <Setter Property="HorizontalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=End, Tablet=End}" />

@@ -33,4 +33,4 @@ Summary of the change and any relevant info.
 - [ ] Code is commented with correct formatting
 - [ ] All variable and method names are good and make sense
 - [ ] There is no leftover commented code
-- [ ] Screenshots are correct size and display in description tab
+- [ ] Screenshots are correct size and display in description tab (800 x 600 on Windows, 600 height mobile screenshots for MAUI)

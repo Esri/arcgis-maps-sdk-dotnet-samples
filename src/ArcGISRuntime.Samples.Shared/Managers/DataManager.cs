@@ -6,6 +6,7 @@
 // Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
+
 using ArcGISRuntime.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Portal;
 using System;
@@ -231,6 +232,8 @@ namespace ArcGISRuntime.Samples.Managers
             string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #elif XAMARIN
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+#elif MAUI
+            string appDataFolder = FileSystem.Current.AppDataDirectory;
 #else
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 #endif

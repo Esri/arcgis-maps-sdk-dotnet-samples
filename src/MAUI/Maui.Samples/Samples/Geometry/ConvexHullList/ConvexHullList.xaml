@@ -3,31 +3,25 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Label x:Name="ConvexHullListInstructionsLabel"
-               Grid.Row="0"
-               FontSize="Small"
-               Text="Click the 'ConvexHull' button to create convex hull(s) from the polygon graphics. If the 'Union' checkbox is checked, the resulting output will be one polygon being the convex hull for the two input polygons. If the 'Union' checkbox is un-checked, the resulting output will have two convex hull polygons - one for each of the two input polygons." />
-        <StackLayout Grid.Row="1" Orientation="Horizontal">
-            <Label Text="Union:" />
-            <Switch x:Name="ConvexHullListSwitch" IsToggled="True" />
-        </StackLayout>
-        <Button x:Name="ConvexHullListButton"
-                Grid.Row="2"
-                Clicked="ConvexHullListButton_Clicked"
-                Text="Convex Hull" />
-        <Button x:Name="ResetButton"
-                Grid.Row="3"
-                Clicked="ResetButton_Clicked"
-                Text="Reset" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="4" />
+    <Grid RowDefinitions="auto,*">
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid RowDefinitions="40,40,40" RowSpacing="5">
+                <StackLayout Grid.Row="0"
+                             Orientation="Horizontal"
+                             Spacing="5">
+                    <Label Text="Union: " VerticalTextAlignment="Center" />
+                    <Switch x:Name="ConvexHullListSwitch" IsToggled="True" />
+                </StackLayout>
+                <Button x:Name="ConvexHullListButton"
+                        Grid.Row="1"
+                        Clicked="ConvexHullListButton_Clicked"
+                        Text="Convex Hull" />
+                <Button x:Name="ResetButton"
+                        Grid.Row="2"
+                        Clicked="ResetButton_Clicked"
+                        Text="Reset" />
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

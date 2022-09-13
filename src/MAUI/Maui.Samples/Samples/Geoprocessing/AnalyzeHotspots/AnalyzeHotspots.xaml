@@ -6,47 +6,42 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Label Grid.Row="0"
-               Grid.Column="0"
-               HorizontalTextAlignment="Start"
-               Text="Start date:"
-               VerticalTextAlignment="Center" />
-        <DatePicker x:Name="StartDate"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Date="1/01/98" />
-        <Label Grid.Row="1"
-               Grid.Column="0"
-               HorizontalTextAlignment="Start"
-               Text="End date:"
-               VerticalTextAlignment="Center" />
-        <DatePicker x:Name="EndDate"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Date="1/31/98" />
-        <Button Grid.Row="2"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Clicked="OnRunAnalysisClicked"
-                Text="Run Analysis" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
         <ActivityIndicator x:Name="MyActivityIndicator"
-                           Grid.Row="3"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
+                           Grid.Row="1"
                            IsVisible="False" />
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="4"
+        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid ColumnDefinitions="auto,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto"
+                  RowSpacing="5">
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="Start"
+                       Text="Start date:"
+                       VerticalTextAlignment="Center" />
+                <DatePicker x:Name="StartDate"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Date="1/01/98" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="Start"
+                       Text="End date:"
+                       VerticalTextAlignment="Center" />
+                <DatePicker x:Name="EndDate"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Date="1/31/98" />
+                <Button Grid.Row="2"
                         Grid.Column="0"
-                        Grid.ColumnSpan="2" />
+                        Grid.ColumnSpan="2"
+                        Clicked="OnRunAnalysisClicked"
+                        Text="Run Analysis" />
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

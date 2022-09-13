@@ -6,12 +6,13 @@
     <Grid RowDefinitions="auto,*">
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
         <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
-            <Grid RowDefinitions="auto,auto,auto" RowSpacing="5">
-                <Label Grid.Row="0" Text="Select a spatial operation:" />
-                <Picker x:Name="SpatialOperationComboBox"
-                        Grid.Row="1"
-                        SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"
-                        WidthRequest="250" />
+            <Grid RowDefinitions="auto,auto" RowSpacing="5">
+                <HorizontalStackLayout Grid.Row="0" Spacing="5">
+                    <Label Text="Select a spatial operation:" />
+                    <Picker x:Name="SpatialOperationComboBox"
+                            SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"
+                            WidthRequest="250" />
+                </HorizontalStackLayout>
                 <Button x:Name="ResetOperationButton"
                         Grid.Row="2"
                         Clicked="ResetOperationButton_Clicked"

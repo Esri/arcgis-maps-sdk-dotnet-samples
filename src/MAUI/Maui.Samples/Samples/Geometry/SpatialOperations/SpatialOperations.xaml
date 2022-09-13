@@ -3,38 +3,20 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
-        <Frame Margin="30"
-               Padding="10"
-               BackgroundColor="WhiteSmoke"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="Start"
-               WidthRequest="275">
-            <StackLayout>
-                <Label Text="Select a spatial operation:">
-                    <Label.TextColor>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="DarkGray" />
-                        </OnPlatform>
-                    </Label.TextColor>
-                </Label>
+    <Grid RowDefinitions="auto,*">
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid RowDefinitions="auto,auto,auto" RowSpacing="5">
+                <Label Grid.Row="0" Text="Select a spatial operation:" />
                 <Picker x:Name="SpatialOperationComboBox"
-                        Margin="0,5"
+                        Grid.Row="1"
                         SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="253">
-                    <Picker.BackgroundColor>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="DarkGray" />
-                        </OnPlatform>
-                    </Picker.BackgroundColor>
-                </Picker>
+                        WidthRequest="250" />
                 <Button x:Name="ResetOperationButton"
+                        Grid.Row="2"
                         Clicked="ResetOperationButton_Clicked"
-                        Text="Reset operation"
-                        WidthRequest="253" />
-            </StackLayout>
+                        Text="Reset" />
+            </Grid>
         </Frame>
     </Grid>
 </ContentPage>

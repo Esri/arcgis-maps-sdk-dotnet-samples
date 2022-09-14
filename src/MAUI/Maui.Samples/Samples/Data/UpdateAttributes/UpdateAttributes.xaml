@@ -2,21 +2,35 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.UpdateAttributes.UpdateAttributes"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout>
-                <Label HorizontalTextAlignment="Center" Text="Tap to select a feature to edit." />
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               HeightRequest="{OnIdiom Default=-1,
+                                       Desktop=-1,
+                                       Tablet=-1}"
+               Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                       HorizontalTextAlignment="Center"
+                       Text="Tap to select a feature to edit." />
                 <Picker x:Name="DamageTypePicker"
+                        Grid.Row="1"
+                        HorizontalOptions="CenterAndExpand"
                         IsEnabled="False"
-                        TextColor="Black"
-                        VerticalOptions="CenterAndExpand" />
-            </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+                        VerticalOptions="CenterAndExpand"
+                        WidthRequest="200" />
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentPage>

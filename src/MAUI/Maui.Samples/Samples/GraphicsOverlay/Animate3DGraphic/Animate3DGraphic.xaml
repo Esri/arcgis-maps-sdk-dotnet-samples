@@ -16,7 +16,6 @@
                 <Button Clicked="ToggleFollowPlane" Text="Don't Follow" />
             </StackLayout>
         </Frame>
-
         <Frame x:Name="LayoutFrame"
                Margin="5"
                HorizontalOptions="End"

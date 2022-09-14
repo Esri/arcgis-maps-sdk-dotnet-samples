@@ -7,7 +7,6 @@
         <Frame x:Name="FeatureAttributesPopup"
                Margin="30"
                Padding="0"
-               BackgroundColor="White"
                CornerRadius="0"
                HorizontalOptions="Center"
                IsVisible="False"
@@ -17,10 +16,10 @@
                          Padding="15"
                          Spacing="5">
                 <Picker x:Name="StatusPicker"
-                        Title="Status"
+                        Title="Select Status"
                         WidthRequest="240" />
                 <Picker x:Name="ProtectionPicker"
-                        Title="Protection"
+                        Title="Select Protection"
                         WidthRequest="240" />
                 <Label Margin="15,0" Text="Buffer Size" />
                 <StackLayout Orientation="Horizontal">

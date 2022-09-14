@@ -5,16 +5,31 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="150" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ListView x:Name="MyResultsView" Grid.Row="0" />
-        <Label x:Name="Status"
-               Grid.Row="1"
-               Margin="5"
-               HorizontalOptions="FillAndExpand"
-               Text="Tap a park (green) to see related features." />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               HeightRequest="{OnIdiom Default=-1,
+                                       Desktop=-1,
+                                       Tablet=-1}"
+               Style="{StaticResource EsriSampleFrameStyle}"
+               WidthRequest="{OnIdiom Default=-1,
+                                      Desktop=400}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <ListView x:Name="MyResultsView" Grid.Row="0" />
+                <Label x:Name="Status"
+                       Grid.Row="1"
+                       Margin="5"
+                       HorizontalOptions="FillAndExpand"
+                       Text="Tap a park (green) to see related features." />
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

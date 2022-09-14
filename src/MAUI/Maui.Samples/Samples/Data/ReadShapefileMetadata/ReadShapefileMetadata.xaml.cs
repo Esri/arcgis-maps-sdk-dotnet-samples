@@ -45,7 +45,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
 
                 // Read metadata about the shapefile and display it in the UI
                 ShapefileInfo fileInfo = myShapefile.Info;
-                InfoPanel.BindingContext = fileInfo;
+                InfoGrid.BindingContext = fileInfo;
 
                 // Read the thumbnail image data into a byte array
                 Stream imageStream = await fileInfo.Thumbnail.GetEncodedBufferAsync();
@@ -90,7 +90,7 @@ namespace ArcGISRuntime.Samples.ReadShapefileMetadata
         private void ShowMetadataClicked(object sender, System.EventArgs e)
         {
             // Toggle the visibility of the metadata panel
-            MetadataFrame.IsVisible = !MetadataFrame.IsVisible;
+            MetadataScrollView.IsVisible = !MetadataScrollView.IsVisible;
         }
 
         private static string GetShapefilePath()

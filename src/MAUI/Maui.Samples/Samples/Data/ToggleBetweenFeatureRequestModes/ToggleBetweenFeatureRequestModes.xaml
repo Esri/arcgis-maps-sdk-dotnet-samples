@@ -3,22 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
-
-        <StackLayout Grid.Row="1" Orientation="Vertical">
-            <Picker x:Name="CacheModes"
-                    Margin="10"
-                    SelectedIndexChanged="CacheSelectionChanged"
-                    VerticalOptions="Center" />
-            <Button x:Name="PopulateMap"
-                    Margin="10"
-                    Clicked="PopulateButtonClick"
-                    IsEnabled="False"
-                    Text="Populate" />
-        </StackLayout>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               HeightRequest="{OnIdiom Default=-1,
+                                       Desktop=-1,
+                                       Tablet=-1}"
+               Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Picker x:Name="CacheModes"
+                        Grid.Row="0"
+                        Margin="10"
+                        SelectedIndexChanged="CacheSelectionChanged"
+                        VerticalOptions="Center" />
+                <Button x:Name="PopulateMap"
+                        Grid.Row="1"
+                        Margin="10"
+                        Clicked="PopulateButtonClick"
+                        IsEnabled="False"
+                        Text="Populate" />
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

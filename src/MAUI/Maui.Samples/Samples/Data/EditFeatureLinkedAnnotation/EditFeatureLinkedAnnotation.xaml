@@ -1,18 +1,35 @@
 ﻿<ContentPage x:Class="ArcGISRuntime.Samples.EditFeatureLinkedAnnotation.EditFeatureLinkedAnnotation"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        GeoViewTapped="MyMapView_GeoViewTapped"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout>
-                <Label x:Name="InstructionsText" Text="1. Tap to select a feature.&#x0a;2. For MapPoint features, edit the feature attributes.&#x0a;3. Tap again to move the feature." />
-                <Grid x:Name="AttributesGrid" IsVisible="false">
+                        Grid.Row="1"
+                        GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               HeightRequest="{OnIdiom Default=-1,
+                                       Desktop=-1,
+                                       Tablet=-1}"
+               Style="{StaticResource EsriSampleFrameStyle}"
+               WidthRequest="{OnIdiom Default=-1,
+                                      Desktop=400}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label x:Name="InstructionsText"
+                       Grid.Row="0"
+                       Text="1. Tap to select a feature.&#x0a;2. For MapPoint features, edit the feature attributes.&#x0a;3. Tap again to move the feature." />
+                <Grid x:Name="AttributesGrid"
+                      Grid.Row="1"
+                      IsVisible="false">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -54,7 +71,7 @@
                             Clicked="OkClick"
                             Text="OK" />
                 </Grid>
-            </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentPage>

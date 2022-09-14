@@ -8,10 +8,26 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <StackLayout Orientation="Vertical">
-            <Entry x:Name="queryEntry" Text="New York" />
-            <Button Clicked="OnQueryClicked" Text="Query" />
-        </StackLayout>
         <esriUI:MapView x:Name="myMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               HeightRequest="{OnIdiom Default=-1,
+                                       Desktop=-1,
+                                       Tablet=-1}"
+               Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Entry x:Name="queryEntry"
+                       Grid.Row="0"
+                       Text="New York" />
+                <Button Grid.Row="1"
+                        Clicked="OnQueryClicked"
+                        Text="Query" />
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

@@ -6,18 +6,40 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Button x:Name="myGenerateButton"
-                Grid.Row="0"
-                Clicked="GenerateButton_Clicked"
-                IsEnabled="False"
-                Text="Generate" />
-        <ProgressBar x:Name="myProgressBar"
-                     Grid.Row="1"
-                     IsVisible="False"
-                     MinimumHeightRequest="10" />
-        <esriUI:MapView x:Name="myMapView" Grid.Row="2" />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               HeightRequest="{OnIdiom Default=-1,
+                                       Desktop=-1,
+                                       Tablet=-1}"
+               Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Button x:Name="MyGenerateButton"
+                        Grid.Row="0"
+                        Clicked="GenerateButton_Clicked"
+                        IsEnabled="False"
+                        Text="Generate" />
+                <Grid x:Name="MyProgressGrid"
+                      Grid.Row="1"
+                      ColumnSpacing="5"
+                      IsVisible="false">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <ProgressBar x:Name="MyProgressBar"
+                                 Grid.Column="0"
+                                 MinimumHeightRequest="10" />
+                    <Label x:Name="MyProgressLabel" Grid.Column="1" />
+                </Grid>
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

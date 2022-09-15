@@ -13,7 +13,7 @@ using System.Diagnostics;
 namespace ArcGISRuntimeMaui
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SamplePage : TabbedPage
+    public partial class SamplePage
     {
         private ContentPage _sample;
 
@@ -80,7 +80,10 @@ namespace ArcGISRuntimeMaui
                 };
                 DescriptionView.Navigating += Webview_Navigating;
 
-                //DescriptionView.
+                SourceCodeView.Source = new HtmlWebViewSource()
+                {
+                    Html = "Placeholder for source code.",
+                };
             }
             catch (Exception ex)
             {
@@ -110,6 +113,24 @@ namespace ArcGISRuntimeMaui
                     Debug.WriteLine(ex);
                 }
             }
+        }
+
+        private void SampleButton_Clicked(object sender, EventArgs e)
+        {
+            SampleContentPage.IsVisible = true;
+            SampleDetailPage.IsVisible = SourceCodePage.IsVisible = false;
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            SampleDetailPage.IsVisible = true;
+            SampleContentPage.IsVisible = SourceCodePage.IsVisible = false;
+        }
+
+        private void Button_Clicked_1(object sender, EventArgs e)
+        {
+            SourceCodePage.IsVisible = true;
+            SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
         }
     }
 }

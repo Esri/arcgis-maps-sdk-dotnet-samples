@@ -20,10 +20,12 @@
                                       Desktop=400}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <ScrollView x:Name="MetadataScrollView" Grid.Row="0">
+                <ScrollView x:Name="MetadataScrollView"
+                            Grid.Row="1"
+                            IsVisible="false">
                     <Grid x:Name="InfoGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
@@ -64,11 +66,11 @@
                         </Grid>
                     </Grid>
                 </ScrollView>
-                <Button Grid.Row="1"
+                <Button Grid.Row="0"
                         Clicked="ShowMetadataClicked"
+                        HeightRequest="40"
                         HorizontalOptions="FillAndExpand"
-                        Text="Show/Hide Metadata"
-                        VerticalOptions="FillAndExpand" />
+                        Text="Show/Hide Metadata" />
             </Grid>
         </Frame>
     </Grid>

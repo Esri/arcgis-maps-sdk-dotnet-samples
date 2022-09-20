@@ -6,46 +6,55 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="3*" />
-            </Grid.ColumnDefinitions>
-            <Switch x:Name="OnlyInExtentSwitch"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalOptions="End" />
-            <Label Grid.Row="0"
-                   Grid.Column="1"
-                   Margin="10,0"
-                   Text="Cities in current extent"
-                   VerticalOptions="Center" />
-            <Switch x:Name="OnlyBigCitiesSwitch"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    HorizontalOptions="End" />
-            <Label Grid.Row="1"
-                   Grid.Column="1"
-                   Margin="10,0"
-                   Text="Cities larger than 5M"
-                   VerticalOptions="Center" />
-            <Button x:Name="GetStatsButton"
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="5,0"
-                    Clicked="OnExecuteStatisticsQueryClicked"
-                    Text="Get Statistics" />
-        </Grid>
-
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               HeightRequest="{OnIdiom Default=-1,
+                                       Desktop=-1,
+                                       Tablet=-1}"
+               Style="{StaticResource EsriSampleFrameStyle}"
+               WidthRequest="{OnIdiom Default=-1,
+                                      Desktop=400}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+                <Switch x:Name="OnlyInExtentSwitch"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalOptions="End" />
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Margin="10,0"
+                       Text="Cities in current extent"
+                       VerticalOptions="Center" />
+                <Switch x:Name="OnlyBigCitiesSwitch"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalOptions="End" />
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="10,0"
+                       Text="Cities larger than 5M"
+                       VerticalOptions="Center" />
+                <Button x:Name="GetStatsButton"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="5,0"
+                        Clicked="OnExecuteStatisticsQueryClicked"
+                        Text="Get Statistics" />
+            </Grid>
+        </Frame>
         <Grid x:Name="ResultsGrid"
               Grid.Row="1"
               BackgroundColor="Gainsboro"

@@ -2,19 +2,21 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.MapRotation.MapRotation"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid RowDefinitions="auto,*">
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               Style="{StaticResource EsriSampleFrameStyle}"
+               WidthRequest="{OnIdiom Default=-1,
+                                      Desktop=300}">
+            <Grid ColumnDefinitions="50,*" RowDefinitions="auto">
+                <Label x:Name="MyLabel"
+                       Grid.Column="0"
+                       HorizontalOptions="Center"
+                       Text="0°"
+                       VerticalTextAlignment="Center" />
                 <Slider x:Name="MySlider"
                         Grid.Column="1"
                         Maximum="180"
@@ -24,12 +26,7 @@
                         ValueChanged="MySlider_ValueChanged"
                         VerticalOptions="CenterAndExpand"
                         Value="0" />
-                <Label x:Name="MyLabel"
-                       Grid.Column="0"
-                       Style="{StaticResource LabelStyle}"
-                       Text="0°"
-                       VerticalTextAlignment="Center" />
             </Grid>
-        </sampleViewer:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Frame>
+    </Grid>
 </ContentPage>

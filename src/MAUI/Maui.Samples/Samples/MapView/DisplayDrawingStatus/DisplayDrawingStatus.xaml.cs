@@ -33,7 +33,7 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
         private void Initialize()
         {
             // Hook up the DrawStatusChanged event.
-            myMapView.DrawStatusChanged += OnDrawStatusChanged;
+            MyMapView.DrawStatusChanged += OnDrawStatusChanged;
 
             // Create new Map with basemap.
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);
@@ -50,10 +50,10 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
             myMap.OperationalLayers.Add(myFeatureLayer);
 
             // Provide used Map to the MapView.
-            myMapView.Map = myMap;
+            MyMapView.Map = myMap;
 
             // Zoom to the United States.
-            myMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
+            MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
         }
 
         private void OnDrawStatusChanged(object sender, DrawStatusChangedEventArgs e)
@@ -64,13 +64,13 @@ namespace ArcGISRuntime.Samples.DisplayDrawingStatus
                 // Show the activity indicator if the map is drawing.
                 if (e.Status == DrawStatus.InProgress)
                 {
-                    activityIndicator.IsVisible = true;
-                    activityIndicator.IsRunning = true;
+                    MyActivityIndicator.IsVisible = true;
+                    MyActivityIndicator.IsRunning = true;
                 }
                 else
                 {
-                    activityIndicator.IsRunning = false;
-                    activityIndicator.IsVisible = false;
+                    MyActivityIndicator.IsRunning = false;
+                    MyActivityIndicator.IsVisible = false;
                 }
             });
         }

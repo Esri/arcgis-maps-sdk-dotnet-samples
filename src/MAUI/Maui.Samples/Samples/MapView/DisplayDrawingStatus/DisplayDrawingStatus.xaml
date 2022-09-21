@@ -2,18 +2,25 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.DisplayDrawingStatus.DisplayDrawingStatus"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="myMapView"
-                        Style="{StaticResource MapWithFormStyle}"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid RowDefinitions="auto,*">
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="1"
                         ViewInsets="0" />
-        <sampleViewer:ResponsiveFormContainer x:Name="FormContainer">
-            <StackLayout>
-                <Label Style="{StaticResource LabelStyle}" Text="Pan and zoom to see drawing status changes." />
-                <ActivityIndicator x:Name="activityIndicator" Color="Black" />
-            </StackLayout>
-        </sampleViewer:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        <ActivityIndicator x:Name="MyActivityIndicator"
+                           Grid.Row="1"
+                           WidthRequest="{OnIdiom Default=-1,
+                                                  Phone=100}"
+                           Color="Black" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               Style="{StaticResource EsriSampleFrameStyle}"
+               WidthRequest="{OnIdiom Default=-1,
+                                      Desktop=350}">
+            <Grid RowDefinitions="auto">
+                <Label Text="Pan and zoom to see drawing status changes." />
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentPage>

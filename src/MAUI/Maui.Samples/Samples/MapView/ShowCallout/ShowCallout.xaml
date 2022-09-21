@@ -4,8 +4,19 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <StackLayout Orientation="Vertical">
-        <Label Text="Tap to show a callout." VerticalOptions="Start" />
-        <esriUI:MapView x:Name="MyMapView" VerticalOptions="FillAndExpand" />
-    </StackLayout>
+    <Grid RowDefinitions="auto,*">
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0,
+                                  Desktop=1,
+                                  Tablet=1}"
+               Style="{StaticResource EsriSampleFrameStyle}"
+               WidthRequest="{OnIdiom Default=-1,
+                                      Desktop=250}">
+            <Grid RowDefinitions="auto">
+                <Label HorizontalOptions="Center"
+                       Text="Tap to show a callout."
+                       VerticalOptions="Start" />
+            </Grid>
+        </Frame>
+    </Grid>
 </ContentPage>

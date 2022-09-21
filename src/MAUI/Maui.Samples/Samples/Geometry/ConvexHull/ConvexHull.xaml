@@ -2,26 +2,22 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Label x:Name="ConvexHullInstructionsLabel"
-               Grid.Row="0"
-               FontSize="Small"
-               Text="Tap on the map in several places, then click the 'Convex Hull' button." />
-        <Button x:Name="ConvexHullButton"
-                Grid.Row="1"
-                Clicked="ConvexHullButton_Clicked"
-                Text="Convex Hull" />
-        <Button x:Name="ResetButton"
-                Grid.Row="2"
-                Clicked="ResetButton_Clicked"
-                Text="Reset" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="3" />
+    <Grid RowDefinitions="auto,*">
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
+            <Grid RowDefinitions="auto,auto,auto" RowSpacing="5">
+                <Label x:Name="ConvexHullInstructionsLabel"
+                       Grid.Row="0"
+                       Text="Tap on the map in several places, then click the 'Convex Hull' button." />
+                <Button x:Name="ConvexHullButton"
+                        Grid.Row="1"
+                        Clicked="ConvexHullButton_Clicked"
+                        Text="Convex Hull" />
+                <Button x:Name="ResetButton"
+                        Grid.Row="2"
+                        Clicked="ResetButton_Clicked"
+                        Text="Reset" />
+            </Grid>
+        </Frame>
     </Grid>
 </ContentPage>

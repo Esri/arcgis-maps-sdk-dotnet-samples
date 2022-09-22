@@ -3,21 +3,22 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="70" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="70,*">
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Frame x:Name="DrawToolsGrid"
-               Grid.Row="1"
-               Margin="5"
-               HorizontalOptions="Center"
-               IsVisible="false"
-               VerticalOptions="Center">
-            <Grid ColumnDefinitions="auto,auto"
+        <Border x:Name="DrawToolsGrid"
+                Grid.Row="1"
+                Margin="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                  Dark=#303030}"
+                HorizontalOptions="Center"
+                IsVisible="false"
+                StrokeShape="RoundRectangle 5"
+                VerticalOptions="Center">
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,auto"
                   ColumnSpacing="5"
-                  RowDefinitions="auto,auto">
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        HorizontalOptions="End"
@@ -42,8 +43,11 @@
                         Text="⚒️"
                         VerticalOptions="Start" />
             </Grid>
-        </Frame>
-        <Grid Grid.Row="0" ColumnDefinitions="*,*,*,*,*">
+        </Border>
+        <Grid Grid.Row="0"
+              BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                Dark=#303030}"
+              ColumnDefinitions="*,*,*,*,*">
             <Button x:Name="DrawEditButton"
                     Grid.Column="0"
                     Clicked="ShowDrawTools"

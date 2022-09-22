@@ -4,13 +4,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <Grid RowDefinitions="auto,*">
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
-            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto,auto">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleMapView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="*,*"
+                  RowDefinitions="auto,auto,auto,auto,auto">
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
+                       Margin="0,5"
                        Text="Tap the map to create Planar and Geodesic buffers" />
                 <Label Grid.Row="1"
                        Grid.Column="0"
@@ -49,6 +52,6 @@
                        Text="Geodesic buffers"
                        VerticalOptions="Center" />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

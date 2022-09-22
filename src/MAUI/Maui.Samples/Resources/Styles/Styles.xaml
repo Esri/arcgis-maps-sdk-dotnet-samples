@@ -90,7 +90,6 @@
                             <Setter Property="Grid.Column" Value="0" />
                         </VisualState.Setters>
                     </VisualState>
-
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>

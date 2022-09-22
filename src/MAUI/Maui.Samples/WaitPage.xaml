@@ -2,13 +2,12 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Grid>
-        <Frame BorderColor="Transparent"
-               CornerRadius="0"
-               HasShadow="False"
-               HorizontalOptions="Center"
-               VerticalOptions="Center"
-               WidthRequest="{OnIdiom Default=-1,
-                                      Desktop=500}">
+        <Border BackgroundColor="Transparent"
+                HorizontalOptions="Center"
+                StrokeThickness="0"
+                VerticalOptions="Center"
+                WidthRequest="{OnIdiom Phone=-1,
+                                       Desktop=500}">
             <Grid Padding="10" RowDefinitions="auto,auto,auto">
                 <Label x:Name="DownloadLabel"
                        Grid.Row="0"
@@ -29,6 +28,6 @@
                         Clicked="DownloadCancelled"
                         Text="Cancel" />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

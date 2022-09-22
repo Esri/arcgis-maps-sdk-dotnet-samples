@@ -260,27 +260,13 @@
   </ItemGroup>
   <!-- Packages -->
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>100.15.0</Version>
-    </PackageReference>
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices">
-      <Version>100.15.0</Version>
-    </PackageReference>
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit">
-      <Version>100.15.0</Version>
-    </PackageReference>
-    <PackageReference Include="Esri.ArcGISRuntime.WPF">
-      <Version>100.15.0</Version>
-    </PackageReference>
-    <PackageReference Include="Markdig">
-      <Version>0.30.2</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AppCenter.Analytics">
-      <Version>4.5.1</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.AppCenter.Crashes">
-      <Version>4.5.1</Version>
-    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0-beta"/>
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0"/>
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.0.0-beta" />
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.0.0-beta"/>
+    <PackageReference Include="Markdig" Version="0.30.2" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.3" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.3" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

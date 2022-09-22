@@ -8,7 +8,9 @@
         <ActivityIndicator x:Name="MyActivityIndicator"
                            Grid.RowSpan="2"
                            Grid.ColumnSpan="2"
-                           IsVisible="False" />
+                           HeightRequest="40"
+                           IsVisible="False"
+                           WidthRequest="40" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   ColumnDefinitions="auto,*"

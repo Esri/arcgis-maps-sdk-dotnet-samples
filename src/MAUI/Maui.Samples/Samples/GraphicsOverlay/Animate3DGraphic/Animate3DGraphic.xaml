@@ -5,20 +5,6 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" AtmosphereEffect="Realistic" />
-        <Border Margin="5"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
-                HorizontalOptions="Start"
-                StrokeShape="RoundRectangle 5"
-                VerticalOptions="Start">
-            <StackLayout Orientation="Vertical" Spacing="5">
-                <Picker x:Name="MissionSelectionBox" WidthRequest="125" />
-                <Button x:Name="MissionPlayPause"
-                        Clicked="MissionPlayPlauseClick"
-                        Text="Pause" />
-                <Button Clicked="ToggleFollowPlane" Text="Don't Follow" />
-            </StackLayout>
-        </Border>
         <Border x:Name="LayoutFrame"
                 Margin="5"
                 BackgroundColor="{AppThemeBinding Light=#dfdfdf,
@@ -48,5 +34,19 @@
                         IsAttributionTextVisible="False"
                         VerticalOptions="End"
                         WidthRequest="150" />
+        <Border Margin="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                  Dark=#303030}"
+                HorizontalOptions="Start"
+                StrokeShape="RoundRectangle 5"
+                VerticalOptions="Start">
+            <StackLayout Orientation="Vertical" Spacing="5">
+                <Picker x:Name="MissionSelectionBox" WidthRequest="125" />
+                <Button x:Name="MissionPlayPause"
+                        Clicked="MissionPlayPlauseClick"
+                        Text="Pause" />
+                <Button Clicked="ToggleFollowPlane" Text="Don't Follow" />
+            </StackLayout>
+        </Border>
     </Grid>
 </ContentPage>

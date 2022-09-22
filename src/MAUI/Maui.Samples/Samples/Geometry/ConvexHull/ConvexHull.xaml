@@ -5,7 +5,10 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid RowDefinitions="auto,auto,auto" RowSpacing="5">
+            <Grid Padding="5"
+                  MinimumHeightRequest="125"
+                  RowDefinitions="auto,auto,auto"
+                  RowSpacing="5">
                 <Label x:Name="ConvexHullInstructionsLabel"
                        Grid.Row="0"
                        Text="Tap on the map in several places, then click the 'Convex Hull' button." />

@@ -5,7 +5,8 @@
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SettingsClicked"
-                     IconImageSource="settings.png"
+                     IconImageSource="{AppThemeBinding Light=settings.png,
+                                                       Dark=settingsdark.png}"
                      Text="Settings" />
     </ContentPage.ToolbarItems>
     <Grid>

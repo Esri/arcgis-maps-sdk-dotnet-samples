@@ -6,18 +6,17 @@
             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources"
             Title="Settings">
     <TabbedPage.Children>
-        <ContentPage Title="About" IconImageSource="description.png">
-
+        <ContentPage Title="About" IconImageSource="{AppThemeBinding Light=description.png, Dark=descriptiondark.png}">
             <ContentPage.Content>
                 <WebView x:Name="AboutPage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Licenses" IconImageSource="documentation.png">
+        <ContentPage Title="Licenses" IconImageSource="{AppThemeBinding Light=documentation.png, Dark=documentationdark.png}">
             <ContentPage.Content>
                 <WebView x:Name="LicensePage" />
             </ContentPage.Content>
         </ContentPage>
-        <ContentPage Title="Offline data" IconImageSource="download.png">
+        <ContentPage Title="Offline data" IconImageSource="{AppThemeBinding Light=download.png, Dark=downloaddark.png}">
             <ContentPage.Content>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -68,11 +67,11 @@
                                                VerticalOptions="Center" />
                                         <ImageButton Grid.Column="1"
                                                      Margin="5"
-                                                     BackgroundColor="White"
                                                      Clicked="DownloadClicked"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="25"
-                                                     Source="download.png"
+                                                     Source="{AppThemeBinding Light=download.png,
+                                                                              Dark=downloaddark.png}"
                                                      VerticalOptions="CenterAndExpand"
                                                      WidthRequest="25" />
                                         <ImageButton Grid.Column="2"
@@ -80,7 +79,8 @@
                                                      Clicked="AGOLClicked"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="25"
-                                                     Source="applications.png"
+                                                     Source="{AppThemeBinding Light=applications.png,
+                                                                              Dark=applicationsdark.png}"
                                                      VerticalOptions="CenterAndExpand"
                                                      WidthRequest="25" />
                                         <ImageButton Grid.Column="3"
@@ -94,7 +94,8 @@
                                                      IsVisible="{x:OnPlatform Android=True,
                                                                               iOS=True,
                                                                               UWP=True}"
-                                                     Source="trash.png"
+                                                     Source="{AppThemeBinding Light=trash.png,
+                                                                              Dark=trashdark.png}"
                                                      VerticalOptions="CenterAndExpand"
                                                      WidthRequest="25" />
                                     </Grid>
@@ -131,6 +132,6 @@
                 </Grid>
             </ContentPage.Content>
         </ContentPage>
-        <arcgisruntime:ApiKeyPrompt Title="API Key" IconImageSource="key.png" />
+        <arcgisruntime:ApiKeyPrompt Title="API Key" IconImageSource="{AppThemeBinding Light=key.png, Dark=keydark.png}" />
     </TabbedPage.Children>
 </TabbedPage>

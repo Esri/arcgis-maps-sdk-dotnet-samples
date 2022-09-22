@@ -26,6 +26,7 @@
                             <Setter Property="Grid.Row" Value="0" />
                             <Setter Property="Grid.Column" Value="1" />
                             <Setter Property="Grid.ColumnSpan" Value="1" />
+                            <Setter Property="WidthRequest" Value="300" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="Vertical">

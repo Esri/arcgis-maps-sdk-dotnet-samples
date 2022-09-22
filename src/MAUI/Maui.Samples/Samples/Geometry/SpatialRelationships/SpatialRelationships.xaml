@@ -10,7 +10,7 @@
         </Grid.RowDefinitions>
         <Label x:Name="ResultTextbox"
                Grid.Row="0"
-               Text="Tap on geometry to see their relationships." />
+               Text="Tap on geometry to see relationships." />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>
 </ContentPage>

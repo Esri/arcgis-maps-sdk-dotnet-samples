@@ -31,7 +31,7 @@
                     </VisualState>
                     <VisualState x:Name="Vertical">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="0" />
+                            <OrientationStateTrigger Orientation="Portrait" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="0" />
@@ -41,7 +41,7 @@
                     </VisualState>
                     <VisualState x:Name="Horizontal">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="{OnPlatform Default=800, WinUI=0}" />
+                            <OrientationStateTrigger Orientation="Landscape" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="0" />
@@ -71,7 +71,7 @@
                     </VisualState>
                     <VisualState x:Name="Vertical">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="0" />
+                            <OrientationStateTrigger Orientation="Portrait" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="1" />
@@ -82,7 +82,7 @@
                     </VisualState>
                     <VisualState x:Name="Horizontal">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowWidth="{OnPlatform Default=800, WinUI=0}" />
+                            <OrientationStateTrigger Orientation="Landscape" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="0" />

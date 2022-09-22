@@ -3,14 +3,12 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <esriUI:SceneView x:Name="MySceneView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
-            <Grid RowDefinitions="auto,auto,auto,auto" RowSpacing="5">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto,auto,auto"
+                  RowSpacing="5">
                 <Button x:Name="BillboardedButton"
                         Grid.Row="0"
                         Clicked="BillboardedClicked"
@@ -30,6 +28,6 @@
                        Grid.Row="3"
                        Text="Z Value: 70 meters" />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

@@ -4,10 +4,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <Grid RowDefinitions="auto,*">
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
-            <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,auto,auto">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,*"
+                  RowDefinitions="auto,auto,auto">
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        Text="Generalize"
@@ -36,6 +38,6 @@
                        Grid.ColumnSpan="2"
                        Text="Adjust a slider to start." />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

@@ -3,12 +3,14 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="auto,*">
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
-            <Grid RowDefinitions="auto,auto" RowSpacing="5">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
                 <HorizontalStackLayout Grid.Row="0" Spacing="5">
-                    <Label Text="Select a spatial operation:" />
+                    <Label Text="Select a spatial operation:" VerticalTextAlignment="Center" />
                     <Picker x:Name="SpatialOperationComboBox"
                             SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"
                             WidthRequest="250" />
@@ -18,6 +20,6 @@
                         Clicked="ResetOperationButton_Clicked"
                         Text="Reset" />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

@@ -1,24 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage x:Class="ArcGISRuntimeMaui.SamplePage"
-            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-            xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-            android:TabbedPage.IsSwipePagingEnabled="false">
-    <TabbedPage.Children>
-        <ContentPage x:Name="SampleContentPage"
-                     Title="Sample"
-                     Padding="0"
-                     IconImageSource="maps.png" />
-        <ContentPage x:Name="SampleDetailPage"
-                     Title="Info"
-                     IconImageSource="description.png">
+<ContentPage x:Class="ArcGISRuntimeMaui.SamplePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls">
+    <Grid RowDefinitions="auto,*">
+        <HorizontalStackLayout>
+            <Button x:Name="SampleButton"
+                    Clicked="SampleButton_Clicked"
+                    ImageSource="maps.png"
+                    Text="Sample" />
+            <Button Clicked="Button_Clicked"
+                    ImageSource="description.png"
+                    Text="About" />
+            <Button Clicked="Button_Clicked_1"
+                    ImageSource="documentation.png"
+                    Text="Source code" />
+        </HorizontalStackLayout>
+        <Border x:Name="SampleContentPage"
+                Grid.Row="1"
+                Padding="0" />
+        <Border x:Name="SampleDetailPage"
+                Grid.Row="1"
+                IsVisible="false">
             <WebView x:Name="DescriptionView" />
-        </ContentPage>
-        <ContentPage x:Name="SourceCodePage"
-                     Title="Source code"
-                     IconImageSource="documentation.png">
+        </Border>
+        <Border x:Name="SourceCodePage"
+                Grid.Row="1"
+                IsVisible="false">
             <WebView x:Name="SourceCodeView" />
-        </ContentPage>
-    </TabbedPage.Children>
-</TabbedPage>
+        </Border>
+    </Grid>
+</ContentPage>

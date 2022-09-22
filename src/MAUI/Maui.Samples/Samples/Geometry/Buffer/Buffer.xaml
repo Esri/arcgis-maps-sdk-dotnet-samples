@@ -5,7 +5,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleMapView}" />
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   ColumnDefinitions="*,*"

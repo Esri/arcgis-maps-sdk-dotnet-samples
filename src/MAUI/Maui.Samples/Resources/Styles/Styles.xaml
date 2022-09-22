@@ -53,7 +53,7 @@
             </VisualStateGroupList>
         </Setter>
     </Style>
-    <Style x:Key="EsriSampleMapView" TargetType="esri:MapView">
+    <Style x:Key="EsriSampleGeoView" TargetType="{x:Type esri:GeoView}">
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup>

@@ -2,20 +2,11 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0,
-                                  Desktop=1,
-                                  Tablet=1}"
-               HeightRequest="{OnIdiom Default=-1,
-                                       Desktop=-1,
-                                       Tablet=-1}"
-               Style="{StaticResource EsriSampleFrameStyle}">
-
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="MapView_Tapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -72,6 +63,6 @@
                                    IsRunning="True"
                                    IsVisible="False" />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

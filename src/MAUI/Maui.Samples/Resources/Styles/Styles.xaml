@@ -1,15 +1,108 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
 
+    <!--  Esri samples helper styles  -->
+    <Style x:Key="EsriSampleContainer" TargetType="Grid">
+        <Setter Property="Grid.RowDefinitions" Value="Auto,*" />
+        <Setter Property="Grid.ColumnDefinitions" Value="*,Auto" />
+    </Style>
+    <Style x:Key="EsriSampleControlPanel" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#dfdfdf, Dark=#303030}" />
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup>
+                    <VisualState x:Name="HorizontalFloat">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0}" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="StrokeShape" Value="RoundRectangle 10" />
+                            <Setter Property="Margin" Value="15" />
+                            <Setter Property="Grid.Row" Value="0" />
+                            <Setter Property="Grid.Column" Value="1" />
+                            <Setter Property="Grid.ColumnSpan" Value="1" />
+                            <Setter Property="WidthRequest" Value="300" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Vertical">
+                        <VisualState.StateTriggers>
+                            <OrientationStateTrigger Orientation="Portrait" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="Grid.Row" Value="0" />
+                            <Setter Property="Grid.ColumnSpan" Value="2" />
+                            <Setter Property="Grid.Column" Value="0" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Horizontal">
+                        <VisualState.StateTriggers>
+                            <OrientationStateTrigger Orientation="Landscape" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="Grid.Row" Value="0" />
+                            <Setter Property="Grid.RowSpan" Value="2" />
+                            <Setter Property="Grid.Column" Value="1" />
+                            <Setter Property="Grid.ColumnSpan" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+    <Style x:Key="EsriSampleGeoView" TargetType="{x:Type esri:GeoView}">
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup>
+                    <VisualState x:Name="HorizontalFloat">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0}" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="Grid.Row" Value="0" />
+                            <Setter Property="Grid.RowSpan" Value="2" />
+                            <Setter Property="Grid.Column" Value="0" />
+                            <Setter Property="Grid.ColumnSpan" Value="2" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Vertical">
+                        <VisualState.StateTriggers>
+                            <OrientationStateTrigger Orientation="Portrait" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="Grid.Row" Value="1" />
+                            <Setter Property="Grid.RowSpan" Value="1" />
+                            <Setter Property="Grid.ColumnSpan" Value="2" />
+                            <Setter Property="Grid.Column" Value="0" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Horizontal">
+                        <VisualState.StateTriggers>
+                            <OrientationStateTrigger Orientation="Landscape" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="Grid.Row" Value="0" />
+                            <Setter Property="Grid.RowSpan" Value="2" />
+                            <Setter Property="Grid.Column" Value="0" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
 
-    <Style x:Key="EsriSampleFrameStyle" TargetType="Frame">
-        <Setter Property="CornerRadius" Value="{OnIdiom Phone=0, Desktop=15, Tablet=15}" />
+    <Style x:Key="EsriSampleFrameStyle" TargetType="Grid">
         <Setter Property="Margin" Value="{OnIdiom Phone=0, Desktop=20, Tablet=20}" />
         <Setter Property="HorizontalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=End, Tablet=End}" />
         <Setter Property="VerticalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=Start, Tablet=Start}" />
         <Setter Property="WidthRequest" Value="{OnIdiom Phone=-1, Desktop=300, Tablet=300}" />
     </Style>
+
+    <!--  UI control styles  -->
 
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -30,7 +123,7 @@
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource DarkGray}, Dark={StaticResource LightGray}}" />
     </Style>
 
-    <Style TargetType="Button">
+    <!--<Style TargetType="Button">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Primary}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular" />
@@ -50,7 +143,7 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-    </Style>
+    </Style>-->
 
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
@@ -164,7 +257,7 @@
         <Setter Property="RefreshControlColor" Value="{AppThemeBinding Light={StaticResource DarkGray}, Dark={StaticResource LightGray}}" />
     </Style>
 
-    <Style TargetType="Picker">
+    <!--<Style TargetType="Picker">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter Property="TitleColor" Value="{AppThemeBinding Light={StaticResource DarkGray}, Dark={StaticResource LightGray}}" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
@@ -183,7 +276,7 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-    </Style>
+    </Style>-->
 
     <Style TargetType="ProgressBar">
         <Setter Property="ProgressColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />

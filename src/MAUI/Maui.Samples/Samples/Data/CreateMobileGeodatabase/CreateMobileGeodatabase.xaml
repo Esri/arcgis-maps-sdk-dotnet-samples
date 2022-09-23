@@ -2,26 +2,15 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0,
-                                  Desktop=1,
-                                  Tablet=1}"
-               HeightRequest="{OnIdiom Default=-1,
-                                       Desktop=-1,
-                                       Tablet=-1}"
-               Style="{StaticResource EsriSampleFrameStyle}"
-               WidthRequest="{OnIdiom Default=-1,
-                                      Desktop=450}">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="{OnIdiom Default=-1}">
             <Grid RowDefinitions="auto,auto">
                 <Label x:Name="FeaturesLabel"
                        Grid.Row="0"
+                       Margin="5,0"
                        Text="Number of features added: " />
-                <Grid Grid.Row="1" ColumnDefinitions="auto,auto,auto">
+                <Grid Grid.Row="1" ColumnDefinitions="auto,auto,*">
                     <Button Grid.Column="0"
                             Margin="5"
                             Clicked="ViewTable"
@@ -42,19 +31,19 @@
                             Text="Close and share" />
                 </Grid>
             </Grid>
-        </Frame>
-        <Frame x:Name="TableFrame"
-               Grid.Row="{OnIdiom Default=0,
-                                  Desktop=1}"
-               Grid.RowSpan="{OnIdiom Default=2,
-                                      Desktop=-1}"
-               Padding="5"
-               BackgroundColor="White"
-               HeightRequest="{OnIdiom Default=-1,
-                                       Desktop=400}"
-               IsVisible="False"
-               WidthRequest="{OnIdiom Default=-1,
-                                      Desktop=450}">
+        </Border>
+        <Border x:Name="TableFrame"
+                Grid.Row="{OnIdiom Default=0,
+                                   Desktop=1}"
+                Grid.RowSpan="{OnIdiom Default=2,
+                                       Desktop=-1}"
+                Padding="5"
+                BackgroundColor="White"
+                HeightRequest="{OnIdiom Default=-1,
+                                        Desktop=400}"
+                IsVisible="False"
+                WidthRequest="{OnIdiom Default=-1,
+                                       Desktop=450}">
             <Grid RowDefinitions="*,auto">
                 <ListView x:Name="FeatureListView" Grid.Row="0">
                     <ListView.Header>
@@ -101,6 +90,6 @@
                         Clicked="CloseTable"
                         Text="Close" />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

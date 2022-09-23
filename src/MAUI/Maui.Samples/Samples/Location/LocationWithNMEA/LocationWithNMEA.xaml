@@ -2,10 +2,8 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="auto,*" Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="1"
-                        Style="{DynamicResource EsriSampleGeoView}" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid RowDefinitions="auto,auto,auto,auto,auto,auto" RowSpacing="3">
                 <Label x:Name="AccuracyLabel"

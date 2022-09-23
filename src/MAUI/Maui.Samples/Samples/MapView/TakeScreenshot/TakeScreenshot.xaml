@@ -16,6 +16,7 @@
         </Border>
         <Border x:Name="ScreenshotView"
                 Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
                 Padding="5"
                 Background="white"
                 IsVisible="False"

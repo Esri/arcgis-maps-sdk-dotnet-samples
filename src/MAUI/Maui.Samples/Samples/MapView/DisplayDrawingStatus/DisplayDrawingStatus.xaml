@@ -3,24 +3,19 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="auto,*">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="1"
+                        Style="{DynamicResource EsriSampleGeoView}"
                         ViewInsets="0" />
         <ActivityIndicator x:Name="MyActivityIndicator"
                            Grid.Row="1"
                            WidthRequest="{OnIdiom Default=-1,
                                                   Phone=100}"
                            Color="Black" />
-        <Frame Grid.Row="{OnIdiom Phone=0,
-                                  Desktop=1,
-                                  Tablet=1}"
-               Style="{StaticResource EsriSampleFrameStyle}"
-               WidthRequest="{OnIdiom Default=-1,
-                                      Desktop=350}">
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid RowDefinitions="auto">
                 <Label Text="Pan and zoom to see drawing status changes." />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

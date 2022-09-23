@@ -5,20 +5,15 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <Grid RowDefinitions="auto,*">
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0,
-                                  Desktop=1,
-                                  Tablet=1}"
-               Style="{StaticResource EsriSampleFrameStyle}"
-               WidthRequest="{OnIdiom Default=-1,
-                                      Desktop=300}">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid RowDefinitions="auto">
                 <Button x:Name="ScreenshotButton"
                         Clicked="OnTakeScreenshotClicked"
                         Text="Capture" />
             </Grid>
-        </Frame>
+        </Border>
         <Border x:Name="ScreenshotView"
                 Grid.RowSpan="2"
                 Padding="5"

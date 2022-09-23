@@ -2,20 +2,15 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="auto,*">
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0,
-                                  Desktop=1,
-                                  Tablet=1}"
-               Style="{StaticResource EsriSampleFrameStyle}"
-               WidthRequest="{OnIdiom Default=-1,
-                                      Desktop=300}">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid RowDefinitions="auto">
                 <Label FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
                        Text="Tap to identify features in all layers."
                        VerticalOptions="Start" />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

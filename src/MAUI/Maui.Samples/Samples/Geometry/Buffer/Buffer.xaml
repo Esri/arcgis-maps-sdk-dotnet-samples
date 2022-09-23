@@ -6,10 +6,8 @@
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5"
-                  ColumnDefinitions="*,*"
-                  RowDefinitions="auto,auto,auto,auto,auto">
+        <Border MinimumWidthRequest="400" Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto,auto">
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
@@ -31,21 +29,21 @@
                         Margin="5"
                         Clicked="ClearBuffersButton_Click"
                         Text="Clear" />
-                <Frame x:Name="BufferSwatchPlanar"
-                       Grid.Row="3"
-                       Grid.Column="0"
-                       Margin="5"
-                       Padding="5" />
+                <Border x:Name="BufferSwatchPlanar"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="5"
+                        Padding="5" />
                 <Label Grid.Row="3"
                        Grid.Column="1"
                        Margin="5"
                        Text="Planar buffers"
                        VerticalOptions="Center" />
-                <Frame x:Name="BufferSwatchGeodesic"
-                       Grid.Row="4"
-                       Grid.Column="0"
-                       Margin="5"
-                       Padding="5" />
+                <Border x:Name="BufferSwatchGeodesic"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Margin="5"
+                        Padding="5" />
                 <Label Grid.Row="4"
                        Grid.Column="1"
                        Margin="5"

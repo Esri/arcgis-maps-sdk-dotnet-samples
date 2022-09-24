@@ -8,9 +8,22 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Frame Grid.Row="{OnIdiom Phone=-1, Desktop=1, Tablet=1}"
+               Style="{StaticResource EsriSampleFrameStyle}">
+            <Button x:Name="MapsButton"
+                    Clicked="OnMapsClicked"
+                    Text="Maps" />
+        </Frame>
+    </Grid>
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Button x:Name="MapsButton"
                 Clicked="OnMapsClicked"
                 Text="Maps" />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-    </Grid>
+    </Grid>-->
 </ContentPage>

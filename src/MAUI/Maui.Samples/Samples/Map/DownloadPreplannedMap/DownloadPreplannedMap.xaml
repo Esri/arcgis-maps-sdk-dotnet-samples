@@ -4,18 +4,23 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}" />
+        <Border Margin="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
+                StrokeShape="RoundRectangle 5"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                WidthRequest="310"
+                HeightRequest="200"
+                Padding="5">
             <StackLayout>
-
                 <Label x:Name="MessageLabel"
                        HorizontalTextAlignment="Center"
                        Text="Select an area, then download it." />
                 <ListView x:Name="AreasList"
-                          HeightRequest="150"
+                          Margin="22"
+                          HeightRequest="100"
                           ItemSelected="AreaSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -25,7 +30,7 @@
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="auto" />
-                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="auto" />
                                             </Grid.ColumnDefinitions>
                                             <Image Grid.RowSpan="2"
                                                    Margin="-10,2,2,2"
@@ -37,7 +42,7 @@
                                                    VerticalTextAlignment="Center" />
                                         </Grid>
                                     </On>
-                                    <!--  Work around nasty Xamarin.Forms bug that affects UWP only - https://github.com/xamarin/Xamarin.Forms/issues/5188  -->
+                                    <!--Work around nasty Xamarin.Forms bug that affects UWP only - https://github.com/xamarin/Xamarin.Forms/issues/5188-->
                                     <On Platform="UWP">
                                         <Label Margin="10,0"
                                                Text="{Binding PortalItem.Title}"
@@ -50,9 +55,9 @@
                 </ListView>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Button x:Name="DownloadButton"
                             Grid.Column="0"
@@ -68,16 +73,15 @@
                             Text="Show Online" />
                 </Grid>
             </StackLayout>
-        </resources:ResponsiveFormContainer>
-        <!--  Busy indication  -->
+        </Border>
         <Grid x:Name="BusyIndicator"
-              BackgroundColor="#807f7f7f"
-              cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
+              BackgroundColor="#807f7f7f">
+            <!--cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                      Factor=1,
                                                                      Property=Height}"
               cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
                                                                     Factor=1,
-                                                                    Property=Width}">
+                                                                    Property=Width}">-->
             <Grid HorizontalOptions="Center" VerticalOptions="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -96,5 +100,5 @@
                              WidthRequest="100" />
             </Grid>
         </Grid>
-    </cmp:RelativeLayout>
+    </Grid>
 </ContentPage>

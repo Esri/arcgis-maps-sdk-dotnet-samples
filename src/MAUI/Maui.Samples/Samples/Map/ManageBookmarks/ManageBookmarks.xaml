@@ -8,25 +8,34 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0"
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1"/>
+        <Border x:Name="takeOfflineArea"
+                Margin="5"
+                Padding="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
+                StrokeShape="RoundRectangle 5"
+                HorizontalOptions="End"
+                VerticalOptions="Start">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
                    HorizontalTextAlignment="Center"
                    Text="Go to:"
-                   VerticalTextAlignment="Center" />
-            <Picker x:Name="bookmarkPicker"
+                   VerticalTextAlignment="Center"/>
+                <Picker x:Name="bookmarkPicker"
                     Grid.Column="1"
                     SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"
                     VerticalOptions="CenterAndExpand" />
-            <Button x:Name="ButtonAddBookmark"
+                <Button x:Name="ButtonAddBookmark"
                     Grid.Column="2"
                     Clicked="ButtonAddBookmark_Clicked"
-                    Text="New ..." />
-        </Grid>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+                    Text="New ..."
+                        HeightRequest="40"/>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

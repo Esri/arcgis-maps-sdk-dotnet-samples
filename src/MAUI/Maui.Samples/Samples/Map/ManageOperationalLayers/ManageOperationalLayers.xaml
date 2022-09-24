@@ -34,14 +34,21 @@
             </ViewCell>
         </DataTemplate>
     </ContentPage.Resources>
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout>
-                <Label Text="Use the buttons to re-arrange layers." />
-                <Label FontAttributes="Bold"
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView"/>
+        <Border x:Name="takeOfflineArea"
+                Margin="5"
+                Padding="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
+                StrokeShape="RoundRectangle 5"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                WidthRequest="300">
+            <StackLayout >
+                <Label HeightRequest="30"
+                       Text="Use the buttons to re-arrange layers."/>
+                <Label HeightRequest="30"
+                       FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
                        Text="Layers in map" />
                 <!--
@@ -49,10 +56,11 @@
                     item's content consists of a label with the layer's Name and three buttons.
                 -->
                 <ListView x:Name="IncludedListView"
-                          HeightRequest="80"
+                          HeightRequest="140"
                           ItemTemplate="{StaticResource LayerListTemplate}"
                           VerticalOptions="Start" />
-                <Label FontAttributes="Bold"
+                <Label HeightRequest="30"
+                       FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
                        Text="Layers not in map" />
                 <!--
@@ -60,10 +68,10 @@
                     item's content consists of a label with the layer's Name and three buttons.
                 -->
                 <ListView x:Name="ExcludedListView"
-                          HeightRequest="80"
+                          HeightRequest="130"
                           ItemTemplate="{StaticResource LayerListTemplate}"
                           VerticalOptions="Start" />
             </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

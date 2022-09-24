@@ -12,28 +12,33 @@
         <converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
     </ContentPage.Resources>
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border x:Name="takeOfflineArea"
+                Margin="5"
+                Padding="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
+                StrokeShape="RoundRectangle 5"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                WidthRequest="300">
             <StackLayout>
                 <Label LineBreakMode="WordWrap" Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout." />
                 <ListView x:Name="MapListView"
                           Margin="0,5,0,0"
-                          HeightRequest="150"
+                          HeightRequest="230"
                           ItemSelected="Map_Selected"
-                          RowHeight="50">
+                          RowHeight="75">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="mapping:Map">
+                        <DataTemplate x:DataType="mapping:Map" >
                             <ViewCell>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="30" />
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
+                                    <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}"/>
                                     <Image Grid.Column="1"
                                            Margin="5"
                                            HeightRequest="25"
@@ -41,7 +46,7 @@
                                            Source="routingsymbol.png"
                                            WidthRequest="25" />
                                     <Label Grid.Column="2"
-                                           HorizontalTextAlignment="Start"
+                                           HorizontalTextAlignment="End"
                                            Text="{Binding Item.Title}"
                                            VerticalTextAlignment="Center" />
                                 </Grid>
@@ -50,6 +55,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

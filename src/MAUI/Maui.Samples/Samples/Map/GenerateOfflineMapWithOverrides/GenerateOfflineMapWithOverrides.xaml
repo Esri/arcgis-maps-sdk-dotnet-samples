@@ -6,14 +6,13 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
 
-        <Frame x:Name="takeOfflineArea"
-               Margin="30"
-               Padding="20"
-               BackgroundColor="White"
-               BorderColor="Black"
-               HorizontalOptions="End"
-               VerticalOptions="Start"
-               WidthRequest="375">
+        <Border x:Name="takeOfflineArea"
+                Margin="5"
+                Padding="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
+                StrokeShape="RoundRectangle 5"
+                HorizontalOptions="End"
+                VerticalOptions="Start">
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <Button x:Name="TakeMapOfflineButton"
                         Clicked="TakeMapOfflineButton_Click"
@@ -21,24 +20,22 @@
                         Text="Take map offline"
                         WidthRequest="250" />
             </StackLayout>
-        </Frame>
+        </Border>
 
-        <Frame x:Name="messageArea"
-               Margin="30"
-               Padding="5"
-               BackgroundColor="White"
-               BorderColor="Black"
-               HorizontalOptions="End"
-               IsVisible="False"
-               VerticalOptions="Start"
-               WidthRequest="450">
+        <Border x:Name="messageArea"
+                Margin="5"
+                Padding="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
+                StrokeShape="RoundRectangle 5"
+                HorizontalOptions="End"
+                VerticalOptions="Start">
             <StackLayout>
                 <Label Margin="10"
                        HorizontalOptions="Center"
                        Text="Map is offline!"
                        VerticalOptions="Center" />
             </StackLayout>
-        </Frame>
+        </Border>
 
         <Grid x:Name="busyIndicator"
               BackgroundColor="#807f7f7f"

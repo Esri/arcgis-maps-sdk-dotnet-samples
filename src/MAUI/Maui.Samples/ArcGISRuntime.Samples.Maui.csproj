@@ -94,7 +94,6 @@
 	  <MauiCss Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <MauiXaml Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <None Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <None Remove="Properties\Images\dotnet_bot.svg" />
 	  <None Remove="Images\" />
 	</ItemGroup>
 
@@ -113,7 +112,6 @@
       <Content Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
 	  <BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />
       <AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
-      <BundleResource Include="Properties\Images\dotnet_bot.svg" />
     </ItemGroup>
     <ItemGroup>
       <None Remove="Resources\Icons\applications.svg" />

@@ -30,9 +30,6 @@
         <DefineConstants>$(DefineConstants);MAUI</DefineConstants>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-ios|AnyCPU'">
-	  <EnableCodeSigning>false</EnableCodeSigning>
-	</PropertyGroup>
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
@@ -40,7 +37,7 @@
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
 
-		<!-- Images -->
+		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
@@ -94,7 +91,6 @@
 	  <MauiCss Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <MauiXaml Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <None Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <None Remove="Images\" />
 	</ItemGroup>
 
     <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
@@ -174,9 +170,6 @@
         <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0-beta" />
         <PackageReference Include="Markdig" Version="0.30.3" />
         <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Images\" />
     </ItemGroup>
     <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 </Project>

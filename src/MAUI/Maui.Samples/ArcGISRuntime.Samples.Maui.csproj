@@ -152,19 +152,19 @@
       <MauiImage Include="Resources\routingsymbol.png" />
     </ItemGroup>
 	<ItemGroup>
-      <MauiAsset Include="Resources\SyntaxHighlighting\github-markdown.css">
+      <MauiAsset Include="SyntaxHighlighting\github-markdown.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </MauiAsset>
-      <MauiAsset Include="Resources\SyntaxHighlighting\github-markdown-dark.css">
+      <MauiAsset Include="SyntaxHighlighting\github-markdown-dark.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </MauiAsset>
-      <MauiAsset Include="Resources\SyntaxHighlighting\highlight-dark.css">
+      <MauiAsset Include="SyntaxHighlighting\highlight-dark.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </MauiAsset>
-      <MauiAsset Include="Resources\SyntaxHighlighting\highlight.css">
+      <MauiAsset Include="SyntaxHighlighting\highlight.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </MauiAsset>
-      <MauiAsset Include="Resources\SyntaxHighlighting\highlight.pack.js">
+      <MauiAsset Include="SyntaxHighlighting\highlight.pack.js">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </MauiAsset>
     </ItemGroup>

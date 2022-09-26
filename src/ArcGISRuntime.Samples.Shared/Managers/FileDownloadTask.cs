@@ -127,7 +127,7 @@ namespace ArcGISRuntime.Samples.Managers
 
         public static Task<FileDownloadTask> StartDownload(string filename, Esri.ArcGISRuntime.Portal.PortalItem portalItem, HttpMessageHandler handler = null)
         {
-            string requestUri = $"http://www.arcgis.com/sharing/rest/content/items/{portalItem.ItemId}/data";
+            string requestUri = $"https://www.arcgis.com/sharing/rest/content/items/{portalItem.ItemId}/data";
             return StartDownload(new HttpRequestMessage(HttpMethod.Get, requestUri), filename, handler);
         }
 

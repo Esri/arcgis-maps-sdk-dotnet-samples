@@ -7,7 +7,9 @@
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid RowDefinitions="auto">
-                <Label Text="Tap and hold to show the magnifier. Note: this only works on touchscreen devices." VerticalOptions="Start" />
+                <Label MaximumWidthRequest="150"
+                       Text="Tap and hold to show the magnifier. Note: this only works on touchscreen devices."
+                       VerticalOptions="Start" />
             </Grid>
         </Border>
     </Grid>

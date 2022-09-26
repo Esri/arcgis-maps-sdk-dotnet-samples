@@ -7,14 +7,16 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid RowDefinitions="auto,auto" RowSpacing="5">
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
                 <Button x:Name="ShowHideSettingsButton"
                         Grid.Row="0"
                         Text="Show/Hide settings" />
                 <ScrollView x:Name="SettingsScrollView"
                             Grid.Row="1"
                             IsVisible="False">
-                    <Grid>
+                    <Grid RowSpacing="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />

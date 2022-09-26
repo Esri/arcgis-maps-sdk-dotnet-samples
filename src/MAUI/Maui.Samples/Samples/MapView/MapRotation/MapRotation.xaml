@@ -12,15 +12,18 @@
                        HorizontalOptions="Center"
                        Text="0°"
                        VerticalTextAlignment="Center" />
-                <Slider x:Name="MySlider"
-                        Grid.Column="1"
-                        Maximum="180"
-                        MaximumTrackColor="CadetBlue"
-                        Minimum="0"
-                        MinimumTrackColor="CadetBlue"
-                        ValueChanged="MySlider_ValueChanged"
-                        VerticalOptions="CenterAndExpand"
-                        Value="0" />
+                <Grid Grid.Column="1" MinimumWidthRequest="200">
+                    <Slider x:Name="MySlider"
+                            Grid.Column="1"
+                            HorizontalOptions="FillAndExpand"
+                            Maximum="180"
+                            MaximumTrackColor="CadetBlue"
+                            Minimum="0"
+                            MinimumTrackColor="CadetBlue"
+                            ValueChanged="MySlider_ValueChanged"
+                            VerticalOptions="CenterAndExpand"
+                            Value="0" />
+                </Grid>
             </Grid>
         </Border>
     </Grid>

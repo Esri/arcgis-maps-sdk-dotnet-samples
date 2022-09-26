@@ -64,7 +64,7 @@ namespace ArcGISRuntimeMaui
                 readmePath = System.IO.Path.Combine(folderPath, "readme.md");
 #endif
                 //string cssPath = $"{baseUrl}/Resources/SyntaxHighlighting/github-markdown.css";
-                string cssPath = $"{baseUrl}Resources/SyntaxHighlighting/github-markdown.css";
+                string cssPath = $"{baseUrl}SyntaxHighlighting/github-markdown.css";
 
                 string readmeContent = System.IO.File.ReadAllText(readmePath);
                 readmeContent = Markdig.Markdown.ToHtml(readmeContent);

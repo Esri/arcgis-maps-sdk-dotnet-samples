@@ -5,7 +5,9 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid RowDefinitions="auto,auto,auto,auto,auto,auto" RowSpacing="3">
+            <Grid MaximumWidthRequest="200"
+                  RowDefinitions="auto,auto,auto,auto,auto,auto"
+                  RowSpacing="3">
                 <Label x:Name="AccuracyLabel"
                        Grid.Row="0"
                        Text="Press start to begin." />

@@ -4,15 +4,10 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
-        <Border Margin="5"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
-                StrokeShape="RoundRectangle 5"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
-                WidthRequest="300">
-            <Grid>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -26,6 +21,6 @@
                        Grid.Row="1"
                        Margin="5" />
             </Grid>
-        </Border >
+        </Border>
     </Grid>
 </ContentPage>

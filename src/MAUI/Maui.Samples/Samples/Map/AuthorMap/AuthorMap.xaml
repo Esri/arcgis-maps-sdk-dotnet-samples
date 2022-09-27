@@ -3,82 +3,26 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
-        <Frame Grid.Row="{OnIdiom Phone=-1, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <ActivityIndicator x:Name="SaveMapProgressBar"
-                           Grid.Row="1"
-                           IsRunning="True"
-                           IsVisible="False" />
-                <ListView x:Name="LayersList"
-                  Grid.Row="0"
-                  Grid.RowSpan="2"
-                  IsVisible="False"
-                  ItemTapped="LayerSelected" />
-                <Grid Grid.Row="2" Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Grid.Column="0"
-                    Clicked="ShowLayerList"
-                    Text="Basemap" />
-                    <Button Grid.Column="1"
-                    Clicked="ShowLayerList"
-                    Text="Layers" />
-                    <Button Grid.Column="2"
-                    Clicked="NewMapButtonClick"
-                    Text="New" />
-                    <Button Grid.Column="3"
-                    Clicked="ShowSaveMapUI"
-                    Text="Save" />
-                </Grid>
-            </Grid>
-        </Frame>
-    </Grid>
-    <!--<Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <ActivityIndicator x:Name="SaveMapProgressBar"
-                           Grid.Row="1"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"
                            IsRunning="True"
                            IsVisible="False" />
-        <ListView x:Name="LayersList"
-                  Grid.Row="0"
-                  Grid.RowSpan="2"
-                  IsVisible="False"
-                  ItemTapped="LayerSelected" />
-        <Grid Grid.Row="2" Margin="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Button Grid.Column="0"
-                    Clicked="ShowLayerList"
-                    Text="Basemap" />
-            <Button Grid.Column="1"
-                    Clicked="ShowLayerList"
-                    Text="Layers" />
-            <Button Grid.Column="2"
-                    Clicked="NewMapButtonClick"
-                    Text="New" />
-            <Button Grid.Column="3"
-                    Clicked="ShowSaveMapUI"
-                    Text="Save" />
-        </Grid>
-    </Grid>-->
+        <Border MinimumWidthRequest="300" Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout Padding="5" Spacing="5">
+                <ListView x:Name="LayersList"
+                          HeightRequest="150"
+                          IsVisible="False"
+                          ItemTapped="LayerSelected" />
+                <HorizontalStackLayout Spacing="5">
+                    <Button Clicked="ShowLayerList" Text="Basemap" />
+                    <Button Clicked="ShowLayerList" Text="Layers" />
+                    <Button Clicked="NewMapButtonClick" Text="New" />
+                    <Button Clicked="ShowSaveMapUI" Text="Save" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
 </ContentPage>

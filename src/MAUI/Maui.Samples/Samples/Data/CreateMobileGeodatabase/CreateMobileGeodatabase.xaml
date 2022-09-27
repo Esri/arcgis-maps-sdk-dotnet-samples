@@ -35,12 +35,14 @@
         <Border x:Name="TableFrame"
                 Grid.Row="{OnIdiom Default=0,
                                    Desktop=1}"
-                Grid.RowSpan="{OnIdiom Default=2,
-                                       Desktop=-1}"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
                 Padding="5"
-                BackgroundColor="White"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                  Dark=#303030}"
                 HeightRequest="{OnIdiom Default=-1,
-                                        Desktop=400}"
+                                        Desktop=300}"
+                HorizontalOptions="Center"
                 IsVisible="False"
                 WidthRequest="{OnIdiom Default=-1,
                                        Desktop=450}">

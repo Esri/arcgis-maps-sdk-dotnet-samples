@@ -4,9 +4,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="GeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid RowSpacing="5">
+            <Grid Padding="5" RowSpacing="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -16,8 +18,7 @@
                 <Label x:Name="MyHelpLabel"
                        Grid.Row="0"
                        LineBreakMode="TailTruncation"
-                       Text="1. Click 'generate'"
-                       TextColor="Red" />
+                       Text="1. Click 'generate'" />
                 <Button x:Name="MyGenerateButton"
                         Grid.Row="1"
                         Clicked="GenerateButton_Clicked"

@@ -6,7 +6,9 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid ColumnSpacing="3" RowSpacing="5">
+            <Grid Padding="5"
+                  ColumnSpacing="3"
+                  RowSpacing="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35" />
                     <RowDefinition Height="35" />
@@ -73,7 +75,7 @@
                     </Grid.ColumnDefinitions>
                     <Label Grid.Column="0"
                            Margin="3"
-                           FontSize="Micro"
+                           FontSize="12"
                            Text="Require a transaction for edits"
                            VerticalOptions="Center" />
                     <Switch x:Name="RequireTransactionCheckBox"
@@ -87,11 +89,10 @@
                        Grid.Row="3"
                        Grid.ColumnSpan="4"
                        Margin="5"
-                       FontSize="Micro"
+                       FontSize="12"
                        HorizontalOptions="FillAndExpand"
                        LineBreakMode="CharacterWrap"
                        Text="Generating local geodatabase ..."
-                       TextColor="Blue"
                        VerticalOptions="FillAndExpand" />
                 <ActivityIndicator x:Name="LoadingProgressBar"
                                    Grid.Row="1"

@@ -11,7 +11,9 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <ListView x:Name="MyResultsView" Grid.Row="0" />
+                <ListView x:Name="MyResultsView"
+                          Grid.Row="0"
+                          MaximumHeightRequest="400" />
                 <Label x:Name="Status"
                        Grid.Row="1"
                        Margin="5"

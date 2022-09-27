@@ -33,7 +33,6 @@
                    FontSize="18"
                    HorizontalOptions="Center"
                    Text="Statistics: US States"
-                   TextColor="Blue"
                    VerticalOptions="Center" />
             <Picker x:Name="FieldsComboBox"
                     Title="Field"

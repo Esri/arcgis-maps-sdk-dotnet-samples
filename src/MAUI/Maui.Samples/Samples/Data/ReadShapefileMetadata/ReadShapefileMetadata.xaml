@@ -6,14 +6,15 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid>
+            <Grid Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <ScrollView x:Name="MetadataScrollView"
                             Grid.Row="1"
-                            IsVisible="false">
+                            IsVisible="false"
+                            MaximumHeightRequest="400">
                     <Grid x:Name="InfoGrid">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
@@ -25,13 +26,11 @@
                                Margin="5"
                                FontAttributes="Bold"
                                FontSize="Small"
-                               Text="{Binding Path=Credits}"
-                               TextColor="DarkBlue" />
+                               Text="{Binding Path=Credits}" />
                         <Label Grid.Row="1"
                                FontSize="Micro"
                                LineBreakMode="WordWrap"
-                               Text="{Binding Summary}"
-                               TextColor="Black" />
+                               Text="{Binding Summary}" />
                         <Image x:Name="ShapefileThumbnailImage"
                                Grid.Row="2"
                                Margin="10" />
@@ -44,8 +43,7 @@
                                    Margin="0,3"
                                    FontAttributes="Bold"
                                    FontSize="Micro"
-                                   Text="Tags:"
-                                   TextColor="Black" />
+                                   Text="Tags:" />
                             <ListView Grid.Column="1"
                                       HeightRequest="120"
                                       ItemsSource="{Binding Tags}"

@@ -252,7 +252,7 @@ namespace ArcGISRuntime.Samples.EditFeatureAttachments
                     Stream contentStream = await selectedAttachment.GetDataAsync();
                     imageView.Source = ImageSource.FromStream(() => contentStream);
                     previewPage.Content = imageView;
-                    await Navigation.PushAsync(previewPage);
+                    await Application.Current.MainPage.Navigation.PushAsync(previewPage);
                 }
                 else
                 {

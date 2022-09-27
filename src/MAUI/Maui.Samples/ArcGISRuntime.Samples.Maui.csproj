@@ -98,7 +98,7 @@
 	</ItemGroup>
 
 	<!-- Exclude some samples on mac catalyst -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-maccatalyst')) != true">
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-maccatalyst')) == true">
   	  <AndroidResource Remove="Samples\Geometry\ListTransformations\**" />
 	  <Compile Remove="Samples\Geometry\ListTransformations\**" />
 	  <EmbeddedResource Remove="Samples\Geometry\ListTransformations\**" />

@@ -97,6 +97,16 @@
 	  <None Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	</ItemGroup>
 
+	<!-- Exclude some samples on mac catalyst -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-maccatalyst')) == true">
+  	  <AndroidResource Remove="Samples\Geometry\ListTransformations\**" />
+	  <Compile Remove="Samples\Geometry\ListTransformations\**" />
+	  <EmbeddedResource Remove="Samples\Geometry\ListTransformations\**" />
+	  <MauiCss Remove="Samples\Geometry\ListTransformations\**" />
+	  <MauiXaml Remove="Samples\Geometry\ListTransformations\**" />
+	  <None Remove="Samples\Geometry\ListTransformations\**" />
+	</ItemGroup>
+
     <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
         <Content Include="Resources\*.md">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

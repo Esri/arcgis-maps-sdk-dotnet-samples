@@ -5,10 +5,12 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="125" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
-        <Label x:Name="ResultTextbox" Grid.Row="0" />
+        <Label x:Name="ResultTextbox"
+               Grid.Row="0"
+               Text="Tap on geometry to see relationships." />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>
 </ContentPage>

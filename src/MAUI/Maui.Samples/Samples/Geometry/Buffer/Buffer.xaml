@@ -2,29 +2,16 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.Buffer.Buffer"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border MinimumWidthRequest="400" Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto,auto">
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
+                       Margin="0,5"
                        Text="Tap the map to create Planar and Geodesic buffers" />
                 <Label Grid.Row="1"
                        Grid.Column="0"
@@ -39,25 +26,30 @@
                         Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
+                        Margin="5"
                         Clicked="ClearBuffersButton_Click"
                         Text="Clear" />
-                <Frame x:Name="BufferSwatchPlanar"
-                       Grid.Row="3"
-                       Grid.Column="0"
-                       Margin="5" />
+                <Border x:Name="BufferSwatchPlanar"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Margin="5"
+                        Padding="5" />
                 <Label Grid.Row="3"
                        Grid.Column="1"
+                       Margin="5"
                        Text="Planar buffers"
                        VerticalOptions="Center" />
-                <Frame x:Name="BufferSwatchGeodesic"
-                       Grid.Row="4"
-                       Grid.Column="0"
-                       Margin="5" />
+                <Border x:Name="BufferSwatchGeodesic"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Margin="5"
+                        Padding="5" />
                 <Label Grid.Row="4"
                        Grid.Column="1"
+                       Margin="5"
                        Text="Geodesic buffers"
                        VerticalOptions="Center" />
             </Grid>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

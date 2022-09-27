@@ -21,7 +21,7 @@ namespace ArcGISRuntime.Samples.ChangeEncDisplaySettings
         instructions: "The sample displays an electronic navigational chart when it opens. Use the options to choose variations on colors and symbology.",
         tags: new[] { "ENC", "IHO", "S-52", "S-57", "display", "hydrographic", "hydrography", "layers", "maritime", "nautical chart", "settings", "symbology" })]
     [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
-    public partial class ChangeEncDisplaySettings : ContentPage
+    public partial class ChangeEncDisplaySettings : ContentPage, IDisposable
     {
         public ChangeEncDisplaySettings()
         {
@@ -83,25 +83,11 @@ namespace ArcGISRuntime.Samples.ChangeEncDisplaySettings
 
                 // Set the viewpoint
                 await MyMapView.SetViewpointAsync(new Viewpoint(fullExtent));
-
-                // Subscribe to notifications about leaving so that settings can be reset.
-                // This looks different because of sample viewer plumbing.
-                // Replace `((ArcGISRuntime.SamplePage)this.Parent)` with `this` in your app.
-                ((Page)this.Parent).Disappearing += SampleUnloaded;
             }
             catch (Exception e)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
-        }
-
-        private void SampleUnloaded(object sender, EventArgs e)
-        {
-            // ENC environment settings apply to the entire application
-            // They need to be reset after leaving the sample to avoid affecting other samples
-            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
-            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
-            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
         }
 
         private void UpdateDisplaySettings()
@@ -141,6 +127,15 @@ namespace ArcGISRuntime.Samples.ChangeEncDisplaySettings
         private void Button_Clicked(object sender, EventArgs e)
         {
             UpdateDisplaySettings();
+        }
+
+        public void Dispose()
+        {
+            // ENC environment settings apply to the entire application
+            // They need to be reset after leaving the sample to avoid affecting other samples
+            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
         }
     }
 }

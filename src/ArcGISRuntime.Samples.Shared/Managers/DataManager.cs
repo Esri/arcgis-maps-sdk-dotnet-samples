@@ -232,6 +232,8 @@ namespace ArcGISRuntime.Samples.Managers
             string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #elif XAMARIN
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+#elif MACCATALYST
+            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 #elif MAUI
             string appDataFolder = FileSystem.Current.AppDataDirectory;
 #else

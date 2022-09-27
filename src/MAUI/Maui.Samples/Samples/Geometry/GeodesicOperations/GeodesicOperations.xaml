@@ -10,8 +10,7 @@
         </Grid.RowDefinitions>
         <Label x:Name="ResultsLabel"
                Grid.Row="0"
-               HorizontalTextAlignment="Center"
-               TextColor="Red">
+               HorizontalTextAlignment="Center">
             Tap to set an end point.
         </Label>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />

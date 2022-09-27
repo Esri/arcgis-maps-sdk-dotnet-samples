@@ -1,59 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage x:Class="ArcGISRuntime.Samples.DensifyAndGeneralize.DensifyAndGeneralize"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <sampleViewer:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="{StaticResource DefaultGridRowHeight}" />
-                    <RowDefinition Height="{StaticResource DefaultGridRowHeight}" />
-                    <RowDefinition Height="{StaticResource DefaultGridRowHeight}" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,*"
+                  RowDefinitions="auto,auto,auto">
                 <Label Grid.Row="0"
                        Grid.Column="0"
-                       HorizontalTextAlignment="End"
-                       Style="{StaticResource LabelStyle}"
-                       Text="Generalize" />
+                       Text="Generalize"
+                       VerticalTextAlignment="Center" />
                 <Slider x:Name="DeviationSlider"
                         Grid.Row="0"
                         Grid.Column="1"
+                        Margin="5"
                         Maximum="250"
-                        MaximumTrackColor="CadetBlue"
                         Minimum="1"
-                        MinimumTrackColor="CadetBlue"
                         Value="1" />
                 <Label Grid.Row="1"
                        Grid.Column="0"
-                       HorizontalTextAlignment="End"
-                       Style="{StaticResource LabelStyle}"
-                       Text="Densify" />
+                       Text="Densify"
+                       VerticalTextAlignment="Center" />
                 <Slider x:Name="SegmentLengthSlider"
                         Grid.Row="1"
                         Grid.Column="1"
+                        Margin="5"
                         Maximum="500"
-                        MaximumTrackColor="CadetBlue"
                         Minimum="100"
-                        MinimumTrackColor="CadetBlue"
                         Value="100" />
                 <Label x:Name="ResultLabel"
                        Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
-                       Style="{StaticResource LabelStyle}"
                        Text="Adjust a slider to start." />
             </Grid>
-        </sampleViewer:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

@@ -2,46 +2,34 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.ScenePropertiesExpressions.ScenePropertiesExpressions"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:SceneView x:Name="MySceneView"
-                          Style="{StaticResource MapWithFormStyle}"
-                          ViewInsets="0" />
-        <resources:ResponsiveFormContainer x:Name="FormContainer">
-            <StackLayout>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="200" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0"
-                           Style="{StaticResource LabelStyle}"
-                           Text="Heading:" />
-                    <Slider x:Name="HeadingSlider"
-                            Grid.Column="1"
-                            Maximum="360"
-                            MaximumTrackColor="CadetBlue"
-                            Minimum="0"
-                            MinimumTrackColor="CadetBlue" />
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="200" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0"
-                           Style="{StaticResource LabelStyle}"
-                           Text="Pitch:" />
-                    <Slider x:Name="PitchSlider"
-                            Grid.Column="1"
-                            Maximum="90"
-                            MaximumTrackColor="CadetBlue"
-                            Minimum="-90"
-                            MinimumTrackColor="CadetBlue" />
-                </Grid>
-            </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnDefinitions="auto,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Heading:"
+                       VerticalTextAlignment="Center" />
+                <Slider x:Name="HeadingSlider"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Maximum="360"
+                        Minimum="0" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Pitch:"
+                       VerticalTextAlignment="Center" />
+                <Slider x:Name="PitchSlider"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Maximum="90"
+                        Minimum="-90" />
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>

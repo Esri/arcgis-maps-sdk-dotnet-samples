@@ -18,7 +18,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2.5*" />
                     <ColumnDefinition Width="2.5*" />
-                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="0.5*" />
                     <ColumnDefinition Width="2.5*" />
                 </Grid.ColumnDefinitions>
                 <Button x:Name="StartEditingButton"

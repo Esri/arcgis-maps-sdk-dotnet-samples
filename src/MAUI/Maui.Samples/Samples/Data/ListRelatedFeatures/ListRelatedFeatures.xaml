@@ -5,7 +5,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MaximumHeightRequest="{OnPlatform Android=200, iOS=200, WinUI=-1}" Style="{DynamicResource EsriSampleControlPanel}">
+        <Border MaximumHeightRequest="{OnPlatform Android=150, iOS=150, WinUI=-1}" Style="{DynamicResource EsriSampleControlPanel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />

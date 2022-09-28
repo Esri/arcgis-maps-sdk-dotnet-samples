@@ -44,49 +44,21 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 // Export the image from the map view.
                 RuntimeImage exportedImage = await MyMapView.ExportImageAsync();
 
-                // Create layout for sublayers page
-                // Create root layout
-                StackLayout layout = new StackLayout();
-
-                Button closeButton = new Button
-                {
-                    Text = "Close"
-                };
-                closeButton.Clicked += CloseButton_Clicked;
-
                 // Create image bitmap by getting stream from the exported image.
                 // NOTE: currently broken on UWP due to Xamarin.ArcGISRuntimeMaui bug https://github.com/xamarin/Xamarin.ArcGISRuntimeMaui/issues/5188.
                 var buffer = await exportedImage.GetEncodedBufferAsync();
                 byte[] data = new byte[buffer.Length];
                 buffer.Read(data, 0, data.Length);
                 var bitmap = ImageSource.FromStream(() => new MemoryStream(data));
-                Image image = new Image()
-                {
-                    Source = bitmap,
-                    Margin = new Thickness(10)
-                };
 
                 // Add elements into the layout.
-                layout.Children.Add(closeButton);
-                layout.Children.Add(image);
+                ScreenshotImage.Source = bitmap;
 
-                // Create internal page for the navigation page.
-                ContentPage screenshotPage = new ContentPage()
-                {
-                    Content = layout,
-                    Title = "Screenshot"
-                };
-
-                // Navigate to the sublayers page.
-                await Navigation.PushAsync(screenshotPage);
+                ScreenshotView.IsVisible = true;
             }
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
-            }
-            finally
-            {
-                ScreenshotButton.IsEnabled = true;
             }
         }
 
@@ -132,7 +104,8 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
 
         private void CloseButton_Clicked(object sender, EventArgs e)
         {
-            Navigation.PopAsync();
+            ScreenshotView.IsVisible = false;
+            ScreenshotButton.IsEnabled = true;
         }
     }
 }

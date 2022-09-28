@@ -3,22 +3,25 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0"
-               HorizontalTextAlignment="Center"
-               Text="Tap a year to filter the data." />
-        <Button Grid.Row="1"
-                Clicked="twoThousand_Clicked"
-                Text="2000" />
-        <Button Grid.Row="2"
-                Clicked="twoThousandFive_Clicked"
-                Text="2005" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="3" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid RowSpacing="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                       HorizontalTextAlignment="Center"
+                       Text="Tap a year to filter the data." />
+                <Button Grid.Row="1"
+                        Clicked="twoThousand_Clicked"
+                        Text="2000" />
+                <Button Grid.Row="2"
+                        Clicked="twoThousandFive_Clicked"
+                        Text="2005" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

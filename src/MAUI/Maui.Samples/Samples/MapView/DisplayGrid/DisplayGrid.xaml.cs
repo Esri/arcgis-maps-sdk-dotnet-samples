@@ -38,33 +38,34 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
             // Configure the UI options.
-            gridTypePicker.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
+            GridTypePicker.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
             string[] colorItemsSource = { "Red", "Green", "Blue", "White", "Purple" };
-            gridColorPicker.ItemsSource = colorItemsSource;
-            labelColorPicker.ItemsSource = colorItemsSource;
-            haloColorPicker.ItemsSource = colorItemsSource;
-            labelPositionPicker.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
-            labelFormatPicker.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
+            GridColorPicker.ItemsSource = colorItemsSource;
+            LabelColorPicker.ItemsSource = colorItemsSource;
+            HaloColorPicker.ItemsSource = colorItemsSource;
+            LabelPositionPicker.ItemsSource = Enum.GetNames(typeof(GridLabelPosition));
+            LabelFormatPicker.ItemsSource = Enum.GetNames(typeof(LatitudeLongitudeGridLabelFormat));
 
-            foreach (Picker combo in new Picker[] { gridTypePicker, gridColorPicker, labelColorPicker, labelPositionPicker, labelFormatPicker })
+            foreach (Picker combo in new Picker[] { GridTypePicker, GridColorPicker, LabelColorPicker, LabelPositionPicker, LabelFormatPicker })
             {
                 combo.SelectedIndex = 0;
             }
 
             // Update the halo color to have a good default.
-            haloColorPicker.SelectedIndex = 3;
+            HaloColorPicker.SelectedIndex = 3;
 
             // Handle grid type changes so that the format option can be disabled for non-latlong grids.
-            gridTypePicker.SelectedIndexChanged += (o, e) =>
+            GridTypePicker.SelectedIndexChanged += (o, e) =>
             {
-                labelFormatPicker.IsEnabled = gridTypePicker.SelectedItem.ToString() == "LatLong";
+                LabelFormatPicker.IsEnabled = GridTypePicker.SelectedItem.ToString() == "LatLong";
             };
 
-            // Subscribe to the button click event.
-            applySettingsButton.Clicked += ApplySettingsButton_Clicked;
+            // Subscribe to the button click events.
+            ApplySettingsButton.Clicked += ApplySettingsButton_Clicked;
+            ShowHideSettingsButton.Clicked += ShowHideSettingsButton_Clicked;
 
             // Enable the action button.
-            applySettingsButton.IsEnabled = true;
+            ApplySettingsButton.IsEnabled = true;
 
             // Zoom to a default scale that will show the grid labels if they are enabled.
             MyMapView.SetViewpointCenterAsync(
@@ -74,17 +75,22 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             ApplySettingsButton_Clicked(this, null);
         }
 
+        private void ShowHideSettingsButton_Clicked(object sender, EventArgs e)
+        {
+            SettingsScrollView.IsVisible = !SettingsScrollView.IsVisible;
+        }
+
         private void ApplySettingsButton_Clicked(object sender, EventArgs e)
         {
             Esri.ArcGISRuntime.UI.Grid grid;
 
             // First, update the grid based on the type selected.
-            switch (gridTypePicker.SelectedItem.ToString())
+            switch (GridTypePicker.SelectedItem.ToString())
             {
                 case "LatLong":
                     grid = new LatitudeLongitudeGrid();
                     // Apply the label format setting.
-                    string selectedFormatString = labelFormatPicker.SelectedItem.ToString();
+                    string selectedFormatString = LabelFormatPicker.SelectedItem.ToString();
                     ((LatitudeLongitudeGrid)grid).LabelFormat =
                         (LatitudeLongitudeGridLabelFormat)Enum.Parse(typeof(LatitudeLongitudeGridLabelFormat),
                             selectedFormatString);
@@ -105,26 +111,26 @@ namespace ArcGISRuntime.Samples.DisplayGrid
             }
 
             // Next, apply the label visibility setting.
-            grid.IsLabelVisible = labelVisibilitySwitch.IsToggled;
+            grid.IsLabelVisible = LabelVisibilitySwitch.IsToggled;
 
             // Next, apply the grid visibility setting.
-            grid.IsVisible = gridVisibilitySwitch.IsToggled;
+            grid.IsVisible = GridVisibilitySwitch.IsToggled;
 
             // Next, apply the grid color and label color settings for each zoom level.
             for (long level = 0; level < grid.LevelCount; level++)
             {
                 // Set the line symbol.
                 Symbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid,
-                    Colors.FromName(gridColorPicker.SelectedItem.ToString()), 2);
+                    Colors.FromName(GridColorPicker.SelectedItem.ToString()), 2);
                 grid.SetLineSymbol(level, lineSymbol);
 
                 // Set the text symbol.
                 Symbol textSymbol = new TextSymbol
                 {
-                    Color = Colors.FromName(labelColorPicker.SelectedItem.ToString()),
-                    OutlineColor = Colors.FromName(haloColorPicker.SelectedItem.ToString()),
+                    Color = Colors.FromName(LabelColorPicker.SelectedItem.ToString()),
+                    OutlineColor = Colors.FromName(HaloColorPicker.SelectedItem.ToString()),
                     Size = 16,
-                    HaloColor = Colors.FromName(haloColorPicker.SelectedItem.ToString()),
+                    HaloColor = Colors.FromName(HaloColorPicker.SelectedItem.ToString()),
                     HaloWidth = 3
                 };
                 grid.SetTextSymbol(level, textSymbol);
@@ -132,7 +138,7 @@ namespace ArcGISRuntime.Samples.DisplayGrid
 
             // Next, apply the label position setting.
             grid.LabelPosition =
-                (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), labelPositionPicker.SelectedItem.ToString());
+                (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), LabelPositionPicker.SelectedItem.ToString());
 
             // Apply the updated grid.
             MyMapView.Grid = grid;

@@ -3,26 +3,45 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="150" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
-        <StackLayout Grid.Row="1">
-            <Label Margin="5" Text="Zoom in and out to observe changes in layer status." />
-            <Button x:Name="LoadButton"
-                    Margin="5"
-                    Clicked="LoadButton_Click"
-                    Text="Load layer" />
-            <StackLayout Margin="5" Orientation="Horizontal">
-                <Label FontAttributes="Bold" Text="Visible: " />
-                <Switch x:Name="VisibilityToggle"
-                        IsToggled="True"
-                        Toggled="CheckBox_Checked" />
-                <Label FontAttributes="Bold" Text="Layer display status: " />
-                <Label x:Name="LayerStatusLabel" />
-            </StackLayout>
-        </StackLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Grid.Row="1" RowDefinitions="auto,auto,auto,auto">
+                <Label Grid.Row="0"
+                       Margin="5"
+                       MaximumWidthRequest="200"
+                       Text="Zoom in and out to observe changes in layer status." />
+                <Button x:Name="LoadButton"
+                        Grid.Row="1"
+                        Margin="5"
+                        Clicked="LoadButton_Click"
+                        Text="Load layer" />
+                <Grid Grid.Row="2"
+                      Margin="5"
+                      ColumnDefinitions="auto,auto"
+                      ColumnSpacing="3">
+                    <Label Grid.Column="0"
+                           FontAttributes="Bold"
+                           Text="Visible: "
+                           VerticalOptions="Center" />
+                    <Switch x:Name="VisibilityToggle"
+                            Grid.Column="1"
+                            HorizontalOptions="Start"
+                            IsToggled="True"
+                            Toggled="CheckBox_Checked"
+                            VerticalOptions="Center" />
+                </Grid>
+                <Grid Grid.Row="3"
+                      Margin="5"
+                      ColumnDefinitions="auto, auto"
+                      ColumnSpacing="3">
+                    <Label Grid.Column="0"
+                           FontAttributes="Bold"
+                           HorizontalOptions="Start"
+                           Text="Layer display status: " />
+                    <Label x:Name="LayerStatusLabel" Grid.Column="1" />
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

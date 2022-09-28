@@ -3,8 +3,14 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <StackLayout Orientation="Vertical">
-        <Label Text="Tap and hold to show the magnifier. Note: this only works on touchscreen devices." VerticalOptions="Start" />
-        <esriUI:MapView x:Name="MyMapView" VerticalOptions="FillAndExpand" />
-    </StackLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid RowDefinitions="auto">
+                <Label MaximumWidthRequest="150"
+                       Text="Tap and hold to show the magnifier. Note: this only works on touchscreen devices."
+                       VerticalOptions="Start" />
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>

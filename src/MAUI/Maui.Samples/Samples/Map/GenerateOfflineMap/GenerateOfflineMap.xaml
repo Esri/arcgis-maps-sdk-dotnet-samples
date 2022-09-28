@@ -3,41 +3,25 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
-
-        <Border x:Name="takeOfflineArea"
-                Margin="5"
-                Padding="5"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
-                StrokeShape="RoundRectangle 5"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
-                WidthRequest="250">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
                 <Button x:Name="TakeMapOfflineButton"
                         Clicked="TakeMapOfflineButton_Click"
                         IsEnabled="True"
-                        Text="Take map offline"
-                        WidthRequest="250"/>
-            </StackLayout>
-        </Border>
-
-        <Border x:Name="messageArea"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
-                StrokeShape="RoundRectangle 5"
-                HorizontalOptions="Center"
-                VerticalOptions="Start"
-                WidthRequest="100">
-            <StackLayout>
-                <Label Margin="10"
+                        Text="Take map offline" />
+                <Label x:Name="CompleteMessage"
+                       Margin="10"
                        HorizontalOptions="Center"
-                       Text="Map is offline!"
+                       IsVisible="false"
+                       Text="Map is offline."
                        VerticalOptions="Center" />
             </StackLayout>
         </Border>
-
         <Grid x:Name="busyIndicator"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
               BackgroundColor="#807f7f7f"
               IsVisible="False">
             <Grid HorizontalOptions="Center" VerticalOptions="Center">
@@ -75,6 +59,8 @@
             </Grid>
         </Grid>
         <Grid x:Name="loadingIndicator"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
               BackgroundColor="#807f7f7f"
               IsVisible="True">
             <Grid HorizontalOptions="Center" VerticalOptions="Center">

@@ -169,10 +169,10 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMap
                 MyMapView.InteractionOptions.IsEnabled = true;
 
                 // Hide the "Take map offline" button.
-                takeOfflineArea.IsVisible = false;
+                TakeMapOfflineButton.IsVisible = false;
 
                 // Show a message that the map is offline.
-                messageArea.IsVisible = true;
+                CompleteMessage.IsVisible = true;
             }
             catch (TaskCanceledException)
             {

@@ -5,7 +5,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
+        <Border MaximumWidthRequest="300" Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   ColumnSpacing="3"
                   RowSpacing="5">
@@ -16,10 +16,10 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="80" />
-                    <ColumnDefinition Width="30" />
-                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="2.5*" />
+                    <ColumnDefinition Width="2.5*" />
+                    <ColumnDefinition Width="1.5*" />
+                    <ColumnDefinition Width="2.5*" />
                 </Grid.ColumnDefinitions>
                 <Button x:Name="StartEditingButton"
                         Grid.Row="0"

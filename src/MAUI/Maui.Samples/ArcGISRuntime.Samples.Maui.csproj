@@ -185,6 +185,14 @@
 
 	<!-- Excluded categories (Untested and not updated)-->
 	<ItemGroup>
+
+	  <AndroidResource Remove="Samples\Layers\*\**" />
+	  <Compile Remove="Samples\Layers\*\**" />
+	  <EmbeddedResource Remove="Samples\Layers\*\**" />
+	  <MauiCss Remove="Samples\Layers\*\**" />
+	  <MauiXaml Remove="Samples\Layers\*\**" />
+	  <None Remove="Samples\Layers\*\**" />
+
 	  <AndroidResource Remove="Samples\Scene\*\**" />
 	  <Compile Remove="Samples\Scene\*\**" />
 	  <EmbeddedResource Remove="Samples\Scene\*\**" />

@@ -50,9 +50,8 @@
     <ItemGroup>
         <Using Remove="Microsoft.Maui.ApplicationModel" />
     </ItemGroup>
-
+	<!-- Excluded due to missing toolkit components -->
 	<ItemGroup>
-      <!-- Excluded due to missing toolkit components -->
 	  <AndroidResource Remove="Samples\Layers\ShowPopup\**" />
 	  <AndroidResource Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
@@ -89,12 +88,6 @@
 	  <None Remove="Samples\Map\ChangeBasemap\**" />
 	  <None Remove="Samples\Map\DisplayOverviewMap\**" />
 	  <None Remove="Samples\Location\IndoorPositioning\**" />
-	  <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <Compile Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <EmbeddedResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <MauiCss Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <MauiXaml Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <None Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	</ItemGroup>
 
 	<!-- Exclude some samples on mac catalyst -->
@@ -105,6 +98,44 @@
 	  <MauiCss Remove="Samples\Geometry\ListTransformations\**" />
 	  <MauiXaml Remove="Samples\Geometry\ListTransformations\**" />
 	  <None Remove="Samples\Geometry\ListTransformations\**" />
+
+	  <AndroidResource Remove="Samples\Map\MapReferenceScale\**" />
+	  <Compile Remove="Samples\Map\MapReferenceScale\**" />
+	  <EmbeddedResource Remove="Samples\Map\MapReferenceScale\**" />
+	  <MauiCss Remove="Samples\Map\MapReferenceScale\**" />
+	  <MauiXaml Remove="Samples\Map\MapReferenceScale\**" />
+	  <None Remove="Samples\Map\MapReferenceScale\**" />
+	</ItemGroup>
+
+	<!-- Excluded due to functional issues -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-maccatalyst')) == true">
+  	  <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <Compile Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <EmbeddedResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <MauiCss Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <MauiXaml Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+	  <None Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
+
+	  <AndroidResource Remove="Samples\Map\AuthorMap\**" />
+	  <Compile Remove="Samples\Map\AuthorMap\**" />
+	  <EmbeddedResource Remove="Samples\Map\AuthorMap\**" />
+	  <MauiCss Remove="Samples\Map\AuthorMap\**" />
+	  <MauiXaml Remove="Samples\Map\AuthorMap\**" />
+	  <None Remove="Samples\Map\AuthorMap\**" />
+
+	  <AndroidResource Remove="Samples\Map\GenerateOfflineMapWithOverrides\**" />
+	  <Compile Remove="Samples\Map\GenerateOfflineMapWithOverrides\**" />
+	  <EmbeddedResource Remove="Samples\Map\GenerateOfflineMapWithOverrides\**" />
+	  <MauiCss Remove="Samples\Map\GenerateOfflineMapWithOverrides\**" />
+	  <MauiXaml Remove="Samples\Map\GenerateOfflineMapWithOverrides\**" />
+	  <None Remove="Samples\Map\GenerateOfflineMapWithOverrides\**" />
+
+	  <AndroidResource Remove="Samples\Map\SearchPortalMaps\**" />
+	  <Compile Remove="Samples\Map\SearchPortalMaps\**" />
+	  <EmbeddedResource Remove="Samples\Map\SearchPortalMaps\**" />
+	  <MauiCss Remove="Samples\Map\SearchPortalMaps\**" />
+	  <MauiXaml Remove="Samples\Map\SearchPortalMaps\**" />
+	  <None Remove="Samples\Map\SearchPortalMaps\**" />
 	</ItemGroup>
 
     <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

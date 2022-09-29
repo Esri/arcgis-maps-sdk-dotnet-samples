@@ -8,42 +8,44 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <VerticalStackLayout Padding="5">
-                <Label Text="Choose a map reference scale:" />
-                <!--  When the user's selection changes, the SelectedItem binding will apply the value to the Map's ReferenceScale property.  -->
-                <Picker x:Name="ReferenceScaleBox"
-                        Margin="5"
-                        BindingContext="{x:Reference MyMapView}"
-                        ItemDisplayBinding="{Binding StringFormat='{0:n0}'}"
-                        SelectedItem="{Binding Path=Map.ReferenceScale}"
-                        VerticalOptions="Center" />
-                <Label Text="Choose layers to apply scale to:" />
-                <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->
-                <ListView Margin="5"
-                          BindingContext="{x:Reference MyMapView}"
-                          ItemsSource="{Binding Path=Map.OperationalLayers}"
-                          SelectionMode="None"
-                          VerticalOptions="Center">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <!--
-                                    When the user interacts with the switch,
-                                    the two-way binding will update the ScaleSymbols (bool) property automatically.
-                                -->
-                                <StackLayout Orientation="Horizontal">
-                                    <Switch IsToggled="{Binding ScaleSymbols}" VerticalOptions="Center" />
-                                    <Label HorizontalOptions="EndAndExpand"
-                                           HorizontalTextAlignment="End"
-                                           Text="{Binding Name}"
-                                           VerticalOptions="Center" />
-                                </StackLayout>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <Label BindingContext="{x:Reference MyMapView}" Text="{Binding Path=MapScale, Mode=OneWay, StringFormat='Current map scale: {0:n0}'}" />
-            </VerticalStackLayout>
+            <ScrollView Padding="5">
+                <VerticalStackLayout>
+                    <Label Text="Choose a map reference scale:" />
+                    <!--  When the user's selection changes, the SelectedItem binding will apply the value to the Map's ReferenceScale property.  -->
+                    <Picker x:Name="ReferenceScaleBox"
+                            Margin="5"
+                            BindingContext="{x:Reference MyMapView}"
+                            ItemDisplayBinding="{Binding StringFormat='{0:n0}'}"
+                            SelectedItem="{Binding Path=Map.ReferenceScale}"
+                            VerticalOptions="Center" />
+                    <Label Text="Choose layers to apply scale to:" />
+                    <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->
+                    <ListView Margin="5"
+                              BindingContext="{x:Reference MyMapView}"
+                              ItemsSource="{Binding Path=Map.OperationalLayers}"
+                              SelectionMode="None"
+                              VerticalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <!--
+                                        When the user interacts with the switch,
+                                        the two-way binding will update the ScaleSymbols (bool) property automatically.
+                                    -->
+                                    <StackLayout Orientation="Horizontal">
+                                        <Switch IsToggled="{Binding ScaleSymbols}" VerticalOptions="Center" />
+                                        <Label HorizontalOptions="EndAndExpand"
+                                               HorizontalTextAlignment="End"
+                                               Text="{Binding Name}"
+                                               VerticalOptions="Center" />
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Label BindingContext="{x:Reference MyMapView}" Text="{Binding Path=MapScale, Mode=OneWay, StringFormat='Current map scale: {0:n0}'}" />
+                </VerticalStackLayout>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

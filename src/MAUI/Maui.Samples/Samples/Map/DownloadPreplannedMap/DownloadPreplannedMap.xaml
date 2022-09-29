@@ -40,7 +40,7 @@
                     <Button x:Name="DownloadButton"
                             Clicked="OnDownloadMapAreaClicked"
                             Text="Download"
-                            WidthRequest="90" />
+                            WidthRequest="100" />
                     <Button Clicked="OnDeleteAllMapAreasClicked" Text="Delete all" />
                     <Button x:Name="ShowOnlineButton"
                             Clicked="ShowOnlineButton_Clicked"

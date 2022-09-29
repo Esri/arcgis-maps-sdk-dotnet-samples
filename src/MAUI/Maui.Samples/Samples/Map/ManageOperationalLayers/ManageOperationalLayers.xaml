@@ -35,33 +35,35 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <VerticalStackLayout Padding="5" Spacing="5">
-                <Label HeightRequest="30" Text="Use the buttons to re-arrange layers." />
-                <Label FontAttributes="Bold"
-                       HeightRequest="30"
-                       HorizontalTextAlignment="Center"
-                       Text="Layers in map" />
-                <!--
-                    Item template defined in UserControl.Resources above specifies that each listbox
-                    item's content consists of a label with the layer's Name and three buttons.
-                -->
-                <ListView x:Name="IncludedListView"
-                          HeightRequest="140"
-                          ItemTemplate="{StaticResource LayerListTemplate}"
-                          VerticalOptions="Start" />
-                <Label FontAttributes="Bold"
-                       HeightRequest="30"
-                       HorizontalTextAlignment="Center"
-                       Text="Layers not in map" />
-                <!--
-                    Item template defined in UserControl.Resources above specifies that each listbox
-                    item's content consists of a label with the layer's Name and three buttons.
-                -->
-                <ListView x:Name="ExcludedListView"
-                          HeightRequest="130"
-                          ItemTemplate="{StaticResource LayerListTemplate}"
-                          VerticalOptions="Start" />
-            </VerticalStackLayout>
+            <ScrollView>
+                <VerticalStackLayout Padding="5" Spacing="5">
+                    <Label HeightRequest="30" Text="Use the buttons to re-arrange layers." />
+                    <Label FontAttributes="Bold"
+                           HeightRequest="30"
+                           HorizontalTextAlignment="Center"
+                           Text="Layers in map" />
+                    <!--
+                        Item template defined in UserControl.Resources above specifies that each listbox
+                        item's content consists of a label with the layer's Name and three buttons.
+                    -->
+                    <ListView x:Name="IncludedListView"
+                              HeightRequest="140"
+                              ItemTemplate="{StaticResource LayerListTemplate}"
+                              VerticalOptions="Start" />
+                    <Label FontAttributes="Bold"
+                           HeightRequest="30"
+                           HorizontalTextAlignment="Center"
+                           Text="Layers not in map" />
+                    <!--
+                        Item template defined in UserControl.Resources above specifies that each listbox
+                        item's content consists of a label with the layer's Name and three buttons.
+                    -->
+                    <ListView x:Name="ExcludedListView"
+                              HeightRequest="130"
+                              ItemTemplate="{StaticResource LayerListTemplate}"
+                              VerticalOptions="Start" />
+                </VerticalStackLayout>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

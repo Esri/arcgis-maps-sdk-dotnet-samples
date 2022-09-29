@@ -15,38 +15,42 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <VerticalStackLayout Spacing="5">
-                <Label LineBreakMode="WordWrap" Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout." />
-                <ListView x:Name="MapListView"
-                          HeightRequest="230"
-                          ItemSelected="Map_Selected"
-                          RowHeight="75">
-                    <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="mapping:Map">
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
-                                    <Image Grid.Column="1"
-                                           Margin="5"
-                                           HeightRequest="25"
-                                           IsVisible="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}"
-                                           Source="routingsymbol.png"
-                                           WidthRequest="25" />
-                                    <Label Grid.Column="2"
-                                           HorizontalTextAlignment="End"
-                                           Text="{Binding Item.Title}"
-                                           VerticalTextAlignment="Center" />
-                                </Grid>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </VerticalStackLayout>
+            <ScrollView>
+                <VerticalStackLayout Spacing="5">
+                    <Label LineBreakMode="WordWrap"
+                           MaximumWidthRequest="300"
+                           Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout." />
+                    <ListView x:Name="MapListView"
+                              HeightRequest="230"
+                              ItemSelected="Map_Selected"
+                              RowHeight="75">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="mapping:Map">
+                                <ViewCell>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
+                                        <Image Grid.Column="1"
+                                               Margin="5"
+                                               HeightRequest="25"
+                                               IsVisible="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}"
+                                               Source="routingsymbol.png"
+                                               WidthRequest="25" />
+                                        <Label Grid.Column="2"
+                                               HorizontalTextAlignment="End"
+                                               Text="{Binding Item.Title}"
+                                               VerticalTextAlignment="Center" />
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </VerticalStackLayout>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

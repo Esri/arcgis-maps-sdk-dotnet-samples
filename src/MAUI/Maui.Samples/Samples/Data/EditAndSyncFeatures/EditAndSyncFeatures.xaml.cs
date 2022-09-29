@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 Map myMap = new Map(sfBasemap);
 
                 // Assign the map to the MapView.
-                myMapView.Map = myMap;
+                MyMapView.Map = myMap;
 
                 // Create a new symbol for the extent graphic.
                 SimpleLineSymbol lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Colors.Red, 2);
@@ -90,10 +90,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 };
 
                 // Add the graphics overlay to the map view.
-                myMapView.GraphicsOverlays.Add(extentOverlay);
+                MyMapView.GraphicsOverlays.Add(extentOverlay);
 
                 // Set up an event handler for when the viewpoint (extent) changes.
-                myMapView.ViewpointChanged += MapViewExtentChanged;
+                MyMapView.ViewpointChanged += MapViewExtentChanged;
 
                 // Create a task for generating a geodatabase (GeodatabaseSyncTask).
                 _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
@@ -127,7 +127,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 UpdateMapExtent();
 
                 // Enable the generate button now that sample is ready.
-                myGenerateButton.IsEnabled = true;
+                MyGenerateButton.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -149,7 +149,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     List<Feature> selectedFeatures = new List<Feature>();
 
                     // Get all selected features then clear selection.
-                    foreach (FeatureLayer layer in myMapView.Map.OperationalLayers)
+                    foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
                     {
                         // Get the selected features.
                         FeatureQueryResult layerFeatures = await layer.GetSelectedFeaturesAsync();
@@ -184,7 +184,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     _readyForEdits = EditState.Ready;
 
                     // Enable the sync button.
-                    mySyncButton.IsEnabled = true;
+                    MySyncButton.IsEnabled = true;
 
                     // Update the help label.
                     MyHelpLabel.Text = "4. Click 'Synchronize' or keep editing";
@@ -193,7 +193,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 else
                 {
                     // Define a tolerance for use with identifying the feature.
-                    double tolerance = 15 * myMapView.UnitsPerPixel;
+                    double tolerance = 15 * MyMapView.UnitsPerPixel;
 
                     // Define the selection envelope.
                     Envelope selectionEnvelope = new Envelope(e.Location.X - tolerance, e.Location.Y - tolerance, e.Location.X + tolerance, e.Location.Y + tolerance);
@@ -208,7 +208,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     bool selectedFeature = false;
 
                     // Select the feature in all applicable tables.
-                    foreach (FeatureLayer layer in myMapView.Map.OperationalLayers)
+                    foreach (FeatureLayer layer in MyMapView.Map.OperationalLayers)
                     {
                         FeatureQueryResult res = await layer.SelectFeaturesAsync(query, Esri.ArcGISRuntime.Mapping.SelectionMode.New);
                         selectedFeature = selectedFeature || res.Any();
@@ -234,10 +234,10 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private void UpdateMapExtent()
         {
             // Return if mapview is null.
-            if (myMapView == null) { return; }
+            if (MyMapView == null) { return; }
 
             // Get the new viewpoint.
-            Viewpoint myViewPoint = myMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
+            Viewpoint myViewPoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry);
 
             // Return if viewpoint is null.
             if (myViewPoint == null) { return; }
@@ -253,7 +253,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             envelopeBldr.Expand(0.80);
 
             // Get the (only) graphics overlay in the map view.
-            GraphicsOverlay extentOverlay = myMapView.GraphicsOverlays.FirstOrDefault();
+            GraphicsOverlay extentOverlay = MyMapView.GraphicsOverlays.FirstOrDefault();
 
             // Return if the extent overlay is null.
             if (extentOverlay == null) { return; }
@@ -283,7 +283,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);
 
             // Get the (only) graphic in the map view.
-            Graphic redPreviewBox = myMapView.GraphicsOverlays.First().Graphics.First();
+            Graphic redPreviewBox = MyMapView.GraphicsOverlays.First().Graphics.First();
 
             // Get the current extent of the red preview box.
             Envelope extent = redPreviewBox.Geometry as Envelope;
@@ -295,7 +295,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, _gdbPath);
 
             // Show the progress bar.
-            myProgressBar.IsVisible = true;
+            MyProgressBarGrid.IsVisible = true;
 
             // Handle the progress changed event with an inline (lambda) function to show the progress bar.
             generateGdbJob.ProgressChanged += (sender, e) =>
@@ -304,7 +304,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                 GenerateGeodatabaseJob job = (GenerateGeodatabaseJob)sender;
 
                 // Update the progress bar.
-                UpdateProgressBar(job.Progress);
+                UpdateProgress(job.Progress);
             };
 
             // Start the job.
@@ -314,7 +314,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             _resultGdb = await generateGdbJob.GetResultAsync();
 
             // Hide the progress bar.
-            myProgressBar.IsVisible = false;
+            MyProgressBarGrid.IsVisible = false;
 
             // Handle the job completion.
             await HandleGenerationStatusChange(generateGdbJob);
@@ -326,7 +326,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             if (job.Status == JobStatus.Succeeded)
             {
                 // Clear out the existing layers.
-                myMapView.Map.OperationalLayers.Clear();
+                MyMapView.Map.OperationalLayers.Clear();
 
                 // Loop through all feature tables in the geodatabase and add a new layer to the map.
                 foreach (GeodatabaseFeatureTable table in _resultGdb.GeodatabaseFeatureTables)
@@ -342,7 +342,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
                     FeatureLayer layer = new FeatureLayer(table);
 
                     // Add the new layer to the map.
-                    myMapView.Map.OperationalLayers.Add(layer);
+                    MyMapView.Map.OperationalLayers.Add(layer);
                 }
 
                 // Enable editing features.
@@ -408,14 +408,14 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             // Subscribe to progress updates.
             job.ProgressChanged += (o, e) =>
             {
-                UpdateProgressBar(job.Progress);
+                UpdateProgress(job.Progress);
             };
 
             // Show the progress bar.
-            myProgressBar.IsVisible = true;
+            MyProgressBarGrid.IsVisible = true;
 
             // Disable the sync button.
-            mySyncButton.IsEnabled = false;
+            MySyncButton.IsEnabled = false;
 
             // Start the sync.
             job.Start();
@@ -424,13 +424,13 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             await job.GetResultAsync();
 
             // Hide the progress bar.
-            myProgressBar.IsVisible = false;
+            MyProgressBarGrid.IsVisible = false;
 
             // Do the rest of the work.
             HandleSyncCompleted(job);
 
             // Re-enable the sync button.
-            mySyncButton.IsEnabled = true;
+            MySyncButton.IsEnabled = true;
         }
 
         private void HandleSyncCompleted(SyncGeodatabaseJob job)
@@ -469,12 +469,12 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
         private async void GenerateButton_Clicked(object sender, EventArgs e)
         {
             // Fix the selection graphic extent.
-            myMapView.ViewpointChanged -= MapViewExtentChanged;
+            MyMapView.ViewpointChanged -= MapViewExtentChanged;
 
             // Disable the generate button.
             try
             {
-                myGenerateButton.IsEnabled = false;
+                MyGenerateButton.IsEnabled = false;
 
                 // Call the geodatabase generation method.
                 await StartGeodatabaseGeneration();
@@ -491,7 +491,7 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             UpdateMapExtent();
         }
 
-        private void UpdateProgressBar(int progress)
+        private void UpdateProgress(int progress)
         {
             // Due to the nature of the threading implementation,
             //     the dispatcher needs to be used to interact with the UI.
@@ -499,7 +499,8 @@ namespace ArcGISRuntime.Samples.EditAndSyncFeatures
             Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Update the progress bar value.
-                myProgressBar.Progress = progress / 100.0;
+                MyProgressBar.Progress = progress / 100.0;
+                MyProgressLabel.Text = $"{progress}%";
             });
         }
 

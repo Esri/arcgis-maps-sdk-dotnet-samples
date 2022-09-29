@@ -3,35 +3,47 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Label x:Name="MyHelpLabel"
-               Grid.Row="0"
-               LineBreakMode="TailTruncation"
-               Text="1. Click 'generate'"
-               TextColor="Red" />
-        <Button x:Name="myGenerateButton"
-                Grid.Row="1"
-                Clicked="GenerateButton_Clicked"
-                IsEnabled="False"
-                Text="Generate" />
-        <Button x:Name="mySyncButton"
-                Grid.Row="2"
-                Clicked="SyncButton_Click"
-                IsEnabled="False"
-                Text="Synchronize" />
-        <ProgressBar x:Name="myProgressBar"
-                     Grid.Row="3"
-                     IsVisible="False"
-                     MinimumHeightRequest="10" />
-        <esriUI:MapView x:Name="myMapView"
-                        Grid.Row="4"
-                        GeoViewTapped="GeoViewTapped" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="GeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5" RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label x:Name="MyHelpLabel"
+                       Grid.Row="0"
+                       LineBreakMode="TailTruncation"
+                       Text="1. Click 'generate'" />
+                <Button x:Name="MyGenerateButton"
+                        Grid.Row="1"
+                        Clicked="GenerateButton_Clicked"
+                        IsEnabled="False"
+                        Text="Generate" />
+                <Button x:Name="MySyncButton"
+                        Grid.Row="2"
+                        Clicked="SyncButton_Click"
+                        IsEnabled="False"
+                        Text="Synchronize" />
+                <Grid x:Name="MyProgressBarGrid"
+                      Grid.Row="3"
+                      ColumnSpacing="5"
+                      IsVisible="false">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <ProgressBar x:Name="MyProgressBar"
+                                 Grid.Column="0"
+                                 Margin="5,5,10,0"
+                                 MinimumHeightRequest="10" />
+                    <Label x:Name="MyProgressLabel" Grid.Column="1" />
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

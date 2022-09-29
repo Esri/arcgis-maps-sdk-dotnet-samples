@@ -7,26 +7,29 @@
         <Frame x:Name="FeatureAttributesPopup"
                Margin="30"
                Padding="0"
-               BackgroundColor="White"
                CornerRadius="0"
                HorizontalOptions="Center"
                IsVisible="False"
                VerticalOptions="Start"
                WidthRequest="300">
-            <StackLayout Margin="5">
-                <Label Text="Status" />
-                <Picker x:Name="StatusPicker" />
-                <Label Text="Protection" />
-                <Picker x:Name="ProtectionPicker" />
-                <Label Text="Buffer Size" />
+            <StackLayout Margin="5"
+                         Padding="15"
+                         Spacing="5">
+                <Picker x:Name="StatusPicker"
+                        Title="Select Status"
+                        WidthRequest="240" />
+                <Picker x:Name="ProtectionPicker"
+                        Title="Select Protection"
+                        WidthRequest="240" />
+                <Label Margin="15,0" Text="Buffer Size" />
                 <StackLayout Orientation="Horizontal">
                     <Slider x:Name="BufferSizeSlider"
                             MaximumTrackColor="Gray"
                             MinimumTrackColor="Gray"
                             ValueChanged="BufferSizeSlider_ValueChanged"
-                            WidthRequest="250" />
+                            WidthRequest="240" />
                     <Label x:Name="BufferSizeLabel"
-                           Margin="0,0"
+                           Margin="10,0"
                            HeightRequest="20"
                            WidthRequest="40" />
                 </StackLayout>
@@ -36,12 +39,12 @@
                         Clicked="SaveButton_Clicked"
                         HorizontalOptions="Center"
                         Text="Save"
-                        WidthRequest="300" />
+                        WidthRequest="240" />
                 <Button x:Name="DiscardButton"
                         Clicked="DiscardButton_Clicked"
                         HorizontalOptions="Center"
                         Text="Discard"
-                        WidthRequest="300" />
+                        WidthRequest="240" />
             </StackLayout>
         </Frame>
     </Grid>

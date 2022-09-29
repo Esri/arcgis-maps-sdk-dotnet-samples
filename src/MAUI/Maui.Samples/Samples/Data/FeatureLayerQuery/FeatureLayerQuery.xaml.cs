@@ -74,10 +74,10 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
             myMap.OperationalLayers.Add(_featureLayer);
 
             // Set the selection color
-            myMapView.SelectionProperties.Color = Color.Cyan;
+            MyMapView.SelectionProperties.Color = Color.Cyan;
 
             // Assign the map to the MapView
-            myMapView.Map = myMap;
+            MyMapView.Map = myMap;
         }
 
         private void OnQueryClicked(object sender, EventArgs e)
@@ -124,7 +124,7 @@ namespace ArcGISRuntime.Samples.FeatureLayerQuery
                     }
 
                     // Zoom to the extent of the selected feature(s).
-                    await myMapView.SetViewpointGeometryAsync(envBuilder.ToGeometry(), 50);
+                    await MyMapView.SetViewpointGeometryAsync(envBuilder.ToGeometry(), 50);
                 }
                 else
                 {

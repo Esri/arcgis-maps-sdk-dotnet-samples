@@ -3,18 +3,21 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="150" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <ListView x:Name="MyResultsView" Grid.Row="0" />
-        <Label x:Name="Status"
-               Grid.Row="1"
-               Margin="5"
-               HorizontalOptions="FillAndExpand"
-               Text="Tap a park (green) to see related features." />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border MaximumHeightRequest="{OnPlatform Android=150, iOS=150, WinUI=-1}" Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label x:Name="Status"
+                       Grid.Row="0"
+                       Margin="5"
+                       HorizontalOptions="FillAndExpand"
+                       Text="Tap a park (green) to see related features." />
+                <ListView x:Name="MyResultsView" Grid.Row="1" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

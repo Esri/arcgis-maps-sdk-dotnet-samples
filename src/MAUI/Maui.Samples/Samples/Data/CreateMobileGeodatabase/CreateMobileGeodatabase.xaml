@@ -1,52 +1,53 @@
 ﻿<ContentPage x:Class="ArcGISRuntime.Samples.CreateMobileGeodatabase.CreateMobileGeodatabase"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView" Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout>
-                <Label x:Name="FeaturesLabel" Text="Number of features added: " />
-                <StackLayout Orientation="Horizontal">
-                    <Button Margin="5"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="{OnIdiom Default=-1}">
+            <Grid RowDefinitions="auto,auto">
+                <Label x:Name="FeaturesLabel"
+                       Grid.Row="0"
+                       Margin="5,0"
+                       Text="Number of features added: " />
+                <Grid Grid.Row="1" ColumnDefinitions="auto,auto,*">
+                    <Button Grid.Column="0"
+                            Margin="5"
                             Clicked="ViewTable"
                             HorizontalOptions="FillAndExpand"
                             Text="View table" />
                     <Button x:Name="CreateGdbButton"
+                            Grid.Column="1"
                             Margin="5"
                             Clicked="CreateGdbButton_Click"
                             HorizontalOptions="FillAndExpand"
                             IsEnabled="False"
-                            Text="Create new GDB" />
+                            Text="Create GDB" />
                     <Button x:Name="CloseGdbButton"
+                            Grid.Column="2"
                             Margin="5"
                             Clicked="CloseGeodatabaseClick"
                             HorizontalOptions="FillAndExpand"
                             Text="Close and share" />
-                </StackLayout>
-            </StackLayout>
-        </resources:ResponsiveFormContainer>
-        <Frame x:Name="TableFrame"
-               Padding="0"
-               BackgroundColor="White"
-               CornerRadius="0"
-               IsVisible="False"
-               cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                      Factor=.9,
-                                                                      Property=Height}"
-               cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                     Factor=.9,
-                                                                     Property=Width}"
-               cmp:RelativeLayout.XConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                 Factor=.05,
-                                                                 Property=Width}"
-               cmp:RelativeLayout.YConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                 Factor=.05,
-                                                                 Property=Height}">
-            <StackLayout>
-                <ListView x:Name="FeatureListView">
+                </Grid>
+            </Grid>
+        </Border>
+        <Border x:Name="TableFrame"
+                Grid.Row="{OnIdiom Default=0,
+                                   Desktop=1}"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Padding="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                  Dark=#303030}"
+                HeightRequest="{OnIdiom Default=-1,
+                                        Desktop=300}"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                WidthRequest="{OnIdiom Default=-1,
+                                       Desktop=450}">
+            <Grid RowDefinitions="*,auto">
+                <ListView x:Name="FeatureListView" Grid.Row="0">
                     <ListView.Header>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -86,10 +87,11 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button Margin="5"
+                <Button Grid.Row="1"
+                        Margin="5"
                         Clicked="CloseTable"
                         Text="Close" />
-            </StackLayout>
-        </Frame>
-    </cmp:RelativeLayout>
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>

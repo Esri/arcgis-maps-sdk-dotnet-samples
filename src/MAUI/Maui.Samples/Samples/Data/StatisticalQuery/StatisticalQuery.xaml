@@ -3,62 +3,69 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="3*" />
-            </Grid.ColumnDefinitions>
-            <Switch x:Name="OnlyInExtentSwitch"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalOptions="End" />
-            <Label Grid.Row="0"
-                   Grid.Column="1"
-                   Margin="10,0"
-                   Text="Cities in current extent"
-                   VerticalOptions="Center" />
-            <Switch x:Name="OnlyBigCitiesSwitch"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    HorizontalOptions="End" />
-            <Label Grid.Row="1"
-                   Grid.Column="1"
-                   Margin="10,0"
-                   Text="Cities larger than 5M"
-                   VerticalOptions="Center" />
-            <Button x:Name="GetStatsButton"
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="5,0"
-                    Clicked="OnExecuteStatisticsQueryClicked"
-                    Text="Get Statistics" />
-        </Grid>
-
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
-        <Grid x:Name="ResultsGrid"
-              Grid.Row="1"
-              BackgroundColor="Gainsboro"
-              IsVisible="False">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="50" />
-            </Grid.RowDefinitions>
-            <ListView x:Name="StatResultsList" />
-            <Button Grid.Row="1"
-                    Margin="5"
-                    Clicked="HideResults"
-                    Text="Dismiss" />
-        </Grid>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5" ColumnSpacing="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Switch x:Name="OnlyInExtentSwitch"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalOptions="End" />
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Margin="10,0"
+                       HorizontalOptions="Start"
+                       Text="Cities in current extent"
+                       VerticalOptions="Center" />
+                <Switch x:Name="OnlyBigCitiesSwitch"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalOptions="End" />
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Margin="10,0"
+                       HorizontalOptions="Start"
+                       Text="Cities larger than 5M"
+                       VerticalOptions="Center" />
+                <Button x:Name="GetStatsButton"
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="5,0"
+                        Clicked="OnExecuteStatisticsQueryClicked"
+                        Text="Get Statistics" />
+            </Grid>
+        </Border>
+        <Border x:Name="ResultsGrid"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Background="{AppThemeBinding Light=#dfdfdf,
+                                             Dark=#303030}"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                MaximumWidthRequest="300"
+                StrokeShape="roundrectangle 10"
+                VerticalOptions="Center">
+            <Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <ListView x:Name="StatResultsList" HeightRequest="150" />
+                <Button Grid.Row="1"
+                        Margin="5"
+                        Clicked="HideResults"
+                        Text="Dismiss" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

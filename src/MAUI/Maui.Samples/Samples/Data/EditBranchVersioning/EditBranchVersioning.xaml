@@ -1,24 +1,37 @@
 ﻿<ContentPage x:Class="ArcGISRuntime.Samples.EditBranchVersioning.EditBranchVersioning"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid>
-                <StackLayout x:Name="DefaultView">
-                    <Label Text="Tap to select a feature." />
-                    <Label x:Name="CurrentVersionLabel" Text="Current version:" />
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="DefaultView"
+                      Grid.Row="0"
+                      RowSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Text="Tap to select a feature." />
+                    <Label x:Name="CurrentVersionLabel"
+                           Grid.Row="1"
+                           Text="Current version:" />
                     <Button x:Name="CreateVersionButton"
+                            Grid.Row="2"
                             Clicked="VersionButtonClicked"
                             IsEnabled="False"
                             Text="Create version" />
-                </StackLayout>
-                <Grid x:Name="VersionView" IsVisible="false">
+                </Grid>
+                <Grid x:Name="VersionView"
+                      Grid.Row="1"
+                      IsVisible="false">
                     <Grid.RowDefinitions>
                         <RowDefinition />
                         <RowDefinition />
@@ -61,24 +74,39 @@
                             Clicked="CancelVersionClick"
                             Text="Cancel" />
                 </Grid>
-                <StackLayout x:Name="AttributeView" IsVisible="false">
+                <Grid x:Name="AttributeView"
+                      Grid.Row="2"
+                      IsVisible="false">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
                     <Label x:Name="MoveText"
+                           Grid.Row="0"
                            Margin="5"
                            Text="Tap to move feature." />
-                    <StackLayout Orientation="Horizontal">
-                        <Label Margin="5"
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               Margin="5"
                                Text="Damage:"
                                VerticalOptions="Center" />
                         <Picker x:Name="DamageBox"
+                                Grid.Column="1"
                                 Margin="5"
                                 VerticalOptions="Center" />
-                    </StackLayout>
+                    </Grid>
                     <Button x:Name="CloseButton"
+                            Grid.Row="2"
                             Margin="5"
                             Clicked="CloseAttributeClick"
                             Text="Close" />
-                </StackLayout>
+                </Grid>
             </Grid>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

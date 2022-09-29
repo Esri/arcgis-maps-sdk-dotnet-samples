@@ -3,16 +3,15 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Button x:Name="MyRendererButton"
-                Grid.Row="0"
-                Clicked="Button_Clicked"
-                IsEnabled="False"
-                Text="Change Renderer" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid>
+                <Button x:Name="MyRendererButton"
+                        Clicked="Button_Clicked"
+                        IsEnabled="False"
+                        Text="Change Renderer" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

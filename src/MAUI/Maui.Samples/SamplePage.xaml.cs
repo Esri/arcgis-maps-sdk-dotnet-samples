@@ -24,6 +24,8 @@ namespace ArcGISRuntimeMaui
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
+            this.NavigatedFrom += NavigatedFromEvent;
+
             // Set the sample variable.
             _sample = sample;
 
@@ -91,11 +93,14 @@ namespace ArcGISRuntimeMaui
             }
         }
 
-        protected override bool OnBackButtonPressed()
+        private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)
         {
-            if (_sample is IDisposable disposableSample) disposableSample.Dispose();
-            if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
-            return base.OnBackButtonPressed();
+            // Check that the navigation is backward from the sample and not forward into another page in the sample.
+            if(!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
+            {
+                if (_sample is IDisposable disposableSample) disposableSample.Dispose();
+                if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
+            }
         }
 
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)

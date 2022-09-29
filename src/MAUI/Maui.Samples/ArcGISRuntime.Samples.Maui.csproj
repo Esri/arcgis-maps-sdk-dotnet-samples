@@ -107,6 +107,51 @@
 	  <None Remove="Samples\Map\MapReferenceScale\**" />
 	</ItemGroup>
 
+	<!-- Exclude samples with Picker issue on WinUI -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-windows')) == true">
+  	  <AndroidResource Remove="Samples\Data\AddFeaturesWithContingentValues\**" />
+	  <Compile Remove="Samples\Data\AddFeaturesWithContingentValues\**" />
+	  <EmbeddedResource Remove="Samples\Data\AddFeaturesWithContingentValues\**" />
+	  <MauiCss Remove="Samples\Data\AddFeaturesWithContingentValues\**" />
+	  <MauiXaml Remove="Samples\Data\AddFeaturesWithContingentValues\**" />
+	  <None Remove="Samples\Data\AddFeaturesWithContingentValues\**" />
+
+	  <AndroidResource Remove="Samples\Data\StatsQueryGroupAndSort\**" />
+	  <Compile Remove="Samples\Data\StatsQueryGroupAndSort\**" />
+	  <EmbeddedResource Remove="Samples\Data\StatsQueryGroupAndSort\**" />
+	  <MauiCss Remove="Samples\Data\StatsQueryGroupAndSort\**" />
+	  <MauiXaml Remove="Samples\Data\StatsQueryGroupAndSort\**" />
+	  <None Remove="Samples\Data\StatsQueryGroupAndSort\**" />
+
+	  <AndroidResource Remove="Samples\Map\BrowseBuildingFloor\**" />
+	  <Compile Remove="Samples\Map\BrowseBuildingFloor\**" />
+	  <EmbeddedResource Remove="Samples\Map\BrowseBuildingFloor\**" />
+	  <MauiCss Remove="Samples\Map\BrowseBuildingFloor\**" />
+	  <MauiXaml Remove="Samples\Map\BrowseBuildingFloor\**" />
+	  <None Remove="Samples\Map\BrowseBuildingFloor\**" />
+
+	  <AndroidResource Remove="Samples\Map\ManageBookmarks\**" />
+	  <Compile Remove="Samples\Map\ManageBookmarks\**" />
+	  <EmbeddedResource Remove="Samples\Map\ManageBookmarks\**" />
+	  <MauiCss Remove="Samples\Map\ManageBookmarks\**" />
+	  <MauiXaml Remove="Samples\Map\ManageBookmarks\**" />
+	  <None Remove="Samples\Map\ManageBookmarks\**" />
+
+	  <AndroidResource Remove="Samples\Map\MapReferenceScale\**" />
+	  <Compile Remove="Samples\Map\MapReferenceScale\**" />
+	  <EmbeddedResource Remove="Samples\Map\MapReferenceScale\**" />
+	  <MauiCss Remove="Samples\Map\MapReferenceScale\**" />
+	  <MauiXaml Remove="Samples\Map\MapReferenceScale\**" />
+	  <None Remove="Samples\Map\MapReferenceScale\**" />
+
+	  <AndroidResource Remove="Samples\NetworkAnalysis\OfflineRouting\**" />
+	  <Compile Remove="Samples\NetworkAnalysis\OfflineRouting\**" />
+	  <EmbeddedResource Remove="Samples\NetworkAnalysis\OfflineRouting\**" />
+	  <MauiCss Remove="Samples\NetworkAnalysis\OfflineRouting\**" />
+	  <MauiXaml Remove="Samples\NetworkAnalysis\OfflineRouting\**" />
+	  <None Remove="Samples\NetworkAnalysis\OfflineRouting\**" />
+	</ItemGroup>
+
 	<!-- Excluded due to functional issues -->
 	<ItemGroup>
   	  <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />

@@ -5,21 +5,13 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:sampleViewer="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <esriUI:SceneView x:Name="MySceneView" Grid.Row="1" />
-        <Frame Grid.Row="{OnIdiom Phone=0, Desktop=1, Tablet=1}" Style="{StaticResource EsriSampleFrameStyle}">
-            <Grid RowDefinitions="auto,auto">
-                <Label x:Name="MyStatusLabel"
-                       Grid.Row="0"
-                       Text="Status: " />
-                <Slider x:Name="MyHeightSlider"
-                        Grid.Row="1"
-                        ValueChanged="MyHeightSlider_ValueChanged" />
-            </Grid>
-        </Frame>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout Padding="5" Spacing="5">
+                <Label x:Name="MyStatusLabel" Text="Status: " />
+                <Slider x:Name="MyHeightSlider" ValueChanged="MyHeightSlider_ValueChanged" />
+            </VerticalStackLayout>
+        </Border>
     </Grid>
 </ContentPage>

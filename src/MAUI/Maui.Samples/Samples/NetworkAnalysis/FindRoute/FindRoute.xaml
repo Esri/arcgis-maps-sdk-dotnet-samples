@@ -3,43 +3,39 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" />
-        <Frame x:Name="DirectionsFrame"
-               Margin="5"
-               Padding="5"
-               BackgroundColor="WhiteSmoke"
-               HorizontalOptions="FillAndExpand"
-               IsVisible="False"
-               Opacity=".85"
-               VerticalOptions="Start">
-            <StackLayout>
-                <Label Margin="0,0,0,2" Text="Route directions:" />
-                <ListView x:Name="DirectionsListBox"
-                          HeightRequest="300"
-                          VerticalOptions="FillAndExpand" />
-            </StackLayout>
-        </Frame>
-        <StackLayout Grid.Row="1"
-                     Margin="5,10"
-                     HeightRequest="50"
-                     Orientation="Horizontal">
-            <Button x:Name="SolveRouteButton"
-                    Clicked="SolveRouteClick"
-                    HorizontalOptions="FillAndExpand"
-                    Text="Solve Route" />
-            <Button x:Name="ResetButton"
-                    Clicked="ResetClick"
-                    HorizontalOptions="FillAndExpand"
-                    Text="Reset" />
-            <Button x:Name="ShowHideDirectionsButton"
-                    Clicked="ShowHideDirectionsList"
-                    HorizontalOptions="FillAndExpand"
-                    Text="Directions" />
-        </StackLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  MaximumWidthRequest="300"
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
+                <Button x:Name="ShowHideDirectionsButton"
+                        Grid.Row="0"
+                        Clicked="ShowHideDirectionsClicked"
+                        Text="Show/Hide Directions" />
+                <Grid x:Name="DirectionsGrid"
+                      Grid.Row="1"
+                      IsVisible="false"
+                      RowDefinitions="auto,auto,auto,auto"
+                      RowSpacing="5">
+                    <Label Grid.Row="0" Text="Route directions:" />
+                    <ListView x:Name="DirectionsListBox"
+                              Grid.Row="1"
+                              HeightRequest="300"
+                              HorizontalOptions="CenterAndExpand" />
+                    <Button x:Name="SolveRouteButton"
+                            Grid.Row="2"
+                            Clicked="SolveRouteClick"
+                            HorizontalOptions="FillAndExpand"
+                            Text="Solve Route" />
+                    <Button x:Name="ResetButton"
+                            Grid.Row="3"
+                            Clicked="ResetClick"
+                            HorizontalOptions="FillAndExpand"
+                            Text="Reset" />
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

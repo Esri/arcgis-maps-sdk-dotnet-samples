@@ -297,12 +297,17 @@ namespace ArcGISRuntime.Samples.RouteAroundBarriers
         {
             if (_directionsPage != null)
             {
-                this.Navigation.PushAsync(_directionsPage);
+                _ = ShowDirectionsTask();
             }
             else
             {
                 ShowMessage("Route not ready", "Add stops and barriers, then select 'Route' to calculate the route before accessing directions.");
             }
+        }
+
+        private async Task ShowDirectionsTask()
+        {
+            await Application.Current.MainPage.Navigation.PushAsync(_directionsPage);
         }
 
         private async Task<PictureMarkerSymbol> GetPictureMarker()
@@ -312,8 +317,7 @@ namespace ArcGISRuntime.Samples.RouteAroundBarriers
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntimeMaui.Resources.PictureMarkerSymbols.pin_blue.png");
+            Stream resourceStream = currentAssembly.GetManifestResourceStream("ArcGISRuntimeMaui.Resources.PictureMarkerSymbols.pin_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

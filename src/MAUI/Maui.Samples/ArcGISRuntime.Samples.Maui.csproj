@@ -140,7 +140,13 @@
       <None Remove="Resources\Icons\settingsdark.svg" />
       <None Remove="Resources\Icons\trash.svg" />
       <None Remove="Resources\Icons\trashdark.svg" />
+      <None Remove="Resources\PictureMarkerSymbols\pin_blue.png" />
+      <None Remove="Resources\PictureMarkerSymbols\pin_star_blue.png" />
       <None Remove="Resources\routingSymbol.png" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
+      <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     </ItemGroup>
     <ItemGroup>
       <MauiImage Include="Resources\Icons\applicationsdark.svg" />

@@ -39,6 +39,8 @@ namespace ArcGISRuntime.Samples.MobileMapSearchAndRoute
         private GraphicsOverlay _routeOverlay;
         private GraphicsOverlay _waypointOverlay;
 
+        private Symbol _pointGraphic = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Cross, System.Drawing.Color.Blue, 15);
+
         // Track the start and end point for route calculation.
         private MapPoint _startPoint;
         private MapPoint _endPoint;
@@ -148,7 +150,7 @@ namespace ArcGISRuntime.Samples.MobileMapSearchAndRoute
                 await ShowGeocodeResult(tappedPoint);
 
                 // Show the start point.
-                _waypointOverlay.Graphics.Add(await GraphicForPoint(_startPoint));
+                _waypointOverlay.Graphics.Add(new Graphic(_startPoint, _pointGraphic));
 
                 return;
             }
@@ -159,7 +161,7 @@ namespace ArcGISRuntime.Samples.MobileMapSearchAndRoute
 
                 // Show the end point.
                 _endPoint = tappedPoint;
-                _waypointOverlay.Graphics.Add(await GraphicForPoint(_endPoint));
+                _waypointOverlay.Graphics.Add(new Graphic(_endPoint, _pointGraphic));
 
                 // Create the route task from the local network dataset.
                 RouteTask routingTask = await RouteTask.CreateAsync(_networkDataset);
@@ -211,32 +213,6 @@ namespace ArcGISRuntime.Samples.MobileMapSearchAndRoute
                 Debug.WriteLine(exception);
                 await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
-        }
-
-        private async Task<Graphic> GraphicForPoint(MapPoint point)
-        {
-#if WINDOWS_UWP
-            // Get current assembly that contains the image
-            Assembly currentAssembly = GetType().GetTypeInfo().Assembly;
-#else
-            // Get current assembly that contains the image
-            Assembly currentAssembly = Assembly.GetExecutingAssembly();
-#endif
-
-            // Get image as a stream from the resources
-            // Picture is defined as EmbeddedResource and DoNotCopy
-            Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntimeMaui.Resources.PictureMarkerSymbols.pin_star_blue.png");
-
-            // Create new symbol using asynchronous factory method from stream
-            PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
-            pinSymbol.Width = 60;
-            pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint
-            //     is on the point rather than the image's true center
-            pinSymbol.LeaderOffsetX = 30;
-            pinSymbol.OffsetY = 14;
-            return new Graphic(point, pinSymbol);
         }
     }
 }

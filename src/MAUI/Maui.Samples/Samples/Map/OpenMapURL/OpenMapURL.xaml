@@ -3,14 +3,13 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Button x:Name="MapsButton"
-                Clicked="OnMapsClicked"
-                Text="Maps" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Button x:Name="MapsButton"
+                    Padding="5"
+                    Clicked="OnMapsClicked"
+                    Text="Maps" />
+        </Border>
     </Grid>
 </ContentPage>

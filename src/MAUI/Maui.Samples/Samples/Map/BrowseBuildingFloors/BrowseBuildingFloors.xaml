@@ -3,26 +3,35 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="200" />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0"
-                   Margin="10"
-                   HorizontalTextAlignment="Center"
-                   Text="Select floor:"
-                   VerticalTextAlignment="Center" />
-            <Picker x:Name="FloorChooser"
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+        <Border Margin="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
+                StrokeShape="RoundRectangle 5"
+                HorizontalOptions="End"
+                VerticalOptions="Start"
+                WidthRequest="180">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                    Margin="10"
+                    HorizontalTextAlignment="Center"
+                    Text="Select floor:"
+                    VerticalTextAlignment="Center" />
+                    <Picker x:Name="FloorChooser"
                     Grid.Column="1"
                     Margin="10"
                     SelectedIndexChanged="OnFloorChooserSelectionChanged"
                     VerticalOptions="CenterAndExpand" />
-        </Grid>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

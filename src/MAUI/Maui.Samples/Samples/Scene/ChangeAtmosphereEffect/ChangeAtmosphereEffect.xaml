@@ -5,16 +5,35 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <esriUI:SceneView x:Name="MySceneView"
+                          Style="{StaticResource MapWithFormStyle}"
+                          ViewInsets="0"
+                          Grid.Row="0"/>
+        <Grid>
+            <Frame Style="{StaticResource EsriSampleFrameStyle}">
+                <StackLayout>
+                    <Picker x:Name="AtmosphereEffectPicker"
+                        TextColor="Black"
+                        VerticalOptions="Center"/>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+    <!--<Grid>
         <esriUI:SceneView x:Name="MySceneView"
                           Style="{StaticResource MapWithFormStyle}"
                           ViewInsets="0" />
-        <resources:ResponsiveFormContainer x:Name="FormContainer">
+        <Frame Style="{StaticResource EsriSampleFrameStyle}">
             <StackLayout>
                 <Picker x:Name="AtmosphereEffectPicker"
                         TextColor="Black"
                         VerticalOptions="CenterAndExpand" />
             </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Frame>
+    </Grid>-->
 </ContentPage>

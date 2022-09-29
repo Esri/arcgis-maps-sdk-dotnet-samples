@@ -2,24 +2,18 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="50" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="0" />
-        <Grid Grid.Row="1" HorizontalOptions="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="0"
-                   Text="Max Extent Enabled"
-                   VerticalOptions="Center" />
-            <Switch x:Name="MaxExtentSwitch"
-                    Grid.Column="1"
-                    Toggled="MaxExtentSwitchToggled"
-                    VerticalOptions="Center" />
-        </Grid>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnDefinitions="auto,auto" ColumnSpacing="5">
+                <Label Grid.Column="0"
+                       Text="Max Extent Enabled"
+                       VerticalOptions="Center" />
+                <Switch x:Name="MaxExtentSwitch"
+                        Grid.Column="1"
+                        Toggled="MaxExtentSwitchToggled"
+                        VerticalOptions="Center" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

@@ -186,18 +186,17 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
                     // Enable map interaction so the user can explore the offline data.
                     MyMapView.InteractionOptions.IsEnabled = true;
 
-                    // Hide the "Take map offline" button.
-                    takeOfflineArea.IsVisible = false;
-
                     // Show a message that the map is offline.
-                    messageArea.IsVisible = true;
+                    await Application.Current.MainPage.DisplayAlert("Alert", "Map is offline.", "OK");
+
+                    TakeMapOfflineButton.IsEnabled = false;
 
                     // Hide the busy indicator.
                     busyIndicator.IsVisible = false;
                 };
 
                 // Show the configuration UI.
-                await Navigation.PushModalAsync(configurationPage, true);
+                await Application.Current.MainPage.Navigation.PushModalAsync(configurationPage, true);
             }
             catch (TaskCanceledException)
             {

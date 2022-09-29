@@ -12,25 +12,17 @@
         <converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
     </ContentPage.Resources>
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
-        <Border x:Name="takeOfflineArea"
-                Margin="5"
-                Padding="5"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
-                StrokeShape="RoundRectangle 5"
-                HorizontalOptions="End"
-                VerticalOptions="Start"
-                WidthRequest="300">
-            <StackLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout Spacing="5">
                 <Label LineBreakMode="WordWrap" Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout." />
                 <ListView x:Name="MapListView"
-                          Margin="0,5,0,0"
                           HeightRequest="230"
                           ItemSelected="Map_Selected"
                           RowHeight="75">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="mapping:Map" >
+                        <DataTemplate x:DataType="mapping:Map">
                             <ViewCell>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -38,7 +30,7 @@
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}"/>
+                                    <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
                                     <Image Grid.Column="1"
                                            Margin="5"
                                            HeightRequest="25"
@@ -54,7 +46,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </StackLayout>
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </ContentPage>

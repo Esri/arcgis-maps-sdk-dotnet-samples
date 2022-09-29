@@ -108,7 +108,7 @@
 	</ItemGroup>
 
 	<!-- Excluded due to functional issues -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-maccatalyst')) == true">
+	<ItemGroup>
   	  <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <Compile Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <EmbeddedResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />

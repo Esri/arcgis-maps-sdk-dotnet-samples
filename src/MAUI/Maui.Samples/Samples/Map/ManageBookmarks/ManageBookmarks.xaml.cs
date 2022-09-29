@@ -22,8 +22,6 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
         public ManageBookmarks()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -121,71 +119,43 @@ namespace ArcGISRuntime.Samples.ManageBookmarks
 
         private async void ButtonAddBookmark_Clicked(object sender, EventArgs e)
         {
-            // Create root layout
-            StackLayout layout = new StackLayout();
-
-            // Label for the UI to let the user know to add a bookmark
-            Label myLabel = new Label
+            try
             {
-                Text = "Bookmark Name:"
-            };
-            layout.Children.Add(myLabel);
+                // Prompt the user for the new bookmark name.
+                string name = await Application.Current.MainPage.DisplayPromptAsync("New bookmark", "Enter name for new bookmark");
 
-            // Entry location for the user to enter the bookmark name
-            myEntryBookmarkName = new Entry();
-            layout.Children.Add(myEntryBookmarkName);
+                // Exit if the name is empty
+                if (string.IsNullOrEmpty(name))
+                    return;
 
-            // Button to accept the users bookmark name
-            Button okButton = new Button
+                // Check to see if there is a bookmark with same name
+                bool doesNameExist = MyMapView.Map.Bookmarks.Any(b => b.Name == name);
+                if (doesNameExist)
+                    return;
+
+                // Create a new bookmark
+                Bookmark myBookmark = new Bookmark
+                {
+                    Name = name,
+
+                    // Get the current viewpoint from map and assign it to bookmark
+                    Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
+                };
+
+                // Add the bookmark to bookmark collection of the map
+                MyMapView.Map.Bookmarks.Add(myBookmark);
+
+                // Add the bookmark name to the list of choices in the picker
+                bookmarkPicker.Items.Add(name);
+
+                // Close the user interaction page to add a bookmark
+                Navigation.RemovePage(bookmarkAddPage);
+                bookmarkAddPage = null;
+            }
+            catch (Exception)
             {
-                Text = "OK"
-            };
-            okButton.Clicked += OkButton_Clicked;
-            layout.Children.Add(okButton);
-
-            // Create internal page for the navigation page
-            bookmarkAddPage = new ContentPage()
-            {
-                Content = layout,
-                Title = "Add Bookmark"
-            };
-
-            // Navigate to the dynamically created user interaction page
-            await Navigation.PushAsync(bookmarkAddPage);
-        }
-
-        private void OkButton_Clicked(object sender, EventArgs e)
-        {
-            // Get the name from the text field
-            string name = myEntryBookmarkName.Text;
-
-            // Exit if the name is empty
-            if (String.IsNullOrEmpty(name))
                 return;
-
-            // Check to see if there is a bookmark with same name
-            bool doesNameExist = MyMapView.Map.Bookmarks.Any(b => b.Name == name);
-            if (doesNameExist)
-                return;
-
-            // Create a new bookmark
-            Bookmark myBookmark = new Bookmark
-            {
-                Name = name,
-
-                // Get the current viewpoint from map and assign it to bookmark
-                Viewpoint = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry)
-            };
-
-            // Add the bookmark to bookmark collection of the map
-            MyMapView.Map.Bookmarks.Add(myBookmark);
-
-            // Add the bookmark name to the list of choices in the picker
-            bookmarkPicker.Items.Add(name);
-
-            // Close the user interaction page to add a bookmark
-            Navigation.RemovePage(bookmarkAddPage);
-            bookmarkAddPage = null;
+            }
         }
     }
 }

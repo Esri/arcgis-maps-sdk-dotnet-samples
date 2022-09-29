@@ -138,6 +138,51 @@
 	  <None Remove="Samples\Map\SearchPortalMaps\**" />
 	</ItemGroup>
 
+	<!-- Excluded categories (Untested and not updated)-->
+	<ItemGroup>
+	  <AndroidResource Remove="Samples\Scene\*\**" />
+	  <Compile Remove="Samples\Scene\*\**" />
+	  <EmbeddedResource Remove="Samples\Scene\*\**" />
+	  <MauiCss Remove="Samples\Scene\*\**" />
+	  <MauiXaml Remove="Samples\Scene\*\**" />
+	  <None Remove="Samples\Scene\*\**" />
+
+	  <AndroidResource Remove="Samples\SceneView\*\**" />
+	  <Compile Remove="Samples\SceneView\*\**" />
+	  <EmbeddedResource Remove="Samples\SceneView\*\**" />
+	  <MauiCss Remove="Samples\SceneView\*\**" />
+	  <MauiXaml Remove="Samples\SceneView\*\**" />
+	  <None Remove="Samples\SceneView\*\**" />
+
+	  <AndroidResource Remove="Samples\Search\*\**" />
+	  <Compile Remove="Samples\Search\*\**" />
+	  <EmbeddedResource Remove="Samples\Search\*\**" />
+	  <MauiCss Remove="Samples\Search\*\**" />
+	  <MauiXaml Remove="Samples\Search\*\**" />
+	  <None Remove="Samples\Search\*\**" />
+
+	  <AndroidResource Remove="Samples\Security\*\**" />
+	  <Compile Remove="Samples\Security\*\**" />
+	  <EmbeddedResource Remove="Samples\Security\*\**" />
+	  <MauiCss Remove="Samples\Security\*\**" />
+	  <MauiXaml Remove="Samples\Security\*\**" />
+	  <None Remove="Samples\Security\*\**" />
+
+	  <AndroidResource Remove="Samples\Symbology\*\**" />
+	  <Compile Remove="Samples\Symbology\*\**" />
+	  <EmbeddedResource Remove="Samples\Symbology\*\**" />
+	  <MauiCss Remove="Samples\Symbology\*\**" />
+	  <MauiXaml Remove="Samples\Symbology\*\**" />
+	  <None Remove="Samples\Symbology\*\**" />
+
+	  <AndroidResource Remove="Samples\UtilityNetwork\*\**" />
+	  <Compile Remove="Samples\UtilityNetwork\*\**" />
+	  <EmbeddedResource Remove="Samples\UtilityNetwork\*\**" />
+	  <MauiCss Remove="Samples\UtilityNetwork\*\**" />
+	  <MauiXaml Remove="Samples\UtilityNetwork\*\**" />
+	  <None Remove="Samples\UtilityNetwork\*\**" />
+	</ItemGroup>
+
     <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
         <Content Include="Resources\*.md">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

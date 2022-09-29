@@ -154,6 +154,9 @@ namespace ArcGISRuntime.Samples.NavigateRoute
 
             // Enable the location display (this wil start the location data source).
             MyMapView.LocationDisplay.IsEnabled = true;
+
+            // Show the message block for text output.
+            MessagesTextBlock.IsVisible = true;
         }
 
         private void TrackingStatusUpdated(object sender, RouteTrackerTrackingStatusChangedEventArgs e)

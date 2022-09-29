@@ -4,37 +4,35 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button x:Name="StartNavigationButton"
-                            Grid.Column="0"
-                            Clicked="StartNavigation"
-                            IsEnabled="False"
-                            Text="Navigate" />
-                    <Button x:Name="RecenterButton"
-                            Grid.Column="1"
-                            Clicked="RecenterButton_Click"
-                            IsEnabled="False"
-                            Text="Recenter" />
-                </Grid>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Padding="5" Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="0.5*, 0.5*"
+                  ColumnSpacing="5"
+                  MaximumWidthRequest="300"
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
+                <Button x:Name="StartNavigationButton"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Clicked="StartNavigation"
+                        IsEnabled="False"
+                        Text="Navigate" />
+                <Button x:Name="RecenterButton"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Clicked="RecenterButton_Click"
+                        IsEnabled="False"
+                        Text="Recenter" />
                 <Label x:Name="MessagesTextBlock"
                        Grid.Row="1"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
                        Margin="5"
+                       IsVisible="false"
                        Text="" />
             </Grid>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

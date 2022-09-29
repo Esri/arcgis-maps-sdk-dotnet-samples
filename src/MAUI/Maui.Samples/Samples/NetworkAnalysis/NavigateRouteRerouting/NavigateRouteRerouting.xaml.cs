@@ -179,6 +179,9 @@ namespace ArcGISRuntime.Samples.NavigateRouteRerouting
 
             // Enable the location display (this will start the location data source).
             MyMapView.LocationDisplay.IsEnabled = true;
+
+            // Show the message block for text output.
+            MessagesTextBlock.IsVisible = true;
         }
 
         private void SimulatedLocationChanged(object sender, Location e)

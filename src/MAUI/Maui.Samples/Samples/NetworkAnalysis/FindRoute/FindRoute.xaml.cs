@@ -158,10 +158,9 @@ namespace ArcGISRuntime.Samples.FindRoute
             }
         }
 
-        private void ShowHideDirectionsList(object sender, EventArgs e)
+        private void ShowHideDirectionsClicked(object sender, EventArgs e)
         {
-            // Show the directions frame if it's hidden; hide if it's shown
-            DirectionsFrame.IsVisible = !DirectionsFrame.IsVisible;
+            DirectionsGrid.IsVisible = !DirectionsGrid.IsVisible;
         }
     }
 }

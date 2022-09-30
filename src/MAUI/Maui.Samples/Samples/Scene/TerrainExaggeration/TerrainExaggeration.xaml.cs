@@ -46,10 +46,14 @@ namespace ArcGISRuntime.Samples.TerrainExaggeration
             Camera initialCamera = new Camera(initialLocation, 15000, 40, 60, 0);
             MySceneView.SetViewpointCamera(initialCamera);
 
+            // Initialise the terrain exaggeration label.
+            TerrainLabel.Text = TerrainSlider.Value.ToString("F");
+
             // Update terrain exaggeration based on the slider value.
             TerrainSlider.ValueChanged += (sender, e) =>
             {
                 elevationSurface.ElevationExaggeration = TerrainSlider.Value;
+                TerrainLabel.Text = TerrainSlider.Value.ToString("F");
             };
         }
     }

@@ -8,12 +8,14 @@
 [![Link: NuGet](https://img.shields.io/badge/NuGet-633b9b?style=flat-square&logo=nuget&labelColor=gray)](https://www.nuget.org/profiles/Esri_Inc)
 [![Link: Esri Community](https://img.shields.io/badge/🙋-Get%20help%20in%20Esri%20Community-633b9b?style=flat-square)](https://community.esri.com/t5/arcgis-runtime-sdk-for-net/bd-p/arcgis-runtime-sdk-dotnet-questions)
 
-# ArcGIS Runtime SDK for .NET - Samples
+# ArcGIS Runtime SDK for .NET - Samples (200.0 Beta)
 
 <a href="//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge"><img src="./samples_screenshot.png" title="Get the viewer from Microsoft" alt="Screenshot of the sample viewer for WPF" width="500px" /></a>
 <hr />
 
 **Interactive samples demonstrate the ArcGIS Runtime API**
+
+> **WELCOME TO THE 200.0 BETA**: ArcGIS Runtime 200.0 beta samples are available for WPF, WinUI, and UWP. We have some MAUI samples available for the beta, and many more will be available with the full launch of 200.0.
 
 ## Get started
 

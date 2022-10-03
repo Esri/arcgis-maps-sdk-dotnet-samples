@@ -2,23 +2,31 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.TerrainExaggeration.TerrainExaggeration"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:SceneView x:Name="MySceneView"
-                          Style="{StaticResource SceneWithFormStyle}"
-                          ViewInsets="0" />
-        <resources:ResponsiveFormContainer x:Name="FormContainer">
-            <StackLayout>
-                <Label Style="{StaticResource LabelStyle}" Text="Terrain exaggeration:" />
-                <Slider x:Name="TerrainSlider"
-                        Maximum="3"
-                        MaximumTrackColor="CadetBlue"
-                        Minimum="1"
-                        MinimumTrackColor="CadetBlue"
-                        Value="1" />
-            </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5" RowDefinitions="auto,auto">
+                <Label Grid.Row="0" Text="Terrain exaggeration:" />
+                <Grid Grid.Row="1"
+                      ColumnDefinitions="50,*"
+                      ColumnSpacing="5">
+                    <Label x:Name="TerrainLabel"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           VerticalTextAlignment="Center" />
+                    <Grid Grid.Column="1" MinimumWidthRequest="200">
+                        <Slider x:Name="TerrainSlider"
+                                Margin="0,0,5,0"
+                                Maximum="3"
+                                MaximumTrackColor="CadetBlue"
+                                Minimum="1"
+                                MinimumTrackColor="CadetBlue"
+                                Value="1" />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>

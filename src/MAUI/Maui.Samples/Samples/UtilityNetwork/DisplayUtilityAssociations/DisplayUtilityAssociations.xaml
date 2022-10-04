@@ -4,12 +4,11 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
                         NavigationCompleted="OnNavigationCompleted"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+                        Style="{DynamicResource EsriSampleGeoView}"/>
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="140">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -21,10 +20,12 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="1"
-                       Text="Attachment" />
+                       Text="Attachment"
+                       Padding="5" />
                 <Label Grid.Row="1"
                        Grid.Column="1"
-                       Text="Connectivity" />
+                       Text="Connectivity"
+                       Padding="5"/>
                 <Image x:Name="AttachmentImage"
                        Grid.Row="0"
                        Grid.Column="0"
@@ -34,6 +35,6 @@
                        Grid.Column="0"
                        WidthRequest="25" />
             </Grid>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

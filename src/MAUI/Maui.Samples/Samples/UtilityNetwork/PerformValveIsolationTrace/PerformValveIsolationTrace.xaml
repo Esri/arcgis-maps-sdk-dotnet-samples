@@ -4,12 +4,11 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
                         GeoViewTapped="OnGeoViewTapped"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout x:Name="FilterOptions" Orientation="Vertical">
                 <Label Margin="5"
                        FontAttributes="Bold"
@@ -42,39 +41,37 @@
                             IsToggled="False" />
                 </StackLayout>
             </StackLayout>
-        </resources:ResponsiveFormContainer>
+        </Border>
         <ActivityIndicator x:Name="LoadingIndicator"
                            HorizontalOptions="CenterAndExpand"
                            IsRunning="True"
                            IsVisible="True"
-                           cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                                  Property=Height,
-                                                                                  Factor=1}"
-                           cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                                 Property=Width,
-                                                                                 Factor=1}"
+                           Grid.ColumnSpan="2"
+                           Grid.RowSpan="2"
                            VerticalOptions="CenterAndExpand" />
-        <Grid x:Name="PickerUI"
+        <Border Grid.ColumnSpan="2" 
+                Grid.RowSpan="2" 
+                StrokeShape="RoundRectangle 10" 
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}"
+                IsVisible="False">
+            <Grid x:Name="PickerUI"
               HorizontalOptions="CenterAndExpand"
               IsVisible="False"
-              cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                     Property=Height,
-                                                                     Factor=1}"
-              cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                    Property=Width,
-                                                                    Factor=1}"
+              Grid.ColumnSpan="2"
+              Grid.RowSpan="2"
               VerticalOptions="CenterAndExpand">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
                    Margin="5"
                    HorizontalTextAlignment="Center"
                    Text="Choose a terminal for this junction." />
-            <ListView x:Name="TerminalPicker"
+                <ListView x:Name="TerminalPicker"
                       Grid.Row="1"
                       ItemSelected="Terminal_Selected" />
-        </Grid>
-    </cmp:RelativeLayout>
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>

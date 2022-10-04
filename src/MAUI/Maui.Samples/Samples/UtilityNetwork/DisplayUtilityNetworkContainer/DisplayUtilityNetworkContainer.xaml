@@ -4,52 +4,57 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
                         GeoViewTapped="MyMapView_GeoViewTapped"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout>
-                <Label Margin="5" Text="Tap an element to view its container." />
-                <Label Margin="5"
+                        Style="{DynamicResource EsriSampleGeoView}"/>
+        <Border Style="{DynamicResource EsriSampleControlPanel}" 
+                HorizontalOptions="End" 
+                VerticalOptions="Start" 
+                HeightRequest="200">
+            <Grid>
+                <StackLayout>
+                    <Label Margin="5" Text="Tap an element to view its container." />
+                    <Label Margin="5"
                        FontAttributes="Bold"
                        Text="Utility association types" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0"
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0"
                            Grid.Column="1"
                            Text="Attachment" />
-                    <Label Grid.Row="1"
+                        <Label Grid.Row="1"
                            Grid.Column="1"
                            Text="Connectivity" />
-                    <Label Grid.Row="2"
+                        <Label Grid.Row="2"
                            Grid.Column="1"
                            Text="Containment" />
-                    <Image x:Name="AttachmentImage"
+                        <Image x:Name="AttachmentImage"
                            Grid.Row="0"
                            Grid.Column="0" />
-                    <Image x:Name="ConnectivityImage"
+                        <Image x:Name="ConnectivityImage"
                            Grid.Row="1"
                            Grid.Column="0" />
-                    <Image x:Name="ContainmentImage"
+                        <Image x:Name="ContainmentImage"
                            Grid.Row="2"
                            Grid.Column="0" />
-                </Grid>
-                <Button x:Name="CloseButton"
+                    </Grid>
+                    <Button x:Name="CloseButton"
                         Margin="5"
                         Clicked="CloseButton_Clicked"
                         IsVisible="false"
                         Text="Close container view" />
-            </StackLayout>
-        </resources:ResponsiveFormContainer>
+                </StackLayout>
+            </Grid>
+        </Border>
         <ActivityIndicator x:Name="LoadingIndicator"
                            HorizontalOptions="CenterAndExpand"
                            IsRunning="True"
@@ -61,5 +66,5 @@
                                                                                  Property=Width,
                                                                                  Factor=1}"
                            VerticalOptions="CenterAndExpand" />
-    </cmp:RelativeLayout>
+    </Grid>
 </ContentPage>

@@ -222,8 +222,10 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
             {
                 // Switch the UI for the user choosing the junction.
                 MainUI.IsVisible = false;
+                MainBorder.IsVisible = false;
                 MyMapView.IsVisible = false;
-                StatusGrid.IsVisible = false;
+                BusyIndicator.IsVisible = false;
+                //StatusGrid.IsVisible = false;
                 PickerUI.IsVisible = true;
                 MyMapView.GeoViewTapped -= OnGeoViewTapped;
 
@@ -240,8 +242,9 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
             {
                 // Make the main UI visible again.
                 MainUI.IsVisible = true;
+                MainBorder.IsVisible = true;
                 MyMapView.IsVisible = true;
-                StatusGrid.IsVisible = true;
+                //StatusGrid.IsVisible = true;
                 PickerUI.IsVisible = false;
                 MyMapView.GeoViewTapped += OnGeoViewTapped;
             }
@@ -333,7 +336,7 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
             {
                 // Prompt the user to select a type of trace.
                 var traceTypes = new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" };
-                string choice = await ((Page)Parent).DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
+                string choice = await Application.Current.MainPage.DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
 
                 // Set the selected trace type.
                 _selectedTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), choice);

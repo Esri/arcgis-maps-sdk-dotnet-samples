@@ -2,24 +2,10 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="0"
-                        Grid.RowSpan="2"
-                        GeoViewTapped="OnGeoViewTapped" />
-        <Grid x:Name="StatusGrid">
-            <Label x:Name="Status"
-                   Grid.Row="0"
-                   Margin="5"
-                   HorizontalOptions="FillAndExpand"
-                   Text="Loading sample..."
-                   TextColor="White" />
-        </Grid>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView Style="{DynamicResource EsriSampleGeoView}"
+                        x:Name="MyMapView"
+                        GeoViewTapped="OnGeoViewTapped"/>
         <StackLayout x:Name="BusyIndicator"
                      Grid.Row="0"
                      Grid.RowSpan="2"
@@ -30,9 +16,6 @@
                                HorizontalOptions="Center"
                                IsRunning="True"
                                VerticalOptions="Center">
-                <!--<ActivityIndicator.Color>
-                    <OnPlatform x:TypeArguments="Color" iOS="#2499CE" />
-                </ActivityIndicator.Color>-->
             </ActivityIndicator>
         </StackLayout>
         <Grid x:Name="PickerUI"
@@ -50,41 +33,50 @@
                       Grid.Row="1"
                       ItemSelected="Terminal_Selected" />
         </Grid>
-        <StackLayout x:Name="MainUI"
-                     Grid.Row="2"
+        <Border x:Name="MainBorder"
+                Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout x:Name="MainUI"
+                     Grid.Row="0"
                      Orientation="Vertical">
-            <Button x:Name="TracePickerButton"
+                <Button x:Name="TracePickerButton"
                     Clicked="TraceTypeButtonPressed"
-                    Text="Trace type: Connected" />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.23*" />
-                    <ColumnDefinition Width="0.23*" />
-                    <ColumnDefinition Width="0.08*" />
-                    <ColumnDefinition Width="0.23*" />
-                    <ColumnDefinition Width="0.23*" />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="IsAddingStartingLocations"
+                    Text="Trace type: Connected"/>
+                <Grid Style="{DynamicResource EsriSampleContainer}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.23*" />
+                        <ColumnDefinition Width="0.23*" />
+                        <ColumnDefinition Width="0.08*" />
+                        <ColumnDefinition Width="0.23*" />
+                        <ColumnDefinition Width="0.23*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="IsAddingStartingLocations"
                         Grid.Column="0"
                         Clicked="IsAddingStartingLocations_Clicked"
                         HorizontalOptions="FillAndExpand"
                         IsEnabled="False"
                         Text="Origin" />
-                <Button x:Name="IsAddingBarriers"
+                    <Button x:Name="IsAddingBarriers"
                         Grid.Column="1"
                         Clicked="IsAddingBarriers_Clicked"
                         HorizontalOptions="FillAndExpand"
                         Text="Barrier" />
-                <Grid Grid.Column="2" />
-                <Button Grid.Column="3"
+                    <Grid Grid.Column="2" />
+                    <Button Grid.Column="2"
                         Clicked="OnReset"
                         HorizontalOptions="FillAndExpand"
                         Text="Reset" />
-                <Button Grid.Column="4"
+                    <Button Grid.Column="3"
                         Clicked="OnTrace"
                         HorizontalOptions="FillAndExpand"
                         Text="Trace" />
-            </Grid>
-        </StackLayout>
+                </Grid>
+                <Label x:Name="Status"
+                   Grid.Row="0"
+                   Margin="5"
+                   HorizontalOptions="FillAndExpand"
+                   Text="Loading sample..."
+                   TextColor="White" />
+            </StackLayout>
+        </Border>
     </Grid>
 </ContentPage>

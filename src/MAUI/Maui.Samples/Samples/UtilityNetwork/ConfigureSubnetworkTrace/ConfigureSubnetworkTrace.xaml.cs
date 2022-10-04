@@ -272,7 +272,7 @@ namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
             _sourceTier.GetDefaultTraceConfiguration().IncludeBarriers = e.Value;
         }
 
-        private void IncludContainersChanged(object sender, ToggledEventArgs e)
+        private void IncludeContainersChanged(object sender, ToggledEventArgs e)
         {
             _sourceTier.GetDefaultTraceConfiguration().IncludeContainers = e.Value;
         }

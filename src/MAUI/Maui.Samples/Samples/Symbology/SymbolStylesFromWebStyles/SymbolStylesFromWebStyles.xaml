@@ -12,32 +12,47 @@
             </Grid>
         </Border>
         <Border x:Name="LegendPopupView"
+                Grid.Row="0"
                 Grid.RowSpan="2"
+                Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Padding="5"
                 BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
-                MaximumHeightRequest="600"
-                MaximumWidthRequest="300">
-            <CollectionView x:Name="LegendCollectionView" Margin="5,0">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Margin="0,5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30" />
-                                <ColumnDefinition Width="auto" />
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0"
-                                   Margin="5,0,5,0"
-                                   Source="{Binding ImageSource}"
-                                   VerticalOptions="Center" />
-                            <Label Grid.Column="1"
-                                   Text="{Binding Name}"
-                                   VerticalOptions="Center" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                                                  Dark=#303030}">
+            <ScrollView>
+                <Grid HorizontalOptions="Center"
+                      MaximumHeightRequest="800"
+                      MaximumWidthRequest="300"
+                      RowDefinitions="auto,auto">
+                    <CollectionView x:Name="LegendCollectionView"
+                                    Grid.Row="0"
+                                    Margin="5,0">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Column="0"
+                                           Margin="5,0,5,0"
+                                           Source="{Binding ImageSource}"
+                                           VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           Text="{Binding Name}"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <Button x:Name="CloseLegendButton"
+                            Grid.Row="1"
+                            Clicked="CloseLegendButton_Clicked"
+                            HorizontalOptions="Center"
+                            Text="Close"
+                            WidthRequest="150" />
+                </Grid>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

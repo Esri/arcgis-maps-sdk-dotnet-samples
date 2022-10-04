@@ -163,6 +163,11 @@ namespace ArcGISRuntime.Samples.SymbolStylesFromWebStyles
             // Set scale symbols to true when we zoom in so the symbols don't take up the entire view.
             _webStyleLayer.ScaleSymbols = MyMapView.MapScale >= 80000;
         }
+
+        private void CloseLegendButton_Clicked(object sender, EventArgs e)
+        {
+            LegendPopupView.IsVisible = false;
+        }
     }
 
     public class SymbolLegendInfo

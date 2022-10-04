@@ -8,19 +8,17 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   ColumnSpacing="5"
+                  MaximumWidthRequest="320"
                   RowSpacing="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="50" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="2*" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="0"
@@ -33,7 +31,6 @@
                 <SearchBar x:Name="MySearchBox"
                            Grid.Row="0"
                            Grid.Column="1"
-                           Grid.ColumnSpan="2"
                            Focused="MySearchBox_Focused"
                            IsEnabled="False"
                            Text="Coffee"
@@ -42,37 +39,30 @@
                 <SearchBar x:Name="MyLocationBox"
                            Grid.Row="1"
                            Grid.Column="1"
-                           Grid.ColumnSpan="2"
                            Focused="MySearchBox_Focused"
                            IsEnabled="False"
                            Text="Current Location"
                            TextChanged="MyLocationBox_TextChanged"
                            Unfocused="MyLocationBox_Unfocused" />
-                <ListView x:Name="lstViewSuggestions"
-                          Grid.Row="2"
-                          ItemSelected="lstViewSuggestions_ItemSelected">
-                    <!--  Listview appears when there are suggestions  -->
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell Text="{Binding}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <Button x:Name="MySearchButton"
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Clicked="MySearchButton_Clicked"
-                        IsEnabled="False"
-                        Text="Search All" />
-                <Button x:Name="MySearchRestrictedButton"
-                        Grid.Row="3"
-                        Grid.Column="2"
-                        Clicked="MySearchRestrictedButton_Clicked"
-                        IsEnabled="False"
-                        Text="Search in View" />
+                <Grid Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      ColumnDefinitions="0.5*,0.5*"
+                      ColumnSpacing="5"
+                      RowDefinitions="auto">
+                    <Button x:Name="MySearchButton"
+                            Grid.Column="0"
+                            Clicked="MySearchButton_Clicked"
+                            IsEnabled="False"
+                            Text="Search All" />
+                    <Button x:Name="MySearchRestrictedButton"
+                            Grid.Column="1"
+                            Clicked="MySearchRestrictedButton_Clicked"
+                            IsEnabled="False"
+                            Text="Search in View" />
+                </Grid>
                 <ActivityIndicator x:Name="MyProgressBar"
-                                   Grid.Row="4"
+                                   Grid.Row="3"
                                    Grid.Column="0"
                                    Grid.ColumnSpan="3"
                                    IsRunning="True"

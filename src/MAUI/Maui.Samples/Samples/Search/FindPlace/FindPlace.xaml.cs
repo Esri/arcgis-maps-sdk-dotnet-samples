@@ -276,46 +276,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             }
         }
 
-        private async Task<List<string>> GetSuggestResults(string searchText, string location = "", bool poiOnly = false)
-        {
-            // Quit if string is null, empty, or whitespace.
-            if (String.IsNullOrWhiteSpace(searchText))
-            {
-                return new List<string>();
-            }
-
-            // Quit if the geocoder isn't ready.
-            if (_geocoder == null)
-            {
-                return new List<string>();
-            }
-
-            // Create geocode parameters.
-            SuggestParameters parameters = new SuggestParameters();
-
-            // Restrict suggestions to points of interest if desired.
-            if (poiOnly) { parameters.Categories.Add("POI"); }
-
-            // Set the location for the suggest parameters.
-            if (!String.IsNullOrWhiteSpace(location))
-            {
-                // Get the MapPoint for the current search location.
-                MapPoint searchLocation = await GetSearchMapPoint(location);
-
-                // Update the geocode parameters if the map point is not null.
-                if (searchLocation != null)
-                {
-                    parameters.PreferredSearchLocation = searchLocation;
-                }
-            }
-
-            // Get the updated results from the query so far.
-            IReadOnlyList<SuggestResult> results = await _geocoder.SuggestAsync(searchText, parameters);
-
-            // Return the list
-            return results.Select(result => result.Label).ToList();
-        }
-
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
@@ -326,57 +286,12 @@ namespace ArcGISRuntime.Samples.FindPlace
         {
             // Dismiss callout, if any.
             UserInteracted();
-
-            // Get the current text.
-            string searchText = MyLocationBox.Text;
-            try
-            {
-                // Get the results.
-                List<string> results = await GetSuggestResults(searchText);
-
-                // Quit if there are no results.
-                if (!results.Any()) { return; }
-
-                // Add a 'current location' option to the list.
-                results.Insert(0, "Current Location");
-
-                // Update the list of options.
-                lstViewSuggestions.ItemsSource = results;
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-            }
         }
 
         private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Dismiss callout, if any.
             UserInteracted();
-
-            // Get the current text.
-            string searchText = MySearchBox.Text;
-
-            // Get the current search location.
-            string locationText = MyLocationBox.Text;
-            try
-            {
-                // Convert the list into a usable format for the suggest box.
-                List<string> results = await GetSuggestResults(searchText, locationText, true);
-
-                // Quit if there are no results.
-                if (!results.Any())
-                {
-                    return;
-                }
-
-                // Update the list of options.
-                lstViewSuggestions.ItemsSource = results;
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-            }
         }
 
         private void MySearchRestrictedButton_Clicked(object sender, EventArgs e)
@@ -414,9 +329,6 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Dismiss callout, if any.
             UserInteracted();
 
-            // Hide the suggestion list.
-            lstViewSuggestions.IsVisible = false;
-
             // Show the map view.
             MyMapView.IsVisible = true;
         }
@@ -429,39 +341,8 @@ namespace ArcGISRuntime.Samples.FindPlace
             // Dismiss callout, if any.
             UserInteracted();
 
-            // Show the suggestion list.
-            lstViewSuggestions.IsVisible = true;
-
             // Hide the map view.
             MyMapView.IsVisible = false;
-        }
-
-        private void lstViewSuggestions_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            // Verify selected item has a value.
-            if (e.SelectedItem == null) return;
-
-            // Dismiss callout, if any.
-            UserInteracted();
-
-            // Get the text of the selected item.
-            string suggestion = e.SelectedItem.ToString();
-
-            // Update the location search box if it has focus.
-            if (MyLocationBox.IsFocused)
-            {
-                MyLocationBox.Text = suggestion;
-            }
-            else if (MySearchBox.IsFocused)
-            {
-                // Otherwise, update the search box.
-                MySearchBox.Text = suggestion;
-            }
-            // Work around focus behavior on some platforms (e.g. Android)
-            else if (_lastInteractedBar != null)
-            {
-                _lastInteractedBar.Text = suggestion;
-            }
         }
 
         private void UserInteracted()

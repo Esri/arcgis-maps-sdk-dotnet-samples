@@ -4,14 +4,8 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Label Grid.Row="1"
-                   Grid.Column="1"
-                   Text="Tap to identify raster cell." />
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+    <Grid RowDefinitions="auto,*">
+        <Label HorizontalTextAlignment="Center" Text="Tap to identify raster cell." />
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+    </Grid>
 </ContentPage>

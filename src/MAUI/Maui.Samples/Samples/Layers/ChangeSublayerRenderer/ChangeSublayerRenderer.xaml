@@ -3,21 +3,15 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-
-        <Label x:Name="ChangeSublayerRendererInstructionsLabel"
-               Grid.Row="0"
-               FontSize="Small"
-               Text="Click the 'Change Sublayer Renderer' button to apply a unique value renderer to the counties sub-layer." />
-        <Button x:Name="ChangeSublayerRendererButton"
-                Grid.Row="1"
-                Clicked="ChangeSublayerRendererButton_Clicked"
-                Text="Change sublayer renderer" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Padding="5" Spacing="5">
+                <Label x:Name="ChangeSublayerRendererInstructionsLabel" Text="Click the button to apply a unique value renderer to the counties sub-layer." />
+                <Button x:Name="ChangeSublayerRendererButton"
+                        Clicked="ChangeSublayerRendererButton_Clicked"
+                        Text="Change sublayer renderer" />
+            </StackLayout>
+        </Border>
     </Grid>
 </ContentPage>

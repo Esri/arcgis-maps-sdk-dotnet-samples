@@ -4,33 +4,14 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <ActivityIndicator x:Name="LoadingProgressBar"
-                           BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                           HorizontalOptions="Center"
-                           IsRunning="True"
-                           Style="{StaticResource MapWithFormStyle}"
-                           VerticalOptions="Center" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto,auto,auto,auto,auto"
+                  RowSpacing="5">
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
@@ -49,41 +30,43 @@
                        Keyboard="Numeric" />
                 <Label Grid.Row="3"
                        Grid.Column="0"
-                       Text="Time extent" />
+                       Text="Time extent"
+                       VerticalOptions="Center" />
                 <Switch x:Name="DateSwitch"
                         Grid.Row="3"
                         Grid.Column="1"
-                        Margin="5"
                         HorizontalOptions="Start"
                         IsToggled="True"
                         Toggled="DateSwitch_Toggled" />
                 <DatePicker x:Name="StartDatePicker"
                             Grid.Row="4"
                             Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Margin="5" />
+                            HorizontalOptions="Center" />
                 <DatePicker x:Name="EndDatePicker"
-                            Grid.Row="5"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Margin="5" />
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            HorizontalOptions="Center" />
                 <Button x:Name="ApplyQuery"
-                        Grid.Row="6"
+                        Grid.Row="5"
                         Grid.Column="0"
-                        Margin="5"
                         Pressed="ApplyQuery_Pressed"
                         Text="Apply query" />
                 <Button x:Name="ResetQuery"
-                        Grid.Row="6"
+                        Grid.Row="5"
                         Grid.Column="1"
-                        Margin="5"
                         Pressed="ResetQuery_Pressed"
                         Text="Reset" />
                 <Label x:Name="NumberOfReturnedFeatures"
-                       Grid.Row="7"
+                       Grid.Row="6"
                        Grid.Column="0"
                        Grid.ColumnSpan="2" />
             </Grid>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+        <ActivityIndicator x:Name="LoadingProgressBar"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="Center"
+                           IsRunning="True"
+                           VerticalOptions="Center" />
+    </Grid>
 </ContentPage>

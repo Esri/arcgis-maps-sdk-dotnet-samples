@@ -250,7 +250,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 await UpdatePreviewMap(cache);
 
                 // Update the UI.
-                MyExportPreviewButton.Text = "Close Preview";
+                MyExportPreviewButton.Text = "Return to webmap";
                 MyExportPreviewButton.IsVisible = true;
                 MyExportPreviewButton.IsEnabled = true;
 
@@ -292,9 +292,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
 
             // Show the layer in a new map.
             MyMapView.Map = new Map(new Basemap(myLayer));
-
-            // Re-size the mapview.
-            MyMapView.Margin = new Thickness(40);
         }
 
         private async Task ExportPreviewTask()
@@ -322,9 +319,6 @@ namespace ArcGISRuntime.Samples.ExportTiles
 
                     // Clear the preview open flag.
                     _previewOpen = false;
-
-                    // Re-size the mapview.
-                    MyMapView.Margin = new Thickness(0);
 
                     // Re-apply the original map.
                     MyMapView.Map = _basemap;

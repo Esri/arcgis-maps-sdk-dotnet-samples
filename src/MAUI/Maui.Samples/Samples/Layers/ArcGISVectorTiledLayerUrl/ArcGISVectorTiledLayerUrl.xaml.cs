@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.ArcGISVectorTiledLayerUrl
             try
             {
                 // Show sheet and get title from the selection
-                string selectedLayer = await ((Page)Parent).DisplayActionSheet("Select layer", "Cancel", null, layerNames);
+                string selectedLayer = await Application.Current.MainPage.DisplayActionSheet("Select layer", "Cancel", null, layerNames);
 
                 // If selected cancel do nothing
                 if (selectedLayer == "Cancel") return;

@@ -3,48 +3,24 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
-        <Frame Margin="20"
-               BackgroundColor="White"
-               HorizontalOptions="Center"
-               VerticalOptions="Start"
-               WidthRequest="250">
-            <Grid Margin="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="*,*"
+                  RowDefinitions="auto,auto">
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        Margin="2"
                        HorizontalOptions="End"
                        Text="[POP2000] &gt; "
-                       VerticalOptions="Center">
-                    <Label.TextColor>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="DarkBlue" />
-                        </OnPlatform>
-                    </Label.TextColor>
-                </Label>
+                       VerticalOptions="Center" />
                 <Entry x:Name="PopulationTextBox"
                        Grid.Row="0"
                        Grid.Column="1"
                        Margin="2"
-                       HorizontalOptions="Fill"
-                       HorizontalTextAlignment="End"
                        Text="1810000"
-                       VerticalOptions="Center">
-                    <Entry.TextColor>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="DarkBlue" />
-                        </OnPlatform>
-                    </Entry.TextColor>
-                </Entry>
+                       VerticalOptions="Center" />
                 <Button x:Name="QuerySublayers"
                         Grid.Row="1"
                         Grid.Column="0"
@@ -54,6 +30,6 @@
                         Text="Query in extent"
                         VerticalOptions="Center" />
             </Grid>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

@@ -5,18 +5,15 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout>
-                <Label HorizontalTextAlignment="Center" Text="Pan and zoom to see features." />
-                <ActivityIndicator x:Name="LoadingProgressBar"
-                                   IsEnabled="True"
-                                   IsRunning="True"
-                                   IsVisible="False" />
+                <StackLayout HeightRequest="75" Spacing="5">
+                    <Label Text="Pan and zoom to see features." />
+                    <ActivityIndicator x:Name="LoadingProgressBar" IsRunning="True" />
+                </StackLayout>
             </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

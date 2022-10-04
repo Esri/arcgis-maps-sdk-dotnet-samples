@@ -5,45 +5,26 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="*,auto"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,*,auto,auto"
+                  RowSpacing="5">
                 <Entry x:Name="ServiceTextBox"
                        Grid.Row="0"
-                       Grid.Column="0"
-                       Margin="0,0,5,5">
-                    <Entry.TextColor>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="Black" />
-                        </OnPlatform>
-                    </Entry.TextColor>
-                </Entry>
+                       Grid.Column="0" />
                 <Button x:Name="LoadServiceButton"
                         Grid.Row="0"
                         Grid.Column="1"
-                        Margin="0,0,0,5"
-                        Padding="5,0,5,0"
                         Clicked="LoadServiceButton_Click"
                         Text="Load service" />
                 <ListView x:Name="WfsLayerList"
                           Grid.Row="1"
                           Grid.ColumnSpan="2"
-                          HeightRequest="150"
+                          HeightRequest="125"
                           SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -53,12 +34,12 @@
                 </ListView>
                 <StackLayout Grid.Row="2"
                              Grid.ColumnSpan="2"
-                             Margin="0,5,0,5"
-                             Orientation="Horizontal">
-                    <Switch x:Name="AxisOrderSwapCheckbox" VerticalOptions="Center" />
+                             Orientation="Horizontal"
+                             Spacing="5">
                     <Label HorizontalOptions="End"
                            Text="Swap coordinate order"
                            VerticalOptions="Center" />
+                    <Switch x:Name="AxisOrderSwapCheckbox" VerticalOptions="Center" />
                 </StackLayout>
                 <Button x:Name="LoadLayersButton"
                         Grid.Row="3"
@@ -73,6 +54,7 @@
                                    IsRunning="True"
                                    IsVisible="True" />
             </Grid>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+        </Border>
+    </Grid>
+
 </ContentPage>

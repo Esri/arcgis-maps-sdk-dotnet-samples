@@ -2,35 +2,38 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="370" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3" />
-        <Label Grid.Row="1"
-               Grid.Column="1"
-               Padding="0,0,0,5"
-               Text="Select Dictionary Symbol Style Source" />
-        <RadioButton x:Name="LocalStyleButton"
-                     Grid.Row="2"
-                     Grid.Column="1"
-                     CheckedChanged="LocalStyleButtonClicked"
-                     Content="Local .stylx file" />
-        <RadioButton x:Name="WebStyleButton"
-                     Grid.Row="3"
-                     Grid.Column="1"
-                     CheckedChanged="WebStyleButtonClicked"
-                     Content="Web style" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnSpacing="5"
+                  RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Padding="0,0,0,5"
+                       Text="Select Dictionary Symbol Style Source" />
+                <RadioButton x:Name="LocalStyleButton"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             CheckedChanged="LocalStyleButtonClicked"
+                             Content="Local .stylx file" />
+                <RadioButton x:Name="WebStyleButton"
+                             Grid.Row="3"
+                             Grid.Column="1"
+                             CheckedChanged="WebStyleButtonClicked"
+                             Content="Web style" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

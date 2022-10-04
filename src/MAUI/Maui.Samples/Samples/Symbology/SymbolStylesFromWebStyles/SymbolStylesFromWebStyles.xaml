@@ -2,21 +2,23 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" ViewpointChanged="MapViewExtentChanged" />
-        <Button Clicked="LegendButton_Clicked"
-                HorizontalOptions="Start"
-                Text="Legend"
-                VerticalOptions="Start" />
-        <ContentView x:Name="LegendPopupView"
-                     Margin="5,45"
-                     Padding="5"
-                     BackgroundColor="White"
-                     HeightRequest="350"
-                     HorizontalOptions="StartAndExpand"
-                     IsVisible="false"
-                     VerticalOptions="StartAndExpand"
-                     WidthRequest="150">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        Style="{DynamicResource EsriSampleGeoView}"
+                        ViewpointChanged="MapViewExtentChanged" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5" RowDefinitions="auto">
+                <Button Clicked="LegendButton_Clicked" Text="Show/Hide Legend" />
+            </Grid>
+        </Border>
+        <Border x:Name="LegendPopupView"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Padding="5"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                  Dark=#303030}"
+                MaximumHeightRequest="600"
+                MaximumWidthRequest="300">
             <CollectionView x:Name="LegendCollectionView" Margin="5,0">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
@@ -27,12 +29,15 @@
                             </Grid.ColumnDefinitions>
                             <Image Grid.Column="0"
                                    Margin="5,0,5,0"
-                                   Source="{Binding ImageSource}" />
-                            <Label Grid.Column="1" Text="{Binding Name}" />
+                                   Source="{Binding ImageSource}"
+                                   VerticalOptions="Center" />
+                            <Label Grid.Column="1"
+                                   Text="{Binding Name}"
+                                   VerticalOptions="Center" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-        </ContentView>
+        </Border>
     </Grid>
 </ContentPage>

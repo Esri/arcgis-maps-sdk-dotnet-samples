@@ -250,7 +250,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
                 await UpdatePreviewMap(cache);
 
                 // Update the UI.
-                MyExportPreviewButton.Text = "Return to webmap";
+                MyExportPreviewButton.Text = "Return to online map";
                 MyExportPreviewButton.IsVisible = true;
                 MyExportPreviewButton.IsEnabled = true;
 

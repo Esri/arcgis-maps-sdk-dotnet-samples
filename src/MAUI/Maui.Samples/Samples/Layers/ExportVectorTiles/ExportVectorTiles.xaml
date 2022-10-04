@@ -2,44 +2,37 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" BackgroundColor="MediumVioletRed">
-            <esriUI:MapView x:Name="MyMapView"
-                            IsVisible="True"
-                            ViewpointChanged="MyMapView_ViewpointChanged" />
-        </Grid>
-        <Grid Grid.Row="1" Margin="5,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="320" />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
+    <Grid RowDefinitions="auto,auto,*">
+        <Grid Grid.Row="0"
+              Margin="5,0"
+              ColumnDefinitions="320,auto">
             <ProgressBar x:Name="MyProgressBar"
                          Grid.Column="0"
                          HeightRequest="30"
                          HorizontalOptions="Start"
                          IsVisible="False"
-                         WidthRequest="340" />
+                         WidthRequest="320" />
             <Label x:Name="MyProgressBarLabel"
                    Grid.Column="1"
+                   Margin="5"
                    HorizontalOptions="Center"
                    IsVisible="False"
                    VerticalOptions="Center" />
         </Grid>
         <Button x:Name="MyCancelJobButton"
-                Grid.Row="2"
+                Grid.Row="1"
                 Margin="0,5,0,0"
                 Clicked="MyCancelJobButton_Clicked"
                 IsVisible="False"
                 Text="Cancel" />
         <Button x:Name="MyExportPreviewButton"
-                Grid.Row="2"
+                Grid.Row="1"
                 Clicked="MyExportPreviewButton_Clicked"
                 IsEnabled="False"
                 Text="Export" />
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="2"
+                        IsVisible="True"
+                        ViewpointChanged="MyMapView_ViewpointChanged" />
     </Grid>
 </ContentPage>

@@ -15,7 +15,8 @@
 
 **Interactive samples demonstrate the ArcGIS Runtime API**
 
-> **WELCOME TO THE 200.0 BETA**: ArcGIS Runtime 200.0 beta samples are available for WPF, WinUI, and UWP. We have some MAUI samples ready for the beta, and many more will be available with the full launch of 200.0. Xamarin content has been removed. Xamarin is only supported in ArcGISRuntime 100.15 versions. These samples are still availble in the [`main branch`](https://github.com/Esri/arcgis-runtime-samples-dotnet) of the repository and will continue to be available in a 100.15 branch with the release of 200.0.
+> **Note**:  This branch is under ArcGIS Runtime 200.0.0-beta program and showcases changes we will be releasing in our upcoming 200.0.0 release. Sample are available for WPF, WinUI, and UWP. We have some MAUI samples ready for the beta, and many more will be available with the final release of 200.0. Please join the [Esri Early Adopter community](https://esriurl.com/agsrt200beta) to provide feedback and report issues.
+Also note, Xamarin content has been removed since Xamarin is only supported until ArcGISRuntime 100.15 versions. These samples are still available in the [`main branch`](https://github.com/Esri/arcgis-runtime-samples-dotnet) of the repository and will continue to be available in a 100.15 branch with the release of 200.0.
 
 ## Get started
 

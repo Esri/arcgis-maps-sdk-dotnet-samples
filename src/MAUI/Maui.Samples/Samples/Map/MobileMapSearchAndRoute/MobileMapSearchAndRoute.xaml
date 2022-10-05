@@ -1,6 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-
-<ContentPage x:Class="ArcGISRuntime.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
@@ -21,9 +19,8 @@
                            MaximumWidthRequest="300"
                            Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout." />
                     <ListView x:Name="MapListView"
-                              HeightRequest="230"
-                              ItemSelected="Map_Selected"
-                              RowHeight="75">
+                              HeightRequest="150"
+                              ItemSelected="Map_Selected">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="mapping:Map">
                                 <ViewCell>

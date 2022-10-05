@@ -8,7 +8,8 @@
         <esriUI:MapView x:Name="MyMapView"
                         NavigationCompleted="OnNavigationCompleted"
                         Style="{DynamicResource EsriSampleGeoView}"/>
-        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="140">
+        <Border Style="{DynamicResource EsriSampleControlPanel}" 
+                MinimumWidthRequest="140">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -21,7 +22,7 @@
                 <Label Grid.Row="0"
                        Grid.Column="1"
                        Text="Attachment"
-                       Padding="5" />
+                       Padding="5"/>
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        Text="Connectivity"
@@ -29,7 +30,7 @@
                 <Image x:Name="AttachmentImage"
                        Grid.Row="0"
                        Grid.Column="0"
-                       WidthRequest="25" />
+                       WidthRequest="25"/>
                 <Image x:Name="ConnectivityImage"
                        Grid.Row="1"
                        Grid.Column="0"

@@ -5,16 +5,13 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView"
-                        GeoViewTapped="MyMapView_GeoViewTapped"
-                        Style="{DynamicResource EsriSampleGeoView}"/>
-        <Border Style="{DynamicResource EsriSampleControlPanel}" 
-                HorizontalOptions="End" 
-                VerticalOptions="Start" 
-                HeightRequest="200">
-            <Grid>
+        <esriUI:MapView Style="{DynamicResource EsriSampleGeoView}"
+                        x:Name="MyMapView"
+                        GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid MinimumHeightRequest="100">
                 <StackLayout>
-                    <Label Margin="5" Text="Tap an element to view its container." />
+                    <Label Margin="5" Text="Tap an element to view its container."/>
                     <Label Margin="5"
                        FontAttributes="Bold"
                        Text="Utility association types" />
@@ -59,12 +56,6 @@
                            HorizontalOptions="CenterAndExpand"
                            IsRunning="True"
                            IsVisible="True"
-                           cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                                  Property=Height,
-                                                                                  Factor=1}"
-                           cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                                 Property=Width,
-                                                                                 Factor=1}"
                            VerticalOptions="CenterAndExpand" />
     </Grid>
 </ContentPage>

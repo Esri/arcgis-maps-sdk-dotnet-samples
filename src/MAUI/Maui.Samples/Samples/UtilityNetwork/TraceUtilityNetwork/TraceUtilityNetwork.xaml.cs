@@ -222,10 +222,9 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
             {
                 // Switch the UI for the user choosing the junction.
                 MainUI.IsVisible = false;
-                MainBorder.IsVisible = false;
+                ControlPanelBorder.IsVisible = false;
                 MyMapView.IsVisible = false;
                 BusyIndicator.IsVisible = false;
-                //StatusGrid.IsVisible = false;
                 PickerUI.IsVisible = true;
                 MyMapView.GeoViewTapped -= OnGeoViewTapped;
 
@@ -242,9 +241,8 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
             {
                 // Make the main UI visible again.
                 MainUI.IsVisible = true;
-                MainBorder.IsVisible = true;
+                ControlPanelBorder.IsVisible = true;
                 MyMapView.IsVisible = true;
-                //StatusGrid.IsVisible = true;
                 PickerUI.IsVisible = false;
                 MyMapView.GeoViewTapped += OnGeoViewTapped;
             }

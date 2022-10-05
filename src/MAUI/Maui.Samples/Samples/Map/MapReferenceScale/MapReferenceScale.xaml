@@ -8,7 +8,7 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView Padding="5">
+            <ScrollView Padding="5" MaximumHeightRequest="300">
                 <VerticalStackLayout>
                     <Label Text="Choose a map reference scale:" />
                     <!--  When the user's selection changes, the SelectedItem binding will apply the value to the Map's ReferenceScale property.  -->
@@ -22,6 +22,7 @@
                     <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->
                     <ListView Margin="5"
                               BindingContext="{x:Reference MyMapView}"
+                              HeightRequest="150"
                               ItemsSource="{Binding Path=Map.OperationalLayers}"
                               SelectionMode="None"
                               VerticalOptions="Center">

@@ -8,24 +8,21 @@
     <ContentPage.Resources>
         <DataTemplate x:Key="LayerListTemplate" x:DataType="mapping:Layer">
             <ViewCell>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                <Grid ColumnDefinitions="*,auto,auto,auto">
                     <Label Grid.Column="0"
                            Margin="5"
                            Text="{Binding Name}"
                            VerticalTextAlignment="Center" />
                     <Button Grid.Column="1"
+                            Margin="2"
                             Clicked="PromoteButton_Clicked"
                             Text="⬆" />
                     <Button Grid.Column="2"
+                            Margin="2"
                             Clicked="DemoteButton_Clicked"
                             Text="⬇" />
                     <Button Grid.Column="3"
+                            Margin="2"
                             Clicked="MoveButton_OnClicked"
                             Text="➡" />
                 </Grid>
@@ -35,11 +32,10 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView>
+            <ScrollView MaximumHeightRequest="300">
                 <VerticalStackLayout Padding="5" Spacing="5">
-                    <Label HeightRequest="30" Text="Use the buttons to re-arrange layers." />
+                    <Label Text="Use the buttons to re-arrange layers." />
                     <Label FontAttributes="Bold"
-                           HeightRequest="30"
                            HorizontalTextAlignment="Center"
                            Text="Layers in map" />
                     <!--
@@ -47,11 +43,10 @@
                         item's content consists of a label with the layer's Name and three buttons.
                     -->
                     <ListView x:Name="IncludedListView"
-                              HeightRequest="140"
+                              HeightRequest="130"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
                     <Label FontAttributes="Bold"
-                           HeightRequest="30"
                            HorizontalTextAlignment="Center"
                            Text="Layers not in map" />
                     <!--

@@ -5,7 +5,9 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid ColumnDefinitions="auto,auto" ColumnSpacing="5">
+            <Grid ColumnDefinitions="auto,auto"
+                  ColumnSpacing="5"
+                  VerticalOptions="Start">
                 <Label Grid.Column="0"
                        Text="Max Extent Enabled"
                        VerticalOptions="Center" />

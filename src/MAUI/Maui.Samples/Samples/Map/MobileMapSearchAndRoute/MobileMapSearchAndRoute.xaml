@@ -39,7 +39,7 @@
                                                WidthRequest="25" />
                                         <Label Grid.Column="2"
                                                HorizontalTextAlignment="End"
-                                               Text="{Binding Item.Title}"
+                                               Text="{Binding Item.Name}"
                                                VerticalTextAlignment="Center" />
                                     </Grid>
                                 </ViewCell>

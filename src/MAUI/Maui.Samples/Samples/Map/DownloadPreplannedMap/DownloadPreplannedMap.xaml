@@ -36,13 +36,13 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <HorizontalStackLayout Margin="10"
+                <HorizontalStackLayout 
                                        HorizontalOptions="Center"
                                        Spacing="5">
                     <Button x:Name="DownloadButton"
                             Clicked="OnDownloadMapAreaClicked"
                             Text="Download"
-                            WidthRequest="100" />
+                            />
                     <Button Clicked="OnDeleteAllMapAreasClicked" Text="Delete all" />
                     <Button x:Name="ShowOnlineButton"
                             Clicked="ShowOnlineButton_Clicked"

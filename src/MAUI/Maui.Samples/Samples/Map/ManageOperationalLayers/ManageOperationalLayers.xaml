@@ -32,7 +32,7 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView MaximumHeightRequest="300">
+            <ScrollView MaximumHeightRequest="350">
                 <VerticalStackLayout Padding="5" Spacing="5">
                     <Label Text="Use the buttons to re-arrange layers." />
                     <Label FontAttributes="Bold"
@@ -43,7 +43,7 @@
                         item's content consists of a label with the layer's Name and three buttons.
                     -->
                     <ListView x:Name="IncludedListView"
-                              HeightRequest="130"
+                              HeightRequest="150"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
                     <Label FontAttributes="Bold"
@@ -54,7 +54,7 @@
                         item's content consists of a label with the layer's Name and three buttons.
                     -->
                     <ListView x:Name="ExcludedListView"
-                              HeightRequest="130"
+                              HeightRequest="150"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
                 </VerticalStackLayout>

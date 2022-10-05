@@ -33,7 +33,9 @@
                                         the two-way binding will update the ScaleSymbols (bool) property automatically.
                                     -->
                                     <StackLayout Orientation="Horizontal">
-                                        <Switch IsToggled="{Binding ScaleSymbols}" VerticalOptions="Center" Margin="2" />
+                                        <Switch Margin="2"
+                                                IsToggled="{Binding ScaleSymbols}"
+                                                VerticalOptions="Center" />
                                         <Label HorizontalOptions="CenterAndExpand"
                                                HorizontalTextAlignment="Center"
                                                Text="{Binding Name}"

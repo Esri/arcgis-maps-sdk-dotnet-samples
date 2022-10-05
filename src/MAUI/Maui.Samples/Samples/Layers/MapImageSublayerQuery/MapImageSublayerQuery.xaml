@@ -8,11 +8,12 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   ColumnDefinitions="*,*"
+                  MinimumWidthRequest="200"
                   RowDefinitions="auto,auto">
                 <Label Grid.Row="0"
                        Grid.Column="0"
-                       Margin="2"
                        HorizontalOptions="End"
+                       LineBreakMode="NoWrap"
                        Text="[POP2000] &gt; "
                        VerticalOptions="Center" />
                 <Entry x:Name="PopulationTextBox"

@@ -15,7 +15,7 @@
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        Grid.ColumnSpan="3"
-                       Text="Use the buttons to control the tour. Contains audio. 🎧" />
+                       Text="Use buttons to control the tour. Contains audio. 🎧" />
                 <Button x:Name="PlayButton"
                         Grid.Row="1"
                         Grid.Column="0"

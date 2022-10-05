@@ -6,12 +6,11 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <StackLayout Padding="5" Spacing="5">
-                <Label x:Name="ChangeSublayerRendererInstructionsLabel" Text="Click the button to apply a unique value renderer to the counties sub-layer." />
-                <Button x:Name="ChangeSublayerRendererButton"
-                        Clicked="ChangeSublayerRendererButton_Clicked"
-                        Text="Change sublayer renderer" />
-            </StackLayout>
+            <Button x:Name="ChangeSublayerRendererButton"
+                    Padding="5"
+                    Clicked="ChangeSublayerRendererButton_Clicked"
+                    Text="Change sublayer renderer" />
+
         </Border>
     </Grid>
 </ContentPage>

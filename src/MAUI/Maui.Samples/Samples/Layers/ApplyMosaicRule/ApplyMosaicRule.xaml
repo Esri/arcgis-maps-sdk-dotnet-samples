@@ -11,7 +11,9 @@
                          Orientation="Horizontal"
                          Spacing="5">
                 <Label Text="Mosaic rule: " VerticalTextAlignment="Center" />
-                <Picker x:Name="MosaicRulesPicker" SelectedIndexChanged="MosaicRulesBox_SelectedIndexChanged" />
+                <Picker x:Name="MosaicRulesPicker"
+                        SelectedIndexChanged="MosaicRulesBox_SelectedIndexChanged"
+                        VerticalOptions="Center" />
             </StackLayout>
         </Border>
     </Grid>

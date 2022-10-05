@@ -10,12 +10,13 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   ColumnDefinitions="*,auto"
-                  ColumnSpacing="5"
                   RowDefinitions="auto,*,auto,auto"
                   RowSpacing="5">
                 <Entry x:Name="ServiceTextBox"
                        Grid.Row="0"
-                       Grid.Column="0" />
+                       Grid.Column="0"
+                       Margin="5"
+                       MaximumWidthRequest="200" />
                 <Button x:Name="LoadServiceButton"
                         Grid.Row="0"
                         Grid.Column="1"
@@ -24,7 +25,7 @@
                 <ListView x:Name="WfsLayerList"
                           Grid.Row="1"
                           Grid.ColumnSpan="2"
-                          HeightRequest="125"
+                          HeightRequest="150"
                           SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -32,15 +33,14 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <StackLayout Grid.Row="2"
-                             Grid.ColumnSpan="2"
-                             Orientation="Horizontal"
-                             Spacing="5">
-                    <Label HorizontalOptions="End"
-                           Text="Swap coordinate order"
-                           VerticalOptions="Center" />
-                    <Switch x:Name="AxisOrderSwapCheckbox" VerticalOptions="Center" />
-                </StackLayout>
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalOptions="End"
+                       Text="Swap coordinate order"
+                       VerticalOptions="Center" />
+                <Switch x:Name="AxisOrderSwapCheckbox"
+                        Grid.Row="2"
+                        Grid.Column="1" />
                 <Button x:Name="LoadLayersButton"
                         Grid.Row="3"
                         Grid.ColumnSpan="2"
@@ -56,5 +56,4 @@
             </Grid>
         </Border>
     </Grid>
-
 </ContentPage>

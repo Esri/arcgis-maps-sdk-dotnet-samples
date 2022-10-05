@@ -11,6 +11,7 @@
                 <Label Text="Feature layer source:" VerticalOptions="Center" />
                 <Picker x:Name="FeatureLayerPicker"
                         SelectedIndexChanged="FeatureLayerPicker_SelectionChanged"
+                        VerticalOptions="Center"
                         WidthRequest="125" />
             </StackLayout>
         </Border>

@@ -5,14 +5,12 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MinimumWidthRequest="400" Style="{DynamicResource EsriSampleControlPanel}">
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Grid.Row="1"
                   ColumnDefinitions="*,*"
                   ColumnSpacing="5"
                   HorizontalOptions="Center"
-                  RowDefinitions="40,auto,auto"
-                  VerticalOptions="CenterAndExpand"
-                  WidthRequest="400">
+                  RowDefinitions="40,auto,auto">
                 <StackLayout Grid.Row="0"
                              Grid.Column="0"
                              Grid.ColumnSpan="2"
@@ -97,7 +95,7 @@
                       Grid.Row="1"
                       Grid.Column="0"
                       Grid.ColumnSpan="4"
-                      ColumnDefinitions="*, 3*"
+                      ColumnDefinitions="*, 4*"
                       IsVisible="False"
                       RowDefinitions="auto,auto">
                     <Label Grid.Row="0"

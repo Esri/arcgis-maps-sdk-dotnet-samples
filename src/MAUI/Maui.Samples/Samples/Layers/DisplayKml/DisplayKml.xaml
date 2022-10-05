@@ -9,7 +9,7 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <HorizontalStackLayout Padding="5" Spacing="5">
                 <Label Text="KML data source:" VerticalTextAlignment="Center" />
-                <Picker x:Name="LayerPicker" />
+                <Picker x:Name="LayerPicker" VerticalOptions="Center" />
             </HorizontalStackLayout>
         </Border>
     </Grid>

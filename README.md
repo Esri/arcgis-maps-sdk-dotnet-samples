@@ -3,10 +3,10 @@
 [![Link: Tutorials](https://img.shields.io/badge/Tutorials-633b9b?style=flat-square)](https://developers.arcgis.com/documentation/mapping-apis-and-services/tutorials/)
 ![Badge: Samples](https://img.shields.io/badge/Samples-black?style=flat-square)
 [![Link: Demos](https://img.shields.io/badge/Demos-633b9b?style=flat-square)](https://github.com/Esri/arcgis-runtime-demos-dotnet)
-[![Link: Toolkit](https://img.shields.io/badge/Toolkit-633b9b?style=flat-square)](https://developers.arcgis.com/net/ui-components/)
-[![Link: Templates](https://img.shields.io/badge/Templates-633b9b?style=flat-square&logo=visualstudio&labelColor=gray)](https://github.com/Esri/arcgis-runtime-templates-dotnet)
+[![Link: Toolkit](https://img.shields.io/badge/Toolkit-633b9b?style=flat-square)](https://github.com/Esri/arcgis-toolkit-dotnet/tree/v200)
+[![Link: Templates](https://img.shields.io/badge/Templates-633b9b?style=flat-square&logo=visualstudio&labelColor=gray)](https://www.nuget.org/packages?q=ArcGIS+Runtime+Templates)
 [![Link: NuGet](https://img.shields.io/badge/NuGet-633b9b?style=flat-square&logo=nuget&labelColor=gray)](https://www.nuget.org/profiles/Esri_Inc)
-[![Link: Esri Community](https://img.shields.io/badge/🙋-Get%20help%20in%20Esri%20Community-633b9b?style=flat-square)](https://community.esri.com/t5/arcgis-runtime-sdk-for-net/bd-p/arcgis-runtime-sdk-dotnet-questions)
+[![Link: Early Adopter Community](https://img.shields.io/badge/🙋-Get%20help%20in%20Early%20Adopter%20Community-633b9b?style=flat-square)](https://esriurl.com/agsrt200beta)
 
 # ArcGIS Runtime SDK for .NET - Samples (200.0.0-beta)
 

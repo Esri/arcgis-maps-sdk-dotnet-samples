@@ -8,8 +8,9 @@
             <HorizontalStackLayout Padding="5" Spacing="5">
                 <Label Text="Select floor:" VerticalTextAlignment="Center" />
                 <Picker x:Name="FloorChooser"
+                        MinimumWidthRequest="50"
                         SelectedIndexChanged="OnFloorChooserSelectionChanged"
-                        VerticalOptions="CenterAndExpand" />
+                        VerticalOptions="Center" />
             </HorizontalStackLayout>
         </Border>
     </Grid>

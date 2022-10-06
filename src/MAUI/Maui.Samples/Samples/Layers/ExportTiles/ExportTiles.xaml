@@ -3,36 +3,35 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="auto,auto,*">
-        <Grid Grid.Row="0"
-              Margin="5,0"
-              ColumnDefinitions="320,auto">
-            <ProgressBar x:Name="MyProgressBar"
-                         Grid.Column="0"
-                         HeightRequest="30"
-                         HorizontalOptions="Start"
-                         IsVisible="False"
-                         WidthRequest="320" />
-            <Label x:Name="MyProgressBarLabel"
-                   Grid.Column="1"
-                   Margin="5"
-                   HorizontalOptions="Center"
-                   IsVisible="False"
-                   VerticalOptions="Center" />
-        </Grid>
-        <Button x:Name="MyCancelJobButton"
-                Grid.Row="1"
-                Margin="0,5,0,0"
-                Clicked="MyCancelJobButton_Clicked"
-                IsVisible="False"
-                Text="Cancel" />
-        <Button x:Name="MyExportPreviewButton"
-                Grid.Row="1"
-                Clicked="MyExportPreviewButton_Clicked"
-                IsEnabled="False"
-                Text="Export" />
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="2"
-                        IsVisible="True" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5" RowDefinitions="auto,auto">
+                <Grid Grid.Row="0" ColumnDefinitions="auto,auto">
+                    <ProgressBar x:Name="MyProgressBar"
+                                 Grid.Column="0"
+                                 HeightRequest="30"
+                                 HorizontalOptions="Start"
+                                 IsVisible="False"
+                                 WidthRequest="200" />
+                    <Label x:Name="MyProgressBarLabel"
+                           Grid.Column="1"
+                           Margin="5"
+                           HorizontalOptions="Center"
+                           IsVisible="False"
+                           VerticalOptions="Center" />
+                </Grid>
+                <Button x:Name="MyCancelJobButton"
+                        Grid.Row="1"
+                        Clicked="MyCancelJobButton_Clicked"
+                        IsVisible="False"
+                        Text="Cancel" />
+                <Button x:Name="MyExportPreviewButton"
+                        Grid.Row="1"
+                        Clicked="MyExportPreviewButton_Clicked"
+                        IsEnabled="False"
+                        Text="Export" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

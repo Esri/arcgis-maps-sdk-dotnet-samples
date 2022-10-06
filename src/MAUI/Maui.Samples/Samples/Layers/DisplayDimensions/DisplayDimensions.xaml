@@ -9,7 +9,9 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   ColumnDefinitions="50,*"
-                  RowDefinitions="auto,auto,auto">
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto"
+                  RowSpacing="5">
                 <Label x:Name="PylonLabel"
                        Grid.Row="0"
                        Grid.ColumnSpan="2" />

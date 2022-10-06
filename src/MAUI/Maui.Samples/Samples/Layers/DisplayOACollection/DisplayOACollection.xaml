@@ -7,9 +7,15 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <StackLayout HeightRequest="75" Spacing="5">
+            <StackLayout Padding="5"
+                         Orientation="Horizontal"
+                         Spacing="5">
                 <Label Text="Pan and zoom to see features." />
-                <ActivityIndicator x:Name="LoadingProgressBar" IsRunning="True" />
+                <Grid HeightRequest="30"
+                      VerticalOptions="Start"
+                      WidthRequest="30">
+                    <ActivityIndicator x:Name="LoadingProgressBar" IsRunning="True" />
+                </Grid>
             </StackLayout>
         </Border>
     </Grid>

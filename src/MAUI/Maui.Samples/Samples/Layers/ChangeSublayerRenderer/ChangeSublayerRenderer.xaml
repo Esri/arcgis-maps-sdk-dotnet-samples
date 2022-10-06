@@ -6,11 +6,11 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Button x:Name="ChangeSublayerRendererButton"
-                    Padding="5"
-                    Clicked="ChangeSublayerRendererButton_Clicked"
-                    Text="Change sublayer renderer" />
-
+            <Grid Padding="5" RowDefinitions="auto">
+                <Button x:Name="ChangeSublayerRendererButton"
+                        Clicked="ChangeSublayerRendererButton_Clicked"
+                        Text="Change sublayer renderer" />
+            </Grid>
         </Border>
     </Grid>
 </ContentPage>

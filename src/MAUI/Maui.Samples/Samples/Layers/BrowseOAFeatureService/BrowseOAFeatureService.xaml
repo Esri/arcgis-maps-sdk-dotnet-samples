@@ -9,7 +9,7 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   ColumnDefinitions="*,auto"
-                  RowDefinitions="auto,*,auto,auto"
+                  RowDefinitions="auto,auto,auto,auto,auto"
                   RowSpacing="5">
                 <Entry x:Name="ServiceTextBox"
                        Grid.Row="0"
@@ -19,7 +19,8 @@
                         Grid.Row="0"
                         Grid.Column="1"
                         Clicked="LoadServiceButton_Click"
-                        Text="Load service" />
+                        Text="Load service"
+                        VerticalOptions="Center" />
                 <ListView x:Name="OgcFeatureCollectionList"
                           Grid.Row="1"
                           Grid.ColumnSpan="2"
@@ -38,7 +39,7 @@
                         IsEnabled="False"
                         Text="Load selected layer" />
                 <ActivityIndicator x:Name="LoadingProgressBar"
-                                   Grid.Row="1"
+                                   Grid.Row="4"
                                    Grid.ColumnSpan="2"
                                    IsEnabled="True"
                                    IsRunning="True"

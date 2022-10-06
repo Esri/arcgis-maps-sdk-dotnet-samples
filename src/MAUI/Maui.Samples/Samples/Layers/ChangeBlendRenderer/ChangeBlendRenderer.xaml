@@ -6,34 +6,53 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5" RowDefinitions="auto,auto,auto,auto,auto">
-                <StackLayout Grid.Row="0"
-                             Orientation="Horizontal"
-                             Spacing="5">
-                    <Label x:Name="Label_Altitude"
-                           Text="Altitude"
-                           VerticalTextAlignment="Center" />
-                    <Slider x:Name="Altitude_Slider" WidthRequest="100" />
-                </StackLayout>
-                <StackLayout Grid.Row="1"
-                             Orientation="Horizontal"
-                             Spacing="5">
-                    <Label x:Name="Label_Azimuth"
-                           Text="Azimuth"
-                           VerticalTextAlignment="Center" />
-                    <Slider x:Name="Azimuth_Slider" WidthRequest="100" />
-                </StackLayout>
-                <StackLayout Grid.Row="2" Orientation="Horizontal">
-                    <Label x:Name="Label_SlopeTypes" Text="Slope Type" />
-                    <ListView x:Name="SlopeTypes" HeightRequest="90" />
-                </StackLayout>
-                <StackLayout Grid.Row="3" Orientation="Horizontal">
-                    <Label x:Name="Label_ColorRamps" Text="Color Ramp" />
-                    <ListView x:Name="ColorRamps" HeightRequest="90" />
-                </StackLayout>
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Label x:Name="Label_Altitude"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Altitude"
+                       VerticalTextAlignment="Center" />
+                <Slider x:Name="Altitude_Slider"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        WidthRequest="150" />
+                <Label x:Name="Label_Azimuth"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Azimuth"
+                       VerticalTextAlignment="Center" />
+                <Slider x:Name="Azimuth_Slider"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        WidthRequest="150" />
+                <Label x:Name="Label_SlopeTypes"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Slope Type" />
+                <ListView x:Name="SlopeTypes"
+                          Grid.Row="2"
+                          Grid.Column="1"
+                          HeightRequest="90" />
+                <Label x:Name="Label_ColorRamps"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Color Ramp" />
+                <ListView x:Name="ColorRamps"
+                          Grid.Row="3"
+                          Grid.Column="1"
+                          HeightRequest="90" />
                 <Button x:Name="UpdateRenderer"
                         Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Clicked="OnUpdateRendererClicked"
+                        HorizontalOptions="FillAndExpand"
                         IsEnabled="True"
                         Text="Update Renderer" />
             </Grid>

@@ -7,12 +7,12 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Padding="5"
                          Orientation="Horizontal"
-                         Spacing="5">
+                         Spacing="5"
+                         VerticalOptions="Start">
                 <Label Text="Feature layer source:" VerticalOptions="Center" />
                 <Picker x:Name="FeatureLayerPicker"
                         SelectedIndexChanged="FeatureLayerPicker_SelectionChanged"
-                        VerticalOptions="Center"
-                        WidthRequest="125" />
+                        WidthRequest="150" />
             </StackLayout>
         </Border>
     </Grid>

@@ -7,14 +7,18 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <StackLayout Padding="5"
-                         Orientation="Horizontal"
-                         Spacing="5">
-                <Label Text="Mosaic rule: " VerticalTextAlignment="Center" />
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,auto"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto">
+                <Label Grid.Column="0"
+                       Text="Mosaic rule: "
+                       VerticalTextAlignment="Center" />
                 <Picker x:Name="MosaicRulesPicker"
-                        SelectedIndexChanged="MosaicRulesBox_SelectedIndexChanged"
-                        VerticalOptions="Center" />
-            </StackLayout>
+                        Grid.Column="1"
+                        MinimumWidthRequest="150"
+                        SelectedIndexChanged="MosaicRulesBox_SelectedIndexChanged" />
+            </Grid>
         </Border>
     </Grid>
 </ContentPage>

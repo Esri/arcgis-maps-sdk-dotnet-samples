@@ -7,7 +7,9 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <HorizontalStackLayout Padding="5" Spacing="5">
+            <HorizontalStackLayout Padding="5"
+                                   Spacing="5"
+                                   VerticalOptions="Start">
                 <Label Text="KML data source:" VerticalTextAlignment="Center" />
                 <Picker x:Name="LayerPicker" VerticalOptions="Center" />
             </HorizontalStackLayout>

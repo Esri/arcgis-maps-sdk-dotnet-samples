@@ -6,9 +6,11 @@
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MinimumWidthRequest="400" Style="{DynamicResource EsriSampleControlPanel}">
+        <Border MinimumWidthRequest="350" Style="{DynamicResource EsriSampleControlPanel}">
             <!--  View is being done mostly in code, not XAML, because of buggy listview behavior and no option to specify a maximum height.  -->
-            <StackLayout x:Name="LayersView" Padding="5" />
+            <ScrollView Padding="5" HeightRequest="250">
+                <StackLayout x:Name="LayersView" />
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

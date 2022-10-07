@@ -20,9 +20,9 @@
                 BackgroundColor="{AppThemeBinding Light=#dfdfdf,
                                                   Dark=#303030}">
             <ScrollView>
-                <Grid HorizontalOptions="Center"
+                <Grid HorizontalOptions="Start"
                       MaximumHeightRequest="800"
-                      MaximumWidthRequest="300"
+                      MaximumWidthRequest="600"
                       RowDefinitions="auto,auto">
                     <CollectionView x:Name="LegendCollectionView"
                                     Grid.Row="0"

@@ -22,7 +22,7 @@
                 <Label Grid.Row="1"
                        Grid.Column="1"
                        Padding="0,0,0,5"
-                       Text="Select Dictionary Symbol Style Source" />
+                       Text="Select dictionary symbol style source" />
                 <RadioButton x:Name="LocalStyleButton"
                              Grid.Row="2"
                              Grid.Column="1"

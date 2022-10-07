@@ -100,7 +100,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
                     MultilayerPointSymbol multiLayerSym = await result.GetSymbolAsync() as MultilayerPointSymbol;
 
                     // Create a swatch image from the symbol.
-                    RuntimeImage swatch = await multiLayerSym.CreateSwatchAsync(30, 30, 96, Color.White);
+                    RuntimeImage swatch = await multiLayerSym.CreateSwatchAsync(30, 30, 96, Color.Transparent);
 
                     // Create an image source from the swatch.
                     Stream imageBuffer = await swatch.GetEncodedBufferAsync();
@@ -249,7 +249,7 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
             if (symbolToShow == null) { return; }
 
             // Create a swatch from the symbol with a white background.
-            RuntimeImage swatch = await symbolToShow.CreateSwatchAsync(80, 80, 96, Color.White);
+            RuntimeImage swatch = await symbolToShow.CreateSwatchAsync(80, 80, 96, Color.Transparent);
 
             // Convert the swatch to an image source and show it in the Image control.
             ImageSource symbolImage = await RuntimeImageExtensions.ToImageSourceAsync(swatch);

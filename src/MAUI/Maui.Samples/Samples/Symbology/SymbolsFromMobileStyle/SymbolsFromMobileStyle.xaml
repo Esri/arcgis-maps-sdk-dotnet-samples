@@ -9,7 +9,7 @@
             <ScrollView MaximumWidthRequest="400">
                 <Grid Padding="5"
                       ColumnSpacing="5"
-                      RowDefinitions="auto,auto"
+                      RowDefinitions="*,auto"
                       RowSpacing="5">
                     <Grid Grid.Row="1"
                           Padding="5"
@@ -35,8 +35,8 @@
                           VerticalOptions="Start">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
-                            <RowDefinition Height="120" />
-                            <RowDefinition Height="75" />
+                            <RowDefinition Height="80" />
+                            <RowDefinition Height="80" />
                             <RowDefinition Height="30" />
                             <RowDefinition Height="100" />
                         </Grid.RowDefinitions>
@@ -108,14 +108,13 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
                                   Margin="10"
-                                  HeightRequest="75"
                                   HorizontalOptions="Center"
                                   ItemSelected="SymbolLayerSelected"
                                   VerticalOptions="Center">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell Height="20">
-                                        <Label BackgroundColor="{Binding}" Text="{Binding}" />
+                                        <Label Background="{Binding}" Text="{Binding}" />
                                     </ViewCell>
                                 </DataTemplate>
                             </ListView.ItemTemplate>

@@ -68,7 +68,7 @@ namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
 
             try
             {
-                ConfigureTable.IsEnabled = false;
+                //ConfigureTable.IsEnabled = false;
 
                 // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
@@ -106,7 +106,7 @@ namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
             }
             finally
             {
-                ConfigureTable.IsEnabled = true;
+                //ConfigureTable.IsEnabled = true;
             }
         }
 

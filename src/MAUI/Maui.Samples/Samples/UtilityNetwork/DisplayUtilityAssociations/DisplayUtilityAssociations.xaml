@@ -8,8 +8,7 @@
         <esriUI:MapView x:Name="MyMapView"
                         NavigationCompleted="OnNavigationCompleted"
                         Style="{DynamicResource EsriSampleGeoView}"/>
-        <Border Style="{DynamicResource EsriSampleControlPanel}" 
-                MinimumWidthRequest="140">
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -17,7 +16,7 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="auto" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="1"

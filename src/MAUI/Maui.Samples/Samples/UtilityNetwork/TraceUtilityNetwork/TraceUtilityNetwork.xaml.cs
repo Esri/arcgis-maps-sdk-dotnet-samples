@@ -204,6 +204,11 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
                 Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, symbol);
                 MyMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(traceLocationGraphic);
             }
+            catch (OperationCanceledException ex)
+            {
+                Status.Text = "Identify canceled.";
+                return;
+            }
             catch (Exception ex)
             {
                 Status.Text = "Identifying locations failed.";
@@ -218,33 +223,16 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
 
         private async Task<UtilityTerminal> WaitForTerminal(IEnumerable<UtilityTerminal> terminals)
         {
-            try
+            // Load the terminals into a DisplayActionSheet and await the user's selection.
+            var terminalArray = terminals.Select(x => x.Name).ToArray();
+            string choice = await Application.Current.MainPage.DisplayActionSheet("Choose junction.", "Cancel", null, terminalArray);
+            if (terminalArray.Contains(choice))
             {
-                // Switch the UI for the user choosing the junction.
-                MainUI.IsVisible = false;
-                ControlPanelBorder.IsVisible = false;
-                MyMapView.IsVisible = false;
-                BusyIndicator.IsVisible = false;
-                PickerUI.IsVisible = true;
-                MyMapView.GeoViewTapped -= OnGeoViewTapped;
-
-                // Load the terminals into the UI.
-                TerminalPicker.ItemsSource = terminals.Select(x => x.Name).ToList();
-                TerminalPicker.SelectedItem = null;
-
-                // Wait for the user to select a terminal.
-                _terminalCompletionSource = new TaskCompletionSource<string>();
-                string selectedName = await _terminalCompletionSource.Task;
-                return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
+                return terminals.Single(x => x.Name == choice);
             }
-            finally
+            else
             {
-                // Make the main UI visible again.
-                MainUI.IsVisible = true;
-                ControlPanelBorder.IsVisible = true;
-                MyMapView.IsVisible = true;
-                PickerUI.IsVisible = false;
-                MyMapView.GeoViewTapped += OnGeoViewTapped;
+                throw new OperationCanceledException();
             }
         }
 

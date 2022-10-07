@@ -9,7 +9,7 @@
                         x:Name="MyMapView"
                         GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid MinimumHeightRequest="100">
+            <Grid Padding="5">
                 <StackLayout>
                     <Label Margin="5" Text="Tap an element to view its container."/>
                     <Label Margin="5"

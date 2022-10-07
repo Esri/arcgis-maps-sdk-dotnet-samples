@@ -35,17 +35,17 @@
         </Grid>
         <Border x:Name="ControlPanelBorder"
                 Style="{DynamicResource EsriSampleControlPanel}">
-            
             <StackLayout x:Name="MainUI"
                      Orientation="Vertical">
                 <Button x:Name="TracePickerButton"
                     Clicked="TraceTypeButtonPressed"
                     Text="Trace type: Connected"/>
-                <Grid>
+                <Grid ColumnSpacing="5"
+                      RowSpacing="5"
+                      Margin="0,5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.46*" />
-                        <ColumnDefinition Width="0.08*" />
-                        <ColumnDefinition Width="0.46*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.5*" />
@@ -59,13 +59,12 @@
                         IsEnabled="False"
                         Text="Origin" />
                     <Button x:Name="IsAddingBarriers"
-                        Grid.Column="2"
+                        Grid.Column="1"
                         Grid.Row="0"
                         Clicked="IsAddingBarriers_Clicked"
                         HorizontalOptions="FillAndExpand"
                         Text="Barrier" />
-                    <Grid Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Button Grid.Column="2"
+                    <Button Grid.Column="1"
                         Grid.Row="1"
                         Clicked="OnReset"
                         HorizontalOptions="FillAndExpand"
@@ -79,7 +78,7 @@
                 <Label x:Name="Status"
                    Grid.Row="0"
                    Margin="5"
-                   HorizontalOptions="FillAndExpand"
+                   HorizontalOptions="CenterAndExpand"
                    Text="Loading sample..."
                    TextColor="White"
                    MaximumWidthRequest="200"/>

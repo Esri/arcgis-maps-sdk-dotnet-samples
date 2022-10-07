@@ -11,7 +11,7 @@
                         Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Orientation="Vertical">
-                <Label x:Name="IncidentReportSummary" />
+                <Label x:Name="IncidentReportSummary" Text="Current feature count:" />
                 <StackLayout Orientation="Horizontal">
                     <Button Margin="5"
                             Clicked="Expression_Click"

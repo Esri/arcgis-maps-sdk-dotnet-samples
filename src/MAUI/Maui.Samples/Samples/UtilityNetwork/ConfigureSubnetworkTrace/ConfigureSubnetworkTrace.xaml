@@ -1,72 +1,74 @@
 ﻿<ContentPage x:Class="ArcGISRuntime.Samples.ConfigureSubnetworkTrace.ConfigureSubnetworkTrace"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Grid Style="{DynamicResource EsriSampleContainer}">
-        <StackLayout Padding="10" Spacing="50">
-            <Label FontSize="Title" Text="Trace options" />
-            <Grid ColumnSpacing="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Label Grid.Column="0" 
+    <ScrollView>
+        <Grid Style="{DynamicResource EsriSampleContainer}">
+            <StackLayout Padding="10" Spacing="10">
+                <Label FontSize="Title" Text="Trace options" />
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" 
                        Grid.Row="0" 
                        Text="Include barriers"
                        VerticalTextAlignment="Center"/>
-                <Switch x:Name="IncludeBarriers" 
+                    <Switch x:Name="IncludeBarriers" 
                         Grid.Column="1" 
                         Grid.Row="0"
                         IsToggled="True"
                         Toggled="IncludeBarriersChanged" />
-                <Label Grid.Column="0" 
+                    <Label Grid.Column="0" 
                        Grid.Row="1" 
                        Text="Include containers"
                        VerticalTextAlignment="Center"/>
-                <Switch x:Name="IncludeContainers" 
+                    <Switch x:Name="IncludeContainers" 
                         Grid.Column="1" Grid.Row="1"
                         IsToggled="True"
                         Toggled="IncludeContainersChanged" />
-            </Grid>
-            <Label FontSize="Title" 
+                </Grid>
+                <Label FontSize="Title" 
                    Text="Example barrier condition for this data: 'Transformer Load' Equal '15'" />
-            <Label Text="Define new condition" />
-            <Grid ColumnSpacing="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Picker x:Name="Attributes"
+                <Label Text="Define new condition" />
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Picker x:Name="Attributes"
                         Grid.Row="0"
                         ItemDisplayBinding="{Binding Name}"
                         SelectedIndexChanged="OnAttributeChanged"
                         VerticalOptions="CenterAndExpand" />
-                <Picker x:Name="Operators"
+                    <Picker x:Name="Operators"
                         Grid.Column="1"/>
-                <Picker x:Name="ValueSelection"
+                    <Picker x:Name="ValueSelection"
                         Grid.Column="2"
                         ItemDisplayBinding="{Binding Name}" />
-                <Entry Grid.Column="3"
+                    <Entry Grid.Column="3"
                         x:Name="ValueEntry"
-                        IsVisible="True" />
-            </Grid>
-            <Button Text="Add condition"
+                        IsVisible="False" />
+                </Grid>
+                <Button Text="Add condition"
                     Clicked="OnAddCondition"/>
-            <Label FontSize="Title" Text="Barrier conditions" />
-            <Label Text="" FontSize="Title"  x:Name="ConditionBarrierExpression" />
-            <Grid RowSpacing="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Button Grid.Row="0" Text="Trace" Clicked="OnTrace" />
-                <Button Grid.Row="1" Text="Reset" Clicked="OnReset" />
-            </Grid>
-        </StackLayout>
-    </Grid>
+                <Label FontSize="Title" Text="Barrier conditions" />
+                <Label Text="" FontSize="Title"  x:Name="ConditionBarrierExpression" />
+                <Grid RowSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="0" Text="Trace" Clicked="OnTrace" />
+                    <Button Grid.Row="1" Text="Reset" Clicked="OnReset" />
+                </Grid>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

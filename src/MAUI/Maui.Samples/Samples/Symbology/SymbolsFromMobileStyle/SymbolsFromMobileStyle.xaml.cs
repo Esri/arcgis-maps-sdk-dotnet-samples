@@ -42,8 +42,6 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
 
         private async Task Initialize()
         {
-            SelectSymbolGrid.IsVisible = false;
-
             // Create a new topographic basemap and assign it to the map view.
             Map map = new Map(BasemapStyle.ArcGISTopographic);
             MyMapView.Map = map;
@@ -67,12 +65,6 @@ namespace ArcGISRuntime.Samples.SymbolsFromMobileStyle
 
             // Handle the tapped event on the map view to draw point graphics with the chosen symbol.
             MyMapView.GeoViewTapped += GeoViewTapped;
-        }
-
-        public void ChooseSymbolButtonClicked(object sender, EventArgs e)
-        {
-            // Show or hide the symbol selection controls.
-            SelectSymbolGrid.IsVisible = !SelectSymbolGrid.IsVisible;
         }
 
         private async Task ReadMobileStyle(string stylePath)

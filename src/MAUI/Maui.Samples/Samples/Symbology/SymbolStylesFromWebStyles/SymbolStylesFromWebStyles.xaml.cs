@@ -75,6 +75,9 @@ namespace ArcGISRuntime.Samples.SymbolStylesFromWebStyles
 
                 // Load the symbols from portal and add them to the renderer.
                 await CreateSymbolStyles();
+
+                // Make Symbols visible after loading.
+                LegendCollectionView.IsVisible = true;
             }
             catch (Exception ex)
             {
@@ -142,31 +145,10 @@ namespace ArcGISRuntime.Samples.SymbolStylesFromWebStyles
             return symbolCategories;
         }
 
-        private void LegendButton_Clicked(object sender, EventArgs e)
-        {
-            // Show/hide the legend popup view if it is currently hidden or shown.
-            if (LegendPopupView.IsVisible)
-            {
-                LegendPopupView.IsVisible = false;
-            }
-            else
-            {
-                LegendPopupView.IsVisible = true;
-            }
-        }
-
         private void MapViewExtentChanged(object sender, EventArgs e)
         {
-            // Hide the legend popup when the map view extent changes.
-            LegendPopupView.IsVisible = false;
-
             // Set scale symbols to true when we zoom in so the symbols don't take up the entire view.
             _webStyleLayer.ScaleSymbols = MyMapView.MapScale >= 80000;
-        }
-
-        private void CloseLegendButton_Clicked(object sender, EventArgs e)
-        {
-            LegendPopupView.IsVisible = false;
         }
     }
 

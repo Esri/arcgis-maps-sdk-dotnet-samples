@@ -7,52 +7,27 @@
                         Style="{DynamicResource EsriSampleGeoView}"
                         ViewpointChanged="MapViewExtentChanged" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5" RowDefinitions="auto">
-                <Button Clicked="LegendButton_Clicked" Text="Show/Hide Legend" />
+            <Grid Padding="5" RowDefinitions="150">
+                <CollectionView x:Name="LegendCollectionView" IsVisible="False">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0"
+                                       Margin="5,0,5,0"
+                                       Source="{Binding ImageSource}"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
-        </Border>
-        <Border x:Name="LegendPopupView"
-                Grid.Row="0"
-                Grid.RowSpan="2"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Padding="5"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}">
-            <ScrollView>
-                <Grid HorizontalOptions="Start"
-                      MaximumHeightRequest="800"
-                      MaximumWidthRequest="600"
-                      RowDefinitions="auto,auto">
-                    <CollectionView x:Name="LegendCollectionView"
-                                    Grid.Row="0"
-                                    Margin="5,0">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="0,5">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="30" />
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.Column="0"
-                                           Margin="5,0,5,0"
-                                           Source="{Binding ImageSource}"
-                                           VerticalOptions="Center" />
-                                    <Label Grid.Column="1"
-                                           Text="{Binding Name}"
-                                           VerticalOptions="Center" />
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                    <Button x:Name="CloseLegendButton"
-                            Grid.Row="1"
-                            Clicked="CloseLegendButton_Clicked"
-                            HorizontalOptions="Center"
-                            Text="Close"
-                            WidthRequest="150" />
-                </Grid>
-            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

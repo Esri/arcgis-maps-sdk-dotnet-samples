@@ -23,8 +23,7 @@
                             Grid.Column="0"
                             Margin="5"
                             ItemDisplayBinding="{Binding Name}"
-                            TextColor="Black"
-                            VerticalOptions="CenterAndExpand" />
+                            TextColor="Black" />
                     <Button Grid.Column="1"
                             Margin="5"
                             Clicked="OnTrace"

@@ -5,7 +5,7 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView Style="{DynamicResource EsriSampleGeoView}"
                         x:Name="MyMapView"
-                        GeoViewTapped="OnGeoViewTapped"/>
+                        GeoViewTapped="OnGeoViewTapped" />
         <StackLayout x:Name="BusyIndicator"
                      Grid.Row="0"
                      Grid.RowSpan="2"
@@ -39,7 +39,7 @@
                      Orientation="Vertical">
                 <Button x:Name="TracePickerButton"
                     Clicked="TraceTypeButtonPressed"
-                    Text="Trace type: Connected"/>
+                    Text="Trace type: Connected" />
                 <Grid ColumnSpacing="5"
                       RowSpacing="5"
                       Margin="0,5">
@@ -55,33 +55,29 @@
                         Grid.Column="0"
                         Grid.Row="0"
                         Clicked="IsAddingStartingLocations_Clicked"
-                        HorizontalOptions="FillAndExpand"
                         IsEnabled="False"
                         Text="Origin" />
                     <Button x:Name="IsAddingBarriers"
                         Grid.Column="1"
                         Grid.Row="0"
                         Clicked="IsAddingBarriers_Clicked"
-                        HorizontalOptions="FillAndExpand"
                         Text="Barrier" />
                     <Button Grid.Column="1"
                         Grid.Row="1"
                         Clicked="OnReset"
-                        HorizontalOptions="FillAndExpand"
                         Text="Reset" />
                     <Button Grid.Column="0"
                         Grid.Row="1"
                         Clicked="OnTrace"
-                        HorizontalOptions="FillAndExpand"
                         Text="Trace" />
                 </Grid>
                 <Label x:Name="Status"
                    Grid.Row="0"
                    Margin="5"
-                   HorizontalOptions="CenterAndExpand"
+                   HorizontalOptions="Center"
                    Text="Loading sample..."
                    TextColor="White"
-                   MaximumWidthRequest="200"/>
+                   MaximumWidthRequest="200" />
             </StackLayout>
         </Border>
     </Grid>

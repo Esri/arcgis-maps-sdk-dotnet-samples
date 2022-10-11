@@ -1,14 +1,14 @@
 ﻿<ContentPage x:Class="ArcGISRuntime.Samples.ConfigureSubnetworkTrace.ConfigureSubnetworkTrace"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <ScrollView>
+    <ScrollView MinimumHeightRequest="1000">
         <Grid Style="{DynamicResource EsriSampleContainer}">
             <StackLayout Padding="10" Spacing="10">
                 <Label FontSize="Title" Text="Trace options" />
-                <Grid ColumnSpacing="10">
+                <Grid ColumnSpacing="10" RowSpacing="10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -17,7 +17,7 @@
                     <Label Grid.Column="0" 
                        Grid.Row="0" 
                        Text="Include barriers"
-                       VerticalTextAlignment="Center"/>
+                       VerticalTextAlignment="Center" />
                     <Switch x:Name="IncludeBarriers" 
                         Grid.Column="1" 
                         Grid.Row="0"
@@ -26,7 +26,7 @@
                     <Label Grid.Column="0" 
                        Grid.Row="1" 
                        Text="Include containers"
-                       VerticalTextAlignment="Center"/>
+                       VerticalTextAlignment="Center" />
                     <Switch x:Name="IncludeContainers" 
                         Grid.Column="1" Grid.Row="1"
                         IsToggled="True"
@@ -40,24 +40,31 @@
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Picker x:Name="Attributes"
-                        Grid.Row="0"
-                        ItemDisplayBinding="{Binding Name}"
-                        SelectedIndexChanged="OnAttributeChanged"
-                        VerticalOptions="CenterAndExpand" />
-                    <Picker x:Name="Operators"
-                        Grid.Column="1"/>
-                    <Picker x:Name="ValueSelection"
-                        Grid.Column="2"
-                        ItemDisplayBinding="{Binding Name}" />
-                    <Entry Grid.Column="3"
-                        x:Name="ValueEntry"
-                        IsVisible="False" />
+                    <Picker Grid.Row="0"
+                            x:Name="Attributes"
+                            ItemDisplayBinding="{Binding Name}"
+                            SelectedIndexChanged="OnAttributeChanged"
+                            VerticalOptions="CenterAndExpand" />
+                    <Picker Grid.Column="1"
+                            x:Name="Operators"
+                            HorizontalOptions="CenterAndExpand" />
+                    <Picker Grid.Column="2"
+                            x:Name="ValueSelection"
+                            ItemDisplayBinding="{Binding Name}"
+                            HorizontalOptions="CenterAndExpand" />
+                    <Entry Grid.Column="2"
+                           x:Name="ValueEntry"
+                           IsVisible="False"
+                           HorizontalOptions="CenterAndExpand"
+                           TextColor="Black"
+                           HorizontalTextAlignment="Center"
+                           MinimumWidthRequest="50"
+                           BackgroundColor="White" />
                 </Grid>
                 <Button Text="Add condition"
-                    Clicked="OnAddCondition"/>
+                    Clicked="OnAddCondition" />
                 <Label FontSize="Title" Text="Barrier conditions" />
                 <Label Text="" FontSize="Title"  x:Name="ConditionBarrierExpression" />
                 <Grid RowSpacing="5">

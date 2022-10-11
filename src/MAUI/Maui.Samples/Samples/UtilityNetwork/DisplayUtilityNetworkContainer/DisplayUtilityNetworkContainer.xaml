@@ -8,13 +8,13 @@
         <esriUI:MapView Style="{DynamicResource EsriSampleGeoView}"
                         x:Name="MyMapView"
                         GeoViewTapped="MyMapView_GeoViewTapped" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5">
-                <StackLayout>
-                    <Label Margin="5" Text="Tap an element to view its container."/>
-                    <Label Margin="5"
-                       FontAttributes="Bold"
-                       Text="Utility association types" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}"
+                MinimumHeightRequest="200">
+            <Grid>
+                <StackLayout Spacing="5">
+                    <Label Text="Tap an element to view its container." />
+                    <Label FontAttributes="Bold"
+                           Text="Utility association types" />
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />

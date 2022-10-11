@@ -17,6 +17,7 @@
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="200" />
             <Button x:Name="ButtonAddBookmark"
+                    Margin="5"
                     Clicked="ButtonAddBookmark_Clicked"
                     Text="New" />
         </HorizontalStackLayout>

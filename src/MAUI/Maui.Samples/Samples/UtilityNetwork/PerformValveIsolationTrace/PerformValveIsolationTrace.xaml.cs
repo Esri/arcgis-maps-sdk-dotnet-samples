@@ -218,7 +218,6 @@ namespace ArcGISRuntime.Samples.PerformValveIsolationTrace
             {
                 throw new OperationCanceledException();
             }
-
         }
 
         private void Terminal_Selected(object sender, EventArgs e)

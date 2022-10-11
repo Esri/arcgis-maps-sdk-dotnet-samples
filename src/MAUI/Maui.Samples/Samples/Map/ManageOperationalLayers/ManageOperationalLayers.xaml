@@ -8,11 +8,12 @@
     <ContentPage.Resources>
         <DataTemplate x:Key="LayerListTemplate" x:DataType="mapping:Layer">
             <ViewCell>
-                <Grid ColumnDefinitions="*,auto,auto,auto">
+                <Grid ColumnDefinitions="auto,auto,auto,auto">
                     <Label Grid.Column="0"
-                           Margin="5"
+                           LineBreakMode="NoWrap"
                            Text="{Binding Name}"
-                           VerticalTextAlignment="Center" />
+                           VerticalTextAlignment="Center"
+                           WidthRequest="140" />
                     <Button Grid.Column="1"
                             Margin="2"
                             Clicked="PromoteButton_Clicked"

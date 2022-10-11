@@ -10,7 +10,7 @@
                 <Picker x:Name="FloorChooser"
                         MinimumWidthRequest="50"
                         SelectedIndexChanged="OnFloorChooserSelectionChanged"
-                        VerticalOptions="Center" />
+                        VerticalOptions="Start" />
             </HorizontalStackLayout>
         </Border>
     </Grid>

@@ -26,8 +26,7 @@
                         x:Name="CategoryPicker"
                         Grid.Column="0"
                         Margin="5"
-                        ItemDisplayBinding="{Binding Name}"
-                        TextColor="Black" />
+                        ItemDisplayBinding="{Binding Name}" />
                     <Button
                         Grid.Column="1"
                         Margin="5"

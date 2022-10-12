@@ -43,9 +43,6 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
         private UtilityTier _mediumVoltageTier;
         private UtilityTraceType _selectedTraceType = UtilityTraceType.Connected;
 
-        // Task completion source for the user selected terminal.
-        private TaskCompletionSource<string> _terminalCompletionSource = null;
-
         // Markers for the utility elements.
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
@@ -234,11 +231,6 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
             {
                 throw new OperationCanceledException();
             }
-        }
-
-        private void Terminal_Selected(object sender, EventArgs e)
-        {
-            _terminalCompletionSource.TrySetResult(TerminalPicker.SelectedItem as string);
         }
 
         private void OnReset(object sender, EventArgs e)

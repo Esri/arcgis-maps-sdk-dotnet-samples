@@ -12,10 +12,10 @@
             Style="{DynamicResource EsriSampleGeoView}" />
         <Border MinimumHeightRequest="200" Style="{DynamicResource EsriSampleControlPanel}">
             <Grid>
-                <StackLayout Spacing="5">
-                    <Label Text="Tap an element to view its container." />
-                    <Label FontAttributes="Bold" Text="Utility association types" />
-                    <Grid>
+                <StackLayout Spacing="10">
+                    <Label FontAttributes="Bold" Text="Select an element to view its container." />
+                    <Label Text="Utility association types" />
+                    <Grid ColumnSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto" />
                             <RowDefinition Height="auto" />
@@ -54,7 +54,7 @@
                         x:Name="CloseButton"
                         Margin="5"
                         Clicked="CloseButton_Clicked"
-                        IsVisible="false"
+                        IsEnabled="False"
                         Text="Close container view" />
                 </StackLayout>
             </Grid>

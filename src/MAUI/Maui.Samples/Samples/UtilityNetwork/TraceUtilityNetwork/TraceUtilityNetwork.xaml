@@ -12,6 +12,7 @@
             x:Name="BusyIndicator"
             Grid.Row="0"
             Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
             HeightRequest="40"
             IsVisible="False"
             VerticalOptions="Center">
@@ -21,25 +22,10 @@
                 IsRunning="True"
                 VerticalOptions="Center" />
         </StackLayout>
-        <Grid
-            x:Name="PickerUI"
-            Grid.Row="0"
-            IsVisible="False">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label
-                Grid.Row="0"
-                Margin="5"
-                HorizontalTextAlignment="Center"
-                Text="Choose a terminal for this junction." />
-            <ListView
-                x:Name="TerminalPicker"
-                Grid.Row="1"
-                ItemSelected="Terminal_Selected" />
-        </Grid>
-        <Border x:Name="ControlPanelBorder" Style="{DynamicResource EsriSampleControlPanel}">
+        <Border
+            x:Name="ControlPanelBorder"
+            Padding="5"
+            Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout x:Name="MainUI" Orientation="Vertical">
                 <Button
                     x:Name="TracePickerButton"
@@ -87,8 +73,7 @@
                     Margin="5"
                     HorizontalOptions="Center"
                     MaximumWidthRequest="200"
-                    Text="Loading sample..."
-                    TextColor="White" />
+                    Text="Loading sample..." />
             </StackLayout>
         </Border>
     </Grid>

@@ -6,7 +6,9 @@
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <HorizontalStackLayout Padding="5" Spacing="5">
-                <Label Text="Select floor:" VerticalTextAlignment="Center" />
+                <Label Text="Select floor:"
+                       VerticalOptions="Start"
+                       VerticalTextAlignment="Center" />
                 <Picker x:Name="FloorChooser"
                         MinimumWidthRequest="50"
                         SelectedIndexChanged="OnFloorChooserSelectionChanged"

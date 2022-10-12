@@ -1,19 +1,17 @@
 ﻿<ContentPage x:Class="ArcGISRuntime.Samples.ManageOperationalLayers.ManageOperationalLayers"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <ContentPage.Resources>
         <DataTemplate x:Key="LayerListTemplate" x:DataType="mapping:Layer">
             <ViewCell>
-                <Grid ColumnDefinitions="auto,auto,auto,auto">
+                <Grid ColumnDefinitions="*,auto,auto,auto">
                     <Label Grid.Column="0"
                            LineBreakMode="NoWrap"
                            Text="{Binding Name}"
-                           VerticalTextAlignment="Center"
-                           WidthRequest="140" />
+                           VerticalTextAlignment="Center" />
                     <Button Grid.Column="1"
                             Margin="2"
                             Clicked="PromoteButton_Clicked"
@@ -33,10 +31,13 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView MaximumHeightRequest="350">
-                <VerticalStackLayout Padding="5" Spacing="5">
-                    <Label Text="Use the buttons to re-arrange layers." />
-                    <Label FontAttributes="Bold"
+            <ScrollView HeightRequest="250">
+                <Grid Padding="5"
+                      RowDefinitions="auto,auto,auto,auto,auto"
+                      RowSpacing="5">
+                    <Label Grid.Row="0" Text="Use the buttons to re-arrange layers." />
+                    <Label Grid.Row="1"
+                           FontAttributes="Bold"
                            HorizontalTextAlignment="Center"
                            Text="Layers in map" />
                     <!--
@@ -44,10 +45,12 @@
                         item's content consists of a label with the layer's Name and three buttons.
                     -->
                     <ListView x:Name="IncludedListView"
+                              Grid.Row="2"
                               HeightRequest="150"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
-                    <Label FontAttributes="Bold"
+                    <Label Grid.Row="3"
+                           FontAttributes="Bold"
                            HorizontalTextAlignment="Center"
                            Text="Layers not in map" />
                     <!--
@@ -55,10 +58,11 @@
                         item's content consists of a label with the layer's Name and three buttons.
                     -->
                     <ListView x:Name="ExcludedListView"
+                              Grid.Row="4"
                               HeightRequest="150"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
-                </VerticalStackLayout>
+                </Grid>
             </ScrollView>
         </Border>
     </Grid>

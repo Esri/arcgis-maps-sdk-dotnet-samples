@@ -3,21 +3,24 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MinimumWidthRequest="350" Style="{DynamicResource EsriSampleControlPanel}">
-            <HorizontalStackLayout Padding="5" Spacing="5">
-                <Label HorizontalTextAlignment="Center"
-                       Text="Bookmark:"
-                       VerticalTextAlignment="Center" />
-                <Picker x:Name="bookmarkPicker"
-                        SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"
-                        VerticalOptions="CenterAndExpand"
-                        WidthRequest="150" />
-                <Button x:Name="ButtonAddBookmark"
-                        Clicked="ButtonAddBookmark_Clicked"
-                        Text="New" />
-            </HorizontalStackLayout>
-        </Border>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <HorizontalStackLayout Padding="5" Spacing="5">
+            <Label HorizontalTextAlignment="Center"
+                   Text="Bookmark:"
+                   VerticalTextAlignment="Center" />
+            <Picker x:Name="bookmarkPicker"
+                    SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="200" />
+            <Button x:Name="ButtonAddBookmark"
+                    Margin="5"
+                    Clicked="ButtonAddBookmark_Clicked"
+                    Text="New" />
+        </HorizontalStackLayout>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
     </Grid>
 </ContentPage>

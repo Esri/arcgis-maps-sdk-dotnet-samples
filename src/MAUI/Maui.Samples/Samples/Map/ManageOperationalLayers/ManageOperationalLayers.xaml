@@ -1,31 +1,27 @@
 ﻿<ContentPage x:Class="ArcGISRuntime.Samples.ManageOperationalLayers.ManageOperationalLayers"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <ContentPage.Resources>
         <DataTemplate x:Key="LayerListTemplate" x:DataType="mapping:Layer">
             <ViewCell>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                <Grid ColumnDefinitions="*,auto,auto,auto">
                     <Label Grid.Column="0"
-                           Margin="5"
+                           LineBreakMode="NoWrap"
                            Text="{Binding Name}"
                            VerticalTextAlignment="Center" />
                     <Button Grid.Column="1"
+                            Margin="2"
                             Clicked="PromoteButton_Clicked"
                             Text="⬆" />
                     <Button Grid.Column="2"
+                            Margin="2"
                             Clicked="DemoteButton_Clicked"
                             Text="⬇" />
                     <Button Grid.Column="3"
+                            Margin="2"
                             Clicked="MoveButton_OnClicked"
                             Text="➡" />
                 </Grid>
@@ -35,11 +31,13 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView>
-                <VerticalStackLayout Padding="5" Spacing="5">
-                    <Label HeightRequest="30" Text="Use the buttons to re-arrange layers." />
-                    <Label FontAttributes="Bold"
-                           HeightRequest="30"
+            <ScrollView HeightRequest="250">
+                <Grid Padding="5"
+                      RowDefinitions="auto,auto,auto,auto,auto"
+                      RowSpacing="5">
+                    <Label Grid.Row="0" Text="Use the buttons to re-arrange layers." />
+                    <Label Grid.Row="1"
+                           FontAttributes="Bold"
                            HorizontalTextAlignment="Center"
                            Text="Layers in map" />
                     <!--
@@ -47,11 +45,12 @@
                         item's content consists of a label with the layer's Name and three buttons.
                     -->
                     <ListView x:Name="IncludedListView"
-                              HeightRequest="140"
+                              Grid.Row="2"
+                              HeightRequest="150"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
-                    <Label FontAttributes="Bold"
-                           HeightRequest="30"
+                    <Label Grid.Row="3"
+                           FontAttributes="Bold"
                            HorizontalTextAlignment="Center"
                            Text="Layers not in map" />
                     <!--
@@ -59,10 +58,11 @@
                         item's content consists of a label with the layer's Name and three buttons.
                     -->
                     <ListView x:Name="ExcludedListView"
-                              HeightRequest="130"
+                              Grid.Row="4"
+                              HeightRequest="150"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
-                </VerticalStackLayout>
+                </Grid>
             </ScrollView>
         </Border>
     </Grid>

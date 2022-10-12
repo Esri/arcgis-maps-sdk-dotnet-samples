@@ -2,13 +2,12 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.MapReferenceScale.MapReferenceScale"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView Padding="5">
+            <ScrollView Padding="5" MaximumHeightRequest="300">
                 <VerticalStackLayout>
                     <Label Text="Choose a map reference scale:" />
                     <!--  When the user's selection changes, the SelectedItem binding will apply the value to the Map's ReferenceScale property.  -->
@@ -22,6 +21,7 @@
                     <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->
                     <ListView Margin="5"
                               BindingContext="{x:Reference MyMapView}"
+                              HeightRequest="150"
                               ItemsSource="{Binding Path=Map.OperationalLayers}"
                               SelectionMode="None"
                               VerticalOptions="Center">
@@ -33,9 +33,11 @@
                                         the two-way binding will update the ScaleSymbols (bool) property automatically.
                                     -->
                                     <StackLayout Orientation="Horizontal">
-                                        <Switch IsToggled="{Binding ScaleSymbols}" VerticalOptions="Center" />
-                                        <Label HorizontalOptions="EndAndExpand"
-                                               HorizontalTextAlignment="End"
+                                        <Switch Margin="2"
+                                                IsToggled="{Binding ScaleSymbols}"
+                                                VerticalOptions="Center" />
+                                        <Label HorizontalOptions="CenterAndExpand"
+                                               HorizontalTextAlignment="Center"
                                                Text="{Binding Name}"
                                                VerticalOptions="Center" />
                                     </StackLayout>

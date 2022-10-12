@@ -7,9 +7,8 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Button x:Name="TakeMapOfflineButton"
                     Clicked="TakeMapOfflineButton_Click"
-                    IsEnabled="True"
                     Text="Take map offline"
-                    WidthRequest="250" />
+                    VerticalOptions="Start" />
         </Border>
         <Grid x:Name="BusyIndicator"
               Grid.RowSpan="2"

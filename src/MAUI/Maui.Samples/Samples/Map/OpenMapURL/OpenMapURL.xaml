@@ -9,7 +9,8 @@
             <Button x:Name="MapsButton"
                     Padding="5"
                     Clicked="OnMapsClicked"
-                    Text="Maps" />
+                    Text="Maps"
+                    VerticalOptions="Start" />
         </Border>
     </Grid>
 </ContentPage>

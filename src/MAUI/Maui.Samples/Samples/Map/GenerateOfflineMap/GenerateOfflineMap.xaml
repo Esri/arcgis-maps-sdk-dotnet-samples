@@ -6,7 +6,7 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Start">
                 <Button x:Name="TakeMapOfflineButton"
                         Clicked="TakeMapOfflineButton_Click"
                         IsEnabled="True"
